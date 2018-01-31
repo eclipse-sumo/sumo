@@ -79,7 +79,6 @@ FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,         GNEFrame::ACHierarchy::onCmdInspectItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,          GNEFrame::ACHierarchy::onCmdDeleteItem),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,             GNEFrame::ACHierarchy::onCmdShowChildMenu),
-
 };
 
 // Object implementation
@@ -729,9 +728,9 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
 // ---------------------------------------------------------------------------
 
 GNEFrame::HelpAttributes::HelpAttributes(FXWindow* parent, SumoXMLTag tag) :
-    FXDialogBox(parent, ("Parameters of " + toString(tag)).c_str(), GUIDesignDialogBox) {
+    FXDialogBox(parent, ("Parameters of " + toString(tag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
     // Create FXTable
-    FXTable* myTable = new FXTable(this, this, MID_TABLE, TABLE_READONLY);
+    FXTable* myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableNotEditable);
     auto attrs = GNEAttributeCarrier::allowedAttributes(tag);
     myTable->setVisibleRows((FXint)(attrs.size()));
     myTable->setVisibleColumns(3);
@@ -799,7 +798,7 @@ GNEFrame::HelpAttributes::HelpAttributes(FXWindow* parent, SumoXMLTag tag) :
     new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close
+    // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);

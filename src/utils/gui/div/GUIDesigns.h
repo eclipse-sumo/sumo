@@ -389,8 +389,11 @@
 
 /// @name design for dialog boxs
 /// @{
-/// @brief design for standard dialog box     (for example, about dialog)
+/// @brief design for standard dialog box with close button (for example, about dialog)
 #define GUIDesignDialogBox                      (DECOR_CLOSE | DECOR_TITLE)
+
+/// @brief design for standard dialog box     (for example, about dialog)
+#define GUIDesignDialogBoxResizable             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
 
 /// @brief design for dialog box with specift width and height     (for example, additional dialogs)
 #define GUIDesignDialogBoxExplicit              (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
@@ -401,6 +404,9 @@
 /// @{
 /// @brief design for table extended over frame
 #define GUIDesignTable                          (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+
+/// @brief design for table extended over frame that cannot be edited
+#define GUIDesignTableNotEditable               (LAYOUT_FILL_X | LAYOUT_FILL_Y | TABLE_READONLY)
 
 /// @brief design for table extended over frame but with limited Height
 #define GUIDesignTableLimitedHeight             (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
