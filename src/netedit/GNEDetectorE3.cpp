@@ -115,8 +115,7 @@ GNEDetectorE3::moveGeometry(const Position& oldPos, const Position& offset) {
 void
 GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myPosition.x()), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myPosition.y()), true, toString(oldPos.y())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
     undoList->p_end();
 }
 
@@ -134,8 +133,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         }
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
-        device.writeAttr(SUMO_ATTR_X, myPosition.x());
-        device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
 
         // Write entrys and exits
         for (auto i : myAdditionalChilds) {
@@ -215,10 +213,8 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_X:
-            return toString(myPosition.x());
-        case SUMO_ATTR_Y:
-            return toString(myPosition.y());
+        case SUMO_ATTR_POSITION:
+            return toString(myPosition);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_FILE:
@@ -255,8 +251,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             break;
         }
         case SUMO_ATTR_FREQUENCY:
-        case SUMO_ATTR_X:
-        case SUMO_ATTR_Y:
+        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -274,10 +269,10 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_X:
-            return canParse<double>(value);
-        case SUMO_ATTR_Y:
-            return canParse<double>(value);
+        case SUMO_ATTR_POSITION: {
+            bool ok;
+            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
+        }
         case SUMO_ATTR_FREQUENCY:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_FILE:
@@ -300,12 +295,11 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_X:
-            myPosition.setx(parse<double>(value));
+        case SUMO_ATTR_POSITION: {
+            bool ok;
+            myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
             break;
-        case SUMO_ATTR_Y:
-            myPosition.sety(parse<double>(value));
-            break;
+        }
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
             break;

@@ -332,7 +332,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDOFFSET, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_SHAPE_START, "")); // virtual attribute used to define an endPoint
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_SHAPE_END, ""));   // virtual attribute from to define an endPoint
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BIDIR, "")); // virtual attribute to check of this edge is part of a bidirectional railway
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BIDIR, ""));       // virtual attribute to check of this edge is part of a bidirectional railway
                 break;
             case SUMO_TAG_JUNCTION:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -466,8 +466,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E3DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0,0")); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "1"));
@@ -831,8 +830,6 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_JAM_DIST_THRESHOLD);
         myNumericalFloatAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_LENGTH);
         // E3
-        myNumericalFloatAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_X);
-        myNumericalFloatAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_Y);
         myNumericalFloatAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         // Entry
         myNumericalFloatAttrs[SUMO_TAG_DET_ENTRY].insert(SUMO_ATTR_POSITION);
@@ -1074,8 +1071,7 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_POSITION);
             // E3
             myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
-            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_X);
-            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_Y);
+            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_POSITION);
             // Edge
             myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_SHAPE);
             // Junction
@@ -1506,8 +1502,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_FILE] = "The path to the output file";
         myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_HALTING_TIME_THRESHOLD] = "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; in s, default: 1s";
         myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_HALTING_SPEED_THRESHOLD] = "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; in m/s, default: 5/3.6m/s";
-        myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_X] = "X position in editor (Only used in netedit)";
-        myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_Y] = "Y position in editor (Only used in netedit)";
+        myAttrDefinitions[SUMO_TAG_E3DETECTOR][SUMO_ATTR_POSITION] = "X-Y position of detector in editor (Only used in netedit)";
         // Entry
         myAttrDefinitions[SUMO_TAG_DET_ENTRY][SUMO_ATTR_LANE] = "The id of the lane the detector shall be laid on. The lane must be a part of the network used";
         myAttrDefinitions[SUMO_TAG_DET_ENTRY][SUMO_ATTR_POSITION] = "The position on the lane the detector shall be laid on in meters";
