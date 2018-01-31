@@ -57,6 +57,9 @@
 //#define DEBUG_E2_TIME_ON_DETECTOR
 //#define DEBUG_E2_JAMS
 //#define DEBUG_E2_XML_OUT
+//#define DEBUG_COND (true)
+//#define DEBUG_COND (getID()=="702057")
+//#define DEBUG_COND (getID()=="det0")
 
 MSE2Collector::MSE2Collector(const std::string& id,
                              DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
@@ -74,15 +77,17 @@ MSE2Collector::MSE2Collector(const std::string& id,
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "\n" << "Creating MSE2Collector " << id
-              << " with lane = " << lane->getID()
-              << " startPos = " << startPos
-              << " endPos = " << endPos
-              << " length = " << length
-              << " haltingTimeThreshold = " << haltingTimeThreshold
-              << " haltingSpeedThreshold = " << haltingSpeedThreshold
-              << " jamDistThreshold = " << jamDistThreshold
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << "Creating MSE2Collector " << id
+                << " with lane = " << lane->getID()
+                << " startPos = " << startPos
+                << " endPos = " << endPos
+                << " length = " << length
+                << " haltingTimeThreshold = " << haltingTimeThreshold
+                << " haltingSpeedThreshold = " << haltingSpeedThreshold
+                << " jamDistThreshold = " << jamDistThreshold
+                << std::endl;
+    }
 #endif
 
     assert(lane != 0);
@@ -166,15 +171,17 @@ MSE2Collector::MSE2Collector(const std::string& id,
     }
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "\n" << "Creating MSE2Collector " << id
-              << " with endLane = " << myLastLane->getID()
-              << " endPos = " << endPos
-              << " startLane = " << myFirstLane->getID()
-              << " startPos = " << startPos
-              << " haltingTimeThreshold = " << haltingTimeThreshold
-              << " haltingSpeedThreshold = " << haltingSpeedThreshold
-              << " jamDistThreshold = " << jamDistThreshold
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << "Creating MSE2Collector " << id
+                << " with endLane = " << myLastLane->getID()
+                << " endPos = " << endPos
+                << " startLane = " << myFirstLane->getID()
+                << " startPos = " << startPos
+                << " haltingTimeThreshold = " << haltingTimeThreshold
+                << " haltingSpeedThreshold = " << haltingSpeedThreshold
+                << " jamDistThreshold = " << jamDistThreshold
+                << std::endl;
+    }
 #endif
 
     myStartPos = myStartPos < 0 ? lanes[0]->getLength() + myStartPos : myStartPos;
@@ -228,12 +235,14 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
     recalculateDetectorLength();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::stringstream ss;
-//    ss << std::setprecision(32) << myEndPos << " : " << POSITION_EPS;
-//    std::cout << ss.str() << std::endl;
-    std::cout << "myStartPos = " << myStartPos << std::endl;
-    std::cout << "myEndPos = " << myEndPos << std::endl;
-    std::cout << "myLastLane->getLength() = " << myLastLane->getLength() << std::endl;
+    if DEBUG_COND {
+        std::stringstream ss;
+        //    ss << std::setprecision(32) << myEndPos << " : " << POSITION_EPS;
+        //    std::cout << ss.str() << std::endl;
+        std::cout << "myStartPos = " << myStartPos << std::endl;
+        std::cout << "myEndPos = " << myEndPos << std::endl;
+        std::cout << "myLastLane->getLength() = " << myLastLane->getLength() << std::endl;
+    }
 #endif
 
 
@@ -282,7 +291,9 @@ MSE2Collector::recalculateDetectorLength() {
     myDetectorLength -= myLastLane->getLength() - myEndPos;
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "Total detector length after recalculation = " << myDetectorLength << std::endl;
+    if DEBUG_COND {
+        std::cout << "Total detector length after recalculation = " << myDetectorLength << std::endl;
+    }
 #endif
 }
 
@@ -311,7 +322,9 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
     bool substractedLinkLength = false; // whether linkLength was substracted during the last iteration.
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "\n" << "selectLanes()" << (fw ? "(forward)" : "(backward)") << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << "selectLanes()" << (fw ? "(forward)" : "(backward)") << std::endl;
+    }
 #endif
     std::vector<MSLane*> lanes;
     // Selected lanes are stacked into vector 'lanes'. If dir == "bw" lanes will be reversed after this is done.
@@ -331,8 +344,10 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
         // detector piece on the end or beginning of one lane due to numerical rounding errors.
         lanes.push_back(lane);
 #ifdef DEBUG_E2_CONSTRUCTOR
-        std::cout << "Added lane " << lane->getID()
-                  << " (length: " << lane->getLength() << ")" << std::endl;
+        if DEBUG_COND {
+            std::cout << "Added lane " << lane->getID()
+                          << " (length: " << lane->getLength() << ")" << std::endl;
+        }
 #endif
 
         length -= lane->getLength();
@@ -361,10 +376,12 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
 
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-        if (lane != 0) {
-            std::cout << (fw ? "Successor lane: " : "Predecessor lane: ") << "'" << lane->getID() << "'";
+        if DEBUG_COND {
+            if (lane != 0) {
+                std::cout << (fw ? "Successor lane: " : "Predecessor lane: ") << "'" << lane->getID() << "'";
+            }
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
 #endif
     }
 
@@ -409,12 +426,16 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
 void
 MSE2Collector::addDetectorToLanes(std::vector<MSLane*>& lanes) {
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "\n" << "Adding detector " << myID << " to lanes:" << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << "Adding detector " << myID << " to lanes:" << std::endl;
+    }
 #endif
     for (std::vector<MSLane*>::iterator l = lanes.begin(); l != lanes.end(); ++l) {
         (*l)->addMoveReminder(this);
 #ifdef DEBUG_E2_CONSTRUCTOR
-        std::cout << (*l)->getID() << std::endl;
+        if DEBUG_COND {
+            std::cout << (*l)->getID() << std::endl;
+        }
 #endif
     }
 }
@@ -426,10 +447,12 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
     myLastLane = lanes[lanes.size() - 1];
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "\n" << "Initializing auxiliaries:"
-              << "\nFirst lane: " << myFirstLane->getID() << " (startPos = " << myStartPos << ")"
-              << "\nLast lane: " << myLastLane->getID() << " (endPos = " << myEndPos << ")"
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << "Initializing auxiliaries:"
+                << "\nFirst lane: " << myFirstLane->getID() << " (startPos = " << myStartPos << ")"
+                << "\nLast lane: " << myLastLane->getID() << " (endPos = " << myEndPos << ")"
+                << std::endl;
+    }
 #endif
 
     // Init myOffsets and myDetectorLength.
@@ -453,7 +476,9 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
     const MSLane* internal = (*il)->isInternal() ? *il : 0;
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "\n" << "Initializing offsets:" << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << "Initializing offsets:" << std::endl;
+    }
 #endif
 
 #ifdef _MSC_VER
@@ -470,8 +495,10 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
             myOffsets.push_back(myDetectorLength);
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-            std::cout << "Offset for lane " << internal->getID() << " = " << myDetectorLength
-                      << std::endl;
+            if DEBUG_COND {
+                std::cout << "Offset for lane " << internal->getID() << " = " << myDetectorLength
+                        << std::endl;
+            }
 #endif
 
             myDetectorLength += internal->getLength();
@@ -507,8 +534,10 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
         myLanes.push_back(lane->getID());
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-        std::cout << "Offset for lane " << lane->getID() << " = " << myDetectorLength
-                  << std::endl;
+        if DEBUG_COND {
+            std::cout << "Offset for lane " << lane->getID() << " = " << myDetectorLength
+                    << std::endl;
+        }
 #endif
 
         // Offset to detector start for this lane
@@ -550,7 +579,9 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
     }
 
 #ifdef DEBUG_E2_CONSTRUCTOR
-    std::cout << "Total detector length after initAuxiliaries() = " << myDetectorLength << std::endl;
+    if DEBUG_COND {
+        std::cout << "Total detector length after initAuxiliaries() = " << myDetectorLength << std::endl;
+    }
 #endif
 
     // make lanes a complete list including internal lanes
@@ -584,18 +615,22 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
     vehInfo.distToDetectorEnd = myDetectorLength - relPos;
 
 #ifdef DEBUG_E2_NOTIFY_MOVE
-    std::cout << "\n" << SIMTIME
-              << " MSE2Collector::notifyMove() (detID = " << myID << "on lane '" << myLane->getID() << "')"
-              << " called by vehicle '" << vehID << "'"
-              << " at relative position " << relPos
-              << ", distToDetectorEnd = " << vehInfo.distToDetectorEnd << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME
+                << " MSE2Collector::notifyMove() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+                << " called by vehicle '" << vehID << "'"
+                << " at relative position " << relPos
+                << ", distToDetectorEnd = " << vehInfo.distToDetectorEnd << std::endl;
+    }
 #endif
 
     // Check whether vehicle has reached the detector begin
     if (relPos <= 0) {
         // detector not yet reached, request being informed further
 #ifdef DEBUG_E2_NOTIFY_MOVE
-        std::cout << "Vehicle has not yet reached the detector start position." << std::endl;
+        if DEBUG_COND {
+            std::cout << "Vehicle has not yet reached the detector start position." << std::endl;
+        }
 #endif
         return true;
     } else if (!vehInfo.hasEntered) {
@@ -613,7 +648,9 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
     // ... if not, dont create any notification at all
     if (vehicleEnteredLaneAfterDetector) {
 #ifdef DEBUG_E2_NOTIFY_MOVE
-        std::cout << "Vehicle entered lane behind detector." << std::endl;
+        if DEBUG_COND {
+            std::cout << "Vehicle entered lane behind detector." << std::endl;
+        }
 #endif
     } else {
         myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
@@ -622,7 +659,9 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
 
     if (vehPassedDetectorEnd) {
 #ifdef DEBUG_E2_NOTIFY_MOVE
-        std::cout << "Vehicle has left the detector longitudinally." << std::endl;
+        if DEBUG_COND {
+            std::cout << "Vehicle has left the detector longitudinally." << std::endl;
+        }
 #endif
         // Vehicle is beyond the detector, unsubscribe and register removal from myVehicleInfos
         myLeftVehicles.insert(vehID);
@@ -636,15 +675,19 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
 bool
 MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-    std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
-              << "called by vehicle '" << veh.getID() << "'" << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+                << "called by vehicle '" << veh.getID() << "'" << std::endl;
+    }
 #endif
 
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle left lane via junction, unsubscription and registering in myLeftVehicles when
         // moving beyond the detector end is controlled in notifyMove.
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-        std::cout << SIMTIME << " Left longitudinally (along junction) -> keep subscription [handle exit in notifyMove()]" << std::endl;
+        if DEBUG_COND {
+            std::cout << SIMTIME << " Left longitudinally (along junction) -> keep subscription [handle exit in notifyMove()]" << std::endl;
+        }
 #endif
 
         if (std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) == myLanes.end()) {
@@ -654,7 +697,9 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
             double exitOffset = vi->second->entryOffset - myOffsets[vi->second->currentOffsetIndex] - vi->second->currentLane->getLength();
             vi->second->exitOffset = MAX2(vi->second->exitOffset, exitOffset);
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-            std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' leaves the detector. Exit offset = " << vi->second->exitOffset << std::endl;
+            if DEBUG_COND {
+                std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' leaves the detector. Exit offset = " << vi->second->exitOffset << std::endl;
+            }
 #endif
         }
 
@@ -666,7 +711,9 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
         myVehicleInfos.erase(vi);
         myNumberOfLeftVehicles++;
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-        std::cout << SIMTIME << " Left non-longitudinally (lanechange, teleport, parking, etc) -> discard subscription" << std::endl;
+        if DEBUG_COND {
+            std::cout << SIMTIME << " Left non-longitudinally (lanechange, teleport, parking, etc) -> discard subscription" << std::endl;
+        }
 #endif
         return false;
     }
@@ -676,9 +723,11 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
 bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* reason */, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-    std::cout << "\n" << SIMTIME << " notifyEnter() (detID = " << myID << "on lane '" << myLane->getID() << "')"
-              << "called by vehicle '" << veh.getID()
-              << "' entering lane '" << (enteredLane != 0 ? enteredLane->getID() : "NULL") << "'" << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " notifyEnter() (detID = " << myID << "on lane '" << myLane->getID() << "')"
+                << "called by vehicle '" << veh.getID()
+                << "' entering lane '" << (enteredLane != 0 ? enteredLane->getID() : "NULL") << "'" << std::endl;
+    }
 #endif
 
     // notifyEnter() should only be called for lanes of the detector
@@ -691,9 +740,11 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
         return false;
     }
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-    if (!veh.isOnRoad()) {
-        // Vehicle is teleporting over the edge
-        std::cout << "Vehicle is off road (teleporting over edge)..." << std::endl;
+    if DEBUG_COND {
+        if (!veh.isOnRoad()) {
+            // Vehicle is teleporting over the edge
+            std::cout << "Vehicle is off road (teleporting over edge)..." << std::endl;
+        }
     }
 #endif
 
@@ -705,10 +756,12 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
         vi->second->currentLane = enteredLane;
 
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-        std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' on lane '" << veh.getLane()->getID()
-                  << "' already known. No new VehicleInfo is created.\n"
-                  << "enteredLane = " << enteredLane->getID() << "\nmyLanes[vi->offset] = " << myLanes[vi->second->currentOffsetIndex]
-                  << std::endl;
+        if DEBUG_COND {
+            std::cout << SIMTIME << " Vehicle '" << veh.getID() << "' on lane '" << veh.getLane()->getID()
+                          << "' already known. No new VehicleInfo is created.\n"
+                          << "enteredLane = " << enteredLane->getID() << "\nmyLanes[vi->offset] = " << myLanes[vi->second->currentOffsetIndex]
+                          << std::endl;
+        }
 #endif
         assert(myLanes[vi->second->currentOffsetIndex] == enteredLane->getID());
 
@@ -719,7 +772,9 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
 
 
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-    std::cout << SIMTIME << " Adding VehicleInfo for vehicle '" << veh.getID() << "'." << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Adding VehicleInfo for vehicle '" << veh.getID() << "'." << std::endl;
+    }
 #endif
 
     // Add vehicle info
@@ -738,11 +793,13 @@ MSE2Collector::makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane
     bool onDetector = -entryOffset < veh.getPositionOnLane() && distToDetectorEnd > -veh.getVehicleType().getLength();
 
 #ifdef DEBUG_E2_MAKE_VEHINFO
-    std::cout << SIMTIME << " Making VehicleInfo for vehicle '" << veh.getID() << "'."
-              << "\ndistToDetectorEnd = " << distToDetectorEnd
-              << "\nveh.getPositionOnLane() = " << veh.getPositionOnLane()
-              << "\nentry lane offset (lane begin from detector begin) = " << entryOffset
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Making VehicleInfo for vehicle '" << veh.getID() << "'."
+                << "\ndistToDetectorEnd = " << distToDetectorEnd
+                << "\nveh.getPositionOnLane() = " << veh.getPositionOnLane()
+                << "\nentry lane offset (lane begin from detector begin) = " << entryOffset
+                << std::endl;
+    }
 #endif
     return new VehicleInfo(veh.getID(), veh.getVehicleType().getID(), veh.getVehicleType().getLength(), veh.getVehicleType().getMinGap(), enteredLane, entryOffset, j,
                            myOffsets[j] - myDetectorLength, distToDetectorEnd, onDetector);
@@ -752,13 +809,15 @@ void
 MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
 
 #ifdef DEBUG_E2_DETECTOR_UPDATE
-    std::cout << "\n" << SIMTIME << " detectorUpdate() for detector '" << myID << "'"
-              << "\nmyCurrentMeanSpeed = " << myCurrentMeanSpeed
-              << "\nmyCurrentMeanLength = " << myCurrentMeanLength
-              << "\nmyNumberOfEnteredVehicles = " << myNumberOfEnteredVehicles
-              << "\nmyNumberOfLeftVehicles = " << myNumberOfLeftVehicles
-              << "\nmyNumberOfSeenVehicles = " << myNumberOfSeenVehicles
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " detectorUpdate() for detector '" << myID << "'"
+                << "\nmyCurrentMeanSpeed = " << myCurrentMeanSpeed
+                << "\nmyCurrentMeanLength = " << myCurrentMeanLength
+                << "\nmyNumberOfEnteredVehicles = " << myNumberOfEnteredVehicles
+                << "\nmyNumberOfLeftVehicles = " << myNumberOfLeftVehicles
+                << "\nmyNumberOfSeenVehicles = " << myNumberOfSeenVehicles
+                << std::endl;
+    }
 #endif
 
     // sort myMoveNotifications (required for jam processing) ascendingly according to vehicle's distance to the detector end
@@ -805,20 +864,26 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
     myIntervalHaltingVehicleDurations = intervalHaltingVehicles;
 
 #ifdef DEBUG_E2_DETECTOR_UPDATE
-    std::cout << "\n" << SIMTIME << " Current lanes for vehicles still on the detector:" << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " Current lanes for vehicles still on or approaching the detector:" << std::endl;
+    }
 #endif
     // update current and entered lanes for remaining vehicles
     VehicleInfoMap::iterator iv;
     for (iv = myVehicleInfos.begin(); iv != myVehicleInfos.end(); ++iv) {
 #ifdef DEBUG_E2_DETECTOR_UPDATE
-        std::cout << " Vehicle '" << iv->second->id << "'" << ": '"
-                  << iv->second->currentLane->getID() << "'"
-                  << std::endl;
+        if DEBUG_COND {
+            std::cout << " Vehicle '" << iv->second->id << "'" << ": '"
+                    << iv->second->currentLane->getID() << "'"
+                    << std::endl;
+        }
 #endif
     }
 
 #ifdef DEBUG_E2_DETECTOR_UPDATE
-    std::cout << SIMTIME << " Discarding vehicles that have left the detector:" << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Discarding vehicles that have left the detector:" << std::endl;
+    }
 #endif
     // Remove the vehicles that have left the detector
     std::set<std::string>::const_iterator i;
@@ -828,7 +893,9 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         myVehicleInfos.erase(*i);
         myNumberOfLeftVehicles++;
 #ifdef DEBUG_E2_DETECTOR_UPDATE
-        std::cout << "Erased vehicle '" << *i << "'" << std::endl;
+        if DEBUG_COND {
+            std::cout << "Erased vehicle '" << *i << "'" << std::endl;
+        }
 #endif
     }
     myLeftVehicles.clear();
@@ -869,12 +936,14 @@ void
 MSE2Collector::integrateMoveNotification(VehicleInfo* vi, const MoveNotificationInfo* mni) {
 
 #ifdef DEBUG_E2_DETECTOR_UPDATE
-    std::cout << SIMTIME << " integrateMoveNotification() for vehicle '" << mni->id << "'"
-              << "\ntimeOnDetector = " << mni->timeOnDetector
-              << "\nlengthOnDetector = " << mni->lengthOnDetector
-              << "\ntimeLoss = " << mni->timeLoss
-              << "\nspeed = " << mni->speed
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " integrateMoveNotification() for vehicle '" << mni->id << "'"
+                << "\ntimeOnDetector = " << mni->timeOnDetector
+                << "\nlengthOnDetector = " << mni->lengthOnDetector
+                << "\ntimeLoss = " << mni->timeLoss
+                << "\nspeed = " << mni->speed
+                << std::endl;
+    }
 #endif
 
     // Accumulate detector values
@@ -902,9 +971,11 @@ MSE2Collector::integrateMoveNotification(VehicleInfo* vi, const MoveNotification
 MSE2Collector::MoveNotificationInfo*
 MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const {
 #ifdef DEBUG_E2_NOTIFY_MOVE
-    std::cout << SIMTIME << " makeMoveNotification() for vehicle '" << veh.getID() << "'"
-              << " oldPos = " << oldPos << " newPos = " << newPos << " newSpeed = " << newSpeed
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " makeMoveNotification() for vehicle '" << veh.getID() << "'"
+                << " oldPos = " << oldPos << " newPos = " << newPos << " newSpeed = " << newSpeed
+                << std::endl;
+    }
 #endif
 
     // Timefraction in [0,TS] the vehicle has spend on the detector in the last step
@@ -928,11 +999,13 @@ MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, doubl
     bool stillOnDetector = -distToExit < vehInfo.length;
 
 #ifdef DEBUG_E2_NOTIFY_MOVE
-    std::cout << SIMTIME << " lengthOnDetector = " << lengthOnDetector
-              << "\nvehInfo.exitOffset = " << vehInfo.exitOffset
-              << " vehInfo.entryOffset = " << vehInfo.entryOffset
-              << " distToExit = " << distToExit
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " lengthOnDetector = " << lengthOnDetector
+                << "\nvehInfo.exitOffset = " << vehInfo.exitOffset
+                << " vehInfo.entryOffset = " << vehInfo.entryOffset
+                << " distToExit = " << distToExit
+                << std::endl;
+    }
 #endif
 
     /* Store new infos */
@@ -942,14 +1015,18 @@ MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, doubl
 void
 MSE2Collector::buildJam(bool isInJam, std::vector<MoveNotificationInfo*>::const_iterator mni, JamInfo*& currentJam, std::vector<JamInfo*>& jams) {
 #ifdef DEBUG_E2_JAMS
-    std::cout << SIMTIME << " buildJam() for vehicle '" << (*mni)->id << "'" << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " buildJam() for vehicle '" << (*mni)->id << "'" << std::endl;
+    }
 #endif
     if (isInJam) {
         // The vehicle is in a jam;
         //  it may be a new one or already an existing one
         if (currentJam == 0) {
 #ifdef DEBUG_E2_JAMS
-            std::cout << SIMTIME << " vehicle '" << (*mni)->id << "' forms the start of the first jam" << std::endl;
+            if DEBUG_COND {
+                std::cout << SIMTIME << " vehicle '" << (*mni)->id << "' forms the start of the first jam" << std::endl;
+            }
 #endif
             // the vehicle is the first vehicle in a jam
             currentJam = new JamInfo();
@@ -962,7 +1039,9 @@ MSE2Collector::buildJam(bool isInJam, std::vector<MoveNotificationInfo*>::const_
             MoveNotificationInfo* currVeh = *mni;
             if (lastVeh->distToDetectorEnd - currVeh->distToDetectorEnd > myJamDistanceThreshold) {
 #ifdef DEBUG_E2_JAMS
-                std::cout << SIMTIME << " vehicle '" << (*mni)->id << "' forms the start of a new jam" << std::endl;
+                if DEBUG_COND {
+                    std::cout << SIMTIME << " vehicle '" << (*mni)->id << "' forms the start of a new jam" << std::endl;
+                }
 #endif
                 // yep, yep, yep - it's a new one...
                 //  close the frist, build a new
@@ -977,7 +1056,9 @@ MSE2Collector::buildJam(bool isInJam, std::vector<MoveNotificationInfo*>::const_
         //  maybe we have to close an already computed jam
         if (currentJam != 0) {
 #ifdef DEBUG_E2_JAMS
-            std::cout << SIMTIME << " Closing current jam." << std::endl;
+            if DEBUG_COND {
+                std::cout << SIMTIME << " Closing current jam." << std::endl;
+            }
 #endif
             jams.push_back(currentJam);
             currentJam = 0;
@@ -989,7 +1070,9 @@ MSE2Collector::buildJam(bool isInJam, std::vector<MoveNotificationInfo*>::const_
 bool
 MSE2Collector::checkJam(std::vector<MoveNotificationInfo*>::const_iterator mni, std::map<std::string, SUMOTime>& haltingVehicles, std::map<std::string, SUMOTime>& intervalHaltingVehicles) {
 #ifdef DEBUG_E2_JAMS
-    std::cout << SIMTIME << " CheckJam() for vehicle '" << (*mni)->id << "'" << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " CheckJam() for vehicle '" << (*mni)->id << "'" << std::endl;
+    }
 #endif
     // jam-checking begins
     bool isInJam = false;
@@ -1004,7 +1087,9 @@ MSE2Collector::checkJam(std::vector<MoveNotificationInfo*>::const_iterator mni, 
             intervalHaltingVehicles[(*mni)->id] = myIntervalHaltingVehicleDurations[(*mni)->id] + DELTA_T;
         } else {
 #ifdef DEBUG_E2_JAMS
-            std::cout << SIMTIME << " vehicle '" << (*mni)->id << "' starts halting." << std::endl;
+            if DEBUG_COND {
+                std::cout << SIMTIME << " vehicle '" << (*mni)->id << "' starts halting." << std::endl;
+            }
 #endif
             haltingVehicles[(*mni)->id] = DELTA_T;
             intervalHaltingVehicles[(*mni)->id] = DELTA_T;
@@ -1030,7 +1115,9 @@ MSE2Collector::checkJam(std::vector<MoveNotificationInfo*>::const_iterator mni, 
         }
     }
 #ifdef DEBUG_E2_JAMS
-    std::cout << SIMTIME << " vehicle '" << (*mni)->id << "'" << (isInJam ? "is jammed." : "is not jammed.") << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " vehicle '" << (*mni)->id << "'" << (isInJam ? "is jammed." : "is not jammed.") << std::endl;
+    }
 #endif
     return isInJam;
 }
@@ -1045,8 +1132,10 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
     }
 
 #ifdef DEBUG_E2_JAMS
-    std::cout << "\n" << SIMTIME << " processJams()"
-              << "\nNumber of jams: " << jams.size() << std::endl;
+    if DEBUG_COND {
+        std::cout << "\n" << SIMTIME << " processJams()"
+                  << "\nNumber of jams: " << jams.size() << std::endl;
+    }
 #endif
 
     // process jam information
@@ -1070,10 +1159,12 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
         myCurrentJamLengthInMeters += jamLengthInMeters;
         myCurrentJamLengthInVehicles += jamLengthInVehicles;
 #ifdef DEBUG_E2_JAMS
-        std::cout << SIMTIME << " processing jam nr." << ((int) distance((std::vector<JamInfo*>::const_iterator) jams.begin(), i) + 1)
-                  << "\njamLengthInMeters = " << jamLengthInMeters
-                  << " jamLengthInVehicles = " << jamLengthInVehicles
-                  << std::endl;
+        if DEBUG_COND {
+            std::cout << SIMTIME << " processing jam nr." << ((int) distance((std::vector<JamInfo*>::const_iterator) jams.begin(), i) + 1)
+                          << "\njamLengthInMeters = " << jamLengthInMeters
+                          << " jamLengthInVehicles = " << jamLengthInVehicles
+                          << std::endl;
+        }
 #endif
     }
     myCurrentJamNo = (int) jams.size();
@@ -1132,12 +1223,14 @@ MSE2Collector::calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, double
     timeLoss = MAX2(0., timeOnDetector * (vmax - (entrySpeed + exitSpeed) / 2) / vmax);
 
 #ifdef DEBUG_E2_TIME_ON_DETECTOR
-    std::cout << SIMTIME << " calculateTimeLoss() for vehicle '" << veh.getID() << "'"
-              << " oldPos = " << oldPos << " newPos = " << newPos
-              << " entryPos = " << entryPos << " exitPos = " << exitPos
-              << " timeOnDetector = " << timeOnDetector
-              << " timeLoss = " << timeLoss
-              << std::endl;
+    if DEBUG_COND {
+        std::cout << SIMTIME << " calculateTimeLoss() for vehicle '" << veh.getID() << "'"
+                << " oldPos = " << oldPos << " newPos = " << newPos
+                << " entryPos = " << entryPos << " exitPos = " << exitPos
+                << " timeOnDetector = " << timeOnDetector
+                << " timeLoss = " << timeLoss
+                << std::endl;
+    }
 #endif
 }
 
@@ -1189,14 +1282,16 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     const SUMOTime intervalMeanHaltingDuration = intervalHaltingNo != 0 ? intervalHaltingDurationSum / intervalHaltingNo : 0;
 
 #ifdef DEBUG_E2_XML_OUT
-    std::stringstream ss;
-    ss  << "sampledSeconds=\"" << myVehicleSamples << "\" "
-        << "myTimeSamples=\"" << myTimeSamples << "\" "
-        << "myOccupancySum=\"" << myOccupancySum << "\" "
-        << "myMeanVehicleNumber=\"" << myMeanVehicleNumber << "\" "
-        << "nVehEntered=\"" << myNumberOfEnteredVehicles << "\" "
-        << "meanSpeed=\"" << meanSpeed << "\"";
-    std::cout << ss.str() << std::endl;
+    if DEBUG_COND {
+        std::stringstream ss;
+        ss  << "sampledSeconds=\"" << myVehicleSamples << "\" "
+                << "myTimeSamples=\"" << myTimeSamples << "\" "
+                << "myOccupancySum=\"" << myOccupancySum << "\" "
+                << "myMeanVehicleNumber=\"" << myMeanVehicleNumber << "\" "
+                << "nVehEntered=\"" << myNumberOfEnteredVehicles << "\" "
+                << "meanSpeed=\"" << meanSpeed << "\"";
+        std::cout << ss.str() << std::endl;
+    }
 #endif
 
 
