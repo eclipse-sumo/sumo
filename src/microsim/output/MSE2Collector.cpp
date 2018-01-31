@@ -707,9 +707,11 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
     } else {
         VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
         // erase vehicle, which leaves in a non-longitudinal way, immediately
+        if (vi->second->hasEntered) {
+            myNumberOfLeftVehicles++;
+        }
         delete vi->second;
         myVehicleInfos.erase(vi);
-        myNumberOfLeftVehicles++;
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
         if DEBUG_COND {
             std::cout << SIMTIME << " Left non-longitudinally (lanechange, teleport, parking, etc) -> discard subscription" << std::endl;
