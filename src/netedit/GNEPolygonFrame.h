@@ -217,6 +217,159 @@ public:
         int myMaxNumberOfParameters;
     };
 
+    // ===========================================================================
+    // class NeteditAttributes
+    // ===========================================================================
+
+    class NeteditAttributes : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPolygonFrame::NeteditAttributes)
+
+    public:
+        /// @brief constructor
+        NeteditAttributes(GNEPolygonFrame* polygonFrameParent);
+
+        /// @brief destructor
+        ~NeteditAttributes();
+
+        /// @brief show NeteditAttributes
+        void showNeteditAttributes(bool shapeEditing);
+
+        /// @brief hide NeteditAttributes
+        void hideNeteditAttributes();
+
+        /// @brief check if block movement is enabled
+        bool isBlockMovementEnabled() const;
+
+        /// @brief check if block shape is enabled
+        bool isBlockShapeEnabled() const;
+
+        /// @brief check if clse shape is enabled
+        bool isCloseShapeEnabled() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user changes the checkbox "set blocking movement"
+        long onCmdSetBlockMovement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user changes the checkbox "set blocking shape"
+        long onCmdSetBlockShape(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user change checkbox for open/closed polygon
+        long onCmdsetClosingShape(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        NeteditAttributes() {}
+
+    private:
+        /// @brief Label for block movement
+        FXLabel * myBlockMovementLabel;
+
+        /// @brief checkBox for block movement
+        FXCheckButton* myBlockMovementCheckButton;
+
+        /// @brief frame for Block shape
+        FXHorizontalFrame* myBlockShapeFrame;
+
+        /// @brief Label for block shape
+        FXLabel* myBlockShapeLabel;
+
+        /// @brief checkBox for block shape
+        FXCheckButton* myBlockShapeCheckButton;
+
+        /// @brief Frame for open/close polygon
+        FXHorizontalFrame* myClosePolygonFrame;
+
+        /// @brief Label for open/close polygon
+        FXLabel* myClosePolygonLabel;
+
+        /// @brief checkbox to enable/disable closing polygon
+        FXCheckButton* myClosePolygonCheckButton;
+    };
+
+
+    // ===========================================================================
+    // class DrawingMode
+    // ===========================================================================
+
+    class DrawingMode : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPolygonFrame::DrawingMode)
+
+    public:
+        /// @brief constructor
+        DrawingMode(GNEPolygonFrame* polygonFrameParent);
+
+        /// @brief destructor
+        ~DrawingMode();
+
+        /// @brief show Drawing mode
+        void showDrawingMode();
+
+        /// @brief hide Drawing mode
+        void hideDrawingMode();
+
+        /// @brief start drawing
+        void startDrawing();
+
+        /// @brief stop drawing and create polygon or
+        void stopDrawing();
+
+        /// @brief abort drawing
+        void abortDrawing();
+
+        /// @brief add new point to temporal shape
+        void addNewPoint(const Position& P);
+
+        /// @brief remove last added point
+        void removeLastPoint();
+
+        /// @brief get Temporal shape
+        const PositionVector& getTemporalShape() const;
+
+        /// @brief return true if currently a shape is drawed
+        bool isDrawing() const;
+
+
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press start drawing button
+        long onCmdStartDrawing(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press stop drawing button
+        long onCmdStopDrawing(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press abort drawing button
+        long onCmdAbortDrawing(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        DrawingMode() {}
+
+    private:
+        /// @brief frame frame parent
+        GNEPolygonFrame * myPolygonFrameParent;
+
+        /// @brief button for start drawing
+        FXButton* myStartDrawingButton;
+
+        /// @brief button for stop drawing
+        FXButton* myStopDrawingButton;
+
+        /// @brief button for abort drawing
+        FXButton* myAbortDrawingButton;
+
+        /// @brief Label with information
+        FXLabel* myInformationLabel;
+
+        /// @brief current drawed shape
+        PositionVector myTemporalShapeShape;
+    };
+
     /**@brief Constructor
     * @brief parent FXHorizontalFrame in which this GNEFrame is placed
     * @brief viewNet viewNet that uses this GNEFrame
@@ -238,6 +391,12 @@ public:
      * @note called when user stop drawing polygon
      */
     bool buildPoly(const PositionVector& drawedShape);
+
+    /// @brief get netedit attributes editor
+    GNEPolygonFrame::NeteditAttributes* getNeteditAttributes() const;
+
+    /// @brief get drawing mode editor
+    GNEPolygonFrame::DrawingMode* getDrawingMode() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -265,6 +424,12 @@ protected:
     bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
 
 private:
+    /// @brief Netedit parameter
+    GNEPolygonFrame::NeteditAttributes* myNeteditAttributes;
+
+    /// @brief drawing mode
+    GNEPolygonFrame::DrawingMode* myDrawingMode;
+
     /// @brief set parameters depending of the new shapeType
     void setParametersOfShape(SumoXMLTag actualShapeType);
 

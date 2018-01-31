@@ -67,10 +67,24 @@ FXDEFMAP(GNEPolygonFrame::ShapeAttributes) GNEShapeParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEPolygonFrame::ShapeAttributes::onCmdHelp),
 };
 
+FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEFrameNeteditAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,  GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,             GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_CLOSE,             GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape),
+};
+
+FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEFrameDrawingModeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,      GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,       GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_ABORTDRAWING,      GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
+};
+
 // Object implementation
 FXIMPLEMENT(GNEPolygonFrame,                        FXVerticalFrame,    GNEPolygonFrameMap,             ARRAYNUMBER(GNEPolygonFrameMap))
 FXIMPLEMENT(GNEPolygonFrame::ShapeAttributeSingle,  FXHorizontalFrame,  GNESingleShapeParameterMap,     ARRAYNUMBER(GNESingleShapeParameterMap))
 FXIMPLEMENT(GNEPolygonFrame::ShapeAttributes,       FXGroupBox,         GNEShapeParametersMap,          ARRAYNUMBER(GNEShapeParametersMap))
+FXIMPLEMENT(GNEPolygonFrame::NeteditAttributes,     FXGroupBox,         GNEFrameNeteditAttributesMap,   ARRAYNUMBER(GNEFrameNeteditAttributesMap))
+FXIMPLEMENT(GNEPolygonFrame::DrawingMode,           FXGroupBox,         GNEFrameDrawingModeMap,         ARRAYNUMBER(GNEFrameDrawingModeMap))
 
 // ===========================================================================
 // method definitions
@@ -214,6 +228,18 @@ GNEPolygonFrame::buildPoly(const PositionVector& drawedShape) {
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         return addPolygon(valuesOfElement);
     }
+}
+
+
+GNEPolygonFrame::NeteditAttributes*
+GNEPolygonFrame::getNeteditAttributes() const {
+    return myNeteditAttributes;
+}
+
+
+GNEPolygonFrame::DrawingMode*
+GNEPolygonFrame::getDrawingMode() const {
+    return myDrawingMode;
 }
 
 
@@ -771,8 +797,258 @@ GNEPolygonFrame::ShapeAttributes::getNumberOfAddedAttributes() const {
 long
 GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    GNEFrame::HelpAttributes(this, myShapeTag);
+    GNEPolygonFrame::HelpAttributes(this, myShapeTag);
     return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEPolygonFrame::NeteditAttributes - methods
+// ---------------------------------------------------------------------------
+
+GNEPolygonFrame::NeteditAttributes::NeteditAttributes(GNEPolygonFrame* polygonFrameParent) :
+    FXGroupBox(polygonFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame) {
+    // Create Frame for block movement label and checkBox (By default disabled)
+    FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton->setCheck(false);
+    // Create Frame for block shape label and checkBox (By default disabled)
+    myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    // Create Frame for block close polygon and checkBox (By default disabled)
+    myClosePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_POLYGONFRAME_CLOSE, GUIDesignCheckButtonAttribute);
+    myBlockShapeCheckButton->setCheck(false);
+}
+
+
+GNEPolygonFrame::NeteditAttributes::~NeteditAttributes() {}
+
+
+void
+GNEPolygonFrame::NeteditAttributes::showNeteditAttributes(bool shapeEditing) {
+    // show block and closing sahpe depending of shapeEditing
+    if (shapeEditing) {
+        myBlockShapeFrame->show();
+        myClosePolygonFrame->show();
+    }
+    else {
+        myBlockShapeFrame->hide();
+        myClosePolygonFrame->hide();
+    }
+    FXGroupBox::show();
+}
+
+
+void
+GNEPolygonFrame::NeteditAttributes::hideNeteditAttributes() {
+    FXGroupBox::hide();
+}
+
+
+bool
+GNEPolygonFrame::NeteditAttributes::isBlockMovementEnabled() const {
+    return myBlockMovementCheckButton->getCheck() == 1 ? true : false;
+}
+
+
+bool
+GNEPolygonFrame::NeteditAttributes::isBlockShapeEnabled() const {
+    return myBlockShapeCheckButton->getCheck() == 1 ? true : false;
+}
+
+
+bool
+GNEPolygonFrame::NeteditAttributes::isCloseShapeEnabled() const {
+    return myClosePolygonCheckButton->getCheck() == 1 ? true : false;
+}
+
+
+long
+GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement(FXObject*, FXSelector, void*) {
+    if (myBlockMovementCheckButton->getCheck()) {
+        myBlockMovementCheckButton->setText("true");
+    }
+    else {
+        myBlockMovementCheckButton->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape(FXObject*, FXSelector, void*) {
+    if (myBlockShapeCheckButton->getCheck()) {
+        myBlockShapeCheckButton->setText("true");
+    }
+    else {
+        myBlockShapeCheckButton->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape(FXObject*, FXSelector, void*) {
+    if (myClosePolygonCheckButton->getCheck()) {
+        myClosePolygonCheckButton->setText("true");
+    }
+    else {
+        myClosePolygonCheckButton->setText("false");
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEPolygonFrame::DrawingMode - methods
+// ---------------------------------------------------------------------------
+
+GNEPolygonFrame::DrawingMode::DrawingMode(GNEPolygonFrame* polygonFrameParent) :
+    FXGroupBox(polygonFrameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
+    myPolygonFrameParent(polygonFrameParent) {
+    // create start and stop buttons
+    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_POLYGONFRAME_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_POLYGONFRAME_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_POLYGONFRAME_ABORTDRAWING, GUIDesignButton);
+
+    // create information label
+    std::ostringstream information;
+    information
+        << "- 'Start drawing' or ENTER\n"
+        << "  draws polygon boundary.\n"
+        << "- 'Stop drawing' or ENTER\n"
+        << "  creates polygon.\n"
+        << "- 'Abort drawing' or ESC\n"
+        << "  removes drawed polygon.";
+    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // disable stop and abort functions as init
+    myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
+}
+
+
+GNEPolygonFrame::DrawingMode::~DrawingMode() {}
+
+
+void GNEPolygonFrame::DrawingMode::showDrawingMode() {
+    // abort current drawing before show
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::show();
+}
+
+
+void GNEPolygonFrame::DrawingMode::hideDrawingMode() {
+    // abort current drawing before hide
+    abortDrawing();
+    // show FXGroupBox
+    FXGroupBox::hide();
+}
+
+
+void
+GNEPolygonFrame::DrawingMode::startDrawing() {
+    // Only start drawing if DrawingMode modul is shown
+    if (shown()) {
+        // change buttons
+        myStartDrawingButton->disable();
+        myStopDrawingButton->enable();
+        myAbortDrawingButton->enable();
+    }
+}
+
+
+void
+GNEPolygonFrame::DrawingMode::stopDrawing() {
+    // check if shape has to be closed
+    if (myPolygonFrameParent->getNeteditAttributes()->isCloseShapeEnabled()) {
+        myTemporalShapeShape.closePolygon();
+    }
+    // try to build polygon
+    if (myPolygonFrameParent->buildPoly(myTemporalShapeShape)) {
+        // clear created points
+        myTemporalShapeShape.clear();
+        myPolygonFrameParent->getViewNet()->update();
+        // change buttons
+        myStartDrawingButton->enable();
+        myStopDrawingButton->disable();
+        myAbortDrawingButton->disable();
+    }
+    else {
+        // abort drawing if polygon cannot be created
+        abortDrawing();
+    }
+}
+
+
+void
+GNEPolygonFrame::DrawingMode::abortDrawing() {
+    // clear created points
+    myTemporalShapeShape.clear();
+    myPolygonFrameParent->getViewNet()->update();
+    // change buttons
+    myStartDrawingButton->enable();
+    myStopDrawingButton->disable();
+    myAbortDrawingButton->disable();
+}
+
+
+void
+GNEPolygonFrame::DrawingMode::addNewPoint(const Position& P) {
+    if (myStopDrawingButton->isEnabled()) {
+        myTemporalShapeShape.push_back(P);
+    }
+    else {
+        throw ProcessError("A new point cannot be added if drawing wasn't started");
+    }
+}
+
+
+void
+GNEPolygonFrame::DrawingMode::removeLastPoint() {
+    if (myStopDrawingButton->isEnabled()) {
+        if (myTemporalShapeShape.size() > 0) {
+            myTemporalShapeShape.pop_back();
+        }
+    }
+    else {
+        throw ProcessError("Last point cannot be removed if drawing wasn't started");
+    }
+}
+
+
+const PositionVector&
+GNEPolygonFrame::DrawingMode::getTemporalShape() const {
+    return myTemporalShapeShape;
+}
+
+
+bool
+GNEPolygonFrame::DrawingMode::isDrawing() const {
+    return myStopDrawingButton->isEnabled();
+}
+
+
+long
+GNEPolygonFrame::DrawingMode::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+    startDrawing();
+    return 0;
+}
+
+
+long
+GNEPolygonFrame::DrawingMode::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+    stopDrawing();
+    return 0;
+}
+
+
+long
+GNEPolygonFrame::DrawingMode::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+    abortDrawing();
+    return 0;
 }
 
 /****************************************************************************/
