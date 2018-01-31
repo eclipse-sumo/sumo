@@ -728,6 +728,82 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
 // GNEFrame - methods
 // ---------------------------------------------------------------------------
 
+GNEFrame::HelpAttributes::HelpAttributes(FXWindow* parent, SumoXMLTag tag) :
+    FXDialogBox(parent, ("Parameters of " + toString(tag)).c_str(), GUIDesignDialogBox){
+    // Create FXTable
+    FXTable* myTable = new FXTable(this, this, MID_TABLE, TABLE_READONLY);
+    auto attrs = GNEAttributeCarrier::allowedAttributes(tag);
+    myTable->setVisibleRows((FXint)(attrs.size()));
+    myTable->setVisibleColumns(3);
+    myTable->setTableSize((FXint)(attrs.size()), 3);
+    myTable->setBackColor(FXRGB(255, 255, 255));
+    myTable->setColumnText(0, "Name");
+    myTable->setColumnText(1, "Value");
+    myTable->setColumnText(2, "Definition");
+    myTable->getRowHeader()->setWidth(0);
+    FXHeader* header = myTable->getColumnHeader();
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemSize(0, 120);
+    header->setItemJustify(1, JUSTIFY_CENTER_X);
+    header->setItemSize(1, 80);
+    int maxSizeColumnDefinitions = 0;
+    // Iterate over vector of additional parameters
+    for (int i = 0; i < attrs.size(); i++) {
+        // Set name of attribute
+        myTable->setItem(i, 0, new FXTableItem(toString(attrs.at(i).first).c_str()));
+        // Set type
+        FXTableItem* type = new FXTableItem("");
+        if (GNEAttributeCarrier::isInt(tag, attrs.at(i).first)) {
+            type->setText("int");
+        }
+        else if (GNEAttributeCarrier::isFloat(tag, attrs.at(i).first)) {
+            type->setText("float");
+        }
+        else if (GNEAttributeCarrier::isTime(tag, attrs.at(i).first)) {
+            type->setText("time");
+        }
+        else if (GNEAttributeCarrier::isBool(tag, attrs.at(i).first)) {
+            type->setText("bool");
+        }
+        else if (GNEAttributeCarrier::isColor(tag, attrs.at(i).first)) {
+            type->setText("color");
+        }
+        else if (GNEAttributeCarrier::isString(tag, attrs.at(i).first)) {
+            type->setText("string");
+        }
+        type->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(i, 1, type);
+        // Set definition
+        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(tag, attrs.at(i).first).c_str());
+        definition->setJustify(FXTableItem::LEFT);
+        myTable->setItem(i, 2, definition);
+        if ((int)GNEAttributeCarrier::getDefinition(tag, attrs.at(i).first).size() > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(tag, attrs.at(i).first).size());
+        }
+    }
+ 
+    // Set size of column
+    header->setItemJustify(2, JUSTIFY_CENTER_X);
+    header->setItemSize(2, maxSizeColumnDefinitions * 6);
+    // Button Close
+    new FXButton(this, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    // create Dialog
+    create();
+    // show in the given position
+    show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(this);
+}
+
+
+GNEFrame::HelpAttributes::~HelpAttributes() {}
+
+// ---------------------------------------------------------------------------
+// GNEFrame - methods
+// ---------------------------------------------------------------------------
+
 GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
     myViewNet(viewNet),

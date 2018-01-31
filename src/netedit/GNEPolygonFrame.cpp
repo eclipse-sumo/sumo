@@ -770,62 +770,8 @@ GNEPolygonFrame::ShapeAttributes::getNumberOfAddedAttributes() const {
 
 long
 GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    // Create help dialog
-    FXDialogBox* helpDialog = new FXDialogBox(this, ("Parameters of " + toString(myShapeTag)).c_str(), GUIDesignDialogBox);
-    // Create FXTable
-    FXTable* myTable = new FXTable(helpDialog, this, MID_TABLE, TABLE_READONLY);
-    myTable->setVisibleRows((FXint)(myIndexParameter + myIndexParameterList));
-    myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(myIndexParameter + myIndexParameterList), 3);
-    myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setColumnText(0, "Name");
-    myTable->setColumnText(1, "Value");
-    myTable->setColumnText(2, "Definition");
-    myTable->getRowHeader()->setWidth(0);
-    FXHeader* header = myTable->getColumnHeader();
-    header->setItemJustify(0, JUSTIFY_CENTER_X);
-    header->setItemSize(0, 120);
-    header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(1, 80);
-    int maxSizeColumnDefinitions = 0;
-    // Iterate over vector of shape parameters
-    for (int i = 0; i < myIndexParameter; i++) {
-        SumoXMLTag shapeTag = myVectorOfsingleShapeParameter.at(i)->getTag();
-        SumoXMLAttr shapeAttr = myVectorOfsingleShapeParameter.at(i)->getAttr();
-        // Set name of attribute
-        myTable->setItem(i, 0, new FXTableItem(toString(shapeAttr).c_str()));
-        // Set type
-        FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(shapeTag, shapeAttr)) {
-            type->setText("int");
-        } else if (GNEAttributeCarrier::isFloat(shapeTag, shapeAttr)) {
-            type->setText("float");
-        } else if (GNEAttributeCarrier::isTime(shapeTag, shapeAttr)) {
-            type->setText("time");
-        } else if (GNEAttributeCarrier::isBool(shapeTag, shapeAttr)) {
-            type->setText("bool");
-        } else if (GNEAttributeCarrier::isColor(shapeTag, shapeAttr)) {
-            type->setText("color");
-        } else if (GNEAttributeCarrier::isString(shapeTag, shapeAttr)) {
-            type->setText("string");
-        }
-        type->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 1, type);
-        // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(shapeTag, shapeAttr).c_str());
-        definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(i, 2, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(shapeTag, shapeAttr).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(shapeTag, shapeAttr).size());
-        }
-    }
-    // Set size of column
-    header->setItemJustify(2, JUSTIFY_CENTER_X);
-    header->setItemSize(2, maxSizeColumnDefinitions * 6);
-    // Button Close
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    helpDialog->create();
-    helpDialog->show();
+    // open Help attributes dialog
+    GNEFrame::HelpAttributes(this, myShapeTag);
     return 1;
 }
 

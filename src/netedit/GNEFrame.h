@@ -275,6 +275,21 @@ public:
         GNEAttributeCarrier* myRightClickedAC;
     };
 
+    // ===========================================================================
+    // class HelpAttributes
+    // ===========================================================================
+
+    class HelpAttributes : private FXDialogBox {
+
+    public:
+        HelpAttributes(FXWindow* parent, SumoXMLTag tag);
+
+        ~HelpAttributes();
+
+    private:
+        GNEAttributeCarrier * myAC;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
