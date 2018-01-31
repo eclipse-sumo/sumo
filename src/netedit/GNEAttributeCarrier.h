@@ -225,7 +225,10 @@ public:
     static bool discreteCombinableChoices(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief return definition of a certain SumoXMLAttr
-    static std::string getDefinition(SumoXMLTag tag, SumoXMLAttr attr);
+    static const std::string &getDefinition(SumoXMLTag tag, SumoXMLAttr attr);
+
+    /// @brief return restriction of a certain SumoXMLAttr
+    static const std::string &getRestriction(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();
@@ -473,6 +476,7 @@ public:
     /// @}
 
 private:
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
@@ -558,10 +562,13 @@ private:
     static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > myDiscreteChoices;
 
     /// @brief map with the definition of attributes
-    static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::string> > myAttrDefinitions;
+    static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::pair<std::string, std::string> > > myAttrDefinitions;
 
     /// @brief maximum number of attributes of all tags
     static int myMaxNumAttribute;
+
+    /// @brief set Attr definition
+    static std::pair<std::string, std::string> setAttrDefinition(const std::string &definition, const std::string &restriction = "");
 
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;

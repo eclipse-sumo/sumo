@@ -725,66 +725,76 @@ GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemPa
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame - methods
+// GNEFrame::HelpAttributes
 // ---------------------------------------------------------------------------
 
 GNEFrame::HelpAttributes::HelpAttributes(FXWindow* parent, SumoXMLTag tag) :
-    FXDialogBox(parent, ("Parameters of " + toString(tag)).c_str(), GUIDesignDialogBox){
+    FXDialogBox(parent, ("Parameters of " + toString(tag)).c_str(), GUIDesignDialogBox) {
     // Create FXTable
     FXTable* myTable = new FXTable(this, this, MID_TABLE, TABLE_READONLY);
     auto attrs = GNEAttributeCarrier::allowedAttributes(tag);
     myTable->setVisibleRows((FXint)(attrs.size()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(attrs.size()), 3);
+    myTable->setTableSize((FXint)(attrs.size()), 4);
     myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setColumnText(0, "Name");
-    myTable->setColumnText(1, "Value");
-    myTable->setColumnText(2, "Definition");
+    myTable->setColumnText(0, "Attribute");
+    myTable->setColumnText(1, "Type");
+    myTable->setColumnText(2, "Restriction");
+    myTable->setColumnText(3, "Definition");
     myTable->getRowHeader()->setWidth(0);
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     header->setItemSize(0, 120);
     header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(1, 80);
+    header->setItemSize(1, 90);
+    header->setItemJustify(1, JUSTIFY_CENTER_X);
+    header->setItemSize(2, 80);
     int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
     for (int i = 0; i < attrs.size(); i++) {
-        // Set name of attribute
-        myTable->setItem(i, 0, new FXTableItem(toString(attrs.at(i).first).c_str()));
+        // Set attribute 
+        FXTableItem* attribute = new FXTableItem(toString(attrs.at(i).first).c_str());
+        attribute->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(i, 0, attribute);
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (GNEAttributeCarrier::isInt(tag, attrs.at(i).first)) {
+        if (attrs.at(i).first == SUMO_ATTR_SHAPE) {
+            type->setText("list of positions");
+        } else if (GNEAttributeCarrier::isInt(tag, attrs.at(i).first)) {
             type->setText("int");
-        }
-        else if (GNEAttributeCarrier::isFloat(tag, attrs.at(i).first)) {
+        } else if (GNEAttributeCarrier::isFloat(tag, attrs.at(i).first)) {
             type->setText("float");
-        }
-        else if (GNEAttributeCarrier::isTime(tag, attrs.at(i).first)) {
+        } else if (GNEAttributeCarrier::isTime(tag, attrs.at(i).first)) {
             type->setText("time");
-        }
-        else if (GNEAttributeCarrier::isBool(tag, attrs.at(i).first)) {
+        } else if (GNEAttributeCarrier::isBool(tag, attrs.at(i).first)) {
             type->setText("bool");
-        }
-        else if (GNEAttributeCarrier::isColor(tag, attrs.at(i).first)) {
+        } else if (GNEAttributeCarrier::isColor(tag, attrs.at(i).first)) {
             type->setText("color");
-        }
-        else if (GNEAttributeCarrier::isString(tag, attrs.at(i).first)) {
-            type->setText("string");
+        } else if (GNEAttributeCarrier::isString(tag, attrs.at(i).first)) {
+            if (attrs.at(i).first == SUMO_ATTR_POSITION) {
+                type->setText("position");
+            } else {
+                type->setText("string");
+            }
         }
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
+        // Set restriction
+        FXTableItem* restriction = new FXTableItem(GNEAttributeCarrier::getRestriction(tag, attrs.at(i).first).c_str());
+        restriction->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(i, 2, restriction);
         // Set definition
         FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(tag, attrs.at(i).first).c_str());
         definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(i, 2, definition);
+        myTable->setItem(i, 3, definition);
         if ((int)GNEAttributeCarrier::getDefinition(tag, attrs.at(i).first).size() > maxSizeColumnDefinitions) {
             maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(tag, attrs.at(i).first).size());
         }
     }
  
     // Set size of column
-    header->setItemJustify(2, JUSTIFY_CENTER_X);
-    header->setItemSize(2, maxSizeColumnDefinitions * 6);
+    header->setItemJustify(3, JUSTIFY_CENTER_X);
+    header->setItemSize(3, maxSizeColumnDefinitions * 6);
     // Create horizontal separator
     new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
@@ -801,10 +811,20 @@ GNEFrame::HelpAttributes::HelpAttributes(FXWindow* parent, SumoXMLTag tag) :
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(this);
+
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Opening HelpAttributes dialog for tag '" + toString(tag) + "' showing " + toString(attrs.size()) + " attributes");
+    }
 }
 
 
-GNEFrame::HelpAttributes::~HelpAttributes() {}
+GNEFrame::HelpAttributes::~HelpAttributes() {
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Closing HelpAttributes dialog");
+    }
+}
 
 // ---------------------------------------------------------------------------
 // GNEFrame - methods

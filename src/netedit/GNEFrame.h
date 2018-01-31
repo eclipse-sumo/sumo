@@ -282,12 +282,11 @@ public:
     class HelpAttributes : private FXDialogBox {
 
     public:
+        /// @brief constructor
         HelpAttributes(FXWindow* parent, SumoXMLTag tag);
 
+        /// @brief destructor
         ~HelpAttributes();
-
-    private:
-        GNEAttributeCarrier * myAC;
     };
 
     /**@brief Constructor
