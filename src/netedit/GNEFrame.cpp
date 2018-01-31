@@ -785,8 +785,14 @@ GNEFrame::HelpAttributes::HelpAttributes(FXWindow* parent, SumoXMLTag tag) :
     // Set size of column
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, maxSizeColumnDefinitions * 6);
-    // Button Close
-    new FXButton(this, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    // Create horizontal separator
+    new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // create Dialog
     create();
     // show in the given position
