@@ -257,6 +257,9 @@ public:
 
         /// @brief Called when the user change checkbox for open/closed polygon
         long onCmdsetClosingShape(FXObject*, FXSelector, void*);
+
+        /// @brief Called when help button is pressed
+        long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -331,8 +334,6 @@ public:
 
         /// @brief return true if currently a shape is drawed
         bool isDrawing() const;
-
-
 
         /// @name FOX-callbacks
         /// @{

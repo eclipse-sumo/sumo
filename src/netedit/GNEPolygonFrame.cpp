@@ -71,6 +71,7 @@ FXDEFMAP(GNEPolygonFrame::NeteditAttributes) GNEFrameNeteditAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,  GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,             GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_CLOSE,             GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEPolygonFrame::NeteditAttributes::onCmdHelp),
 };
 
 FXDEFMAP(GNEPolygonFrame::DrawingMode) GNEFrameDrawingModeMap[] = {
@@ -821,6 +822,8 @@ GNEPolygonFrame::NeteditAttributes::NeteditAttributes(GNEPolygonFrame* polygonFr
     myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
     myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_POLYGONFRAME_CLOSE, GUIDesignCheckButtonAttribute);
     myBlockShapeCheckButton->setCheck(false);
+    // Create help button
+    new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -897,6 +900,52 @@ GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape(FXObject*, FXSelector, 
     }
     else {
         myClosePolygonCheckButton->setText("false");
+    }
+    return 1;
+}
+
+
+long
+GNEPolygonFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+    // Create dialog box
+    FXDialogBox* polygonNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    polygonNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEPOLYGON));
+    // Set help text
+    std::ostringstream help;
+    help
+        << "- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n"
+        << "  the mouse. This option can be modified inspecting element.\n"
+        << "\n"
+        << "- Block shape: If enabled, the shape of created polygon element will be blocked. i.e. their geometry points\n" 
+        << "  cannot be edited be moved with the mouse. This option can be modified inspecting element.\n"
+        << "\n"
+        << "- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n"
+        << "  will be connected with the first geometry point automatically. This option can be modified inspecting element.";
+    // Create label with the help text
+    new FXLabel(polygonNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(polygonNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(polygonNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), polygonNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Opening NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
+    }
+    // create Dialog
+    polygonNeteditAttributesHelpDialog->create();
+    // show in the given position
+    polygonNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(polygonNeteditAttributesHelpDialog);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Closing NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
     }
     return 1;
 }

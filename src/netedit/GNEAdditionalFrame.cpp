@@ -1237,22 +1237,46 @@ GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking(FXObject*, FXSelector, v
 
 long
 GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(this, "Parameter editor Help", GUIDesignDialogBox);
+    // Create dialog box
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
+    // set help text
     std::ostringstream help;
     help
-            << "Referece point: Mark the initial position of the additional element.\n"
-            << "Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n"
-            << "- Reference Left will create it with startPos = 70 and endPos = 100.\n"
-            << "- Reference Right will create it with startPos = 100 and endPos = 130.\n"
-            << "- Reference Center will create it with startPos = 85 and endPos = 115.\n"
+            << "- Referece point: Mark the initial position of the additional element.\n"
+            << "  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n"
+            << "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
+            << "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
+            << "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
             << "\n"
-            << "Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
-            << "the mouse. This option can be modified with the Inspector.";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
-    // "OK"
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    helpDialog->create();
-    helpDialog->show();
+            << "- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
+            << "  the mouse. This option can be modified inspecting element.";
+    // Create label with the help text
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Opening NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
+    }
+    // create Dialog
+    additionalNeteditAttributesHelpDialog->create();
+    // show in the given position
+    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Closing NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
+    }
     return 1;
 }
 
