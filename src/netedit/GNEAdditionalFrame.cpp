@@ -128,10 +128,10 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
 
     // Create additional parameters
-    myadditionalParameters = new GNEAdditionalFrame::AdditionalAttributes(myViewNet, myContentFrame);
+    myadditionalParameters = new GNEAdditionalFrame::AdditionalAttributes(this);
 
     // Create Netedit parameter
-    myEditorParameters = new GNEAdditionalFrame::NeteditAttributes(myContentFrame);
+    myEditorParameters = new GNEAdditionalFrame::NeteditAttributes(this);
 
     // Create create list for additional Set
     myAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(myContentFrame, myViewNet);
@@ -921,9 +921,10 @@ GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow(FXObject*, FXSelecto
 // GNEAdditionalFrame::AdditionalAttributes - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEViewNet* viewNet, FXComposite* parent) :
-    FXGroupBox(parent, "Internal attributes", GUIDesignGroupBoxFrame),
-    myViewNet(viewNet),
+GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myAdditionalFrameParent(additionalFrameParent),
+    myAdditionalTag(SUMO_TAG_NOTHING),
     myIndexParameter(0),
     myIndexParameterList(0),
     myMaxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
@@ -1067,7 +1068,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
     }
 
     // set message in status bar
-    myViewNet->setStatusBarText(errorMessage);
+    myAdditionalFrameParent->getViewNet()->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING(errorMessage);
@@ -1104,7 +1105,7 @@ GNEAdditionalFrame::AdditionalAttributes::getNumberOfAddedAttributes() const {
 long
 GNEAdditionalFrame::AdditionalAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    GNEFrame::HelpAttributes(this, myAdditionalTag);
+    myAdditionalFrameParent->openHelpAttributesDialog(myAdditionalTag);
     return 1;
 }
 
@@ -1112,8 +1113,8 @@ GNEAdditionalFrame::AdditionalAttributes::onCmdHelp(FXObject*, FXSelector, void*
 // GNEAdditionalFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(FXComposite* parent) :
-    FXGroupBox(parent, "Netedit attributes", GUIDesignGroupBoxFrame),
+GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame *additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
     myCurrentLengthValid(true) {
     // Create FXListBox for the reference points and fill it

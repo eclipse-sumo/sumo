@@ -158,7 +158,7 @@ public:
 
     public:
         /// @brief constructor
-        ShapeAttributes(GNEViewNet* viewNet, FXComposite* parent);
+        ShapeAttributes(GNEPolygonFrame* polygonFrameParent);
 
         /// @brief destructor
         ~ShapeAttributes();
@@ -198,8 +198,8 @@ public:
         ShapeAttributes() {}
 
     private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
+        /// @brief pointer to Polygon Frame Parent
+        GNEPolygonFrame * myPolygonFrameParent;
 
         /// @brief current shape tag
         SumoXMLTag myShapeTag;

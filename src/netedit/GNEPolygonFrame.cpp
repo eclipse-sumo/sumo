@@ -102,7 +102,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myShapeMatchBox = new FXComboBox(myGroupBoxForMyShapeMatchBox, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
 
     // Create shape parameters
-    myShapeAttributes = new GNEPolygonFrame::ShapeAttributes(myViewNet, myContentFrame);
+    myShapeAttributes = new GNEPolygonFrame::ShapeAttributes(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new GNEPolygonFrame::NeteditAttributes(this);
@@ -663,9 +663,10 @@ long GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute(FXObject*, FX
 // GNEPolygonFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEPolygonFrame::ShapeAttributes::ShapeAttributes(GNEViewNet* viewNet, FXComposite* parent) :
-    FXGroupBox(parent, "Internal attributes", GUIDesignGroupBoxFrame),
-    myViewNet(viewNet),
+GNEPolygonFrame::ShapeAttributes::ShapeAttributes(GNEPolygonFrame* polygonFrameParent) :
+    FXGroupBox(polygonFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myPolygonFrameParent(polygonFrameParent),
+    myShapeTag(SUMO_TAG_NOTHING),
     myIndexParameter(0),
     myIndexParameterList(0),
     myMaxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()) {
@@ -768,7 +769,7 @@ GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
     }
 
     // set message in status bar
-    myViewNet->setStatusBarText(errorMessage);
+    myPolygonFrameParent->getViewNet()->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING(errorMessage);
@@ -798,7 +799,7 @@ GNEPolygonFrame::ShapeAttributes::getNumberOfAddedAttributes() const {
 long
 GNEPolygonFrame::ShapeAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    GNEPolygonFrame::HelpAttributes(this, myShapeTag);
+    myPolygonFrameParent->openHelpAttributesDialog(myShapeTag);
     return 1;
 }
 

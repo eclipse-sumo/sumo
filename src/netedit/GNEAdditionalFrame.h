@@ -234,7 +234,7 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalAttributes(GNEViewNet* viewNet, FXComposite* parent);
+        AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~AdditionalAttributes();
@@ -274,8 +274,8 @@ public:
         AdditionalAttributes() {}
 
     private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
+        /// @brief pointer to additionalFrameParent
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief current additional tag
         SumoXMLTag myAdditionalTag;
@@ -317,7 +317,7 @@ public:
         };
 
         /// @brief constructor
-        NeteditAttributes(FXComposite* parent);
+        NeteditAttributes(GNEAdditionalFrame *additionalFrameParent);
 
         /// @brief destructor
         ~NeteditAttributes();

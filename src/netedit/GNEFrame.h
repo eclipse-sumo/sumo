@@ -124,20 +124,6 @@ public:
         GNEAttributeCarrier* myRightClickedAC;
     };
 
-    // ===========================================================================
-    // class HelpAttributes
-    // ===========================================================================
-
-    class HelpAttributes : private FXDialogBox {
-
-    public:
-        /// @brief constructor
-        HelpAttributes(FXWindow* parent, SumoXMLTag tag);
-
-        /// @brief destructor
-        ~HelpAttributes();
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -176,6 +162,9 @@ public:
 protected:
     /// @brief FOX needs this
     GNEFrame() {}
+
+    /// @brief Open help attributes dialog
+    void openHelpAttributesDialog(SumoXMLTag tag) const;
 
     /// @brief View Net for changes
     GNEViewNet* myViewNet;
