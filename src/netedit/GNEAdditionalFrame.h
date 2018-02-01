@@ -395,7 +395,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentAdditional(FXComposite* parent, GNEViewNet* viewNet);
+        SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentAdditional();
@@ -423,6 +423,8 @@ public:
         SelectorParentAdditional() {}
 
     private:
+        /// @brief pointer to Additional Frame Parent
+        GNEAdditionalFrame * myAdditionalFrameParent;
 
         /// @brief List of additional sets
         FXList* myList;
@@ -435,9 +437,6 @@ public:
 
         /// @brief button for help
         FXButton* myHelpAdditionalParentSelector;
-
-        /// @brief viewNet associated to GNEAdditionalFrame
-        GNEViewNet* myViewNet;
     };
 
     // ===========================================================================
@@ -450,7 +449,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentEdges(FXComposite* parent, GNEViewNet* viewNet);
+        SelectorParentEdges(GNEAdditionalFrame *additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentEdges();
@@ -496,6 +495,9 @@ public:
         SelectorParentEdges() {}
 
     private:
+        /// @brief pointer to additional frame parent
+        GNEAdditionalFrame * myAdditionalFrameParent;
+
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
 
@@ -513,9 +515,6 @@ public:
 
         /// @brief button for invert selection
         FXButton* myInvertEdgesSelection;
-
-        /// @brief viewNet associated to GNEAdditionalFrame
-        GNEViewNet* myViewNet;
     };
 
     // ===========================================================================
@@ -528,7 +527,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentLanes(FXComposite* parent, GNEViewNet* viewNet);
+        SelectorParentLanes(GNEAdditionalFrame *additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentLanes();
@@ -574,6 +573,9 @@ public:
         SelectorParentLanes() {}
 
     private:
+        /// @brief pointer to additional frame parent
+        GNEAdditionalFrame * myAdditionalFrameParent;
+
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
 
@@ -591,9 +593,6 @@ public:
 
         /// @brief button for invert selection
         FXButton* invertLanesSelection;
-
-        /// @brief viewNet associated to GNEAdditionalFrame
-        GNEViewNet* myViewNet;
     };
 
     /**@brief Constructor

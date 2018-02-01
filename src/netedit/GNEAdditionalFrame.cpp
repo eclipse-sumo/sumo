@@ -134,13 +134,13 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myEditorParameters = new GNEAdditionalFrame::NeteditAttributes(this);
 
     // Create create list for additional Set
-    myAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(myContentFrame, myViewNet);
+    myAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(this);
 
     /// Create list for SelectorParentEdges
-    myedgeParentsSelector = new GNEAdditionalFrame::SelectorParentEdges(myContentFrame, myViewNet);
+    myedgeParentsSelector = new GNEAdditionalFrame::SelectorParentEdges(this);
 
     /// Create list for SelectorParentLanes
-    mylaneParentsSelector = new GNEAdditionalFrame::SelectorParentLanes(myContentFrame, myViewNet);
+    mylaneParentsSelector = new GNEAdditionalFrame::SelectorParentLanes(this);
 
     // Add options to myAdditionalMatchBox
     for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
@@ -1303,10 +1303,10 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
 // GNEAdditionalFrame::SelectorParentAdditional - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(FXComposite* parent, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "Additional Set selector", GUIDesignGroupBoxFrame),
-    myUniqueSelection(false),
-    myViewNet(viewNet) {
+GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Additional Set selector", GUIDesignGroupBoxFrame),
+    myAdditionalFrameParent(additionalFrameParent),
+    myUniqueSelection(false) {
 
     // Create label with the type of SelectorParentAdditional
     mySetLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
@@ -1342,7 +1342,7 @@ GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionals(SumoXMLTag t
     mySetLabel->setText(("" + toString(type)).c_str());
     myList->clearItems();
     // obtain all additionals of class "type"
-    std::vector<GNEAdditional*> vectorOfAdditionalParents = myViewNet->getNet()->getAdditionals(type);
+    std::vector<GNEAdditional*> vectorOfAdditionalParents = myAdditionalFrameParent->getViewNet()->getNet()->getAdditionals(type);
     // fill list with IDs of additionals
     for (auto i : vectorOfAdditionalParents) {
         myList->appendItem(i->getID().c_str());
@@ -1373,9 +1373,9 @@ GNEAdditionalFrame::SelectorParentAdditional::onCmdHelp(FXObject*, FXSelector, v
 // GNEAdditionalFrame::SelectorParentEdges - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(FXComposite* parent, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "Edges", GUIDesignGroupBoxFrame),
-    myViewNet(viewNet) {
+GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(GNEAdditionalFrame *additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
+    myAdditionalFrameParent(additionalFrameParent) {
     // Create menuCheck for selected edges
     myUseSelectedEdgesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_SHOWONLYSELECTEDEDGES, GUIDesignCheckButtonAttribute);
 
@@ -1417,7 +1417,7 @@ GNEAdditionalFrame::SelectorParentEdges::showList(std::string search) {
     myList->clearItems();
     // get all edges of net
     /// @todo this function must be improved.
-    std::vector<GNEEdge*> vectorOfEdges = myViewNet->getNet()->retrieveEdges(false);
+    std::vector<GNEEdge*> vectorOfEdges = myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(false);
     // iterate over edges of net
     for (auto i : vectorOfEdges) {
         // If search criterium is correct, then append ittem
@@ -1445,7 +1445,7 @@ GNEAdditionalFrame::SelectorParentEdges::hideList() {
 void
 GNEAdditionalFrame::SelectorParentEdges::updateUseSelectedEdges() {
     // Enable or disable use selected edges
-    if (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
+    if (myAdditionalFrameParent->getViewNet()->getNet()->retrieveEdges(true).size() > 0) {
         myUseSelectedEdgesCheckButton->enable();
     } else {
         myUseSelectedEdgesCheckButton->disable();
@@ -1534,9 +1534,9 @@ GNEAdditionalFrame::SelectorParentEdges::onCmdHelp(FXObject*, FXSelector, void*)
 // GNEAdditionalFrame::SelectorParentLanes - methods
 // ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(FXComposite* parent, GNEViewNet* viewNet) :
-    FXGroupBox(parent, "Lanes", GUIDesignGroupBoxFrame),
-    myViewNet(viewNet) {
+GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame *additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Lanes", GUIDesignGroupBoxFrame),
+    myAdditionalFrameParent(additionalFrameParent) {
     // Create CheckBox for selected lanes
     myUseSelectedLanesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTEDLANES, GUIDesignCheckButtonAttribute);
 
@@ -1575,7 +1575,7 @@ GNEAdditionalFrame::SelectorParentLanes::getIdsSelected() const {
 void
 GNEAdditionalFrame::SelectorParentLanes::showList(std::string search) {
     myList->clearItems();
-    std::vector<GNELane*> vectorOfLanes = myViewNet->getNet()->retrieveLanes(false);
+    std::vector<GNELane*> vectorOfLanes = myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(false);
     for (auto i : vectorOfLanes) {
         if (i->getID().find(search) != std::string::npos) {
             myList->appendItem(i->getID().c_str());
@@ -1597,7 +1597,7 @@ GNEAdditionalFrame::SelectorParentLanes::hideList() {
 void
 GNEAdditionalFrame::SelectorParentLanes::updateUseSelectedLanes() {
     // Enable or disable use selected Lanes
-    if (myViewNet->getNet()->retrieveLanes(true).size() > 0) {
+    if (myAdditionalFrameParent->getViewNet()->getNet()->retrieveLanes(true).size() > 0) {
         myUseSelectedLanesCheckButton->enable();
     } else {
         myUseSelectedLanesCheckButton->disable();
