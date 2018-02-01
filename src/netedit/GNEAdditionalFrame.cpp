@@ -82,7 +82,6 @@ FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) GNEEditorParametersMap[] = {
 
 FXDEFMAP(GNEAdditionalFrame::SelectorParentAdditional) GNEadditionalParentSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTADDITIONALPARENT, GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::SelectorParentAdditional::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) GNEedgeParentsSelectorMap[] = {
@@ -91,7 +90,6 @@ FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) GNEedgeParentsSelectorMap[] = 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION,    GNEAdditionalFrame::SelectorParentEdges::onCmdInvertSelection),
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCHEDGE,             GNEAdditionalFrame::SelectorParentEdges::onCmdTypeInSearchBox),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTEDGE,             GNEAdditionalFrame::SelectorParentEdges::onCmdSelectEdge),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::SelectorParentEdges::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::SelectorParentLanes) GNElaneParentsSelectorMap[] = {
@@ -100,7 +98,6 @@ FXDEFMAP(GNEAdditionalFrame::SelectorParentLanes) GNElaneParentsSelectorMap[] = 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTLANESELECTION,    GNEAdditionalFrame::SelectorParentLanes::onCmdInvertSelection),
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCHLANE,             GNEAdditionalFrame::SelectorParentLanes::onCmdTypeInSearchBox),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTLANE,             GNEAdditionalFrame::SelectorParentLanes::onCmdSelectLane),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::SelectorParentLanes::onCmdHelp),
 };
 
 // Object implementation
@@ -1314,9 +1311,6 @@ GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditi
     // Create list
     myList = new FXList(this, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALPARENT, GUIDesignList, 0, 0, 0, 100);
 
-    // Create help button
-    myHelpAdditionalParentSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
-
     // Hide List
     hideListOfAdditionals();
 }
@@ -1362,13 +1356,6 @@ GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent(FXObje
     return 1;
 }
 
-
-long
-GNEAdditionalFrame::SelectorParentAdditional::onCmdHelp(FXObject*, FXSelector, void*) {
-    return 1;
-}
-
-
 // ---------------------------------------------------------------------------
 // GNEAdditionalFrame::SelectorParentEdges - methods
 // ---------------------------------------------------------------------------
@@ -1393,9 +1380,6 @@ GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(GNEAdditionalFrame 
 
     // Create button for invert selection
     myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION, GUIDesignButtonRectangular);
-
-    // Create help button
-    myHelpedgeParentsSelector = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 
     // Hide List
     hideList();
@@ -1470,13 +1454,11 @@ GNEAdditionalFrame::SelectorParentEdges::onCmdUseSelectedEdges(FXObject*, FXSele
         myList->hide();
         myClearEdgesSelection->hide();
         myInvertEdgesSelection->hide();
-        myHelpedgeParentsSelector->hide();
     } else {
         myEdgesSearch->show();
         myList->show();
         myClearEdgesSelection->show();
         myInvertEdgesSelection->show();
-        myHelpedgeParentsSelector->show();
     }
     // Recalc Frame
     recalc();
@@ -1523,13 +1505,6 @@ GNEAdditionalFrame::SelectorParentEdges::onCmdInvertSelection(FXObject*, FXSelec
     return 1;
 }
 
-
-long
-GNEAdditionalFrame::SelectorParentEdges::onCmdHelp(FXObject*, FXSelector, void*) {
-    std::cout << "IMPLEMENT" << std::endl;
-    return 1;
-}
-
 // ---------------------------------------------------------------------------
 // GNEAdditionalFrame::SelectorParentLanes - methods
 // ---------------------------------------------------------------------------
@@ -1554,9 +1529,6 @@ GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame 
 
     // Create button for invert selection
     invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTLANESELECTION, GUIDesignButtonRectangular);
-
-    // Create help button
-    helpLanes = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 
     // Hide List
     hideList();
@@ -1622,13 +1594,11 @@ GNEAdditionalFrame::SelectorParentLanes::onCmdUseSelectedLanes(FXObject*, FXSele
         myList->hide();
         clearLanesSelection->hide();
         invertLanesSelection->hide();
-        helpLanes->hide();
     } else {
         myLanesSearch->show();
         myList->show();
         clearLanesSelection->show();
         invertLanesSelection->show();
-        helpLanes->show();
     }
     // Recalc Frame
     recalc();
@@ -1672,12 +1642,6 @@ GNEAdditionalFrame::SelectorParentLanes::onCmdInvertSelection(FXObject*, FXSelec
             myList->selectItem(i);
         }
     }
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::SelectorParentLanes::onCmdHelp(FXObject*, FXSelector, void*) {
     return 1;
 }
 

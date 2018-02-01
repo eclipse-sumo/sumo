@@ -413,9 +413,6 @@ public:
         /// @{
         /// @brief called when user select an SelectorParentAdditional of the list
         long onCmdSelectAdditionalParent(FXObject*, FXSelector, void*);
-
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -434,9 +431,6 @@ public:
 
         /// @brief flag to check if only a single parent is allowed
         bool myUniqueSelection;
-
-        /// @brief button for help
-        FXButton* myHelpAdditionalParentSelector;
     };
 
     // ===========================================================================
@@ -485,9 +479,6 @@ public:
 
         /// @brief called when invert selection button is pressed
         long onCmdInvertSelection(FXObject*, FXSelector, void*);
-
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -506,9 +497,6 @@ public:
 
         /// @brief text field for search edge IDs
         FXTextField* myEdgesSearch;
-
-        /// @brief button for help
-        FXButton* myHelpedgeParentsSelector;
 
         /// @brief button for clear selection
         FXButton* myClearEdgesSelection;
@@ -563,9 +551,6 @@ public:
 
         /// @brief called when invert selection button is pressed
         long onCmdInvertSelection(FXObject*, FXSelector, void*);
-
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -584,9 +569,6 @@ public:
 
         /// @brief text field for search lane IDs
         FXTextField* myLanesSearch;
-
-        /// @brief button for help
-        FXButton* helpLanes;
 
         /// @brief button for clear selection
         FXButton* clearLanesSelection;
