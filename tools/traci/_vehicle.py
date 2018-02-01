@@ -16,7 +16,7 @@
 # @author  Laura Bieker
 # @author  Daniel Krajzewicz
 # @date    2011-03-09
-# @version $Id$
+# @version $Id: _vehicle.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-10 12:59:17 +0100 $
 
 from __future__ import absolute_import
 import struct
@@ -104,6 +104,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_EMISSIONCLASS: Storage.readString,
                       tc.VAR_WAITING_TIME: Storage.readDouble,
                       tc.VAR_ACCUMULATED_WAITING_TIME: Storage.readDouble,
+                      tc.VAR_LANECHANGE_MODE: Storage.readInt,
                       tc.VAR_SPEEDSETMODE: Storage.readInt,
                       tc.VAR_SLOPE: Storage.readDouble,
                       tc.VAR_WIDTH: Storage.readDouble,
@@ -452,6 +453,13 @@ class VehicleDomain(Domain):
         over a certain time interval (interval length is set per option '--waiting-time-memory')
         """
         return self._getUniversal(tc.VAR_ACCUMULATED_WAITING_TIME, vehID)
+
+    def getLaneChangeMode(self, vehID):
+        """getLaneChangeMode(string) -> integer
+
+        Gets the vehicle's lane change mode as a bitset.
+        """
+        return self._getUniversal(tc.VAR_LANECHANGE_MODE, vehID)
 
     def getSpeedMode(self, vehID):
         """getSpeedMode -> int
