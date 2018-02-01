@@ -60,7 +60,7 @@ public:
 
     public:
         /// @brief constructor
-        edgesSelector(FXComposite* parent, GNECrossingFrame* crossingFrameParent);
+        edgesSelector(GNECrossingFrame* crossingFrameParent);
 
         /// @brief destructor
         ~edgesSelector();
@@ -126,7 +126,7 @@ public:
 
     public:
         /// @brief constructor
-        crossingParameters(GNECrossingFrame* crossingFrameParent, GNECrossingFrame::edgesSelector* es);
+        crossingParameters(GNECrossingFrame* crossingFrameParent);
 
         /// @brief destructor
         ~crossingParameters();
@@ -186,9 +186,6 @@ public:
     private:
         /// @brief pointer to GNECrossingFrame parent
         GNECrossingFrame* myCrossingFrameParent;
-
-        /// @brief pointer to edge selector
-        GNECrossingFrame::edgesSelector* myEdgeSelector;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
