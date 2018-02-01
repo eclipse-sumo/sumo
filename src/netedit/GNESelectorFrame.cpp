@@ -521,34 +521,58 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(this, "Match Attribute Help", GUIDesignDialogBox);
+    // Create dialog box
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
+    // set help text
     std::ostringstream help;
     help
-            << "The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection "
-            << "according to the current 'Modification Mode'.\n"
-            << "1. Select an object type from the first input box\n"
-            << "2. Select an attribute from the second input box\n"
-            << "3. Enter a 'match expression' in the third input box and press <return>\n"
-            << "\n"
-            << "The empty expression matches all objects\n"
-            << "For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-            << "An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
-            << "\n"
-            << "For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-            << "  '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-            << "  '=' matches if string is an exact match.\n"
-            << "  '!' matches if string is not a substring.\n"
-            << "  '^' matches if string is not an exact match.\n"
-            << "\n"
-            << "Examples:\n"
-            << "junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-            << "junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-            << "edge; speed; '>10' -> match all edges with a speed above 10\n";
-    new FXLabel(helpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
-    // "OK"
-    new FXButton(helpDialog, "OK\t\tSave modifications", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    helpDialog->create();
-    helpDialog->show();
+        << "- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
+        << "  according to the current 'Modification Mode'.\n"
+        << "     1. Select an object type from the first input box\n"
+        << "     2. Select an attribute from the second input box\n"
+        << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+        << "\n"
+        << "- The empty expression matches all objects\n"
+        << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
+        << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+        << "\n"
+        << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
+        << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
+        << "     '=' matches if string is an exact match.\n"
+        << "     '!' matches if string is not a substring.\n"
+        << "     '^' matches if string is not an exact match.\n"
+        << "\n"
+        << "- Examples:\n"
+        << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+        << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
+        << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+    // Create label with the help text
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Opening help dialog of selector frame");
+    }
+    // create Dialog
+    additionalNeteditAttributesHelpDialog->create();
+    // show in the given position
+    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
+    // Write Warning in console if we're in testing mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Close help dialog of selector frame");
+    }
     return 1;
 }
 
