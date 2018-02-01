@@ -13,7 +13,7 @@
 # @author  Jakob Erdmann
 # @author  Daniel Krajzewicz
 # @date    2011-03-04
-# @version $Id$
+# @version $Id: runner.py v0_32_0+0134-9f1b8d0bad namdre.sumo@gmail.com 2018-01-05 13:46:42 +0100 $
 
 
 from __future__ import print_function
@@ -206,6 +206,7 @@ print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
 traci.vehicle.setSpeed(vehID, 20)
 print("speedmode", traci.vehicle.getSpeedMode(vehID))
+print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
 print("leader", traci.vehicle.getLeader("2"))
 traci.vehicle.subscribeLeader("2")
