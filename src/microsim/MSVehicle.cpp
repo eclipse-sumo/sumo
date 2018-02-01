@@ -21,7 +21,7 @@
 /// @author  Christoph Sommer
 /// @author  Leonhard Luecken
 /// @date    Mon, 05 Mar 2001
-/// @version $Id$
+/// @version $Id: MSVehicle.cpp v0_32_0+0181-9ada00fd24 luecken@math.hu-berlin.de 2018-01-16 16:12:30 +0100 $
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
@@ -287,7 +287,7 @@ MSVehicle::Influencer::getSpeedMode() const {
 
 
 int
-MSVehicle::Influencer::getLanechangeMode() const {
+MSVehicle::Influencer::getLaneChangeMode() const {
     return (1 * myStrategicLC +
             4 * myCooperativeLC +
             16 * mySpeedGainLC +

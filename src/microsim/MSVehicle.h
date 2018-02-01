@@ -19,7 +19,7 @@
 /// @author  Axel Wegener
 /// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
+/// @version $Id: MSVehicle.h v0_32_0+0153-b898c05d6a oss@behrisch.de 2018-01-11 12:40:22 +0100 $
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
@@ -1353,7 +1353,7 @@ public:
         int getSpeedMode() const;
 
         /// @brief return the current lane change mode
-        int getLanechangeMode() const;
+        int getLaneChangeMode() const;
 
         /// @brief return the current routing mode
         int getRoutingMode() const {

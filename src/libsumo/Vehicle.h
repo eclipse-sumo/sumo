@@ -11,7 +11,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
-/// @version $Id$
+/// @version $Id: Vehicle.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // C++ Vehicle API
 /****************************************************************************/
@@ -95,7 +95,7 @@ public:
     static double getAllowedSpeed(const std::string& vehicleID);
     static double getSpeedFactor(const std::string& vehicleID);
     static int getSpeedMode(const std::string& vehicleID);
-    static int getLanechangeMode(const std::string& vehicleID);
+    static int getLaneChangeMode(const std::string& vehicleID);
     static int getRoutingMode(const std::string& vehicleID);
     static std::string getLine(const std::string& vehicleID);
     static std::vector<std::string> getVia(const std::string& vehicleID);

@@ -17,7 +17,7 @@
 /// @author  Jakob Erdmann
 /// @author  Robert Hilbrich
 /// @date    07.05.2009
-/// @version $Id$
+/// @version $Id: TraCIServerAPI_Vehicle.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // APIs for getting/setting vehicle values via TraCI
 /****************************************************************************/
@@ -432,7 +432,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 break;
             case VAR_LANECHANGE_MODE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Vehicle::getLanechangeMode(id));
+                tempMsg.writeInt(libsumo::Vehicle::getLaneChangeMode(id));
                 break;
             case VAR_ROUTING_MODE:
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);

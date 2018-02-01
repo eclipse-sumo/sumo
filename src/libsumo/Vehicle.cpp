@@ -10,7 +10,7 @@
 /// @file    Vehicle.cpp
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
-/// @version $Id$
+/// @version $Id: Vehicle.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // C++ Vehicle API
 /****************************************************************************/
@@ -472,8 +472,8 @@ Vehicle::getSpeedMode(const std::string& vehicleID) {
 }
 
 int
-Vehicle::getLanechangeMode(const std::string& vehicleID) {
-    return getVehicle(vehicleID)->getInfluencer().getLanechangeMode();
+Vehicle::getLaneChangeMode(const std::string& vehicleID) {
+    return getVehicle(vehicleID)->getInfluencer().getLaneChangeMode();
 }
 
 int
