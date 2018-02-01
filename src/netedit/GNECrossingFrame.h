@@ -93,9 +93,6 @@ public:
 
         /// @brief called when invert selection button is pressed
         long onCmdInvertSelection(FXObject*, FXSelector, void*);
-
-        /// @brief called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -108,9 +105,6 @@ public:
 
         /// @brief CheckBox for selected edges
         FXButton* myUseSelectedEdges;
-
-        /// @brief button for help
-        FXButton* helpEdges;
 
         /// @brief button for clear selection
         FXButton* myClearEdgesSelection;

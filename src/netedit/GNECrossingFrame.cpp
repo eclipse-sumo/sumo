@@ -63,7 +63,6 @@ FXDEFMAP(GNECrossingFrame::edgesSelector) GNEEdgesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CROSSINGFRAME_USEONLYSELECTEDEDGES,     GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION,     GNECrossingFrame::edgesSelector::onCmdClearSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION,    GNECrossingFrame::edgesSelector::onCmdInvertSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNECrossingFrame::edgesSelector::onCmdHelp),
 };
 
 FXDEFMAP(GNECrossingFrame::crossingParameters) GNECrossingParametersMap[] = {
@@ -103,9 +102,6 @@ GNECrossingFrame::edgesSelector::edgesSelector(FXComposite* parent, GNECrossingF
 
     // Create button for invert selection
     myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION, GUIDesignButton);
-
-    // Create help button
-    helpEdges = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -134,7 +130,6 @@ GNECrossingFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction
         }
     }
     // Enable rest of elements
-    helpEdges->enable();
     myClearEdgesSelection->enable();
     myInvertEdgesSelection->enable();
 }
@@ -146,7 +141,6 @@ GNECrossingFrame::edgesSelector::disableEdgeSelector() {
     myCurrentJunction = NULL;
     // disable all elements of the edgesSelector
     myUseSelectedEdges->disable();
-    helpEdges->disable();
     myClearEdgesSelection->disable();
     myInvertEdgesSelection->disable();
     // Disable crossing parameters
@@ -189,14 +183,6 @@ GNECrossingFrame::edgesSelector::onCmdInvertSelection(FXObject*, FXSelector, voi
     myCrossingFrameParent->getCrossingParameters()->invertEdges(myCurrentJunction);
     return 1;
 }
-
-
-long
-GNECrossingFrame::edgesSelector::onCmdHelp(FXObject*, FXSelector, void*) {
-    // @todo finish
-    return 0;
-}
-
 
 // ---------------------------------------------------------------------------
 // GNECrossingFrame::NeteditAttributes- methods
