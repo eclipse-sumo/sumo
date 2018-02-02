@@ -55,36 +55,36 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEAdditionalFrame) GNEAdditionalMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,    GNEAdditionalFrame::onCmdSelectAdditional),
+FXDEFMAP(GNEAdditionalFrame::AdditionalSelector) SelectorAdditionalMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,    GNEAdditionalFrame::AdditionalSelector::onCmdSelectAdditional),
 };
 
-FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeSingle) GNEsingleAdditionalParameterMap[] = {
+FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeSingle) AdditionalAttributeSingleMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL,   GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute),
 };
 
-FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeList) GNEsingleAdditionalParameterListMap[] = {
+FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeList) AdditionalAttributeListMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ADDROW,                 GNEAdditionalFrame::AdditionalAttributeList::onCmdAddRow),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_REMOVEROW,              GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow),
 };
 
-FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) GNEadditionalParametersMap[] = {
+FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) AdditionalAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAdditionalFrame::AdditionalAttributes::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) GNEEditorParametersMap[] = {
+FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) NeteditAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::NeteditAttributes::onCmdSetLength),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_REFERENCEPOINT,         GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,          GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::NeteditAttributes::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::SelectorParentAdditional) GNEadditionalParentSelectorMap[] = {
+FXDEFMAP(GNEAdditionalFrame::SelectorParentAdditional) SelectorParentAdditionalMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTADDITIONALPARENT, GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent),
 };
 
-FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) GNEedgeParentsSelectorMap[] = {
+FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) SelectorParentEdgesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SHOWONLYSELECTEDEDGES,  GNEAdditionalFrame::SelectorParentEdges::onCmdUseSelectedEdges),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION,     GNEAdditionalFrame::SelectorParentEdges::onCmdClearSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION,    GNEAdditionalFrame::SelectorParentEdges::onCmdInvertSelection),
@@ -92,7 +92,7 @@ FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) GNEedgeParentsSelectorMap[] = 
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTEDGE,             GNEAdditionalFrame::SelectorParentEdges::onCmdSelectEdge),
 };
 
-FXDEFMAP(GNEAdditionalFrame::SelectorParentLanes) GNElaneParentsSelectorMap[] = {
+FXDEFMAP(GNEAdditionalFrame::SelectorParentLanes) SelectorParentLanesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTEDLANES,       GNEAdditionalFrame::SelectorParentLanes::onCmdUseSelectedLanes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARLANESELECTION,     GNEAdditionalFrame::SelectorParentLanes::onCmdClearSelection),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTLANESELECTION,    GNEAdditionalFrame::SelectorParentLanes::onCmdInvertSelection),
@@ -101,43 +101,27 @@ FXDEFMAP(GNEAdditionalFrame::SelectorParentLanes) GNElaneParentsSelectorMap[] = 
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAdditionalFrame,                                 FXVerticalFrame,    GNEAdditionalMap,                       ARRAYNUMBER(GNEAdditionalMap))
-FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeSingle,      FXHorizontalFrame,  GNEsingleAdditionalParameterMap,        ARRAYNUMBER(GNEsingleAdditionalParameterMap))
-FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeList,        FXVerticalFrame,    GNEsingleAdditionalParameterListMap,    ARRAYNUMBER(GNEsingleAdditionalParameterListMap))
-FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributes,           FXGroupBox,         GNEadditionalParametersMap,             ARRAYNUMBER(GNEadditionalParametersMap))
-FXIMPLEMENT(GNEAdditionalFrame::NeteditAttributes,              FXGroupBox,         GNEEditorParametersMap,                 ARRAYNUMBER(GNEEditorParametersMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorParentAdditional,       FXGroupBox,         GNEadditionalParentSelectorMap,         ARRAYNUMBER(GNEadditionalParentSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorParentEdges,            FXGroupBox,         GNEedgeParentsSelectorMap,              ARRAYNUMBER(GNEedgeParentsSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,            FXGroupBox,         GNElaneParentsSelectorMap,              ARRAYNUMBER(GNElaneParentsSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::AdditionalSelector,             FXGroupBox,         SelectorAdditionalMap,          ARRAYNUMBER(SelectorAdditionalMap))
+FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeSingle,      FXHorizontalFrame,  AdditionalAttributeSingleMap,   ARRAYNUMBER(AdditionalAttributeSingleMap))
+FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeList,        FXVerticalFrame,    AdditionalAttributeListMap,     ARRAYNUMBER(AdditionalAttributeListMap))
+FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributes,           FXGroupBox,         AdditionalAttributesMap,        ARRAYNUMBER(AdditionalAttributesMap))
+FXIMPLEMENT(GNEAdditionalFrame::NeteditAttributes,              FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorParentAdditional,       FXGroupBox,         SelectorParentAdditionalMap,    ARRAYNUMBER(SelectorParentAdditionalMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorParentEdges,            FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,            FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
 
-// ===========================================================================
-// method definitions
-// ===========================================================================
 
-GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
-    GNEFrame(horizontalFrameParent, viewNet, "Additionals"),
-    myActualAdditionalType(SUMO_TAG_NOTHING) {
+// ---------------------------------------------------------------------------
+// GNEAdditionalFrame::AdditionalSelector - methods
+// ---------------------------------------------------------------------------
 
-    // Create groupBox for myAdditionalMatchBox
-    myGroupBoxForMyAdditionalMatchBox = new FXGroupBox(myContentFrame, "Additional element", GUIDesignGroupBoxFrame);
+GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame *additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "Additional element", GUIDesignGroupBoxFrame),
+    myAdditionalFrameParent(additionalFrameParent),
+    myCurrentAdditionalType(SUMO_TAG_NOTHING) {
 
     // Create FXListBox in myGroupBoxForMyAdditionalMatchBox
-    myAdditionalMatchBox = new FXComboBox(myGroupBoxForMyAdditionalMatchBox, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
-
-    // Create additional parameters
-    myadditionalParameters = new GNEAdditionalFrame::AdditionalAttributes(this);
-
-    // Create Netedit parameter
-    myEditorParameters = new GNEAdditionalFrame::NeteditAttributes(this);
-
-    // Create create list for additional Set
-    myAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(this);
-
-    /// Create list for SelectorParentEdges
-    myedgeParentsSelector = new GNEAdditionalFrame::SelectorParentEdges(this);
-
-    /// Create list for SelectorParentLanes
-    mylaneParentsSelector = new GNEAdditionalFrame::SelectorParentLanes(this);
+    myAdditionalMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
 
     // Add options to myAdditionalMatchBox
     for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
@@ -147,413 +131,93 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     // Set visible items
     myAdditionalMatchBox->setNumVisible((int)myAdditionalMatchBox->getNumItems());
 
-    // If there are additionals
-    if (GNEAttributeCarrier::allowedAdditionalTags().size() > 0) {
-        // Set myActualAdditionalType and show
-        myActualAdditionalType = GNEAttributeCarrier::allowedAdditionalTags().front();
-        setParametersOfAdditional(myActualAdditionalType);
-    }
+    // AdditionalSelector is always shown
+    show();
 }
 
 
-GNEAdditionalFrame::~GNEAdditionalFrame() {
-    gSelected.remove2Update();
+GNEAdditionalFrame::AdditionalSelector::~AdditionalSelector() {}
+
+
+SumoXMLTag
+GNEAdditionalFrame::AdditionalSelector::getCurrentAdditionalType() const {
+    return myCurrentAdditionalType;
 }
 
-
-GNEAdditionalFrame::AddAdditionalResult
-GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent) {
-    // check if current selected additional is valid
-    if (myActualAdditionalType == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected additional isn't valid.");
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
-    }
-
-    // Declare map to keep values
-    std::map<SumoXMLAttr, std::string> valuesOfElement = myadditionalParameters->getAttributesAndValues();
-
-    // limit position depending if show grid is enabled
-    Position currentPosition = abstractViewParent->snapToActiveGrid(abstractViewParent->getPositionInformation());
-
-    // Declare pointer to netElements
-    GNEJunction* pointed_junction = NULL;
-    GNEEdge* pointed_edge = NULL;
-    GNELane* pointed_lane = NULL;
-    GNECrossing* pointed_crossing = NULL;
-
-    // Check if additional should be placed over a junction
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_JUNCTION)) {
-        pointed_junction = dynamic_cast<GNEJunction*>(netElement);
-        if (pointed_junction != NULL) {
-            // show warning dialogbox and stop check if input parameters are valid
-            if (myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
-            }
-            // Get attribute junction
-            valuesOfElement[SUMO_ATTR_JUNCTION] = pointed_junction->getID();
-            // Generate id of element based on the junction
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_junction);
-        } else {
-            return ADDADDITIONAL_INVALID_PARENT;
-        }
-    }
-    // Check if additional should be placed over a edge
-    else if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGE)) {
-        // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
-        if (dynamic_cast<GNELane*>(netElement) != NULL) {
-            pointed_edge = &(dynamic_cast<GNELane*>(netElement)->getParentEdge());
-        }
-        if (pointed_edge != NULL) {
-            // show warning dialogbox and stop check if input parameters are valid
-            if (myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
-            }
-            // Get attribute edge
-            valuesOfElement[SUMO_ATTR_EDGE] = pointed_edge->getID();
-            // Generate id of element based on the edge
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_edge);
-        } else {
-            return ADDADDITIONAL_INVALID_PARENT;
-        }
-    }
-    // Check if additional should be placed over a lane
-    else if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANE)) {
-        pointed_lane = dynamic_cast<GNELane*>(netElement);
-        if (pointed_lane != NULL) {
-            // show warning dialogbox and stop check if input parameters are valid
-            if (myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
-            }
-            // Get attribute lane
-            valuesOfElement[SUMO_ATTR_LANE] = pointed_lane->getID();
-            // Generate id of element based on the lane
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_lane);
-        } else {
-            return ADDADDITIONAL_INVALID_PARENT;
-        }
-    }
-    // Check if additional should be placed over a crossing
-    else if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_CROSSING)) {
-        pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
-        if (pointed_crossing != NULL) {
-            // show warning dialogbox and stop check if input parameters are valid
-            if (myadditionalParameters->areValuesValid() == false) {
-                myadditionalParameters->showWarningMessage();
-                return ADDADDITIONAL_INVALID_ARGUMENTS;
-            }
-            // Get attribute crossing
-            valuesOfElement[SUMO_ATTR_CROSSING] = pointed_crossing->getID();
-            // Generate id of element based on the crossing
-            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_crossing);
-        } else {
-            return ADDADDITIONAL_INVALID_PARENT;
-        }
-    } else {
-        // Generate id of element
-        valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
-    }
-
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myadditionalParameters->areValuesValid() == false) {
-        myadditionalParameters->showWarningMessage();
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
-    }
-
-    // Obtain position attribute if wasn't previously setted
-    if (valuesOfElement.find(SUMO_ATTR_POSITION) == valuesOfElement.end()) {
-        if (pointed_edge) {
-            // Obtain position of the mouse over edge
-            double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
-            // If element has a StartPosition and EndPosition over edge, extract attributes
-            if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
-                // First check that current length is valid
-                if (myEditorParameters->isCurrentLengthValid()) {
-                    // check if current reference point is valid
-                    if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                        myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
-                        return ADDADDITIONAL_INVALID_ARGUMENTS;
-                    } else {
-                        // set start and end position
-                        valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myEditorParameters->getLength()));
-                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myEditorParameters->getLength()));
-                    }
-                } else {
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
-                }
-            }
-            // Extract position of lane
-            valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
-        } else if (pointed_lane) {
-            // Obtain position of the mouse over lane
-            double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
-            // If element has a StartPosition and EndPosition over lane, extract attributes
-            if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_ENDPOS)) {
-                // First check that current length is valid
-                if (myEditorParameters->isCurrentLengthValid()) {
-                    // check if current reference point is valid
-                    if (myEditorParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
-                        myadditionalParameters->showWarningMessage("Current selected reference point isn't valid");
-                        return ADDADDITIONAL_INVALID_ARGUMENTS;
-                    } else {
-                        // set start and end position
-                        valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myEditorParameters->getLength()));
-                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myEditorParameters->getLength()));
-                    }
-                } else {
-                    return ADDADDITIONAL_INVALID_ARGUMENTS;
-                }
-            }
-            // Extract position of lane
-            valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
-        } else {
-            // get position in map
-            valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
-        }
-    }
-
-    // If additional has a interval defined by a begin or end, check that is valid
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_STARTTIME) && GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_END)) {
-        double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
-        double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
-        if (begin > end) {
-            myadditionalParameters->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
-        }
-    }
-
-    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
-        valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
-    }
-
-    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.txt
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
-        valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
-    }
-
-    // Save block value if additional can be blocked
-    if (GNEAttributeCarrier::canBlockMovement(myActualAdditionalType)) {
-        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myEditorParameters->isBlockEnabled());
-    }
-
-    // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
-    if ((myActualAdditionalType == SUMO_TAG_DET_ENTRY) || (myActualAdditionalType == SUMO_TAG_DET_EXIT)) {
-        if (myAdditionalParentSelector->getIdSelected() != "") {
-            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
-        } else {
-            myadditionalParameters->showWarningMessage("A " + toString(SUMO_TAG_E3DETECTOR) + " must be selected before insertion of " + toString(myActualAdditionalType) + ".");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
-        }
-    }
-
-    // If element own a list of SelectorParentEdges as attribute
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
-        if (myedgeParentsSelector->isUseSelectedEdgesEnable()) {
-            // Declare a vector of Id's
-            std::vector<std::string> vectorOfIds;
-            // get Selected edges
-            std::vector<GNEEdge*> selectedEdges = myViewNet->getNet()->retrieveEdges(true);
-            // Iterate over selectedEdges and getId
-            for (auto i : selectedEdges) {
-                vectorOfIds.push_back(i->getID());
-            }
-            // Set saved Ids in attribute edges
-            valuesOfElement[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
-        } else {
-            valuesOfElement[SUMO_ATTR_EDGES] = myedgeParentsSelector->getIdsSelected();
-        }
-        // check if attribute has at least one edge
-        if (valuesOfElement[SUMO_ATTR_EDGES] == "") {
-            myadditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
-        }
-    }
-
-    // If element own a list of SelectorParentLanes as attribute
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES)) {
-        if (mylaneParentsSelector->isUseSelectedLanesEnable()) {
-            // Declare a vector of Id's
-            std::vector<std::string> vectorOfIds;
-            // get Selected lanes
-            std::vector<GNELane*> selectedLanes = myViewNet->getNet()->retrieveLanes(true);
-            // Iterate over selectedLanes and getId
-            for (auto i : selectedLanes) {
-                vectorOfIds.push_back(i->getID());
-            }
-            // Set saved Ids in attribute lanes
-            valuesOfElement[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
-        } else {
-            valuesOfElement[SUMO_ATTR_LANES] = mylaneParentsSelector->getIdsSelected();
-        }
-        // check if attribute has at least a lane
-        if (valuesOfElement[SUMO_ATTR_LANES] == "") {
-            myadditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
-        }
-    }
-
-    // Create additional
-    if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myActualAdditionalType, valuesOfElement)) {
-        return ADDADDITIONAL_SUCCESS;
-    } else {
-        return ADDADDITIONAL_INVALID_ARGUMENTS;
-    }
-}
 
 void
-GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
-    myViewNet->getUndoList()->p_begin("delete " + toString(additional->getTag()));
-    // save selection status
-    if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(additional->getGlID());
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
-    }
-    // first remove all additional childs of this additional calling this function recursively
-    while (additional->getAdditionalChilds().size() > 0) {
-        removeAdditional(additional->getAdditionalChilds().front());
-    }
-    // remove additional
-    myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);
-    myViewNet->getUndoList()->p_end();
+GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAdditionalType) {
+    // Set new actualAdditionalType
+    myCurrentAdditionalType = actualAdditionalType;
+    // Check that current additional type is valid
+    if(myCurrentAdditionalType != SUMO_TAG_NOTHING) {
+        // first check if additional can block movement, then show neteditParameters
+        if (GNEAttributeCarrier::canBlockMovement(myCurrentAdditionalType)) {
+            myAdditionalFrameParent->getNeteditAttributes()->show();
+            myAdditionalFrameParent->getNeteditAttributes()->hideLengthAndReferencePoint();
+        } else {
+            myAdditionalFrameParent->getNeteditAttributes()->hide();
+        }
+        // Clear internal attributes
+        myAdditionalFrameParent->getAdditionalParameters()->clearAttributes();
+        // iterate over attributes of myCurrentAdditionalType
+        for (auto i : GNEAttributeCarrier::allowedAttributes(myCurrentAdditionalType)) {
+            // only show attributes that aren't uniques
+            if (!GNEAttributeCarrier::isUnique(myCurrentAdditionalType, i.first)) {
+                myAdditionalFrameParent->getAdditionalParameters()->addAttribute(myCurrentAdditionalType, i.first);
+            } else if (i.first == SUMO_ATTR_ENDPOS) {
+                myAdditionalFrameParent->getNeteditAttributes()->showLengthAndReferencePoint();
+            }
+        }
+        // if there are parameters, show and Recalc groupBox
+        if (myAdditionalFrameParent->getAdditionalParameters()->getNumberOfAddedAttributes() > 0) {
+            myAdditionalFrameParent->getAdditionalParameters()->showAdditionalParameters();
+        } else {
+            myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
+        }
+        // Show myAdditionalParentSelector if we're adding a Entry/Exit
+        if (GNEAttributeCarrier::canHaveParent(myCurrentAdditionalType)) {
+            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(SUMO_TAG_E3DETECTOR, true);
+        } else {
+            myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
+        }
+        // Show SelectorParentEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
+        if (GNEAttributeCarrier::hasAttribute(myCurrentAdditionalType, SUMO_ATTR_EDGES)) {
+            myAdditionalFrameParent->getEdgeParentsSelector()->showList();
+        } else {
+            myAdditionalFrameParent->getEdgeParentsSelector()->hideList();
+        }
+        // Show SelectorParentLanes if we're adding an additional that own the attribute SUMO_ATTR_LANES
+        if (GNEAttributeCarrier::hasAttribute(myCurrentAdditionalType, SUMO_ATTR_LANES)) {
+            myAdditionalFrameParent->getLaneParentsSelector()->showList();
+        } else {
+            myAdditionalFrameParent->getLaneParentsSelector()->hideList();
+        }
+    } else {
+        // hide all groupbox if additional isn't valid
+        myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
+        myAdditionalFrameParent->getNeteditAttributes()->hide();
+        myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
+        myAdditionalFrameParent->getEdgeParentsSelector()->hideList();
+        myAdditionalFrameParent->getLaneParentsSelector()->hideList();
+     }
 }
 
 
 long
-GNEAdditionalFrame::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
-    // declare flag to save if additional name is correct
-    bool additionalNameCorrect = false;
-    // set parameters of additional, if it's correct
+GNEAdditionalFrame::AdditionalSelector::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
+    // Check if value of myAdditionalMatchBox correspond of an allowed additional tags 
     for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {
             myAdditionalMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myadditionalParameters->show();
-            if (GNEAttributeCarrier::canBlockMovement(i)) {
-                myEditorParameters->show();
-            } else {
-                myEditorParameters->hide();
-            }
-            setParametersOfAdditional(i);
-            additionalNameCorrect = true;
+            setCurrentAdditional(i);
+            return 1;
         }
     }
     // if additional name isn't correct, hidde all
-    if (additionalNameCorrect == false) {
-        myActualAdditionalType = SUMO_TAG_NOTHING;
-        myAdditionalMatchBox->setTextColor(FXRGB(255, 0, 0));
-        myadditionalParameters->hide();
-        myEditorParameters->hide();
-        myAdditionalParentSelector->hide();
-        myedgeParentsSelector->hide();
-        mylaneParentsSelector->hide();
-    }
+    setCurrentAdditional(SUMO_TAG_NOTHING);
+    myAdditionalMatchBox->setTextColor(FXRGB(255, 0, 0));
     return 1;
-}
-
-
-void
-GNEAdditionalFrame::show() {
-    // Show frame
-    GNEFrame::show();
-    // Update UseSelectedLane CheckBox
-    myedgeParentsSelector->updateUseSelectedEdges();
-    // Update UseSelectedLane CheckBox
-    mylaneParentsSelector->updateUseSelectedLanes();
-}
-
-
-void
-GNEAdditionalFrame::setParametersOfAdditional(SumoXMLTag actualAdditionalType) {
-    // Set new actualAdditionalType
-    myActualAdditionalType = actualAdditionalType;
-    // Clear internal attributes
-    myadditionalParameters->clearAttributes();
-    // Hide length field and reference point
-    myEditorParameters->hideLengthFieldAndReferecePoint();
-    // Iterate over attributes of myActualAdditionalType
-    for (auto i : GNEAttributeCarrier::allowedAttributes(myActualAdditionalType)) {
-        if (!GNEAttributeCarrier::isUnique(myActualAdditionalType, i.first)) {
-            myadditionalParameters->addAttribute(myActualAdditionalType, i.first);
-        } else if (i.first == SUMO_ATTR_ENDPOS) {
-            myEditorParameters->showLengthFieldAndReferecePoint();
-        }
-    }
-    // if there are parmeters, show and Recalc groupBox
-    if (myadditionalParameters->getNumberOfAddedAttributes() > 0) {
-        myadditionalParameters->showAdditionalParameters();
-    } else {
-        myadditionalParameters->hideAdditionalParameters();
-    }
-    // Show myAdditionalParentSelector if we're adding a Entry/Exit
-    if ((myActualAdditionalType == SUMO_TAG_DET_ENTRY) || (myActualAdditionalType == SUMO_TAG_DET_EXIT)) {
-        myAdditionalParentSelector->showListOfAdditionals(SUMO_TAG_E3DETECTOR, true);
-    } else {
-        myAdditionalParentSelector->hideListOfAdditionals();
-    }
-    // Show SelectorParentEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_EDGES)) {
-        myedgeParentsSelector->showList();
-    } else {
-        myedgeParentsSelector->hideList();
-    }
-    // Show SelectorParentLanes if we're adding an additional that own the attribute SUMO_ATTR_LANES
-    if (GNEAttributeCarrier::hasAttribute(myActualAdditionalType, SUMO_ATTR_LANES)) {
-        mylaneParentsSelector->showList();
-    } else {
-        mylaneParentsSelector->hideList();
-    }
-}
-
-
-std::string
-GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
-    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myActualAdditionalType);
-    if (netElement) {
-        // generate ID using netElement
-        while (myViewNet->getNet()->getAdditional(myActualAdditionalType, toString(myActualAdditionalType) + "_" + netElement->getID() + "_" + toString(additionalIndex)) != NULL) {
-            additionalIndex++;
-        }
-        return toString(myActualAdditionalType) + "_" + netElement->getID() + "_" + toString(additionalIndex);
-    } else {
-        // generate ID without netElement
-        while (myViewNet->getNet()->getAdditional(myActualAdditionalType, toString(myActualAdditionalType) + "_" + toString(additionalIndex)) != NULL) {
-            additionalIndex++;
-        }
-        return toString(myActualAdditionalType) + "_" + toString(additionalIndex);
-    }
-}
-
-
-double
-GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) {
-    switch (myEditorParameters->getActualReferencePoint()) {
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
-            return positionOfTheMouseOverLane;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
-            return positionOfTheMouseOverLane - lengthOfAdditional;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
-            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
-        default:
-            throw InvalidArgument("Reference Point invalid");
-    }
-}
-
-
-double
-GNEAdditionalFrame::setEndPosition(double /*laneLength*/, double positionOfTheMouseOverLane, double lengthOfAdditional) {
-    switch (myEditorParameters->getActualReferencePoint()) {
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
-            return positionOfTheMouseOverLane + lengthOfAdditional;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
-            return positionOfTheMouseOverLane;
-        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
-            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
-        default:
-            throw InvalidArgument("Reference Point invalid");
-    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1140,15 +804,16 @@ GNEAdditionalFrame::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEAdditionalFrame::NeteditAttributes::showLengthFieldAndReferecePoint() {
+GNEAdditionalFrame::NeteditAttributes::showLengthAndReferencePoint() {
     myLengthLabel->show();
     myLengthTextField->show();
     myReferencePointMatchBox->show();
+    show();
 }
 
 
 void
-GNEAdditionalFrame::NeteditAttributes::hideLengthFieldAndReferecePoint() {
+GNEAdditionalFrame::NeteditAttributes::hideLengthAndReferencePoint() {
     myLengthLabel->hide();
     myLengthTextField->hide();
     myReferencePointMatchBox->hide();
@@ -1295,6 +960,40 @@ GNEAdditionalFrame::getIdsSelected(const FXList* list) {
 }
 
 
+GNEAdditionalFrame::AdditionalSelector*
+GNEAdditionalFrame::getAdditionalSelector() const {
+    return myAdditionalSelector;
+}
+
+
+GNEAdditionalFrame::AdditionalAttributes*
+GNEAdditionalFrame::getAdditionalParameters() const {
+    return myAdditionalParameters;
+}
+
+
+GNEAdditionalFrame::NeteditAttributes*
+GNEAdditionalFrame::getNeteditAttributes() const {
+    return myNeteditParameters;
+}
+
+
+GNEAdditionalFrame::SelectorParentAdditional* 
+GNEAdditionalFrame::getAdditionalParentSelector() const {
+    return myAdditionalParentSelector;
+}
+
+
+GNEAdditionalFrame::SelectorParentEdges* 
+GNEAdditionalFrame::getEdgeParentsSelector() const {
+    return myEdgeParentsSelector;
+}
+
+
+GNEAdditionalFrame::SelectorParentLanes* 
+GNEAdditionalFrame::getLaneParentsSelector() const {
+    return myLaneParentsSelector;
+}
 
 // ---------------------------------------------------------------------------
 // GNEAdditionalFrame::SelectorParentAdditional - methods
@@ -1643,6 +1342,367 @@ GNEAdditionalFrame::SelectorParentLanes::onCmdInvertSelection(FXObject*, FXSelec
         }
     }
     return 1;
+}
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
+GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+    GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
+
+    // create Additional Selector
+    myAdditionalSelector = new GNEAdditionalFrame::AdditionalSelector(this);
+
+    // Create additional parameters
+    myAdditionalParameters = new GNEAdditionalFrame::AdditionalAttributes(this);
+
+    // Create Netedit parameter
+    myNeteditParameters = new GNEAdditionalFrame::NeteditAttributes(this);
+
+    // Create create list for additional Set
+    myAdditionalParentSelector = new GNEAdditionalFrame::SelectorParentAdditional(this);
+
+    /// Create list for SelectorParentEdges
+    myEdgeParentsSelector = new GNEAdditionalFrame::SelectorParentEdges(this);
+
+    /// Create list for SelectorParentLanes
+    myLaneParentsSelector = new GNEAdditionalFrame::SelectorParentLanes(this);
+
+    // set BusStop as default additional
+    myAdditionalSelector->setCurrentAdditional(SUMO_TAG_BUS_STOP);
+}
+
+
+GNEAdditionalFrame::~GNEAdditionalFrame() {
+    gSelected.remove2Update();
+}
+
+
+GNEAdditionalFrame::AddAdditionalResult
+GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent) {
+    // check if current selected additional is valid
+    if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
+        myViewNet->setStatusBarText("Current selected additional isn't valid.");
+        return ADDADDITIONAL_INVALID_ARGUMENTS;
+    }
+
+    // Declare map to keep values
+    std::map<SumoXMLAttr, std::string> valuesOfElement = myAdditionalParameters->getAttributesAndValues();
+
+    // limit position depending if show grid is enabled
+    Position currentPosition = abstractViewParent->snapToActiveGrid(abstractViewParent->getPositionInformation());
+
+    // Declare pointer to netElements
+    GNEJunction* pointed_junction = NULL;
+    GNEEdge* pointed_edge = NULL;
+    GNELane* pointed_lane = NULL;
+    GNECrossing* pointed_crossing = NULL;
+
+    // Check if additional should be placed over a junction
+    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_JUNCTION)) {
+        pointed_junction = dynamic_cast<GNEJunction*>(netElement);
+        if (pointed_junction != NULL) {
+            // show warning dialogbox and stop check if input parameters are valid
+            if (myAdditionalParameters->areValuesValid() == false) {
+                myAdditionalParameters->showWarningMessage();
+                return ADDADDITIONAL_INVALID_ARGUMENTS;
+            }
+            // Get attribute junction
+            valuesOfElement[SUMO_ATTR_JUNCTION] = pointed_junction->getID();
+            // Generate id of element based on the junction
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_junction);
+        } else {
+            return ADDADDITIONAL_INVALID_PARENT;
+        }
+    }
+    // Check if additional should be placed over a edge
+    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGE)) {
+        // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
+        if (dynamic_cast<GNELane*>(netElement) != NULL) {
+            pointed_edge = &(dynamic_cast<GNELane*>(netElement)->getParentEdge());
+        }
+        if (pointed_edge != NULL) {
+            // show warning dialogbox and stop check if input parameters are valid
+            if (myAdditionalParameters->areValuesValid() == false) {
+                myAdditionalParameters->showWarningMessage();
+                return ADDADDITIONAL_INVALID_ARGUMENTS;
+            }
+            // Get attribute edge
+            valuesOfElement[SUMO_ATTR_EDGE] = pointed_edge->getID();
+            // Generate id of element based on the edge
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_edge);
+        } else {
+            return ADDADDITIONAL_INVALID_PARENT;
+        }
+    }
+    // Check if additional should be placed over a lane
+    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_LANE)) {
+        pointed_lane = dynamic_cast<GNELane*>(netElement);
+        if (pointed_lane != NULL) {
+            // show warning dialogbox and stop check if input parameters are valid
+            if (myAdditionalParameters->areValuesValid() == false) {
+                myAdditionalParameters->showWarningMessage();
+                return ADDADDITIONAL_INVALID_ARGUMENTS;
+            }
+            // Get attribute lane
+            valuesOfElement[SUMO_ATTR_LANE] = pointed_lane->getID();
+            // Generate id of element based on the lane
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_lane);
+        } else {
+            return ADDADDITIONAL_INVALID_PARENT;
+        }
+    }
+    // Check if additional should be placed over a crossing
+    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_CROSSING)) {
+        pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
+        if (pointed_crossing != NULL) {
+            // show warning dialogbox and stop check if input parameters are valid
+            if (myAdditionalParameters->areValuesValid() == false) {
+                myAdditionalParameters->showWarningMessage();
+                return ADDADDITIONAL_INVALID_ARGUMENTS;
+            }
+            // Get attribute crossing
+            valuesOfElement[SUMO_ATTR_CROSSING] = pointed_crossing->getID();
+            // Generate id of element based on the crossing
+            valuesOfElement[SUMO_ATTR_ID] = generateID(pointed_crossing);
+        } else {
+            return ADDADDITIONAL_INVALID_PARENT;
+        }
+    } else {
+        // Generate id of element
+        valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
+    }
+
+    // show warning dialogbox and stop check if input parameters are valid
+    if (myAdditionalParameters->areValuesValid() == false) {
+        myAdditionalParameters->showWarningMessage();
+        return ADDADDITIONAL_INVALID_ARGUMENTS;
+    }
+
+    // Obtain position attribute if wasn't previously setted
+    if (valuesOfElement.find(SUMO_ATTR_POSITION) == valuesOfElement.end()) {
+        if (pointed_edge) {
+            // Obtain position of the mouse over edge
+            double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
+            // If element has a StartPosition and EndPosition over edge, extract attributes
+            if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_ENDPOS)) {
+                // First check that current length is valid
+                if (myNeteditParameters->isCurrentLengthValid()) {
+                    // check if current reference point is valid
+                    if (myNeteditParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                        myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
+                        return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    } else {
+                        // set start and end position
+                        valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
+                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_edge->getLanes().at(0)->getLaneShapeLength(), positionOfTheMouseOverEdge, myNeteditParameters->getLength()));
+                    }
+                }
+                else {
+                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                }
+            }
+            // Extract position of lane
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverEdge);
+        }
+        else if (pointed_lane) {
+            // Obtain position of the mouse over lane
+            double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
+            // If element has a StartPosition and EndPosition over lane, extract attributes
+            if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_ENDPOS)) {
+                // First check that current length is valid
+                if (myNeteditParameters->isCurrentLengthValid()) {
+                    // check if current reference point is valid
+                    if (myNeteditParameters->getActualReferencePoint() == NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+                        myAdditionalParameters->showWarningMessage("Current selected reference point isn't valid");
+                        return ADDADDITIONAL_INVALID_ARGUMENTS;
+                    }
+                    else {
+                        // set start and end position
+                        valuesOfElement[SUMO_ATTR_STARTPOS] = toString(setStartPosition(positionOfTheMouseOverLane, myNeteditParameters->getLength()));
+                        valuesOfElement[SUMO_ATTR_ENDPOS] = toString(setEndPosition(pointed_lane->getLaneShapeLength(), positionOfTheMouseOverLane, myNeteditParameters->getLength()));
+                    }
+                } else {
+                    return ADDADDITIONAL_INVALID_ARGUMENTS;
+                }
+            }
+            // Extract position of lane
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(positionOfTheMouseOverLane);
+        }
+        else {
+            // get position in map
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(currentPosition);
+        }
+    }
+
+    // If additional has a interval defined by a begin or end, check that is valid
+    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_STARTTIME) && GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_END)) {
+        double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
+        double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
+        if (begin > end) {
+            myAdditionalParameters->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+            return ADDADDITIONAL_INVALID_ARGUMENTS;
+        }
+    }
+
+    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt
+    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
+        valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
+    }
+
+    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.txt
+    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
+        valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
+    }
+
+    // Save block value if additional can be blocked
+    if (GNEAttributeCarrier::canBlockMovement(myAdditionalSelector->getCurrentAdditionalType())) {
+        valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditParameters->isBlockEnabled());
+    }
+
+    // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
+    if ((myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_DET_ENTRY) || (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_DET_EXIT)) {
+        if (myAdditionalParentSelector->getIdSelected() != "") {
+            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
+        } else {
+            myAdditionalParameters->showWarningMessage("A " + toString(SUMO_TAG_E3DETECTOR) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
+            return ADDADDITIONAL_INVALID_ARGUMENTS;
+        }
+    }
+
+    // If element own a list of SelectorParentEdges as attribute
+    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGES)) {
+        if (myEdgeParentsSelector->isUseSelectedEdgesEnable()) {
+            // Declare a vector of Id's
+            std::vector<std::string> vectorOfIds;
+            // get Selected edges
+            std::vector<GNEEdge*> selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+            // Iterate over selectedEdges and getId
+            for (auto i : selectedEdges) {
+                vectorOfIds.push_back(i->getID());
+            }
+            // Set saved Ids in attribute edges
+            valuesOfElement[SUMO_ATTR_EDGES] = joinToString(vectorOfIds, " ");
+        } else {
+            valuesOfElement[SUMO_ATTR_EDGES] = myEdgeParentsSelector->getIdsSelected();
+        }
+        // check if attribute has at least one edge
+        if (valuesOfElement[SUMO_ATTR_EDGES] == "") {
+            myAdditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
+            return ADDADDITIONAL_INVALID_ARGUMENTS;
+        }
+    }
+
+    // If element own a list of SelectorParentLanes as attribute
+    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_LANES)) {
+        if (myLaneParentsSelector->isUseSelectedLanesEnable()) {
+            // Declare a vector of Id's
+            std::vector<std::string> vectorOfIds;
+            // get Selected lanes
+            std::vector<GNELane*> selectedLanes = myViewNet->getNet()->retrieveLanes(true);
+            // Iterate over selectedLanes and getId
+            for (auto i : selectedLanes) {
+                vectorOfIds.push_back(i->getID());
+            }
+            // Set saved Ids in attribute lanes
+            valuesOfElement[SUMO_ATTR_LANES] = joinToString(vectorOfIds, " ");
+        } else {
+            valuesOfElement[SUMO_ATTR_LANES] = myLaneParentsSelector->getIdsSelected();
+        }
+        // check if attribute has at least a lane
+        if (valuesOfElement[SUMO_ATTR_LANES] == "") {
+            myAdditionalParameters->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
+            return ADDADDITIONAL_INVALID_ARGUMENTS;
+        }
+    }
+
+    // Create additional
+    if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesOfElement)) {
+        return ADDADDITIONAL_SUCCESS;
+    } else {
+        return ADDADDITIONAL_INVALID_ARGUMENTS;
+    }
+}
+
+void
+GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
+    myViewNet->getUndoList()->p_begin("delete " + toString(additional->getTag()));
+    // save selection status
+    if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID())) {
+        std::set<GUIGlID> deselected;
+        deselected.insert(additional->getGlID());
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
+    }
+    // first remove all additional childs of this additional calling this function recursively
+    while (additional->getAdditionalChilds().size() > 0) {
+        removeAdditional(additional->getAdditionalChilds().front());
+    }
+    // remove additional
+    myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);
+    myViewNet->getUndoList()->p_end();
+}
+
+
+void
+GNEAdditionalFrame::show() {
+    // Show frame
+    GNEFrame::show();
+    // Update UseSelectedLane CheckBox
+    myEdgeParentsSelector->updateUseSelectedEdges();
+    // Update UseSelectedLane CheckBox
+    myLaneParentsSelector->updateUseSelectedLanes();
+}
+
+
+std::string
+GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
+    // obtain current number of additionals to generate a new index faster
+    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myAdditionalSelector->getCurrentAdditionalType());
+    std::string currentAdditionalTypeStr = toString(myAdditionalSelector->getCurrentAdditionalType());
+    if (netElement) {
+        // generate ID using netElement
+        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex)) != NULL) {
+            additionalIndex++;
+        }
+        return currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex);
+    } else {
+        // generate ID without netElement
+        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + toString(additionalIndex)) != NULL) {
+            additionalIndex++;
+        }
+        return currentAdditionalTypeStr + "_" + toString(additionalIndex);
+    }
+}
+
+
+double
+GNEAdditionalFrame::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) {
+    switch (myNeteditParameters->getActualReferencePoint()) {
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane;
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane - lengthOfAdditional;
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
+        default:
+            throw InvalidArgument("Reference Point invalid");
+    }
+}
+
+
+double
+GNEAdditionalFrame::setEndPosition(double /*laneLength*/, double positionOfTheMouseOverLane, double lengthOfAdditional) {
+    switch (myNeteditParameters->getActualReferencePoint()) {
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_LEFT:
+            return positionOfTheMouseOverLane + lengthOfAdditional;
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+            return positionOfTheMouseOverLane;
+        case NeteditAttributes::GNE_ADDITIONALREFERENCEPOINT_CENTER:
+            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
+        default:
+            throw InvalidArgument("Reference Point invalid");
+    }
 }
 
 /****************************************************************************/

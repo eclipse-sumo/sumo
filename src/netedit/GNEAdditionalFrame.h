@@ -44,8 +44,6 @@ class GNEAdditional;
  * The Widget for setting internal attributes of additional elements
  */
 class GNEAdditionalFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEAdditionalFrame)
 
 public:
 
@@ -54,6 +52,48 @@ public:
         ADDADDITIONAL_INVALID_ARGUMENTS,    // Parameters of additionals are invalid
         ADDADDITIONAL_INVALID_PARENT,       // NetElement parent is invalid
         ADDADDITIONAL_SUCCESS               // additional was successfully created
+    };
+
+    // ===========================================================================
+    // class AdditionalSelector
+    // ===========================================================================
+
+    class AdditionalSelector : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEAdditionalFrame::AdditionalSelector)
+
+    public:
+        /// @brief constructor
+        AdditionalSelector(GNEAdditionalFrame *additionalFrameParent);
+
+        /// @brief destructor
+        ~AdditionalSelector();
+
+        /// @brief get current additional type
+        SumoXMLTag getCurrentAdditionalType() const;
+
+        /// @brief set parameters depending of the given additionalType
+        void setCurrentAdditional(SumoXMLTag actualAdditionalType);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another additional Type
+        long onCmdSelectAdditional(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        AdditionalSelector() {}
+
+    private:
+        /// @brief pointer to Additional Frame Parent
+        GNEAdditionalFrame * myAdditionalFrameParent;
+
+        /// @brief combo box with the list of additional elements
+        FXComboBox* myAdditionalMatchBox;
+
+        /// @brief actual additional type selected in the match Box
+        SumoXMLTag myCurrentAdditionalType;
     };
 
     // ===========================================================================
@@ -323,10 +363,10 @@ public:
         ~NeteditAttributes();
 
         /// @brief show length field and reference point
-        void showLengthFieldAndReferecePoint();
+        void showLengthAndReferencePoint();
 
         /// @brief hide length field
-        void hideLengthFieldAndReferecePoint();
+        void hideLengthAndReferencePoint();
 
         /// @brief get actual reference point
         additionalReferencePoint getActualReferencePoint() const;
@@ -598,12 +638,6 @@ public:
      */
     void removeAdditional(GNEAdditional* additional);
 
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user select another additional Type
-    long onCmdSelectAdditional(FXObject*, FXSelector, void*);
-    /// @}
-
     /// @brief show additional frame and update use selected edges/lanes
     void show();
 
@@ -611,13 +645,25 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
 protected:
-    /// @brief FOX needs this
-    GNEAdditionalFrame() {}
+    /// @brief get additional selector
+    AdditionalSelector *getAdditionalSelector() const;
+
+    /// @brief get additional attributes
+    AdditionalAttributes *getAdditionalParameters() const;
+
+    /// @brief get netedit attributes
+    NeteditAttributes *getNeteditAttributes() const;
+
+    /// @brief get additional parent selector
+    SelectorParentAdditional* getAdditionalParentSelector() const;
+
+    /// @brief get edge parents selector
+    SelectorParentEdges* getEdgeParentsSelector() const;
+
+    /// @brief get lane parents selector
+    SelectorParentLanes* getLaneParentsSelector() const;
 
 private:
-    /// @brief set parameters depending of the new additionalType
-    void setParametersOfAdditional(SumoXMLTag actualAdditionalType);
-
     /// @brief generate a ID for an additiona element
     std::string generateID(GNENetElement* netElement) const;
 
@@ -627,29 +673,23 @@ private:
     /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
     double setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional);
 
-    /// @brief groupBox for Match Box of additionals
-    FXGroupBox* myGroupBoxForMyAdditionalMatchBox;
-
-    /// @brief combo box with the list of additional elements
-    FXComboBox* myAdditionalMatchBox;
+    /// @brief additional selector
+    GNEAdditionalFrame::AdditionalSelector* myAdditionalSelector;
 
     /// @brief additional internal attributes
-    GNEAdditionalFrame::AdditionalAttributes* myadditionalParameters;
+    GNEAdditionalFrame::AdditionalAttributes* myAdditionalParameters;
 
     /// @brief Netedit parameter
-    GNEAdditionalFrame::NeteditAttributes* myEditorParameters;
+    GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
 
     /// @brief list of additional Set
     GNEAdditionalFrame::SelectorParentAdditional* myAdditionalParentSelector;
 
     /// @brief list of SelectorParentEdges
-    GNEAdditionalFrame::SelectorParentEdges* myedgeParentsSelector;
+    GNEAdditionalFrame::SelectorParentEdges* myEdgeParentsSelector;
 
     /// @brief list of SelectorParentLanes
-    GNEAdditionalFrame::SelectorParentLanes* mylaneParentsSelector;
-
-    /// @brief actual additional type selected in the match Box
-    SumoXMLTag myActualAdditionalType;
+    GNEAdditionalFrame::SelectorParentLanes* myLaneParentsSelector;
 };
 
 
