@@ -1885,7 +1885,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //   vehicle 'decides' to accelerate and cannot enter the junction in
         //   the next step, new foes may appear and cause a collision (see #1096)
         // - major links: stopping point is irrelevant
-        const double laneStopOffset = yellowOrRed || (*link)->havePriority() ? DIST_TO_STOPLINE_EXPECT_PRIORITY : POSITION_EPS;
+        const double laneStopOffset = yellowOrRed || (*link)->havePriority() ? MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this)): MAX2(POSITION_EPS, lane->getStopOffset(this));
+
         const double stopDist = MAX2(0., seen - laneStopOffset);
         // check whether we need to slow down in order to finish a continuous lane change
         if (getLaneChangeModel().isChangingLanes()) {
