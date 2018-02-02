@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Tue, 11.05.2011
 /// @version $Id$
 ///
@@ -234,6 +235,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificPermissions()) {
             writePermissions(edevice, e->getPermissions(0));
         }
+        if (!e->hasLaneSpecificStopOffsets()) {
+            NWWriter_SUMO::writeStopOffsets(edevice, e->getStopOffsets());
+        }
         if (e->needsLaneSpecificOutput()) {
             for (int i = 0; i < (int)e->getLanes().size(); ++i) {
                 const NBEdge::Lane& lane = e->getLanes()[i];
@@ -266,6 +270,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
                     edevice.closeTag();
                 }
                 lane.writeParams(edevice);
+                NWWriter_SUMO::writeStopOffsets(edevice, lane.stopOffsets);
                 edevice.closeTag();
             }
         }

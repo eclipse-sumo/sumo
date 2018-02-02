@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Tue, 04.05.2011
 /// @version $Id$
 ///
@@ -98,6 +99,12 @@ public:
     static void writeRoundabouts(OutputDevice& into, const std::set<EdgeSet>& roundabouts,
                                  const NBEdgeCont& ec);
 
+
+    /** @brief Write a stopOffset element into output device
+     */
+    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions,double>& stopOffsets);
+
+
 private:
     /// @name Methods for writing network parts
     /// @{
@@ -131,7 +138,7 @@ private:
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
-                          double endOffset, double width, PositionVector shape,
+                          double endOffset, std::map<SVCPermissions,double> stopOffsets, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, bool accelRamp = false,
                           bool customShape = false);
