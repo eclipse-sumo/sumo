@@ -44,8 +44,6 @@ class GNEShape;
 * The Widget for setting internal attributes of shape elements
 */
 class GNEPolygonFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEPolygonFrame)
 
 public:
 
@@ -54,7 +52,49 @@ public:
         ADDSHAPE_SUCCESS,   // Shape was successfully created
         ADDSHAPE_NEWPOINT,  // New point was sucesfully added to temporal shape
         ADDSHAPE_INVALID,   // Shape wasn't created
-        ADDSHAPE_NOTHING    //  Nothing to do
+        ADDSHAPE_NOTHING    // Nothing to do
+    };
+
+    // ===========================================================================
+    // class ShapeSelector
+    // ===========================================================================
+
+    class ShapeSelector : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEPolygonFrame::ShapeSelector)
+
+    public:
+        /// @brief constructor
+        ShapeSelector(GNEPolygonFrame *shapeFrameParent);
+
+        /// @brief destructor
+        ~ShapeSelector();
+
+        /// @brief get current shape type
+        SumoXMLTag getCurrentShapeType() const;
+
+        /// @brief set parameters depending of the given shapeType
+        void setCurrentShape(SumoXMLTag actualShapeType);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another shape Type
+        long onCmdSelectShape(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ShapeSelector() {}
+
+    private:
+        /// @brief pointer to Shape Frame Parent
+        GNEPolygonFrame * myShapeFrameParent;
+
+        /// @brief combo box with the list of shape elements
+        FXComboBox* myShapeMatchBox;
+
+        /// @brief actual shape type selected in the match Box
+        SumoXMLTag myCurrentShapeType;
     };
 
     // ===========================================================================
@@ -146,7 +186,6 @@ public:
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
     };
-
 
     // ===========================================================================
     // class ShapeAttributes
@@ -292,7 +331,6 @@ public:
         FXCheckButton* myClosePolygonCheckButton;
     };
 
-
     // ===========================================================================
     // class DrawingMode
     // ===========================================================================
@@ -393,28 +431,22 @@ public:
      */
     bool buildPoly(const PositionVector& drawedShape);
 
-    /// @brief get netedit attributes editor
-    GNEPolygonFrame::NeteditAttributes* getNeteditAttributes() const;
-
-    /// @brief get drawing mode editor
-    GNEPolygonFrame::DrawingMode* getDrawingMode() const;
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user select another shape Type
-    long onCmdSelectShape(FXObject*, FXSelector, void*);
-    /// @}
-
     /// @brief show shape frame and update use selected edges/lanes
     void show();
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
 
-protected:
-    /// @brief FOX needs this
-    GNEPolygonFrame() {}
+    /// @brief get shape attributes
+    ShapeAttributes* getShapeAttributes() const;
 
+    /// @brief get netedit attributes editor
+    NeteditAttributes* getNeteditAttributes() const;
+
+    /// @brief get drawing mode editor
+    DrawingMode* getDrawingMode() const;
+
+protected:
     /// @brief add Polygon
     bool addPolygon(const std::map<SumoXMLAttr, std::string>& POIValues);
 
@@ -425,26 +457,17 @@ protected:
     bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
 
 private:
-    /// @brief Netedit parameter
-    GNEPolygonFrame::NeteditAttributes* myNeteditAttributes;
-
-    /// @brief drawing mode
-    GNEPolygonFrame::DrawingMode* myDrawingMode;
-
-    /// @brief set parameters depending of the new shapeType
-    void setParametersOfShape(SumoXMLTag actualShapeType);
-
-    /// @brief groupBox for Match Box of shapes
-    FXGroupBox* myGroupBoxForMyShapeMatchBox;
-
-    /// @brief combo box with the list of shape elements
-    FXComboBox* myShapeMatchBox;
+    /// @brief additional selector
+    ShapeSelector* myShapeSelector;
 
     /// @brief shape internal attributes
-    GNEPolygonFrame::ShapeAttributes* myShapeAttributes;
+    ShapeAttributes* myShapeAttributes;
 
-    /// @brief actual shape type selected in the match Box
-    SumoXMLTag myActualShapeType;
+    /// @brief Netedit parameter
+    NeteditAttributes* myNeteditAttributes;
+
+    /// @brief drawing mode
+    DrawingMode* myDrawingMode;
 };
 
 
