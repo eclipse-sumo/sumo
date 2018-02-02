@@ -1270,6 +1270,12 @@ GNEViewNet::getCurrentEditMode() const {
 }
 
 
+FXMenuCheck* 
+GNEViewNet::getMenuCheckShowGrid() const {
+    return myMenuCheckShowGrid;
+}
+
+
 bool
 GNEViewNet::showLockIcon() const {
     return (myEditMode == GNE_MODE_MOVE || myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_ADDITIONAL);
@@ -2298,7 +2304,7 @@ GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdShowGrid(FXObject*, FXSelector sel, void*) {
     // show or hidde grid depending of myMenuCheckShowGrid
     if (myMenuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;

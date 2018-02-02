@@ -268,6 +268,9 @@ public:
     /// @brief called if the user press key v to open zoom editor
     long onCmdEditViewport(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user press key combination Ctrl + G to toogle grid
+    long onCmdToogleGrid(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 

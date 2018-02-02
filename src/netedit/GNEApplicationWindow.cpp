@@ -175,7 +175,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // key events
     FXMAPFUNC(SEL_KEYPRESS,     0,                                          GNEApplicationWindow::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,   0,                                          GNEApplicationWindow::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,                                  GNEApplicationWindow::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,                             GNEApplicationWindow::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                             GNEApplicationWindow::onCmdDel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,                           GNEApplicationWindow::onCmdEnter),
 
@@ -184,7 +184,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,                  GNEApplicationWindow::onLoadThreadEvent),
 
     // Other
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_FOCUSFRAME,                            GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_FOCUSFRAME,                      GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_TOOGLE_GRID,                     GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                                     GNEApplicationWindow::onClipboardRequest),
@@ -290,6 +291,7 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
     getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_FOCUSFRAME));
     getAccelTable()->addAccel(parseAccel("v"), this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));
+    getAccelTable()->addAccel(parseAccel("ctrl+G"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));
 }
 
 void
@@ -1192,6 +1194,31 @@ long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
     if (getView()) {
         getView()->showViewportEditor();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
+    // only toogle grid if there is a GNEViewNet
+    if (getView() != NULL) {
+        // Toogle getMenuCheckShowGrid of GNEViewNet
+        if(getView()->getMenuCheckShowGrid()->getCheck() == 1) {
+            getView()->getMenuCheckShowGrid()->setCheck(0);
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Disabled grid throught Ctrl+g hotkey");
+            }
+        } else {
+            getView()->getMenuCheckShowGrid()->setCheck(1);
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
+            }
+        }
+        // Call manually show grid function
+        getView()->onCmdShowGrid(0,0,0);
     }
     return 1;
 }

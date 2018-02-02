@@ -321,6 +321,9 @@ public:
     /// @brief get the current edit mode
     EditMode getCurrentEditMode() const;
 
+    /// @brief get grid button
+    FXMenuCheck* getMenuCheckShowGrid() const;
+
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
 

@@ -413,6 +413,8 @@ enum {
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER> accept current operation
     MID_GNE_HOTKEY_ENTER,
+    /// @brief hot key <Ctrl + G> for toogle grid
+    MID_GNE_HOTKEY_TOOGLE_GRID,
     /// @}
 
 
