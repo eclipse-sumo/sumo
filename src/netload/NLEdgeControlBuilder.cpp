@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
@@ -48,7 +49,7 @@
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
-    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0) {
+    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0), myCurrentLaneIndex(-1), myCurrentDefaultStopOffsets() {
     myActiveEdge = (MSEdge*) 0;
     myLaneStorage = new std::vector<MSLane*>();
 }
@@ -82,7 +83,70 @@ NLEdgeControlBuilder::addLane(const std::string& id,
                               SVCPermissions permissions, int index, bool isRampAccel) {
     MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index, isRampAccel);
     myLaneStorage->push_back(lane);
+    myCurrentLaneIndex = index;
     return lane;
+}
+
+
+void
+NLEdgeControlBuilder::addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
+    if (myCurrentLaneIndex == -1) {
+        setDefaultStopOffsets(stopOffsets);
+    } else {
+        updateCurrentLaneStopOffsets(stopOffsets);
+    }
+}
+
+
+
+std::string
+NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
+    std::stringstream ss;
+    if (myCurrentLaneIndex!=-1) {
+        ss << "lane " << myCurrentLaneIndex << " of ";
+    }
+    ss << "edge '" << myActiveEdge->getID() << "'";
+    return ss.str();
+}
+
+
+void
+NLEdgeControlBuilder::updateCurrentLaneStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
+    assert(myLaneStorage->size()!=0);
+    if (stopOffsets.size()==0) {
+        return;
+    }
+    if (myLaneStorage->back()->getStopOffsets().size() != 0) {
+        std::stringstream ss;
+        ss << "Duplicate stopOffset definition for lane " << myLaneStorage->back()->getIndex() << " on edge " << myActiveEdge->getID() << "!";
+        WRITE_WARNING(ss.str())
+    }
+    myLaneStorage->back()->setStopOffsets(stopOffsets);
+}
+
+
+void
+NLEdgeControlBuilder::setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
+    if (myCurrentDefaultStopOffsets.size() != 0) {
+        std::stringstream ss;
+        ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << "!";
+        WRITE_WARNING(ss.str())
+    }
+    myCurrentDefaultStopOffsets = stopOffsets;
+}
+
+
+void
+NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
+    assert(myActiveEdge!=0);
+    if (myCurrentDefaultStopOffsets.size()==0) {
+        return;
+    }
+    for (MSLane* l : *myLaneStorage) {
+        if (l->getStopOffsets().size() == 0){
+            l->setStopOffsets(myCurrentDefaultStopOffsets);
+        }
+    }
 }
 
 
@@ -94,12 +158,20 @@ NLEdgeControlBuilder::addNeigh(const std::string id) {
 
 MSEdge*
 NLEdgeControlBuilder::closeEdge() {
+    applyDefaultStopOffsetsToLanes();
     std::vector<MSLane*>* lanes = new std::vector<MSLane*>();
     lanes->reserve(myLaneStorage->size());
     copy(myLaneStorage->begin(), myLaneStorage->end(), back_inserter(*lanes));
     myLaneStorage->clear();
     myActiveEdge->initialize(lanes);
+    myCurrentDefaultStopOffsets.clear();
     return myActiveEdge;
+}
+
+
+void
+NLEdgeControlBuilder::closeLane() {
+    myCurrentLaneIndex=-1;
 }
 
 

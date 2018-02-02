@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
@@ -82,7 +83,8 @@ public:
      * @exception InvalidArgument If an edge with the same name was already built
      */
     void beginEdgeParsing(const std::string& id, const SumoXMLEdgeFunc function,
-                          const std::string& streetName, const std::string& edgeType, int priority);
+                          const std::string& streetName, const std::string& edgeType,
+                          int priority);
 
 
     /** @brief Adds a lane to the current edge
@@ -100,7 +102,17 @@ public:
      */
     virtual MSLane* addLane(const std::string& id, double maxSpeed,
                             double length, const PositionVector& shape,
-                            double width, SVCPermissions permissions, int index, bool isRampAccel);
+                            double width,
+                            SVCPermissions permissions, int index, bool isRampAccel);
+
+    /** @brief process a stopOffset element (originates either from the active edge or lane).
+     */
+    void addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets);
+
+
+    /** @brief Return info about currently processed edge or lane
+     */
+    std::string reportCurrentEdgeOrLane() const;
 
 
     /** @brief Adds a neighbor to the current lane
@@ -114,6 +126,10 @@ public:
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again */
     virtual MSEdge* closeEdge();
+
+    /** @brief Closes the building of a lane;
+        The edge is completely described by now and may not be opened again */
+    void closeLane();
 
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl* build();
@@ -150,8 +166,27 @@ protected:
     /// @brief pointer to the currently chosen edge
     MSEdge* myActiveEdge;
 
+    /// @brief The default stop offset for all lanes belonging to the active edge (this is set if the edge was given a stopOffset child)
+    std::map<SVCPermissions,double> myCurrentDefaultStopOffsets;
+
+    /// @brief The index of the currently active lane (-1 if none is active)
+    int myCurrentLaneIndex;
+
     /// @brief pointer to a temporary lane storage
     std::vector<MSLane*>* myLaneStorage;
+
+
+    /** @brief set the stopOffset for the last added lane.
+     */
+    void updateCurrentLaneStopOffsets(const std::map<SVCPermissions, double>& stopOffsets);
+
+    /** @brief set the stopOffset for the last added lane.
+     */
+    void setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets);
+
+    /** @brief
+     */
+    void applyDefaultStopOffsetsToLanes();
 
 private:
     /// @brief invalidated copy constructor

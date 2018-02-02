@@ -226,6 +226,16 @@ NLHandler::myStartElement(int element,
                 }
                 break;
             }
+            case SUMO_TAG_STOPOFFSET: {
+                bool ok = true;
+                std::map<SVCPermissions, double> stopOffsets = parseStopOffsets(attrs, ok);
+                if (!ok) {
+                    WRITE_ERROR(myEdgeControlBuilder.reportCurrentEdgeOrLane());
+                } else {
+                    myEdgeControlBuilder.addStopOffsets(stopOffsets);
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -244,6 +254,9 @@ NLHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_EDGE:
             closeEdge();
+            break;
+        case SUMO_TAG_LANE:
+            myEdgeControlBuilder.closeLane();
             break;
         case SUMO_TAG_JUNCTION:
             if (!myCurrentIsBroken) {
