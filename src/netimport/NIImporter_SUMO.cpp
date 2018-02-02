@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Mon, 14.04.2008
 /// @version $Id$
 ///
@@ -215,6 +216,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             // width, offset
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
+            nbe->setStopOffsets(fromLaneIndex, lane->stopOffsets);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
@@ -229,6 +231,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         }
         if (!nbe->hasLaneSpecificEndOffset() && nbe->getEndOffset(0) != NBEdge::UNSPECIFIED_OFFSET) {
             nbe->setEndOffset(-1, nbe->getEndOffset(0));
+        }
+        if (!nbe->hasLaneSpecificStopOffsets() && nbe->getStopOffsets().size() != 0) {
+            nbe->setStopOffsets(-1, nbe->getStopOffsets());
         }
         // check again after permissions are set
         if (myNetBuilder.getEdgeCont().ignoreFilterMatch(nbe)) {
