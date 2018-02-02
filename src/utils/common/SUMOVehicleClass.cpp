@@ -36,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 
 // ===========================================================================
@@ -329,6 +330,32 @@ bool isWaterway(SVCPermissions permissions) {
 
 bool isForbidden(SVCPermissions permissions) {
     return (permissions & SVCAll) == 0;
+}
+
+
+std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
+    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, 0, ok, "");
+    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, 0, ok, "");
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
+        ok = false;
+        return std::map<SVCPermissions,double>();
+    }
+    const double value = attrs.get<double>(SUMO_ATTR_VALUE, 0, ok);
+
+    int vClassBitset;
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)){
+        vClassBitset = parseVehicleClasses(vClasses);
+    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        vClassBitset = ~parseVehicleClasses(exceptions);
+    } else {
+        // no vClasses specified, thus apply to all
+        vClassBitset=~parseVehicleClasses("");
+    }
+
+    std::map<SVCPermissions,double> offsets;
+    offsets[vClassBitset] = value;
+    return offsets;
 }
 
 

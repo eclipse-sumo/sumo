@@ -43,7 +43,7 @@
 // class declarations
 // ===========================================================================
 class OutputDevice;
-
+class SUMOSAXAttributes;
 
 // ===========================================================================
 // enum definitions
@@ -288,6 +288,9 @@ extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 
 /// @brief writes allowed disallowed attributes if needed;
 extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
+
+/// @brief Extract stopOffsets from attributes of stopOffset element
+extern std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
 
 // ---------------------------------------------------------------------------
 // vehicle shape class
