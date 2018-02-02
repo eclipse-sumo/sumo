@@ -178,7 +178,7 @@ public:
      * @param[in] width The width of the lane
      * @param[in] permissions Encoding of the Vehicle classes that may drive on this lane
      * @param[in] index The index of this lane within its parent edge
-     * @param[in] isRampAccel Whether this lane is an acceleratin lane
+     * @param[in] isRampAccel Whether this lane is an acceleration lane
      * @see SUMOVehicleClass
      */
     MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
@@ -756,7 +756,18 @@ public:
     bool isApproachedFrom(MSEdge* const edge);
     bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
 
+    /// @brief Returns vehicle class specific stopOffset for the vehicle
+    double getStopOffset(const MSVehicle* veh) const;
 
+    /// @brief Returns vehicle class specific stopOffsets
+    const std::map<SVCPermissions,double>& getStopOffsets() const {
+        return myStopOffsets;
+    };
+
+    /// @brief Set vehicle class specific stopOffsets
+    void setStopOffsets(std::map<SVCPermissions,double> stopOffsets) {
+        myStopOffsets=stopOffsets;
+    };
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
@@ -1191,6 +1202,11 @@ protected:
 
     /// Lane width [m]
     const double myWidth;
+
+    /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
+    /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
+    /// of the SUMOVehicleClass Enum and the value is the offset in meters.
+    std::map<SVCPermissions,double> myStopOffsets;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;

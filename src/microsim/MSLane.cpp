@@ -166,7 +166,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
                SVCPermissions permissions, int index, bool isRampAccel) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
-    myVehicles(), myLength(length), myWidth(width), myEdge(edge), myMaxSpeed(maxSpeed),
+    myVehicles(), myLength(length), myWidth(width), myStopOffsets(),
+    myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myOriginalPermissions(permissions),
     myLogicalPredecessorLane(0),
@@ -2761,6 +2762,20 @@ MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
         }
     }
 }
+
+
+double
+MSLane::getStopOffset(const MSVehicle* veh) const {
+    if (myStopOffsets.size()==0) {
+        return 0.;
+    }
+    if ((myStopOffsets.begin()->first | veh->getVClass()) != 0){
+        return myStopOffsets.begin()->second;
+    } else {
+        return 0.;
+    }
+}
+
 
 
 MSLeaderDistanceInfo
