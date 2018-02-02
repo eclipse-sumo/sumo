@@ -123,6 +123,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "joinExclude",                SUMO_TAG_JOINEXCLUDE },
     { "crossing",                   SUMO_TAG_CROSSING },
     { "walkingArea",                SUMO_TAG_WALKINGAREA },
+    { "stopOffset",                 SUMO_TAG_STOPOFFSET },
     // OSM
     { "way",                        SUMO_TAG_WAY },
     { "nd",                         SUMO_TAG_ND },
@@ -272,6 +273,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "apparentDecel",          SUMO_ATTR_APPARENTDECEL },
     { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
     { "vClass",                 SUMO_ATTR_VCLASS },
+    { "vClasses",               SUMO_ATTR_VCLASSES },
+    { "exceptions",             SUMO_ATTR_EXCEPTIONS },
     { "repno",                  SUMO_ATTR_REPNUMBER },
     { "speedFactor",            SUMO_ATTR_SPEEDFACTOR },
     { "speedDev",               SUMO_ATTR_SPEEDDEV },

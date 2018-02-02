@@ -207,6 +207,8 @@ enum SumoXMLTag {
     SUMO_TAG_CROSSING,
     /// @brief walking area for pedestrians
     SUMO_TAG_WALKINGAREA,
+    /// @brief Information on vClass specific stop offsets at lane end
+    SUMO_TAG_STOPOFFSET,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -401,6 +403,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_APPARENTDECEL,
     SUMO_ATTR_ACTIONSTEPLENGTH,
     SUMO_ATTR_VCLASS,
+    SUMO_ATTR_VCLASSES,
+    SUMO_ATTR_EXCEPTIONS,
     SUMO_ATTR_REPNUMBER,
     SUMO_ATTR_SPEEDFACTOR,
     SUMO_ATTR_SPEEDDEV,
