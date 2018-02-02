@@ -3038,18 +3038,20 @@ NBEdge::setEndOffset(int lane, double offset) {
 
 
 void
-NBEdge::setStopOffsets(int lane, std::map<int,double> offsets) {
+NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
     if (lane < 0) {
         // all lanes are meant...
         myStopOffsets = offsets;
         for (int i = 0; i < (int)myLanes.size(); i++) {
             // ... do it for each lane
-            setStopOffsets(i, offsets);
+            setStopOffsets(i, offsets, overwrite);
         }
         return;
     }
     assert(lane < (int)myLanes.size());
-    myLanes[lane].stopOffsets = offsets;
+    if (myLanes[i].stopOffsets.size()==0 || overwrite) {
+        myLanes[lane].stopOffsets = offsets;
+    }
 }
 
 
