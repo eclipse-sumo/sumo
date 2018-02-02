@@ -55,6 +55,9 @@ public:
         ADDSHAPE_NOTHING    // Nothing to do
     };
 
+    /// @brief class declaration
+    class ShapeAttributes;
+
     // ===========================================================================
     // class ShapeSelector
     // ===========================================================================
@@ -107,31 +110,28 @@ public:
 
     public:
         /// @brief constructor
-        ShapeAttributeSingle(FXComposite* parent);
+        ShapeAttributeSingle(ShapeAttributes *shapeAttributesParent);
 
         /// @brief destructor
         ~ShapeAttributeSingle();
 
         /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, std::string value);
+        void showParameter(SumoXMLAttr shapeAttr, std::string value);
 
         /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, int value);
+        void showParameter(SumoXMLAttr shapeAttr, int value);
 
         /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, double value);
+        void showParameter(SumoXMLAttr shapeAttr, double value);
 
         /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, bool value);
+        void showParameter(SumoXMLAttr shapeAttr, bool value);
 
         /// @brief show name and value of parameters of type Color
-        void showParameter(SumoXMLTag shapeTag, SumoXMLAttr shapeAttr, RGBColor value);
+        void showParameter(SumoXMLAttr shapeAttr, RGBColor value);
 
         /// @brief hide all parameters
         void hideParameter();
-
-        /// @brief return tag
-        SumoXMLTag getTag() const;
 
         /// @brief return Attr
         SumoXMLAttr getAttr() const;
@@ -141,6 +141,9 @@ public:
 
         /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
         const std::string& isAttributeValid() const;
+
+        /// @brief get shape attributes parent
+        ShapeAttributes *getShapeAttributesParent() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -159,8 +162,8 @@ public:
         ShapeAttributeSingle() {}
 
     private:
-        /// @brief current XML attribute
-        SumoXMLTag myShapeTag;
+        /// @brief pointer to ShapeAttributes
+        ShapeAttributes *myShapeAttributesParent;
 
         /// @brief current XML attribute
         SumoXMLAttr myShapeAttr;
@@ -206,7 +209,7 @@ public:
         void clearAttributes();
 
         /// @brief add attribute
-        void addAttribute(SumoXMLTag shapeTag, SumoXMLAttr ShapeAttributeSingle);
+        void addAttribute(SumoXMLAttr ShapeAttributeSingle);
 
         /// @brief show group box
         void showShapeParameters();
@@ -226,6 +229,9 @@ public:
         /// @brief get number of added attributes
         int getNumberOfAddedAttributes() const;
 
+        /// @brief get PolygonFrame parent
+        GNEPolygonFrame * getPolygonFrameParent() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when help button is pressed
@@ -239,9 +245,6 @@ public:
     private:
         /// @brief pointer to Polygon Frame Parent
         GNEPolygonFrame * myPolygonFrameParent;
-
-        /// @brief current shape tag
-        SumoXMLTag myShapeTag;
 
         /// @brief vector with the shape parameters
         std::vector<ShapeAttributeSingle*> myVectorOfsingleShapeParameter;
@@ -436,6 +439,9 @@ public:
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
+
+    /// @brief get shape selector
+    ShapeSelector* getShapeSelector() const;
 
     /// @brief get shape attributes
     ShapeAttributes* getShapeAttributes() const;
