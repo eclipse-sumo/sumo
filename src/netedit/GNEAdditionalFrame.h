@@ -54,6 +54,9 @@ public:
         ADDADDITIONAL_SUCCESS               // additional was successfully created
     };
 
+    /// @brief class declaration
+    class AdditionalAttributes;
+
     // ===========================================================================
     // class AdditionalSelector
     // ===========================================================================
@@ -106,28 +109,25 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalAttributeSingle(FXComposite* parent);
+        AdditionalAttributeSingle(AdditionalAttributes *additionalAttributesParent);
 
         /// @brief destructor
         ~AdditionalAttributeSingle();
 
         /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::string value);
+        void showParameter(SumoXMLAttr additionalAttr, std::string value);
 
         /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, int value);
+        void showParameter(SumoXMLAttr additionalAttr, int value);
 
         /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, double value);
+        void showParameter(SumoXMLAttr additionalAttr, double value);
 
         /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, bool value);
+        void showParameter(SumoXMLAttr additionalAttr, bool value);
 
         /// @brief hide all parameters
         void hideParameter();
-
-        /// @brief return tag
-        SumoXMLTag getTag() const;
 
         /// @brief return Attr
         SumoXMLAttr getAttr() const;
@@ -152,8 +152,8 @@ public:
         AdditionalAttributeSingle() {}
 
     private:
-        /// @brief current XML attribute
-        SumoXMLTag myAdditionalTag;
+        /// @brief additional attribute parent
+        AdditionalAttributes *myAdditionalAttributesParent;
 
         /// @brief current XML attribute
         SumoXMLAttr myAdditionalAttr;
@@ -187,37 +187,22 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalAttributeList(FXComposite* parent);
+        AdditionalAttributeList(AdditionalAttributes *additionalAttributesParent);
 
         /// @brief destructor
         ~AdditionalAttributeList();
 
-        /// @brief show name and value of parameters of type int
-        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<int> value);
-
-        /// @brief show name and value of parameters of type float
-        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<double> value, bool isTime = false);
-
-        /// @brief show name and value of parameters of type bool
-        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<bool> value);
-
         /// @brief show name and value of parameters of type string
-        void showListParameter(SumoXMLTag additionalTag, SumoXMLAttr additionalAttr, std::vector<std::string> value);
+        void showListParameter(SumoXMLAttr additionalAttr, std::vector<std::string> value);
 
         /// @brief hide all parameters
         void hideParameter();
-
-        /// @brief return tag of list
-        SumoXMLTag getTag() const;
 
         /// @brief return attribute of list
         SumoXMLAttr getAttr() const;
 
         /// @brief return the value of list
         std::string getListValues();
-
-        /// @brief check that current list is valid
-        bool isCurrentListValid() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -233,8 +218,8 @@ public:
         AdditionalAttributeList() {}
 
     private:
-        /// @brief current XML tag
-        SumoXMLTag myAdditionalTag;
+        /// @brief additional attribute parent
+        AdditionalAttributes * myAdditionalAttributesParent;
 
         /// @brief current XML attribute
         SumoXMLAttr myAdditionalAttr;
@@ -283,7 +268,7 @@ public:
         void clearAttributes();
 
         /// @brief add attribute
-        void addAttribute(SumoXMLTag additionalTag, SumoXMLAttr AdditionalAttributeSingle);
+        void addAttribute(SumoXMLAttr AdditionalAttributeSingle);
 
         /// @brief show group box
         void showAdditionalParameters();
@@ -303,6 +288,9 @@ public:
         /// @brief get number of added attributes
         int getNumberOfAddedAttributes() const;
 
+        /// @brief get additional frame parent
+        GNEAdditionalFrame *getAdditionalFrameParent() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when help button is pressed
@@ -316,9 +304,6 @@ public:
     private:
         /// @brief pointer to additionalFrameParent
         GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief current additional tag
-        SumoXMLTag myAdditionalTag;
 
         /// @brief vector with the additional parameters
         std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
