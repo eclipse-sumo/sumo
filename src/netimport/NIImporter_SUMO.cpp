@@ -387,6 +387,12 @@ NIImporter_SUMO::myStartElement(int element,
         case SUMO_TAG_LANE:
             addLane(attrs);
             break;
+        case SUMO_TAG_STOPOFFSET:
+        {
+            bool ok = true;
+            addStopOffsets(attrs, ok);
+        }
+            break;
         case SUMO_TAG_NEIGH:
             myCurrentLane->oppositeID = attrs.getString(SUMO_ATTR_LANE);
             break;
@@ -425,6 +431,7 @@ NIImporter_SUMO::myStartElement(int element,
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                 myLastParameterised.back()->setParameter(key, val);
             }
+            break;
         default:
             break;
     }
@@ -578,6 +585,29 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     myCurrentLane->accelRamp = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     // lane coordinates are derived (via lane spread) do not include them in convex boundary
     NBNetBuilder::transformCoordinates(myCurrentLane->shape, false, myLocation);
+}
+
+
+void
+NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
+    std::map<SVCPermissions,double> offsets = parseStopOffsets(attrs, ok);
+    if (myCurrentLane==0) {
+        if (myCurrentEdge->stopOffsets.size() != 0) {
+            std::stringstream ss;
+            ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
+            WRITE_WARNING(ss.str());
+            return;
+        }
+        myCurrentEdge->stopOffsets=offsets;
+    } else {
+        if (myCurrentLane->stopOffsets.size() != 0) {
+            std::stringstream ss;
+            ss << "Duplicate definition of lane's stopOffset on edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
+            WRITE_WARNING(ss.str());
+            return;
+        }
+        myCurrentLane->stopOffsets=offsets;
+    }
 }
 
 
