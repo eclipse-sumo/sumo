@@ -13,6 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @author  Laura Bieker
+/// @author  Leonhard Luecken
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
@@ -69,7 +70,9 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
     myTypeCont(tc),
     myDistrictCont(dc),
     myTLLogicCont(tlc),
-    myCurrentEdge(0), myHaveReportedAboutOverwriting(false),
+    myCurrentEdge(0),
+    myCurrentLaneIndex(-1),
+    myHaveReportedAboutOverwriting(false),
     myHaveReportedAboutTypeOverride(false),
     myHaveWarnedAboutDeprecatedLaneId(false),
     myKeepEdgeShape(!options.getBool("plain.extend-edge-shape")) {
@@ -109,6 +112,20 @@ NIXMLEdgesHandler::myStartElement(int element,
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                 myLastParameterised.back()->setParameter(key, val);
             }
+            break;
+        case SUMO_TAG_STOPOFFSET:
+            {
+                bool ok =true;
+                std::map<SVCPermissions,double> stopOffsets = parseStopOffsets(attrs, ok);
+                if (!ok) {
+                    std::stringstream ss;
+                    ss << "(Error encountered at lane " << myCurrentLaneIndex << " of edge '" << myCurrentID << "')";
+                    WRITE_ERROR(ss.str());
+                } else {
+                    myCurrentEdge->setStopOffsets(myCurrentLaneIndex, stopOffsets);
+                }
+            }
+            break;
         default:
             break;
     }
@@ -313,6 +330,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
         return;
     }
+    myCurrentLaneIndex=lane;
     // set information about allowed / disallowed vehicle classes (if specified)
     if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
         const std::string allowed = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, 0, ok, "");
@@ -670,6 +688,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
         myCurrentEdge = 0;
     } else if (element == SUMO_TAG_LANE) {
         myLastParameterised.pop_back();
+        myCurrentLaneIndex=-1;
     }
 }
 

@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
@@ -45,7 +46,7 @@ class NBNodeCont;
 class NBEdgeCont;
 class NBTypeCont;
 class NBDistrictCont;
-
+class NBTrafficLightLogicCont;
 
 // ===========================================================================
 // class definitions
@@ -220,6 +221,9 @@ private:
 
     /// @brief The currently processed edge
     NBEdge* myCurrentEdge;
+
+    /// @brief The currently processed lane index
+    int myCurrentLaneIndex;
 
     /** @struct Split
      * @brief A structure which describes changes of lane number or speed along the road
