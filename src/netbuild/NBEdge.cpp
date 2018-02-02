@@ -3049,7 +3049,7 @@ NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
         return;
     }
     assert(lane < (int)myLanes.size());
-    if (myLanes[i].stopOffsets.size()==0 || overwrite) {
+    if (myLanes[lane].stopOffsets.size()==0 || overwrite) {
         myLanes[lane].stopOffsets = offsets;
     }
 }
