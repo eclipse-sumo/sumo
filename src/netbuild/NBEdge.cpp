@@ -13,6 +13,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Leonhard Luecken
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
@@ -127,7 +128,9 @@ NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :
     speed(e->getSpeed()),
     permissions(SVCAll),
     preferred(0),
-    endOffset(e->getEndOffset()), width(e->getLaneWidth()),
+    endOffset(e->getEndOffset()),
+    stopOffsets(e->getStopOffsets()),
+    width(e->getLaneWidth()),
     accelRamp(false),
     connectionsDone(false) {
     if (origID_ != "") {
@@ -251,7 +254,7 @@ NBEdge::connections_relative_edgelane_sorter::operator()(const Connection& c1, c
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                std::string type, double speed, int nolanes,
-               int priority, double laneWidth, double offset,
+               int priority, double laneWidth, double endOffset,
                const std::string& streetName,
                LaneSpreadFunction spread) :
     Named(StringUtils::convertUmlaute(id)),
@@ -263,7 +266,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myTurnDestination(0),
     myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
+    myLaneSpreadFunction(spread), myEndOffset(endOffset),
+    myStopOffsets(),
+    myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
@@ -274,7 +279,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
 
 NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
                std::string type, double speed, int nolanes,
-               int priority, double laneWidth, double offset,
+               int priority, double laneWidth, double endOffset,
                PositionVector geom,
                const std::string& streetName,
                const std::string& origID,
@@ -288,7 +293,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myTurnDestination(0),
     myPossibleTurnDestination(0),
     myFromJunctionPriority(-1), myToJunctionPriority(-1),
-    myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(offset), myLaneWidth(laneWidth),
+    myGeom(geom), myLaneSpreadFunction(spread), myEndOffset(endOffset),
+    myStopOffsets(),
+    myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
@@ -310,6 +317,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
     myGeom(geom),
     myLaneSpreadFunction(tpl->getLaneSpreadFunction()),
     myEndOffset(tpl->getEndOffset()),
+    myStopOffsets(tpl->getStopOffsets()),
     myLaneWidth(tpl->getLaneWidth()),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
     myAmInnerEdge(false),
@@ -325,6 +333,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
         myLanes[i].updateParameter(tpl->myLanes[tplIndex].getMap());;
         if (to == tpl->myTo) {
             setEndOffset(i, tpl->myLanes[tplIndex].endOffset);
+            setStopOffsets(i, tpl->myLanes[tplIndex].stopOffsets);
         }
     }
 }
@@ -333,7 +342,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, NBEdge* tpl, con
 void
 NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
                double speed, int nolanes, int priority,
-               PositionVector geom, double laneWidth, double offset,
+               PositionVector geom, double laneWidth, double endOffset,
                const std::string& streetName,
                LaneSpreadFunction spread,
                bool tryIgnoreNodePositions) {
@@ -366,8 +375,8 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
         myLanes[i].shape = newShape;
     }
     // however, if the new edge defaults are explicityly given, they override the old settings
-    if (offset != UNSPECIFIED_OFFSET) {
-        setEndOffset(-1, offset);
+    if (endOffset != UNSPECIFIED_OFFSET) {
+        setEndOffset(-1, endOffset);
     }
     if (laneWidth != UNSPECIFIED_WIDTH) {
         setLaneWidth(-1, laneWidth);
@@ -1836,6 +1845,19 @@ NBEdge::hasLaneSpecificEndOffset() const {
 
 
 bool
+NBEdge::hasLaneSpecificStopOffsets() const {
+    for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
+        if (i->stopOffsets.size()==0) continue;
+        const std::pair<const int,double> offsets = *(i->stopOffsets.begin());
+        if (offsets != *(myStopOffsets.begin())) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
 NBEdge::hasAccelLane() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
         if (i->accelRamp) {
@@ -1873,6 +1895,7 @@ NBEdge::needsLaneSpecificOutput() const {
             || hasLaneSpecificSpeed()
             || hasLaneSpecificWidth()
             || hasLaneSpecificEndOffset()
+            || hasLaneSpecificStopOffsets()
             || hasAccelLane()
             || hasCustomLaneShape()
             || hasLaneParams()
@@ -2993,6 +3016,11 @@ NBEdge::getEndOffset(int lane) const {
 }
 
 
+const std::map<SVCPermissions,double>&
+NBEdge::getStopOffsets(int lane) const {
+    return (lane==-1 || myLanes[lane].stopOffsets.size() != 0) ? myLanes[lane].stopOffsets : myStopOffsets;
+}
+
 void
 NBEdge::setEndOffset(int lane, double offset) {
     if (lane < 0) {
@@ -3006,6 +3034,22 @@ NBEdge::setEndOffset(int lane, double offset) {
     }
     assert(lane < (int)myLanes.size());
     myLanes[lane].endOffset = offset;
+}
+
+
+void
+NBEdge::setStopOffsets(int lane, std::map<int,double> offsets) {
+    if (lane < 0) {
+        // all lanes are meant...
+        myStopOffsets = offsets;
+        for (int i = 0; i < (int)myLanes.size(); i++) {
+            // ... do it for each lane
+            setStopOffsets(i, offsets);
+        }
+        return;
+    }
+    assert(lane < (int)myLanes.size());
+    myLanes[lane].stopOffsets = offsets;
 }
 
 

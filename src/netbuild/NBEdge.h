@@ -135,6 +135,10 @@ public:
         /// @brief This lane's offset to the intersection begin
         double endOffset;
 
+        /// @brief stopOffsets.second - The stop offset for vehicles stopping at the lane's end.
+        ///        Applies if vClass is in in stopOffset.first bitset
+        std::map<int,double> stopOffsets;
+
         /// @brief This lane's width
         double width;
 
@@ -294,7 +298,7 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
-     * @param[in] offset Additional offset to the destination node
+     * @param[in] endOffset Additional offset to the destination node
      * @param[in] streetName The street name (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @see init
@@ -303,7 +307,7 @@ public:
     NBEdge(const std::string& id,
            NBNode* from, NBNode* to, std::string type,
            double speed, int nolanes, int priority,
-           double width, double offset,
+           double width, double endOffset,
            const std::string& streetName = "",
            LaneSpreadFunction spread = LANESPREAD_RIGHT);
 
@@ -320,7 +324,7 @@ public:
      * @param[in] nolanes The number of lanes this edge has
      * @param[in] priority This edge's priority
      * @param[in] width This edge's lane width
-     * @param[in] offset Additional offset to the destination node
+     * @param[in] endOffset Additional offset to the destination node
      * @param[in] geom The edge's geomatry
      * @param[in] streetName The street name (need not be unique)
      * @param[in] origID The original ID in the source network (need not be unique)
@@ -332,7 +336,7 @@ public:
     NBEdge(const std::string& id,
            NBNode* from, NBNode* to, std::string type,
            double speed, int nolanes, int priority,
-           double width, double offset,
+           double width, double endOffset,
            PositionVector geom,
            const std::string& streetName = "",
            const std::string& origID = "",
@@ -371,14 +375,14 @@ public:
      * @param[in] priority This edge's priority
      * @param[in] geom The edge's geomatry
      * @param[in] width This edge's lane width
-     * @param[in] offset Additional offset to the destination node
+     * @param[in] endOffset Additional offset to the destination node
      * @param[in] streetName The street name (need not be unique)
      * @param[in] spread How the lateral offset of the lanes shall be computed
      * @param[in] tryIgnoreNodePositions Does not add node geometries if geom.size()>=2
      */
     void reinit(NBNode* from, NBNode* to, const std::string& type,
                 double speed, int nolanes, int priority,
-                PositionVector geom, double width, double offset,
+                PositionVector geom, double width, double endOffset,
                 const std::string& streetName,
                 LaneSpreadFunction spread = LANESPREAD_RIGHT,
                 bool tryIgnoreNodePositions = false);
@@ -546,10 +550,22 @@ public:
         return myEndOffset;
     }
 
+    /** @brief Returns the stopOffset to the end of the edge
+     * @return The offset to the end of the edge
+     */
+    const std::map<int,double>& getStopOffsets() const {
+        return myStopOffsets;
+    }
+
     /** @brief Returns the offset to the destination node a the specified lane
      * @return The offset to the destination node
      */
     double getEndOffset(int lane) const;
+
+    /** @brief Returns the stop offset to the specified lane's end
+     * @return The stop offset to the specified lane's end
+     */
+    const std::map<int,double>& getStopOffsets(int lane) const;
 
     /// @brief Returns the offset of a traffic signal from the end of this edge
     double getSignalOffset() const {
@@ -999,6 +1015,9 @@ public:
     /// @brief whether lanes differ in offset
     bool hasLaneSpecificEndOffset() const;
 
+    /// @brief whether lanes differ in stopOffsets
+    bool hasLaneSpecificStopOffsets() const;
+
     /// @brief whether one of the lanes is an acceleration lane
     bool hasAccelLane() const;
 
@@ -1155,6 +1174,9 @@ public:
 
     /// @brief set lane specific speed (negative lane implies set for all lanes)
     void setSpeed(int lane, double speed);
+
+    /// @brief set lane and vehicle class specific stopOffset (negative lane implies set for all lanes)
+    void setStopOffsets(int lane, std::map<int,double> offsets);
 
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
@@ -1391,6 +1413,12 @@ private:
 
     /// @brief The maximal speed
     double mySpeed;
+
+    /// @brief A vClass specific stop offset - assumed of length 0 (unspecified) or 1.
+    ///        For the latter case the int is a bit set specifying the vClasses,
+    ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
+    ///        stopping offset in meters from the lane end
+    std::map<int,double> myStopOffsets;
 
     /** @brief List of connections to following edges
      * @see Connection
