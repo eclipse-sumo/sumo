@@ -515,11 +515,14 @@ enum {
     // MID_GNE_WIZARD,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
+    /// @brief used to select a type of element in a combo box
+    MID_GNE_SET_TYPE,
+    /// @brief text attribute edited
+    MID_GNE_SET_ATTRIBUTE_TEXT,
+    /// @brief bool attribute edited
+    MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trought dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
-    /// @brief attribute block shape
-    MID_GNE_SET_BLOCKING_SHAPE,
-
     /// @}
 
 
@@ -608,52 +611,26 @@ enum {
 
     /// @brief Create crossing
     MID_GNE_CROSSINGFRAME_CREATECROSSING,
-    /// @brief use selected edges only
-    MID_GNE_CROSSINGFRAME_USEONLYSELECTEDEDGES,
     /// @}
 
 
     /// @name GNEAdditionalFrame messages
     /// @{
 
-    /// @brief select type of additional
-    MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,
-    /// @brief change reference point
-    MID_GNE_ADDITIONALFRAME_REFERENCEPOINT,
-    /// @brief change parameter of type text
-    MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT,
-    /// @brief change parameter of tpye bool
-    MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL,
-    /// @brief attribute block movement
-    MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,
-    /// @brief attribute Parent
-    MID_GNE_ADDITIONALFRAME_CHANGEPARENT,
     /// @brief add row
     MID_GNE_ADDITIONALFRAME_ADDROW,
     /// @brief remove row
     MID_GNE_ADDITIONALFRAME_REMOVEROW,
-    /// @brief select additional parent
-    MID_GNE_ADDITIONALFRAME_SELECTADDITIONALPARENT,
-    /// @brief search edge
-    MID_GNE_ADDITIONALFRAME_SEARCHEDGE,
-    /// @brief show only selected edge in a list
-    MID_GNE_ADDITIONALFRAME_SHOWONLYSELECTEDEDGES,
-    /// @brief select edge
-    MID_GNE_ADDITIONALFRAME_SELECTEDGE,
-    /// @brief clear selection of edges
-    MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION,
-    /// @brief invert selection of edges
-    MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION,
-    /// @brief search lane
-    MID_GNE_ADDITIONALFRAME_SEARCHLANE,
-    /// @brief use selected lanes
-    MID_GNE_ADDITIONALFRAME_USESELECTEDLANES,
-    /// @brief select lane
-    MID_GNE_ADDITIONALFRAME_SELECTLANE,
-    /// @brief clear selection of lanes
-    MID_GNE_ADDITIONALFRAME_CLEARLANESELECTION,
-    /// @brief invert selection of lanes
-    MID_GNE_ADDITIONALFRAME_INVERTLANESELECTION,
+    /// @brief search element
+    MID_GNE_ADDITIONALFRAME_SEARCH,
+    /// @brief use selected elements
+    MID_GNE_ADDITIONALFRAME_USESELECTED,
+    /// @brief select element
+    MID_GNE_ADDITIONALFRAME_SELECT,
+    /// @brief clear selection of elements
+    MID_GNE_ADDITIONALFRAME_CLEARSELECTION,
+    /// @brief invert selection of eleents
+    MID_GNE_ADDITIONALFRAME_INVERTSELECTION,
     /// @}
 
 
@@ -666,8 +643,6 @@ enum {
     MID_GNE_POLYGONFRAME_STOPDRAWING,
     /// @brief abort drawing polygon
     MID_GNE_POLYGONFRAME_ABORTDRAWING,
-    /// @brief enable or disable closing polygon after drawing
-    MID_GNE_POLYGONFRAME_CLOSE,
     /// @}
 
 

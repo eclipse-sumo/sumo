@@ -56,18 +56,18 @@
 // ===========================================================================
 
 FXDEFMAP(GNECrossingFrame) GNECrossingMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSINGFRAME_CREATECROSSING,            GNECrossingFrame::onCmdCreateCrossing),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_CROSSINGFRAME_CREATECROSSING,    GNECrossingFrame::onCmdCreateCrossing),
 };
 
 FXDEFMAP(GNECrossingFrame::edgesSelector) GNEEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CROSSINGFRAME_USEONLYSELECTEDEDGES,     GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION,     GNECrossingFrame::edgesSelector::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION,    GNECrossingFrame::edgesSelector::onCmdInvertSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNECrossingFrame::edgesSelector::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNECrossingFrame::edgesSelector::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNECrossingFrame::edgesSelector::onCmdInvertSelection),
 };
 
 FXDEFMAP(GNECrossingFrame::crossingParameters) GNECrossingParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,                           GNECrossingFrame::crossingParameters::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND, MID_HELP,                                        GNECrossingFrame::crossingParameters::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_ATTRIBUTE,   GNECrossingFrame::crossingParameters::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND, MID_HELP,                GNECrossingFrame::crossingParameters::onCmdHelp),
 };
 
 // Object implementation
@@ -95,13 +95,13 @@ GNECrossingFrame::edgesSelector::edgesSelector(GNECrossingFrame* crossingFramePa
     myCurrentJunction(0) {
 
     // Create button for selected edges
-    myUseSelectedEdges = new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_CROSSINGFRAME_USEONLYSELECTEDEDGES, GUIDesignButton);
+    myUseSelectedEdges = new FXButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignButton);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(this, ("Clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION, GUIDesignButton);
+    myClearEdgesSelection = new FXButton(this, ("Clear " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButton);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION, GUIDesignButton);
+    myInvertEdgesSelection = new FXButton(this, ("Invert " + toString(SUMO_TAG_EDGE) + "s").c_str(), 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButton);
 }
 
 

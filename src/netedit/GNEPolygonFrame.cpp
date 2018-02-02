@@ -54,30 +54,28 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPolygonFrame::ShapeSelector) ShapeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,   GNEPolygonFrame::ShapeSelector::onCmdSelectShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEPolygonFrame::ShapeSelector::onCmdSelectShape),
 };
 
 FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) ShapeAttributeSingleMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetBooleanAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,                   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEPolygonFrame::ShapeAttributeSingle::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute),
 };
 
 FXDEFMAP(GNEPolygonFrame::ShapeAttributes) ShapeAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEPolygonFrame::ShapeAttributes::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEPolygonFrame::ShapeAttributes::onCmdHelp),
 };
 
 FXDEFMAP(GNEPolygonFrame::NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,  GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_BLOCKING_SHAPE,             GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_CLOSE,             GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEPolygonFrame::NeteditAttributes::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPolygonFrame::NeteditAttributes::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEPolygonFrame::NeteditAttributes::onCmdHelp),
 };
 
 FXDEFMAP(GNEPolygonFrame::DrawingMode) DrawingModeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,      GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,       GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_ABORTDRAWING,      GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STARTDRAWING,  GNEPolygonFrame::DrawingMode::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_STOPDRAWING,   GNEPolygonFrame::DrawingMode::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POLYGONFRAME_ABORTDRAWING,  GNEPolygonFrame::DrawingMode::onCmdAbortDrawing),
 };
 
 // Object implementation
@@ -98,7 +96,7 @@ GNEPolygonFrame::ShapeSelector::ShapeSelector(GNEPolygonFrame *shapeFrameParent)
     myCurrentShapeType(SUMO_TAG_NOTHING) {
 
     // Create FXListBox in myGroupBoxForMyShapeMatchBox
-    myShapeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
+    myShapeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myShapeMatchBox
     for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
@@ -198,10 +196,10 @@ GNEPolygonFrame::ShapeAttributeSingle::ShapeAttributeSingle(ShapeAttributes *sha
     // Create visual elements
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
     mycolorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextFieldInt);
-    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextFieldReal);
-    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextField);
-    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL, GUIDesignCheckButtonAttribute);
+    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
+    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
+    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
+    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     // Hide elements
     hideParameter();
 }
@@ -590,16 +588,16 @@ GNEPolygonFrame::NeteditAttributes::NeteditAttributes(GNEPolygonFrame* polygonFr
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create Frame for block shape label and checkBox (By default disabled)
     myBlockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockShapeLabel = new FXLabel(myBlockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_BLOCKING_SHAPE, GUIDesignCheckButtonAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(myBlockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     // Create Frame for block close polygon and checkBox (By default disabled)
     myClosePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myClosePolygonLabel = new FXLabel(myClosePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
-    myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_POLYGONFRAME_CLOSE, GUIDesignCheckButtonAttribute);
+    myClosePolygonCheckButton = new FXCheckButton(myClosePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myBlockShapeCheckButton->setCheck(false);
     // Create help button
     new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -649,36 +647,25 @@ GNEPolygonFrame::NeteditAttributes::isCloseShapeEnabled() const {
 
 
 long
-GNEPolygonFrame::NeteditAttributes::onCmdSetBlockMovement(FXObject*, FXSelector, void*) {
-    if (myBlockMovementCheckButton->getCheck()) {
-        myBlockMovementCheckButton->setText("true");
-    }
-    else {
-        myBlockMovementCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEPolygonFrame::NeteditAttributes::onCmdSetBlockShape(FXObject*, FXSelector, void*) {
-    if (myBlockShapeCheckButton->getCheck()) {
-        myBlockShapeCheckButton->setText("true");
-    }
-    else {
-        myBlockShapeCheckButton->setText("false");
-    }
-    return 1;
-}
-
-
-long
-GNEPolygonFrame::NeteditAttributes::onCmdsetClosingShape(FXObject*, FXSelector, void*) {
-    if (myClosePolygonCheckButton->getCheck()) {
-        myClosePolygonCheckButton->setText("true");
-    }
-    else {
-        myClosePolygonCheckButton->setText("false");
+GNEPolygonFrame::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+    if(obj == myBlockMovementCheckButton) {
+        if (myBlockMovementCheckButton->getCheck()) {
+            myBlockMovementCheckButton->setText("true");
+        } else {
+            myBlockMovementCheckButton->setText("false");
+        }
+    } else if (obj == myBlockShapeCheckButton) {
+        if (myBlockShapeCheckButton->getCheck()) {
+            myBlockShapeCheckButton->setText("true");
+        } else {
+            myBlockShapeCheckButton->setText("false");
+        }
+    } else if (obj == myClosePolygonCheckButton) {
+        if (myClosePolygonCheckButton->getCheck()) {
+            myClosePolygonCheckButton->setText("true");
+        } else {
+            myClosePolygonCheckButton->setText("false");
+        }
     }
     return 1;
 }

@@ -292,13 +292,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when user changes the checkbox "set blocking movement"
-        long onCmdSetBlockMovement(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "set blocking shape"
-        long onCmdSetBlockShape(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user change checkbox for open/closed polygon
-        long onCmdsetClosingShape(FXObject*, FXSelector, void*);
+        long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);

@@ -56,17 +56,17 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAdditionalFrame::AdditionalSelector) SelectorAdditionalMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE,    GNEAdditionalFrame::AdditionalSelector::onCmdSelectAdditional),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEAdditionalFrame::AdditionalSelector::onCmdSelectAdditional),
 };
 
 FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeSingle) AdditionalAttributeSingleMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL,   GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute),
 };
 
 FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeList) AdditionalAttributeListMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ADDROW,                 GNEAdditionalFrame::AdditionalAttributeList::onCmdAddRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_REMOVEROW,              GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ADDROW,     GNEAdditionalFrame::AdditionalAttributeList::onCmdAddRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_REMOVEROW,  GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow),
 };
 
 FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) AdditionalAttributesMap[] = {
@@ -74,30 +74,30 @@ FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) AdditionalAttributesMap[] = {
 };
 
 FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT,   GNEAdditionalFrame::NeteditAttributes::onCmdSetLength),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_REFERENCEPOINT,         GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT,          GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEAdditionalFrame::NeteditAttributes::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEAdditionalFrame::NeteditAttributes::onCmdSetLength),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEAdditionalFrame::NeteditAttributes::onCmdSetBlocking),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,               GNEAdditionalFrame::NeteditAttributes::onCmdSelectReferencePoint),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEAdditionalFrame::NeteditAttributes::onCmdHelp),
 };
 
 FXDEFMAP(GNEAdditionalFrame::SelectorParentAdditional) SelectorParentAdditionalMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTADDITIONALPARENT, GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent),
 };
 
 FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) SelectorParentEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SHOWONLYSELECTEDEDGES,  GNEAdditionalFrame::SelectorParentEdges::onCmdUseSelectedEdges),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION,     GNEAdditionalFrame::SelectorParentEdges::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION,    GNEAdditionalFrame::SelectorParentEdges::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCHEDGE,             GNEAdditionalFrame::SelectorParentEdges::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTEDGE,             GNEAdditionalFrame::SelectorParentEdges::onCmdSelectEdge),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorParentEdges::onCmdUseSelectedEdges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorParentEdges::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNEAdditionalFrame::SelectorParentEdges::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNEAdditionalFrame::SelectorParentEdges::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorParentEdges::onCmdSelectEdge),
 };
 
 FXDEFMAP(GNEAdditionalFrame::SelectorParentLanes) SelectorParentLanesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTEDLANES,       GNEAdditionalFrame::SelectorParentLanes::onCmdUseSelectedLanes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARLANESELECTION,     GNEAdditionalFrame::SelectorParentLanes::onCmdClearSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTLANESELECTION,    GNEAdditionalFrame::SelectorParentLanes::onCmdInvertSelection),
-    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCHLANE,             GNEAdditionalFrame::SelectorParentLanes::onCmdTypeInSearchBox),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECTLANE,             GNEAdditionalFrame::SelectorParentLanes::onCmdSelectLane),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorParentLanes::onCmdUseSelectedLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorParentLanes::onCmdClearSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_INVERTSELECTION,    GNEAdditionalFrame::SelectorParentLanes::onCmdInvertSelection),
+    FXMAPFUNC(SEL_CHANGED,  MID_GNE_ADDITIONALFRAME_SEARCH,             GNEAdditionalFrame::SelectorParentLanes::onCmdTypeInSearchBox),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorParentLanes::onCmdSelectLane),
 };
 
 // Object implementation
@@ -121,7 +121,7 @@ GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame *a
     myCurrentAdditionalType(SUMO_TAG_NOTHING) {
 
     // Create FXListBox in myGroupBoxForMyAdditionalMatchBox
-    myAdditionalMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALTYPE, GUIDesignComboBox);
+    myAdditionalMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myAdditionalMatchBox
     for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
@@ -238,10 +238,10 @@ GNEAdditionalFrame::AdditionalAttributeSingle::AdditionalAttributeSingle(Additio
     myAdditionalAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
-    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextFieldInt);
-    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextFieldReal);
-    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextField);
-    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_BOOL, GUIDesignCheckButtonAttribute);
+    myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
+    myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
+    myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
+    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     // Hide elements
     hideParameter();
 }
@@ -450,7 +450,7 @@ GNEAdditionalFrame::AdditionalAttributeList::AdditionalAttributeList(AdditionalA
     for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
         myHorizontalFrames.push_back(new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame));
         myLabels.push_back(new FXLabel(myHorizontalFrames.back(), "name", 0, GUIDesignLabelAttribute));
-        myTextFields.push_back(new FXTextField(myHorizontalFrames.back(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextField));
+        myTextFields.push_back(new FXTextField(myHorizontalFrames.back(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField));
     }
     // Create label Row
     myHorizontalFrameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -707,19 +707,19 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame *add
     myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT),
     myCurrentLengthValid(true) {
     // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ADDITIONALFRAME_REFERENCEPOINT, GUIDesignComboBox);
+    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     myReferencePointMatchBox->appendItem("reference left");
     myReferencePointMatchBox->appendItem("reference right");
     myReferencePointMatchBox->appendItem("reference center");
     // Create Frame for Length Label and textField
     FXHorizontalFrame* lengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLengthLabel = new FXLabel(lengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
-    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_CHANGEPARAMETER_TEXT, GUIDesignTextField);
+    myLengthTextField = new FXTextField(lengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
     myLengthTextField->setText("10");
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_ADDITIONALFRAME_BLOCKMOVEMENT, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myBlockMovementCheckButton->setCheck(false);
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -936,7 +936,7 @@ GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditi
     mySetLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_ADDITIONALFRAME_SELECTADDITIONALPARENT, GUIDesignList, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignList, 0, 0, 0, 100);
 
     // Hide List
     hideListOfAdditionals();
@@ -991,22 +991,22 @@ GNEAdditionalFrame::SelectorParentEdges::SelectorParentEdges(GNEAdditionalFrame 
     FXGroupBox(additionalFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create menuCheck for selected edges
-    myUseSelectedEdgesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_SHOWONLYSELECTEDEDGES, GUIDesignCheckButtonAttribute);
+    myUseSelectedEdgesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButtonAttribute);
 
     // Create search box
-    myEdgesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCHEDGE, GUIDesignTextField);
+    myEdgesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_ADDITIONALFRAME_SELECTEDGE, GUIDesignList, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignList, 0, 0, 0, 100);
 
     // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", 0, this, MID_GNE_ADDITIONALFRAME_CLEAREDGESELECTION, GUIDesignButtonRectangular);
+    myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTEDGESELECTION, GUIDesignButtonRectangular);
+    myInvertEdgesSelection = new FXButton(buttonsFrame, "Invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
     hideList();
@@ -1140,22 +1140,22 @@ GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame 
     FXGroupBox(additionalFrameParent->myContentFrame, "Lanes", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTEDLANES, GUIDesignCheckButtonAttribute);
+    myUseSelectedLanesCheckButton = new FXCheckButton(this, ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButtonAttribute);
 
     // Create search box
-    myLanesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCHLANE, GUIDesignTextField);
+    myLanesSearch = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_ADDITIONALFRAME_SELECTLANE, GUIDesignList, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignList, 0, 0, 0, 100);
 
     // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
-    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_ADDITIONALFRAME_CLEARLANESELECTION, GUIDesignButtonRectangular);
+    clearLanesSelection = new FXButton(buttonsFrame, "clear", 0, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
 
     // Create button for invert selection
-    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTLANESELECTION, GUIDesignButtonRectangular);
+    invertLanesSelection = new FXButton(buttonsFrame, "invert", 0, this, MID_GNE_ADDITIONALFRAME_INVERTSELECTION, GUIDesignButtonRectangular);
 
     // Hide List
     hideList();
