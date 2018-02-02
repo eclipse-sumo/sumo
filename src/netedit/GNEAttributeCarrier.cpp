@@ -885,6 +885,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_ANGLE);
         myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_WIDTH);
         myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_HEIGHT);
+        // offset value
+        myListAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VALUE);
     }
     return myNumericalFloatAttrs[tag].count(attr) == 1;
 }
@@ -1015,6 +1017,10 @@ GNEAttributeCarrier::isList(SumoXMLTag tag, SumoXMLAttr attr) {
         myListAttrs[SUMO_TAG_ROUTE].insert(SUMO_ATTR_EDGES);
         // POLY
         myListAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
+        // vClasses
+        myListAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VCLASSES);
+        // Exception vClasses
+        myListAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_EXCEPTIONS);
     }
     return myListAttrs[tag].count(attr) == 1;
 }
@@ -1180,6 +1186,8 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         myPositiveAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_HEIGHT);
         // POILane
         myPositiveAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION);
+        // offset value
+        myPositiveAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VALUE);
     }
     return myPositiveAttrs[tag].count(attr) == 1;
 }
