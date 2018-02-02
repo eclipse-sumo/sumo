@@ -56,3 +56,6 @@ period_positive
 all_fringe_network
 flows
 flows_binomial
+
+# load the vehicle type to use during routing from an additional file
+vtype_additional_file_validate
