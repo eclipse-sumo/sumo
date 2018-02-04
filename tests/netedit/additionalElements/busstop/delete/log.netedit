@@ -1,6 +1,7 @@
 Warning: Adding busStop 'busStop_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_1' in GNEChange_Additional
+Warning: Selected additional 'busStop' in AdditionalSelector
 Warning: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 Warning: Removing busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 Warning: Removing busStop 'busStop_0' in GNEChange_Additional

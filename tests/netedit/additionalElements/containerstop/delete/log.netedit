@@ -1,6 +1,7 @@
 Warning: Adding containerStop 'containerStop_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding containerStop 'containerStop_1' in GNEChange_Additional
+Warning: Selected additional 'containerStop' in AdditionalSelector
 Warning: Adding containerStop 'containerStop_gneE0_0_2' in GNEChange_Additional
 Warning: Removing containerStop 'containerStop_gneE0_0_2' in GNEChange_Additional
 Warning: Removing containerStop 'containerStop_0' in GNEChange_Additional
