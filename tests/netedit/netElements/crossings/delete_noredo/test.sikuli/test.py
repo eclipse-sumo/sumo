@@ -32,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete first crossing
-netedit.leftClick(match, 320, 225)
+netedit.leftClick(match, 250, 225)
 
 # delete second crossing
-netedit.leftClick(match, 480, 225)
+netedit.leftClick(match, 385, 225)
 
 # check undo redo
 netedit.undo(match, 2)

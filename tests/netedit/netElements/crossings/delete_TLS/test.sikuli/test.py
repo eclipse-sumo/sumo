@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete junction with TLS
-netedit.leftClick(match, 400, 250)
+netedit.leftClick(match, 300, 250)
 
 # Rebuild network
 netedit.rebuildNetwork()

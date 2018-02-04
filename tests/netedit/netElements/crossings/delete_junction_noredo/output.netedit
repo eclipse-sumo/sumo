@@ -6,8 +6,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#F5."
 [log]  TYPE "d"
-[log] CLICK on L(704,390)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 704 - 390
+[log] CLICK on L(604,390)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 604 - 390
 [log]  TYPE "i"
 [log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
 TestFunctions: Clicked over position 304 - 140
