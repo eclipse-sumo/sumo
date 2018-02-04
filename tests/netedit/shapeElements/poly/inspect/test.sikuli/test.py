@@ -116,19 +116,19 @@ netedit.modifyAttribute(7, "365")
 netedit.modifyAttribute(7, "10")
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
+netedit.modifyAttribute(9, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
 
 # Change boolean parameter 9
-netedit.modifyShapeDefaultBoolValue(9)
+netedit.modifyShapeDefaultBoolValue(10)
 
 # Change boolean parameter 10
-netedit.modifyShapeDefaultBoolValue(11)
-
-# Change boolean parameter 11
 netedit.modifyShapeDefaultBoolValue(12)
 
-# Change boolean parameter 12
+# Change boolean parameter 11
 netedit.modifyShapeDefaultBoolValue(13)
+
+# Change boolean parameter 12
+netedit.modifyShapeDefaultBoolValue(14)
 
 # Check undos and redos
 netedit.undo(match, 24)

@@ -128,19 +128,19 @@ netedit.modifyAttribute(8, "500")
 netedit.modifyAttribute(8, "30")
 
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(9, "dummyGEO")
+netedit.modifyAttribute(10, "dummyGEO")
 
 # Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(9, "")
+netedit.modifyAttribute(10, "")
 
 # Change parameter 9 with a valid value 
-netedit.modifyAttribute(9, "3.73,74.30")
+netedit.modifyAttribute(10, "3.73,74.30")
 
 # Change boolean parameter GEO
-netedit.modifyShapeDefaultBoolValue(10)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # Change boolean parameter block
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # Check undos and redos
 netedit.undo(match, 26)

@@ -1,11 +1,13 @@
 +++ running this Java
 +++ trying to run SikuliX
 +++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
-TestFunctions: Netedit opened sucesfully
-TestFunctions: 'reference.png' found
-[log] ( Umschalt )  TYPE "#F5."
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 806 - 481
+TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling is 100% (See #3784)
+[log] ( Shift )  TYPE "#F5."
 [log] ( Alt )  TYPE "y"
-[log] ( Strg+Umschalt )  TYPE "p"
-[log] ( Strg )  TYPE "s"
-[log] ( Strg )  TYPE "q"
+[log] ( Ctrl+Shift )  TYPE "p"
+[log] ( Ctrl )  TYPE "s"
+[log] ( Ctrl )  TYPE "q"
 TestFunctions: Netedit closed successfully
