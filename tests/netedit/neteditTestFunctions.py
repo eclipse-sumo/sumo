@@ -643,7 +643,7 @@ def createCrossing():
     # focus current frame
     focusOnFrame()
     # jump to create crossing button
-    for x in range(0, 8):
+    for x in range(0, 7):
         typeTab()
     # type space to create crossing
     typeSpace()
