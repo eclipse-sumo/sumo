@@ -35,44 +35,44 @@ netedit.crossingMode()
 netedit.leftClick(match, 325, 225)
 
 # select two left edges and create crossing in edges 3 and 7
+netedit.leftClick(match, 150, 200)
 netedit.leftClick(match, 150, 250)
-netedit.leftClick(match, 150, 350)
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create manual crossing
-netedit.modifyCrossingDefaultValue(3, "1 5")
+netedit.modifyCrossingDefaultValue(2, "1 5")
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # try to create again the same crossing (cannot be possible, show warning
 # instead)
-netedit.modifyCrossingDefaultValue(3, "1 5")
+netedit.modifyCrossingDefaultValue(2, "1 5")
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create single crossing (fail)
-netedit.modifyCrossingDefaultValue(3, "4")
+netedit.modifyCrossingDefaultValue(2, "4")
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create split crossing
-netedit.modifyCrossingDefaultValue(3, "4")
+netedit.modifyCrossingDefaultValue(2, "4")
 netedit.createCrossing()
-netedit.modifyCrossingDefaultValue(3, "8")
+netedit.modifyCrossingDefaultValue(2, "8")
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # create manual crossing with different priority and width
-netedit.modifyCrossingDefaultValue(3, "6 2")
-netedit.modifyCrossingDefaultBoolValue(4)
-netedit.modifyCrossingDefaultValue(5, "5")
+netedit.modifyCrossingDefaultValue(2, "6 2")
+netedit.modifyCrossingDefaultBoolValue(3)
+netedit.modifyCrossingDefaultValue(4, "5")
 netedit.createCrossing()
 netedit.rebuildNetwork()
 
 # Check buttons
+netedit.leftClick(match, 150, 200)
 netedit.leftClick(match, 150, 250)
-netedit.leftClick(match, 150, 350)
 netedit.crossingInvertEdges()
 netedit.crossingClearEdges()
 
