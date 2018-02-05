@@ -60,13 +60,15 @@ public:
      * @param[in] shape The shape of the polygon
      * @param[in] geo specifiy if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
+     * @param[in] relativePath set image file as relative path
      */
     SUMOPolygon(const std::string& id, const std::string& type,
                 const RGBColor& color, const PositionVector& shape,
                 bool geo, bool fill,
                 double layer = DEFAULT_LAYER,
                 double angle = DEFAULT_ANGLE,
-                const std::string& imgFile = DEFAULT_IMG_FILE);
+                const std::string& imgFile = DEFAULT_IMG_FILE,
+                bool relativePath = DEFAULT_RELATIVEPATH);
 
 
     /// @brief Destructor

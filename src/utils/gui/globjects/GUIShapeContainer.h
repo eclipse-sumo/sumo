@@ -65,13 +65,14 @@ public:
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
+     * @param[in] relativePath set image file as relative path
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO coordinate
      * @param[in] fill Whether the polygon shall be filled
      * @return whether the polygon could be added
      */
     virtual bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                            double angle, const std::string& imgFile, const PositionVector& shape, bool geo,
+                            double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo,
                             bool fill, bool ignorePruning = false);
 
 
@@ -87,13 +88,14 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
+     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                         const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-                        const std::string& imgFile, double width, double height, bool ignorePruning = false);
+                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
 
 
 

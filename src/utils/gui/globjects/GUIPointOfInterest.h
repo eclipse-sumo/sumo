@@ -61,6 +61,7 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
+     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      */
@@ -68,7 +69,7 @@ public:
                        const RGBColor& color, const Position& pos, bool geo,
                        const std::string& lane, double posOverLane, double posLat,
                        double layer, double angle, const std::string& imgFile,
-                       double width, double height);
+                       bool relativePath, double width, double height);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();

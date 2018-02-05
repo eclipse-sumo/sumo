@@ -35,6 +35,7 @@ const std::string Shape::DEFAULT_TYPE = "";
 const double Shape::DEFAULT_LAYER = 128;
 const double Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";
+const bool Shape::DEFAULT_RELATIVEPATH = false;
 const double Shape::DEFAULT_IMG_WIDTH = 1;
 const double Shape::DEFAULT_IMG_HEIGHT = 1;
 
@@ -43,13 +44,14 @@ const double Shape::DEFAULT_IMG_HEIGHT = 1;
 // ===========================================================================
 Shape::Shape(const std::string& id, const std::string& type,
              const RGBColor& color, double layer,
-             double angle, const std::string& imgFile) :
+             double angle, const std::string& imgFile, bool relativePath) :
     Named(id),
     myType(type),
     myColor(color),
     myLayer(layer),
     myNaviDegreeAngle(angle),
-    myImgFile(imgFile) {
+    myImgFile(imgFile),
+    myRelativePath(relativePath) {
 }
 
 

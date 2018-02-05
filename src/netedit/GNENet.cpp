@@ -230,12 +230,12 @@ GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-                   const std::string& imgFile, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
+                   const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPolygons.get(id) == NULL) {
         // create poly
         myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
-        GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, false, false);
+        GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, relativePath, false, false);
         myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
         myViewNet->getUndoList()->p_end();
         return true;
@@ -248,13 +248,13 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
 bool
 GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-               const std::string& imgFile, double width, double height, bool /*ignorePruning*/) {
+               const std::string& imgFile, bool relativePath, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myPOIs.get(id) == NULL) {
         // create POI or POILane depending of parameter lane
         if (lane == "") {
             // create POI
-            GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, width, height, false);
+            GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
                 myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
@@ -266,7 +266,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
         } else {
             // create POI over lane
             GNELane* retrievedLane = retrieveLane(lane);
-            GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, retrievedLane, posOverLane, posLat, width, height, false);
+            GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
                 myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
                 myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
@@ -1939,7 +1939,7 @@ GNEPoly*
 GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill) {
     if (shape.size() > 0) {
         // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false , false);
+        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false , false);
         shapePoly->setShapeEditedElement(netElement);
         shapePoly->setFill(fill);
         shapePoly->setLineWidth(0.3);

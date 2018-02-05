@@ -42,6 +42,17 @@
  */
 class Shape : public Named {
 public:
+    /// @nane default shape's values
+    /// @{
+    static const std::string DEFAULT_TYPE;
+    static const double DEFAULT_LAYER;
+    static const double DEFAULT_ANGLE;
+    static const std::string DEFAULT_IMG_FILE;
+    static const bool DEFAULT_RELATIVEPATH;
+    static const double DEFAULT_IMG_WIDTH;
+    static const double DEFAULT_IMG_HEIGHT;
+    /// @}
+
     /** @brief Constructor
      * @param[in] id The name of the shape
      * @param[in] type The (abstract) type of the shape
@@ -49,15 +60,14 @@ public:
      * @param[in] layer The layer of the shape
      * @param[in] angle The rotation of the shape in navigational degrees
      * @param[in] imgFile The raster image of the shape
+     * @param[in] relativePath set image file as relative path
      */
     Shape(const std::string& id, const std::string& type,
           const RGBColor& color, double layer,
-          double angle, const std::string& imgFile);
-
+          double angle, const std::string& imgFile, bool relativePath);
 
     /// @brief Destructor
     virtual ~Shape();
-
 
     /// @name Getter
     /// @{
@@ -69,14 +79,12 @@ public:
         return myType;
     }
 
-
     /** @brief Returns the color of the Shape
      * @return The Shape's color
      */
     inline const RGBColor& getColor() const {
         return myColor;
     }
-
 
     /** @brief Returns the layer of the Shape
      * @return The Shape's layer
@@ -98,6 +106,13 @@ public:
     inline const std::string& getImgFile() const {
         return myImgFile;
     }
+
+    /** @brief Returns the relativePath of the Shape
+    * @return The Shape's relativePath
+    */
+    inline bool getRelativePath() const {
+        return myRelativePath;
+    }
     /// @}
 
 
@@ -111,7 +126,6 @@ public:
         myType = type;
     }
 
-
     /** @brief Sets a new color
      * @param[in] col The new color to use
      */
@@ -119,14 +133,12 @@ public:
         myColor = col;
     }
 
-
     /** @brief Sets a new layer
      * @param[in] layer The new layer to use
      */
     inline void setLayer(const double layer) {
         myLayer = layer;
     }
-
 
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
@@ -141,14 +153,14 @@ public:
     inline void setImgFile(const std::string& imgFile) {
         myImgFile = imgFile;
     }
-    /// @}
 
-    static const std::string DEFAULT_TYPE;
-    static const double DEFAULT_LAYER;
-    static const double DEFAULT_ANGLE;
-    static const std::string DEFAULT_IMG_FILE;
-    static const double DEFAULT_IMG_WIDTH;
-    static const double DEFAULT_IMG_HEIGHT;
+    /** @brief Sets a new relativePath value
+    * @param[in] relativePath The new relative path to set
+    */
+    inline void setRelativePath(bool relativePath) {
+        myRelativePath = relativePath;
+    }
+    /// @}
 
 protected:
     /// @brief The type of the Shape
@@ -165,6 +177,9 @@ protected:
 
     /// @brief The angle of the Shape
     std::string myImgFile;
+
+    /// @brief Enable or disable imgFile as relative path
+    bool myRelativePath;
 };
 
 

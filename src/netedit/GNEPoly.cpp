@@ -65,8 +65,8 @@ const double GNEPoly::myHintSize = 0.8;
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
-                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool movementBlocked, bool shapeBlocked) :
-    GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile),
+                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
+    GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
     myNetElementShapeEdited(NULL),
     myClosedShape(shape.front() == shape.back()),

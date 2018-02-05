@@ -107,6 +107,7 @@ POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c
     return shapeCont.addPOI(poiID, type, Helper::makeRGBColor(c), Helper::makePosition(pos), false, "", 0, 0, (double)layer,
                             Shape::DEFAULT_ANGLE,
                             Shape::DEFAULT_IMG_FILE,
+                            Shape::DEFAULT_RELATIVEPATH,
                             Shape::DEFAULT_IMG_WIDTH,
                             Shape::DEFAULT_IMG_HEIGHT);
 }

@@ -62,12 +62,13 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
+     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] movementBlocked if movement of POI is blocked
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-           double layer, double angle, const std::string& imgFile, double width, double height, bool movementBlocked);
+           double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height, bool movementBlocked);
 
     /** @brief Constructor
     * @param[in] net net in which this polygon is placed
@@ -77,6 +78,7 @@ public:
     * @param[in] layer The layer of the POI
     * @param[in] angle The rotation of the POI
     * @param[in] imgFile The raster image of the shape
+    * @param[in] relativePath set image file as relative path
     * @param[in] lane lane in which tis POILane is placed
     * @param[in] posOverLane Position over lane in which this POILane is placed
     * @param[in] posLat Lateral position over lane
@@ -85,7 +87,7 @@ public:
     * @param[in] movementBlocked if movement of POI is blocked
     */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-           double layer, double angle, const std::string& imgFile, GNELane* lane, double posOverLane,
+           double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane,
            double posLat, double width, double height, bool movementBlocked);
 
     /// @brief Destructor

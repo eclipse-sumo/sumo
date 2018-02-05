@@ -1782,13 +1782,14 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 double layer = POI->getLayer();
                 double angle = POI->getNaviDegree();
                 std::string imgFile = POI->getImgFile();
+                bool relativePath = POI->getRelativePath();
                 double POIWidth = POI->getWidth();      // double width -> C4458
                 double POIHeight = POI->getHeight();    // double height -> C4458
                 // remove POI
                 myUndoList->p_begin("attach POI into " + toString(SUMO_TAG_LANE));
                 myNet->deleteShape(POI, myUndoList);
                 // add POILane
-                myNet->addPOI(id, type, color, pos, false, nearestLane->getID(), minorPosOverLane, 0, layer, angle, imgFile, POIWidth, POIHeight);
+                myNet->addPOI(id, type, color, pos, false, nearestLane->getID(), minorPosOverLane, 0, layer, angle, imgFile, relativePath, POIWidth, POIHeight);
                 myUndoList->p_end();
             }
         } else {
@@ -1800,13 +1801,14 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             double layer = POI->getLayer();
             double angle = POI->getNaviDegree();
             std::string imgFile = POI->getImgFile();
+            bool relativePath = POI->getRelativePath();
             double POIWidth = POI->getWidth();      // double width -> C4458
             double POIWeight = POI->getHeight();    // double height -> C4458
             // remove POI
             myUndoList->p_begin("release POI from " + toString(SUMO_TAG_LANE));
             myNet->deleteShape(POI, myUndoList);
             // add POI
-            myNet->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, POIWidth, POIWeight);
+            myNet->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, relativePath, POIWidth, POIWeight);
             myUndoList->p_end();
         }
         // update view after transform

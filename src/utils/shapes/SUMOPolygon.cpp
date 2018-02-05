@@ -38,8 +38,8 @@
 // ===========================================================================
 SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type,
                          const RGBColor& color, const PositionVector& shape, bool geo, bool fill,
-                         double layer, double angle, const std::string& imgFile) :
-    Shape(id, type, color, layer, angle, imgFile),
+                         double layer, double angle, const std::string& imgFile, bool relativePath) :
+    Shape(id, type, color, layer, angle, imgFile, relativePath),
     myShape(shape),
     myGEO(geo),
     myFill(fill) {

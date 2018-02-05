@@ -48,8 +48,8 @@ GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string&
                                        const RGBColor& color, const Position& pos, bool geo,
                                        const std::string& lane, double posOverLane, double posLat,
                                        double layer, double angle, const std::string& imgFile,
-                                       double width, double height) :
-    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, width, height),
+                                       bool relativePath, double width, double height) :
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GUIGlObject_AbstractAdd("poi", GLO_POI, id) {
 }
 
