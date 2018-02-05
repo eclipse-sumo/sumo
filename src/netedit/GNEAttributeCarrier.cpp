@@ -365,6 +365,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HEIGHT, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_POILANE:
@@ -378,6 +379,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HEIGHT, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_POLY:
@@ -388,6 +390,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_CROSSING:
@@ -967,8 +970,13 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         // Poly
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_FILL);
         myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEO);
+        myBoolAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_RELATIVEPATH);
         // POI
         myBoolAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_GEO);
+        myBoolAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_RELATIVEPATH);
+        // POILane
+        myBoolAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_GEO);
+        myBoolAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_RELATIVEPATH);
     }
     return myBoolAttrs[tag].count(attr) == 1;
 }
@@ -1415,6 +1423,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_TYPE] = setAttrDefinition("A typename for the poi");
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_LAYER] = setAttrDefinition("The layer of the poi for drawing and selecting");
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_IMGFILE] = setAttrDefinition("A bitmap to use for rendering this poi");
+        myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_RELATIVEPATH] = setAttrDefinition("Enable or disbale use image file as a relative path");
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_WIDTH] = setAttrDefinition("Width of rendered image in meters");
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_HEIGHT] = setAttrDefinition("Height of rendered image in meters");
         myAttrDefinitions[SUMO_TAG_POI][SUMO_ATTR_ANGLE] = setAttrDefinition("Angle of rendered image in degree");
@@ -1427,6 +1436,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_TYPE] = setAttrDefinition("A typename for the poi");
         myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_LAYER] = setAttrDefinition("The layer of the poi for drawing and selecting");
         myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_IMGFILE] = setAttrDefinition("A bitmap to use for rendering this poi");
+        myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_RELATIVEPATH] = setAttrDefinition("Enable or disbale use image file as a relative path");
         myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_WIDTH] = setAttrDefinition("Width of rendered image in meters");
         myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_HEIGHT] = setAttrDefinition("Height of rendered image in meters");
         myAttrDefinitions[SUMO_TAG_POILANE][SUMO_ATTR_ANGLE] = setAttrDefinition("Angle of rendered image in degree");
@@ -1440,6 +1450,7 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_LAYER] = setAttrDefinition("The layer in which the polygon lies");
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_TYPE] = setAttrDefinition("A typename for the polygon");
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_IMGFILE] = setAttrDefinition("A bitmap to use for rendering this polygon");
+        myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_RELATIVEPATH] = setAttrDefinition("Enable or disbale use image file as a relative path");
         myAttrDefinitions[SUMO_TAG_POLY][SUMO_ATTR_ANGLE] = setAttrDefinition("Angle of rendered image in degree");
         // Crossing
         myAttrDefinitions[SUMO_TAG_CROSSING][SUMO_ATTR_ID] = setAttrDefinition("The ID of Crossing", "Unique");

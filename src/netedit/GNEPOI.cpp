@@ -242,6 +242,8 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
             return toString(myLayer);
         case SUMO_ATTR_IMGFILE:
             return myImgFile;
+        case SUMO_ATTR_RELATIVEPATH:
+            return toString(myRelativePath);
         case SUMO_ATTR_WIDTH:
             return toString(getWidth());
         case SUMO_ATTR_HEIGHT:
@@ -272,6 +274,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
+        case SUMO_ATTR_RELATIVEPATH:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_HEIGHT:
         case SUMO_ATTR_ANGLE:
@@ -318,6 +321,8 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_RELATIVEPATH:
+            return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value);
         case SUMO_ATTR_HEIGHT:
@@ -388,6 +393,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             myImgFile = value;
+            break;
+        case SUMO_ATTR_RELATIVEPATH:
+            myRelativePath = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
             setWidth(parse<double>(value));

@@ -554,6 +554,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return myType;
         case SUMO_ATTR_IMGFILE:
             return myImgFile;
+        case SUMO_ATTR_RELATIVEPATH:
+            return toString(myRelativePath);
         case SUMO_ATTR_ANGLE:
             return toString(getNaviDegree());
         case SUMO_ATTR_GEO:
@@ -584,6 +586,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
+        case SUMO_ATTR_RELATIVEPATH:
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -626,6 +629,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_RELATIVEPATH:
+            return canParse<bool>(value);
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
         case SUMO_ATTR_GEO:
@@ -719,6 +724,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             myType = value;
+            break;
+        case SUMO_ATTR_RELATIVEPATH:
+            myRelativePath = parse<bool>(value);
             break;
         case SUMO_ATTR_ANGLE:
             setNaviDegree(parse<double>(value));
