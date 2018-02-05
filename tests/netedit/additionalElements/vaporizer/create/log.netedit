@@ -1,3 +1,4 @@
+Warning: Selected additional 'vaporizer' in AdditionalSelector
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
@@ -39,3 +40,4 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

@@ -41,3 +41,4 @@ Warning: Deleting unreferenced vaporizer 'vaporizer_1' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'vaporizer_2' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'vaporizer_3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

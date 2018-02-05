@@ -1,6 +1,7 @@
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
+Warning: Selected additional 'routeProbe' in AdditionalSelector
 Warning: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
 Warning: Removing routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Removing routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
@@ -57,3 +58,4 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

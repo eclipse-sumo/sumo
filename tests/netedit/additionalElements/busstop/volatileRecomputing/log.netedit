@@ -53,3 +53,4 @@ Warning: Deleting unreferenced busStop 'busStop_gneE2_3_4' in GNENet destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE2_4_3' in GNENet destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE4_0_2' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

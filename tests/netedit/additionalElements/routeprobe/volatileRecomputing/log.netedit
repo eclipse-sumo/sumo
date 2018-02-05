@@ -77,3 +77,4 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_15' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_16' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_17' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

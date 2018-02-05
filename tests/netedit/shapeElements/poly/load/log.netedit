@@ -28,15 +28,22 @@ Warning: Adding poly 'poly_17' into viewNet
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
 Warning: Adding poly 'poly_18' into viewNet
 Warning: Adding poly 'poly_19' into viewNet
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.19Nov095050.6372/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Attribute 'imgFile' in definition of poly 'poly_20' is not of type bool.
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Warning: Adding poly 'poly_20' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
+Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
 Warning: Adding poly 'poly_21' into viewNet
+Error: Attribute 'imgFile' in definition of poly 'poly_22' is not of type bool.
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/shapeElements/poly/load\berlin_icon.ico'
 Warning: Adding poly 'poly_22' into viewNet
 Error: Attribute 'angle' in definition of poly 'poly_23' is not of type float.
+Error: Attribute 'imgFile' in definition of poly 'poly_23' is not of type bool.
 Warning: Adding poly 'poly_23' into viewNet
+Error: Attribute 'imgFile' in definition of poly 'poly_24' is not of type bool.
 Warning: Adding poly 'poly_24' into viewNet
+Error: Attribute 'imgFile' in definition of poly 'poly_25' is not of type bool.
 Warning: Adding poly 'poly_25' into viewNet
 Error: Loading of shapes failed.
 Warning: Shapes saved
@@ -102,3 +109,4 @@ Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

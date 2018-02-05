@@ -1,3 +1,4 @@
+Warning: Selected additional 'vaporizer' in AdditionalSelector
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
@@ -22,7 +23,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute edge 'gneE3' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Removed 'vaporizer_0' from Inspected ACs. 0 ACs remains.
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
@@ -71,3 +72,4 @@ Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

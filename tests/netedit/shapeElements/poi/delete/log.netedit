@@ -1,24 +1,23 @@
-Warning: Adding poi 'POI_img' into viewNet
-Warning: Shapes has to be saved
+Error: Attribute 'imgFile' in definition of poi 'POI_img' is not of type bool.
 Warning: Adding poi 'POI_nonDeleted' into viewNet
+Warning: Shapes has to be saved
+Error: Loading of shapes failed.
 Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Removing poi 'POI_0' from viewNet
-Warning: Removing poi 'POI_img' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding poi 'POI_img' into viewNet
+Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing poi 'POI_0' from viewNet
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing poi 'POI_img' from viewNet
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Removing poi 'POI_0' from net
 Warning: Removing poi 'POI_nonDeleted' from net
-Warning: Removing poi 'POI_img' from net
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -28,3 +27,4 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

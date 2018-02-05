@@ -42,3 +42,4 @@ Warning: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

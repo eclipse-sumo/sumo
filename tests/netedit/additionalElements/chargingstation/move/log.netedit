@@ -1,3 +1,4 @@
+Warning: Selected additional 'chargingStation' in AdditionalSelector
 Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Setting new attribute startPos '8.00' into chargingStation 'chargingStation_gneE0_0_0'
@@ -84,3 +85,4 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

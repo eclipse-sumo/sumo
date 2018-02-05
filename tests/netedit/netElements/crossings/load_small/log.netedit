@@ -117,3 +117,4 @@ Warning: Deleting unreferenced junction 'N' in GNENet destructor
 Warning: Deleting unreferenced junction 'S' in GNENet destructor
 Warning: Deleting unreferenced junction 'W' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

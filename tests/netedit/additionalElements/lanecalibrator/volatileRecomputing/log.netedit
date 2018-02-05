@@ -53,3 +53,4 @@ Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE2_3_0' in GNEN
 Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE2_4_0' in GNENet destructor
 Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE4_0_0' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

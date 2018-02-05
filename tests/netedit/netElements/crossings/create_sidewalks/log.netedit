@@ -133,3 +133,4 @@ Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

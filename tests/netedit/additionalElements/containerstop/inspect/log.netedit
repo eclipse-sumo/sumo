@@ -49,7 +49,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
-Warning: Removed 'containerStop_gneE2_1_0' from Inspected ACs. 0 ACs remains.
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -113,3 +113,4 @@ Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper

@@ -1,7 +1,9 @@
 Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
+Warning: Selected additional 'e3Detector' in AdditionalSelector
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Value 'dummyLane' for attribute lane of detEntry isn't valid
 Warning: Value '' for attribute lane of detEntry isn't valid
@@ -24,7 +26,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE3_0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removed 'e3Detector_0detEntry0' from Inspected ACs. 0 ACs remains.
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -82,3 +84,4 @@ Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITexturesHelper
