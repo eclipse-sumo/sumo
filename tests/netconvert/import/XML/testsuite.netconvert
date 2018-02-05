@@ -1,3 +1,6 @@
+# Tests parsing of stopOffsets (lane / edge child elements)
+stopOffsets
+
 # Tests for using types
 types
 
