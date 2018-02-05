@@ -623,11 +623,9 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_IMGFILE:
             if (value == "") {
                 return true;
-            } else if (isValidFilename(value)) {
+            } else {
                 // check that image can be loaded
                 return GUITexturesHelper::getTextureID(value) != -1;
-            } else {
-                return false;
             }
         case SUMO_ATTR_RELATIVEPATH:
             return canParse<bool>(value);
@@ -723,7 +721,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myType = value;
             break;
         case SUMO_ATTR_IMGFILE:
-            myType = value;
+            myImgFile = value;
             break;
         case SUMO_ATTR_RELATIVEPATH:
             myRelativePath = parse<bool>(value);
