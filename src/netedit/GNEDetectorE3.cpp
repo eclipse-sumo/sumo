@@ -269,10 +269,8 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_POSITION: {
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-        }
+        case SUMO_ATTR_POSITION:
+            return canParse<Position>(value);
         case SUMO_ATTR_FREQUENCY:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_FILE:
@@ -295,11 +293,9 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION: {
-            bool ok;
-            myPosition = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0];
+        case SUMO_ATTR_POSITION:
+            myPosition = parse<Position>(value);
             break;
-        }
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
             break;

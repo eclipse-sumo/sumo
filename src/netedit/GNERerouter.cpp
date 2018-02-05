@@ -357,10 +357,8 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return checkGNEEdgesValid(myViewNet->getNet(), value, false);
             }
-        case SUMO_ATTR_POSITION: {
-            bool ok;
-            return GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false).size() == 1;
-        }
+        case SUMO_ATTR_POSITION:
+            return canParse<Position>(value);
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_PROB:
@@ -397,8 +395,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION:
-            bool ok;
-            myPosition = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false)[0];
+            myPosition = parse<Position>(value);
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
