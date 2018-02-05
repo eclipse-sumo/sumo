@@ -90,6 +90,7 @@ NLEdgeControlBuilder::addLane(const std::string& id,
 
 void
 NLEdgeControlBuilder::addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
+
     if (myCurrentLaneIndex == -1) {
         setDefaultStopOffsets(stopOffsets);
     } else {
@@ -120,8 +121,9 @@ NLEdgeControlBuilder::updateCurrentLaneStopOffsets(const std::map<SVCPermissions
         std::stringstream ss;
         ss << "Duplicate stopOffset definition for lane " << myLaneStorage->back()->getIndex() << " on edge " << myActiveEdge->getID() << "!";
         WRITE_WARNING(ss.str())
+    } else {
+        myLaneStorage->back()->setStopOffsets(stopOffsets);
     }
-    myLaneStorage->back()->setStopOffsets(stopOffsets);
 }
 
 
@@ -129,10 +131,11 @@ void
 NLEdgeControlBuilder::setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
     if (myCurrentDefaultStopOffsets.size() != 0) {
         std::stringstream ss;
-        ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << "!";
+        ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << ". Ignoring duplicate specification.";
         WRITE_WARNING(ss.str())
+    } else {
+        myCurrentDefaultStopOffsets = stopOffsets;
     }
-    myCurrentDefaultStopOffsets = stopOffsets;
 }
 
 

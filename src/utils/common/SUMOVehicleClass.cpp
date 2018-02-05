@@ -202,7 +202,7 @@ parseVehicleClasses(const std::string& allowedS) {
     while (sta.hasNext()) {
         const std::string s = sta.next();
         if (!SumoVehicleClassStrings.hasString(s)) {
-            WRITE_ERROR("Unknown vehicle class '" + s + "' encountered. It will be ignored.");
+            WRITE_WARNING("Unknown vehicle class '" + s + "' encountered. It will be ignored.");
         } else {
             const SUMOVehicleClass vc = getVehicleClassID(s);
             const std::string& realName = SumoVehicleClassStrings.getString(vc);
@@ -350,7 +350,7 @@ std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs,
         vClassBitset = ~parseVehicleClasses(exceptions);
     } else {
         // no vClasses specified, thus apply to all
-        vClassBitset=~parseVehicleClasses("");
+        vClassBitset=parseVehicleClasses("all");
     }
 
     std::map<SVCPermissions,double> offsets;

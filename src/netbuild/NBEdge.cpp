@@ -3018,7 +3018,11 @@ NBEdge::getEndOffset(int lane) const {
 
 const std::map<SVCPermissions,double>&
 NBEdge::getStopOffsets(int lane) const {
-    return (lane==-1 || myLanes[lane].stopOffsets.size() != 0) ? myLanes[lane].stopOffsets : myStopOffsets;
+    if (lane == -1) {
+        return myStopOffsets;
+    } else {
+        return myLanes[lane].stopOffsets;
+    }
 }
 
 void
@@ -3042,15 +3046,11 @@ NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
     if (lane < 0) {
         // all lanes are meant...
         myStopOffsets = offsets;
-        for (int i = 0; i < (int)myLanes.size(); i++) {
-            // ... do it for each lane
-            setStopOffsets(i, offsets, overwrite);
+    } else {
+        assert(lane < (int)myLanes.size());
+        if (myLanes[lane].stopOffsets.size()==0 || overwrite) {
+            myLanes[lane].stopOffsets = offsets;
         }
-        return;
-    }
-    assert(lane < (int)myLanes.size());
-    if (myLanes[lane].stopOffsets.size()==0 || overwrite) {
-        myLanes[lane].stopOffsets = offsets;
     }
 }
 

@@ -829,13 +829,21 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
 void
 NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions,double>& stopOffsets) {
     std::pair<int,double> offset = *stopOffsets.begin();
-    into.openTag(SUMO_TAG_STOPOFFSET);
     std::string ss_vclasses = getVehicleClassNames(offset.first);
+    if (ss_vclasses.length() == 0) {
+        // This stopOffset would have no effect...
+        return;
+    }
+    into.openTag(SUMO_TAG_STOPOFFSET);
     std::string ss_exceptions = getVehicleClassNames(~offset.first);
-    if (ss_vclasses.length() > ss_exceptions.length()) {
+    if (ss_vclasses.length() <= ss_exceptions.length()) {
         into.writeAttr(SUMO_ATTR_VCLASSES, ss_vclasses);
     } else {
-        into.writeAttr(SUMO_ATTR_EXCEPTIONS, ss_exceptions);
+        if (ss_exceptions.length() == 0) {
+            into.writeAttr(SUMO_ATTR_VCLASSES, "all");
+        } else {
+            into.writeAttr(SUMO_ATTR_EXCEPTIONS, ss_exceptions);
+        }
     }
     into.writeAttr(SUMO_ATTR_VALUE, offset.second);
     into.closeTag();

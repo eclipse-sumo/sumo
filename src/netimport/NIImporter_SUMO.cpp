@@ -387,8 +387,7 @@ NIImporter_SUMO::myStartElement(int element,
         case SUMO_TAG_LANE:
             addLane(attrs);
             break;
-        case SUMO_TAG_STOPOFFSET:
-        {
+        case SUMO_TAG_STOPOFFSET: {
             bool ok = true;
             addStopOffsets(attrs, ok);
         }
@@ -591,10 +590,21 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
 void
 NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     std::map<SVCPermissions,double> offsets = parseStopOffsets(attrs, ok);
+    assert(offsets.size()==1);
     if (myCurrentLane==0) {
         if (myCurrentEdge->stopOffsets.size() != 0) {
             std::stringstream ss;
-            ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
+            ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specification.";
+            WRITE_WARNING(ss.str());
+            return;
+        } else if (myCurrentEdge->length < offsets.begin()->second || 0 > offsets.begin()->second) {
+            std::stringstream ss;
+            ss << "Ignoring invalid stopOffset for edge " << myCurrentEdge->id;
+            if (offsets.begin()->second > myCurrentEdge->length) {
+                ss << " (offset larger than the edge length).";
+            } else {
+                ss << " (negative offset).";
+            }
             WRITE_WARNING(ss.str());
             return;
         }
@@ -603,6 +613,16 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
         if (myCurrentLane->stopOffsets.size() != 0) {
             std::stringstream ss;
             ss << "Duplicate definition of lane's stopOffset on edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
+            WRITE_WARNING(ss.str());
+            return;
+        } else if (myCurrentEdge->length < offsets.begin()->second || 0 > offsets.begin()->second) {
+            std::stringstream ss;
+            ss << "Ignoring invalid stopOffset for lane on edge " << myCurrentEdge->id;
+            if (offsets.begin()->second > myCurrentEdge->length) {
+                ss << " (offset larger than the edge length).";
+            } else {
+                ss << " (negative offset).";
+            }
             WRITE_WARNING(ss.str());
             return;
         }

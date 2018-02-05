@@ -117,12 +117,37 @@ NIXMLEdgesHandler::myStartElement(int element,
             {
                 bool ok =true;
                 std::map<SVCPermissions,double> stopOffsets = parseStopOffsets(attrs, ok);
+                assert(stopOffsets.size()==1);
                 if (!ok) {
                     std::stringstream ss;
-                    ss << "(Error encountered at lane " << myCurrentLaneIndex << " of edge '" << myCurrentID << "')";
+                    ss << "(Error encountered at lane " << myCurrentLaneIndex << " of edge '" << myCurrentID << "' while parsing stopOffsets.)";
                     WRITE_ERROR(ss.str());
                 } else {
-                    myCurrentEdge->setStopOffsets(myCurrentLaneIndex, stopOffsets);
+                    if (myCurrentEdge->getStopOffsets(myCurrentLaneIndex).size() != 0) {
+                        std::stringstream ss;
+                        ss << "Duplicate definition of stopOffset for ";
+                        if (myCurrentLaneIndex!=-1) {
+                            ss << "lane " << myCurrentLaneIndex << " on ";
+                        }
+                        ss << "edge " << myCurrentEdge->getID() << ". Ignoring duplicate specification.";
+                        WRITE_WARNING(ss.str());
+                        return;
+                    } else if (stopOffsets.begin()->second > myCurrentEdge->getLength() || stopOffsets.begin()->second < 0) {
+                        std::stringstream ss;
+                        ss << "Ignoring invalid stopOffset for ";
+                        if (myCurrentLaneIndex!=-1) {
+                            ss << "lane " << myCurrentLaneIndex << " on ";
+                        }
+                        ss << "edge " << myCurrentEdge->getID();
+                        if (stopOffsets.begin()->second > myCurrentEdge->getLength()) {
+                            ss << " (offset larger than the edge length).";
+                        } else {
+                            ss << " (negative offset).";
+                        }
+                        WRITE_WARNING(ss.str());
+                    } else {
+                        myCurrentEdge->setStopOffsets(myCurrentLaneIndex, stopOffsets);
+                    }
                 }
             }
             break;
@@ -547,6 +572,13 @@ NIXMLEdgesHandler::myEndElement(int element) {
         // add sidewalk, wait until lanes are loaded to avoid building if it already exists
         if (mySidewalkWidth != NBEdge::UNSPECIFIED_WIDTH) {
             myCurrentEdge->addSidewalk(mySidewalkWidth);
+        }
+        // apply default stopOffsets of edge to all lanes without specified stopOffset.
+        std::map<SVCPermissions,double> stopOffsets = myCurrentEdge->getStopOffsets(-1);
+        if (stopOffsets.size()!=0) {
+            for (int i = 0; i < (int)myCurrentEdge->getLanes().size(); i++) {
+                myCurrentEdge->setStopOffsets(i, stopOffsets, false);
+            }
         }
         if (!myIsUpdate) {
             try {
