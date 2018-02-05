@@ -349,8 +349,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
     std::string lanesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort);
-    double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
-    double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
     // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -363,7 +362,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, Position(posx, posy), lanes, file, false)) {
+        } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, file, false)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -400,8 +399,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
     double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_PROB, abort);
     bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
     double timeThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), abort, 0);
-    double posx = attrs.getOpt<double>(SUMO_ATTR_X, 0, abort, 0);
-    double posy = attrs.getOpt<double>(SUMO_ATTR_Y, 0, abort, 0);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -414,7 +412,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, Position(posx, posy), edges, probability, file, off, timeThreshold, false)) {
+        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, file, off, timeThreshold, false)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -776,8 +774,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
     double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
     double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
-    double posx = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_X, abort);
-    double posy = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_Y, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
     // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -785,7 +782,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (buildDetectorE3(myViewNet, true, id, Position(posx, posy), frequency, file, haltingTimeThreshold, haltingSpeedThreshold, false)) {
+        } else if (buildDetectorE3(myViewNet, true, id, pos, frequency, file, haltingTimeThreshold, haltingSpeedThreshold, false)) {
             // set myLastInsertedAdditionalParent due this additional can have childs and was sucesfully created
             myLastInsertedAdditionalParent = id;
         }

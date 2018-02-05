@@ -30,6 +30,7 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <netbuild/NBEdge.h>
 
 #include "GNEAttributeCarrier.h"
@@ -125,6 +126,22 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> RGBColor
 GNEAttributeCarrier::parse(const std::string& string) {
     return RGBColor::parseColor(string);
+}
+
+
+template<> Position
+GNEAttributeCarrier::parse(const std::string& string) {
+    if (string.size() == 0) {
+        throw EmptyData();
+    } else {
+        bool ok = true;
+        PositionVector pos = GeomConvHelper::parseShapeReporting(string, "netedit-given", 0, ok, false, false);
+        if(!ok || pos.size() != 1) {
+            throw NumberFormatException();
+        } else {
+            return pos[0];
+        }
+    }
 }
 
 
@@ -1712,6 +1729,18 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     for (auto i : allowedAttributes(tag)) {
         if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
             return (i.second);
+        }
+    }
+    // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
+    throw ProcessError("attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' doesn't have a default value");
+}
+
+
+template<> Position
+GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
+    for (auto i : allowedAttributes(tag)) {
+        if ((i.first == attr) && (i.second != NODEFAULTVALUE)) {
+            return parse<Position>(i.second);
         }
     }
     // throw exception if attribute doesn't have a default value and return a empty value to avoid warnings
