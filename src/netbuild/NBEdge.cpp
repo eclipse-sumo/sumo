@@ -3041,17 +3041,49 @@ NBEdge::setEndOffset(int lane, double offset) {
 }
 
 
-void
+bool
 NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
     if (lane < 0) {
+        if (!overwrite && myStopOffsets.size()!=0) {
+            return false;
+        }
+        double edgeLength = myLoadedLength != -1 ? myLoadedLength : myLength;
         // all lanes are meant...
-        myStopOffsets = offsets;
+        if (edgeLength < offsets.begin()->second || 0 > offsets.begin()->second ) {
+            //  Edge length unknown at parsing time, thus check here.
+            std::stringstream ss;
+            ss << "Ignoring invalid stopOffset for edge " << getID();
+            if (edgeLength < offsets.begin()->second) {
+                ss<< " (offset larger than the edge length).";
+            } else {
+                ss<< " (negative offset).";
+            }
+            WRITE_WARNING(ss.str());
+            return false;
+        } else {
+            myStopOffsets = offsets;
+        }
     } else {
         assert(lane < (int)myLanes.size());
         if (myLanes[lane].stopOffsets.size()==0 || overwrite) {
-            myLanes[lane].stopOffsets = offsets;
+            double laneLength = myLoadedLength != -1 ? myLoadedLength : getLaneShape(lane).length();
+            if (laneLength < offsets.begin()->second || 0 > offsets.begin()->second) {
+                //  Edge length unknown at parsing time, thus check here.
+                std::stringstream ss;
+                ss << "Ignoring invalid stopOffset for lane " << lane << " on edge " << getID();
+                if (laneLength < offsets.begin()->second) {
+                    ss<< " (offset larger than the lane length).";
+                } else {
+                    ss<< " (negative offset).";
+                }
+                WRITE_WARNING(ss.str());
+                return false;
+            } else {
+                myLanes[lane].stopOffsets = offsets;
+            }
         }
     }
+    return true;
 }
 
 

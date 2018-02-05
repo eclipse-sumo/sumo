@@ -163,6 +163,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             continue;
         }
         ed->builtEdge = myNetBuilder.getEdgeCont().retrieve(ed->id);
+        ed->builtEdge->setStopOffsets(-1, ed->stopOffsets);
     }
     // assign further lane attributes (edges are built)
     EdgeVector toRemove;
@@ -216,13 +217,22 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             // width, offset
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
-            nbe->setStopOffsets(fromLaneIndex, lane->stopOffsets);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
             nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getMap());
             if (lane->customShape) {
                 nbe->setLaneShape(fromLaneIndex, lane->shape);
+            }
+            // stop offset for lane
+            bool stopOffsetSet = false;
+            if (lane->stopOffsets.size() != 0 || nbe->getStopOffsets().size() == 0) {
+                // apply lane-specific stopOffset (might be none as well)
+                stopOffsetSet = nbe->setStopOffsets(fromLaneIndex, lane->stopOffsets);
+            }
+            if (!stopOffsetSet) {
+                // apply default stop offset to lane
+                nbe->setStopOffsets(fromLaneIndex, nbe->getStopOffsets());
             }
         }
         nbe->declareConnectionsAsLoaded();
@@ -590,43 +600,27 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
 void
 NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     std::map<SVCPermissions,double> offsets = parseStopOffsets(attrs, ok);
+    if (!ok) return;
     assert(offsets.size()==1);
+    // Admissibility of value will be checked in _loadNetwork(), when lengths are known
     if (myCurrentLane==0) {
         if (myCurrentEdge->stopOffsets.size() != 0) {
             std::stringstream ss;
             ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specification.";
             WRITE_WARNING(ss.str());
             return;
-        } else if (myCurrentEdge->length < offsets.begin()->second || 0 > offsets.begin()->second) {
-            std::stringstream ss;
-            ss << "Ignoring invalid stopOffset for edge " << myCurrentEdge->id;
-            if (offsets.begin()->second > myCurrentEdge->length) {
-                ss << " (offset larger than the edge length).";
-            } else {
-                ss << " (negative offset).";
-            }
-            WRITE_WARNING(ss.str());
-            return;
+        } else {
+            myCurrentEdge->stopOffsets=offsets;
         }
-        myCurrentEdge->stopOffsets=offsets;
     } else {
         if (myCurrentLane->stopOffsets.size() != 0) {
             std::stringstream ss;
             ss << "Duplicate definition of lane's stopOffset on edge " << myCurrentEdge->id << ".\nIgnoring duplicate specifications.";
             WRITE_WARNING(ss.str());
             return;
-        } else if (myCurrentEdge->length < offsets.begin()->second || 0 > offsets.begin()->second) {
-            std::stringstream ss;
-            ss << "Ignoring invalid stopOffset for lane on edge " << myCurrentEdge->id;
-            if (offsets.begin()->second > myCurrentEdge->length) {
-                ss << " (offset larger than the edge length).";
-            } else {
-                ss << " (negative offset).";
-            }
-            WRITE_WARNING(ss.str());
-            return;
+        } else {
+            myCurrentLane->stopOffsets=offsets;
         }
-        myCurrentLane->stopOffsets=offsets;
     }
 }
 

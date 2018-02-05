@@ -1176,7 +1176,8 @@ public:
     void setSpeed(int lane, double speed);
 
     /// @brief set lane and vehicle class specific stopOffset (negative lane implies set for all lanes)
-    void setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite = false);
+    /// @return Whether given stop offset was applied.
+    bool setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite = false);
 
     /// @brief marks one lane as acceleration lane
     void setAcceleration(int lane, bool accelRamp);
