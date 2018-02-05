@@ -163,7 +163,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             continue;
         }
         ed->builtEdge = myNetBuilder.getEdgeCont().retrieve(ed->id);
-        ed->builtEdge->setStopOffsets(-1, ed->stopOffsets);
+        if (ed->builtEdge != nullptr) {
+            ed->builtEdge->setStopOffsets(-1, ed->stopOffsets);
+        }
     }
     // assign further lane attributes (edges are built)
     EdgeVector toRemove;
