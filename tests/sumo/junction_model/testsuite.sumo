@@ -7,3 +7,6 @@ ignoreRightOfWay
 
 # configure timegap to observe when passing a minor link
 timegapMinor
+
+# Tests for the stopOffset
+stopOffset
