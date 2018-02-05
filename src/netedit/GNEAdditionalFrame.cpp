@@ -589,8 +589,10 @@ GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
 
 void
 GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAttributeSingle) {
+    // obtain parameter type
+    SumoXMLTag currentType = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
     // If  parameter is of type list
-    if (GNEAttributeCarrier::isList(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle)) {
+    if (GNEAttributeCarrier::isList(currentType, AdditionalAttributeSingle)) {
         // If parameter can be show
         if (myIndexParameterList < myMaxNumberOfListParameters) {
             myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle));
@@ -601,7 +603,15 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
         }
     } else {
         if (myIndexParameter < myMaxNumberOfParameters) {
-            myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle));
+            if (GNEAttributeCarrier::isBool(currentType, AdditionalAttributeSingle)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentType, AdditionalAttributeSingle));
+            } else if (GNEAttributeCarrier::isInt(currentType, AdditionalAttributeSingle)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentType, AdditionalAttributeSingle));
+            } else if (GNEAttributeCarrier::isFloat(currentType, AdditionalAttributeSingle) || GNEAttributeCarrier::isTime(currentType, AdditionalAttributeSingle)) {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentType, AdditionalAttributeSingle));
+            } else {
+                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentType, AdditionalAttributeSingle));
+            }
             // Update index parameter
             myIndexParameter++;
         } else {
