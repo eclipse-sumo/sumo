@@ -2306,7 +2306,7 @@ GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdShowGrid(FXObject*, FXSelector sel, void*) {
+GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
     // show or hidde grid depending of myMenuCheckShowGrid
     if (myMenuCheckShowGrid->getCheck()) {
         myVisualizationSettings->showGrid = true;
