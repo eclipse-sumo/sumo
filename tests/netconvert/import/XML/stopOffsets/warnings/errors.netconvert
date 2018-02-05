@@ -1,5 +1,5 @@
-Warning: Unknown vehicle class 'bike' encountered. It will be ignored.
-Warning: Unknown vehicle class 'bike' encountered. It will be ignored.
+Error: Unknown vehicle class 'bike' encountered.
+Error: Unknown vehicle class 'bike' encountered.
 Warning: Ignoring invalid stopOffset for lane 1 on edge 1si (offset larger than the edge length).
 Warning: Ignoring invalid stopOffset for lane 1 on edge 1si (negative offset).
 Warning: Duplicate definition of stopOffset for lane 2 on edge 1si. Ignoring duplicate specification.
@@ -7,3 +7,4 @@ Warning: Ignoring invalid stopOffset for edge 2si (offset larger than the edge l
 Warning: Ignoring invalid stopOffset for edge 2si (negative offset).
 Warning: Duplicate definition of stopOffset for edge 3si. Ignoring duplicate specification.
 Warning: Duplicate definition of stopOffset for edge 3si. Ignoring duplicate specification.
+Quitting (on error).
