@@ -33,6 +33,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include "GUITexturesHelper.h"
 
@@ -125,6 +126,9 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
             GUIGlID id = add(i);
             delete i;
             myTextures[filename] = (int)id;
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding texture '" + filename + "'");
+            }
         } catch (InvalidArgument& e) {
             WRITE_ERROR("Could not load '" + filename + "'.\n" + e.what());
             myTextures[filename] = -1;
@@ -136,6 +140,9 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
 
 void
 GUITexturesHelper::clearTextures() {
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("Cleaning textures in GUITexturesHelper");
+    }
     myTextures.clear();
 }
 
