@@ -254,7 +254,7 @@ GNEInspectorFrame::removeInspectedAC(GNEAttributeCarrier *ac) {
             myACs.erase(i);
             // Write Warning in console if we're in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removed '" + (*i)->getID() + "' from Inspected ACs. " + toString(myACs.size()) + " ACs remains.");
+                WRITE_WARNING("Removed inspected element from Inspected ACs. " + toString(myACs.size()) + " ACs remains.");
             }
             // Inspect multi selection again
             inspectMultisection(myACs);
