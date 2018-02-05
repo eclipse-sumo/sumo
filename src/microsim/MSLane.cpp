@@ -2769,7 +2769,7 @@ MSLane::getStopOffset(const MSVehicle* veh) const {
     if (myStopOffsets.size()==0) {
         return 0.;
     }
-    if ((myStopOffsets.begin()->first | veh->getVClass()) != 0){
+    if ((myStopOffsets.begin()->first & veh->getVClass()) != 0){
         return myStopOffsets.begin()->second;
     } else {
         return 0.;
