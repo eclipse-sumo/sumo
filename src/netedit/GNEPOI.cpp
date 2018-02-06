@@ -391,6 +391,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             myImgFile = value;
+            // all textures must be refresh
+            GUITexturesHelper::clearTextures();
             break;
         case SUMO_ATTR_RELATIVEPATH:
             myRelativePath = parse<bool>(value);
