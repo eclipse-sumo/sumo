@@ -46,6 +46,7 @@
 #include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
 #include "cfmodels/MSCFModel_Wiedemann.h"
+#include "cfmodels/MSCFModel_TCI.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
 
@@ -348,6 +349,11 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_WIEDEMANN:
             vtype->myCarFollowModel = new MSCFModel_Wiedemann(vtype, accel, decel, emergencyDecel, apparentDecel,
+                    from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
+                    from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
+            break;
+        case SUMO_TAG_CF_WIEDEMANN:
+            vtype->myCarFollowModel = new MSCFModel_TCI(vtype, accel, decel, emergencyDecel, apparentDecel,
                     from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5),
                     from.getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5));
             break;

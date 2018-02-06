@@ -173,6 +173,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-PWagner2009",   SUMO_TAG_CF_PWAGNER2009 },
     { "carFollowing-BKerner",       SUMO_TAG_CF_BKERNER },
     { "carFollowing-Wiedemann",     SUMO_TAG_CF_WIEDEMANN },
+    { "carFollowing-TCI",           SUMO_TAG_CF_TCI },
     { "carFollowing-Rail",          SUMO_TAG_CF_RAIL },
     // Person
     { "person",                     SUMO_TAG_PERSON },
@@ -695,6 +696,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
     { "BKerner",     SUMO_TAG_CF_BKERNER },
     { "Rail",        SUMO_TAG_CF_RAIL },
+    { "TCI",         SUMO_TAG_CF_TCI },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
 };
 

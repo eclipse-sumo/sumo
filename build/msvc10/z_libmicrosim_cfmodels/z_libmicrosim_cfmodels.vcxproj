@@ -39,6 +39,7 @@
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Rail.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.h" />
     <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.h" />
+    <ClInclude Include="..\..\..\src\microsim\cfmodels\MSCFModel_TCI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel.cpp" />
@@ -53,6 +54,7 @@
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Rail.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_SmartSK.cpp" />
     <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_Wiedemann.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\cfmodels\MSCFModel_TCI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{014F0919-66A3-4AED-8901-B6E02F56DC7C}</ProjectGuid>

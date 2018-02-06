@@ -639,6 +639,17 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
 
+
+        std::set<SumoXMLAttr> TCIParams;
+        TCIParams.insert(SUMO_ATTR_ACCEL);
+        TCIParams.insert(SUMO_ATTR_DECEL);
+        TCIParams.insert(SUMO_ATTR_APPARENTDECEL);
+        TCIParams.insert(SUMO_ATTR_EMERGENCYDECEL);
+        TCIParams.insert(SUMO_ATTR_SIGMA);
+        TCIParams.insert(SUMO_ATTR_TAU);
+        allowedCFModelAttrs[SUMO_TAG_CF_TCI] = TCIParams;
+        allParams.insert(TCIParams.begin(), TCIParams.end());
+
         allowedCFModelAttrs[SUMO_TAG_NOTHING] = allParams;
     }
     return allowedCFModelAttrs;
