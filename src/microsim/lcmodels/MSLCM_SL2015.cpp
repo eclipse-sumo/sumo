@@ -2414,7 +2414,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     myLeftSpace = currentDist - myVehicle.getPositionOnLane();
     const double usableDist = (currentDist - myVehicle.getPositionOnLane() - best.occupation *  JAM_FACTOR);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
-    const double maxJam = MAX2(preb[currIdx + laneOffset].occupation, preb[currIdx].occupation);
+    const double maxJam = MAX2(neigh.occupation, curr.occupation);
     const double neighLeftPlace = MAX2(0., neighDist - myVehicle.getPositionOnLane() - maxJam);
     // save the left space
 
@@ -2477,17 +2477,6 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 #ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (1) neighLeftPlace=" << neighLeftPlace << "\n";
-            }
-#endif
-            ret |= LCA_STAY | LCA_STRATEGIC;
-        } else if (laneOffset != 0 && bestLaneOffset == 0 && (neighLeftPlace * 2. < laDist)) {
-            // the current lane is the best and a lane-changing would cause a situation
-            //  of which we assume we will not be able to return to the lane we have to be on.
-            // this rule prevents the vehicle from leaving the current, best lane when it is
-            //  close to this lane's end
-#ifdef DEBUG_STRATEGIC_CHANGE
-            if (gDebugFlag2) {
-                std::cout << " veh=" << myVehicle.getID() << " could not change back and forth in time (2) neighLeftPlace=" << neighLeftPlace << "\n";
             }
 #endif
             ret |= LCA_STAY | LCA_STRATEGIC;
