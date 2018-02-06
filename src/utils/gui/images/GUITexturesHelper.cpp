@@ -80,9 +80,8 @@ GUITexturesHelper::drawTexturedBox(int which, double size) {
 
 
 void
-GUITexturesHelper::drawTexturedBox(int which,
-                                   double sizeX1, double sizeY1,
-                                   double sizeX2, double sizeY2) {
+GUITexturesHelper::drawTexturedBox(int which, double sizeX1, double sizeY1, double sizeX2, double sizeY2) {
+    // first check that textures are allowed
     if (!myAllowTextures) {
         return;
     }
@@ -118,16 +117,20 @@ int
 GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX) {
     if (myTextures.count(filename) == 0) {
         try {
+            // load image
             FXImage* i = MFXImageHelper::loadImage(GUIMainWindow::getInstance()->getApp(), filename);
             if (mirrorX) {
                 i->mirror(false, true);
             }
             MFXImageHelper::scalePower2(i, getMaxTextureSize());
+            // Create GL structure using texture
             GUIGlID id = add(i);
+            // delete texture after creating GL Structure
             delete i;
             myTextures[filename] = (int)id;
+            // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding texture '" + filename + "'");
+                WRITE_WARNING("Adding texture '" + filename + "' in GUITexturesHelper::getTextureID");
             }
         } catch (InvalidArgument& e) {
             WRITE_ERROR("Could not load '" + filename + "'.\n" + e.what());
@@ -140,8 +143,9 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
 
 void
 GUITexturesHelper::clearTextures() {
+    // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Cleaning textures in GUITexturesHelper");
+        WRITE_WARNING("Cleaning textures in GUITexturesHelper::clearTextures");
     }
     myTextures.clear();
 }

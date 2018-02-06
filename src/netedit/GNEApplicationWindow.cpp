@@ -1083,6 +1083,7 @@ GNEApplicationWindow::closeAllWindows() {
     myMessageWindow->unregisterMsgHandlers();
     // Reset textures
     GUITextureSubSys::resetTextures();
+    // reset fonts
     GLHelper::resetFont();
 }
 
