@@ -15,7 +15,7 @@
 /// @date    Tue, 28 Jul 2009
 /// @version $Id$
 ///
-// Krauss car-following model, with acceleration decrease and faster start
+// Task Capability Interface car-following model.
 /****************************************************************************/
 #ifndef MSCFModel_TCI_h
 #define MSCFModel_TCI_h
@@ -36,6 +36,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+class OUProcess;
+
 /** @class MSCFModel_TCI
  * @brief Task Capability Interface car-following model.
  * @see MSCFModel
@@ -51,7 +54,7 @@ public:
      * @param[in] headwayTime The driver's desired headway
      */
     MSCFModel_TCI(const MSVehicleType* vtype, double accel, double decel,
-                     double emergencyDecel, double apparentDecel, double sigma, double headwayTime);
+                     double emergencyDecel, double apparentDecel, double headwayTime);
 
 
     /// @brief Destructor
@@ -109,8 +112,146 @@ protected:
      */
     double dawdle2(double speed, double sigma) const;
 
+
 private:
-    double mySigma;
+    /// @name An Ornstein-Uhlenbeck stochastic process
+    /// @{
+    class OUProcess {
+    public:
+        OUProcess(double initialState);
+        ~OUProcess();
+
+        /** @brief evolve for a time step of length dt
+         */
+        void step(double dt);
+
+        /** @brief Obtain the current state of the process
+         */
+        double getState() const;
+
+    private:
+        /** @brief The current state of the process
+         */
+        double myState;
+
+    };
+    /// @}
+
+
+
+private:
+
+    /** @brief Updates the internal variables to track the time between
+     *        two calls to the state update (i.e., two action points). Needed for a consistent
+     *        evolution of the error processes.
+     */
+    void updateStepDuration();
+
+    /** @brief Calculates a value for the task difficulty given the capability and the demand
+     *         and stores the result in myCurrentDrivingDifficulty.
+     */
+    void calculateDrivingDifficulty(double capability, double demand);
+
+
+    /** @brief Updates the myTaskCapability in dependence of the myTaskDifficulty to model a reactive
+     *         level of attention. The characteristics of the process are determined by myHomeostasisDifficulty
+     *         and myCapabilityTimeScale.
+     *  @todo Review the implementation as simple exponential process.
+     */
+    void adaptTaskCapability();
+
+
+    /** @brief Updates myAccelerationError.
+     */
+    void updateAccelerationError(double desiredAcceleration);
+
+
+private:
+    /// @name Variables for tracking update instants
+    /// @see updateStepDuration()
+    /// @{
+
+    /// @brief Elapsed time since the last state update
+    double myStepDuration;
+    /// @brief Time point of the last state update
+    double myLastUpdateTime;
+
+    /// @}
+
+
+
+
+
+    /// @name Dynamical quantities for the driving performance
+    /// @{
+
+    /** @brief Task capability (combines static and dynamic factors specific to the driver and the situation,
+     *         total capability, attention, etc.). Follows myTaskDemand with some inertia (task-difficulty-homeostasis).
+     */
+    double myTaskCapability;
+
+    /** @brief Task Demand (dynamic variable representing the total demand imposed on the driver by the driving situation and environment.
+     *         For instance, number, novelty and type of traffic participants in neighborhood, speed differences, road curvature,
+     *         headway to leader, number of lanes, traffic density, street signs, traffic lights)
+     */
+    double myTaskDemand;
+
+    /** @brief Cached current value of the difficulty resulting from the combination of task capability and demand.
+     *  @see calculateDrivingDifficulty()
+     */
+    double myCurrentDrivingDifficulty;
+    /// @brief Bounds for myCurrentDrivingDifficulty
+    double myMaxDifficulty, myMinDifficulty;
+
+    /// @}
+
+
+    /// @name Parameters for the dynamic adaptation of capability (attention) and demand
+    /// @{
+
+    /** @brief The desired value of the quotient myTaskDemand/myTaskCapability. Influences the fixed point of the
+     *         process myTaskCapability -> myTaskDemand, @see adaptTaskCapability()
+     */
+    double myHomeostasisDifficulty;
+
+    /** @brief Determines the time scale for the adaptation process of task capability towards the
+     *         task difficulty.
+     */
+    double myCapabilityTimeScale;
+
+    /// @}
+
+
+
+    /// @name Actuation errors
+    /// @{
+
+    /** @brief Acceleration error. Modelled as an Ornstein-Uhlenbeck process.
+     *  @see updateAccelerationError()
+     */
+    OUProcess myAccelerationError;
+
+    /** @brief Action point interval (increases with task difficulty ~ reaction time)
+     */
+    double myActionPointInterval;
+
+    /// @}
+
+
+    /// @name Perception errors
+    /// @{
+
+    /** @brief Error of estimation of the relative speeds of neighboring vehicles
+     */
+    OUProcess myRelativeSpeedError;
+
+    /** @brief Error of estimation of the distance/headways of neighboring vehicles
+     */
+    OUProcess myHeadwayError;
+
+    /// @}
+
+
 
 };
 

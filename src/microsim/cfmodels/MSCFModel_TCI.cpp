@@ -16,7 +16,7 @@
 /// @date    Mon, 04 Aug 2009
 /// @version $Id$
 ///
-// Krauss car-following model, with acceleration decrease and faster start
+// Task Capability Interface car-following model.
 /****************************************************************************/
 
 
@@ -32,9 +32,11 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSNet.h>
 #include "MSCFModel_TCI.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/SUMOTime.h>
 
 
 
@@ -47,10 +49,29 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+MSCFModel_TCI::OUProcess::OUProcess(double initialState) : myState(initialState) {}
+
+
+MSCFModel_TCI::OUProcess::~OUProcess() {}
+
+
+void
+MSCFModel_TCI::OUProcess::step(double dt) {}
+
+
+double
+MSCFModel_TCI::OUProcess::getState() const {
+    return myState;
+}
+
+
 MSCFModel_TCI::MSCFModel_TCI(const MSVehicleType* vtype, double accel, double decel,
                                    double emergencyDecel, double apparentDecel,
-                                   double sigma, double headwayTime) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), mySigma(sigma) {
+                                   double headwayTime) :
+    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
+    myAccelerationError(0.),
+    myHeadwayError(0.),
+    myRelativeSpeedError(0.) {
 }
 
 
@@ -60,10 +81,11 @@ MSCFModel_TCI::~MSCFModel_TCI() {}
 double 
 MSCFModel_TCI::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     const double sigma = (veh->passingMinor()
-                          ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, mySigma)
-                          : mySigma);
-    const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma));
-    return vDawdle;
+                          ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, 0.)
+                          : 0.);
+//    const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma));
+//    return vDawdle;
+    return vMax;
 }
 
 
@@ -81,45 +103,43 @@ MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap,
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     const double vmin = minNextSpeed(speed);
     const double vmax = maxNextSpeed(speed, veh);
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return MIN2(vsafe, vmax);
-    } else {
-        // ballistic
-        // XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
-        return MAX2(MIN2(vsafe, vmax), vmin);
-    }
-}
-
-
-double
-MSCFModel_TCI::dawdle2(double speed, double sigma) const {
-    if (!MSGlobals::gSemiImplicitEulerUpdate) {
-        // in case of the ballistic update, negative speeds indicate
-        // a desired stop before the completion of the next timestep.
-        // We do not allow dawdling to overwrite this indication
-        if (speed < 0) {
-            return speed;
-        }
-    }
-    // generate random number out of [0,1)
-    const double random = RandHelper::rand();
-    // Dawdle.
-    if (speed < myAccel) {
-        // we should not prevent vehicles from driving just due to dawdling
-        //  if someone is starting, he should definitely start
-        // (but what about slow-to-start?)!!!
-        speed -= ACCEL2SPEED(sigma * speed * random);
-    } else {
-        speed -= ACCEL2SPEED(sigma * myAccel * random);
-    }
-    return MAX2(0., speed);
+    // ballistic
+    return MAX2(MIN2(vsafe, vmax), vmin);
 }
 
 
 MSCFModel*
 MSCFModel_TCI::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_TCI(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, mySigma, myHeadwayTime);
+    return new MSCFModel_TCI(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myHeadwayTime);
 }
+
+
+void
+MSCFModel_TCI::updateStepDuration() {
+    myStepDuration = SIMTIME - myLastUpdateTime;
+    myLastUpdateTime = SIMTIME;
+}
+
+
+void
+MSCFModel_TCI::calculateDrivingDifficulty(double capability, double demand) {
+    assert(capability > 0.);
+    assert(demand >= 0.);
+    myCurrentDrivingDifficulty = MIN2(myMaxDifficulty, MAX2(myMinDifficulty, demand/capability));
+}
+
+
+
+void
+MSCFModel_TCI::adaptTaskCapability() {
+    myTaskCapability = myTaskCapability + myCapabilityTimeScale*myStepDuration*(myTaskDemand - myHomeostasisDifficulty*myTaskCapability);
+}
+
+
+
+
+
+
 
 
 /****************************************************************************/
