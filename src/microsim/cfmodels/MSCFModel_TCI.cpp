@@ -49,14 +49,19 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_TCI::OUProcess::OUProcess(double initialState) : myState(initialState) {}
+MSCFModel_TCI::OUProcess::OUProcess(double initialState, double timeScale, double noiseIntensity)
+    : myState(initialState),
+      myTimeScale(timeScale),
+      myNoiseIntensity(noiseIntensity) {}
 
 
 MSCFModel_TCI::OUProcess::~OUProcess() {}
 
 
 void
-MSCFModel_TCI::OUProcess::step(double dt) {}
+MSCFModel_TCI::OUProcess::step(double dt, double mu) {
+    myState = mu + exp(-dt/myTimeScale)*(myState - mu + myNoiseIntensity*RandHelper::randNorm(0, exp(2*dt/myTimeScale)-1));
+}
 
 
 double
@@ -69,9 +74,9 @@ MSCFModel_TCI::MSCFModel_TCI(const MSVehicleType* vtype, double accel, double de
                                    double emergencyDecel, double apparentDecel,
                                    double headwayTime) :
     MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
-    myAccelerationError(0.),
-    myHeadwayError(0.),
-    myRelativeSpeedError(0.) {
+    myAccelerationError(0., 1.,1.),
+    myHeadwayError(0., 1.,1.),
+    myRelativeSpeedError(0., 1.,1.) {
 }
 
 

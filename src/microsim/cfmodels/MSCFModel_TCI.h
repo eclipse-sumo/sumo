@@ -103,27 +103,17 @@ public:
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
 
-protected:
-
-    /** @brief Applies driver imperfection (dawdling / sigma)
-     * @param[in] speed The speed with no dawdling
-     * @param[in] sigma The sigma value to use
-     * @return The speed after dawdling
-     */
-    double dawdle2(double speed, double sigma) const;
-
-
 private:
     /// @name An Ornstein-Uhlenbeck stochastic process
     /// @{
     class OUProcess {
     public:
-        OUProcess(double initialState);
+        OUProcess(double initialState, double timeScale, double noiseIntensity);
         ~OUProcess();
 
-        /** @brief evolve for a time step of length dt
+        /** @brief evolve for a time step of length dt with mean mu.
          */
-        void step(double dt);
+        void step(double dt, double mu);
 
         /** @brief Obtain the current state of the process
          */
@@ -133,6 +123,15 @@ private:
         /** @brief The current state of the process
          */
         double myState;
+
+        /** @brief The time scale of the process
+         */
+        double myTimeScale;
+
+        /** @brief The noise intensity of the process
+         */
+        double myNoiseIntensity;
+
 
     };
     /// @}
