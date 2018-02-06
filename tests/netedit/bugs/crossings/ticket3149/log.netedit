@@ -3,6 +3,8 @@ Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_4_2_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_7_1_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
+Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Current Viewport values: 50.00, 50.00, 100.00. Zoom = '120.00'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from5_1to4_1' in retrieveGNEConnection()
@@ -608,4 +610,5 @@ Warning: Deleting unreferenced crossing ':Center_c2' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting unreferenced crossing ':D_c0' in GNEJunction destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -1,6 +1,7 @@
 Warning: Selected additional 'containerStop' in AdditionalSelector
 Warning: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Adding containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'containerStop_gneE2_1_1' for attribute id of containerStop isn't valid
 Warning: Value 'Id with spaces' for attribute id of containerStop isn't valid
@@ -113,4 +114,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

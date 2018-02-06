@@ -29,14 +29,14 @@ Error: Attribute 'type' in definition of poly 'poly_18' is empty.
 Warning: Adding poly 'poly_18' into viewNet
 Warning: Adding poly 'poly_19' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_20' is not of type bool.
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.06Feb110019.2740/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Warning: Adding poly 'poly_20' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
 Warning: Adding poly 'poly_21' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_22' is not of type bool.
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/shapeElements/poly/load\berlin_icon.ico'
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.06Feb110019.2740/netedit.gui/shapeElements/poly/load\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poly 'poly_22' into viewNet
 Error: Attribute 'angle' in definition of poly 'poly_23' is not of type float.
 Error: Attribute 'imgFile' in definition of poly 'poly_23' is not of type bool.
@@ -109,4 +109,5 @@ Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -24,40 +24,23 @@ Warning: Setting new attribute layer '0' into poly 'newID'
 Warning: Setting new attribute layer '-2' into poly 'newID'
 Warning: Setting new attribute layer '2' into poly 'newID'
 Warning: Setting new attribute type 'myOwnType' into poly 'newID'
+Error: Could not load '%$$%%%%%'.
+Unknown file extension '' for image '%$$%%%%%'!
 Warning: Value '%$$%%%%%' for attribute imgFile of poly isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poly isn't valid
+Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
-Warning: Setting new attribute angle '0' into poly 'newID'
-Warning: Setting new attribute angle '-5' into poly 'newID'
-Warning: Setting new attribute angle '365' into poly 'newID'
-Warning: Setting new attribute angle '10' into poly 'newID'
-Warning: Setting new attribute geoShape '-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00' into poly 'newID'
-Warning: Setting new attribute geo 'true' into poly 'newID'
-Warning: Setting new attribute blockMovement 'true' into poly 'newID'
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
+Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
+Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Setting new attribute blockShape 'true' into poly 'newID'
-Warning: Setting new attribute closedShape 'false' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute closedShape '1' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute geo '0' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute geoShape '-13.00,8.00 -16.00,13.00 -13.00,18.00 -18.00,15.00 -23.00,18.00 -20.00,13.00 -23.00,8.00 -18.00,11.00 -13.00,8.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '365.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '-5.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '0.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '0.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poly 'newID'
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type '' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -86,7 +69,15 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_1' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_0' from viewNet
-Warning: Removed 'poly_0' from Inspected ACs. 0 ACs remains.
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -117,24 +108,18 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '0' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '-5' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '365' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '10' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute geoShape '-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute geo 'true' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute blockMovement 'true' into poly 'newID'
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
+Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute closedShape 'false' into poly 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -149,3 +134,5 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

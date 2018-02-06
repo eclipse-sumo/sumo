@@ -14,6 +14,7 @@ Warning: Deleting unreferenced calibrator 'calibrator_gneE1_2'
 Warning: Deleting unreferenced calibrator 'calibrator_gneE0_3'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -41,4 +42,5 @@ Warning: Deleting unreferenced calibrator 'calibrator_gneE1_2' in GNENet destruc
 Warning: Deleting unreferenced calibrator 'calibrator_gneE2_0' in GNENet destructor
 Warning: Deleting unreferenced calibrator 'calibrator_gneE4_1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

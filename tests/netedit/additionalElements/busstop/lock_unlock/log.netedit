@@ -1,9 +1,11 @@
 Warning: Selected additional 'busStop' in AdditionalSelector
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Setting new attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into busStop 'busStop_gneE0_0_0'
+Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Setting new attribute blockMovement 'false' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute startPos '30.00' into busStop 'busStop_gneE0_0_0'
 Warning: Setting new attribute endPos '40.00' into busStop 'busStop_gneE0_0_0'
@@ -45,4 +47,5 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

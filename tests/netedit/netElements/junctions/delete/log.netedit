@@ -13,6 +13,8 @@ Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: The lane 'gneJ17_0' to use within the detEntry is not known.
 Warning: The lane '-gneJ12_0' to use within the detExit is not known.
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -967,4 +969,5 @@ Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

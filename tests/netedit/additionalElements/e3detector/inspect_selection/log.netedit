@@ -1,8 +1,12 @@
+Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_A' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
+Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_B' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -13,18 +17,41 @@ Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Addi
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 4 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Selected 8 elements in GNEChange_Selection
-Warning: Value '-30' for attribute freq of e3Detector isn't valid
-Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_A'
-Warning: Setting new attribute freq '50' into e3Detector 'e3Detector_B'
-Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
-Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_A'
-Warning: Setting new attribute timeThreshold '11.3' into e3Detector 'e3Detector_B'
-Warning: Value '-3' for attribute speedThreshold of e3Detector isn't valid
-Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
-Warning: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_B'
+Warning: Loaded texture E3 selected in GUITextureSubSys::getTexture
+Warning: Loaded texture empty selected in GUITextureSubSys::getTexture
+Warning: Value '-30' for attribute speed of edge isn't valid
+Warning: Setting new attribute speed '50' into lane 'gneE0_0'
+Warning: Setting new attribute speed '50' into edge 'gneE0'
+Warning: Setting new attribute speed '50' into lane 'gneE1_0'
+Warning: Setting new attribute speed '50' into edge 'gneE1'
+Warning: Setting new attribute priority '-5' into edge 'gneE0'
+Warning: Setting new attribute priority '-5' into edge 'gneE1'
+Warning: Setting new attribute priority '1' into edge 'gneE0'
+Warning: Setting new attribute priority '1' into edge 'gneE1'
+Warning: Value '-3' for attribute numLanes of edge isn't valid
+Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Adding TLS into junction 'gneJ0'
+Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Adding TLS into junction 'gneJ1'
+Warning: Adding NULL lane into edge
+Warning: Adding NULL lane into edge
+Warning: Adding NULL lane into edge
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Warning: Adding NULL lane into edge
+Warning: Adding NULL lane into edge
+Warning: Adding NULL lane into edge
 Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE0_3togneE1_3' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_3togneE0_3' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
 Warning: Additionals has to be saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_B'
@@ -32,10 +59,18 @@ Warning: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_A'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_2' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_3' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_3togneE1_3' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_2' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_3' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_3togneE0_3' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

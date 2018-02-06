@@ -1,4 +1,5 @@
 Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
+Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poi '%%%%%···$' into viewNet
@@ -22,24 +23,13 @@ Warning: Adding poi 'POI_3' into viewNet
 Warning: Adding poi 'POI_4' into viewNet
 Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
 Warning: Adding poi 'POI_6' into viewNet
-Warning: Adding poi 'POI_7' into viewNet
-Warning: Adding poi 'POI_8' into viewNet
-Warning: Adding poi 'POI_9' into viewNet
-Warning: Adding poi 'POI_10' into viewNet
+Error: Attribute 'imgFile' in definition of poi 'POI_7' is not of type bool.
+Error: Attribute 'imgFile' in definition of poi 'POI_8' is not of type bool.
+Error: Attribute 'imgFile' in definition of poi 'POI_9' is not of type bool.
+Error: Attribute 'imgFile' in definition of poi 'POI_10' is not of type bool.
 Error: Loading of shapes failed.
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.63'
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
@@ -49,12 +39,6 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_03Feb140555.2920/netedit.gui/shapeElements/poi/load\paris.ico'.
-Loading failed!
-Warning: Removing poi 'POI_10' from net
-Warning: Removing poi 'POI_9' from net
-Warning: Removing poi 'POI_8' from net
-Warning: Removing poi 'POI_7' from net
 Warning: Removing poi 'POI_6' from net
 Warning: Removing poi 'POI_4' from net
 Warning: Removing poi 'POI_3' from net
@@ -98,3 +82,5 @@ Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

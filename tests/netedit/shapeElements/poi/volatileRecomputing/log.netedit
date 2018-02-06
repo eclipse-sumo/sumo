@@ -11,6 +11,7 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -42,6 +43,7 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
+Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Shapes saved
 Warning: Removing poi 'POI_9' from net
 Warning: Removing poi 'POI_8' from net
@@ -66,4 +68,5 @@ Warning: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

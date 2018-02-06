@@ -9,9 +9,12 @@ Warning: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -377,3 +380,5 @@ Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

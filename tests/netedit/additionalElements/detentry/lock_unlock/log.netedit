@@ -2,10 +2,13 @@ Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'e3Detector' in AdditionalSelector
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Loaded texture E3 in GUITextureSubSys::getTexture
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Setting new attribute pos '27.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
+Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Setting new attribute blockMovement 'false' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute pos '23.00' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -47,4 +50,5 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

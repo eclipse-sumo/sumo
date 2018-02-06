@@ -1,3 +1,4 @@
+Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
@@ -115,4 +116,5 @@ Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

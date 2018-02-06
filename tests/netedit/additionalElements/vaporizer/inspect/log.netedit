@@ -1,6 +1,8 @@
 Warning: Selected additional 'vaporizer' in AdditionalSelector
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Loaded texture Vaporizer in GUITextureSubSys::getTexture
+Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
 Warning: Setting new attribute edge 'gneE0' into vaporizer 'vaporizer_0'
 Warning: Setting new attribute startTime '0' into vaporizer 'vaporizer_0'
@@ -72,4 +74,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

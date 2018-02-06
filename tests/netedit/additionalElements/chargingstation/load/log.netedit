@@ -53,6 +53,7 @@ Warning: Adding chargingStation 'chargingStation_28' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_29' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_30' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_31' in GNEChange_Additional
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -88,4 +89,5 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures

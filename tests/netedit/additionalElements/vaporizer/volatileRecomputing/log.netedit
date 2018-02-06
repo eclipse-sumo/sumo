@@ -3,6 +3,8 @@ Warning: Additionals has to be saved
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
+Warning: Loaded texture Vaporizer in GUITextureSubSys::getTexture
+Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -15,6 +17,7 @@ Warning: Deleting unreferenced vaporizer 'vaporizer_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: Additionals saved
+Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -41,4 +44,5 @@ Warning: Deleting unreferenced vaporizer 'vaporizer_1' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'vaporizer_2' in GNENet destructor
 Warning: Deleting unreferenced vaporizer 'vaporizer_3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITexturesHelper
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
