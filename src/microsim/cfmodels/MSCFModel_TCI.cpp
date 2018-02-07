@@ -8,12 +8,8 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    MSCFModel_TCI.cpp
-/// @author  Tobias Mayer
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @author  Laura Bieker
-/// @date    Mon, 04 Aug 2009
+/// @author  Leonhard Luecken
+/// @date    Tue, 5 Feb 2018
 /// @version $Id$
 ///
 // Task Capability Interface car-following model.
@@ -39,7 +35,6 @@
 #include <utils/common/SUMOTime.h>
 
 
-
 // ===========================================================================
 // DEBUG constants
 // ===========================================================================
@@ -59,8 +54,8 @@ MSCFModel_TCI::OUProcess::~OUProcess() {}
 
 
 void
-MSCFModel_TCI::OUProcess::step(double dt, double mu) {
-    myState = mu + exp(-dt/myTimeScale)*(myState - mu + myNoiseIntensity*RandHelper::randNorm(0, exp(2*dt/myTimeScale)-1));
+MSCFModel_TCI::OUProcess::step(double dt) {
+    myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1);
 }
 
 
@@ -130,9 +125,21 @@ void
 MSCFModel_TCI::calculateDrivingDifficulty(double capability, double demand) {
     assert(capability > 0.);
     assert(demand >= 0.);
-    myCurrentDrivingDifficulty = MIN2(myMaxDifficulty, MAX2(myMinDifficulty, demand/capability));
+    myCurrentDrivingDifficulty = difficultyFunction(demand/capability);
 }
 
+
+double
+MSCFModel_TCI::difficultyFunction(double demandCapabilityQuotient) const {
+    double difficulty;
+    if (demandCapabilityQuotient <= 1) {
+        // demand does not exceed capability -> we are in the region for a slight ascend of difficulty
+        difficulty = mySubCriticalDifficultyCoefficient*demandCapabilityQuotient;
+    } else {// demand exceeds capability -> we are in the region for a steeper ascend of the effect of difficulty
+        difficulty = mySubCriticalDifficultyCoefficient + (demandCapabilityQuotient - 1)*mySuperCriticalDifficultyCoefficient;
+    }
+    return MIN2(myMaxDifficulty, difficulty);
+}
 
 
 void
@@ -140,6 +147,38 @@ MSCFModel_TCI::adaptTaskCapability() {
     myTaskCapability = myTaskCapability + myCapabilityTimeScale*myStepDuration*(myTaskDemand - myHomeostasisDifficulty*myTaskCapability);
 }
 
+
+void
+MSCFModel_TCI::updateAccelerationError() {
+    updateErrorProcess(myAccelerationError, myAccelerationErrorTimeScaleCoefficient, myAccelerationErrorNoiseIntensityCoefficient);
+}
+
+void
+MSCFModel_TCI::updateRelativeSpeedError() {
+    updateErrorProcess(myRelativeSpeedError, myRelativeSpeedErrorTimeScaleCoefficient, myRelativeSpeedErrorNoiseIntensityCoefficient);
+}
+
+void
+MSCFModel_TCI::updateHeadwayError() {
+    updateErrorProcess(myHeadwayError, myHeadwayErrorTimeScaleCoefficient, myHeadwayErrorNoiseIntensityCoefficient);
+}
+
+void
+MSCFModel_TCI::updateActionStepLength() {
+    myActionStepLength;
+}
+
+
+void
+MSCFModel_TCI::updateErrorProcess(OUProcess& errorProcess, double timeScaleCoefficient, double noiseIntensityCoefficient) const {
+    if (myCurrentDrivingDifficulty == 0) {
+        errorProcess.setState(0.);
+    } else {
+        errorProcess.setTimeScale(timeScaleCoefficient/myCurrentDrivingDifficulty);
+        errorProcess.setNoiseIntensity(myCurrentDrivingDifficulty*noiseIntensityCoefficient);
+        errorProcess.step(myStepDuration);
+    }
+}
 
 
 

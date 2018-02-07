@@ -8,11 +8,8 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    MSCFModel_TCI.h
-/// @author  Tobias Mayer
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @date    Tue, 28 Jul 2009
+/// @author  Leonhard Luecken
+/// @date    Tue, 5 Feb 2018
 /// @version $Id$
 ///
 // Task Capability Interface car-following model.
@@ -30,15 +27,10 @@
 #endif
 
 #include "MSCFModel.h"
-#include <utils/xml/SUMOXMLDefinitions.h>
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
-class OUProcess;
-
 /** @class MSCFModel_TCI
  * @brief Task Capability Interface car-following model.
  * @see MSCFModel
@@ -108,15 +100,31 @@ private:
     /// @{
     class OUProcess {
     public:
+        /// @brief constructor
         OUProcess(double initialState, double timeScale, double noiseIntensity);
+        /// @brief destructor
         ~OUProcess();
 
-        /** @brief evolve for a time step of length dt with mean mu.
-         */
-        void step(double dt, double mu);
+        /// @brief evolve for a time step of length dt.
+        void step(double dt);
 
-        /** @brief Obtain the current state of the process
-         */
+        /// @brief set the process' timescale to a new value
+        void setTimeScale(double timeScale) {
+            myTimeScale = timeScale;
+        };
+
+        /// @brief set the process' noise intensity to a new value
+        void setNoiseIntensity(double noiseIntensity) {
+            myNoiseIntensity = noiseIntensity;
+        };
+
+
+        /// @brief set the process' state to a new value
+        void setState(double state) {
+            myState = state;
+        };
+
+        /// @brief Obtain the current state of the process
         double getState() const;
 
     private:
@@ -148,8 +156,19 @@ private:
 
     /** @brief Calculates a value for the task difficulty given the capability and the demand
      *         and stores the result in myCurrentDrivingDifficulty.
+     *  @see difficultyFunction()
      */
     void calculateDrivingDifficulty(double capability, double demand);
+
+
+    /** @brief Transformation of the quotient demand/capability to obtain the actual
+     *         difficulty value used to control driving performance.
+     *  @note  The current implementation is a continuous piecewise affine function.
+     *         It has two regions with different slopes. A slight ascend, where the capability
+     *         is larger than the demand and a region of steeper ascend, where the demand
+     *         exceeds the capability.
+     */
+    double difficultyFunction(double demandCapabilityQuotient) const;
 
 
     /** @brief Updates the myTaskCapability in dependence of the myTaskDifficulty to model a reactive
@@ -160,9 +179,18 @@ private:
     void adaptTaskCapability();
 
 
-    /** @brief Updates myAccelerationError.
-     */
-    void updateAccelerationError(double desiredAcceleration);
+    /// @name Updater for error processes.
+    /// @{
+    void updateAccelerationError();
+    void updateRelativeSpeedError();
+    void updateHeadwayError();
+    void updateActionStepLength();
+    /// @}
+
+
+    /// @brief Updates the given error process
+    void updateErrorProcess(OUProcess& errorProcess, double timeScaleCoefficient, double noiseIntensityCoefficient) const;
+
 
 
 private:
@@ -178,9 +206,6 @@ private:
     /// @}
 
 
-
-
-
     /// @name Dynamical quantities for the driving performance
     /// @{
 
@@ -188,19 +213,25 @@ private:
      *         total capability, attention, etc.). Follows myTaskDemand with some inertia (task-difficulty-homeostasis).
      */
     double myTaskCapability;
+    double myMinTaskCapability, myMaxTaskCapability;
 
     /** @brief Task Demand (dynamic variable representing the total demand imposed on the driver by the driving situation and environment.
      *         For instance, number, novelty and type of traffic participants in neighborhood, speed differences, road curvature,
      *         headway to leader, number of lanes, traffic density, street signs, traffic lights)
      */
     double myTaskDemand;
+    double myMinTaskDemand, myMaxTaskDemand;
 
     /** @brief Cached current value of the difficulty resulting from the combination of task capability and demand.
      *  @see calculateDrivingDifficulty()
      */
     double myCurrentDrivingDifficulty;
-    /// @brief Bounds for myCurrentDrivingDifficulty
-    double myMaxDifficulty, myMinDifficulty;
+    /// @brief Upper bound for myCurrentDrivingDifficulty
+    double myMaxDifficulty;
+    /** @brief Slopes for the dependence of the difficulty on the quotient of demand and capability.
+     *  @see   difficultyFunction();
+     */
+    double mySubCriticalDifficultyCoefficient, mySuperCriticalDifficultyCoefficient;
 
     /// @}
 
@@ -229,10 +260,14 @@ private:
      *  @see updateAccelerationError()
      */
     OUProcess myAccelerationError;
+    /// @brief Coefficient controlling the impact of driving difficulty on the time scale of the acceleration error process
+    double myAccelerationErrorTimeScaleCoefficient;
+    /// @brief Coefficient controlling the impact of driving difficulty on the noise intensity of the acceleration error process
+    double myAccelerationErrorNoiseIntensityCoefficient;
 
-    /** @brief Action point interval (increases with task difficulty ~ reaction time)
+    /** @brief Action step length (increases with task difficulty ~ reaction time)
      */
-    double myActionPointInterval;
+    double myActionStepLength;
 
     /// @}
 
@@ -243,10 +278,18 @@ private:
     /** @brief Error of estimation of the relative speeds of neighboring vehicles
      */
     OUProcess myRelativeSpeedError;
+    /// @brief Coefficient controlling the impact of driving difficulty on the time scale of the relative speed error process
+    double myRelativeSpeedErrorTimeScaleCoefficient;
+    /// @brief Coefficient controlling the impact of driving difficulty on the noise intensity of the relative speed error process
+    double myRelativeSpeedErrorNoiseIntensityCoefficient;
 
     /** @brief Error of estimation of the distance/headways of neighboring vehicles
      */
     OUProcess myHeadwayError;
+    /// @brief Coefficient controlling the impact of driving difficulty on the time scale of the headway error process
+    double myHeadwayErrorTimeScaleCoefficient;
+    /// @brief Coefficient controlling the impact of driving difficulty on the noise intensity of the headway error process
+    double myHeadwayErrorNoiseIntensityCoefficient;
 
     /// @}
 
