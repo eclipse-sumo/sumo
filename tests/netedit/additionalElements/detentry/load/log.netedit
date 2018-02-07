@@ -1,7 +1,5 @@
 Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector cannot be created
-Warning: Optional string attribute 'pos' of e3Detector is missing; Default value '0.00,0.00' will be used.
 Warning: A detEntry must be declared within the definition of a e3Detector.
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Essential string attribute 'lane' of detEntry is missing; detEntry cannot be created

@@ -1,14 +1,11 @@
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_1' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_2' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Loaded texture E3 in GUITextureSubSys::getTexture
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'e3Detector' in AdditionalSelector
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
@@ -18,6 +15,8 @@ Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Deleting TLS from junction 'gneJ0'
@@ -38,18 +37,17 @@ Warning: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
 Warning: Opening FXMessageBox 'Force deletion needed'
 Warning: Closed FXMessageBox 'Force deletion needed' with 'OK'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -57,6 +55,9 @@ Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
