@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector cannot be created
 Warning: A detEntry must be declared within the definition of a e3Detector.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional

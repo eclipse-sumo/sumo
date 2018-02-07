@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'rerouter' in AdditionalSelector
 Warning: Invalid input parameter of rerouter: List of edges cannot be empty

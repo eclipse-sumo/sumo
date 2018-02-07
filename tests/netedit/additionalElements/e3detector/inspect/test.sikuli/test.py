@@ -65,68 +65,59 @@ netedit.modifyAttribute(0, "Id with spaces")
 netedit.modifyAttribute(0, "correctID")
 
 # Change parameter 1 with a non valid value (dummy position X)
-netedit.modifyAttribute(1, "dummy position X")
+netedit.modifyAttribute(1, "dummy position")
 
 # Change parameter 1 with a non valid value (empty)
 netedit.modifyAttribute(1, "")
 
 # Change parameter 1 with a valid value (different position X)
-netedit.modifyAttribute(1, "25")
+netedit.modifyAttribute(1, "25, 25")
 
-# Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummy position Y")
+# Change parameter 2 with a non valid value (non numeral)
+netedit.modifyAttribute(2, "dummyFrequency")
 
-# Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(2, "")
+# Change parameter 2 with a non valid value (negative)
+netedit.modifyAttribute(2, "-100")
 
-# Change parameter 2 with a non valid value (different position Y)
-netedit.modifyAttribute(2, "25")
+# Change parameter 2 with a valid value
+netedit.modifyAttribute(2, "120")
 
-# Change parameter 3 with a non valid value (non numeral)
-netedit.modifyAttribute(3, "dummyFrequency")
+# Change parameter 3 with a non valid value
+netedit.modifyAttribute(3, "%%%%%&%&&")
 
-# Change parameter 3 with a non valid value (negative)
-netedit.modifyAttribute(3, "-100")
+# Change parameter 3 with an empty value
+netedit.modifyAttribute(3, "")
+
+# Change parameter 3 with a duplicated value
+netedit.modifyAttribute(3, "e3Detector_1.txt")
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "120")
+netedit.modifyAttribute(3, "myOwnOutput.txt")
 
-# Change parameter 4 with a non valid value
-netedit.modifyAttribute(4, "%%%%%&%&&")
+# Change parameter 4 with a non valid value (dummy)
+netedit.modifyAttribute(4, "dummyTimeTreshold")
 
-# Change parameter 4 with an empty value
-netedit.modifyAttribute(4, "")
-
-# Change parameter 4 with a duplicated value
-netedit.modifyAttribute(4, "e3Detector_1.txt")
+# Change parameter 4 with a non valid value (negative)
+netedit.modifyAttribute(4, "-5")
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "myOwnOutput.txt")
+netedit.modifyAttribute(4, "4")
 
 # Change parameter 5 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummyTimeTreshold")
+netedit.modifyAttribute(5, "dummySpeedTreshold")
 
 # Change parameter 5 with a non valid value (negative)
-netedit.modifyAttribute(5, "-5")
+netedit.modifyAttribute(5, "-12.1")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "4")
-
-# Change parameter 6 with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummySpeedTreshold")
-
-# Change parameter 6 with a non valid value (negative)
-netedit.modifyAttribute(6, "-12.1")
-
-# Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "6.3")
+netedit.modifyAttribute(5, "6.3")
 
 # go to a empty area
 netedit.leftClick(match, 0, 0)
 
 # Check undos and redos
-netedit.undo(match, 21)
-netedit.redo(match, 21)
+netedit.undo(match, 16)
+netedit.redo(match, 16)
 
 # save additionals
 netedit.saveAdditionals()

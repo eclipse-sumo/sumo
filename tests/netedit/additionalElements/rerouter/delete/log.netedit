@@ -1,7 +1,7 @@
-Warning: Optional string attribute 'pos' of rerouter with ID 'rerouter_1' is missing; Default value '0.00,0.00' will be used.
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Optional string attribute 'pos' of rerouter with ID 'rerouter_2' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
 Warning: Loaded texture Rerouter in GUITextureSubSys::getTexture
 Warning: Loaded texture empty in GUITextureSubSys::getTexture
@@ -29,19 +29,17 @@ Warning: Adding TLS into junction 'gneJ1'
 Warning: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding rerouter 'rerouter_3' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing rerouter 'rerouter_3' in GNEChange_Additional
 Warning: Opening FXMessageBox 'Force deletion needed'
 Warning: Closed FXMessageBox 'Force deletion needed' with 'OK'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding rerouter 'rerouter_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing rerouter 'rerouter_3' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing rerouter 'rerouter_1' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing rerouter 'rerouter_2' in GNEChange_Additional
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()

@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding e1Detector 'E1_A' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding e1Detector 'E1_B' in GNEChange_Additional

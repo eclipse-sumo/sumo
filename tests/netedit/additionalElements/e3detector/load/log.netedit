@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional

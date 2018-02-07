@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'laneCalibrator' in AdditionalSelector
 Warning: Adding laneCalibrator 'laneCalibrator_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
