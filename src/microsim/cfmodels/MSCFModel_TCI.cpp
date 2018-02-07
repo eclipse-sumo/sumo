@@ -41,6 +41,39 @@
 //#define DEBUG_COND (true)
 
 
+
+// ===========================================================================
+// Default value definitions
+// ===========================================================================
+double TCIDefaults::myMinTaskCapability = 0.1;
+double TCIDefaults::myMaxTaskCapability = 10.0;
+double TCIDefaults::myMaxTaskDemand = 20.0;
+double TCIDefaults::myMaxDifficulty = 10.0;
+double TCIDefaults::mySubCriticalDifficultyCoefficient = 0.1;
+double TCIDefaults::mySuperCriticalDifficultyCoefficient = 1.0;
+double TCIDefaults::myHomeostasisDifficulty = 1.5;
+double TCIDefaults::myCapabilityTimeScale = 0.5;
+double TCIDefaults::myAccelerationErrorTimeScaleCoefficient = 1.0;
+double TCIDefaults::myAccelerationErrorNoiseIntensityCoefficient = 1.0;
+double TCIDefaults::myActionStepLengthCoefficient = 1.0;
+double TCIDefaults::myMinActionStepLength = 0.0;
+double TCIDefaults::myMaxActionStepLength = 3.0;
+double TCIDefaults::mySpeedPerceptionErrorTimeScaleCoefficient = 1.0;
+double TCIDefaults::mySpeedPerceptionErrorNoiseIntensityCoefficient = 1.0;
+double TCIDefaults::myHeadwayPerceptionErrorTimeScaleCoefficient = 1.0;
+double TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient = 1.0;
+
+
+// init the hash function
+std::hash<std::string> TrafficItemInfo::hash = std::hash<std::string>();
+
+TrafficItemInfo::TrafficItemInfo(SUMOTrafficItemType type, const std::string& id, std::shared_ptr<TrafficItemCharacteristics*> data) :
+            type(type),
+            id_hash(hash(id)),
+            data(data)
+{}
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -69,14 +102,37 @@ MSCFModel_TCI::MSCFModel_TCI(const MSVehicleType* vtype, double accel, double de
                                    double emergencyDecel, double apparentDecel,
                                    double headwayTime) :
     MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
+    myMinTaskCapability(TCIDefaults::myMinTaskCapability),
+    myMaxTaskCapability(TCIDefaults::myMaxTaskCapability),
+    myMaxTaskDemand(TCIDefaults::myMaxTaskDemand),
+    myMaxDifficulty(TCIDefaults::myMaxDifficulty),
+    mySubCriticalDifficultyCoefficient(TCIDefaults::mySubCriticalDifficultyCoefficient),
+    mySuperCriticalDifficultyCoefficient(TCIDefaults::mySuperCriticalDifficultyCoefficient),
+    myHomeostasisDifficulty(TCIDefaults::myHomeostasisDifficulty),
+    myCapabilityTimeScale(TCIDefaults::myCapabilityTimeScale),
+    myAccelerationErrorTimeScaleCoefficient(TCIDefaults::myAccelerationErrorTimeScaleCoefficient),
+    myAccelerationErrorNoiseIntensityCoefficient(TCIDefaults::myAccelerationErrorNoiseIntensityCoefficient),
+    myActionStepLengthCoefficient(TCIDefaults::myActionStepLengthCoefficient),
+    myMinActionStepLength(TCIDefaults::myMinActionStepLength),
+    myMaxActionStepLength(TCIDefaults::myMaxActionStepLength),
+    mySpeedPerceptionErrorTimeScaleCoefficient(TCIDefaults::mySpeedPerceptionErrorTimeScaleCoefficient),
+    mySpeedPerceptionErrorNoiseIntensityCoefficient(TCIDefaults::mySpeedPerceptionErrorNoiseIntensityCoefficient),
+    myHeadwayPerceptionErrorTimeScaleCoefficient(TCIDefaults::myHeadwayPerceptionErrorTimeScaleCoefficient),
+    myHeadwayPerceptionErrorNoiseIntensityCoefficient(TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient),
     myAccelerationError(0., 1.,1.),
-    myHeadwayError(0., 1.,1.),
-    myRelativeSpeedError(0., 1.,1.) {
+    myHeadwayPerceptionError(0., 1.,1.),
+    mySpeedPerceptionError(0., 1.,1.),
+    myTaskDemand(0.),
+    myTaskCapability(myMaxTaskCapability),
+    myCurrentDrivingDifficulty(myTaskDemand/myTaskCapability),
+    myActionStepLength(TS),
+    myStepDuration(TS),
+    myLastUpdateTime(SIMTIME-TS)
+{
 }
 
 
 MSCFModel_TCI::~MSCFModel_TCI() {}
-
 
 double 
 MSCFModel_TCI::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
@@ -154,18 +210,22 @@ MSCFModel_TCI::updateAccelerationError() {
 }
 
 void
-MSCFModel_TCI::updateRelativeSpeedError() {
-    updateErrorProcess(myRelativeSpeedError, myRelativeSpeedErrorTimeScaleCoefficient, myRelativeSpeedErrorNoiseIntensityCoefficient);
+MSCFModel_TCI::updateSpeedPerceptionError() {
+    updateErrorProcess(mySpeedPerceptionError, mySpeedPerceptionErrorTimeScaleCoefficient, mySpeedPerceptionErrorNoiseIntensityCoefficient);
 }
 
 void
-MSCFModel_TCI::updateHeadwayError() {
-    updateErrorProcess(myHeadwayError, myHeadwayErrorTimeScaleCoefficient, myHeadwayErrorNoiseIntensityCoefficient);
+MSCFModel_TCI::updateHeadwayPerceptionError() {
+    updateErrorProcess(myHeadwayPerceptionError, myHeadwayPerceptionErrorTimeScaleCoefficient, myHeadwayPerceptionErrorNoiseIntensityCoefficient);
 }
 
 void
 MSCFModel_TCI::updateActionStepLength() {
-    myActionStepLength;
+    if (myActionStepLengthCoefficient*myCurrentDrivingDifficulty <= myMinActionStepLength) {
+        myActionStepLength = myMinActionStepLength;
+    } else {
+        myActionStepLength = MIN2(myActionStepLengthCoefficient*myCurrentDrivingDifficulty - myMinActionStepLength, myMaxActionStepLength);
+    }
 }
 
 

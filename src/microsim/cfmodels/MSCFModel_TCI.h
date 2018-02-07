@@ -26,11 +26,33 @@
 #include <config.h>
 #endif
 
+#include <memory>
+#include <functional>
 #include "MSCFModel.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+/** @class TrafficItemInfo
+ * @brief  An object representing a traffic item. Used for influencing
+ *         the task demand of the TCI car-following model.
+ * @see MSCFModel_TCI
+ */
+class TrafficItemCharacteristics; // base class for VehicleCharacteristics, TLSCharacteristics, PedestrianCharacteristics, SpeedLimitCharacteristics, ...
+enum SUMOTrafficItemType {
+};
+
+struct TrafficItemInfo {
+    TrafficItemInfo(SUMOTrafficItemType type, const std::string& id, std::shared_ptr<TrafficItemCharacteristics*> data);
+    static std::hash<std::string> hash;
+    SUMOTrafficItemType type;
+    size_t id_hash;
+    std::shared_ptr<TrafficItemCharacteristics*> data;
+};
+
+
+
 /** @class MSCFModel_TCI
  * @brief Task Capability Interface car-following model.
  * @see MSCFModel
@@ -85,6 +107,7 @@ public:
     int getModelID() const {
         return SUMO_TAG_CF_TCI;
     }
+
     /// @}
 
 
@@ -96,8 +119,8 @@ public:
 
 
 private:
-    /// @name An Ornstein-Uhlenbeck stochastic process
-    /// @{
+    /// @class OUProcess
+    /// @brief An Ornstein-Uhlenbeck stochastic process
     class OUProcess {
     public:
         /// @brief constructor
@@ -142,9 +165,6 @@ private:
 
 
     };
-    /// @}
-
-
 
 private:
 
@@ -182,8 +202,8 @@ private:
     /// @name Updater for error processes.
     /// @{
     void updateAccelerationError();
-    void updateRelativeSpeedError();
-    void updateHeadwayError();
+    void updateSpeedPerceptionError();
+    void updateHeadwayPerceptionError();
     void updateActionStepLength();
     /// @}
 
@@ -220,7 +240,7 @@ private:
      *         headway to leader, number of lanes, traffic density, street signs, traffic lights)
      */
     double myTaskDemand;
-    double myMinTaskDemand, myMaxTaskDemand;
+    double myMaxTaskDemand;
 
     /** @brief Cached current value of the difficulty resulting from the combination of task capability and demand.
      *  @see calculateDrivingDifficulty()
@@ -252,7 +272,6 @@ private:
     /// @}
 
 
-
     /// @name Actuation errors
     /// @{
 
@@ -265,9 +284,12 @@ private:
     /// @brief Coefficient controlling the impact of driving difficulty on the noise intensity of the acceleration error process
     double myAccelerationErrorNoiseIntensityCoefficient;
 
-    /** @brief Action step length (increases with task difficulty ~ reaction time)
-     */
+    /// @brief Action step length (increases with task difficulty, is similar to reaction time)
     double myActionStepLength;
+    /// @brief Proportionality factor of myActionStepLength and driving difficulty
+    double myActionStepLengthCoefficient;
+    /// @brief Bounds for the action step length
+    double myMinActionStepLength, myMaxActionStepLength;
 
     /// @}
 
@@ -277,25 +299,48 @@ private:
 
     /** @brief Error of estimation of the relative speeds of neighboring vehicles
      */
-    OUProcess myRelativeSpeedError;
+    OUProcess mySpeedPerceptionError;
     /// @brief Coefficient controlling the impact of driving difficulty on the time scale of the relative speed error process
-    double myRelativeSpeedErrorTimeScaleCoefficient;
+    double mySpeedPerceptionErrorTimeScaleCoefficient;
     /// @brief Coefficient controlling the impact of driving difficulty on the noise intensity of the relative speed error process
-    double myRelativeSpeedErrorNoiseIntensityCoefficient;
+    double mySpeedPerceptionErrorNoiseIntensityCoefficient;
 
     /** @brief Error of estimation of the distance/headways of neighboring vehicles
      */
-    OUProcess myHeadwayError;
+    OUProcess myHeadwayPerceptionError;
     /// @brief Coefficient controlling the impact of driving difficulty on the time scale of the headway error process
-    double myHeadwayErrorTimeScaleCoefficient;
+    double myHeadwayPerceptionErrorTimeScaleCoefficient;
     /// @brief Coefficient controlling the impact of driving difficulty on the noise intensity of the headway error process
-    double myHeadwayErrorNoiseIntensityCoefficient;
+    double myHeadwayPerceptionErrorNoiseIntensityCoefficient;
 
     /// @}
 
 
 
 };
+
+
+/// @brief Default values for the MSCFModel_TCI parameters
+struct TCIDefaults {
+    static double myMinTaskCapability;
+    static double myMaxTaskCapability;
+    static double myMaxTaskDemand;
+    static double myMaxDifficulty;
+    static double mySubCriticalDifficultyCoefficient;
+    static double mySuperCriticalDifficultyCoefficient;
+    static double myHomeostasisDifficulty;
+    static double myCapabilityTimeScale;
+    static double myAccelerationErrorTimeScaleCoefficient;
+    static double myAccelerationErrorNoiseIntensityCoefficient;
+    static double myActionStepLengthCoefficient;
+    static double myMinActionStepLength;
+    static double myMaxActionStepLength;
+    static double mySpeedPerceptionErrorTimeScaleCoefficient;
+    static double mySpeedPerceptionErrorNoiseIntensityCoefficient;
+    static double myHeadwayPerceptionErrorTimeScaleCoefficient;
+    static double myHeadwayPerceptionErrorNoiseIntensityCoefficient;
+};
+
 
 #endif /* MSCFModel_TCI_H */
 
