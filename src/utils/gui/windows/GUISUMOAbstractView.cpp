@@ -334,7 +334,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             //  this "layer" resembles the layer of the shape
             //  taking into account the stac of other objects
             if (type == GLO_POI || type == GLO_POLYGON) {
-                layer = dynamic_cast<Shape*>(o)->getLayer();
+                layer = dynamic_cast<Shape*>(o)->getShapeLayer();
             }
             if (type == GLO_LANE && GUIVisualizationSettings::UseMesoSim) {
                 // do not select lanes in meso mode

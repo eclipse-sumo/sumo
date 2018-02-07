@@ -175,13 +175,13 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     if(myGNELane) {
         // build shape header
-        buildShapePopupOptions(app, ret, myType);
+        buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
         new FXMenuCommand(ret, ("Release from " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
         return ret;
     } else {
         // build shape header
-        buildShapePopupOptions(app, ret, myType);
+        buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
         new FXMenuCommand(ret, ("Attach to nearest " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(ICON_LANE), &parent, MID_GNE_POI_TRANSFORM);
     }
@@ -206,9 +206,9 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw a label with the type of POI
     if(myGNELane) {
-        GLHelper::drawText("POI Lane", *this, myLayer + .1, 0.6, myColor.invertedColor());
+        GLHelper::drawText("POI Lane", *this, getShapeLayer() + .1, 0.6, getShapeColor().invertedColor());
     } else {
-        GLHelper::drawText("POI", *this, myLayer + .1, 0.6, myColor.invertedColor());
+        GLHelper::drawText("POI", *this, getShapeLayer() + .1, 0.6, getShapeColor().invertedColor());
     }
     // draw lock icon
     drawLockIcon(*this + Position(0, -0.5), GLO_POI, 0.2);
@@ -221,7 +221,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return myID;
         case SUMO_ATTR_COLOR:
-            return toString(myColor);
+            return toString(getShapeColor());
         case SUMO_ATTR_LANE:
             return myLane;
         case SUMO_ATTR_POSITION:
@@ -237,19 +237,19 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_GEO:
             return toString(myGeo);
         case SUMO_ATTR_TYPE:
-            return myType;
+            return getShapeType();
         case SUMO_ATTR_LAYER:
-            return toString(myLayer);
+            return toString(getShapeLayer());
         case SUMO_ATTR_IMGFILE:
-            return myImgFile;
+            return getShapeImgFile();
         case SUMO_ATTR_RELATIVEPATH:
-            return toString(myRelativePath);
+            return toString(getShapeRelativePath());
         case SUMO_ATTR_WIDTH:
             return toString(getWidth());
         case SUMO_ATTR_HEIGHT:
             return toString(getHeight());
         case SUMO_ATTR_ANGLE:
-            return toString(getNaviDegree());
+            return toString(getShapeNaviDegree());
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         default:
@@ -348,7 +348,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+            setShapeColor(parse<RGBColor>(value));
             break;
         case SUMO_ATTR_LANE:
             myLane = value;
@@ -384,18 +384,18 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myGeo = parse<bool>(value);
             break;
         case SUMO_ATTR_TYPE:
-            myType = value;
+            setShapeType(value);
             break;
         case SUMO_ATTR_LAYER:
-            myLayer = parse<double>(value);
+            setShapeLayer(parse<double>(value));
             break;
         case SUMO_ATTR_IMGFILE:
-            myImgFile = value;
+            setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
             break;
         case SUMO_ATTR_RELATIVEPATH:
-            myRelativePath = parse<bool>(value);
+            setShapeRelativePath(parse<bool>(value));
             break;
         case SUMO_ATTR_WIDTH:
             setWidth(parse<double>(value));
@@ -404,7 +404,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setHeight(parse<double>(value));
             break;
         case SUMO_ATTR_ANGLE:
-            setNaviDegree(parse<double>(value));
+            setShapeNaviDegree(parse<double>(value));
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

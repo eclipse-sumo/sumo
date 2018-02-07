@@ -123,11 +123,11 @@ public:
     void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const double posLat = 0.) {
         out.openTag(SUMO_TAG_POI);
         out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-        if (getType().size() > 0) {
-            out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+        if (getShapeType().size() > 0) {
+            out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
         }
-        out.writeAttr(SUMO_ATTR_COLOR, getColor());
-        out.writeAttr(SUMO_ATTR_LAYER, getLayer() + zOffset);
+        out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+        out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer() + zOffset);
         if (laneID != "") {
             out.writeAttr(SUMO_ATTR_LANE, laneID);
             out.writeAttr(SUMO_ATTR_POSITION, pos);
@@ -145,11 +145,11 @@ public:
                 out.writeAttr(SUMO_ATTR_Y, y());
             }
         }
-        if (getNaviDegree() != Shape::DEFAULT_ANGLE) {
-            out.writeAttr(SUMO_ATTR_ANGLE, getNaviDegree());
+        if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
+            out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
         }
-        if (getImgFile() != Shape::DEFAULT_IMG_FILE) {
-            out.writeAttr(SUMO_ATTR_IMGFILE, getImgFile());
+        if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
+            out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
         }
         if (getWidth() != Shape::DEFAULT_IMG_WIDTH) {
             out.writeAttr(SUMO_ATTR_WIDTH, getWidth());

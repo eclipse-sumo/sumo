@@ -170,7 +170,7 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
         pos.mul(geoScale);
         out << id << "\t";
         out << "" << "\t";
-        out << i.second->getType() << "\t";
+        out << i.second->getShapeType() << "\t";
         out << i.first << "\t";
         out << pos.x() << "\t";
         out << pos.y() << "\t";
@@ -187,7 +187,7 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
     for (const auto& i : myPolygons) {
         out2 << id << "\t";
         out2 << "" << "\t";
-        out2 << i.second->getType() << "\t";
+        out2 << i.second->getShapeType() << "\t";
         out2 << i.first << "\t";
 
         PositionVector shape(i.second->getShape());

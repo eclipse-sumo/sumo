@@ -74,7 +74,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     myCurrentMovingVertexIndex(-1) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
-        setImgFile("");
+        setShapeImgFile("");
     }
     // set GEO shape
     myGeoShape = myShape;
@@ -545,19 +545,19 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_GEOSHAPE:
             return toString(myGeoShape);
         case SUMO_ATTR_COLOR:
-            return toString(myColor);
+            return toString(getShapeColor());
         case SUMO_ATTR_FILL:
             return toString(myFill);
         case SUMO_ATTR_LAYER:
-            return toString(myLayer);
+            return toString(getShapeLayer());
         case SUMO_ATTR_TYPE:
-            return myType;
+            return getShapeType();
         case SUMO_ATTR_IMGFILE:
-            return myImgFile;
+            return getShapeImgFile();
         case SUMO_ATTR_RELATIVEPATH:
-            return toString(myRelativePath);
+            return toString(getShapeRelativePath());
         case SUMO_ATTR_ANGLE:
-            return toString(getNaviDegree());
+            return toString(getShapeNaviDegree());
         case SUMO_ATTR_GEO:
             return toString(myGEO);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -709,27 +709,27 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+            setShapeColor(parse<RGBColor>(value));
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
             break;
         case SUMO_ATTR_LAYER:
-            myLayer = parse<double>(value);
+            setShapeLayer(parse<double>(value));
             break;
         case SUMO_ATTR_TYPE:
-            myType = value;
+            setShapeType(value);
             break;
         case SUMO_ATTR_IMGFILE:
-            myImgFile = value;
+            setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
             break;
         case SUMO_ATTR_RELATIVEPATH:
-            myRelativePath = parse<bool>(value);
+            setShapeRelativePath(parse<bool>(value));
             break;
         case SUMO_ATTR_ANGLE:
-            setNaviDegree(parse<double>(value));
+            setShapeNaviDegree(parse<double>(value));
             break;
         case SUMO_ATTR_GEO:
             myGEO = parse<bool>(value);

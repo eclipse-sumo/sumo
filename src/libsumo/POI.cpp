@@ -57,13 +57,13 @@ POI::getIDCount() {
 
 std::string
 POI::getType(const std::string& poiID) {
-    return getPoI(poiID)->getType();
+    return getPoI(poiID)->getShapeType();
 }
 
 TraCIColor
 POI::getColor(const std::string& poiID) {
     PointOfInterest* sumoPoi = getPoI(poiID);
-    RGBColor col = sumoPoi->getColor();
+    RGBColor col = sumoPoi->getShapeColor();
     return Helper::makeTraCIColor(col);
 }
 
@@ -86,7 +86,7 @@ POI::getParameter(const std::string& poiID, const std::string& param) {
 void
 POI::setType(const std::string& poiID, const std::string& type) {
     PointOfInterest* p = getPoI(poiID);
-    p->setType(type);
+    p->setShapeType(type);
 }
 
 void
@@ -98,7 +98,7 @@ POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
 void
 POI::setColor(const std::string& poiID, const TraCIColor& c) {
     PointOfInterest* p = getPoI(poiID);
-    p->setColor(Helper::makeRGBColor(c));
+    p->setShapeColor(Helper::makeRGBColor(c));
 }
 
 bool

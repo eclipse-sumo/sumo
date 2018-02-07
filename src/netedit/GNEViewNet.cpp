@@ -1773,13 +1773,13 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 }
                 // obtain values of POI
                 std::string id = POI->getID();
-                std::string type = POI->getType();
-                RGBColor color = POI->getColor();
+                std::string type = POI->getShapeType();
+                RGBColor color = POI->getShapeColor();
                 Position pos = (*POI);
-                double layer = POI->getLayer();
-                double angle = POI->getNaviDegree();
-                std::string imgFile = POI->getImgFile();
-                bool relativePath = POI->getRelativePath();
+                double layer = POI->getShapeLayer();
+                double angle = POI->getShapeNaviDegree();
+                std::string imgFile = POI->getShapeImgFile();
+                bool relativePath = POI->getShapeRelativePath();
                 double POIWidth = POI->getWidth();      // double width -> C4458
                 double POIHeight = POI->getHeight();    // double height -> C4458
                 // remove POI
@@ -1792,13 +1792,13 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         } else {
             // obtain values of POILane
             std::string id = POI->getID();
-            std::string type = POI->getType();
-            RGBColor color = POI->getColor();
+            std::string type = POI->getShapeType();
+            RGBColor color = POI->getShapeColor();
             Position pos = (*POI);
-            double layer = POI->getLayer();
-            double angle = POI->getNaviDegree();
-            std::string imgFile = POI->getImgFile();
-            bool relativePath = POI->getRelativePath();
+            double layer = POI->getShapeLayer();
+            double angle = POI->getShapeNaviDegree();
+            std::string imgFile = POI->getShapeImgFile();
+            bool relativePath = POI->getShapeRelativePath();
             double POIWidth = POI->getWidth();      // double width -> C4458
             double POIWeight = POI->getHeight();    // double height -> C4458
             // remove POI

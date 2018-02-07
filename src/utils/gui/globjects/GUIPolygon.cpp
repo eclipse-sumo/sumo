@@ -63,7 +63,7 @@ GUIPolygon::getPopUpMenu(GUIMainWindow& app,
                          GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
-    FXString t(myType.c_str());
+    FXString t(getShapeType().c_str());
     new FXMenuCommand(ret, "(" + t + ")", 0, 0, 0);
     new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
@@ -81,8 +81,8 @@ GUIPolygon::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 3 + (int)getMap().size());
     // add items
-    ret->mkItem("type", false, myType);
-    ret->mkItem("layer", false, toString(getLayer()));
+    ret->mkItem("type", false, getShapeType());
+    ret->mkItem("layer", false, toString(getShapeLayer()));
     ret->closeBuilding(this);
     return ret;
 }
@@ -161,18 +161,18 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     //}
     glPushName(getGlID());
     glPushMatrix();
-    glTranslated(0, 0, getLayer());
-    glRotated(-getNaviDegree(), 0, 0, 1);
+    glTranslated(0, 0, getShapeLayer());
+    glRotated(-getShapeNaviDegree(), 0, 0, 1);
     // set color depending of selection
     if (gSelected.isSelected(GLO_POLYGON, getGlID())) {
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else {
-        GLHelper::setColor(getColor());
+        GLHelper::setColor(getShapeColor());
     }
 
     int textureID = -1;
     if (getFill()) {
-        const std::string& file = getImgFile();
+        const std::string& file = getShapeImgFile();
         if (file != "") {
             textureID = GUITexturesHelper::getTextureID(file, true);
         }
@@ -218,7 +218,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     const Position namePos = myShape.getPolygonCenter();
     drawName(namePos, s.scale, s.polyName);
     if (s.polyType.show) {
-        GLHelper::drawText(myType, namePos + Position(0, -0.6 * s.polyType.size / s.scale),
+        GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.polyType.size / s.scale),
                            GLO_MAX, s.polyType.size / s.scale, s.polyType.color);
     }
     glPopName();
