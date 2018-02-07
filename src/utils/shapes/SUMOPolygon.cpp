@@ -71,7 +71,14 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
         out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     }
     if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
-        out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
+        if(getShapeRelativePath()) {
+            // write only the file name, without file path
+            std::string file = getShapeImgFile();
+            file.erase(0, FileHelpers::getFilePath(getShapeImgFile()).size());
+            out.writeAttr(SUMO_ATTR_IMGFILE, file);
+        } else {
+            out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
+        }
     }
     writeParams(out);
     out.closeTag();

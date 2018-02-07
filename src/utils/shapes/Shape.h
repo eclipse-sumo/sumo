@@ -175,13 +175,10 @@ private:
     /// @brief The angle of the Shape
     double myNaviDegreeAngle;
 
-    /// @brief The path of the img file
-    std::string myImgPath;
-
-    /// @brief The img file
+    /// @brief The img file (include path)
     std::string myImgFile;
 
-    /// @brief Enable or disable imgFile as relative path
+    /// @brief Enable or disable save imgFile as relative path
     bool myRelativePath;
 };
 
