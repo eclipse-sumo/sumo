@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poly 'poly_1' into viewNet
@@ -24,8 +26,8 @@ Warning: Adding poly 'poly_2' into viewNet
 Warning: Adding poly 'poly_3' into viewNet
 Warning: Adding poly 'poly_4' into viewNet
 Warning: Adding poly 'poly_5' into viewNet
-Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Shapes saved
+Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Removing poly 'poly_5' from net
 Warning: Removing poly 'poly_4' from net
 Warning: Removing poly 'poly_3' from net
