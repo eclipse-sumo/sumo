@@ -1936,10 +1936,10 @@ GNENet::changeCalibratorFlowID(GNECalibratorFlow* flow, const std::string& oldID
 
 
 GNEPoly*
-GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill) {
+GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col) {
     if (shape.size() > 0) {
         // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false , false);
+        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, col, GLO_POLYGON, 0, "", false, false , false);
         shapePoly->setShapeEditedElement(netElement);
         shapePoly->setFill(fill);
         shapePoly->setLineWidth(0.3);
