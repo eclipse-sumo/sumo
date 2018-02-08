@@ -67,23 +67,26 @@ netedit.modifyAttribute(4, "")
 # Set imgfile
 netedit.modifyAttribute(4, "berlin_icon.ico")
 
+# change save relative path
+netedit.modifyBoolAttribute(5)
+
 # Set invalid angle
-netedit.modifyAttribute(5, "dummyAngle")
+netedit.modifyAttribute(6, "dummyAngle")
 
 # Set valid angle
-netedit.modifyAttribute(5, "180")
+netedit.modifyAttribute(6, "180")
 
 # change use geo
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(8)
 
 # change block move
-netedit.modifyBoolAttribute(9)
-
-# change block shape
 netedit.modifyBoolAttribute(10)
 
-# change close
+# change block shape
 netedit.modifyBoolAttribute(11)
+
+# change close
+netedit.modifyBoolAttribute(12)
 
 # go to select mode
 netedit.selectMode()
@@ -92,8 +95,8 @@ netedit.selectMode()
 netedit.selectionClear()
 
 # Check undos and redos
-netedit.undo(match, 14)
-netedit.redo(match, 14)
+netedit.undo(match, 15)
+netedit.redo(match, 15)
 
 # save shapes
 netedit.saveShapes()

@@ -103,26 +103,26 @@ netedit.modifyAttribute(6, "paris.ico")
 # Change parameter 8 with a valid value (valid)
 netedit.modifyAttribute(6, "berlin_icon.ico")
 
-# Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummyAngle")
+# Change boolean parameter 7
+netedit.modifyShapeDefaultBoolValue(7)
 
-# Change parameter 7 with a valid value (negative)
-netedit.modifyAttribute(7, "-5")
+# Change parameter 8 with a non valid value (dummy)
+netedit.modifyAttribute(8, "dummyAngle")
 
-# Change parameter 7 with a valid value (> 360)
-netedit.modifyAttribute(7, "365")
+# Change parameter 8 with a valid value (negative)
+netedit.modifyAttribute(8, "-5")
 
-# Change parameter 7 with a valid value (> 360)
-netedit.modifyAttribute(7, "10")
+# Change parameter 8 with a valid value (> 360)
+netedit.modifyAttribute(8, "365")
 
-# Change parameter 8 with a valid value
-netedit.modifyAttribute(9, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
+# Change parameter 8 with a valid value (> 360)
+netedit.modifyAttribute(8, "10")
 
-# Change boolean parameter 9
-netedit.modifyShapeDefaultBoolValue(10)
+# Change parameter 9 with a valid value
+netedit.modifyAttribute(10, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 -28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
 
 # Change boolean parameter 10
-netedit.modifyShapeDefaultBoolValue(12)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # Change boolean parameter 11
 netedit.modifyShapeDefaultBoolValue(13)
@@ -130,9 +130,12 @@ netedit.modifyShapeDefaultBoolValue(13)
 # Change boolean parameter 12
 netedit.modifyShapeDefaultBoolValue(14)
 
+# Change boolean parameter 13
+netedit.modifyShapeDefaultBoolValue(15)
+
 # Check undos and redos
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(match, 25)
+netedit.redo(match, 25)
 
 # save shapes
 netedit.saveShapes()
