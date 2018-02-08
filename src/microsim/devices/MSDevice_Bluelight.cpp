@@ -123,36 +123,40 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
     if (otherDevice != 0) {
         std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
     }*/
-    //violate red lights    
+    //violate red lights  this only need to be done once so shift it todo
     MSVehicle::Influencer& redLight = static_cast<MSVehicle&>(veh).getInfluencer();
     redLight.setSpeedMode(7);
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
     vt->setPreferredLateralAlignment(LATALIGN_ARBITRARY);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    std::string currentEdgeID= veh.getEdge()->getID();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         SUMOVehicle* veh2 = it->second;
-        double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
-        // todo which distance is a normal reaction time
-        // todo only vehicles in front of the emergency vehicle should react
-        if (distanceDelta <= 100 && veh.getID() != veh2->getID()) {
-            //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
-            MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
-            MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
+        //Vehicle only from edge should react
+        if (currentEdgeID == veh2->getEdge()->getID()) {
+            double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
+            // the perception of the sound of the siren should be around 25 meters
+            // todo only vehicles in front of the emergency vehicle should react
+            if (distanceDelta <= 25 && veh.getID() != veh2->getID()) {
+                //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
+                MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+                MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
 
-            //other vehicle should not use the rescue lane so they should not make any lane changes 
-            lanechange.setLaneChangeMode(1605);
+                //other vehicle should not use the rescue lane so they should not make any lane changes 
+                lanechange.setLaneChangeMode(1605);
 
-            //Setting the lateral alignment to build a rescue lane
-            if (veh2->getLane()->getIndex() == 0) {
-                t.setPreferredLateralAlignment(LATALIGN_RIGHT);
-                //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-            } else {
-                t.setPreferredLateralAlignment(LATALIGN_LEFT);
-                //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                //Setting the lateral alignment to build a rescue lane
+                if (veh2->getLane()->getIndex() == 0) {
+                    t.setPreferredLateralAlignment(LATALIGN_RIGHT);
+                    //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                } else {
+                    t.setPreferredLateralAlignment(LATALIGN_LEFT);
+                    //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                }
+                //influencedVehicles->push_back(static_cast<MSVehicle*>(veh2));
+                //std::cout << "Vehcile in influencedVehicleList: " << veh2->getID() << "\n";
             }
-            //influencedVehicles->push_back(static_cast<MSVehicle*>(veh2));
-            //std::cout << "Vehcile in influencedVehicleList: " << veh2->getID() << "\n";
         }
     }
     return true; // keep the device
