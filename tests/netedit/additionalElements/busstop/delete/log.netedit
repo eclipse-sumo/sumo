@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding busStop 'busStop_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_1' in GNEChange_Additional
