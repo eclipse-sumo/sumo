@@ -768,8 +768,10 @@ enum {
     /// @{
     /// @brief add row
     MID_GNE_VARIABLESPEEDSIGN_ADDROW,
-    /// @brief remove row
-    MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS,
+    /// @brief Click over Table
+    MID_GNE_VARIABLESPEEDSIGN_TABLE,
+    /// @brief sort table values
+    MID_GNE_VARIABLESPEEDSIGN_SORT,
     /// @}
 
 
