@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding chargingStation 'chargingStation_1' in GNEChange_Additional

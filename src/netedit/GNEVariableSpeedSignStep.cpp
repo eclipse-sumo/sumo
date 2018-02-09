@@ -89,6 +89,8 @@ GNEVariableSpeedSignStep::getTime() const {
 std::string
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return myVariableSpeedSignParent->getID() + "_" + toString(myTime) + "-" + toString(mySpeed);
         case SUMO_ATTR_TIME:
             return toString(myTime);
         case SUMO_ATTR_SPEED:
@@ -119,7 +121,24 @@ bool
 GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_TIME:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            if(canParse<double>(value)) {
+                // Check that 
+                double newTime = parse<double>(value);
+                // Only allowed positiv times
+                if(newTime < 0) {
+                    return false;
+                }
+                // check that there isn't duplicate times
+                int counter = 0;
+                for (auto i : myVariableSpeedSignParent->getVariableSpeedSignSteps()) {
+                    if(i->getTime() == newTime) {
+                        counter++;
+                    }
+                }
+                return (counter <= 1);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         default:

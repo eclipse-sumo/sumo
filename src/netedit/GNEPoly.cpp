@@ -279,7 +279,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
-        Position PostionOverShapeLine = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
         // set colors
         RGBColor invertedColor, darkerColor;
         if (selected) {
@@ -331,7 +330,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
                 // push matrix
                 glPushMatrix();
-                glTranslated(PostionOverShapeLine.x(), PostionOverShapeLine.y(), GLO_POLYGON + 0.04);
+                Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
+                glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
                 GLHelper:: drawFilledCircle(myHintSize, 32);
                 glPopMatrix();

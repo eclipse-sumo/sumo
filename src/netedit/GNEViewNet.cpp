@@ -372,7 +372,9 @@ GNEViewNet::startEditCustomShape(GNENetElement* element, const PositionVector& s
         myPreviousEditMode = myEditMode;
         setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
         // add special GNEPoly fo edit shapes
-        myEditShapePoly = myNet->addPolygonForEditShapes(element, shape, fill);
+        // color is taken from junction color settings
+        RGBColor col = getVisualisationSettings()->junctionColorer.getSchemes()[0].getColor(3);
+        myEditShapePoly = myNet->addPolygonForEditShapes(element, shape, fill, col);
         // update view net to show the new myEditShapePoly
         update();
     }

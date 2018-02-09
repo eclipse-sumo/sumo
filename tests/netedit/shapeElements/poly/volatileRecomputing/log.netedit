@@ -26,8 +26,8 @@ Warning: Adding poly 'poly_2' into viewNet
 Warning: Adding poly 'poly_3' into viewNet
 Warning: Adding poly 'poly_4' into viewNet
 Warning: Adding poly 'poly_5' into viewNet
-Warning: Shapes saved
 Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
+Warning: Shapes saved
 Warning: Removing poly 'poly_5' from net
 Warning: Removing poly 'poly_4' from net
 Warning: Removing poly 'poly_3' from net

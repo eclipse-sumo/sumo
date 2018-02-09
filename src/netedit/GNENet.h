@@ -640,10 +640,11 @@ public:
      * @param[in] netElement GNENetElement to be edited
      * @param[in] shape shape to be edited
      * @param[in] fill enable or disable fill polygon
+     * @param[in] col The color for drawing the polygon
      * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill);
+    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col);
 
     /// @brief remove Polygon for edit shapes
     void removePolygonForEditShapes(GNEPoly* polygon);

@@ -112,39 +112,45 @@ netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
 # create POI
 netedit.leftClick(match, 450, 50)
 
+# change save relative path
+netedit.modifyShapeDefaultBoolValue(9)
+
+# create POI
+netedit.leftClick(match, 100, 130)
+
 # change angle (invalid)
-netedit.modifyShapeDefaultValue(9, "dummyAngle")
+netedit.modifyShapeDefaultValue(10, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(match, 100, 130)
+netedit.leftClick(match, 200, 130)
 
 # change angle (valid, but > 360)
-netedit.modifyShapeDefaultValue(9, "500")
+netedit.modifyShapeDefaultValue(10, "500")
 
 # create POI
-netedit.leftClick(match, 100, 130)
+netedit.leftClick(match, 200, 130)
 
 # change angle (valid, < 0)
-netedit.modifyShapeDefaultValue(9, "-27")
+netedit.modifyShapeDefaultValue(10, "-27")
 
 # create POI
-netedit.leftClick(match, 250, 130)
+netedit.leftClick(match, 300, 130)
 
 # change angle (valid, < 0)
-netedit.modifyShapeDefaultValue(9, "45")
+netedit.modifyShapeDefaultValue(10, "45")
 
 # create POI
 netedit.leftClick(match, 400, 130)
 
 # change block
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # create POI
-netedit.leftClick(match, 550, 130)
+netedit.leftClick(match, 500, 130)
 
 # Check undo redo
-netedit.undo(match, 11)
-netedit.redo(match, 11)
+netedit.undo(match, 12)
+netedit.redo(match, 12)
 
 # save shapes
 netedit.saveShapes()
