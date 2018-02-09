@@ -55,7 +55,7 @@ netedit.modifyAttribute(1, "15.8")
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

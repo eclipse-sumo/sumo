@@ -28,7 +28,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

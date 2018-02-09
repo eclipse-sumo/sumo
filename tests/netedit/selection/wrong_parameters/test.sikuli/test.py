@@ -74,7 +74,7 @@ netedit.typeEnter()
 netedit.selectItems("Net Element", "junction", "id", "gneJ0")
 netedit.deleteSelectedItems()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

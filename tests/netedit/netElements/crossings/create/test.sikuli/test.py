@@ -80,7 +80,7 @@ netedit.crossingClearEdges()
 netedit.undo(match, 5)
 netedit.redo(match, 5)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

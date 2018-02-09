@@ -68,7 +68,7 @@ netedit.deleteSelectedItems()
 netedit.selectItems("Net Element", "edge", "allow", "=private")
 netedit.deleteSelectedItems()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -136,7 +136,7 @@ netedit.deleteSelectedItems()
 netedit.selectItems("Net Element", "lane", "disallow", "all")
 netedit.deleteSelectedItems()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -31,7 +31,7 @@ netedit.setZoom("0", "0", "80")
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

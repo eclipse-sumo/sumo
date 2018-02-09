@@ -122,7 +122,7 @@ netedit.saveAdditionals()
 # Fix stopping places position
 netedit.fixStoppingPlace("fixPositions")
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -69,7 +69,7 @@ netedit.deleteSelectedItems()
 netedit.selectItems("Net Element", "edge", "disallow", "=motorcycle")
 netedit.deleteSelectedItems()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

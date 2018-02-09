@@ -68,7 +68,7 @@ netedit.deleteSelectedItems()
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

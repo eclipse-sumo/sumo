@@ -101,7 +101,7 @@ netedit.redo(match, 15)
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

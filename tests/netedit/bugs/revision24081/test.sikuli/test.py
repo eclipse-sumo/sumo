@@ -49,7 +49,7 @@ netedit.rebuildNetwork()
 # Check redo
 netedit.redo(match, 1)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

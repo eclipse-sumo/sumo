@@ -40,7 +40,7 @@ netedit.leftClick(match, 385, 225)
 # check undo redo
 netedit.undo(match, 2)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -63,7 +63,7 @@ netedit.redo(match, 6)
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit
