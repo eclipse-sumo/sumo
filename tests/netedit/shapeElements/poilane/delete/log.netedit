@@ -1,0 +1,36 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
+Warning: Adding poi 'POI_img' into viewNet
+Warning: Shapes has to be saved
+Warning: Adding poi 'POI_nonDeleted' into viewNet
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_08Feb155810.980/netedit.gui/shapeElements/poi/delete\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Selected shape 'poi' in ShapeSelector
+Warning: Adding poi 'POI_0' into viewNet
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Removing poi 'POI_img' from viewNet
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding poi 'POI_img' into viewNet
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding poi 'POI_0' into viewNet
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Removing poi 'POI_img' from viewNet
+Warning: Shapes saved
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: Removing poi 'POI_0' from net
+Warning: Removing poi 'POI_nonDeleted' from net
+Warning: Removing poi 'POI_img' from net
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
