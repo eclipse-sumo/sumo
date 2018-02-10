@@ -1415,12 +1415,6 @@ private:
     /// @brief The maximal speed
     double mySpeed;
 
-    /// @brief A vClass specific stop offset - assumed of length 0 (unspecified) or 1.
-    ///        For the latter case the int is a bit set specifying the vClasses,
-    ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
-    ///        stopping offset in meters from the lane end
-    std::map<int,double> myStopOffsets;
-
     /** @brief List of connections to following edges
      * @see Connection
      */
@@ -1449,6 +1443,12 @@ private:
 
     /// @brief This edges's offset to the intersection begin (will be applied to all lanes)
     double myEndOffset;
+
+    /// @brief A vClass specific stop offset - assumed of length 0 (unspecified) or 1.
+    ///        For the latter case the int is a bit set specifying the vClasses,
+    ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
+    ///        stopping offset in meters from the lane end
+    std::map<int,double> myStopOffsets;
 
     /// @brief This width of this edge's lanes
     double myLaneWidth;
