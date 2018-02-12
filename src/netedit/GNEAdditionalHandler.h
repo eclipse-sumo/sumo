@@ -559,7 +559,7 @@ protected:
     /// @brief flag to check if created additionals must be undo and redo
     bool myUndoAdditionals;
 
-    /// @brief ID of last inserted Additional parent (needed for additionasl that own a child)
+    /// @brief ID of last inserted Additional parent (needed for additionals that own a child)
     std::string myLastInsertedAdditionalParent;
 
 private:
