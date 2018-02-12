@@ -206,8 +206,8 @@ public:
     /// @brief whether a string attribute is a filename
     static bool isFilename(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief whether a string attribute is a list of Vehicle Classes
-    static bool isVClass(SumoXMLTag tag, SumoXMLAttr attr);
+    /// @brief whether a string attribute is a list of Vehicle Classes (SVCPermissions)
+    static bool isSVCPermissions(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
@@ -380,9 +380,14 @@ public:
                 parsedOk = false;
             }
             // set extra check for filename values
-            if (isVClass(tag, attribute) && (canParseVehicleClasses(parsedAttribute) == false)) {
-                errorFormat = "List of VClasses isn't valid; ";
-                parsedOk = false;
+            if (isSVCPermissions(tag, attribute)) {
+                if (canParseVehicleClasses(parsedAttribute)) {
+                    parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
+                    parsedOk = true;
+                } else {
+                    errorFormat = "List of VClasses isn't valid; ";
+                    parsedOk = false;
+                }
             }
             // set extra check for Vehicle Classes
             if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
@@ -552,8 +557,8 @@ private:
     /// @brief map with the file attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myFileAttrs;
 
-    /// @brief map with the Vehicle Class attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myVClassAttrs;
+    /// @brief map with the SVCPermissions attributes
+    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > mySVCPermissionsAttrs;
 
     /// @brief map with the allowed tags of additionals with parent and their parent
     static std::map<SumoXMLTag, SumoXMLTag> myAllowedAdditionalWithParentTags;
