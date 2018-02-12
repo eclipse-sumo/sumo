@@ -69,6 +69,11 @@ def get_options(args=None):
         optParser.print_help()
         sys.exit(1)
 
+    if options.begin >= options.end:
+        sys.stderr.write("Error: end time must be larger than begin time\n")
+        optParser.print_help()
+        sys.exit(1)
+
     if options.types is not None:
         options.types = options.types.split(',')
 
@@ -98,9 +103,9 @@ def createTrips(options):
             fouttrips, "$Id$", "routes")
         writeTypes(fouttrips, options.vtypeprefix)
 
-        departTimes = [0 for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
+        departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
         if options.randomBegin:
-            departTimes = sorted([int(random.random() * options.period) for t in departTimes])
+            departTimes = sorted([options.begin + int(random.random() * options.period) for t in departTimes])
 
         for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine')):
             stop_ids = []
