@@ -312,7 +312,10 @@ public:
             // check that sucesfully parsed attribute can be converted to type T
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
-                parsedAttribute = defaultValue;
+                // only set default value if this isn't a SVCPermission
+                if(!isSVCPermissions(tag, attribute)) {
+                    parsedAttribute = defaultValue;
+                }
             }
             // declare a string for details about error formats
             std::string errorFormat;
@@ -379,13 +382,14 @@ public:
                 errorFormat = "Filename contains invalid characters; ";
                 parsedOk = false;
             }
-            // set extra check for filename values
+            // set extra check for SVCPermissions values
             if (isSVCPermissions(tag, attribute)) {
                 if (canParseVehicleClasses(parsedAttribute)) {
                     parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
                     parsedOk = true;
                 } else {
                     errorFormat = "List of VClasses isn't valid; ";
+                    parsedAttribute = defaultValue;
                     parsedOk = false;
                 }
             }
