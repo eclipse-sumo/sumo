@@ -28,6 +28,7 @@
 #include <memory>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSTrafficItem.h>
@@ -294,31 +295,62 @@ MSCFModel_TCI::calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti) {
         // at the junction. Further, the distance to the junction is inversely proportional
         // to the induced demand [~1/(c*dist + 1)].
         std::shared_ptr<JunctionCharacteristics> ch = std::dynamic_pointer_cast<JunctionCharacteristics>(ti->data);
-        ti->latentDemand = 0;
+        MSJunction* j = ch->junction;
+        double LATENT_DEMAND_COEFF_JUNCTION_INCOMING = 0.1;
+        double LATENT_DEMAND_COEFF_JUNCTION_FOES = 0.5;
+        double LATENT_DEMAND_COEFF_JUNCTION_DIST = 0.1;
+        ti->latentDemand = (LATENT_DEMAND_COEFF_JUNCTION_INCOMING*j->getNrOfIncomingLanes()
+                                 + LATENT_DEMAND_COEFF_JUNCTION_FOES*j->getFoeLinks(ch->egoLink).size())
+                                         /(1 + ch->dist*LATENT_DEMAND_COEFF_JUNCTION_DIST);
     }
         break;
     case TRAFFIC_ITEM_PEDESTRIAN: {
         // Latent demand for pedestrian is proportional to the euclidean distance to the
         // pedestrian (i.e. its potential to 'jump in front of the car) [~1/(c*dist + 1)]
-
+        std::shared_ptr<PedestrianCharacteristics> ch = std::dynamic_pointer_cast<PedestrianCharacteristics>(ti->data);
+        PedestrianState* p = ch->pedestrian;
+        ti->latentDemand = 0;
+        WRITE_WARNING("MSCFModel_TCI::calculateLatentDemand(pedestrian) not implemented")
     }
         break;
     case TRAFFIC_ITEM_SPEED_LIMIT: {
         // Latent demand for speed limit is proportional to speed difference to current vehicle speed
         // during approach [~c*(1+deltaV) if dist<threshold].
-
+        std::shared_ptr<SpeedLimitCharacteristics> ch = std::dynamic_pointer_cast<SpeedLimitCharacteristics>(ti->data);
+        ti->latentDemand = 0;
+        WRITE_WARNING("MSCFModel_TCI::calculateLatentDemand(speedlimit) not implemented")
     }
         break;
     case TRAFFIC_ITEM_TLS: {
         // Latent demand for tls is proportional to vehicle's approaching speed
         // and dependent on the tls state as well as the number of approaching lanes
         // [~c(tlsState, nLanes)*(1+V) if dist<threshold].
+        std::shared_ptr<TLSCharacteristics> ch = std::dynamic_pointer_cast<TLSCharacteristics>(ti->data);
+        ti->latentDemand = 0;
+        WRITE_WARNING("MSCFModel_TCI::calculateLatentDemand(TLS) not implemented")
 
     }
         break;
     case TRAFFIC_ITEM_VEHICLE: {
         // Latent demand for neighboring vehicle is determined from the relative and absolute speed,
         // and from the lateral and longitudinal distance.
+
+        double LATENT_DEMAND_VEHILCE_EUCLIDEAN_DIST_THRESHOLD = 20;
+
+        std::shared_ptr<VehicleCharacteristics> ch = std::dynamic_pointer_cast<VehicleCharacteristics>(ti->data);
+        if (ch->ego->getEdge() == nullptr){
+            return;
+        }
+        MSVehicle* foe = ch->foe;
+        MSVehicle* ego = ch->ego;
+        if (foe->getEdge() == ego->getEdge()) {
+            // on same edge
+        } else if (foe->getEdge() == ego->getEdge()->getOppositeEdge()) {
+            // on opposite edges
+        } else if (ego->getPosition().distanceSquaredTo2D(foe->getPosition()) < LATENT_DEMAND_VEHILCE_EUCLIDEAN_DIST_THRESHOLD) {
+            // close enough
+        }
+
 
     }
         break;

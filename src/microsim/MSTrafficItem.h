@@ -33,6 +33,7 @@
 // class declarations
 // ===========================================================================
 class MSJunction;
+class MSLink;
 class MSVehicle;
 class PedestrianState;
 
@@ -73,9 +74,10 @@ struct MSTrafficItem {
 };
 
 struct JunctionCharacteristics : MSTrafficItemCharacteristics {
-    JunctionCharacteristics(MSJunction* junction, double dist) :
-        junction(junction), dist(dist) {};
+    JunctionCharacteristics(MSJunction* junction, MSLink* egoLink, double dist) :
+        junction(junction), egoLink(egoLink), dist(dist) {};
     MSJunction* junction;
+    MSLink* egoLink;
     double dist;
 };
 
@@ -102,9 +104,10 @@ struct TLSCharacteristics : MSTrafficItemCharacteristics {
 };
 
 struct VehicleCharacteristics : MSTrafficItemCharacteristics {
-    VehicleCharacteristics(MSVehicle* veh, double longitudinalDist, double lateralDist) :
-        longitudinalDist(longitudinalDist), lateralDist(lateralDist), veh(veh) {};
-    MSVehicle* veh;
+    VehicleCharacteristics(MSVehicle* ego, MSVehicle* foe, double longitudinalDist, double lateralDist) :
+        longitudinalDist(longitudinalDist), lateralDist(lateralDist), ego(ego), foe(foe) {};
+    MSVehicle* ego;
+    MSVehicle* foe;
     double longitudinalDist;
     double lateralDist;
 };
