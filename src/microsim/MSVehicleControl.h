@@ -202,6 +202,20 @@ public:
     }
 
 
+    /** @brief Returns the number of halting vehicles
+     * @return The number of halting vehicles
+     */
+    virtual int getHaltingVehicleNo() const;
+
+    /// @brief get current absolute and relative mean vehicle speed in the network
+    virtual std::pair<double, double> getVehicleMeanSpeeds() const;
+    double getVehicleMeanSpeed() const {
+        return getVehicleMeanSpeeds().first;
+    }
+    double getVehicleMeanSpeedRelative() const {
+        return getVehicleMeanSpeeds().second;
+    }
+
     /** @brief Returns the number of removed vehicles
      * @return The number of vehicles that have left the simulation
      */
@@ -285,7 +299,6 @@ public:
     int getEmergencyStops() const {
         return myEmergencyStops;
     }
-
 
     /** @brief Returns the total departure delay
      * @return Sum of steps vehicles had to wait until being inserted
