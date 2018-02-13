@@ -12,7 +12,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 30.01.2009
-/// @version $Id$
+/// @version $Id: MSDevice_Tripinfo.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A device which collects info on the vehicle trip
 /****************************************************************************/
@@ -207,7 +207,13 @@ private:
     /// @brief The overall waiting time
     SUMOTime myWaitingTime;
 
-    /// @brief The overall intential stopping time
+    /// @brief Whether the vehicle is currently waiting
+    bool myAmWaiting;
+
+    /// @brief The overall number of unintended stops
+    int myWaitingCount;
+
+    /// @brief The overall intentional stopping time
     SUMOTime myStoppingTime;
 
     /// @brief The time when parking started
