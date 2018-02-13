@@ -91,11 +91,11 @@ GNECalibratorRoute::writeRoute(OutputDevice& device) {
     // Open route tag
     device.openTag(getTag());
     // Write route ID
-    device.writeAttr(SUMO_ATTR_BEGIN, myRouteID);
+    device.writeAttr(SUMO_ATTR_ROUTE, myRouteID);
     // Write edge IDs
-    device.writeAttr(SUMO_ATTR_BEGIN, parseGNEEdges(myEdges));
+    device.writeAttr(SUMO_ATTR_EDGES, parseGNEEdges(myEdges));
     // Write Color
-    device.writeAttr(SUMO_ATTR_BEGIN, myColor);
+    device.writeAttr(SUMO_ATTR_COLOR, myColor);
     // Close flow tag
     device.closeTag();
 }

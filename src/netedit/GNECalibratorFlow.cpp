@@ -131,9 +131,9 @@ GNECalibratorFlow::writeFlow(OutputDevice& device) {
     // Write end
     device.writeAttr(SUMO_ATTR_END, myEnd);
     // Write type
-    device.writeAttr(SUMO_ATTR_TYPE, myVehicleType);
+    device.writeAttr(SUMO_ATTR_TYPE, myVehicleType->getID());
     // Write route
-    device.writeAttr(SUMO_ATTR_ROUTE, myRoute);
+    device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
     // Write color
     device.writeAttr(SUMO_ATTR_COLOR, myColor);
     // Write depart lane
