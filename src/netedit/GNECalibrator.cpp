@@ -245,10 +245,6 @@ GNECalibrator::openAdditionalDialog() {
     GNECalibratorDialog calibratorDialog(this);
 }
 
-
-
-
-
 void
 GNECalibrator::addCalibratorRoute(GNECalibratorRoute* route) {
     myCalibratorRoutes.push_back(route);

@@ -126,6 +126,8 @@ void
 GNECalibratorFlow::writeFlow(OutputDevice& device) {
     // Open flow tag
     device.openTag(getTag());
+    // Write ID
+    device.writeAttr(SUMO_ATTR_ID, getID());
     // Write begin
     device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
     // Write end
