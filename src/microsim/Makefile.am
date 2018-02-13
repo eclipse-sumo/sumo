@@ -29,6 +29,7 @@ MSVehicleControl.cpp MSVehicleControl.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
 MSVehicleType.cpp MSVehicleType.h \
 MSStateHandler.h MSStateHandler.cpp \
+MSTrafficItem.h MSTrafficItem.cpp \
 MSTransportable.h MSTransportable.cpp \
 MSTransportableControl.h MSTransportableControl.cpp
 

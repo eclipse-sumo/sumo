@@ -28,30 +28,18 @@
 
 #include <memory>
 #include <functional>
-#include "MSCFModel.h"
+#include "MSCFModel_Krauss.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSTrafficItem;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
-/** @class TrafficItemInfo
- * @brief  An object representing a traffic item. Used for influencing
- *         the task demand of the TCI car-following model.
- * @see MSCFModel_TCI
- */
-class TrafficItemCharacteristics; // base class for VehicleCharacteristics, TLSCharacteristics, PedestrianCharacteristics, SpeedLimitCharacteristics, ...
-enum SUMOTrafficItemType {
-};
-
-struct TrafficItemInfo {
-    TrafficItemInfo(SUMOTrafficItemType type, const std::string& id, std::shared_ptr<TrafficItemCharacteristics*> data);
-    static std::hash<std::string> hash;
-    SUMOTrafficItemType type;
-    size_t id_hash;
-    std::shared_ptr<TrafficItemCharacteristics*> data;
-};
-
-
 
 /** @class MSCFModel_TCI
  * @brief Task Capability Interface car-following model.
@@ -118,6 +106,10 @@ public:
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
 
+    /** @brief Called whenever the vehicle is notified about a traffic item encounter.
+     */
+    void registerTrafficItem(std::shared_ptr<MSTrafficItem> ti);
+
 private:
     /// @class OUProcess
     /// @brief An Ornstein-Uhlenbeck stochastic process
@@ -162,7 +154,6 @@ private:
         /** @brief The noise intensity of the process
          */
         double myNoiseIntensity;
-
 
     };
 
@@ -211,6 +202,18 @@ private:
     /// @brief Updates the given error process
     void updateErrorProcess(OUProcess& errorProcess, double timeScaleCoefficient, double noiseIntensityCoefficient) const;
 
+    /// @brief Initialize newly appeared traffic item
+    void calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti);
+
+    /// @brief Register known traffic item to persist
+    void updateItemIntegration(std::shared_ptr<MSTrafficItem> ti);
+
+    /// @brief Determine the integration demand and duration for a newly encountered traffic item (updated in place)
+    ///        The integration demand takes effect during a short period after the first appearance of the item.
+    void calculateIntegrationDemandAndTime(std::shared_ptr<MSTrafficItem> ti);
+
+    /// @brief Incorporate the item's demand into the total task demand.
+    void integrateDemand(std::shared_ptr<MSTrafficItem> ti);
 
 
 private:
@@ -271,6 +274,12 @@ private:
 
     /// @}
 
+
+
+    /** @brief Traffic items in the current neighborhood of the vehicle.
+     */
+    std::map<size_t, std::shared_ptr<MSTrafficItem> > myTrafficItems;
+    std::map<size_t, std::shared_ptr<MSTrafficItem> > myNewTrafficItems;
 
     /// @name Actuation errors
     /// @{

@@ -25,10 +25,12 @@
 #include <config.h>
 #endif
 
+#include <memory>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSTrafficItem.h>
 #include "MSCFModel_TCI.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
@@ -62,16 +64,6 @@ double TCIDefaults::mySpeedPerceptionErrorTimeScaleCoefficient = 1.0;
 double TCIDefaults::mySpeedPerceptionErrorNoiseIntensityCoefficient = 1.0;
 double TCIDefaults::myHeadwayPerceptionErrorTimeScaleCoefficient = 1.0;
 double TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient = 1.0;
-
-
-// init the hash function
-std::hash<std::string> TrafficItemInfo::hash = std::hash<std::string>();
-
-TrafficItemInfo::TrafficItemInfo(SUMOTrafficItemType type, const std::string& id, std::shared_ptr<TrafficItemCharacteristics*> data) :
-            type(type),
-            id_hash(hash(id)),
-            data(data)
-{}
 
 
 // ===========================================================================
@@ -242,8 +234,106 @@ MSCFModel_TCI::updateErrorProcess(OUProcess& errorProcess, double timeScaleCoeff
 
 
 
+void
+MSCFModel_TCI::registerTrafficItem(std::shared_ptr<MSTrafficItem> ti) {
+    if (myNewTrafficItems.find(ti->id_hash) == myNewTrafficItems.end()) {
+
+        // Update demand associated with the item
+        auto knownTiIt = myTrafficItems.find(ti->id_hash);
+        if (knownTiIt == myTrafficItems.end()) {
+            // new item --> init integration demand and latent task demand
+            calculateIntegrationDemandAndTime(ti);
+        } else {
+            // known item --> only update latent task demand associated with the item
+            ti = knownTiIt->second;
+        }
+        calculateLatentDemand(ti);
+
+        // Take into account the task demand associated with the item
+        integrateDemand(ti);
+
+        if (ti->remainingIntegrationTime>0) {
+            updateItemIntegration(ti);
+        }
+
+        // Track item
+        myNewTrafficItems[ti->id_hash] = ti;
+    }
+}
 
 
+//void
+//MSCFModel_TCI::flushTrafficItems() {
+//    myTrafficItems = myNewTrafficItems;
+//}
+
+
+void
+MSCFModel_TCI::updateItemIntegration(std::shared_ptr<MSTrafficItem> ti) {
+    // Eventually decrease integration time and take into account integration cost.
+    ti->remainingIntegrationTime -= myStepDuration;
+    if (ti->remainingIntegrationTime <= 0) {
+        ti->remainingIntegrationTime = 0;
+        ti->integrationDemand = 0;
+    }
+}
+
+
+void
+MSCFModel_TCI::calculateIntegrationDemandAndTime(std::shared_ptr<MSTrafficItem> ti) {
+// @todo
+}
+
+
+void
+MSCFModel_TCI::calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti) {
+    switch (ti->type) {
+    case TRAFFIC_ITEM_JUNCTION: {
+        // Latent demand for junction is proportional to number of conflicting lanes
+        // for the vehicle's path plus a factor for the total number of incoming lanes
+        // at the junction. Further, the distance to the junction is inversely proportional
+        // to the induced demand [~1/(c*dist + 1)].
+        std::shared_ptr<JunctionCharacteristics> ch = std::dynamic_pointer_cast<JunctionCharacteristics>(ti->data);
+        ti->latentDemand = 0;
+    }
+        break;
+    case TRAFFIC_ITEM_PEDESTRIAN: {
+        // Latent demand for pedestrian is proportional to the euclidean distance to the
+        // pedestrian (i.e. its potential to 'jump in front of the car) [~1/(c*dist + 1)]
+
+    }
+        break;
+    case TRAFFIC_ITEM_SPEED_LIMIT: {
+        // Latent demand for speed limit is proportional to speed difference to current vehicle speed
+        // during approach [~c*(1+deltaV) if dist<threshold].
+
+    }
+        break;
+    case TRAFFIC_ITEM_TLS: {
+        // Latent demand for tls is proportional to vehicle's approaching speed
+        // and dependent on the tls state as well as the number of approaching lanes
+        // [~c(tlsState, nLanes)*(1+V) if dist<threshold].
+
+    }
+        break;
+    case TRAFFIC_ITEM_VEHICLE: {
+        // Latent demand for neighboring vehicle is determined from the relative and absolute speed,
+        // and from the lateral and longitudinal distance.
+
+    }
+        break;
+    default:
+        WRITE_WARNING("Unknown traffic item type!")
+        break;
+    }
+}
+
+
+void
+MSCFModel_TCI::integrateDemand(std::shared_ptr<MSTrafficItem> ti) {
+    myMaxTaskDemand += ti->integrationDemand;
+    myMaxTaskDemand += ti->latentDemand;
+}
 
 
 /****************************************************************************/
