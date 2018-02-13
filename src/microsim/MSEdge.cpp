@@ -966,6 +966,17 @@ MSEdge::canChangeToOpposite() {
 }
 
 
+
+const MSEdge*
+MSEdge::getOppositeEdge() const {
+    if (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr){
+        return &(myLanes->back()->getEdge());
+    } else {
+        return nullptr;
+    }
+}
+
+
 bool
 MSEdge::hasMinorLink() const {
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {

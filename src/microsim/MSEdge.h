@@ -633,6 +633,9 @@ public:
     /// @brief whether this edge allows changing to the opposite direction edge
     bool canChangeToOpposite();
 
+    /// @brief Returns the opposite direction edge if on exists else a nullptr
+    const MSEdge* getOppositeEdge() const;
+
     /// @brief get the mean speed
     double getMeanSpeed() const;
 
