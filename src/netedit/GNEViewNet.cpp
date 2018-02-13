@@ -598,8 +598,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glEnd();
             glPopMatrix();
             // show box with the current position relative to pink square
-            Position posRelative = screenPos2NetPos(myWindowCursorPositionX, myWindowCursorPositionY);
-            posRelative.add(0, p2m(20));
+            Position posRelative = screenPos2NetPos(getWidth() - 40, getHeight() - 20);
             // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
             GLHelper::drawTextBox(toString(myWindowCursorPositionX - 24) + " " + toString(myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor::WHITE);
         }
