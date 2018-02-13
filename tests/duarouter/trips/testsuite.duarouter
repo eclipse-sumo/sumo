@@ -88,6 +88,9 @@ busStop
 # test trip with intermediate container stop
 containerStop
 
+# test trip with intermediate parkingArea
+parkingArea
+
 # same as noid_increasing_time, but a non-standard vehicle type is used but not defined
 with_vehtype_nodef
 
