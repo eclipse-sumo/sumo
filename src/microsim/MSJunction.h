@@ -106,6 +106,8 @@ public:
         return myIncoming;
     }
 
+    int getNrOfIncomingLanes() const;
+
     inline const ConstMSEdgeVector& getOutgoing() const {
         return myOutgoing;
     }

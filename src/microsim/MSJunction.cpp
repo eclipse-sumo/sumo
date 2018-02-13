@@ -66,6 +66,16 @@ void
 MSJunction::postloadInit() {}
 
 
+int
+MSJunction::getNrOfIncomingLanes() const {
+    int nr = 0;
+    for (const MSEdge* e : myIncoming) {
+        nr += e->getLanes().size();
+    }
+    return nr;
+}
+
+
 void
 MSJunction::passedJunction(const MSVehicle* vehicle) {
     myLinkLeaders.erase(vehicle);
