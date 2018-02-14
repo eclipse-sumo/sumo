@@ -1707,6 +1707,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
     const bool opposite = getLaneChangeModel().isOpposite();
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
+    if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
+        laneMaxV = std::numeric_limits<double>::max();
+    }
     // v is the initial maximum velocity of this vehicle in this step
     double v = MIN2(maxV, laneMaxV);
     if (myInfluencer != 0) {
@@ -2040,6 +2043,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // get the following lane
         lane = (*link)->getViaLaneOrLane();
         laneMaxV = lane->getVehicleMaxSpeed(this);
+        if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
+            laneMaxV = std::numeric_limits<double>::max();
+        }
         // the link was passed
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
