@@ -206,8 +206,8 @@ netedit.modifyShapeDefaultBoolValue(13)
 netedit.leftClick(match, 440, 215)
 
 # Check undo redo
-netedit.undo(match, 13)
-netedit.redo(match, 13)
+netedit.undo(match, 17)
+netedit.redo(match, 17)
 
 # save shapes
 netedit.saveShapes()
