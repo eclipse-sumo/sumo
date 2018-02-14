@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: RONet.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The router's network representation
 /****************************************************************************/
@@ -66,6 +66,7 @@ RONet::getInstance(void) {
 
 RONet::RONet()
     : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true), myDefaultPedTypeMayBeDeleted(true),
+      myHaveActiveFlows(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
       myHavePermissions(false),
@@ -399,17 +400,17 @@ RONet::addContainer(const SUMOTime depart, const std::string desc) {
 
 
 void
-RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
-    std::vector<std::string> toRemove;
+RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
+    myHaveActiveFlows = false;
     for (const auto& i : myFlows) {
         SUMOVehicleParameter* pars = i.second;
         if (pars->repetitionProbability > 0) {
             const SUMOTime origDepart = pars->depart;
             while (pars->depart < time) {
                 if (pars->repetitionEnd <= pars->depart) {
-                    toRemove.push_back(i.first);
                     break;
                 }
+                myHaveActiveFlows = true;
                 // only call rand if all other conditions are met
                 if (RandHelper::rand() < (pars->repetitionProbability * TS)) {
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
@@ -444,6 +445,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
                 if (depart >= time + DELTA_T) {
                     break;
                 }
+                myHaveActiveFlows = true;
                 if (myDepartures.find(pars->id) != myDepartures.end()) {
                     myDepartures[pars->id].pop_back();
                 }
@@ -470,13 +472,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT) {
                 addVehicle(newPars->id, veh);
                 delete newPars;
             }
-            if (pars->repetitionsDone == pars->repetitionNumber && (!keepPT || pars->line == "")) {
-                toRemove.push_back(i.first);
-            }
         }
-    }
-    for (std::vector<std::string>::const_iterator i = toRemove.begin(); i != toRemove.end(); ++i) {
-        myFlows.remove(*i);
     }
 }
 
@@ -532,7 +528,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                                 SUMOTime time) {
     MsgHandler* mh = (options.getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
-    checkFlows(time, mh, !provider.getIntermodalRouter().hasNet());
+    if (myHaveActiveFlows) {
+        checkFlows(time, mh);
+    }
     SUMOTime lastTime = -1;
     const bool removeLoops = options.getBool("remove-loops");
     const int maxNumThreads = options.getInt("routing-threads");
@@ -635,7 +633,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
 
 bool
 RONet::furtherStored() {
-    return myRoutables.size() > 0 || myFlows.size() > 0 || myContainers.size() > 0;
+    return myRoutables.size() > 0 || myHaveActiveFlows || myContainers.size() > 0;
 }
 
 

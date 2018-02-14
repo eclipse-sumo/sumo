@@ -11,7 +11,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id$
+/// @version $Id: IntermodalRouter.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
@@ -101,10 +101,6 @@ public:
     SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
         createNet();
         return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
-    }
-
-    bool hasNet() const {
-        return myIntermodalNet != 0;
     }
 
     /** @brief Adds access edges for stopping places to the intermodal network

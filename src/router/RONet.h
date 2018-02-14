@@ -13,7 +13,7 @@
 /// @author  Jakob Erdmann
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: RONet.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The router's network representation
 /****************************************************************************/
@@ -363,7 +363,7 @@ public:
 
 
     /// Returns the information whether further vehicles, persons or containers are stored
-    virtual bool furtherStored();
+    bool furtherStored();
     //@}
 
 
@@ -443,7 +443,7 @@ public:
 
 
 private:
-    void checkFlows(SUMOTime time, MsgHandler* errorHandler, const bool keepPT);
+    void checkFlows(SUMOTime time, MsgHandler* errorHandler);
 
     void createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime time, const bool removeLoops);
 
@@ -488,6 +488,9 @@ private:
 
     /// @brief Known flows
     NamedObjectCont<SUMOVehicleParameter*> myFlows;
+
+    /// @brief whether any flows are still active
+    bool myHaveActiveFlows;
 
     /// @brief Known containers
     typedef std::multimap<const SUMOTime, const std::string> ContainerMap;
