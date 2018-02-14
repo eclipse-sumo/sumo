@@ -12,13 +12,13 @@ inspect
 inspect_selection
 
 # load poi
-load
+#load
 
 # move poi
-move
+#move
 
 # lock/unlock poi
-lock_unlock
+#lock_unlock
 
 # volatile recomputing
 volatileRecomputing
