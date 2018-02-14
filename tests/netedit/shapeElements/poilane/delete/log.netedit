@@ -1,28 +1,27 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding poi 'POI_img' into viewNet
+Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
-Warning: Adding poi 'POI_nonDeleted' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_08Feb155810.980/netedit.gui/shapeElements/poi/delete\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding poiLane 'POI_nonDeleted' into viewNet
 Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Selected shape 'poi' in ShapeSelector
-Warning: Adding poi 'POI_0' into viewNet
-Warning: Removing poi 'POI_0' from viewNet
-Warning: Removing poi 'POI_img' from viewNet
+Warning: Selected shape 'poiLane' in ShapeSelector
+Warning: Adding poiLane 'POI_1' into viewNet
+Warning: Removing poiLane 'POI_1' from viewNet
+Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding poi 'POI_img' into viewNet
+Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding poi 'POI_0' into viewNet
+Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing poi 'POI_0' from viewNet
+Warning: Removing poiLane 'POI_1' from viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing poi 'POI_img' from viewNet
+Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Removing poi 'POI_0' from net
-Warning: Removing poi 'POI_nonDeleted' from net
-Warning: Removing poi 'POI_img' from net
+Warning: Removing poiLane 'POI_1' from net
+Warning: Removing poiLane 'POI_nonDeleted' from net
+Warning: Removing poiLane 'POI_0' from net
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

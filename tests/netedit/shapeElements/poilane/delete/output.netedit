@@ -7,26 +7,26 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "p"
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
+[log] ( Strg )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(454,190)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 454 - 190
+[log] CLICK on L(444,355)@S(0)[0,0 1920x1200] (220 msec)
+TestFunctions: Clicked over position 444 - 355
 [log]  TYPE "d"
-[log] CLICK on L(454,190)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 454 - 190
-[log] CLICK on L(504,190)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 504 - 190
+[log] CLICK on L(439,350)@S(0)[0,0 1920x1200] (220 msec)
+TestFunctions: Clicked over position 439 - 350
+[log] CLICK on L(579,350)@S(0)[0,0 1920x1200] (220 msec)
+TestFunctions: Clicked over position 579 - 350
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1920x1200] (220 msec)
 TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
+[log] ( Strg )  TYPE "z"
+[log] ( Strg )  TYPE "z"
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1920x1200] (220 msec)
 TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl+Shift )  TYPE "p"
-[log] ( Ctrl )  TYPE "s"
-[log] ( Ctrl )  TYPE "q"
+[log] ( Strg )  TYPE "y"
+[log] ( Strg )  TYPE "y"
+[log] ( Strg+Umschalt )  TYPE "p"
+[log] ( Strg )  TYPE "s"
+[log] ( Strg )  TYPE "q"
 TestFunctions: Netedit closed successfully
