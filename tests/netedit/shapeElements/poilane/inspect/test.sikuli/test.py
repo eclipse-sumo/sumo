@@ -31,20 +31,20 @@ netedit.shapeMode()
 # select POILane in list of shapes
 netedit.changeShape("poiLane")
 
-# create first POILane
-netedit.leftClick(match, 100, 50)
+# create POILane
+netedit.leftClick(match, 140, 215)
 
-# create second POILane
-netedit.leftClick(match, 150, 50)
+# create POILane
+netedit.leftClick(match, 200, 215)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(match, 100, 50)
+netedit.leftClick(match, 140, 215)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "POILane_1")
+netedit.modifyAttribute(0, "POI_1")
 
 # Change parameter 0 with a non valid value (empty)
 netedit.modifyAttribute(0, "")
@@ -56,98 +56,107 @@ netedit.modifyAttribute(0, "ID with spaces")
 netedit.modifyAttribute(0, "newID")
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyPosition")
+netedit.modifyAttribute(1, "dummyLane")
+
+# Change parameter 1 with a non valid value (empty)
+netedit.modifyAttribute(1, "")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "20.40,7.50")
+netedit.modifyAttribute(1, "gneE0_0")
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummyColor")
+netedit.modifyAttribute(2, "dummyPosition")
 
-# Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(2, "255,255,500")
+# Change parameter 2 with a non valid value (< lane length)
+netedit.modifyAttribute(2, "-100")
 
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(2, "blue")
+# Change parameter 2 with a non valid value (> lane length)
+netedit.modifyAttribute(2, "200")
 
-# Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(2, "125,60,200")
+# Change parameter 2 with a valid value
+netedit.modifyAttribute(2, "30.5")
 
-# Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyValue")
-
-# Change parameter 4 with a valid value
-netedit.modifyAttribute(3, "myOwnType")
-
-# Change parameter 5 with a non valid value
-netedit.modifyAttribute(4, "dummyLayer")
+# Change parameter 5 with a non valid value (dummy)
+netedit.modifyAttribute(3, "dummyLatPosition")
 
 # Change parameter 5 with a valid value (negative)
-netedit.modifyAttribute(4, "-2")
+netedit.modifyAttribute(3, "-20")
 
-# Change parameter 5 with a valid value (negative)
-netedit.modifyAttribute(4, "2")
+# Change parameter 5 with a valid value
+netedit.modifyAttribute(3, "15")
 
-# Change parameter 6 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummyWidth")
+# Change parameter 4 with a non valid value (dummy)
+netedit.modifyAttribute(4, "dummyColor")
 
-# Change parameter 6 with a non valid value (negative)
-netedit.modifyAttribute(5, "-2")
+# Change parameter 4 with a non valid value (invalid format)
+netedit.modifyAttribute(4, "255,255,500")
 
-# Change parameter 6 with a valid value
-netedit.modifyAttribute(5, "5")
+# Change parameter 4 with a valid value (valid format)
+netedit.modifyAttribute(4, "blue")
+
+# Change parameter 4 with a valid value (valid format)
+netedit.modifyAttribute(4, "125,60,200")
+
+# Change parameter 5 with a valid value
+netedit.modifyAttribute(5, "myOwnType")
+
+# Change parameter 6 with a non valid value
+netedit.modifyAttribute(6, "dummyLayer")
+
+# Change parameter 6 with a valid value (negative)
+netedit.modifyAttribute(6, "-2")
+
+# Change parameter 6 with a valid value (negative)
+netedit.modifyAttribute(6, "2")
 
 # Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyHeight")
+netedit.modifyAttribute(7, "dummyWidth")
 
 # Change parameter 7 with a non valid value (negative)
-netedit.modifyAttribute(6, "-3")
+netedit.modifyAttribute(7, "-2")
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(6, "5")
+netedit.modifyAttribute(7, "5")
 
-# Change parameter 8 with a non valid value (invalid)
-netedit.modifyAttribute(7, "%$$%%%%%")
+# Change parameter 8 with a non valid value (dummy)
+netedit.modifyAttribute(8, "dummyHeight")
 
-# Change parameter 8 with a non valid value (no exist)
-netedit.modifyAttribute(7, "paris.ico")
+# Change parameter 8 with a non valid value (negative)
+netedit.modifyAttribute(8, "-3")
 
-# Change parameter 8 with a valid value (valid)
-netedit.modifyAttribute(7, "berlin_icon.ico")
+# Change parameter 8 with a valid value
+netedit.modifyAttribute(8, "5")
 
-# Change boolean parameter 9
-netedit.modifyShapeDefaultBoolValue(8)
+# Change parameter 9 with a non valid value (invalid)
+netedit.modifyAttribute(9, "%$$%%%%%")
 
-# Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(9, "dummyAngle")
+# Change parameter 9 with a non valid value (no exist)
+netedit.modifyAttribute(9, "paris.ico")
 
-# Change parameter 9 with a valid value (negative)
-netedit.modifyAttribute(9, "-12")
+# Change parameter 9 with a valid value (valid)
+netedit.modifyAttribute(9, "berlin_icon.ico")
 
-# Change parameter 9 with a valid value (> 360)
-netedit.modifyAttribute(9, "500")
+# Change boolean parameter 10
+netedit.modifyShapeDefaultBoolValue(10)
 
-# Change parameter 9 with a valid value
-netedit.modifyAttribute(9, "30")
+# Change parameter 11 with a non valid value (dummy)
+netedit.modifyAttribute(11, "dummyAngle")
 
-# Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(11, "dummyGEO")
+# Change parameter 11 with a valid value (negative)
+netedit.modifyAttribute(11, "-12")
 
-# Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(11, "")
+# Change parameter 11 with a valid value (> 360)
+netedit.modifyAttribute(11, "500")
 
-# Change parameter 9 with a valid value 
-netedit.modifyAttribute(11, "3.73,74.30")
-
-# Change boolean parameter GEO
-netedit.modifyShapeDefaultBoolValue(12)
+# Change parameter 11 with a valid value
+netedit.modifyAttribute(11, "30")
 
 # Change boolean parameter block
-netedit.modifyShapeDefaultBoolValue(14)
+netedit.modifyShapeDefaultBoolValue(13)
 
 # Check undos and redos
-netedit.undo(match, 27)
-netedit.redo(match, 27)
+netedit.undo(match, 28)
+netedit.redo(match, 28)
 
 # save shapes
 netedit.saveShapes()
