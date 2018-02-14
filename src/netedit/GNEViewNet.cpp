@@ -647,9 +647,13 @@ long
 GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     FXEvent* e = (FXEvent*) eventData;
     setFocus();
-    // interpret object under curser
+    // save clicked position
+    Position clickedPosition  = getPositionInformation();
+    // process click
+    processClick(e, eventData);
+    // interpret object under cursor
     if (makeCurrent()) {
-        int id = getObjectUnderCursor();
+        int id = getObjectAtPosition(clickedPosition);
         GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         GNEJunction* pointed_junction = 0;
@@ -709,7 +713,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
                     if (!pointed_junction) {
-                        pointed_junction = myNet->createJunction(snapToActiveGrid(getPositionInformation()), myUndoList);
+                        pointed_junction = myNet->createJunction(snapToActiveGrid(clickedPosition), myUndoList);
                     }
                     if (myCreateEdgeSource == 0) {
                         myCreateEdgeSource = pointed_junction;
@@ -748,13 +752,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         update();
                     }
                 }
-                // process click
-                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_MOVE: {
                 // first obtain moving reference (common for all)
-                myMovingReference = snapToActiveGrid(getPositionInformation());
+                myMovingReference = snapToActiveGrid(clickedPosition);
                 // check what type of AC will be moved
                 if (pointed_poly) {
                     // set Poly to move
@@ -762,7 +764,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // save original shape (needed for commit change)
                     myMovingOriginalShape = myPolyToMove->getShape();
                     // save clicked position as moving original position
-                    myMovingOriginalPosition = getPositionInformation();
+                    myMovingOriginalPosition = clickedPosition;
                     // obtain index of vertex to move if shape isn't blocked
                     if ((myPolyToMove->isShapeBlocked() == false) && (myPolyToMove->isMovementBlocked() == false)) {
                         // obtain index of vertex to move and moving reference
@@ -776,7 +778,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMovingOriginalPosition = myPoiToMove->getPositionInView();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
-                        begingMoveSelection(pointed_junction, getPositionInformation());
+                        begingMoveSelection(pointed_junction, clickedPosition);
                     } else {
                         myJunctionToMove = pointed_junction;
                     }
@@ -784,15 +786,15 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMovingOriginalPosition = pointed_junction->getPositionInView();
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
-                        begingMoveSelection(pointed_edge, getPositionInformation());
+                        begingMoveSelection(pointed_edge, clickedPosition);
                     } else {
                         myEdgeToMove = pointed_edge;
                         // save original shape (needed for commit change)
                         myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
                         // obtain index of vertex to move and moving reference
-                        myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
+                        myMovingIndexShape = myEdgeToMove->getVertexIndex(clickedPosition);
                     }
-                    myMovingOriginalPosition = getPositionInformation();
+                    myMovingOriginalPosition = clickedPosition;
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
@@ -801,9 +803,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         // Save original Position of Element
                         myMovingOriginalPosition = myAdditionalToMove->getPositionInView();
                     }
-                } else {
-                    // process click
-                    processClick(e, eventData);
                 }
                 update();
                 break;
@@ -827,9 +826,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(ac);
                     }
-                } else {
-                    // process click
-                    processClick(e, eventData);
                 }
                 break;
             }
@@ -886,8 +882,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 } else if (pointedAC != NULL) {
                     myViewParent->getInspectorFrame()->inspectElement(pointedAC);
                 }
-                // process click
-                processClick(e, eventData);
                 // focus upper element of inspector frame
                 if ((selectedFilteredElements.size() > 0) || (pointedAC != NULL)) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
@@ -906,11 +900,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
 
                 myAmInRectSelect = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
-                    mySelCorner1 = getPositionInformation();
-                    mySelCorner2 = getPositionInformation();
-                } else {
-                    // process click
-                    processClick(e, eventData);
+                    mySelCorner1 = clickedPosition;
+                    mySelCorner2 = clickedPosition;
                 }
                 update();
                 break;
@@ -922,8 +913,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myViewParent->getConnectorFrame()->handleLaneClick(pointed_lane, mayPass, allowConflict, true);
                     update();
                 }
-                // process click
-                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_TLS: {
@@ -931,8 +920,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myViewParent->getTLSEditorFrame()->editJunction(pointed_junction);
                     update();
                 }
-                // process click
-                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
@@ -942,8 +929,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // process click or update view depending of the result of "add additional"
                     if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
                         update();
-                        // process click
-                        processClick(e, eventData);
                     }
                 }
 
@@ -956,26 +941,18 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         update();
                     }
                 }
-                // process click
-                processClick(e, eventData);
                 break;
             }
             case GNE_MODE_POLYGON: {
                 if (pointed_poi == NULL) {
-                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), pointed_lane);
+                    myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(clickedPosition), pointed_lane);
                     // view net must be always update
                     update();
-                    // process clickw depending of the result of "add additional"
-                    if ((result != GNEPolygonFrame::ADDSHAPE_NEWPOINT)) {
-                        // process click
-                        processClick(e, eventData);
-                    }
                 }
                 break;
             }
             default: {
-                // process click
-                processClick(e, eventData);
+                break;
             }
         }
         makeNonCurrent();
@@ -1050,7 +1027,10 @@ long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventDat
 
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
+    // process movement in GUISUMOAbstractView
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
+    // save clicked position
+    Position clickedPosition  = getPositionInformation();
     // in delete mode object under cursor must be checked in every mouse movement
     if (myEditMode == GNE_MODE_DELETE) {
         setFocus();
@@ -1063,13 +1043,13 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         // calculate offset of movement depending of showGrid
         Position offsetMovement;
         if (myVisualizationSettings->showGrid) {
-            offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingOriginalPosition;
+            offsetMovement = snapToActiveGrid(clickedPosition) - myMovingOriginalPosition;
             if (myMenuCheckMoveElevation->getCheck()) {
                 const double dist = int((offsetMovement.y() + offsetMovement.x()) / myVisualizationSettings->gridXSize) * myVisualizationSettings->gridXSize;
                 offsetMovement = Position(0, 0, dist / 10);
             }
         } else {
-            offsetMovement = getPositionInformation() - myMovingReference;
+            offsetMovement = clickedPosition - myMovingReference;
             if (myMenuCheckMoveElevation->getCheck()) {
                 offsetMovement = Position(0, 0, (offsetMovement.y() + offsetMovement.x()) / 10);
             }
@@ -1098,7 +1078,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             // Move Additional geometry without commiting changes
             myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myAmInRectSelect) {
-            mySelCorner2 = getPositionInformation();
+            mySelCorner2 = clickedPosition;
         }
     }
     // update view
