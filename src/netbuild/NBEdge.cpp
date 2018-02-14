@@ -1847,10 +1847,11 @@ NBEdge::hasLaneSpecificEndOffset() const {
 bool
 NBEdge::hasLaneSpecificStopOffsets() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (i->stopOffsets.size()==0) continue;
-        const std::pair<const int,double> offsets = *(i->stopOffsets.begin());
-        if (offsets != *(myStopOffsets.begin())) {
-            return true;
+        if (!i->stopOffsets.empty()) {
+            const std::pair<const int, double>& offsets = *(i->stopOffsets.begin());
+            if (myStopOffsets.empty() || offsets != *(myStopOffsets.begin())) {
+                return true;
+            }
         }
     }
     return false;
