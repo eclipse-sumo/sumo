@@ -633,7 +633,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
 
 bool
 RONet::furtherStored() {
-    return myRoutables.size() > 0 || myHaveActiveFlows || myContainers.size() > 0;
+    return myRoutables.size() > 0 || (myFlows.size() > 0 && myHaveActiveFlows) || myContainers.size() > 0;
 }
 
 
