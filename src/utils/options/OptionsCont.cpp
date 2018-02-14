@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
+/// @version $Id: OptionsCont.cpp v0_32_0+0171-d73807c18b oss@behrisch.de 2018-01-11 12:40:22 +0100 $
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
@@ -338,9 +338,7 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                 if (tmp.find_first_not_of("\t ") == std::string::npos) {
                     continue;
                 }
-                if (!FileHelpers::isAbsolute(tmp)) {
-                    tmp = FileHelpers::getConfigurationRelative(configuration, tmp);
-                }
+                tmp = FileHelpers::checkForRelativity(tmp, configuration);
                 if (conv.length() != 0) {
                     conv += ',';
                 }
