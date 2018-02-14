@@ -64,7 +64,8 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     myTLLogic(new NBTrafficLightLogic(logic)),
     myOriginalNodes(def->getNodes().begin(), def->getNodes().end()),
     myReconstructAddedConnections(false),
-    myReconstructRemovedConnections(false) {
+    myReconstructRemovedConnections(false),
+    myPhasesLoaded(false) {
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
