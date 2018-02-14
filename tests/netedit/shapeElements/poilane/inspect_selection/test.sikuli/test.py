@@ -25,9 +25,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom (to see all POILaneS)
-netedit.setZoom("0", "0", "80")
-
 # go to select mode
 netedit.selectMode()
 
@@ -38,55 +35,85 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect POILanes
-netedit.leftClick(match, 400, 400)
+netedit.leftClick(match, 140, 215)
 
-# Set invalid color
-netedit.modifyAttribute(0, "Jren")
+# Change parameter 0 with a non valid value (dummy)
+netedit.modifyAttribute(0, "dummyLatPosition")
 
-# Set valid color
-netedit.modifyAttribute(0, "green")
+# Change parameter 0 with a valid value (negative)
+netedit.modifyAttribute(0, "-20")
 
-# Set type
-netedit.modifyAttribute(1, "common type")
+# Change parameter 0 with a valid value
+netedit.modifyAttribute(0, "15")
 
-# Set invalid layer
-netedit.modifyAttribute(2, "dummyLayer")
+# Change parameter 1 with a non valid value (dummy)
+netedit.modifyAttribute(1, "dummyColor")
 
-# Set layer
-netedit.modifyAttribute(2, "1")
+# Change parameter 14 with a non valid value (invalid format)
+netedit.modifyAttribute(1, "255,255,500")
 
-# Set invalid width
-netedit.modifyAttribute(3, "-3")
+# Change parameter 1 with a valid value (valid format)
+netedit.modifyAttribute(1, "blue")
 
-# Set width
-netedit.modifyAttribute(3, "10")
+# Change parameter 1 with a valid value (valid format)
+netedit.modifyAttribute(1, "125,60,200")
 
-# Set invalid height
-netedit.modifyAttribute(4, "-5")
+# Change parameter 2 with a valid value
+netedit.modifyAttribute(2, "myOwnType")
 
-# Set height
-netedit.modifyAttribute(4, "10")
+# Change parameter 3 with a non valid value
+netedit.modifyAttribute(3, "dummyLayer")
 
-# Set invalid imgfile
-netedit.modifyAttribute(5, "paris.ico")
+# Change parameter 3 with a valid value (negative)
+netedit.modifyAttribute(3, "-2")
 
-# Set imgfile
-netedit.modifyAttribute(5, "berlin_icon.ico")
+# Change parameter 3 with a valid value (negative)
+netedit.modifyAttribute(3, "2")
 
-# Change relative image
-netedit.modifyShapeDefaultBoolValue(6)
+# Change parameter 4 with a non valid value (dummy)
+netedit.modifyAttribute(4, "dummyWidth")
 
-# Set invalid angle
-netedit.modifyAttribute(7, "dummyAngle")
+# Change parameter 4 with a non valid value (negative)
+netedit.modifyAttribute(4, "-2")
 
-# Set valid angle
-netedit.modifyAttribute(7, "180")
+# Change parameter 4 with a valid value
+netedit.modifyAttribute(4, "5")
 
-# Change use GEO
-netedit.modifyShapeDefaultBoolValue(9)
+# Change parameter 5 with a non valid value (dummy)
+netedit.modifyAttribute(5, "dummyHeight")
 
-# Change block move
-netedit.modifyShapeDefaultBoolValue(11)
+# Change parameter 5 with a non valid value (negative)
+netedit.modifyAttribute(5, "-3")
+
+# Change parameter 5 with a valid value
+netedit.modifyAttribute(5, "5")
+
+# Change parameter 6 with a non valid value (invalid)
+netedit.modifyAttribute(6, "%$$%%%%%")
+
+# Change parameter 6 with a non valid value (no exist)
+netedit.modifyAttribute(6, "paris.ico")
+
+# Change parameter 6 with a valid value (valid)
+netedit.modifyAttribute(6, "berlin_icon.ico")
+
+# Change boolean parameter 7
+netedit.modifyShapeDefaultBoolValue(7)
+
+# Change parameter 8 with a non valid value (dummy)
+netedit.modifyAttribute(8, "dummyAngle")
+
+# Change parameter 8 with a valid value (negative)
+netedit.modifyAttribute(8, "-12")
+
+# Change parameter 8 with a valid value (> 360)
+netedit.modifyAttribute(8, "500")
+
+# Change parameter 8 with a valid value
+netedit.modifyAttribute(8, "30")
+
+# Change boolean parameter block
+netedit.modifyShapeDefaultBoolValue(10)
 
 # go to select mode
 netedit.selectMode()
