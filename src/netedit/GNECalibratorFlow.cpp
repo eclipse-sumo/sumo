@@ -117,15 +117,17 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
 }
 
 
-GNECalibratorFlow::~GNECalibratorFlow() {}
+GNECalibratorFlow::~GNECalibratorFlow() {
+    if(myCalibratorParent->calibratorFlowExist(this, false)) {
+        myCalibratorParent->removeCalibratorFlow(this);
+    }
+}
 
 
 void
 GNECalibratorFlow::writeFlow(OutputDevice& device) {
     // Open flow tag
     device.openTag(getTag());
-    // Write ID
-    device.writeAttr(SUMO_ATTR_ID, getID());
     // Write begin
     device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
     // Write end
@@ -200,7 +202,7 @@ std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myCalibratorParent->getID() + "flow";
+            return myCalibratorParent->getID() + "_CalibratorFlow_" + toString(myCalibratorParent->getCalibratorFlowIndex(this));
         case SUMO_ATTR_TYPE:
             return myVehicleType->getID();
         case SUMO_ATTR_ROUTE:

@@ -119,6 +119,9 @@ public:
     /// @brief check if calibrator flow exists
     bool calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const;
 
+    /// @brief obtain calibrator flow index
+    int getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const;
+
     /// @}
 
     /// @name Functions related with geometry of element

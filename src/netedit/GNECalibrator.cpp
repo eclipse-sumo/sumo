@@ -351,7 +351,7 @@ GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failH
         throw ProcessError("calibratorFlow cannot be NULL");
     }
     // find calibrator flow in calibrator flows container
-    auto finder =  std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), calibratorFlow);
+    auto finder = std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), calibratorFlow);
     // returns depending of finder value
     if(finder != myCalibratorFlows.end()) {
         return *finder;
@@ -360,6 +360,25 @@ GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failH
     } else {
         return NULL;
     }
+}
+
+
+int 
+GNECalibrator::getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const {
+    // Check that calibrator flow ins't NULL
+    if (calibratorFlow == NULL) {
+        throw ProcessError("calibratorFlow cannot be NULL");
+    }
+    int index = 0;
+    for (auto i : myCalibratorFlows) {
+        if (i == calibratorFlow) {
+            return index;
+        } else {
+            index++;
+        }
+    }
+    // if calibrator flow wasn't found, return -1
+    return -1;
 }
 
 
