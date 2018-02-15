@@ -93,7 +93,7 @@ netedit.saveAdditionals()
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

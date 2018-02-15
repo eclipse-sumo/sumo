@@ -25,7 +25,7 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

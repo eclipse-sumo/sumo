@@ -179,7 +179,7 @@ netedit.redo(match, 17)
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -34,7 +34,7 @@ netedit.changeShape("poly")
 # create polygon
 netedit.createSquaredPoly(match, 100, 50, 100, True)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit without saving shapes

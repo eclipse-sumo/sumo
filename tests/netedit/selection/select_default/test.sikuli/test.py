@@ -32,7 +32,7 @@ netedit.selectMode()
 netedit.selectDefault()
 netedit.deleteSelectedItems()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -79,7 +79,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
         if (myCalibratorFlow->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Deleting calibrator flow");
             }
             // make sure that calibrator flow isn't in net before removing
             if (myNet->retrieveCalibratorFlow(myCalibratorFlow->getID(), false)) {
@@ -92,7 +92,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
         if (myCalibratorRoute->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Deleting calibrator route");
             }
             // make sure that calibrator route isn't in net before removing
             if (myNet->retrieveCalibratorRoute(myCalibratorRoute->getID(), false)) {
@@ -105,7 +105,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
         if (myCalibratorVehicleType->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Deleting calibrator vehicle type");
             }
             // make sure that calibrator Vehicle Type isn't in net before removing
             if (myNet->retrieveCalibratorVehicleType(myCalibratorVehicleType->getID(), false)) {

@@ -31,7 +31,7 @@ netedit.rebuildNetwork()
 # wait 60 seconds (for slow computers)
 wait(60)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # wait another 30 seconds (for slow computers)

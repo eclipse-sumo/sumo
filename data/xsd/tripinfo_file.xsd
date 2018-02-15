@@ -34,6 +34,7 @@
             <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="waitingCount" use="required" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="stopTime" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="timeLoss" use="optional" type="nonNegativeFloatType"/>
             <xsd:attribute name="rerouteNo" type="xsd:nonNegativeInteger" use="required"/>

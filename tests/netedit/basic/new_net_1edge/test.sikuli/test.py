@@ -36,7 +36,7 @@ netedit.leftClick(match, 500, 300)
 netedit.undo(match, 1)
 netedit.redo(match, 1)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

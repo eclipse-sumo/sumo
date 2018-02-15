@@ -378,6 +378,10 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (!e.hasDefaultGeometry()) {
         into.writeAttr(SUMO_ATTR_SHAPE, e.getGeometry());
     }
+    if (e.getStopOffsets().size() != 0) {
+        writeStopOffsets(into, e.getStopOffsets());
+    }
+
     // write the lanes
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();
 
@@ -601,6 +605,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     }
     if (c.customShape.size() != 0 && style != TLL) {
         into.writeAttr(SUMO_ATTR_SHAPE, c.customShape);
+    }
+    if (c.uncontrolled != false && style != TLL) {
+        into.writeAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled);
     }
     if (style != PLAIN) {
         if (includeInternal) {
@@ -828,6 +835,9 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
 
 void
 NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions,double>& stopOffsets) {
+    if(stopOffsets.size() == 0) {
+        return;
+    }
     std::pair<int,double> offset = *stopOffsets.begin();
     std::string ss_vclasses = getVehicleClassNames(offset.first);
     if (ss_vclasses.length() == 0) {

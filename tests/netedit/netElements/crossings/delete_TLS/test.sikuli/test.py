@@ -46,7 +46,7 @@ netedit.redo(match, 1)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

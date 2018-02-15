@@ -201,6 +201,8 @@ private:
         double speed;
         /// @brief custom shape connection
         PositionVector customShape;
+        /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled. 
+        bool uncontrolled;
     };
 
 

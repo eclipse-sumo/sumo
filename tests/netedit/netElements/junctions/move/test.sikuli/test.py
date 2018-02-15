@@ -33,12 +33,12 @@ netedit.moveMode()
 netedit.dragDrop(match, 350, 270, 100, 280)
 netedit.rebuildNetwork()
 
-# move 3-oclock node of circular road via attributes
+# move 3-o'clock node of circular road via attributes
 netedit.inspectMode()
 netedit.leftClick(match, 540, 290)
 netedit.modifyAttribute(1, "120,20.2")
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -49,7 +49,7 @@ netedit.modifyAttribute(2, "commonLine1 commonLine2")
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

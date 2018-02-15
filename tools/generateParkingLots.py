@@ -13,9 +13,7 @@
 # @version $Id$
 
 """
-- generate The Webster's equation is used to optimize the cycle length
-  and the green times of the traffic lights in a sumo network
-  with a given route file.
+generate parking lots
 """
 
 from __future__ import absolute_import
@@ -24,7 +22,6 @@ from __future__ import print_function
 import os
 import sys
 import optparse
-import collections
 import math
 
 if 'SUMO_HOME' in os.environ:
@@ -45,41 +42,44 @@ def get_options(args=None):
                          help="define y-position of the parking lot")
     optParser.add_option("-b", "--bounding-box", dest="bbox",
                          help="define the xmin, ymin, xmax, ymax of the parking lot")
-    optParser.add_option("-n", "--parking-spaces", dest="spaces", type= "int",
-                         default= 5, help="define the number of the parking spaces")
+    optParser.add_option("-n", "--parking-spaces", dest="spaces", type="int",
+                         default=5, help="define the number of the parking spaces")
     optParser.add_option("-c", "--connecting-edge", dest="connEdge",
                          help="define the connecting edge of the parking lot")
-    optParser.add_option("-s", "--start-position", dest="start", type ="int",
-                         default= 0, help="define the begin position of the enterance/exit of the parking lot")
-    optParser.add_option("-e", "--end-position", dest="end", type ="int",
-                         default= 2, help="define the end position of the enterance/exit of the parking lot")
-    optParser.add_option("-l", "--space-length", dest="length", type ="int",
-                         default= 5, help="define the length of each parking space")
+    optParser.add_option("-s", "--start-position", dest="start", type="int",
+                         default=0, help="define the begin position of the enterance/exit of the parking lot")
+    optParser.add_option("-e", "--end-position", dest="end", type="int",
+                         default=2, help="define the end position of the enterance/exit of the parking lot")
+    optParser.add_option("-l", "--space-length", dest="length", type="int",
+                         default=5, help="define the length of each parking space")
     optParser.add_option("-a", "--space-angle", dest="angle", type="int",
-                         default= 315, help="define the name of the output file")
-    optParser.add_option("-d", "--space-distance", dest="dist", type="float",
-                         default= 5, help="define the distance between the locations of two parking spaces")
+                         default=315, help="define the name of the output file")
+    optParser.add_option("--x-space-distance", dest="xdist", type="float",
+                         default=5, help="define the lateral distance (x-direction) between the locations of two parking spaces")
+    optParser.add_option("--y-space-distance", dest="ydist", type="float",
+                         default=5, help="define the longitudinal (y-direction) distance between the locations of two parking spaces")
     optParser.add_option("-r", "--rotation-degree", dest="rotation", type="int",
-                         default= 0, help="define the rotation degree of the parking lot")
+                         default=0, help="define the rotation degree of the parking lot")
     optParser.add_option("--adjustrate-x", dest="factorX", type="float",
-                         default= 0.28, help="define the modification rate of x-axis if the rotation exists")
+                         default=0.28, help="define the modification rate of x-axis if the rotation exists")
     optParser.add_option("--adjustrate-y", dest="factorY", type="float",
-                         default= 0.7, help="define the modification rate of y-axis if the rotation exists")
+                         default=0.7, help="define the modification rate of y-axis if the rotation exists")
     optParser.add_option("--output-suffix", dest="suffix", help="output suffix", default="")
     optParser.add_option("--fullname", dest="fullname", help="full name of parking area", default=None)
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
 
-    if not options.bbox and (not options.xaxis or not options.yaxis) or not options.connEdge :
+    if not options.bbox and (not options.xaxis or not options.yaxis) or not options.connEdge:
         optParser.print_help()
         sys.exit()
 
     return options
 
+
 def main(options):
-    movingX = options.dist
-    movingY = options.dist
+    movingX = options.xdist
+    movingY = options.ydist
     factorX = 0.
     factorY = 1.
     row = 0
@@ -93,41 +93,45 @@ def main(options):
         y = options.yaxis
 
     if options.rotation != 0:
-        movingX = options.dist*(math.cos(options.rotation*math.pi/180.))
-        movingY = options.dist*(math.sin(options.rotation*math.pi/180.))
+        movingX = options.xdist * (math.cos(options.rotation * math.pi / 180.))
+        movingY = options.ydist * (math.sin(options.rotation * math.pi / 180.))
         factorX = options.factorX
         factorY = options.factorY
 
     if options.suffix:
-        outfile = 'parking_%s.add.xml' %options.suffix
+        outfile = 'parking_%s.add.xml' % options.suffix
     else:
-        outfile = 'parking_%s.add.xml' %options.parkId
+        outfile = 'parking_%s.add.xml' % options.parkId
 
     with open(outfile, 'w') as outf:
         outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         outf.write('<additional>\n')
         name = ' name="%s"' % options.fullname if options.fullname is not None else ""
-        outf.write('    <parkingArea id="%s" lane="%s" startPos="%s" endPos="%s"%s>\n' %(options.parkId, options.connEdge, options.start, options.end, name))
-        for i in range(0,options.spaces):
-            outf.write('        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %(x,y,options.length, options.angle))
+        outf.write('    <parkingArea id="%s" lane="%s" startPos="%s" endPos="%s"%s>\n' %
+                   (options.parkId, options.connEdge, options.start, options.end, name))
+        for i in range(0, options.spaces):
+            outf.write(
+                '        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %
+                (x, y, options.length, options.angle))
             if options.bbox:
                 if x > float(xys[2]):
                     row += 1
                     if y < float(xys[3]):
-                        y = float(xys[1]) + row * options.dist*factorY
+                        y = float(xys[1]) + row * options.ydist * factorY
                     else:
                         print ("*** The maximum y is reached. Some of the parking lots are overlapped.")
-                    x = float(xys[0]) + row * movingX *factorX
+                    x = float(xys[0]) + row * movingX * factorX
                 else:
                     x += movingX
                     if options.rotation != 0:
-                        y += movingY 
+                        y += movingY
             else:
                 # No rotation degree is considered.
-                x += options.dist
-                y += options.dist
+                x += options.xdist
+                y += options.ydist
         outf.write('    </parkingArea>\n')
         outf.write('</additional>\n')
+
 
 if __name__ == "__main__":
     options = get_options(sys.argv)

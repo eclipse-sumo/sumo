@@ -1405,6 +1405,12 @@ public:
             return myEmergencyBrakeRedLight;
         }
 
+
+        /// @brief Returns whether safe velocities shall be considered
+        bool considerSafeVelocity() const {
+            return myConsiderSafeVelocity;
+        }
+
         /** @brief Sets speed-constraining behaviors
          * @param[in] value a bitset controlling the different modes
          */

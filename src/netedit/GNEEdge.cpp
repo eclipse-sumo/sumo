@@ -344,7 +344,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     // draw geometry hints
-    if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
+    if (s.scale > 3.0) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         if (gSelected.isSelected(getType(), getGlID()) && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)

@@ -433,11 +433,11 @@ GUINet::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("teleports [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getTeleportCount));
     ret->mkItem("halting [#]", true,
-                new FunctionBinding<MSNet, int>(this, &GUINet::getHaltingVehicleNumber));
+                new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getHaltingVehicleNo));
     ret->mkItem("avg. speed [m/s]", true,
-                new FunctionBinding<MSNet, double>(this, &GUINet::getVehicleMeanSpeed));
+                new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeed));
     ret->mkItem("avg. relative speed", true,
-                new FunctionBinding<MSNet, double>(this, &GUINet::getVehicleMeanSpeedRelative));
+                new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeedRelative));
     if (myPersonControl != 0) {
         ret->mkItem("loaded persons [#]", true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getLoadedNumber));

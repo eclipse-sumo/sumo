@@ -4,5 +4,8 @@ basic
 # polygons
 poly
 
-# POIs (Points of Interst)
+# POIs (Points of Interest)
 poi
+
+# POILanes (Points of Interest placed over lanes)
+poilane

@@ -23,15 +23,17 @@ make -f Makefile.cvs clean &> /dev/null
 basename $MAKELOG >> $STATUSLOG
 git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build/version.py -`
+date >> $MAKELOG
 make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-if make >> $MAKELOG 2>&1; then
+if make -j >> $MAKELOG 2>&1; then
   if test -e $PREFIX/sumo/unittest/src/sumo-unittest; then
     $PREFIX/sumo/unittest/src/sumo-unittest >> $MAKELOG 2>&1 || (echo "unit tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
   fi
+  date >> $MAKELOG
   if make install >> $MAKELOG 2>&1; then
     if test -z "$CONFIGURE_OPT"; then
-      make distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+      make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
       make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
   else
@@ -40,6 +42,7 @@ if make >> $MAKELOG 2>&1; then
 else
   echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG
 fi
+date >> $MAKELOG
 echo `grep -c '[Ww]arn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
 
 echo "--" >> $STATUSLOG
@@ -62,9 +65,11 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
 fi
 
 if test -e $PREFIX/sumo/src/sumo_main.gcda; then
+  date >> $TESTLOG
   tests/runInternalTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
   $SIP_HOME/tests/runTests.sh -b $FILEPREFIX >> $TESTLOG 2>&1
   make lcov >> $TESTLOG 2>&1 || (echo "make lcov failed"; tail -10 $TESTLOG)
+  date >> $TESTLOG
 fi
 
 echo "--" >> $STATUSLOG

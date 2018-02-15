@@ -56,7 +56,7 @@ GNEChange_VariableSpeedSignItem::~GNEChange_VariableSpeedSignItem() {
     if (myVariableSpeedSignStep->unreferenced()) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting Step of Variable Speed Sign '" + myVariableSpeedSignStep->getVariableSpeedSignParent()->getID() + "'");
+            WRITE_WARNING("Deleting Variable Speed Sign Step");
         }
         delete myVariableSpeedSignStep;
     }

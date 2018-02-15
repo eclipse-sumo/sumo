@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 30.01.2009
-/// @version $Id$
+/// @version $Id: MSDevice_Tripinfo.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A device which collects info on the vehicle trip
 /****************************************************************************/
@@ -91,6 +91,8 @@ MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id)
     myDepartSpeed(-1),
     myDepartPosLat(0),
     myWaitingTime(0),
+    myAmWaiting(false),
+    myWaitingCount(0),
     myStoppingTime(0),
     myParkingStarted(0),
     myArrivalTime(NOT_ARRIVED),
@@ -138,6 +140,12 @@ MSDevice_Tripinfo::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
         myStoppingTime += DELTA_T;
     } else if (newSpeed <= SUMO_const_haltingSpeed) {
         myWaitingTime += DELTA_T;
+        if (!myAmWaiting) {
+            myWaitingCount++;
+            myAmWaiting = true;
+        }
+    } else {
+        myAmWaiting = false;
     }
     return true;
 }
@@ -261,6 +269,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
     os.writeAttr("waitingTime", time2string(myWaitingTime));
+    os.writeAttr("waitingCount", myWaitingCount);
     os.writeAttr("stopTime", time2string(myStoppingTime));
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());

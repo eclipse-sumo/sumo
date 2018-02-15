@@ -43,7 +43,7 @@ netedit.leftClick(match, 300, 250)
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

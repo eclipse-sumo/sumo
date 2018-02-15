@@ -103,8 +103,10 @@ GNECrossing::getNBCrossing() const {
 
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
-    // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0
-    if (s.drawCrossingsAndWalkingareas && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
+    // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
+    if (s.drawCrossingsAndWalkingareas 
+            && myShapeRotations.size() > 0 && myShapeLengths.size() > 0
+            && s.scale > 3.0) {
         // first declare what shape will be drawed
         PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
         // push first draw matrix

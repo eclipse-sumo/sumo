@@ -64,7 +64,8 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     myTLLogic(new NBTrafficLightLogic(logic)),
     myOriginalNodes(def->getNodes().begin(), def->getNodes().end()),
     myReconstructAddedConnections(false),
-    myReconstructRemovedConnections(false) {
+    myReconstructRemovedConnections(false),
+    myPhasesLoaded(false) {
     assert(def->getOffset() == logic->getOffset());
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
@@ -490,10 +491,19 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                         }
                     }
                     if (exclusive) {
+                        // shift indices above the removed index downward
                         for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
                             NBConnection& other = *j;
                             if (other.getTLIndex() > removed) {
                                 other.setTLIndex(other.getTLIndex() - 1);
+                            }
+                        }
+                        // shift crossing custom indices above the removed index downward
+                        for (NBNode* n : myControlledNodes) {
+                            for (NBNode::Crossing* c : n->getCrossings()) {
+                                if (c->customTLIndex > removed) {
+                                    c->customTLIndex--;
+                                }
                             }
                         }
                         // rebuild the logic

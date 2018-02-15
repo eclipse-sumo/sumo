@@ -96,7 +96,7 @@ netedit.redo(match, 9)
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

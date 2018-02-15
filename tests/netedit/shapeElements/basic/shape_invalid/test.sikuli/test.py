@@ -43,7 +43,7 @@ netedit.leftClick(match, 150, 50)
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

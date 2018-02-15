@@ -28,7 +28,7 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot, ['--new'])
 # open and close about dialog
 netedit.openAboutDialog()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit
