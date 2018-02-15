@@ -65,7 +65,7 @@ public:
     GNECalibratorFlow(GNECalibratorDialog* calibratorDialog);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string& flowID, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
+    GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
                       const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                       const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                       const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period,
@@ -113,9 +113,6 @@ public:
 protected:
     /// @brief pointer to calibrator parent
     GNECalibrator* myCalibratorParent;
-
-    /// @brief ID of flow
-    std::string myFlowID;
 
     /// @brief type of flow
     GNECalibratorVehicleType* myVehicleType;

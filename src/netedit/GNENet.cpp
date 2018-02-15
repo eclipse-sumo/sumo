@@ -60,7 +60,6 @@
 #include "GNEAdditionalFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEApplicationWindow.h"
-#include "GNECalibratorFlow.h"
 #include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNEChange_Additional.h"
@@ -158,14 +157,6 @@ GNENet::~GNENet() {
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (auto it : myAdditionals) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
-        }
-        delete it.second;
-    }
-    // Drop calibrator flows (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myCalibratorFlows) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
@@ -1855,23 +1846,6 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
     }
 }
 
-
-GNECalibratorFlow*
-GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail) const {
-    // iterate over flows
-    for (auto i : myCalibratorFlows) {
-        if (i.second->getID() == id) {
-            return i.second;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant calibrator flow");
-    } else {
-        return NULL;
-    }
-}
-
-
 std::string
 GNENet::generateCalibratorRouteID() const {
     int counter = 0;
@@ -1889,16 +1863,6 @@ GNENet::generateCalibratorVehicleTypeID() const {
         counter++;
     }
     return toString(SUMO_TAG_VTYPE) + toString(counter);
-}
-
-
-std::string
-GNENet::generateCalibratorFlowID() const {
-    int counter = 0;
-    while (myCalibratorFlows.count(toString(SUMO_TAG_FLOW) + toString(counter)) != 0) {
-        counter++;
-    }
-    return toString(SUMO_TAG_FLOW) + toString(counter);
 }
 
 
@@ -1920,17 +1884,6 @@ GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, con
         myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
     } else {
         throw ProcessError("VehicleType wasn't inserted");
-    }
-}
-
-
-void
-GNENet::changeCalibratorFlowID(GNECalibratorFlow* flow, const std::string& oldID) {
-    if (myCalibratorFlows.count(oldID) > 0) {
-        myCalibratorFlows.erase(oldID);
-        myCalibratorFlows[flow->getID()] = flow;
-    } else {
-        throw ProcessError("Flow wasn't inserted");
     }
 }
 
@@ -2101,27 +2054,6 @@ GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
         myCalibratorRoutes.erase(it);
     } else {
         throw ProcessError("Route wasn't inserted");
-    }
-}
-
-
-void
-GNENet::insertCalibratorFlow(GNECalibratorFlow* flow) {
-    if (myCalibratorFlows.find(flow->getID()) == myCalibratorFlows.end()) {
-        myCalibratorFlows[flow->getID()] = flow;
-    } else {
-        throw ProcessError("Flow already inserted");
-    }
-}
-
-
-void
-GNENet::deleteCalibratorFlow(GNECalibratorFlow* flow) {
-    auto it = myCalibratorFlows.find(flow->getID());
-    if (it != myCalibratorFlows.end()) {
-        myCalibratorFlows.erase(it);
-    } else {
-        throw ProcessError("Flow wasn't inserted");
     }
 }
 

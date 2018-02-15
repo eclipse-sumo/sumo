@@ -89,9 +89,6 @@ protected:
     /// @brief current sumo attribute invalid
     SumoXMLAttr myInvalidAttr;
 
-    /// @brief TextField for flow ID
-    FXTextField* myTextFieldFlowID;
-
     /// @brief ComboBox for Type
     FXComboBox* myComboBoxVehicleType;
 

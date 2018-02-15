@@ -1585,7 +1585,6 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_ROUTEPROBE][SUMO_ATTR_FILE] = setAttrDefinition("The file for generated output");
         myAttrDefinitions[SUMO_TAG_ROUTEPROBE][SUMO_ATTR_BEGIN] = setAttrDefinition("The time at which to start generating output");
         // flow
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_ID] = setAttrDefinition("The id of Flow", "Unique");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_TYPE] = setAttrDefinition("The id of the vehicle type to use for this vehicle.");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_ROUTE] = setAttrDefinition("The id of the route the vehicle shall drive along");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_BEGIN] = setAttrDefinition("First vehicle departure time");
