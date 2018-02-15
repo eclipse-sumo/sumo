@@ -13,7 +13,7 @@
 /// @author  Yun-Pang Floetteroed
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id: NBNode.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -150,7 +150,7 @@ public:
         /// @brief optional customShape for this crossing
         PositionVector customShape;
         /// @brief the traffic light index of this crossing (if controlled)
-        int tlLinkNo;
+        int tlLinkIndex;
         /// @brief the custom traffic light index of this crossing (if controlled)
         int customTLIndex;
         /// @brief The id of the traffic light that controls this connection

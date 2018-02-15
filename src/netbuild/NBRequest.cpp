@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id: NBRequest.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
@@ -472,7 +472,7 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
         const std::string foes = getFoesString(from, (*j).toEdge, fromLane, (*j).toLane, checkLaneFoes);
         const std::string response = (myJunction->getType() == NODETYPE_ZIPPER ? foes
-                                      : getResponseString((*j).tlLinkNo, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
+                                      : getResponseString((*j).tlLinkIndex, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
         od.writeAttr(SUMO_ATTR_RESPONSE, response);
         od.writeAttr(SUMO_ATTR_FOES, foes);
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
@@ -557,7 +557,7 @@ NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
-                            || myJunction->rightOnRedConflict(tlIndex, connected[k].tlLinkNo)
+                            || myJunction->rightOnRedConflict(tlIndex, connected[k].tlLinkIndex)
                        ) {
                         result += '1';
                     } else {

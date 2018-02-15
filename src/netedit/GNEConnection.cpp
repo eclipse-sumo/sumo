@@ -10,7 +10,7 @@
 /// @file    GNEConnection.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
+/// @version $Id: GNEConnection.cpp v0_32_0+0134-9f1b8d0bad namdre.sumo@gmail.com 2018-01-05 15:02:37 +0100 $
 ///
 // A class for visualizing connections between lanes
 /****************************************************************************/
@@ -203,7 +203,7 @@ NBConnection
 GNEConnection::getNBConnection() const {
     return NBConnection(getEdgeFrom()->getNBEdge(), getFromLaneIndex(),
                         getEdgeTo()->getNBEdge(), getToLaneIndex(),
-                        (int)getNBEdgeConnection().tlLinkNo);
+                        (int)getNBEdgeConnection().tlLinkIndex);
 }
 
 
@@ -337,7 +337,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
         case SUMO_ATTR_TLLINKINDEX:
-            return toString(nbCon.tlLinkNo);
+            return toString(nbCon.tlLinkIndex);
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_CUSTOMSHAPE:

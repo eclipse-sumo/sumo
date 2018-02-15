@@ -92,7 +92,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
-    tlLinkNo(-1),
+    tlLinkIndex(-1),
     mayDefinitelyPass(false),
     keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
@@ -110,7 +110,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
-    tlLinkNo(-1),
+    tlLinkIndex(-1),
     mayDefinitelyPass(mayDefinitelyPass_),
     keepClear(keepClear_),
     contPos(contPos_),
@@ -2578,7 +2578,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             Connection& connection = *i;
             // set the information about the tl
             connection.tlID = tlID;
-            connection.tlLinkNo = tlIndex;
+            connection.tlLinkIndex = tlIndex;
             return true;
         }
     }
@@ -2598,10 +2598,10 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
         }
         if ((*i).tlID == "") {
             (*i).tlID = tlID;
-            (*i).tlLinkNo = tlIndex;
+            (*i).tlLinkIndex = tlIndex;
             no++;
         } else {
-            if ((*i).tlID != tlID && (*i).tlLinkNo == tlIndex) {
+            if ((*i).tlID != tlID && (*i).tlLinkIndex == tlIndex) {
                 WRITE_WARNING("The lane '" + toString<int>((*i).fromLane) + "' on edge '" + getID() + "' already had a traffic light signal.");
                 hadError = true;
             }

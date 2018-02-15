@@ -10,7 +10,7 @@
 /// @file    GNETLSEditorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id$
+/// @version $Id: GNETLSEditorFrame.cpp v0_32_0+0164-cd02d916ca oss@behrisch.de 2018-01-11 12:40:22 +0100 $
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/
@@ -540,9 +540,9 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
             myInternalLanes[tlIndex].push_back(ilane);
         }
         for (auto c : nbn->getCrossings()) {
-            GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkNo);
+            GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkIndex);
             rtree.addAdditionalGLObject(ilane);
-            myInternalLanes[c->tlLinkNo].push_back(ilane);
+            myInternalLanes[c->tlLinkIndex].push_back(ilane);
         }
     }
 }

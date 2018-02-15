@@ -194,7 +194,7 @@ public:
         std::string tlID;
 
         /// @brief The index of this connection within the controlling traffic light
-        int tlLinkNo;
+        int tlLinkIndex;
 
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;

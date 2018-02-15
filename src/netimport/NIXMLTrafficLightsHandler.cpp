@@ -12,7 +12,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2011-10-05
-/// @version $Id$
+/// @version $Id: NIXMLTrafficLightsHandler.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // Importer for traffic lights stored in XML
 /****************************************************************************/
@@ -247,7 +247,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, 0, ok, -1);
     if (tlIndex == -1) {
         // we are updating an existing tl-controlled connection
-        tlIndex = c.tlLinkNo;
+        tlIndex = c.tlLinkIndex;
     }
 
     // register the connection with all definitions
