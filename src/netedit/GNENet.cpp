@@ -2030,6 +2030,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.erase(additionalToRemove);
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
+        // update view
         update();
         // additionals has to be saved
         requiereSaveAdditionals();
