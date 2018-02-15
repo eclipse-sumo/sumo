@@ -492,8 +492,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                     }
                     if (exclusive) {
                         // shift indices above the removed index downward
-                        for (NBConnectionVector::iterator j = myControlledLinks.begin(); j != myControlledLinks.end(); j++) {
-                            NBConnection& other = *j;
+                        for (NBConnection& other : myControlledLinks) {
                             if (other.getTLIndex() > removed) {
                                 other.setTLIndex(other.getTLIndex() - 1);
                             }
@@ -535,8 +534,13 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 bool
 NBLoadedSUMOTLDef::cleanupStates() {
     int maxIndex = -1;
-    for (NBConnection& c : myControlledLinks) {
+    for (const NBConnection& c : myControlledLinks) {
         maxIndex = MAX2(maxIndex, c.getTLIndex());
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            maxIndex = MAX2(maxIndex, c->tlLinkIndex);
+        }
     }
     if (maxIndex >= 0 && maxIndex + 1 < myTLLogic->getNumLinks()) {
         myTLLogic->setStateLength(maxIndex + 1);
