@@ -71,6 +71,7 @@ const double NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
 const double NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const double NBEdge::ANGLE_LOOKAHEAD = 10.0;
 const int NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX = -1;
+const bool NBEdge::UNSPECIFIED_CONNECTION_UNCONTROLLED = false;
 
 // ===========================================================================
 // method definitions
@@ -946,7 +947,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double contPos,
                                double visibility,
                                double speed,
-                               const PositionVector& customShape) {
+                               const PositionVector& customShape,
+                               bool uncontrolled) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -959,7 +961,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled);
 }
 
 
@@ -989,7 +991,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double contPos,
                       double visibility,
                       double speed,
-                      const PositionVector& customShape) {
+                      const PositionVector& customShape,
+                      bool uncontrolled) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -1029,6 +1032,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().visibility = visibility;
     myConnections.back().speed = speed;
     myConnections.back().customShape = customShape;
+    myConnections.back().uncontrolled = uncontrolled;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {
@@ -1360,8 +1364,8 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         if (toUse == -1) {
             toUse = 0;
         }
-        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass, (*i).keepClear,
-                      (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape);
+        setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
+                      i->contPos, i->visibility, i->speed, i->customShape, i->uncontrolled);
     }
 }
 

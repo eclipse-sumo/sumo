@@ -275,8 +275,12 @@ public:
 
     /// @brief the distance at which to take the default angle
     static const double ANGLE_LOOKAHEAD;
+
     /// @brief internal lane computation not yet done
     static const int UNSPECIFIED_INTERNAL_LANE_INDEX;
+
+     /// @brief TLS-controlled despite its node controlled not specified. 
+    static const bool UNSPECIFIED_CONNECTION_UNCONTROLLED;
 
     /// @brief junction priority values set by setJunctionPriority
     enum JunctionPriority {
@@ -765,7 +769,8 @@ public:
                                 double contPos = UNSPECIFIED_CONTPOS,
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
-                                const PositionVector& customShape = PositionVector::EMPTY);
+                                const PositionVector& customShape = PositionVector::EMPTY,
+                                const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
 
     /** @brief Builds no connections starting at the given lanes
      *
@@ -808,7 +813,8 @@ public:
                        double contPos = UNSPECIFIED_CONTPOS,
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,
-                       const PositionVector& customShape = PositionVector::EMPTY);
+                       const PositionVector& customShape = PositionVector::EMPTY,
+                       const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
 
     /// @brief insert a previously created NBEdge::connection
     void insertConnection(NBEdge::Connection connection);
