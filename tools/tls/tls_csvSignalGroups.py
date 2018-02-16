@@ -10,7 +10,7 @@
 # @file    tls_csvSignalGroups.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 # @date    2017-10-17
-# @version $Id$
+# @version $Id: tls_csvSignalGroups.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 
 """
 This script helps with converting a CSV input file with green times per signal group into the SUMO format. Additionally, it supports creating template CSV input files 
@@ -29,8 +29,8 @@ The [links] block lists the relations between signal groups and junction connect
 controlled by the respective signal group. The target edge/lane can be omitted.
 
 [links]
-<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>
-<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>;<FROM_LANE/EDGE_ID>
+<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>;
+<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>;<TARGET_LANE/EDGE_ID>
 
 The last block [signal groups] contains the table of green times and signal group properties. The table uses a header row with the following keywords and their meanings:
 id = signal group id, see block [links]
@@ -336,7 +336,7 @@ if __name__ == "__main__":
             if(os.path.isdir(options.make_input_dir)):
                 writeInputTemplates(net, options.make_input_dir, options.delimiter)
             else:
-                sys.stderr.write("The input template directory %s does not exit.\n" % options.make_input_dir)
+                sys.stderr.write("The input template directory %s does not exist.\n" % options.make_input_dir)
                 sys.exit(-1)
     
     for inputFile in inputFiles: # one signal program per input file
