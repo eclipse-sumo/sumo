@@ -285,7 +285,7 @@ private:
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const;
     void drawArrows() const;
-    void drawLane2LaneConnections() const;
+    void drawLane2LaneConnections(double exaggeration) const;
 
 
     /// @brief add intermediate points at segment borders
