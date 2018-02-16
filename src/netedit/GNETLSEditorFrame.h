@@ -231,6 +231,39 @@ public:
     };
 
     // ===========================================================================
+    // class TLSModifications
+    // ===========================================================================
+
+    class TLSModifications : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TLSModifications(GNETLSEditorFrame* TLSEditorParent);
+
+        /// @brief destructor
+        ~TLSModifications();
+
+        /// @brief check if current TLS was modified
+        bool checkHaveModifications() const;
+
+        /// @brief set if current TLS was modified
+        void setHaveModifications(bool value);
+
+    private:
+        /// @brief pointer to TLSEditor Parent
+        GNETLSEditorFrame* myTLSEditorParent;
+
+        /// @brief button for cancel modifications
+        FXButton* myDiscardModificationsButtons;
+
+        /// @brief button for save modifications
+        FXButton* mySaveModificationsButtons;
+
+        /// @brief whether the current tls was modified
+        bool myHaveModifications;
+    };
+
+    // ===========================================================================
     // class TLSFile
     // ===========================================================================
 
@@ -389,20 +422,11 @@ private:
     /// @brief modul for TLS Phases
     GNETLSEditorFrame::TLSPhases* myTLSPhases;
 
-    /// @brief groupbox for buttons modifications
-    FXGroupBox* myGroupBoxModifications;
-
-    /// @brief button for cancel modifications
-    FXButton* myDiscardModificationsButtons;
-
-    /// @brief button for save modifications
-    FXButton* mySaveModificationsButtons;
-
     /// @brief modul for load/Save TLS Programs
     GNETLSEditorFrame::TLSFile *myTLSFile;
 
-    /// @brief whether the current tls was modified
-    bool myHaveModifications;
+    /// @brief modul for load/Save TLS Modifications
+    GNETLSEditorFrame::TLSModifications *myTLSModifications;
 
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
     typedef std::map<int, std::vector<GNEInternalLane*> > TLIndexMap;
