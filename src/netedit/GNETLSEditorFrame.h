@@ -112,12 +112,39 @@ public:
 
 
     // ===========================================================================
-    // class TLSPhases
+    // class TLSFile
     // ===========================================================================
-    /* class TLSPhases {
+    class TLSFile : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNETLSEditorFrame::TLSFile)
 
-     };*/
+    public:
+        /// @brief constructor
+        TLSFile(GNETLSEditorFrame* TLSEditorParent);
 
+        /// @brief destructor
+        ~TLSFile();
+
+        /// @brief load TLS Program from an additional file
+        long onCmdLoadTLSProgram(FXObject*, FXSelector, void*);
+
+        /// @brief save TLS Programm to an additional file
+        long onCmdSaveTLSProgram(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX needs this
+        TLSFile() {}
+
+    private:
+        /// @brief pointer to Additional Frame Parent
+        GNETLSEditorFrame * myAdditionalFrameParent;
+
+        /// @brief button for load TLS Programs
+        FXButton* myLoadTLSProgramButton;
+
+        /// @brief button for save TLS Programs
+        FXButton* mySaveTLSProgramButton;
+    };
 
 
     /**@brief Constructor
@@ -277,6 +304,9 @@ private:
 
     /// @brief button for save modifications
     FXButton* mySaveModificationsButtons;
+
+    /// @brief modur for load/Save TLS Programs
+    GNETLSEditorFrame::TLSFile *myTLSFile;
 
     /// @brief the junction of the tls is being modified
     GNEJunction* myCurrentJunction;

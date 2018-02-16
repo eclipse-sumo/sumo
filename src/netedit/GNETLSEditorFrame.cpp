@@ -50,6 +50,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_CANCEL,                       GNETLSEditorFrame::onCmdCancel),
     FXMAPFUNC(SEL_UPDATE,     MID_CANCEL,                       GNETLSEditorFrame::onUpdModified),
@@ -79,14 +80,20 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
 };
 
+FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_LOAD_PROGRAM,    GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SAVE_PROGRAM,    GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram),
+};
 
 // Object implementation
-FXIMPLEMENT(GNETLSEditorFrame, FXVerticalFrame, GNETLSEditorFrameMap, ARRAYNUMBER(GNETLSEditorFrameMap))
+FXIMPLEMENT(GNETLSEditorFrame,          FXVerticalFrame,    GNETLSEditorFrameMap,   ARRAYNUMBER(GNETLSEditorFrameMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSFile, FXGroupBox,         TLSFileMap,             ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Edit Traffic Light"),
     myTableFont(new FXFont(getApp(), "Courier New", 9)),
@@ -141,6 +148,8 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // create delete phase button
     myDeleteSelectedPhaseButton = new FXButton(myGroupBoxPhases, "Delete Phase\t\tDelete selected phase", 0, this, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
     new FXButton(myGroupBoxPhases, "Cleanup States\t\tClean unused states from all phase.", 0, this, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
+
+    myTLSFile = new GNETLSEditorFrame::TLSFile(this);
 
     // create groupbox for modifications
     myGroupBoxModifications = new FXGroupBox(myContentFrame, "Modifications", GUIDesignGroupBoxFrame);
@@ -782,6 +791,33 @@ GNETLSEditorFrame::TLSAttributes::getOffset() const {
 void
 GNETLSEditorFrame::TLSAttributes::setOffset(SUMOTime offset) {
     myOffsetTextField->setText(toString(STEPS2TIME(offset)).c_str());
+}
+
+// ---------------------------------------------------------------------------
+// GNETLSEditorFrame::TLSFile - methods
+// ---------------------------------------------------------------------------
+
+GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
+    FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program", GUIDesignGroupBoxFrame) {
+    // create create tlDef button
+    myLoadTLSProgramButton = new FXButton(this, "Load TLS Porgram", 0, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
+    // create create tlDef button
+    mySaveTLSProgramButton = new FXButton(this, "Save TLS Program", 0, this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
+}
+
+
+GNETLSEditorFrame::TLSFile::~TLSFile() {}
+
+
+long 
+GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
+
+long 
+GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
+    return 0;
 }
 
 /****************************************************************************/
