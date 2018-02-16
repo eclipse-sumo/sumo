@@ -353,12 +353,12 @@ GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failH
     // find calibrator flow in calibrator flows container
     auto finder = std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), calibratorFlow);
     // returns depending of finder value
-    if(finder != myCalibratorFlows.end()) {
-        return *finder;
+    if (finder != myCalibratorFlows.end()) {
+        return true;
     } else if (failHard) {
         throw UnknownElement("calibratorFlow " + calibratorFlow->getID());
     } else {
-        return NULL;
+        return false;
     }
 }
 
