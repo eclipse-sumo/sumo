@@ -43,7 +43,7 @@ class GNEJunction;
 // ===========================================================================
 /**
  * @class GNETLSEditorFrame
- * The Widget for modifying selections of network-elements
+ * The Widget for modifying Traffic Lights (TLS)
  */
 class GNETLSEditorFrame : public GNEFrame {
     /// @brief FOX-declaration
@@ -105,7 +105,6 @@ public:
 
         /// @brief destructor
         ~TLSDefinition();
-
 
     private:
         /// @brief pointer to TLSEditor Parent
@@ -178,10 +177,63 @@ public:
         FXTextField* myOffsetTextField;
     };
 
+    // ===========================================================================
+    // class TLSPhases
+    // ===========================================================================
+
+    class TLSPhases : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TLSPhases(GNETLSEditorFrame* TLSEditorParent);
+
+        /// @brief destructor
+        ~TLSPhases();
+
+        /// @brief get phase table
+        FXTable* getPhaseTable() const;
+
+        /**@brief initialies the phase table
+         * @param[in] index The index to select
+         */
+        void initPhaseTable(int index = 0);
+
+        /// @brief show cycle duration
+        void showCycleDuration();
+
+        /// @brief hide cycle duration
+        void hideCycleDuration();
+
+        /// @brief recomputes cycle duration and updates label
+        void updateCycleDuration();
+
+    private:
+        /// @brief pointer to TLSEditor Parent
+        GNETLSEditorFrame* myTLSEditorParent;
+
+        /// @brief font for the phase table
+        FXFont* myTableFont;
+
+        /// @brief window for oversized phase tables
+        FXScrollWindow* myTableScroll;
+
+        /// @brief table for selecting and rearranging phases and for changing duration
+        FXTable* myPhaseTable;
+
+        /// @brief label with the cycle duration
+        FXLabel* myCycleDuration;
+
+        /// @brief insert new phase button
+        FXButton* myInsertDuplicateButton;
+
+        /// @brief delete phase button
+        FXButton* myDeleteSelectedPhaseButton;
+    };
 
     // ===========================================================================
     // class TLSFile
     // ===========================================================================
+
     class TLSFile : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
@@ -325,35 +377,17 @@ protected:
     static SUMOTime getSUMOTime(const FXString& string);
 
 private:
-    /// @brief font for the phase table
-    FXFont* myTableFont;
-
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction *myTLSJunction;
 
-    /// @brief modul for TLS Junction
+    /// @brief modul for TLS Definition
     GNETLSEditorFrame::TLSDefinition *myTLSDefinition;
 
-    /// @brief TLS attributes
+    /// @brief modul for TLS attributes
     GNETLSEditorFrame::TLSAttributes* myTLSAttributes;
 
-    /// @brief groupbox for phases
-    FXGroupBox* myGroupBoxPhases;
-
-    /// @brief window for oversized phase tables
-    FXScrollWindow* myTableScroll;
-
-    /// @brief table for selecting and rearranging phases and for changing duration
-    FXTable* myPhaseTable;
-
-    /// @brief label with the cycle duration
-    FXLabel* myCycleDuration;
-
-    /// @brief insert new phase button
-    FXButton* myInsertDuplicateButton;
-
-    /// @brief delete phase button
-    FXButton* myDeleteSelectedPhaseButton;
+    /// @brief modul for TLS Phases
+    GNETLSEditorFrame::TLSPhases* myTLSPhases;
 
     /// @brief groupbox for buttons modifications
     FXGroupBox* myGroupBoxModifications;
@@ -386,16 +420,8 @@ private:
     /// @brief builds internal lanes for the given tlDef
     void buildIinternalLanes(NBTrafficLightDefinition* tlDef);
 
-    /**@brief initialies the phase table
-     * @param[in] index The index to select
-     */
-    void initPhaseTable(int index = 0);
-
     /// @brief the phase of the current traffic light
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& getPhases();
-
-    /// @brief recomputes cycle duration and updates label
-    void updateCycleDuration();
 
     /// @brief convert duration (potentially undefined) to string
     static std::string varDurString(SUMOTime dur);
