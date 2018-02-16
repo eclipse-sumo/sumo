@@ -52,13 +52,56 @@ class GNETLSEditorFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class TLSAttributes
+    // class TLSJunction
     // ===========================================================================
-    class TLSAttributes : public FXGroupBox {
+
+    class TLSJunction : protected FXGroupBox {
 
     public:
         /// @brief constructor
-        TLSAttributes(FXComposite* parent, GNETLSEditorFrame* TLSEditorParent);
+        TLSJunction(GNETLSEditorFrame* TLSEditorParent);
+
+        /// @brief destructor
+        ~TLSJunction();
+
+        /// @brief get current modified junction
+        GNEJunction* getCurrentJunction() const;
+
+        /// @brief set current junction
+        void setCurrentJunction(GNEJunction* junction);
+
+        /// @brief update descrition
+        void updateJunctionDescription() const;
+
+    private:
+        /// @brief pointer to TLSEditor Parent
+        GNETLSEditorFrame* myTLSEditorParent;
+
+        /// @brief label for junction ID
+        FXLabel* myLabelJunctionID;
+
+        /// @brief text field for junction ID
+        FXTextField* myTextFieldJunctionID;
+
+        /// @brief label for junction status
+        FXLabel* myLabelJunctionStatus;
+
+        /// @brief text field for junction status
+        FXTextField* myTextFieldJunctionStatus;
+
+        /// @brief the junction of the tls is being modified
+        GNEJunction* myCurrentJunction;
+    };
+
+    // ===========================================================================
+    // class TLSAttributes
+    // ===========================================================================
+
+    class TLSAttributes : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TLSAttributes(GNETLSEditorFrame* TLSEditorParent);
 
         /// @brief destructor
         ~TLSAttributes();
@@ -145,8 +188,8 @@ public:
         TLSFile() {}
 
     private:
-        /// @brief pointer to Additional Frame Parent
-        GNETLSEditorFrame * myAdditionalFrameParent;
+        /// @brief pointer to TLSEditor Parent
+        GNETLSEditorFrame* myTLSEditorParent;
 
         /// @brief button for load TLS Programs
         FXButton* myLoadTLSProgramButton;
@@ -260,20 +303,8 @@ private:
     /// @brief font for the phase table
     FXFont* myTableFont;
 
-    /// @brief groupbox for current junction
-    FXGroupBox* myGroupBoxJunction;
-
-    /// @brief label for junction ID
-    FXLabel* myLabelJunctionID;
-
-    /// @brief text field for junction ID
-    FXTextField* myTextFieldJunctionID;
-
-    /// @brief label for junction status
-    FXLabel* myLabelJunctionStatus;
-
-    /// @brief text field for junction status
-    FXTextField* myTextFieldJunctionStatus;
+    /// @brief modul for TLS Junction
+    GNETLSEditorFrame::TLSJunction *myTLSJunction;
 
     /// @brief TLS attributes
     TLSAttributes* myTLSAttributes;
@@ -314,11 +345,8 @@ private:
     /// @brief button for save modifications
     FXButton* mySaveModificationsButtons;
 
-    /// @brief modur for load/Save TLS Programs
+    /// @brief modul for load/Save TLS Programs
     GNETLSEditorFrame::TLSFile *myTLSFile;
-
-    /// @brief the junction of the tls is being modified
-    GNEJunction* myCurrentJunction;
 
     /// @brief whether the current tls was modified
     bool myHaveModifications;
@@ -332,9 +360,6 @@ private:
 
     /// @brief index of the phase being shown
     int myPhaseIndex;
-
-    /// @brief update descrition
-    void updateDescription() const;
 
     /// @brief cleans up previous lanes
     void cleanup();
