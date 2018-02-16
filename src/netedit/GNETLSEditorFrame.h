@@ -94,6 +94,31 @@ public:
     };
 
     // ===========================================================================
+    // class TLSDefinition
+    // ===========================================================================
+
+    class TLSDefinition : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        TLSDefinition(GNETLSEditorFrame* TLSEditorParent);
+
+        /// @brief destructor
+        ~TLSDefinition();
+
+
+    private:
+        /// @brief pointer to TLSEditor Parent
+        GNETLSEditorFrame* myTLSEditorParent;
+
+        /// @brief button for create new Traffic light program
+        FXButton* myNewTLProgram;
+
+        /// @brief button for delete traffic light program
+        FXButton* myDeleteTLProgram;
+    };
+
+    // ===========================================================================
     // class TLSAttributes
     // ===========================================================================
 
@@ -306,17 +331,11 @@ private:
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction *myTLSJunction;
 
+    /// @brief modul for TLS Junction
+    GNETLSEditorFrame::TLSDefinition *myTLSDefinition;
+
     /// @brief TLS attributes
-    TLSAttributes* myTLSAttributes;
-
-    /// @brief groupbox for TLS Definition buttons
-    FXGroupBox* myGroupBoxTLSDef;
-
-    /// @brief button for create new Traffic light program
-    FXButton* myNewTLProgram;
-
-    /// @brief button for delete traffic light program
-    FXButton* myDeleteTLProgram;
+    GNETLSEditorFrame::TLSAttributes* myTLSAttributes;
 
     /// @brief groupbox for phases
     FXGroupBox* myGroupBoxPhases;

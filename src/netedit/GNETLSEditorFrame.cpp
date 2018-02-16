@@ -103,16 +103,10 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // create TLSJunction modul
     myTLSJunction = new GNETLSEditorFrame::TLSJunction(this);
 
-    // create groupbox for tl df
-    myGroupBoxTLSDef = new FXGroupBox(myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame);
+    // create TLSDefinition modul
+    myTLSDefinition = new GNETLSEditorFrame::TLSDefinition(this); 
 
-    // create create tlDef button
-    myNewTLProgram = new FXButton(myGroupBoxTLSDef, "Create TLS\t\tCreate a new traffic light program", 0, this, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
-
-    // create delete tlDef button
-    myDeleteTLProgram = new FXButton(myGroupBoxTLSDef, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, this, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
-
-    // create TLS attributes
+    // create TLS attributes modul
     myTLSAttributes = new TLSAttributes(this);
 
     // create groupbox for phases
@@ -157,8 +151,6 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     new FXButton(myContentFrame, "Add \"Off\"-Program\t\tAdds a program for switching off this traffic light",
             0, this, MID_GNE_TLSFRAME_ADDOFF, GUIDesignButton);
     */
-
-    myTLSJunction->updateJunctionDescription();
 }
 
 
@@ -792,7 +784,9 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myLabelJunctionStatus = new FXLabel(junctionIDStatus, "Status", 0, GUIDesignLabelAttribute);
     myTextFieldJunctionStatus = new FXTextField(junctionIDStatus, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_UPDATE_STATUS, GUIDesignTextField);
     myTextFieldJunctionStatus->setEditable(false);
-    // show TLSFile
+    // update junction description after creation
+    updateJunctionDescription();
+    // show TLS Junction
     show();
 }
 
@@ -827,6 +821,25 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// GNETLSEditorFrame::TLSDefinition - methods
+// ---------------------------------------------------------------------------
+
+GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
+    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame),
+    myTLSEditorParent(TLSEditorParent) {
+    // create create tlDef button
+    myNewTLProgram = new FXButton(this, "Create TLS\t\tCreate a new traffic light program", 0, TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
+    // create delete tlDef button
+    myDeleteTLProgram = new FXButton(this, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
+    // show TLS TLSDefinition
+    show();
+}
+
+
+GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
+
 // ---------------------------------------------------------------------------
 // GNETLSEditorFrame::TLSFile - methods
 // ---------------------------------------------------------------------------
