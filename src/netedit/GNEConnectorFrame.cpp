@@ -126,7 +126,7 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Selection Hint
     myHoldShiftLabel = new FXLabel(myGroupBoxSelection, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
-    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes)", 0, GUIDesignLabelFrameInformation);
+    myHoldControlLabel = new FXLabel(myGroupBoxSelection, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper nodes\nor with incompatible permissions)", 0, GUIDesignLabelFrameInformation);
 
     // init colors here to avoid static order fiasco (https://isocpp.org/wiki/faq/ctors#static-init-order)
     sourceColor = RGBColor::CYAN;
@@ -203,7 +203,15 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
                 break;
             }
             case CONFLICTED:
-                myViewNet->setStatusBarText("Another lane from the same edge already connects to that " + toString(SUMO_TAG_LANE));
+                SVCPermissions fromPermissions = srcEdge.getNBEdge()->getPermissions(fromIndex);
+                SVCPermissions toPermissions = destEdge.getNBEdge()->getPermissions(lane->getIndex());
+                if ((fromPermissions & toPermissions) == SVC_PEDESTRIAN) {
+                    myViewNet->setStatusBarText("Pedestrian connections are generated automatically");
+                } else if ((fromPermissions & toPermissions) == 0) {
+                    myViewNet->setStatusBarText("Incompatible vehicle class permissions");
+                } else {
+                    myViewNet->setStatusBarText("Another lane from the same edge already connects to that lane");
+                }
                 break;
         }
         if (changed) {
@@ -489,7 +497,8 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
         } else {
             return CONNECTED;
         }
-    } else if (srcEdge->hasConnectionTo(destEdge, toIndex)) {
+    } else if (srcEdge->hasConnectionTo(destEdge, toIndex) 
+            || (srcEdge->getPermissions(fromIndex) & destEdge->getPermissions(toIndex) & ~SVC_PEDESTRIAN) == 0) {
         return CONFLICTED;
     } else {
         return UNCONNECTED;
