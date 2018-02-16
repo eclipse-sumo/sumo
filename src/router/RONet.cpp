@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id: RONet.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The router's network representation
 /****************************************************************************/
@@ -405,12 +405,14 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
     for (const auto& i : myFlows) {
         SUMOVehicleParameter* pars = i.second;
         if (pars->repetitionProbability > 0) {
+            if (pars->repetitionEnd > pars->depart) {
+                myHaveActiveFlows = true;
+            }
             const SUMOTime origDepart = pars->depart;
             while (pars->depart < time) {
                 if (pars->repetitionEnd <= pars->depart) {
                     break;
                 }
-                myHaveActiveFlows = true;
                 // only call rand if all other conditions are met
                 if (RandHelper::rand() < (pars->repetitionProbability * TS)) {
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
@@ -438,6 +440,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
             }
         } else {
             while (pars->repetitionsDone < pars->repetitionNumber) {
+                myHaveActiveFlows = true;
                 SUMOTime depart = static_cast<SUMOTime>(pars->depart + pars->repetitionsDone * pars->repetitionOffset);
                 if (myDepartures.find(pars->id) != myDepartures.end()) {
                     depart = myDepartures[pars->id].back();
@@ -445,7 +448,6 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 if (depart >= time + DELTA_T) {
                     break;
                 }
-                myHaveActiveFlows = true;
                 if (myDepartures.find(pars->id) != myDepartures.end()) {
                     myDepartures[pars->id].pop_back();
                 }
