@@ -125,11 +125,20 @@ public:
         /// @brief destructor
         ~TLSFile();
 
+        /// @brief enable all elements TLSFile
+        void enableTLSFile();
+
+        /// @brief disable all elements TLSFile
+        void disableTLSFile();
+
+        /// @name FOX-callbacks
+        /// @{
         /// @brief load TLS Program from an additional file
         long onCmdLoadTLSProgram(FXObject*, FXSelector, void*);
 
         /// @brief save TLS Programm to an additional file
         long onCmdSaveTLSProgram(FXObject*, FXSelector, void*);
+        /// @}
 
     protected:
         /// @brief FOX needs this

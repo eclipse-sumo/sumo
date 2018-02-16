@@ -57,9 +57,13 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_OK,                           GNETLSEditorFrame::onCmdOK),
     FXMAPFUNC(SEL_UPDATE,     MID_OK,                           GNETLSEditorFrame::onUpdModified),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::onCmdDefCreate),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::onUpdDefCreate),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onCmdDefDelete),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onCmdDefSwitch),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onCmdDefOffset),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_RENAME,          GNETLSEditorFrame::onCmdDefRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SUBRENAME,       GNETLSEditorFrame::onCmdDefSubRename),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDOFF,          GNETLSEditorFrame::onCmdDefAddOff),
@@ -67,17 +71,13 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onCmdPhaseCreate),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_CREATE,    GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onCmdPhaseDelete),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsDef),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_REPLACED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseEdit),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CREATE,          GNETLSEditorFrame::onUpdDefCreate),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_DELETE,          GNETLSEditorFrame::onUpdDefSwitch),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_SWITCH,          GNETLSEditorFrame::onUpdDefSwitch),
-    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_OFFSET,          GNETLSEditorFrame::onUpdNeedsDef),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
@@ -198,6 +198,8 @@ GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
         myViewNet->getUndoList()->p_abort();
         cleanup();
         myViewNet->update();
+        // disable TLS File
+        myTLSFile->disableTLSFile();
     }
     return 1;
 }
@@ -738,12 +740,16 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes(GNEJunction* junction) {
         myNameTextField->setText(it->getID().c_str());
         myNameTextField->enable();
         myProgramComboBox->appendItem(it->getProgramID().c_str());
+        // enable TLS
+        myTLSEditorParent->myTLSFile->enableTLSFile();
     }
     if (myTLSDefinitions.size() > 0) {
         myProgramComboBox->enable();
         myProgramComboBox->setCurrentItem(0);
         myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
         myTLSEditorParent->onCmdDefSwitch(0, 0, 0);
+        // enable TLS
+        myTLSEditorParent->myTLSFile->enableTLSFile();
     }
 }
 
@@ -800,13 +806,33 @@ GNETLSEditorFrame::TLSAttributes::setOffset(SUMOTime offset) {
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program", GUIDesignGroupBoxFrame) {
     // create create tlDef button
-    myLoadTLSProgramButton = new FXButton(this, "Load TLS Porgram", 0, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
+    myLoadTLSProgramButton = new FXButton(this, "Load TLS Program", 0, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
     // create create tlDef button
     mySaveTLSProgramButton = new FXButton(this, "Save TLS Program", 0, this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
+    // by default TLSFile is disabled
+    disableTLSFile();
+    // show TLSFile
+    show();
 }
 
 
 GNETLSEditorFrame::TLSFile::~TLSFile() {}
+
+
+void 
+GNETLSEditorFrame::TLSFile::enableTLSFile() {
+    // enable buttons
+    myLoadTLSProgramButton->enable();
+    mySaveTLSProgramButton->enable();
+}
+
+
+void 
+GNETLSEditorFrame::TLSFile::disableTLSFile() {
+    // disable buttons
+    myLoadTLSProgramButton->disable();
+    mySaveTLSProgramButton->disable();
+}
 
 
 long 
