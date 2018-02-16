@@ -35,6 +35,8 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <netwrite/NWWriter_SUMO.h>
 
 #include "GNETLSEditorFrame.h"
 #include "GNEViewNet.h"
@@ -942,7 +944,50 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
 
 long 
 GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
-    return 0;
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Save TLS Program as", ".TLSProgram.xml",
+                    GUIIconSubSys::getIcon(ICON_MODETLS),
+                    gCurrentFolder);
+    if (file == "") {
+        return 1;
+    }
+    OutputDevice& device = OutputDevice::getDevice(file.text());
+
+    // save program
+    device.openTag(SUMO_TAG_TLLOGIC);
+    device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
+    device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
+    device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
+    device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
+    // write the phases
+    const bool varPhaseLength = myTLSEditorParent->myEditedDef->getLogic()->getType() != TLTYPE_STATIC;
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
+    for (auto j : phases) {
+        device.openTag(SUMO_TAG_PHASE);
+        device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j.duration));
+        device.writeAttr(SUMO_ATTR_STATE, j.state);
+        if (varPhaseLength) {
+            if (j.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(j.minDur));
+            }
+            if (j.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(j.maxDur));
+            }
+        }
+        device.closeTag();
+    }
+
+    device.close();
 }
 
+
+std::string
+GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
+    double time = STEPS2TIME(steps);
+    if (time == std::floor(time)) {
+        return toString(int(time));
+    } else {
+        return toString(time);
+    }
+}
 /****************************************************************************/

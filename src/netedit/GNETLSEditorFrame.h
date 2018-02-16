@@ -306,6 +306,9 @@ public:
 
         /// @brief button for save TLS Programs
         FXButton* mySaveTLSProgramButton;
+
+        /// @brief convert SUMOTime into string
+        std::string writeSUMOTime(SUMOTime steps);
     };
 
 
