@@ -217,7 +217,12 @@ GNEInternalLane::colorForLinksState(FXuint state) {
         // special case (default gui does not distinguish between yellow major/minor
         return RGBColor(179, 179, 0, 255);
     } else {
-        return GUIVisualizationSettings::getLinkColor((LinkState)state);
+        try {
+            return GUIVisualizationSettings::getLinkColor((LinkState)state);
+        } catch (ProcessError) {
+            std::cout << "invalid link state='" << state << "'\n";
+            return RGBColor::BLACK;
+        }
     }
 }
 

@@ -321,10 +321,12 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
     for (auto it : myInternalLanes) {
         int tlIndex = it.first;
         std::vector<GNEInternalLane*> lanes = it.second;
-        assert(tlIndex >= 0);
-        assert(tlIndex < (int)phase.state.size());
+        LinkState state = LINKSTATE_DEADEND;
+        if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
+            state = (LinkState)phase.state[tlIndex];
+        }
         for (auto it_lane : lanes) {
-            it_lane->setLinkState((LinkState)phase.state[tlIndex]);
+            it_lane->setLinkState(state);
         }
     }
     myViewNet->update();
