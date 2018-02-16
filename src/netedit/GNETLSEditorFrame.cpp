@@ -36,6 +36,7 @@
 #include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/xml/XMLSubSys.h>
 #include <netwrite/NWWriter_SUMO.h>
 
 #include "GNETLSEditorFrame.h"
@@ -905,6 +906,7 @@ GNETLSEditorFrame::TLSModifications::setHaveModifications(bool value) {
 
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program", GUIDesignGroupBoxFrame),
+    SUMOSAXHandler("TLS-Program"),
     myTLSEditorParent(TLSEditorParent) {
     // create create tlDef button
     myLoadTLSProgramButton = new FXButton(this, "Load TLS Program", 0, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
@@ -918,6 +920,32 @@ GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
 
 
 GNETLSEditorFrame::TLSFile::~TLSFile() {}
+
+
+void 
+GNETLSEditorFrame::TLSFile::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    switch (element) {
+        case SUMO_TAG_TLLOGIC: {
+            /*
+            std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+            int programID = attrs.get<int>(SUMO_ATTR_PROGRAMID, 0, ok);
+            */
+            int offset = attrs.get<int>(SUMO_ATTR_OFFSET, 0, ok);
+            myTLSEditorParent->myTLSAttributes->setOffset(offset);
+            break;
+            }
+        case SUMO_TAG_PHASE: {
+            int duration = attrs.get<int>(SUMO_ATTR_DURATION, 0, ok);
+            std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok);
+            myLoadedPhases.push_back(std::pair<int, std::string>(duration, state));
+            break;
+            }
+        default:
+            break;
+    }
+}
 
 
 void 
@@ -938,6 +966,22 @@ GNETLSEditorFrame::TLSFile::disableTLSFile() {
 
 long 
 GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
+    FXFileDialog opendialog(this, "Load TLS Program");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODETLS));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("*TLSProgram.xml");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        myLoadedPhases.clear();
+        XMLSubSys::runParser(*this, opendialog.getFilename().text(), true);
+        myTLSEditorParent->myEditedDef->getLogic()->resetPhases();
+        for (int i = 0; i < myLoadedPhases.size(); i++) {
+            myTLSEditorParent->myEditedDef->getLogic()->addStep(myLoadedPhases.at(i).first, myLoadedPhases.at(i).second, i);
+        }
+        myTLSEditorParent->myTLSPhases->initPhaseTable();
+    }
     return 0;
 }
 

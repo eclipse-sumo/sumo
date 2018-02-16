@@ -267,7 +267,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : protected FXGroupBox {
+    class TLSFile : protected FXGroupBox, public SUMOSAXHandler {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 
@@ -277,6 +277,18 @@ public:
 
         /// @brief destructor
         ~TLSFile();
+
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag
+            * @param[in] element ID of the currently opened element
+            * @param[in] attrs Attributes within the currently opened element
+            * @exception ProcessError If something fails
+            * @see GenericSAXHandler::myStartElement
+            */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
 
         /// @brief enable all elements TLSFile
         void enableTLSFile();
@@ -306,6 +318,9 @@ public:
 
         /// @brief button for save TLS Programs
         FXButton* mySaveTLSProgramButton;
+
+        /// @brief container used to save loaded phases temporally
+        std::vector<std::pair<int, std::string> > myLoadedPhases;
 
         /// @brief convert SUMOTime into string
         std::string writeSUMOTime(SUMOTime steps);
