@@ -446,9 +446,6 @@ private:
     /// @brief the poi which is being moved
     GNEPOI* myPoiToMove;
 
-    /// @brief the poiLane which is being moved
-    GNEPOILane* myPoiLaneToMove;
-
     /// @brief the stoppingPlace element which shape is being moved
     GNEAdditional* myAdditionalToMove;
 
