@@ -582,7 +582,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     header->setItemSize(2, 80);
     int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
-    for (int i = 0; i < attrs.size(); i++) {
+    for (int i = 0; i < (int)attrs.size(); i++) {
         // Set attribute 
         FXTableItem* attribute = new FXTableItem(toString(attrs.at(i).first).c_str());
         attribute->setJustify(FXTableItem::CENTER_X);

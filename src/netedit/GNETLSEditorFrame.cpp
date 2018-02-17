@@ -10,7 +10,7 @@
 /// @file    GNETLSEditorFrame.cpp
 /// @author  Jakob Erdmann
 /// @date    May 2011
-/// @version $Id: GNETLSEditorFrame.cpp v0_32_0+0164-cd02d916ca oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // The Widget for modifying traffic lights
 /****************************************************************************/
@@ -977,7 +977,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         myLoadedPhases.clear();
         XMLSubSys::runParser(*this, opendialog.getFilename().text(), true);
         myTLSEditorParent->myEditedDef->getLogic()->resetPhases();
-        for (int i = 0; i < myLoadedPhases.size(); i++) {
+        for (int i = 0; i < (int)myLoadedPhases.size(); i++) {
             myTLSEditorParent->myEditedDef->getLogic()->addStep(myLoadedPhases.at(i).first, myLoadedPhases.at(i).second, i);
         }
         myTLSEditorParent->myTLSPhases->initPhaseTable();
@@ -1020,8 +1020,8 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         }
         device.closeTag();
     }
-
     device.close();
+    return 1;
 }
 
 
