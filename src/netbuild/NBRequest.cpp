@@ -615,17 +615,29 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
 
 bool
 NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
-                         const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) {
+                         const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     return (from == prohibitorFrom
             && con.toEdge == prohibitorCon.toEdge
             && con.toLane == prohibitorCon.toLane
             && con.fromLane != prohibitorCon.fromLane
+            // if the edge has lower priority, this connection yields
             && (foes ||
-                // merging bicycles should yield
-                ((((con.fromLane > prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
-                   || (con.fromLane < prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)
-                  ) && !con.mayDefinitelyPass)
-                 || prohibitorCon.mayDefinitelyPass)));
+                // if the prohibitor has pass, this connection yields
+                (prohibitorCon.mayDefinitelyPass ||
+                 // if this connection has pass, it does not yiedl
+                 (!con.mayDefinitelyPass &&
+                  // at off-ramp like situations (2 outgoing), right light should get priority 
+                  // merging bicycles should always yield
+                  ((myOutgoing.size() > 1) && 
+                   ((con.fromLane > prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
+                    || (con.fromLane < prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)))
+                  ||
+                  // at on-ramp like situations, right lane should pass
+                  // merging bicycles should always yield
+                  ((myOutgoing.size() == 1) && 
+                   ((con.fromLane < prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
+                    || (con.fromLane > prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)))
+                  ))));
 }
 
 

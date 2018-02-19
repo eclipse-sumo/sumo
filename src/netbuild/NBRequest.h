@@ -147,8 +147,8 @@ public:
     static void reportWarnings();
 
     /// @brief whether multple connections from the same edge target the same lane
-    static bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
-                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes);
+    bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
+                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
 
 private:
