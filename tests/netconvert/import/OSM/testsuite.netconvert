@@ -98,3 +98,9 @@ difficult_geometry
 
 # see #3715
 complex_intermodal_intersection
+
+# use osm types for determining FRC (functional road class)
+dlr_navteq
+
+bugs
+
