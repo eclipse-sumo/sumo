@@ -293,49 +293,45 @@ void
 GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of calibrator flows
-    std::string flowID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_TYPE, abort);
-    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_ROUTE, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, flowID, tag, SUMO_ATTR_COLOR, abort, false);
-    std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_DEPARTLANE, abort);
-    std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_DEPARTPOS, abort);
-    std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_DEPARTSPEED, abort);
-    std::string arrivalLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_ARRIVALLANE, abort);
-    std::string arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_ARRIVALPOS, abort);
-    std::string arrivalSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_ARRIVALSPEED, abort);
-    std::string line = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_LINE, abort);
-    int personNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, flowID, tag, SUMO_ATTR_PERSON_NUMBER, abort);
-    int containerNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, flowID, tag, SUMO_ATTR_CONTAINER_NUMBER, abort);
-    bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, flowID, tag, SUMO_ATTR_REROUTE, abort);
-    std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_DEPARTPOS_LAT, abort);
-    std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, flowID, tag, SUMO_ATTR_ARRIVALPOS_LAT, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, flowID, tag, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, flowID, tag, SUMO_ATTR_END, abort);
-    double vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, flowID, tag, SUMO_ATTR_VEHSPERHOUR, abort);
-    double period = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, flowID, tag, SUMO_ATTR_PERIOD, abort);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, flowID, tag, SUMO_ATTR_PROB, abort);
-    int number = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, flowID, tag, SUMO_ATTR_NUMBER, abort);
+    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_TYPE, abort);
+    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ROUTE, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", tag, SUMO_ATTR_COLOR, abort, false);
+    std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTLANE, abort);
+    std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTPOS, abort);
+    std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTSPEED, abort);
+    std::string arrivalLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALLANE, abort);
+    std::string arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALPOS, abort);
+    std::string arrivalSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALSPEED, abort);
+    std::string line = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LINE, abort);
+    int personNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", tag, SUMO_ATTR_PERSON_NUMBER, abort);
+    int containerNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", tag, SUMO_ATTR_CONTAINER_NUMBER, abort);
+    bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_REROUTE, abort);
+    std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTPOS_LAT, abort);
+    std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALPOS_LAT, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
+    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
+    double vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_VEHSPERHOUR, abort);
+    double period = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PERIOD, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    int number = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", tag, SUMO_ATTR_NUMBER, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
         GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         GNECalibratorRoute* route = myViewNet->getNet()->retrieveCalibratorRoute(routeID, false);
         GNECalibratorVehicleType* vtype = myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false);
-        int flowType = getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability);
+        int flowType = 1 /**getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability) **/;
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveCalibratorFlow(flowID, false) != NULL) {
-            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " with ID = '" + flowID + "' cannot be created; Another " + toString(SUMO_TAG_FLOW) + " with the same ID was previously declared");
-            abort = true;
+        if (calibrator == NULL) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
         } else if (route == NULL) {
             WRITE_WARNING(toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
             abort = true;
         } else if (vtype == NULL) {
             WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
             abort = true;
-        } else if (calibrator == NULL) {
-            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
         } else {
-            buildCalibratorFlow(myViewNet, true, calibrator, flowID, route, vtype, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
+            buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
                                 line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, flowType);
         }
     }
@@ -1350,30 +1346,25 @@ GNEAdditionalHandler::buildCalibratorVehicleType(GNEViewNet* viewNet, bool allow
 
 bool
 GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent,
-        const std::string& flowID, GNECalibratorRoute* route, GNECalibratorVehicleType* vtype, const RGBColor& color,
+        GNECalibratorRoute* route, GNECalibratorVehicleType* vtype, const RGBColor& color,
         const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
         const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
         const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period,
         double probability, int number, int flowType) {
 
-    if (viewNet->getNet()->retrieveCalibratorFlow(flowID, false) == NULL) {
-        // create Flow and add it to calibrator parent
-        GNECalibratorFlow* flow = new GNECalibratorFlow(calibratorParent, flowID, vtype, route, color, departLane, departPos, departSpeed,
-                arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
-                departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, static_cast<GNECalibratorFlow::TypeOfFlow>(flowType));
-        if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(flow->getTag()));
-            viewNet->getUndoList()->add(new GNEChange_CalibratorItem(flow, true), true);
-            viewNet->getUndoList()->p_end();
-            return true;
-        } else {
-            viewNet->getNet()->insertCalibratorFlow(flow);
-            calibratorParent->addCalibratorFlow(flow);
-        }
+    // create Flow and add it to calibrator parent
+    GNECalibratorFlow* flow = new GNECalibratorFlow(calibratorParent, vtype, route, color, departLane, departPos, departSpeed,
+            arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
+            departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, static_cast<GNECalibratorFlow::TypeOfFlow>(flowType));
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(flow->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_CalibratorItem(flow, true), true);
+        viewNet->getUndoList()->p_end();
         return true;
     } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_FLOW) + " with ID '" + flowID + "' in netedit; probably declared twice.");
+        calibratorParent->addCalibratorFlow(flow);
     }
+    return true;
 }
 
 

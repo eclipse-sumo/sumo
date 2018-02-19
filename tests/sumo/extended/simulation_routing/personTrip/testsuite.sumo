@@ -68,6 +68,9 @@ intermodal_car_walk_no_place
 
 # train access
 access
+
+# walk to train stop via access
+access_walk
 car_public_walk
 
 # bug: person does not board the train when changing access position to 450

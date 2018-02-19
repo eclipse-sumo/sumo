@@ -175,20 +175,19 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "");
         }
         // write connections from pedestrian walking areas
-        const std::vector<NBNode::WalkingArea>& WalkingAreas = node->getWalkingAreas();
-        for (std::vector<NBNode::WalkingArea>::const_iterator it = WalkingAreas.begin(); it != WalkingAreas.end(); it++) {
-            for (std::string cID : (*it).nextCrossings) {
+        for (const NBNode::WalkingArea& wa : node->getWalkingAreas()) {
+            for (const std::string& cID : wa.nextCrossings) {
                 const NBNode::Crossing& nextCrossing = *node->getCrossing(cID);
                 // connection to next crossing (may be tls-controlled)
                 device.openTag(SUMO_TAG_CONNECTION);
-                device.writeAttr(SUMO_ATTR_FROM, (*it).id);
+                device.writeAttr(SUMO_ATTR_FROM, wa.id);
                 device.writeAttr(SUMO_ATTR_TO, cID);
                 device.writeAttr(SUMO_ATTR_FROM_LANE, 0);
                 device.writeAttr(SUMO_ATTR_TO_LANE, 0);
                 if (nextCrossing.tlID != "") {
                     device.writeAttr(SUMO_ATTR_TLID, nextCrossing.tlID);
-                    assert(nextCrossing.tlLinkNo >= 0);
-                    device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkNo);
+                    assert(nextCrossing.tlLinkIndex >= 0);
+                    device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkIndex);
                 }
                 device.writeAttr(SUMO_ATTR_DIR, LINKDIR_STRAIGHT);
                 device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LINKSTATE_MAJOR : LINKSTATE_MINOR);
@@ -197,13 +196,13 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             // optional connections from/to sidewalk
             std::string edgeID;
             int laneIndex;
-            for (std::vector<std::string>::const_iterator it_sw = (*it).nextSidewalks.begin(); it_sw != (*it).nextSidewalks.end(); ++it_sw) {
-                NBHelpers::interpretLaneID(*it_sw, edgeID, laneIndex);
-                NWWriter_SUMO::writeInternalConnection(device, (*it).id, edgeID, 0, laneIndex, "");
+            for (const std::string& sw : wa.nextSidewalks) {
+                NBHelpers::interpretLaneID(sw, edgeID, laneIndex);
+                NWWriter_SUMO::writeInternalConnection(device, wa.id, edgeID, 0, laneIndex, "");
             }
-            for (std::vector<std::string>::const_iterator it_sw = (*it).prevSidewalks.begin(); it_sw != (*it).prevSidewalks.end(); ++it_sw) {
-                NBHelpers::interpretLaneID(*it_sw, edgeID, laneIndex);
-                NWWriter_SUMO::writeInternalConnection(device, edgeID, (*it).id, laneIndex, 0, "");
+            for (const std::string& sw : wa.prevSidewalks) {
+                NBHelpers::interpretLaneID(sw, edgeID, laneIndex);
+                NWWriter_SUMO::writeInternalConnection(device, edgeID, wa.id, laneIndex, 0, "");
             }
         }
     }
@@ -616,7 +615,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         // set information about the controlling tl if any
         if (c.tlID != "") {
             into.writeAttr(SUMO_ATTR_TLID, c.tlID);
-            into.writeAttr(SUMO_ATTR_TLLINKINDEX, c.tlLinkNo);
+            into.writeAttr(SUMO_ATTR_TLLINKINDEX, c.tlLinkIndex);
         }
         if (style == SUMONET) {
             // write the direction information

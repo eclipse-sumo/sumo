@@ -13,8 +13,8 @@
 # @version $Id$
 
 """
-This script helps with converting a CSV input file with green times per signal group into the SUMO format. Additionally, it supports creating template CSV input files 
-from a SUMO network file. The input CSV file(s) contain input blocks divided by titles in brackets. The block [general] sets general information relating to the 
+This script helps with converting a CSV input file with green times per signal group into the SUMO format. Additionally, it supports creating template CSV input files
+from a SUMO network file. The input CSV file(s) contain input blocks divided by titles in brackets. The block [general] sets general information relating to the
 signal program like the TLS ID, the program ID, the cycle time [s] and the offset time [s]. Additional 0..n optional parameters can also be supplied.
 
 [general]
@@ -25,12 +25,12 @@ offset;<OFFSET [s]>
 param;<KEY>;<VALUE>
 param;<KEY>;<VALUE>
 
-The [links] block lists the relations between signal groups and junction connections in SUMO. The relation is build from the edges/lanes 
+The [links] block lists the relations between signal groups and junction connections in SUMO. The relation is build from the edges/lanes
 controlled by the respective signal group. The target edge/lane can be omitted.
 
 [links]
-<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>
-<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>;<FROM_LANE/EDGE_ID>
+<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>;
+<SIGNAL_GROUP_ID>;<FROM_LANE/EDGE_ID>;<TARGET_LANE/EDGE_ID>
 
 The last block [signal groups] contains the table of green times and signal group properties. The table uses a header row with the following keywords and their meanings:
 id = signal group id, see block [links]
@@ -68,7 +68,7 @@ class TlLogic(sumolib.net.TLSProgram):
     def __init__(self, id, programID, cycleTime, offset = 0, parameters = {}, net = None, debug = False):
         if(not isinstance( cycleTime, int ) or cycleTime < 1):
             print("Invalid cycle time = %s" % str(cycleTime))
-                
+
         sumolib.net.TLSProgram.__init__(self, id, str(offset), "static")
         self._cycleTime = cycleTime # cycle time [s]
         self._programID = programID
@@ -79,7 +79,7 @@ class TlLogic(sumolib.net.TLSProgram):
         self._allTimes = [0]
         self._debug = debug
         self._tlIndexToSignalGroup = {}
-        
+
     def addSignalGroups(self, signalGroups, signalGroupOrder = None):
         self._signalGroups = signalGroups
         for sgID in self._signalGroups:
@@ -89,10 +89,10 @@ class TlLogic(sumolib.net.TLSProgram):
         else:
             self.__signalGroupOrder = list(self.signalGroups.keys())
             self.__signalGroupOrder.sort()
-    
+
     def _timeToCycle(self, time):
         return time % self._cycleTime
-    
+
     def setFreeTime(self):
         for sg in self._signalGroups.values():
             sg._times = {} # clear previous entries
@@ -110,34 +110,35 @@ class TlLogic(sumolib.net.TLSProgram):
                         self._allTimes.append(timeKey)
         if(self._debug):
             print("All switch times: %s" % str(self._allTimes))
-        for sg in self._signalGroups.values(): 
+        for sg in self._signalGroups.values():
             sg.calculateCompleteSignals(self._allTimes)
 
     def setSignalGroupRelations(self, sgToLinks):
-        if(self.net is not None):
+        if self.net is not None:
             tls = self.net._id2tls[self._id]
             connections = tls._connections
-            
+
             for sgID in sgToLinks:
                 for fromLink, toLink in sgToLinks[sgID]:
                     # check link validity (lane exists?)
                     for connIn, connOut, tlIndex in connections:
-                        valid = True
-                        if(fromLink.find('_') > 0):
+                        fromLaneSep = fromLink.find('_')
+                        if fromLaneSep > 0 and fromLink[fromLaneSep+1:].isdigit():
                             valid = fromLink == connIn.getID()
                         else:
                             valid = fromLink == connIn.getEdge().getID()
-                        if(toLink != '' and valid):
-                            if(toLink.find('_') > 0):
+                        if toLink != '' and valid:
+                            toLaneSep = toLink.find('_')
+                            if toLaneSep > 0 and toLink[toLaneSep+1:].isdigit():
                                 valid = toLink == connOut.getID()
                             else:
                                 valid = toLink == connOut.getEdge().getID()
-                        if(valid):
-                            if(self._debug):
+                        if valid:
+                            if self._debug:
                                 print("Valid description from %s to %s (SG %s, tlIndex %d)" % (connIn.getID(), connOut.getID(), sgID, tlIndex))
                             self._signalGroups[sgID].addConnection(connIn, connOut, tlIndex)
                             self._tlIndexToSignalGroup[tlIndex] = sgID
-        
+
     def xmlOutput(self, doc):
         # transform signal group based information to "phase" elements of constant signal states # TODO: insert tlIndex in completeSignals query
         self._allTimes.sort()
@@ -154,7 +155,7 @@ class TlLogic(sumolib.net.TLSProgram):
         tlEl.setAttribute("offset", self._offset)
         commentNode = doc.createComment(" Order of signal groups: %s " % " ".join([self._tlIndexToSignalGroup[tlIndex] for tlIndex in tlIndices]))
         tlEl.appendChild(commentNode)
-        
+
         # output custom parameters
         for key in self._parameters:
             parEl = doc.createElement("param")
@@ -180,7 +181,7 @@ class TlLogic(sumolib.net.TLSProgram):
         return tlEl
 
 class SignalGroup(object):
-    
+
     def __init__(self, id, free = "g", transTimeOn = 0, transTimeOff = 0, debug = False):
         self._id = id
         self._free = free
@@ -194,26 +195,25 @@ class SignalGroup(object):
         self.tlLogic = None
         self._tlIndexToYield = {}
         self._debug = debug
-    
+
     def addFreeTime(self, fromTime, toTime):
         if(fromTime != toTime):
             self._freeTimes.append((fromTime, toTime))
-    
+
     def addConnection(self, connIn, connOut, tlIndex):
         junction = connIn.getEdge().getToNode()
-        # get junction index of the connection
-        connections = junction.getConnections()
         ownConn = None
-        for conn in connections:
-            if(conn.getFromLane() == connIn and conn.getToLane() == connOut):
-                junctionIndex = conn.getJunctionIndex()
-                ownConn = conn
-                break
+        if junction is not None:
+            # get junction index of the connection
+            for conn in junction.getConnections():
+                if(conn.getFromLane() == connIn and conn.getToLane() == connOut):
+                    junctionIndex = conn.getJunctionIndex()
+                    ownConn = conn
+                    break
         # store yielding info based on tlIndex values
-        if(ownConn is not None):
-            self._tlIndexToYield[tlIndex] = []
-            connections = junction.getConnections()
-            for conn in connections:
+        self._tlIndexToYield[tlIndex] = []
+        if ownConn is not None:
+            for conn in junction.getConnections():
                 if(self.connectionYields(ownConn, conn)):
                     self._tlIndexToYield[tlIndex].append(conn.getTLLinkIndex())
 
@@ -225,7 +225,7 @@ class SignalGroup(object):
                 prohibits = ownConn.getJunction()._prohibits
                 result = prohibits[ownConn.getJunctionIndex()][len(prohibits)-conn.getJunctionIndex() - 1] == '1'
         return result
-    
+
     def calculateCompleteSignals(self, times):
         for tlIndex in self._tlIndexToYield:
             if self._debug:
@@ -233,16 +233,16 @@ class SignalGroup(object):
             self.completeSignals[tlIndex] = {}
             for time in times:
                 self.completeSignals[tlIndex][time] = self.getStateAt(time, tlIndex)
-    
+
     def getStateAt(self, time, tlIndex, checkPriority = True):
         result = "o"
         wait = False
-        
+
         if(len(self._times) > 0 and tlIndex in self._tlIndexToYield):
-           
+
             timeKeys = list(self._times.keys())
             timeKeys.sort()
-            relevantKey = None            
+            relevantKey = None
             if(time < timeKeys[0] or time >= timeKeys[len(timeKeys)-1]):
                 relevantKey = timeKeys[len(timeKeys)-1]
             else:
@@ -251,7 +251,7 @@ class SignalGroup(object):
                         relevantKey = timeKeys[i]
                         break
             result = self._times[relevantKey]
-            
+
             if(checkPriority and result in ["o", "g"]):
                 for yieldTlIndex in self._tlIndexToYield[tlIndex]:
                     # ask signal state of signal to yield
@@ -267,7 +267,7 @@ class SignalGroup(object):
         if(result in ["g", "o"] and not wait): # prioritary signal
             result = result.upper()
         return result
-    
+
     def __str__(self):
         return "SignalGroup %s (%ds %s %s %ds %s) has %d free times" % (self._id, self._transTimes[0], self._start, self._free, self._transTimes[1], self._stop, len(self._freeTimes))
 
@@ -276,7 +276,7 @@ def writeXmlOutput(tlList, outputFile):
         doc = xml.dom.minidom.Document()
         root = doc.createElement("add")
         doc.appendChild(root)
-        
+
         for tlLogic in tlList:
             tlEl = tlLogic.xmlOutput(doc)
             root.appendChild(tlEl)
@@ -295,7 +295,7 @@ def writeInputTemplates(net, outputDir, delimiter):
         data.extend([["[signal groups]"], ["id", "on1", "off1", "on2", "off2", "transOn", "transOff"]])
         for connIn, connOut, tlIndex in connections:
             data.append(["SG_" + str(tlIndex)])
-        
+
         # write the template file
         with open(os.path.join(outputDir, "%s.csv" % tlsID),'wb') as inputTemplate:
             csvWriter = csv.writer(inputTemplate, quoting=csv.QUOTE_NONE, delimiter=delimiter)
@@ -310,13 +310,13 @@ def getOptions():
     argParser.add_argument("-m", "--make-input-dir", action="store", default="", help="Create input file template(s) from the SUMO network file in the given directory.")
     argParser.add_argument("-d", "--debug", action="store_true", default=False, help="Output debugging information")
     options = argParser.parse_args()
-    
+
     return options
-        
+
 # this is the main entry point of this script
 if __name__ == "__main__":
     options = getOptions()
-    
+
     # read general and signal groub based information from input file(s)
     sections = ["general", "links", "signal groups"]
     signalColumns = ["id", "on1", "off1", "on2", "off2", "transOn", "transOff"]
@@ -325,21 +325,21 @@ if __name__ == "__main__":
     else:
         inputFiles = options.input.split(',')
     tlList = []
-    
-    
+
+
     # read SUMO network
     net = None
     if(len(options.net) > 0):
-        net = sumolib.net.readNet(options.net)
-    
+        net = sumolib.net.readNet(options.net, withInternal=True)
+
         if(len(options.make_input_dir) > 0): # check input template directory
             if(os.path.isdir(options.make_input_dir)):
                 writeInputTemplates(net, options.make_input_dir, options.delimiter)
             else:
-                sys.stderr.write("The input template directory %s does not exit.\n" % options.make_input_dir)
+                sys.stderr.write("The input template directory %s does not exist.\n" % options.make_input_dir)
                 sys.exit(-1)
-    
-    for inputFile in inputFiles: # one signal program per input file
+
+    for inputFileName in inputFiles: # one signal program per input file
         readSgHeader = False
         secondFreeTime = False
         colIndices = {}
@@ -351,70 +351,74 @@ if __name__ == "__main__":
         signalGroupOrder = []
         sgToLinks = {}
         parameters = {}
-        
-        with open(inputFile, 'r') as inputFile:
+
+        with open(inputFileName, 'r') as inputFile:
             inputReader = csv.reader(inputFile, delimiter = options.delimiter, quotechar='"')
             for i, line in enumerate(inputReader):
-                cell0 = line[0].strip()
-                
-                # skip lines with empty first cell
-                if(len(cell0) == 0):
-                    continue
-                
-                # type of input announced by section title
-                if(cell0.startswith("[") and cell0.endswith("]")):
-                    if(cell0[1:-1] in sections):
-                        activeSection = cell0[1:-1]
+                try:
+                    cell0 = line[0].strip() if line else ""
+
+                    # skip lines with empty first cell
+                    if(len(cell0) == 0):
                         continue
-                    else:
-                        print("Unknown input section %s." % cell0)
-                        sys.exit()
-                
-                # general TLS input
-                if(activeSection == "general"):
-                    if(cell0 == "cycle time"):
-                        cycleTime = int(line[1])
-                    elif(cell0 == "key"):
-                        key = line[1].strip()
-                    elif(cell0 == "subkey"):
-                        subkey = line[1].strip()
-                    elif(cell0 == "offset"):
-                        offset = int(line[1])
-                    elif(cell0 == "param"):
-                        parameters[line[1].strip()] = line[2].strip()
-                    
-                # relation between signal groups and network connection elements
-                elif(activeSection == "links"):
-                    link = (line[1], line[2])
-                    if(cell0 not in sgToLinks):
-                        sgToLinks[cell0] = []
-                    sgToLinks[cell0].append(link)
-                
-                # define green times (once or twice per cycle time) and special transitional signal states (yellow...)
-                elif(activeSection == "signal groups"):
-                    if(not readSgHeader): # remember relation between columns and their meanings
-                        readSgHeader = True
-                        for colIndex in range(0, len(line)): 
-                            if(line[colIndex].strip() in signalColumns):
-                                colIndices[line[colIndex].strip()] = colIndex
-                        secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
-                    else:
-                        sg = SignalGroup(line[colIndices["id"]], 
-                                transTimeOn = int(line[colIndices["transOn"]]), 
-                                transTimeOff = int(line[colIndices["transOff"]]),
-                                debug = options.debug)
-                        sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
-                        if(secondFreeTime):
-                            if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
-                                sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
-                        signalGroups[sg._id] = sg
-                        signalGroupOrder.append(sg._id)
-        
+
+                    # type of input announced by section title
+                    if(cell0.startswith("[") and cell0.endswith("]")):
+                        if(cell0[1:-1] in sections):
+                            activeSection = cell0[1:-1]
+                            continue
+                        else:
+                            print("Unknown input section %s." % cell0)
+                            sys.exit()
+
+                    # general TLS input
+                    if(activeSection == "general"):
+                        if(cell0 == "cycle time"):
+                            cycleTime = int(line[1])
+                        elif(cell0 == "key"):
+                            key = line[1].strip()
+                        elif(cell0 == "subkey"):
+                            subkey = line[1].strip()
+                        elif(cell0 == "offset"):
+                            offset = int(line[1])
+                        elif(cell0 == "param"):
+                            parameters[line[1].strip()] = line[2].strip()
+
+                    # relation between signal groups and network connection elements
+                    elif(activeSection == "links"):
+                        link = (line[1], line[2])
+                        if(cell0 not in sgToLinks):
+                            sgToLinks[cell0] = []
+                        sgToLinks[cell0].append(link)
+
+                    # define green times (once or twice per cycle time) and special transitional signal states (yellow...)
+                    elif(activeSection == "signal groups"):
+                        if(not readSgHeader): # remember relation between columns and their meanings
+                            readSgHeader = True
+                            for colIndex in range(0, len(line)):
+                                if(line[colIndex].strip() in signalColumns):
+                                    colIndices[line[colIndex].strip()] = colIndex
+                            secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
+                        else:
+                            sg = SignalGroup(line[colIndices["id"]],
+                                    transTimeOn = int(line[colIndices["transOn"]]),
+                                    transTimeOff = int(line[colIndices["transOff"]]),
+                                    debug = options.debug)
+                            sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
+                            if(secondFreeTime):
+                                if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
+                                    sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
+                            signalGroups[sg._id] = sg
+                            signalGroupOrder.append(sg._id)
+                except:
+                    print("In file %s, line %s" % (inputFileName, i+1), file=sys.stderr)
+                    raise
+
         # build everything together
         tlLogic = TlLogic(key, subkey, cycleTime, parameters = parameters, net = net, debug = options.debug)
         tlLogic.addSignalGroups(signalGroups, signalGroupOrder)
         tlLogic.setSignalGroupRelations(sgToLinks)
         tlLogic.setFreeTime()
         tlList.append(tlLogic)
-        
+
     writeXmlOutput(tlList, options.output)

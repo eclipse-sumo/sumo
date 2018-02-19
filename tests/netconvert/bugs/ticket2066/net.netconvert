@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:12 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Mon Feb 19 08:58:29 2018 by SUMO netconvert Version v0_32_0+0440-df8dc3b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge-files value="input_plain.edg.xml"/>
         <connection-files value="input_plain.con.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <geometry.remove value="true"/>
@@ -44,13 +48,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="A" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-6.55"/>
     <junction id="C" type="priority" x="200.00" y="0.00" incLanes="AB_0 AB_1" intLanes=":C_0_0 :C_0_1" shape="201.50,-0.05 201.50,-3.25 198.50,-6.55 198.50,-0.05">
-        <request index="0" response="00" foes="10" cont="0"/>
-        <request index="1" response="01" foes="01" cont="0"/>
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
     </junction>
     <junction id="D" type="dead_end" x="300.00" y="0.00" incLanes="CD_0" intLanes="" shape="300.00,-3.25 300.00,-0.05"/>
 
-    <connection from="AB" to="CD" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
-    <connection from="AB" to="CD" fromLane="1" toLane="0" via=":C_0_1" dir="s" state="m"/>
+    <connection from="AB" to="CD" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="m"/>
+    <connection from="AB" to="CD" fromLane="1" toLane="0" via=":C_0_1" dir="s" state="M"/>
 
     <connection from=":C_0" to="CD" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_0" to="CD" fromLane="1" toLane="0" dir="s" state="M"/>

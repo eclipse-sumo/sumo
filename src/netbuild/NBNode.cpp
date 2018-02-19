@@ -13,7 +13,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id: NBNode.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -223,7 +223,7 @@ NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double
     width(_width),
     priority(_priority),
     customShape(_customShape),
-    tlLinkNo(_customTLIndex),
+    tlLinkIndex(_customTLIndex),
     customTLIndex(_customTLIndex),
     valid(true) {
 }
@@ -2668,10 +2668,10 @@ NBNode::getCrossing(const std::string& id) const {
 void
 NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
     for (auto c : getCrossings()) {
-        c->tlLinkNo = startIndex++;
+        c->tlLinkIndex = startIndex++;
         c->tlID = tlID;
         if (c->customTLIndex != -1) {
-            c->tlLinkNo = c->customTLIndex;
+            c->tlLinkIndex = c->customTLIndex;
         }
     }
 }

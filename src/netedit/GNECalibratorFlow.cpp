@@ -61,7 +61,6 @@
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myFlowID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorFlowID()),
     myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)),
@@ -86,14 +85,13 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     myFlowType(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, const std::string& flowID, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability,
                                      int number, GNECalibratorFlow::TypeOfFlow flowType) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorParent),
-    myFlowID(flowID),
     myVehicleType(vehicleType),
     myRoute(route),
     myColor(color),
@@ -119,15 +117,17 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, const std:
 }
 
 
-GNECalibratorFlow::~GNECalibratorFlow() {}
+GNECalibratorFlow::~GNECalibratorFlow() {
+    if(myCalibratorParent->calibratorFlowExist(this, false)) {
+        myCalibratorParent->removeCalibratorFlow(this);
+    }
+}
 
 
 void
 GNECalibratorFlow::writeFlow(OutputDevice& device) {
     // Open flow tag
     device.openTag(getTag());
-    // Write ID
-    device.writeAttr(SUMO_ATTR_ID, getID());
     // Write begin
     device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
     // Write end
@@ -202,7 +202,7 @@ std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myFlowID;
+            return myCalibratorParent->getID() + "_CalibratorFlow_" + toString(myCalibratorParent->getCalibratorFlowIndex(this));
         case SUMO_ATTR_TYPE:
             return myVehicleType->getID();
         case SUMO_ATTR_ROUTE:
@@ -257,7 +257,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
@@ -290,8 +289,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
 bool
 GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorFlow(value, false) == NULL);
         case SUMO_ATTR_TYPE:
             return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != NULL);
         case SUMO_ATTR_ROUTE:
@@ -378,12 +375,6 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: {
-            std::string oldID = myFlowID;
-            myFlowID = value;
-            myCalibratorParent->getViewNet()->getNet()->changeCalibratorFlowID(this, oldID);
-            break;
-        }
         case SUMO_ATTR_TYPE:
             myVehicleType = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value);
             break;
