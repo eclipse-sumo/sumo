@@ -105,7 +105,9 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     }
     NBConnection conn(from, fromLane, to, toLane, linkIndex);
     // avoid duplicates
-    remove_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(conn));
+    auto newEnd = remove_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(conn));
+    // remove_if does not remove, only re-order
+    myControlledLinks.erase(newEnd, myControlledLinks.end());
     myControlledLinks.push_back(conn);
     addNode(from->getToNode());
     addNode(to->getFromNode());
