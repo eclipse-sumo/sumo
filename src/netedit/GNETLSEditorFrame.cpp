@@ -227,13 +227,30 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
     GNEJunction* junction = myTLSJunction->getCurrentJunction();
-    onCmdCancel(0, 0, 0); // abort because we onCmdOk assumes we wish to save an edited definition
-    if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(NODETYPE_TRAFFIC_LIGHT)) {
-        junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), myViewNet->getUndoList());
+     // abort because we onCmdOk assumes we wish to save an edited definition
+    onCmdCancel(0, 0, 0);
+    // check that current junction has two or more edges
+    if((junction->getGNEIncomingEdges().size() > 0 && junction->getGNEOutgoingEdges().size()) > 0) {
+        if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(NODETYPE_TRAFFIC_LIGHT)) {
+            junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), myViewNet->getUndoList());
+        } else {
+            myViewNet->getUndoList()->add(new GNEChange_TLS(junction, 0, true, true), true);
+        }
+        editJunction(junction);
     } else {
-        myViewNet->getUndoList()->add(new GNEChange_TLS(junction, 0, true, true), true);
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening warning FXMessageBox 'invalid TLS'");
+        }
+        // open question box
+        FXMessageBox::warning(this, MBOX_OK,
+                              "TLS cannot be created", "%s",
+                              "Traffic Light cannot be created because junction must have\n at least one incoming edge and one outgoing edge.");
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Closed FXMessageBox 'invalid TLS'");
+        }
     }
-    editJunction(junction);
     return 1;
 }
 

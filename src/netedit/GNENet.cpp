@@ -453,6 +453,14 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true);
         edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true);
     }
+    // if junction source is a TLS and after deletion will have only an edge, remove TLS
+    if(edge->getGNEJunctionSource()->getNBNode()->isTLControlled() && (edge->getGNEJunctionSource()->getGNEOutgoingEdges().size() <= 1)) {
+            edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    }
+    // if junction destiny is a TLS and after deletion will have only an edge, remove TLS
+    if(edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
+            edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    }
     // save selection status
     if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;
