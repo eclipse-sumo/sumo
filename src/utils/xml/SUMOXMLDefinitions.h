@@ -1057,7 +1057,7 @@ enum LaneChangeAction {
     /// @brief used by the sublane model
     LCA_SUBLANE = 1 << 15,
     /// @brief Vehicle is too slow to guarantee success of lane change (used for continuous lane changing in case that maxSpeedLatStanding==0)
-    LCA_INSUFFICIENT_SPEED = 1 << 16,
+    LCA_INSUFFICIENT_SPEED = 1 << 28,
     /// @brief lane can change
     LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
     /// @brief lane can change or stay
@@ -1073,10 +1073,27 @@ enum LaneChangeAction {
     /// @brief blocked in all directions
     LCA_BLOCKED = LCA_BLOCKED_LEFT | LCA_BLOCKED_RIGHT | LCA_INSUFFICIENT_SPACE | LCA_INSUFFICIENT_SPEED,
     /// @brief reasons of lane change
-    LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE | LCA_TRACI)
+    LCA_CHANGE_REASONS = (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT | LCA_SUBLANE | LCA_TRACI),
                          // LCA_BLOCKED_BY_CURRENT_LEADER = 1 << 28
                          // LCA_BLOCKED_BY_CURRENT_FOLLOWER = 1 << 29
                          /// @}
+
+    /// @name originally model specific states (migrated here since
+    ///       they were duplicated in all current models)
+    /// @{
+    LCA_AMBLOCKINGLEADER = 1 << 16,
+    LCA_AMBLOCKINGFOLLOWER = 1 << 17,
+    LCA_MRIGHT = 1 << 18,
+    LCA_MLEFT = 1 << 19,
+    // !!! never set LCA_UNBLOCK = 1 << 20,
+    LCA_AMBLOCKINGFOLLOWER_DONTBRAKE = 1 << 21,
+    // !!! never used LCA_AMBLOCKINGSECONDFOLLOWER = 1 << 22,
+    LCA_CHANGE_TO_HELP = 1 << 23,
+    // !!! never read LCA_KEEP1 = 1 << 24,
+    // !!! never used LCA_KEEP2 = 1 << 25,
+    LCA_AMBACKBLOCKER = 1 << 26,
+    LCA_AMBACKBLOCKER_STANDING = 1 << 27
+    /// @}
 };
 
 
