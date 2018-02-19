@@ -302,6 +302,9 @@ GNEApplicationWindow::create() {
     myMenuBarDrag->create();
     myFileMenu->create();
     myEditMenu->create();
+    myFileMenuShapes->create();
+    myFileMenuAdditionals->create();
+    myFileMenuTLS->create();
     //mySettingsMenu->create();
     myWindowsMenu->create();
     myHelpMenu->create();
@@ -326,24 +329,24 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     GUIIconSubSys::close();
     // Close gifs (Textures)
     GUITextureSubSys::close();
+    // delete visuals
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
-    delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
     delete myWindowsMenu;
-    delete myHelpMenu;
-
+    // Delete load thread
     delete myLoadThread;
-
+    // drop all events
     while (!myEvents.empty()) {
         // get the next event
         GUIEvent* e = myEvents.top();
         myEvents.pop();
         delete e;
     }
+    // delte undo list
     delete myUndoList;
 }
 
@@ -373,12 +376,6 @@ GNEApplicationWindow::fillMenuBar() {
                       "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     new FXMenuCommand(myFileMenu,
-                      "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
-    new FXMenuCommand(myFileMenu,
-                      "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
-    new FXMenuCommand(myFileMenu,
                       "&Reload\tCtrl+R\tReloads the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
     new FXMenuCommand(myFileMenu,
@@ -393,20 +390,36 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myFileMenu,
                       "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEJOINED);
-    mySaveShapesMenuCommand = new FXMenuCommand(myFileMenu,
-            "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
+    // create Shapes menu options
+    myFileMenuShapes = new FXMenuPane(myFileMenu);
+    new FXMenuCommand(myFileMenuShapes,
+                    "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
+                    GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
+    mySaveShapesMenuCommand = new FXMenuCommand(myFileMenuShapes,
+                    "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+                    GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
-    new FXMenuCommand(myFileMenu,
+    new FXMenuCommand(myFileMenuShapes,
                       "Save Shapes As...\t\tSave shapes elements in another files.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
-    mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenu,
-            "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
-            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+    new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
+    // create Additionals menu options
+    myFileMenuAdditionals = new FXMenuPane(myFileMenu);
+    new FXMenuCommand(myFileMenuAdditionals,
+                    "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
+                    GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
+    mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenuAdditionals,
+                    "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
+                    GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
-    new FXMenuCommand(myFileMenu,
-                      "Save Additionals As...\t\tSave additional elements in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+    new FXMenuCommand(myFileMenuAdditionals,
+                    "Save Additionals As...\t\tSave additional elements in another file.",
+                    GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+    new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
+    // create TLS menu options
+    myFileMenuTLS = new FXMenuPane(myFileMenu);
+    new FXMenuCascade(myFileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myFileMenuTLS);
+    // close network
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
                       "Close\tCtrl+W\tClose the net&work.",

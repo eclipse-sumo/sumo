@@ -331,6 +331,9 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu,
+                *myFileMenuShapes,
+                *myFileMenuAdditionals,
+                *myFileMenuTLS,
                 *myEditMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
