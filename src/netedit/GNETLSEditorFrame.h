@@ -340,6 +340,9 @@ public:
     /// @param[in] junction The junction of which the traffic light shall be edited
     void editJunction(GNEJunction* junction);
 
+    /// @brief check if modifications in TLS was saved
+    bool TLSSaved();
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called when the user presses the OK-Button

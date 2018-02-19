@@ -147,6 +147,47 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
 }
 
 
+bool 
+GNETLSEditorFrame::TLSSaved() {
+    if(myTLSModifications->checkHaveModifications()) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening question FXMessageBox 'save TLS'");
+        }
+        // open question box
+        FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
+                                                "Save TLS Changes", "%s",
+                                                "There is unsaved changes in current edited traffic light.\nDo you want to save it before changing mode?");
+        if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'save TLS' with 'YES'");
+            }
+            // save modifications
+            onCmdOK(0,0,0);
+            return true;
+        } else if (answer == MBOX_CLICKED_NO) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'save TLS' with 'No'");
+            }
+            // cancel modifications
+            onCmdCancel(0,0,0);
+            return true;
+        } else {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'save TLS' with 'Cancel'");
+            }
+            // abort changing mode
+            return false;
+        }
+    } else {
+        return true;
+    }
+}
+
+
 long
 GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myTLSJunction->getCurrentJunction() != 0) {
@@ -981,6 +1022,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             myTLSEditorParent->myEditedDef->getLogic()->addStep(myLoadedPhases.at(i).first, myLoadedPhases.at(i).second, i);
         }
         myTLSEditorParent->myTLSPhases->initPhaseTable();
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
     }
     return 0;
 }

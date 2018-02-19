@@ -2329,17 +2329,20 @@ GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
 
 void
 GNEViewNet::setEditMode(EditMode mode) {
-    setStatusBarText("");
-    abortOperation(false);
-    // stop editing of custom shapes
-    stopEditCustomShape();
-
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
         if (myCurrentFrame != NULL) {
             myCurrentFrame->focusUpperElement();
         }
+    } else if (myEditMode == GNE_MODE_TLS && !myViewParent->getTLSEditorFrame()->TLSSaved()) {
+        setStatusBarText("save modifications in TLS before chage mode");
+        myCurrentFrame->focusUpperElement();
     } else {
+        setStatusBarText("");
+        abortOperation(false);
+        // stop editing of custom shapes
+        stopEditCustomShape();
+        // set edit mode
         myEditMode = mode;
         switch (mode) {
             case GNE_MODE_CONNECT:
