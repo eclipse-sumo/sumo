@@ -697,8 +697,11 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             } else if (addedConnection != NBConnection::InvalidConnection) {
                 if (addedConnection.getTLIndex() == NBConnection::InvalidTlIndex) {
                     // custom tl indices of crossings might become invalid upon recomputation so we must save them
+                    // however, the could remain valud so we register a change but keep them at their old value
                     for (GNECrossing* c : myGNECrossings) {
+                        const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
                     }
                 }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
