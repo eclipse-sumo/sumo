@@ -71,6 +71,11 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     assert(def->getType() == logic->getType());
     myControlledLinks = def->getControlledLinks();
     myControlledNodes = def->getNodes();
+    NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
+    if (sumoDef != 0) {
+        myReconstructAddedConnections = sumoDef->myReconstructAddedConnections;
+        myReconstructRemovedConnections = sumoDef->myReconstructRemovedConnections;
+    }
 }
 
 
@@ -435,7 +440,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
     const bool netedit = NBNetBuilder::runningNetedit();
 #ifdef DEBUG_RECONSTRUCTION
     bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
-    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " oldLinks:\n";
+    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " valid=" << hasValidIndices() << " oldLinks:\n";
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         std::cout << "    " << *it << "\n";
     }
@@ -443,7 +448,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
     if (myReconstructAddedConnections) {
         myReconstructAddedConnections = false;
         // do not rebuild the logic when running netedit and all links are already covered by the program
-        if (!myPhasesLoaded && (!netedit || getMaxIndex() >= myTLLogic->getNumLinks())) {
+        if (!myPhasesLoaded && !(netedit && hasValidIndices())) {
             // rebuild the logic from scratch
             // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
             NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
@@ -463,6 +468,13 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 newLogic->setType(getType());
                 newLogic->setOffset(getOffset());
                 setTLControllingInformation();
+                // reset crossing custom indices 
+                for (NBNode* n : myControlledNodes) {
+                    for (NBNode::Crossing* c : n->getCrossings()) {
+                        c->customTLIndex = NBConnection::InvalidTlIndex;
+                    }
+                }
+
             }
         } else {
             setTLControllingInformation();
@@ -485,7 +497,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 const int removed = con.getTLIndex();
                 it = myControlledLinks.erase(it);
                 // no automatic modificaions when running netedit
-                if (!myPhasesLoaded && !netedit) {
+                if (!myPhasesLoaded && !(netedit && hasValidIndices())) {
                     // shift index off successive connections and remove entry from all phases if the tlIndex was only used by this connection
                     bool exclusive = true;
                     for (NBConnection& other : myControlledLinks) {
@@ -548,6 +560,23 @@ NBLoadedSUMOTLDef::getMaxIndex() const {
         }
     }
     return maxIndex;
+}
+
+bool 
+NBLoadedSUMOTLDef::hasValidIndices() const {
+    for (const NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() == NBConnection::InvalidTlIndex) {
+            return false;
+        }
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            if (c->tlLinkIndex == NBConnection::InvalidTlIndex) {
+                return false;
+            }
+        }
+    }
+    return getMaxIndex() < myTLLogic->getNumLinks();
 }
 
 

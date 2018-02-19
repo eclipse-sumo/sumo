@@ -695,6 +695,12 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 repl->removeConnection(deletedConnection);
                 replacementDef = repl;
             } else if (addedConnection != NBConnection::InvalidConnection) {
+                if (addedConnection.getTLIndex() == NBConnection::InvalidTlIndex) {
+                    // custom tl indices of crossings might become invalid upon recomputation so we must save them
+                    for (GNECrossing* c : myGNECrossings) {
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                    }
+                }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
                 repl->addConnection(addedConnection.getFrom(), addedConnection.getTo(),
                         addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex());

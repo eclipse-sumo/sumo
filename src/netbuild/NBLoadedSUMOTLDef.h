@@ -198,6 +198,9 @@ private:
 
     /// @brief return the highest known tls link index used by any controlled connection or crossing
     int getMaxIndex() const;
+    
+    /// @brief return whether all tls link indices are valid
+    bool hasValidIndices() const;
 
 private:
     /// @brief class for identifying connections
