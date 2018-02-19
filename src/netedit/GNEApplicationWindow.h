@@ -167,6 +167,9 @@ public:
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open additionals is executed
+    long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
 
@@ -187,6 +190,12 @@ public:
 
     /// @brief called when the command/FXCall save additionals as is executed
     long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save TLSPrograms is executed
+    long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save TLSPrograms as is executed
+    long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);

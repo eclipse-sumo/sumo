@@ -96,6 +96,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,                                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,                           GNEApplicationWindow::onCmdOpenAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                           GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS,            GNEApplicationWindow::onCmdOpenTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                 GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                 GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                                     GNEApplicationWindow::onCmdReload),
@@ -114,6 +116,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onCmdSaveAdditionalsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onCmdSaveTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,         GNEApplicationWindow::onCmdSaveTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                                      GNEApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                                      GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -333,10 +339,14 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
+    delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
     delete myWindowsMenu;
+    delete myFileMenuShapes,
+    delete myFileMenuAdditionals,
+    delete myFileMenuTLS,
     // Delete load thread
     delete myLoadThread;
     // drop all events
@@ -391,33 +401,42 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEJOINED);
     // create Shapes menu options
-    myFileMenuShapes = new FXMenuPane(myFileMenu);
+    myFileMenuShapes = new FXMenuPane(this);
     new FXMenuCommand(myFileMenuShapes,
-                    "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
-                    GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
+                      "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
     mySaveShapesMenuCommand = new FXMenuCommand(myFileMenuShapes,
-                    "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-                    GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
+                      "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
     new FXMenuCommand(myFileMenuShapes,
                       "Save Shapes As...\t\tSave shapes elements in another files.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
     new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
     // create Additionals menu options
-    myFileMenuAdditionals = new FXMenuPane(myFileMenu);
+    myFileMenuAdditionals = new FXMenuPane(this);
     new FXMenuCommand(myFileMenuAdditionals,
-                    "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
-                    GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
+                      "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
     mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenuAdditionals,
-                    "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
-                    GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+                      "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
     new FXMenuCommand(myFileMenuAdditionals,
-                    "Save Additionals As...\t\tSave additional elements in another file.",
-                    GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+                      "Save Additionals As...\t\tSave additional elements in another file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
     // create TLS menu options
-    myFileMenuTLS = new FXMenuPane(myFileMenu);
+    myFileMenuTLS = new FXMenuPane(this);
+    new FXMenuCommand(myFileMenuTLS,
+                    "load TLS Programs...\t\tload TLS Programs in all Traffic Lights of the net.",
+                    GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS);
+    new FXMenuCommand(myFileMenuTLS,
+                      "Save TLS Programs \t\tSave TLS Programs of all Traffic Lights of the current net.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
+    new FXMenuCommand(myFileMenuTLS,
+                      "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
     new FXMenuCascade(myFileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myFileMenuTLS);
     // close network
     new FXMenuSeparator(myFileMenu);
@@ -794,6 +813,12 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         }
         myUndoList->p_end();
     }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -1738,6 +1763,18 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     } else {
         return 1;
     }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 

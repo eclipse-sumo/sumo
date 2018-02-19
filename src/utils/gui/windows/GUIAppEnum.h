@@ -441,6 +441,12 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief load TLS Programs
+    MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS,
+    /// @brief save TLS Programs
+    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,
+    /// @brief save TLS Programs as
+    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @}
 
 
