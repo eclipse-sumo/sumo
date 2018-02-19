@@ -188,9 +188,10 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
                 if (toggle) {
                     // create new connection
                     NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex(), mayDefinitelyPass);
+                    NBConnection newNBCon(srcEdge.getNBEdge(), fromIndex, destEdge.getNBEdge(), lane->getIndex());
                     myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, false, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
-                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList());
+                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
                 }
                 break;
             case CONNECTED:

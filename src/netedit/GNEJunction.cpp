@@ -680,7 +680,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
 
 
 void
-GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection) {
+GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection, const NBConnection& addedConnection) {
     assert(undoList->hasCommandGroup());
     // NBLoadedSUMOTLDef becomes invalid, replace with NBOwnTLDef which will be dynamically recomputed
     const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
@@ -693,6 +693,11 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 // create replacement before deleting the original because deletion will mess up saving original nodes
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
                 repl->removeConnection(deletedConnection);
+                replacementDef = repl;
+            } else if (addedConnection != NBConnection::InvalidConnection) {
+                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                repl->addConnection(addedConnection.getFrom(), addedConnection.getTo(),
+                        addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex());
                 replacementDef = repl;
             } else {
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());

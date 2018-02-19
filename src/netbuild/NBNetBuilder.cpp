@@ -654,5 +654,10 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
     return ok;
 }
 
+bool 
+NBNetBuilder::runningNetedit() {
+    // see GNELoadThread::fillOptions
+    return OptionsCont::getOptions().exists("new");
+}
 
 /****************************************************************************/

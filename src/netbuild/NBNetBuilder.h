@@ -217,6 +217,9 @@ public:
     static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
     static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = 0);
 
+    /// @brief whether netbuilding takes place in the context of NETEDIT
+    static bool runningNetedit();
+
 
 protected:
     /**

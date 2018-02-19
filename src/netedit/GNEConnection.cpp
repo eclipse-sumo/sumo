@@ -412,7 +412,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_TLLINKINDEX:
-            if (getNBEdgeConnection().tlID != "" && canParse<int>(value) && parse<int>(value) >= 0
+            if (getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0 && canParse<int>(value) && parse<int>(value) >= 0
                     && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) {
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
                 def->setParticipantsInformation();

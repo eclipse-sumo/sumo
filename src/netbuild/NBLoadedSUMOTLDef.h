@@ -196,6 +196,9 @@ private:
     /// @brief adapt to removal or addition of connections
     void reconstructLogic();
 
+    /// @brief return the highest known tls link index used by any controlled connection or crossing
+    int getMaxIndex() const;
+
 private:
     /// @brief class for identifying connections
     class connection_equal {

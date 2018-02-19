@@ -38,6 +38,7 @@
 #include "NBOwnTLDef.h"
 #include "NBTrafficLightDefinition.h"
 #include "NBLoadedSUMOTLDef.h"
+#include "NBNetBuilder.h"
 #include "NBOwnTLDef.h"
 #include "NBNode.h"
 
@@ -431,6 +432,7 @@ NBLoadedSUMOTLDef::registerModifications(bool addedConnections, bool removedConn
 
 void
 NBLoadedSUMOTLDef::reconstructLogic() {
+    const bool netedit = NBNetBuilder::runningNetedit();
 #ifdef DEBUG_RECONSTRUCTION
     bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
     std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " oldLinks:\n";
@@ -440,7 +442,8 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 #endif
     if (myReconstructAddedConnections) {
         myReconstructAddedConnections = false;
-        if (!myPhasesLoaded) {
+        // do not rebuild the logic when running netedit and all links are already covered by the program
+        if (!myPhasesLoaded && (!netedit || getMaxIndex() >= myTLLogic->getNumLinks())) {
             // rebuild the logic from scratch
             // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
             NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
@@ -481,7 +484,8 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 // remove connection
                 const int removed = con.getTLIndex();
                 it = myControlledLinks.erase(it);
-                if (!myPhasesLoaded) {
+                // no automatic modificaions when running netedit
+                if (!myPhasesLoaded && !netedit) {
                     // shift index off successive connections and remove entry from all phases if the tlIndex was only used by this connection
                     bool exclusive = true;
                     for (NBConnection& other : myControlledLinks) {
@@ -531,8 +535,9 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 #endif
 }
 
-bool
-NBLoadedSUMOTLDef::cleanupStates() {
+
+int 
+NBLoadedSUMOTLDef::getMaxIndex() const {
     int maxIndex = -1;
     for (const NBConnection& c : myControlledLinks) {
         maxIndex = MAX2(maxIndex, c.getTLIndex());
@@ -542,6 +547,13 @@ NBLoadedSUMOTLDef::cleanupStates() {
             maxIndex = MAX2(maxIndex, c->tlLinkIndex);
         }
     }
+    return maxIndex;
+}
+
+
+bool
+NBLoadedSUMOTLDef::cleanupStates() {
+    const int maxIndex = getMaxIndex();
     if (maxIndex >= 0 && maxIndex + 1 < myTLLogic->getNumLinks()) {
         myTLLogic->setStateLength(maxIndex + 1);
         return true;
