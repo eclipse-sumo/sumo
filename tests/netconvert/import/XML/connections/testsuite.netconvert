@@ -70,8 +70,11 @@ double_con_custom_unsafe
 # two connections from the same edge to the same lane. Priority resolved by the offramp heuristic (rightmost lane has priority)
 double_con_offramp
 
-# two connections from the same edge to the same lane. Priority resolved by defaults
+# 3 connections from the same edge to the same lane. Bikelane should yield.
 double_con_bikelane
+
+# 3 connections from the same edge to the same lane. Bikelane should yield
+double_con_bikelane2
 
 # custom position for internal junction
 contPos
