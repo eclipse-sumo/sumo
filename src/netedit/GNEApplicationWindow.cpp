@@ -339,14 +339,15 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
+    delete myFileMenuShapes,
+    delete myFileMenuAdditionals,
+    delete myFileMenuTLS,
     delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
     delete myWindowsMenu;
-    delete myFileMenuShapes,
-    delete myFileMenuAdditionals,
-    delete myFileMenuTLS,
+    delete myHelpMenu;
     // Delete load thread
     delete myLoadThread;
     // drop all events
