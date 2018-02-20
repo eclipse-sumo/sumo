@@ -122,7 +122,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
     myAdditionalsSaved(true),
-    myShapesSaved(true) {
+    myShapesSaved(true),
+    myTLSProgramsSaved(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -1981,7 +1982,8 @@ GNENet::requiereSaveShapes() {
 }
 
 
-void GNENet::saveShapes(const std::string& filename) {
+void 
+GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
@@ -2006,6 +2008,47 @@ void GNENet::saveShapes(const std::string& filename) {
 int
 GNENet::getNumberOfShapes() const {
     return (int)(myPolygons.size() + myPOIs.size());
+}
+
+
+void 
+GNENet::requiereSaveTLSPrograms() {
+    if ((myTLSProgramsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("TLSPrograms has to be saved");
+    }
+    myTLSProgramsSaved = false;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveTLSProgramsMenu();
+}
+
+
+void 
+GNENet::saveTLSPrograms(const std::string& filename) {
+    // save TLSPrograms
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    device.openTag("additionals");
+    /**
+    // write only visible polygons
+    for (const auto& i : myPolygons) {
+        dynamic_cast<GNETLSProgram*>(i.second)->writeTLSProgram(device);
+    }
+    // write only visible POIs
+    for (const auto& i : myPOIs) {
+        dynamic_cast<GNETLSProgram*>(i.second)->writeTLSProgram(device);
+    }
+    **/
+    device.close();
+    // change flag to true
+    myTLSProgramsSaved = true;
+    // show debug information
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("TLSPrograms saved");
+    }
+}
+
+
+int 
+GNENet::getNumberOfTLSPrograms() const {
+    return -1;
 }
 
 

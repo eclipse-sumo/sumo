@@ -129,11 +129,17 @@ public:
     /// @brief set shapes file
     void setShapesFile(const std::string& shapesFile);
 
+    /// @brief set TLS Programs file
+    void setTLSProgramsFile(const std::string& TLSProgramsFile);
+
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
     /// @brief enable save shapes
     void enableSaveShapesMenu();
+
+    /// @brief enable save TLS Programs
+    void enableSaveTLSProgramsMenu();
 
     /// @name Inter-thread event handling
     /// @{
@@ -402,12 +408,27 @@ protected:
     /// @brief filename for load/save shapes
     std::string myShapesFile;
 
+    /// @brief filename for load/save TLS Programs
+    std::string myTLSProgramsFile;
+
 private:
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
 
+    /// @brief FXMenuCommand for enable or disable save additionals as
+    FXMenuCommand* mySaveAdditionalsMenuCommandAs;
+
     /// @brief FXMenuCommand for enable or disable save shapes
     FXMenuCommand* mySaveShapesMenuCommand;
+
+    /// @brief FXMenuCommand for enable or disable save shapes as
+    FXMenuCommand* mySaveShapesMenuCommandAs;
+
+    /// @brief FXMenuCommand for enable or disable save additionals
+    FXMenuCommand* mySaveTLSProgramsMenuCommand;
+
+    /// @brief FXMenuCommand for enable or disable save additionals as
+    FXMenuCommand* mySaveTLSProgramsMenuCommandAs;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

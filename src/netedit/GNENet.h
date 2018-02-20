@@ -653,6 +653,20 @@ public:
     int getNumberOfShapes() const;
     /// @}
 
+    /// @name Functions related to TLS Programs
+    /// @{
+    /// @brief inform that TLS Programs has to be saved
+    void requiereSaveTLSPrograms();
+
+    /**@brief save TLS Programs elements of the network
+     * @param[in] filename name of the file in wich save TLS Programs
+     */
+    void saveTLSPrograms(const std::string& filename);
+
+    /// @brief get number of TLS Programs
+    int getNumberOfTLSPrograms() const;
+    /// @}
+
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
@@ -693,8 +707,11 @@ protected:
     /// @brief Flag to check if additionals has to be saved
     bool myAdditionalsSaved;
 
-    /// @brief Flag to check if shapes hast o be saved
+    /// @brief Flag to check if shapes has to be saved
     bool myShapesSaved;
+
+    /// @brief Flag to check if shapes has to be saved
+    bool myTLSProgramsSaved;
 
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{
