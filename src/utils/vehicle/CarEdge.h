@@ -117,10 +117,6 @@ public:
     bool includeInRoute(bool /* allEdges */) const {
         return true;
     }
-
-    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return (trip->modeSet & SVC_BUS) == 0;
-    }
 };
 
 
@@ -146,6 +142,10 @@ public:
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
+    }
+
+    bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
+        return (trip->modeSet & SVC_BUS) == 0;
     }
 
     const IntermodalEdge<E, L, N, V>* getEntryStop() const {

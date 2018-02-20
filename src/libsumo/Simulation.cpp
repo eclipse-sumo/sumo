@@ -192,7 +192,7 @@ std::vector<TraCIStage>
 Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
                                 const std::string& modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
                                 const double departPos, const double arrivalPos, const double departPosLat,
-                                const std::string& pType, const std::string& vehType) {
+                                const std::string& pType, const std::string& vehType, const std::string& destStop) {
     UNUSED_PARAMETER(routingMode);
     UNUSED_PARAMETER(departPosLat);
     std::vector<TraCIStage> result;
@@ -243,7 +243,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos,
+        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
                 pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, dep, items)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
