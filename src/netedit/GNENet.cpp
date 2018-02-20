@@ -40,6 +40,7 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_XML.h>
+#include <netwrite/NWWriter_SUMO.h>
 #include <utility>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
@@ -122,7 +123,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
     myAdditionalsSaved(true),
-    myShapesSaved(true) {
+    myShapesSaved(true),
+    myTLSProgramsSaved(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -1981,7 +1983,8 @@ GNENet::requiereSaveShapes() {
 }
 
 
-void GNENet::saveShapes(const std::string& filename) {
+void 
+GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
@@ -2006,6 +2009,39 @@ void GNENet::saveShapes(const std::string& filename) {
 int
 GNENet::getNumberOfShapes() const {
     return (int)(myPolygons.size() + myPOIs.size());
+}
+
+
+void 
+GNENet::requiereSaveTLSPrograms() {
+    if ((myTLSProgramsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("TLSPrograms has to be saved");
+    }
+    myTLSProgramsSaved = false;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveTLSProgramsMenu();
+}
+
+
+void 
+GNENet::saveTLSPrograms(const std::string& filename) {
+    // open output device
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    device.openTag("additionals");
+    // write traffic lights using NWWriter
+    NWWriter_SUMO::writeTrafficLights(device, getTLLogicCont());
+    device.close();
+    // change flag to true
+    myTLSProgramsSaved = true;
+    // show debug information
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("TLSPrograms saved");
+    }
+}
+
+
+int 
+GNENet::getNumberOfTLSPrograms() const {
+    return -1;
 }
 
 

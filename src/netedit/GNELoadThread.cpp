@@ -220,6 +220,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("shapes-output", new Option_String());
     oc.addDescription("shapes-output", "Output", "file in which shapes must be saved");
 
+    oc.doRegister("TLSPrograms-output", new Option_String());
+    oc.addDescription("TLSPrograms-output", "Output", "file in which TLS Programs must be saved");
+
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
 

@@ -2334,8 +2334,8 @@ GNEViewNet::setEditMode(EditMode mode) {
         if (myCurrentFrame != NULL) {
             myCurrentFrame->focusUpperElement();
         }
-    } else if (myEditMode == GNE_MODE_TLS && !myViewParent->getTLSEditorFrame()->TLSSaved()) {
-        setStatusBarText("save modifications in TLS before chage mode");
+    } else if (myEditMode == GNE_MODE_TLS && !myViewParent->getTLSEditorFrame()->isTLSSaved()) {
+        setStatusBarText("save modifications in TLS before change mode");
         myCurrentFrame->focusUpperElement();
     } else {
         setStatusBarText("");

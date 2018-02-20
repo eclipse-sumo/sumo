@@ -38,6 +38,9 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netwrite/NWWriter_SUMO.h>
+#include <netimport/NIXMLTrafficLightsHandler.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNetBuilder.h>
 
 #include "GNETLSEditorFrame.h"
 #include "GNEViewNet.h"
@@ -148,7 +151,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
 
 
 bool 
-GNETLSEditorFrame::TLSSaved() {
+GNETLSEditorFrame::isTLSSaved() {
     if(myTLSModifications->checkHaveModifications()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -188,6 +191,17 @@ GNETLSEditorFrame::TLSSaved() {
 }
 
 
+bool 
+GNETLSEditorFrame::parseTLSPrograms(const std::string &file) {
+    NBTrafficLightLogicCont tmpCont;
+    NIXMLTrafficLightsHandler* handler = new NIXMLTrafficLightsHandler(tmpCont, myViewNet->getNet()->getNetBuilder()->getEdgeCont());
+    XMLSubSys::runParser(*handler, file);
+    // create all loaded defs in tmpCont using GNEChange_TLS
+
+    return true;
+}
+
+
 long
 GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myTLSJunction->getCurrentJunction() != 0) {
@@ -212,7 +226,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
-            myEditedDef = 0;
+            myEditedDef = NULL;
             myViewNet->getUndoList()->p_end();
             cleanup();
             myViewNet->update();
@@ -230,7 +244,7 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
      // abort because we onCmdOk assumes we wish to save an edited definition
     onCmdCancel(0, 0, 0);
     // check that current junction has two or more edges
-    if((junction->getGNEIncomingEdges().size() > 0 && junction->getGNEOutgoingEdges().size()) > 0) {
+    if((junction->getGNEIncomingEdges().size() > 0) && (junction->getGNEOutgoingEdges().size() > 0)) {
         if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(NODETYPE_TRAFFIC_LIGHT)) {
             junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), myViewNet->getUndoList());
         } else {
@@ -512,7 +526,7 @@ GNETLSEditorFrame::cleanup() {
     myTLSJunction->setCurrentJunction(NULL);
     myTLSModifications->setHaveModifications(false);
     delete myEditedDef;
-    myEditedDef = 0;
+    myEditedDef = NULL;
     buildIinternalLanes(0); // only clears
     // clean up controls
     myTLSAttributes->clearTLSAttributes();
@@ -965,7 +979,8 @@ GNETLSEditorFrame::TLSModifications::setHaveModifications(bool value) {
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program", GUIDesignGroupBoxFrame),
     SUMOSAXHandler("TLS-Program"),
-    myTLSEditorParent(TLSEditorParent) {
+    myTLSEditorParent(TLSEditorParent),
+    myLastInsertedTLLogic(NULL) {
     // create create tlDef button
     myLoadTLSProgramButton = new FXButton(this, "Load TLS Program", 0, this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
     // create create tlDef button
@@ -985,21 +1000,24 @@ GNETLSEditorFrame::TLSFile::myStartElement(int element, const SUMOSAXAttributes&
     bool ok = true;
     switch (element) {
         case SUMO_TAG_TLLOGIC: {
-            /*
             std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-            std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
             int programID = attrs.get<int>(SUMO_ATTR_PROGRAMID, 0, ok);
-            */
+            std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
             int offset = attrs.get<int>(SUMO_ATTR_OFFSET, 0, ok);
-            myTLSEditorParent->myTLSAttributes->setOffset(offset);
+            TrafficLightType typeEnum = TLTYPE_STATIC;
+            myLastInsertedTLLogic = new NBTrafficLightLogic(id, toString(programID), 0, offset, typeEnum);
+            myLoadedPhases[myLastInsertedTLLogic] = std::vector<NBTrafficLightLogic::PhaseDefinition>();
             break;
-            }
+        }
         case SUMO_TAG_PHASE: {
-            int duration = attrs.get<int>(SUMO_ATTR_DURATION, 0, ok);
-            std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok);
-            myLoadedPhases.push_back(std::pair<int, std::string>(duration, state));
-            break;
+            if(myLastInsertedTLLogic) {
+                double duration = attrs.get<double>(SUMO_ATTR_DURATION, 0, ok);
+                std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, 0, ok);
+                NBTrafficLightLogic::PhaseDefinition phase(TIME2STEPS(duration), state, 0, 0);
+                myLoadedPhases[myLastInsertedTLLogic].push_back(phase);
+                break;
             }
+        }
         default:
             break;
     }
@@ -1022,6 +1040,21 @@ GNETLSEditorFrame::TLSFile::disableTLSFile() {
 }
 
 
+void
+GNETLSEditorFrame::TLSFile::clearLoadedPhases() {
+    for (auto i : myLoadedPhases) {
+        delete i.first;
+    }
+    myLastInsertedTLLogic = NULL;
+}
+
+
+const std::map<NBTrafficLightLogic*, std::vector<NBTrafficLightLogic::PhaseDefinition> >&
+GNETLSEditorFrame::TLSFile::getLoadedPhases() const {
+    return myLoadedPhases;
+}
+
+
 long 
 GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load TLS Program");
@@ -1032,11 +1065,22 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        myLoadedPhases.clear();
+        // first clear loaded phases
+        clearLoadedPhases();
+        // run parser
         XMLSubSys::runParser(*this, opendialog.getFilename().text(), true);
-        myTLSEditorParent->myEditedDef->getLogic()->resetPhases();
-        for (int i = 0; i < (int)myLoadedPhases.size(); i++) {
-            myTLSEditorParent->myEditedDef->getLogic()->addStep(myLoadedPhases.at(i).first, myLoadedPhases.at(i).second, i);
+
+        myTLSEditorParent->myEditedDef->cleanupStates();
+
+        // check that only a phase was loaded
+        for(auto i : myLoadedPhases) {
+            if(i.first->getID() == myTLSEditorParent->myTLSJunction->getCurrentJunction()->getID()) {
+                myTLSEditorParent->myEditedDef->getProgramID();
+
+                for (auto j : i.second) {
+                    myTLSEditorParent->myEditedDef->getLogic()->addStep(j.duration, j.state, j.minDur, j.maxDur);
+                }
+            }
         }
         myTLSEditorParent->myTLSPhases->initPhaseTable();
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
