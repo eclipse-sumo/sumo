@@ -354,6 +354,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
     myIcons[ICON_VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
     myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
+    myIcons[ICON_PARKINGAREA] = new FXXPMIcon(a, busstop_xpm);  // temporal
+    myIcons[ICON_PARKINGSPACE] = new FXXPMIcon(a, busstop_xpm); // temporal
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
