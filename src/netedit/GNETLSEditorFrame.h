@@ -296,6 +296,12 @@ public:
         /// @brief disable all elements TLSFile
         void disableTLSFile();
 
+        /// @brief clear loaded phases
+        void clearLoadedPhases();
+
+        /// @brief get loaded phases
+        const std::map<NBTrafficLightLogic*, std::vector<NBTrafficLightLogic::PhaseDefinition> > &getLoadedPhases() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief load TLS Program from an additional file
@@ -320,7 +326,9 @@ public:
         FXButton* mySaveTLSProgramButton;
 
         /// @brief container used to save loaded phases temporally
-        std::vector<std::pair<int, std::string> > myLoadedPhases;
+        std::map<NBTrafficLightLogic*, std::vector<NBTrafficLightLogic::PhaseDefinition> > myLoadedPhases;
+
+        NBTrafficLightLogic* myLastInsertedTLLogic;
 
         /// @brief convert SUMOTime into string
         std::string writeSUMOTime(SUMOTime steps);
@@ -339,6 +347,12 @@ public:
     /// @brief edits the traffic light for the given junction
     /// @param[in] junction The junction of which the traffic light shall be edited
     void editJunction(GNEJunction* junction);
+
+    /// @brief check if modifications in TLS was saved
+    bool isTLSSaved();
+
+    /// @brief parse TLS Programs from a file
+    bool parseTLSPrograms(const std::string &file);
 
     /// @name FOX-callbacks
     /// @{
@@ -429,10 +443,10 @@ protected:
 
 private:
     /// @brief modul for TLS Junction
-    GNETLSEditorFrame::TLSJunction *myTLSJunction;
+    GNETLSEditorFrame::TLSJunction* myTLSJunction;
 
     /// @brief modul for TLS Definition
-    GNETLSEditorFrame::TLSDefinition *myTLSDefinition;
+    GNETLSEditorFrame::TLSDefinition* myTLSDefinition;
 
     /// @brief modul for TLS attributes
     GNETLSEditorFrame::TLSAttributes* myTLSAttributes;

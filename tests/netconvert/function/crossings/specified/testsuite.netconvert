@@ -35,6 +35,12 @@
 # 4 arm junction with crossings on all sides and custom tl indices
 sumonet_customTLIndex
 
+# 4 arm junction with crossings on all sides and custom tl indices for both directions
+4_arm_customTLIndex2
+
+# 4 arm junction with crossings on all sides and custom primary and secondary tl indices
+sumonet_customTLIndex2
+
 # 4 arm junction with 1 crossing
 4_arm_1
 

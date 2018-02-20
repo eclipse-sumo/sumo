@@ -212,138 +212,137 @@ Warning: Adding calibrator vehicle type into calibrator 'calibratorVehicleTypes'
 Warning: Adding calibrator vehicle type into calibrator 'calibratorVehicleTypes'
 Warning: Adding calibrator route into calibrator 'calibratorVehicleTypes'
 Warning: Adding calibrator vehicle type into calibrator 'calibratorVehicleTypes'
-Warning: Optional float attribute 'period' of flow with ID 'flowWithouyCalibrator' is missing; Default value '10.00' will be used.
-Warning: Optional int attribute 'probability' of flow with ID 'flowWithouyCalibrator' is missing; Default value '1.00' will be used.
-Warning: Only a type of distribution (vehsPerHour, period or probability) can be defined at the same time in flow 'flowWithouyCalibrator'
+Warning: Optional float attribute 'period' of flow is missing; Default value '10.00' will be used.
+Warning: Optional int attribute 'probability' of flow is missing; Default value '1.00' will be used.
 Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator route of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
-Warning: Deleting calibrator vehicle type of calibrator 'calibratorVehicleTypes'
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator route
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
+Warning: Deleting calibrator vehicle type
 Warning: Deleting unreferenced laneCalibrator 'calibratorVehicleTypes'
 Warning: Additionals has to be saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

@@ -25,9 +25,6 @@ ticket38
 # Test for #193 invalid traffic lights at dead ends
 ticket193
 
-# Test for #252 false offset in written network
-ticket252
-
 # Test for #267 keep-edges (postload) breaks on connections given for a removed edge
 ticket267
 
@@ -47,10 +44,6 @@ ticket850
 ticket854
 ticket866
 ticket867
-ticket868
-ticket869
-ticket870
-ticket871
 ticket916
 ticket921
 ticket936

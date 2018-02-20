@@ -236,6 +236,9 @@ protected:
                                    const std::vector<bool>& hadGreenMajor,
                                    bool& haveForbiddenLeftMover, std::vector<bool>& rightTurnConflicts);
 
+    /// @brief fix states in regard to custom crossing indices
+    void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;
+
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at
      */

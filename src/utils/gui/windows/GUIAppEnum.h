@@ -74,6 +74,8 @@ enum {
     MID_OPEN_SHAPES,
     /// @brief Load additional file with additional elements
     MID_OPEN_ADDITIONALS,
+    /// @brief Load additional file with additional elements
+    MID_OPEN_TLSPROGRAMS,
     /// @brief Reload the previously loaded simulation
     MID_RELOAD,
     /// @brief Loads a file previously loaded
@@ -441,6 +443,10 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief save TLS Programs
+    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,
+    /// @brief save TLS Programs as
+    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @}
 
 

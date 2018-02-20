@@ -680,7 +680,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
 
 
 void
-GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection) {
+GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection, const NBConnection& addedConnection) {
     assert(undoList->hasCommandGroup());
     // NBLoadedSUMOTLDef becomes invalid, replace with NBOwnTLDef which will be dynamically recomputed
     const std::set<NBTrafficLightDefinition*> coypOfTls = myNBNode.getControllingTLS(); // make a copy!
@@ -693,6 +693,23 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                 // create replacement before deleting the original because deletion will mess up saving original nodes
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
                 repl->removeConnection(deletedConnection);
+                replacementDef = repl;
+            } else if (addedConnection != NBConnection::InvalidConnection) {
+                if (addedConnection.getTLIndex() == NBConnection::InvalidTlIndex) {
+                    // custom tl indices of crossings might become invalid upon recomputation so we must save them
+                    // however, the could remain valud so we register a change but keep them at their old value
+                    for (GNECrossing* c : myGNECrossings) {
+                        const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
+                        const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
+                    }
+                }
+                NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());
+                repl->addConnection(addedConnection.getFrom(), addedConnection.getTo(),
+                        addedConnection.getFromLane(), addedConnection.getToLane(), addedConnection.getTLIndex());
                 replacementDef = repl;
             } else {
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());

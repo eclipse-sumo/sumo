@@ -188,15 +188,24 @@ GNEConnectorFrame::handleLaneClick(GNELane* lane, bool mayDefinitelyPass, bool a
                 if (toggle) {
                     // create new connection
                     NBEdge::Connection newCon(fromIndex, destEdge.getNBEdge(), lane->getIndex(), mayDefinitelyPass);
+                    // if the connection was previously deleted (by clicking the same lane twice), restore all values
+                    for (NBEdge::Connection& c : myDeletedConnections) {
+                        // fromLane must be the same, only check toLane
+                        if (c.toEdge == destEdge.getNBEdge() && c.toLane == lane->getIndex()) {
+                            newCon = c;
+                        }
+                    }
+                    NBConnection newNBCon(srcEdge.getNBEdge(), fromIndex, destEdge.getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
                     myViewNet->getUndoList()->add(new GNEChange_Connection(&srcEdge, newCon, false, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &targetPassColor : &targetColor);
-                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList());
+                    srcEdge.getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
                 }
                 break;
             case CONNECTED:
             case CONNECTED_PASS: {
                 // remove connection
                 GNEConnection* con = srcEdge.retrieveGNEConnection(fromIndex, destEdge.getNBEdge(), lane->getIndex());
+                myDeletedConnections.push_back(con->getNBEdgeConnection());
                 myViewNet->getNet()->deleteConnection(con, myViewNet->getUndoList());
                 lane->setSpecialColor(&potentialTargetColor);
                 changed = true;
@@ -477,6 +486,7 @@ GNEConnectorFrame::cleanup() {
     myNumChanges = 0;
     myCurrentLane->setSpecialColor(0);
     myCurrentLane = 0;
+    myDeletedConnections.clear();
     updateDescription();
 }
 

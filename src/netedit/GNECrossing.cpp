@@ -210,6 +210,8 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return toString(myCrossing->edges);
         case SUMO_ATTR_TLLINKINDEX:
             return toString(myCrossing->customTLIndex);
+        case SUMO_ATTR_TLLINKINDEX2:
+            return toString(myCrossing->customTLIndex2);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(myCrossing->customShape);
         default:
@@ -230,6 +232,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
         case SUMO_ATTR_TLLINKINDEX:
+        case SUMO_ATTR_TLLINKINDEX2:
         case SUMO_ATTR_CUSTOMSHAPE:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
@@ -251,6 +254,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
+        case SUMO_ATTR_TLLINKINDEX2:
             return (myCrossing->tlID != "" && canParse<int>(value) && isPositive<int>(value)
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
@@ -317,6 +321,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TLLINKINDEX:
             myCrossing->customTLIndex = parse<int>(value);
+            break;
+        case SUMO_ATTR_TLLINKINDEX2:
+            myCrossing->customTLIndex2 = parse<int>(value);
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;

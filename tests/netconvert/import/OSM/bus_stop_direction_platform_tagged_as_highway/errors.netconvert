@@ -1,7 +1,0 @@
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '24236254#0').
-Warning: Found angle of 108.67 degrees at edge '152006063#1', segment 0
-Warning: Found sharp turn with radius 4.47 at the start of edge '152006063#1'.
-Warning: Found sharp turn with radius 5.73 at the start of edge '294287663#0'.
-Warning: Found sharp turn with radius 8.79 at the end of edge '405908825#1'.
-Warning: Found sharp turn with radius 6.10 at the start of edge '414034717#5'.
-Warning: Found sharp turn with radius 6.89 at the start of edge '77599429#1'.

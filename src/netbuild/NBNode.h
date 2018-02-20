@@ -128,7 +128,7 @@ public:
      */
     struct Crossing {
         /// @brief constructor
-        Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex,  const PositionVector& _customShape);
+        Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape);
         /// @brief The parent node of this crossing
         const NBNode* node;
         /// @brief The edges being crossed
@@ -151,8 +151,10 @@ public:
         PositionVector customShape;
         /// @brief the traffic light index of this crossing (if controlled)
         int tlLinkIndex;
+        int tlLinkIndex2;
         /// @brief the custom traffic light index of this crossing (if controlled)
         int customTLIndex;
+        int customTLIndex2;
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
         /// @brief whether this crossing is valid (and can be written to the net.xml). This is needed for netedit because validity can only be checked during junction computation
@@ -598,7 +600,7 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1,
+    void addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
                      const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
     /// @brief add custom shape for walkingArea

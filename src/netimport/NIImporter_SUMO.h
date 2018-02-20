@@ -285,7 +285,7 @@ private:
      */
     struct Crossing {
         Crossing(const std::string& _edgeID) :
-            edgeID(_edgeID), customTLIndex(-1) {}
+            edgeID(_edgeID), customTLIndex(-1), customTLIndex2(-1) {}
 
         std::string edgeID;
         std::vector<std::string> crossingEdges;
@@ -293,6 +293,7 @@ private:
         bool priority;
         PositionVector customShape;
         int customTLIndex;
+        int customTLIndex2;
     };
 
     /** @struct WalkingAreaParsedCustomShape

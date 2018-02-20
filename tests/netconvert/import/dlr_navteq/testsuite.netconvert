@@ -17,9 +17,6 @@ street_names
 orig_names
 write_numerical_ids
 
-# use osm types for determining FRC (functional road class)
-import_from_osm
-
 # testing timerestrictions
 timerestriction
 prohibited_manoeuvres

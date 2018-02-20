@@ -209,7 +209,9 @@ public:
      * @param[in] deletedConnection If a valid connection is given a replacement def with this connection removed
      *   but all other information intact will be computed instead of guessing a new tlDef
      * @note: this should always be called with an active command group */
-    void invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedConnection = NBConnection::InvalidConnection);
+    void invalidateTLS(GNEUndoList* undoList, 
+            const NBConnection& deletedConnection = NBConnection::InvalidConnection,
+            const NBConnection& addedConnection = NBConnection::InvalidConnection);
 
     /// @brief replace one edge by another in all tls connections
     void replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList); 
