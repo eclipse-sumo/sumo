@@ -72,6 +72,7 @@
 #include "GNEUndoList.h"
 #include "GNEPOI.h"
 #include "GNEAdditionalHandler.h"
+#include "GNETLSEditorFrame.h"
 
 
 // ===========================================================================
@@ -96,8 +97,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,                                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,                           GNEApplicationWindow::onCmdOpenAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                           GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS,            GNEApplicationWindow::onCmdOpenTLSPrograms),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_TLSPROGRAMS,                           GNEApplicationWindow::onCmdOpenTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_TLSPROGRAMS,                           GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                 GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                 GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                                     GNEApplicationWindow::onCmdReload),
@@ -431,7 +432,7 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuTLS = new FXMenuPane(this);
     new FXMenuCommand(myFileMenuTLS,
                     "load TLS Programs...\t\tload TLS Programs in all Traffic Lights of the net.",
-                    GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_GNE_TOOLBARFILE_LOADTLSPROGRAMS);
+                    GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_OPEN_TLSPROGRAMS);
     mySaveTLSProgramsMenuCommand = new FXMenuCommand(myFileMenuTLS,
                       "Save TLS Programs \t\tSave TLS Programs of all Traffic Lights of the current net.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
@@ -681,7 +682,7 @@ long
 GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Open Netconvert Configuration");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
     if (gCurrentFolder.length() != 0) {
@@ -701,7 +702,7 @@ long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Open Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -732,7 +733,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
     }
     // get the new file name
     FXFileDialog opendialog(this, "Import Foreign Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODECREATEEDGE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     FXString osmPattern("OSM net (*.osm.xml,*.osm)");
     opendialog.setPatternText(0, osmPattern);
@@ -769,7 +770,7 @@ long
 GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     // get the shape file name
     FXFileDialog opendialog(this, "Open Shapes file");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODEPOLYGON));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Shape files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -792,9 +793,9 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
-    // get the shape file name
+    // get the Additional file name
     FXFileDialog opendialog(this, "Open Additionals file");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Additional files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -803,8 +804,6 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        // Start operation for undo/redo
-        myUndoList->p_begin("load additionals");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
         // Run parser
@@ -818,7 +817,6 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
             update();
         }
-        myUndoList->p_end();
     }
     return 1;
 }
@@ -826,6 +824,28 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
+    // get the shape file name
+    FXFileDialog opendialog(this, "Open TLSPrograms file");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODETLS));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("TLSProgram files (*.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // Run parser
+        myUndoList->p_begin("Loading TLS Programs from '" + file + "'");
+        if(myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
+            // Abort undo/redo
+            myUndoList->abort();
+        } else {
+            // commit undo/redo operation
+            myUndoList->p_end();
+            update();
+        }
+    }
     return 1;
 }
 
@@ -1365,7 +1385,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     // Open a dialog to set filename output
                     myAdditionalsFile = MFXUtils::getFilename2Write(this,
                                         "Select name of the additional file", ".xml",
-                                        GUIIconSubSys::getIcon(ICON_EMPTY),
+                                        GUIIconSubSys::getIcon(ICON_MODETLS),
                                         gCurrentFolder).text();
                     // set obtanied filename output into additionalSavePath (can be "")
                     additionalSavePath = myAdditionalsFile;
@@ -1423,7 +1443,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     // Open a dialog to set filename output
                     myShapesFile = MFXUtils::getFilename2Write(this,
                                    "Select name of the shape file", ".xml",
-                                   GUIIconSubSys::getIcon(ICON_EMPTY),
+                                   GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
                                    gCurrentFolder).text();
                     // set obtanied filename output into shapeSavePath (can be "")
                     shapeSavePath = myShapesFile;
@@ -1517,7 +1537,7 @@ long
 GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Save Network as", ".net.xml",
-                    GUIIconSubSys::getIcon(ICON_EMPTY),
+                    GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
                     gCurrentFolder);
     if (file == "") {
         return 1;
@@ -1535,7 +1555,7 @@ long
 GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the plain-xml edge-file (other names will be deduced from this)", "",
-                    GUIIconSubSys::getIcon(ICON_EMPTY),
+                    GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
                     gCurrentFolder);
     if (file == "") {
         return 1;
@@ -1587,7 +1607,7 @@ long
 GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the joined-junctions file", ".nod.xml",
-                    GUIIconSubSys::getIcon(ICON_EMPTY),
+                    GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
                     gCurrentFolder);
     if (file == "") {
         return 1;
@@ -1634,7 +1654,7 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
         if (myShapesFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the shape file", ".xml",
-                            GUIIconSubSys::getIcon(ICON_EMPTY),
+                            GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
                             gCurrentFolder);
             if (file == "") {
                 // None shapes file was selected, then stop function
@@ -1674,7 +1694,7 @@ long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
     // Open window to select shape file
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the shape file", ".xml",
-                    GUIIconSubSys::getIcon(ICON_EMPTY),
+                    GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
                     gCurrentFolder);
     if (file != "") {
         // Set new shape file
@@ -1743,7 +1763,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         if (myAdditionalsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the additional file", ".xml",
-                            GUIIconSubSys::getIcon(ICON_EMPTY),
+                            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                             gCurrentFolder);
             if (file == "") {
                 // None additionals file was selected, then stop function
@@ -1806,7 +1826,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         if (myTLSProgramsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the additional file", ".xml",
-                            GUIIconSubSys::getIcon(ICON_EMPTY),
+                            GUIIconSubSys::getIcon(ICON_MODETLS),
                             gCurrentFolder);
             if (file == "") {
                 // None TLS Programs file was selected, then stop function
