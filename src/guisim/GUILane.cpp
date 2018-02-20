@@ -273,10 +273,14 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     if (getEdge().isCrossing()) {
         // draw rules at the start and end of the crossing
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        MSLink* link2 = myLinks.front();
+        if (link2->getTLLogic() == 0) {
+            link2 = link;
+        }
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
         drawLinkRule(s, net, link, shape, 0, myWidth);
-        drawLinkRule(s, net, link, shape.reverse(), 0, myWidth);
+        drawLinkRule(s, net, link2, shape.reverse(), 0, myWidth);
         return;
     }
     // draw all links
