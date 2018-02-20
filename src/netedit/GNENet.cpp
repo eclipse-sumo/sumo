@@ -607,6 +607,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
                                          crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
                                          crossing->getNBCrossing()->customTLIndex,
+                                         crossing->getNBCrossing()->customTLIndex2,
                                          crossing->getNBCrossing()->customShape, selected, false), true);
     // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();

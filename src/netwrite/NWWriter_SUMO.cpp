@@ -172,7 +172,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         // write connections from pedestrian crossings
         std::vector<NBNode::Crossing*> crossings = node->getCrossings();
         for (auto c : crossings) {
-            NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "");
+            NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "", LINKDIR_STRAIGHT, c->tlLinkIndex2);
         }
         // write connections from pedestrian walking areas
         for (const NBNode::WalkingArea& wa : node->getWalkingAreas()) {
@@ -663,7 +663,7 @@ void
 NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
                                        const std::string& from, const std::string& to,
                                        int fromLane, int toLane, const std::string& via,
-                                       LinkDirection dir) {
+                                       LinkDirection dir, int linkIndex) {
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);
     into.writeAttr(SUMO_ATTR_TO, to);
@@ -671,6 +671,10 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
     into.writeAttr(SUMO_ATTR_TO_LANE, toLane);
     if (via != "") {
         into.writeAttr(SUMO_ATTR_VIA, via);
+    }
+    if (linkIndex != NBConnection::InvalidTlIndex) {
+        // used for the reverse direction of pedestrian crossings
+        into.writeAttr(SUMO_ATTR_TLLINKINDEX, linkIndex);
     }
     into.writeAttr(SUMO_ATTR_DIR, dir);
     into.writeAttr(SUMO_ATTR_STATE, (via != "" ? "m" : "M"));

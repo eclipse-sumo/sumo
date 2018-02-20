@@ -559,6 +559,7 @@ NBLoadedSUMOTLDef::getMaxIndex() const {
     for (NBNode* n : myControlledNodes) {
         for (NBNode::Crossing* c : n->getCrossings()) {
             maxIndex = MAX2(maxIndex, c->tlLinkIndex);
+            maxIndex = MAX2(maxIndex, c->tlLinkIndex2);
         }
     }
     return maxIndex;

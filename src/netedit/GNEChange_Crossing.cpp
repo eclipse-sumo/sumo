@@ -46,13 +46,14 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, NULL, 0)
 
 /// @brief constructor for creating an crossing
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
-                                       double width, bool priority, int customTLIndex, const PositionVector& customShape, bool selected, bool forward):
+                                       double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
     GNEChange(junctionParent->getNet(), forward),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
     myPriority(priority),
     myCustomTLIndex(customTLIndex),
+    myCustomTLIndex2(customTLIndex2),
     myCustomShape(customShape),
     mySelected(selected) {
     assert(myNet);
@@ -92,7 +93,7 @@ void GNEChange_Crossing::undo() {
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode
-        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex,  myCustomShape);
+        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
@@ -127,7 +128,7 @@ void GNEChange_Crossing::redo() {
             WRITE_WARNING("Adding " + selected + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
-        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority);
+        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);

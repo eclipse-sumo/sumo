@@ -702,6 +702,9 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                         const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
                         undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
+                        const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
                     }
                 }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(tlDef, tlDef->getLogic());

@@ -598,6 +598,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TLTYPE,
     /// @brief link: the index of the link within the traffic light
     SUMO_ATTR_TLLINKINDEX,
+    /// @brief link: the index of the opposite direction link of a pedestrian crossing
+    SUMO_ATTR_TLLINKINDEX2,
     /// @brief edge: the shape in xml-definition
     SUMO_ATTR_SHAPE,
     /// @brief The information about how to spread the lanes from the given position

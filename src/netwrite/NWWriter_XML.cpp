@@ -325,6 +325,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             if (c->customTLIndex != -1) {
                 cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX, c->customTLIndex);
             }
+            if (c->customTLIndex2 != -1) {
+                cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX2, c->customTLIndex2);
+            }
             if (c->customShape.size() != 0) {
                 cdevice.writeAttr(SUMO_ATTR_SHAPE, c->customShape);
             }
