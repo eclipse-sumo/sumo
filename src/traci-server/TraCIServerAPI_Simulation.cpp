@@ -220,7 +220,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires a compound object.", outputStorage);
                 }
-                if (inputStorage.readInt() != 12) {
+                if (inputStorage.readInt() != 13) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires twelve parameter.", outputStorage);
                 }
                 std::string from, to, modes, ptype, vtype, destStop;
