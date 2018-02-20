@@ -38,6 +38,9 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netwrite/NWWriter_SUMO.h>
+#include <netimport/NIXMLTrafficLightsHandler.h>
+#include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNetBuilder.h>
 
 #include "GNETLSEditorFrame.h"
 #include "GNEViewNet.h"
@@ -190,21 +193,10 @@ GNETLSEditorFrame::isTLSSaved() {
 
 bool 
 GNETLSEditorFrame::parseTLSPrograms(const std::string &file) {
-    // first clear loaded phases
-    myTLSFile->clearLoadedPhases();
-    // run parser and obtain all TLSPrograms
-    XMLSubSys::runParser(*myTLSFile, file, true);
-    // iterate over loaded phases
-    for(auto i : myTLSFile->getLoadedPhases()) {
-        /**
-        if(myViewNet->getNet()->retrieveJunction(i.first->getID(), false) && 
-           (myViewNet->getNet()->retrieveJunction(i.first->getID())->getNBNode()->getControllingTLS().size() > 0)) {
-
-            for (int i = 0; i < (int)myLoadedPhases.size(); i++) {
-                    myTLSEditorParent->myEditedDef->getLogic()->addStep(myLoadedPhases[0].at(i).duration, myLoadedPhases[0].at(i).state, myLoadedPhases[0].at(i).minDur, myLoadedPhases[0].at(i).maxDur);
-                }
-        **/
-    }
+    NBTrafficLightLogicCont tmpCont;
+    NIXMLTrafficLightsHandler* handler = new NIXMLTrafficLightsHandler(tmpCont, myViewNet->getNet()->getNetBuilder()->getEdgeCont());
+    XMLSubSys::runParser(*handler, file);
+    // create all loaded defs in tmpCont using GNEChange_TLS
 
     return true;
 }
@@ -234,7 +226,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
-            myEditedDef = 0;
+            myEditedDef = NULL;
             myViewNet->getUndoList()->p_end();
             cleanup();
             myViewNet->update();
@@ -534,7 +526,7 @@ GNETLSEditorFrame::cleanup() {
     myTLSJunction->setCurrentJunction(NULL);
     myTLSModifications->setHaveModifications(false);
     delete myEditedDef;
-    myEditedDef = 0;
+    myEditedDef = NULL;
     buildIinternalLanes(0); // only clears
     // clean up controls
     myTLSAttributes->clearTLSAttributes();
@@ -1012,7 +1004,6 @@ GNETLSEditorFrame::TLSFile::myStartElement(int element, const SUMOSAXAttributes&
             int programID = attrs.get<int>(SUMO_ATTR_PROGRAMID, 0, ok);
             std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
             int offset = attrs.get<int>(SUMO_ATTR_OFFSET, 0, ok);
-
             TrafficLightType typeEnum = TLTYPE_STATIC;
             myLastInsertedTLLogic = new NBTrafficLightLogic(id, toString(programID), 0, offset, typeEnum);
             myLoadedPhases[myLastInsertedTLLogic] = std::vector<NBTrafficLightLogic::PhaseDefinition>();
@@ -1078,15 +1069,21 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         clearLoadedPhases();
         // run parser
         XMLSubSys::runParser(*this, opendialog.getFilename().text(), true);
+
+        myTLSEditorParent->myEditedDef->cleanupStates();
+
         // check that only a phase was loaded
-        if(myLoadedPhases.size() == 1) {
-            myTLSEditorParent->myEditedDef->getLogic()->resetPhases();
-            for (auto i : myLoadedPhases.begin()->second) {
-                myTLSEditorParent->myEditedDef->getLogic()->addStep(i.duration, i.state, i.minDur, i.maxDur);
+        for(auto i : myLoadedPhases) {
+            if(i.first->getID() == myTLSEditorParent->myTLSJunction->getCurrentJunction()->getID()) {
+                myTLSEditorParent->myEditedDef->getProgramID();
+
+                for (auto j : i.second) {
+                    myTLSEditorParent->myEditedDef->getLogic()->addStep(j.duration, j.state, j.minDur, j.maxDur);
+                }
             }
-            myTLSEditorParent->myTLSPhases->initPhaseTable();
-            myTLSEditorParent->myTLSModifications->setHaveModifications(true);
         }
+        myTLSEditorParent->myTLSPhases->initPhaseTable();
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
     }
     return 0;
 }
