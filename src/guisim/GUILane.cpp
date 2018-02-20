@@ -232,11 +232,18 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         // draw indices at the start and end of the crossing
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
         int linkNo = net.getLinkTLIndex(link);
+        // maybe the reverse link is controlled separately
+        int linkNo2 = net.getLinkTLIndex(myLinks.front());
+        // otherwise, use the same index as the forward link
+        MSLink* link2 = myLinks.front();
+        if (linkNo2 < 0) {
+            linkNo2 = linkNo;
+        }
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
             GLHelper::drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
-            GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+            GLHelper::drawTextAtEnd(toString(linkNo2), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         }
         return;
     }
