@@ -82,6 +82,7 @@
 #include "MSRoute.h"
 #include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
+#include "MSDriverState.h"
 
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
@@ -663,7 +664,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myCollisionImmunity(-1),
     myCachedPosition(Position::INVALID),
     myEdgeWeights(0),
-    myInfluencer(0)
+    myInfluencer(0),
+    myDriverState(nullptr)
 {
     if (!(*myCurrEdge)->isTazConnector()) {
         if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
@@ -682,6 +684,9 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
+    if (type->getCarFollowModel().getModelID() == SUMO_TAG_CF_TCI) {
+        myDriverState = std::make_shared<MSDriverState>(this);
+    }
     myNextDriveItem = myLFLinkLanes.begin();
 }
 
@@ -1664,6 +1669,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         }
 #endif
         // During non-action passed drive items still need to be removed
+        // @todo rather work with updating myCurrentDriveItem (refs #3714)
         removePassedDriveItems();
         return;
     } else {
@@ -1713,6 +1719,10 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 void
 MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist) const {
+    // Serving the task difficulty interface
+    if (myDriverState != nullptr) {
+        myDriverState->registerEgoVehicleState();
+    }
     // remove information about approaching links, will be reset later in this step
     removeApproachingInformation(lfLinks);
     lfLinks.clear();
@@ -1735,12 +1745,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     // v is the initial maximum velocity of this vehicle in this step
     double v = MIN2(maxV, laneMaxV);
     if (myInfluencer != 0) {
-        //const double vMin = MAX2(0., cfModel.getSpeedAfterMaxDecel(myState.mySpeed));
         const double vMin = MAX2(0., cfModel.minNextSpeed(myState.mySpeed, this));
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
     }
     // all links within dist are taken into account (potentially)
-    // the distance already "seen"; in the following always up to the end of the current "lane"
     const double dist = SPEED2DIST(maxV) + cfModel.brakeGap(maxV);
 
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
@@ -1751,7 +1759,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
     assert(bestLaneConts.size() > 0);
     bool hadNonInternal = false;
-    double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos; // the distance already "seen"; in the following always up to the end of the current "lane"
+    // the distance already "seen"; in the following always up to the end of the current "lane"
+    double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos;
     double seenNonInternal = 0;
     double vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(seen, v, cfModel.getMaxAccel()), laneMaxV); // upper bound
     int view = 0;
@@ -1813,12 +1822,21 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
+                // Serving the task difficulty interface
+                if (myDriverState != nullptr) {
+                    myDriverState->registerPedestrian(leader.first, leader.second);
+                }
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
                 }
 #endif
             }
+        }
+
+        if (myDriverState != nullptr && lane->getSpeedLimit() < myLane->getSpeedLimit()) {
+            // Serving the task difficulty interface
+            myDriverState->registerSpeedLimit(lane, lane->getSpeedLimit(), seen - lane->getLength());
         }
 
         // process stops
@@ -1900,6 +1918,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
         const bool yellowOrRed = (*link)->haveRed() || (*link)->haveYellow();
+        if (myDriverState != nullptr && (*link)->getTLLogic() != 0) {
+            // Serving the task difficulty interface
+            myDriverState->registerTLS(*link, seen);
+        }
         // We distinguish 3 cases when determining the point at which a vehicle stops:
         // - links that require stopping: here the vehicle needs to stop close to the stop line
         //   to ensure it gets onto the junction in the next step. Otherwise the vehicle would 'forget'
@@ -1956,6 +1978,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << "\n";
         }
 #endif
+
+        // TODO: Consider option on the CFModel side to allow red/yellow light violation
+
         if (yellowOrRed && canBrake && !ignoreRed(*link, canBrake)) {
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait, false, t + TIME2STEPS(seen / MAX2(vLinkWait, NUMERICAL_EPS)), vLinkWait, 0, 0, seen));
@@ -2134,6 +2159,10 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             }
 #endif
             adaptToLeader(std::make_pair(pred, gap), seen, lastLink, lane, v, vLinkPass);
+            // task difficulty interface, @see MSCFModel_TCI
+            if (myDriverState != nullptr) {
+                myDriverState->registerLeader(pred, gap);
+            }
         }
     }
 }

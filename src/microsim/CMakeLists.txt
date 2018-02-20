@@ -79,8 +79,8 @@ set(microsim_STAT_SRCS
    MSVehicleType.h
    MSStateHandler.h
    MSStateHandler.cpp
-   MSTrafficItem.h
-   MSTrafficItem.cpp
+   MSDriverState.h
+   MSDriverState.cpp
    MSTransportable.h
    MSTransportable.cpp
    MSTransportableControl.h

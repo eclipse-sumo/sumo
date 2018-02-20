@@ -42,6 +42,8 @@
 class MSVehicleType;
 class MSVehicle;
 class MSLane;
+class MSPerson;
+class MSLink;
 
 
 // ===========================================================================
@@ -531,7 +533,6 @@ public:
      * If a negative value is returned, the required stop has to take place before the end of the time step.
      */
     double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
-
 
 protected:
     /// @brief The type to which this model definition belongs to

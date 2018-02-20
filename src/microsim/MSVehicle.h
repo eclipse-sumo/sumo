@@ -42,6 +42,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <memory>
 #include "MSGlobals.h"
 #include "MSVehicleType.h"
 #include "MSBaseVehicle.h"
@@ -70,6 +71,7 @@ class MSDevice_Transportable;
 class MSContainer;
 class MSJunction;
 class MSLeaderInfo;
+class MSDriverState;
 
 // ===========================================================================
 // class definitions
@@ -1684,6 +1686,9 @@ protected:
 
     /// @brief This Vehicles driving state (pos and speed)
     State myState;
+
+    /// @brief This vehicle's driver state @see MSDriverState
+    std::shared_ptr<MSDriverState> myDriverState;
 
     /// @brief The flag myActionStep indicates whether the current time step is an action point for the vehicle.
     bool myActionStep;
