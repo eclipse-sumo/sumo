@@ -212,7 +212,6 @@ GLHelper::drawBoxLines(const PositionVector& geom,
                 }
                 drawFilledCircle(MIN2(lengths[i], width + offset), cornerDetail, angleBeg, angleEnd);
             }
-            glEnd();
             glPopMatrix();
         }
     }
