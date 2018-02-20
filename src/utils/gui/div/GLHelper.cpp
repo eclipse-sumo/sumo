@@ -192,26 +192,23 @@ GLHelper::drawBoxLines(const PositionVector& geom,
         for (int i = 1; i < e; i++) {
             glPushMatrix();
             glTranslated(geom[i].x(), geom[i].y(), 0.1);
+            double angleBeg = -rots[i - 1];
+            double angleEnd = 180 - rots[i];
             if (rightTurn(rots[i - 1], rots[i])) {
-                // inside corner
-                drawFilledCircle(MIN2(lengths[i], width - offset), cornerDetail);
-            } else {
-                // outside corner, make sure to only draw a segment of the circle
-                double angleBeg = -rots[i - 1];
-                double angleEnd = 180 - rots[i];
-                // avoid drawing more than 360 degrees
-                if (angleEnd - angleBeg > 360) {
-                    angleBeg += 360;
-                }
-                if (angleEnd - angleBeg < -360) {
-                    angleEnd += 360;
-                }
-                // for a left tur, draw the right way around
-                if (angleEnd > angleBeg) {
-                    angleEnd -= 360;
-                }
-                drawFilledCircle(MIN2(lengths[i], width + offset), cornerDetail, angleBeg, angleEnd);
+                std::swap(angleBeg, angleEnd);
             }
+            // avoid drawing more than 360 degrees
+            if (angleEnd - angleBeg > 360) {
+                angleBeg += 360;
+            }
+            if (angleEnd - angleBeg < -360) {
+                angleEnd += 360;
+            }
+            // draw the right way around
+            if (angleEnd > angleBeg) {
+                angleEnd -= 360;
+            }
+            drawFilledCircle(width + offset, cornerDetail, angleBeg, angleEnd);
             glPopMatrix();
         }
     }
