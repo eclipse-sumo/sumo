@@ -40,6 +40,7 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_XML.h>
+#include <netwrite/NWWriter_SUMO.h>
 #include <utility>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
@@ -2023,19 +2024,11 @@ GNENet::requiereSaveTLSPrograms() {
 
 void 
 GNENet::saveTLSPrograms(const std::string& filename) {
-    // save TLSPrograms
+    // open output device
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
-    /**
-    // write only visible polygons
-    for (const auto& i : myPolygons) {
-        dynamic_cast<GNETLSProgram*>(i.second)->writeTLSProgram(device);
-    }
-    // write only visible POIs
-    for (const auto& i : myPOIs) {
-        dynamic_cast<GNETLSProgram*>(i.second)->writeTLSProgram(device);
-    }
-    **/
+    // write traffic lights using NWWriter
+    NWWriter_SUMO::writeTrafficLights(device, getTLLogicCont());
     device.close();
     // change flag to true
     myTLSProgramsSaved = true;
