@@ -182,6 +182,7 @@ private:
                                         const std::string& from, const std::string& to,
                                         int fromLane, int toLane, const std::string& via,
                                         LinkDirection dir = LINKDIR_STRAIGHT,
+                                        const std::string& tlID = "",
                                         int linkIndex = NBConnection::InvalidTlIndex);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
