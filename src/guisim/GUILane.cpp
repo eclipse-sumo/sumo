@@ -602,10 +602,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     if (s.drawLinkTLIndex.show) {
                         drawTLSLinkNo(s, *net);
                     }
-                    // make sure link rules are drawn so tls can be selected via right-click
-                    if (s.showLinkRules) {
-                        drawLinkRules(s, *net);
-                    }
+                }
+                // make sure link rules are drawn so tls can be selected via right-click
+                if (s.showLinkRules && (drawDetails || s.drawForSelecting)) {
+                    drawLinkRules(s, *net);
                 }
                 if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
                     //  draw from end of first to the begin of second but respect junction scaling
