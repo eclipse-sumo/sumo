@@ -48,6 +48,11 @@ eventQueue = Queue.Queue()
 TS = 0.05
 VERBOSE = False
 MAX_STEER_ANGLE = 15
+MIN_SPEED = -5
+MAX_OFFROAD_SPEED = 20 
+OFFROAD_DECEL_TIME = 8 
+OFFROAD_DECEL = 1.5
+#autopy = None # disable mouse control
 
 
 def leftKey(event):
@@ -87,17 +92,20 @@ def mouseMove(screenWidth, screenHeight):
             print("Mouse at x=%s y=%s (dx=%s, dy=%s)" % (x,y, dx, dy))
     return motion
 
-def mouseControl(master, speed, accel=2.6, decel=4.5):
-    centerX = master.winfo_screenwidth() / 2.0;
-    centerY = master.winfo_screenheight() / 2.0;
-    x, y = autopy.mouse.get_pos()
-    dx = (x - centerX) / centerX
-    dy = (y - centerY) / centerY
-    if dy < 0:
-        speed -= dy * TS * accel
-    else:
-        speed -= dy * TS * decel
-    steerAngle = MAX_STEER_ANGLE * dx
+def mouseControl(master, speed, steerAngle, accel=2.6, decel=4.5):
+    try:
+        centerX = master.winfo_screenwidth() / 2.0;
+        centerY = master.winfo_screenheight() / 2.0;
+        x, y = autopy.mouse.get_pos()
+        dx = (x - centerX) / centerX
+        dy = (y - centerY) / centerY
+        if dy < 0:
+            speed -= dy * TS * accel
+        else:
+            speed -= dy * TS * decel
+        steerAngle = MAX_STEER_ANGLE * dx
+    except:    
+        pass
     return speed, steerAngle
 
 
@@ -179,9 +187,15 @@ class RacingClient:
                         except Queue.Empty:
                             pass
                     if autopy:
-                        speed, steerAngle = mouseControl(self.master, speed)
+                        speed, steerAngle = mouseControl(self.master, speed, steerAngle)
                     # move vehicle
-                    speed = max(-5, min(speed, traci.vehicle.getMaxSpeed(self.egoID)))
+                    #posLat = traci.vehicle.getLateralLanePosition(self.egoID)
+                    if traci.vehicle.getLaneID(self.egoID) == "":
+                        speed -= TS * OFFROAD_DECEL;
+                        if speed > MAX_OFFROAD_SPEED:
+                            speed -= (speed - MAX_OFFROAD_SPEED) / OFFROAD_DECEL_TIME
+
+                    speed = max(MIN_SPEED, min(speed, traci.vehicle.getMaxSpeed(self.egoID)))
                     steerAngle = min(MAX_STEER_ANGLE, max(-MAX_STEER_ANGLE, steerAngle))
                     angle += steerAngle
                     angle = angle % 360
@@ -190,6 +204,7 @@ class RacingClient:
                     y2 = y + math.sin(rad) * TS * speed
                     traci.vehicle.moveToXY(self.egoID, "dummy", -1, x2, y2, angle, keepRoute=2)
                     traci.vehicle.setSpeed(self.egoID, speed)
+                    traci.vehicle.setLine(self.egoID, str(speed))
                     x3, y3 = traci.vehicle.getPosition(self.egoID)
                     x, y = x2, y2
                     traci.simulationStep()
