@@ -1,5 +1,5 @@
 /* XPM */
-static char *ParkingArea_ergebnis_xpm[] = {
+static const char *parkingarea_xpm[] = {
 /* width height num_colors chars_per_pixel */
 "    16    16      256            2",
 /* colors */
