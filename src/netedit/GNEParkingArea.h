@@ -54,10 +54,12 @@ public:
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of ParkingArea
-     * @param[in] lines lines of the ParkingArea
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] width ParkingArea's length
+     * @param[in] length ParkingArea's length
+     * @param[in] angle ParkingArea's angle
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, bool friendlyPosition, double width, double length, double angle);
 
     /// @brief Destructor
     ~GNEParkingArea();
@@ -66,9 +68,6 @@ public:
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;
-
-    /// @brief get string vector with the lines of the ParkingArea
-    const std::vector<std::string>& getLines() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -109,18 +108,24 @@ public:
     /// @}
 
 protected:
-    /// @brief The list of lines that are assigned to this stop
-    std::vector<std::string> myLines;
+    /// @brief width of Parking Area
+    double myWidth;
+
+    /// @brief Lenght of Parking Area
+    double myLength;
+
+    /// @brief Angle of Parking Area
+    double myAngle;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEParkingArea(const GNEParkingArea&);
+    GNEParkingArea(const GNEParkingArea&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEParkingArea& operator=(const GNEParkingArea&);
+    GNEParkingArea& operator=(const GNEParkingArea&) = delete;
 };
 
 

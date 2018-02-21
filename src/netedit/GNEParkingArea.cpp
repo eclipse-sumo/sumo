@@ -57,9 +57,11 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition) :
+GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, bool friendlyPosition, double width, double length, double angle) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition),
-    myLines(lines) {
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
 }
 
 
@@ -106,17 +108,11 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    if (myLines.size() > 0) {
-        device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
-    }
+    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     // Close tag
     device.closeTag();
-}
-
-
-const std::vector<std::string>&
-GNEParkingArea::getLines() const {
-    return myLines;
 }
 
 
@@ -149,26 +145,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 
         // Add a draw matrix for details
         glPushMatrix();
-
-        // Iterate over every line
-        for (int i = 0; i < (int)myLines.size(); ++i) {
-            // push a new matrix for every line
-            glPushMatrix();
-
-            // Rotate and traslaste
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIconRotation, 0, 0, 1);
-
-            // draw line with a color depending of the selection status
-            if (isAdditionalSelected()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
-            } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
-            }
-
-            // pop matrix for every line
-            glPopMatrix();
-        }
 
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
@@ -210,9 +186,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
             if (isAdditionalSelected()) {
-                GLHelper::drawText("H", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("P", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, RGBColor(76, 170, 50, 255), myBlockIconRotation);
+                GLHelper::drawText("P", Position(), .1, 1.6, RGBColor(76, 170, 50, 255), myBlockIconRotation);
             }
         }
 
@@ -252,8 +228,12 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return myName;
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
-        case SUMO_ATTR_LINES:
-            return joinToString(myLines, " ");
+        case SUMO_ATTR_WIDTH:
+            return toString(myWidth);
+        case SUMO_ATTR_LENGTH:
+            return toString(myLength);
+        case SUMO_ATTR_ANGLE:
+            return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
@@ -274,7 +254,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
-        case SUMO_ATTR_LINES:
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -313,8 +295,12 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
-        case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_WIDTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_ANGLE:
+            return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -347,8 +333,14 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
             break;
-        case SUMO_ATTR_LINES:
-            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
+        case SUMO_ATTR_WIDTH:
+            myWidth = parse<double>(value);
+            break;
+        case SUMO_ATTR_LENGTH:
+            myLength = parse<double>(value);
+            break;
+        case SUMO_ATTR_ANGLE:
+            myAngle = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);

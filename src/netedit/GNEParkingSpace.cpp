@@ -57,9 +57,13 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_PARKING_SPACE, ICON_PARKINGSPACE, lane, startPos, endPos, name, friendlyPosition),
-    myLines(lines) {
+GNEParkingSpace::GNEParkingSpace(const std::string& id, GNEViewNet* viewNet, const Position &pos, double z, double width, double length, double angle) :
+    GNEAdditional(id, viewNet, SUMO_TAG_PARKING_SPACE, ICON_PARKINGSPACE, true),
+    myPosition(pos),
+    myZ(z),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
 }
 
 
@@ -67,10 +71,41 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 
 void
+GNEParkingSpace::writeAdditional(OutputDevice& device) const {
+    // Write parameters
+    device.openTag(getTag());
+    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+    device.writeAttr(SUMO_ATTR_Z, myZ);
+    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    // Close tag
+    device.closeTag();
+}
+
+
+void 
+GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) {
+    // restore old position, apply offset and update Geometry
+    myPosition = oldPos;
+    myPosition.add(offset);
+    updateGeometry();
+}
+
+
+void 
+GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * undoList) {
+    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_end();
+}
+
+
+void
 GNEParkingSpace::updateGeometry() {
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
-
+    /**
     // Update common geometry of stopping place
     setStoppingPlaceGeometry();
 
@@ -88,40 +123,27 @@ GNEParkingSpace::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
-
+    **/
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 }
 
 
-void
-GNEParkingSpace::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_STARTPOS, getAbsoluteStartPosition());
-    device.writeAttr(SUMO_ATTR_ENDPOS, getAbsoluteEndPosition());
-    if (myName.empty() == false) {
-        device.writeAttr(SUMO_ATTR_NAME, myName);
-    }
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    if (myLines.size() > 0) {
-        device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
-    }
-    // Close tag
-    device.closeTag();
+Position 
+GNEParkingSpace::getPositionInView() const {
+    return myPosition;
 }
 
 
-const std::vector<std::string>&
-GNEParkingSpace::getLines() const {
-    return myLines;
+const std::string&
+GNEParkingSpace::getParentName() const {
+    return myViewNet->getNet()->getMicrosimID();
 }
 
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
+    /**
     // Start drawing adding an gl identificator
     glPushName(getGlID());
 
@@ -234,6 +256,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && myName != "") {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, myBlockIconRotation);
     }
+    **/
 }
 
 
@@ -242,18 +265,16 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_LANE:
-            return myLane->getID();
-        case SUMO_ATTR_STARTPOS:
-            return toString(getAbsoluteStartPosition());
-        case SUMO_ATTR_ENDPOS:
-            return toString(getAbsoluteEndPosition());
-        case SUMO_ATTR_NAME:
-            return myName;
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
-        case SUMO_ATTR_LINES:
-            return joinToString(myLines, " ");
+        case SUMO_ATTR_POSITION:
+            return toString(myPosition);
+        case SUMO_ATTR_Z:
+            return toString(myZ);
+        case SUMO_ATTR_WIDTH:
+            return toString(myWidth);
+        case SUMO_ATTR_LENGTH:
+            return toString(myLength);
+        case SUMO_ATTR_ANGLE:
+            return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         default:
@@ -268,13 +289,11 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_STARTPOS:
-        case SUMO_ATTR_ENDPOS:
-        case SUMO_ATTR_NAME:
-        case SUMO_ATTR_FRIENDLY_POS:
-        case SUMO_ATTR_LINES:
+        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_Z:
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -287,34 +306,16 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 bool
 GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_POSITION:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
-                return true;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_STARTPOS:
-            if (canParse<double>(value)) {
-                // Check that new start Position is smaller that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) < myEndPosRelative);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (canParse<double>(value)) {
-                // Check that new end Position is larger that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) > myStartPosRelative);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_NAME:
-            return true;
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
-        case SUMO_ATTR_LINES:
-            return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_Z:
+            return canParse<double>(value);
+        case SUMO_ATTR_WIDTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_ANGLE:
+            return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         default:
@@ -329,26 +330,20 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+        case SUMO_ATTR_POSITION:
+            myPosition = parse<Position>(value);
             break;
-        case SUMO_ATTR_LANE:
-            myLane = changeLane(myLane, value);
+        case SUMO_ATTR_Z:
+            myZ = parse<double>(value);
             break;
-        case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+        case SUMO_ATTR_WIDTH:
+            myWidth = parse<double>(value);
             break;
-        case SUMO_ATTR_ENDPOS:
-            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+        case SUMO_ATTR_LENGTH:
+            myLength = parse<double>(value);
             break;
-        case SUMO_ATTR_NAME:
-            myName = value;
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            break;
-        case SUMO_ATTR_LINES:
-            myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
+        case SUMO_ATTR_ANGLE:
+            myAngle = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);

@@ -33,7 +33,7 @@
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
 #include <utils/geom/PositionVector.h>
 #include "GNEAttributeCarrier.h"
-#include "GNEStoppingPlace.h"
+#include "GNEAdditional.h"
 
 
 // ===========================================================================
@@ -44,20 +44,19 @@
  * @class GNEParkingSpace
  * @brief vehicle space used by GNEParkingAreas
  */
-class GNEParkingSpace : public GNEStoppingPlace {
+class GNEParkingSpace : public GNEAdditional {
 
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] startPos Start position of the StoppingPlace
-     * @param[in] endPos End position of the StoppingPlace
-     * @param[in] name Name of ParkingSpace
-     * @param[in] lines lines of the ParkingSpace
-     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] pos ParkingSpace's position
+     * @param[in] z ParkingSpace's Z position
+     * @param[in] width ParkingArea's width
+     * @param[in] length ParkingArea's length
+     * @param[in] angle ParkingArea's angle
      */
-    GNEParkingSpace(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition);
+    GNEParkingSpace(const std::string& id, GNEViewNet* viewNet, const Position &pos, double z, double width, double length, double angle);
 
     /// @brief Destructor
     ~GNEParkingSpace();
@@ -67,17 +66,33 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief get string vector with the lines of the ParkingSpace
-    const std::vector<std::string>& getLines() const;
-
     /// @name Functions related with geometry of element
     /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position& oldPos, const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+    /// @brief Returns the name of the parent object
+    /// @return This object's parent id
+    const std::string& getParentName() const;
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -109,18 +124,30 @@ public:
     /// @}
 
 protected:
-    /// @brief The list of lines that are assigned to this stop
-    std::vector<std::string> myLines;
+    /// @brief position of Parking Space in view
+    Position myPosition;
+
+    /// @brief z position of Parking Space
+    double myZ;
+
+    /// @brief width of Parking Space
+    double myWidth;
+
+    /// @brief Lenght of Parking Space
+    double myLength;
+
+    /// @brief Angle of Parking Space
+    double myAngle;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEParkingSpace(const GNEParkingSpace&);
+    GNEParkingSpace(const GNEParkingSpace&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEParkingSpace& operator=(const GNEParkingSpace&);
+    GNEParkingSpace& operator=(const GNEParkingSpace&) = delete;
 };
 
 

@@ -159,6 +159,18 @@ public:
      */
     void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses his values and builds a parking area
+     * @param[in] attrs SAXattributes which define the trigger
+     * @param[in] tag of the additional
+     */
+    void parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses his values and builds a parking space
+     * @param[in] attrs SAXattributes which define the trigger
+     * @param[in] tag of the additional
+     */
+    void parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds a mesoscopic or microscopic calibrator
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
@@ -286,6 +298,39 @@ public:
      */
     static bool buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, 
                                      double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay, bool friendlyPosition, bool blockMovement);
+
+    /**@brief Builds a Parking Area
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] id The id of the Parking >Area
+     * @param[in] lane The lane the Parking Area is placed on
+     * @param[in] startPos Begin position of the Parking Area on the lane
+     * @param[in] endPos End position of the Parking Area on the lane
+     * @param[in] name Name of Parking Area
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] width ParkingArea's length
+     * @param[in] length ParkingArea's length
+     * @param[in] angle ParkingArea's angle
+     * @param[in] blockMovemet enable or disable block movement
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
+     */
+    static bool buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, 
+                                 bool friendlyPosition, double width, double length, double angle, bool blockMovement);
+
+    /**@brief Builds a Parking Space
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] pos ParkingSpace's position
+     * @param[in] z ParkingSpace's Z position
+     * @param[in] width ParkingArea's width
+     * @param[in] length ParkingArea's length
+     * @param[in] angle ParkingArea's angle
+     * @param[in] blockMovemet enable or disable block movement
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
+     */
+    static bool buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, const Position &pos, double z, double width, double length, double angle, bool blockMovement);
 
     /**@brief Builds a induction loop detector (E1)
      * @param[in] viewNet viewNet in which element will be inserted
