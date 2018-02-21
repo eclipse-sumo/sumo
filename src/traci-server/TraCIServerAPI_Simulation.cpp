@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: TraCIServerAPI_Simulation.cpp v0_32_0+0483-665b60c05f oss@behrisch.de 2018-02-20 17:38:42 +0100 $
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
@@ -221,7 +221,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires a compound object.", outputStorage);
                 }
                 if (inputStorage.readInt() != 13) {
-                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires twelve parameter.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires thirteen parameters.", outputStorage);
                 }
                 std::string from, to, modes, ptype, vtype, destStop;
                 double depart, speed, walkFactor, departPos, arrivalPos, departPosLat;
