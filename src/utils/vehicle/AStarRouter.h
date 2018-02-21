@@ -223,7 +223,7 @@ public:
         // loop
         int num_visited = 0;
         const bool mayRevisit = myLookupTable != 0 && !myLookupTable->consistent();
-        const double speed = MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
+        const double speed = vehicle == nullptr ? myMaxSpeed : MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
         while (!myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
