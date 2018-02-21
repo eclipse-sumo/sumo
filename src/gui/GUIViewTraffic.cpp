@@ -402,6 +402,17 @@ GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GUIViewTraffic::onDoubleClicked(FXObject*, FXSelector, void*) {
+    // leave fullscreen mode
+    if (myApp->isFullScreen()) {
+        myApp->onCmdFullScreen(0, 0, 0);
+    }
+    return 1;
+}
+
+
+
 void
 GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
 #ifdef HAVE_FFMPEG
