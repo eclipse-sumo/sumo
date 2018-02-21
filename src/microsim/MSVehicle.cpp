@@ -4298,6 +4298,8 @@ MSVehicle::setBlinkerInformation() {
 
 void
 MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
+
+    //TODO look if timestep ist SIMSTEP
     if (currentTime % 1000 == 0) {
         if (signalSet(VEH_SIGNAL_EMERGENCY_BLUE)) {
             switchOffSignal(VEH_SIGNAL_EMERGENCY_BLUE);

@@ -603,6 +603,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             break;
         }
         case SVS_EMERGENCY: // similar to delivery
+            //sets default color for emergency vehicles to white
+            //current.set(1, 1, 1, 100);
             glColor3d(1, 1, 1);
             drawPoly(vehiclePoly_PassengerVanBody, 4);
             glColor3d(1, 0, 0);
@@ -1087,6 +1089,21 @@ bool
 GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
     switch (activeScheme) {
         case 0: {
+            //test for emergency vehicle
+            if (veh->getVehicleType().getGuiShape()== SVS_EMERGENCY) {
+                GLHelper::setColor(RGBColor(255, 255, 255, 255));
+                return true;
+            }
+            //test for firebrigade
+            if (veh->getVehicleType().getGuiShape() == SVS_FIREBRIGADE) {
+                GLHelper::setColor(RGBColor(255, 0, 0, 255));
+                return true;
+            }
+            //test for police car
+            if (veh->getVehicleType().getGuiShape() == SVS_POLICE) {
+                GLHelper::setColor(RGBColor(0, 0, 255, 255));
+                return true;
+            }
             if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
                 GLHelper::setColor(veh->getParameter().color);
                 return true;
