@@ -434,14 +434,14 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     edge->removeEdgeOfAdditionalParents(undoList, false);
     // delete all additionals childs of edge
     while (edge->getAdditionalChilds().size() > 0) {
-        undoList->add(new GNEChange_Additional(edge->getAdditionalChilds().front(), false), true);
+        myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(edge->getAdditionalChilds().front());
     }
     // delete all additionals childs of lane
     for (auto i : edge->getLanes()) {
         // remove lane of additional parents (For example, VSS)
         i->removeLaneOfAdditionalParents(undoList, false);
         while (i->getAdditionalChilds().size() > 0) {
-            undoList->add(new GNEChange_Additional(i->getAdditionalChilds().front(), false), true);
+            myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(i->getAdditionalChilds().front());
         }
     }
     // delete shapes childs of lane
@@ -542,7 +542,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         lane->removeLaneOfAdditionalParents(undoList, false);
         // delete additionals childs of lane
         while (lane->getAdditionalChilds().size() > 0) {
-            undoList->add(new GNEChange_Additional(lane->getAdditionalChilds().front(), false), true);
+            myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(lane->getAdditionalChilds().front());
         }
         // delete POIShapes of Lane
         while (lane->getShapeChilds().size() > 0) {
