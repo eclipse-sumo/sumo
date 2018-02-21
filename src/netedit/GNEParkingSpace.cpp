@@ -77,10 +77,18 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_X, myPosition.x());
     device.writeAttr(SUMO_ATTR_Y, myPosition.y());
-    device.writeAttr(SUMO_ATTR_Z, myZ);
-    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    if(myZ != 0) {
+        device.writeAttr(SUMO_ATTR_Z, myZ);
+    }
+    if(toString(myWidth) != myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH)) {
+        device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    }
+    if(toString(myLength) != myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH)) {
+        device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    }
+    if(toString(myAngle) != myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE)) {
+        device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    }
     // Close tag
     device.closeTag();
 }
@@ -173,6 +181,8 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
             return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -192,6 +202,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
+        case GNE_ATTR_PARENT:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -217,6 +228,8 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
+        case GNE_ATTR_PARENT:
+            return (myViewNet->getNet()->getAdditional(SUMO_TAG_PARKING_AREA, value) != NULL);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -249,6 +262,9 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlocked = parse<bool>(value);
+            break;
+        case GNE_ATTR_PARENT:
+            changeAdditionalParent(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

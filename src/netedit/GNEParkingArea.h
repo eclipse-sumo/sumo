@@ -60,7 +60,7 @@ public:
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, bool friendlyPosition, double roadSideCapacity, double width, double length, double angle);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, double width, double length, double angle);
 
     /// @brief Destructor
     ~GNEParkingArea();
@@ -113,7 +113,7 @@ public:
 
 protected:
     /// @brief roadside capacity of Parking Area
-    double myRoadSideCapacity;
+    int myRoadSideCapacity;
 
     /// @brief width of Parking Area
     double myWidth;

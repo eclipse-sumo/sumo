@@ -58,7 +58,7 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, 
-                               bool friendlyPosition, double roadSideCapacity, double width, double length, double angle) :
+                               bool friendlyPosition, int roadSideCapacity, double width, double length, double angle) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition),
     myRoadSideCapacity(roadSideCapacity),
     myWidth(width),
@@ -334,7 +334,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFriendlyPosition = parse<bool>(value);
             break;
         case SUMO_ATTR_ROADSIDE_CAPACITY:
-            myRoadSideCapacity = parse<double>(value);
+            myRoadSideCapacity = parse<int>(value);
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
