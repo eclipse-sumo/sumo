@@ -105,28 +105,17 @@ GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * und
 
 void
 GNEParkingSpace::updateGeometry() {
-    /**
-    // Get value of option "lefthand"
-    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    myShape.clear();
 
-    // Update common geometry of stopping place
-    setStoppingPlaceGeometry();
+    double w = myWidth / 2. - 0.;
+    double h = myLength;
+    myShape.push_back(myPosition + Position(- w, + 0, 0.));
+    myShape.push_back(myPosition + Position(+ w, + 0, 0.));
+    myShape.push_back(myPosition + Position(+ w, + h, 0.));
+    myShape.push_back(myPosition + Position(- w, + h, 0.));
+    myShape.push_back(myPosition + Position(- w, + 0, 0.));
 
-    // Obtain a copy of the shape
-    PositionVector tmpShape = myShape;
 
-    // Move shape to side
-    tmpShape.move2side(1.5 * offsetSign);
-
-    // Get position of the sign
-    mySignPos = tmpShape.getLineCenter();
-
-    // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
-
-    // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation(myLane);
-    **/
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 }
@@ -140,126 +129,30 @@ GNEParkingSpace::getPositionInView() const {
 
 const std::string&
 GNEParkingSpace::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return myAdditionalParent->getID();
 }
 
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
-    /**
-    // Start drawing adding an gl identificator
     glPushName(getGlID());
-
-    // Add a draw matrix
-    glPushMatrix();
-
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, getType());
-
-    // Set color of the base
-    if (isAdditionalSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(RGBColor(76, 170, 50));
-    }
-
-    // Obtain exaggeration of the draw
+    RGBColor grey(177, 184, 186, 171);
+    RGBColor blue(83, 89, 172, 255);
+    RGBColor red(255, 0, 0, 255);
+    RGBColor green(0, 255, 0, 255);
     const double exaggeration = s.addSize.getExaggeration(s);
-
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
-
-    // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
-
-        // Add a draw matrix for details
-        glPushMatrix();
-
-        // Iterate over every line
-        for (int i = 0; i < (int)myLines.size(); ++i) {
-            // push a new matrix for every line
-            glPushMatrix();
-
-            // Rotate and traslaste
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIconRotation, 0, 0, 1);
-
-            // draw line with a color depending of the selection status
-            if (isAdditionalSelected()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
-            } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
-            }
-
-            // pop matrix for every line
-            glPopMatrix();
-        }
-
-        // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // Define number of points (for efficiency)
-        int noPoints = 9;
-
-        // If the scale * exaggeration is more than 25, recalculate number of points
-        if (s.scale * exaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        }
-
-        // scale matrix depending of the exaggeration
-        glScaled(exaggeration, exaggeration, 1);
-
-        // Set color of the externe circle
-        if (isAdditionalSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(RGBColor(76, 170, 50));
-        }
-
-        // Draw circle
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-
-        // Traslate to front
-        glTranslated(0, 0, .1);
-
-        // Set color of the interne circle
-        if (isAdditionalSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
-        } else {
-            GLHelper::setColor(RGBColor(255, 235, 0));
-        }
-
-        // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
-        // If the scale * exageration is equal or more than 4.5, draw H
-        if (s.scale * exaggeration >= 4.5) {
-            if (isAdditionalSelected()) {
-                GLHelper::drawText("H", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
-            } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, RGBColor(76, 170, 50, 255), myBlockIconRotation);
-            }
-        }
-
-        // pop draw matrix
-        glPopMatrix();
-
-        // Show Lock icon depending of the Edit mode
-        drawLockIcon();
-    }
-
-    // pop draw matrix
+    glPushMatrix();
+    /*
+    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
+    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
+    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
+    geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
+    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
+    */
+    GLHelper::setColor(/*(*i).second.vehicle == 0 ? green :*/ red);
+    GLHelper::drawBoxLines(myShape, 0.1 * exaggeration);
     glPopMatrix();
-
-    // Pop name
     glPopName();
-
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    if (s.addFullName.show && myName != "") {
-        GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, myBlockIconRotation);
-    }
-    **/
 }
 
 
