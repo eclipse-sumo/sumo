@@ -150,7 +150,7 @@ private:
 
 private:
     // @brief collects all vehicle which had to react to the emergency vehicle 
-    std::vector<MSVehicle*>* influencedVehicles;
+    //std::vector<MSVehicle*>* influencedVehicles;
 
     /// @brief a value which is initialised based on a commandline/configuration option
     double myCustomValue1;

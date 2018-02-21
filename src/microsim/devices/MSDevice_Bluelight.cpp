@@ -116,8 +116,8 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
-                               double /* newPos */, double /* newSpeed */) {
-    //std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+                               double /* newPos */, double  newSpeed ) {
+    std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
     // check whether another device is present on the vehicle:
     /*MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
     if (otherDevice != 0) {
@@ -145,13 +145,13 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
 
                 //other vehicle should not use the rescue lane so they should not make any lane changes 
                 lanechange.setLaneChangeMode(1605);
-
+                int numLanes= veh2->getEdge()->getLanes().size();
                 //Setting the lateral alignment to build a rescue lane
-                if (veh2->getLane()->getIndex() == 0) {
-                    t.setPreferredLateralAlignment(LATALIGN_RIGHT);
+                if (veh2->getLane()->getIndex() == numLanes-1) {
+                    t.setPreferredLateralAlignment(LATALIGN_LEFT);
                     //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 } else {
-                    t.setPreferredLateralAlignment(LATALIGN_LEFT);
+                    t.setPreferredLateralAlignment(LATALIGN_RIGHT);
                     //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }
                 //influencedVehicles->push_back(static_cast<MSVehicle*>(veh2));
