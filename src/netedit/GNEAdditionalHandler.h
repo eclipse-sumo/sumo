@@ -308,6 +308,7 @@ public:
      * @param[in] endPos End position of the Parking Area on the lane
      * @param[in] name Name of Parking Area
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] roadSideCapacity road side capacity of ParkingArea
      * @param[in] width ParkingArea's length
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
@@ -316,7 +317,7 @@ public:
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
     static bool buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, 
-                                 bool friendlyPosition, double width, double length, double angle, bool blockMovement);
+                                 bool friendlyPosition, double roadSideCapacity, double width, double length, double angle, bool blockMovement);
 
     /**@brief Builds a Parking Space
      * @param[in] viewNet viewNet in which element will be inserted

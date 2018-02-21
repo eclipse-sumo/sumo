@@ -550,19 +550,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROADSIDE_CAPACITY, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROADSIDE_CAPACITY, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NAME, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Z, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_FLOW:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -685,22 +685,25 @@ const std::vector<SumoXMLTag>&
 GNEAttributeCarrier::allowedAdditionalTags() {
     // define on first access
     if (myAllowedAdditionalTags.empty()) {
+        // Stopping Places
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_LANECALIBRATOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_ENTRY);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_EXIT);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_AREA);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_SPACE);
+        // Detectors
         myAllowedAdditionalTags.push_back(SUMO_TAG_E1DETECTOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_E2DETECTOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_E3DETECTOR);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_ENTRY);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_EXIT);
+        // Related with GNERoute Elements
         myAllowedAdditionalTags.push_back(SUMO_TAG_REROUTER);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_LANECALIBRATOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_ROUTEPROBE);
         myAllowedAdditionalTags.push_back(SUMO_TAG_VAPORIZER);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_AREA);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_SPACE);
     }
     return myAllowedAdditionalTags;
 }
