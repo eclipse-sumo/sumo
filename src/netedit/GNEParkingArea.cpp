@@ -57,8 +57,10 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, bool friendlyPosition, double width, double length, double angle) :
+GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, 
+                               bool friendlyPosition, double roadSideCapacity, double width, double length, double angle) :
     GNEStoppingPlace(id, viewNet, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition),
+    myRoadSideCapacity(roadSideCapacity),
     myWidth(width),
     myLength(length),
     myAngle(angle) {
@@ -108,6 +110,7 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_NAME, myName);
     }
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, myRoadSideCapacity);
     device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
@@ -118,98 +121,68 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
 
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
-    // Start drawing adding an gl identificator
     glPushName(getGlID());
-
-    // Add a draw matrix
     glPushMatrix();
-
-    // Start with the drawing of the area traslating matrix to origin
+    RGBColor grey(177, 184, 186, 171);
+    RGBColor blue(83, 89, 172, 255);
+    RGBColor red(255, 0, 0, 255);
+    RGBColor green(0, 255, 0, 255);
+    // draw the area
     glTranslated(0, 0, getType());
-
-    // Set color of the base
-    if (isAdditionalSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(RGBColor(76, 170, 50));
-    }
-
-    // Obtain exaggeration of the draw
+    GLHelper::setColor(blue);
+    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
+    // draw details unless zoomed out to far
     const double exaggeration = s.addSize.getExaggeration(s);
+    if (s.scale * exaggeration >= 1) {
+        // draw the lots
+        glTranslated(0, 0, .1);
+        GLHelper::setColor(blue);
+        /**
+        // draw the lines
+        for (size_t i = 0; i != myLines.size(); ++i) {
+            // push a new matrix for every line
+            glPushMatrix();
+            // traslate and rotate
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            glRotated(180, 1, 0, 0);
+            glRotated(mySignRot, 0, 0, 1);
+            // draw line
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
+            // pop matrix for every line
+            glPopMatrix();
 
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
-
-    // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
-
-        // Add a draw matrix for details
-        glPushMatrix();
-
-        // Start drawing sign traslating matrix to signal position
+        }
+        **/
+        // draw the sign
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // Define number of points (for efficiency)
         int noPoints = 9;
-
-        // If the scale * exaggeration is more than 25, recalculate number of points
         if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
         }
-
-        // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
-
-        // Set color of the externe circle
-        if (isAdditionalSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(RGBColor(76, 170, 50));
-        }
-
-        // Draw circle
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
-
-        // Traslate to front
         glTranslated(0, 0, .1);
-
-        // Set color of the interne circle
-        if (isAdditionalSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
-        } else {
-            GLHelper::setColor(RGBColor(255, 235, 0));
-        }
-
-        // draw another circle in the same position, but a little bit more small
+        GLHelper::setColor(grey);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
-        // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
-            if (isAdditionalSelected()) {
-                GLHelper::drawText("P", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
-            } else {
-                GLHelper::drawText("P", Position(), .1, 1.6, RGBColor(76, 170, 50, 255), myBlockIconRotation);
-            }
+            GLHelper::drawText("P", Position(), .1, 1.6, blue, myBlockIconRotation);
         }
-
-        // pop draw matrix
-        glPopMatrix();
-
-        // Show Lock icon depending of the Edit mode
-        drawLockIcon();
     }
-
-    // pop draw matrix
     glPopMatrix();
-
-    // Pop name
     glPopName();
-
-    // Draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    if (s.addFullName.show && myName != "") {
-        GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, myBlockIconRotation);
+    /*
+    for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {
+        glTranslated(0, 1, 0); // make multiple containers viewable
+        static_cast<GUIContainer*>(*i)->drawGL(s);
     }
+    // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
+    myLane.getVehiclesSecure();
+    for (std::set<const MSVehicle*>::const_iterator v = myLane.getParkingVehicles().begin(); v != myLane.getParkingVehicles().end(); ++v) {
+        static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+    }
+    myLane.releaseVehicles();
+    */
 }
 
 
@@ -228,6 +201,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return myName;
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
+        case SUMO_ATTR_ROADSIDE_CAPACITY:
+            return toString(myRoadSideCapacity);
         case SUMO_ATTR_WIDTH:
             return toString(myWidth);
         case SUMO_ATTR_LENGTH:
@@ -254,6 +229,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
+        case SUMO_ATTR_ROADSIDE_CAPACITY:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
@@ -295,6 +271,8 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
+        case SUMO_ATTR_ROADSIDE_CAPACITY:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:
@@ -332,6 +310,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
+            break;
+        case SUMO_ATTR_ROADSIDE_CAPACITY:
+            myRoadSideCapacity = parse<double>(value);
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
