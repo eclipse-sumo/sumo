@@ -230,6 +230,9 @@ private:
     /// @brief save window position and size to the registry
     void saveWindowSize();
 
+    /// @brief load window position and size from the registry
+    void loadWindowSize();
+
 private:
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent;

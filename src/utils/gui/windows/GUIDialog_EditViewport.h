@@ -122,6 +122,9 @@ protected:
     /// @brief FOX needs this
     GUIDialog_EditViewport() { }
 
+    /// @brief save window position to the registry
+    void saveWindowPos();
+
 private:
     /// @brief The calling view
     GUISUMOAbstractView* myParent;

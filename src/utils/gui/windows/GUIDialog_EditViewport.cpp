@@ -167,6 +167,7 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
         WRITE_WARNING("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
                       ". Zoom = '" + toString(myZoom->getValue()) + "'");
     }
+    saveWindowPos();
     hide();
     return 1;
 }
@@ -175,6 +176,7 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
 long
 GUIDialog_EditViewport::onCmdCancel(FXObject*, FXSelector, void*) {
     myParent->setViewportFromTo(myOldLookFrom, myOldLookAt);
+    saveWindowPos();
     hide();
     return 1;
 }
@@ -288,6 +290,12 @@ bool
 GUIDialog_EditViewport::haveGrabbed() const {
     return false;
     //return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
+}
+
+void
+GUIDialog_EditViewport::saveWindowPos() {
+    getApp()->reg().writeIntEntry("VIEWPORT_DIALOG_SETTINGS", "x", getX());
+    getApp()->reg().writeIntEntry("VIEWPORT_DIALOG_SETTINGS", "y", getY());
 }
 
 /****************************************************************************/
