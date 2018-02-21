@@ -35,6 +35,10 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEAdditional.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GNEParkingArea;
 
 // ===========================================================================
 // class definitions
@@ -48,15 +52,16 @@ class GNEParkingSpace : public GNEAdditional {
 
 public:
     /**@brief Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] pos ParkingSpace's position
+     * @param[in] parkingAreaParent pointer to Parking Area parent
+     * @param[in] x ParkingSpace's X position
+     * @param[in] y ParkingSpace's Y position
      * @param[in] z ParkingSpace's Z position
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      */
-    GNEParkingSpace(const std::string& id, GNEViewNet* viewNet, const Position &pos, double z, double width, double length, double angle);
+    GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle);
 
     /// @brief Destructor
     ~GNEParkingSpace();

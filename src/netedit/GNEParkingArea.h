@@ -70,6 +70,9 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
+    /// @brief gererate a new ID for an Parking Space child
+    std::string generateParkingSpaceID();
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

@@ -221,8 +221,11 @@ public:
     /// @brief return a list of discrete choices for this attribute or an empty vector
     static const std::vector<std::string>& discreteChoices(SumoXMLTag tag, SumoXMLAttr attr);
 
+    /// @brief get tag of additional parent (return SUMO_TAG_NOTHING if element doesn't have parent)
+    static SumoXMLTag getAdditionalParentTag(SumoXMLTag tag);
+
     /// @brief return whether the given attribute allows for a combination of discrete values
-    static bool discreteCombinableChoices(SumoXMLTag tag, SumoXMLAttr attr);
+    static bool discreteCombinableChoices(SumoXMLAttr attr);
 
     /// @brief return definition of a certain SumoXMLAttr
     static const std::string &getDefinition(SumoXMLTag tag, SumoXMLAttr attr);
@@ -508,9 +511,6 @@ private:
     static std::vector<SumoXMLTag> myCloseShapeTags;
 
     /// @brief vector with the allowed tags that can block their shapes
-    static std::vector<SumoXMLTag> myHasParentTags;
-
-    /// @brief vector with the allowed tags that can block their shapes
     static std::vector<SumoXMLTag> myGeoPositionTags;
 
     /// @brief vector with the allowed tags that can block their shapes
@@ -518,6 +518,9 @@ private:
 
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;
+
+    /// @brief vector with the allowed tags that can block their shapes
+    static std::map<SumoXMLTag, SumoXMLTag> myHasParentTags;
 
     /// @brief map with the numerical attributes of type Int
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;

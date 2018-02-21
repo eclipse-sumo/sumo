@@ -114,8 +114,22 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    // Write ParkingSpace
+    for (auto i : myAdditionalChilds) {
+        i->writeAdditional(device);
+    }
     // Close tag
     device.closeTag();
+}
+
+
+std::string 
+GNEParkingArea::generateParkingSpaceID() {
+    int counter = 0;
+    while (myViewNet->getNet()->getAdditional(SUMO_TAG_PARKING_SPACE, getID() + toString(SUMO_TAG_PARKING_SPACE) + toString(counter)) != NULL) {
+        counter++;
+    }
+    return (getID() + toString(SUMO_TAG_PARKING_SPACE) + toString(counter));
 }
 
 
@@ -223,7 +237,15 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            // change ID of Entry
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            // Change Ids of all Parking Spaces
+            for (auto i : myAdditionalChilds) {
+                i->setAttribute(SUMO_ATTR_ID, generateParkingSpaceID(), undoList);
+            }
+            break;
+        }
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:

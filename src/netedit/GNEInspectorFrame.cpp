@@ -380,7 +380,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         // Obtain choices
         const std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable coices
-        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // hide label
             myLabel->hide();
             // Show button combinable choices
@@ -517,7 +517,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         // Obtain choices
         const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable choices (for example, Vehicle Types)
-        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // Get value obtained using AttributesEditor
             newVal = myTextFieldStrings->getText().text();
         } else {
@@ -575,7 +575,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black
-        if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+        if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
@@ -600,7 +600,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
-        if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+        if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
             myTextFieldStrings->killFocus();
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {

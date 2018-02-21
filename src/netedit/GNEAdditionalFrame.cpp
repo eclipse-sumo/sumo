@@ -175,9 +175,9 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         } else {
             myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
         }
-        // Show myAdditionalParentSelector if we're adding a Entry/Exit
+        // Show myAdditionalParentSelector if we're adding a additional with parent
         if (GNEAttributeCarrier::canHaveParent(myCurrentAdditionalType)) {
-            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(SUMO_TAG_E3DETECTOR, true);
+            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getAdditionalParentTag(myCurrentAdditionalType), true);
         } else {
             myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
         }
@@ -938,7 +938,7 @@ GNEAdditionalFrame::getLaneParentsSelector() const {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent) :
-    FXGroupBox(additionalFrameParent->myContentFrame, "Additional Set selector", GUIDesignGroupBoxFrame),
+    FXGroupBox(additionalFrameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent),
     myUniqueSelection(false) {
 
@@ -1500,11 +1500,11 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     }
 
     // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
-    if ((myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_DET_ENTRY) || (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_DET_EXIT)) {
+    if (GNEAttributeCarrier::canHaveParent(myAdditionalSelector->getCurrentAdditionalType())) {
         if (myAdditionalParentSelector->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
         } else {
-            myAdditionalParameters->showWarningMessage("A " + toString(SUMO_TAG_E3DETECTOR) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
+            myAdditionalParameters->showWarningMessage("A " + toString(GNEAttributeCarrier::getAdditionalParentTag(myAdditionalSelector->getCurrentAdditionalType())) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }

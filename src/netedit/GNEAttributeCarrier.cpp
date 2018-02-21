@@ -49,10 +49,10 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myHasParentTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoPositionTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
+std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myHasParentTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myTimeAttrs;
@@ -769,11 +769,11 @@ bool
 GNEAttributeCarrier::canHaveParent(SumoXMLTag tag) {
     // define on first access
     if (myHasParentTags.empty()) {
-        myHasParentTags.push_back(SUMO_TAG_DET_ENTRY);
-        myHasParentTags.push_back(SUMO_TAG_DET_EXIT);
-        myHasParentTags.push_back(SUMO_TAG_PARKING_SPACE);
+        myHasParentTags[SUMO_TAG_DET_ENTRY] = SUMO_TAG_E3DETECTOR;
+        myHasParentTags[SUMO_TAG_DET_EXIT] = SUMO_TAG_E3DETECTOR;
+        myHasParentTags[SUMO_TAG_PARKING_SPACE] = SUMO_TAG_PARKING_AREA;
     }
-    return std::find(myHasParentTags.begin(), myHasParentTags.end(), tag) != myHasParentTags.end();
+    return myHasParentTags.find(tag) != myHasParentTags.end();
 }
 
 
@@ -1439,8 +1439,18 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
+SumoXMLTag 
+GNEAttributeCarrier::getAdditionalParentTag(SumoXMLTag tag) {
+    if(canHaveParent(tag)) {
+        return myHasParentTags[tag];
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
 bool
-GNEAttributeCarrier::discreteCombinableChoices(SumoXMLTag, SumoXMLAttr attr) {
+GNEAttributeCarrier::discreteCombinableChoices(SumoXMLAttr attr) {
     return (attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW);
 }
 
