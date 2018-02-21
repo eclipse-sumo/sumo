@@ -42,6 +42,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <netload/NLBuilder.h>
+#include <traci-server/TraCIConstants.h>
 #include "Simulation.h"
 #include <libsumo/TraCIDefs.h>
 
@@ -176,7 +177,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
-    if (routingMode == 5) {
+    if (routingMode == ROUTING_MODE_AGGREGATED) {
         MSDevice_Routing::getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
     } else {
         MSNet::getInstance()->getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
