@@ -40,6 +40,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include <netload/NLBuilder.h>
 #include "Simulation.h"
 #include <libsumo/TraCIDefs.h>
@@ -154,7 +155,6 @@ Simulation::getMinExpectedNumber() {
 
 TraCIStage
 Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {
-    UNUSED_PARAMETER(routingMode);
     TraCIStage result(MSTransportable::DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == 0) {
@@ -176,7 +176,11 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
-    MSNet::getInstance()->getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
+    if (routingMode == 5) {
+        MSDevice_Routing::getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
+    } else {
+        MSNet::getInstance()->getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
+    }
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
