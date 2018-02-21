@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 20 Feb 2018 08:50:47 AM CET by SUMO gui Version v0_32_0+0466-e1a5482
+<!-- generated on 02/20/18 17:36:25 by SUMO Version v0_32_0+0405-d1c1ff1104
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,15 +24,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <message-log value="stdout"/>
-        <error-log value="stderr"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <gui_only>
-        <quit-on-end value="true"/>
-        <start value="true"/>
         <tracker-interval value="0.1"/>
     </gui_only>
 
