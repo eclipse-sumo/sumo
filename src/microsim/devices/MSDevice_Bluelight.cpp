@@ -149,14 +149,15 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                 //Setting the lateral alignment to build a rescue lane
                 if (veh2->getLane()->getIndex() == numLanes-1) {
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);
-                    //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 } else {
                     t.setPreferredLateralAlignment(LATALIGN_RIGHT);
-                    //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }
                 //influencedVehicles->push_back(static_cast<MSVehicle*>(veh2));
                 //std::cout << "Vehcile in influencedVehicleList: " << veh2->getID() << "\n";
             }
+            //todo if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
         }
     }
     return true; // keep the device

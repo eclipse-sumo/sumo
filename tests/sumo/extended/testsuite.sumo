@@ -38,6 +38,9 @@ shapes
 # tests functions of the example device
 device_example
 
+# tests functions of the bluelight device
+device_bluelight
+
 # saving and loading simulation state
 state
 
