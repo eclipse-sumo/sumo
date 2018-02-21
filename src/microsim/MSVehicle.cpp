@@ -502,6 +502,14 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
             v->onDepart();
         }
         v->drawOutsideNetwork(true);
+        // see updateState
+        double vNext = v->processTraCISpeedControl(
+                v->getVehicleType().getMaxSpeed(), v->getSpeed());
+        v->setBrakingSignals(vNext);
+        v->updateWaitingTime(vNext);
+        v->myState.myPreviousSpeed = v->getSpeed();
+        v->myAcceleration = SPEED2ACCEL(vNext - v->getSpeed());
+        v->myState.mySpeed = vNext;
         //std::cout << "outside network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << "\n";
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
