@@ -235,7 +235,6 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         // maybe the reverse link is controlled separately
         int linkNo2 = net.getLinkTLIndex(myLinks.front());
         // otherwise, use the same index as the forward link
-        MSLink* link2 = myLinks.front();
         if (linkNo2 < 0) {
             linkNo2 = linkNo;
         }
