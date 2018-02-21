@@ -99,6 +99,11 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     new FXLabel(lookFromZFrame, "Z:", 0, GUIDesignLabelLeftThick);
     myZOff = new FXRealSpinner(lookFromZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     myZOff->setRange(0.12, 100000000);
+
+    // create rotation elements
+    FXHorizontalFrame* rotationFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(rotationFrame, "A:", 0, GUIDesignLabelLeftThick);
+    myRotation = new FXRealSpinner(rotationFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     
     // create vertical frame for OSG
     FXVerticalFrame* lookAtFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
@@ -161,7 +166,7 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
 #else
                                 Position::INVALID
 #endif
-                                , 0 // XXX myRotation->getValue()
+                                , myRotation->getValue()
                                );
     // write information of current zoom status
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -196,7 +201,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
 #else
                                 Position::INVALID
 #endif
-                                , 0 // XXX myRotaton->getValue
+                                , myRotation->getValue()
                                );
     return 1;
 }
@@ -215,7 +220,7 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         GUISettingsHandler handler(opendialog.getFilename().text());
         handler.applyViewport(myParent);
-        setValues(myParent->getChanger().getZoom(), myParent->getChanger().getXPos(), myParent->getChanger().getYPos());
+        setValues(myParent->getChanger().getZoom(), myParent->getChanger().getXPos(), myParent->getChanger().getYPos(), myParent->getChanger().getRotation());
     }
     return 1;
 }
@@ -246,7 +251,7 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
     dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
-    //dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
+    dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
 #ifdef HAVE_OSG
     dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
     dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
@@ -257,16 +262,17 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
 
 
 void
-GUIDialog_EditViewport::setValues(double zoom, double xoff, double yoff) {
+GUIDialog_EditViewport::setValues(double zoom, double xoff, double yoff, double rotation) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
     myZOff->setValue(myParent->getChanger().zoom2ZPos(zoom));
+    myRotation->setValue(rotation);
 }
 
 
 void
-GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& lookAt) {
+GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& lookAt, double rotation) {
     myXOff->setValue(lookFrom.x());
     myYOff->setValue(lookFrom.y());
     myZOff->setValue(lookFrom.z());
@@ -278,12 +284,13 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
 #else
     UNUSED_PARAMETER(lookAt);
 #endif
+    myRotation->setValue(rotation);
 }
 
 
 void
 GUIDialog_EditViewport::setOldValues(const Position& lookFrom, const Position& lookAt, double rotation) {
-    setValues(lookFrom, lookAt);
+    setValues(lookFrom, lookAt, rotation);
     myOldLookFrom = lookFrom;
     myOldLookAt = lookAt;
     myOldRotation = rotation;

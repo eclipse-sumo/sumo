@@ -741,7 +741,9 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
         myChanger->onMouseWheel(data);
         // upddate viewport
         if (myViewportChooser != 0) {
-            myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+            myViewportChooser->setValues(myChanger->getZoom(), 
+                    myChanger->getXPos(), myChanger->getYPos(), 
+                    myChanger->getRotation());
         }
         updatePositionInformation();
     }
@@ -760,7 +762,9 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
             myChanger->onMouseMove(data);
         }
         if (myViewportChooser != 0) {
-            myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+            myViewportChooser->setValues(myChanger->getZoom(), 
+                    myChanger->getXPos(), myChanger->getYPos(),
+                    myChanger->getRotation());
         }
         updatePositionInformation();
     }
@@ -1077,7 +1081,9 @@ GUISUMOAbstractView::getViewportEditor() {
         myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
         myViewportChooser->create();
     }
-    myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+    myViewportChooser->setValues(myChanger->getZoom(), 
+            myChanger->getXPos(), myChanger->getYPos(), 
+            myChanger->getRotation());
     return myViewportChooser;
 }
 

@@ -99,19 +99,19 @@ public:
      * @param[in] xoff Current view's x-offset
      * @param[in] yoff Current view's y-offset
      */
-    void setValues(double zoom, double xoff, double yoff);
+    void setValues(double zoom, double xoff, double yoff, double rotation);
 
     /** @brief Sets the given values into the dialog
      * @param[in] lookFrom Current viewport's from
      * @param[in] lookAt Current viewport's at
      */
-    void setValues(const Position& lookFrom, const Position& lookAt);
+    void setValues(const Position& lookFrom, const Position& lookAt, double rotation);
 
     /** @brief Resets old values
      * @param[in] lookFrom Current viewport's from
      * @param[in] lookAt Current viewport's at
      */
-    void setOldValues(const Position& lookFrom, const Position& lookAt, double rotation=0);
+    void setOldValues(const Position& lookFrom, const Position& lookAt, double rotation);
 
     /** @brief Returns the information whether one of the spin dialers is grabbed
     * @return Whether the spin dialers are currently used
@@ -140,7 +140,7 @@ private:
     FXButton *mySaveButton;
 
     /// @brief The spin dialers used to change the view
-    FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff;
+    FXRealSpinner* myZoom, *myXOff, *myYOff, *myZOff, *myRotation;
 
     /// @brief The spin dialers used to change the view at (osg only)
     FXRealSpinner* myLookAtX, *myLookAtY, *myLookAtZ;
