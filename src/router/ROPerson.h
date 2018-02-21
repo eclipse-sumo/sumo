@@ -221,10 +221,10 @@ public:
     class PersonTrip : public PlanItem {
     public:
         PersonTrip()
-            : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), busStop(""), walkFactor(1.0) {}
+            : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(""), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                   const double departPos, const double arrivalPos, const std::string& busStop, double _walkFactor)
-            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), busStop(busStop), walkFactor(_walkFactor) {}
+                   const double departPos, const double arrivalPos, const std::string& _stopDest, double _walkFactor)
+                   : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -249,7 +249,7 @@ public:
             return from != 0 ? from : myTripItems.front()->getOrigin();
         }
         const ROEdge* getDestination() const {
-            return to != 0 ? to : myTripItems.back()->getDestination();
+            return to;
         }
         double getDepartPos(bool replaceDefault = true) const {
             return dep == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : dep;
@@ -260,8 +260,8 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
-        bool hasBusStopDest() const {
-            return busStop != "";
+        const std::string& getStopDest() const {
+            return stopDest;
         }
         virtual bool needsRouting() const {
             return myTripItems.empty();
@@ -281,7 +281,7 @@ public:
         const ROEdge* to;
         const SVCPermissions modes;
         const double dep, arr;
-        const std::string busStop;
+        const std::string stopDest;
         /// @brief the fully specified trips
         std::vector<TripItem*> myTripItems;
         /// @brief the vehicles which may be used for routing

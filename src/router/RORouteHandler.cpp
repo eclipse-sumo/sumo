@@ -671,18 +671,25 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const char* const id = myVehicleParameter->id.c_str();
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
-    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, id, ok);
-    const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
+    std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, id, ok, "");
+    const std::string busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
 
     const ROEdge* from = myNet.getEdge(fromID);
-    if (from == 0) {
-        myErrorOutput->inform("The edge '" + fromID + "' within a walk of " + myVehicleParameter->id + " is not known."
+    if (from == nullptr) {
+        myErrorOutput->inform("The edge '" + fromID + "' within a walk or personTrip of '" + myVehicleParameter->id + "' is not known."
                               + "\n The route can not be build.");
         ok = false;
     }
+    if (toID == "") {
+        const SUMOVehicleParameter::Stop* stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
+        if (stop == nullptr) {
+            myErrorOutput->inform("Unknown bus stop '" + busStopID + "' within a walk or personTrip of '" + myVehicleParameter->id + "'.");
+            ok = false;
+        }
+    }
     const ROEdge* to = myNet.getEdge(toID);
-    if (to == 0) {
-        myErrorOutput->inform("The edge '" + toID + "' within a walk of " + myVehicleParameter->id + " is not known."
+    if (toID != "" && to == nullptr) {
+        myErrorOutput->inform("The edge '" + toID + "' within a walk or personTrip of '" + myVehicleParameter->id + "' is not known."
                               + "\n The route can not be build.");
         ok = false;
     }
@@ -692,7 +699,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
-    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+    if (to != nullptr && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
         arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, id, to->getLength(),
                      attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, id, ok));
     }
@@ -714,7 +721,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
-        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStop, walkFactor);
+        myActivePerson->addTrip(from, to, modeSet, types, departPos, arrivalPos, busStopID, walkFactor);
     }
 }
 

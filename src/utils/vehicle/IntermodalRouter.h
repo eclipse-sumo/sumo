@@ -11,7 +11,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalRouter.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
@@ -261,14 +261,15 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
+    bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
+                 const std::string stopID, const double speed,
                  const V* const vehicle, const SVCPermissions modeSet, SUMOTime msTime,
                  std::vector<TripItem>& into) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
         std::vector<const _IntermodalEdge*> intoEdges;
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
-                             myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
+                             to == nullptr ? myStopConnections[stopID] : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
                              &trip, msTime, intoEdges);
         if (success) {
             std::string lastLine = "";

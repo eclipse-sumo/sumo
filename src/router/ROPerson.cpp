@@ -168,13 +168,13 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos,
 bool
 ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     std::vector<ROIntermodalRouter::TripItem> result;
-    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(),
+    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), trip->getStopDest(),
                                            getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), getParameter().depart, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {
             if (it->line == "") {
-                if (it + 1 == result.end() && !trip->hasBusStopDest()) {
+                if (it + 1 == result.end() && trip->getStopDest() == "") {
                     trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false)));
                 } else {
                     trip->addTripItem(new Walk(it->edges, it->cost, trip->getDepartPos(false), trip->getArrivalPos(false), it->destStop));
