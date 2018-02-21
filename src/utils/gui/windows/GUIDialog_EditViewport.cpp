@@ -155,12 +155,13 @@ GUIDialog_EditViewport::show() {
 
 long
 GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
-    myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
+    myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
                                 Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
                                 Position::INVALID
 #endif
+                                , 0 // XXX myRotation->getValue()
                                );
     // write information of current zoom status
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -175,7 +176,7 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_EditViewport::onCmdCancel(FXObject*, FXSelector, void*) {
-    myParent->setViewportFromTo(myOldLookFrom, myOldLookAt);
+    myParent->setViewportFromToRot(myOldLookFrom, myOldLookAt, myOldRotation);
     saveWindowPos();
     hide();
     return 1;
@@ -189,12 +190,13 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     } else if (o == myZoom) {
         myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
     }
-    myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
+    myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
                                 Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
                                 Position::INVALID
 #endif
+                                , 0 // XXX myRotaton->getValue
                                );
     return 1;
 }
@@ -244,6 +246,7 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
     dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
+    //dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
 #ifdef HAVE_OSG
     dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
     dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
@@ -279,10 +282,11 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
 
 
 void
-GUIDialog_EditViewport::setOldValues(const Position& lookFrom, const Position& lookAt) {
+GUIDialog_EditViewport::setOldValues(const Position& lookFrom, const Position& lookAt, double rotation) {
     setValues(lookFrom, lookAt);
     myOldLookFrom = lookFrom;
     myOldLookAt = lookAt;
+    myOldRotation = rotation;
 }
 
 

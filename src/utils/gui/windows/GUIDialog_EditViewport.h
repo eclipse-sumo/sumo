@@ -111,7 +111,7 @@ public:
      * @param[in] lookFrom Current viewport's from
      * @param[in] lookAt Current viewport's at
      */
-    void setOldValues(const Position& lookFrom, const Position& lookAt);
+    void setOldValues(const Position& lookFrom, const Position& lookAt, double rotation=0);
 
     /** @brief Returns the information whether one of the spin dialers is grabbed
     * @return Whether the spin dialers are currently used
@@ -131,6 +131,7 @@ private:
 
     /// @brief The old viewport
     Position myOldLookFrom, myOldLookAt;
+    double myOldRotation;
 
     /// @brief load button
     FXButton *myLoadButton;

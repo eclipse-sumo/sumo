@@ -50,6 +50,7 @@ GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, 
     SUMOSAXHandler(content),
     mySettings(netedit),
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
+    myRotation(0),
     myCurrentColorer(SUMO_TAG_NOTHING),
     myCurrentScheme(0),
     myJamSoundTime(-1) {
@@ -94,6 +95,7 @@ GUISettingsHandler::myStartElement(int element,
             const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, 0, ok, myLookAt.y());
             const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, 0, ok, myLookAt.z());
             myLookAt.set(cx, cy, cz);
+            myRotation = attrs.getOpt<double>(SUMO_ATTR_ANGLE, 0, ok, myRotation);
             break;
         }
         case SUMO_TAG_SNAPSHOT: {
@@ -358,7 +360,7 @@ GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
     if (myLookFrom.z() > 0) {
         // z value stores zoom so we must convert first
         Position lookFrom(myLookFrom.x(), myLookFrom.y(), view->getChanger().zoom2ZPos(myLookFrom.z()));
-        view->setViewportFromTo(lookFrom, myLookAt);
+        view->setViewportFromToRot(lookFrom, myLookAt, myRotation);
     }
 }
 

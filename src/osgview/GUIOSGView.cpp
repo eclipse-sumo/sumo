@@ -438,7 +438,7 @@ GUIOSGView::showViewportEditor() {
 
 
 void
-GUIOSGView::setViewportFromTo(const Position& lookFrom, const Position& lookAt) {
+GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double /*rotation*/) {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
     myViewer->getCameraManipulator()->getHomePosition(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = lookFrom.x();
@@ -457,8 +457,8 @@ void
 GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
-    view->setViewportFromTo(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-                            Position(lookAt[0], lookAt[1], lookAt[2]));
+    view->setViewportFromToRot(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
+                            Position(lookAt[0], lookAt[1], lookAt[2]), 0);
 }
 
 

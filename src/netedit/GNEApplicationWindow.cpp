@@ -995,9 +995,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         getView()->setEditModeFromHotkey(MID_GNE_SETMODE_INSPECT);
         if (ec->myViewportFromRegistry) {
-            Position off, p;
+            Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
-            getView()->setViewportFromTo(off, p);
+            Position p(off.x(), off.y(), 0);
+            getView()->setViewportFromToRot(off, p, 0);
         }
     }
     getApp()->endWaitCursor();

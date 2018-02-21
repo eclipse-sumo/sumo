@@ -30,6 +30,7 @@
 #include <fxkeys.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include "GUIPerspectiveChanger.h"
 #include "GUIDanielPerspectiveChanger.h"
@@ -226,7 +227,13 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     switch (myMouseButtonState) {
         case MOUSEBTN_LEFT:
             if (pastDelay) {
-                move(xdiff, ydiff);
+                if (myRotation != 0) {
+                    Position diffRot = Position(xdiff, ydiff).rotateAround2D(
+                            DEG2RAD(myRotation), Position(0,0));
+                    move((int)diffRot.x(), (int)diffRot.y());
+                } else {
+                    move(xdiff, ydiff);
+                }
                 if (moved) {
                     myMoveOnClick = true;
                 }
@@ -269,6 +276,11 @@ GUIDanielPerspectiveChanger::setViewportFrom(double xPos, double yPos, double zP
     setViewport(zPos2Zoom(zPos), xPos, yPos);
 }
 
+
+void
+GUIDanielPerspectiveChanger::setRotation(double rotation) {
+    myRotation = rotation;
+}
 
 void
 GUIDanielPerspectiveChanger::changeCanvasSizeLeft(int change) {
