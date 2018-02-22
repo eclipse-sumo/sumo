@@ -114,16 +114,7 @@ GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * und
 void
 GNEParkingSpace::updateGeometry() {
     myShape.clear();
-
-    double w = myWidth / 2. - 0.;
-    double h = myLength;
-    myShape.push_back(myPosition + Position(- w, + 0, 0.));
-    myShape.push_back(myPosition + Position(+ w, + 0, 0.));
-    myShape.push_back(myPosition + Position(+ w, + h, 0.));
-    myShape.push_back(myPosition + Position(- w, + h, 0.));
-    myShape.push_back(myPosition + Position(- w, + 0, 0.));
-
-
+    myShape.push_back(myPosition);
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 }
@@ -144,21 +135,27 @@ GNEParkingSpace::getParentName() const {
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
-    RGBColor grey(177, 184, 186, 171);
-    RGBColor blue(83, 89, 172, 255);
-    RGBColor red(255, 0, 0, 255);
-    RGBColor green(0, 255, 0, 255);
     const double exaggeration = s.addSize.getExaggeration(s);
     glPushMatrix();
-    /*
-    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
-    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
-    geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
-    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-    */
-    GLHelper::setColor(/*(*i).second.vehicle == 0 ? green :*/ red);
-    GLHelper::drawBoxLines(myShape, 0.1 * exaggeration);
+    // Traslate matrix and draw green contour
+    glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
+    glRotated(myAngle, 0, 0, 1);
+    // Set Color depending of selection
+    if (isAdditionalSelected()) {
+        GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
+    } else {
+        GLHelper::setColor(RGBColor(0, 255, 0, 255));
+    }
+    GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
+    // Traslate matrix and draw blue innen
+    glTranslated(0, 0, 0.1);
+    // Set Color depending of selection
+    if (isAdditionalSelected()) {
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(RGBColor(83, 89, 172, 255));
+    }
+    GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
     glPopMatrix();
     glPopName();
 }
