@@ -177,15 +177,12 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
-    if (routingMode == ROUTING_MODE_AGGREGATED) {
-        MSDevice_Routing::getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
-    } else {
-        MSNet::getInstance()->getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
-    }
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSDevice_Routing::getRouterTT() : MSNet::getInstance()->getRouterTT();
+    router.compute(fromEdge, toEdge, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
-    result.travelTime = result.cost = MSNet::getInstance()->getRouterTT().recomputeCosts(edges, vehicle, dep);
+    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep);
     if (vehicle != 0) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
     }
