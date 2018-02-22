@@ -22,12 +22,12 @@
     <type id="highway.pedestrian"     numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
     <type id="highway.path"           numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian bicycle"/>
     <type id="highway.bridleway"      numLanes="1" speed="2.78"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
-    <type id="highway.cycleway"       numLanes="1" speed="5.56"  priority="1"  oneway="false" width="1" allow="bicycle"/>
+    <type id="highway.cycleway"       numLanes="1" speed="8.33"  priority="1"  oneway="false" width="1" allow="bicycle"/>
     <type id="highway.step"           numLanes="1" speed="1.39"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
     <type id="highway.steps"          numLanes="1" speed="1.39"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
     <type id="highway.stairs"         numLanes="1" speed="1.39"  priority="1"  oneway="true"  width="2" allow="pedestrian"/>
 
-    <type id="highway.bus_guideway"   numLanes="1" speed="8.33"  priority="1"  oneway="true"  allow="bus"/>
+    <type id="highway.bus_guideway"   numLanes="1" speed="27.78" priority="1"  oneway="true"  allow="bus"/>
     <type id="highway.raceway"        numLanes="2" speed="83.33" priority="14" oneway="false" allow="vip"/>
     <type id="highway.ford"           numLanes="1" speed="2.78"  priority="1"  oneway="false" allow="army"/>
 
