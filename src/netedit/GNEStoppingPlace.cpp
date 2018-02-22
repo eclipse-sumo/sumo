@@ -142,7 +142,7 @@ GNEStoppingPlace::getParentName() const {
 
 
 void
-GNEStoppingPlace::setStoppingPlaceGeometry() {
+GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -154,7 +154,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry() {
     myShape = myLane->getShape();
 
     // Move shape to side
-    myShape.move2side(1.65 * offsetSign);
+    myShape.move2side(movingToSide * offsetSign);
 
     // Cut shape using as delimitators fixed start position and fixed end position
     double startPosFixed = (myStartPosRelative < 0) ? 0 : myStartPosRelative;

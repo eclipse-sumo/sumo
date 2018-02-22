@@ -150,7 +150,7 @@ protected:
     Position mySignPos;
 
     /// @brief set geometry common to all stopping places
-    void setStoppingPlaceGeometry();
+    void setStoppingPlaceGeometry(double movingToSide);
 
 private:
     /// @brief set attribute after validation

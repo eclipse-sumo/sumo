@@ -76,7 +76,7 @@ GNEParkingArea::updateGeometry() {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry();
+    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex())/2 + myWidth);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;
@@ -135,12 +135,100 @@ GNEParkingArea::generateParkingSpaceID() {
 
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
+    // Push name
     glPushName(getGlID());
+    // Push base matrix
     glPushMatrix();
-    RGBColor grey(177, 184, 186, 171);
-    RGBColor blue(83, 89, 172, 255);
-    RGBColor red(255, 0, 0, 255);
-    RGBColor green(0, 255, 0, 255);
+    // Traslate matrix
+    glTranslated(0, 0, getType());
+    // Set Color
+    if (isAdditionalSelected()) {
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(RGBColor(83, 89, 172, 255));
+    }
+    // Get exaggeration
+    const double exaggeration = s.addSize.getExaggeration(s);
+    // Draw base
+    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth * exaggeration);
+    // draw details unless zoomed out to far
+    if (s.scale * exaggeration >= 10) {
+        // Push matrix for details
+        glPushMatrix();
+        // Set position over sign
+        glTranslated(mySignPos.x(), mySignPos.y(), 0);
+        // Define number of points (for efficiency)
+        int noPoints = 9;
+        // If the scale * exaggeration is more than 25, recalculate number of points
+        if (s.scale * exaggeration > 25) {
+            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
+        }
+        // Scale matrix
+        glScaled(exaggeration, exaggeration, 1);
+        // Set base color
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(RGBColor(83, 89, 172, 255));
+        }
+        // Draw extern
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
+
+        // Move to top
+        glTranslated(0, 0, .1);
+
+        // Set sign color
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+        } else {
+            GLHelper::setColor(RGBColor(177, 184, 186, 171));
+        }
+        // Draw internt sign
+        GLHelper::drawFilledCircle((double) 0.9, noPoints);
+
+        // Draw sign 'C'
+        if (s.scale * exaggeration >= 4.5) {
+            if (isAdditionalSelected()) {
+                GLHelper::drawText("P", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+            } else {
+                GLHelper::drawText("P", Position(), .1, 1.6, RGBColor(83, 89, 172, 255), myBlockIconRotation);
+            }
+        }
+        // Pop sign matrix
+        glPopMatrix();
+
+        // Draw icon
+        GNEAdditional::drawLockIcon();
+    }
+
+    // Pop base matrix
+    glPopMatrix();
+
+    // Pop name matrix
+    glPopName();
+
+    // Draw name
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    if (s.addFullName.show && myName != "") {
+        GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, myBlockIconRotation);
+    }
+
+
+
+
+
+
+
+
+
+    /**
+
+
+
+
+
+
+
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
@@ -151,7 +239,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw the lots
         glTranslated(0, 0, .1);
         GLHelper::setColor(blue);
-        /**
+
         // draw the lines
         for (size_t i = 0; i != myLines.size(); ++i) {
             // push a new matrix for every line
@@ -166,7 +254,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
 
         }
-        **/
+
         // draw the sign
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
         int noPoints = 9;
@@ -185,17 +273,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    /*
-    for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {
-        glTranslated(0, 1, 0); // make multiple containers viewable
-        static_cast<GUIContainer*>(*i)->drawGL(s);
-    }
-    // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
-    myLane.getVehiclesSecure();
-    for (std::set<const MSVehicle*>::const_iterator v = myLane.getParkingVehicles().begin(); v != myLane.getParkingVehicles().end(); ++v) {
-        static_cast<const GUIVehicle* const>(*v)->drawGL(s);
-    }
-    myLane.releaseVehicles();
     */
 }
 

@@ -1248,7 +1248,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRe
 
 bool 
 GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, 
-                                       bool friendlyPosition, double roadSideCapacity, double width, double length, double angle, bool blockMovement) {
+                                       bool friendlyPosition, int roadSideCapacity, double width, double length, double angle, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_PARKING_AREA, id) == NULL) {
         GNEParkingArea* ParkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle);
         if (allowUndoRedo) {
