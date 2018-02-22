@@ -432,7 +432,7 @@ GUIOSGView::showViewportEditor() {
     osg::Vec3d lookFromOSG, lookAtOSG, up;
     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
     Position from(lookFromOSG[0], lookFromOSG[1], lookFromOSG[2]), at(lookAtOSG[0], lookAtOSG[1], lookAtOSG[2]);
-    myViewportChooser->setOldValues(from, at);
+    myViewportChooser->setOldValues(from, at, 0);
     myViewportChooser->show();
 }
 
