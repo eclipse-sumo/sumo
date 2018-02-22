@@ -596,7 +596,6 @@ def readNet(filename, **others):
                                This is the program that would be active in sumo by default.
                                (default False)
         'withConnections' : import all connections (default True)
-        'withFoes' : import all connections (default True)
         'withFoes' : import right-of-way information (default True)
         'withInternal' : import internal edges and lanes (default False)
     """
