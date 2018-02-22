@@ -143,6 +143,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                               GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar processing
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_COMPUTEJUNCTIONS,            GNEApplicationWindow::onCmdComputeJunctions),
@@ -531,12 +535,13 @@ GNEApplicationWindow::fillMenuBar() {
                       "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
                       GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON);
 
-    /*
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Edit Breakpoints...\t\tOpens a Dialog for editing breakpoints.",
-                      0, this, MID_EDIT_BREAKPOINTS);
-    */
+                      "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                      0, this, MID_EDITVIEWSCHEME);
+    new FXMenuCommand(myEditMenu,
+                      "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                      0, this, MID_EDITVIEWPORT);
 
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
@@ -1284,6 +1289,15 @@ long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
     if (getView()) {
         getView()->showViewportEditor();
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
+    if (getView()) {
+        getView()->showViewschemeEditor();
     }
     return 1;
 }

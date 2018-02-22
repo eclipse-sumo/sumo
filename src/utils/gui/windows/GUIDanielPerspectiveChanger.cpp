@@ -362,13 +362,6 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
             myCallback.recenterView();
             myCallback.update();
             return 1;
-        case FX::KEY_v:
-            // from an architecture standpoint this isn't the best place to put
-            // this. But its simple
-            if (ctrl) {
-                myCallback.showViewschemeEditor();
-                return 1;
-            }
         default:
             return 0;
     }

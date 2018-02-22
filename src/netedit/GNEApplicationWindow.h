@@ -185,6 +185,12 @@ public:
     /// @brief called when the command/FXCall close is executed
     long onCmdClose(FXObject*, FXSelector, void*);
 
+    /// @brief Called on menu Edit->Visualization 
+    long onCmdEditViewScheme(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu Edit->Viewport 
+    long onCmdEditViewport(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
 
@@ -279,9 +285,6 @@ public:
 
     /// @brief called if the user hits f
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
-
-    /// @brief called if the user press key v to open zoom editor
-    long onCmdEditViewport(FXObject*, FXSelector, void*);
 
     /// @brief called if the user press key combination Ctrl + G to toogle grid
     long onCmdToogleGrid(FXObject*, FXSelector, void*);

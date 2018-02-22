@@ -157,6 +157,12 @@ public:
     /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
+    /// @brief Called on menu Edit->Visualization 
+    long onCmdEditViewScheme(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu Edit->Viewport 
+    long onCmdEditViewport(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 

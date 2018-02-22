@@ -108,6 +108,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,             GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,        GUIApplicationWindow::onCmdEditChosen),
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onCmdEditBreakpoints),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,    GUIApplicationWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,      GUIApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT,           GUIApplicationWindow::onCmdNetedit),
 
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
@@ -147,6 +149,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,    GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,           GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,              GUIApplicationWindow::onCmdHelp),
 
@@ -426,6 +430,12 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "Edit Breakpoints...\tCtrl+B\tOpens a dialog for editing breakpoints.",
                       0, this, MID_EDIT_BREAKPOINTS);
+    new FXMenuCommand(myEditMenu,
+                      "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                      0, this, MID_EDITVIEWSCHEME);
+    new FXMenuCommand(myEditMenu,
+                      "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                      0, this, MID_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in Netedit...\tCtrl+T\tOpens the netedit application with the current network.",
@@ -701,6 +711,32 @@ GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
     chooser->show();
     return 1;
 }
+
+long
+GUIApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
+    if (mySubWindows.empty()) {
+        return 1;
+    }
+    GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
+    if (w != 0) {
+        w->getView()->showViewportEditor();
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
+    if (mySubWindows.empty()) {
+        return 1;
+    }
+    GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
+    if (w != 0) {
+        w->getView()->showViewschemeEditor();
+    }
+    return 1;
+}
+
 
 
 long
