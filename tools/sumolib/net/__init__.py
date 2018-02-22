@@ -587,6 +587,19 @@ def convertShape(shapeString):
 
 
 def readNet(filename, **others):
+    """ load a .net.xml file
+    The following named options are supported:
+
+        'net' : initialize data structurs with an existing net object (default Net())
+        'withPrograms' : import all traffic light programs (default False)
+        'withLatestPrograms' : import only the last program for each traffic light.
+                               This is the program that would be active in sumo by default.
+                               (default False)
+        'withConnections' : import all connections (default True)
+        'withFoes' : import all connections (default True)
+        'withFoes' : import right-of-way information (default True)
+        'withInternal' : import internal edges and lanes (default False)
+    """
     netreader = NetReader(**others)
     try:
         if not os.path.isfile(filename):
