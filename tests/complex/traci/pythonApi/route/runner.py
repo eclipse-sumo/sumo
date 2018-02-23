@@ -51,6 +51,10 @@ for step in range(3, 6):
     print(traci.route.getSubscriptionResults(routeID))
 traci.route.add("h2", ["1o"])
 traci.route.add("withTaz", ["taz12-source", "taz34-sink"])
+try:
+    traci.route.add("empty", [])
+except traci.TraCIException as e:
+    pass
 print("routes", traci.route.getIDList())
 print("edges", traci.route.getEdges("h2"))
 print("edges", traci.route.getEdges("withTaz"))
