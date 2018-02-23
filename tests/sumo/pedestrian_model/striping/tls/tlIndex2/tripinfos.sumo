@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Feb 23 09:53:55 2018 by SUMO Version v0_32_0+0527-c9e9e3e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="EW" depart="10.00">
+        <walk depart="10.00" departPos="82.25" arrival="44.00" arrivalPos="0.00" duration="34.00" routeLength="30.50" timeLoss="12.04" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="WE" depart="10.00">
+        <walk depart="10.00" departPos="5.00" arrival="127.00" arrivalPos="0.00" duration="117.00" routeLength="117.75" timeLoss="32.22" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>

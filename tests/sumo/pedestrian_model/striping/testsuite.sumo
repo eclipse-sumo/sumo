@@ -18,6 +18,9 @@ errors
 # tests mapping between stripes of lanes with differnt widths and directions.
 # 4 pedestrians are walking in paralllel and should all arrive at the same time
 stripe_offsets
+
+# test regarding interaction with traffic lights
+tls
 bugs
 
 # two flows in opposite directions with a change in walking direction
