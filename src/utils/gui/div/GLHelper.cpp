@@ -197,6 +197,9 @@ GLHelper::drawBoxLines(const PositionVector& geom,
             if (rightTurn(rots[i - 1], rots[i])) {
                 std::swap(angleBeg, angleEnd);
             }
+            // only draw the missing piece
+            angleBeg -= 90;
+            angleEnd += 90;
             // avoid drawing more than 360 degrees
             if (angleEnd - angleBeg > 360) {
                 angleBeg += 360;
