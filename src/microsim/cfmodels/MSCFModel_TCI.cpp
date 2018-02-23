@@ -32,7 +32,6 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSTrafficItem.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSCFModel_TCI.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>

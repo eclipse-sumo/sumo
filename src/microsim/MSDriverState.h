@@ -61,7 +61,6 @@ protected:
     // @brief Types of traffic items, @see TrafficItem
     enum MSTrafficItemType {
         TRAFFIC_ITEM_VEHICLE,
-        TRAFFIC_ITEM_TLS,
         TRAFFIC_ITEM_PEDESTRIAN,
         TRAFFIC_ITEM_SPEED_LIMIT,
         TRAFFIC_ITEM_JUNCTION
@@ -85,9 +84,9 @@ protected:
 
     struct JunctionCharacteristics : MSTrafficItemCharacteristics {
         JunctionCharacteristics(const MSJunction* junction, const MSLink* egoLink, double dist) :
-            junction(junction), egoLink(egoLink), dist(dist) {};
+            junction(junction), approachingLink(egoLink), dist(dist) {};
         const MSJunction* junction;
-        const MSLink* egoLink;
+        const MSLink* approachingLink;
         double dist;
     };
 
@@ -106,20 +105,13 @@ protected:
         double limit;
     };
 
-    struct TLSCharacteristics : MSTrafficItemCharacteristics {
-        TLSCharacteristics(double dist, LinkState state, int nrLanes) :
-            dist(dist), state(state), nrLanes(nrLanes) {};
-        double dist;
-        LinkState state;
-        int nrLanes;
-    };
-
     struct VehicleCharacteristics : MSTrafficItemCharacteristics {
-        VehicleCharacteristics(const MSVehicle* foe, double longitudinalDist, double lateralDist) :
-            longitudinalDist(longitudinalDist), lateralDist(lateralDist), foe(foe) {};
+        VehicleCharacteristics(const MSVehicle* foe, double longitudinalDist, double lateralDist, double relativeSpeed) :
+            longitudinalDist(longitudinalDist), lateralDist(lateralDist), foe(foe), relativeSpeed(relativeSpeed) {};
         const MSVehicle* foe;
         double longitudinalDist;
         double lateralDist;
+        double relativeSpeed;
     };
 
 
@@ -178,36 +170,31 @@ public:
     /// @name Interfaces to inform Driver Model about traffic items, which potentially
     ///       influence the driving difficulty.
     /// @{
-    /** @brief Informs CF Model about leader.
-    *  @note  Currently only implemented for the TCI Model.
+    /** @brief Informs about leader.
     */
-    virtual void registerLeader(const MSVehicle* leader, double gap, double latGap = -1.);
+    virtual void registerLeader(const MSVehicle* leader, double gap, double relativeSpeed, double latGap = -1.);
 
-    /** @brief Informs CF Model about pedestrian.
-    *  @note  Currently only implemented for the TCI Model.
+    /** @brief Informs about pedestrian.
     */
     virtual void registerPedestrian(const MSPerson* pedestrian, double gap);
 
-    /** @brief Informs CF Model about upcoming speed limit reduction.
-    *  @note  Currently only implemented for the TCI Model.
+    /** @brief Informs about upcoming speed limit reduction.
     */
     virtual void registerSpeedLimit(const MSLane* lane, double speedLimit, double dist);
 
-    /** @brief Informs CF Model about upcoming traffic light.
-    *  @note  Currently only implemented for the TCI Model.
-    */
-    virtual void registerTLS(MSLink* link, double dist);
-
-    /** @brief Informs CF Model about upcoming junction.
-    *  @note  Currently only implemented for the TCI Model.
+    /** @brief Informs about upcoming junction.
     */
     virtual void registerJunction(MSLink* link, double dist);
 
     /** @brief Takes into account vehicle-specific factors for the driving demand
     *          For instance, whether vehicle drives on an opposite direction lane, absolute speed, etc.
-    *  @note  Currently only implemented for the TCI Model.
     */
     virtual void registerEgoVehicleState();
+
+    /** @brief Trigger updates for the state variables according to the traffic situation
+     *         (present traffic items)
+    */
+    virtual void update();
     /// @}
 
 private:
@@ -222,7 +209,7 @@ private:
      *         and stores the result in myCurrentDrivingDifficulty.
      *  @see difficultyFunction()
      */
-    void calculateDrivingDifficulty(double capability, double demand);
+    void calculateDrivingDifficulty();
 
 
     /** @brief Transformation of the quotient demand/capability to obtain the actual
@@ -256,23 +243,41 @@ private:
     void updateErrorProcess(OUProcess& errorProcess, double timeScaleCoefficient, double noiseIntensityCoefficient) const;
 
     /// @brief Initialize newly appeared traffic item
-    void calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti);
+    void calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti) const;
+
+    /// @brief Calculate demand induced by the given junction
+    double calculateLatentJunctionDemand(std::shared_ptr<JunctionCharacteristics> ch) const;
+    /// @brief Calculate demand induced by the given pedestrian
+    double calculateLatentPedestrianDemand(std::shared_ptr<PedestrianCharacteristics> ch) const;
+    /// @brief Calculate demand induced by the given pedestrian
+    double calculateLatentSpeedLimitDemand(std::shared_ptr<SpeedLimitCharacteristics> ch) const;
+    /// @brief Calculate demand induced by the given vehicle
+    double calculateLatentVehicleDemand(std::shared_ptr<VehicleCharacteristics> ch) const;
+
+    /// @brief Calculate integration demand induced by the given junction
+    double calculateJunctionIntegrationDemand(std::shared_ptr<JunctionCharacteristics> ch) const;
+    /// @brief Calculate integration demand induced by the given pedestrian
+    double calculatePedestrianIntegrationDemand(std::shared_ptr<PedestrianCharacteristics> ch) const;
+    /// @brief Calculate integration demand induced by the given pedestrian
+    double calculateSpeedLimitIntegrationDemand(std::shared_ptr<SpeedLimitCharacteristics> ch) const;
+    /// @brief Calculate integration demand induced by the given vehicle
+    double calculateVehicleIntegrationDemand(std::shared_ptr<VehicleCharacteristics> ch) const;
 
     /// @brief Register known traffic item to persist
-    void updateItemIntegration(std::shared_ptr<MSTrafficItem> ti);
+    void updateItemIntegration(std::shared_ptr<MSTrafficItem> ti) const;
 
     /// @brief Determine the integration demand and duration for a newly encountered traffic item (updated in place)
     ///        The integration demand takes effect during a short period after the first appearance of the item.
-    void calculateIntegrationDemandAndTime(std::shared_ptr<MSTrafficItem> ti);
+    void calculateIntegrationDemandAndTime(std::shared_ptr<MSTrafficItem> ti) const;
+
+    /// @brief Calculate the integration time for an item approached with the given speed at given dist
+    double calculateIntegrationTime(double dist, double speed) const;
 
     /// @brief Incorporate the item's demand into the total task demand.
     void integrateDemand(std::shared_ptr<MSTrafficItem> ti);
 
-
-    /** @brief Called whenever the vehicle is notified about a traffic item encounter.
-     */
+    /// @brief Called whenever the vehicle is notified about a traffic item encounter.
     void registerTrafficItem(std::shared_ptr<MSTrafficItem> ti);
-
 
 private:
 

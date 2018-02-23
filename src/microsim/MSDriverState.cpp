@@ -38,8 +38,8 @@
 //#include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <microsim/MSTrafficItem.h>
 #include "MSDriverState.h"
+
 
 /* -------------------------------------------------------------------------
 * static member definitions
@@ -142,7 +142,6 @@ MSDriverState::MSDriverState(MSVehicle* veh) :
 {}
 
 
-
 void
 MSDriverState::updateStepDuration() {
     myStepDuration = SIMTIME - myLastUpdateTime;
@@ -151,13 +150,11 @@ MSDriverState::updateStepDuration() {
 
 
 void
-MSDriverState::calculateDrivingDifficulty(double capability, double demand) {
-    assert(capability > 0.);
-    assert(demand >= 0.);
+MSDriverState::calculateDrivingDifficulty() {
     if (myAmOpposite) {
-        myCurrentDrivingDifficulty = difficultyFunction(myOppositeDirectionDrivingDemandFactor*demand/capability);
+        myCurrentDrivingDifficulty = difficultyFunction(myOppositeDirectionDrivingDemandFactor*myTaskDemand/myTaskCapability);
     } else {
-        myCurrentDrivingDifficulty = difficultyFunction(demand/capability);
+        myCurrentDrivingDifficulty = difficultyFunction(myTaskDemand/myTaskCapability);
     }
 }
 
@@ -168,7 +165,8 @@ MSDriverState::difficultyFunction(double demandCapabilityQuotient) const {
     if (demandCapabilityQuotient <= 1) {
         // demand does not exceed capability -> we are in the region for a slight ascend of difficulty
         difficulty = mySubCriticalDifficultyCoefficient*demandCapabilityQuotient;
-    } else {// demand exceeds capability -> we are in the region for a steeper ascend of the effect of difficulty
+    } else {
+        // demand exceeds capability -> we are in the region for a steeper ascend of the effect of difficulty
         difficulty = mySubCriticalDifficultyCoefficient + (demandCapabilityQuotient - 1)*mySuperCriticalDifficultyCoefficient;
     }
     return MIN2(myMaxDifficulty, difficulty);
@@ -218,8 +216,8 @@ MSDriverState::updateErrorProcess(OUProcess& errorProcess, double timeScaleCoeff
 }
 
 void
-MSDriverState::registerLeader(const MSVehicle* leader, double gap, double latGap) {
-    std::shared_ptr<MSTrafficItemCharacteristics> tic = std::dynamic_pointer_cast<MSTrafficItemCharacteristics>(std::make_shared<VehicleCharacteristics>(leader, gap, latGap));
+MSDriverState::registerLeader(const MSVehicle* leader, double gap, double relativeSpeed, double latGap) {
+    std::shared_ptr<MSTrafficItemCharacteristics> tic = std::dynamic_pointer_cast<MSTrafficItemCharacteristics>(std::make_shared<VehicleCharacteristics>(leader, gap, latGap, relativeSpeed));
     std::shared_ptr<MSTrafficItem> ti = std::make_shared<MSTrafficItem>(TRAFFIC_ITEM_VEHICLE, leader->getID(), tic);
     registerTrafficItem(ti);
 }
@@ -239,19 +237,6 @@ MSDriverState::registerSpeedLimit(const MSLane* lane, double speedLimit, double 
 }
 
 void
-MSDriverState::registerTLS(MSLink* link, double dist) {
-    const MSTrafficLightLogic* tls = link->getTLLogic();
-    if (tls == nullptr) {
-        return;
-    }
-    LinkState state = tls->getCurrentPhaseDef().getSignalState(link->getTLIndex());
-    int nrLanes = myVehicle->getLane()->getEdge().getLanes().size();
-    std::shared_ptr<MSTrafficItemCharacteristics> tic = std::dynamic_pointer_cast<MSTrafficItemCharacteristics>(std::make_shared<TLSCharacteristics>(dist, state, nrLanes));
-    std::shared_ptr<MSTrafficItem> ti = std::make_shared<MSTrafficItem>(TRAFFIC_ITEM_SPEED_LIMIT, tls->getID(), tic);
-    registerTrafficItem(ti);
-}
-
-void
 MSDriverState::registerJunction(MSLink* link, double dist) {
     const MSJunction* junction = link->getJunction();
     std::shared_ptr<MSTrafficItemCharacteristics> tic = std::dynamic_pointer_cast<MSTrafficItemCharacteristics>(std::make_shared<JunctionCharacteristics>(junction, link, dist));
@@ -264,6 +249,48 @@ MSDriverState::registerEgoVehicleState() {
     myAmOpposite = myVehicle->getLaneChangeModel().isOpposite();
     myCurrentSpeed = myVehicle->getSpeed();
     myCurrentAcceleration = myVehicle->getAcceleration();
+}
+
+void
+MSDriverState::update() {
+    // Replace traffic items from previous step with the newly encountered.
+    myTrafficItems = myNewTrafficItems;
+
+    // Iterate through present traffic items and take into account the corresponding
+    // task demands. Further update the item's integration progress.
+    for (auto& hashItemPair : myTrafficItems) {
+        // Traffic item
+        auto ti = hashItemPair.second;
+        // Take into account the task demand associated with the item
+        integrateDemand(ti);
+        // Update integration progress
+        if (ti->remainingIntegrationTime>0) {
+            updateItemIntegration(ti);
+        }
+    }
+
+    // Update capability (~attention) according to the changed demand
+    // NOTE: Doing this before recalculating the errors seems more adequate
+    //       than after adjusting the errors, since a very fast time scale
+    //       for the capability could not be captured otherwise. A slow timescale
+    //       could still be tuned to have a desired effect.
+    adaptTaskCapability();
+
+    // Update driving difficulty
+    calculateDrivingDifficulty();
+
+    // Update errors
+    updateAccelerationError();
+    updateSpeedPerceptionError();
+    updateHeadwayPerceptionError();
+    updateActionStepLength();
+}
+
+
+void
+MSDriverState::integrateDemand(std::shared_ptr<MSTrafficItem> ti) {
+    myMaxTaskDemand += ti->integrationDemand;
+    myMaxTaskDemand += ti->latentDemand;
 }
 
 
@@ -282,27 +309,14 @@ MSDriverState::registerTrafficItem(std::shared_ptr<MSTrafficItem> ti) {
         }
         calculateLatentDemand(ti);
 
-        // Take into account the task demand associated with the item
-        integrateDemand(ti);
-
-        if (ti->remainingIntegrationTime>0) {
-            updateItemIntegration(ti);
-        }
-
         // Track item
         myNewTrafficItems[ti->id_hash] = ti;
     }
 }
 
 
-//void
-//MSDriverState::flushTrafficItems() {
-//    myTrafficItems = myNewTrafficItems;
-//}
-
-
 void
-MSDriverState::updateItemIntegration(std::shared_ptr<MSTrafficItem> ti) {
+MSDriverState::updateItemIntegration(std::shared_ptr<MSTrafficItem> ti) const {
     // Eventually decrease integration time and take into account integration cost.
     ti->remainingIntegrationTime -= myStepDuration;
     if (ti->remainingIntegrationTime <= 0) {
@@ -313,78 +327,45 @@ MSDriverState::updateItemIntegration(std::shared_ptr<MSTrafficItem> ti) {
 
 
 void
-MSDriverState::calculateIntegrationDemandAndTime(std::shared_ptr<MSTrafficItem> ti) {
-// @todo
-}
-
-
-void
-MSDriverState::calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti) {
+MSDriverState::calculateIntegrationDemandAndTime(std::shared_ptr<MSTrafficItem> ti) const {
+    // @todo Idea is that the integration demand is the quantitatively the same for a specific
+    //       item type with definite characteristics but it can be stretched over time,
+    //       if the integration is less urgent (item farther away), thus resulting in
+    //       smaller effort for a longer time.
     switch (ti->type) {
     case TRAFFIC_ITEM_JUNCTION: {
-        // Latent demand for junction is proportional to number of conflicting lanes
-        // for the vehicle's path plus a factor for the total number of incoming lanes
-        // at the junction. Further, the distance to the junction is inversely proportional
-        // to the induced demand [~1/(c*dist + 1)].
         std::shared_ptr<JunctionCharacteristics> ch = std::dynamic_pointer_cast<JunctionCharacteristics>(ti->data);
-        const MSJunction* j = ch->junction;
-        double LATENT_DEMAND_COEFF_JUNCTION_INCOMING = 0.1;
-        double LATENT_DEMAND_COEFF_JUNCTION_FOES = 0.5;
-        double LATENT_DEMAND_COEFF_JUNCTION_DIST = 0.1;
-        ti->latentDemand = (LATENT_DEMAND_COEFF_JUNCTION_INCOMING*j->getNrOfIncomingLanes()
-                                 + LATENT_DEMAND_COEFF_JUNCTION_FOES*j->getFoeLinks(ch->egoLink).size())
-                                         /(1 + ch->dist*LATENT_DEMAND_COEFF_JUNCTION_DIST);
+        const double totalIntegrationDemand = calculateJunctionIntegrationDemand(ch);
+        const double integrationTime = calculateIntegrationTime(ch->dist, myVehicle->getSpeed());
+        ti->integrationDemand = totalIntegrationDemand/integrationTime;
+        ti->remainingIntegrationTime = integrationTime;
     }
-        break;
+    break;
     case TRAFFIC_ITEM_PEDESTRIAN: {
-        // Latent demand for pedestrian is proportional to the euclidean distance to the
-        // pedestrian (i.e. its potential to 'jump in front of the car) [~1/(c*dist + 1)]
         std::shared_ptr<PedestrianCharacteristics> ch = std::dynamic_pointer_cast<PedestrianCharacteristics>(ti->data);
-        const MSPerson* p = ch->pedestrian;
-        ti->latentDemand = 0;
-        WRITE_WARNING("MSDriverState::calculateLatentDemand(pedestrian) not implemented")
+        const double totalIntegrationDemand = calculatePedestrianIntegrationDemand(ch);
+        const double integrationTime = calculateIntegrationTime(ch->dist, myVehicle->getSpeed());
+        ti->integrationDemand = totalIntegrationDemand/integrationTime;
+        ti->remainingIntegrationTime = integrationTime;
     }
-        break;
+    break;
     case TRAFFIC_ITEM_SPEED_LIMIT: {
-        // Latent demand for speed limit is proportional to speed difference to current vehicle speed
-        // during approach [~c*(1+deltaV) if dist<threshold].
         std::shared_ptr<SpeedLimitCharacteristics> ch = std::dynamic_pointer_cast<SpeedLimitCharacteristics>(ti->data);
-        ti->latentDemand = 0;
-        WRITE_WARNING("MSDriverState::calculateLatentDemand(speedlimit) not implemented")
+        const double totalIntegrationDemand = calculateSpeedLimitIntegrationDemand(ch);
+        const double integrationTime = calculateIntegrationTime(ch->dist, myVehicle->getSpeed());
+        ti->integrationDemand = totalIntegrationDemand/integrationTime;
+        ti->remainingIntegrationTime = integrationTime;
     }
-        break;
-    case TRAFFIC_ITEM_TLS: {
-        // Latent demand for tls is proportional to vehicle's approaching speed
-        // and dependent on the tls state as well as the number of approaching lanes
-        // [~c(tlsState, nLanes)*(1+V) if dist<threshold].
-        std::shared_ptr<TLSCharacteristics> ch = std::dynamic_pointer_cast<TLSCharacteristics>(ti->data);
-        ti->latentDemand = 0;
-        WRITE_WARNING("MSDriverState::calculateLatentDemand(TLS) not implemented")
-
-    }
-        break;
+    break;
     case TRAFFIC_ITEM_VEHICLE: {
-        // Latent demand for neighboring vehicle is determined from the relative and absolute speed,
-        // and from the lateral and longitudinal distance.
-
-        double LATENT_DEMAND_VEHILCE_EUCLIDEAN_DIST_THRESHOLD = 20;
-
         std::shared_ptr<VehicleCharacteristics> ch = std::dynamic_pointer_cast<VehicleCharacteristics>(ti->data);
-        if (myVehicle->getEdge() == nullptr){
-            return;
-        }
-        const MSVehicle* foe = ch->foe;
-        if (foe->getEdge() == myVehicle->getEdge()) {
-            // on same edge
-        } else if (foe->getEdge() == myVehicle->getEdge()->getOppositeEdge()) {
-            // on opposite edges
-        } else if (myVehicle->getPosition().distanceSquaredTo2D(foe->getPosition()) < LATENT_DEMAND_VEHILCE_EUCLIDEAN_DIST_THRESHOLD) {
-            // close enough
-        }
-
-
+        ti->latentDemand = calculateLatentVehicleDemand(ch);
+        const double totalIntegrationDemand = calculateVehicleIntegrationDemand(ch);
+        const double integrationTime = calculateIntegrationTime(ch->longitudinalDist, ch->relativeSpeed);
+        ti->integrationDemand = totalIntegrationDemand/integrationTime;
+        ti->remainingIntegrationTime = integrationTime;
     }
-        break;
+    break;
     default:
         WRITE_WARNING("Unknown traffic item type!")
         break;
@@ -392,11 +373,292 @@ MSDriverState::calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti) {
 }
 
 
-void
-MSDriverState::integrateDemand(std::shared_ptr<MSTrafficItem> ti) {
-    myMaxTaskDemand += ti->integrationDemand;
-    myMaxTaskDemand += ti->latentDemand;
+double
+MSDriverState::calculatePedestrianIntegrationDemand(std::shared_ptr<PedestrianCharacteristics> ch) const {
+    // Integration demand for a pedestrian
+    const double INTEGRATION_DEMAND_PEDESTRIAN = 0.5;
+    return INTEGRATION_DEMAND_PEDESTRIAN;
 }
+
+
+double
+MSDriverState::calculateSpeedLimitIntegrationDemand(std::shared_ptr<SpeedLimitCharacteristics> ch) const {
+    // Integration demand for speed limit
+    const double INTEGRATION_DEMAND_SPEEDLIMIT = 0.1;
+    return INTEGRATION_DEMAND_SPEEDLIMIT;
+}
+
+
+double
+MSDriverState::calculateJunctionIntegrationDemand(std::shared_ptr<JunctionCharacteristics> ch) const {
+    // Latent demand for junction is proportional to number of conflicting lanes
+    // for the vehicle's path plus a factor for the total number of incoming lanes
+    // at the junction. Further, the distance to the junction is inversely proportional
+    // to the induced demand [~1/(c*dist + 1)].
+    // Traffic lights induce an additional demand
+    const MSJunction* j = ch->junction;
+
+    // Basic junction integration demand
+    const double INTEGRATION_DEMAND_JUNCTION_BASE = 0.3;
+
+    // Surplus integration demands
+    const double INTEGRATION_DEMAND_JUNCTION_TLS = 0.2;
+    const double INTEGRATION_DEMAND_JUNCTION_FOE_LANE = 0.3; // per foe lane
+    const double INTEGRATION_DEMAND_JUNCTION_LANE = 0.1; // per lane
+    const double INTEGRATION_DEMAND_JUNCTION_RAIL = 0.2;
+    const double INTEGRATION_DEMAND_JUNCTION_ZIPPER = 0.3;
+
+    double result = INTEGRATION_DEMAND_JUNCTION_BASE;
+    LinkState linkState = ch->approachingLink->getState();
+    switch (ch->junction->getType()) {
+    case NODETYPE_NOJUNCTION:
+    case NODETYPE_UNKNOWN:
+    case NODETYPE_DISTRICT:
+    case NODETYPE_DEAD_END:
+    case NODETYPE_DEAD_END_DEPRECATED:
+    case NODETYPE_RAIL_SIGNAL: {
+        result = 0.;
+    }
+    break;
+    case NODETYPE_RAIL_CROSSING: {
+        result += INTEGRATION_DEMAND_JUNCTION_RAIL;
+    }
+    break;
+    case NODETYPE_TRAFFIC_LIGHT:
+    case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+    case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED: {
+        // TODO: Take into account traffic light state?
+//        switch (linkState) {
+//        case LINKSTATE_TL_GREEN_MAJOR:
+//        case LINKSTATE_TL_GREEN_MINOR:
+//        case LINKSTATE_TL_RED:
+//        case LINKSTATE_TL_REDYELLOW:
+//        case LINKSTATE_TL_YELLOW_MAJOR:
+//        case LINKSTATE_TL_YELLOW_MINOR:
+//        case LINKSTATE_TL_OFF_BLINKING:
+//        case LINKSTATE_TL_OFF_NOSIGNAL:
+//        default:
+//        }
+        result += INTEGRATION_DEMAND_JUNCTION_TLS;
+    }
+    // no break. TLS has extra integration demand.
+    case NODETYPE_PRIORITY:
+    case NODETYPE_PRIORITY_STOP:
+    case NODETYPE_RIGHT_BEFORE_LEFT:
+    case NODETYPE_ALLWAY_STOP:
+    case NODETYPE_INTERNAL: {
+        // TODO: Consider link type (major or minor...)
+        double junctionComplexity = (INTEGRATION_DEMAND_JUNCTION_LANE*j->getNrOfIncomingLanes()
+                + INTEGRATION_DEMAND_JUNCTION_FOE_LANE*j->getFoeLinks(ch->approachingLink).size());
+        result += junctionComplexity;
+    }
+    break;
+    case NODETYPE_ZIPPER: {
+        result += INTEGRATION_DEMAND_JUNCTION_ZIPPER;
+    }
+    break;
+    default:
+        assert(false);
+        result = 0.;
+    }
+    return result;
+
+}
+
+
+double
+MSDriverState::calculateVehicleIntegrationDemand(std::shared_ptr<VehicleCharacteristics> ch) const {
+
+    // TODO
+
+}
+
+
+double
+MSDriverState::calculateIntegrationTime(double dist, double speed) const {
+    // Fraction of encounter time, which is accounted for the corresponding traffic item's integration
+    const double INTEGRATION_TIME_COEFF = 0.5;
+    // Maximal time to be accounted for integration
+    const double MAX_INTEGRATION_TIME = 5.;
+    if (speed <= 0.) {
+        return MAX_INTEGRATION_TIME;
+    } else {
+        return MIN2(MAX_INTEGRATION_TIME, INTEGRATION_TIME_COEFF*dist/speed);
+    }
+}
+
+
+void
+MSDriverState::calculateLatentDemand(std::shared_ptr<MSTrafficItem> ti) const {
+    switch (ti->type) {
+    case TRAFFIC_ITEM_JUNCTION: {
+        std::shared_ptr<JunctionCharacteristics> ch = std::dynamic_pointer_cast<JunctionCharacteristics>(ti->data);
+        ti->latentDemand = calculateLatentJunctionDemand(ch);
+    }
+    break;
+    case TRAFFIC_ITEM_PEDESTRIAN: {
+        std::shared_ptr<PedestrianCharacteristics> ch = std::dynamic_pointer_cast<PedestrianCharacteristics>(ti->data);
+        ti->latentDemand = calculateLatentPedestrianDemand(ch);
+    }
+    break;
+    case TRAFFIC_ITEM_SPEED_LIMIT: {
+        std::shared_ptr<SpeedLimitCharacteristics> ch = std::dynamic_pointer_cast<SpeedLimitCharacteristics>(ti->data);
+        ti->latentDemand = calculateLatentSpeedLimitDemand(ch);
+    }
+    break;
+    case TRAFFIC_ITEM_VEHICLE: {
+        std::shared_ptr<VehicleCharacteristics> ch = std::dynamic_pointer_cast<VehicleCharacteristics>(ti->data);
+        ti->latentDemand = calculateLatentVehicleDemand(ch);
+    }
+    break;
+    default:
+        WRITE_WARNING("Unknown traffic item type!")
+        break;
+    }
+}
+
+
+double
+MSDriverState::calculateLatentPedestrianDemand(std::shared_ptr<PedestrianCharacteristics> ch) const {
+    // Latent demand for pedestrian is proportional to the euclidean distance to the
+    // pedestrian (i.e. its potential to 'jump in front of the car) [~1/(c*dist + 1)]
+    const MSPerson* p = ch->pedestrian;
+    const double LATENT_DEMAND_COEFF_PEDESTRIAN_DIST = 0.1;
+    const double LATENT_DEMAND_COEFF_PEDESTRIAN = 0.5;
+    double result = LATENT_DEMAND_COEFF_PEDESTRIAN/(1. + LATENT_DEMAND_COEFF_PEDESTRIAN_DIST*ch->dist);
+    return result;
+}
+
+
+double
+MSDriverState::calculateLatentSpeedLimitDemand(std::shared_ptr<SpeedLimitCharacteristics> ch) const {
+    // Latent demand for speed limit is proportional to speed difference to current vehicle speed
+    // during approach [~c*(1+deltaV) if dist<threshold].
+    const double LATENT_DEMAND_COEFF_SPEEDLIMIT_TIME_THRESH = 5;
+    const double LATENT_DEMAND_COEFF_SPEEDLIMIT = 0.1;
+    double dist_thresh = LATENT_DEMAND_COEFF_SPEEDLIMIT_TIME_THRESH*myVehicle->getSpeed();
+    double result = 0.;
+    if (ch->dist <= dist_thresh && myVehicle->getSpeed() > ch->limit*myVehicle->getChosenSpeedFactor()) {
+        // Upcoming speed limit does require a slowdown and is close enough.
+        double dv = myVehicle->getSpeed() - ch->limit*myVehicle->getChosenSpeedFactor();
+        result = LATENT_DEMAND_COEFF_SPEEDLIMIT*(1 + dv);
+    }
+    return result;
+}
+
+
+double
+MSDriverState::calculateLatentVehicleDemand(std::shared_ptr<VehicleCharacteristics> ch) const {
+
+
+    // TODO
+
+
+    // Latent demand for neighboring vehicle is determined from the relative and absolute speed,
+    // and from the lateral and longitudinal distance.
+    double result = 0.;
+    const MSVehicle* foe = ch->foe;
+    if (foe->getEdge() == myVehicle->getEdge()) {
+        // on same edge
+    } else if (foe->getEdge() == myVehicle->getEdge()->getOppositeEdge()) {
+        // on opposite edges
+    }
+    return result;
+}
+
+
+
+double
+MSDriverState::calculateLatentJunctionDemand(std::shared_ptr<JunctionCharacteristics> ch) const {
+    // Latent demand for junction is proportional to number of conflicting lanes
+    // for the vehicle's path plus a factor for the total number of incoming lanes
+    // at the junction. Further, the distance to the junction is inversely proportional
+    // to the induced demand [~1/(c*dist + 1)].
+    // Traffic lights induce an additional demand
+    const MSJunction* j = ch->junction;
+    const double LATENT_DEMAND_COEFF_JUNCTION_TIME_DIST_THRESH = 5; // seconds till arrival, below which junction is relevant
+    const double LATENT_DEMAND_COEFF_JUNCTION_INCOMING = 0.1;
+    const double LATENT_DEMAND_COEFF_JUNCTION_FOES = 0.5;
+    const double LATENT_DEMAND_COEFF_JUNCTION_DIST = 0.1;
+
+    double v = myVehicle->getSpeed();
+    double dist_thresh = LATENT_DEMAND_COEFF_JUNCTION_TIME_DIST_THRESH*v;
+
+    if (ch->dist > dist_thresh) {
+        return 0.;
+    }
+    double result = 0.;
+    LinkState linkState = ch->approachingLink->getState();
+    switch (ch->junction->getType()) {
+    case NODETYPE_NOJUNCTION:
+    case NODETYPE_UNKNOWN:
+    case NODETYPE_DISTRICT:
+    case NODETYPE_DEAD_END:
+    case NODETYPE_DEAD_END_DEPRECATED:
+    case NODETYPE_RAIL_SIGNAL: {
+        result = 0.;
+    }
+    break;
+    case NODETYPE_RAIL_CROSSING: {
+        result = 0.5;
+    }
+    break;
+    case NODETYPE_TRAFFIC_LIGHT:
+    case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+    case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED: {
+        // Take into account traffic light state
+        switch (linkState) {
+        case LINKSTATE_TL_GREEN_MAJOR:
+            result = 0;
+            break;
+        case LINKSTATE_TL_GREEN_MINOR:
+            result = 0.2*(1. + 0.1*v);
+            break;
+        case LINKSTATE_TL_RED:
+            result = 0.1*(1. + 0.1*v);
+            break;
+        case LINKSTATE_TL_REDYELLOW:
+            result = 0.2*(1. + 0.1*v);
+            break;
+        case LINKSTATE_TL_YELLOW_MAJOR:
+            result = 0.1*(1. + 0.1*v);
+            break;
+        case LINKSTATE_TL_YELLOW_MINOR:
+            result = 0.2*(1. + 0.1*v);
+            break;
+        case LINKSTATE_TL_OFF_BLINKING:
+            result = 0.3*(1. + 0.1*v);
+            break;
+        case LINKSTATE_TL_OFF_NOSIGNAL:
+            result = 0.2*(1. + 0.1*v);
+        }
+    }
+    // no break, TLS is accounted extra
+    case NODETYPE_PRIORITY:
+    case NODETYPE_PRIORITY_STOP:
+    case NODETYPE_RIGHT_BEFORE_LEFT:
+    case NODETYPE_ALLWAY_STOP:
+    case NODETYPE_INTERNAL: {
+        // TODO: Consider link type (major or minor...)
+        double junctionComplexity = (LATENT_DEMAND_COEFF_JUNCTION_INCOMING*j->getNrOfIncomingLanes()
+                + LATENT_DEMAND_COEFF_JUNCTION_FOES*j->getFoeLinks(ch->approachingLink).size())
+                                             /(1 + ch->dist*LATENT_DEMAND_COEFF_JUNCTION_DIST);
+        result += junctionComplexity;
+    }
+    break;
+    case NODETYPE_ZIPPER: {
+        result = 0.5*(1. + 0.1*v);
+    }
+    break;
+    default:
+        assert(false);
+        result = 0.;
+    }
+    return result;
+}
+
+
+
 
 
 

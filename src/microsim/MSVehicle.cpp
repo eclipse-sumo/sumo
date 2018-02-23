@@ -1867,6 +1867,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // move to next lane
         //  get the next link used
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+
+        if (myDriverState != nullptr) {
+            // Serving the task difficulty interface
+            myDriverState->registerJunction(*link, seen);
+        }
         //  check whether the vehicle is on its final edge
         if (myCurrEdge + view + 1 == myRoute->end()) {
             const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ?
@@ -1918,10 +1923,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
         const bool yellowOrRed = (*link)->haveRed() || (*link)->haveYellow();
-        if (myDriverState != nullptr && (*link)->getTLLogic() != 0) {
-            // Serving the task difficulty interface
-            myDriverState->registerTLS(*link, seen);
-        }
         // We distinguish 3 cases when determining the point at which a vehicle stops:
         // - links that require stopping: here the vehicle needs to stop close to the stop line
         //   to ensure it gets onto the junction in the next step. Otherwise the vehicle would 'forget'
@@ -2109,6 +2110,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(lane->getLength(), v, cfModel.getMaxAccel()), laneMaxV); // upper bound
         lastLink = &lfLinks.back();
     }
+    // Serving the task difficulty interface
+    if (myDriverState != nullptr) {
+        myDriverState->update();
+    }
 
 //#ifdef DEBUG_PLAN_MOVE
 //    if(DEBUG_COND){
@@ -2159,9 +2164,9 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             }
 #endif
             adaptToLeader(std::make_pair(pred, gap), seen, lastLink, lane, v, vLinkPass);
-            // task difficulty interface, @see MSCFModel_TCI
+            // task difficulty interface
             if (myDriverState != nullptr) {
-                myDriverState->registerLeader(pred, gap);
+                myDriverState->registerLeader(pred, gap, getSpeed()-pred->getSpeed());
             }
         }
     }
