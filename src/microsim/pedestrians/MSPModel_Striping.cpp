@@ -444,11 +444,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 assert(nextDir != UNDEFINED_DIRECTION);
                 if (nextDir == FORWARD) {
                     link = MSLinkContHelper::getConnectingLink(*currentLane, *nextLane);
-                } else if (nextEdge->isCrossing()) {
-                    const MSLane* oppositeWalkingArea = nextLane->getLogicalPredecessorLane();
-                    link = MSLinkContHelper::getConnectingLink(*oppositeWalkingArea, *nextLane);
                 } else {
                     link = MSLinkContHelper::getConnectingLink(*nextLane, *currentLane);
+                    if (nextEdge->isCrossing() && link->getTLLogic() == 0 ) {
+                        const MSLane* oppositeWalkingArea = nextLane->getLogicalPredecessorLane();
+                        link = MSLinkContHelper::getConnectingLink(*oppositeWalkingArea, *nextLane);
+                    }
                 }
                 assert(link != 0);
             } else {
