@@ -611,6 +611,10 @@ enum {
     MID_GNE_TLSFRAME_PHASE_DELETE,
     /// @brief cleanup unused states
     MID_GNE_TLSFRAME_CLEANUP,
+    /// @brief mark unused states
+    MID_GNE_TLSFRAME_MARKUNUSED,
+    /// @brief mark unused states
+    MID_GNE_TLSFRAME_ADDUNUSED,
     /// @brief Load Program
     MID_GNE_TLSFRAME_LOAD_PROGRAM,
     /// @brief cleanup unused states

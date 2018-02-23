@@ -81,6 +81,8 @@ FXDEFMAP(GNETLSEditorFrame) GNETLSEditorFrameMap[] = {
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_PHASE_DELETE,    GNETLSEditorFrame::onUpdNeedsDefAndPhase),
     FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onCmdCleanup),
     FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_CLEANUP,         GNETLSEditorFrame::onUpdNeedsDef),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onCmdAddUnused),
+    FXMAPFUNC(SEL_UPDATE,     MID_GNE_TLSFRAME_ADDUNUSED,       GNETLSEditorFrame::onUpdNeedsDef),
     FXMAPFUNC(SEL_SELECTED,   MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_DESELECTED, MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
     FXMAPFUNC(SEL_CHANGED,    MID_GNE_TLSFRAME_PHASE_TABLE,     GNETLSEditorFrame::onCmdPhaseSwitch),
@@ -451,6 +453,17 @@ GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::onCmdCleanup(FXObject*, FXSelector, void*) {
     myTLSModifications->setHaveModifications(myEditedDef->cleanupStates());
+    myTLSPhases->initPhaseTable(0);
+    myTLSPhases->getPhaseTable()->setFocus();
+    return 1;
+}
+
+
+long
+GNETLSEditorFrame::onCmdAddUnused(FXObject*, FXSelector, void*) {
+    myEditedDef->getLogic()->setStateLength(
+            myEditedDef->getLogic()->getNumLinks() + 1);
+    myTLSModifications->setHaveModifications(true);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
@@ -997,7 +1010,12 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
 
     // create delete phase button
     myDeleteSelectedPhaseButton = new FXButton(this, "Delete Phase\t\tDelete selected phase", 0, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);
+
+    // create cleanup states button
     new FXButton(this, "Cleanup States\t\tClean unused states from all phase.", 0, myTLSEditorParent, MID_GNE_TLSFRAME_CLEANUP, GUIDesignButton);
+
+    // add unused states button
+    new FXButton(this, "Add Unused States\t\tExtend the state vector for all phases by one entry.", 0, myTLSEditorParent, MID_GNE_TLSFRAME_ADDUNUSED, GUIDesignButton);
 
     // show TLSFile
     show();
