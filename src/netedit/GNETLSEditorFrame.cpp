@@ -563,9 +563,25 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
             myInternalLanes[tlIndex].push_back(ilane);
         }
         for (auto c : nbn->getCrossings()) {
-            GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkIndex);
-            rtree.addAdditionalGLObject(ilane);
-            myInternalLanes[c->tlLinkIndex].push_back(ilane);
+            if (c->tlLinkIndex2 > 0 && c->tlLinkIndex2 != c->tlLinkIndex) {
+                // draw both directions
+                PositionVector forward = c->shape;
+                forward.move2side(c->width / 4);
+                GNEInternalLane* ilane = new GNEInternalLane(this, c->id, forward, c->tlLinkIndex);
+                rtree.addAdditionalGLObject(ilane);
+                myInternalLanes[c->tlLinkIndex].push_back(ilane);
+
+                PositionVector backward = c->shape.reverse();
+                backward.move2side(c->width / 4);
+                GNEInternalLane* ilane2 = new GNEInternalLane(this, c->id + "_r", backward, c->tlLinkIndex2);
+                rtree.addAdditionalGLObject(ilane2);
+                myInternalLanes[c->tlLinkIndex2].push_back(ilane2);
+            } else {
+                // draw only one lane for both directions
+                GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkIndex);
+                rtree.addAdditionalGLObject(ilane);
+                myInternalLanes[c->tlLinkIndex].push_back(ilane);
+            }
         }
     }
 }
