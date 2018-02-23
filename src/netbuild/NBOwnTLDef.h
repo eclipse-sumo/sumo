@@ -137,6 +137,9 @@ public:
     /* build optional all-red phase */
     void buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, const std::string& state);
 
+    ///@brief Returns the maximum index controlled by this traffic light
+    int getMaxIndex();
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{

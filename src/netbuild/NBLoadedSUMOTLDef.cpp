@@ -551,7 +551,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 
 
 int 
-NBLoadedSUMOTLDef::getMaxIndex() const {
+NBLoadedSUMOTLDef::getMaxIndex() {
     int maxIndex = -1;
     for (const NBConnection& c : myControlledLinks) {
         maxIndex = MAX2(maxIndex, c.getTLIndex());
@@ -579,7 +579,8 @@ NBLoadedSUMOTLDef::hasValidIndices() const {
             }
         }
     }
-    return getMaxIndex() < myTLLogic->getNumLinks();
+    // method getMaxIndex() is const but cannot be declare as such due to inheritance
+    return const_cast<NBLoadedSUMOTLDef*>(this)->getMaxIndex() < myTLLogic->getNumLinks();
 }
 
 

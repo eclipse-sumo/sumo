@@ -757,4 +757,15 @@ NBOwnTLDef::checkCustomCrossingIndices(NBTrafficLightLogic* logic) const {
     // XXX initialize the backward index to the same state as the forward index
 }
 
+
+int 
+NBOwnTLDef::getMaxIndex() {
+    setParticipantsInformation();
+    NBTrafficLightLogic* logic = compute(OptionsCont::getOptions());
+    if (logic != 0) {
+        return logic->getNumLinks() - 1;
+    } else {
+        return -1;
+    }
+}
 /****************************************************************************/
