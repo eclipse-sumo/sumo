@@ -1,5 +1,5 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:43178 [Errno 111] Connection refused
+Could not connect to TraCI server at localhost:52945 [Errno 111] Connection refused
  Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
@@ -57,6 +57,7 @@ getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
 getBusStopWaiting 0
 findRoute Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4)
+findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=0.0, cost=0.0)
 findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=3694.9536, cost=3694.9536)]
 step 0
 {114: [], 116: []}
