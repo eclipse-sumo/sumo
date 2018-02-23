@@ -255,9 +255,10 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
-            return (myCrossing->tlID != "" && canParse<int>(value) && isPositive<int>(value)
+            return (myCrossing->tlID != "" && canParse<int>(value) 
+                    && (isPositive<int>(value) || (value == "-1" && key == SUMO_ATTR_TLLINKINDEX2))
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
-                    && (*myParentJunction->getNBNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
+                    && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
