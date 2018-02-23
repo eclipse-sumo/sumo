@@ -37,6 +37,7 @@ class GNEEdge;
 class GNELane;
 class GNEInternalLane;
 class GNEJunction;
+class NBOwnTLDef;
 
 // ===========================================================================
 // class definitions
@@ -442,6 +443,41 @@ protected:
     static SUMOTime getSUMOTime(const FXString& string);
 
 private:
+
+    class TLParser : public SUMOSAXHandler { 
+    public:
+        /// @brief constructor
+        TLParser(GNETLSEditorFrame* TLSEditorFrameParent, NBTrafficLightLogicCont &tmpCont);
+
+        /// @brief destructor
+        ~TLParser();
+
+        /// @brief check if loaded TrafficLights corresponds to a TL controled junction in net
+        bool checkTLValids();
+
+        /// @name inherited from GenericSAXHandler
+        //@{
+
+        /** @brief Called on the opening of a tag
+            * @param[in] element ID of the currently opened element
+            * @param[in] attrs Attributes within the currently opened element
+            * @exception ProcessError If something fails
+            * @see GenericSAXHandler::myStartElement
+            */
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        //@}
+
+    private:
+        /// @brief pointer to TLSEditorFrameParent
+        GNETLSEditorFrame* myTLSEditorFrameParent;
+
+        /// @brief NBTrafficLightLogicCont
+        std::vector<NBOwnTLDef*> myDefinitions;
+
+        /// @brief Temporal NBTrafficLightLogicCont
+        NBTrafficLightLogicCont &myTmpCont;
+    };
+
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;
 

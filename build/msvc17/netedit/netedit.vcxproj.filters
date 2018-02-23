@@ -73,9 +73,6 @@
     <Filter Include="Quellcodedateien\Frames">
       <UniqueIdentifier>{25dc7873-d099-418e-9340-579db01c9035}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header-Dateien\Items\Additionals\Rerouter">
-      <UniqueIdentifier>{d78f8503-f28f-4a62-a34a-71a7627f0b5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quellcodedateien\Items\Additionals\Rerouter">
       <UniqueIdentifier>{a89f84a4-21ee-48f4-a70a-cb6545593ff2}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,9 @@
     </Filter>
     <Filter Include="Header-Dateien\Items\Shapes">
       <UniqueIdentifier>{1ed8a1dd-f1e0-4a35-8fc9-885daa342068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header-Dateien\Items\Additionals\Detectors\Rerouter">
+      <UniqueIdentifier>{d78f8503-f28f-4a62-a34a-71a7627f0b5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -509,22 +509,22 @@
       <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNERerouter.h">
-      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+      <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEDestProbReroute.h">
-      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+      <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbReroute.h">
-      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+      <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEClosingLaneReroute.h">
-      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+      <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEClosingReroute.h">
-      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+      <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNERerouterInterval.h">
-      <Filter>Header-Dateien\Items\Additionals\Rerouter</Filter>
+      <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSignDialog.h">
       <Filter>Header-Dateien\Dialogs\AdditionalDialogs</Filter>

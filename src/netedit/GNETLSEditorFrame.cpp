@@ -41,6 +41,7 @@
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBOwnTLDef.h>
 
 #include "GNETLSEditorFrame.h"
 #include "GNEViewNet.h"
@@ -193,11 +194,20 @@ GNETLSEditorFrame::isTLSSaved() {
 
 bool 
 GNETLSEditorFrame::parseTLSPrograms(const std::string &file) {
+    myViewNet->getUndoList()->p_begin("Loading TLS");
     NBTrafficLightLogicCont tmpCont;
-    NIXMLTrafficLightsHandler* handler = new NIXMLTrafficLightsHandler(tmpCont, myViewNet->getNet()->getNetBuilder()->getEdgeCont());
-    XMLSubSys::runParser(*handler, file);
-    // create all loaded defs in tmpCont using GNEChange_TLS
+    GNETLSEditorFrame::TLParser handlerTLParser(this, tmpCont);
+    XMLSubSys::runParser(handlerTLParser, file);
+    if(handlerTLParser.checkTLValids()) {
 
+        NIXMLTrafficLightsHandler* handler = new NIXMLTrafficLightsHandler(tmpCont, myViewNet->getNet()->getNetBuilder()->getEdgeCont());
+        XMLSubSys::runParser(*handler, file);
+        // create all loaded defs in tmpCont using GNEChange_TLS
+
+        myViewNet->getUndoList()->p_end();
+    } else {
+        myViewNet->getUndoList()->p_abort();
+    }
     return true;
 }
 
@@ -681,6 +691,107 @@ GNETLSEditorFrame::getSUMOTime(const FXString& string) {
 }
 
 // ---------------------------------------------------------------------------
+// GNETLSEditorFrame::TLParser - methods
+// ---------------------------------------------------------------------------
+
+GNETLSEditorFrame::TLParser::TLParser(GNETLSEditorFrame* TLSEditorFrameParent, NBTrafficLightLogicCont &tmpCont) :
+    SUMOSAXHandler("TLS"),
+    myTLSEditorFrameParent(TLSEditorFrameParent),
+    myTmpCont(tmpCont) {
+}
+
+
+GNETLSEditorFrame::TLParser::~TLParser() {}
+
+
+bool
+GNETLSEditorFrame::TLParser::checkTLValids() {
+    std::vector<NBOwnTLDef*> definitionsJunctionsWithoutTL;
+    while(myDefinitions.size() > 0) {
+        GNEJunction *junction = myTLSEditorFrameParent->getViewNet()->getNet()->retrieveJunction(myDefinitions.back()->getID(), false);
+
+        if(junction) {
+            if(junction->getNBNode()->isTLControlled()) {
+                myTmpCont.insert(myDefinitions.back());
+            } else {
+                definitionsJunctionsWithoutTL.push_back(myDefinitions.back());
+            }
+        } else {
+            WRITE_ERROR("ERROR");
+            delete myDefinitions.back();
+        }
+        myDefinitions.pop_back();
+    }
+    if(definitionsJunctionsWithoutTL.size() > 0) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening question FXMessageBox 'create TLS in uncontrolled junctions'");
+        }
+        // open question box
+        FXuint answer = FXMessageBox::question(myTLSEditorFrameParent, MBOX_YES_NO_CANCEL,
+                                                "Create TLS", "%s",
+                                                ("There is " + toString(definitionsJunctionsWithoutTL.size()) + " TLS without controlled junction.\nDo you want to create TLSs in uncontrolled Junctions?").c_str());
+        if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Yes'");
+            }
+            // convert Junctions in TLS
+            for (auto i : definitionsJunctionsWithoutTL) {
+                GNEJunction *junction = myTLSEditorFrameParent->getViewNet()->getNet()->retrieveJunction(i->getID());
+                junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myTLSEditorFrameParent->getViewNet()->getUndoList());
+                myTmpCont.insert(i);
+            }
+        } else if (answer == MBOX_CLICKED_NO) {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'No'");
+            }
+            // delete loaded TLSs
+            for (auto i : definitionsJunctionsWithoutTL) {
+                delete i;
+            }
+        } else {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'create TLS in uncontrolled junctions' with 'Cancel'");
+            }
+            // return false to abort loading of TLSs
+            return false;
+        }
+    }
+
+    // return true to continue loading TLSs
+    return true;
+}
+
+
+void
+GNETLSEditorFrame::TLParser:: myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    switch (element) {
+        case SUMO_TAG_TLLOGIC: {
+            bool ok = true;
+            std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
+            TrafficLightType type = TLTYPE_STATIC;
+            std::string typeS = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+            if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
+                type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
+            } else {
+                WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
+            }
+            const SUMOTime offset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_OFFSET, id.c_str(), ok, 0);
+
+            myDefinitions.push_back(new NBOwnTLDef(id, offset, type));
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+
+// ---------------------------------------------------------------------------
 // GNETLSEditorFrame::TLSAttributes - methods
 // ---------------------------------------------------------------------------
 
@@ -1076,7 +1187,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load TLS Program");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*TLSProgram.xml");
+    opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -1108,7 +1219,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
 long 
 GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save TLS Program as", ".TLSProgram.xml",
+                    "Save TLS Program as", ".xml",
                     GUIIconSubSys::getIcon(ICON_MODETLS),
                     gCurrentFolder);
     if (file == "") {
