@@ -422,18 +422,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
                     && canParse<int>(value) 
                     && parse<int>(value) >= 0) {
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
-                NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
-                int numLinks = 0;
-                if (sumoDef) {
-                    numLinks = sumoDef->getLogic()->getNumLinks();
-                } else {
-                    def->setParticipantsInformation();
-                    NBTrafficLightLogic* logic = def->compute(OptionsCont::getOptions());
-                    if (logic != 0) {
-                        numLinks = logic->getNumLinks();
-                    }
-                }
-                return numLinks > parse<int>(value);
+                return def->getMaxIndex() >= parse<int>(value);
             } else {
                 return false;
             }
