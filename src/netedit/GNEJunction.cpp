@@ -290,10 +290,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
         // draw crossings
-        if (s.editMode != GNE_MODE_TLS) {
-            for (auto it : myGNECrossings) {
-                it->drawGL(s);
-            }
+        for (auto it : myGNECrossings) {
+            it->drawGL(s);
         }
         // (optional) draw name @todo expose this setting
         drawName(myNBNode.getPosition(), s.scale, s.junctionName);
