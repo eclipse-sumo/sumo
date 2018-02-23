@@ -241,8 +241,8 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
-            GLHelper::drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
-            GLHelper::drawTextAtEnd(toString(linkNo2), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+            GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+            GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         }
         return;
     }
@@ -278,8 +278,8 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         }
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
-        drawLinkRule(s, net, link, shape, 0, myWidth);
-        drawLinkRule(s, net, link2, shape.reverse(), 0, myWidth);
+        drawLinkRule(s, net, link2, shape, 0, myWidth);
+        drawLinkRule(s, net, link, shape.reverse(), 0, myWidth);
         return;
     }
     // draw all links
