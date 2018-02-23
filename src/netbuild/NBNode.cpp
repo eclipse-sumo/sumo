@@ -2675,9 +2675,7 @@ NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
         if (c->customTLIndex != -1) {
             c->tlLinkIndex = c->customTLIndex;
         }
-        if (c->customTLIndex2 != -1) {
-            c->tlLinkIndex2 = c->customTLIndex2;
-        }
+        c->tlLinkIndex2 = c->customTLIndex2;
     }
 }
 
