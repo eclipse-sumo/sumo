@@ -560,8 +560,8 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_PARKING_SPACE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Z, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "2.5"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_FLOW:
