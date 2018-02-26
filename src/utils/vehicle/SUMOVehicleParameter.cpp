@@ -222,6 +222,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
             case ARRIVAL_POS_RANDOM:
                 val = "random";
                 break;
+            case ARRIVAL_POS_CENTER:
+                val = "center";
+                break;
             case ARRIVAL_POS_MAX:
                 val = "max";
                 break;
@@ -517,6 +520,8 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
     bool ok = true;
     if (val == "random") {
         apd = ARRIVAL_POS_RANDOM;
+    } else if (val == "center") {
+        apd = ARRIVAL_POS_CENTER;
     } else if (val == "max") {
         apd = ARRIVAL_POS_MAX;
     } else {

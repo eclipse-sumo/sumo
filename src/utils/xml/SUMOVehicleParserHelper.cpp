@@ -768,6 +768,8 @@ SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const std::string& id, d
     }
     if (proc == ARRIVAL_POS_RANDOM) {
         result = RandHelper::rand(maxPos, rng);
+    } else if (proc == ARRIVAL_POS_CENTER) {
+        result = maxPos / 2.;
     } else if (proc == ARRIVAL_POS_MAX) {
         result = maxPos;
     }

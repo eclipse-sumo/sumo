@@ -221,6 +221,8 @@ enum ArrivalPosDefinition {
     ARRIVAL_POS_GIVEN,
     /// @brief The arrival position is chosen randomly
     ARRIVAL_POS_RANDOM,
+    /// @brief Half the road length
+    ARRIVAL_POS_CENTER,
     /// @brief The maximum arrival position is used
     ARRIVAL_POS_MAX,
     /// @brief Tag for the last element in the enum for safe int casting

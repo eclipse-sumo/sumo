@@ -1021,7 +1021,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
             arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
                          attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
         } else {
-            arrivalPos = 0.;
+            arrivalPos = toEdge->getLength() / 2.;
         }
     }
 }
@@ -1136,7 +1136,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
                             bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
-                            double localArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength();
+                            double localArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
                             if (it + 1 == result.end() && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                                 localArrivalPos = arrivalPos;
                             }
