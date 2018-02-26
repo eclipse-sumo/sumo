@@ -62,7 +62,7 @@ GNEChargingStation.h GNEChargingStation.cpp \
 GNEStoppingPlace.h GNEStoppingPlace.cpp \
 GNEBusStop.h GNEBusStop.cpp \
 GNEContainerStop.h GNEContainerStop.cpp \
-GNEParkinArea.h GNEParkinArea.cpp \
+GNEParkingArea.h GNEParkingArea.cpp \
 GNEParkingSpace.h GNEParkingSpace.cpp \
 GNEDetector.h GNEDetector.cpp \
 GNEDetectorE1.h GNEDetectorE1.cpp \
