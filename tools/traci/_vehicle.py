@@ -690,6 +690,34 @@ class VehicleDomain(Domain):
         result = self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID)
         return result.read("!iBiBi")[2::2]  # ignore num compounds and type int
 
+    def getLaneChangeStatePretty(self, vehID, direction):
+        """getLaneChangeState(string, int) -> ([string, ...], [string, ...])
+        Return the lane change state for the vehicle as a list of string constants
+        """
+        constants = {
+                0 : 'stay',
+                1 : 'left',
+                2 : 'right',
+                3 : 'strategic',
+                4 : 'cooperative',
+                5 : 'speedGain',
+                6 : 'keepRight',
+                7 : 'TraCI',
+                8 : 'urgent',
+                9 : 'blocked by left leader',
+                10: 'blocked by left follower',
+                11: 'blocked by right leader',
+                12: 'bloecked by right follower',
+                13: 'overlapping',
+                14: 'insufficient space',
+                15: 'sublane',
+                }
+        def prettifyBitstring(intval):
+            return [v for k,v in constants.items() if (intval & 2**k)]
+
+        state, stateTraCI = self.getLaneChangeState(vehID, direction)
+        return prettifyBitstring(state), prettifyBitstring(stateTraCI)
+
     def couldChangeLane(self, vehID, direction):
         """couldChangeLane(string, int) -> bool
         Return whether the vehicle could change lanes in the specified direction
