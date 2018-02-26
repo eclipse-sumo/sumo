@@ -1,6 +1,3 @@
-# Save CF parameters changed over traci.  Note: The initial test version does not test the complete set of corresponding parameters.
-ticket3522
-
 # trafficlight.setCompleteRedYellowGreenDefinition
 ticket1010
 
@@ -35,6 +32,9 @@ ticket3505_with_load_offset
 # Altered conditions similar to the ones causing bug 3505: 
 # begin > save-time
 ticket3505_test_with_begin_ge_savetime
+
+# Save CF parameters changed over traci.  Note: The initial test version does not test the complete set of corresponding parameters.
+ticket3522
 
 # vehicle.changeLane with sublane model
 ticket3634
