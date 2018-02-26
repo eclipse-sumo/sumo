@@ -41,3 +41,6 @@ ticket3634
 
 # test vehicle.getDistance() for looped route
 ticket3648
+
+# vehicle.getLaneChangeState() with setLaneChangeMode()
+ticket3810
