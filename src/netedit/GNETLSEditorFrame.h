@@ -298,10 +298,13 @@ public:
         void disableTLSFile();
 
         /// @brief clear loaded phases
-        void clearLoadedPhases();
+        void clearLoadedTLS();
+
+        /// @brief check if loaded TrafficLights corresponds to a TL controled junction in net
+        bool checkTLSValids();
 
         /// @brief get loaded phases
-        const std::map<NBTrafficLightLogic*, std::vector<NBTrafficLightLogic::PhaseDefinition> > &getLoadedPhases() const;
+        const std::vector<NBLoadedSUMOTLDef*> &getLoadedTLS() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -326,10 +329,8 @@ public:
         /// @brief button for save TLS Programs
         FXButton* mySaveTLSProgramButton;
 
-        /// @brief container used to save loaded phases temporally
-        std::map<NBTrafficLightLogic*, std::vector<NBTrafficLightLogic::PhaseDefinition> > myLoadedPhases;
-
-        NBTrafficLightLogic* myLastInsertedTLLogic;
+        /// @brief container used to save loaded TLSs
+        std::vector<NBLoadedSUMOTLDef*> myLoadedTLS;
 
         /// @brief convert SUMOTime into string
         std::string writeSUMOTime(SUMOTime steps);
@@ -446,41 +447,6 @@ protected:
     static SUMOTime getSUMOTime(const FXString& string);
 
 private:
-
-    class TLParser : public SUMOSAXHandler { 
-    public:
-        /// @brief constructor
-        TLParser(GNETLSEditorFrame* TLSEditorFrameParent, NBTrafficLightLogicCont &tmpCont);
-
-        /// @brief destructor
-        ~TLParser();
-
-        /// @brief check if loaded TrafficLights corresponds to a TL controled junction in net
-        bool checkTLValids();
-
-        /// @name inherited from GenericSAXHandler
-        //@{
-
-        /** @brief Called on the opening of a tag
-            * @param[in] element ID of the currently opened element
-            * @param[in] attrs Attributes within the currently opened element
-            * @exception ProcessError If something fails
-            * @see GenericSAXHandler::myStartElement
-            */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
-        //@}
-
-    private:
-        /// @brief pointer to TLSEditorFrameParent
-        GNETLSEditorFrame* myTLSEditorFrameParent;
-
-        /// @brief NBTrafficLightLogicCont
-        std::vector<NBOwnTLDef*> myDefinitions;
-
-        /// @brief Temporal NBTrafficLightLogicCont
-        NBTrafficLightLogicCont &myTmpCont;
-    };
-
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;
 
