@@ -425,8 +425,11 @@ public:
         /// @brief destructor
         ~SelectorParentAdditional();
 
-        /// @brief get if currently additional Set
+        /// @brief get currently additional parent selected
         std::string getIdSelected() const;
+
+        /// @brief select manually a element of the list
+        void setIDSelected(const std::string &id);
 
         /// @brief Show list of SelectorParentAdditional
         void showListOfAdditionals(SumoXMLTag type, bool uniqueSelection);
@@ -612,11 +615,11 @@ public:
     ~GNEAdditionalFrame();
 
     /**@brief add additional element
-     * @param[in] netElement clicked netElement. if user dind't clicked over a GNENetElement in view, netElement will be NULL
-     * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
+     * @param[in] netElement clicked GNENetElement. If user doesn't clicked over a GNENetElement in view, netElement will be NULL
+     * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be NULL
      * @return AddAdditionalStatus with the result of operation
      */
-    AddAdditionalResult addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent);
+    AddAdditionalResult addAdditional(GNENetElement* netElement, GNEAdditional* additional);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase

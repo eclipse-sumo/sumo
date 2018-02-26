@@ -927,15 +927,13 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
-                if (pointed_additional == NULL) {
-                    GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
-                    GNEAdditionalFrame::AddAdditionalResult result = myViewParent->getAdditionalFrame()->addAdditional(netElement, this);
-                    // process click or update view depending of the result of "add additional"
-                    if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
-                        update();
-                        // process click
-                        processClick(e, eventData);
-                    }
+                GNENetElement* netElement = dynamic_cast<GNENetElement*>(pointed);
+                GNEAdditionalFrame::AddAdditionalResult result = myViewParent->getAdditionalFrame()->addAdditional(netElement, pointed_additional);
+                // process click or update view depending of the result of "add additional"
+                if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
+                    update();
+                    // process click
+                    processClick(e, eventData);
                 }
 
                 break;

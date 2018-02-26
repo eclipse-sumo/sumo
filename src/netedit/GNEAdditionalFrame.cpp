@@ -946,7 +946,7 @@ GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditi
     mySetLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
 
     // Create list
-    myList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignList, 0, 0, 0, 100);
+    myList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
 
     // Hide List
     hideListOfAdditionals();
@@ -964,6 +964,21 @@ GNEAdditionalFrame::SelectorParentAdditional::getIdSelected() const {
         }
     }
     return "";
+}
+
+
+void 
+GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string &id) {
+    // first unselect all
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        myList->getItem(i)->setSelected(false);
+    }
+    // select element if correspond to given ID
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        if(myList->getItem(i)->getText().text() == id) {
+            myList->getItem(i)->setSelected(true);
+        }
+    }
 }
 
 
@@ -1318,7 +1333,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {
 
 
 GNEAdditionalFrame::AddAdditionalResult
-GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent) {
+GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
     // check if current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
@@ -1329,7 +1344,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     std::map<SumoXMLAttr, std::string> valuesOfElement = myAdditionalParameters->getAttributesAndValues();
 
     // limit position depending if show grid is enabled
-    Position currentPosition = abstractViewParent->snapToActiveGrid(abstractViewParent->getPositionInformation());
+    Position currentPosition = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
 
     // Declare pointer to netElements
     GNEJunction* pointed_junction = NULL;
@@ -1503,6 +1518,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GUISUMOAbstractView
     if (GNEAttributeCarrier::canHaveParent(myAdditionalSelector->getCurrentAdditionalType())) {
         if (myAdditionalParentSelector->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
+        } else if (additionalElement && (additionalElement->getTag() == GNEAttributeCarrier::getAdditionalParentTag(myAdditionalSelector->getCurrentAdditionalType()))) {
+            valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
+            myAdditionalParentSelector->setIDSelected(additionalElement->getID());
         } else {
             myAdditionalParameters->showWarningMessage("A " + toString(GNEAttributeCarrier::getAdditionalParentTag(myAdditionalSelector->getCurrentAdditionalType())) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
