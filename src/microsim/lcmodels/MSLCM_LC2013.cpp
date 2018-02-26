@@ -1340,6 +1340,8 @@ MSLCM_LC2013::_wantsChange(
         std::cout << STEPS2TIME(currentTime) << " veh=" << myVehicle.getID() << " ret=" << ret;
     }
 #endif
+    // store state before canceling
+    myCanceledStates[laneOffset] |= ret;
     ret = myVehicle.influenceChangeDecision(ret);
     if ((ret & lcaCounter) != 0) {
         // we are not interested in traci requests for the opposite direction here
@@ -1435,7 +1437,7 @@ MSLCM_LC2013::_wantsChange(
                 req = ret | LCA_STAY | LCA_COOPERATIVE;
             }
         }
-        if (!cancelRequest(req)) {
+        if (!cancelRequest(req, laneOffset)) {
             return ret | req;
         }
     }
@@ -1450,7 +1452,7 @@ MSLCM_LC2013::_wantsChange(
             }
 #endif
             req = ret | LCA_STAY | LCA_STRATEGIC;
-            if (!cancelRequest(req)) {
+            if (!cancelRequest(req, laneOffset)) {
                 return ret | req;
             }
         }
@@ -1482,7 +1484,7 @@ MSLCM_LC2013::_wantsChange(
         }
 #endif
         req = ret | lca | LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
-        if (!cancelRequest(req)) {
+        if (!cancelRequest(req, laneOffset)) {
             return ret | req;
         }
     }
@@ -1634,7 +1636,7 @@ MSLCM_LC2013::_wantsChange(
 #endif
             if (myKeepRightProbability * myKeepRightParam < -myChangeProbThresholdRight) {
                 req = ret | lca | LCA_KEEPRIGHT;
-                if (!cancelRequest(req)) {
+                if (!cancelRequest(req, laneOffset)) {
                     return ret | req;
                 }
             }
@@ -1657,7 +1659,7 @@ MSLCM_LC2013::_wantsChange(
         if (mySpeedGainProbability < -myChangeProbThresholdRight
                 && neighDist / MAX2((double) .1, myVehicle.getSpeed()) > 20.) { //./MAX2((double) .1, myVehicle.getSpeed())) { // -.1
             req = ret | lca | LCA_SPEEDGAIN;
-            if (!cancelRequest(req)) {
+            if (!cancelRequest(req, laneOffset)) {
                 return ret | req;
             }
         }
@@ -1704,7 +1706,7 @@ MSLCM_LC2013::_wantsChange(
                 && (relativeGain > NUMERICAL_EPS || changeLeftToAvoidOvertakeRight)
                 && neighDist / MAX2((double) .1, myVehicle.getSpeed()) > 20.) { // .1
             req = ret | lca | LCA_SPEEDGAIN;
-            if (!cancelRequest(req)) {
+            if (!cancelRequest(req, laneOffset)) {
                 return ret | req;
             }
         }
@@ -1714,7 +1716,7 @@ MSLCM_LC2013::_wantsChange(
             && (right ? mySpeedGainProbability < 0 : mySpeedGainProbability > 0)) {
         // change towards the correct lane, speedwise it does not hurt
         req = ret | lca | LCA_STRATEGIC;
-        if (!cancelRequest(req)) {
+        if (!cancelRequest(req, laneOffset)) {
             return ret | req;
         }
     }

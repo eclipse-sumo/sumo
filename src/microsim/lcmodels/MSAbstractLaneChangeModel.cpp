@@ -366,7 +366,9 @@ MSAbstractLaneChangeModel::cleanupTargetLane() {
 
 
 bool
-MSAbstractLaneChangeModel::cancelRequest(int state) {
+MSAbstractLaneChangeModel::cancelRequest(int state, int laneOffset) {
+    // store request before canceling
+    myCanceledStates[laneOffset] |= state;
     int ret = myVehicle.influenceChangeDecision(state);
     return ret != state;
 }
