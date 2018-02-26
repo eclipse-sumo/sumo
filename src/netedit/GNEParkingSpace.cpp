@@ -153,7 +153,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(83, 89, 172, 255));
+        GLHelper::setColor(RGBColor(255,200,200, 255));
     }
     GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
     glPopMatrix();
