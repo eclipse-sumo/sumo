@@ -458,6 +458,10 @@ NBRampsComputer::fulfillsRampConstraints(
     if (hasWrongMode(potHighway) || hasWrongMode(potRamp) || hasWrongMode(other)) {
         return false;
     }
+    // do not build ramps at traffic lights
+    if (NBNode::isTrafficLight(potRamp->getToNode()->getType())) {
+        return false;
+    }
     // do not build ramps on connectors
     if (potHighway->isMacroscopicConnector() || potRamp->isMacroscopicConnector() || other->isMacroscopicConnector()) {
         return false;
