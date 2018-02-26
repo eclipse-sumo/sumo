@@ -857,20 +857,20 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myNumericalFloatAttrs.empty()) {
         // bus stop
-        myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
         // charging station
+        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_CHARGINGPOWER);
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_EFFICIENCY);
-        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
-        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
         // connection
         myNumericalFloatAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_CONTPOS);
         myNumericalFloatAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_VISIBILITY_DISTANCE);
         myNumericalFloatAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_SPEED);
         // container stop
-        myNumericalFloatAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
         // crossing
         myNumericalFloatAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_WIDTH);
         // E1
@@ -937,6 +937,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // offset value
         myNumericalFloatAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VALUE);
         // Parking Area
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ANGLE);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_WIDTH);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LENGTH);
