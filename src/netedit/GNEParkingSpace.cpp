@@ -164,6 +164,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(RGBColor(255,200,200, 255));
     }
     GLHelper::drawBoxLine(Position(0, lenght), 0, lenght, width / 2);
+    // Traslate matrix and draw lock icon
+    glTranslated(0, lenght/2, 0.1);
+    drawLockIcon();
     // pop matrix and name
     glPopMatrix();
     glPopName();
