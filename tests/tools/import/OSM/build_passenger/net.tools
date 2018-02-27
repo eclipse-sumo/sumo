@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 23 08:43:35 2018 by SUMO netconvert Version v0_32_0+0523-90d4fd8
+<!-- generated on Tue Feb 27 21:41:14 2018 by SUMO netconvert Version v0_32_0+0564-8982c7b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.23Feb084334.9998/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/home/kobo/.texttest/tmp/tools.27Feb214112.11512/tools/import/OSM/build_passenger/net.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>
@@ -2366,7 +2366,7 @@
     <connection from="143308532#7" to="46039051#0" fromLane="1" toLane="1" via=":cluster_492462300_671564296_1_1" tl="GS_cluster_492462300_671564296" linkIndex="2" dir="s" state="o"/>
     <connection from="143308532#7" to="-206579062#2" fromLane="1" toLane="0" via=":cluster_492462300_671564296_3_0" tl="GS_cluster_492462300_671564296" linkIndex="3" dir="l" state="o"/>
     <connection from="143308532#7" to="46039050#0" fromLane="1" toLane="1" via=":cluster_492462300_671564296_4_0" tl="GS_cluster_492462300_671564296" linkIndex="4" dir="t" state="o"/>
-    <connection from="143308546#0" to="142575692#0" fromLane="0" toLane="0" via=":1560224004_0_0" dir="s" state="M"/>
+    <connection from="143308546#0" to="142575692#0" fromLane="0" toLane="0" via=":1560224004_0_0" dir="R" state="M"/>
     <connection from="143308546#0" to="143308546#4" fromLane="0" toLane="0" via=":1560224004_1_0" dir="s" state="M"/>
     <connection from="143308546#0" to="143308546#4" fromLane="1" toLane="1" via=":1560224004_1_1" dir="s" state="M"/>
     <connection from="143308546#4" to="143308546#7" fromLane="0" toLane="0" via=":38919703_0_0" tl="GS_38919703" linkIndex="0" dir="s" state="o"/>
@@ -2647,7 +2647,7 @@
     <connection from=":1560223943_18" to="142575690#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":1560223943_15" to="-143308562#2" fromLane="0" toLane="0" via=":1560223943_19_0" dir="t" state="m"/>
     <connection from=":1560223943_19" to="-143308562#2" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":1560224004_0" to="142575692#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1560224004_0" to="142575692#0" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":1560224004_1" to="143308546#4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1560224004_1" to="143308546#4" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":1560224141_0" to="142575693#4" fromLane="0" toLane="0" dir="r" state="M"/>
