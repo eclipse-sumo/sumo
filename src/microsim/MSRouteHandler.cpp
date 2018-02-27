@@ -1136,7 +1136,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
                             bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
-                            double localArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
+                            double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
                             if (it + 1 == result.end() && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
                                 localArrivalPos = arrivalPos;
                             }
@@ -1144,6 +1144,10 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                                 const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, localArrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
+                                if (bs == nullptr && it + 1 != result.end()) {
+                                    // we have no defined endpoint and are in the middle of the trip, drive as far as possible
+                                    localArrivalPos = it->edges.back()->getLength();
+                                }
                                 myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
                                 vehicle->replaceRouteEdges(it->edges, true);
                                 vehicle->setArrivalPos(localArrivalPos);
