@@ -1011,6 +1011,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
                 arrivalPos = arrPos;
             } else {
                 WRITE_WARNING("Ignoring arrivalPos for " + description + " because it is outside the given stop '" + toString(SUMO_ATTR_BUS_STOP) + "'.");
+                arrivalPos = bs->getAccessPos(&bs->getLane().getEdge());
             }
         }
     } else {
