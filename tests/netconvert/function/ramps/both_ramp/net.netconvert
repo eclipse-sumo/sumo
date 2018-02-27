@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  2 11:11:42 2017 by SUMO netconvert Version dev-SVN-r23174
+<!-- generated on Tue Feb 27 17:55:41 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -122,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="s3" to="s3-AddedOffRampEdge" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="s3" to="s3-AddedOffRampEdge" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="s3" to="s3-AddedOffRampEdge" fromLane="2" toLane="3" dir="s" state="M"/>
-    <connection from="s3-AddedOffRampEdge" to="off" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="s3-AddedOffRampEdge" to="off" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="s3-AddedOffRampEdge" to="s4" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="s3-AddedOffRampEdge" to="s4" fromLane="2" toLane="1" dir="s" state="M"/>
     <connection from="s3-AddedOffRampEdge" to="s4" fromLane="3" toLane="2" dir="s" state="M"/>

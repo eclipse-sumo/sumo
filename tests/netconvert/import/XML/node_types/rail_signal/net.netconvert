@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:43:58 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Tue Feb 27 17:55:21 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_nodes.nod.xml"/>
         <edge-files value="input_edges.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <report>
         <verbose value="true"/>
@@ -51,9 +55,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
-    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="o"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="L" state="o"/>
 
     <connection from=":C_0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_1" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_1" to="CN" fromLane="0" toLane="0" dir="L" state="M"/>
 
 </net>

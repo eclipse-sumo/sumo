@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 27 16:25:46 2018 by SUMO netconvert Version v0_32_0+0555-49c2b4c
+<!-- generated on Tue Feb 27 17:55:38 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -7045,8 +7045,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="143308542#2" to="143308542#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308542#2" to="143308542#3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="143308542#2" to="143308542#3" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from="143308546#0" to="142575692#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="143308546#0" to="142575692#0" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="143308546#0" to="142575692#0" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="143308546#0" to="142575692#0" fromLane="0" toLane="1" dir="R" state="M"/>
     <connection from="143308546#0" to="143308546#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308546#0" to="143308546#3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="143308546#0" to="143308546#3" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -7348,7 +7348,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="180239847" to="180239842" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="180239847" to="180239842" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="180239847" to="180239842" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from="180239858#0" to="245105008#2" fromLane="0" toLane="0" tl="1906766906" linkIndex="0" dir="s" state="o"/>
+    <connection from="180239858#0" to="245105008#2" fromLane="0" toLane="0" tl="1906766906" linkIndex="0" dir="R" state="o"/>
     <connection from="180239858#0" to="180239858#1" fromLane="0" toLane="0" tl="1906766906" linkIndex="1" dir="s" state="o"/>
     <connection from="180239858#0" to="180239858#1" fromLane="1" toLane="1" tl="1906766906" linkIndex="2" dir="s" state="o"/>
     <connection from="180239858#0" to="180239858#1" fromLane="2" toLane="2" tl="1906766906" linkIndex="3" dir="s" state="o"/>

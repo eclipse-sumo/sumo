@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:51 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Tue Feb 27 17:55:49 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output.street-names value="true"/>
     </output>
 
@@ -305,8 +306,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1865620626_3314305185_3_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="48.85" shape="166.00,497.31 175.62,506.61 185.89,513.24 196.80,517.20 208.37,518.49"/>
     </edge>
     <edge id=":cluster_1865620626_3314305185_4" function="internal">
-        <lane id=":cluster_1865620626_3314305185_4_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="51.61" shape="166.00,497.31 175.51,506.03 186.78,515.32 196.16,525.32 199.98,536.12"/>
-        <lane id=":cluster_1865620626_3314305185_4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="51.61" shape="163.52,499.48 172.90,507.85 183.89,516.38 192.99,525.61 196.68,536.07"/>
+        <lane id=":cluster_1865620626_3314305185_4_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="52.68" shape="166.00,497.31 175.51,506.03 186.78,515.32 196.16,525.32 199.98,536.12"/>
+    </edge>
+    <edge id=":cluster_1865620626_3314305185_5" function="internal">
+        <lane id=":cluster_1865620626_3314305185_5_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="50.54" shape="163.52,499.48 172.90,507.85 183.89,516.38 192.99,525.61 196.68,536.07"/>
     </edge>
     <edge id=":cluster_1865620626_3314305185_6" function="internal">
         <lane id=":cluster_1865620626_3314305185_6_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="31.20" shape="163.52,499.48 172.68,510.28 176.50,515.57 174.96,515.35 168.08,509.61"/>
@@ -530,7 +533,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="12" response="0000100000001" foes="0000100100001" cont="0"/>
     </junction>
     <junction id="368975788" type="dead_end" x="330.35" y="461.29" incLanes="324751732_0 324751732_1 324751732_2" intLanes="" shape="330.18,455.99 330.45,464.59"/>
-    <junction id="cluster_1865620626_3314305185" type="right_before_left" x="181.63" y="514.68" incLanes="181738145#0_0 181738145#0_1 175999132#0_0 175999132#0_1 175999132#0_2 :cluster_1865620626_3314305185_w0_0 :cluster_1865620626_3314305185_w2_0 :cluster_1865620626_3314305185_w3_0" intLanes=":cluster_1865620626_3314305185_0_0 :cluster_1865620626_3314305185_1_0 :cluster_1865620626_3314305185_2_0 :cluster_1865620626_3314305185_3_0 :cluster_1865620626_3314305185_4_0 :cluster_1865620626_3314305185_4_1 :cluster_1865620626_3314305185_6_0 :cluster_1865620626_3314305185_c0_0 :cluster_1865620626_3314305185_c1_0 :cluster_1865620626_3314305185_c2_0" shape="205.38,523.40 210.81,514.48 200.24,534.73 200.43,529.43 168.79,494.87 162.31,500.53 168.31,507.68 167.54,514.09 195.08,536.04 203.68,536.18">
+    <junction id="cluster_1865620626_3314305185" type="right_before_left" x="181.63" y="514.68" incLanes="181738145#0_0 181738145#0_1 175999132#0_0 175999132#0_1 175999132#0_2 :cluster_1865620626_3314305185_w0_0 :cluster_1865620626_3314305185_w2_0 :cluster_1865620626_3314305185_w3_0" intLanes=":cluster_1865620626_3314305185_0_0 :cluster_1865620626_3314305185_1_0 :cluster_1865620626_3314305185_2_0 :cluster_1865620626_3314305185_3_0 :cluster_1865620626_3314305185_4_0 :cluster_1865620626_3314305185_5_0 :cluster_1865620626_3314305185_6_0 :cluster_1865620626_3314305185_c0_0 :cluster_1865620626_3314305185_c1_0 :cluster_1865620626_3314305185_c2_0" shape="205.38,523.40 210.81,514.48 200.24,534.73 200.43,529.43 168.79,494.87 162.31,500.53 168.31,507.68 167.54,514.09 195.08,536.04 203.68,536.18">
         <request index="0" response="0100000000" foes="1100110000" cont="0"/>
         <request index="1" response="0000000000" foes="1001110000" cont="0"/>
         <request index="2" response="0000000000" foes="1010000000" cont="0"/>
@@ -554,14 +557,14 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-324751734#0" to="-324751736" fromLane="1" toLane="1" via=":1553017429_3_0" dir="s" state="M"/>
     <connection from="-324751734#0" to="182175776" fromLane="1" toLane="1" via=":1553017429_4_0" dir="t" state="m"/>
     <connection from="-324751734#1" to="-324751734#0" fromLane="1" toLane="1" via=":3526736114_6_0" dir="s" state="M"/>
-    <connection from="-324751734#1" to="175999143#1" fromLane="1" toLane="2" via=":3526736114_7_0" dir="s" state="M"/>
+    <connection from="-324751734#1" to="175999143#1" fromLane="1" toLane="2" via=":3526736114_7_0" dir="L" state="M"/>
     <connection from="-324751734#1" to="324751734#1" fromLane="1" toLane="1" via=":3526736114_8_0" dir="t" state="m"/>
     <connection from="-324751734#2" to="181738145#0" fromLane="1" toLane="1" via=":1921719392_3_0" dir="r" state="="/>
     <connection from="-324751734#2" to="-324751734#1" fromLane="1" toLane="1" via=":1921719392_4_0" dir="s" state="="/>
     <connection from="-324751734#2" to="324751734#2" fromLane="1" toLane="1" via=":1921719392_5_0" dir="t" state="="/>
     <connection from="175999132#0" to="175999143#0" fromLane="1" toLane="1" via=":cluster_1865620626_3314305185_3_0" dir="s" state="="/>
-    <connection from="175999132#0" to="175999132#2" fromLane="1" toLane="1" via=":cluster_1865620626_3314305185_4_0" dir="s" state="="/>
-    <connection from="175999132#0" to="175999132#2" fromLane="2" toLane="2" via=":cluster_1865620626_3314305185_4_1" dir="s" state="="/>
+    <connection from="175999132#0" to="175999132#2" fromLane="1" toLane="1" via=":cluster_1865620626_3314305185_4_0" dir="L" state="="/>
+    <connection from="175999132#0" to="175999132#2" fromLane="2" toLane="2" via=":cluster_1865620626_3314305185_5_0" dir="L" state="="/>
     <connection from="175999132#0" to="181738145#1" fromLane="2" toLane="1" via=":cluster_1865620626_3314305185_6_0" dir="l" state="="/>
     <connection from="175999132#2" to="181961196" fromLane="1" toLane="1" via=":1865620843_1_0" dir="s" state="m"/>
     <connection from="175999142" to="176906141#0" fromLane="1" toLane="1" via=":337270654_0_0" dir="s" state="M"/>
@@ -587,7 +590,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="182175776" to="175999143#1" fromLane="1" toLane="2" via=":3526736114_2_0" dir="R" state="m"/>
     <connection from="200916232" to="-200916232" fromLane="1" toLane="1" via=":2108790992_0_0" dir="t" state="M"/>
     <connection from="324751734#1" to="324751734#2" fromLane="1" toLane="1" via=":1921719392_0_0" dir="s" state="="/>
-    <connection from="324751734#1" to="181738145#0" fromLane="1" toLane="1" via=":1921719392_1_0" dir="s" state="="/>
+    <connection from="324751734#1" to="181738145#0" fromLane="1" toLane="1" via=":1921719392_1_0" dir="L" state="="/>
     <connection from="324751734#1" to="-324751734#1" fromLane="1" toLane="1" via=":1921719392_2_0" dir="t" state="="/>
     <connection from="324751734#2" to="181961196" fromLane="1" toLane="1" via=":1865620843_0_0" dir="s" state="M"/>
     <connection from="324751736" to="182175776" fromLane="1" toLane="1" via=":1553017429_0_0" dir="s" state="M"/>
@@ -608,7 +611,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":1865620843_2" to="-324751734#2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":1912278054_0" to="180762426" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":1921719392_0" to="324751734#2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":1921719392_1" to="181738145#0" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":1921719392_1" to="181738145#0" fromLane="0" toLane="1" dir="L" state="M"/>
     <connection from=":1921719392_2" to="-324751734#1" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":1921719392_3" to="181738145#0" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":1921719392_4" to="-324751734#1" fromLane="0" toLane="1" dir="s" state="M"/>
@@ -631,15 +634,15 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":3526736114_4" to="175999143#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":3526736114_5" to="324751734#1" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":3526736114_6" to="-324751734#0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":3526736114_7" to="175999143#1" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":3526736114_7" to="175999143#1" fromLane="0" toLane="2" dir="L" state="M"/>
     <connection from=":3526736114_8" to="324751734#1" fromLane="0" toLane="1" via=":3526736114_10_0" dir="t" state="m"/>
     <connection from=":3526736114_10" to="324751734#1" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":cluster_1865620626_3314305185_0" to="175999132#2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":cluster_1865620626_3314305185_1" to="181738145#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1865620626_3314305185_2" to="175999143#0" fromLane="0" toLane="2" dir="R" state="M"/>
     <connection from=":cluster_1865620626_3314305185_3" to="175999143#0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_1865620626_3314305185_4" to="175999132#2" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_1865620626_3314305185_4" to="175999132#2" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":cluster_1865620626_3314305185_4" to="175999132#2" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":cluster_1865620626_3314305185_5" to="175999132#2" fromLane="0" toLane="2" dir="L" state="M"/>
     <connection from=":cluster_1865620626_3314305185_6" to="181738145#1" fromLane="0" toLane="1" dir="l" state="M"/>
 
     <connection from=":1553017429_c0" to=":1553017429_w0" fromLane="0" toLane="0" dir="s" state="M"/>

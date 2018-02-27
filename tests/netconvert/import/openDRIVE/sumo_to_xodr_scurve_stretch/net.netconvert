@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 29 17:27:51 2017 by SUMO netconvert Version dev-SVN-r23697
+<!-- generated on Tue Feb 27 17:55:39 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <opendrive-output value="foreign.net"/>
         <output.original-names value="true"/>
@@ -26,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
         <junctions.corner-detail value="0"/>
         <junctions.scurve-stretch value="1"/>
         <rectangular-lane-cut value="true"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -172,7 +174,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="s3" to="s3-AddedOffRampEdge" fromLane="0" toLane="1" via=":s3-AddedOffRampNode_0_1" dir="s" state="M"/>
     <connection from="s3" to="s3-AddedOffRampEdge" fromLane="1" toLane="2" via=":s3-AddedOffRampNode_0_2" dir="s" state="M"/>
     <connection from="s3" to="s3-AddedOffRampEdge" fromLane="2" toLane="3" via=":s3-AddedOffRampNode_0_3" dir="s" state="M"/>
-    <connection from="s3-AddedOffRampEdge" to="off" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
+    <connection from="s3-AddedOffRampEdge" to="off" fromLane="0" toLane="0" via=":2_0_0" dir="R" state="M"/>
     <connection from="s3-AddedOffRampEdge" to="s4" fromLane="1" toLane="0" via=":2_1_0" dir="s" state="M"/>
     <connection from="s3-AddedOffRampEdge" to="s4" fromLane="2" toLane="1" via=":2_1_1" dir="s" state="M"/>
     <connection from="s3-AddedOffRampEdge" to="s4" fromLane="3" toLane="2" via=":2_1_2" dir="s" state="M"/>
@@ -183,7 +185,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":1_0" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":1_0" to="gneE0" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":1_0" to="gneE0" fromLane="2" toLane="1" dir="s" state="M"/>
-    <connection from=":2_0" to="off" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2_0" to="off" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":2_1" to="s4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2_1" to="s4" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":2_1" to="s4" fromLane="2" toLane="2" dir="s" state="M"/>
