@@ -269,7 +269,7 @@ public:
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
         std::vector<const _IntermodalEdge*> intoEdges;
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
-                             to == nullptr ? myStopConnections[stopID] : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
+                             stopID != "" ? myStopConnections[stopID] : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
                              &trip, msTime, intoEdges);
         if (success) {
             std::string lastLine = "";
