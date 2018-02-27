@@ -1555,7 +1555,24 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
     // ok, should be a straight connection
     if (abs((int) angle) + 1 < 45) {
-        return LINKDIR_STRAIGHT;
+        // check whether there is a straighter edge
+        EdgeVector::const_iterator i =
+            find(myOutgoingEdges.begin(), myOutgoingEdges.end(), outgoing);
+        if (leftHand) {
+            NBContHelper::nextCCW(myOutgoingEdges, i);
+        } else {
+            NBContHelper::nextCW(myOutgoingEdges, i);
+        }
+        double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
+        if (abs(angle2) < abs(angle) && abs(abs(angle2) - abs(angle)) > 5) {
+            if (angle2 > angle) {
+                return LINKDIR_PARTLEFT;
+            } else {
+                return LINKDIR_PARTRIGHT;
+            }
+        } else {
+            return LINKDIR_STRAIGHT;
+        }
     }
 
     // check for left and right, first
