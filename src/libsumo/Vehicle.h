@@ -156,6 +156,7 @@ public:
 
     static void changeTarget(const std::string& vehicleID, const std::string& edgeID);
     static void changeLane(const std::string& vehicleID, int laneIndex, SUMOTime duration);
+    static void changeLaneRelative(const std::string& vehicleID, int laneChange, SUMOTime duration);
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, SUMOTime duration);

@@ -741,6 +741,15 @@ Vehicle::changeLane(const std::string& vehicleID, int laneIndex, SUMOTime durati
     getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
 }
 
+void
+Vehicle::changeLaneRelative(const std::string& vehicleID, int laneChange, SUMOTime duration) {
+    std::vector<std::pair<SUMOTime, int> > laneTimeLine;
+    int laneIndex = getVehicle(vehicleID)->getLaneIndex() + laneChange;
+    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
+    laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + duration, laneIndex));
+    getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
+}
+
 
 void
 Vehicle::changeSublane(const std::string& vehicleID, double latDist) {
