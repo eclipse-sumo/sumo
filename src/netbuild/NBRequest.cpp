@@ -235,6 +235,24 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         myForbids[idx1][idx2] = true;
         return;
     }
+    // if  there are no connections, there are no prohibitions
+    if (from1->isConnectedTo(to1)) {
+        if (!from2->isConnectedTo(to2)) {
+            myForbids[idx1][idx2] = true;
+            myForbids[idx2][idx1] = false;
+            return;
+        }
+    } else {
+        if (!from2->isConnectedTo(to2)) {
+            myForbids[idx1][idx2] = false;
+            myForbids[idx2][idx1] = false;
+            return;
+        } else {
+            myForbids[idx1][idx2] = false;
+            myForbids[idx2][idx1] = true;
+            return;
+        }
+    }
     // check the priorities if required by node type
     if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
         int from1p = from1->getJunctionPriority(myJunction);
