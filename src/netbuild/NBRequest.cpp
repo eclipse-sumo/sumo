@@ -66,7 +66,8 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
     myAll(all),
     myIncoming(incoming),
     myOutgoing(outgoing),
-    myCrossings(junction->getCrossings()) {
+    myCrossings(junction->getCrossings())
+{
     const int variations = numLinks();
     // build maps with information which forbidding connection were
     //  computed and what's in there
@@ -266,6 +267,25 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         if (from2p > from1p) {
             myForbids[idx2][idx1] = true;
             return;
+        }
+    }
+    // straight connections prohibit turning connections if the priorities are equal
+    // (unless the junction is a bent priority junction)
+    if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
+        LinkDirection ld1 = myJunction->getDirection(from1, to1);
+        LinkDirection ld2 = myJunction->getDirection(from2, to2);
+        if (ld1 == LINKDIR_STRAIGHT) {
+            if (ld2 != LINKDIR_STRAIGHT) {
+                myForbids[idx1][idx2] = true;
+                myForbids[idx2][idx1] = false;
+                return;
+            }
+        } else {
+            if (ld2 == LINKDIR_STRAIGHT) {
+                myForbids[idx1][idx2] = false;
+                myForbids[idx2][idx1] = true;
+                return;
+            }
         }
     }
 

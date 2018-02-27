@@ -694,6 +694,15 @@ public:
     /// @brief check if node is a simple continuation
     bool isSimpleContinuation(bool checkLaneNumbers = true) const;
 
+    /// @brief mark whether a priority road turns at this node
+    void markBentPriority(bool isBent) {
+        myIsBentPriority = isBent;
+    }
+
+    /// @brief return whether a priority road turns at this node
+    bool isBentPriority() {
+        return myIsBentPriority;
+    }
 
 private:
     /// @brief sets the priorites in case of a priority junction
@@ -777,6 +786,12 @@ private:
 
     /// @brief geometry error after computation of internal lane shapes
     double myDisplacementError;
+
+    /* @brief whether this junction is a bent priority junction (main direction turns)
+     * @note see NBEdgePriorityComputer
+     */
+    bool myIsBentPriority;
+
 
 private:
     /// @brief invalidated copy constructor

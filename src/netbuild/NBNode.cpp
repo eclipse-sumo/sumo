@@ -245,8 +245,9 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
-    myDisplacementError(0) {
-}
+    myDisplacementError(0),
+    myIsBentPriority(false) 
+{ }
 
 
 NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* district) :
@@ -260,8 +261,9 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
-    myDisplacementError(0) {
-}
+    myDisplacementError(0),
+    myIsBentPriority(false) 
+{ }
 
 
 NBNode::~NBNode() {

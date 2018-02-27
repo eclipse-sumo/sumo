@@ -273,6 +273,7 @@ NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode* node) {
     for (EdgeVector::iterator j = node->myAllEdges.begin(); j != node->myAllEdges.end(); ++j) {
         (*j)->setJunctionPriority(node, NBEdge::MINOR_ROAD);
     }
+    node->markBentPriority(false);
     // check if the junction is not a real junction
     if (node->myIncomingEdges.size() == 1 && node->myOutgoingEdges.size() == 1) {
         return;
@@ -348,17 +349,19 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                 s->setJunctionPriority(&n, NBEdge::PRIORITY_ROAD);
             }
         }
+        markBestParallel(n, best1, 0);
         assert(bestOutgoing.size() != 0);
         // mark the best outgoing as the continuation
         sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(best1));
         // assign extra priority if the priorities are unambiguous (regardless of geometry)
-        best1 = extractAndMarkFirst(n, bestOutgoing);
-        if (!mainDirectionExplicit && counterOutgoingEdges.find(best1) != counterOutgoingEdges.end()) {
-            NBEdge* s = counterOutgoingEdges.find(best1)->second;
-            if (GeomHelper::getMinAngleDiff(best1->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
+        NBEdge* bestOut = extractAndMarkFirst(n, bestOutgoing);
+        if (!mainDirectionExplicit && counterOutgoingEdges.find(bestOut) != counterOutgoingEdges.end()) {
+            NBEdge* s = counterOutgoingEdges.find(bestOut)->second;
+            if (GeomHelper::getMinAngleDiff(bestOut->getAngleAtNode(&n), s->getAngleAtNode(&n)) > 180 - 45) {
                 s->setJunctionPriority(&n, 1);
             }
         }
+        n.markBentPriority(n.getDirection(best1, bestOut) != LINKDIR_STRAIGHT);
         return;
     }
 
@@ -401,6 +404,27 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestSecond));
     if (bestOutgoing.size() != 0) {
         extractAndMarkFirst(n, bestOutgoing);
+    }
+    n.markBentPriority(GeomHelper::getMinAngleDiff(bestFirst->getAngleAtNode(&n), bestSecond->getAngleAtNode(&n)) < 135);
+    markBestParallel(n, bestFirst, bestSecond);
+}
+
+void
+NBEdgePriorityComputer::markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond) {
+    // edges running parallel to the main direction should also be prioritised
+    const double a1 = bestFirst->getAngleAtNode(&n);
+    const double a2 = bestSecond == 0 ? a1 : bestSecond->getAngleAtNode(&n);
+    SVCPermissions p1 = bestFirst->getPermissions();
+    SVCPermissions p2 = bestSecond == 0 ? p1 : bestSecond->getPermissions();
+    for (NBEdge* e : n.getIncomingEdges()) {
+        // @note: this rule might also apply if there are common permissions but
+        // then we would not further rules to resolve the priority between the best edge and its parallel edge
+        SVCPermissions perm = e->getPermissions();
+        if (((GeomHelper::getMinAngleDiff(e->getAngleAtNode(&n), a1) < 10
+                || GeomHelper::getMinAngleDiff(e->getAngleAtNode(&n), a2) < 10))
+                && (p1 & perm) == 0 && (p2 & perm) == 0) {
+            e->setJunctionPriority(&n, 1);
+        }
     }
 }
 

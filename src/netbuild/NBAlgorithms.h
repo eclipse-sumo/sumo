@@ -237,6 +237,9 @@ private:
      */
     static void setPriorityJunctionPriorities(NBNode& n);
 
+    /// @brief set priority for edges that are parallel to the best edges
+    static void markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond); 
+
     /** @brief Sets the priorites in case of a priority junction
      * @param[in] n The node to set edges' priorities
      * @param[in] s The vector of edges to get and mark the first from
