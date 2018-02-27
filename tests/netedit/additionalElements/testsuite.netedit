@@ -10,6 +10,12 @@ containerstop
 # charging station
 chargingstation
 
+# parking areas
+parkingarea
+
+# parking space
+#parkingspace
+
 # e1 detector
 e1detector
 
