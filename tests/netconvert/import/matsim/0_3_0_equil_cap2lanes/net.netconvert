@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  6 17:16:14 2017 by SUMO netconvert Version dev-SVN-r26359
+<!-- generated on Tue Feb 27 16:25:46 2018 by SUMO netconvert Version v0_32_0+0555-49c2b4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,6 +11,10 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <matsim-files value="matsim.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <matsim.lanes-from-capacity value="true"/>
@@ -265,14 +269,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="1100000000000000001111" foes="1111111111111100001111"/>
         <request index="8" response="1100000000000011111111" foes="1111111111110011111111"/>
         <request index="9" response="1100000000000011111111" foes="1111111111110011111111"/>
-        <request index="10" response="1100000000001111111111" foes="1111111111001111111111"/>
-        <request index="11" response="1100000000001111111111" foes="1111111111001111111111"/>
-        <request index="12" response="1100000000111111111111" foes="1111111100111111111111"/>
-        <request index="13" response="1100000000111111111111" foes="1111111100111111111111"/>
-        <request index="14" response="1100000011111111111111" foes="1111000011111111111111"/>
-        <request index="15" response="1100000011111111111111" foes="1111000011111111111111"/>
-        <request index="16" response="1100000011111111111111" foes="1111000011111111111111"/>
-        <request index="17" response="1100000011111111111111" foes="1111000011111111111111"/>
+        <request index="10" response="1100111111001111111111" foes="1111111111001111111111"/>
+        <request index="11" response="1100111111001111111111" foes="1111111111001111111111"/>
+        <request index="12" response="1100000000001111111111" foes="1111111100111111111111"/>
+        <request index="13" response="1100000000001111111111" foes="1111111100111111111111"/>
+        <request index="14" response="1100000011001111111111" foes="1111000011111111111111"/>
+        <request index="15" response="1100000011001111111111" foes="1111000011111111111111"/>
+        <request index="16" response="1100000011001111111111" foes="1111000011111111111111"/>
+        <request index="17" response="1100000011001111111111" foes="1111000011111111111111"/>
         <request index="18" response="1100111111111111111111" foes="1100111111111111111111"/>
         <request index="19" response="1100111111111111111111" foes="1100111111111111111111"/>
         <request index="20" response="0000000000000000000011" foes="0011111111111111111111"/>

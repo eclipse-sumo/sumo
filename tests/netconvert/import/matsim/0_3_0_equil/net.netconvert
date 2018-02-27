@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  6 17:16:14 2017 by SUMO netconvert Version dev-SVN-r26359
+<!-- generated on Tue Feb 27 16:25:46 2018 by SUMO netconvert Version v0_32_0+0555-49c2b4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,6 +11,10 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <matsim-files value="matsim.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <no-internal-links value="true"/>
@@ -132,12 +136,12 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="12" type="priority" x="20000.00" y="10000.00" incLanes="19_0 18_0 17_0 16_0 15_0 14_0 13_0 12_0 11_0" intLanes="" shape="20004.31,9999.95 20004.31,9996.75 20001.75,9989.46 19998.58,9989.92 19997.39,9988.97 19994.62,9990.57 19993.77,9990.53 19991.71,9992.98 19990.91,9993.23 19989.81,9996.24 19989.14,9996.75 19989.14,9999.95 19988.68,10000.66 19989.78,10003.67 19989.59,10004.50 19991.65,10006.95 19992.05,10007.28 19994.82,10008.88 19995.41,10008.97 19998.57,10009.44">
         <request index="0" response="000000000" foes="111111110"/>
-        <request index="1" response="100000001" foes="111111101"/>
-        <request index="2" response="100000011" foes="111111011"/>
-        <request index="3" response="100000111" foes="111110111"/>
-        <request index="4" response="100001111" foes="111101111"/>
-        <request index="5" response="100011111" foes="111011111"/>
-        <request index="6" response="100111111" foes="110111111"/>
+        <request index="1" response="101111101" foes="111111101"/>
+        <request index="2" response="100000001" foes="111111011"/>
+        <request index="3" response="100000101" foes="111110111"/>
+        <request index="4" response="100001101" foes="111101111"/>
+        <request index="5" response="100011101" foes="111011111"/>
+        <request index="6" response="100111101" foes="110111111"/>
         <request index="7" response="101111111" foes="101111111"/>
         <request index="8" response="000000001" foes="011111111"/>
     </junction>

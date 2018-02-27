@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:47 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Tue Feb 27 16:25:56 2018 by SUMO netconvert Version v0_32_0+0555-49c2b4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
@@ -12553,19 +12554,19 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="cluster_1568241686_2177702824" type="priority" x="4155.00" y="910.99" incLanes="-143308521#3_0 -143308521#3_1 -143308695#1_0 -207517673_0 143308521#1_0 143308521#1_1" intLanes=":cluster_1568241686_2177702824_0_0 :cluster_1568241686_2177702824_1_0 :cluster_1568241686_2177702824_16_0 :cluster_1568241686_2177702824_17_0 :cluster_1568241686_2177702824_4_0 :cluster_1568241686_2177702824_5_0 :cluster_1568241686_2177702824_6_0 :cluster_1568241686_2177702824_7_0 :cluster_1568241686_2177702824_8_0 :cluster_1568241686_2177702824_9_0 :cluster_1568241686_2177702824_10_0 :cluster_1568241686_2177702824_11_0 :cluster_1568241686_2177702824_12_0 :cluster_1568241686_2177702824_13_0 :cluster_1568241686_2177702824_14_0 :cluster_1568241686_2177702824_18_0" shape="4160.25,917.89 4159.71,907.21 4158.14,900.99 4151.64,901.07 4150.46,901.66 4146.53,906.84 4146.31,907.89 4146.86,918.57">
         <request index="0" response="0000000000000000" foes="1000010000100000" cont="0"/>
-        <request index="1" response="0111000000000000" foes="0111110001100000" cont="0"/>
+        <request index="1" response="0100000000000000" foes="0111110001100000" cont="0"/>
         <request index="2" response="0110000000000000" foes="0110001111100000" cont="1"/>
         <request index="3" response="0100001000010000" foes="0100001000010000" cont="1"/>
-        <request index="4" response="0100000000000000" foes="0100001000001000" cont="0"/>
-        <request index="5" response="0100000000000111" foes="1100011000000111" cont="0"/>
-        <request index="6" response="0011000000000110" foes="0011111000000110" cont="0"/>
+        <request index="4" response="0100001000000000" foes="0100001000001000" cont="0"/>
+        <request index="5" response="0100001000000111" foes="1100011000000111" cont="0"/>
+        <request index="6" response="0011001000000110" foes="0011111000000110" cont="0"/>
         <request index="7" response="0010000100000100" foes="0010000100000100" cont="0"/>
         <request index="8" response="0010000000000100" foes="0010000010000100" cont="0"/>
-        <request index="9" response="0110000001110100" foes="0110000001111100" cont="0"/>
+        <request index="9" response="0110000000000100" foes="0110000001111100" cont="0"/>
         <request index="10" response="0110000001100011" foes="1110000001100011" cont="0"/>
         <request index="11" response="0001000001000010" foes="0001000001000010" cont="0"/>
-        <request index="12" response="0000000000000000" foes="0000100001000010" cont="0"/>
-        <request index="13" response="0000000000000000" foes="0000011111000110" cont="0"/>
+        <request index="12" response="0000000000000010" foes="0000100001000010" cont="0"/>
+        <request index="13" response="0000000000000010" foes="0000011111000110" cont="0"/>
         <request index="14" response="0000000000000000" foes="0000011000111110" cont="0"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
     </junction>
@@ -13971,8 +13972,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="143308521#0" to="143308521#1" fromLane="1" toLane="1" via=":2177702825_6_0" dir="s" state="M"/>
     <connection from="143308521#0" to="-222737701#1" fromLane="1" toLane="0" via=":2177702825_7_0" dir="l" state="m"/>
     <connection from="143308521#0" to="-143308521#0" fromLane="1" toLane="1" via=":2177702825_8_0" dir="t" state="m"/>
-    <connection from="143308521#1" to="207517673" fromLane="1" toLane="0" via=":cluster_1568241686_2177702824_12_0" dir="r" state="M"/>
-    <connection from="143308521#1" to="143308695#1" fromLane="1" toLane="0" via=":cluster_1568241686_2177702824_13_0" dir="R" state="M"/>
+    <connection from="143308521#1" to="207517673" fromLane="1" toLane="0" via=":cluster_1568241686_2177702824_12_0" dir="r" state="m"/>
+    <connection from="143308521#1" to="143308695#1" fromLane="1" toLane="0" via=":cluster_1568241686_2177702824_13_0" dir="R" state="m"/>
     <connection from="143308521#1" to="143308521#2" fromLane="1" toLane="1" via=":cluster_1568241686_2177702824_14_0" dir="s" state="M"/>
     <connection from="143308521#1" to="-143308521#1" fromLane="1" toLane="1" via=":cluster_1568241686_2177702824_15_0" dir="t" state="m"/>
     <connection from="143308521#10" to="-143308521#10" fromLane="1" toLane="1" via=":664166125_0_0" dir="t" state="M"/>
