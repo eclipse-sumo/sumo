@@ -1463,7 +1463,7 @@ GNEAttributeCarrier::canAttributeInheritFromParent(SumoXMLTag tag, SumoXMLAttr a
             case SUMO_ATTR_LENGTH:
                 return GNE_ATTR_CUSTOM_LENGTH;
             case SUMO_ATTR_ANGLE:
-                return GNE_ATTR_CUSTOM_LENGTH;
+                return GNE_ATTR_CUSTOM_ANGLE;
             default:
                 return SUMO_ATTR_NOTHING;
         }
