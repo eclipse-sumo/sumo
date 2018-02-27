@@ -338,6 +338,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
     myLabel->hide();
+    // Create and hide label
+    myLabelCheckBox = new FXCheckButton(this, "attributeCheckBoxLabel", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttributeLabel);
+    myLabelCheckBox->hide();
     // Create and hide textField for int attributes
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
     myTextFieldInt->hide();
@@ -357,13 +360,20 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
 
 
 void
-GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value, bool customAttribute, bool customAttributeValue) {
     // Set actual Tag and attribute
     myTag = ACTag;
     myAttr = ACAttr;
-    // Show attribute Label
-    myLabel->setText(toString(myAttr).c_str());
-    myLabel->show();
+    if(customAttribute) {
+        // Show attribute checkbox Label
+        myLabelCheckBox->setText(("Custom " + toString(myAttr)).c_str());
+        myLabelCheckBox->show();
+        myLabelCheckBox->setCheck(customAttributeValue);
+    } else {
+        // Show attribute Label
+        myLabel->setText(toString(myAttr).c_str());
+        myLabel->show();
+    }
     // Set field depending of the type of value
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // set check button
@@ -401,22 +411,38 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
+            // disable if is a non enabled custom Attribute
+            if(customAttribute && !customAttributeValue) {
+                myChoicesCombo->disable();
+            }
         }
     } else if (GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) {
         // show TextField for real/time values
         myTextFieldReal->setText(value.c_str());
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myTextFieldReal->show();
+        // disable if is a non enabled custom Attribute
+        if(customAttribute && !customAttributeValue) {
+            myTextFieldReal->disable();
+        }
     } else if (GNEAttributeCarrier::isInt(myTag, myAttr)) {
         // Show textField for int attributes
         myTextFieldInt->setText(value.c_str());
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->show();
+                    // disable if is a non enabled custom Attribute
+            if(customAttribute && !customAttributeValue) {
+                myTextFieldInt->disable();
+            }
     } else {
         // In any other case (String, list, etc.), show value as String
         myTextFieldStrings->setText(value.c_str());
         myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         myTextFieldStrings->show();
+        // disable if is a non enabled custom Attribute
+        if(customAttribute && !customAttributeValue) {
+            myTextFieldStrings->disable();
+        }
     }
     // Show AttributeInput
     show();
@@ -427,6 +453,7 @@ void
 GNEInspectorFrame::AttributesEditor::AttributeInput::hideAttribute() {
     // Hide all elements
     myLabel->hide();
+    myLabelCheckBox->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
     myTextFieldStrings->hide();
@@ -662,6 +689,17 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
 
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
+            // check if is an custom attribute, and if is enabled
+            SumoXMLAttr customAttr = GNEAttributeCarrier::canAttributeInheritFromParent(ACFrontTag, it);
+            bool customAttribute = false;
+            bool customAttributeValue = true;
+            if (customAttr != SUMO_ATTR_NOTHING) {
+                customAttribute = true;
+                for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
+                    customAttributeValue &= GNEAttributeCarrier::parse<bool>(it_ac->getAttribute(customAttr));
+                }
+            }
+
             // disable editing for unique attributes in case of multi-selection
             if (myInspectorFrameParent->getInspectedACs().size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
                 continue;
@@ -685,7 +723,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
                     // first show AttributesEditor
                     show();
                     // show attribute
-                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it, oss.str());
+                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it, oss.str(), customAttribute, customAttributeValue);
                     // update current index
                     myCurrentIndex++;
                 }

@@ -224,6 +224,9 @@ public:
     /// @brief get tag of additional parent (return SUMO_TAG_NOTHING if element doesn't have parent)
     static SumoXMLTag getAdditionalParentTag(SumoXMLTag tag);
 
+    /// @brief return customAttribute if an additional has an attributte that can be inherit from their parent (Or SUMO_ATTR_NOTHING)
+    static SumoXMLAttr canAttributeInheritFromParent(SumoXMLTag tag, SumoXMLAttr attr);
+
     /// @brief return whether the given attribute allows for a combination of discrete values
     static bool discreteCombinableChoices(SumoXMLAttr attr);
 
@@ -519,9 +522,6 @@ private:
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;
 
-    /// @brief vector with the allowed tags that can block their shapes
-    static std::map<SumoXMLTag, SumoXMLTag> myHasParentTags;
-
     /// @brief map with the numerical attributes of type Int
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;
 
@@ -558,8 +558,8 @@ private:
     /// @brief map with the Vehicle Class attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myVClassAttrs;
 
-    /// @brief map with the allowed tags of additionals with parent and their parent
-    static std::map<SumoXMLTag, SumoXMLTag> myAllowedAdditionalWithParentTags;
+    /// @brief map with the allowed tags of additionals with parent (and attriobutes that can be defined values that can be specified either in Parents or in additional)
+    static std::map<SumoXMLTag, std::pair<SumoXMLTag, std::vector<SumoXMLAttr> > > myAdditionalWithParentsAndAttributes;
 
     /// @brief map with the values of discrete choices
     static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > myDiscreteChoices;

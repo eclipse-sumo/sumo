@@ -63,8 +63,11 @@ GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAre
     myPosition(Position(x,y)),
     myZ(z),
     myWidth(width),
+    myCustomWidth(parkingAreaParent->getAttribute(SUMO_ATTR_WIDTH) != toString(width)),
     myLength(length),
-    myAngle(angle) {
+    myCustomLenght(parkingAreaParent->getAttribute(SUMO_ATTR_LENGTH) != toString(length)),
+    myAngle(angle),
+    myCustomAngle(parkingAreaParent->getAttribute(SUMO_ATTR_ANGLE) != toString(angle)) {
 }
 
 
@@ -80,13 +83,13 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     if(myZ != 0) {
         device.writeAttr(SUMO_ATTR_Z, myZ);
     }
-    if(toString(myWidth) != myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH)) {
+    if(myCustomWidth) {
         device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
     }
-    if(toString(myLength) != myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH)) {
+    if(myCustomLenght) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
-    if(toString(myAngle) != myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE)) {
+    if(myCustomAngle) {
         device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     }
     // Close tag
@@ -171,15 +174,33 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_Z:
             return toString(myZ);
         case SUMO_ATTR_WIDTH:
-            return toString(myWidth);
+            if(myCustomWidth) {
+                return toString(myWidth);
+            } else {
+                return myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH);
+            }
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            if(myCustomLenght) {
+                return toString(myLength);
+            } else {
+                return myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH);
+            }
         case SUMO_ATTR_ANGLE:
-            return toString(myAngle);
+            if(myCustomAngle) {
+                return toString(myAngle);
+            } else {
+                return myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE);
+            }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
+        case GNE_ATTR_CUSTOM_WIDTH:
+            return toString(myCustomWidth);
+        case GNE_ATTR_CUSTOM_LENGTH:
+            return toString(myCustomLenght);
+        case GNE_ATTR_CUSTOM_ANGLE:
+            return toString(myCustomAngle);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -200,6 +221,9 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
+        case GNE_ATTR_CUSTOM_WIDTH:
+        case GNE_ATTR_CUSTOM_LENGTH:
+        case GNE_ATTR_CUSTOM_ANGLE:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -227,6 +251,12 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myViewNet->getNet()->getAdditional(SUMO_TAG_PARKING_AREA, value) != NULL);
+        case GNE_ATTR_CUSTOM_WIDTH:
+            return canParse<bool>(value);
+        case GNE_ATTR_CUSTOM_LENGTH:
+            return canParse<bool>(value);
+        case GNE_ATTR_CUSTOM_ANGLE:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -262,6 +292,15 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARENT:
             changeAdditionalParent(value);
+            break;
+        case GNE_ATTR_CUSTOM_WIDTH:
+            myCustomWidth = parse<bool>(value);
+            break;
+        case GNE_ATTR_CUSTOM_LENGTH:
+            myCustomLenght = parse<bool>(value);
+            break;
+        case GNE_ATTR_CUSTOM_ANGLE:
+            myCustomAngle = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

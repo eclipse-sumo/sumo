@@ -52,7 +52,6 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoPositionTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
-std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myHasParentTags;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalIntAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNumericalFloatAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myTimeAttrs;
@@ -65,7 +64,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myPositiveAttr
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myFileAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myVClassAttrs;
-std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalWithParentTags;
+std::map<SumoXMLTag, std::pair<SumoXMLTag, std::vector<SumoXMLAttr> > > GNEAttributeCarrier::myAdditionalWithParentsAndAttributes;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::pair<std::string, std::string> > > GNEAttributeCarrier::myAttrDefinitions;
 int GNEAttributeCarrier::myMaxNumAttribute = 0;
@@ -560,7 +559,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_PARKING_SPACE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Z, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "2.5"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
@@ -768,12 +767,16 @@ GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
 bool 
 GNEAttributeCarrier::canHaveParent(SumoXMLTag tag) {
     // define on first access
-    if (myHasParentTags.empty()) {
-        myHasParentTags[SUMO_TAG_DET_ENTRY] = SUMO_TAG_E3DETECTOR;
-        myHasParentTags[SUMO_TAG_DET_EXIT] = SUMO_TAG_E3DETECTOR;
-        myHasParentTags[SUMO_TAG_PARKING_SPACE] = SUMO_TAG_PARKING_AREA;
+    if (myAdditionalWithParentsAndAttributes.empty()) {
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_DET_ENTRY].first = SUMO_TAG_E3DETECTOR;
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_DET_EXIT].first = SUMO_TAG_E3DETECTOR;
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].first = SUMO_TAG_PARKING_AREA;
+        // add attributes that can depends of parent
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_WIDTH);
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_LENGTH);
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_ANGLE);
     }
-    return myHasParentTags.find(tag) != myHasParentTags.end();
+    return myAdditionalWithParentsAndAttributes.find(tag) != myAdditionalWithParentsAndAttributes.end();
 }
 
 
@@ -1444,9 +1447,28 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
 SumoXMLTag 
 GNEAttributeCarrier::getAdditionalParentTag(SumoXMLTag tag) {
     if(canHaveParent(tag)) {
-        return myHasParentTags[tag];
+        return myAdditionalWithParentsAndAttributes[tag].first;
     } else {
         return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLAttr 
+GNEAttributeCarrier::canAttributeInheritFromParent(SumoXMLTag tag, SumoXMLAttr attr) {
+    if(canHaveParent(tag) && std::find(myAdditionalWithParentsAndAttributes[tag].second.begin(), myAdditionalWithParentsAndAttributes[tag].second.end(), attr) != myAdditionalWithParentsAndAttributes[tag].second.end()) {
+        switch (attr) {
+            case SUMO_ATTR_WIDTH:
+                return GNE_ATTR_CUSTOM_WIDTH;
+            case SUMO_ATTR_LENGTH:
+                return GNE_ATTR_CUSTOM_LENGTH;
+            case SUMO_ATTR_ANGLE:
+                return GNE_ATTR_CUSTOM_LENGTH;
+            default:
+                return SUMO_ATTR_NOTHING;
+        }
+    } else {
+        return SUMO_ATTR_NOTHING;
     }
 }
 
