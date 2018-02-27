@@ -1557,6 +1557,10 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     }
 
     // check for left and right, first
+    SVCPermissions vehPerm = incoming->getPermissions() & outgoing->getPermissions();
+    if (vehPerm != SVC_PEDESTRIAN) {
+        vehPerm &= ~SVC_PEDESTRIAN;
+    }
     if (angle > 0) {
         // check whether any other edge goes further to the right
         EdgeVector::const_iterator i =
@@ -1567,7 +1571,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             NBContHelper::nextCW(myAllEdges, i);
         }
         while ((*i) != incoming) {
-            if ((*i)->getFromNode() == this && !incoming->isTurningDirectionAt(*i)) {
+            if ((*i)->getFromNode() == this 
+                    && !incoming->isTurningDirectionAt(*i)
+                    && (vehPerm & (*i)->getPermissions()) != 0) {
                 //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partRight because auf " << (*i)->getID() << "\n";
                 return LINKDIR_PARTRIGHT;
             }
@@ -1588,7 +1594,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         NBContHelper::nextCCW(myAllEdges, i);
     }
     while ((*i) != incoming) {
-        if ((*i)->getFromNode() == this && !incoming->isTurningDirectionAt(*i)) {
+        if ((*i)->getFromNode() == this 
+                && !incoming->isTurningDirectionAt(*i)
+                && (vehPerm & (*i)->getPermissions()) != 0) {
             //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partLeft because auf " << (*i)->getID() << "\n";
             return LINKDIR_PARTLEFT;
         }
