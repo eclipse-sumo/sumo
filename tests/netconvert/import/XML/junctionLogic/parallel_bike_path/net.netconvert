@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 27 09:25:19 2018 by SUMO netconvert Version v0_32_0+0547-32395b7
+<!-- generated on Tue Feb 27 11:49:55 2018 by SUMO netconvert Version v0_32_0+0550-ba106e0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -227,17 +227,17 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="CNb" to="-CNb" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
     <connection from="CS" to="SC" fromLane="1" toLane="1" via=":S_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="1" toLane="1" via=":W_0_0" dir="t" state="M"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_7_0" dir="R" state="m"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_7_0" dir="r" state="m"/>
     <connection from="EC" to="CW" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_8_0" dir="s" state="m"/>
     <connection from="EC" to="CW" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_8_1" dir="s" state="m"/>
-    <connection from="EC" to="CS" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_10_0" dir="L" state="m"/>
+    <connection from="EC" to="CS" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_10_0" dir="l" state="m"/>
     <connection from="EC" to="CE" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_11_0" dir="t" state="m"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_0_0" dir="r" state="M"/>
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_1_0" dir="s" state="M"/>
     <connection from="NC" to="CS" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_1_1" dir="s" state="M"/>
-    <connection from="NC" to="CE" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_3_0" dir="L" state="m"/>
+    <connection from="NC" to="CE" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_3_0" dir="l" state="m"/>
     <connection from="NC" to="CN" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_4_0" dir="t" state="m"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_14_0" dir="R" state="M"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_14_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_15_0" dir="s" state="M"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_15_1" dir="s" state="M"/>
     <connection from="SC" to="CW" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_17_0" dir="l" state="m"/>
@@ -257,20 +257,20 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":cluster_C_gneJ2_gneJ4_0" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_1" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_1" to="CS" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_3" to="CE" fromLane="0" toLane="1" via=":cluster_C_gneJ2_gneJ4_24_0" dir="L" state="m"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_24" to="CE" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_3" to="CE" fromLane="0" toLane="1" via=":cluster_C_gneJ2_gneJ4_24_0" dir="l" state="m"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_24" to="CE" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_4" to="CN" fromLane="0" toLane="1" via=":cluster_C_gneJ2_gneJ4_25_0" dir="t" state="m"/>
     <connection from=":cluster_C_gneJ2_gneJ4_25" to="CN" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_5" to="-SCb" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_6" to="CNb" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_7" to="CN" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_7" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_8" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_8" to="CW" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_10" to="CS" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_10" to="CS" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_11" to="CE" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_12" to="CNb" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_13" to="-SCb" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_14" to="CE" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_14" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_15" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_15" to="CN" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_17" to="CW" fromLane="0" toLane="1" via=":cluster_C_gneJ2_gneJ4_26_0" dir="l" state="m"/>
