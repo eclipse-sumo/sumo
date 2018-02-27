@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 27 11:49:55 2018 by SUMO netconvert Version v0_32_0+0550-ba106e0
+<!-- generated on Tue Feb 27 14:52:27 2018 by SUMO netconvert Version v0_32_0+0554-8006ddc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_0_0" index="0" allow="bicycle" speed="13.89" length="18.60" width="1.00" shape="7.15,110.61 7.36,92.01"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_1" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_1_0" index="0" allow="bicycle" speed="13.89" length="1.61" width="1.00" shape="7.15,110.61 7.43,110.20 7.70,110.06 7.98,110.20 8.25,110.62"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_1_0" index="0" allow="bicycle" speed="13.89" length="0.18" width="1.00" shape="7.15,110.61 7.25,110.46"/>
+    </edge>
+    <edge id=":cluster_C_gneJ2_gneJ4_9" function="internal">
+        <lane id=":cluster_C_gneJ2_gneJ4_9_0" index="0" speed="13.89" length="1.42" width="1.00" shape="7.25,110.46 7.43,110.20 7.70,110.06 7.98,110.20 8.25,110.62"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_2" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_2_0" index="0" disallow="bicycle" speed="13.89" length="11.59" shape="10.59,102.00 8.12,102.54 6.36,104.15 5.30,106.84 4.95,110.61"/>
@@ -48,7 +51,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_4_0" index="0" allow="bicycle" speed="13.89" length="18.62" width="1.00" shape="8.46,91.99 8.25,110.62"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_5" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_5_0" index="0" allow="bicycle" speed="13.89" length="1.61" width="1.00" shape="8.46,91.99 8.19,92.41 7.92,92.55 7.64,92.42 7.36,92.01"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_5_0" index="0" allow="bicycle" speed="13.89" length="0.19" width="1.00" shape="8.46,91.99 8.36,92.15"/>
+    </edge>
+    <edge id=":cluster_C_gneJ2_gneJ4_10" function="internal">
+        <lane id=":cluster_C_gneJ2_gneJ4_10_0" index="0" speed="13.89" length="1.42" width="1.00" shape="8.36,92.15 8.19,92.41 7.92,92.55 7.64,92.42 7.36,92.01"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_6" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_6_0" index="0" disallow="bicycle" speed="13.89" length="9.93" shape="4.95,92.05 5.30,94.96 6.36,97.04 8.12,98.28 10.59,98.70"/>
@@ -96,14 +102,14 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="N" type="dead_end" x="0.00" y="200.35" incLanes="CN_0 CN_1" intLanes="" shape="6.55,200.35 0.05,200.35"/>
     <junction id="S" type="dead_end" x="0.00" y="0.35" incLanes="" intLanes="" shape="0.05,0.35 6.55,0.35"/>
-    <junction id="cluster_C_gneJ2_gneJ4" type="priority" x="5.20" y="101.64" incLanes="-CNb_0 EC_0 SCb_0 SC_0 SC_1" intLanes=":cluster_C_gneJ2_gneJ4_0_0 :cluster_C_gneJ2_gneJ4_1_0 :cluster_C_gneJ2_gneJ4_2_0 :cluster_C_gneJ2_gneJ4_3_0 :cluster_C_gneJ2_gneJ4_4_0 :cluster_C_gneJ2_gneJ4_5_0 :cluster_C_gneJ2_gneJ4_6_0 :cluster_C_gneJ2_gneJ4_7_0 :cluster_C_gneJ2_gneJ4_7_1" shape="-0.13,92.12 -0.13,110.59 9.44,110.62 10.59,107.39 10.59,93.46 9.44,91.98" customShape="1">
-        <request index="0" response="001000000" foes="001100100" cont="0"/>
-        <request index="1" response="000010000" foes="000010000" cont="0"/>
-        <request index="2" response="110000001" foes="110010001" cont="0"/>
+    <junction id="cluster_C_gneJ2_gneJ4" type="priority" x="5.20" y="101.64" incLanes="-CNb_0 EC_0 SCb_0 SC_0 SC_1" intLanes=":cluster_C_gneJ2_gneJ4_0_0 :cluster_C_gneJ2_gneJ4_9_0 :cluster_C_gneJ2_gneJ4_2_0 :cluster_C_gneJ2_gneJ4_3_0 :cluster_C_gneJ2_gneJ4_4_0 :cluster_C_gneJ2_gneJ4_10_0 :cluster_C_gneJ2_gneJ4_6_0 :cluster_C_gneJ2_gneJ4_7_0 :cluster_C_gneJ2_gneJ4_7_1" shape="-0.13,92.12 -0.13,110.59 9.44,110.62 10.59,107.39 10.59,93.46 9.44,91.98" customShape="1">
+        <request index="0" response="000000000" foes="001100100" cont="0"/>
+        <request index="1" response="000010000" foes="000010000" cont="1"/>
+        <request index="2" response="110010001" foes="110010001" cont="0"/>
         <request index="3" response="001000000" foes="001000000" cont="0"/>
-        <request index="4" response="001000100" foes="001000110" cont="0"/>
-        <request index="5" response="000000001" foes="000000001" cont="0"/>
-        <request index="6" response="000000000" foes="000011001" cont="0"/>
+        <request index="4" response="000000000" foes="001000110" cont="0"/>
+        <request index="5" response="000000001" foes="000000001" cont="1"/>
+        <request index="6" response="000010001" foes="000011001" cont="0"/>
         <request index="7" response="000000000" foes="000000100" cont="0"/>
         <request index="8" response="000000000" foes="000000100" cont="0"/>
     </junction>
@@ -114,26 +120,31 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="-CNb" to="-SCb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_0_0" dir="s" state="m"/>
+    <junction id=":cluster_C_gneJ2_gneJ4_9_0" type="internal" x="7.25" y="110.46" incLanes=":cluster_C_gneJ2_gneJ4_1_0 SCb_0" intLanes=":cluster_C_gneJ2_gneJ4_4_0"/>
+    <junction id=":cluster_C_gneJ2_gneJ4_10_0" type="internal" x="8.36" y="92.15" incLanes=":cluster_C_gneJ2_gneJ4_5_0 -CNb_0" intLanes=":cluster_C_gneJ2_gneJ4_0_0"/>
+
+    <connection from="-CNb" to="-SCb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_0_0" dir="s" state="M"/>
     <connection from="-CNb" to="CNb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_1_0" dir="t" state="m"/>
     <connection from="-SCb" to="SCb" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="t" state="M"/>
     <connection from="CE" to="EC" fromLane="0" toLane="0" via=":E_0_0" dir="t" state="M"/>
     <connection from="CNb" to="-CNb" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
     <connection from="EC" to="CN" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_2_0" dir="r" state="m"/>
     <connection from="EC" to="CE" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_3_0" dir="t" state="m"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_6_0" dir="r" state="M"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_6_0" dir="r" state="m"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_7_0" dir="s" state="M"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":cluster_C_gneJ2_gneJ4_7_1" dir="s" state="M"/>
-    <connection from="SCb" to="CNb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_4_0" dir="s" state="m"/>
+    <connection from="SCb" to="CNb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_4_0" dir="s" state="M"/>
     <connection from="SCb" to="-SCb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_5_0" dir="t" state="m"/>
 
     <connection from=":E_0" to="EC" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_0" to="-SCb" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_1" to="CNb" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_1" to="CNb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_9_0" dir="t" state="m"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_9" to="CNb" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_2" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_3" to="CE" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_4" to="CNb" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_C_gneJ2_gneJ4_5" to="-SCb" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_5" to="-SCb" fromLane="0" toLane="0" via=":cluster_C_gneJ2_gneJ4_10_0" dir="t" state="m"/>
+    <connection from=":cluster_C_gneJ2_gneJ4_10" to="-SCb" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_6" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_7" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_C_gneJ2_gneJ4_7" to="CN" fromLane="1" toLane="1" dir="s" state="M"/>
