@@ -137,19 +137,24 @@ GNEParkingSpace::getParentName() const {
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    // obtain width, lenght, angle and exaggeration
+    double width = myCustomWidth? myWidth : parse<double>(myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH));
+    double lenght = myCustomLenght? myLength : parse<double>(myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH));
+    double angle = myCustomAngle? myAngle : parse<double>(myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE));
     const double exaggeration = s.addSize.getExaggeration(s);
+    // push name and matrix
+    glPushName(getGlID());
     glPushMatrix();
     // Traslate matrix and draw green contour
     glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
-    glRotated(myAngle, 0, 0, 1);
+    glRotated(angle, 0, 0, 1);
     // Set Color depending of selection
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
     } else {
         GLHelper::setColor(RGBColor(0, 255, 0, 255));
     }
-    GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
+    GLHelper::drawBoxLine(Position(0, lenght + 0.05), 0, lenght + 0.1, (width / 2) + 0.05);
     // Traslate matrix and draw blue innen
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
@@ -158,7 +163,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(RGBColor(255,200,200, 255));
     }
-    GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
+    GLHelper::drawBoxLine(Position(0, lenght), 0, lenght, width / 2);
+    // pop matrix and name
     glPopMatrix();
     glPopName();
 }

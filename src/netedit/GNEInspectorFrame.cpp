@@ -365,23 +365,15 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     myTag = ACTag;
     myAttr = ACAttr;
     // enable all input values
-    myTextFieldInt->enable();
-    myTextFieldReal->enable();
-    myTextFieldStrings->enable();
-    myChoicesCombo->enable();
-    myBoolCheckButton->enable();
+    enableAttributeInputElements();
     if(customAttribute) {
         // Show attribute checkbox Label
         myLabelCheckBox->setText(toString(myAttr).c_str());
         myLabelCheckBox->show();
         myLabelCheckBox->setCheck(customAttributeValue);
-         // disable or enable all input elements depending of customAttributeValue
+         // disable all input elements depending of customAttributeValue
         if(!customAttributeValue) {
-            myTextFieldInt->disable();
-            myTextFieldReal->disable();
-            myTextFieldStrings->disable();
-            myChoicesCombo->disable();
-            myBoolCheckButton->disable();
+            disableAttributeInputElements();
         }
     } else {
         // Show attribute Label
@@ -533,18 +525,10 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         // Set true o false depending of the checBox
         if (myLabelCheckBox->getCheck()) {
             newVal = "true";
-            myTextFieldInt->enable();
-            myTextFieldReal->enable();
-            myTextFieldStrings->enable();
-            myChoicesCombo->enable();
-            myBoolCheckButton->enable();
+            enableAttributeInputElements();
         } else {
             newVal = "false";
-            myTextFieldInt->disable();
-            myTextFieldReal->disable();
-            myTextFieldStrings->disable();
-            myChoicesCombo->disable();
-            myBoolCheckButton->disable();
+            disableAttributeInputElements();
         }
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
@@ -686,6 +670,26 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::stripWhitespaceAfterComma(c
         result = StringUtils::replace(result, ", ", ",");
     }
     return result;
+}
+
+
+void 
+GNEInspectorFrame::AttributesEditor::AttributeInput::enableAttributeInputElements() {
+    myTextFieldInt->enable();
+    myTextFieldReal->enable();
+    myTextFieldStrings->enable();
+    myChoicesCombo->enable();
+    myBoolCheckButton->enable();
+}
+
+
+void 
+GNEInspectorFrame::AttributesEditor::AttributeInput::disableAttributeInputElements() {
+    myTextFieldInt->disable();
+    myTextFieldReal->disable();
+    myTextFieldStrings->disable();
+    myChoicesCombo->disable();
+    myBoolCheckButton->disable();
 }
 
 // ===========================================================================

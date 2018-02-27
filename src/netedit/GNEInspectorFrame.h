@@ -103,6 +103,12 @@ public:
             std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
         private:
+            /// @brief enable attribute input elements
+            void enableAttributeInputElements();
+
+            /// @brief disable attribute input elements
+            void disableAttributeInputElements();
+
             /// @brief pointer to AttributesEditor parent
             GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
 
