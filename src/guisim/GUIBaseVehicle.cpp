@@ -11,6 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Laura Bieker-Walz
 /// @date    Sept 2002
 /// @version $Id$
 ///
@@ -139,6 +140,9 @@ double vehiclePoly_EmergencyLadder4[] =   { .45, .3, .4, .3, .4, -.3, .45, -.3, 
 double vehiclePoly_EmergencyLadder5[] =   { .05, .3, .0, .3, .0, -.3, .05, -.3, -10000 };
 double vehiclePoly_EmergencyLadder6[] =   { -.25, .3, -.2, .3, -.2, -.3, -.25, -.3, -10000 };
 double vehiclePoly_EmergencyLadder7[] =   { .25, .3, .2, .3, .2, -.3, .25, -.3, -10000 };
+
+double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -653,6 +657,20 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             drawPoly(vehiclePoly_Emergency, 5);
             drawPoly(vehiclePoly_Emergency2, 5);
             break;
+        case SVS_RICKSHAW: // Rickshaw
+            drawPoly(vehiclePoly_PassengerCarBody, 4);
+            // wheels
+            GLHelper::setColor(darker);
+            glPushMatrix();
+            glTranslated(.5, .5, -0.1);
+            GLHelper::drawFilledCircle(.3, 6);
+            glPopMatrix();
+            //other wheel
+            glPushMatrix();
+            glTranslated(.5, -.5, -0.1);
+            GLHelper::drawFilledCircle(.3, 6);
+            glPopMatrix();
+            break;
         default: // same as passenger
             drawPoly(vehiclePoly_PassengerCarBody, 4);
             glColor3d(1, 1, 1);
@@ -759,6 +777,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
         case SVS_EMERGENCY:
         case SVS_FIREBRIGADE:
         case SVS_POLICE:
+        case SVS_RICKSHAW:
             break;
         default: // same as passenger/sedan
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);

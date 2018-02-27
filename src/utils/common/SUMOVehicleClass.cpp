@@ -12,6 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
+/// @author  Laura Bieker-Walz
 /// @date    2006-01-24
 /// @version $Id$
 ///
@@ -124,6 +125,7 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"emergency",             SVS_EMERGENCY},
     {"firebrigade",           SVS_FIREBRIGADE},
     {"police",                SVS_POLICE},
+    {"rickshaw",              SVS_RICKSHAW },
     {"",                      SVS_UNKNOWN}
 };
 

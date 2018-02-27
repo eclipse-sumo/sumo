@@ -106,7 +106,9 @@ enum SUMOVehicleShape {
     /// @brief render as a fire brigade
     SVS_FIREBRIGADE,
     /// @brief render as a police car
-    SVS_POLICE
+    SVS_POLICE,
+    /// @brief render as a rickshaw
+    SVS_RICKSHAW
 };
 
 
