@@ -61,7 +61,7 @@ public:
     // class AdditionalSelector
     // ===========================================================================
 
-    class AdditionalSelector : public FXGroupBox {
+    class AdditionalSelector : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalSelector)
 
@@ -103,7 +103,7 @@ public:
     // class AdditionalAttributeSingle
     // ===========================================================================
 
-    class AdditionalAttributeSingle : public FXHorizontalFrame {
+    class AdditionalAttributeSingle : protected FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalAttributeSingle)
 
@@ -181,7 +181,7 @@ public:
     // class AdditionalAttributeList
     // ===========================================================================
 
-    class AdditionalAttributeList : public FXVerticalFrame {
+    class AdditionalAttributeList : protected FXVerticalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalAttributeList)
 
@@ -253,9 +253,13 @@ public:
     // class AdditionalAttributes
     // ===========================================================================
 
-    class AdditionalAttributes : public FXGroupBox {
+    class AdditionalAttributes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalAttributes)
+
+        /// @brief friend class declaration
+        friend class AdditionalAttributeSingle;
+        friend class AdditionalAttributeList;
 
     public:
         /// @brief constructor
@@ -328,7 +332,7 @@ public:
     // class NeteditAttributes
     // ===========================================================================
 
-    class NeteditAttributes : public FXGroupBox {
+    class NeteditAttributes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::NeteditAttributes)
 
@@ -348,10 +352,10 @@ public:
         ~NeteditAttributes();
 
         /// @brief show length field and reference point
-        void showLengthAndReferencePoint();
+        void showNeteditAttributes(bool includeLengthAndReferencePoint);
 
-        /// @brief hide length field
-        void hideLengthAndReferencePoint();
+        /// @brief show length field and reference point
+        void hideNeteditAttributes();
 
         /// @brief get actual reference point
         additionalReferencePoint getActualReferencePoint() const;
@@ -414,10 +418,7 @@ public:
     // class SelectorParentAdditional
     // ===========================================================================
 
-    class SelectorParentAdditional : public FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentAdditional)
-
+    class SelectorParentAdditional : protected FXGroupBox {
     public:
         /// @brief constructor
         SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent);
@@ -432,40 +433,27 @@ public:
         void setIDSelected(const std::string &id);
 
         /// @brief Show list of SelectorParentAdditional
-        void showListOfAdditionals(SumoXMLTag type, bool uniqueSelection);
+        void showListOfAdditionals(SumoXMLTag additionalType);
 
         /// @brief hide SelectorParentAdditional
         void hideListOfAdditionals();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user select an SelectorParentAdditional of the list
-        long onCmdSelectAdditionalParent(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        SelectorParentAdditional() {}
 
     private:
         /// @brief pointer to Additional Frame Parent
         GNEAdditionalFrame * myAdditionalFrameParent;
 
-        /// @brief List of additional sets
-        FXList* myList;
-
         /// @brief Label with the name of additional
-        FXLabel* mySetLabel;
+        FXLabel* myAdditionalParentsLabel;
 
-        /// @brief flag to check if only a single parent is allowed
-        bool myUniqueSelection;
+        /// @brief List of additional sets
+        FXList* myAdditionalParentsList;
     };
 
     // ===========================================================================
     // class SelectorParentEdges
     // ===========================================================================
 
-    class SelectorParentEdges : public FXGroupBox {
+    class SelectorParentEdges : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorParentEdges)
 
@@ -537,7 +525,7 @@ public:
     // class SelectorParentLanes
     // ===========================================================================
 
-    class SelectorParentLanes : public FXGroupBox {
+    class SelectorParentLanes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
 

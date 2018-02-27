@@ -80,10 +80,6 @@ FXDEFMAP(GNEAdditionalFrame::NeteditAttributes) NeteditAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                       GNEAdditionalFrame::NeteditAttributes::onCmdHelp),
 };
 
-FXDEFMAP(GNEAdditionalFrame::SelectorParentAdditional) SelectorParentAdditionalMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent),
-};
-
 FXDEFMAP(GNEAdditionalFrame::SelectorParentEdges) SelectorParentEdgesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_USESELECTED,        GNEAdditionalFrame::SelectorParentEdges::onCmdUseSelectedEdges),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_CLEARSELECTION,     GNEAdditionalFrame::SelectorParentEdges::onCmdClearSelection),
@@ -106,7 +102,6 @@ FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeSingle,      FXHorizontalFram
 FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributeList,        FXVerticalFrame,    AdditionalAttributeListMap,     ARRAYNUMBER(AdditionalAttributeListMap))
 FXIMPLEMENT(GNEAdditionalFrame::AdditionalAttributes,           FXGroupBox,         AdditionalAttributesMap,        ARRAYNUMBER(AdditionalAttributesMap))
 FXIMPLEMENT(GNEAdditionalFrame::NeteditAttributes,              FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorParentAdditional,       FXGroupBox,         SelectorParentAdditionalMap,    ARRAYNUMBER(SelectorParentAdditionalMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorParentEdges,            FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
 FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,            FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
 
@@ -153,10 +148,9 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
     if(myCurrentAdditionalType != SUMO_TAG_NOTHING) {
         // first check if additional can block movement, then show neteditParameters
         if (GNEAttributeCarrier::canBlockMovement(myCurrentAdditionalType)) {
-            myAdditionalFrameParent->getNeteditAttributes()->show();
-            myAdditionalFrameParent->getNeteditAttributes()->hideLengthAndReferencePoint();
+            myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(false);
         } else {
-            myAdditionalFrameParent->getNeteditAttributes()->hide();
+            myAdditionalFrameParent->getNeteditAttributes()->hideNeteditAttributes();
         }
         // Clear internal attributes
         myAdditionalFrameParent->getAdditionalParameters()->clearAttributes();
@@ -166,7 +160,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
             if (!GNEAttributeCarrier::isUnique(myCurrentAdditionalType, i.first)) {
                 myAdditionalFrameParent->getAdditionalParameters()->addAttribute(i.first);
             } else if (i.first == SUMO_ATTR_ENDPOS) {
-                myAdditionalFrameParent->getNeteditAttributes()->showLengthAndReferencePoint();
+                myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(true);
             }
         }
         // if there are parameters, show and Recalc groupBox
@@ -177,7 +171,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         }
         // Show myAdditionalParentSelector if we're adding a additional with parent
         if (GNEAttributeCarrier::canHaveParent(myCurrentAdditionalType)) {
-            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getAdditionalParentTag(myCurrentAdditionalType), true);
+            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getAdditionalParentTag(myCurrentAdditionalType));
         } else {
             myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
         }
@@ -196,7 +190,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
     } else {
         // hide all groupbox if additional isn't valid
         myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
-        myAdditionalFrameParent->getNeteditAttributes()->hide();
+        myAdditionalFrameParent->getNeteditAttributes()->hideNeteditAttributes();
         myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
         myAdditionalFrameParent->getEdgeParentsSelector()->hideList();
         myAdditionalFrameParent->getLaneParentsSelector()->hideList();
@@ -741,20 +735,25 @@ GNEAdditionalFrame::NeteditAttributes::NeteditAttributes(GNEAdditionalFrame *add
 GNEAdditionalFrame::NeteditAttributes::~NeteditAttributes() {}
 
 
-void
-GNEAdditionalFrame::NeteditAttributes::showLengthAndReferencePoint() {
-    myLengthLabel->show();
-    myLengthTextField->show();
-    myReferencePointMatchBox->show();
+
+void 
+GNEAdditionalFrame::NeteditAttributes::showNeteditAttributes(bool includeLengthAndReferencePoint) {
     show();
+    if(includeLengthAndReferencePoint) {
+        myLengthLabel->show();
+        myLengthTextField->show();
+        myReferencePointMatchBox->show();
+    } else {
+        myLengthLabel->hide();
+        myLengthTextField->hide();
+        myReferencePointMatchBox->hide();
+    }
 }
 
 
-void
-GNEAdditionalFrame::NeteditAttributes::hideLengthAndReferencePoint() {
-    myLengthLabel->hide();
-    myLengthTextField->hide();
-    myReferencePointMatchBox->hide();
+void 
+GNEAdditionalFrame::NeteditAttributes::hideNeteditAttributes() {
+    hide();
 }
 
 
@@ -939,15 +938,11 @@ GNEAdditionalFrame::getLaneParentsSelector() const {
 
 GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
-    myAdditionalFrameParent(additionalFrameParent),
-    myUniqueSelection(false) {
-
+    myAdditionalFrameParent(additionalFrameParent) {
     // Create label with the type of SelectorParentAdditional
-    mySetLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
-
+    myAdditionalParentsLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
     // Create list
-    myList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
-
+    myAdditionalParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
     // Hide List
     hideListOfAdditionals();
 }
@@ -958,9 +953,9 @@ GNEAdditionalFrame::SelectorParentAdditional::~SelectorParentAdditional() {}
 
 std::string
 GNEAdditionalFrame::SelectorParentAdditional::getIdSelected() const {
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->isItemSelected(i)) {
-            return myList->getItem(i)->getText().text();
+    for (int i = 0; i < myAdditionalParentsList->getNumItems(); i++) {
+        if (myAdditionalParentsList->isItemSelected(i)) {
+            return myAdditionalParentsList->getItem(i)->getText().text();
         }
     }
     return "";
@@ -970,28 +965,29 @@ GNEAdditionalFrame::SelectorParentAdditional::getIdSelected() const {
 void 
 GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string &id) {
     // first unselect all
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        myList->getItem(i)->setSelected(false);
+    for (int i = 0; i < myAdditionalParentsList->getNumItems(); i++) {
+        myAdditionalParentsList->getItem(i)->setSelected(false);
     }
     // select element if correspond to given ID
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if(myList->getItem(i)->getText().text() == id) {
-            myList->getItem(i)->setSelected(true);
+    for (int i = 0; i < myAdditionalParentsList->getNumItems(); i++) {
+        if(myAdditionalParentsList->getItem(i)->getText().text() == id) {
+            myAdditionalParentsList->getItem(i)->setSelected(true);
         }
     }
+    // recalc myAdditionalParentsList
+    myAdditionalParentsList->recalc();
 }
 
 
 void
-GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionals(SumoXMLTag type, bool uniqueSelection) {
-    myUniqueSelection = uniqueSelection;
-    mySetLabel->setText(("" + toString(type)).c_str());
-    myList->clearItems();
+GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionals(SumoXMLTag additionalType) {
+    myAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
+    myAdditionalParentsList->clearItems();
     // obtain all additionals of class "type"
-    std::vector<GNEAdditional*> vectorOfAdditionalParents = myAdditionalFrameParent->getViewNet()->getNet()->getAdditionals(type);
+    std::vector<GNEAdditional*> vectorOfAdditionalParents = myAdditionalFrameParent->getViewNet()->getNet()->getAdditionals(additionalType);
     // fill list with IDs of additionals
     for (auto i : vectorOfAdditionalParents) {
-        myList->appendItem(i->getID().c_str());
+        myAdditionalParentsList->appendItem(i->getID().c_str());
     }
     show();
 }
@@ -1000,12 +996,6 @@ GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionals(SumoXMLTag t
 void
 GNEAdditionalFrame::SelectorParentAdditional::hideListOfAdditionals() {
     hide();
-}
-
-
-long
-GNEAdditionalFrame::SelectorParentAdditional::onCmdSelectAdditionalParent(FXObject*, FXSelector, void*) {
-    return 1;
 }
 
 // ---------------------------------------------------------------------------
