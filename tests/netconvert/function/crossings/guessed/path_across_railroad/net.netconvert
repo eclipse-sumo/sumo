@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:47 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Tue Feb 27 11:02:18 2018 by SUMO netconvert Version v0_32_0+0548-547a178
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
         <output.street-names value="true"/>
@@ -140,7 +141,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="m"/>
     <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" dir="l" state="m"/>
     <connection from="NC" to="CN" fromLane="0" toLane="0" via=":C_2_0" dir="t" state="m"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_7_0" dir="r" state="m"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_7_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_8_0" dir="s" state="m"/>
     <connection from="SC" to="CS" fromLane="0" toLane="0" via=":C_9_0" dir="t" state="m"/>
 

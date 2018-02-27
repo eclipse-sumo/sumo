@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:35 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Tue Feb 27 11:02:01 2018 by SUMO netconvert Version v0_32_0+0548-547a178
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -200,7 +201,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2fi" to="2si" fromLane="0" toLane="1" via=":m2_0_1" dir="s" state="M"/>
     <connection from="2fi" to="2si" fromLane="1" toLane="2" via=":m2_0_2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
-    <connection from="2si" to="4o" fromLane="0" toLane="0" via=":0_4_0" dir="r" state="m"/>
+    <connection from="2si" to="4o" fromLane="0" toLane="0" via=":0_4_0" dir="r" state="M"/>
     <connection from="2si" to="1o" fromLane="1" toLane="0" via=":0_5_0" dir="s" state="m"/>
     <connection from="2si" to="3o" fromLane="2" toLane="0" via=":0_6_0" dir="l" state="m"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" via=":0_7_0" dir="t" state="m"/>
@@ -211,7 +212,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="4o" to="4fi" fromLane="0" toLane="1" via=":4_0_0" dir="t" state="M"/>
     <connection from="4si" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="M"/>
     <connection from="4si" to="3o" fromLane="1" toLane="0" via=":0_1_0" dir="s" state="M"/>
-    <connection from="4si" to="2o" fromLane="2" toLane="0" via=":0_2_0" dir="l" state="m"/>
+    <connection from="4si" to="2o" fromLane="2" toLane="0" via=":0_2_0" dir="l" state="M"/>
     <connection from="4si" to="4o" fromLane="2" toLane="0" via=":0_3_0" dir="t" state="m"/>
 
     <connection from=":0_0" to="1o" fromLane="0" toLane="0" dir="r" state="M"/>

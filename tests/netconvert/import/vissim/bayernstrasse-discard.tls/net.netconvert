@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  3 09:26:06 2017 by SUMO netconvert Version dev-SVN-r23174
+<!-- generated on Tue Feb 27 11:02:06 2018 by SUMO netconvert Version v0_32_0+0548-547a178
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -1461,12 +1462,12 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="71" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="71" to="68" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="71" to="68" fromLane="2" toLane="1" dir="s" state="M"/>
-    <connection from="71" to="3[1][1][0]" fromLane="3" toLane="0" dir="L" state="m"/>
+    <connection from="71" to="3[1][1][0]" fromLane="3" toLane="0" dir="L" state="M"/>
     <connection from="71" to="65[1][1][0]" fromLane="3" toLane="0" dir="t" state="m"/>
     <connection from="71" to="65[1][1][0]" fromLane="3" toLane="1" dir="t" state="m"/>
     <connection from="72" to="68" fromLane="0" toLane="0" dir="L" state="m"/>
     <connection from="72" to="68" fromLane="0" toLane="1" dir="L" state="m"/>
-    <connection from="73" to="65[1][1][0]" fromLane="0" toLane="1" dir="r" state="m"/>
+    <connection from="73" to="65[1][1][0]" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from="82[0]" to="82[1]" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="82[1]" to="84[1]" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="83[0]" to="83[1]" fromLane="0" toLane="0" dir="r" state="m"/>
