@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 27 17:55:42 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
+<!-- generated on Wed Feb 28 15:05:52 2018 by SUMO netconvert Version v0_32_0+0571-b8b12a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -173,8 +173,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="8616039#0" to="8616039#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="8616039#0" to="8616039#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="8616185" to="8615654" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="8616185" to="8615120#0" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="8616185" to="8615120#0" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="8616185" to="8615120#0" fromLane="0" toLane="0" dir="L" state="m"/>
+    <connection from="8616185" to="8615120#0" fromLane="1" toLane="1" dir="L" state="m"/>
     <connection from="8856384" to="8616185" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="96329516#0" to="96329519#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="96329519#0" to="8616039#1" fromLane="0" toLane="0" dir="s" state="m"/>

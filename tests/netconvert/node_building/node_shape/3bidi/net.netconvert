@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 20 09:18:00 2017 by SUMO netconvert Version dev-SVN-r23002
+<!-- generated on Wed Feb 28 15:05:23 2018 by SUMO netconvert Version v0_32_0+0571-b8b12a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_plain.nod.xml"/>
         <edge-files value="input_plain.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <ignore-errors.edge-type value="true"/>
@@ -64,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <connection from="-1" to="-3" fromLane="0" toLane="0" dir="s" state="="/>
-    <connection from="-1" to="-2" fromLane="0" toLane="0" dir="s" state="="/>
+    <connection from="-1" to="-2" fromLane="0" toLane="0" dir="L" state="="/>
     <connection from="-2" to="3" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="-3" to="2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="2" to="1" fromLane="0" toLane="0" dir="s" state="="/>
