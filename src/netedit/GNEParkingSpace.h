@@ -129,8 +129,11 @@ public:
     /// @}
 
 protected:
-    /// @brief position of Parking Space in view
-    Position myPosition;
+    /// @brief x position of Parking Space
+    double myX;
+
+    /// @brief y position of Parking Space
+    double myY;
 
     /// @brief z position of Parking Space
     double myZ;

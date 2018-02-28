@@ -558,7 +558,8 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_PARKING_SPACE:
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Z, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5"));
@@ -948,6 +949,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_WIDTH);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LENGTH);
         // Parking Space
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_X);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Y);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Z);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_ANGLE);
         myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_WIDTH);
@@ -1180,12 +1183,13 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             // POLY
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEOSHAPE);
-            // Parking Space
+            // Parking Area
             myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_STARTPOS);
             myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LANE);
             // Parking Space
-            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_POSITION);
+            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_X);
+            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Y);
         }
         return myUniqueAttrs[tag].count(attr) == 1;
     }
@@ -1685,7 +1689,8 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_LENGTH] = setAttrDefinition("The length of the road-side parking spaces");
         myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_ANGLE] = setAttrDefinition("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise");
         // Parking Space
-        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_POSITION] = setAttrDefinition("The X-Y positions in meters of the parking vehicle");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_X] = setAttrDefinition("The X position in meters of the parking vehicle");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_Y] = setAttrDefinition("The Y positions in meters of the parking vehicle");
         myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_Z] = setAttrDefinition("The Z position in meters of the parking vehicle");
         myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_WIDTH] = setAttrDefinition("The width of the road-side parking spaces");
         myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_LENGTH] = setAttrDefinition("The length of the road-side parking spaces");

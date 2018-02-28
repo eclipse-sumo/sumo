@@ -60,7 +60,8 @@
 
 GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle) :
     GNEAdditional(parkingAreaParent->generateParkingSpaceID(), viewNet, SUMO_TAG_PARKING_SPACE, ICON_PARKINGSPACE, true, parkingAreaParent),
-    myPosition(Position(x,y)),
+    myX(x),
+    myY(y),
     myZ(z),
     myWidth(width),
     myCustomWidth(parkingAreaParent->getAttribute(SUMO_ATTR_WIDTH) != toString(width)),
@@ -78,8 +79,8 @@ void
 GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_X, myPosition.x());
-    device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+    device.writeAttr(SUMO_ATTR_X, myX);
+    device.writeAttr(SUMO_ATTR_Y, myY);
     if(myZ != 0) {
         device.writeAttr(SUMO_ATTR_Z, myZ);
     }
@@ -100,8 +101,10 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
 void 
 GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) {
     // restore old position, apply offset and update Geometry
-    myPosition = oldPos;
-    myPosition.add(offset);
+    Position pos = oldPos;
+    pos.add(offset);
+    myX = pos.x();
+    myY = pos.y();
     updateGeometry();
 }
 
@@ -109,7 +112,8 @@ GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) 
 void 
 GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * undoList) {
     undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(oldPos.x())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myY), true, toString(oldPos.y())));
     undoList->p_end();
 }
 
@@ -117,7 +121,7 @@ GNEParkingSpace::commitGeometryMoving(const Position & oldPos, GNEUndoList * und
 void
 GNEParkingSpace::updateGeometry() {
     myShape.clear();
-    myShape.push_back(myPosition);
+    myShape.push_back(Position(myX, myY));
     // Refresh element (neccesary to avoid grabbing problems)
     myViewNet->getNet()->refreshElement(this);
 }
@@ -125,7 +129,7 @@ GNEParkingSpace::updateGeometry() {
 
 Position 
 GNEParkingSpace::getPositionInView() const {
-    return myPosition;
+    return Position(myX, myY);
 }
 
 
@@ -146,7 +150,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     // Traslate matrix and draw green contour
-    glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
+    glTranslated(myX, myY, getType() + 0.1);
     glRotated(angle, 0, 0, 1);
     // Set Color depending of selection
     if (isAdditionalSelected()) {
@@ -178,8 +182,10 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+        case SUMO_ATTR_X:
+            return toString(myX);
+        case SUMO_ATTR_Y:
+            return toString(myY);
         case SUMO_ATTR_Z:
             return toString(myZ);
         case SUMO_ATTR_WIDTH:
@@ -223,7 +229,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_X:
+        case SUMO_ATTR_Y:
         case SUMO_ATTR_Z:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
@@ -246,8 +253,10 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_POSITION:
-            return canParse<Position>(value);
+        case SUMO_ATTR_X:
+            return canParse<double>(value);
+        case SUMO_ATTR_Y:
+            return canParse<double>(value);
         case SUMO_ATTR_Z:
             return canParse<double>(value);
         case SUMO_ATTR_WIDTH:
@@ -281,8 +290,11 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_POSITION:
-            myPosition = parse<Position>(value);
+        case SUMO_ATTR_X:
+            myX = parse<double>(value);
+            break;
+        case SUMO_ATTR_Y:
+            myY = parse<double>(value);
             break;
         case SUMO_ATTR_Z:
             myZ = parse<double>(value);
