@@ -58,7 +58,7 @@ netedit.modifyAttribute(2, "4")
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

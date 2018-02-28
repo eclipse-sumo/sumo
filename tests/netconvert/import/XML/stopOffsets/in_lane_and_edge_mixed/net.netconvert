@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  5 10:45:21 2018 by SUMO netconvert Version v0_32_0+0314-6909283
+<!-- generated on Fri Feb  9 13:15:28 2018 by SUMO netconvert Version v0_32_0+0371-8d0675e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -130,6 +130,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="1o_0" index="0" speed="40.00" length="488.65" shape="488.65,501.65 0.00,501.65"/>
     </edge>
     <edge id="1si" from="m1" to="0" priority="3">
+        <stopOffset exceptions="passenger" value="7.00"/>
         <lane id="1si_0" index="0" speed="50.00" length="237.15" shape="251.50,491.75 488.65,491.75">
             <stopOffset vClasses="bicycle" value="5.00"/>
         </lane>
@@ -160,6 +161,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="3o_0" index="0" speed="40.00" length="488.65" shape="498.35,488.65 498.35,0.00"/>
     </edge>
     <edge id="3si" from="m3" to="0" priority="3">
+        <stopOffset exceptions="emergency army" value="7.00"/>
         <lane id="3si_0" index="0" speed="50.00" length="237.15" shape="508.25,251.50 508.25,488.65">
             <stopOffset vClasses="bicycle" value="5.00"/>
         </lane>

@@ -502,6 +502,14 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
             v->onDepart();
         }
         v->drawOutsideNetwork(true);
+        // see updateState
+        double vNext = v->processTraCISpeedControl(
+                v->getVehicleType().getMaxSpeed(), v->getSpeed());
+        v->setBrakingSignals(vNext);
+        v->updateWaitingTime(vNext);
+        v->myState.myPreviousSpeed = v->getSpeed();
+        v->myAcceleration = SPEED2ACCEL(vNext - v->getSpeed());
+        v->myState.mySpeed = vNext;
         //std::cout << "outside network p=" << myRemoteXYPos << " a=" << myRemoteAngle << " l=" << Named::getIDSecure(myRemoteLane) << "\n";
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
@@ -1707,6 +1715,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
     const bool opposite = getLaneChangeModel().isOpposite();
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
+    if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
+        laneMaxV = std::numeric_limits<double>::max();
+    }
     // v is the initial maximum velocity of this vehicle in this step
     double v = MIN2(maxV, laneMaxV);
     if (myInfluencer != 0) {
@@ -2040,6 +2051,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // get the following lane
         lane = (*link)->getViaLaneOrLane();
         laneMaxV = lane->getVehicleMaxSpeed(this);
+        if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
+            laneMaxV = std::numeric_limits<double>::max();
+        }
         // the link was passed
         // compute the velocity to use when the link is not blocked by other vehicles
         //  the vehicle shall be not faster when reaching the next lane than allowed
@@ -4284,6 +4298,8 @@ MSVehicle::setBlinkerInformation() {
 
 void
 MSVehicle::setEmergencyBlueLight(SUMOTime currentTime) {
+
+    //TODO look if timestep ist SIMSTEP
     if (currentTime % 1000 == 0) {
         if (signalSet(VEH_SIGNAL_EMERGENCY_BLUE)) {
             switchOffSignal(VEH_SIGNAL_EMERGENCY_BLUE);

@@ -35,20 +35,32 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
+#include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
+#include "GNEAdditionalHandler.h"
+#include "GNEAttributeCarrier.h"
+#include "GNECalibrator.h"
+#include "GNEChange_Additional.h"
+#include "GNEChange_CalibratorItem.h"
+#include "GNEChange_RerouterItem.h"
+#include "GNEChange_Selection.h"
+#include "GNEChange_VariableSpeedSignItem.h"
+#include "GNEClosingLaneReroute.h"
+#include "GNEClosingReroute.h"
+#include "GNECrossing.h"
+#include "GNEDestProbReroute.h"
+#include "GNEEdge.h"
+#include "GNEJunction.h"
+#include "GNELane.h"
+#include "GNENet.h"
+#include "GNERerouter.h"
+#include "GNERerouterInterval.h"
+#include "GNERouteProbReroute.h"
+#include "GNEUndoList.h"
+#include "GNEVariableSpeedSign.h"
+#include "GNEVariableSpeedSignStep.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
-#include "GNENet.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNECrossing.h"
-#include "GNEUndoList.h"
-#include "GNEChange_Selection.h"
-#include "GNEAttributeCarrier.h"
-#include "GNEChange_Additional.h"
-#include "GNEAdditional.h"
-#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -389,7 +401,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
-    } else if (GNEAttributeCarrier::isVClass(additionalTag, myAdditionalAttr)) {
+    } else if (GNEAttributeCarrier::isSVCPermissions(additionalTag, myAdditionalAttr)) {
         // check if lists of Vclass are valid
         if (canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "list of VClass isn't valid";
@@ -1583,6 +1595,55 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
     // first remove all additional childs of this additional calling this function recursively
     while (additional->getAdditionalChilds().size() > 0) {
         removeAdditional(additional->getAdditionalChilds().front());
+    }
+    // if Additional is a calibrator, remove all calibrator items manually
+    if ((additional->getTag() == SUMO_TAG_CALIBRATOR) || (additional->getTag() == SUMO_TAG_LANECALIBRATOR)) {
+        GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(additional);
+        // Clear flows (Always first)
+        while(calibrator->getCalibratorFlows().size() > 0) {
+            myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorFlows().front(), false), true);
+        }
+        // Clear VTypes
+        while(calibrator->getCalibratorVehicleTypes().size() > 0) {
+            myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorVehicleTypes().front(), false), true);
+        }
+        // Clear Routes
+        while(calibrator->getCalibratorRoutes().size() > 0) {
+            myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorRoutes().front(), false), true);
+        }
+    }
+    // if Additional is a rerouter, remove all rerouter items manually
+    if (additional->getTag() == SUMO_TAG_REROUTER) {
+        GNERerouter *rerouter = dynamic_cast<GNERerouter*>(additional);
+        // Clear rerouter intervals
+        while(rerouter->getRerouterIntervals().size() > 0) {
+            // clear closing lane reroutes
+            while(rerouter->getRerouterIntervals().front()->getClosingReroutes().size() > 0) {
+                myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getClosingReroutes().front(), false), true);
+            }
+            // clear closing lane reroutes
+            while(rerouter->getRerouterIntervals().front()->getClosingLaneReroutes().size() > 0) {
+                myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getClosingLaneReroutes().front(), false), true);
+            }
+            // clear dest prob reroutes
+            while(rerouter->getRerouterIntervals().front()->getDestProbReroutes().size() > 0) {
+                myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getDestProbReroutes().front(), false), true);
+            }
+            // clear route porb reroutes
+            while(rerouter->getRerouterIntervals().front()->getRouteProbReroutes().size() > 0) {
+                myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getRouteProbReroutes().front(), false), true);
+            }
+            // remove rerouter interval
+            myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front(), false), true);
+        }
+    }
+    // if Additional is a Variable Speed Singn, remove all steps
+    if (additional->getTag() == SUMO_TAG_VSS) {
+        GNEVariableSpeedSign *variableSpeedSign = dynamic_cast<GNEVariableSpeedSign*>(additional);
+        // Clear vss steps
+        while(variableSpeedSign->getVariableSpeedSignSteps().size() > 0) {
+            myViewNet->getUndoList()->add(new GNEChange_VariableSpeedSignItem(variableSpeedSign->getVariableSpeedSignSteps().front(), false), true);
+        }
     }
     // remove additional
     myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);

@@ -57,6 +57,7 @@
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
@@ -207,7 +208,12 @@ GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
     double xNet = bound.xmin() + bound.getWidth() * x / getWidth();
     // cursor origin is in the top-left corner
     double yNet = bound.ymin() + bound.getHeight() * (getHeight() - y) / getHeight();
-    return Position(xNet, yNet);
+    // rotate around the viewport center
+    if (myChanger->getRotation() != 0) {
+        return Position(xNet, yNet).rotateAround2D(-DEG2RAD(myChanger->getRotation()), bound.getCenter());
+    } else {
+        return Position(xNet, yNet);
+    }
 }
 
 
@@ -287,8 +293,8 @@ GUISUMOAbstractView::paintGL() {
     glEnable(GL_BLEND);
     glDisable(GL_LINE_SMOOTH);
 
-    applyGLTransform();
-    doPaintGL(GL_RENDER, myChanger->getViewport());
+    Boundary bound = applyGLTransform();
+    doPaintGL(GL_RENDER, bound);
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
@@ -334,7 +340,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             //  this "layer" resembles the layer of the shape
             //  taking into account the stac of other objects
             if (type == GLO_POI || type == GLO_POLYGON) {
-                layer = dynamic_cast<Shape*>(o)->getLayer();
+                layer = dynamic_cast<Shape*>(o)->getShapeLayer();
             }
             if (type == GLO_LANE && GUIVisualizationSettings::UseMesoSim) {
                 // do not select lanes in meso mode
@@ -381,7 +387,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
+GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
     static GUIGlID hits[NB_HITS_MAX];
@@ -391,7 +397,7 @@ GUISUMOAbstractView::getObjectsInBoundary(const Boundary& bound) {
 
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     myChanger->setViewport(bound);
-    applyGLTransform(false);
+    bound = applyGLTransform(false);
 
     // paint in select mode
     myVisualizationSettings->drawForSelecting = true;
@@ -735,7 +741,9 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
         myChanger->onMouseWheel(data);
         // upddate viewport
         if (myViewportChooser != 0) {
-            myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+            myViewportChooser->setValues(myChanger->getZoom(), 
+                    myChanger->getXPos(), myChanger->getYPos(), 
+                    myChanger->getRotation());
         }
         updatePositionInformation();
     }
@@ -754,7 +762,9 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
             myChanger->onMouseMove(data);
         }
         if (myViewportChooser != 0) {
-            myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+            myViewportChooser->setValues(myChanger->getZoom(), 
+                    myChanger->getXPos(), myChanger->getYPos(),
+                    myChanger->getRotation());
         }
         updatePositionInformation();
     }
@@ -1060,10 +1070,20 @@ GUISUMOAbstractView::showViewschemeEditor() {
 GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myViewportChooser == 0) {
-        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", 0, 0);
+        const FXint minSize = 100;
+        const FXint minTitlebarHeight = 20;
+        int x = MAX2(0, MIN2(getApp()->reg().readIntEntry(
+                        "VIEWPORT_DIALOG_SETTINGS", "x", 150), 
+                getApp()->getRootWindow()->getWidth() - minSize));
+        int y = MAX2(minTitlebarHeight, MIN2(getApp()->reg().readIntEntry(
+                    "VIEWPORT_DIALOG_SETTINGS", "y", 150), 
+                    getApp()->getRootWindow()->getHeight() - minSize));
+        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
         myViewportChooser->create();
     }
-    myViewportChooser->setValues(myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
+    myViewportChooser->setValues(myChanger->getZoom(), 
+            myChanger->getXPos(), myChanger->getYPos(), 
+            myChanger->getRotation());
     return myViewportChooser;
 }
 
@@ -1072,14 +1092,15 @@ void
 GUISUMOAbstractView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
     Position p(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos());
-    myViewportChooser->setOldValues(p, Position::INVALID);
+    myViewportChooser->setOldValues(p, Position::INVALID, myChanger->getRotation());
     myViewportChooser->show();
 }
 
 
 void
-GUISUMOAbstractView::setViewportFromTo(const Position& lookFrom, const Position& /* lookAt */) {
+GUISUMOAbstractView::setViewportFromToRot(const Position& lookFrom, const Position& /* lookAt */, double rotation) {
     myChanger->setViewportFrom(lookFrom.x(), lookFrom.y(), lookFrom.z());
+    myChanger->setRotation(rotation);
     update();
 }
 
@@ -1087,8 +1108,9 @@ GUISUMOAbstractView::setViewportFromTo(const Position& lookFrom, const Position&
 void
 GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
     // look straight down
-    view->setViewportFromTo(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()),
-                            Position(myChanger->getXPos(), myChanger->getYPos(), 0));
+    view->setViewportFromToRot(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()),
+                            Position(myChanger->getXPos(), myChanger->getYPos(), 0),
+                            myChanger->getRotation());
 }
 
 
@@ -1326,7 +1348,7 @@ GUISUMOAbstractView::isAdditionalGLVisualisationEnabled(GUIGlObject* const which
 }
 
 
-void
+Boundary
 GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     Boundary bound = myChanger->getViewport(fixRatio);
     glMatrixMode(GL_PROJECTION);
@@ -1341,6 +1363,21 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
     double scaleY = (double)getHeight() / bound.getHeight();
     glScaled(scaleX, scaleY, 1);
     glTranslated(-bound.xmin(), -bound.ymin(), 0);
+    // rotate around the center of the screen
+    //double angle = -90;
+    if (myChanger->getRotation() != 0) {
+        glTranslated(bound.getCenter().x(), bound.getCenter().y(), 0);
+        glRotated(myChanger->getRotation(), 0, 0, 1);
+        glTranslated(-bound.getCenter().x(), -bound.getCenter().y(), 0);
+        Boundary rotBound;
+        double rad = -DEG2RAD(myChanger->getRotation());
+        rotBound.add(Position(bound.xmin(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
+        rotBound.add(Position(bound.xmin(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
+        rotBound.add(Position(bound.xmax(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
+        rotBound.add(Position(bound.xmax(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
+        bound = rotBound;
+    }
+    return bound;
 }
 
 

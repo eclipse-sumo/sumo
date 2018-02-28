@@ -34,7 +34,7 @@ netedit.changeAdditional("busStop")
 # create busStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

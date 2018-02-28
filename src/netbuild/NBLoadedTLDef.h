@@ -311,6 +311,10 @@ public:
 
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
     void initNeedsContRelation() const;
+
+    ///@brief Returns the maximum index controlled by this traffic light
+    int getMaxIndex();
+
     /// @}
 
 

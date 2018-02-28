@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 05 Jan 2018 10:33:23 AM CET by SUMO gui Version v0_32_0+0084-61af4ab
+<!-- generated on Tue 20 Feb 2018 08:48:09 AM CET by SUMO gui Version v0_32_0+0466-e1a5482
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
@@ -38,6 +39,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ship2" depart="0.00" departLane="-end_0" departPos="10.10" departSpeed="0.00" departDelay="0.00" arrival="117.00" arrivalLane="-beg_0" arrivalPos="204.19" arrivalSpeed="9.00" duration="117.00" routeLength="650.36" waitingTime="1.00" stopTime="0.00" timeLoss="44.50" rerouteNo="0" devices="tripinfo_ship2" vType="ship_custom" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="ship1" depart="0.00" departLane="beg_0" departPos="17.10" departSpeed="0.00" departDelay="0.00" arrival="178.00" arrivalLane="end_0" arrivalPos="229.16" arrivalSpeed="4.12" duration="178.00" routeLength="650.84" waitingTime="1.00" stopTime="0.00" timeLoss="20.12" rerouteNo="0" devices="tripinfo_ship1" vType="ship_default" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ship2" depart="0.00" departLane="-end_0" departPos="10.10" departSpeed="0.00" departDelay="0.00" arrival="117.00" arrivalLane="-beg_0" arrivalPos="204.19" arrivalSpeed="9.00" duration="117.00" routeLength="650.36" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="44.50" rerouteNo="0" devices="tripinfo_ship2" vType="ship_custom" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ship1" depart="0.00" departLane="beg_0" departPos="17.10" departSpeed="0.00" departDelay="0.00" arrival="178.00" arrivalLane="end_0" arrivalPos="229.16" arrivalSpeed="4.12" duration="178.00" routeLength="650.84" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="20.12" rerouteNo="0" devices="tripinfo_ship1" vType="ship_default" speedFactor="1.00" vaporized=""/>
 </tripinfos>

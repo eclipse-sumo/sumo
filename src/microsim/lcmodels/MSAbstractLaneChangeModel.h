@@ -194,7 +194,7 @@ public:
     }
 
     void saveState(const int dir, const int stateWithoutTraCI, const int state) {
-        mySavedStates[dir] = std::make_pair(stateWithoutTraCI, state);
+        mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
     }
 
     void setFollowerGaps(CLeaderDist follower, double secGap);
@@ -208,6 +208,9 @@ public:
         saveState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
         saveState(0, LCA_UNKNOWN, LCA_UNKNOWN);
         saveState(1, LCA_UNKNOWN, LCA_UNKNOWN);
+        myCanceledStates[-1] = LCA_NONE;
+        myCanceledStates[0] = LCA_NONE;
+        myCanceledStates[1] = LCA_NONE;
         myLastLateralGapRight = NO_NEIGHBOR;
         myLastLateralGapLeft = NO_NEIGHBOR;
         myLastLeaderGap = NO_NEIGHBOR;
@@ -535,7 +538,7 @@ protected:
     virtual bool predInteraction(const std::pair<MSVehicle*, double>& leader);
 
     /// @brief whether the influencer cancels the given request
-    bool cancelRequest(int state);
+    bool cancelRequest(int state, int laneOffset);
 
 
 protected:
@@ -550,6 +553,7 @@ protected:
     int myPreviousState2;
 
     std::map<int, std::pair<int, int> > mySavedStates;
+    std::map<int, int> myCanceledStates;
 
     /// @brief the current lateral speed
     double mySpeedLat;

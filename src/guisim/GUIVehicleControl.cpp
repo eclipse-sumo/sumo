@@ -79,6 +79,20 @@ GUIVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
 }
 
 
+int
+GUIVehicleControl::getHaltingVehicleNo() const {
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSVehicleControl::getHaltingVehicleNo();
+}
+
+
+std::pair<double, double>
+GUIVehicleControl::getVehicleMeanSpeeds() const {
+    AbstractMutex::ScopedLocker locker(myLock);
+    return MSVehicleControl::getVehicleMeanSpeeds();
+}
+
+
 void
 GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into, bool listParking, bool listTeleporting) {
     AbstractMutex::ScopedLocker locker(myLock);

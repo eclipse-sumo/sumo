@@ -102,6 +102,8 @@ public:
     long onCmdCloseEdge(FXObject*, FXSelector, void*);
     long onCmdAddRerouter(FXObject*, FXSelector, void*);
 
+    long onDoubleClicked(FXObject*, FXSelector, void*);
+
     /** @brief Adds a frame to a video snapshot which will be initialized if neccessary
      */
     void saveFrame(const std::string& destFile, FXColor* buf);

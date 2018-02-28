@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'e3Detector' in AdditionalSelector
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
@@ -12,21 +14,21 @@ Warning: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
 Warning: Value 'Id with spaces' for attribute id of e3Detector isn't valid
 Warning: Setting new attribute id 'correctID' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute id 'correctIDdetExit0' into detEntry 'e3Detector_0detEntry0'
-Warning: Value 'dummy position X' for attribute pos of e3Detector isn't valid
+Warning: Value 'dummy position' for attribute pos of e3Detector isn't valid
 Warning: Setting new attribute pos '0,0' into e3Detector 'correctID'
-Warning: Value '25' for attribute pos of e3Detector isn't valid
+Warning: Setting new attribute pos '25,25' into e3Detector 'correctID'
 Warning: Setting new attribute freq '100' into e3Detector 'correctID'
-Warning: Setting new attribute freq '100' into e3Detector 'correctID'
-Warning: Setting new attribute freq '25' into e3Detector 'correctID'
-Warning: Setting new attribute file 'dummyFrequency' into e3Detector 'correctID'
-Warning: Setting new attribute file '-100' into e3Detector 'correctID'
-Warning: Setting new attribute file '120' into e3Detector 'correctID'
+Warning: Value '-100' for attribute freq of e3Detector isn't valid
+Warning: Setting new attribute freq '120' into e3Detector 'correctID'
+Warning: Value '%%%%%&%&&' for attribute file of e3Detector isn't valid
+Warning: Setting new attribute file '' into e3Detector 'correctID'
+Warning: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
+Warning: Setting new attribute file 'myOwnOutput.txt' into e3Detector 'correctID'
 Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
-Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
-Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
-Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
-Warning: Value '-5' for attribute speedThreshold of e3Detector isn't valid
-Warning: Setting new attribute speedThreshold '4' into e3Detector 'correctID'
+Warning: Value '-5' for attribute timeThreshold of e3Detector isn't valid
+Warning: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
+Warning: Value '-12.1' for attribute speedThreshold of e3Detector isn't valid
+Warning: Setting new attribute speedThreshold '6.3' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute speedThreshold '1.39' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -34,13 +36,9 @@ Warning: Setting previous attribute timeThreshold '1.00' into e3Detector 'correc
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute timeThreshold '1.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute timeThreshold '1.00' into e3Detector 'correctID'
+Warning: Setting previous attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute timeThreshold '1.00' into e3Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute file '-100' into e3Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute file 'dummyFrequency' into e3Detector 'correctID'
+Warning: Setting previous attribute file '' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e3Detector_0.txt' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -48,7 +46,7 @@ Warning: Setting previous attribute freq '100.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '100.00' into e3Detector 'correctID'
+Warning: Setting previous attribute pos '0.00,0.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '22.00,29.00' into e3Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -64,9 +62,6 @@ Warning: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -82,30 +77,23 @@ Warning: Setting new attribute id 'correctIDdetExit0' into detEntry 'e3Detector_
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '0,0' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute freq '100' into e3Detector 'correctID'
+Warning: Setting new attribute pos '25,25' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '100' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute freq '25' into e3Detector 'correctID'
+Warning: Setting new attribute freq '120' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute file 'dummyFrequency' into e3Detector 'correctID'
+Warning: Setting new attribute file '' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute file '-100' into e3Detector 'correctID'
+Warning: Setting new attribute file 'e3Detector_1.txt' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute file '120' into e3Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
+Warning: Setting new attribute file 'myOwnOutput.txt' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
+Warning: Setting new attribute timeThreshold '4' into e3Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute timeThreshold '1' into e3Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute speedThreshold '4' into e3Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute speedThreshold '6.3' into e3Detector 'correctID'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

@@ -102,7 +102,7 @@ public:
     void centerTo(const Boundary& bound);
 
     ///@brief applies the given viewport settings
-    virtual void setViewportFromTo(const Position& lookFrom, const Position& lookAt);
+    virtual void setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation);
 
     ///@brief copy the viewport to the given view
     virtual void copyViewportTo(GUISUMOAbstractView* view);
@@ -366,7 +366,7 @@ protected:
     std::vector<GUIGlID> getObjectsAtPosition(Position pos, double radius);
 
     ///@brief returns the ids of all objects in the given boundary
-    std::vector<GUIGlID> getObjectsInBoundary(const Boundary& bound);
+    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound);
 
     ///@brief invokes the tooltip for the given object
     void showToolTipFor(const GUIGlID id);
@@ -381,7 +381,7 @@ protected:
     ///@brief applies gl-transformations to fit the Boundary given by myChanger onto the canvas.
     /// If fixRatio is true, this boundary will be enlarged to prevent anisotropic stretching.
     /// (this should be set to false when doing selections)
-    void applyGLTransform(bool fixRatio = true);
+    Boundary applyGLTransform(bool fixRatio = true);
 
 protected:
     ///@brief The application

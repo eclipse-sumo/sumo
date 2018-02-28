@@ -135,7 +135,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // recognize full transparency and simply don't draw
         GLfloat color[4];
         glGetFloatv(GL_CURRENT_COLOR, color);
-        const double exaggeration = s.junctionSize.getExaggeration(s);
+        const double exaggeration = s.junctionSize.getExaggeration(s, 4);
         if (color[3] != 0 && s.scale * exaggeration > s.junctionSize.minSize) {
             PositionVector shape = myJunction.getShape();
             shape.closePolygon();

@@ -150,6 +150,9 @@ private:
     /// @brief The point to look at, only needed for osg view
     Position myLookAt;
 
+    /// @brief View rotation
+    double myRotation;
+
     /// @brief mappig of time steps to filenames for potential snapshots
     std::map<SUMOTime, std::vector<std::string> > mySnapshots;
 

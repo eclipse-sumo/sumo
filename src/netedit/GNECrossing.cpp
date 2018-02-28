@@ -103,65 +103,88 @@ GNECrossing::getNBCrossing() const {
 
 void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
-    // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0
-    if (s.drawCrossingsAndWalkingareas && myShapeRotations.size() > 0 && myShapeLengths.size() > 0) {
-        // first declare what shape will be drawed
-        PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
-        // push first draw matrix
-        glPushMatrix();
-        // push name
-        glPushName(getGlID());
-        // must draw on top of junction
-        glTranslated(0, 0, GLO_JUNCTION + 0.1);
-        // set color depending of selection and priority
-        if (gSelected.isSelected(getType(), getGlID())) {
-            glColor3d(0.118, 0.565, 1.000);
-        } else if (!myCrossing->valid) {
-            glColor3d(1.0, 0.1, 0.1);
-        } else if (myCrossing->priority) {
-            glColor3d(0.9, 0.9, 0.9);
-        } else {
-            glColor3d(0.1, 0.1, 0.1);
-        }
-        // traslate to front
-        glTranslated(0, 0, .2);
-        // set default values
-        double length = 0.5;
-        double spacing = 1.0;
-        double halfWidth = myCrossing->width * 0.5;
-        // push second draw matrix
-        glPushMatrix();
-        // draw on top of of the white area between the rails
-        glTranslated(0, 0, 0.1);
-        for (int i = 0; i < (int)shape.size() - 1; ++i) {
-            // push three draw matrix
+    // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
+    if (s.drawCrossingsAndWalkingareas 
+            && myShapeRotations.size() > 0 && myShapeLengths.size() > 0
+            && s.scale > 3.0) {
+
+        if (s.editMode != GNE_MODE_TLS) {
+            // first declare what shape will be drawed
+            PositionVector shape = myForceDrawCustomShape ?  myCrossing->customShape : myCrossing->shape;
+            // push first draw matrix
             glPushMatrix();
-            // traslete and rotate
-            glTranslated(shape[i].x(), shape[i].y(), 0.0);
-            glRotated(myShapeRotations[i], 0, 0, 1);
-            // draw crossing
-            for (double t = 0; t < myShapeLengths[i]; t += spacing) {
-                glBegin(GL_QUADS);
-                glVertex2d(-halfWidth, -t);
-                glVertex2d(-halfWidth, -t - length);
-                glVertex2d(halfWidth, -t - length);
-                glVertex2d(halfWidth, -t);
-                glEnd();
+            // push name
+            glPushName(getGlID());
+            // must draw on top of junction
+            glTranslated(0, 0, GLO_JUNCTION + 0.1);
+            // set color depending of selection and priority
+            if (gSelected.isSelected(getType(), getGlID())) {
+                glColor3d(0.118, 0.565, 1.000);
+            } else if (!myCrossing->valid) {
+                glColor3d(1.0, 0.1, 0.1);
+            } else if (myCrossing->priority) {
+                glColor3d(0.9, 0.9, 0.9);
+            } else {
+                glColor3d(0.1, 0.1, 0.1);
             }
-            // pop three draw matrix
+            // traslate to front
+            glTranslated(0, 0, .2);
+            // set default values
+            double length = 0.5;
+            double spacing = 1.0;
+            double halfWidth = myCrossing->width * 0.5;
+            // push second draw matrix
+            glPushMatrix();
+            // draw on top of of the white area between the rails
+            glTranslated(0, 0, 0.1);
+            for (int i = 0; i < (int)shape.size() - 1; ++i) {
+                // push three draw matrix
+                glPushMatrix();
+                // traslete and rotate
+                glTranslated(shape[i].x(), shape[i].y(), 0.0);
+                glRotated(myShapeRotations[i], 0, 0, 1);
+                // draw crossing
+                for (double t = 0; t < myShapeLengths[i]; t += spacing) {
+                    glBegin(GL_QUADS);
+                    glVertex2d(-halfWidth, -t);
+                    glVertex2d(-halfWidth, -t - length);
+                    glVertex2d(halfWidth, -t - length);
+                    glVertex2d(halfWidth, -t);
+                    glEnd();
+                }
+                // pop three draw matrix
+                glPopMatrix();
+            }
+            // XXX draw junction index / tls index
+            // pop second draw matrix
+            glPopMatrix();
+            // traslate to back
+            glTranslated(0, 0, -.2);
+            // pop name
+            glPopName();
+            // pop draw matrix
             glPopMatrix();
         }
-        // XXX draw junction index / tls index
-        // pop second draw matrix
-        glPopMatrix();
-        // traslate to back
-        glTranslated(0, 0, -.2);
-        // pop name
-        glPopName();
-        // pop draw matrix
-        glPopMatrix();
+        // link indices must be drawn in all edit modes
+        if (s.drawLinkTLIndex.show) {
+            drawTLSLinkNo(s);
+        }
     }
 }
+
+void
+GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
+    glPushMatrix();
+    glTranslated(0, 0, GLO_JUNCTION + 0.5);
+    PositionVector shape = myCrossing->shape;
+    shape.extrapolate(0.5); // draw on top of the walking area
+    int linkNo = myCrossing->tlLinkIndex;
+    int linkNo2 = myCrossing->tlLinkIndex2 > 0 ? myCrossing->tlLinkIndex2 : linkNo;
+    GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+    GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+    glPopMatrix();
+}
+
 
 
 GUIGLObjectPopupMenu*
@@ -208,6 +231,8 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return toString(myCrossing->edges);
         case SUMO_ATTR_TLLINKINDEX:
             return toString(myCrossing->customTLIndex);
+        case SUMO_ATTR_TLLINKINDEX2:
+            return toString(myCrossing->customTLIndex2);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(myCrossing->customShape);
         default:
@@ -228,6 +253,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_PRIORITY:
         case SUMO_ATTR_TLLINKINDEX:
+        case SUMO_ATTR_TLLINKINDEX2:
         case SUMO_ATTR_CUSTOMSHAPE:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
@@ -249,9 +275,11 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
-            return (myCrossing->tlID != "" && canParse<int>(value) && isPositive<int>(value)
+        case SUMO_ATTR_TLLINKINDEX2:
+            return (myCrossing->tlID != "" && canParse<int>(value) 
+                    && (isPositive<int>(value) || (value == "-1" && key == SUMO_ATTR_TLLINKINDEX2))
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
-                    && (*myParentJunction->getNBNode()->getControllingTLS().begin())->compute(OptionsCont::getOptions())->getNumLinks() > parse<int>(value));
+                    && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
@@ -315,6 +343,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TLLINKINDEX:
             myCrossing->customTLIndex = parse<int>(value);
+            break;
+        case SUMO_ATTR_TLLINKINDEX2:
+            myCrossing->customTLIndex2 = parse<int>(value);
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok;

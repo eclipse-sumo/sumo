@@ -71,6 +71,7 @@ const double NBEdge::UNSPECIFIED_SIGNAL_OFFSET = -1;
 const double NBEdge::UNSPECIFIED_LOADED_LENGTH = -1;
 const double NBEdge::ANGLE_LOOKAHEAD = 10.0;
 const int NBEdge::UNSPECIFIED_INTERNAL_LANE_INDEX = -1;
+const bool NBEdge::UNSPECIFIED_CONNECTION_UNCONTROLLED = false;
 
 // ===========================================================================
 // method definitions
@@ -91,7 +92,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
-    tlLinkNo(-1),
+    tlLinkIndex(-1),
     mayDefinitelyPass(false),
     keepClear(true),
     contPos(UNSPECIFIED_CONTPOS),
@@ -109,7 +110,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
-    tlLinkNo(-1),
+    tlLinkIndex(-1),
     mayDefinitelyPass(mayDefinitelyPass_),
     keepClear(keepClear_),
     contPos(contPos_),
@@ -946,7 +947,8 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                double contPos,
                                double visibility,
                                double speed,
-                               const PositionVector& customShape) {
+                               const PositionVector& customShape,
+                               bool uncontrolled) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -959,7 +961,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape);
+    return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled);
 }
 
 
@@ -989,7 +991,8 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       double contPos,
                       double visibility,
                       double speed,
-                      const PositionVector& customShape) {
+                      const PositionVector& customShape,
+                      bool uncontrolled) {
     if (myStep == INIT_REJECT_CONNECTIONS) {
         return false;
     }
@@ -1029,6 +1032,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().visibility = visibility;
     myConnections.back().speed = speed;
     myConnections.back().customShape = customShape;
+    myConnections.back().uncontrolled = uncontrolled;
     if (type == L2L_USER) {
         myStep = LANES2LANES_USER;
     } else {
@@ -1360,8 +1364,8 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         if (toUse == -1) {
             toUse = 0;
         }
-        setConnection(toUse, (*i).toEdge, (*i).toLane, L2L_COMPUTED, false, (*i).mayDefinitelyPass, (*i).keepClear,
-                      (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape);
+        setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
+                      i->contPos, i->visibility, i->speed, i->customShape, i->uncontrolled);
     }
 }
 
@@ -1847,10 +1851,11 @@ NBEdge::hasLaneSpecificEndOffset() const {
 bool
 NBEdge::hasLaneSpecificStopOffsets() const {
     for (std::vector<Lane>::const_iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        if (i->stopOffsets.size()==0) continue;
-        const std::pair<const int,double> offsets = *(i->stopOffsets.begin());
-        if (offsets != *(myStopOffsets.begin())) {
-            return true;
+        if (!i->stopOffsets.empty()) {
+            const std::pair<const int, double>& offsets = *(i->stopOffsets.begin());
+            if (myStopOffsets.empty() || offsets != *(myStopOffsets.begin())) {
+                return true;
+            }
         }
     }
     return false;
@@ -2573,7 +2578,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             Connection& connection = *i;
             // set the information about the tl
             connection.tlID = tlID;
-            connection.tlLinkNo = tlIndex;
+            connection.tlLinkIndex = tlIndex;
             return true;
         }
     }
@@ -2593,10 +2598,10 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
         }
         if ((*i).tlID == "") {
             (*i).tlID = tlID;
-            (*i).tlLinkNo = tlIndex;
+            (*i).tlLinkIndex = tlIndex;
             no++;
         } else {
-            if ((*i).tlID != tlID && (*i).tlLinkNo == tlIndex) {
+            if ((*i).tlID != tlID && (*i).tlLinkIndex == tlIndex) {
                 WRITE_WARNING("The lane '" + toString<int>((*i).fromLane) + "' on edge '" + getID() + "' already had a traffic light signal.");
                 hadError = true;
             }

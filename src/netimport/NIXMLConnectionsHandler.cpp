@@ -315,6 +315,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH, true);
     const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
     int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, 0, ok, -1);
+    int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, 0, ok, -1);
     std::vector<std::string> edgeIDs;
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         if (discard) {
@@ -370,7 +371,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     if (discard) {
         node->removeCrossing(edges);
     } else {
-        node->addCrossing(edges, width, priority, tlIndex, customShape);
+        node->addCrossing(edges, width, priority, tlIndex, tlIndex2, customShape);
     }
 }
 

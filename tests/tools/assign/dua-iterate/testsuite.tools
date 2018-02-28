@@ -1,6 +1,9 @@
 # straight call of the script
 simple
 
+# vtypes from an additional file
+vtypes_add
+
 # call with unordered trips
 unordered_input
 

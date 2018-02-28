@@ -75,7 +75,8 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
                  SVCPermissions permissions, int index, bool isRampAccel) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index, isRampAccel),
     GUIGlObject(GLO_LANE, id),
-    myAmClosed(false) {
+    myAmClosed(false)
+{
     if (MSGlobals::gUseMesoSim) {
         myShape = splitAtSegments(shape);
         assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
@@ -231,10 +232,16 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         // draw indices at the start and end of the crossing
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
         int linkNo = net.getLinkTLIndex(link);
+        // maybe the reverse link is controlled separately
+        int linkNo2 = net.getLinkTLIndex(myLinks.front());
+        // otherwise, use the same index as the forward link
+        if (linkNo2 < 0) {
+            linkNo2 = linkNo;
+        }
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
-            GLHelper::drawTextAtEnd(toString(linkNo), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+            GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
             GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         }
         return;
@@ -265,9 +272,13 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     if (getEdge().isCrossing()) {
         // draw rules at the start and end of the crossing
         MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        MSLink* link2 = myLinks.front();
+        if (link2->getTLLogic() == 0) {
+            link2 = link;
+        }
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
-        drawLinkRule(s, net, link, shape, 0, myWidth);
+        drawLinkRule(s, net, link2, shape, 0, myWidth);
         drawLinkRule(s, net, link, shape.reverse(), 0, myWidth);
         return;
     }
@@ -407,7 +418,11 @@ GUILane::drawArrows() const {
 
 
 void
-GUILane::drawLane2LaneConnections() const {
+GUILane::drawLane2LaneConnections(double exaggeration) const {
+    Position centroid;
+    if (exaggeration > 1) {
+        centroid = myEdge->getToJunction()->getShape().getCentroid();
+    }
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         const MSLane* connected = (*i)->getLane();
         if (connected == 0) {
@@ -415,8 +430,12 @@ GUILane::drawLane2LaneConnections() const {
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor((*i)->getState()));
         glBegin(GL_LINES);
-        const Position& p1 = getShape()[-1];
-        const Position& p2 = connected->getShape()[0];
+        Position p1 = getShape()[-1];
+        Position p2 = connected->getShape()[0];
+        if (exaggeration > 1) {
+            p1 = centroid + ((p1 - centroid) * exaggeration);
+            p2 = centroid + ((p2 - centroid) * exaggeration);
+        }
         glVertex2d(p1.x(), p1.y());
         glVertex2d(p2.x(), p2.y());
         glEnd();
@@ -471,13 +490,22 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             (myEdge->getMyOppositeSuperposableEdge() == 0
              || s.showLaneDirection
              || myEdge->getNumericalID() < myEdge->getMyOppositeSuperposableEdge()->getNumericalID())) {
+        // scale tls-controlled lane2lane-arrows along with their junction shapes
+        double junctionExaggeration = 1;
+        if (!isInternal 
+                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING 
+                && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
+            junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, 4));
+        }
         // draw lane
         // check whether it is not too small
-        if (s.scale * exaggeration < 1.) {
-            if (myShapeColors.size() > 0) {
-                GLHelper::drawLine(myShape, myShapeColors);
-            } else {
-                GLHelper::drawLine(myShape);
+        if (s.scale * exaggeration < 1. && junctionExaggeration == 1) {
+            if (!isInternal) {
+                if (myShapeColors.size() > 0) {
+                    GLHelper::drawLine(myShape, myShapeColors);
+                } else {
+                    GLHelper::drawLine(myShape);
+                }
             }
             glPopMatrix();
         } else {
@@ -503,13 +531,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 setColor(s);
                 GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
             } else if (isCrossing) {
-                if (s.drawCrossingsAndWalkingareas) {
+                if (s.drawCrossingsAndWalkingareas && s.scale > 3.0) {
                     glTranslated(0, 0, .2);
                     GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
-                if (s.drawCrossingsAndWalkingareas) {
+                if (s.drawCrossingsAndWalkingareas && s.scale > 3.0) {
                     glTranslated(0, 0, .2);
                     if (s.scale * exaggeration < 20.) {
                         GLHelper::drawFilledPoly(myShape, true);
@@ -541,8 +569,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             }
 #endif
             glPopMatrix();
-            // draw ROWs (not for inner lanes)
-            if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting)) {
+            // draw details 
+            if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting || junctionExaggeration > 1)) {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
@@ -556,11 +584,6 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
                         drawArrows();
-                    }
-                    if (s.showLane2Lane) {
-                        // this should be independent to the geometry:
-                        //  draw from end of first to the begin of second
-                        drawLane2LaneConnections();
                     }
                     if (s.showLaneDirection) {
                         if (drawAsRailway(s)) {
@@ -580,8 +603,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     }
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
-                if (s.showLinkRules) {
+                if (s.showLinkRules && (drawDetails || s.drawForSelecting)) {
                     drawLinkRules(s, *net);
+                }
+                if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
+                    //  draw from end of first to the begin of second but respect junction scaling
+                    drawLane2LaneConnections(junctionExaggeration);
                 }
                 glPopMatrix();
             }

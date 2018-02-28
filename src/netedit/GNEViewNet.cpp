@@ -164,7 +164,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEdgeToMove(0),
     myPolyToMove(0),
     myPoiToMove(0),
-    myPoiLaneToMove(0),
     myAdditionalToMove(0),
     myMovingIndexShape(-1),
     myMovingSelection(false),
@@ -192,6 +191,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet->setViewNet(this);
 
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
+
+    // Reset textures
+    GUITextureSubSys::resetTextures();
 
     if (myTestingMode && OptionsCont::getOptions().isSet("window-size")) {
         std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
@@ -369,7 +371,9 @@ GNEViewNet::startEditCustomShape(GNENetElement* element, const PositionVector& s
         myPreviousEditMode = myEditMode;
         setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
         // add special GNEPoly fo edit shapes
-        myEditShapePoly = myNet->addPolygonForEditShapes(element, shape, fill);
+        // color is taken from junction color settings
+        RGBColor col = getVisualisationSettings()->junctionColorer.getSchemes()[0].getColor(3);
+        myEditShapePoly = myNet->addPolygonForEditShapes(element, shape, fill, col);
         // update view net to show the new myEditShapePoly
         update();
     }
@@ -592,6 +596,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             glVertex2d(size, 0);
             glEnd();
             glPopMatrix();
+            // show box with the current position relative to pink square
+            Position posRelative = screenPos2NetPos(getWidth() - 40, getHeight() - 20);
+            // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
+            GLHelper::drawTextBox(toString(myWindowCursorPositionX - 24) + " " + toString(myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor::WHITE);
         }
     }
 
@@ -1771,13 +1779,13 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 }
                 // obtain values of POI
                 std::string id = POI->getID();
-                std::string type = POI->getType();
-                RGBColor color = POI->getColor();
+                std::string type = POI->getShapeType();
+                RGBColor color = POI->getShapeColor();
                 Position pos = (*POI);
-                double layer = POI->getLayer();
-                double angle = POI->getNaviDegree();
-                std::string imgFile = POI->getImgFile();
-                bool relativePath = POI->getRelativePath();
+                double layer = POI->getShapeLayer();
+                double angle = POI->getShapeNaviDegree();
+                std::string imgFile = POI->getShapeImgFile();
+                bool relativePath = POI->getShapeRelativePath();
                 double POIWidth = POI->getWidth();      // double width -> C4458
                 double POIHeight = POI->getHeight();    // double height -> C4458
                 // remove POI
@@ -1790,13 +1798,13 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         } else {
             // obtain values of POILane
             std::string id = POI->getID();
-            std::string type = POI->getType();
-            RGBColor color = POI->getColor();
+            std::string type = POI->getShapeType();
+            RGBColor color = POI->getShapeColor();
             Position pos = (*POI);
-            double layer = POI->getLayer();
-            double angle = POI->getNaviDegree();
-            std::string imgFile = POI->getImgFile();
-            bool relativePath = POI->getRelativePath();
+            double layer = POI->getShapeLayer();
+            double angle = POI->getShapeNaviDegree();
+            std::string imgFile = POI->getShapeImgFile();
+            bool relativePath = POI->getShapeRelativePath();
             double POIWidth = POI->getWidth();      // double width -> C4458
             double POIWeight = POI->getHeight();    // double height -> C4458
             // remove POI
@@ -2319,17 +2327,20 @@ GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
 
 void
 GNEViewNet::setEditMode(EditMode mode) {
-    setStatusBarText("");
-    abortOperation(false);
-    // stop editing of custom shapes
-    stopEditCustomShape();
-
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
         if (myCurrentFrame != NULL) {
             myCurrentFrame->focusUpperElement();
         }
+    } else if (myEditMode == GNE_MODE_TLS && !myViewParent->getTLSEditorFrame()->isTLSSaved()) {
+        setStatusBarText("save modifications in TLS before change mode");
+        myCurrentFrame->focusUpperElement();
     } else {
+        setStatusBarText("");
+        abortOperation(false);
+        // stop editing of custom shapes
+        stopEditCustomShape();
+        // set edit mode
         myEditMode = mode;
         switch (mode) {
             case GNE_MODE_CONNECT:

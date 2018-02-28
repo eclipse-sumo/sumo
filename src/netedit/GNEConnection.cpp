@@ -10,7 +10,7 @@
 /// @file    GNEConnection.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id$
+/// @version $Id: GNEConnection.cpp v0_32_0+0134-9f1b8d0bad namdre.sumo@gmail.com 2018-01-05 15:02:37 +0100 $
 ///
 // A class for visualizing connections between lanes
 /****************************************************************************/
@@ -203,7 +203,7 @@ NBConnection
 GNEConnection::getNBConnection() const {
     return NBConnection(getEdgeFrom()->getNBEdge(), getFromLaneIndex(),
                         getEdgeTo()->getNBEdge(), getToLaneIndex(),
-                        (int)getNBEdgeConnection().tlLinkNo);
+                        (int)getNBEdgeConnection().tlLinkIndex);
 }
 
 
@@ -337,7 +337,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return toString(nbCon.visibility);
         case SUMO_ATTR_TLLINKINDEX:
-            return toString(nbCon.tlLinkNo);
+            return toString(nbCon.tlLinkIndex);
         case SUMO_ATTR_SPEED:
             return toString(nbCon.speed);
         case SUMO_ATTR_CUSTOMSHAPE:
@@ -372,15 +372,20 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                 // make a copy
                 std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
                 for (NBTrafficLightDefinition* tlDef : defs) {
-                    NBTrafficLightLogic* tllogic = tlDef->compute(OptionsCont::getOptions());
-                    NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
-                    newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
-                                          getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
-                    std::vector<NBNode*> nodes = tlDef->getNodes();
-                    for (NBNode* node : nodes) {
-                        GNEJunction* junction = getNet()->retrieveJunction(node->getID());
-                        undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
-                        undoList->add(new GNEChange_TLS(junction, newDef, true), true);
+                    NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
+                    NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
+                    if (tllogic != 0) {
+                        NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(tlDef, tllogic);
+                        newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
+                                getLaneFrom()->getIndex(), getLaneTo()->getIndex(), parse<int>(value), false);
+                        std::vector<NBNode*> nodes = tlDef->getNodes();
+                        for (NBNode* node : nodes) {
+                            GNEJunction* junction = getNet()->retrieveJunction(node->getID());
+                            undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
+                            undoList->add(new GNEChange_TLS(junction, newDef, true), true);
+                        }
+                    } else {
+                        WRITE_ERROR("Could not set attribute '" + toString(key) + "' (tls is broken)");
                     }
                     undoList->p_end();
                 }
@@ -412,12 +417,12 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VISIBILITY_DISTANCE:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_TLLINKINDEX:
-            if (getNBEdgeConnection().tlID != "" && canParse<int>(value) && parse<int>(value) >= 0
-                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0) {
+            if (getNBEdgeConnection().uncontrolled == false 
+                    && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0 
+                    && canParse<int>(value) 
+                    && parse<int>(value) >= 0) {
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
-                def->setParticipantsInformation();
-                NBTrafficLightLogic* logic = def->compute(OptionsCont::getOptions());
-                return logic != 0 && logic->getNumLinks() > parse<int>(value);
+                return def->getMaxIndex() >= parse<int>(value);
             } else {
                 return false;
             }

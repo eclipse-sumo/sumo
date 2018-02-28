@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.02.2018 19:51:33 by Netedit Version v0_32_0+0343-d3eb7ee3dc
+<!-- generated on 13.02.2018 12:55:53 by Netedit Version v0_32_0+0389-e20fc4a79a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\net.net.xml"/>
     </output>
 
     <processing>
@@ -25,7 +25,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.05Feb174913.2144/netedit.gui/bugs/processing/ticket3071\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_13Feb104610.948/netedit.gui/bugs/processing/ticket3071\log.txt"/>
     </report>
 
 </configuration>

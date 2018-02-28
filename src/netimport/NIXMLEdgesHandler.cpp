@@ -105,7 +105,7 @@ NIXMLEdgesHandler::myStartElement(int element,
             addRoundabout(attrs);
             break;
         case SUMO_TAG_PARAM:
-            if (myLastParameterised.size() != 0) {
+            if (myLastParameterised.size() != 0 && myCurrentEdge != 0) {
                 bool ok = true;
                 const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
                 // circumventing empty string test

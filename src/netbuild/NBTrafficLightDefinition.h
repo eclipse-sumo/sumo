@@ -354,6 +354,9 @@ public:
      * subclasses instantiate a private instance of NBOwnTLDef to answer this query */
     virtual void initNeedsContRelation() const;
 
+    ///@brief Returns the maximum index controlled by this traffic light
+    virtual int getMaxIndex() = 0;
+
 protected:
     /// @brief id for temporary definitions
     static const std::string DummyID;

@@ -148,7 +148,7 @@ public:
     void showViewportEditor();
 
     /// applies the given viewport settings
-    void setViewportFromTo(const Position& lookFrom, const Position& lookAt);
+    void setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation);
 
     ///@brief copy the viewport to the given view
     void copyViewportTo(GUISUMOAbstractView* view);

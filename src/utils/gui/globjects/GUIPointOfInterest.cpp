@@ -61,7 +61,7 @@ GUIGLObjectPopupMenu*
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     // build shape header
-    buildShapePopupOptions(app, ret, myType);
+    buildShapePopupOptions(app, ret, getShapeType());
     return ret;
 }
 
@@ -70,8 +70,8 @@ GUIParameterTableWindow*
 GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 3 + (int)getMap().size());
     // add items
-    ret->mkItem("type", false, myType);
-    ret->mkItem("layer", false, getLayer());
+    ret->mkItem("type", false, getShapeType());
+    ret->mkItem("layer", false, getShapeLayer());
     ret->closeBuilding(this);
     return ret;
 }
@@ -81,7 +81,7 @@ Boundary
 GUIPointOfInterest::getCenteringBoundary() const {
     Boundary b;
     b.add(x(), y());
-    if (myImgFile != DEFAULT_IMG_FILE) {
+    if (getShapeImgFile() != DEFAULT_IMG_FILE) {
         b.growWidth(myHalfImgWidth);
         b.growHeight(myHalfImgHeight);
     } else {
@@ -103,13 +103,13 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     if (gSelected.isSelected(GLO_POI, getGlID())) {
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else {
-        GLHelper::setColor(getColor());
+        GLHelper::setColor(getShapeColor());
     }
-    glTranslated(x(), y(), getLayer());
-    glRotated(-getNaviDegree(), 0, 0, 1);
+    glTranslated(x(), y(), getShapeLayer());
+    glRotated(-getShapeNaviDegree(), 0, 0, 1);
 
-    if (myImgFile != DEFAULT_IMG_FILE) {
-        int textureID = GUITexturesHelper::getTextureID(myImgFile);
+    if (getShapeImgFile() != DEFAULT_IMG_FILE) {
+        int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
                                                -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
@@ -123,7 +123,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     const Position namePos = *this;
     drawName(namePos, s.scale, s.poiName);
     if (s.poiType.show) {
-        GLHelper::drawText(myType, namePos + Position(0, -0.6 * s.poiType.size / s.scale),
+        GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
                            GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
     }
     glPopName();

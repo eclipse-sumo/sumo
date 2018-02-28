@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Key F5 (Compute) pressed
 Warning: Edge '-gneE16' has a grade of 13.33%.
 Warning: Edge '-gneE17' has a grade of 13.33%.

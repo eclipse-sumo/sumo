@@ -103,10 +103,6 @@ public:
         return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
     }
 
-    bool hasNet() const {
-        return myIntermodalNet != 0;
-    }
-
     /** @brief Adds access edges for stopping places to the intermodal network
      *
      * This method creates an intermodal stop edge to represent the stoppping place
@@ -265,14 +261,15 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
+    bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
+                 const std::string stopID, const double speed,
                  const V* const vehicle, const SVCPermissions modeSet, SUMOTime msTime,
                  std::vector<TripItem>& into) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
         std::vector<const _IntermodalEdge*> intoEdges;
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
-                             myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
+                             to == nullptr ? myStopConnections[stopID] : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
                              &trip, msTime, intoEdges);
         if (success) {
             std::string lastLine = "";

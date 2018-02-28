@@ -1,5 +1,5 @@
 #Options:
-# -DCMAKE_BUILD_TYPE:STRING=Release (default Debug)
+# -DCMAKE_BUILD_TYPE:STRING=Debug (default Release)
 
 option(BUILD_GRPC "Build grpc interface" false)
 option(BUILD_GTEST_FROM_GIT "Build grpc interface" false)
@@ -26,8 +26,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings}")
 
 if (NOT CMAKE_BUILD_TYPE)
-    #  set (CMAKE_BUILD_TYPE Release)
-    set(CMAKE_BUILD_TYPE Debug)
+    set (CMAKE_BUILD_TYPE Release)
 endif (NOT CMAKE_BUILD_TYPE)
 message(STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE})
 
@@ -221,7 +220,7 @@ elseif (PYTHON_LIBRARIES AND PYTHON_INCLUDE_DIRS)
     message(STATUS "Python libs:" ${PYTHON_LIBRARIES})
     include_directories(${PYTHON_INCLUDE_DIRS})
 else ()
-    find_package(PythonLibs REQUIRED)
+    find_package(PythonLibs)
     if (PYTHONLIBS_FOUND)
         message(STATUS "Python: " ${PYTHONLIBS_VERSION_STRING})
         message(STATUS "Python include dirs:" ${PYTHON_INCLUDE_DIRS})

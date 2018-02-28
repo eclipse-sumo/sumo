@@ -82,7 +82,16 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
 }
 
 
-GNECalibrator::~GNECalibrator() {}
+GNECalibrator::~GNECalibrator() {
+    // Drop calibrator flows (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
+    for (auto it : myCalibratorFlows) {
+        // show extra information for tests
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in GNECalibrator destructor");
+        }
+        delete it;
+    }
+}
 
 
 void
@@ -245,19 +254,27 @@ GNECalibrator::openAdditionalDialog() {
     GNECalibratorDialog calibratorDialog(this);
 }
 
-
-
-
-
 void
 GNECalibrator::addCalibratorRoute(GNECalibratorRoute* route) {
-    myCalibratorRoutes.push_back(route);
+    if(route == NULL) {
+        throw ProcessError("Route cannot be NULL");
+    } else if (std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route) != myCalibratorRoutes.end()) {
+        throw ProcessError("Route was already inserted");
+    } else {
+        myCalibratorRoutes.push_back(route);
+    }
 }
 
 
 void
 GNECalibrator::removeCalibratorRoute(GNECalibratorRoute* route) {
-    myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
+    if(route == NULL) {
+        throw ProcessError("Route cannot be NULL");
+    } else if (std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route) == myCalibratorRoutes.end()) {
+        throw ProcessError("Route wasn't inserted");
+    } else {
+        myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
+    }
 }
 
 
@@ -269,14 +286,25 @@ GNECalibrator::getCalibratorRoutes() const {
 
 void
 GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
-    assert(flow);
-    myCalibratorFlows.push_back(flow);
+    if(flow == NULL) {
+        throw ProcessError("Flow cannot be NULL");
+    } else if (std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow) != myCalibratorFlows.end()) {
+        throw ProcessError("Flow was already inserted");
+    } else {
+        myCalibratorFlows.push_back(flow);
+    }
 }
 
 
 void
 GNECalibrator::removeCalibratorFlow(GNECalibratorFlow* flow) {
-    myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
+    if(flow == NULL) {
+        throw ProcessError("Flow cannot be NULL");
+    } else if (std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow) == myCalibratorFlows.end()) {
+        throw ProcessError("Flow wasn't inserted");
+    } else {
+        myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
+    }
 }
 
 
@@ -288,19 +316,69 @@ GNECalibrator::getCalibratorFlows() const {
 
 void
 GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    myCalibratorVehicleTypes.push_back(vehicleType);
+    if(vehicleType == NULL) {
+        throw ProcessError("VehicleType cannot be NULL");
+    } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) != myCalibratorVehicleTypes.end()) {
+        throw ProcessError("VehicleType was already inserted");
+    } else {
+        myCalibratorVehicleTypes.push_back(vehicleType);
+    }
 }
 
 
 void
 GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
+    if(vehicleType == NULL) {
+        throw ProcessError("VehicleType cannot be NULL");
+    } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) == myCalibratorVehicleTypes.end()) {
+        throw ProcessError("VehicleType wasn't inserted");
+    } else {
+        myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
+    }
 }
 
 
 const std::vector<GNECalibratorVehicleType*>&
 GNECalibrator::getCalibratorVehicleTypes() const {
     return myCalibratorVehicleTypes;
+}
+
+
+bool 
+GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const {
+    // Check that calibrator flow ins't NULL
+    if (calibratorFlow == NULL) {
+        throw ProcessError("calibratorFlow cannot be NULL");
+    }
+    // find calibrator flow in calibrator flows container
+    auto finder = std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), calibratorFlow);
+    // returns depending of finder value
+    if (finder != myCalibratorFlows.end()) {
+        return true;
+    } else if (failHard) {
+        throw UnknownElement("calibratorFlow " + calibratorFlow->getID());
+    } else {
+        return false;
+    }
+}
+
+
+int 
+GNECalibrator::getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const {
+    // Check that calibrator flow ins't NULL
+    if (calibratorFlow == NULL) {
+        throw ProcessError("calibratorFlow cannot be NULL");
+    }
+    int index = 0;
+    for (auto i : myCalibratorFlows) {
+        if (i == calibratorFlow) {
+            return index;
+        } else {
+            index++;
+        }
+    }
+    // if calibrator flow wasn't found, return -1
+    return -1;
 }
 
 

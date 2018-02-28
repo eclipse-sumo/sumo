@@ -352,18 +352,24 @@ class SimulationDomain(Domain):
         self._connection._string += struct.pack("!BdBi", tc.TYPE_DOUBLE, depart, tc.TYPE_INTEGER, routingMode)
         return _readStage(self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, ""))
 
-    def findIntermodalRoute(self, fromEdge, toEdge, modes="", depart=-1., routingMode=0, speed=-1., walkFactor=-1., departPos=-1., arrivalPos=-1., departPosLat=-1., ptype="", vtype=""):
+    def findIntermodalRoute(self, fromEdge, toEdge, modes="", depart=-1., routingMode=0, speed=-1.,
+                            walkFactor=-1., departPos=-1., arrivalPos=-1., departPosLat=-1.,
+                            ptype="", vtype="", destStop=""):
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "",
-                                       1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(modes) + 1 + 8 + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(ptype) + 1 + 4 + len(vtype))
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 12)
+                                       1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(modes) +
+                                       1 + 8 + 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 8 + 1 + 4 + len(ptype) +
+                                       1 + 4 + len(vtype) + 1 + 4 + len(destStop))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 13)
         self._connection._packString(fromEdge)
         self._connection._packString(toEdge)
         self._connection._packString(modes)
         self._connection._string += struct.pack("!BdBi", tc.TYPE_DOUBLE, depart, tc.TYPE_INTEGER, routingMode)
         self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, walkFactor)
-        self._connection._string += struct.pack("!BdBdBd", tc.TYPE_DOUBLE, departPos, tc.TYPE_DOUBLE, arrivalPos, tc.TYPE_DOUBLE, departPosLat)
+        self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, departPos, tc.TYPE_DOUBLE, arrivalPos)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, departPosLat)
         self._connection._packString(ptype)
         self._connection._packString(vtype)
+        self._connection._packString(destStop)
         answer = self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "")
         result = []
         for c in range(answer.readInt()):

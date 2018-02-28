@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Dec 15 13:16:47 2017" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Feb 23 08:42:33 2018" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.01306154" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -195,7 +195,7 @@
                         <link/>
                         <width sOffset="0" a="1.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="5.56"/>
+                        <speed sOffset="0" max="8.33"/>
                     </lane>
                  </right>
             </laneSection>
@@ -3508,7 +3508,7 @@
                         <link/>
                         <width sOffset="0" a="1.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="5.56"/>
+                        <speed sOffset="0" max="8.33"/>
                     </lane>
                  </right>
             </laneSection>
@@ -7669,7 +7669,7 @@
                         </link>
                         <width sOffset="0" a="1.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="5.56"/>
+                        <speed sOffset="0" max="8.33"/>
                     </lane>
                  </right>
             </laneSection>
@@ -14860,7 +14860,7 @@
                         </link>
                         <width sOffset="0" a="1.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
+                        <speed sOffset="0" max="15.27"/>
                     </lane>
                  </right>
             </laneSection>
@@ -15016,7 +15016,7 @@
                         </link>
                         <width sOffset="0" a="1.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
+                        <speed sOffset="0" max="15.27"/>
                     </lane>
                  </right>
             </laneSection>
@@ -15094,7 +15094,7 @@
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
+                        <speed sOffset="0" max="15.27"/>
                     </lane>
                  </right>
             </laneSection>
@@ -15133,7 +15133,7 @@
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
+                        <speed sOffset="0" max="15.27"/>
                     </lane>
                  </right>
             </laneSection>
@@ -15172,7 +15172,7 @@
                         </link>
                         <width sOffset="0" a="1.00" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="5.56"/>
+                        <speed sOffset="0" max="8.33"/>
                     </lane>
                  </right>
             </laneSection>

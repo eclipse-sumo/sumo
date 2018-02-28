@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: TraCIServerAPI_Simulation.cpp v0_32_0+0483-665b60c05f oss@behrisch.de 2018-02-20 17:38:42 +0100 $
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
@@ -220,10 +220,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires a compound object.", outputStorage);
                 }
-                if (inputStorage.readInt() != 12) {
-                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires twelve parameter.", outputStorage);
+                if (inputStorage.readInt() != 13) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of an intermodal route requires thirteen parameters.", outputStorage);
                 }
-                std::string from, to, modes, ptype, vtype;
+                std::string from, to, modes, ptype, vtype, destStop;
                 double depart, speed, walkFactor, departPos, arrivalPos, departPosLat;
                 int routingMode;
                 if (!server.readTypeCheckingString(inputStorage, from)) {
@@ -262,7 +262,10 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, vtype)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as twelvth parameter.", outputStorage);
                 }
-                const std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype);
+                if (!server.readTypeCheckingString(inputStorage, destStop)) {
+                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as thirteenth parameter.", outputStorage);
+                }
+                const std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
                 tempMsg.writeUnsignedByte(TYPE_COMPOUND);
                 tempMsg.writeInt((int)result.size());
                 for (const libsumo::TraCIStage s : result) {

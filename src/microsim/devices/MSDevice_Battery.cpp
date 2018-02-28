@@ -422,6 +422,8 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getMaximumBatteryCapacity());
     } else if (key == toString(SUMO_ATTR_CHARGINGSTATIONID)) {
         return getChargingStationID();
+    } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
+        return toString(myParam.find(SUMO_ATTR_VEHICLEMASS)->second);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -439,6 +441,8 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
         setActualBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
         setMaximumBatteryCapacity(doubleValue);
+    } else if (key == toString(SUMO_ATTR_VEHICLEMASS)) {
+        myParam[SUMO_ATTR_VEHICLEMASS] = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

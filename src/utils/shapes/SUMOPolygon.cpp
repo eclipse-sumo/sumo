@@ -53,12 +53,12 @@ void
 SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
     out.openTag(SUMO_TAG_POLY);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-    if (getType().size() > 0) {
-        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getType()));
+    if (getShapeType().size() > 0) {
+        out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
     }
-    out.writeAttr(SUMO_ATTR_COLOR, getColor());
+    out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     out.writeAttr(SUMO_ATTR_FILL,  getFill());
-    out.writeAttr(SUMO_ATTR_LAYER, getLayer());
+    out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer());
     PositionVector shape = getShape();
     if (geo) {
         out.writeAttr(SUMO_ATTR_GEO, true);
@@ -67,11 +67,18 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
         }
     }
     out.writeAttr(SUMO_ATTR_SHAPE, shape);
-    if (getNaviDegree() != Shape::DEFAULT_ANGLE) {
-        out.writeAttr(SUMO_ATTR_ANGLE, getNaviDegree());
+    if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
+        out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     }
-    if (getImgFile() != Shape::DEFAULT_IMG_FILE) {
-        out.writeAttr(SUMO_ATTR_IMGFILE, getImgFile());
+    if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
+        if(getShapeRelativePath()) {
+            // write only the file name, without file path
+            std::string file = getShapeImgFile();
+            file.erase(0, FileHelpers::getFilePath(getShapeImgFile()).size());
+            out.writeAttr(SUMO_ATTR_IMGFILE, file);
+        } else {
+            out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
+        }
     }
     writeParams(out);
     out.closeTag();

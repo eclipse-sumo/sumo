@@ -389,6 +389,41 @@ MSVehicleControl::abortWaiting() {
 
 
 int
+MSVehicleControl::getHaltingVehicleNo() const {
+    int result = 0;
+    for (MSVehicleControl::constVehIt it = loadedVehBegin(); it != loadedVehEnd(); ++it) {
+        const SUMOVehicle* veh = it->second;
+        if ((veh->isOnRoad() || veh->isRemoteControlled()) && veh->getSpeed() < SUMO_const_haltingSpeed)  {
+            result++;
+        }
+    }
+    return result;
+}
+
+
+
+std::pair<double, double>
+MSVehicleControl::getVehicleMeanSpeeds() const {
+    double speedSum = 0;
+    double relSpeedSum = 0;
+    int count = 0;
+    for (MSVehicleControl::constVehIt it = loadedVehBegin(); it != loadedVehEnd(); ++it) {
+        const SUMOVehicle* veh = it->second;
+        if ((veh->isOnRoad() || veh->isRemoteControlled()) && !veh->isStopped()) {
+            count++;
+            speedSum += veh->getSpeed();
+            relSpeedSum += veh->getSpeed() / veh->getEdge()->getSpeedLimit();
+        }
+    }
+    if (count > 0) {
+        return std::make_pair(speedSum / count, relSpeedSum / count);
+    } else {
+        return std::make_pair(-1, -1);
+    }
+}
+
+
+int
 MSVehicleControl::getQuota(double frac) const {
     frac = frac < 0 ? myScale : frac;
     if (frac < 0 || frac == 1.) {

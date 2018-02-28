@@ -194,7 +194,7 @@ public:
         std::string tlID;
 
         /// @brief The index of this connection within the controlling traffic light
-        int tlLinkNo;
+        int tlLinkIndex;
 
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
@@ -275,8 +275,12 @@ public:
 
     /// @brief the distance at which to take the default angle
     static const double ANGLE_LOOKAHEAD;
+
     /// @brief internal lane computation not yet done
     static const int UNSPECIFIED_INTERNAL_LANE_INDEX;
+
+     /// @brief TLS-controlled despite its node controlled not specified. 
+    static const bool UNSPECIFIED_CONNECTION_UNCONTROLLED;
 
     /// @brief junction priority values set by setJunctionPriority
     enum JunctionPriority {
@@ -765,7 +769,8 @@ public:
                                 double contPos = UNSPECIFIED_CONTPOS,
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
-                                const PositionVector& customShape = PositionVector::EMPTY);
+                                const PositionVector& customShape = PositionVector::EMPTY,
+                                const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
 
     /** @brief Builds no connections starting at the given lanes
      *
@@ -808,7 +813,8 @@ public:
                        double contPos = UNSPECIFIED_CONTPOS,
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,
-                       const PositionVector& customShape = PositionVector::EMPTY);
+                       const PositionVector& customShape = PositionVector::EMPTY,
+                       const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
 
     /// @brief insert a previously created NBEdge::connection
     void insertConnection(NBEdge::Connection connection);
@@ -1415,12 +1421,6 @@ private:
     /// @brief The maximal speed
     double mySpeed;
 
-    /// @brief A vClass specific stop offset - assumed of length 0 (unspecified) or 1.
-    ///        For the latter case the int is a bit set specifying the vClasses,
-    ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
-    ///        stopping offset in meters from the lane end
-    std::map<int,double> myStopOffsets;
-
     /** @brief List of connections to following edges
      * @see Connection
      */
@@ -1449,6 +1449,12 @@ private:
 
     /// @brief This edges's offset to the intersection begin (will be applied to all lanes)
     double myEndOffset;
+
+    /// @brief A vClass specific stop offset - assumed of length 0 (unspecified) or 1.
+    ///        For the latter case the int is a bit set specifying the vClasses,
+    ///        the offset applies to (see SUMOVehicleClass.h), and the double is the
+    ///        stopping offset in meters from the lane end
+    std::map<int,double> myStopOffsets;
 
     /// @brief This width of this edge's lanes
     double myLaneWidth;

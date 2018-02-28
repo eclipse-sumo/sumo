@@ -75,42 +75,42 @@ public:
     /** @brief Returns the (abstract) type of the Shape
      * @return The Shape's (abstract) type
      */
-    inline const std::string& getType() const {
+    inline const std::string& getShapeType() const {
         return myType;
     }
 
     /** @brief Returns the color of the Shape
      * @return The Shape's color
      */
-    inline const RGBColor& getColor() const {
+    inline const RGBColor& getShapeColor() const {
         return myColor;
     }
 
     /** @brief Returns the layer of the Shape
      * @return The Shape's layer
      */
-    inline double getLayer() const {
+    inline double getShapeLayer() const {
         return myLayer;
     }
 
     /** @brief Returns the angle of the Shape in navigational degrees
      * @return The Shape's rotation angle
      */
-    inline double getNaviDegree() const {
+    inline double getShapeNaviDegree() const {
         return myNaviDegreeAngle;
     }
 
     /** @brief Returns the imgFile of the Shape
      * @return The Shape's rotation imgFile
      */
-    inline const std::string& getImgFile() const {
+    inline const std::string& getShapeImgFile() const {
         return myImgFile;
     }
 
     /** @brief Returns the relativePath of the Shape
     * @return The Shape's relativePath
     */
-    inline bool getRelativePath() const {
+    inline bool getShapeRelativePath() const {
         return myRelativePath;
     }
     /// @}
@@ -122,47 +122,47 @@ public:
     /** @brief Sets a new type
      * @param[in] type The new type to use
      */
-    inline void setType(const std::string& type) {
+    inline void setShapeType(const std::string& type) {
         myType = type;
     }
 
     /** @brief Sets a new color
      * @param[in] col The new color to use
      */
-    inline void setColor(const RGBColor& col) {
+    inline void setShapeColor(const RGBColor& col) {
         myColor = col;
     }
 
     /** @brief Sets a new layer
      * @param[in] layer The new layer to use
      */
-    inline void setLayer(const double layer) {
+    inline void setShapeLayer(const double layer) {
         myLayer = layer;
     }
 
     /** @brief Sets a new angle in navigational degrees
      * @param[in] layer The new angle to use
      */
-    inline void setNaviDegree(const double angle) {
+    inline void setShapeNaviDegree(const double angle) {
         myNaviDegreeAngle = angle;
     }
 
     /** @brief Sets a new imgFile
      * @param[in] imgFile The new imgFile to use
      */
-    inline void setImgFile(const std::string& imgFile) {
+    inline void setShapeImgFile(const std::string& imgFile) {
         myImgFile = imgFile;
     }
 
     /** @brief Sets a new relativePath value
     * @param[in] relativePath The new relative path to set
     */
-    inline void setRelativePath(bool relativePath) {
+    inline void setShapeRelativePath(bool relativePath) {
         myRelativePath = relativePath;
     }
     /// @}
 
-protected:
+private:
     /// @brief The type of the Shape
     std::string myType;
 
@@ -175,10 +175,10 @@ protected:
     /// @brief The angle of the Shape
     double myNaviDegreeAngle;
 
-    /// @brief The angle of the Shape
+    /// @brief The img file (include path)
     std::string myImgFile;
 
-    /// @brief Enable or disable imgFile as relative path
+    /// @brief Enable or disable save imgFile as relative path
     bool myRelativePath;
 };
 

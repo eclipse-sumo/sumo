@@ -1,4 +1,5 @@
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is missing; Default value '0.00,0.00' will be used.
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
@@ -17,7 +18,6 @@ Warning: Adding detExit 'e3Detector_0detExit4' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit5' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit6' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit7' in GNEChange_Additional
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_1' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_1detEntry1' in GNEChange_Additional

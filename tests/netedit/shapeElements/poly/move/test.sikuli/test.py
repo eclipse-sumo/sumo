@@ -38,22 +38,22 @@ netedit.createSquaredPoly(match, 100, 150, 100, True)
 netedit.createSquaredPoly(match, 200, 150, 100, True)
 
 # enable block shape
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # create polygon blocked
 netedit.createSquaredPoly(match, 300, 150, 100, True)
 
 # disable block shape
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # enable block move
-netedit.modifyShapeDefaultBoolValue(10)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # create polygon
 netedit.createSquaredPoly(match, 400, 150, 100, True)
 
 # enable block shape
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # create polygon
 netedit.createSquaredPoly(match, 500, 150, 100, True)
@@ -83,7 +83,7 @@ netedit.redo(match, 8)
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

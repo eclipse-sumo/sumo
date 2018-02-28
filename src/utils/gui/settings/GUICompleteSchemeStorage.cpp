@@ -211,7 +211,7 @@ void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
     if (myLookFrom.z() > 0) {
         // look straight down
-        view->setViewportFromTo(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0));
+        view->setViewportFromToRot(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0), 0);
     } else {
         view->recenterView();
     }

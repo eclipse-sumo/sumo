@@ -71,6 +71,9 @@ public:
     /// @brief event called after clicked a row
     long onCmdClickedStep(FXObject*, FXSelector, void*);
 
+    /// @brief event called after clicked over sort step button
+    long onCmdSortSteps(FXObject*, FXSelector, void*);
+
     /// @brief event called after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -97,6 +100,10 @@ protected:
     /// @brief Button for insert row
     FXButton* myAddStepButton;
 
+    /// @brief Button for sort row
+    FXButton* mySortStepButton;
+
+    // @brief Flag to check if current steps are valid
     bool myStepsValids;
 
 private:

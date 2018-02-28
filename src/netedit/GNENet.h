@@ -62,7 +62,6 @@
 class GNEAdditional;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
-class GNECalibratorFlow;
 class GNECalibratorRoute;
 class GNECalibratorVehicleType;
 class GNEConnection;
@@ -607,30 +606,17 @@ public:
     */
     GNECalibratorVehicleType* retrieveCalibratorVehicleType(const std::string& id, bool hardFail = true) const;
 
-    /**@brief Returns the named calibrator flow
-    * @param[in] id The id of the calibrator flow to return.
-    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator flow should result in an exception
-    */
-    GNECalibratorFlow* retrieveCalibratorFlow(const std::string& id, bool hardFail = true) const;
-
     /// @brief generate a new Calibrator Route ID
     std::string generateCalibratorRouteID() const;
 
     /// @brief generate a new Calibrator Vehicle Type ID
     std::string generateCalibratorVehicleTypeID() const;
 
-    /// @brief generate a new Calibrator Flow ID
-    std::string generateCalibratorFlowID() const;
-
     /// @brief change Calibrator Route ID
     void changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID);
 
     /// @brief change Calibrator Vehicle Type ID
     void changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID);
-
-    /// @brief change Calibrator Flow ID
-    void changeCalibratorFlowID(GNECalibratorFlow* flow, const std::string& oldID);
-
     /// @}
 
     /// @name Functions related to Shapes
@@ -640,10 +626,11 @@ public:
      * @param[in] netElement GNENetElement to be edited
      * @param[in] shape shape to be edited
      * @param[in] fill enable or disable fill polygon
+     * @param[in] col The color for drawing the polygon
      * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill);
+    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col);
 
     /// @brief remove Polygon for edit shapes
     void removePolygonForEditShapes(GNEPoly* polygon);
@@ -664,6 +651,20 @@ public:
 
     /// @brief get number of shapes
     int getNumberOfShapes() const;
+    /// @}
+
+    /// @name Functions related to TLS Programs
+    /// @{
+    /// @brief inform that TLS Programs has to be saved
+    void requiereSaveTLSPrograms();
+
+    /**@brief save TLS Programs elements of the network
+     * @param[in] filename name of the file in wich save TLS Programs
+     */
+    void saveTLSPrograms(const std::string& filename);
+
+    /// @brief get number of TLS Programs
+    int getNumberOfTLSPrograms() const;
     /// @}
 
 protected:
@@ -691,9 +692,6 @@ protected:
     /// @brief map with the name and pointer to Calibrator Vehicle Types of net
     std::map<std::string, GNECalibratorVehicleType*> myCalibratorVehicleTypes;
 
-    /// @brief map with the name and pointer to Calibrator Flows of net
-    std::map<std::string, GNECalibratorFlow*> myCalibratorFlows;
-
     /// @name ID Suppliers for newly created edges and junctions
     // @{
     IDSupplier myEdgeIDSupplier;
@@ -709,8 +707,11 @@ protected:
     /// @brief Flag to check if additionals has to be saved
     bool myAdditionalsSaved;
 
-    /// @brief Flag to check if shapes hast o be saved
+    /// @brief Flag to check if shapes has to be saved
     bool myShapesSaved;
+
+    /// @brief Flag to check if shapes has to be saved
+    bool myTLSProgramsSaved;
 
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{
@@ -739,16 +740,6 @@ protected:
     * @throw processError if route wasn't previously inserted
     */
     void deleteCalibratorRoute(GNECalibratorRoute* route);
-
-    /**@brief insert Calibrator Flow in net
-    * @throw processError if flow was already inserted
-    */
-    void insertCalibratorFlow(GNECalibratorFlow* flow);
-
-    /**@brief delete Calibrator Flow in net
-    * @throw processError if flow wasn't previously inserted
-    */
-    void deleteCalibratorFlow(GNECalibratorFlow* flow);
 
     /**@brief insert Calibrator VehicleType in net
     * @throw processError if vehicleType was already inserted

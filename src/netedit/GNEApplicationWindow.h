@@ -129,11 +129,17 @@ public:
     /// @brief set shapes file
     void setShapesFile(const std::string& shapesFile);
 
+    /// @brief set TLS Programs file
+    void setTLSProgramsFile(const std::string& TLSProgramsFile);
+
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
     /// @brief enable save shapes
     void enableSaveShapesMenu();
+
+    /// @brief enable save TLS Programs
+    void enableSaveTLSProgramsMenu();
 
     /// @name Inter-thread event handling
     /// @{
@@ -167,6 +173,9 @@ public:
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open additionals is executed
+    long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
 
@@ -175,6 +184,12 @@ public:
 
     /// @brief called when the command/FXCall close is executed
     long onCmdClose(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu Edit->Visualization 
+    long onCmdEditViewScheme(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu Edit->Viewport 
+    long onCmdEditViewport(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
@@ -187,6 +202,12 @@ public:
 
     /// @brief called when the command/FXCall save additionals as is executed
     long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save TLSPrograms is executed
+    long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save TLSPrograms as is executed
+    long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);
@@ -265,9 +286,6 @@ public:
     /// @brief called if the user hits f
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called if the user press key v to open zoom editor
-    long onCmdEditViewport(FXObject*, FXSelector, void*);
-
     /// @brief called if the user press key combination Ctrl + G to toogle grid
     long onCmdToogleGrid(FXObject*, FXSelector, void*);
 
@@ -331,6 +349,9 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu,
+                *myFileMenuShapes,
+                *myFileMenuAdditionals,
+                *myFileMenuTLS,
                 *myEditMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
@@ -390,12 +411,27 @@ protected:
     /// @brief filename for load/save shapes
     std::string myShapesFile;
 
+    /// @brief filename for load/save TLS Programs
+    std::string myTLSProgramsFile;
+
 private:
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
 
+    /// @brief FXMenuCommand for enable or disable save additionals as
+    FXMenuCommand* mySaveAdditionalsMenuCommandAs;
+
     /// @brief FXMenuCommand for enable or disable save shapes
     FXMenuCommand* mySaveShapesMenuCommand;
+
+    /// @brief FXMenuCommand for enable or disable save shapes as
+    FXMenuCommand* mySaveShapesMenuCommandAs;
+
+    /// @brief FXMenuCommand for enable or disable save additionals
+    FXMenuCommand* mySaveTLSProgramsMenuCommand;
+
+    /// @brief FXMenuCommand for enable or disable save additionals as
+    FXMenuCommand* mySaveTLSProgramsMenuCommandAs;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

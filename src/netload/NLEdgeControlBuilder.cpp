@@ -49,7 +49,7 @@
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder()
-    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0), myCurrentLaneIndex(-1), myCurrentDefaultStopOffsets() {
+    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0), myCurrentLaneIndex(-1) {
     myActiveEdge = (MSEdge*) 0;
     myLaneStorage = new std::vector<MSLane*>();
 }

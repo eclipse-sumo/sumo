@@ -40,7 +40,7 @@ std::vector<std::string> Polygon::getIDList() {
 
 
 std::string Polygon::getType(const std::string& polygonID) {
-    return getPolygon(polygonID)->getType();
+    return getPolygon(polygonID)->getShapeType();
 }
 
 
@@ -57,7 +57,7 @@ bool Polygon::getFilled(const std::string& polygonID) {
 
 TraCIColor Polygon::getColor(const std::string& polygonID) {
     SUMOPolygon* p = getPolygon(polygonID);
-    return Helper::makeTraCIColor(p->getColor());
+    return Helper::makeTraCIColor(p->getShapeColor());
 }
 
 
@@ -68,7 +68,7 @@ std::string Polygon::getParameter(const std::string& polygonID, const std::strin
 
 void Polygon::setType(const std::string& polygonID, const std::string& setType) {
     SUMOPolygon* p = getPolygon(polygonID);
-    p->setType(setType);
+    p->setShapeType(setType);
 }
 
 
@@ -81,7 +81,7 @@ void Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& 
 
 
 void Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
-    getPolygon(polygonID)->setColor(Helper::makeRGBColor(c));
+    getPolygon(polygonID)->setShapeColor(Helper::makeRGBColor(c));
 }
 
 

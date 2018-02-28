@@ -1,15 +1,13 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_1' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_2' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_3' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Loaded texture E3 in GUITextureSubSys::getTexture

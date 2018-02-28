@@ -73,17 +73,20 @@ netedit.modifyAttribute(5, "paris.ico")
 # Set imgfile
 netedit.modifyAttribute(5, "berlin_icon.ico")
 
+# Change relative image
+netedit.modifyShapeDefaultBoolValue(6)
+
 # Set invalid angle
-netedit.modifyAttribute(6, "dummyAngle")
+netedit.modifyAttribute(7, "dummyAngle")
 
 # Set valid angle
-netedit.modifyAttribute(6, "180")
+netedit.modifyAttribute(7, "180")
 
 # Change use GEO
-netedit.modifyShapeDefaultBoolValue(8)
+netedit.modifyShapeDefaultBoolValue(9)
 
 # Change block move
-netedit.modifyShapeDefaultBoolValue(10)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # go to select mode
 netedit.selectMode()
@@ -92,13 +95,13 @@ netedit.selectMode()
 netedit.selectionClear()
 
 # Check undos and redos
-netedit.undo(match, 13)
-netedit.redo(match, 13)
+netedit.undo(match, 14)
+netedit.redo(match, 14)
 
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

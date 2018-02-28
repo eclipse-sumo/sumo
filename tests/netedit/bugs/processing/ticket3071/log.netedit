@@ -1,3 +1,5 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: The lane '-gneE3_0' to use within the busStop 'busStop_-gneE3_0_1' is not known.
 Warning: The lane '-gneE4_0' to use within the busStop 'busStop_-gneE4_0_2' is not known.
 Warning: The lane '-gneE5_0' to use within the busStop 'busStop_-gneE5_0_3' is not known.
@@ -8,7 +10,6 @@ Warning: The lane 'gneE4_0' to use within the busStop 'busStop_gneE4_0_7' is not
 Warning: The lane 'gneE5_0' to use within the busStop 'busStop_gneE5_0_8' is not known.
 Warning: The lane 'gneE6_0' to use within the busStop 'busStop_gneE6_0_9' is not known.
 Warning: The lane 'gneE7_0' to use within the busStop 'busStop_gneE7_0_6' is not known.
-Warning: Optional string attribute 'pos' of e3Detector with ID 'e3Detector_0' is missing; Default value '0.00,0.00' will be used.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Optional bool attribute 'friendlyPos' of detEntry is missing; Default value '0' will be used.
@@ -16,6 +17,7 @@ Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Optional bool attribute 'friendlyPos' of detExit is missing; Default value '0' will be used.
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()

@@ -68,5 +68,8 @@ with_vehtype_dist
 # same as noid_increasing_time, but a vehicle type distribution is used and written
 with_vehtype_keepdist
 
+# Test whether public transport flows are handled correctly even if there are no persons
+ptflow_nopersons
+
 # Tests with false user input
 errors

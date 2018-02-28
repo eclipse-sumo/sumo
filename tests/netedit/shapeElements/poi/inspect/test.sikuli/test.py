@@ -115,41 +115,44 @@ netedit.modifyAttribute(7, "paris.ico")
 # Change parameter 8 with a valid value (valid)
 netedit.modifyAttribute(7, "berlin_icon.ico")
 
+# Change boolean parameter 9
+netedit.modifyShapeDefaultBoolValue(8)
+
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyAngle")
+netedit.modifyAttribute(9, "dummyAngle")
 
 # Change parameter 9 with a valid value (negative)
-netedit.modifyAttribute(8, "-12")
+netedit.modifyAttribute(9, "-12")
 
 # Change parameter 9 with a valid value (> 360)
-netedit.modifyAttribute(8, "500")
+netedit.modifyAttribute(9, "500")
 
-# Change parameter 9 with a valid value (> 360)
-netedit.modifyAttribute(8, "30")
+# Change parameter 9 with a valid value
+netedit.modifyAttribute(9, "30")
 
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(10, "dummyGEO")
+netedit.modifyAttribute(11, "dummyGEO")
 
 # Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(10, "")
+netedit.modifyAttribute(11, "")
 
 # Change parameter 9 with a valid value 
-netedit.modifyAttribute(10, "3.73,74.30")
+netedit.modifyAttribute(11, "3.73,74.30")
 
 # Change boolean parameter GEO
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # Change boolean parameter block
-netedit.modifyShapeDefaultBoolValue(13)
+netedit.modifyShapeDefaultBoolValue(14)
 
 # Check undos and redos
-netedit.undo(match, 26)
-netedit.redo(match, 26)
+netedit.undo(match, 27)
+netedit.redo(match, 27)
 
 # save shapes
 netedit.saveShapes()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

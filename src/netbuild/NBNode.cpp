@@ -13,7 +13,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id: NBNode.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -216,15 +216,17 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
     return ret;
 }
 
-NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex,  const PositionVector& _customShape) :
+NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape) :
     node(_node),
     edges(_edges),
     customWidth(_width),
     width(_width),
     priority(_priority),
     customShape(_customShape),
-    tlLinkNo(_customTLIndex),
+    tlLinkIndex(_customTLIndex),
+    tlLinkIndex2(_customTLIndex2),
     customTLIndex(_customTLIndex),
+    customTLIndex2(_customTLIndex2),
     valid(true) {
 }
 
@@ -2630,9 +2632,9 @@ NBNode::setRoundabout() {
 
 
 void
-NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex,
+NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,
                     const PositionVector& customShape, bool fromSumoNet) {
-    myCrossings.push_back(new Crossing(this, edges, width, priority, tlIndex, customShape));
+    myCrossings.push_back(new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
     }
@@ -2668,11 +2670,12 @@ NBNode::getCrossing(const std::string& id) const {
 void
 NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
     for (auto c : getCrossings()) {
-        c->tlLinkNo = startIndex++;
+        c->tlLinkIndex = startIndex++;
         c->tlID = tlID;
         if (c->customTLIndex != -1) {
-            c->tlLinkNo = c->customTLIndex;
+            c->tlLinkIndex = c->customTLIndex;
         }
+        c->tlLinkIndex2 = c->customTLIndex2;
     }
 }
 

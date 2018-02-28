@@ -114,6 +114,14 @@ public:
     void insertVehicleIDs(std::vector<GUIGlID>& into, bool listParking, bool listTeleporting);
 
 
+    /** @brief Returns the number of halting vehicles
+     * @return The number of halting vehicles
+     */
+    virtual int getHaltingVehicleNo() const;
+
+    /// @brief get current absolute and relative mean vehicle speed in the network
+    virtual std::pair<double, double> getVehicleMeanSpeeds() const;
+
     /// @brief lock access to vehicle removal/additions for thread synchronization
     void secureVehicles();
 

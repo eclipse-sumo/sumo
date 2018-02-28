@@ -994,18 +994,18 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
     std::string bsID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, 0, ok, "");
     if (bsID != "") {
         bs = MSNet::getInstance()->getStoppingPlace(bsID, SUMO_TAG_BUS_STOP);
-        if (bs == 0) {
+        if (bs == nullptr) {
             throw ProcessError("Unknown bus stop '" + bsID + "' for " + description + ".");
         }
-        if (toEdge == 0) {
-            toEdge = &bs->getLane().getEdge();
-        }
-        arrivalPos = bs->getAccessPos(toEdge);
-        if (arrivalPos < 0) {
-            throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
+        if (toEdge != nullptr) {
+            arrivalPos = bs->getAccessPos(toEdge);
+            if (arrivalPos < 0) {
+                throw ProcessError("Bus stop '" + bsID + "' is not connected to arrival edge '" + toEdge->getID() + "' for " + description + ".");
+            }
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, toEdge->getLength(),
+            const double length = toEdge != nullptr ? toEdge->getLength() : bs->getLane().getLength();
+            const double arrPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, description, length,
                                   attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok), &myParsingRNG);
             if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                 arrivalPos = arrPos;
@@ -1014,7 +1014,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
             }
         }
     } else {
-        if (toEdge == 0) {
+        if (toEdge == nullptr) {
             throw ProcessError("No destination edge for " + description + ".");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
@@ -1050,7 +1050,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     }
     double departPos = 0;
     double arrivalPos = 0;
-    MSStoppingPlace* bs = 0;
+    MSStoppingPlace* bs = nullptr;
     if (myActivePlan->empty()) {
         double initialDepartPos = myVehicleParameter->departPos;
         if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
@@ -1093,8 +1093,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->id = myVehicleParameter->id + "_0";
             pars.back()->departProcedure = DEPART_TRIGGERED;
-        } else if ((modeSet & SVC_BUS) != 0) {
-            pars.push_back(0);
+        } else if ((modeSet & SVC_BUS) != 0 || bs != nullptr) {
+            pars.push_back(nullptr);
         }
     }
 
@@ -1105,8 +1105,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, 0, ok, 0);
     if (ok) {
-        const std::string error = "No connection found between '" + from->getID() + "' and '" + to->getID() + "' for person '" + myVehicleParameter->id + "'.";
-        if (modeSet == 0) {
+        const std::string error = "No connection found between '" + from->getID() + "' and '" + (bs != nullptr ? bs->getID() : to->getID()) + "' for person '" + myVehicleParameter->id + "'.";
+        if (pars.empty()) {
             MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed > 0 ? speed : pedType->getMaxSpeed(), 0, 0, myActiveRoute);
             if (myActiveRoute.empty()) {
                 if (!MSGlobals::gCheckRoutes) {
@@ -1131,26 +1131,26 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                 }
                 bool carUsed = false;
                 std::vector<MSNet::MSIntermodalRouter::TripItem> result;
-                if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos,
+                if (MSNet::getInstance()->getIntermodalRouter().compute(from, to, departPos, arrivalPos, bs == nullptr ? "" : bs->getID(),
                         pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, myVehicleParameter->depart, result)) {
                     for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                         if (!it->edges.empty()) {
                             bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
+                            double localArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength();
+                            if (it + 1 == result.end() && attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                                localArrivalPos = arrivalPos;
+                            }
                             if (it->line == "") {
                                 const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, departPosLat));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, localArrivalPos, departPosLat));
                             } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                                double vehicleArrivalPos = bs != 0 ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength();
-                                if (it + 1 == result.end()) {
-                                    vehicleArrivalPos = arrivalPos;
-                                }
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, vehicleArrivalPos, std::vector<std::string>({ it->line })));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
                                 vehicle->replaceRouteEdges(it->edges, true);
-                                vehicle->setArrivalPos(vehicleArrivalPos);
+                                vehicle->setArrivalPos(localArrivalPos);
                                 vehControl.addVehicle(vehPar->id, vehicle);
                                 carUsed = true;
                             } else {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, bs != 0 ? bs->getAccessPos(it->edges.back()) : arrivalPos, std::vector<std::string>({ it->line })));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
                             }
                         }
                     }

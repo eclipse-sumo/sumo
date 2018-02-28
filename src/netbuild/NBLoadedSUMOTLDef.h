@@ -167,6 +167,9 @@ protected:
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true */
     void initNeedsContRelation() const;
 
+    /// @brief return the highest known tls link index used by any controlled connection or crossing
+    int getMaxIndex();
+    
 private:
 
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
@@ -195,6 +198,9 @@ private:
 
     /// @brief adapt to removal or addition of connections
     void reconstructLogic();
+
+    /// @brief return whether all tls link indices are valid
+    bool hasValidIndices() const;
 
 private:
     /// @brief class for identifying connections

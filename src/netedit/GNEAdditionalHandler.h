@@ -461,7 +461,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string& flowID, GNECalibratorRoute* route,
+    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, GNECalibratorRoute* route,
                                     GNECalibratorVehicleType* vtype, const RGBColor& color, const std::string& departLane, const std::string& departPos,
                                     const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
                                     const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
@@ -608,7 +608,7 @@ protected:
     /// @brief flag to check if created additionals must be undo and redo
     bool myUndoAdditionals;
 
-    /// @brief ID of last inserted Additional parent (needed for additionasl that own a child)
+    /// @brief ID of last inserted Additional parent (needed for additionals that own a child)
     std::string myLastInsertedAdditionalParent;
 
 private:

@@ -79,11 +79,11 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
         if (myCalibratorFlow->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Deleting calibrator flow");
             }
-            // make sure that calibrator flow isn't in net before removing
-            if (myNet->retrieveCalibratorFlow(myCalibratorFlow->getID(), false)) {
-                myNet->deleteCalibratorFlow(myCalibratorFlow);
+            // make sure that calibrator flow isn't in Calibrator before removing
+            if (myCalibratorFlow->getCalibratorParent()->calibratorFlowExist(myCalibratorFlow, false)) {
+                myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
             }
             delete myCalibratorFlow;
         }
@@ -92,7 +92,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
         if (myCalibratorRoute->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Deleting calibrator route");
             }
             // make sure that calibrator route isn't in net before removing
             if (myNet->retrieveCalibratorRoute(myCalibratorRoute->getID(), false)) {
@@ -105,7 +105,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
         if (myCalibratorVehicleType->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Deleting calibrator vehicle type");
             }
             // make sure that calibrator Vehicle Type isn't in net before removing
             if (myNet->retrieveCalibratorVehicleType(myCalibratorVehicleType->getID(), false)) {
@@ -125,9 +125,8 @@ GNEChange_CalibratorItem::undo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator flow of calibrator and net
+            // remove calibrator flow of calibrator
             myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-            myNet->deleteCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -153,9 +152,8 @@ GNEChange_CalibratorItem::undo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator flow into calibrator and net
+            // add calibrator flow into calibrator
             myCalibratorFlow->getCalibratorParent()->addCalibratorFlow(myCalibratorFlow);
-            myNet->insertCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -189,9 +187,8 @@ GNEChange_CalibratorItem::redo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // add calibrator flow into calibrator and net
+            // add calibrator flow into calibrator
             myCalibratorFlow->getCalibratorParent()->addCalibratorFlow(myCalibratorFlow);
-            myNet->insertCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -217,9 +214,8 @@ GNEChange_CalibratorItem::redo() {
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
             }
-            // remove calibrator flow of calibrator and net
+            // remove calibrator flow of calibrator
             myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-            myNet->deleteCalibratorFlow(myCalibratorFlow);
         } else if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

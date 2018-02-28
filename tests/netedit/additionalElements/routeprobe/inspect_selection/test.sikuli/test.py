@@ -52,7 +52,7 @@ netedit.modifyAttribute(1, "11.3")
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

@@ -40,7 +40,9 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/devices/MSDevice_Routing.h>
 #include <netload/NLBuilder.h>
+#include <traci-server/TraCIConstants.h>
 #include "Simulation.h"
 #include <libsumo/TraCIDefs.h>
 
@@ -154,7 +156,6 @@ Simulation::getMinExpectedNumber() {
 
 TraCIStage
 Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {
-    UNUSED_PARAMETER(routingMode);
     TraCIStage result(MSTransportable::DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == 0) {
@@ -176,11 +177,12 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
-    MSNet::getInstance()->getRouterTT().compute(fromEdge, toEdge, vehicle, dep, edges);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSDevice_Routing::getRouterTT() : MSNet::getInstance()->getRouterTT();
+    router.compute(fromEdge, toEdge, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
-    result.travelTime = result.cost = MSNet::getInstance()->getRouterTT().recomputeCosts(edges, vehicle, dep);
+    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep);
     if (vehicle != 0) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
     }
@@ -192,7 +194,7 @@ std::vector<TraCIStage>
 Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
                                 const std::string& modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
                                 const double departPos, const double arrivalPos, const double departPosLat,
-                                const std::string& pType, const std::string& vehType) {
+                                const std::string& pType, const std::string& vehType, const std::string& destStop) {
     UNUSED_PARAMETER(routingMode);
     UNUSED_PARAMETER(departPosLat);
     std::vector<TraCIStage> result;
@@ -243,7 +245,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos,
+        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
                 pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, dep, items)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {

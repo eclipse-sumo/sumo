@@ -99,6 +99,11 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     new FXLabel(lookFromZFrame, "Z:", 0, GUIDesignLabelLeftThick);
     myZOff = new FXRealSpinner(lookFromZFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     myZOff->setRange(0.12, 100000000);
+
+    // create rotation elements
+    FXHorizontalFrame* rotationFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(rotationFrame, "A:", 0, GUIDesignLabelLeftThick);
+    myRotation = new FXRealSpinner(rotationFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
     
     // create vertical frame for OSG
     FXVerticalFrame* lookAtFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
@@ -155,18 +160,20 @@ GUIDialog_EditViewport::show() {
 
 long
 GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
-    myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
+    myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
                                 Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
                                 Position::INVALID
 #endif
+                                , myRotation->getValue()
                                );
     // write information of current zoom status
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
                       ". Zoom = '" + toString(myZoom->getValue()) + "'");
     }
+    saveWindowPos();
     hide();
     return 1;
 }
@@ -174,7 +181,8 @@ GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_EditViewport::onCmdCancel(FXObject*, FXSelector, void*) {
-    myParent->setViewportFromTo(myOldLookFrom, myOldLookAt);
+    myParent->setViewportFromToRot(myOldLookFrom, myOldLookAt, myOldRotation);
+    saveWindowPos();
     hide();
     return 1;
 }
@@ -187,12 +195,13 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     } else if (o == myZoom) {
         myZOff->setValue(myParent->getChanger().zoom2ZPos(myZoom->getValue()));
     }
-    myParent->setViewportFromTo(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
+    myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
                                 Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
                                 Position::INVALID
 #endif
+                                , myRotation->getValue()
                                );
     return 1;
 }
@@ -211,7 +220,7 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         GUISettingsHandler handler(opendialog.getFilename().text());
         handler.applyViewport(myParent);
-        setValues(myParent->getChanger().getZoom(), myParent->getChanger().getXPos(), myParent->getChanger().getYPos());
+        setValues(myParent->getChanger().getZoom(), myParent->getChanger().getXPos(), myParent->getChanger().getYPos(), myParent->getChanger().getRotation());
     }
     return 1;
 }
@@ -242,6 +251,7 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_ZOOM, myZoom->getValue());
     dev.writeAttr(SUMO_ATTR_X, myXOff->getValue());
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
+    dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
 #ifdef HAVE_OSG
     dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
     dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
@@ -252,16 +262,17 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
 
 
 void
-GUIDialog_EditViewport::setValues(double zoom, double xoff, double yoff) {
+GUIDialog_EditViewport::setValues(double zoom, double xoff, double yoff, double rotation) {
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
     myZOff->setValue(myParent->getChanger().zoom2ZPos(zoom));
+    myRotation->setValue(rotation);
 }
 
 
 void
-GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& lookAt) {
+GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& lookAt, double rotation) {
     myXOff->setValue(lookFrom.x());
     myYOff->setValue(lookFrom.y());
     myZOff->setValue(lookFrom.z());
@@ -273,14 +284,16 @@ GUIDialog_EditViewport::setValues(const Position& lookFrom, const Position& look
 #else
     UNUSED_PARAMETER(lookAt);
 #endif
+    myRotation->setValue(rotation);
 }
 
 
 void
-GUIDialog_EditViewport::setOldValues(const Position& lookFrom, const Position& lookAt) {
-    setValues(lookFrom, lookAt);
+GUIDialog_EditViewport::setOldValues(const Position& lookFrom, const Position& lookAt, double rotation) {
+    setValues(lookFrom, lookAt, rotation);
     myOldLookFrom = lookFrom;
     myOldLookAt = lookAt;
+    myOldRotation = rotation;
 }
 
 
@@ -288,6 +301,12 @@ bool
 GUIDialog_EditViewport::haveGrabbed() const {
     return false;
     //return myZoom->getDial().grabbed() || myXOff->getDial().grabbed() || myYOff->getDial().grabbed();
+}
+
+void
+GUIDialog_EditViewport::saveWindowPos() {
+    getApp()->reg().writeIntEntry("VIEWPORT_DIALOG_SETTINGS", "x", getX());
+    getApp()->reg().writeIntEntry("VIEWPORT_DIALOG_SETTINGS", "y", getY());
 }
 
 /****************************************************************************/

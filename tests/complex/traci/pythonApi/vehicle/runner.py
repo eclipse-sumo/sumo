@@ -389,6 +389,7 @@ for i in range(18):
 electricVeh = "elVeh"
 traci.vehicle.add(electricVeh, "horizontal", typeID="electric")
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
+traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
 print("has vehroute device: %s" % traci.vehicle.getParameter(electricVeh, "has.vehroute.device"))
 print("has rerouting device: %s" % traci.vehicle.getParameter(electricVeh, "has.rerouting.device"))
@@ -424,7 +425,7 @@ except traci.TraCIException as e:
 
 for i in range(10):
     step()
-    print('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" emissionClass=%s electricityConsumption=%s' % (
+    print('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" mass=%s emissionClass=%s electricityConsumption=%s' % (
         electricVeh,
         traci.vehicle.getSpeed(electricVeh),
         traci.vehicle.getParameter(electricVeh, "device.battery.energyConsumed"),
@@ -432,6 +433,7 @@ for i in range(10):
         traci.vehicle.getParameter(electricVeh, "device.battery.actualBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.vehicleMass"),
         traci.vehicle.getEmissionClass(electricVeh),
         traci.vehicle.getElectricityConsumption(electricVeh),
         ))

@@ -123,6 +123,15 @@ public:
     /** @brief get the active view or 0 */
     GUISUMOAbstractView* getActiveView() const;
 
+    /// @brief Toggle full screen mode
+    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) { 
+        return 1;
+    }
+
+    bool isFullScreen() {
+        return myAmFullScreen;
+    }
+
 protected:
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;

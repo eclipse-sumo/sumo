@@ -137,6 +137,9 @@ public:
     /* build optional all-red phase */
     void buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, const std::string& state);
 
+    ///@brief Returns the maximum index controlled by this traffic light
+    int getMaxIndex();
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
@@ -235,6 +238,9 @@ protected:
                                    const std::vector<int>& fromLanes,
                                    const std::vector<bool>& hadGreenMajor,
                                    bool& haveForbiddenLeftMover, std::vector<bool>& rightTurnConflicts);
+
+    /// @brief fix states in regard to custom crossing indices
+    void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;
 
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at

@@ -32,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete edge
-netedit.leftClick(match, 200, 250)
+netedit.leftClick(match, 220, 200)
 
 # delete node
-netedit.leftClick(match, 660, 280)
+netedit.leftClick(match, 520, 225)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -55,7 +55,7 @@ netedit.rebuildNetwork()
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

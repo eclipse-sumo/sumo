@@ -469,12 +469,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
     rebuildColorMatrices(false);
     setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-
-    const FXint minSize = 400;
-    setX(MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150), getApp()->getRootWindow()->getWidth() - minSize));
-    setY(MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - minSize));
-    setWidth(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700), minSize));
-    setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
+    loadWindowSize();
 }
 
 
@@ -1612,6 +1607,20 @@ GUIDialog_ViewSettings::saveWindowSize() {
     getApp()->reg().writeIntEntry("VIEWSETTINGS", "y", getY());
     getApp()->reg().writeIntEntry("VIEWSETTINGS", "width", getWidth());
     getApp()->reg().writeIntEntry("VIEWSETTINGS", "height", getHeight());
+}
+
+void
+GUIDialog_ViewSettings::loadWindowSize() {
+    // ensure window is visible after switching screen resolutions
+    const FXint minSize = 400;
+    const FXint minTitlebarHeight = 20;
+    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150), 
+                    getApp()->getRootWindow()->getWidth() - minSize)));
+    setY(MAX2(minTitlebarHeight,
+              MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150), 
+                  getApp()->getRootWindow()->getHeight() - minSize)));
+    setWidth(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700), minSize));
+    setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }
 
 /****************************************************************************/

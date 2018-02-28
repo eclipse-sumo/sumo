@@ -1267,7 +1267,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         } else {
             ret |= LCA_STAY | LCA_COOPERATIVE;
         }
-        if (!cancelRequest(ret)) {
+        if (!cancelRequest(ret, laneOffset)) {
             if ((ret & LCA_STAY) == 0) {
                 latDist = latLaneDist;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
@@ -1317,7 +1317,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
 
         ret |= LCA_COOPERATIVE | LCA_URGENT ;//| LCA_CHANGE_TO_HELP;
-        if (!cancelRequest(ret)) {
+        if (!cancelRequest(ret, laneOffset)) {
             latDist = amBlockingFollowerPlusNB() ? latLaneDist : myManeuverDist;
             blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                     leaders, followers, blockers,
@@ -1548,7 +1548,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                     /*&& latLaneDist <= -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()*/) {
                 ret |= LCA_KEEPRIGHT;
                 assert(myVehicle.getLane()->getIndex() > neighLane.getIndex());
-                if (!cancelRequest(ret)) {
+                if (!cancelRequest(ret, laneOffset)) {
                     latDist = latLaneDist;
                     blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                             leaders, followers, blockers,
@@ -1574,7 +1574,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         if (latDist < 0 && mySpeedGainProbabilityRight >= MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft)
                 && neighDist / MAX2(.1, myVehicle.getSpeed()) > 20.) {
             ret |= LCA_SPEEDGAIN;
-            if (!cancelRequest(ret)) {
+            if (!cancelRequest(ret, laneOffset)) {
                 int blockedFully = 0;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
@@ -1607,7 +1607,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 // lane for some time
                 (stayInLane || neighDist / MAX2(.1, myVehicle.getSpeed()) > SPEED_GAIN_MIN_SECONDS)) {
             ret |= LCA_SPEEDGAIN;
-            if (!cancelRequest(ret)) {
+            if (!cancelRequest(ret, laneOffset)) {
                 int blockedFully = 0;
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
@@ -1713,7 +1713,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                            << "\n";
 #endif
             ret |= LCA_SUBLANE;
-            if (!cancelRequest(ret)) {
+            if (!cancelRequest(ret, laneOffset)) {
                 blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
                                         leaders, followers, blockers,
                                         neighLeaders, neighFollowers, neighBlockers);
@@ -1734,7 +1734,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 : mySpeedGainProbabilityLeft  > MAX2(0., mySpeedGainProbabilityRight))) {
         // change towards the correct lane, speedwise it does not hurt
         ret |= LCA_STRATEGIC;
-        if (!cancelRequest(ret)) {
+        if (!cancelRequest(ret, laneOffset)) {
             latDist = latLaneDist;
             blocked = checkBlocking(neighLane, latDist, laneOffset,
                     leaders, followers, blockers,
@@ -2552,6 +2552,8 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ret=" << ret;
     }
 #endif
+    // store state before canceling
+    myCanceledStates[laneOffset] |= ret;
     int retTraCI = myVehicle.influenceChangeDecision(ret);
     if ((retTraCI & LCA_TRACI) != 0) {
         if ((retTraCI & LCA_STAY) != 0) {

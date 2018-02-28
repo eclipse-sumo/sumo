@@ -42,11 +42,12 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVariableSpeedSignDialog) GNERerouterDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_VARIABLESPEEDSIGN_ADDROW,       GNEVariableSpeedSignDialog::onCmdAddStep),
-    FXMAPFUNC(SEL_CLICKED,          MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS,  GNEVariableSpeedSignDialog::onCmdClickedStep),
-    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS,  GNEVariableSpeedSignDialog::onCmdClickedStep),
-    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS,  GNEVariableSpeedSignDialog::onCmdClickedStep),
-    FXMAPFUNC(SEL_UPDATE,           MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS,  GNEVariableSpeedSignDialog::onCmdEditStep),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_VARIABLESPEEDSIGN_ADDROW,   GNEVariableSpeedSignDialog::onCmdAddStep),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_VARIABLESPEEDSIGN_SORT,     GNEVariableSpeedSignDialog::onCmdSortSteps),
+    FXMAPFUNC(SEL_CLICKED,          MID_GNE_VARIABLESPEEDSIGN_TABLE,    GNEVariableSpeedSignDialog::onCmdClickedStep),
+    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_VARIABLESPEEDSIGN_TABLE,    GNEVariableSpeedSignDialog::onCmdClickedStep),
+    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_VARIABLESPEEDSIGN_TABLE,    GNEVariableSpeedSignDialog::onCmdClickedStep),
+    FXMAPFUNC(SEL_UPDATE,           MID_GNE_VARIABLESPEEDSIGN_TABLE,    GNEVariableSpeedSignDialog::onCmdEditStep),
 };
 
 // Object implementation
@@ -63,12 +64,15 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
 
     // create Horizontal frame for row elements
     myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create Button and Label
+    // create Button and Label for adding new Wors
     myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), 0, GUIDesignLabelThick);
+    // create Button and Label for sort intervals
+    mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
+    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), 0, GUIDesignLabelThick);
 
     // create List with the data
-    myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS, GUIDesignTableAdditionals);
+    myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignTableAdditionals);
     myStepsTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myStepsTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
@@ -116,9 +120,12 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             myStepsValids = false;
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else {
+            // we need filter attribute (to avoid problemes as 1 != 1.00)
+            double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
+            double speed = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 1)->getText().text());
             // set new values in Closing  reroute
-            step->setAttribute(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text(), myEditedVariableSpeedSign->getViewNet()->getUndoList());
-            step->setAttribute(SUMO_ATTR_SPEED, myStepsTable->getItem(i, 1)->getText().text(), myEditedVariableSpeedSign->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedVariableSpeedSign->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedVariableSpeedSign->getViewNet()->getUndoList());
             // set Correct label
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -144,6 +151,15 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     return 0;
 }
 
+
+long 
+GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
+    // Sort variable speed sign steps
+    myEditedVariableSpeedSign->sortVariableSpeedSignSteps();
+    // update table
+    updateTableSteps();
+    return 1;
+}
 
 long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {

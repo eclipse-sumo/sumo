@@ -385,6 +385,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         const SUMOTime redTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.red.time"));
         logic->addStep(redTime, std::string(noLinksAll, 'r'));
     }
+    // fix states to account for custom crossing link indices
+    if (crossings.size() > 0 && !onlyConts) {
+        checkCustomCrossingIndices(logic);
+    }
 
     SUMOTime totalDuration = logic->getDuration();
     if (OptionsCont::getOptions().isDefault("tls.green.time") || !OptionsCont::getOptions().isDefault("tls.cycle.time")) {
@@ -730,5 +734,38 @@ NBOwnTLDef::buildAllRedState(SUMOTime allRedTime, NBTrafficLightLogic* logic, co
     }
 }
 
+void
+NBOwnTLDef::checkCustomCrossingIndices(NBTrafficLightLogic* logic) const {
+    int minCustomIndex = -1;
+    int maxCustomIndex = -1;
+    // collect crossings
+    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+        const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
+        for (auto crossing : c) {
+            minCustomIndex = MIN2(minCustomIndex, crossing->customTLIndex);
+            minCustomIndex = MIN2(minCustomIndex, crossing->customTLIndex2);
+            maxCustomIndex = MAX2(maxCustomIndex, crossing->customTLIndex);
+            maxCustomIndex = MAX2(maxCustomIndex, crossing->customTLIndex2);
+        }
+    }
+    // custom crossing linkIndex could lead to longer states. ensure that every index has a state
+    if (maxCustomIndex >= logic->getNumLinks()) {
+        logic->setStateLength(maxCustomIndex + 1);
+    } 
+    // XXX shorter state vectors are possible as well
+    // XXX if the indices are shuffled the guessed crossing states should be shuffled correspondingly
+    // XXX initialize the backward index to the same state as the forward index
+}
 
+
+int 
+NBOwnTLDef::getMaxIndex() {
+    setParticipantsInformation();
+    NBTrafficLightLogic* logic = compute(OptionsCont::getOptions());
+    if (logic != 0) {
+        return logic->getNumLinks() - 1;
+    } else {
+        return -1;
+    }
+}
 /****************************************************************************/

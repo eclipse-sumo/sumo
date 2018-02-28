@@ -235,7 +235,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificPermissions()) {
             writePermissions(edevice, e->getPermissions(0));
         }
-        if (!e->hasLaneSpecificStopOffsets()) {
+        if (!e->hasLaneSpecificStopOffsets() && e->getStopOffsets().size() != 0) {
             NWWriter_SUMO::writeStopOffsets(edevice, e->getStopOffsets());
         }
         if (e->needsLaneSpecificOutput()) {
@@ -324,6 +324,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             }
             if (c->customTLIndex != -1) {
                 cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX, c->customTLIndex);
+            }
+            if (c->customTLIndex2 != -1) {
+                cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX2, c->customTLIndex2);
             }
             if (c->customShape.size() != 0) {
                 cdevice.writeAttr(SUMO_ATTR_SHAPE, c->customShape);

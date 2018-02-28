@@ -40,6 +40,7 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_XML.h>
+#include <netwrite/NWWriter_SUMO.h>
 #include <utility>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
@@ -60,7 +61,6 @@
 #include "GNEAdditionalFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEApplicationWindow.h"
-#include "GNECalibratorFlow.h"
 #include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNEChange_Additional.h"
@@ -123,7 +123,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
     myAdditionalsSaved(true),
-    myShapesSaved(true) {
+    myShapesSaved(true),
+    myTLSProgramsSaved(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -158,14 +159,6 @@ GNENet::~GNENet() {
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (auto it : myAdditionals) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
-        }
-        delete it.second;
-    }
-    // Drop calibrator flows (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myCalibratorFlows) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
@@ -462,6 +455,14 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true);
         edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true);
     }
+    // if junction source is a TLS and after deletion will have only an edge, remove TLS
+    if(edge->getGNEJunctionSource()->getNBNode()->isTLControlled() && (edge->getGNEJunctionSource()->getGNEOutgoingEdges().size() <= 1)) {
+            edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    }
+    // if junction destiny is a TLS and after deletion will have only an edge, remove TLS
+    if(edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
+            edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
+    }
     // save selection status
     if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
         std::set<GUIGlID> deselected;
@@ -608,6 +609,7 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
                                          crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
                                          crossing->getNBCrossing()->customTLIndex,
+                                         crossing->getNBCrossing()->customTLIndex2,
                                          crossing->getNBCrossing()->customShape, selected, false), true);
     // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();
@@ -1855,23 +1857,6 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
     }
 }
 
-
-GNECalibratorFlow*
-GNENet::retrieveCalibratorFlow(const std::string& id, bool hardFail) const {
-    // iterate over flows
-    for (auto i : myCalibratorFlows) {
-        if (i.second->getID() == id) {
-            return i.second;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant calibrator flow");
-    } else {
-        return NULL;
-    }
-}
-
-
 std::string
 GNENet::generateCalibratorRouteID() const {
     int counter = 0;
@@ -1889,16 +1874,6 @@ GNENet::generateCalibratorVehicleTypeID() const {
         counter++;
     }
     return toString(SUMO_TAG_VTYPE) + toString(counter);
-}
-
-
-std::string
-GNENet::generateCalibratorFlowID() const {
-    int counter = 0;
-    while (myCalibratorFlows.count(toString(SUMO_TAG_FLOW) + toString(counter)) != 0) {
-        counter++;
-    }
-    return toString(SUMO_TAG_FLOW) + toString(counter);
 }
 
 
@@ -1924,22 +1899,11 @@ GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, con
 }
 
 
-void
-GNENet::changeCalibratorFlowID(GNECalibratorFlow* flow, const std::string& oldID) {
-    if (myCalibratorFlows.count(oldID) > 0) {
-        myCalibratorFlows.erase(oldID);
-        myCalibratorFlows[flow->getID()] = flow;
-    } else {
-        throw ProcessError("Flow wasn't inserted");
-    }
-}
-
-
 GNEPoly*
-GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill) {
+GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col) {
     if (shape.size() > 0) {
         // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, RGBColor::GREEN, GLO_POLYGON, 0, "", false, false , false);
+        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, true, col, GLO_POLYGON, 0, "", false, false , false);
         shapePoly->setShapeEditedElement(netElement);
         shapePoly->setFill(fill);
         shapePoly->setLineWidth(0.3);
@@ -2019,7 +1983,8 @@ GNENet::requiereSaveShapes() {
 }
 
 
-void GNENet::saveShapes(const std::string& filename) {
+void 
+GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
@@ -2044,6 +2009,39 @@ void GNENet::saveShapes(const std::string& filename) {
 int
 GNENet::getNumberOfShapes() const {
     return (int)(myPolygons.size() + myPOIs.size());
+}
+
+
+void 
+GNENet::requiereSaveTLSPrograms() {
+    if ((myTLSProgramsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("TLSPrograms has to be saved");
+    }
+    myTLSProgramsSaved = false;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveTLSProgramsMenu();
+}
+
+
+void 
+GNENet::saveTLSPrograms(const std::string& filename) {
+    // open output device
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    device.openTag("additionals");
+    // write traffic lights using NWWriter
+    NWWriter_SUMO::writeTrafficLights(device, getTLLogicCont());
+    device.close();
+    // change flag to true
+    myTLSProgramsSaved = true;
+    // show debug information
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("TLSPrograms saved");
+    }
+}
+
+
+int 
+GNENet::getNumberOfTLSPrograms() const {
+    return -1;
 }
 
 
@@ -2077,6 +2075,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.erase(additionalToRemove);
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
+        // update view
         update();
         // additionals has to be saved
         requiereSaveAdditionals();
@@ -2101,27 +2100,6 @@ GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
         myCalibratorRoutes.erase(it);
     } else {
         throw ProcessError("Route wasn't inserted");
-    }
-}
-
-
-void
-GNENet::insertCalibratorFlow(GNECalibratorFlow* flow) {
-    if (myCalibratorFlows.find(flow->getID()) == myCalibratorFlows.end()) {
-        myCalibratorFlows[flow->getID()] = flow;
-    } else {
-        throw ProcessError("Flow already inserted");
-    }
-}
-
-
-void
-GNENet::deleteCalibratorFlow(GNECalibratorFlow* flow) {
-    auto it = myCalibratorFlows.find(flow->getID());
-    if (it != myCalibratorFlows.end()) {
-        myCalibratorFlows.erase(it);
-    } else {
-        throw ProcessError("Flow wasn't inserted");
     }
 }
 

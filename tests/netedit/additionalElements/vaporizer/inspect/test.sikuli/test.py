@@ -80,7 +80,7 @@ netedit.redo(match, 7)
 # save additionals
 netedit.saveAdditionals()
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

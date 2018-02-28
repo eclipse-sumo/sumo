@@ -344,7 +344,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     // draw geometry hints
-    if (s.scale * SNAP_RADIUS > 1.) { // check whether it is not too small
+    if (s.scale > 3.0) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         if (gSelected.isSelected(getType(), getGlID()) && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
@@ -1163,7 +1163,9 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
 void
 GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
     // If a new connection was sucesfully created
-    if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass, nbCon.keepClear, nbCon.contPos, nbCon.visibility)) {
+    if (myNBEdge.setConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, NBEdge::L2L_USER, true, nbCon.mayDefinitelyPass, 
+                nbCon.keepClear, nbCon.contPos, nbCon.visibility,
+                nbCon.speed, nbCon.customShape, nbCon.uncontrolled)) {
         // Create  or retrieve existent GNEConection
         GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane);
         // add it to GNEConnection container

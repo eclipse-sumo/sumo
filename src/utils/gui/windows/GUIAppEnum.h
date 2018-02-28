@@ -74,6 +74,8 @@ enum {
     MID_OPEN_SHAPES,
     /// @brief Load additional file with additional elements
     MID_OPEN_ADDITIONALS,
+    /// @brief Load additional file with additional elements
+    MID_OPEN_TLSPROGRAMS,
     /// @brief Reload the previously loaded simulation
     MID_RELOAD,
     /// @brief Loads a file previously loaded
@@ -441,6 +443,10 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
+    /// @brief save TLS Programs
+    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,
+    /// @brief save TLS Programs as
+    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @}
 
 
@@ -605,6 +611,14 @@ enum {
     MID_GNE_TLSFRAME_PHASE_DELETE,
     /// @brief cleanup unused states
     MID_GNE_TLSFRAME_CLEANUP,
+    /// @brief mark unused states
+    MID_GNE_TLSFRAME_MARKUNUSED,
+    /// @brief mark unused states
+    MID_GNE_TLSFRAME_ADDUNUSED,
+    /// @brief Load Program
+    MID_GNE_TLSFRAME_LOAD_PROGRAM,
+    /// @brief cleanup unused states
+    MID_GNE_TLSFRAME_SAVE_PROGRAM,
     /// @}
 
 
@@ -768,8 +782,10 @@ enum {
     /// @{
     /// @brief add row
     MID_GNE_VARIABLESPEEDSIGN_ADDROW,
-    /// @brief remove row
-    MID_GNE_VARIABLESPEEDSIGN_TABLE_STEPS,
+    /// @brief Click over Table
+    MID_GNE_VARIABLESPEEDSIGN_TABLE,
+    /// @brief sort table values
+    MID_GNE_VARIABLESPEEDSIGN_SORT,
     /// @}
 
 

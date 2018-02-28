@@ -113,6 +113,7 @@ try:
 except traci.TraCIException:
     pass
 print("findRoute", traci.simulation.findRoute("o", "2o"))
+print("findRoute with routing mode", traci.simulation.findRoute("o", "2o", routingMode=traci.constants.ROUTING_MODE_AGGREGATED))
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))
 except traci.TraCIException:

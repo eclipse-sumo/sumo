@@ -1,8 +1,0 @@
-Warning: Referenced node: '596713378' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3356361110' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3356361111' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '29494305' in relation: '4599283' does not exist. Probably OSM file is incomplete.
-Warning: The traffic light '28095437' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '28095437'
-Warning: The traffic light '3612453893' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '3612453893'

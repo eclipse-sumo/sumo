@@ -60,7 +60,7 @@ netedit.leftClick(match, 400, 150)
 netedit.modifyAttribute(0, "traffic_light")
 
 # inspect set of edges
-netedit.leftClick(match, 450, 150)
+netedit.leftClick(match, 480, 160)
 
 # change all speed of edges
 netedit.modifyAttribute(0, "20")
@@ -69,10 +69,10 @@ netedit.modifyAttribute(0, "20")
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(match, 9)
+netedit.redo(match, 9)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

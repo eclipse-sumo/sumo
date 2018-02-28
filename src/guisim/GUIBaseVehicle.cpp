@@ -603,9 +603,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             break;
         }
         case SVS_EMERGENCY: // similar to delivery
-            glColor3d(1, 1, 1);
             drawPoly(vehiclePoly_PassengerVanBody, 4);
-            glColor3d(1, 0, 0);
+            GLHelper::setColor(darker); 
             drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
@@ -620,9 +619,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             drawPoly(vehiclePoly_Emergency2, 5);
             break;
         case SVS_FIREBRIGADE: // similar to delivery in red orange
-            glColor3d(1, 0, 0);
             drawPoly(vehiclePoly_PassengerVanBody, 4);
-            glColor3d(1, .5, 0);
+            GLHelper::setColor(lighter); 
             drawPoly(vehiclePoly_PassengerVanBodyFront, 4.5);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_PassengerVanFrontGlass, 4.5);
@@ -642,17 +640,16 @@ GUIBaseVehicle::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) 
             drawPoly(vehiclePoly_EmergencyLadder7, 5);
             break;
         case SVS_POLICE: // similar to passenger grey with blue
-            glColor3d(.5, .5, .5);
             drawPoly(vehiclePoly_PassengerCarBody, 4);
-            glColor3d(0, 0, 1);
+            GLHelper::setColor(lighter);
             drawPoly(vehiclePoly_PassengerCarBodyFront, 4.5);
             glColor3d(0, 0, 0);
             drawPoly(vehiclePoly_PassengerFrontGlass, 4.5);
             // first aid sign
             glTranslated(0.7, 0, 0);
-            glColor3d(0, 0, 1);
-            drawPoly(vehiclePoly_EmergencySign, 4.5);
             glColor3d(.5, .5, .5);
+            drawPoly(vehiclePoly_EmergencySign, 4.5);
+            glColor3d(0, 0, 1);
             drawPoly(vehiclePoly_Emergency, 5);
             drawPoly(vehiclePoly_Emergency2, 5);
             break;
@@ -1087,6 +1084,21 @@ bool
 GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
     switch (activeScheme) {
         case 0: {
+            //test for emergency vehicle
+            if (veh->getVehicleType().getGuiShape()== SVS_EMERGENCY) {
+                GLHelper::setColor(RGBColor::WHITE);
+                return true;
+            }
+            //test for firebrigade
+            if (veh->getVehicleType().getGuiShape() == SVS_FIREBRIGADE) {
+                GLHelper::setColor(RGBColor::RED);
+                return true;
+            }
+            //test for police car
+            if (veh->getVehicleType().getGuiShape() == SVS_POLICE) {
+                GLHelper::setColor(RGBColor::BLUE);
+                return true;
+            }
             if (veh->getParameter().wasSet(VEHPARS_COLOR_SET)) {
                 GLHelper::setColor(veh->getParameter().color);
                 return true;

@@ -130,6 +130,9 @@ public:
     /// @brief Alternative method for setting the viewport
     virtual void setViewportFrom(double xPos, double yPos, double zPos) = 0;
 
+    /// @brief Sets the rotation 
+    virtual void setRotation(double rotation) = 0;
+
     /// @brief Returns the last mouse x-position an event occured at
     FXint getMouseXPosition() const;
 

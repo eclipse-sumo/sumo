@@ -24,7 +24,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#DOWN."
 [log]  TYPE "#TAB."
 [log]  TYPE " "
-[log] CLICK on L(404,190)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(404,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 404 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -33,7 +33,7 @@ TestFunctions: Clicked over position 404 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(454,190)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(454,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 454 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -42,7 +42,7 @@ TestFunctions: Clicked over position 454 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(454,190)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(454,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 454 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -52,7 +52,7 @@ TestFunctions: Clicked over position 454 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(504,190)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(504,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 504 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -63,7 +63,7 @@ TestFunctions: Clicked over position 504 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(504,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(504,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 504 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -74,7 +74,7 @@ TestFunctions: Clicked over position 504 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(554,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(554,190)@S(0)[0,0 1600x900] (235 msec)
 TestFunctions: Clicked over position 554 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -86,7 +86,7 @@ TestFunctions: Clicked over position 554 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(604,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(604,190)@S(0)[0,0 1600x900] (235 msec)
 TestFunctions: Clicked over position 604 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -98,7 +98,7 @@ TestFunctions: Clicked over position 604 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(604,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(604,190)@S(0)[0,0 1600x900] (235 msec)
 TestFunctions: Clicked over position 604 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -111,7 +111,7 @@ TestFunctions: Clicked over position 604 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(654,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(654,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 654 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -124,7 +124,7 @@ TestFunctions: Clicked over position 654 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(654,190)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(654,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 654 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -145,7 +145,7 @@ TestFunctions: Clicked over position 654 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(754,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(754,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 754 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -159,7 +159,7 @@ TestFunctions: Clicked over position 754 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(754,190)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(754,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 754 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -173,7 +173,7 @@ TestFunctions: Clicked over position 754 - 190
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(754,190)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(754,190)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 754 - 190
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -186,9 +186,8 @@ TestFunctions: Clicked over position 754 - 190
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(404,270)@S(0)[0,0 1280x720] (235 msec)
+[log]  TYPE " "
+[log] CLICK on L(404,270)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 404 - 270
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -201,10 +200,11 @@ TestFunctions: Clicked over position 404 - 270
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(404,270)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 404 - 270
+[log] CLICK on L(504,270)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 504 - 270
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -216,10 +216,11 @@ TestFunctions: Clicked over position 404 - 270
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(554,270)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 554 - 270
+[log] CLICK on L(504,270)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 504 - 270
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -231,9 +232,26 @@ TestFunctions: Clicked over position 554 - 270
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
-[log] CLICK on L(704,270)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(604,270)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 604 - 270
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log] ( Ctrl )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log] CLICK on L(704,270)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 704 - 270
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
@@ -248,11 +266,12 @@ TestFunctions: Clicked over position 704 - 270
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log]  TYPE " "
-[log] CLICK on L(854,270)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 854 - 270
+[log] CLICK on L(804,270)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 804 - 270
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
@@ -265,9 +284,11 @@ TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
+[log] ( Ctrl )  TYPE "z"
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
+[log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"

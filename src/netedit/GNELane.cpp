@@ -10,7 +10,7 @@
 /// @file    GNELane.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
+/// @version $Id: GNELane.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-05 18:17:40 +0100 $
 ///
 // A class for visualizing Lane geometry (adapted from GNELaneWrapper)
 /****************************************************************************/
@@ -131,7 +131,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        int linkNo = cons[lefthand ? noLinks - 1 - i : i].tlLinkNo;
+        int linkNo = cons[lefthand ? noLinks - 1 - i : i].tlLinkIndex;
         GLHelper::drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
         x1 -= w;
     }

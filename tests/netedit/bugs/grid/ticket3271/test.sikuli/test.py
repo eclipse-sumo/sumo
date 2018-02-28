@@ -47,7 +47,7 @@ netedit.leftClick(match, 500, 50)
 netedit.leftClick(match, 500, 50)
 netedit.leftClick(match, 500, 180)
 
-# save newtork
+# save network
 netedit.saveNetwork()
 
 # quit netedit

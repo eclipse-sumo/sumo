@@ -79,6 +79,9 @@ Route::setParameter(const std::string& routeID, const std::string& key, const st
 void
 Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) {
     ConstMSEdgeVector edges;
+    if (edgeIDs.size() == 0) {
+        throw TraCIException("Cannot add route '" + routeID + "' without edges.");
+    }
     for (std::vector<std::string>::const_iterator ei = edgeIDs.begin(); ei != edgeIDs.end(); ++ei) {
         MSEdge* edge = MSEdge::dictionary(*ei);
         if (edge == 0) {

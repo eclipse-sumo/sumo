@@ -188,7 +188,7 @@ private:
         /// @brief The id of the traffic light that controls this connection
         std::string tlID;
         /// @brief The index of this connection within the controlling traffic light
-        int tlLinkNo;
+        int tlLinkIndex;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
         /// @brief Whether the junction must be kept clear coming from this connection
@@ -201,6 +201,8 @@ private:
         double speed;
         /// @brief custom shape connection
         PositionVector customShape;
+        /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled. 
+        bool uncontrolled;
     };
 
 
@@ -283,7 +285,7 @@ private:
      */
     struct Crossing {
         Crossing(const std::string& _edgeID) :
-            edgeID(_edgeID), customTLIndex(-1) {}
+            edgeID(_edgeID), customTLIndex(-1), customTLIndex2(-1) {}
 
         std::string edgeID;
         std::vector<std::string> crossingEdges;
@@ -291,6 +293,7 @@ private:
         bool priority;
         PositionVector customShape;
         int customTLIndex;
+        int customTLIndex2;
     };
 
     /** @struct WalkingAreaParsedCustomShape

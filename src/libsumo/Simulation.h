@@ -83,10 +83,10 @@ public:
 
     static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);
 
-    static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes,
-            const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
-            const double departPos, const double arrivalPos, const double departPosLat,
-            const std::string& pType, const std::string& vehType);
+    static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes="",
+            const SUMOTime depart=-1, const int routingMode=0, const double speed = -1., const double walkFactor = -1.,
+            const double departPos = -1., const double arrivalPos = -1., const double departPosLat = -1.,
+            const std::string& pType = "", const std::string& vehType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
 

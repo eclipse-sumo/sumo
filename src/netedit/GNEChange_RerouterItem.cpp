@@ -108,7 +108,7 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
         if (myRerouterInterval->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Interval of rerouter '" + myRerouterInterval->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Deleting rerouter Interval");
             }
             delete myRerouterInterval;
         }
@@ -117,7 +117,7 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
         if (myClosingReroute->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Closing Reroute of rerouter '" + myClosingReroute->getRerouterIntervalParent()->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Deleting Closing Reroute");
             }
             delete myClosingReroute;
         }
@@ -126,7 +126,7 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
         if (myClosingLaneReroute->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Closing lane Reroute type of rerouter '" + myClosingLaneReroute->getRerouterIntervalParent()->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Deleting Closing lane Reroute");
             }
             delete myClosingLaneReroute;
         }
@@ -135,7 +135,7 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
         if (myDestProbReroute->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Destiny Probability Reroute of rerouter '" + myDestProbReroute->getRerouterIntervalParent()->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Deleting Destiny Probability Reroute");
             }
             delete myDestProbReroute;
         }
@@ -144,7 +144,7 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
         if (myRouteProbReroute->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Route Probability Reroute of rerouter '" + myRouteProbReroute->getRerouterIntervalParent()->getRerouterParent()->getID() + "'");
+                WRITE_WARNING("Deleting Route Probability Reroute");
             }
             delete myRouteProbReroute;
         }

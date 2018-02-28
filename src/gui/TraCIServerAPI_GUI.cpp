@@ -132,7 +132,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             off.set(v->getChanger().getXPos(), v->getChanger().getYPos(), v->getChanger().zoom2ZPos(zoom));
             p.set(off.x(), off.y(), 0);
-            v->setViewportFromTo(off, p);
+            v->setViewportFromToRot(off, p, v->getChanger().getRotation());
         }
         break;
         case VAR_VIEW_OFFSET: {
@@ -144,7 +144,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             Position off, p;
             off.set(tp.x, tp.y, v->getChanger().getZPos());
             p.set(tp.x, tp.y, 0);
-            v->setViewportFromTo(off, p);
+            v->setViewportFromToRot(off, p, v->getChanger().getRotation());
         }
         break;
         case VAR_VIEW_SCHEMA: {
