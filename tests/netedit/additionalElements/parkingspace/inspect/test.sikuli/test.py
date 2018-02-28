@@ -58,9 +58,8 @@ netedit.inspectMode()
 # inspect space
 netedit.leftClick(match, 250, 300)
 
-
 # Change parameter 0 with a non valid value (dummy)
-netedit.modifyAttribute(0, "dummyZ")
+netedit.modifyAttribute(0, "dummyX")
 
 # Change parameter 0 with a non valid value (empty)
 netedit.modifyAttribute(0, "")
