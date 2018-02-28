@@ -1277,6 +1277,7 @@ GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo,
         viewNet->getUndoList()->p_end();
     } else {
         viewNet->getNet()->insertAdditional(ParkingSpace);
+        parkingAreaParent->addAdditionalChild(ParkingSpace);
     }
     return true;
 }
