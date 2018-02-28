@@ -252,7 +252,26 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     PROGRESS_TIME_MESSAGE(before);
     // correct edge geometries to avoid overlap
     myNodeCont.avoidOverlap();
-    // guess ramps
+
+    // GUESS TLS POSITIONS
+    before = SysUtils::getCurrentMillis();
+    PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
+    if (oc.isSet("tls.set")) {
+        std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
+        TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
+        for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
+            NBNode* node = myNodeCont.retrieve(*i);
+            if (node == 0) {
+                WRITE_WARNING("Building a tl-logic for junction '" + *i + "' is not possible." + "\n The junction '" + *i + "' is not known.");
+            } else {
+                myNodeCont.setAsTLControlled(node, myTLLCont, type);
+            }
+        }
+    }
+    myNodeCont.guessTLs(oc, myTLLCont);
+    PROGRESS_TIME_MESSAGE(before);
+
+    // guess ramps (after guessing tls because ramps should not be build at traffic lights)
     if (mayAddOrRemove) {
         if ((oc.exists("ramps.guess") && oc.getBool("ramps.guess")) || (oc.exists("ramps.set") && oc.isSet("ramps.set"))) {
             before = SysUtils::getCurrentMillis();
@@ -419,32 +438,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             i->second->discardAllCrossings(false);
         }
     }
-
-    // GUESS TLS POSITIONS
-    before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Assigning nodes to traffic lights");
-    if (oc.isSet("tls.set")) {
-        std::vector<std::string> tlControlledNodes = oc.getStringVector("tls.set");
-        TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
-        for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
-            NBNode* node = myNodeCont.retrieve(*i);
-            if (node == 0) {
-                WRITE_WARNING("Building a tl-logic for junction '" + *i + "' is not possible." + "\n The junction '" + *i + "' is not known.");
-            } else {
-                myNodeCont.setAsTLControlled(node, myTLLCont, type);
-            }
-        }
-    }
-    myNodeCont.guessTLs(oc, myTLLCont);
-    PROGRESS_TIME_MESSAGE(before);
-    //
+    // join traffic lights (after building connections)
     if (oc.getBool("tls.join")) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Joining traffic light nodes");
         myNodeCont.joinTLS(myTLLCont, oc.getFloat("tls.join-dist"));
         PROGRESS_TIME_MESSAGE(before);
     }
-
 
     // COMPUTING RIGHT-OF-WAY AND TRAFFIC LIGHT PROGRAMS
     //
