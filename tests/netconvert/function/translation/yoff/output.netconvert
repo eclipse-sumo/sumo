@@ -7,6 +7,7 @@ Removing self-loops... done (0ms).
 Removing empty nodes... done (0ms).
    0 nodes removed.
 Computing turning directions... done (0ms).
+Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
 Computing edge shapes... done (0ms).
@@ -17,9 +18,8 @@ Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
 -----------------------------------------------------
@@ -33,5 +33,5 @@ Summary:
   Applied offset     : 0.00,100.00
   Converted boundary : -500.00,-400.00,500.00,600.00
 -----------------------------------------------------
-Writing network... done (1ms).
+Writing network... done (2ms).
 Success.

@@ -7,6 +7,7 @@ Removing self-loops... done (0ms).
 Removing empty nodes... done (0ms).
    0 nodes removed.
 Computing turning directions... done (0ms).
+Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
 Computing edge shapes... done (0ms).
@@ -17,7 +18,6 @@ Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (1ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
