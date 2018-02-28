@@ -104,6 +104,10 @@ set(netedit_SRCS
    GNEBusStop.cpp
    GNEContainerStop.h
    GNEContainerStop.cpp
+   GNEParkingArea.h
+   GNEParkingArea.cpp
+   GNEParkingSpace.h
+   GNEParkingSpace.cpp
    GNEDetector.h
    GNEDetector.cpp
    GNEDetectorE1.h

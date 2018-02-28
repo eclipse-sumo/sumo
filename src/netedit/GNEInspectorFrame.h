@@ -74,7 +74,7 @@ public:
             AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
 
             /// @brief show attribute of ac
-            void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+            void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value, bool customAttribute, bool customAttributeValue);
 
             /// @brief show attribute
             void hideAttribute();
@@ -103,6 +103,12 @@ public:
             std::string stripWhitespaceAfterComma(const std::string& stringValue);
 
         private:
+            /// @brief enable attribute input elements
+            void enableAttributeInputElements();
+
+            /// @brief disable attribute input elements
+            void disableAttributeInputElements();
+
             /// @brief pointer to AttributesEditor parent
             GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
 
@@ -112,8 +118,11 @@ public:
             /// @brief current Attr
             SumoXMLAttr myAttr;
 
-            /// @brief pointer to label
+            /// @brief pointer to attribute label
             FXLabel* myLabel;
+
+            /// @brief pointer to attribute label checkbox (for hiberit attributes)
+            FXCheckButton* myLabelCheckBox;
 
             /// @brief textField to modify the value of int attributes
             FXTextField* myTextFieldInt;

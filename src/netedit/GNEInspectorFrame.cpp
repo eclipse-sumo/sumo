@@ -338,6 +338,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
     myLabel->hide();
+    // Create and hide label
+    myLabelCheckBox = new FXCheckButton(this, "attributeCheckBoxLabel", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttributeLabel);
+    myLabelCheckBox->hide();
     // Create and hide textField for int attributes
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
     myTextFieldInt->hide();
@@ -357,13 +360,26 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
 
 
 void
-GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttr, const std::string& value, bool customAttribute, bool customAttributeValue) {
     // Set actual Tag and attribute
     myTag = ACTag;
     myAttr = ACAttr;
-    // Show attribute Label
-    myLabel->setText(toString(myAttr).c_str());
-    myLabel->show();
+    // enable all input values
+    enableAttributeInputElements();
+    if(customAttribute) {
+        // Show attribute checkbox Label
+        myLabelCheckBox->setText(toString(myAttr).c_str());
+        myLabelCheckBox->show();
+        myLabelCheckBox->setCheck(customAttributeValue);
+         // disable all input elements depending of customAttributeValue
+        if(!customAttributeValue) {
+            disableAttributeInputElements();
+        }
+    } else {
+        // Show attribute Label
+        myLabel->setText(toString(myAttr).c_str());
+        myLabel->show();
+    }
     // Set field depending of the type of value
     if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
         // set check button
@@ -380,7 +396,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         // Obtain choices
         const std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
         // Check if are combinable coices
-        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
+        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // hide label
             myLabel->hide();
             // Show button combinable choices
@@ -427,6 +443,7 @@ void
 GNEInspectorFrame::AttributesEditor::AttributeInput::hideAttribute() {
     // Hide all elements
     myLabel->hide();
+    myLabelCheckBox->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
     myTextFieldStrings->hide();
@@ -499,123 +516,147 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAllowDisallowEdito
 
 
 long
-GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     bool refreshGEOAndNeteditEditors = false;
     // First, obtain the string value of the new attribute depending of their type
-    if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
+    if(obj == myLabelCheckBox) {
         // Set true o false depending of the checBox
-        if (myBoolCheckButton->getCheck()) {
-            myBoolCheckButton->setText("true");
+        if (myLabelCheckBox->getCheck()) {
             newVal = "true";
+            enableAttributeInputElements();
         } else {
-            myBoolCheckButton->setText("false");
             newVal = "false";
+            disableAttributeInputElements();
         }
-    } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
-        // Obtain choices
-        const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
-        // Check if are combinable choices (for example, Vehicle Types)
-        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
-            // Get value obtained using AttributesEditor
-            newVal = myTextFieldStrings->getText().text();
-        } else {
-            // Get value of ComboBox
-            newVal = myChoicesCombo->getText().text();
-        }
-    } else if (GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) {
-        // Check if default value of attribute must be set
-        if (myTextFieldReal->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
-            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
-            myTextFieldReal->setText(newVal.c_str());
-        } else {
-            // obtain value of myTextFieldReal
-            newVal = myTextFieldReal->getText().text();
-        }
-    } else if (GNEAttributeCarrier::isInt(myTag, myAttr)) {
-        // Check if default value of attribute must be set
-        if (myTextFieldInt->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
-            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
-            myTextFieldInt->setText(newVal.c_str());
-        } else {
-            // obtain value of myTextFieldInt
-            newVal = myTextFieldInt->getText().text();
-        }
-    } else if (GNEAttributeCarrier::isString(myTag, myAttr)) {
-        // Check if default value of attribute must be set
-        if (myTextFieldStrings->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
-            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
-            myTextFieldStrings->setText(newVal.c_str());
-        } else {
-            // obtain value of myTextFieldStrings
-            newVal = myTextFieldStrings->getText().text();
-        }
-    }
-
-    // we need a extra check for Position and Shape Values, due #2658
-    if ((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
-        newVal = stripWhitespaceAfterComma(newVal);
-        // due we're changing a Position and Shape attribute, GEO and Netedit Editors must be refresh
-        refreshGEOAndNeteditEditors = true;
-    }
-
-    // Check if attribute must be changed
-    if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->isValid(myAttr, newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
         }
-        // Set new value of attribute in all selected ACs
+        // Set new value of custom attribute in all selected ACs
         for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
-            it_ac->setAttribute(myAttr, newVal, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
+            it_ac->setAttribute(GNEAttributeCarrier::canAttributeInheritFromParent(myTag, myAttr), newVal, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
         }
         // finish change multiple attributes
         if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
         }
-        // If previously value was incorrect, change font color to black
-        if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
-            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldStrings->killFocus();
-            // in this case, we need to refresh the other values (For example, allow/Disallow objects)
-            myAttributesEditorParent->refreshAttributeEditor(false, false);
-        } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
-            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
-            myChoicesCombo->killFocus();
-        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr))) {
-            myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldReal->killFocus();
-        } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
-            myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldInt->killFocus();
-        } else if (myTextFieldStrings != 0) {
-            myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-            myTextFieldStrings->killFocus();
-        }
-        // Check if GEO and Netedit editors must be refresh
-        if(refreshGEOAndNeteditEditors) {
-            myAttributesEditorParent->getInspectorFrameParent()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
-            myAttributesEditorParent->getInspectorFrameParent()->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
-        }
     } else {
-        // If value of TextField isn't valid, change color to Red depending of type
-        if (GNEAttributeCarrier::discreteCombinableChoices(myTag, myAttr)) {
-            myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
-            myTextFieldStrings->killFocus();
+
+        if (GNEAttributeCarrier::isBool(myTag, myAttr)) {
+            // Set true o false depending of the checkBox
+            if (myBoolCheckButton->getCheck()) {
+                myBoolCheckButton->setText("true");
+                newVal = "true";
+            } else {
+                myBoolCheckButton->setText("false");
+                newVal = "false";
+            }
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
-            myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
-            myChoicesCombo->killFocus();
-        } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr))) {
-            myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
-        } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
-            myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
-        } else if (myTextFieldStrings != 0) {
-            myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+            // Obtain choices
+            const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
+            // Check if are combinable choices (for example, Vehicle Types)
+            if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+                // Get value obtained using AttributesEditor
+                newVal = myTextFieldStrings->getText().text();
+            } else {
+                // Get value of ComboBox
+                newVal = myChoicesCombo->getText().text();
+            }
+        } else if (GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr)) {
+            // Check if default value of attribute must be set
+            if (myTextFieldReal->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+                newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+                myTextFieldReal->setText(newVal.c_str());
+            } else {
+                // obtain value of myTextFieldReal
+                newVal = myTextFieldReal->getText().text();
+            }
+        } else if (GNEAttributeCarrier::isInt(myTag, myAttr)) {
+            // Check if default value of attribute must be set
+            if (myTextFieldInt->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+                newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+                myTextFieldInt->setText(newVal.c_str());
+            } else {
+                // obtain value of myTextFieldInt
+                newVal = myTextFieldInt->getText().text();
+            }
+        } else if (GNEAttributeCarrier::isString(myTag, myAttr)) {
+            // Check if default value of attribute must be set
+            if (myTextFieldStrings->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+                newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+                myTextFieldStrings->setText(newVal.c_str());
+            } else {
+                // obtain value of myTextFieldStrings
+                newVal = myTextFieldStrings->getText().text();
+            }
         }
-        // Write Warning in console if we're in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
+
+        // we need a extra check for Position and Shape Values, due #2658
+        if ((myAttr == SUMO_ATTR_POSITION) || (myAttr == SUMO_ATTR_SHAPE)) {
+            newVal = stripWhitespaceAfterComma(newVal);
+            // due we're changing a Position and Shape attribute, GEO and Netedit Editors must be refresh
+            refreshGEOAndNeteditEditors = true;
+        }
+
+        // Check if attribute must be changed
+        if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->isValid(myAttr, newVal)) {
+            // if its valid for the first AC than its valid for all (of the same type)
+            if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+                myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+            }
+            // Set new value of attribute in all selected ACs
+            for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
+                it_ac->setAttribute(myAttr, newVal, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
+            }
+            // finish change multiple attributes
+            if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+                myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
+            }
+            // If previously value was incorrect, change font color to black
+            if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+                myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldStrings->killFocus();
+                // in this case, we need to refresh the other values (For example, allow/Disallow objects)
+                myAttributesEditorParent->refreshAttributeEditor(false, false);
+            } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+                myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
+                myChoicesCombo->killFocus();
+            } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr))) {
+                myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldReal->killFocus();
+            } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
+                myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldInt->killFocus();
+            } else if (myTextFieldStrings != 0) {
+                myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldStrings->killFocus();
+            }
+            // Check if GEO and Netedit editors must be refresh
+            if(refreshGEOAndNeteditEditors) {
+                myAttributesEditorParent->getInspectorFrameParent()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
+                myAttributesEditorParent->getInspectorFrameParent()->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
+            }
+        } else {
+            // If value of TextField isn't valid, change color to Red depending of type
+            if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+                myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+                myTextFieldStrings->killFocus();
+            } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+                myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
+                myChoicesCombo->killFocus();
+            } else if ((GNEAttributeCarrier::isFloat(myTag, myAttr) || GNEAttributeCarrier::isTime(myTag, myAttr))) {
+                myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
+            } else if (GNEAttributeCarrier::isInt(myTag, myAttr) && myTextFieldStrings != 0) {
+                myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
+            } else if (myTextFieldStrings != 0) {
+                myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
+            }
+            // Write Warning in console if we're in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
+            }
         }
     }
     return 1;
@@ -629,6 +670,26 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::stripWhitespaceAfterComma(c
         result = StringUtils::replace(result, ", ", ",");
     }
     return result;
+}
+
+
+void 
+GNEInspectorFrame::AttributesEditor::AttributeInput::enableAttributeInputElements() {
+    myTextFieldInt->enable();
+    myTextFieldReal->enable();
+    myTextFieldStrings->enable();
+    myChoicesCombo->enable();
+    myBoolCheckButton->enable();
+}
+
+
+void 
+GNEInspectorFrame::AttributesEditor::AttributeInput::disableAttributeInputElements() {
+    myTextFieldInt->disable();
+    myTextFieldReal->disable();
+    myTextFieldStrings->disable();
+    myChoicesCombo->disable();
+    myBoolCheckButton->disable();
 }
 
 // ===========================================================================
@@ -662,6 +723,17 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
 
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
+            // check if is an custom attribute, and if is enabled
+            SumoXMLAttr customAttr = GNEAttributeCarrier::canAttributeInheritFromParent(ACFrontTag, it);
+            bool customAttribute = false;
+            bool customAttributeValue = true;
+            if (customAttr != SUMO_ATTR_NOTHING) {
+                customAttribute = true;
+                for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
+                    customAttributeValue &= GNEAttributeCarrier::parse<bool>(it_ac->getAttribute(customAttr));
+                }
+            }
+
             // disable editing for unique attributes in case of multi-selection
             if (myInspectorFrameParent->getInspectedACs().size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
                 continue;
@@ -685,7 +757,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
                     // first show AttributesEditor
                     show();
                     // show attribute
-                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it, oss.str());
+                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it, oss.str(), customAttribute, customAttributeValue);
                     // update current index
                     myCurrentIndex++;
                 }

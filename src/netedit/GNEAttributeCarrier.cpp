@@ -49,7 +49,6 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myHasParentTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoPositionTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
@@ -65,7 +64,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myPositiveAttr
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myFileAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::mySVCPermissionsAttrs;
-std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalWithParentTags;
+std::map<SumoXMLTag, std::pair<SumoXMLTag, std::vector<SumoXMLAttr> > > GNEAttributeCarrier::myAdditionalWithParentsAndAttributes;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::pair<std::string, std::string> > > GNEAttributeCarrier::myAttrDefinitions;
 int GNEAttributeCarrier::myMaxNumAttribute = 0;
@@ -546,6 +545,26 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTTIME, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "10"));
                 break;
+            case SUMO_TAG_PARKING_AREA:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROADSIDE_CAPACITY, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NAME, ""));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
+                break;
+            case SUMO_TAG_PARKING_SPACE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Z, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
+                break;
             case SUMO_TAG_FLOW:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, NODEFAULTVALUE));
@@ -667,20 +686,25 @@ const std::vector<SumoXMLTag>&
 GNEAttributeCarrier::allowedAdditionalTags() {
     // define on first access
     if (myAllowedAdditionalTags.empty()) {
+        // Stopping Places
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_LANECALIBRATOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_ENTRY);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_EXIT);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_AREA);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_SPACE);
+        // Detectors
         myAllowedAdditionalTags.push_back(SUMO_TAG_E1DETECTOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_E2DETECTOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_E3DETECTOR);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_ENTRY);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_EXIT);
+        // Related with GNERoute Elements
         myAllowedAdditionalTags.push_back(SUMO_TAG_REROUTER);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_LANECALIBRATOR);
         myAllowedAdditionalTags.push_back(SUMO_TAG_ROUTEPROBE);
         myAllowedAdditionalTags.push_back(SUMO_TAG_VAPORIZER);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
     }
     return myAllowedAdditionalTags;
 }
@@ -715,6 +739,8 @@ GNEAttributeCarrier::canBlockMovement(SumoXMLTag tag) {
         myBlockMovementTags.push_back(SUMO_TAG_POI);
         myBlockMovementTags.push_back(SUMO_TAG_POILANE);
         myBlockMovementTags.push_back(SUMO_TAG_POLY);
+        myBlockMovementTags.push_back(SUMO_TAG_PARKING_AREA);
+        myBlockMovementTags.push_back(SUMO_TAG_PARKING_SPACE);
     }
     return std::find(myBlockMovementTags.begin(), myBlockMovementTags.end(), tag) != myBlockMovementTags.end();
 }
@@ -743,11 +769,16 @@ GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
 bool 
 GNEAttributeCarrier::canHaveParent(SumoXMLTag tag) {
     // define on first access
-    if (myHasParentTags.empty()) {
-        myHasParentTags.push_back(SUMO_TAG_DET_ENTRY);
-        myHasParentTags.push_back(SUMO_TAG_DET_EXIT);
+    if (myAdditionalWithParentsAndAttributes.empty()) {
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_DET_ENTRY].first = SUMO_TAG_E3DETECTOR;
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_DET_EXIT].first = SUMO_TAG_E3DETECTOR;
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].first = SUMO_TAG_PARKING_AREA;
+        // add attributes that can depends of parent
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_WIDTH);
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_LENGTH);
+        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_ANGLE);
     }
-    return std::find(myHasParentTags.begin(), myHasParentTags.end(), tag) != myHasParentTags.end();
+    return myAdditionalWithParentsAndAttributes.find(tag) != myAdditionalWithParentsAndAttributes.end();
 }
 
 
@@ -820,6 +851,8 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalIntAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_LAYER);
         // Layer
         myNumericalIntAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_LAYER);
+        // ParkingArea
+        myNumericalIntAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ROADSIDE_CAPACITY);
     }
     return myNumericalIntAttrs[tag].count(attr) == 1;
 }
@@ -830,20 +863,20 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
     // define on first access
     if (myNumericalFloatAttrs.empty()) {
         // bus stop
-        myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
         // charging station
+        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_CHARGINGPOWER);
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_EFFICIENCY);
-        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
-        myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
         // connection
         myNumericalFloatAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_CONTPOS);
         myNumericalFloatAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_VISIBILITY_DISTANCE);
         myNumericalFloatAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_SPEED);
         // container stop
-        myNumericalFloatAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
         myNumericalFloatAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
         // crossing
         myNumericalFloatAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_WIDTH);
         // E1
@@ -908,7 +941,21 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_WIDTH);
         myNumericalFloatAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_HEIGHT);
         // offset value
-        myListAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VALUE);
+        myNumericalFloatAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VALUE);
+        // Parking Area
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_STARTPOS);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ENDPOS);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ANGLE);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_WIDTH);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LENGTH);
+        // Parking Space
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_X);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Y);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Z);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_ANGLE);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_WIDTH);
+        myNumericalFloatAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_LENGTH);
+
     }
     return myNumericalFloatAttrs[tag].count(attr) == 1;
 }
@@ -996,6 +1043,8 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         // POILane
         myBoolAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_GEO);
         myBoolAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_RELATIVEPATH);
+        // Parking Area
+        myBoolAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_FRIENDLY_POS);
     }
     return myBoolAttrs[tag].count(attr) == 1;
 }
@@ -1062,31 +1111,30 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
         // define on first access
         if (myUniqueAttrs.empty()) {
             // connection
+            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM);
             myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM_LANE);
             myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO);
             myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO_LANE);
+            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_CUSTOMSHAPE);
             // edge
             myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_FROM);
             myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_TO);
             // busstop
+            myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
+            // container stop
+            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
+            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
+            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_LANE);
+            // charging station
+            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
+            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
+            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_LANE);
             // calibrator (edge)
             myUniqueAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_EDGE);
             // calibrator (lane)
             myUniqueAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_LANE);
-            // charging station
-            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
-            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
-            // connection
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM);
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_CUSTOMSHAPE);
-            // container stop
-            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
-            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
             // crossing
             myUniqueAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_EDGES);
             myUniqueAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_CUSTOMSHAPE);
@@ -1135,6 +1183,13 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             // POLY
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
             myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEOSHAPE);
+            // Parking Area
+            myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_STARTPOS);
+            myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ENDPOS);
+            myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LANE);
+            // Parking Space
+            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_X);
+            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Y);
         }
         return myUniqueAttrs[tag].count(attr) == 1;
     }
@@ -1215,6 +1270,13 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         myPositiveAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION);
         // offset value
         myPositiveAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VALUE);
+        // Parking Area
+        myPositiveAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ROADSIDE_CAPACITY);
+        myPositiveAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_WIDTH);
+        myPositiveAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LENGTH);
+        // Parking Space
+        myPositiveAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_WIDTH);
+        myPositiveAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_LENGTH);
     }
     return myPositiveAttrs[tag].count(attr) == 1;
 }
@@ -1388,8 +1450,37 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
+SumoXMLTag 
+GNEAttributeCarrier::getAdditionalParentTag(SumoXMLTag tag) {
+    if(canHaveParent(tag)) {
+        return myAdditionalWithParentsAndAttributes[tag].first;
+    } else {
+        return SUMO_TAG_NOTHING;
+    }
+}
+
+
+SumoXMLAttr 
+GNEAttributeCarrier::canAttributeInheritFromParent(SumoXMLTag tag, SumoXMLAttr attr) {
+    if(canHaveParent(tag) && std::find(myAdditionalWithParentsAndAttributes[tag].second.begin(), myAdditionalWithParentsAndAttributes[tag].second.end(), attr) != myAdditionalWithParentsAndAttributes[tag].second.end()) {
+        switch (attr) {
+            case SUMO_ATTR_WIDTH:
+                return GNE_ATTR_CUSTOM_WIDTH;
+            case SUMO_ATTR_LENGTH:
+                return GNE_ATTR_CUSTOM_LENGTH;
+            case SUMO_ATTR_ANGLE:
+                return GNE_ATTR_CUSTOM_ANGLE;
+            default:
+                return SUMO_ATTR_NOTHING;
+        }
+    } else {
+        return SUMO_ATTR_NOTHING;
+    }
+}
+
+
 bool
-GNEAttributeCarrier::discreteCombinableChoices(SumoXMLTag, SumoXMLAttr attr) {
+GNEAttributeCarrier::discreteCombinableChoices(SumoXMLAttr attr) {
     return (attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW);
 }
 
@@ -1493,27 +1584,27 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_SPEED] = setAttrDefinition("sets custom speed limit for the connection.");
         myAttrDefinitions[SUMO_TAG_CONNECTION][SUMO_ATTR_CUSTOMSHAPE] = setAttrDefinition("sets custom shape for the connection.");
         // Bus Stop
-        myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_ID] = setAttrDefinition("The id of busStop", "Unique");
+        myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_ID] = setAttrDefinition("The id of bus stop", "Unique");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the bus stop shall be located at");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_STARTPOS] = setAttrDefinition("The begin position on the lane (the lower position on the lane) in meters");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_ENDPOS] = setAttrDefinition("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
-        myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_NAME] = setAttrDefinition("Name of busStop");
+        myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_NAME] = setAttrDefinition("Name of bus stop");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LINES] = setAttrDefinition("Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
         // container Stop
-        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ID] = setAttrDefinition("The id of containerStop", "Unique");
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ID] = setAttrDefinition("The id of container stop", "Unique");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the container stop shall be located at");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_STARTPOS] = setAttrDefinition("The begin position on the lane (the lower position on the lane) in meters");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ENDPOS] = setAttrDefinition("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
-        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_NAME] = setAttrDefinition("Name of busStop");
+        myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_NAME] = setAttrDefinition("Name of Container Stop");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LINES] = setAttrDefinition("meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
         // Charging Station
-        myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_ID] = setAttrDefinition("The id of chargingStation", "Unique");
+        myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_ID] = setAttrDefinition("The id of charging station", "Unique");
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_LANE] = setAttrDefinition("Lane of the charging station location");
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_STARTPOS] = setAttrDefinition("Begin position in the specified lane");
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_ENDPOS] = setAttrDefinition("End position in the specified lane");
-        myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_NAME] = setAttrDefinition("Name of busStop");
+        myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_NAME] = setAttrDefinition("Name of Charging Station");
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_CHARGINGPOWER] = setAttrDefinition("Charging power in W");
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_EFFICIENCY] = setAttrDefinition("Charging efficiency [0,1]");
         myAttrDefinitions[SUMO_TAG_CHARGING_STATION][SUMO_ATTR_CHARGEINTRANSIT] = setAttrDefinition("Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging");
@@ -1587,6 +1678,23 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_ROUTEPROBE][SUMO_ATTR_FREQUENCY] = setAttrDefinition("The frequency in which to report the distribution");
         myAttrDefinitions[SUMO_TAG_ROUTEPROBE][SUMO_ATTR_FILE] = setAttrDefinition("The file for generated output");
         myAttrDefinitions[SUMO_TAG_ROUTEPROBE][SUMO_ATTR_BEGIN] = setAttrDefinition("The time at which to start generating output");
+        // Parking Area
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_ID] = setAttrDefinition("The id of ParkingArea", "Unique");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the Parking Area shall be located at");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_STARTPOS] = setAttrDefinition("The begin position on the lane (the lower position on the lane) in meters");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_ENDPOS] = setAttrDefinition("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_NAME] = setAttrDefinition("Name of Parking Area");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_WIDTH] = setAttrDefinition("The width of the road-side parking spaces");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_LENGTH] = setAttrDefinition("The length of the road-side parking spaces");
+        myAttrDefinitions[SUMO_TAG_PARKING_AREA][SUMO_ATTR_ANGLE] = setAttrDefinition("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise");
+        // Parking Space
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_X] = setAttrDefinition("The X position in meters of the parking vehicle");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_Y] = setAttrDefinition("The Y positions in meters of the parking vehicle");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_Z] = setAttrDefinition("The Z position in meters of the parking vehicle");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_WIDTH] = setAttrDefinition("The width of the road-side parking spaces");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_LENGTH] = setAttrDefinition("The length of the road-side parking spaces");
+        myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_ANGLE] = setAttrDefinition("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise");
         // flow
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_TYPE] = setAttrDefinition("The id of the vehicle type to use for this vehicle.");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_ROUTE] = setAttrDefinition("The id of the route the vehicle shall drive along");

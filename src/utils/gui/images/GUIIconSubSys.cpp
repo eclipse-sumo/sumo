@@ -156,6 +156,8 @@
 #include "busstop.xpm"
 #include "chargingstation.xpm"
 #include "containerstop.xpm"
+#include "parkingarea.xpm"
+#include "parkingspace.xpm"
 #include "e1.xpm"
 #include "e2.xpm"
 #include "e3.xpm"
@@ -345,6 +347,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
     myIcons[ICON_CONTAINERSTOP] = new FXXPMIcon(a, containerstop_xpm);
     myIcons[ICON_CHARGINGSTATION] = new FXXPMIcon(a, chargingstation_xpm);
+    myIcons[ICON_PARKINGAREA] = new FXXPMIcon(a, parkingarea_xpm);
+    myIcons[ICON_PARKINGSPACE] = new FXXPMIcon(a, parkingspace_xpm);
     myIcons[ICON_E1] = new FXXPMIcon(a, e1_xpm);
     myIcons[ICON_E2] = new FXXPMIcon(a, e2_xpm);
     myIcons[ICON_E3] = new FXXPMIcon(a, e3_xpm);

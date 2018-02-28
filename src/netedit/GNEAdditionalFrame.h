@@ -61,7 +61,7 @@ public:
     // class AdditionalSelector
     // ===========================================================================
 
-    class AdditionalSelector : public FXGroupBox {
+    class AdditionalSelector : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalSelector)
 
@@ -103,7 +103,7 @@ public:
     // class AdditionalAttributeSingle
     // ===========================================================================
 
-    class AdditionalAttributeSingle : public FXHorizontalFrame {
+    class AdditionalAttributeSingle : protected FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalAttributeSingle)
 
@@ -181,7 +181,7 @@ public:
     // class AdditionalAttributeList
     // ===========================================================================
 
-    class AdditionalAttributeList : public FXVerticalFrame {
+    class AdditionalAttributeList : protected FXVerticalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalAttributeList)
 
@@ -253,9 +253,13 @@ public:
     // class AdditionalAttributes
     // ===========================================================================
 
-    class AdditionalAttributes : public FXGroupBox {
+    class AdditionalAttributes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::AdditionalAttributes)
+
+        /// @brief friend class declaration
+        friend class AdditionalAttributeSingle;
+        friend class AdditionalAttributeList;
 
     public:
         /// @brief constructor
@@ -328,7 +332,7 @@ public:
     // class NeteditAttributes
     // ===========================================================================
 
-    class NeteditAttributes : public FXGroupBox {
+    class NeteditAttributes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::NeteditAttributes)
 
@@ -348,10 +352,10 @@ public:
         ~NeteditAttributes();
 
         /// @brief show length field and reference point
-        void showLengthAndReferencePoint();
+        void showNeteditAttributes(bool includeLengthAndReferencePoint);
 
-        /// @brief hide length field
-        void hideLengthAndReferencePoint();
+        /// @brief show length field and reference point
+        void hideNeteditAttributes();
 
         /// @brief get actual reference point
         additionalReferencePoint getActualReferencePoint() const;
@@ -414,10 +418,7 @@ public:
     // class SelectorParentAdditional
     // ===========================================================================
 
-    class SelectorParentAdditional : public FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentAdditional)
-
+    class SelectorParentAdditional : protected FXGroupBox {
     public:
         /// @brief constructor
         SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent);
@@ -425,44 +426,34 @@ public:
         /// @brief destructor
         ~SelectorParentAdditional();
 
-        /// @brief get if currently additional Set
+        /// @brief get currently additional parent selected
         std::string getIdSelected() const;
 
+        /// @brief select manually a element of the list
+        void setIDSelected(const std::string &id);
+
         /// @brief Show list of SelectorParentAdditional
-        void showListOfAdditionals(SumoXMLTag type, bool uniqueSelection);
+        void showListOfAdditionals(SumoXMLTag additionalType);
 
         /// @brief hide SelectorParentAdditional
         void hideListOfAdditionals();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user select an SelectorParentAdditional of the list
-        long onCmdSelectAdditionalParent(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        SelectorParentAdditional() {}
 
     private:
         /// @brief pointer to Additional Frame Parent
         GNEAdditionalFrame * myAdditionalFrameParent;
 
-        /// @brief List of additional sets
-        FXList* myList;
-
         /// @brief Label with the name of additional
-        FXLabel* mySetLabel;
+        FXLabel* myAdditionalParentsLabel;
 
-        /// @brief flag to check if only a single parent is allowed
-        bool myUniqueSelection;
+        /// @brief List of additional sets
+        FXList* myAdditionalParentsList;
     };
 
     // ===========================================================================
     // class SelectorParentEdges
     // ===========================================================================
 
-    class SelectorParentEdges : public FXGroupBox {
+    class SelectorParentEdges : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorParentEdges)
 
@@ -534,7 +525,7 @@ public:
     // class SelectorParentLanes
     // ===========================================================================
 
-    class SelectorParentLanes : public FXGroupBox {
+    class SelectorParentLanes : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
 
@@ -612,11 +603,11 @@ public:
     ~GNEAdditionalFrame();
 
     /**@brief add additional element
-     * @param[in] netElement clicked netElement. if user dind't clicked over a GNENetElement in view, netElement will be NULL
-     * @param[in] parent AbstractView to obtain the position of the mouse over the lane.
+     * @param[in] netElement clicked GNENetElement. If user doesn't clicked over a GNENetElement in view, netElement will be NULL
+     * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be NULL
      * @return AddAdditionalStatus with the result of operation
      */
-    AddAdditionalResult addAdditional(GNENetElement* netElement, GUISUMOAbstractView* abstractViewParent);
+    AddAdditionalResult addAdditional(GNENetElement* netElement, GNEAdditional* additional);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase

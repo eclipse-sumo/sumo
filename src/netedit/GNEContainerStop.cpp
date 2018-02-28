@@ -72,7 +72,7 @@ GNEContainerStop::updateGeometry() {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry();
+    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex())/2);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;

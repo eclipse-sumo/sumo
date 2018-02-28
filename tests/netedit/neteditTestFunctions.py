@@ -828,11 +828,9 @@ def selectAdditionalChild(numTabs, childNumber):
     for x in range(0, numTabs + 1):
         typeTab()
     # select child
-    if(childNumber == 0):
-        typeSpace()
-    else:
-        for x in range(0, childNumber):
-            typeKey(Key.DOWN)
+    for x in range(0, childNumber):
+        typeKey(Key.DOWN)
+    typeSpace()
     # use TAB to select additional child
     typeTab()
 

@@ -112,6 +112,9 @@
 
 /// @brief checkButton without thick extended over the frame used for attributes
 #define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+
+/// @brief checkButton with thick extended over the frame used for attributes
+#define GUIDesignCheckButtonAttributeLabel  (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
 /// @}
 
 
@@ -423,6 +426,9 @@
 
 /// @brief design for FXLists
 #define GUIDesignList                           (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+
+/// @brief design for FXLists that only allow a single selected elements
+#define GUIDesignListSingleElement              (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_SINGLESELECT)
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)

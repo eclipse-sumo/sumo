@@ -77,7 +77,7 @@ GNEChargingStation::updateGeometry() {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry();
+    setStoppingPlaceGeometry(0);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;

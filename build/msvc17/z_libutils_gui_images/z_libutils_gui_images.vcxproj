@@ -250,6 +250,8 @@
     <None Include="..\..\..\src\utils\gui\images\paintbrush3x.xpm" />
     <None Include="..\..\..\src\utils\gui\images\paintbrush4x.xpm" />
     <None Include="..\..\..\src\utils\gui\images\paintbrush5x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\parkingarea.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\parkingspace.xpm" />
     <None Include="..\..\..\src\utils\gui\images\play.xpm" />
     <None Include="..\..\..\src\utils\gui\images\prohibition.xpm" />
     <None Include="..\..\..\src\utils\gui\images\rarify.xpm" />

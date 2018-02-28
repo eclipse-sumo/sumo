@@ -240,6 +240,8 @@ enum GUIIcon {
     ICON_VAPORIZER,
     ICON_VARIABLESPEEDSIGN,
     ICON_CALIBRATOR,
+    ICON_PARKINGAREA,
+    ICON_PARKINGSPACE,
     /// @}
 
     /// @name vehicle Class icons

@@ -369,6 +369,12 @@
     <ClCompile Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.cpp">
       <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEParkingArea.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\GNEParkingSpace.cpp">
+      <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
@@ -618,6 +624,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.h">
       <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEParkingArea.h">
+      <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\GNEParkingSpace.h">
+      <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
