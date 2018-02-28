@@ -2,16 +2,8 @@ Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding parkingArea 'parkingAreaLoaded_A' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingAreaLoaded_Aspace0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingAreaLoaded_B' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingAreaLoaded_Bspace0' in GNEChange_Additional
 Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected additional 'parkingArea' in AdditionalSelector
