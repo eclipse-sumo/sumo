@@ -17,9 +17,17 @@ Warning: Adding TLS into junction 'gneJ1'
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Adding TLS into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Setting new attribute type 'priority' into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Setting new attribute type 'priority' into junction 'gneJ0'
 Warning: Removing edge 'gneE1' from net
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding edge 'gneE1' from net
+Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
+Warning: Adding TLS into junction 'gneJ0'
+Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
+Warning: Adding TLS into junction 'gneJ1'
 Warning: Removing TLS from junction 'gneJ1'
 Warning: Adding TLS into junction 'gneJ1'
 Warning: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
@@ -49,10 +57,12 @@ Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Adding TLS into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Setting new attribute type 'priority' into junction 'gneJ1'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Setting new attribute type 'priority' into junction 'gneJ0'
 Warning: Removing edge 'gneE1' from net
 Warning: Additionals saved
-Warning: The traffic light 'gneJ0' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'gneJ0'
 Warning: Deleting unreferenced edge 'gneE1' GNEChange_Edge
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced rerouter 'rerouter_3'

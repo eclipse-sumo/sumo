@@ -16,12 +16,12 @@ Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Format of optional string attribute 'lanes' of variableSpeedSign with ID 'variableSpeedSign_0' is invalid; Default value '' will be used.
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Loaded texture E3 in GUITextureSubSys::getTexture
-Warning: Loaded texture Rerouter in GUITextureSubSys::getTexture
 Warning: Loaded texture Route Probe in GUITextureSubSys::getTexture
 Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Loaded texture Vaporizer in GUITextureSubSys::getTexture
+Warning: Loaded texture Rerouter in GUITextureSubSys::getTexture
+Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional

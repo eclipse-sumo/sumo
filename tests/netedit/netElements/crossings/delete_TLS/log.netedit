@@ -126,24 +126,24 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Deleting TLS from junction 'Center'
+Warning: Setting new attribute type 'priority' into junction 'Center'
 Warning: Removing edge '7' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Removing edge '3' from net
-Warning: Deleting TLS from junction 'Center'
-Warning: Setting new attribute type 'priority' into junction 'Center'
 Warning: Removing junction 'Center' from net
 Warning: Key F5 (Compute) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'Center' into net
-Warning: Setting previous attribute type 'traffic_light' into junction 'Center'
-Warning: Adding TLS into junction 'Center'
 Warning: Adding edge '3' from net
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Adding edge '7' from net
+Warning: Setting previous attribute type 'traffic_light' into junction 'Center'
+Warning: Adding TLS into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
@@ -343,13 +343,13 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Deleting TLS from junction 'Center'
+Warning: Setting new attribute type 'priority' into junction 'Center'
 Warning: Removing edge '7' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Removing edge '3' from net
-Warning: Deleting TLS from junction 'Center'
-Warning: Setting new attribute type 'priority' into junction 'Center'
 Warning: Removing junction 'Center' from net
 Warning: Key F5 (Compute) pressed
 Warning: Deleting unreferenced edge '3' in GNEChange_Attribute
