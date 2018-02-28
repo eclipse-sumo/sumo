@@ -218,6 +218,9 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
     myVehicle.enterLaneAtLaneChange(target);
     target->enteredByLaneChange(&myVehicle);
     laneChangeOutput("change", source, target, direction);
+    // Assure that the drive items are up to date (even if the following step is no actionstep for the vehicle).
+    // This is necessary because the lane advance uses the target lane from the corresponding drive item.
+    myVehicle.updateDriveItems();
     changed();
 }
 
@@ -247,8 +250,6 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
         }
         of.closeTag();
     }
-    // Assure that the drive items are up to date (even if the following step is no actionstep for the vehicle).
-    myVehicle.updateDriveItems();
 }
 
 
