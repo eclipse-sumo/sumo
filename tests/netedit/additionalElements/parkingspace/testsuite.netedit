@@ -15,10 +15,10 @@ delete
 load
 
 # move additional
-#move
+move
 
 # lock/unlock additional
-#lock_unlock
+lock_unlock
 
 # volatile recomputing
 volatileRecomputing
