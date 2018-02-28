@@ -304,9 +304,7 @@ GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     double moveY = 0;
     double moveFactor = 1;
     bool pageVertical = true;
-    bool ctrl = false;
     if (e->state & CONTROLMASK) {
-        ctrl = true;
         zoomDiff /= 2;
         moveFactor /= 10;
     } else if (e->state & SHIFTMASK) {
