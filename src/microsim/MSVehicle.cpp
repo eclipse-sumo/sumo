@@ -2528,7 +2528,7 @@ MSVehicle::updateDriveItems() {
                     << " request=" << (*i).mySetRequest
                     << "\n";
         }
-        std::cout << " myNextDriveItem's linkLane: " << (myNextDriveItem->myLink == 0 ? "NULL" : myNextDriveItem->myLink->getViaLaneOrLane()->getID()) << std::endl;
+        std::cout << " myNextDriveItem's linked lane: " << (myNextDriveItem->myLink == 0 ? "NULL" : myNextDriveItem->myLink->getViaLaneOrLane()->getID()) << std::endl;
     }
 #endif
     if (myLFLinkLanes.size() == 0) {
@@ -2589,10 +2589,9 @@ MSVehicle::updateDriveItems() {
     DriveItemVector::iterator driveItemIt = myNextDriveItem;
     // In the loop below, lane holds the currently considered lane on the vehicles continuation (including internal lanes)
     MSLane* lane = myLane;
+    assert(myLane == parallelLink->getLaneBefore());
     // *lit is a pointer to the next lane in best continuations for the current lane (always non-internal)
-    std::vector<MSLane*>::const_iterator bestLaneIt = getBestLanesContinuation().begin();
-    // if the vehicle's current lane is internal, the first entry in the best continuations is null
-    assert((*bestLaneIt) == 0 || !myLane->isInternal());
+    std::vector<MSLane*>::const_iterator bestLaneIt = getBestLanesContinuation().begin()+1;
     // Pointer to the new link for the current drive process item
     MSLink* newLink = 0;
     while (driveItemIt != myLFLinkLanes.end()) {
@@ -2602,10 +2601,6 @@ MSVehicle::updateDriveItems() {
             //       the update necessary, this may slow down the vehicle's continuation on the new lane...)
             ++driveItemIt;
             continue;
-        }
-        // Set nextBestLane to the next non-null consecutive lane entry
-        while (bestLaneIt != getBestLanesContinuation().end() && (*bestLaneIt == 0 || (*bestLaneIt)->getID() == myLane->getID())) {
-            ++bestLaneIt;
         }
         // Continuation links for current best lanes are less than for the former drive items (myLFLinkLanes)
         // We just remove the leftover link-items, as they cannot be mapped to new links.
@@ -2643,9 +2638,8 @@ MSVehicle::updateDriveItems() {
 
 #ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
-            std::cout << "Updating link\n'" << driveItemIt->myLink->getLaneBefore()->getID() << "'->'" << driveItemIt->myLink->getViaLaneOrLane()->getID() << "'"
-                      << std::endl;
-            std::cout << "\n'" << newLink->getLaneBefore()->getID() << "'->'" << newLink->getViaLaneOrLane()->getID() << "'" << std::endl;
+            std::cout << "lane=" << lane->getID() << "\nUpdating link\n    '" << driveItemIt->myLink->getLaneBefore()->getID() << "'->'" << driveItemIt->myLink->getViaLaneOrLane()->getID() << "'"
+                      << "==> " << "'" << newLink->getLaneBefore()->getID() << "'->'" << newLink->getViaLaneOrLane()->getID() << "'" << std::endl;
         }
 #endif
         newLink->setApproaching(this, driveItemIt->myLink->getApproaching(this));
