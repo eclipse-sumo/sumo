@@ -12,7 +12,7 @@ delete
 #inspect_selection
 
 # load additional
-#load
+load
 
 # move additional
 #move
