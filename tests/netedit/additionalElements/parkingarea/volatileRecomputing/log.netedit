@@ -1,51 +1,21 @@
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding parkingArea 'parkingArea_gneE0_0_7' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE0_0_7space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE1_0_6' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE1_0_6space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE2_0_5' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE2_0_5space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE2_1_4' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE2_1_4space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE2_2_3' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE2_2_3space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE2_3_2' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE2_3_2space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE2_4_1' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE2_4_1space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE4_0_0' in GNEChange_Additional
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Adding space 'parkingArea_gneE4_0_0space0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_gneE4_0_8' in GNEChange_Additional
 Warning: Loaded texture empty in GUITextureSubSys::getTexture
@@ -73,38 +43,6 @@ Warning: Deleting unreferenced space 'parkingArea_gneE0_0_7space0'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_7'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'z' of space is missing; Default value '0.00' will be used.
-Warning: Optional float attribute 'width' of space is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of space is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of space is missing; Default value '0.00' will be used.
 Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
