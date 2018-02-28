@@ -1564,7 +1564,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             NBContHelper::nextCW(myOutgoingEdges, i);
         }
         double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
-        if (abs(angle2) < abs(angle) && abs(abs(angle2) - abs(angle)) > 5) {
+        if (abs(angle2) < abs(angle) && abs(angle2 - angle) > 5) {
             if (angle2 > angle) {
                 return LINKDIR_PARTLEFT;
             } else {
