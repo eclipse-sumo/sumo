@@ -68,7 +68,7 @@ FileHelpers::isReadable(std::string path) {
 std::string
 FileHelpers::getFilePath(const std::string& path) {
     const std::string::size_type beg = path.find_last_of("\\/");
-    if (beg == std::string::npos || beg == 0) {
+    if (beg == std::string::npos) {
         return "";
     }
     return path.substr(0, beg + 1);
