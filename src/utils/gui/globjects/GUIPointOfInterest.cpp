@@ -121,7 +121,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopMatrix();
     const Position namePos = *this;
-    drawName(namePos, s.scale, s.poiName);
+    drawName(namePos, s.scale, s.poiName, s.angle);
     if (s.poiType.show) {
         GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
                            GLO_MAX, s.poiType.size / s.scale, s.poiType.color);

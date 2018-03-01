@@ -123,6 +123,9 @@ public:
     /// @brief Whether the settings are for Netedit
     bool netedit;
 
+    /// @brief The current view rotation angle
+    double angle;
+
     /// @brief Information whether dithering shall be enabled
     bool dither;
 

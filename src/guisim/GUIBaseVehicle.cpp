@@ -1029,11 +1029,11 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     glRotated(-degAngle, 0, 0, 1);
     glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,
-             getVType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName);
+             getVType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName, s.angle);
     if (s.vehicleName.show && myVehicle.getParameter().line != "") {
         glTranslated(0, 0.6 * s.vehicleName.size / s.scale, 0);
         GLHelper::drawText("line:" + myVehicle.getParameter().line, Position(0, 0),
-                           GLO_MAX, s.vehicleName.size / s.scale, s.vehicleName.color);
+                           GLO_MAX, s.vehicleName.size / s.scale, s.vehicleName.color, s.angle);
     }
     glPopMatrix();
     glPopName();

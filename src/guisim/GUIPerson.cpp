@@ -283,7 +283,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
 #ifdef GUIPerson_DEBUG_DRAW_WALKINGAREA_PATHS
     drawAction_drawWalkingareaPath(s);
 #endif
-    drawName(p1, s.scale, s.personName);
+    drawName(p1, s.scale, s.personName, s.angle);
     glPopName();
 }
 

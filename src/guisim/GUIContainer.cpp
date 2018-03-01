@@ -205,7 +205,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopMatrix();
 
-    drawName(p1, s.scale, s.containerName);
+    drawName(p1, s.scale, s.containerName, s.angle);
     glPopName();
 }
 

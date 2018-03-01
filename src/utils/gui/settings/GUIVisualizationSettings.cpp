@@ -68,6 +68,7 @@ const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
 GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     name(""),
     netedit(_netedit),
+    angle(0),
     dither(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),

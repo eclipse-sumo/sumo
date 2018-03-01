@@ -156,9 +156,9 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
     }
     if (myIsInternal) {
-        drawName(myJunction.getPosition(), s.scale, s.internalJunctionName);
+        drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
     } else {
-        drawName(myJunction.getPosition(), s.scale, s.junctionName);
+        drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
     }
 }
 
