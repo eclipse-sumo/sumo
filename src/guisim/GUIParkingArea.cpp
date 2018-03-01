@@ -59,8 +59,8 @@
 // ===========================================================================
 GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
                                double frompos, double topos, unsigned int capacity,
-                               double width, double length, double angle) :
-    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle),
+                               double width, double length, double angle, const std::string& name) :
+    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name),
     GUIGlObject_AbstractAdd("parkingArea", GLO_TRIGGER, id) {
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
@@ -188,6 +188,9 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     glPopMatrix();
+    if (s.addFullName.show && getMyName() != "") {
+        GLHelper::drawText(getMyName(), mySignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, mySignRot);
+    }
     glPopName();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {

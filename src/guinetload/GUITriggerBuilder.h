@@ -137,7 +137,7 @@ protected:
                                   const std::vector<std::string>& lines, MSLane* lane,
                                   double frompos, double topos,
                                   unsigned int capacity,
-                                  double width, double length, double angle);
+                                  double width, double length, double angle, const std::string& name);
 
 
     /** @brief Builds a charging station

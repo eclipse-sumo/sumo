@@ -45,8 +45,8 @@ MSParkingArea::MSParkingArea(const std::string& id,
                              MSLane& lane,
                              double begPos, double endPos,
                              unsigned int capacity,
-                             double width, double length, double angle) :
-    MSStoppingPlace(id, lines, lane, begPos, endPos),
+                             double width, double length, double angle, const std::string& name) :
+    MSStoppingPlace(id, lines, lane, begPos, endPos, name),
     myCapacity(capacity),
     myWidth(width),
     myLength(length),

@@ -79,7 +79,7 @@ public:
     MSParkingArea(const std::string& id,
                   const std::vector<std::string>& lines, MSLane& lane,
                   double begPos, double endPos, unsigned int capacity,
-                  double width, double length, double angle);
+                  double width, double length, double angle, const std::string& name);
 
     /// @brief Destructor
     virtual ~MSParkingArea();
