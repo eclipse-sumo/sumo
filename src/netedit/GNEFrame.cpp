@@ -101,11 +101,8 @@ GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
     myTreeItemToACMap.clear();
     myTreeItemsWithoutAC.clear();
     show();
-
     // show ACChilds
     showAttributeCarrierChilds(myAC, showAttributeCarrierParents(), 0);
-
-
 }
 
 
@@ -437,9 +434,13 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         }
         case GLO_ADDITIONAL: {
             // insert additional item
-            addACIntoList(AC, itemParent, index);
+            FXTreeItem* additionalItem = addACIntoList(AC, itemParent, index);
             // retrieve additional
-            myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
+            GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
+            // insert additionals childs
+            for (int i = 0; i < (int)additional->getAdditionalChilds().size(); i++) {
+                showAttributeCarrierChilds(additional->getAdditionalChilds().at(i), additionalItem, i);
+            }
             break;
         }
         case GLO_CONNECTION: {
