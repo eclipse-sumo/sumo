@@ -16,13 +16,13 @@ Warning: Value '' for attribute pos of detEntry isn't valid
 Warning: Value '' for attribute pos of detEntry isn't valid
 Warning: Setting new attribute pos '25' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: Setting new attribute parentOfAdditional 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute parentItem 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
 Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute parentOfAdditional 'e3Detector_0' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting previous attribute parentItem 'e3Detector_0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -49,7 +49,7 @@ Warning: Setting new attribute pos '25' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute parentOfAdditional 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
+Warning: Setting new attribute parentItem 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
 Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.

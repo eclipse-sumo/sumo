@@ -213,7 +213,7 @@ Warning: Adding calibrator vehicle type into calibrator 'calibratorVehicleTypes'
 Warning: Adding calibrator route into calibrator 'calibratorVehicleTypes'
 Warning: Adding calibrator vehicle type into calibrator 'calibratorVehicleTypes'
 Warning: Optional float attribute 'period' of flow is missing; Default value '10.00' will be used.
-Warning: Optional int attribute 'probability' of flow is missing; Default value '1.00' will be used.
+Warning: Optional float attribute 'probability' of flow is missing; Default value '1.00' will be used.
 Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
