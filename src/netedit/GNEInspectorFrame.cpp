@@ -929,8 +929,8 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
                 myCheckBoxCloseShape->setText("false");
             }
         }
-        // Check if item has another item as parent (Currently only for single Additionals)
-        if (GNEAttributeCarrier::canHaveParent(myInspectorFrameParent->getInspectedACs().front()->getTag()) && (myInspectorFrameParent->getInspectedACs().size() ==1)) {
+        // Check if item has another item as parent
+        if (GNEAttributeCarrier::canHaveParent(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent
@@ -1025,8 +1025,13 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
 
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+
     // make sure that ACs has elements
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
+        // check if we're changing multiple attributes
+        if (myInspectorFrameParent->getInspectedACs().size() > 1) {
+            myInspectorFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+        }
         if(obj == myCheckBoxBlockMovement) {
             // set new values in all inspected Attribute Carriers
             for (auto i : myInspectorFrameParent->getInspectedACs()) {
@@ -1062,12 +1067,19 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             }
         } else if(obj == myTextFieldAdditionalParent) {
             if (myInspectorFrameParent->getInspectedACs().front()->isValid(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text())) {
-                myInspectorFrameParent->getInspectedACs().front()->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                // change parent of all inspected elements
+                for (auto i : myInspectorFrameParent->getInspectedACs()) {
+                    i->setAttribute(GNE_ATTR_PARENT, myTextFieldAdditionalParent->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
+                }
                 myTextFieldAdditionalParent->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myTextFieldAdditionalParent->setTextColor(FXRGB(255, 0, 0));
                 myTextFieldAdditionalParent->killFocus();
             }
+        }
+        // finish change multiple attributes
+        if (myInspectorFrameParent->getInspectedACs().size() > 1) {
+            myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->getAttributesEditor()->refreshAttributeEditor(true, true);
