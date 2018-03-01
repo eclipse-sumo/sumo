@@ -434,6 +434,22 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         for (auto it : GNEAttributeCarrier::allowedAttributes(myCurrentTag)) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
+        // check if item can block movement
+        if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
+        }
+        // check if item can block shape
+        if(GNEAttributeCarrier::canBlockShape(myCurrentTag)) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_SHAPE).c_str());
+        }
+        // check if item can close shape
+        if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
+        }
+        // check if item can have parernt
+        if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
+            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
+        }
         // @ToDo: Here can be placed a butto to set the default value
         myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
         onCmdSelMBAttribute(0, 0, 0);
@@ -450,13 +466,32 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
-    const std::vector<std::pair <SumoXMLAttr, std::string> >& attrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+    std::vector<std::pair <SumoXMLAttr, std::string> > itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+
+    // add extra attribute if item can block movement
+    if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
+        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BLOCK_MOVEMENT, "false"));
+    }
+    // add extra attribute if item can block shape
+    if(GNEAttributeCarrier::canBlockShape(myCurrentTag)) {
+        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BLOCK_SHAPE, "false"));
+    }
+    // add extra attribute if item can close shape
+    if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
+        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_CLOSE_SHAPE, "true"));
+    }
+    // add extra attribute if item can have parernt
+    if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
+        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_PARENT, ""));
+    }
+    // set current attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (auto i : attrs) {
+    for (auto i : itemAttrs) {
         if (toString(i.first) == myMatchAttrComboBox->getText().text()) {
             myCurrentAttribute = i.first;
         }
     }
+    // check if selected attribute is valid
     if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchString->enable();
