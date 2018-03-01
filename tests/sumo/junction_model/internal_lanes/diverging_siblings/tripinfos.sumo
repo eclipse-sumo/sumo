@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  1 11:21:48 2018 by SUMO Version v0_32_0+0634-29c4da1
+<!-- generated on Thu Mar  1 14:24:05 2018 by SUMO Version v0_32_0+0644-e3d532b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,6 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="follower" depart="6.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="5.00" arrival="83.00" arrivalLane="CE_0" arrivalPos="75.85" arrivalSpeed="13.35" duration="77.00" routeLength="183.06" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="63.30" rerouteNo="0" devices="tripinfo_follower" vType="fast" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="leader" depart="0.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="126.00" arrivalLane="CW_0" arrivalPos="80.05" arrivalSpeed="1.43" duration="126.00" routeLength="189.23" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="31.37" rerouteNo="0" devices="tripinfo_leader" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="follower" depart="4.00" departLane="SC_0" departPos="66.75" departSpeed="0.00" departDelay="3.00" arrival="23.00" arrivalLane="CE_0" arrivalPos="75.85" arrivalSpeed="13.89" duration="19.00" routeLength="121.41" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="10.22" rerouteNo="0" devices="tripinfo_follower" vType="fast" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="leader" depart="0.00" departLane="SC_0" departPos="66.75" departSpeed="0.00" departDelay="0.00" arrival="64.00" arrivalLane="CW_0" arrivalPos="80.05" arrivalSpeed="2.00" duration="64.00" routeLength="127.58" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_leader" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>
