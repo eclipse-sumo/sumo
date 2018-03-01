@@ -416,6 +416,9 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         # print debug information
         print("[log] TestFunctions: Netedit already closed")
     else:
+        # first move cursor out of magenta square
+        hover(Region(150, 200, 10, 10))
+
         # quit using hotkey
         typeTwoKeys("q", Key.CTRL)
 
