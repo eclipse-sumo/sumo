@@ -64,11 +64,8 @@ GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAre
     myY(y),
     myZ(z),
     myWidth(width),
-    myCustomWidth(parkingAreaParent->getAttribute(SUMO_ATTR_WIDTH) != toString(width)),
     myLength(length),
-    myCustomLenght(parkingAreaParent->getAttribute(SUMO_ATTR_LENGTH) != toString(length)),
-    myAngle(angle),
-    myCustomAngle(parkingAreaParent->getAttribute(SUMO_ATTR_ANGLE) != toString(angle)) {
+    myAngle(angle) {
 }
 
 
@@ -81,18 +78,10 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_X, myX);
     device.writeAttr(SUMO_ATTR_Y, myY);
-    if(myZ != 0) {
-        device.writeAttr(SUMO_ATTR_Z, myZ);
-    }
-    if(myCustomWidth) {
-        device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
-    }
-    if(myCustomLenght) {
-        device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    }
-    if(myCustomAngle) {
-        device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
-    }
+    device.writeAttr(SUMO_ATTR_Z, myZ);
+    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
     // Close tag
     device.closeTag();
 }
@@ -141,24 +130,21 @@ GNEParkingSpace::getParentName() const {
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
-    // obtain width, lenght, angle and exaggeration
-    double width = myCustomWidth? myWidth : parse<double>(myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH));
-    double lenght = myCustomLenght? myLength : parse<double>(myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH));
-    double angle = myCustomAngle? myAngle : parse<double>(myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE));
+    // obtain exaggeration
     const double exaggeration = s.addSize.getExaggeration(s);
     // push name and matrix
     glPushName(getGlID());
     glPushMatrix();
     // Traslate matrix and draw green contour
     glTranslated(myX, myY, getType() + 0.1);
-    glRotated(angle, 0, 0, 1);
+    glRotated(myAngle, 0, 0, 1);
     // Set Color depending of selection
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
     } else {
         GLHelper::setColor(RGBColor(0, 255, 0, 255));
     }
-    GLHelper::drawBoxLine(Position(0, lenght + 0.05), 0, lenght + 0.1, (width / 2) + 0.05);
+    GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
     // Traslate matrix and draw blue innen
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
@@ -167,9 +153,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(RGBColor(255,200,200, 255));
     }
-    GLHelper::drawBoxLine(Position(0, lenght), 0, lenght, width / 2);
+    GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
     // Traslate matrix and draw lock icon
-    glTranslated(0, lenght/2, 0.1);
+    glTranslated(0, myLength/2, 0.1);
     drawLockIcon();
     // pop matrix and name
     glPopMatrix();
@@ -189,33 +175,15 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_Z:
             return toString(myZ);
         case SUMO_ATTR_WIDTH:
-            if(myCustomWidth) {
-                return toString(myWidth);
-            } else {
-                return myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH);
-            }
+            return toString(myWidth);
         case SUMO_ATTR_LENGTH:
-            if(myCustomLenght) {
-                return toString(myLength);
-            } else {
-                return myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH);
-            }
+            return toString(myLength);
         case SUMO_ATTR_ANGLE:
-            if(myCustomAngle) {
-                return toString(myAngle);
-            } else {
-                return myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE);
-            }
+            return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlocked);
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
-        case GNE_ATTR_CUSTOM_WIDTH:
-            return toString(myCustomWidth);
-        case GNE_ATTR_CUSTOM_LENGTH:
-            return toString(myCustomLenght);
-        case GNE_ATTR_CUSTOM_ANGLE:
-            return toString(myCustomAngle);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -237,9 +205,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_CUSTOM_WIDTH:
-        case GNE_ATTR_CUSTOM_LENGTH:
-        case GNE_ATTR_CUSTOM_ANGLE:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -269,12 +234,6 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myViewNet->getNet()->getAdditional(SUMO_TAG_PARKING_AREA, value) != NULL);
-        case GNE_ATTR_CUSTOM_WIDTH:
-            return canParse<bool>(value);
-        case GNE_ATTR_CUSTOM_LENGTH:
-            return canParse<bool>(value);
-        case GNE_ATTR_CUSTOM_ANGLE:
-            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -313,15 +272,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARENT:
             changeAdditionalParent(value);
-            break;
-        case GNE_ATTR_CUSTOM_WIDTH:
-            myCustomWidth = parse<bool>(value);
-            break;
-        case GNE_ATTR_CUSTOM_LENGTH:
-            myCustomLenght = parse<bool>(value);
-            break;
-        case GNE_ATTR_CUSTOM_ANGLE:
-            myCustomAngle = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

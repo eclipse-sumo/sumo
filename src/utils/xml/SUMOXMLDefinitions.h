@@ -849,12 +849,6 @@ enum SumoXMLAttr {
     GNE_ATTR_CLOSE_SHAPE,
     /// @brief parent of an additional element
     GNE_ATTR_PARENT,
-    /// @brief special boolean attribute to enable/disable custom width in GNEParkingSpaces
-    GNE_ATTR_CUSTOM_WIDTH,
-    /// @brief special boolean attribute to enable/disable custom length in GNEParkingSpaces
-    GNE_ATTR_CUSTOM_LENGTH,
-    /// @brief special boolean attribute to enable/disable custom angle in GNEParkingSpaces
-    GNE_ATTR_CUSTOM_ANGLE,
     // @}
 
     SUMO_ATTR_TARGETLANE,

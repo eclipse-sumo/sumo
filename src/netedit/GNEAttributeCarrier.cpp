@@ -64,7 +64,7 @@ std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myPositiveAttr
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myProbabilityAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myFileAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::mySVCPermissionsAttrs;
-std::map<SumoXMLTag, std::pair<SumoXMLTag, std::vector<SumoXMLAttr> > > GNEAttributeCarrier::myAdditionalWithParentsAndAttributes;
+std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAdditionalsWithParent;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::pair<std::string, std::string> > > GNEAttributeCarrier::myAttrDefinitions;
 int GNEAttributeCarrier::myMaxNumAttribute = 0;
@@ -769,16 +769,12 @@ GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
 bool 
 GNEAttributeCarrier::canHaveParent(SumoXMLTag tag) {
     // define on first access
-    if (myAdditionalWithParentsAndAttributes.empty()) {
-        myAdditionalWithParentsAndAttributes[SUMO_TAG_DET_ENTRY].first = SUMO_TAG_E3DETECTOR;
-        myAdditionalWithParentsAndAttributes[SUMO_TAG_DET_EXIT].first = SUMO_TAG_E3DETECTOR;
-        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].first = SUMO_TAG_PARKING_AREA;
-        // add attributes that can depends of parent
-        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_WIDTH);
-        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_LENGTH);
-        myAdditionalWithParentsAndAttributes[SUMO_TAG_PARKING_SPACE].second.push_back(SUMO_ATTR_ANGLE);
+    if (myAdditionalsWithParent.empty()) {
+        myAdditionalsWithParent[SUMO_TAG_DET_ENTRY] = SUMO_TAG_E3DETECTOR;
+        myAdditionalsWithParent[SUMO_TAG_DET_EXIT] = SUMO_TAG_E3DETECTOR;
+        myAdditionalsWithParent[SUMO_TAG_PARKING_SPACE] = SUMO_TAG_PARKING_AREA;
     }
-    return myAdditionalWithParentsAndAttributes.find(tag) != myAdditionalWithParentsAndAttributes.end();
+    return myAdditionalsWithParent.count(tag) == 1;
 }
 
 
@@ -1453,28 +1449,9 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
 SumoXMLTag 
 GNEAttributeCarrier::getAdditionalParentTag(SumoXMLTag tag) {
     if(canHaveParent(tag)) {
-        return myAdditionalWithParentsAndAttributes[tag].first;
+        return myAdditionalsWithParent[tag];
     } else {
         return SUMO_TAG_NOTHING;
-    }
-}
-
-
-SumoXMLAttr 
-GNEAttributeCarrier::canAttributeInheritFromParent(SumoXMLTag tag, SumoXMLAttr attr) {
-    if(canHaveParent(tag) && std::find(myAdditionalWithParentsAndAttributes[tag].second.begin(), myAdditionalWithParentsAndAttributes[tag].second.end(), attr) != myAdditionalWithParentsAndAttributes[tag].second.end()) {
-        switch (attr) {
-            case SUMO_ATTR_WIDTH:
-                return GNE_ATTR_CUSTOM_WIDTH;
-            case SUMO_ATTR_LENGTH:
-                return GNE_ATTR_CUSTOM_LENGTH;
-            case SUMO_ATTR_ANGLE:
-                return GNE_ATTR_CUSTOM_ANGLE;
-            default:
-                return SUMO_ATTR_NOTHING;
-        }
-    } else {
-        return SUMO_ATTR_NOTHING;
     }
 }
 

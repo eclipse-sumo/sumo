@@ -141,20 +141,11 @@ protected:
     /// @brief width of Parking Space
     double myWidth;
 
-    /// @brief flag for enable or disable custom width in Parking Spaces
-    bool myCustomWidth;
-
     /// @brief Lenght of Parking Space
     double myLength;
 
-    /// @brief flag for enable or disable custom length in Parking Spaces
-    bool myCustomLenght;
-
     /// @brief Angle of Parking Space
     double myAngle;
-
-    /// @brief flag for enable or disable custom angle in Parking Spaces
-    bool myCustomAngle;
 
 private:
     /// @brief set attribute after validation
