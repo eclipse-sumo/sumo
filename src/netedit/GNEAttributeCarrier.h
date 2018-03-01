@@ -375,6 +375,22 @@ public:
                     parsedOk = false;
                 }
             }
+            // set extra check for probability values
+            if (isProbability(tag, attribute)) {
+                if (canParse<double>(parsedAttribute)) {
+                    // parse to SUMO Real and check if is negative
+                    if (parse<double>(parsedAttribute) < 0) {
+                        errorFormat = "Probability cannot be smaller than 0; ";
+                        parsedOk = false;
+                    } else if (parse<double>(parsedAttribute) > 1) {
+                        errorFormat = "Probability cannot be greather than 1; ";
+                        parsedOk = false;
+                    }
+                } else {
+                    errorFormat = "Cannot be parsed to probability; ";
+                    parsedOk = false;
+                }
+            }
             // set extra check for color values
             if (isColor(tag, attribute) && !canParse<RGBColor>(parsedAttribute)) {
                 errorFormat = "Invalid RGB format or named color; ";
