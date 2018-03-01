@@ -231,7 +231,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                             break;
                         }
                     }
-                    assert(lbcLane >= -NUMERICAL_EPS);
+                    assert(lbcSibling >= -NUMERICAL_EPS);
                 }
                 const double distToDivergence = sibling->getLength() - lbcSibling;
                 double lbcLane = lane->getLength() - distToDivergence;
