@@ -354,25 +354,67 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLfloat color[4];
         glGetFloatv(GL_CURRENT_COLOR, color);
         if (color[3] > 0) {
+            // push name
             glPushName(getGlID());
-            PositionVector geom = myNBEdge.getGeometry();
             // draw geometry points
-            for (int i = 1; i < (int)geom.size() - 1; i++) {
-                Position pos = geom[i];
+            for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
+                Position pos = myNBEdge.getGeometry()[i];
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 if (s.scale >= 10) {
-                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
                 } else if (s.scale >= 2) {
-                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
                 } else if (s.scale >= 1) {
-                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
                 } else {
-                    GLHelper:: drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
                 }
                 glPopMatrix();
             }
+            bool drawline = false;
+            // draw line geometry and start and end points if shapeStart or shape end are edited
+            if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION - 0.01);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                if (s.scale >= 10) {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
+                } else if (s.scale >= 2) {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
+                } else if (s.scale >= 1) {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
+                } else {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
+                }
+                glPopMatrix();
+                drawline = true;
+            }
+            if(myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION - 0.01);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                if (s.scale >= 10) {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
+                } else if (s.scale >= 2) {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
+                } else if (s.scale >= 1) {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
+                } else {
+                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
+                }
+                glPopMatrix();
+                drawline = true;
+            }
+            if(drawline) {
+                glPushMatrix();
+                glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                glLineWidth(4);
+                GLHelper::drawLine(myNBEdge.getGeometry());
+                glPopMatrix();
+            }
+            // pop name
             glPopName();
         }
     }
