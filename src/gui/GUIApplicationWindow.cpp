@@ -43,6 +43,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSStateHandler.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
@@ -126,6 +127,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMSAVE,            GUIApplicationWindow::onCmdSaveState),
     FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOOGLE,        GUIApplicationWindow::onCmdTimeToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOOGLE,       GUIApplicationWindow::onCmdDelayToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GUIApplicationWindow::onCmdClearMsgWindow),
@@ -147,6 +149,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_START,             GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_STOP,              GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,           GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,        GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,    GUIApplicationWindow::onUpdNeedsSimulation),
@@ -505,6 +508,9 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myControlMenu,
                       "Step\tCtrl+D\tPerform one simulation step.",
                       GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP);
+    new FXMenuCommand(myControlMenu,
+                      "Save\t\tSave the current simulation state to a file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMSAVE);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
@@ -959,6 +965,28 @@ GUIApplicationWindow::onCmdStep(FXObject*, FXSelector, void*) {
         myWasStarted = true;
     }
     myRunThread->singleStep();
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
+    // get the new file name
+    FXFileDialog opendialog(this, "Save Simulation State");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SAVE));
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("Binary State (*.sbx)\nXML State (*.xml)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
+    }
+
+    FXString file = MFXUtils::assureExtension(opendialog.getFilename(), 
+            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')'));
+    MSStateHandler::saveState(file.text(), MSNet::getInstance()->getCurrentTimeStep());
+    myStatusbar->getStatusLine()->setText("Simulation saved to " + file);
     return 1;
 }
 

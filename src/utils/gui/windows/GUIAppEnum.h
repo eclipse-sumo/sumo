@@ -96,6 +96,8 @@ enum {
     MID_STOP,
     /// @brief Perform a single simulation step
     MID_STEP,
+    /// @brief Save state to file
+    MID_SIMSAVE,
     /// @}
 
 
