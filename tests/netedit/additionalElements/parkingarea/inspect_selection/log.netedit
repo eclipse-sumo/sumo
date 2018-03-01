@@ -48,7 +48,6 @@ Warning: Setting new attribute blockMovement 'true' into parkingArea 'parkingAre
 Warning: Loaded texture lock selected in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into parkingArea 'parkingAreaB'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '500.00' into parkingArea 'parkingAreaB'
@@ -146,7 +145,6 @@ Warning: Setting new attribute angle '32.5' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute angle '32.5' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into parkingArea 'parkingAreaA'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into parkingArea 'parkingAreaB'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

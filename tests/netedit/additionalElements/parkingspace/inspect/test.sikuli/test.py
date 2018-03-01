@@ -109,54 +109,45 @@ netedit.modifyBoolAttribute(8)
 # inspect the other space
 netedit.leftClick(match, 400, 300)
 
-# enable optional attributes width
-netedit.modifyBoolAttribute(3)
+# Change parameter 3 with a non valid value (dummy)
+netedit.modifyAttribute(3, "dummyWidth")
+
+# Change parameter 3 with a non valid value (negative)
+netedit.modifyAttribute(3, "-5")
+
+# Change parameter 3 with a non valid value (0)
+netedit.modifyAttribute(3, "0")
+
+# Change parameter 3 with a valid value
+netedit.modifyAttribute(3, "2.3")
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(4, "dummyWidth")
+netedit.modifyAttribute(4, "dummyHeight")
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(4, "-5")
+netedit.modifyAttribute(4, "-6")
 
 # Change parameter 4 with a non valid value (0)
 netedit.modifyAttribute(4, "0")
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "2.3")
+netedit.modifyAttribute(4, "3.4")
 
-# enable optional attributes length
-netedit.modifyBoolAttribute(5)
+# Change parameter 5 with a non valid value (dummy)
+netedit.modifyAttribute(5, "dummyAngle")
 
-# Change parameter 6 with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyHeight")
+# Change parameter 5 with a valid value (negative)
+netedit.modifyAttribute(5, "-6")
 
-# Change parameter 6 with a non valid value (negative)
-netedit.modifyAttribute(6, "-6")
+# Change parameter 5 with a valid value >360
+netedit.modifyAttribute(5, "500")
 
-# Change parameter 6 with a non valid value (0)
-netedit.modifyAttribute(6, "0")
-
-# Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "3.4")
-
-# enable optional attributes angle
-netedit.modifyBoolAttribute(7)
-
-# Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyAngle")
-
-# Change parameter 8 with a valid value (negative)
-netedit.modifyAttribute(8, "-6")
-
-# Change parameter 8 with a valid value >360
-netedit.modifyAttribute(8, "500")
-
-# Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "32.5")
+# Change parameter 5 with a valid value
+netedit.modifyAttribute(5, "32.5")
 
 # Check undos and redos
-netedit.undo(match, 27)
-netedit.redo(match, 27)
+netedit.undo(match, 24)
+netedit.redo(match, 24)
 
 # save additionals
 netedit.saveAdditionals()
