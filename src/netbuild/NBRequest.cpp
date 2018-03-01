@@ -663,11 +663,11 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             && (foes ||
                 // if the prohibitor has pass, this connection yields
                 (prohibitorCon.mayDefinitelyPass ||
-                 // if this connection has pass, it does not yiedl
+                 // if this connection has pass, it does not yield
                  (!con.mayDefinitelyPass &&
                   // at off-ramp like situations (2 outgoing), right light should get priority 
                   // merging bicycles should always yield
-                  ((myOutgoing.size() > 1) && 
+                  (((myOutgoing.size() > 1) && 
                    ((con.fromLane > prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
                     || (con.fromLane < prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)))
                   ||
@@ -676,7 +676,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                   ((myOutgoing.size() == 1) && 
                    ((con.fromLane < prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
                     || (con.fromLane > prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)))
-                  ))));
+                  )))));
 }
 
 
