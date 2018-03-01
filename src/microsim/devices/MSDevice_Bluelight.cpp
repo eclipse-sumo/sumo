@@ -145,7 +145,7 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
 
                 //other vehicle should not use the rescue lane so they should not make any lane changes 
                 lanechange.setLaneChangeMode(1605);
-                int numLanes= veh2->getEdge()->getLanes().size();
+                const int numLanes= (int)veh2->getEdge()->getLanes().size();
                 //Setting the lateral alignment to build a rescue lane
                 if (veh2->getLane()->getIndex() == numLanes-1) {
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);

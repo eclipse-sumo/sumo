@@ -1174,8 +1174,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myEditedDef->cleanupStates();
 
         // check that only a phase was loaded
-        for(auto i : myLoadedTLS) {
-            /**
+        /* for(auto i : myLoadedTLS) {
             if(i->getID() == myTLSEditorParent->myTLSJunction->getCurrentJunction()->getID()) {
                 myTLSEditorParent->myEditedDef->getProgramID();
                 
@@ -1184,8 +1183,8 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
                 }
                 
             }
-            */
         }
+        */
         myTLSEditorParent->myTLSPhases->initPhaseTable();
         myTLSEditorParent->myTLSModifications->setHaveModifications(true);
     }
