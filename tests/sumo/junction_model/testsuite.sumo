@@ -10,3 +10,6 @@ timegapMinor
 
 # Tests for the stopOffset
 stopOffset
+
+# tests for the proper behavior on internal lanes
+internal_lanes
