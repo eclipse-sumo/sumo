@@ -33,6 +33,7 @@ Warning: Optional float attribute 'efficiency' of chargingStation with ID 'charg
 Warning: Adding chargingStation 'chargingStation_14' in GNEChange_Additional
 Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_15' is invalid; Default value '0.95' will be used.
 Warning: Adding chargingStation 'chargingStation_15' in GNEChange_Additional
+Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_16' is invalid; Probability cannot be greather than 1; Default value '0.95' will be used.
 Warning: Adding chargingStation 'chargingStation_16' in GNEChange_Additional
 Warning: Optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_17' is missing; Default value '0' will be used.
 Warning: Adding chargingStation 'chargingStation_17' in GNEChange_Additional
