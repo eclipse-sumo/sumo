@@ -50,17 +50,18 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
+  TESTLABEL=`LANG=C date +%d%b%y`r$GITREV
   rm -rf $TEXTTEST_TMP/*
   if test ${FILEPREFIX::6} == "extra_"; then
     tests/runInternalTests.py --gui "b $FILEPREFIX" &> $TESTLOG
   else
-    tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$GITREV &> $TESTLOG
+    tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
-      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name `date +%d%b%y`r$GITREV >> $TESTLOG 2>&1
-      tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name `date +%d%b%y`r$GITREV >> $TESTLOG 2>&1
+      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
     fi
   fi
-  tests/runTests.sh -b $FILEPREFIX -name `date +%d%b%y`r$GITREV -coll >> $TESTLOG 2>&1
+  tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
   echo "batchreport" >> $STATUSLOG
 fi
 
