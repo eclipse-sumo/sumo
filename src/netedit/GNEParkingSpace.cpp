@@ -129,9 +129,7 @@ GNEParkingSpace::getParentName() const {
 
 
 void
-GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
-    // obtain exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s);
+GNEParkingSpace::drawGL(const GUIVisualizationSettings& ) const {
     // push name and matrix
     glPushName(getGlID());
     glPushMatrix();

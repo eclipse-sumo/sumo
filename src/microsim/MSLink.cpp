@@ -203,9 +203,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         const MSLane* pred = lane->getLogicalPredecessorLane();
         // to avoid overlap with vehicles that came from pred (especially when pred has endOffset > 0)
         // we add all other internal lanes from pred as foeLanes
-        const MSLinkCont& predLinks = pred->getLinkCont();
-        for (MSLinkCont::const_iterator it = predLinks.begin(); it != predLinks.end(); ++it) {
-            const MSLane* sibling = (*it)->getViaLane();
+        for (const MSLink* const it : pred->getLinkCont()) {
+            const MSLane* sibling = it->getViaLane();
             if (sibling != lane && sibling != 0) {
                 const double minDist = 0.5 * (lane->getWidth() + sibling->getWidth());
                 const PositionVector& l = lane->getShape();
@@ -221,8 +220,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     std::vector<double> distances = l.distances(s);
                     assert(distances.size() == l.size() + s.size());
                     if (distances.back() > minDist) {
-                        for (int j = s.size() - 2; j >= 0; j--) {
-                            int i = j + l.size();
+                        for (int j = (int)s.size() - 2; j >= 0; j--) {
+                            const int i = j + (int)l.size();
                             const double segLength = s[j].distanceTo2D(s[j + 1]);
                             if (distances[i] > minDist) {
                                 lbcSibling += segLength;
@@ -254,11 +253,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         // check for links with the same origin lane and the same destination edge
         const MSEdge* myTarget = &myLane->getEdge();
         // save foes for entry links
-        const MSLinkCont& predLinks = myLaneBefore->getLinkCont();
-        for (MSLinkCont::const_iterator it = predLinks.begin(); it != predLinks.end(); ++it) {
-            const MSEdge* target = &((*it)->getLane()->getEdge());
-            if (*it != this && target == myTarget) {
-                mySublaneFoeLinks.push_back(*it);
+        for (MSLink* const it : myLaneBefore->getLinkCont()) {
+            const MSEdge* target = &(it->getLane()->getEdge());
+            if (it != this && target == myTarget) {
+                mySublaneFoeLinks.push_back(it);
             }
         }
         // save foes for exit links

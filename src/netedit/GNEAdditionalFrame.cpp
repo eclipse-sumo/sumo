@@ -448,7 +448,6 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute(FXObject
 
 GNEAdditionalFrame::AdditionalAttributeList::AdditionalAttributeList(AdditionalAttributes *additionalAttributesParent) :
     FXVerticalFrame(additionalAttributesParent, GUIDesignAuxiliarHorizontalFrame),
-    myAdditionalAttributesParent(additionalAttributesParent),
     myAdditionalAttr(SUMO_ATTR_NOTHING),
     myNumberOfVisibleTextfields(1),
     myMaxNumberOfValuesInParameterList(20) {

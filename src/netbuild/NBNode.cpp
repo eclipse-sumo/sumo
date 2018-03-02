@@ -13,7 +13,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NBNode.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -1551,8 +1551,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         return leftHand ? LINKDIR_TURN_LEFTHAND : LINKDIR_TURN;
     }
     // get the angle between incoming/outgoing at the junction
-    double angle =
-        NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
+    const double angle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
     // ok, should be a straight connection
     if (abs((int) angle) + 1 < 45) {
         // check whether there is a straighter edge
@@ -1563,8 +1562,8 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         } else {
             NBContHelper::nextCW(myOutgoingEdges, i);
         }
-        double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
-        if (abs(angle2) < abs(angle) && abs(angle2 - angle) > 5) {
+        const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
+        if (fabs(angle2) < fabs(angle) && fabs(angle2 - angle) > 5.) {
             if (angle2 > angle) {
                 return LINKDIR_PARTLEFT;
             } else {

@@ -153,7 +153,7 @@ public:
 
     private:
         /// @brief additional attribute parent
-        AdditionalAttributes *myAdditionalAttributesParent;
+        AdditionalAttributes* myAdditionalAttributesParent;
 
         /// @brief current XML attribute
         SumoXMLAttr myAdditionalAttr;
@@ -218,14 +218,11 @@ public:
         AdditionalAttributeList() {}
 
     private:
-        /// @brief additional attribute parent
-        AdditionalAttributes * myAdditionalAttributesParent;
-
         /// @brief current XML attribute
         SumoXMLAttr myAdditionalAttr;
 
         /// @brief Vector with HorizontalFrames
-        std::vector<FXHorizontalFrame*>myHorizontalFrames;
+        std::vector<FXHorizontalFrame*> myHorizontalFrames;
 
         /// @brief vector with with the name of every parameter
         std::vector<FXLabel*> myLabels;
