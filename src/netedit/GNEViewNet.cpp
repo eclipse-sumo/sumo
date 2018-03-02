@@ -182,6 +182,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeNames(),
     myUndoList(undoList),
     myEditShapePoly(0),
+    myMovingStartPos(false),
+    myMovingEndPos(false),
     myTestingMode(OptionsCont::getOptions().getBool("gui-testing")) {
     // view must be the final member of actualParent
     reparent(actualParent);
@@ -786,12 +788,20 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         begingMoveSelection(pointed_edge, getPositionInformation());
                     } else {
                         myEdgeToMove = pointed_edge;
-                        // save original shape (needed for commit change)
-                        myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
-                        // obtain index of vertex to move and moving reference
-                        myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
+                        if (myEdgeToMove->clickedOverShapeStart(getPositionInformation())) {
+                            myMovingOriginalPosition = myEdgeToMove->getNBEdge()->getGeometry().front();
+                            myMovingStartPos = true;
+                        } else if (myEdgeToMove->clickedOverShapeEnd(getPositionInformation())) {
+                            myMovingOriginalPosition = myEdgeToMove->getNBEdge()->getGeometry().back();
+                            myMovingEndPos = true;
+                        } else {
+                            // save original shape (needed for commit change)
+                            myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                            // obtain index of vertex to move and moving reference
+                            myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
+                            myMovingOriginalPosition = getPositionInformation();
+                        }
                     }
-                    myMovingOriginalPosition = getPositionInformation();
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
@@ -999,7 +1009,15 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         }
         myJunctionToMove = 0;
     } else if (myEdgeToMove) {
-        myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+        if(myMovingStartPos) {
+            myEdgeToMove->commitShapeStartChange(myMovingOriginalPosition, myUndoList);
+            myMovingStartPos = false;
+        } else if (myMovingEndPos) {
+            myEdgeToMove->commitShapeEndChange(myMovingOriginalPosition, myUndoList);
+            myMovingEndPos = false;
+        } else {
+            myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+        }
         myEdgeToMove = 0;
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
@@ -1089,8 +1107,14 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
             // Move Junction's geometry without commiting changes
             myJunctionToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
         } else if (myEdgeToMove) {
-            // move edge's geometry without commiting changes
-            myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
+            if (myMovingStartPos) {
+                myEdgeToMove->moveShapeStart(myMovingOriginalPosition, offsetMovement);
+            } else if (myMovingEndPos) {
+                myEdgeToMove->moveShapeEnd(myMovingOriginalPosition, offsetMovement);
+            } else {
+                // move edge's geometry without commiting changes
+                myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
+            }
         } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
             // Move Additional geometry without commiting changes
             myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);

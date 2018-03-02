@@ -459,6 +459,10 @@ private:
     PositionVector myMovingOriginalShape;
     PositionVector myMovingOriginalShape2;
 
+    /// @brief bool to indicate that startPos are being moved
+    bool myMovingStartPos;
+    bool myMovingEndPos;
+
     /// @brief current index of shape that are being moved
     int myMovingIndexShape;
 

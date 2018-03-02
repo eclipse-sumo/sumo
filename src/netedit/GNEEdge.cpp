@@ -137,6 +137,26 @@ GNEEdge::updateGeometry() {
 }
 
 
+bool 
+GNEEdge::clickedOverShapeStart(const Position& pos) {
+    if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
+        return (myNBEdge.getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEEdge::clickedOverShapeEnd(const Position& pos) {
+    if(myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
+        return (myNBEdge.getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
+    } else {
+        return false;
+    }
+}
+
+
 int
 GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     PositionVector innerGeometry = myNBEdge.getInnerGeometry();
@@ -201,6 +221,34 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
 }
 
 
+void 
+GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
+    // restore old shape start position, apply offset and update Geometry
+    PositionVector geom = myNBEdge.getGeometry();
+    Position shapeStartEdited = oldPos;
+    shapeStartEdited.add(offset);
+    geom.erase(geom.begin());
+    geom.push_front_noDoublePos(shapeStartEdited);
+    // restore modified shape
+    setGeometry(geom, false);
+    updateGeometry();
+}
+
+
+void 
+GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
+    // restore old shape END position, apply offset and update Geometry
+    PositionVector geom = myNBEdge.getGeometry();
+    Position shapeEndEdited = oldPos;
+    shapeEndEdited.add(offset);
+    geom.pop_back();
+    geom.push_back_noDoublePos(shapeEndEdited);
+    // restore modified shape
+    setGeometry(geom, false);
+    updateGeometry();
+}
+
+
 void
 GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // make a copy of the old shape to change it
@@ -220,7 +268,7 @@ void
 GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector innerShapeToCommit = myNBEdge.getInnerGeometry();
-    // first check if second and penultimate ins't in Junction's buubles
+    // first check if second and penultimate isn't in Junction's buubles
     double buubleRadius = GNEJunction::BUBBLE_RADIUS * myNet->getViewNet()->getVisualisationSettings()->junctionSize.exaggeration;
     if (myNBEdge.getGeometry().size() > 2 && myNBEdge.getGeometry()[0].distanceTo(myNBEdge.getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
@@ -239,6 +287,36 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
+    undoList->p_end();
+}
+
+
+void 
+GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
+    Position newShapeStartPos = myNBEdge.getGeometry().front();
+    // restore old shape start position
+    PositionVector geom = myNBEdge.getGeometry();
+    geom.erase(geom.begin());
+    geom.push_front_noDoublePos(oldPos);
+    setGeometry(geom, false);
+    // set attribute using undolist
+    undoList->p_begin("shape start of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(newShapeStartPos), true, toString(oldPos)));
+    undoList->p_end();
+}
+
+
+void 
+GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
+    Position newShapeEndPos = myNBEdge.getGeometry().back();
+    // restore old shape end position
+    PositionVector geom = myNBEdge.getGeometry();
+    geom.pop_back();
+    geom.push_back_noDoublePos(oldPos);
+    setGeometry(geom, false);
+    // set attribute using undolist
+    undoList->p_begin("shape end of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(newShapeEndPos), true, toString(oldPos)));
     undoList->p_end();
 }
 

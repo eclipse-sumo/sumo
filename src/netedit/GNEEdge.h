@@ -79,6 +79,12 @@ public:
      */
     void updateGeometry();
 
+    /// @brief return true if user clicked over ShapeStart
+    bool clickedOverShapeStart(const Position& pos);
+
+    /// @brief return true if user clicked over ShapeEnd
+    bool clickedOverShapeEnd(const Position& pos);
+
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
     * @param pos position of new/existent vertex
     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
@@ -100,6 +106,12 @@ public:
     */
     int moveVertexShape(const int index, const Position& oldPos, const Position& offset);
 
+    /// @brief move position of shape start without commiting change
+    void moveShapeStart(const Position& oldPos, const Position& offset);
+
+    /// @brief move position of shape end without commiting change
+    void moveShapeEnd(const Position& oldPos, const Position& offset);
+
     /**@brief move entire shape without commiting change
     * @param[in] oldShape the old shape of polygon before moving
     * @param[in] offset the offset of movement
@@ -111,6 +123,12 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
+
+    /// @brief commit position changing in shape start
+    void commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief commit position changing in shape end
+    void commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief delete the geometry point closest to the given pos
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
