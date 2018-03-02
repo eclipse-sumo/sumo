@@ -92,9 +92,9 @@ def quoted_str(s):
         return "%.6f" % s
     elif type(s) != str:
         return str(s)
-    elif '"' in s:
+    elif '"' in s or ' ' in s:
         if os.name == "nt":
-            return s.replace('"', '\\"')
+            return '"' + s.replace('"', '\\"') + '"'
         else:
             return "'%s'" % s
     else:
