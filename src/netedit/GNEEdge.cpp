@@ -157,6 +157,52 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) {
 }
 
 
+void 
+GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
+    // change shape startPosition using oldPosition and offset
+    Position shapeStartEdited = oldPos;
+    shapeStartEdited.add(offset);
+    setShapeStartPos(shapeStartEdited);
+    updateGeometry();
+}
+
+
+void 
+GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
+    // change shape endPosition using oldPosition and offset
+    Position shapeEndEdited = oldPos;
+    shapeEndEdited.add(offset);
+    setShapeEndPos(shapeEndEdited);
+    updateGeometry();
+}
+
+
+void 
+GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
+    // first save current shape start position
+    Position modifiedShapeStartPos = myNBEdge.getGeometry().front();
+    // restore old shape start position
+    setShapeStartPos(oldPos);
+    // set attribute using undolist
+    undoList->p_begin("shape start of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
+    undoList->p_end();
+}
+
+
+void 
+GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
+    // first save current shape end position
+    Position modifiedShapeEndPos = myNBEdge.getGeometry().back();
+    // restore old shape end position
+    setShapeEndPos(oldPos);
+    // set attribute using undolist
+    undoList->p_begin("shape end of " + toString(getTag()));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
+    undoList->p_end();
+}
+
+
 int
 GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     PositionVector innerGeometry = myNBEdge.getInnerGeometry();
@@ -221,26 +267,6 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
 }
 
 
-void 
-GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
-    // change shape startPosition using oldPosition and offset
-    Position shapeStartEdited = oldPos;
-    shapeStartEdited.add(offset);
-    setShapeStartPos(shapeStartEdited);
-    updateGeometry();
-}
-
-
-void 
-GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
-    // change shape endPosition using oldPosition and offset
-    Position shapeEndEdited = oldPos;
-    shapeEndEdited.add(offset);
-    setShapeEndPos(shapeEndEdited);
-    updateGeometry();
-}
-
-
 void
 GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // make a copy of the old shape to change it
@@ -279,32 +305,6 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
-    undoList->p_end();
-}
-
-
-void 
-GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
-    // first save current shape start position
-    Position modifiedShapeStartPos = myNBEdge.getGeometry().front();
-    // restore old shape start position
-    setShapeStartPos(oldPos);
-    // set attribute using undolist
-    undoList->p_begin("shape start of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
-    undoList->p_end();
-}
-
-
-void 
-GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
-    // first save current shape end position
-    Position modifiedShapeEndPos = myNBEdge.getGeometry().back();
-    // restore old shape end position
-    setShapeEndPos(oldPos);
-    // set attribute using undolist
-    undoList->p_begin("shape end of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
     undoList->p_end();
 }
 
