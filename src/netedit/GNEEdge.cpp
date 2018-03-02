@@ -223,28 +223,20 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
 
 void 
 GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
-    // restore old shape start position, apply offset and update Geometry
-    PositionVector geom = myNBEdge.getGeometry();
+    // change shape startPosition using oldPosition and offset
     Position shapeStartEdited = oldPos;
     shapeStartEdited.add(offset);
-    geom.erase(geom.begin());
-    geom.push_front_noDoublePos(shapeStartEdited);
-    // restore modified shape
-    setGeometry(geom, false);
+    setShapeStartPos(shapeStartEdited);
     updateGeometry();
 }
 
 
 void 
 GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
-    // restore old shape END position, apply offset and update Geometry
-    PositionVector geom = myNBEdge.getGeometry();
+    // change shape endPosition using oldPosition and offset
     Position shapeEndEdited = oldPos;
     shapeEndEdited.add(offset);
-    geom.pop_back();
-    geom.push_back_noDoublePos(shapeEndEdited);
-    // restore modified shape
-    setGeometry(geom, false);
+    setShapeEndPos(shapeEndEdited);
     updateGeometry();
 }
 
@@ -293,30 +285,26 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 void 
 GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
-    Position newShapeStartPos = myNBEdge.getGeometry().front();
+    // first save current shape start position
+    Position modifiedShapeStartPos = myNBEdge.getGeometry().front();
     // restore old shape start position
-    PositionVector geom = myNBEdge.getGeometry();
-    geom.erase(geom.begin());
-    geom.push_front_noDoublePos(oldPos);
-    setGeometry(geom, false);
+    setShapeStartPos(oldPos);
     // set attribute using undolist
     undoList->p_begin("shape start of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(newShapeStartPos), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
     undoList->p_end();
 }
 
 
 void 
 GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
-    Position newShapeEndPos = myNBEdge.getGeometry().back();
+    // first save current shape end position
+    Position modifiedShapeEndPos = myNBEdge.getGeometry().back();
     // restore old shape end position
-    PositionVector geom = myNBEdge.getGeometry();
-    geom.pop_back();
-    geom.push_back_noDoublePos(oldPos);
-    setGeometry(geom, false);
+    setShapeEndPos(oldPos);
     // set attribute using undolist
     undoList->p_begin("shape end of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(newShapeEndPos), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
     undoList->p_end();
 }
 
@@ -1140,26 +1128,26 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SHAPE_START: {
             // get geometry of NBEdge, remove FIRST element with the new value (or with the Junction Source position) and set it back to edge
-            PositionVector geom = myNBEdge.getGeometry();
-            geom.erase(geom.begin());
+            Position newShapeStart;
             if (value == "") {
-                geom.push_front_noDoublePos(myGNEJunctionSource->getPositionInView());
+                newShapeStart = myGNEJunctionSource->getPositionInView();
             } else {
-                geom.push_front_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+                newShapeStart = parse<Position>(value);
             }
-            setGeometry(geom, false);
+            // set shape start position
+            setShapeStartPos(newShapeStart);
             break;
         }
         case GNE_ATTR_SHAPE_END: {
             // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
-            PositionVector geom = myNBEdge.getGeometry();
-            geom.pop_back();
+            Position newShapeEnd;
             if (value == "") {
-                geom.push_back_noDoublePos(myGNEJunctionDestiny->getPositionInView());
+                newShapeEnd = myGNEJunctionSource->getPositionInView();
             } else {
-                geom.push_back_noDoublePos(GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, false)[0]);
+                newShapeEnd = parse<Position>(value);
             }
-            setGeometry(geom, false);
+            // set shape end position
+            setShapeEndPos(newShapeEnd);
             break;
         }
         case GNE_ATTR_BIDIR:
@@ -1505,5 +1493,26 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
     }
 }
 
+
+void 
+GNEEdge::setShapeStartPos(const Position &pos) {
+    // remove start position and add it the new position
+    PositionVector geom = myNBEdge.getGeometry();
+    geom.erase(geom.begin());
+    geom.push_front_noDoublePos(pos);
+    // restore modified shape
+    setGeometry(geom, false);
+}
+
+
+void 
+GNEEdge::setShapeEndPos(const Position &pos) {
+    // remove end position and add it the new position
+    PositionVector geom = myNBEdge.getGeometry();
+    geom.pop_back();
+    geom.push_back_noDoublePos(pos);
+    // restore modified shape
+    setGeometry(geom, false);
+}
 
 /****************************************************************************/

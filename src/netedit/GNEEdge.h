@@ -334,6 +334,12 @@ private:
     /// @brief remove crossing of junction
     void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
 
+    /// @brief change Shape StartPos
+    void setShapeStartPos(const Position &pos);
+
+    /// @brief change Shape EndPos
+    void setShapeEndPos(const Position &pos);
+
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
 
