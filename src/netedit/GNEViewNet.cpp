@@ -80,6 +80,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Modes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,             GNEViewNet::onCmdSetModeCreateEdge),
@@ -140,10 +141,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,                   GNEViewNet::onCmdTransformPOI),
 };
 
-
 // Object implementation
 FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
-
 
 // ===========================================================================
 // member method definitions
@@ -160,12 +159,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myShowConnections(false),
     mySelectEdges(true),
     myCreateEdgeSource(0),
-    myJunctionToMove(0),
-    myEdgeToMove(0),
-    myPolyToMove(0),
-    myPoiToMove(0),
-    myAdditionalToMove(0),
-    myMovingIndexShape(-1),
     myMovingSelection(false),
     myAmInRectSelect(false),
     myToolbar(toolBar),
@@ -182,8 +175,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeNames(),
     myUndoList(undoList),
     myEditShapePoly(0),
-    myMovingStartPos(false),
-    myMovingEndPos(false),
     myTestingMode(OptionsCont::getOptions().getBool("gui-testing")) {
     // view must be the final member of actualParent
     reparent(actualParent);
@@ -755,60 +746,60 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_MOVE: {
                 // first obtain moving reference (common for all)
-                myMovingReference = snapToActiveGrid(getPositionInformation());
+                myMoveSingleElementValues.movingReference = snapToActiveGrid(getPositionInformation());
                 // check what type of AC will be moved
                 if (pointed_poly) {
                     // set Poly to move
-                    myPolyToMove = pointed_poly;
+                    myMovedItems.polyToMove = pointed_poly;
                     // save original shape (needed for commit change)
-                    myMovingOriginalShape = myPolyToMove->getShape();
+                    myMoveSingleElementValues.movingOriginalShape = myMovedItems.polyToMove->getShape();
                     // save clicked position as moving original position
-                    myMovingOriginalPosition = getPositionInformation();
+                    myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
                     // obtain index of vertex to move if shape isn't blocked
-                    if ((myPolyToMove->isShapeBlocked() == false) && (myPolyToMove->isMovementBlocked() == false)) {
+                    if ((myMovedItems.polyToMove->isShapeBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
                         // obtain index of vertex to move and moving reference
-                        myMovingIndexShape = myPolyToMove->getVertexIndex(myMovingOriginalPosition);
+                        myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition);
                     } else {
-                        myMovingIndexShape = -1;
+                        myMoveSingleElementValues.movingIndexShape = -1;
                     }
                 } else if (pointed_poi) {
-                    myPoiToMove = pointed_poi;
+                    myMovedItems.poiToMove = pointed_poi;
                     // Save original Position of Element
-                    myMovingOriginalPosition = myPoiToMove->getPositionInView();
+                    myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
                 } else if (pointed_junction) {
                     if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
                         begingMoveSelection(pointed_junction, getPositionInformation());
                     } else {
-                        myJunctionToMove = pointed_junction;
+                        myMovedItems.junctionToMove = pointed_junction;
                     }
                     // Save original Position of Element
-                    myMovingOriginalPosition = pointed_junction->getPositionInView();
+                    myMoveSingleElementValues.movingOriginalPosition = pointed_junction->getPositionInView();
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         begingMoveSelection(pointed_edge, getPositionInformation());
                     } else {
-                        myEdgeToMove = pointed_edge;
-                        if (myEdgeToMove->clickedOverShapeStart(getPositionInformation())) {
-                            myMovingOriginalPosition = myEdgeToMove->getNBEdge()->getGeometry().front();
-                            myMovingStartPos = true;
-                        } else if (myEdgeToMove->clickedOverShapeEnd(getPositionInformation())) {
-                            myMovingOriginalPosition = myEdgeToMove->getNBEdge()->getGeometry().back();
-                            myMovingEndPos = true;
+                        myMovedItems.edgeToMove = pointed_edge;
+                        if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {
+                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().front();
+                            myMoveSingleElementValues.movingStartPos = true;
+                        } else if (myMovedItems.edgeToMove->clickedOverShapeEnd(getPositionInformation())) {
+                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().back();
+                            myMoveSingleElementValues.movingEndPos = true;
                         } else {
                             // save original shape (needed for commit change)
-                            myMovingOriginalShape = myEdgeToMove->getNBEdge()->getInnerGeometry();
+                            myMoveSingleElementValues.movingOriginalShape = myMovedItems.edgeToMove->getNBEdge()->getInnerGeometry();
                             // obtain index of vertex to move and moving reference
-                            myMovingIndexShape = myEdgeToMove->getVertexIndex(getPositionInformation());
-                            myMovingOriginalPosition = getPositionInformation();
+                            myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation());
+                            myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
                         }
                     }
                 } else if (pointed_additional) {
                     if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
                         myMovingSelection = true;
                     } else {
-                        myAdditionalToMove = pointed_additional;
+                        myMovedItems.additionalToMove = pointed_additional;
                         // Save original Position of Element
-                        myMovingOriginalPosition = myAdditionalToMove->getPositionInView();
+                        myMoveSingleElementValues.movingOriginalPosition = myMovedItems.additionalToMove->getPositionInView();
                     }
                 } else {
                     // process click
@@ -996,32 +987,32 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     if (myMovingSelection) {
         finishMoveSelection();
-    } else if (myPolyToMove) {
-        myPolyToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
-        myPolyToMove = 0;
-    } else if (myPoiToMove) {
-        myPoiToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
-        myPoiToMove = 0;
-    } else if (myJunctionToMove) {
+    } else if (myMovedItems.polyToMove) {
+        myMovedItems.polyToMove->commitShapeChange(myMoveSingleElementValues.movingOriginalShape, myUndoList);
+        myMovedItems.polyToMove = 0;
+    } else if (myMovedItems.poiToMove) {
+        myMovedItems.poiToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
+        myMovedItems.poiToMove = 0;
+    } else if (myMovedItems.junctionToMove) {
         // position is already up to date but we must register with myUndoList
-        if (!mergeJunctions(myJunctionToMove, myMovingOriginalPosition)) {
-            myJunctionToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
+        if (!mergeJunctions(myMovedItems.junctionToMove, myMoveSingleElementValues.movingOriginalPosition)) {
+            myMovedItems.junctionToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         }
-        myJunctionToMove = 0;
-    } else if (myEdgeToMove) {
-        if(myMovingStartPos) {
-            myEdgeToMove->commitShapeStartChange(myMovingOriginalPosition, myUndoList);
-            myMovingStartPos = false;
-        } else if (myMovingEndPos) {
-            myEdgeToMove->commitShapeEndChange(myMovingOriginalPosition, myUndoList);
-            myMovingEndPos = false;
+        myMovedItems.junctionToMove = 0;
+    } else if (myMovedItems.edgeToMove) {
+        if(myMoveSingleElementValues.movingStartPos) {
+            myMovedItems.edgeToMove->commitShapeStartChange(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
+            myMoveSingleElementValues.movingStartPos = false;
+        } else if (myMoveSingleElementValues.movingEndPos) {
+            myMovedItems.edgeToMove->commitShapeEndChange(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
+            myMoveSingleElementValues.movingEndPos = false;
         } else {
-            myEdgeToMove->commitShapeChange(myMovingOriginalShape, myUndoList);
+            myMovedItems.edgeToMove->commitShapeChange(myMoveSingleElementValues.movingOriginalShape, myUndoList);
         }
-        myEdgeToMove = 0;
-    } else if (myAdditionalToMove) {
-        myAdditionalToMove->commitGeometryMoving(myMovingOriginalPosition, myUndoList);
-        myAdditionalToMove = 0;
+        myMovedItems.edgeToMove = 0;
+    } else if (myMovedItems.additionalToMove) {
+        myMovedItems.additionalToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
+        myMovedItems.additionalToMove = 0;
     } else if (myAmInRectSelect) {
         myAmInRectSelect = false;
         // shift held down on mouse-down and mouse-up
@@ -1078,13 +1069,13 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         // calculate offset of movement depending of showGrid
         Position offsetMovement;
         if (myVisualizationSettings->showGrid) {
-            offsetMovement = snapToActiveGrid(getPositionInformation()) - myMovingOriginalPosition;
+            offsetMovement = snapToActiveGrid(getPositionInformation()) - myMoveSingleElementValues.movingOriginalPosition;
             if (myMenuCheckMoveElevation->getCheck()) {
                 const double dist = int((offsetMovement.y() + offsetMovement.x()) / myVisualizationSettings->gridXSize) * myVisualizationSettings->gridXSize;
                 offsetMovement = Position(0, 0, dist / 10);
             }
         } else {
-            offsetMovement = getPositionInformation() - myMovingReference;
+            offsetMovement = getPositionInformation() - myMoveSingleElementValues.movingReference;
             if (myMenuCheckMoveElevation->getCheck()) {
                 offsetMovement = Position(0, 0, (offsetMovement.y() + offsetMovement.x()) / 10);
             }
@@ -1093,31 +1084,31 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         // check what type of additional is moved
         if (myMovingSelection) {
             moveSelection(offsetMovement);
-        } else if (myPolyToMove) {
+        } else if (myMovedItems.polyToMove) {
             // move shape's geometry without commiting changes
-            if (myPolyToMove->isShapeBlocked()) {
-                myPolyToMove->moveEntireShape(myMovingOriginalShape, offsetMovement);
+            if (myMovedItems.polyToMove->isShapeBlocked()) {
+                myMovedItems.polyToMove->moveEntireShape(myMoveSingleElementValues.movingOriginalShape, offsetMovement);
             } else {
-                myMovingIndexShape = myPolyToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
+                myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->moveVertexShape(myMoveSingleElementValues.movingIndexShape, myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
             }
-        } else if (myPoiToMove) {
+        } else if (myMovedItems.poiToMove) {
             // Move POI's geometry without commiting changes
-            myPoiToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
-        } else if (myJunctionToMove) {
+            myMovedItems.poiToMove->moveGeometry(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
+        } else if (myMovedItems.junctionToMove) {
             // Move Junction's geometry without commiting changes
-            myJunctionToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
-        } else if (myEdgeToMove) {
-            if (myMovingStartPos) {
-                myEdgeToMove->moveShapeStart(myMovingOriginalPosition, offsetMovement);
-            } else if (myMovingEndPos) {
-                myEdgeToMove->moveShapeEnd(myMovingOriginalPosition, offsetMovement);
+            myMovedItems.junctionToMove->moveGeometry(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
+        } else if (myMovedItems.edgeToMove) {
+            if (myMoveSingleElementValues.movingStartPos) {
+                myMovedItems.edgeToMove->moveShapeStart(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
+            } else if (myMoveSingleElementValues.movingEndPos) {
+                myMovedItems.edgeToMove->moveShapeEnd(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
             } else {
                 // move edge's geometry without commiting changes
-                myMovingIndexShape = myEdgeToMove->moveVertexShape(myMovingIndexShape, myMovingOriginalPosition, offsetMovement);
+                myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->moveVertexShape(myMoveSingleElementValues.movingIndexShape, myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
             }
-        } else if (myAdditionalToMove  && (myAdditionalToMove->isAdditionalBlocked() == false)) {
+        } else if (myMovedItems.additionalToMove  && (myMovedItems.additionalToMove->isAdditionalBlocked() == false)) {
             // Move Additional geometry without commiting changes
-            myAdditionalToMove->moveGeometry(myMovingOriginalPosition, offsetMovement);
+            myMovedItems.additionalToMove->moveGeometry(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
         } else if (myAmInRectSelect) {
             mySelCorner2 = getPositionInformation();
         }

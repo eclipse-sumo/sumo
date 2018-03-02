@@ -377,6 +377,58 @@ protected:
     void doInit();
 
 private:
+    /// @brief struct used to group all pointers to moved elements
+    struct movedItems {
+        /// @brief constuctor
+        movedItems() :
+            junctionToMove(NULL),
+            edgeToMove(NULL),
+            polyToMove(NULL),
+            poiToMove(NULL),
+            additionalToMove(NULL) {}
+
+        /// @brief the Junction to be moved.
+        GNEJunction* junctionToMove;
+
+        /// @brief the edge of which geometry is being moved
+        GNEEdge* edgeToMove;
+
+        /// @brief the poly of which geometry is being moved
+        GNEPoly* polyToMove;
+
+        /// @brief the poi which is being moved
+        GNEPOI* poiToMove;
+
+        /// @brief the stoppingPlace element which shape is being moved
+        GNEAdditional* additionalToMove;
+    };
+
+    /// @brief struct used to group all variables related with movement of single elements
+    struct moveSingleElementValues {
+        /// @brief constructor
+        moveSingleElementValues() :
+            movingStartPos(false),
+            movingEndPos(false),
+            movingIndexShape(-1) {}
+
+        /// @brief variable for calculating moving offset (Used when user doesn't click exactly over the center of shape)
+        Position movingReference;
+
+        /// @brief original Position of element before moving (needed for commmit position changes)
+        Position movingOriginalPosition;
+
+        /// @brief Shape of elements before moving (needed for commmit shape changes)
+        PositionVector movingOriginalShape;
+        PositionVector movingOriginalShape2;
+
+        /// @brief bool to indicate that startPos are being moved
+        bool movingStartPos;
+        bool movingEndPos;
+
+        /// @brief current index of shape that are being moved
+        int movingIndexShape;
+    };
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
@@ -432,45 +484,11 @@ private:
     FXMenuCheck* myMenuCheckMoveElevation;
     // @}
 
-    /// @name Variables for move elements
-    // @{
-    /// @brief the Junction to be moved.
-    GNEJunction* myJunctionToMove;
+    /// @brief variable use to save pointers to moved elements
+    movedItems myMovedItems;
 
-    /// @brief the edge of which geometry is being moved
-    GNEEdge* myEdgeToMove;
-
-    /// @brief the poly of which geometry is being moved
-    GNEPoly* myPolyToMove;
-
-    /// @brief the poi which is being moved
-    GNEPOI* myPoiToMove;
-
-    /// @brief the stoppingPlace element which shape is being moved
-    GNEAdditional* myAdditionalToMove;
-
-    /// @brief variable for calculating moving offset (Used when user doesn't click exactly over the center of shape)
-    Position myMovingReference;
-
-    /// @brief original Position of element before moving (needed for commmit position changes)
-    Position myMovingOriginalPosition;
-
-    /// @brief Shape of elements before moving (needed for commmit shape changes)
-    PositionVector myMovingOriginalShape;
-    PositionVector myMovingOriginalShape2;
-
-    /// @brief bool to indicate that startPos are being moved
-    bool myMovingStartPos;
-    bool myMovingEndPos;
-
-    /// @brief current index of shape that are being moved
-    int myMovingIndexShape;
-
-    /// @brief
-    Position myMovingOriginalPositionOppositeEdge;
-
-    /// @brief
-    PositionVector myMovingOriginalShapenOppositeEdge;
+    /// @brief variable used to save variables related with movement of single elements 
+    moveSingleElementValues myMoveSingleElementValues;
 
     /// @brief whether a selection is being moved
     bool myMovingSelection;
@@ -490,8 +508,6 @@ private:
     };
 
     std::map<GNEEdge*, movingEdges> myOriginShapesMovedPartialShapes;
-
-
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
