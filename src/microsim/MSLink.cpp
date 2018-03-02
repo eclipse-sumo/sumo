@@ -220,15 +220,17 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     //    we want to make sure that both vehicles have the same distance to the crossing point and thus follow each other naturally
                     std::vector<double> distances = l.distances(s);
                     assert(distances.size() == l.size() + s.size());
-                    for (int j = s.size() - 2; j >= 0; j--) {
-                        int i = j + l.size();
-                        const double segLength = s[j].distanceTo2D(s[j + 1]);
-                        if (distances[i] > minDist) {
-                            lbcSibling += segLength;
-                        } else {
-                            // assume no sharp bends and just interpolate the last segment
-                            lbcSibling += segLength - (minDist - distances[i]) * segLength /  (distances[i + 1] - distances[i]);
-                            break;
+                    if (distances.back() > minDist) {
+                        for (int j = s.size() - 2; j >= 0; j--) {
+                            int i = j + l.size();
+                            const double segLength = s[j].distanceTo2D(s[j + 1]);
+                            if (distances[i] > minDist) {
+                                lbcSibling += segLength;
+                            } else {
+                                // assume no sharp bends and just interpolate the last segment
+                                lbcSibling += segLength - (minDist - distances[i]) * segLength /  (distances[i + 1] - distances[i]);
+                                break;
+                            }
                         }
                     }
                     assert(lbcSibling >= -NUMERICAL_EPS);
