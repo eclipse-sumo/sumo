@@ -82,7 +82,6 @@ MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax) const {
     }
     const double random = RandHelper::rand();
     speed -= ACCEL2SPEED(myDawdle * myAccel * random);
-    speed = MAX2(vMin, speed);
     // overbraking
     if (vOld > vMax) {
         speed -= ACCEL2SPEED(myTmp2 * myAccel * random);
@@ -91,6 +90,7 @@ MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax) const {
             speed = MAX2(0.0, speed);
         }
     }
+    speed = MAX2(vMin, speed);
     return speed;
 }
 

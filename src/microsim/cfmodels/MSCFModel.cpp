@@ -188,6 +188,8 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
+    assert(vNext >= vMin);
+    assert(vNext <= vMax);
     // apply lane-changing related speed adaptations
     vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
     assert(vNext >= vMin);
