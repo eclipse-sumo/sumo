@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  3 09:24:45 2017 by SUMO netgenerate Version dev-SVN-r23174
+<!-- generated on Wed Mar  7 10:10:56 2018 by SUMO netgenerate Version v0_32_0+0661-7e17c54
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </random_network>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -906,11 +907,11 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="1198" type="dead_end" x="990.26" y="2176.80" incLanes="1343_0 1199_0" intLanes="" shape="987.42,2178.89 990.53,2178.15 993.30,2175.10 990.13,2175.57"/>
     <junction id="12" type="priority" x="1338.91" y="1705.41" incLanes="17_0 13_0" intLanes="" shape="1337.15,1708.49 1339.72,1706.58 1343.22,1704.73 1342.76,1701.56 1342.11,1700.53 1339.45,1698.75 1335.66,1697.10 1332.68,1698.25 1331.82,1699.09 1330.64,1702.07">
-        <request index="0" response="111000" foes="111000"/>
+        <request index="0" response="100000" foes="111000"/>
         <request index="1" response="110000" foes="110000"/>
         <request index="2" response="100000" foes="100000"/>
-        <request index="3" response="000000" foes="000001"/>
-        <request index="4" response="000000" foes="000011"/>
+        <request index="3" response="000001" foes="000001"/>
+        <request index="4" response="000001" foes="000011"/>
         <request index="5" response="000000" foes="000111"/>
     </junction>
     <junction id="1200" type="priority" x="783.80" y="2098.41" incLanes="1201_0" intLanes="" shape="785.58,2101.45 785.18,2098.28 784.58,2097.27 782.01,2095.36 779.63,2096.07 778.04,2098.85">
@@ -1050,8 +1051,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="01" foes="01"/>
     </junction>
     <junction id="1782" type="priority" x="1188.19" y="444.06" incLanes="1883_0 1783_0" intLanes="" shape="1186.17,447.48 1185.91,444.29 1182.04,441.88 1180.95,444.89 1181.31,446.48 1183.61,448.70">
-        <request index="0" response="10" foes="10"/>
-        <request index="1" response="00" foes="01"/>
+        <request index="0" response="00" foes="10"/>
+        <request index="1" response="01" foes="01"/>
     </junction>
     <junction id="1796" type="priority" x="1009.56" y="379.21" incLanes="1797_0 1942_0" intLanes="" shape="1006.66,384.46 1009.86,384.24 1011.16,383.25 1012.25,380.25 1010.90,378.19 1009.03,375.59 1007.03,375.19 1004.30,376.86 1003.85,378.28 1003.30,381.43">
         <request index="0" response="000000" foes="001000"/>
@@ -1419,9 +1420,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="516" type="dead_end" x="1505.57" y="1524.73" incLanes="517_0 588_0" intLanes="" shape="1513.21,1529.21 1513.71,1526.05 1511.05,1524.89 1509.07,1527.41"/>
     <junction id="522" type="priority" x="1617.38" y="1349.40" incLanes="523_0 4050_0 1415_0 589_0" intLanes="" shape="1614.82,1352.11 1617.87,1351.16 1624.35,1351.90 1625.45,1348.90 1625.23,1347.47 1623.28,1344.93 1620.41,1344.26 1617.21,1344.40 1611.71,1348.35 1613.00,1351.28">
         <request index="0" response="1110" foes="1110"/>
-        <request index="1" response="0000" foes="1101"/>
+        <request index="1" response="1000" foes="1101"/>
         <request index="2" response="1010" foes="1011"/>
-        <request index="3" response="0010" foes="0111"/>
+        <request index="3" response="0000" foes="0111"/>
     </junction>
     <junction id="532" type="priority" x="2021.33" y="2360.17" incLanes="533_0" intLanes="" shape="2026.41,2361.59 2027.30,2358.52 2023.01,2356.10 2020.11,2357.45 2020.30,2361.22 2022.52,2363.52">
         <request index="0" response="00" foes="00"/>
@@ -1578,11 +1579,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="126" to="344" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="128" to="381" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="128" to="383" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="13" to="38" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="13" to="116" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="13" to="38" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="13" to="116" fromLane="0" toLane="0" dir="R" state="m"/>
     <connection from="13" to="64" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1323" to="1363" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1323" to="1373" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1323" to="1373" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="1323" to="1359" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="1342" to="1345" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="1345" to="1404" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1602,7 +1603,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1425" to="1493" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="1425" to="1483" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1427" to="1431" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1427" to="1441" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1427" to="1441" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="1427" to="1447" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="1429" to="1523" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="1429" to="1501" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1653,13 +1654,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1774" to="1882" fromLane="0" toLane="0" dir="L" state="m"/>
     <connection from="1774" to="1798" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="1775" to="1935" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="1783" to="1942" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1783" to="1942" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="1797" to="1950" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="1797" to="2006" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1797" to="1944" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="1798" to="1941" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1882" to="2200" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1883" to="1942" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="1883" to="1942" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1891" to="2120" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="1891" to="2112" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1891" to="2110" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1675,7 +1676,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1941" to="2186" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="1941" to="2185" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="1942" to="1950" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="1942" to="2006" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="1942" to="2006" fromLane="0" toLane="0" dir="L" state="m"/>
     <connection from="1942" to="1944" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="1950" to="2194" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1950" to="2198" fromLane="0" toLane="0" dir="L" state="M"/>
@@ -1708,7 +1709,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2206" to="2502" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="2206" to="2494" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="2289" to="2766" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="2289" to="2756" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2289" to="2756" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="2289" to="2732" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="2412" to="2873" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="2421" to="2881" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -1821,7 +1822,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="381" to="585" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="383" to="579" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="383" to="577" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="4050" to="1057" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="4050" to="1057" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="4257" to="4539" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="4495" to="4505" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="492" to="570" fromLane="0" toLane="0" dir="l" state="m"/>
@@ -1841,7 +1842,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="579" to="613" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="579" to="618" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="579" to="614" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="589" to="1057" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="589" to="1057" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="592" to="650" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="592" to="642" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="592" to="674" fromLane="0" toLane="0" dir="l" state="M"/>
@@ -1860,7 +1861,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="639" to="876" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="639" to="880" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="64" to="326" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="642" to="846" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="642" to="846" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="642" to="840" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="650" to="2724" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="650" to="848" fromLane="0" toLane="0" dir="l" state="M"/>
@@ -1883,7 +1884,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="846" to="2714" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="848" to="3252" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="848" to="3162" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="848" to="3166" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="848" to="3166" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="848" to="3328" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="867" to="2158" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="867" to="1919" fromLane="0" toLane="0" dir="l" state="M"/>

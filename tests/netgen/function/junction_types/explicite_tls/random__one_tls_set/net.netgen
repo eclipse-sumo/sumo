@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:31 2017 by SUMO netgenerate Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 10:10:57 2018 by SUMO netgenerate Version v0_32_0+0661-7e17c54
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </random_network>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -96,8 +97,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1" type="dead_end" x="162.29" y="362.77" incLanes="" intLanes="" shape="162.42,367.64 165.62,367.59 167.04,362.90 167.16,359.70 161.10,358.03 157.99,358.77 157.76,364.23 158.71,367.29"/>
     <junction id="10" type="dead_end" x="0.00" y="413.13" incLanes="11_0" intLanes="" shape="0.96,416.24 0.01,413.18"/>
     <junction id="12" type="priority" x="237.52" y="187.21" incLanes="17_0 13_0" intLanes=":12_0_0 :12_1_0" shape="232.61,186.05 235.18,184.14 234.27,178.89 231.29,180.04 230.43,180.89 229.25,183.86">
-        <request index="0" response="10" foes="10" cont="0"/>
-        <request index="1" response="00" foes="01" cont="0"/>
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
     </junction>
     <junction id="14" type="dead_end" x="47.65" y="0.00" incLanes="15_0" intLanes="" shape="44.68,1.32 47.61,0.02"/>
     <junction id="18" type="dead_end" x="554.80" y="297.91" incLanes="19_0" intLanes="" shape="553.58,294.90 554.78,297.87"/>
@@ -114,8 +115,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection from="13" to="38" fromLane="0" toLane="0" via=":12_1_0" dir="r" state="M"/>
-    <connection from="17" to="38" fromLane="0" toLane="0" via=":12_0_0" dir="s" state="m"/>
+    <connection from="13" to="38" fromLane="0" toLane="0" via=":12_1_0" dir="r" state="m"/>
+    <connection from="17" to="38" fromLane="0" toLane="0" via=":12_0_0" dir="s" state="M"/>
     <connection from="3" to="15" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
     <connection from="3" to="13" fromLane="0" toLane="0" via=":2_1_0" dir="l" state="M"/>
     <connection from="9" to="17" fromLane="0" toLane="0" via=":8_0_0" tl="8" linkIndex="0" dir="r" state="o"/>
