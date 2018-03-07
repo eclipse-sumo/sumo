@@ -324,12 +324,12 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
             case LINKSTATE_TL_YELLOW_MAJOR:
             case LINKSTATE_TL_YELLOW_MINOR:
             case LINKSTATE_TL_OFF_BLINKING:
+            case LINKSTATE_TL_OFF_NOSIGNAL:
                 glPushName(net.getLinkTLID(link));
                 break;
             case LINKSTATE_MAJOR:
             case LINKSTATE_MINOR:
             case LINKSTATE_EQUAL:
-            case LINKSTATE_TL_OFF_NOSIGNAL:
             default:
                 glPushName(getGlID());
                 break;
@@ -369,7 +369,7 @@ GUILane::drawArrows() const {
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         LinkDirection dir = (*i)->getDirection();
         LinkState state = (*i)->getState();
-        if (state == LINKSTATE_TL_OFF_NOSIGNAL || dir == LINKDIR_NODIR) {
+        if (state == LINKSTATE_DEADEND || dir == LINKDIR_NODIR) {
             continue;
         }
         switch (dir) {
