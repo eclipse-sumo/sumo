@@ -327,28 +327,19 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 
 void
 OptionsCont::relocateFiles(const std::string& configuration) const {
-    for (ItemAddressContType::const_iterator i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        if ((*i)->isFileName() && (*i)->isSet()) {
-            StringTokenizer st((*i)->getString(), ";, ", true);
-            std::string conv;
-            while (st.hasNext()) {
-                std::string tmp = st.next();
-                // Test whether this is a whitespace string and disregard item if so.
-                // This may stem, e.g., from separating filenames by ', ' in the configuration file
-                if (tmp.find_first_not_of("\t ") == std::string::npos) {
-                    continue;
-                }
-                tmp = FileHelpers::checkForRelativity(tmp, configuration);
-                if (conv.length() != 0) {
-                    conv += ',';
-                }
-                conv += StringUtils::urlDecode(tmp);
+    for (Option* const option : myAddresses) {
+        if (option->isFileName() && option->isSet()) {
+            std::vector<std::string> fileList = StringTokenizer(option->getString(), ",").getVector();
+            for (std::string& f : fileList) {
+                // Pruning is necessary because filenames may be separated by ', ' in the configuration file
+                f = StringUtils::urlDecode(FileHelpers::checkForRelativity(StringUtils::prune(f), configuration));
             }
-            if (conv != (*i)->getString()) {
-                const bool hadDefault = (*i)->isDefault();
-                (*i)->set(conv);
+            const std::string conv = joinToString(fileList, ',');
+            if (conv != option->getString()) {
+                const bool hadDefault = option->isDefault();
+                option->set(conv);
                 if (hadDefault) {
-                    (*i)->resetDefault();
+                    option->resetDefault();
                 }
             }
         }
