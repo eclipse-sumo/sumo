@@ -1635,7 +1635,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
         return LINKSTATE_MAJOR; // the trains must run on time
     }
     if (tlID != "") {
-        return LINKSTATE_TL_OFF_BLINKING;
+        return mustBrake(incoming, outgoing, fromlane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (outgoing == 0) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
