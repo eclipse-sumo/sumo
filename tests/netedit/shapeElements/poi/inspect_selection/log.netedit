@@ -16,7 +16,7 @@ Warning: Adding poi 'POI_11' into viewNet
 Warning: Adding poi 'POI_12' into viewNet
 Warning: Adding poi 'POI_13' into viewNet
 Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.4_from_08Feb155810.2324/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Mar121126.2204/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.63'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -280,55 +280,79 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Selected 26 elements in GNEChange_Selection
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_13'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_12'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_11'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_10'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_09'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_08'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_07'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_06'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_05'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_04'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_03'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_02'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_01'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_13'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_12'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_11'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_10'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_09'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_08'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_07'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_06'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_05'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_04'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_03'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poi 'POI_02'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_02'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_03'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_04'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_05'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_06'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_07'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_08'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_09'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_10'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_11'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_12'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poi 'POI_13'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_01'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_02'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_03'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_04'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_05'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_06'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_07'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_08'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_09'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_10'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_11'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_12'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_13'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deselected 26 elements in GNEChange_Selection

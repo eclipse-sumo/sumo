@@ -6,7 +6,7 @@ Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Adding poly 'poly_2' into viewNet
 Warning: Adding poly 'poly_3' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_08Feb152414.3012/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.07Mar121126.2204/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poly 'poly_4' into viewNet
 Warning: Adding poly 'poly_5' into viewNet
 Warning: Adding poly 'poly_6' into viewNet
@@ -220,59 +220,119 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Selected 23 elements in GNEChange_Selection
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_9'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_8'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_7'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_6'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_5'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_4'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_3'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_2'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '0' into poly 'poly_12'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_1'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'poly_9'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'poly_8'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockShape '0' into poly 'poly_7'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_6'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_5'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_4'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_3'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_2'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_12'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_1'
+Warning: Setting previous attribute blockShape '0' into poly 'poly_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_9'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_8'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_7'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_6'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_5'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_4'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_3'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_2'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_12'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_1'
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_9'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_8'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_7'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_6'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_5'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_4'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_3'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_2'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_12'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_1'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute geo '0' into poly 'poly_0'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_1'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_12'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_2'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_3'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_4'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_5'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_6'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_7'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_8'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute geo 'true' into poly 'poly_9'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_0'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_1'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_12'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_2'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_3'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_4'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_5'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_6'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_7'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_8'
+Warning: Setting new attribute blockMovement 'true' into poly 'poly_9'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockShape 'true' into poly 'poly_0'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_1'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_12'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_2'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_3'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_4'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_5'
+Warning: Setting new attribute blockShape 'true' into poly 'poly_6'
 Warning: Setting new attribute blockShape 'true' into poly 'poly_7'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'poly_8'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'poly_9'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_1'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_12'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_2'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_3'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_4'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_5'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_6'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_7'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_8'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'true' into poly 'poly_9'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Deselected 23 elements in GNEChange_Selection
