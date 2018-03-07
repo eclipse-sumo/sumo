@@ -73,6 +73,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myTLIndex(tlIndex),
     myLogic(logic),
     myState(state),
+    myOffState(state),
     myLastStateChange(SUMOTime_MIN),
     myDirection(dir),
     myLength(length),

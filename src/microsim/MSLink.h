@@ -272,6 +272,15 @@ public:
     }
 
 
+    /** @brief Returns the off-state for the link
+     *
+     * @return The current state of this link
+     */
+    LinkState getOffState() const {
+        return myOffState;
+    }
+
+
     //@brief Returns the time of the last state change
     inline SUMOTime getLastStateChange() const {
         return myLastStateChange;
@@ -541,6 +550,8 @@ private:
 
     /// @brief The state of the link
     LinkState myState;
+    /// @brief The state of the link when switching of traffic light control
+    const LinkState myOffState;
 
     /// @brief The time of the last state change
     SUMOTime myLastStateChange;

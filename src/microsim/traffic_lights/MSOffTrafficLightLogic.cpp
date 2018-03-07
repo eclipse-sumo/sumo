@@ -70,8 +70,22 @@ MSOffTrafficLightLogic::rebuildPhase() {
     int no = (int)getLinks().size();
     std::string state;
     for (int i = 0; i < no; ++i) {
-        // !!! no brake mask!
-        state += 'o';
+        bool foundMajor = false;
+        bool foundMinor = false;
+        for (const MSLink* l : myLinks[i]) {
+            /// @note. all links for the same index should have the same
+            if (l->getOffState() == 'o') {
+                foundMinor = true;
+            } else if (l->getOffState() == 'O') {
+                foundMajor = true;
+            } else {
+                WRITE_WARNING("Invalid 'off'-state for link " + toString(l->getIndex()) + " at junction '" + l->getJunction()->getID() + "'");
+            }
+        }
+        if (foundMajor && foundMinor) {
+            WRITE_WARNING("Inconsistent 'off'-states for linkIndex " + toString(i) + " at tlLogic '" + getID() + "'");
+        }
+        state += foundMinor ? 'o' : 'O';
     }
     for (MSTrafficLightLogic::Phases::const_iterator i = myPhaseDefinition.begin(); i != myPhaseDefinition.end(); ++i) {
         delete *i;
