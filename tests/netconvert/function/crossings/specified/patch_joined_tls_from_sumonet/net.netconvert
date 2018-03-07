@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:44 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:52:03 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -160,14 +161,14 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="CC2" to="C2E" fromLane="2" toLane="2" via=":C2_2_0" tl="CC2" linkIndex="7" dir="s" state="o"/>
     <connection from="CC2" to="C2E" fromLane="3" toLane="3" via=":C2_2_1" tl="CC2" linkIndex="8" dir="s" state="o"/>
-    <connection from="CC2" to="C2N2" fromLane="3" toLane="3" via=":C2_4_0" tl="CC2" linkIndex="9" dir="l" state="o"/>
+    <connection from="CC2" to="C2N2" fromLane="3" toLane="3" via=":C2_4_0" tl="CC2" linkIndex="9" dir="l" state="O"/>
     <connection from="S2C2" to="C2E" fromLane="2" toLane="2" via=":C2_0_0" tl="CC2" linkIndex="5" dir="r" state="o"/>
     <connection from="S2C2" to="C2N2" fromLane="3" toLane="2" via=":C2_1_0" tl="CC2" linkIndex="6" dir="s" state="o"/>
     <connection from="SC" to="CC2" fromLane="2" toLane="2" via=":C_0_0" tl="CC2" linkIndex="0" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="3" toLane="2" via=":C_1_0" tl="CC2" linkIndex="1" dir="s" state="o"/>
     <connection from="WC" to="CC2" fromLane="2" toLane="2" via=":C_2_0" tl="CC2" linkIndex="2" dir="s" state="o"/>
     <connection from="WC" to="CC2" fromLane="3" toLane="3" via=":C_2_1" tl="CC2" linkIndex="3" dir="s" state="o"/>
-    <connection from="WC" to="CN" fromLane="3" toLane="3" via=":C_4_0" tl="CC2" linkIndex="4" dir="l" state="o"/>
+    <connection from="WC" to="CN" fromLane="3" toLane="3" via=":C_4_0" tl="CC2" linkIndex="4" dir="l" state="O"/>
 
     <connection from=":C_0" to="CC2" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":C_1" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>

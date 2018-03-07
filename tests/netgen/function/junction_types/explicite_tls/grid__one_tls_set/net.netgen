@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:31 2017 by SUMO netgenerate Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:30 2018 by SUMO netgenerate Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </grid_network>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -509,7 +510,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="0/0to1/0" to="1/0to2/0" fromLane="0" toLane="0" via=":1/0_6_0" dir="s" state="M"/>
     <connection from="0/0to1/0" to="1/0to1/1" fromLane="0" toLane="0" via=":1/0_7_0" dir="l" state="m"/>
     <connection from="0/0to1/0" to="1/0to0/0" fromLane="0" toLane="0" via=":1/0_8_0" dir="t" state="m"/>
-    <connection from="0/1to0/0" to="0/0to1/0" fromLane="0" toLane="0" via=":0/0_0_0" tl="0/0" linkIndex="0" dir="l" state="o"/>
+    <connection from="0/1to0/0" to="0/0to1/0" fromLane="0" toLane="0" via=":0/0_0_0" tl="0/0" linkIndex="0" dir="l" state="O"/>
     <connection from="0/1to0/0" to="0/0to0/1" fromLane="0" toLane="0" via=":0/0_1_0" tl="0/0" linkIndex="1" dir="t" state="o"/>
     <connection from="0/1to0/2" to="0/2to1/2" fromLane="0" toLane="0" via=":0/2_2_0" dir="r" state="M"/>
     <connection from="0/1to0/2" to="0/2to0/1" fromLane="0" toLane="0" via=":0/2_3_0" dir="t" state="m"/>
@@ -523,7 +524,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="0/2to1/2" to="1/2to1/1" fromLane="0" toLane="0" via=":1/2_6_0" dir="r" state="M"/>
     <connection from="0/2to1/2" to="1/2to2/2" fromLane="0" toLane="0" via=":1/2_7_0" dir="s" state="M"/>
     <connection from="0/2to1/2" to="1/2to0/2" fromLane="0" toLane="0" via=":1/2_8_0" dir="t" state="m"/>
-    <connection from="1/0to0/0" to="0/0to0/1" fromLane="0" toLane="0" via=":0/0_2_0" tl="0/0" linkIndex="2" dir="r" state="o"/>
+    <connection from="1/0to0/0" to="0/0to0/1" fromLane="0" toLane="0" via=":0/0_2_0" tl="0/0" linkIndex="2" dir="r" state="O"/>
     <connection from="1/0to0/0" to="0/0to1/0" fromLane="0" toLane="0" via=":0/0_3_0" tl="0/0" linkIndex="3" dir="t" state="o"/>
     <connection from="1/0to1/1" to="1/1to2/1" fromLane="0" toLane="0" via=":1/1_8_0" dir="r" state="M"/>
     <connection from="1/0to1/1" to="1/1to1/2" fromLane="0" toLane="0" via=":1/1_9_0" dir="s" state="M"/>

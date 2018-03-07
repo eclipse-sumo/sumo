@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:33 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Wed Mar  7 13:51:58 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -65,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="3" type="dead_end" x="1800.00" y="0.00" incLanes="out_0" intLanes="" shape="1800.00,-3.25 1800.00,-0.05"/>
     <junction id="91" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
-    <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="o"/>
+    <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="O"/>
     <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="o"/>
     <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="91to1" to="1to22" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:23 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Wed Mar  7 13:51:31 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_plain.nod.xml"/>
         <edge-files value="input_plain.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <ignore-errors.edge-type value="true"/>
@@ -107,21 +111,21 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="001100" foes="001110"/>
     </junction>
 
-    <connection from="-2" to="-3" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="8" dir="r" state="o"/>
-    <connection from="-2" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="9" dir="l" state="o"/>
+    <connection from="-2" to="-3" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="8" dir="r" state="O"/>
+    <connection from="-2" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="9" dir="l" state="O"/>
     <connection from="-3" to="-2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-3" to="-1" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="-4" to="2" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="10" dir="r" state="o"/>
+    <connection from="-4" to="2" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="10" dir="r" state="O"/>
     <connection from="-4" to="-3" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="11" dir="s" state="o"/>
-    <connection from="-6" to="-5" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="4" dir="r" state="o"/>
-    <connection from="-6" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="5" dir="s" state="o"/>
+    <connection from="-6" to="-5" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="4" dir="r" state="O"/>
+    <connection from="-6" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="5" dir="s" state="O"/>
     <connection from="1" to="3" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="1" to="-2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="2" to="-1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="2" to="3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="3" to="4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="6" dir="s" state="o"/>
     <connection from="3" to="2" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="7" dir="l" state="o"/>
-    <connection from="4" to="6" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="0" dir="s" state="o"/>
+    <connection from="4" to="6" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="0" dir="s" state="O"/>
     <connection from="4" to="-5" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="1" dir="l" state="o"/>
     <connection from="5" to="-4" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="2" dir="r" state="o"/>
     <connection from="5" to="6" fromLane="0" toLane="0" tl="joinedS_4" linkIndex="3" dir="l" state="o"/>

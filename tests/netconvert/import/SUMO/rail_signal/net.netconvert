@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 27 17:55:38 2018 by SUMO netconvert Version v0_32_0+0562-c990be2
+<!-- generated on Wed Mar  7 13:51:49 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,8 +63,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="N" type="dead_end" x="1000.00" y="100.00" incLanes="CN_0" intLanes="" shape="1000.64,96.81 1000.01,99.95"/>
     <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
 
-    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="o"/>
-    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="L" state="o"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="O"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="L" state="O"/>
 
     <connection from=":C_0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_1" to="CN" fromLane="0" toLane="0" dir="L" state="M"/>

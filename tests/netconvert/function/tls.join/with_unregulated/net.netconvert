@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:43 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:59 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -144,15 +145,15 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":cluster_828110366_828110369_13_0" type="internal" x="1154.68" y="1029.84" incLanes=":cluster_828110366_828110369_7_0 137082383#12_0 137082383#12_1 68992992#0_1" intLanes=":cluster_828110366_828110369_3_0 :cluster_828110366_828110369_9_0 :cluster_828110366_828110369_9_1"/>
     <junction id=":cluster_828110366_828110369_14_0" type="internal" x="1143.98" y="1034.48" incLanes=":cluster_828110366_828110369_11_0 147676141#0_0 147676141#0_1 68992992#0_0" intLanes=":cluster_828110366_828110369_0_0 :cluster_828110366_828110369_4_0 :cluster_828110366_828110369_4_1"/>
 
-    <connection from="137082383#12" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_8_0" tl="joinedS_0" linkIndex="8" dir="r" state="o"/>
-    <connection from="137082383#12" to="137082383#14" fromLane="0" toLane="0" via=":cluster_828110366_828110369_9_0" tl="joinedS_0" linkIndex="9" dir="s" state="o"/>
-    <connection from="137082383#12" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_9_1" tl="joinedS_0" linkIndex="10" dir="s" state="o"/>
+    <connection from="137082383#12" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_8_0" tl="joinedS_0" linkIndex="8" dir="r" state="O"/>
+    <connection from="137082383#12" to="137082383#14" fromLane="0" toLane="0" via=":cluster_828110366_828110369_9_0" tl="joinedS_0" linkIndex="9" dir="s" state="O"/>
+    <connection from="137082383#12" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_9_1" tl="joinedS_0" linkIndex="10" dir="s" state="O"/>
     <connection from="137082383#12" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_11_0" tl="joinedS_0" linkIndex="11" dir="t" state="o"/>
-    <connection from="147676141#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_4_0" tl="joinedS_0" linkIndex="4" dir="s" state="o"/>
-    <connection from="147676141#0" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_4_1" tl="joinedS_0" linkIndex="5" dir="s" state="o"/>
+    <connection from="147676141#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_4_0" tl="joinedS_0" linkIndex="4" dir="s" state="O"/>
+    <connection from="147676141#0" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_4_1" tl="joinedS_0" linkIndex="5" dir="s" state="O"/>
     <connection from="147676141#0" to="68992992#2" fromLane="1" toLane="1" via=":cluster_828110366_828110369_6_0" tl="joinedS_0" linkIndex="6" dir="l" state="o"/>
     <connection from="147676141#0" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_7_0" tl="joinedS_0" linkIndex="7" dir="t" state="o"/>
-    <connection from="147676141#1" to="137082383#12" fromLane="1" toLane="1" via=":cluster_1129387341_1129387412_0_0" tl="joinedS_21" linkIndex="0" dir="t" state="o"/>
+    <connection from="147676141#1" to="137082383#12" fromLane="1" toLane="1" via=":cluster_1129387341_1129387412_0_0" tl="joinedS_21" linkIndex="0" dir="t" state="O"/>
     <connection from="68992992#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_0_0" tl="joinedS_0" linkIndex="0" dir="r" state="o"/>
     <connection from="68992992#0" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_1_0" tl="joinedS_0" linkIndex="1" dir="s" state="o"/>
     <connection from="68992992#0" to="68992992#2" fromLane="1" toLane="1" via=":cluster_828110366_828110369_1_1" tl="joinedS_0" linkIndex="2" dir="s" state="o"/>

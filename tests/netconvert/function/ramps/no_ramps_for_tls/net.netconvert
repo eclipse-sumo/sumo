@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 26 16:12:30 2018 by SUMO netconvert Version v0_32_0+0545-5bdcd1f
+<!-- generated on Wed Mar  7 13:51:55 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -89,9 +89,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.05 2000.00,9.85"/>
 
     <connection from="on" to="s2" fromLane="0" toLane="0" tl="4" linkIndex="0" dir="s" state="o"/>
-    <connection from="s1" to="s2" fromLane="0" toLane="0" tl="4" linkIndex="1" dir="s" state="o"/>
-    <connection from="s1" to="s2" fromLane="1" toLane="1" tl="4" linkIndex="2" dir="s" state="o"/>
-    <connection from="s1" to="s2" fromLane="2" toLane="2" tl="4" linkIndex="3" dir="s" state="o"/>
+    <connection from="s1" to="s2" fromLane="0" toLane="0" tl="4" linkIndex="1" dir="s" state="O"/>
+    <connection from="s1" to="s2" fromLane="1" toLane="1" tl="4" linkIndex="2" dir="s" state="O"/>
+    <connection from="s1" to="s2" fromLane="2" toLane="2" tl="4" linkIndex="3" dir="s" state="O"/>
     <connection from="s2" to="s3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="2" toLane="2" dir="s" state="M"/>

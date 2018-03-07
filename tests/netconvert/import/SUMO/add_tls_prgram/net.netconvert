@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:39 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:49 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -238,10 +239,10 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":27_16_0" type="internal" x="1567.21" y="580.04" incLanes=":27_10_0 31_0 31_1" intLanes=":27_0_0 :27_1_0 :27_4_0 :27_4_1 :27_4_2 :27_7_0 :27_11_0 :27_11_1 :27_13_0"/>
     <junction id=":27_17_0" type="internal" x="1562.78" y="579.37" incLanes=":27_13_0 43[1]_0 43[1]_1 43[1]_2" intLanes=":27_1_0 :27_2_0 :27_3_0 :27_4_0 :27_4_1 :27_4_2 :27_9_0 :27_10_0"/>
 
-    <connection from="113" to="118" fromLane="0" toLane="0" via=":34_4_0" tl="210" linkIndex="16" dir="r" state="o"/>
-    <connection from="113" to="209" fromLane="0" toLane="0" via=":34_5_0" tl="210" linkIndex="17" dir="s" state="o"/>
-    <connection from="113" to="209" fromLane="1" toLane="1" via=":34_5_1" tl="210" linkIndex="18" dir="s" state="o"/>
-    <connection from="113" to="209" fromLane="2" toLane="2" via=":34_5_2" tl="210" linkIndex="19" dir="s" state="o"/>
+    <connection from="113" to="118" fromLane="0" toLane="0" via=":34_4_0" tl="210" linkIndex="16" dir="r" state="O"/>
+    <connection from="113" to="209" fromLane="0" toLane="0" via=":34_5_0" tl="210" linkIndex="17" dir="s" state="O"/>
+    <connection from="113" to="209" fromLane="1" toLane="1" via=":34_5_1" tl="210" linkIndex="18" dir="s" state="O"/>
+    <connection from="113" to="209" fromLane="2" toLane="2" via=":34_5_2" tl="210" linkIndex="19" dir="s" state="O"/>
     <connection from="117" to="209" fromLane="0" toLane="0" via=":34_3_0" tl="210" linkIndex="15" dir="r" state="o"/>
     <connection from="210" to="43[0]" fromLane="0" toLane="0" via=":33_0_0" dir="s" state="M"/>
     <connection from="210" to="43[0]" fromLane="1" toLane="1" via=":33_0_1" dir="s" state="M"/>
@@ -249,16 +250,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="31" to="201" fromLane="0" toLane="0" via=":27_0_0" tl="210" linkIndex="0" dir="r" state="o"/>
     <connection from="31" to="115" fromLane="1" toLane="0" via=":27_1_0" tl="210" linkIndex="1" dir="s" state="o"/>
     <connection from="31" to="113" fromLane="2" toLane="2" via=":27_2_0" tl="210" linkIndex="2" dir="l" state="o"/>
-    <connection from="34" to="113" fromLane="0" toLane="0" via=":27_11_0" tl="210" linkIndex="11" dir="s" state="o"/>
-    <connection from="34" to="113" fromLane="1" toLane="1" via=":27_11_1" tl="210" linkIndex="12" dir="s" state="o"/>
+    <connection from="34" to="113" fromLane="0" toLane="0" via=":27_11_0" tl="210" linkIndex="11" dir="s" state="O"/>
+    <connection from="34" to="113" fromLane="1" toLane="1" via=":27_11_1" tl="210" linkIndex="12" dir="s" state="O"/>
     <connection from="34" to="134" fromLane="2" toLane="0" via=":27_13_0" tl="210" linkIndex="13" dir="l" state="o"/>
     <connection from="43[0]" to="43[1]" fromLane="0" toLane="0" via=":34_0_0" dir="s" state="M"/>
     <connection from="43[0]" to="43[1]" fromLane="1" toLane="1" via=":34_0_1" dir="s" state="M"/>
     <connection from="43[0]" to="118" fromLane="2" toLane="0" via=":34_2_0" tl="210" linkIndex="14" dir="l" state="o"/>
-    <connection from="43[1]" to="134" fromLane="0" toLane="0" via=":27_3_0" tl="210" linkIndex="3" dir="r" state="o"/>
-    <connection from="43[1]" to="201" fromLane="0" toLane="0" via=":27_4_0" tl="210" linkIndex="4" dir="s" state="o"/>
-    <connection from="43[1]" to="201" fromLane="1" toLane="1" via=":27_4_1" tl="210" linkIndex="5" dir="s" state="o"/>
-    <connection from="43[1]" to="201" fromLane="2" toLane="2" via=":27_4_2" tl="210" linkIndex="6" dir="s" state="o"/>
+    <connection from="43[1]" to="134" fromLane="0" toLane="0" via=":27_3_0" tl="210" linkIndex="3" dir="r" state="O"/>
+    <connection from="43[1]" to="201" fromLane="0" toLane="0" via=":27_4_0" tl="210" linkIndex="4" dir="s" state="O"/>
+    <connection from="43[1]" to="201" fromLane="1" toLane="1" via=":27_4_1" tl="210" linkIndex="5" dir="s" state="O"/>
+    <connection from="43[1]" to="201" fromLane="2" toLane="2" via=":27_4_2" tl="210" linkIndex="6" dir="s" state="O"/>
     <connection from="43[1]" to="115" fromLane="2" toLane="0" via=":27_7_0" tl="210" linkIndex="7" dir="l" state="o"/>
     <connection from="46" to="113" fromLane="0" toLane="0" via=":27_8_0" tl="210" linkIndex="8" dir="r" state="o"/>
     <connection from="46" to="134" fromLane="1" toLane="0" via=":27_9_0" tl="210" linkIndex="9" dir="s" state="o"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:35 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:36 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -124,9 +125,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>
-    <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_4_0" tl="node_C_reguessed" linkIndex="4" dir="r" state="o"/>
-    <connection from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_5_0" tl="node_C_reguessed" linkIndex="5" dir="s" state="o"/>
-    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_6_0" tl="node_C_reguessed" linkIndex="6" dir="l" state="o"/>
+    <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_4_0" tl="node_C_reguessed" linkIndex="4" dir="r" state="O"/>
+    <connection from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_5_0" tl="node_C_reguessed" linkIndex="5" dir="s" state="O"/>
+    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_6_0" tl="node_C_reguessed" linkIndex="6" dir="l" state="O"/>
     <connection from="edge_D2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_7_0" tl="node_C_reguessed" linkIndex="7" dir="t" state="o"/>
     <connection from="edge_R2C" to="edge_C2U" fromLane="0" toLane="0" via=":node_C_0_0" tl="node_C_reguessed" linkIndex="0" dir="r" state="o"/>
     <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="0" via=":node_C_1_0" tl="node_C_reguessed" linkIndex="1" dir="s" state="o"/>

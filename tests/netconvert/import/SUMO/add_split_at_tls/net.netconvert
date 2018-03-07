@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:39 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:49 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -196,8 +197,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":n22_4_0" type="internal" x="201.37" y="200.05" incLanes=":n22_3_0 23to22_0" intLanes=":n22_1_0"/>
     <junction id=":n32_4_0" type="internal" x="98.63" y="99.95" incLanes=":n32_1_0 31to32_0" intLanes=":n32_3_0"/>
 
-    <connection from="11to13" to="13to12" fromLane="0" toLane="0" via=":n13_0_0" tl="n13" linkIndex="0" dir="r" state="o"/>
-    <connection from="11to13" to="13to32" fromLane="0" toLane="0" via=":n13_1_0" tl="n13" linkIndex="1" dir="s" state="o"/>
+    <connection from="11to13" to="13to12" fromLane="0" toLane="0" via=":n13_0_0" tl="n13" linkIndex="0" dir="r" state="O"/>
+    <connection from="11to13" to="13to32" fromLane="0" toLane="0" via=":n13_1_0" tl="n13" linkIndex="1" dir="s" state="O"/>
     <connection from="13to32" to="32to33" fromLane="0" toLane="0" via=":n32_0_0" dir="s" state="m"/>
     <connection from="13to32" to="32to41" fromLane="0" toLane="0" via=":n32_1_0" dir="l" state="m"/>
     <connection from="22to13" to="22to13.48" fromLane="0" toLane="0" via=":22to13.48_0_0" dir="s" state="M"/>
@@ -212,8 +213,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="32to41.48" to="41to22" fromLane="0" toLane="0" via=":n41_3_0" tl="n41" linkIndex="3" dir="l" state="o"/>
     <connection from="41to22" to="22to21" fromLane="0" toLane="0" via=":n22_2_0" dir="s" state="m"/>
     <connection from="41to22" to="22to13" fromLane="0" toLane="0" via=":n22_3_0" dir="l" state="m"/>
-    <connection from="43to41" to="41to42" fromLane="0" toLane="0" via=":n41_0_0" tl="n41" linkIndex="0" dir="r" state="o"/>
-    <connection from="43to41" to="41to22" fromLane="0" toLane="0" via=":n41_1_0" tl="n41" linkIndex="1" dir="s" state="o"/>
+    <connection from="43to41" to="41to42" fromLane="0" toLane="0" via=":n41_0_0" tl="n41" linkIndex="0" dir="r" state="O"/>
+    <connection from="43to41" to="41to22" fromLane="0" toLane="0" via=":n41_1_0" tl="n41" linkIndex="1" dir="s" state="O"/>
 
     <connection from=":22to13.48_0" to="22to13.48" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":32to41.48_0" to="32to41.48" fromLane="0" toLane="0" dir="s" state="M"/>

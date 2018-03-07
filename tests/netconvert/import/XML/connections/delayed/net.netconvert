@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  6 16:16:09 2017 by SUMO netconvert Version dev-SVN-r26359
+<!-- generated on Wed Mar  7 13:51:33 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -223,13 +224,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="7152678" to="7152678.-165" fromLane="1" toLane="1" via=":7152678.-165_0_1" dir="s" state="M"/>
     <connection from="7152678" to="7152678.-165" fromLane="1" toLane="2" via=":7152678.-165_0_2" dir="s" state="M"/>
     <connection from="7152678" to="7152678.-165" fromLane="1" toLane="3" via=":7152678.-165_0_3" dir="s" state="M"/>
-    <connection from="7152678.-165" to="7152669" fromLane="0" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_0_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="0" dir="r" state="o"/>
-    <connection from="7152678.-165" to="7152684" fromLane="1" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_1_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="1" dir="s" state="o"/>
-    <connection from="7152678.-165" to="7152684" fromLane="2" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_1_1" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="2" dir="s" state="o"/>
+    <connection from="7152678.-165" to="7152669" fromLane="0" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_0_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="0" dir="r" state="O"/>
+    <connection from="7152678.-165" to="7152684" fromLane="1" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_1_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="1" dir="s" state="O"/>
+    <connection from="7152678.-165" to="7152684" fromLane="2" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_1_1" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="2" dir="s" state="O"/>
     <connection from="7152678.-165" to="7152616" fromLane="3" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_3_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="3" dir="l" state="o"/>
-    <connection from="7152689" to="7152616" fromLane="0" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_9_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="9" dir="r" state="o"/>
-    <connection from="7152689" to="7152680" fromLane="0" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_10_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="10" dir="s" state="o"/>
-    <connection from="7152689" to="7152680" fromLane="1" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_10_1" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="11" dir="s" state="o"/>
+    <connection from="7152689" to="7152616" fromLane="0" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_9_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="9" dir="r" state="O"/>
+    <connection from="7152689" to="7152680" fromLane="0" toLane="0" via=":cluster_42717004_42717128_42717332_42717527_10_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="10" dir="s" state="O"/>
+    <connection from="7152689" to="7152680" fromLane="1" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_10_1" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="11" dir="s" state="O"/>
     <connection from="7152689" to="7152669" fromLane="1" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_12_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="12" dir="l" state="o"/>
     <connection from="7152689" to="7152684" fromLane="1" toLane="1" via=":cluster_42717004_42717128_42717332_42717527_13_0" tl="cluster_42717004_42717128_42717332_42717527" linkIndex="13" dir="t" state="o"/>
 

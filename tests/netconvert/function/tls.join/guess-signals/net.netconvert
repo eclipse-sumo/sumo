@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:43 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:59 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -204,12 +205,12 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="171952942#3" to="220153140#1" fromLane="1" toLane="1" via=":313575_0_1" dir="s" state="M"/>
     <connection from="220153137#0" to="220153137#1" fromLane="0" toLane="0" via=":2292787679_0_0" dir="s" state="M"/>
     <connection from="220153137#0" to="220153137#1" fromLane="1" toLane="1" via=":2292787679_0_1" dir="s" state="M"/>
-    <connection from="220153137#1" to="27488602#1" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_0_0" tl="GS_cluster_2292787672_259083790" linkIndex="0" dir="r" state="o"/>
-    <connection from="220153137#1" to="220153139#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_1_0" tl="GS_cluster_2292787672_259083790" linkIndex="1" dir="s" state="o"/>
-    <connection from="220153137#1" to="220153139#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_1_1" tl="GS_cluster_2292787672_259083790" linkIndex="2" dir="s" state="o"/>
+    <connection from="220153137#1" to="27488602#1" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_0_0" tl="GS_cluster_2292787672_259083790" linkIndex="0" dir="r" state="O"/>
+    <connection from="220153137#1" to="220153139#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_1_0" tl="GS_cluster_2292787672_259083790" linkIndex="1" dir="s" state="O"/>
+    <connection from="220153137#1" to="220153139#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_1_1" tl="GS_cluster_2292787672_259083790" linkIndex="2" dir="s" state="O"/>
     <connection from="220153137#1" to="220153138#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_3_0" tl="GS_cluster_2292787672_259083790" linkIndex="3" dir="t" state="o"/>
-    <connection from="220153140#1" to="220153138#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_4_0" tl="GS_cluster_2292787672_259083790" linkIndex="4" dir="s" state="o"/>
-    <connection from="220153140#1" to="220153138#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_4_1" tl="GS_cluster_2292787672_259083790" linkIndex="5" dir="s" state="o"/>
+    <connection from="220153140#1" to="220153138#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_4_0" tl="GS_cluster_2292787672_259083790" linkIndex="4" dir="s" state="O"/>
+    <connection from="220153140#1" to="220153138#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_4_1" tl="GS_cluster_2292787672_259083790" linkIndex="5" dir="s" state="O"/>
     <connection from="220153140#1" to="27488602#1" fromLane="1" toLane="0" via=":cluster_2292787672_259083790_6_0" tl="GS_cluster_2292787672_259083790" linkIndex="6" dir="l" state="o"/>
     <connection from="220153140#1" to="220153139#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_7_0" tl="GS_cluster_2292787672_259083790" linkIndex="7" dir="t" state="o"/>
     <connection from="27488602#1" to="27488602#2" fromLane="0" toLane="0" via=":2292787678_0_0" dir="s" state="M"/>

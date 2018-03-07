@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:32 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:31 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -479,16 +480,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="ErnstRuska3O" to="VolmerN" fromLane="1" toLane="0" via=":ErnstRuskaVolmer_7_0" dir="l" state="m"/>
     <connection from="ErnstRuska3W" to="ErnstRuska232W" fromLane="0" toLane="0" via=":ErnstRuskaHavestadtDiv2_0_0" dir="s" state="M"/>
     <connection from="ErnstRuska3W" to="ErnstRuska232W" fromLane="1" toLane="1" via=":ErnstRuskaHavestadtDiv2_0_1" dir="s" state="M"/>
-    <connection from="ErnstRuska4O" to="AltglienickerBreitS" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_5_0" tl="ErnstRuskaAltglienicker" linkIndex="5" dir="r" state="o"/>
-    <connection from="ErnstRuska4O" to="ErnstRuska5O" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_6_0" tl="ErnstRuskaAltglienicker" linkIndex="6" dir="s" state="o"/>
-    <connection from="ErnstRuska4O" to="ErnstRuska5O" fromLane="1" toLane="1" via=":ErnstRuskaAltglienicker_6_1" tl="ErnstRuskaAltglienicker" linkIndex="7" dir="s" state="o"/>
+    <connection from="ErnstRuska4O" to="AltglienickerBreitS" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_5_0" tl="ErnstRuskaAltglienicker" linkIndex="5" dir="r" state="O"/>
+    <connection from="ErnstRuska4O" to="ErnstRuska5O" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_6_0" tl="ErnstRuskaAltglienicker" linkIndex="6" dir="s" state="O"/>
+    <connection from="ErnstRuska4O" to="ErnstRuska5O" fromLane="1" toLane="1" via=":ErnstRuskaAltglienicker_6_1" tl="ErnstRuskaAltglienicker" linkIndex="7" dir="s" state="O"/>
     <connection from="ErnstRuska4W" to="VolmerN" fromLane="0" toLane="0" via=":ErnstRuskaVolmer_2_0" dir="r" state="M"/>
     <connection from="ErnstRuska4W" to="ErnstRuska3W" fromLane="0" toLane="0" via=":ErnstRuskaVolmer_3_0" dir="s" state="M"/>
     <connection from="ErnstRuska4W" to="ErnstRuska3W" fromLane="1" toLane="1" via=":ErnstRuskaVolmer_3_1" dir="s" state="M"/>
     <connection from="ErnstRuska5O" to="ErnstRuskaSink5O" fromLane="0" toLane="0" via=":ErnstRuskaEnd2_3_0" dir="s" state="M"/>
     <connection from="ErnstRuska5O" to="ErnstRuskaSink5O" fromLane="1" toLane="1" via=":ErnstRuskaEnd2_3_1" dir="s" state="M"/>
-    <connection from="ErnstRuska5W" to="ErnstRuska4W" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_0_0" tl="ErnstRuskaAltglienicker" linkIndex="0" dir="s" state="o"/>
-    <connection from="ErnstRuska5W" to="ErnstRuska4W" fromLane="1" toLane="1" via=":ErnstRuskaAltglienicker_0_1" tl="ErnstRuskaAltglienicker" linkIndex="1" dir="s" state="o"/>
+    <connection from="ErnstRuska5W" to="ErnstRuska4W" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_0_0" tl="ErnstRuskaAltglienicker" linkIndex="0" dir="s" state="O"/>
+    <connection from="ErnstRuska5W" to="ErnstRuska4W" fromLane="1" toLane="1" via=":ErnstRuskaAltglienicker_0_1" tl="ErnstRuskaAltglienicker" linkIndex="1" dir="s" state="O"/>
     <connection from="ErnstRuska5W" to="AltglienickerBreitS" fromLane="2" toLane="0" via=":ErnstRuskaAltglienicker_2_0" tl="ErnstRuskaAltglienicker" linkIndex="2" dir="l" state="o"/>
     <connection from="ErnstRuskaSink1O" to="ErnstRuska1O" fromLane="0" toLane="0" via=":ErnstRuskaEnd1_2_0" dir="s" state="M"/>
     <connection from="ErnstRuskaSink1O" to="ErnstRuska1O" fromLane="1" toLane="1" via=":ErnstRuskaEnd1_2_1" dir="s" state="M"/>

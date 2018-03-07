@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:33 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:32 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -177,18 +178,18 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="CE" to="EC" fromLane="2" toLane="2" via=":E_0_0" dir="t" state="M"/>
     <connection from="CN" to="NC" fromLane="2" toLane="2" via=":N_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="2" toLane="2" via=":W_0_0" dir="t" state="M"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="o"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="s" state="o"/>
-    <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_5_1" tl="C" linkIndex="6" dir="s" state="o"/>
-    <connection from="EC" to="CW" fromLane="2" toLane="2" via=":C_5_2" tl="C" linkIndex="7" dir="s" state="o"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="O"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="s" state="O"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_5_1" tl="C" linkIndex="6" dir="s" state="O"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2" via=":C_5_2" tl="C" linkIndex="7" dir="s" state="O"/>
     <connection from="EC" to="CE" fromLane="2" toLane="2" via=":C_8_0" tl="C" linkIndex="8" dir="t" state="o"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="o"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_1_0" tl="C" linkIndex="1" dir="l" state="o"/>
     <connection from="NC" to="CE" fromLane="2" toLane="2" via=":C_2_0" tl="C" linkIndex="2" dir="l" state="o"/>
     <connection from="NC" to="CN" fromLane="2" toLane="2" via=":C_3_0" tl="C" linkIndex="3" dir="t" state="o"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_9_1" tl="C" linkIndex="10" dir="s" state="o"/>
-    <connection from="WC" to="CE" fromLane="2" toLane="2" via=":C_9_2" tl="C" linkIndex="11" dir="s" state="o"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="O"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_9_1" tl="C" linkIndex="10" dir="s" state="O"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2" via=":C_9_2" tl="C" linkIndex="11" dir="s" state="O"/>
     <connection from="WC" to="CN" fromLane="2" toLane="1" via=":C_12_0" tl="C" linkIndex="12" dir="l" state="o"/>
     <connection from="WC" to="CN" fromLane="2" toLane="2" via=":C_13_0" tl="C" linkIndex="13" dir="l" state="o"/>
     <connection from="WC" to="CW" fromLane="2" toLane="2" via=":C_14_0" tl="C" linkIndex="14" dir="t" state="o"/>

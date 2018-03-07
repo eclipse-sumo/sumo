@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:51 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:52:09 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_plain.nod.xml"/>
         <edge-files value="input_plain.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <report>
         <xml-validation value="never"/>
@@ -127,7 +131,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":42727650_11_0" type="internal" x="60.46" y="49.48" incLanes=":42727650_7_0 7144720_0" intLanes=":42727650_1_0 :42727650_2_0 :42727650_3_0 :42727650_4_0"/>
     <junction id=":42727650_12_0" type="internal" x="59.32" y="52.71" incLanes=":42727650_8_0 7144718_0 7144720_0" intLanes=":42727650_0_0 :42727650_4_0"/>
 
-    <connection from="-7144711" to="-7144720" fromLane="0" toLane="0" via=":42727650_6_0" tl="42727650" linkIndex="6" dir="s" state="o"/>
+    <connection from="-7144711" to="-7144720" fromLane="0" toLane="0" via=":42727650_6_0" tl="42727650" linkIndex="6" dir="s" state="O"/>
     <connection from="-7144711" to="-7144718" fromLane="0" toLane="0" via=":42727650_7_0" tl="42727650" linkIndex="7" dir="l" state="o"/>
     <connection from="-7144711" to="7144711" fromLane="0" toLane="0" via=":42727650_8_0" tl="42727650" linkIndex="8" dir="t" state="o"/>
     <connection from="-7144718" to="7144718" fromLane="0" toLane="0" via=":42726349_0_0" dir="t" state="M"/>
@@ -136,8 +140,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="7144718" to="7144711" fromLane="0" toLane="0" via=":42727650_0_0" tl="42727650" linkIndex="0" dir="r" state="o"/>
     <connection from="7144718" to="-7144720" fromLane="0" toLane="0" via=":42727650_1_0" tl="42727650" linkIndex="1" dir="l" state="o"/>
     <connection from="7144718" to="-7144718" fromLane="0" toLane="0" via=":42727650_2_0" tl="42727650" linkIndex="2" dir="t" state="o"/>
-    <connection from="7144720" to="-7144718" fromLane="0" toLane="0" via=":42727650_3_0" tl="42727650" linkIndex="3" dir="r" state="o"/>
-    <connection from="7144720" to="7144711" fromLane="0" toLane="0" via=":42727650_4_0" tl="42727650" linkIndex="4" dir="s" state="o"/>
+    <connection from="7144720" to="-7144718" fromLane="0" toLane="0" via=":42727650_3_0" tl="42727650" linkIndex="3" dir="r" state="O"/>
+    <connection from="7144720" to="7144711" fromLane="0" toLane="0" via=":42727650_4_0" tl="42727650" linkIndex="4" dir="s" state="O"/>
     <connection from="7144720" to="-7144720" fromLane="0" toLane="0" via=":42727650_5_0" tl="42727650" linkIndex="5" dir="t" state="o"/>
 
     <connection from=":42726349_0" to="7144718" fromLane="0" toLane="0" dir="t" state="M"/>

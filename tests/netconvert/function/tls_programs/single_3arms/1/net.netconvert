@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:41 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:53 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_nodes.nod.xml"/>
         <edge-files value="input_edges.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <tls_building>
         <tls.guess value="true"/>
@@ -136,12 +140,12 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="e13" to="e1" fromLane="0" toLane="0" via=":n1_0_0" tl="n1" linkIndex="0" dir="r" state="o"/>
     <connection from="e13" to="e15" fromLane="0" toLane="0" via=":n1_1_0" tl="n1" linkIndex="1" dir="l" state="o"/>
     <connection from="e13" to="e16" fromLane="0" toLane="0" via=":n1_2_0" tl="n1" linkIndex="2" dir="t" state="o"/>
-    <connection from="e14" to="e16" fromLane="0" toLane="0" via=":n1_3_0" tl="n1" linkIndex="3" dir="r" state="o"/>
-    <connection from="e14" to="e1" fromLane="0" toLane="0" via=":n1_4_0" tl="n1" linkIndex="4" dir="s" state="o"/>
+    <connection from="e14" to="e16" fromLane="0" toLane="0" via=":n1_3_0" tl="n1" linkIndex="3" dir="r" state="O"/>
+    <connection from="e14" to="e1" fromLane="0" toLane="0" via=":n1_4_0" tl="n1" linkIndex="4" dir="s" state="O"/>
     <connection from="e14" to="e15" fromLane="0" toLane="0" via=":n1_5_0" tl="n1" linkIndex="5" dir="t" state="o"/>
     <connection from="e15" to="e14" fromLane="0" toLane="0" via=":n6_0_0" dir="t" state="M"/>
     <connection from="e16" to="e13" fromLane="0" toLane="0" via=":n5_0_0" dir="t" state="M"/>
-    <connection from="e2" to="e15" fromLane="0" toLane="0" via=":n1_6_0" tl="n1" linkIndex="6" dir="s" state="o"/>
+    <connection from="e2" to="e15" fromLane="0" toLane="0" via=":n1_6_0" tl="n1" linkIndex="6" dir="s" state="O"/>
     <connection from="e2" to="e16" fromLane="0" toLane="0" via=":n1_7_0" tl="n1" linkIndex="7" dir="l" state="o"/>
     <connection from="e2" to="e1" fromLane="0" toLane="0" via=":n1_8_0" tl="n1" linkIndex="8" dir="t" state="o"/>
 

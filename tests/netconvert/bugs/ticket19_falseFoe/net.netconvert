@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:49 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:52:08 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -125,13 +126,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="-1570" to="1839" fromLane="0" toLane="0" via=":6365_4_0" tl="6365" linkIndex="4" dir="r" state="o"/>
     <connection from="-1570" to="-1841" fromLane="0" toLane="0" via=":6365_5_0" tl="6365" linkIndex="5" dir="l" state="o"/>
-    <connection from="-1839" to="-1841" fromLane="0" toLane="0" via=":6365_2_0" tl="6365" linkIndex="2" dir="s" state="o"/>
+    <connection from="-1839" to="-1841" fromLane="0" toLane="0" via=":6365_2_0" tl="6365" linkIndex="2" dir="s" state="O"/>
     <connection from="-1839" to="1839" fromLane="0" toLane="0" via=":6365_3_0" tl="6365" linkIndex="3" dir="t" state="o"/>
     <connection from="-1841" to="1841" fromLane="0" toLane="0" via=":6562_0_0" dir="t" state="M"/>
     <connection from="1816" to="-1841" fromLane="0" toLane="0" via=":6365_0_0" tl="6365" linkIndex="0" dir="r" state="o"/>
     <connection from="1816" to="1839" fromLane="0" toLane="0" via=":6365_1_0" tl="6365" linkIndex="1" dir="l" state="o"/>
     <connection from="1839" to="-1839" fromLane="0" toLane="0" via=":6454_0_0" dir="t" state="M"/>
-    <connection from="1841" to="1839" fromLane="0" toLane="0" via=":6365_6_0" tl="6365" linkIndex="6" dir="s" state="o"/>
+    <connection from="1841" to="1839" fromLane="0" toLane="0" via=":6365_6_0" tl="6365" linkIndex="6" dir="s" state="O"/>
     <connection from="1841" to="-1841" fromLane="0" toLane="0" via=":6365_7_0" tl="6365" linkIndex="7" dir="t" state="o"/>
 
     <connection from=":6365_0" to="-1841" fromLane="0" toLane="0" dir="r" state="M"/>

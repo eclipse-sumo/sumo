@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:41 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:54 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_nodes.nod.xml"/>
         <edge-files value="input_edges.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <tls_building>
         <tls.guess value="true"/>
@@ -133,14 +137,14 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":n5_12_0" type="internal" x="127.42" y="203.61" incLanes=":n5_8_0 e16_0 e21_0" intLanes=":n5_0_0 :n5_4_0"/>
 
     <connection from="e10" to="e11" fromLane="0" toLane="0" via=":n3_0_0" dir="t" state="M"/>
-    <connection from="e11" to="e13" fromLane="0" toLane="0" via=":n5_6_0" tl="n5" linkIndex="6" dir="r" state="o"/>
-    <connection from="e11" to="e22" fromLane="0" toLane="0" via=":n5_7_0" tl="n5" linkIndex="7" dir="s" state="o"/>
+    <connection from="e11" to="e13" fromLane="0" toLane="0" via=":n5_6_0" tl="n5" linkIndex="6" dir="r" state="O"/>
+    <connection from="e11" to="e22" fromLane="0" toLane="0" via=":n5_7_0" tl="n5" linkIndex="7" dir="s" state="O"/>
     <connection from="e11" to="e10" fromLane="0" toLane="0" via=":n5_8_0" tl="n5" linkIndex="8" dir="t" state="o"/>
     <connection from="e13" to="e16" fromLane="0" toLane="0" via=":n1_0_0" dir="t" state="M"/>
     <connection from="e16" to="e22" fromLane="0" toLane="0" via=":n5_3_0" tl="n5" linkIndex="3" dir="r" state="o"/>
     <connection from="e16" to="e10" fromLane="0" toLane="0" via=":n5_4_0" tl="n5" linkIndex="4" dir="l" state="o"/>
     <connection from="e16" to="e13" fromLane="0" toLane="0" via=":n5_5_0" tl="n5" linkIndex="5" dir="t" state="o"/>
-    <connection from="e21" to="e10" fromLane="0" toLane="0" via=":n5_0_0" tl="n5" linkIndex="0" dir="s" state="o"/>
+    <connection from="e21" to="e10" fromLane="0" toLane="0" via=":n5_0_0" tl="n5" linkIndex="0" dir="s" state="O"/>
     <connection from="e21" to="e13" fromLane="0" toLane="0" via=":n5_1_0" tl="n5" linkIndex="1" dir="l" state="o"/>
     <connection from="e21" to="e22" fromLane="0" toLane="0" via=":n5_2_0" tl="n5" linkIndex="2" dir="t" state="o"/>
     <connection from="e22" to="e21" fromLane="0" toLane="0" via=":n13_0_0" dir="t" state="M"/>

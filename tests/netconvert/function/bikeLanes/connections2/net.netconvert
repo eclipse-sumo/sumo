@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:43 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:52:00 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -192,11 +193,11 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":C_24_0" type="internal" x="99.95" y="95.86" incLanes=":C_15_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_17_0 :C_17_1 :C_19_0"/>
     <junction id=":C_25_0" type="internal" x="95.84" y="100.05" incLanes=":C_19_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0 :C_9_1 :C_13_0 :C_13_1 :C_15_0"/>
 
-    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="r" state="o"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="s" state="o"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="r" state="O"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="s" state="O"/>
     <connection from="EC" to="CN" fromLane="2" toLane="2" via=":C_8_0" tl="C" linkIndex="8" dir="r" state="o"/>
-    <connection from="EC" to="CW" fromLane="2" toLane="2" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>
-    <connection from="EC" to="CW" fromLane="3" toLane="3" via=":C_9_1" tl="C" linkIndex="10" dir="s" state="o"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="O"/>
+    <connection from="EC" to="CW" fromLane="3" toLane="3" via=":C_9_1" tl="C" linkIndex="10" dir="s" state="O"/>
     <connection from="EC" to="CS" fromLane="3" toLane="2" via=":C_11_0" tl="C" linkIndex="11" dir="l" state="o"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="o"/>
     <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="l" state="o"/>
@@ -208,9 +209,9 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="SC" to="CN" fromLane="0" toLane="2" via=":C_13_0" tl="C" linkIndex="13" dir="s" state="o"/>
     <connection from="SC" to="CN" fromLane="1" toLane="3" via=":C_13_1" tl="C" linkIndex="14" dir="s" state="o"/>
     <connection from="SC" to="CW" fromLane="1" toLane="3" via=":C_15_0" tl="C" linkIndex="15" dir="l" state="o"/>
-    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_16_0" tl="C" linkIndex="16" dir="r" state="o"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="2" via=":C_17_0" tl="C" linkIndex="17" dir="s" state="o"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="3" via=":C_17_1" tl="C" linkIndex="18" dir="s" state="o"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_16_0" tl="C" linkIndex="16" dir="r" state="O"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="2" via=":C_17_0" tl="C" linkIndex="17" dir="s" state="O"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="3" via=":C_17_1" tl="C" linkIndex="18" dir="s" state="O"/>
     <connection from="WC" to="CN" fromLane="1" toLane="3" via=":C_19_0" tl="C" linkIndex="19" dir="l" state="o"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>

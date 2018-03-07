@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:38 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:48 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -142,11 +143,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-edge_left" to="edge_left" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
     <connection from="-edge_right" to="edge_right" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
     <connection from="-edge_up" to="edge_up" fromLane="0" toLane="0" via=":node_up_0_0" dir="t" state="M"/>
-    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_6_0" tl="node_centertl" linkIndex="6" dir="s" state="o"/>
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_6_0" tl="node_centertl" linkIndex="6" dir="s" state="O"/>
     <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_7_0" tl="node_centertl" linkIndex="7" dir="l" state="o"/>
     <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_8_0" tl="node_centertl" linkIndex="7" dir="t" state="o"/>
-    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_3_0" tl="node_centertl" linkIndex="3" dir="r" state="o"/>
-    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_4_0" tl="node_centertl" linkIndex="4" dir="s" state="o"/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_3_0" tl="node_centertl" linkIndex="3" dir="r" state="O"/>
+    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_4_0" tl="node_centertl" linkIndex="4" dir="s" state="O"/>
     <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_5_0" tl="node_centertl" linkIndex="5" dir="t" state="o"/>
     <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_0_0" tl="node_centertl" linkIndex="0" dir="r" state="o"/>
     <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_1_0" tl="node_centertl" linkIndex="1" dir="l" state="o"/>

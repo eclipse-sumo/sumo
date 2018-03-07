@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 12:49:14 2018 by SUMO netconvert Version v0_32_0+0662-dc0c9e0
+<!-- generated on Wed Mar  7 13:51:58 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="91" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,49.95 0.00,46.75"/>
 
     <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="o"/>
-    <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="o"/>
+    <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="O"/>
     <connection from="91to1" to="1to22" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
 

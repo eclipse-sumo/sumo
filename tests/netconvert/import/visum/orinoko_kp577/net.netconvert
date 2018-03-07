@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:28 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Wed Mar  7 13:51:42 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -803,8 +804,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-53091570" to="-53091573" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-53091570" to="53091570" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-53091573" to="53091573" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="-53091615" to="-905006120" fromLane="0" toLane="0" tl="1560" linkIndex="2" dir="r" state="o"/>
-    <connection from="-53091615" to="905006042" fromLane="0" toLane="0" tl="1560" linkIndex="1" dir="s" state="o"/>
+    <connection from="-53091615" to="-905006120" fromLane="0" toLane="0" tl="1560" linkIndex="2" dir="r" state="O"/>
+    <connection from="-53091615" to="905006042" fromLane="0" toLane="0" tl="1560" linkIndex="1" dir="s" state="O"/>
     <connection from="-53091615" to="545285126" fromLane="1" toLane="0" tl="1560" linkIndex="0" dir="l" state="o"/>
     <connection from="-53091628" to="-545285124" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-53091628" to="53091628" fromLane="0" toLane="0" dir="t" state="m"/>
@@ -897,8 +898,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-905006040" to="905006040" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-905006041" to="-905006040" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-905006041" to="905006041" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="-905006042" to="545285126" fromLane="0" toLane="0" tl="1560" linkIndex="7" dir="r" state="o"/>
-    <connection from="-905006042" to="53091615" fromLane="0" toLane="0" tl="1560" linkIndex="6" dir="s" state="o"/>
+    <connection from="-905006042" to="545285126" fromLane="0" toLane="0" tl="1560" linkIndex="7" dir="r" state="O"/>
+    <connection from="-905006042" to="53091615" fromLane="0" toLane="0" tl="1560" linkIndex="6" dir="s" state="O"/>
     <connection from="-905006042" to="-905006120" fromLane="1" toLane="0" tl="1560" linkIndex="8" dir="l" state="o"/>
     <connection from="-905006117" to="905006117" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="-905006119" to="545285142" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:41 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:52 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
@@ -195,18 +196,18 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="--33#1" to="--33#0" fromLane="0" toLane="0" via=":-15_4_0" dir="s" state="M"/>
     <connection from="--33#1" to="--33#0" fromLane="1" toLane="1" via=":-15_4_1" dir="s" state="M"/>
     <connection from="--33#1" to="-33#1" fromLane="1" toLane="1" via=":-15_6_0" dir="t" state="m"/>
-    <connection from="--33#2" to="--33#1" fromLane="0" toLane="0" via=":-26_0_0" tl="-26" linkIndex="0" dir="s" state="o"/>
-    <connection from="--33#2" to="--33#1" fromLane="1" toLane="1" via=":-26_0_1" tl="-26" linkIndex="1" dir="s" state="o"/>
+    <connection from="--33#2" to="--33#1" fromLane="0" toLane="0" via=":-26_0_0" tl="-26" linkIndex="0" dir="s" state="O"/>
+    <connection from="--33#2" to="--33#1" fromLane="1" toLane="1" via=":-26_0_1" tl="-26" linkIndex="1" dir="s" state="O"/>
     <connection from="--33#2" to="-33#2" fromLane="1" toLane="1" via=":-26_2_0" tl="-26" linkIndex="2" dir="t" state="o"/>
     <connection from="--38#2" to="-38#1" fromLane="0" toLane="0" via=":-14_0_0" dir="t" state="="/>
     <connection from="-33#0" to="-33#1" fromLane="0" toLane="0" via=":-15_7_0" dir="s" state="M"/>
     <connection from="-33#0" to="-33#1" fromLane="1" toLane="1" via=":-15_7_1" dir="s" state="M"/>
     <connection from="-33#0" to="--38#2" fromLane="1" toLane="0" via=":-15_9_0" dir="l" state="m"/>
     <connection from="-33#0" to="--33#0" fromLane="1" toLane="1" via=":-15_10_0" dir="t" state="m"/>
-    <connection from="-33#1" to="-33#2" fromLane="0" toLane="0" via=":-26_3_0" tl="-26" linkIndex="3" dir="s" state="o"/>
-    <connection from="-33#1" to="-33#2" fromLane="1" toLane="1" via=":-26_3_1" tl="-26" linkIndex="4" dir="s" state="o"/>
+    <connection from="-33#1" to="-33#2" fromLane="0" toLane="0" via=":-26_3_0" tl="-26" linkIndex="3" dir="s" state="O"/>
+    <connection from="-33#1" to="-33#2" fromLane="1" toLane="1" via=":-26_3_1" tl="-26" linkIndex="4" dir="s" state="O"/>
     <connection from="-33#1" to="--33#1" fromLane="1" toLane="1" via=":-26_5_0" tl="-26" linkIndex="5" dir="t" state="o"/>
-    <connection from="-33#2" to="--33#2" fromLane="1" toLane="1" via=":-29_0_0" tl="-29" linkIndex="0" dir="t" state="o"/>
+    <connection from="-33#2" to="--33#2" fromLane="1" toLane="1" via=":-29_0_0" tl="-29" linkIndex="0" dir="t" state="O"/>
     <connection from="-38#1" to="--33#0" fromLane="0" toLane="0" via=":-15_0_0" dir="r" state="m"/>
     <connection from="-38#1" to="-33#1" fromLane="0" toLane="1" via=":-15_1_0" dir="l" state="m"/>
     <connection from="-38#1" to="--38#2" fromLane="0" toLane="0" via=":-15_2_0" dir="t" state="m"/>

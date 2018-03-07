@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:52 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:52:10 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12,6 +12,10 @@ SPDX-License-Identifier: EPL-2.0
         <node-files value="input_plain.nod.xml"/>
         <edge-files value="input_plain.edg.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <processing>
         <no-turnarounds value="true"/>
@@ -161,20 +165,20 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="-51809012" to="-51811859" fromLane="0" toLane="0" via=":54534779_3_0" tl="c2a" linkIndex="11" dir="r" state="o"/>
     <connection from="-51809012" to="763770254" fromLane="0" toLane="1" via=":54534779_4_0" tl="c2a" linkIndex="12" dir="l" state="o"/>
-    <connection from="-51811859" to="-717744589" fromLane="0" toLane="0" via=":54534761_5_0" tl="c2a" linkIndex="5" dir="s" state="o"/>
-    <connection from="-51811859" to="-717744589" fromLane="1" toLane="1" via=":54534761_5_1" tl="c2a" linkIndex="6" dir="s" state="o"/>
+    <connection from="-51811859" to="-717744589" fromLane="0" toLane="0" via=":54534761_5_0" tl="c2a" linkIndex="5" dir="s" state="O"/>
+    <connection from="-51811859" to="-717744589" fromLane="1" toLane="1" via=":54534761_5_1" tl="c2a" linkIndex="6" dir="s" state="O"/>
     <connection from="-51811859" to="51812270" fromLane="1" toLane="0" via=":54534761_7_0" tl="c2a" linkIndex="7" dir="l" state="o"/>
     <connection from="-51812270" to="51811859" fromLane="0" toLane="0" via=":54534761_0_0" tl="c2a" linkIndex="0" dir="r" state="o"/>
     <connection from="-51812270" to="-717744589" fromLane="0" toLane="1" via=":54534761_1_0" tl="c2a" linkIndex="1" dir="l" state="o"/>
-    <connection from="-763770254" to="51809012" fromLane="0" toLane="0" via=":54534779_5_0" tl="c2a" linkIndex="13" dir="r" state="o"/>
-    <connection from="-763770254" to="-51811859" fromLane="0" toLane="0" via=":54534779_6_0" tl="c2a" linkIndex="14" dir="s" state="o"/>
-    <connection from="-763770254" to="-51811859" fromLane="1" toLane="1" via=":54534779_6_1" tl="c2a" linkIndex="15" dir="s" state="o"/>
-    <connection from="51811859" to="763770254" fromLane="0" toLane="0" via=":54534779_0_0" tl="c2a" linkIndex="8" dir="s" state="o"/>
-    <connection from="51811859" to="763770254" fromLane="1" toLane="1" via=":54534779_0_1" tl="c2a" linkIndex="9" dir="s" state="o"/>
+    <connection from="-763770254" to="51809012" fromLane="0" toLane="0" via=":54534779_5_0" tl="c2a" linkIndex="13" dir="r" state="O"/>
+    <connection from="-763770254" to="-51811859" fromLane="0" toLane="0" via=":54534779_6_0" tl="c2a" linkIndex="14" dir="s" state="O"/>
+    <connection from="-763770254" to="-51811859" fromLane="1" toLane="1" via=":54534779_6_1" tl="c2a" linkIndex="15" dir="s" state="O"/>
+    <connection from="51811859" to="763770254" fromLane="0" toLane="0" via=":54534779_0_0" tl="c2a" linkIndex="8" dir="s" state="O"/>
+    <connection from="51811859" to="763770254" fromLane="1" toLane="1" via=":54534779_0_1" tl="c2a" linkIndex="9" dir="s" state="O"/>
     <connection from="51811859" to="51809012" fromLane="1" toLane="0" via=":54534779_2_0" tl="c2a" linkIndex="10" dir="l" state="o"/>
-    <connection from="717744589" to="51812270" fromLane="0" toLane="0" via=":54534761_2_0" tl="c2a" linkIndex="2" dir="r" state="o"/>
-    <connection from="717744589" to="51811859" fromLane="0" toLane="0" via=":54534761_3_0" tl="c2a" linkIndex="3" dir="s" state="o"/>
-    <connection from="717744589" to="51811859" fromLane="1" toLane="1" via=":54534761_3_1" tl="c2a" linkIndex="4" dir="s" state="o"/>
+    <connection from="717744589" to="51812270" fromLane="0" toLane="0" via=":54534761_2_0" tl="c2a" linkIndex="2" dir="r" state="O"/>
+    <connection from="717744589" to="51811859" fromLane="0" toLane="0" via=":54534761_3_0" tl="c2a" linkIndex="3" dir="s" state="O"/>
+    <connection from="717744589" to="51811859" fromLane="1" toLane="1" via=":54534761_3_1" tl="c2a" linkIndex="4" dir="s" state="O"/>
 
     <connection from=":54534761_0" to="51811859" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":54534761_1" to="-717744589" fromLane="0" toLane="1" via=":54534761_8_0" dir="l" state="m"/>

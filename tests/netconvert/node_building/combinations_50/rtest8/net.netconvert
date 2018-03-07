@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:32 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:31 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output.street-names value="true"/>
     </output>
 
@@ -175,7 +176,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-53500554" to="-724151417" fromLane="0" toLane="1" via=":61050789_1_0" dir="s" state="m"/>
     <connection from="-53500554" to="-53500609" fromLane="0" toLane="1" via=":61050789_2_0" dir="l" state="m"/>
     <connection from="-53500554" to="53500554" fromLane="0" toLane="0" via=":61050789_3_0" dir="t" state="m"/>
-    <connection from="-53500609" to="53500609" fromLane="1" toLane="0" via=":61050787_0_0" tl="61050787" linkIndex="0" dir="t" state="o"/>
+    <connection from="-53500609" to="53500609" fromLane="1" toLane="0" via=":61050787_0_0" tl="61050787" linkIndex="0" dir="t" state="O"/>
     <connection from="-572713710" to="-724151417" fromLane="0" toLane="0" via=":61050789_12_0" dir="r" state="M"/>
     <connection from="-572713710" to="-53500609" fromLane="0" toLane="0" via=":61050789_13_0" dir="s" state="m"/>
     <connection from="-572713710" to="-53500609" fromLane="1" toLane="1" via=":61050789_13_1" dir="s" state="m"/>

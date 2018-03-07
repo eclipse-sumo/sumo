@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 26 15:49:24 2017 by SUMO netconvert Version dev-SVN-r24896
+<!-- generated on Wed Mar  7 13:51:32 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -157,14 +158,14 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="3fi" to="3si" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="3fi" to="3si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from="3si" to="2o" fromLane="0" toLane="0" tl="0" linkIndex="6" dir="r" state="o"/>
+    <connection from="3si" to="2o" fromLane="0" toLane="0" tl="0" linkIndex="6" dir="r" state="O"/>
     <connection from="3si" to="1o" fromLane="1" toLane="0" tl="0" linkIndex="7" dir="l" state="o"/>
     <connection from="3si" to="3o" fromLane="2" toLane="0" tl="0" linkIndex="8" dir="t" state="o"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from="4si" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="0" dir="r" state="o"/>
-    <connection from="4si" to="3o" fromLane="1" toLane="0" tl="0" linkIndex="1" dir="s" state="o"/>
+    <connection from="4si" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="0" dir="r" state="O"/>
+    <connection from="4si" to="3o" fromLane="1" toLane="0" tl="0" linkIndex="1" dir="s" state="O"/>
     <connection from="4si" to="2o" fromLane="2" toLane="0" tl="0" linkIndex="2" dir="l" state="o"/>
 
 </net>

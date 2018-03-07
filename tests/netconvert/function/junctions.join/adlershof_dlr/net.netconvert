@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 28 15:05:55 2018 by SUMO netconvert Version v0_32_0+0571-b8b12a8
+<!-- generated on Wed Mar  7 13:51:59 2018 by SUMO netconvert Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -6569,8 +6569,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="169076556#3" to="-71960633#2" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="169076556#3" to="46150481#0" fromLane="1" toLane="2" dir="l" state="m"/>
     <connection from="169076556#3" to="-169076556#3" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="16942869" to="224769559" fromLane="1" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="4" dir="s" state="o"/>
-    <connection from="16942869" to="224769559" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="5" dir="s" state="o"/>
+    <connection from="16942869" to="224769559" fromLane="1" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="4" dir="s" state="O"/>
+    <connection from="16942869" to="224769559" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="5" dir="s" state="O"/>
     <connection from="16942869" to="206579064#2" fromLane="2" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="6" dir="l" state="o"/>
     <connection from="16942869" to="180239847" fromLane="2" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="7" dir="t" state="o"/>
     <connection from="16942869" to="180239847" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="8" dir="t" state="o"/>
@@ -6605,8 +6605,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="180239847" to="180239842" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="180239847" to="180239842" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="180239847" to="180239842" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from="180239858#0" to="180239847" fromLane="1" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="0" dir="s" state="o"/>
-    <connection from="180239858#0" to="180239847" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="1" dir="s" state="o"/>
+    <connection from="180239858#0" to="180239847" fromLane="1" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="0" dir="s" state="O"/>
+    <connection from="180239858#0" to="180239847" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="1" dir="s" state="O"/>
     <connection from="180239858#0" to="224769559" fromLane="2" toLane="1" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="2" dir="t" state="o"/>
     <connection from="180239858#0" to="224769559" fromLane="2" toLane="2" tl="cluster_1560223510_1906766906_1906766907_1906766908_1906766923_493585714_57343510" linkIndex="3" dir="t" state="o"/>
     <connection from="180239877" to="-180239877" fromLane="0" toLane="0" dir="t" state="M"/>

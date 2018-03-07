@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:31 2017 by SUMO netgenerate Version dev-SVN-r26311
+<!-- generated on Wed Mar  7 13:51:30 2018 by SUMO netgenerate Version v0_32_0+0663-7536829
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ SPDX-License-Identifier: EPL-2.0
     </spider_network>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -389,11 +390,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1/1to1" to="1to3/1" fromLane="0" toLane="0" via=":1_5_0" dir="s" state="M"/>
     <connection from="1/1to1" to="1to4/1" fromLane="0" toLane="0" via=":1_6_0" dir="l" state="M"/>
     <connection from="1/1to1" to="1to1/1" fromLane="0" toLane="0" via=":1_7_0" dir="t" state="M"/>
-    <connection from="1/1to2/1" to="2/1to3/1" fromLane="0" toLane="0" via=":2/1_0_0" tl="2/1" linkIndex="0" dir="L" state="o"/>
+    <connection from="1/1to2/1" to="2/1to3/1" fromLane="0" toLane="0" via=":2/1_0_0" tl="2/1" linkIndex="0" dir="L" state="O"/>
     <connection from="1/1to2/1" to="2/1to1" fromLane="0" toLane="0" via=":2/1_1_0" tl="2/1" linkIndex="1" dir="l" state="o"/>
     <connection from="1/1to2/1" to="2/1to1/1" fromLane="0" toLane="0" via=":2/1_2_0" tl="2/1" linkIndex="2" dir="t" state="o"/>
-    <connection from="1/1to4/1" to="4/1to1" fromLane="0" toLane="0" via=":4/1_3_0" tl="4/1" linkIndex="3" dir="r" state="o"/>
-    <connection from="1/1to4/1" to="4/1to3/1" fromLane="0" toLane="0" via=":4/1_4_0" tl="4/1" linkIndex="4" dir="R" state="o"/>
+    <connection from="1/1to4/1" to="4/1to1" fromLane="0" toLane="0" via=":4/1_3_0" tl="4/1" linkIndex="3" dir="r" state="O"/>
+    <connection from="1/1to4/1" to="4/1to3/1" fromLane="0" toLane="0" via=":4/1_4_0" tl="4/1" linkIndex="4" dir="R" state="O"/>
     <connection from="1/1to4/1" to="4/1to1/1" fromLane="0" toLane="0" via=":4/1_5_0" tl="4/1" linkIndex="5" dir="t" state="o"/>
     <connection from="1to1/1" to="1/1to4/1" fromLane="0" toLane="0" via=":1/1_3_0" tl="1/1" linkIndex="3" dir="r" state="o"/>
     <connection from="1to1/1" to="1/1to2/1" fromLane="0" toLane="0" via=":1/1_4_0" tl="1/1" linkIndex="4" dir="l" state="o"/>
@@ -411,31 +412,31 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2/1to1" to="1to4/1" fromLane="0" toLane="0" via=":1_1_0" dir="s" state="M"/>
     <connection from="2/1to1" to="1to1/1" fromLane="0" toLane="0" via=":1_2_0" dir="l" state="M"/>
     <connection from="2/1to1" to="1to2/1" fromLane="0" toLane="0" via=":1_3_0" dir="t" state="M"/>
-    <connection from="2/1to1/1" to="1/1to1" fromLane="0" toLane="0" via=":1/1_6_0" tl="1/1" linkIndex="6" dir="r" state="o"/>
-    <connection from="2/1to1/1" to="1/1to4/1" fromLane="0" toLane="0" via=":1/1_7_0" tl="1/1" linkIndex="7" dir="R" state="o"/>
+    <connection from="2/1to1/1" to="1/1to1" fromLane="0" toLane="0" via=":1/1_6_0" tl="1/1" linkIndex="6" dir="r" state="O"/>
+    <connection from="2/1to1/1" to="1/1to4/1" fromLane="0" toLane="0" via=":1/1_7_0" tl="1/1" linkIndex="7" dir="R" state="O"/>
     <connection from="2/1to1/1" to="1/1to2/1" fromLane="0" toLane="0" via=":1/1_8_0" tl="1/1" linkIndex="8" dir="t" state="o"/>
-    <connection from="2/1to3/1" to="3/1to4/1" fromLane="0" toLane="0" via=":3/1_0_0" tl="3/1" linkIndex="0" dir="L" state="o"/>
+    <connection from="2/1to3/1" to="3/1to4/1" fromLane="0" toLane="0" via=":3/1_0_0" tl="3/1" linkIndex="0" dir="L" state="O"/>
     <connection from="2/1to3/1" to="3/1to1" fromLane="0" toLane="0" via=":3/1_1_0" tl="3/1" linkIndex="1" dir="l" state="o"/>
     <connection from="2/1to3/1" to="3/1to2/1" fromLane="0" toLane="0" via=":3/1_2_0" tl="3/1" linkIndex="2" dir="t" state="o"/>
     <connection from="3/1to1" to="1to4/1" fromLane="0" toLane="0" via=":1_12_0" dir="r" state="M"/>
     <connection from="3/1to1" to="1to1/1" fromLane="0" toLane="0" via=":1_13_0" dir="s" state="M"/>
     <connection from="3/1to1" to="1to2/1" fromLane="0" toLane="0" via=":1_14_0" dir="l" state="M"/>
     <connection from="3/1to1" to="1to3/1" fromLane="0" toLane="0" via=":1_15_0" dir="t" state="M"/>
-    <connection from="3/1to2/1" to="2/1to1" fromLane="0" toLane="0" via=":2/1_6_0" tl="2/1" linkIndex="6" dir="r" state="o"/>
-    <connection from="3/1to2/1" to="2/1to1/1" fromLane="0" toLane="0" via=":2/1_7_0" tl="2/1" linkIndex="7" dir="R" state="o"/>
+    <connection from="3/1to2/1" to="2/1to1" fromLane="0" toLane="0" via=":2/1_6_0" tl="2/1" linkIndex="6" dir="r" state="O"/>
+    <connection from="3/1to2/1" to="2/1to1/1" fromLane="0" toLane="0" via=":2/1_7_0" tl="2/1" linkIndex="7" dir="R" state="O"/>
     <connection from="3/1to2/1" to="2/1to3/1" fromLane="0" toLane="0" via=":2/1_8_0" tl="2/1" linkIndex="8" dir="t" state="o"/>
-    <connection from="3/1to4/1" to="4/1to1/1" fromLane="0" toLane="0" via=":4/1_6_0" tl="4/1" linkIndex="6" dir="L" state="o"/>
+    <connection from="3/1to4/1" to="4/1to1/1" fromLane="0" toLane="0" via=":4/1_6_0" tl="4/1" linkIndex="6" dir="L" state="O"/>
     <connection from="3/1to4/1" to="4/1to1" fromLane="0" toLane="0" via=":4/1_7_0" tl="4/1" linkIndex="7" dir="l" state="o"/>
     <connection from="3/1to4/1" to="4/1to3/1" fromLane="0" toLane="0" via=":4/1_8_0" tl="4/1" linkIndex="8" dir="t" state="o"/>
     <connection from="4/1to1" to="1to1/1" fromLane="0" toLane="0" via=":1_8_0" dir="r" state="M"/>
     <connection from="4/1to1" to="1to2/1" fromLane="0" toLane="0" via=":1_9_0" dir="s" state="M"/>
     <connection from="4/1to1" to="1to3/1" fromLane="0" toLane="0" via=":1_10_0" dir="l" state="M"/>
     <connection from="4/1to1" to="1to4/1" fromLane="0" toLane="0" via=":1_11_0" dir="t" state="M"/>
-    <connection from="4/1to1/1" to="1/1to2/1" fromLane="0" toLane="0" via=":1/1_0_0" tl="1/1" linkIndex="0" dir="L" state="o"/>
+    <connection from="4/1to1/1" to="1/1to2/1" fromLane="0" toLane="0" via=":1/1_0_0" tl="1/1" linkIndex="0" dir="L" state="O"/>
     <connection from="4/1to1/1" to="1/1to1" fromLane="0" toLane="0" via=":1/1_1_0" tl="1/1" linkIndex="1" dir="l" state="o"/>
     <connection from="4/1to1/1" to="1/1to4/1" fromLane="0" toLane="0" via=":1/1_2_0" tl="1/1" linkIndex="2" dir="t" state="o"/>
-    <connection from="4/1to3/1" to="3/1to1" fromLane="0" toLane="0" via=":3/1_6_0" tl="3/1" linkIndex="6" dir="r" state="o"/>
-    <connection from="4/1to3/1" to="3/1to2/1" fromLane="0" toLane="0" via=":3/1_7_0" tl="3/1" linkIndex="7" dir="R" state="o"/>
+    <connection from="4/1to3/1" to="3/1to1" fromLane="0" toLane="0" via=":3/1_6_0" tl="3/1" linkIndex="6" dir="r" state="O"/>
+    <connection from="4/1to3/1" to="3/1to2/1" fromLane="0" toLane="0" via=":3/1_7_0" tl="3/1" linkIndex="7" dir="R" state="O"/>
     <connection from="4/1to3/1" to="3/1to4/1" fromLane="0" toLane="0" via=":3/1_8_0" tl="3/1" linkIndex="8" dir="t" state="o"/>
 
     <connection from=":1_0" to="1to3/1" fromLane="0" toLane="0" dir="r" state="M"/>
