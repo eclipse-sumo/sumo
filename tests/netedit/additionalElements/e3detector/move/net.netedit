@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sa 21 Okt 2017 12:20:10 CEST by Netedit Version UNKNOWN
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 08.03.2018 11:08:51 by Netedit Version v0_32_0+0673-f3c59ea9bc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/e3detector/move/input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Mar091542.1664/netedit.gui/additionalElements/e3detector/move\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/e3detector/move/additionals.xml"/>
-        <shapes-output value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/e3detector/move/shapes.xml"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/e3detector/move/net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Mar091542.1664/netedit.gui/additionalElements/e3detector/move\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Mar091542.1664/netedit.gui/additionalElements/e3detector/move\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Mar091542.1664/netedit.gui/additionalElements/e3detector/move\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,7 +23,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/e3detector/move/gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Mar091542.1664/netedit.gui/additionalElements/e3detector/move\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -37,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.21Oct110008.2565/netedit.gui/additionalElements/e3detector/move/log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Mar091542.1664/netedit.gui/additionalElements/e3detector/move\log.txt"/>
     </report>
 
 </configuration>
@@ -77,8 +72,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="o"/>
-    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="o"/>
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
+    <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
