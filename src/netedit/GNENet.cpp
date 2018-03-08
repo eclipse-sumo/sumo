@@ -159,6 +159,8 @@ GNENet::~GNENet() {
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (auto it : myAdditionals) {
+        // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
+        it.second->decRef();
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
@@ -167,6 +169,8 @@ GNENet::~GNENet() {
     }
     // Drop calibrator routes (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
     for (auto it : myCalibratorRoutes) {
+        // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
+        it.second->decRef();
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
@@ -175,6 +179,8 @@ GNENet::~GNENet() {
     }
     // Drop calibrator vehicle types (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
     for (auto it : myCalibratorVehicleTypes) {
+        // decrease reference manually (because it was increases manually in GNEAdditionalHandler)
+        it.second->decRef();
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
