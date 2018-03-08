@@ -148,7 +148,10 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     for (auto i : myRerouterIntervals) {
         i->writeRerouterInterval(device);
     }
-
+    // write block movement attribute only if it's enabled
+    if (myBlockMovement) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+    }
     // Close tag
     device.closeTag();
 }

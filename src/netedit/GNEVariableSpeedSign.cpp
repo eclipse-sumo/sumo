@@ -135,7 +135,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_LANES, parseGNELanes(myLaneChilds));
     device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    // If filenam isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
+    // If filename isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
     if (!myFilename.empty() && mySaveInFilename) {
         // Write filename attribute
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
@@ -152,6 +152,10 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
         for (auto i : mySteps) {
             i->writeStep(device);
         }
+    }
+    // write block movement attribute only if it's enabled
+    if (myBlockMovement) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
     }
     // Close tag
     device.closeTag();

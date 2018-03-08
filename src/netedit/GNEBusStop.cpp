@@ -109,6 +109,10 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
     }
+    // write block movement attribute only if it's enabled
+    if (myBlockMovement) {
+        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+    }
     // Close tag
     device.closeTag();
 }
