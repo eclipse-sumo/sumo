@@ -405,6 +405,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (myNBEdge.isMacroscopicConnector()) {
     }
     */
+    // obtain resolution for points
+    int circleResolution = 0;
+    if (s.scale >= 10) {
+        circleResolution = 32;
+    } else if (s.scale >= 2) {
+        circleResolution = 16;
+    } else if (s.scale >= 1) {
+        circleResolution = 8;
+    } else {
+        circleResolution = 4;
+    }
     // draw the lanes
     for (auto i : myLanes) {
         i->drawGL(s);
@@ -428,15 +439,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                if (s.scale >= 10) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
-                } else if (s.scale >= 2) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
-                } else if (s.scale >= 1) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
-                } else {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
-                }
+                GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
             }
             bool drawline = false;
@@ -445,15 +448,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                if (s.scale >= 10) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
-                } else if (s.scale >= 2) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
-                } else if (s.scale >= 1) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
-                } else {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
-                }
+                GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
                 drawline = true;
             }
@@ -461,15 +456,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                if (s.scale >= 10) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 32);
-                } else if (s.scale >= 2) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 16);
-                } else if (s.scale >= 1) {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 8);
-                } else {
-                    GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), 4);
-                }
+                GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
                 drawline = true;
             }
@@ -480,6 +467,24 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawLine(myNBEdge.getGeometry());
                 glPopMatrix();
             }
+            // draw special symbol for start point
+            if (myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
+                // draw a "s" over first point
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
+                GLHelper::drawText("S", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                glPopMatrix();
+            }
+            // draw special symbol for end point
+            if (myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
+                // draw a "e" over last point if polygon isn't closed
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION);
+                GLHelper::drawText("E", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                glPopMatrix();
+            }
+
+
             // pop name
             glPopName();
         }
