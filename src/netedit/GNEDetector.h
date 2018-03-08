@@ -50,8 +50,9 @@ public:
      * @param[in] filename The path to the output file.
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] additionalParent additional parent of this detector
+     * @param[in] block movement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetector();

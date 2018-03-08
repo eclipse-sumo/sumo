@@ -54,9 +54,10 @@ public:
      * @param[in] filename The path to the definition file
      * @param[in] probability The probability for vehicle rerouting
      * @param[in] off Whether the router should be inactive initially
+     * @param[in] block movement enable or disable additional movement
      */
     GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, 
-                const std::string& filename, double probability, bool off, double timeThreshold);
+                const std::string& filename, double probability, bool off, double timeThreshold, bool blockMovement);
 
     /// @brief Destructor
     ~GNERerouter();

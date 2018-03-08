@@ -55,8 +55,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos) :
-    GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "", friendlyPos, parent) {
+GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
+    GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "", friendlyPos, parent, blockMovement) {
 }
 
 
@@ -218,7 +218,7 @@ GNEDetectorExit::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
         default:
@@ -283,7 +283,7 @@ GNEDetectorExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFriendlyPosition = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
             changeAdditionalParent(value);

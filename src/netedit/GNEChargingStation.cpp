@@ -59,8 +59,8 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name,
-                                       double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name, friendlyPosition),
+                                       double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement) :
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
@@ -310,7 +310,7 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CHARGEDELAY:
             return toString(myChargeDelay);
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -424,7 +424,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myChargeDelay = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + "attribute '" + toString(key) + "' not allowed");

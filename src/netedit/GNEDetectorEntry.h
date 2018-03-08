@@ -50,8 +50,9 @@ public:
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos);
+    GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
 
     /// @brief destructor
     ~GNEDetectorEntry();

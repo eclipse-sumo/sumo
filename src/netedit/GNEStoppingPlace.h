@@ -50,8 +50,9 @@ public:
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] nam Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] block movement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition);
+    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();

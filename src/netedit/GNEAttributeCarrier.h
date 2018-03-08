@@ -427,8 +427,16 @@ public:
             }
             // If attribute has an invalid format
             if (!parsedOk) {
-                // if attribute has a default value, take it as string. In other case, abort.
-                if (hasDefaultValue(tag, attribute)) {
+                // if attribute has a default value, obtain it as string. In other case, abort.
+                if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
+                    // by default elements aren't blocked
+                    parsedAttribute = "false";
+                    // report warning of default value
+                    if (report) {
+                        WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                            additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value 'false' will be used.");
+                    }
+                } else if (hasDefaultValue(tag, attribute)) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                     // report warning of default value
                     if (report) {
@@ -445,8 +453,16 @@ public:
                 }
             }
         } else {
-            // if attribute has a default value, take it. In other case, abort.
-            if (hasDefaultValue(tag, attribute)) {
+            // if attribute has a default value, obtain it. In other case, abort.
+             if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
+                 // by default elements aren't blocked
+                 parsedAttribute = "false";
+                 // report warning of default value
+                 if (report) {
+                     WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                         additionalOfWarningMessage + " is missing; Default value 'false' will be used.");
+                 }
+             } else if (hasDefaultValue(tag, attribute)) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                 // report warning of default value
                 if (report) {

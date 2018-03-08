@@ -57,8 +57,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename) :
-    GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN, true, lanes),
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename, bool blockMovement) :
+    GNEAdditional(id, viewNet, SUMO_TAG_VSS, ICON_VARIABLESPEEDSIGN, true, blockMovement, lanes),
     myPosition(pos),
     myFilename(filename),
     mySaveInFilename(false) {
@@ -304,7 +304,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFilename;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -369,7 +369,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

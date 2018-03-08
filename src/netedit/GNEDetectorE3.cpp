@@ -59,8 +59,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold) :
-    GNEAdditional(id, viewNet, SUMO_TAG_E3DETECTOR, ICON_E3, true),
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold, bool blockMovement) :
+    GNEAdditional(id, viewNet, SUMO_TAG_E3DETECTOR, ICON_E3, true, blockMovement),
     myPosition(pos),
     myFreq(freq),
     myFilename(filename),
@@ -224,7 +224,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -309,7 +309,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySpeedThreshold = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -57,8 +57,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition) :
-    GNEAdditional(id, viewNet, tag, icon, true),
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition, bool blockMovement) :
+    GNEAdditional(id, viewNet, tag, icon, true, blockMovement),
     myLane(lane),
     myStartPosRelative(startPos / lane->getLaneParametricLength()),
     myEndPosRelative(endPos / lane->getLaneParametricLength()),

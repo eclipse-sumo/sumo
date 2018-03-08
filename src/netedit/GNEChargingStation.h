@@ -49,8 +49,9 @@ public:
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in timeSteps in the charge
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] block movement enable or disable additional movement
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEChargingStation();

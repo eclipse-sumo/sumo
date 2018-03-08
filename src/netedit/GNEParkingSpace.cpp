@@ -58,8 +58,8 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle) :
-    GNEAdditional(parkingAreaParent->generateParkingSpaceID(), viewNet, SUMO_TAG_PARKING_SPACE, ICON_PARKINGSPACE, true, parkingAreaParent),
+GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) :
+    GNEAdditional(parkingAreaParent->generateParkingSpaceID(), viewNet, SUMO_TAG_PARKING_SPACE, ICON_PARKINGSPACE, true, blockMovement, parkingAreaParent),
     myX(x),
     myY(y),
     myZ(z),
@@ -179,7 +179,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
         default:
@@ -266,7 +266,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAngle = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
             changeAdditionalParent(value);

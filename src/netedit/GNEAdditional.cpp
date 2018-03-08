@@ -57,49 +57,49 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myBlocked(false),
     myAdditionalParent(NULL),
     myBlockIconRotation(0),
-    myMovable(movable) {
+    myMovable(movable), 
+    myBlockMovement(blockMovement) {
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, GNEAdditional* additionalParent) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, GNEAdditional* additionalParent) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myBlocked(false),
     myAdditionalParent(additionalParent),
     myBlockIconRotation(0),
-    myMovable(movable) {
+    myMovable(movable),
+    myBlockMovement(blockMovement) {
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNEEdge*> edgeChilds) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myBlocked(false),
     myAdditionalParent(NULL),
     myEdgeChilds(edgeChilds),
     myBlockIconRotation(0),
-    myMovable(movable) {
+    myMovable(movable),
+    myBlockMovement(blockMovement) {
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, std::vector<GNELane*> laneChilds) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNELane*> laneChilds) :
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myBlocked(false),
     myAdditionalParent(NULL),
     myLaneChilds(laneChilds),
     myBlockIconRotation(0),
-    myMovable(movable) {
+    myMovable(movable),
+    myBlockMovement(blockMovement) {
 }
 
 
@@ -126,7 +126,7 @@ GNEAdditional::getShape() const {
 
 bool
 GNEAdditional::isAdditionalBlocked() const {
-    return myBlocked;
+    return myBlockMovement;
 }
 
 
@@ -399,7 +399,7 @@ GNEAdditional::drawLockIcon(double size) const {
             if (myMovable == false) {
                 // Draw not movable texture if additional isn't movable and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
-            } else if (myBlocked) {
+            } else if (myBlockMovement) {
                 // Draw lock texture if additional is movable, is blocked and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
             } else {
@@ -410,7 +410,7 @@ GNEAdditional::drawLockIcon(double size) const {
             if (myMovable == false) {
                 // Draw not movable texture if additional isn't movable
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING), size);
-            } else if (myBlocked) {
+            } else if (myBlockMovement) {
                 // Draw lock texture if additional is movable and is blocked
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
             } else {

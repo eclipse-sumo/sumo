@@ -55,8 +55,8 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane,
-                         double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent) :
-    GNEAdditional(id, viewNet, tag, icon, true, additionalParent),
+                         double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement) :
+    GNEAdditional(id, viewNet, tag, icon, true, blockMovement, additionalParent),
     myLane(lane),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFreq(freq),
@@ -93,7 +93,7 @@ GNEDetector::moveGeometry(const Position& oldPos, const Position& offset) {
 
 void
 GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    if (!myBlocked) {
+    if (!myBlockMovement) {
         // restore old position before commit new position
         double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
         undoList->p_begin("position of " + toString(getTag()));

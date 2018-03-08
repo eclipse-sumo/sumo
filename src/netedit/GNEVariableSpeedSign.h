@@ -52,8 +52,9 @@ public:
      * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] filename The path to the definition file
+     * @param[in] block movement enable or disable additional movement
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename, bool blockMovement);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();

@@ -60,8 +60,9 @@ public:
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
+     * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle);
+    GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();

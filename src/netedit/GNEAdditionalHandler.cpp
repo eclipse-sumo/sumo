@@ -354,6 +354,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
     std::string lanesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort);
     Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -366,7 +367,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, file, false)) {
+        } else if ((lanes.size() > 0) && buildVariableSpeedSign(myViewNet, myUndoAdditionals, id, pos, lanes, file, blockMovement)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -404,6 +405,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
     bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
     double timeThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), abort, 0);
     Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -416,7 +418,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, file, off, timeThreshold, false)) {
+        } else if ((edgesIDs.size() > 0) && buildRerouter(myViewNet, myUndoAdditionals, id, pos, edges, probability, file, off, timeThreshold, blockMovement)) {
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -553,7 +555,8 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort, false);
     std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort, false);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -570,7 +573,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false);
+            buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, blockMovement);
         }
     }
 }
@@ -586,7 +589,8 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort, false);
     std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort, false);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -603,7 +607,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false);
+            buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, blockMovement);
         }
     }
 }
@@ -622,7 +626,8 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     double efficiency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_EFFICIENCY, abort);
     bool chargeInTransit = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
     double chargeDelay = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_CHARGEDELAY, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -639,7 +644,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false);
+            buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
         }
     }
 }
@@ -654,11 +659,12 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
     double startPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort, false);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     int roadSideCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, tag, SUMO_ATTR_ROADSIDE_CAPACITY, abort);
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_WIDTH, abort);
     double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_LENGTH, abort);
     double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ANGLE, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -675,7 +681,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, false);
+            buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, blockMovement);
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -693,10 +699,11 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, 
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_WIDTH, abort, false);
     double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_LENGTH, abort, false);
     double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_ANGLE, abort, false);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get Parking Area Parent
-        GNEParkingArea* parkingAreaParent = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        GNEParkingArea* parkingAreaParent = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, blockMovement));
         // check that all parameters are valid
         if (myViewNet == NULL) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_PARKING_AREA) + ".");
@@ -783,6 +790,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort, false);
     std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_VTYPES, abort, false);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -798,7 +806,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, vehicleTypes, friendlyPos, false);
+            buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, vehicleTypes, friendlyPos, blockMovement);
         }
     }
 }
@@ -819,6 +827,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     double jamDistThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
     bool cont = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_CONT, abort);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -834,7 +843,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
         } else if (!fixE2DetectorPositionPosition(position, length, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
+            buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, blockMovement);
         }
     }
 }
@@ -850,6 +859,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
     double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
     double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
     Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // Due this additional can have childs, we need to reset myLastInsertedAdditionalParent
     myLastInsertedAdditionalParent = "";
     // Continue if all parameters were sucesfully loaded
@@ -857,7 +867,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != NULL) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
-        } else if (buildDetectorE3(myViewNet, true, id, pos, frequency, file, haltingTimeThreshold, haltingSpeedThreshold, false)) {
+        } else if (buildDetectorE3(myViewNet, true, id, pos, frequency, file, haltingTimeThreshold, haltingSpeedThreshold, blockMovement)) {
             // set myLastInsertedAdditionalParent due this additional can have childs and was sucesfully created
             myLastInsertedAdditionalParent = id;
         }
@@ -872,11 +882,12 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LANE, abort);
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get lane and E3 parent
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, blockMovement));
         // check that all parameters are valid
         if (lane == NULL) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
@@ -885,7 +896,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else {
-            buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
+            buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, blockMovement);
         }
     }
 }
@@ -898,11 +909,12 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LANE, abort);
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get lane and E3 parent
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
+        GNEDetectorE3* E3Parent = dynamic_cast<GNEDetectorE3*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, blockMovement));
         // check that all parameters are valid
         if (lane == NULL) {
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
@@ -911,7 +923,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
         } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else {
-            buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false);
+            buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, blockMovement);
         }
     }
 }
@@ -1191,11 +1203,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
 bool
 GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_BUS_STOP, id) == NULL) {
-        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition);
+        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
             viewNet->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
-            busStop->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(busStop);
@@ -1211,11 +1222,10 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
 bool
 GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CONTAINER_STOP, id) == NULL) {
-        GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition);
+        GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
             viewNet->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
-            containerStop->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(containerStop);
@@ -1232,11 +1242,10 @@ bool
 GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, 
                                            double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CHARGING_STATION, id) == NULL) {
-        GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition);
+        GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CHARGING_STATION));
             viewNet->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
-            chargingStation->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(chargingStation);
@@ -1253,11 +1262,10 @@ bool
 GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, double endPos, const std::string& name, 
                                        bool friendlyPosition, int roadSideCapacity, double width, double length, double angle, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_PARKING_AREA, id) == NULL) {
-        GNEParkingArea* ParkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle);
+        GNEParkingArea* ParkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
             viewNet->getUndoList()->add(new GNEChange_Additional(ParkingArea, true), true);
-            ParkingArea->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(ParkingArea);
@@ -1272,11 +1280,10 @@ GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, 
 
 bool 
 GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, GNEParkingArea *parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) {
-    GNEParkingSpace* ParkingSpace = new GNEParkingSpace(viewNet, parkingAreaParent, x, y, z, width, length, angle);
+    GNEParkingSpace* ParkingSpace = new GNEParkingSpace(viewNet, parkingAreaParent, x, y, z, width, length, angle, blockMovement);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
         viewNet->getUndoList()->add(new GNEChange_Additional(ParkingSpace, true), true);
-        ParkingSpace->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
         viewNet->getUndoList()->p_end();
     } else {
         viewNet->getNet()->insertAdditional(ParkingSpace);
@@ -1289,11 +1296,10 @@ GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo,
 bool
 GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E1DETECTOR, id) == NULL) {
-        GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, viewNet, pos, freq, filename, vehicleTypes, friendlyPos);
+        GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, viewNet, pos, freq, filename, vehicleTypes, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E1DETECTOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE1, true), true);
-            detectorE1->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(detectorE1);
@@ -1310,11 +1316,10 @@ bool
 GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
                                       bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E2DETECTOR, id) == NULL) {
-        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, cont, timeThreshold, speedThreshold, jamThreshold, friendlyPos);
+        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, cont, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
-            detectorE2->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(detectorE2);
@@ -1330,11 +1335,10 @@ GNEAdditionalHandler::buildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, c
 bool
 GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, id) == NULL) {
-        GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, timeThreshold, speedThreshold);
+        GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, timeThreshold, speedThreshold, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(detectorE3, true), true);
-            detectorE3->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(detectorE3);
@@ -1354,11 +1358,10 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
     } else if (E3Parent == NULL) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
-        GNEDetectorEntry* entry = new GNEDetectorEntry(viewNet, E3Parent, lane, pos, friendlyPos);
+        GNEDetectorEntry* entry = new GNEDetectorEntry(viewNet, E3Parent, lane, pos, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
             viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
-            entry->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(entry);
@@ -1378,11 +1381,10 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
     } else if (E3Parent == NULL) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
-        GNEDetectorExit* exit = new GNEDetectorExit(viewNet, E3Parent, lane, pos, friendlyPos);
+        GNEDetectorExit* exit = new GNEDetectorExit(viewNet, E3Parent, lane, pos, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
             viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
-            exit->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(exit);
@@ -1514,11 +1516,10 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
 bool
 GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& file, bool off, double timeThreshold, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_REROUTER, id) == NULL) {
-        GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off, timeThreshold);
+        GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, file, prob, off, timeThreshold, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
             viewNet->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
-            rerouter->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(rerouter);
@@ -1646,11 +1647,10 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
 bool
 GNEAdditionalHandler::buildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& file, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_VSS, id) == NULL) {
-        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file);
+        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, viewNet, pos, lanes, file, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
             viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
-            variableSpeedSign->setAttribute(GNE_ATTR_BLOCK_MOVEMENT, toString(blockMovement), viewNet->getUndoList());
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertAdditional(variableSpeedSign);

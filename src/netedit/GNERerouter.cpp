@@ -59,8 +59,8 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& filename, double probability, bool off, double timeThreshold) :
-    GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER, true, edges),
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& filename, double probability, bool off, double timeThreshold, bool blockMovement) :
+    GNEAdditional(id, viewNet, SUMO_TAG_REROUTER, ICON_REROUTER, true, blockMovement, edges),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),
@@ -317,7 +317,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OFF:
             return toString(myOff);
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -410,7 +410,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOff = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -58,8 +58,8 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, 
-                               bool friendlyPosition, int roadSideCapacity, double width, double length, double angle) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition),
+                               bool friendlyPosition, int roadSideCapacity, double width, double length, double angle, bool blockMovement) :
+    GNEStoppingPlace(id, viewNet, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myRoadSideCapacity(roadSideCapacity),
     myWidth(width),
     myLength(length),
@@ -301,7 +301,7 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
-            return toString(myBlocked);
+            return toString(myBlockMovement);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -423,7 +423,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAngle = parse<double>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
-            myBlocked = parse<bool>(value);
+            myBlockMovement = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
