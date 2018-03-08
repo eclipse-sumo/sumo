@@ -763,7 +763,7 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         assert(cluster.size() > 1);
         Position pos;
         bool setTL;
-        std::string id;
+        std::string id = "cluster";
         TrafficLightType type;
         analyzeCluster(cluster, id, pos, setTL, type);
         if (!insert(id, pos)) {
@@ -845,7 +845,6 @@ NBNodeCont::registerJoinedCluster(const std::set<NBNode*>& cluster) {
 void
 NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos,
                            bool& hasTLS, TrafficLightType& type) {
-    id = "cluster";
     hasTLS = false;
     std::vector<std::string> member_ids;
     bool ambiguousType = false;
@@ -1090,9 +1089,9 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         // figure out type of the joined TLS
         Position dummyPos;
         bool dummySetTL;
-        std::string dummyId;
+        std::string id = "joined"; // prefix (see #3871)
         TrafficLightType type;
-        analyzeCluster(c, dummyId, dummyPos, dummySetTL, type);
+        analyzeCluster(c, id, dummyPos, dummySetTL, type);
         for (std::set<NBNode*>::iterator j = c.begin(); j != c.end(); ++j) {
             std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
             (*j)->removeTrafficLights();
@@ -1100,7 +1099,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
                 tlc.removeFully((*j)->getID());
             }
         }
-        std::string id = "joinedS_" + toString(index++);
+        id = "joinedS_" + toString(index++);
         std::vector<NBNode*> nodes;
         for (std::set<NBNode*>::iterator j = c.begin(); j != c.end(); j++) {
             nodes.push_back(*j);
