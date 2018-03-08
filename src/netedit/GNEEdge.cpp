@@ -821,16 +821,16 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            if (myNBEdge.getGeometry()[0] == myGNEJunctionSource->getPositionInView()) {
+            if (myNBEdge.getGeometry().front() == myGNEJunctionSource->getPositionInView()) {
                 return "";
             } else {
-                return toString(myNBEdge.getGeometry()[0]);
+                return toString(myNBEdge.getGeometry().front());
             }
         case GNE_ATTR_SHAPE_END:
-            if (myNBEdge.getGeometry()[-1] == myGNEJunctionDestiny->getPositionInView()) {
+            if (myNBEdge.getGeometry().back() == myGNEJunctionDestiny->getPositionInView()) {
                 return "";
             } else {
-                return toString(myNBEdge.getGeometry()[-1]);
+                return toString(myNBEdge.getGeometry().back());
             }
         case GNE_ATTR_BIDIR:
             return toString(myNBEdge.isBidiRail());
@@ -1142,7 +1142,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
             Position newShapeEnd;
             if (value == "") {
-                newShapeEnd = myGNEJunctionSource->getPositionInView();
+                newShapeEnd = myGNEJunctionDestiny->getPositionInView();
             } else {
                 newShapeEnd = parse<Position>(value);
             }
