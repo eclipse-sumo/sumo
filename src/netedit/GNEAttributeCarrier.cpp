@@ -1011,6 +1011,7 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         // connection
         myBoolAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_PASS);
         myBoolAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_UNCONTROLLED);
+        myBoolAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_KEEP_CLEAR);
         // crossing
         myBoolAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_PRIORITY);
         // E1
