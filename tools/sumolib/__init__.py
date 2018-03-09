@@ -12,13 +12,12 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2011-06-23
-# @version $Id$
+# @version $Id: __init__.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 
 from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import datetime
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
@@ -32,6 +31,7 @@ except ImportError as e:
     visualization = VisDummy()
 from . import files, net, output, sensors, shapes
 from . import color, geomhelper, miscutils, options, route
+from .xml import writeHeader as writeXMLHeader
 
 
 class ConfigurationReader(handler.ContentHandler):
@@ -216,15 +216,3 @@ def _intTime(tStr):
 
 def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
-
-
-def writeXMLHeader(outf, script, root=None):
-    outf.write("""<?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on %s by %s
-  options: %s
--->
-""" % (datetime.datetime.now(), script,
-       (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
-    if root is not None:
-        outf.write(
-            '<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s_file.xsd">\n' % (root, root))

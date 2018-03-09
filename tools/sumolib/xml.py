@@ -11,12 +11,13 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-06-23
-# @version $Id$
+# @version $Id: xml.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 
 from __future__ import print_function
 from __future__ import absolute_import
 import sys
 import re
+import datetime
 import xml.etree.cElementTree as ET
 from collections import namedtuple, OrderedDict
 from keyword import iskeyword
@@ -253,3 +254,16 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
                 yield Record(**m.groupdict())
             else:
                 yield Record(*m.groups())
+
+
+def writeHeader(outf, script, root=None, schemaPath=None):
+    outf.write("""<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on %s by %s
+  options: %s
+-->
+""" % (datetime.datetime.now(), script,
+       (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
+    if root is not None:
+        if schemaPath is None:
+            schemaPath = root + "_file.xsd"
+        outf.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n' % (root, schemaPath))
