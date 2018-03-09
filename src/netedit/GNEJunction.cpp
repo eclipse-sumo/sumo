@@ -798,7 +798,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TLID:
             return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getID()) : "";
         case SUMO_ATTR_KEEP_CLEAR:
-            return myNBNode.getKeepClear() ? "true" : "false";
+            return toString(myNBNode.getKeepClear());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -992,7 +992,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_KEEP_CLEAR: {
-            myNBNode.setKeepClear(value == "true");
+            myNBNode.setKeepClear(parse<bool>(value));
             break;
         }
         default:

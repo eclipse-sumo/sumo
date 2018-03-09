@@ -70,7 +70,13 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     myFromLane(from),
     myToLane(to),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL) {
-    // geometry will be updated later
+    // set manually keep clear attribute depending of junctions attribute
+    NBEdge::Connection& nbCon = getNBEdgeConnection();
+    if(from->getParentEdge().getGNEJunctionDestiny()->getNBNode()->getKeepClear()) {
+        nbCon.keepClear = true;
+    } else {
+        nbCon.keepClear = false;
+    }
 }
 
 
