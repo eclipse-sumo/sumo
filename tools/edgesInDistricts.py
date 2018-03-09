@@ -82,11 +82,11 @@ class DistrictEdgeComputer:
 
     def writeResults(self, options):
         fd = open(options.output, "w")
-        fd.write("<tazs>\n")
+        sumolib.xml.writeHeader(fd, "$Id: $", "tazs", "taz_file.xsd")
         lastId = None
         lastEdges = None
         key = (lambda i:i[0].attributes[options.merge_param]) if options.merge_param else None
-        for district, edges in sorted(self._districtEdges.items(), key=key):
+        for idx, (district, edges) in enumerate(sorted(self._districtEdges.items(), key=key)):
             filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
             if len(filtered) == 0:
                 print("District '" + district.id + "' has no edges!")
@@ -110,22 +110,24 @@ class DistrictEdgeComputer:
                                  (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
                     else:
                         currentId = district.id
-                        if options.merge_separator is not None and options.merge_separator in district.id:
-                            currentId = district.id[:district.id.index(options.merge_separator)]
                         if options.merge_param is not None:
                             currentId = district.attributes[options.merge_param]
+                        if options.merge_separator is not None and options.merge_separator in currentId:
+                            currentId = currentId[:currentId.index(options.merge_separator)]
                         if lastId is not None:
                             if lastId == currentId:
-                                lastEdges += [e for e in filtered if e not in lastEdges]
+                                lastEdges.update(filtered)
                             else:
                                 fd.write('    <taz id="%s" edges="%s"/>\n' %
-                                         (lastId, " ".join([e.getID() for e in lastEdges])))
+                                         (lastId, " ".join(sorted([e.getID() for e in lastEdges]))))
                                 lastId = None
                         if lastId is None:
                             lastId = currentId
-                            lastEdges = filtered
+                            lastEdges = set(filtered)
+            if options.verbose and idx % 100 == 0:
+                sys.stdout.write("%s/%s\r" % (idx, len(self._districtEdges)))
         if lastId is not None:
-            fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join([e.getID() for e in lastEdges])))
+            fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join(sorted([e.getID() for e in lastEdges]))))
         fd.write("</tazs>\n")
         fd.close()
 
