@@ -27,3 +27,6 @@ Options:
   --merge-separator=MERGE_SEPARATOR
                         merge edge lists of taz starting with the same string
                         up to the given separator
+  --merge-param=MERGE_PARAM
+                        merge edge lists of taz/polygons having the same value
+                        for the given parameter
