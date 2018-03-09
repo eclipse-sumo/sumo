@@ -1,0 +1,4 @@
+<tazs>
+    <taz id="add" edges="end"/>
+    <taz id="poly" edges="left left2end"/>
+</tazs>

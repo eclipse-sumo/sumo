@@ -1,0 +1,4 @@
+<tazs>
+    <taz id="0" edges="left"/>
+    <taz id="1" edges="end left2end"/>
+</tazs>

@@ -8,3 +8,9 @@ vclass
 
 # one simple network with edge weights
 weighted
+
+# aggregating input by param
+group_by_param
+
+# aggregating input by id prefix
+group_by_prefix
