@@ -12,7 +12,7 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2007-07-26
-# @version $Id$
+# @version $Id: edgesInDistricts.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 
 """
 Parsing a number of networks and taz (district) files with shapes
@@ -85,9 +85,9 @@ class DistrictEdgeComputer:
         fd.write("<tazs>\n")
         lastId = None
         lastEdges = None
-        for district, edges in sorted(self._districtEdges.items()):
-            filtered = [
-                edge for edge in edges if edge not in self._invalidatedEdges]
+        key = (lambda i:i[0].attributes[options.merge_param]) if options.merge_param else None
+        for district, edges in sorted(self._districtEdges.items(), key=key):
+            filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
             if len(filtered) == 0:
                 print("District '" + district.id + "' has no edges!")
             else:
@@ -109,21 +109,21 @@ class DistrictEdgeComputer:
                         fd.write('    <taz id="%s" shape="%s" edges="%s"/>\n' %
                                  (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
                     else:
+                        currentId = district.id
                         if options.merge_separator is not None and options.merge_separator in district.id:
-                            base = district.id[:district.id.index(options.merge_separator)]
-                            if lastId is not None:
-                                if lastId == base:
-                                    lastEdges += [e for e in filtered if e not in lastEdges]
-                                else:
-                                    fd.write('    <taz id="%s" edges="%s"/>\n' %
-                                             (lastId, " ".join([e.getID() for e in lastEdges])))
-                                    lastId = None
-                            if lastId is None:
-                                lastId = base
-                                lastEdges = filtered
-                        else:
-                            fd.write('    <taz id="%s" edges="%s"/>\n' %
-                                     (district.id, " ".join([e.getID() for e in filtered])))
+                            currentId = district.id[:district.id.index(options.merge_separator)]
+                        if options.merge_param is not None:
+                            currentId = district.attributes[options.merge_param]
+                        if lastId is not None:
+                            if lastId == currentId:
+                                lastEdges += [e for e in filtered if e not in lastEdges]
+                            else:
+                                fd.write('    <taz id="%s" edges="%s"/>\n' %
+                                         (lastId, " ".join([e.getID() for e in lastEdges])))
+                                lastId = None
+                        if lastId is None:
+                            lastId = currentId
+                            lastEdges = filtered
         if lastId is not None:
             fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join([e.getID() for e in lastEdges])))
         fd.write("</tazs>\n")
@@ -155,12 +155,13 @@ def fillOptions(optParser):
                          default=False, help="Assign the edge always to the district where the \"from\" node is located")
     optParser.add_option("-i", "--internal", action="store_true",
                          default=False, help="Include internal edges in output")
-    optParser.add_option(
-        "-l", "--vclass", help="Include only edges allowing VCLASS")
+    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-s", "--shapeinfo", action="store_true",
                          default=False, help="write also the shape info in the file")
     optParser.add_option("--merge-separator",
                          help="merge edge lists of taz starting with the same string up to the given separator")
+    optParser.add_option("--merge-param",
+                         help="merge edge lists of taz/polygons having the same value for the given parameter")
 
 
 if __name__ == "__main__":
@@ -175,8 +176,7 @@ if __name__ == "__main__":
         print("Reading net '" + options.net_file + "'")
     nets = options.net_file.split(",")
     if len(nets) > 1:
-        print(
-            "Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for taz only.")
+        print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for taz only.")
     reader = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
     polyReader = sumolib.shapes.polygon.PolygonReader(True)
