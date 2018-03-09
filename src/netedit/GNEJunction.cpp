@@ -817,7 +817,15 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_TLTYPE:
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
+            break;
         case SUMO_ATTR_KEEP_CLEAR:
+            // change Keep Clear attribute in all connections
+            for (auto i : myGNEIncomingEdges) {
+                for (auto j : i->getGNEConnections()) {
+                    undoList->add(new GNEChange_Attribute(j, key, value), true);
+                }
+            }
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_TYPE: {
