@@ -38,13 +38,13 @@ SPDX-License-Identifier: EPL-2.0
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="type0" sigma="0"/>
-    <vehicle id="v0" type="type0" depart="1000.00" route="r0" state="9223372036854775807 0 -1.00 0" pos="0.00" speed="0.00" posLat="0.00">
+    <vehicle id="v0" type="type0" depart="1000.00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1.00 0" pos="0.00" speed="0.00" posLat="0.00">
         <device id="tripinfo_v0" state=" 0.00 -1.00"/>
     </vehicle>
-    <vehicle id="v1" type="type0" depart="990.00" route="r0" state="990000 1 5.10 0" pos="71.77" speed="13.89" posLat="0.00">
+    <vehicle id="v1" type="type0" depart="990.00" route="r0" speedFactor="1.00" state="990000 1 5.10 0" pos="71.77" speed="13.89" posLat="0.00">
         <device id="tripinfo_v1" state="beg_0 0.00 0.00"/>
     </vehicle>
-    <vehicle id="v2" type="type0" depart="1100.00" route="r0" state="9223372036854775807 0 -1.00 0" pos="0.00" speed="0.00" posLat="0.00">
+    <vehicle id="v2" type="type0" depart="1100.00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1.00 0" pos="0.00" speed="0.00" posLat="0.00">
         <device id="tripinfo_v2" state=" 0.00 -1.00"/>
     </vehicle>
     <lane id="beg_0">
