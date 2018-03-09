@@ -776,7 +776,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         begingMoveSelection(pointed_edge, getPositionInformation());
                     } else if(((FXEvent*)eventData)->state & SHIFTMASK) {
-                        pointed_edge->setEndpoint(getPositionInformation(), myUndoList);
+                        pointed_edge->editEndpoint(getPositionInformation(), myUndoList);
                     } else {
                         myMovedItems.edgeToMove = pointed_edge;
                         if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {

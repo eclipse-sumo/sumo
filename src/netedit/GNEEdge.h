@@ -182,8 +182,8 @@ public:
     /// @brief get opposite edge
     GNEEdge* getOppositeEdge() const;
 
-    /// @brief makes pos the new geometry endpoint at the appropriate end
-    void setEndpoint(Position pos, GNEUndoList* undoList);
+    /// @brief makes pos the new geometry endpoint at the appropriate end, or remove current existent endpoint
+    void editEndpoint(Position pos, GNEUndoList* undoList);
 
     /// @brief restores the endpoint to the junction position at the appropriate end
     void resetEndpoint(const Position& pos, GNEUndoList* undoList);
