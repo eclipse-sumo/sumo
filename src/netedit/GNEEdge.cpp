@@ -442,7 +442,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
             }
-            bool drawline = false;
             // draw line geometry and start and end points if shapeStart or shape end are edited
             if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
                 glPushMatrix();
@@ -450,7 +449,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
-                drawline = true;
+                // draw a "s" over first point
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
+                GLHelper::drawText("S", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                glPopMatrix();
+                // draw line
+                glPushMatrix();
+                glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                glLineWidth(4);
+                GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
+                glPopMatrix();
             }
             if(myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
                 glPushMatrix();
@@ -458,33 +467,18 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
-                drawline = true;
-            }
-            if(drawline) {
-                glPushMatrix();
-                glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                glLineWidth(4);
-                GLHelper::drawLine(myNBEdge.getGeometry());
-                glPopMatrix();
-            }
-            // draw special symbol for start point
-            if (myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
-                // draw a "s" over first point
-                glPushMatrix();
-                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
-                GLHelper::drawText("S", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
-                glPopMatrix();
-            }
-            // draw special symbol for end point
-            if (myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
                 // draw a "e" over last point if polygon isn't closed
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION);
                 GLHelper::drawText("E", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
                 glPopMatrix();
+                // draw line
+                glPushMatrix();
+                glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                glLineWidth(4);
+                GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                glPopMatrix();
             }
-
-
             // pop name
             glPopName();
         }
