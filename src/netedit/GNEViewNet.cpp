@@ -112,8 +112,6 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                    GNEViewNet::onCmdReverseEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                GNEViewNet::onCmdAddReversedEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SET_ENDPOINT,               GNEViewNet::onCmdSetEdgeEndpoint),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,             GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                 GNEViewNet::onCmdStraightenEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                     GNEViewNet::onCmdSmoothEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,       GNEViewNet::onCmdStraightenEdgesElevation),
@@ -777,6 +775,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 } else if (pointed_edge) {
                     if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
                         begingMoveSelection(pointed_edge, getPositionInformation());
+                    } else if(((FXEvent*)eventData)->state & SHIFTMASK) {
+                        pointed_edge->setEndpoint(getPositionInformation(), myUndoList);
                     } else {
                         myMovedItems.edgeToMove = pointed_edge;
                         if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {
@@ -1576,26 +1576,6 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
         myNet->addReversedEdge(edge, myUndoList);
-    }
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetEdgeEndpoint(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
-        edge->setEndpoint(getPopupPosition(), myUndoList);
-    }
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtPopupPosition();
-    if (edge != 0) {
-        edge->resetEndpoint(getPopupPosition(), myUndoList);
     }
     return 1;
 }

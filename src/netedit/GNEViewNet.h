@@ -193,12 +193,6 @@ public:
     /// @brief add reversed edge
     long onCmdAddReversedEdge(FXObject*, FXSelector, void*);
 
-    /// @brief set non-default geometry endpoint
-    long onCmdSetEdgeEndpoint(FXObject*, FXSelector, void*);
-
-    /// @brief restore geometry endpoint to node position
-    long onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*);
-
     /// @brief makes selected edges straight
     long onCmdStraightenEdges(FXObject*, FXSelector, void*);
 

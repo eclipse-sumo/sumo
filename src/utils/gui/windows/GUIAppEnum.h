@@ -667,10 +667,6 @@ enum {
     /// @name GNEEdge messages
     /// @{
 
-    /// @brief set non-default geometry endpoint
-    MID_GNE_EDGE_SET_ENDPOINT,
-    /// @brief restore geometry endpoint to node position
-    MID_GNE_EDGE_RESET_ENDPOINT,
     /// @brief remove inner geometry
     MID_GNE_EDGE_STRAIGHTEN,
     /// @brief smooth geometry
