@@ -12,7 +12,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Mon, 8 Nov 2010
-/// @version $Id$
+/// @version $Id: MSBaseVehicle.cpp v0_32_0+0554-8006ddce48 oss@behrisch.de 2018-01-11 12:40:22 +0100 $
 ///
 // A base class for vehicle implementations
 /****************************************************************************/
@@ -462,6 +462,7 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
     if (myParameter->wasSet(VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
         out.writeAttr(SUMO_ATTR_REROUTE, true);
     }

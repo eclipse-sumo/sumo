@@ -206,6 +206,7 @@ MSStateHandler::closeVehicle() {
         // reset depart
         vc.discountStateLoaded();
         SUMOVehicle* v = vc.getVehicle(vehID);
+        v->setChosenSpeedFactor(myAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR));
         v->loadState(*myAttrs, myOffset);
         if (v->hasDeparted()) {
             // vehicle already departed: disable pre-insertion rerouting and enable regular routing behavior
