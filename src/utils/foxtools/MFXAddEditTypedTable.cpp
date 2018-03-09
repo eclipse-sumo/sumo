@@ -289,16 +289,10 @@ MFXAddEditTypedTable::acceptInput(FXbool notify) {
     bool set = false;
     FXTableRange tablerange = input;
     if (editor) {
-        /*
         FXRealSpinner* dial = dynamic_cast<FXRealSpinner*>(editor);
         if (dial != 0) {
-            if (!dial->getDial().grabbed()) {
-                set = true;
-            } else {
-                setItemFromControl_NoRelease(input.fm.row, input.fm.col, editor);
-            }
+            setItemFromControl_NoRelease(input.fm.row, input.fm.col, editor);
         }
-        */
         if (dynamic_cast<FXTextField*>(editor) != 0) {
             set = true;
         }
