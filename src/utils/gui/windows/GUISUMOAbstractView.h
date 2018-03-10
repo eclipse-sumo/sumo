@@ -337,6 +337,11 @@ public:
     /// @brief Sets the delay of the parent application
     void setDelay(double delay);
 
+    /// @brief retrieve breakpoints if provided by the application
+    virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
+        return std::vector<SUMOTime>();
+    }
+
 protected:
     ///@brief performs the painting of the simulation
     void paintGL();

@@ -132,6 +132,11 @@ public:
         return myAmFullScreen;
     }
 
+    /// @brief retrieve breakpoints if provided by the application
+    virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
+        return std::vector<SUMOTime>();
+    }
+
 protected:
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;

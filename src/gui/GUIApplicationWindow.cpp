@@ -1722,4 +1722,12 @@ GUIApplicationWindow::sendBlockingEvent(GUIEvent* event) {
 }
 
 
+const std::vector<SUMOTime>
+GUIApplicationWindow::retrieveBreakpoints() const {
+    myRunThread->getBreakpointLock().lock();
+    std::vector<SUMOTime> result = myRunThread->getBreakpoints();
+    myRunThread->getBreakpointLock().unlock();
+    return result;
+}
+
 /****************************************************************************/

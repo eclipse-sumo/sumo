@@ -111,7 +111,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         mySaveViewPort = new FXCheckButton(frame0, "Viewport");
         mySaveDelay = new FXCheckButton(frame0, "Delay");
         mySaveDecals = new FXCheckButton(frame0, "Decals");
-
+        mySaveBreakpoints = new FXCheckButton(frame0, "Breakpoints");
+        if (settings->netedit) {
+            mySaveBreakpoints->disable();
+        }
     }
     //
     FXTabBook* tabbook = new FXTabBook(contentFrame, 0, 0, GUIDesignViewSettingsTabBook1);
@@ -1104,6 +1107,13 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
         if (mySaveDecals->getCheck()) {
             saveDecals(dev);
         }
+        if (!mySettings->netedit && mySaveBreakpoints->getCheck()) {
+            for (SUMOTime t : myParent->retrieveBreakpoints()) {
+                dev.openTag(SUMO_TAG_BREAKPOINT);
+                dev.writeAttr(SUMO_ATTR_VALUE, time2string(t));
+                dev.closeTag();
+            }
+        }
         dev.closeTag();
         dev.close();
     } catch (IOError& e) {
@@ -1117,7 +1127,7 @@ long
 GUIDialog_ViewSettings::onUpdExportSetting(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
                    (mySchemeName->getCurrentItem() < (int) gSchemeStorage.getNumInitialSettings()
-                    && !mySaveViewPort->getCheck() && !mySaveDelay->getCheck() && !mySaveDecals->getCheck()) ?
+                    && !mySaveViewPort->getCheck() && !mySaveDelay->getCheck() && !mySaveDecals->getCheck() && !mySaveBreakpoints->getCheck()) ?
                    FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     return 1;

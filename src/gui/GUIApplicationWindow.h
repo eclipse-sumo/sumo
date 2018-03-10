@@ -283,6 +283,8 @@ public:
      */
     virtual void sendBlockingEvent(GUIEvent* event);
 
+    const std::vector<SUMOTime> retrieveBreakpoints() const; 
+
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
 
