@@ -1664,7 +1664,8 @@ MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMin
     //    std::cout << std::setprecision(2) <<   "   distanceTo=" << obs.description << " maxX=" << maxX << " minX=" << minX << " obs.xFwd=" << obs.xFwd << " obs.xBack=" << obs.xBack << "\n";
     //}
     if ((obs.xFwd >= maxX && obs.xBack <= maxX) || (obs.xFwd <= maxX && obs.xFwd >= minX)) {
-        return DIST_OVERLAP;
+        // avoid blocking by itself on looped route
+        return (obs.type == OBSTACLE_PED && obs.description == myPerson->getID()) ? DIST_FAR_AWAY : DIST_OVERLAP;
     }
     if (myDir == FORWARD) {
         return obs.xFwd < minX ? DIST_BEHIND : obs.xBack - maxX;
