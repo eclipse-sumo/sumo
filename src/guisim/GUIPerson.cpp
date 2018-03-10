@@ -233,7 +233,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("stage index", false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination().getID());
-    ret->mkItem("arrivalPos [m]", false, toString(getArrivalPos()));
+    ret->mkItem("arrivalPos [m]", false, toString(getCurrentStage()->getArrivalPos()));
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
