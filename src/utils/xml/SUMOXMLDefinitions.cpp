@@ -153,6 +153,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "viewport",                   SUMO_TAG_VIEWPORT },
     { "snapshot",                   SUMO_TAG_SNAPSHOT },
     { "breakpoints-file",           SUMO_TAG_BREAKPOINTS_FILE },
+    { "breakpoint",                 SUMO_TAG_BREAKPOINT },
     { "location",                   SUMO_TAG_LOCATION },
     { "colorScheme",                SUMO_TAG_COLORSCHEME },
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
