@@ -407,6 +407,8 @@ GUIViewTraffic::onDoubleClicked(FXObject*, FXSelector, void*) {
     // leave fullscreen mode
     if (myApp->isFullScreen()) {
         myApp->onCmdFullScreen(0, 0, 0);
+    } else {
+        stopTrack();
     }
     return 1;
 }
