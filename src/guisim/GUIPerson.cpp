@@ -49,6 +49,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUILane.h"
@@ -66,6 +67,7 @@ FXDEFMAP(GUIPerson::GUIPersonPopupMenu) GUIPersonPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE,     GUIPerson::GUIPersonPopupMenu::onCmdHideCurrentRoute),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdShowWalkingareaPath),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_WALKINGAREA_PATH, GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOWPLAN,              GUIPerson::GUIPersonPopupMenu::onCmdShowPlan),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK,           GUIPerson::GUIPersonPopupMenu::onCmdStartTrack),
     FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK,            GUIPerson::GUIPersonPopupMenu::onCmdStopTrack),
 };
@@ -122,6 +124,24 @@ long
 GUIPerson::GUIPersonPopupMenu::onCmdHideWalkingareaPath(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_PERSON);
     static_cast<GUIPerson*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_WALKINGAREA_PATH);
+    return 1;
+}
+
+
+long
+GUIPerson::GUIPersonPopupMenu::onCmdShowPlan(FXObject*, FXSelector, void*) {
+    GUIPerson* p = dynamic_cast<GUIPerson*>(myObject);
+    if (p == 0) {
+        return 1;
+    }
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(*myApplication, *p, p->getNumStages());
+    // add items
+    for (int stage = 1; stage < p->getNumStages(); stage++) {
+        ret->mkItem(toString(stage).c_str(), false, p->getStageSummary(stage));
+    }
+    // close building (use an object that is not Parameterised as argument)
+    Parameterised dummy;
+    ret->closeBuilding(&dummy);
     return 1;
 }
 
@@ -195,6 +215,8 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app,
     //
     buildShowParamsPopupEntry(ret);
     buildShowTypeParamsPopupEntry(ret);
+    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPLAN);
+    new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }

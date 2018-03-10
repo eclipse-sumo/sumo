@@ -242,6 +242,8 @@ enum {
     MID_SHOWPARS,
     /// @brief Show object type parameter - popup entry
     MID_SHOWTYPEPARS,
+    /// @brief Show transportable plan
+    MID_SHOWPLAN,
     /// @brief Show TLS phases - popup entry
     MID_SWITCH_OFF,
     MID_SWITCH,

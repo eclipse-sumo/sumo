@@ -106,8 +106,11 @@ public:
             return myType;
         }
 
-        /// @brief return string representation of the current stage
+        /// @brief return (brief) string representation of the current stage
         virtual std::string getStageDescription() const = 0;
+
+        /// @brief return string summary of the current stage
+        virtual std::string getStageSummary() const = 0;
 
         /// proceeds to this stage
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) = 0;
@@ -242,6 +245,8 @@ public:
         std::string getStageDescription() const {
             return "waiting (" + myActType + ")";
         }
+
+        std::string getStageSummary() const;
 
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous);
@@ -462,6 +467,9 @@ public:
         assert(myStep + next >= myPlan->begin());
         return (*(myStep + next))->getStageType();
     }
+
+    /// @brief return textual summary for the given stage
+    std::string getStageSummary(int stageIndex) const;
 
     /// Returns the current stage description as a string
     std::string getCurrentStageDescription() const {

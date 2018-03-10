@@ -85,6 +85,7 @@ public:
 
         /// @brief returns the stage description as a string
         std::string getStageDescription() const;
+        std::string getStageSummary() const;
 
         /** @brief Called on writing tripinfo output
          *
@@ -150,6 +151,7 @@ public:
         std::string getStageDescription() const {
             return "tranship";
         }
+        std::string getStageSummary() const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into

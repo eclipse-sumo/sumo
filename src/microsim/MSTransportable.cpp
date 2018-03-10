@@ -232,6 +232,19 @@ MSTransportable::Stage_Waiting::abort(MSTransportable* t) {
 }
 
 
+std::string 
+MSTransportable::Stage_Waiting::getStageSummary() const {
+    std::string timeInfo;
+    if (myWaitingUntil >= 0) {
+        timeInfo += " until " + time2string(myWaitingUntil);
+    }
+    if (myWaitingDuration >= 0) {
+        timeInfo += " duration " + time2string(myWaitingDuration);
+    }
+    return "stopping at edge '" + getDestination().getID() + "' " + timeInfo + " (" + myActType + ")";
+}
+
+
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
@@ -541,6 +554,13 @@ MSTransportable::getBoundingBox() const {
     result.append(centerLine.reverse(), POSITION_EPS);
     //std::cout << " transp=" << getID() << " p=" << p << " angle=" << GeomHelper::naviDegree(angle) << " back=" << back << " result=" << result << "\n";
     return result;
+}
+
+std::string 
+MSTransportable::getStageSummary(int stageIndex) const {
+    assert(stageIndex < myPlan->size());
+    assert(stageIndex >= 0);
+    return (*myPlan)[stageIndex]->getStageSummary();
 }
 
 /****************************************************************************/

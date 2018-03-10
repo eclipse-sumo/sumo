@@ -312,6 +312,14 @@ MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
     return mySpeed > 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();
 }
 
+std::string
+MSPerson::MSPersonStage_Walking::getStageSummary() const {
+    const std::string dest = (getDestinationStop() == 0 ? 
+        " edge '" + getDestination().getID() + "'" : 
+        " stop '" + getDestinationStop()->getID() + "'");
+    return "walking to " + dest;
+}
+
 
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Driving - methods
@@ -360,6 +368,16 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : "driving";
 }
 
+
+std::string
+MSPerson::MSPersonStage_Driving::getStageSummary() const {
+    const std::string dest = (getDestinationStop() == 0 ? 
+        " edge '" + getDestination().getID() + "'" : 
+        " stop '" + getDestinationStop()->getID() + "'");
+    return isWaiting4Vehicle() ? 
+        "waiting for " + joinToString(myLines, ",") + " then drive to " + dest: 
+        "driving to " + dest;
+}
 
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {

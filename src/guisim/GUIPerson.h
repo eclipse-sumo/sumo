@@ -177,6 +177,8 @@ public:
         long onCmdShowWalkingareaPath(FXObject*, FXSelector, void*);
         /// @brief Called if the walkingarea path of the person shall be hidden
         long onCmdHideWalkingareaPath(FXObject*, FXSelector, void*);
+        /// @brief Called if the plan shall be shown
+        long onCmdShowPlan(FXObject*, FXSelector, void*);
         /// @brief Called if the person shall be tracked
         long onCmdStartTrack(FXObject*, FXSelector, void*);
         /// @brief Called if the person shall not be tracked any longer
