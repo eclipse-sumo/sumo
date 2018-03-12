@@ -1,2 +1,5 @@
+# show behavor on internal lanes when switching tls off
+off_internal
+
 # a left turning vehicle is blocked from leaving the intersection until it's phase has run out
 blocked_until_red
