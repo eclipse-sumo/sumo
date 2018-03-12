@@ -1,6 +1,9 @@
 set(utils_vehicle_STAT_SRCS
    AStarRouter.h
+   AccessEdge.h
    CarEdge.h
+   PublicTransportEdge.h
+   StopEdge.h
    CHBuilder.h
    CHRouter.h
    CHRouterWrapper.h
@@ -12,6 +15,7 @@ set(utils_vehicle_STAT_SRCS
    LogitCalculator.h
    RouteCostCalculator.h
    PedestrianRouter.h
+   RouterProvider.h
    SUMOAbstractRouter.h
    SPTree.h
    SUMOVehicle.h

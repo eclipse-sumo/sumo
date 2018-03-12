@@ -40,7 +40,10 @@
 #include "SUMOVehicleParameter.h"
 #include "DijkstraRouter.h"
 #include "IntermodalNetwork.h"
+#include "AccessEdge.h"
 #include "CarEdge.h"
+#include "PublicTransportEdge.h"
+#include "StopEdge.h"
 #include "PedestrianRouter.h"
 
 //#define IntermodalRouter_DEBUG_ROUTES
@@ -551,56 +554,6 @@ private:
 private:
     /// @brief Invalidated assignment operator
     IntermodalRouter& operator=(const IntermodalRouter& s);
-
-};
-
-
-
-/**
- * @class RouterProvider
- * The encapsulation of the routers for vehicles and pedestrians
- */
-template<class E, class L, class N, class V>
-class RouterProvider {
-public:
-    RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
-                   PedestrianRouterDijkstra<E, L, N, V>* pedRouter,
-                   IntermodalRouter<E, L, N, V>* interRouter)
-        : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
-
-    RouterProvider(const RouterProvider& original)
-        : myVehRouter(original.getVehicleRouter().clone()),
-          myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
-          myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.getIntermodalRouter().clone())) {}
-
-    SUMOAbstractRouter<E, V>& getVehicleRouter() const {
-        return *myVehRouter;
-    }
-
-    PedestrianRouterDijkstra<E, L, N, V>& getPedestrianRouter() const {
-        return *myPedRouter;
-    }
-
-    IntermodalRouter<E, L, N, V>& getIntermodalRouter() const {
-        return *myInterRouter;
-    }
-
-    virtual ~RouterProvider() {
-        delete myVehRouter;
-        delete myPedRouter;
-        delete myInterRouter;
-    }
-
-
-private:
-    SUMOAbstractRouter<E, V>* const myVehRouter;
-    PedestrianRouterDijkstra<E, L, N, V>* const myPedRouter;
-    IntermodalRouter<E, L, N, V>* const myInterRouter;
-
-
-private:
-    /// @brief Invalidated assignment operator
-    RouterProvider& operator=(const RouterProvider& src);
 
 };
 

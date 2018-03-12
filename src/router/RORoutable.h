@@ -10,7 +10,7 @@
 /// @file    RORoutable.h
 /// @author  Michael Behrisch
 /// @date    Oct 2015
-/// @version $Id$
+/// @version $Id: RORoutable.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A routable thing such as a vehicle or person
 /****************************************************************************/
@@ -31,7 +31,7 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/vehicle/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 
