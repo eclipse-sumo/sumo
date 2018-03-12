@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 23 15:41:20 2017 by SUMO Version dev-SVN-r26667
+<!-- generated on Mon Mar 12 15:35:58 2018 by SUMO Version v0_32_0+0710-21c9bbb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
@@ -44,11 +45,11 @@ SPDX-License-Identifier: EPL-2.0
         <person id="p0" x="106.23" y="110.83" angle="0.00" speed="1.39" pos="2.78" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="v0" x="104.95" y="98.69" angle="0.00" type="car" speed="12.15" pos="6.74" lane=":C_10_0" slope="0.00"/>
+        <vehicle id="v0" x="104.95" y="98.69" angle="0.00" type="car" speed="12.15" pos="6.74" lane=":C_11_0" slope="0.00"/>
         <person id="p0" x="106.23" y="112.22" angle="0.00" speed="1.39" pos="4.17" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="v0" x="104.95" y="107.04" angle="0.00" type="car" speed="8.35" pos="15.09" lane=":C_10_0" slope="0.00"/>
+        <vehicle id="v0" x="104.95" y="107.04" angle="0.00" type="car" speed="8.35" pos="15.09" lane=":C_11_0" slope="0.00"/>
         <person id="p0" x="106.23" y="113.61" angle="0.00" speed="1.39" pos="5.56" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="5.00">

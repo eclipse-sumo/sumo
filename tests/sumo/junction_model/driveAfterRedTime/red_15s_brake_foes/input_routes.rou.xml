@@ -3,7 +3,7 @@
    <vType id="egoType" sigma="0" jmDriveAfterRedTime="1000"/>
    <vType id="foeType" sigma="0"/>
 
-   <flow id="foe" type="foeType" begin="35" end="45" period="2" departPos="10" departSpeed="max" arrivalPos="50">
+   <flow id="foe" type="foeType" begin="35" end="45" period="2" departPos="10" departSpeed="max" arrivalPos="50" arrivalLane="1">
        <route edges="EC CW"/>
    </flow>
    <vehicle id="ego" type="egoType" depart="42" departPos="10" departSpeed="0" arrivalPos="50">

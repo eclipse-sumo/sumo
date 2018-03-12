@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun  8 15:57:07 2017 by SUMO Version dev-SVN-r24576
+<!-- generated on Mon Mar 12 15:47:53 2018 by SUMO Version v0_32_0+0710-21c9bbb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,9 +11,11 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <net-file value="net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
@@ -66,10 +68,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="104.95" y="86.62" angle="0.00" type="egoType" speed="9.84" pos="86.62" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="ego" x="104.95" y="91.95" angle="0.00" type="egoType" speed="5.34" pos="0.00" lane=":C_10_0" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="91.95" angle="0.00" type="egoType" speed="5.34" pos="0.00" lane=":C_11_0" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="ego" x="104.95" y="99.89" angle="0.00" type="egoType" speed="7.94" pos="7.94" lane=":C_10_0" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="99.89" angle="0.00" type="egoType" speed="7.94" pos="7.94" lane=":C_11_0" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
         <vehicle id="ego" x="104.95" y="110.42" angle="0.00" type="egoType" speed="10.54" pos="2.37" lane="CN_0" slope="0.00"/>
