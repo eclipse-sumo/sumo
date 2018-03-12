@@ -186,7 +186,7 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
         // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
         const SUMOTime execTime = myEdgeWeightSettingCommand == 0 ? -1 : holder.getParameter().depart;
-        MSNet::getInstance()->getInsertionEvents()->addEvent(myRerouteCommand, execTime);
+        MSNet::getInstance()->getPreInsertionEvents()->addEvent(myRerouteCommand, execTime);
     }
 }
 
@@ -203,7 +203,7 @@ bool
 MSDevice_Routing::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         // clean up pre depart rerouting
-        if (myPreInsertionPeriod > 0) {
+        if (myRerouteCommand != 0) {
             myRerouteCommand->deschedule();
         }
         myRerouteCommand = 0;

@@ -168,7 +168,9 @@ MSNet::getInstance(void) {
 
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-             MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents,
+             MSEventControl* endOfTimestepEvents, 
+             MSEventControl* preInsertionEvents, 
+             MSEventControl* insertionEvents,
              ShapeContainer* shapeCont):
     myVehiclesMoved(0),
     myHavePermissions(false),
@@ -200,6 +202,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;
+    myPreInsertionEvents = preInsertionEvents;
     myInsertionEvents = insertionEvents;
     myLanesRTree.first = false;
 
@@ -254,6 +257,8 @@ MSNet::~MSNet() {
     myBeginOfTimestepEvents = 0;
     delete myEndOfTimestepEvents;
     myEndOfTimestepEvents = 0;
+    delete myPreInsertionEvents;
+    myPreInsertionEvents = 0;
     delete myInsertionEvents;
     myInsertionEvents = 0;
     // delete controls
@@ -509,6 +514,7 @@ MSNet::simulationStep() {
     }
     // insert vehicles
     myInserter->determineCandidates(myStep);
+    myPreInsertionEvents->execute(myStep);
     myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
     MSDevice_Routing::waitForAll();

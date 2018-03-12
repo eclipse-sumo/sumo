@@ -242,7 +242,7 @@ NLBuilder::init() {
     } else {
         vc = new MSVehicleControl();
     }
-    MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
+    MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl(), new MSEventControl());
     // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
 

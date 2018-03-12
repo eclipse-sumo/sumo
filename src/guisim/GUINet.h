@@ -96,7 +96,9 @@ public:
      * @exception ProcessError If a network was already constructed
      */
     GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-           MSEventControl* endOfTimestepEvents, MSEventControl* insertionEvents);
+           MSEventControl* endOfTimestepEvents, 
+           MSEventControl* preInsertionEvents, 
+           MSEventControl* insertionEvents);
 
 
     /// @brief Destructor

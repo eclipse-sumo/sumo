@@ -177,6 +177,7 @@ GUILoadThread::run() {
             vehControl,
             new GUIEventControl(),
             new GUIEventControl(),
+            new GUIEventControl(),
             new GUIEventControl());
         // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
         std::map<int, TraCIServer::CmdExecutor> execs;
