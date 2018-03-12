@@ -81,7 +81,7 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addSynonyme("device.rerouting.period", "device.routing.period", true);
     oc.addDescription("device.rerouting.period", "Routing", "The period with which the vehicle shall be rerouted");
 
-    oc.doRegister("device.rerouting.pre-period", new Option_String("1", "TIME"));
+    oc.doRegister("device.rerouting.pre-period", new Option_String("60", "TIME"));
     oc.addSynonyme("device.rerouting.pre-period", "device.routing.pre-period", true);
     oc.addDescription("device.rerouting.pre-period", "Routing", "The rerouting period before depart");
 
