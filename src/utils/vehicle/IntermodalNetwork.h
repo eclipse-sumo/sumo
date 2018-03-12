@@ -12,7 +12,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id$
+/// @version $Id: IntermodalNetwork.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The Edge definition for the Intermodal Router
 /****************************************************************************/
@@ -204,11 +204,11 @@ public:
         myEdges[edge->getNumericalID()] = edge;
     }
 
-    void addConnectors(_IntermodalEdge* const depConn, _IntermodalEdge* const arrConn, const int splitIndex) {
+    void addConnectors(_IntermodalEdge* const depConn, _IntermodalEdge* const arrConn, const int index) {
         addEdge(depConn);
         addEdge(arrConn);
-        myDepartLookup[depConn->getEdge()].insert(myDepartLookup[depConn->getEdge()].begin() + splitIndex, depConn);
-        myArrivalLookup[arrConn->getEdge()].insert(myArrivalLookup[arrConn->getEdge()].begin() + splitIndex, arrConn);
+        myDepartLookup[depConn->getEdge()].insert(myDepartLookup[depConn->getEdge()].begin() + index, depConn);
+        myArrivalLookup[arrConn->getEdge()].insert(myArrivalLookup[arrConn->getEdge()].begin() + index, arrConn);
     }
 
     const std::vector<_IntermodalEdge*>& getAllEdges() {
