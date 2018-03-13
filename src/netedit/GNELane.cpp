@@ -478,6 +478,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Split " + toString(SUMO_TAG_EDGE) + "s in both direction here").c_str(), 0, &parent, MID_GNE_EDGE_SPLIT_BIDI);
         new FXMenuCommand(ret, ("Reverse " + toString(SUMO_TAG_EDGE)).c_str(), 0, &parent, MID_GNE_EDGE_REVERSE);
         new FXMenuCommand(ret, "Add reverse direction", 0, &parent, MID_GNE_EDGE_ADD_REVERSE);
+        new FXMenuCommand(ret, "Set geometry endpoint here (shift-click)", 0, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
+        new FXMenuCommand(ret, "Restore geometry endpoint (shift-click)", 0, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
         new FXMenuCommand(ret, ("Straighten " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN);
         new FXMenuCommand(ret, ("Smooth " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH);
         new FXMenuCommand(ret, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);

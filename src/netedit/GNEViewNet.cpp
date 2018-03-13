@@ -112,6 +112,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SPLIT_BIDI,                 GNEViewNet::onCmdSplitEdgeBidi),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_REVERSE,                    GNEViewNet::onCmdReverseEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_ADD_REVERSE,                GNEViewNet::onCmdAddReversedEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_EDIT_ENDPOINT,              GNEViewNet::onCmdEditEdgeEndpoint),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_ENDPOINT,             GNEViewNet::onCmdResetEdgeEndpoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN,                 GNEViewNet::onCmdStraightenEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_SMOOTH,                     GNEViewNet::onCmdSmoothEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_STRAIGHTEN_ELEVATION,       GNEViewNet::onCmdStraightenEdgesElevation),
@@ -1576,6 +1578,26 @@ GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
         myNet->addReversedEdge(edge, myUndoList);
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdEditEdgeEndpoint(FXObject*, FXSelector, void*) {
+    GNEEdge * edge = getEdgeAtPopupPosition();
+    if (edge != 0) {
+        edge->editEndpoint(getPopupPosition(), myUndoList);
+    }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
+    GNEEdge * edge = getEdgeAtPopupPosition();
+    if (edge != 0) {
+        edge->resetEndpoint(getPopupPosition(), myUndoList);
     }
     return 1;
 }
