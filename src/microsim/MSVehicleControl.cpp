@@ -451,7 +451,7 @@ void
 MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
     for (const SUMOVehicle* const veh : myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        router.addSchedule(veh->getParameter());
+        router.getNetwork()->addSchedule(veh->getParameter());
     }
 }
 

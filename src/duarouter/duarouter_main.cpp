@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 06 Jun 2002
-/// @version $Id$
+/// @version $Id: duarouter_main.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // Main for DUAROUTER
 /****************************************************************************/
@@ -194,11 +194,11 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     int carWalk = 0;
     for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
         if (opt == "parkingAreas") {
-            carWalk |= ROIntermodalRouter::PARKING_AREAS;
+            carWalk |= ROIntermodalRouter::Network::PARKING_AREAS;
         } else if (opt == "ptStops") {
-            carWalk |= ROIntermodalRouter::PT_STOPS;
+            carWalk |= ROIntermodalRouter::Network::PT_STOPS;
         } else if (opt == "allJunctions") {
-            carWalk |= ROIntermodalRouter::ALL_JUNCTIONS;
+            carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS;
         }
     }
     RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),

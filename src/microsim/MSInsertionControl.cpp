@@ -14,7 +14,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
+/// @version $Id: MSInsertionControl.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
@@ -310,7 +310,7 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
             if (route != 0) {
                 addStops = &route->getStops();
             }
-            router.addSchedule(*f.pars, addStops);
+            router.getNetwork()->addSchedule(*f.pars, addStops);
         }
     }
 }

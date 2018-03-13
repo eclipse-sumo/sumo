@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: RONet.cpp v0_32_0+0442-c0a2cccfec oss@behrisch.de 2018-02-16 22:10:56 +0100 $
 ///
 // The router's network representation
 /****************************************************************************/
@@ -655,13 +655,13 @@ void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // add access to all parking areas
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
-        router.addAccess(i.first, myInstance->getEdgeForLaneID(i.second->lane), (i.second->startPos + i.second->endPos) / 2., SUMO_TAG_PARKING_AREA);
+        router.getNetwork()->addAccess(i.first, myInstance->getEdgeForLaneID(i.second->lane), (i.second->startPos + i.second->endPos) / 2., SUMO_TAG_PARKING_AREA);
     }
     // add access to all public transport stops
     for (const auto& stop : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
-        router.addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., SUMO_TAG_BUS_STOP);
+        router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., SUMO_TAG_BUS_STOP);
         for (std::multimap<std::string, double>::const_iterator a = stop.second->accessPos.begin(); a != stop.second->accessPos.end(); ++a) {
-            router.addAccess(stop.first, myInstance->getEdgeForLaneID(a->first), a->second, SUMO_TAG_BUS_STOP);
+            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(a->first), a->second, SUMO_TAG_BUS_STOP);
         }
     }
     // fill the public transport router with pre-parsed public transport lines
@@ -672,12 +672,12 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
             if (route != 0 && route->getFirstRoute() != 0) {
                 addStops = &route->getFirstRoute()->getStops();
             }
-            router.addSchedule(*i.second, addStops);
+            router.getNetwork()->addSchedule(*i.second, addStops);
         }
     }
     for (const RORoutable* const veh : myInstance->myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        router.addSchedule(veh->getParameter());
+        router.getNetwork()->addSchedule(veh->getParameter());
     }
 }
 

@@ -10,7 +10,7 @@
 /// @file    PedestrianRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
-/// @version $Id$
+/// @version $Id: PedestrianRouter.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/
@@ -59,7 +59,7 @@ public:
     /// Constructor
     PedestrianRouter():
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(false) {
-        myPedNet = new _IntermodalNetwork(E::getAllEdges());
+        myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
