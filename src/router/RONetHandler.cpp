@@ -14,7 +14,7 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id: RONetHandler.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/
@@ -322,6 +322,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || !SUMORouteHandler::checkStopPos(pos, pos, edge->getLength(), 0., friendlyPos)) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane + "'.");
@@ -329,7 +330,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         throw ProcessError();
     }
-    myCurrentStoppingPlace->accessPos.insert(std::make_pair(lane, pos));
+    myCurrentStoppingPlace->accessPos.push_back(std::make_tuple(lane, pos, length));
 }
 
 

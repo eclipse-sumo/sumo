@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 07.12.2005
-/// @version $Id$
+/// @version $Id: GUIBusStop.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
@@ -84,7 +84,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    void addAccess(MSLane* lane, const double pos);
+    void addAccess(MSLane* lane, const double pos, const double length);
 
     /// @name inherited from GUIGlObject
     //@{

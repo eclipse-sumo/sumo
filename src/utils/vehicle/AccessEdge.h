@@ -40,17 +40,16 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
 
 public:
-    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge,
-               const double transferTime = NUMERICAL_EPS) :
+    AccessEdge(int numericalID, const _IntermodalEdge* inEdge, const _IntermodalEdge* outEdge, const double length) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
-        myTransferTime(transferTime) { }
+        myLength(length > 0. ? length : NUMERICAL_EPS) { }
 
-    double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
-        return myTransferTime;
+    double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double /* time */) const {
+        return myLength / trip->speed;
     }
 
 private:
-    const double myTransferTime;
+    const double myLength;
 
 };
 

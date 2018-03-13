@@ -13,7 +13,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
+/// @version $Id: MSRouteHandler.cpp v0_32_0+0556-cae8329bfc oss@behrisch.de 2018-02-27 11:24:39 +0100 $
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
@@ -1217,7 +1217,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         if (&myActivePlan->back()->getDestination() != myActiveRoute.front() &&
                 myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getFromJunction() &&
                 myActivePlan->back()->getDestination().getToJunction() != myActiveRoute.front()->getToJunction()) {
-            if (myActivePlan->back()->getDestinationStop() == 0 || !myActivePlan->back()->getDestinationStop()->hasAccess(myActiveRoute.front())) {
+            if (myActivePlan->back()->getDestinationStop() == 0 || myActivePlan->back()->getDestinationStop()->getAccessPos(myActiveRoute.front()) < 0.) {
                 throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " not connected to " + myActivePlan->back()->getDestination().getID() + ").");
             }
         }

@@ -13,7 +13,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @date    2006-01-24
-/// @version $Id$
+/// @version $Id: SUMOVehicleParameter.h v0_32_0+0554-8006ddce48 oss@behrisch.de 2018-01-11 12:40:22 +0100 $
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
@@ -567,7 +567,7 @@ public:
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
         /// @brief lanes and positions connected to this stop
-        std::multimap<std::string, double> accessPos;
+        std::vector<std::tuple<std::string, double, double> > accessPos;
         /// @brief at which position in the stops list
         int index;
         /// @brief Information for the output which parameter were set

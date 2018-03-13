@@ -11,7 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
-/// @version $Id$
+/// @version $Id: MSStoppingPlace.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A lane area vehicles can halt at
 /****************************************************************************/
@@ -150,26 +150,33 @@ MSStoppingPlace::getAccessPos(const MSEdge* edge) const {
     if (edge == &myLane.getEdge()) {
         return (myBegPos + myEndPos) / 2.;
     }
-    for (std::multimap<MSLane*, double>::const_iterator i = myAccessPos.begin(); i != myAccessPos.end(); ++i) {
-        if (edge == &i->first->getEdge()) {
-            return i->second;
+    for (const auto& access : myAccessPos) {
+        if (edge == &std::get<0>(access)->getEdge()) {
+            return std::get<1>(access);
         }
     }
     return -1.;
 }
 
 
-bool
-MSStoppingPlace::hasAccess(const MSEdge* edge) const {
+double
+MSStoppingPlace::getAccessDistance(const MSEdge* edge) const {
     if (edge == &myLane.getEdge()) {
-        return true;
+        return 0.;
     }
-    for (std::multimap<MSLane*, double>::const_iterator i = myAccessPos.begin(); i != myAccessPos.end(); ++i) {
-        if (edge == &i->first->getEdge()) {
-            return true;
+    for (const auto& access : myAccessPos) {
+        const MSLane* const accLane = std::get<0>(access);
+        if (edge == &accLane->getEdge()) {
+            const double length = std::get<2>(access);
+            if (length >= 0.) {
+                return length;
+            }
+            const Position accPos = accLane->geometryPositionAtOffset(std::get<1>(access));
+            const Position stopPos = myLane.geometryPositionAtOffset((myBegPos + myEndPos) / 2.);
+            return accPos.distanceTo(stopPos);
         }
     }
-    return false;
+    return -1.;
 }
 
 

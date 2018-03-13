@@ -15,7 +15,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Thu, 17 Oct 2002
-/// @version $Id$
+/// @version $Id: NLTriggerBuilder.cpp v0_32_0+0633-ab378fffc5 oss@behrisch.de 2018-01-11 12:40:22 +0100 $
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/
@@ -211,13 +211,14 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     // get the positions
     bool ok = true;
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
+    const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || !myHandler->checkStopPos(pos, pos, lane->getLength(), 0, friendlyPos)) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
     if (myCurrentStop != 0) {
-        myCurrentStop->addAccess(lane, pos);
+        myCurrentStop->addAccess(lane, pos, length);
     }
 }
 

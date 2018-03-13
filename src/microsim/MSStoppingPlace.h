@@ -11,7 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
-/// @version $Id$
+/// @version $Id: MSStoppingPlace.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A lane area vehicles can halt at
 /****************************************************************************/
@@ -168,20 +168,20 @@ public:
     void removeTransportable(MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual void addAccess(MSLane* lane, const double pos) {
-        myAccessPos.insert(std::make_pair(lane, pos));
+    virtual void addAccess(MSLane* lane, const double pos, const double length) {
+        myAccessPos.push_back(std::make_tuple(lane, pos, length));
     }
 
     /// @brief lanes and positions connected to this stop
-    const std::multimap<MSLane*, double>& getAllAccessPos() const {
+    const std::vector<std::tuple<MSLane*, double, double> >& getAllAccessPos() const {
         return myAccessPos;
     }
 
     /// @brief the position on the given edge which is connected to this stop, -1 on failure
     double getAccessPos(const MSEdge* edge) const;
 
-    /// @brief checks whether this stop provides access to the given edge
-    bool hasAccess(const MSEdge* edge) const;
+    /// @brief the distance from the access on the given edge to the stop, -1 on failure
+    double getAccessDistance(const MSEdge* edge) const;
 
 protected:
     /** @brief Computes the last free position on this stop
@@ -225,7 +225,7 @@ protected:
     std::vector<MSTransportable*> myWaitingTransportables;
 
     /// @brief lanes and positions connected to this stop
-    std::multimap<MSLane*, double> myAccessPos;
+    std::vector<std::tuple<MSLane*, double, double> > myAccessPos;
 
 private:
     /// @brief Invalidated copy constructor.

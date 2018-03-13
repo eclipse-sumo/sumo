@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 07.12.2005
-/// @version $Id$
+/// @version $Id: GUIBusStop.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
@@ -91,8 +91,8 @@ GUIBusStop::~GUIBusStop() {}
 
 
 void
-GUIBusStop::addAccess(MSLane* lane, const double pos) {
-    MSStoppingPlace::addAccess(lane, pos);
+GUIBusStop::addAccess(MSLane* lane, const double pos, const double length) {
+    MSStoppingPlace::addAccess(lane, pos, length);
     myAccessCoords.push_back(lane->getShape().positionAtOffset(pos));
 }
 
