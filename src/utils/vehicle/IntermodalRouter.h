@@ -183,7 +183,7 @@ public:
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
             dev.writeAttr(SUMO_ATTR_LENGTH, e->getLength());
-            dev.writeAttr("successors", joinToString(e->getSuccessors(SVC_IGNORING), " "));
+            dev.writeAttr("successors", toString(e->getSuccessors(SVC_IGNORING)));
             dev.closeTag();
         }
     }
