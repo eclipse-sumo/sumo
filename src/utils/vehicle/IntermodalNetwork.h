@@ -37,11 +37,38 @@
 #include <utils/common/ToString.h>
 #include <utils/common/Named.h>
 #include "AccessEdge.h"
+#include "CarEdge.h"
 #include "IntermodalEdge.h"
+#include "PedestrianEdge.h"
 #include "PublicTransportEdge.h"
+#include "StopEdge.h"
 #include "SUMOVehicleParameter.h"
 
 //#define IntermodalRouter_DEBUG_NETWORK
+
+
+// ===========================================================================
+// function definitions
+// ===========================================================================
+template <class E, class L>
+inline const L* getSidewalk(const E* edge) {
+    if (edge == nullptr) {
+        return nullptr;
+    }
+    // prefer lanes that are exclusive to pedestrians
+    const std::vector<L*>& lanes = edge->getLanes();
+    for (const L* const lane : lanes) {
+        if (lane->getPermissions() == SVC_PEDESTRIAN) {
+            return lane;
+        }
+    }
+    for (const L* const lane : lanes) {
+        if (lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
+            return lane;
+        }
+    }
+    return nullptr;
+}
 
 
 // ===========================================================================

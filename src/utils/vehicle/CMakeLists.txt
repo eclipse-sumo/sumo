@@ -2,6 +2,7 @@ set(utils_vehicle_STAT_SRCS
    AStarRouter.h
    AccessEdge.h
    CarEdge.h
+   PedestrianEdge.h
    PublicTransportEdge.h
    StopEdge.h
    CHBuilder.h
@@ -11,6 +12,7 @@ set(utils_vehicle_STAT_SRCS
    IntermodalEdge.h
    IntermodalNetwork.h
    IntermodalRouter.h
+   IntermodalTrip.h
    GawronCalculator.h
    LogitCalculator.h
    RouteCostCalculator.h
