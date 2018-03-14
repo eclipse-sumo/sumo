@@ -57,28 +57,35 @@ def patchLinks(page, name):
     images = set()
     level = len(name.split("/")) - 1
     level = "../" * level
-    b = page.find("<a href")
+    b = page.find(" href=")
     while b >= 0:
         # images/files
-        if page[b + 9:].startswith("/wiki/File:") or page[b + 9:].startswith("/wiki/Image:"):
+        if page[b + 7:].startswith("/wiki/File:") or page[b + 7:].startswith("/wiki/Image:"):
             b2 = b
             b = page.find(":", b) + 1
-            images.add(page[b2 + 9:page.find("\"", b)])
-            page = page[:b2 + 9] + level + "images/" + page[b:]
+            images.add(page[b2 + 7:page.find("\"", b)])
+            page = page[:b2 + 7] + level + "images/" + page[b:]
         # pages (HTML)
-        elif page[b + 9:].startswith("/wiki/"):
-            e = b + 9 + 6
-            e2 = page.find("\"", b + 9)
+        elif page[b + 7:].startswith("/wiki/"):
+            e = b + 7 + 6
+            e2 = page.find("\"", b + 7)
             link = page[e:e2]
-            if link.find("action=edit") < 0:
+            if "action=edit" not in link:
                 if link.find("#") > 0:
                     link = level + link.replace("#", ".html#")
                 elif link.find("#") < 0 and not link.endswith((".png", ".jpg", ".svg")):
                     link = level + link + ".html"
-                page = page[:b + 9] + link + page[e2:]
-            else:
-                page = page[:b + 9] + "http://sourceforge.net/" + page[b + 10:]
-        b = page.find("<a href", b + 1)
+                page = page[:b + 7] + link + page[e2:]
+        # pages (pydoc)
+        else:
+            l = page.find('"', b) + 1
+            le = page.find('"', l)
+            link = page[l:le]
+            p = link.find("daily/pydoc")
+            if p >= 0:
+                link = level + ".." + link[p+5:]
+                page = page[:l] + link + page[le:]
+        b = page.find(" href=", b + 1)
     return page, images, level
 
 
