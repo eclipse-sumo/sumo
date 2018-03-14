@@ -346,7 +346,7 @@ public:
      */
     bool needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const;
 
-    /// @brief whether the given index must yield to the foeIndex while turing right on a red light
+    /// @brief whether the given index must yield to the foeIndex while turning right on a red light
     virtual bool rightOnRedConflict(int index, int foeIndex) const;
 
     /* initialize myNeedsContRelation and set myNeedsContRelationReady to true
