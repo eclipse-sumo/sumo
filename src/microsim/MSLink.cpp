@@ -80,6 +80,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myFoeVisibilityDistance(foeVisibilityDistance),
     myHasFoes(false),
     myAmCont(false),
+    myAmContOff(false),
     myKeepClear(keepClear),
     myInternalLane(via),
     myInternalLaneBefore(0),
@@ -114,6 +115,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         myFoeLanes.push_back(*it_lane);
     }
     myJunction = const_cast<MSJunction*>(myLane->getEdge().getFromJunction()); // junctionGraph is initialized after the whole network is loaded
+    myAmContOff = isCont && myLogic !=0 && internalLaneBefore == 0 && checkContOff();
     myInternalLaneBefore = internalLaneBefore;
     MSLane* lane = 0;
     if (internalLaneBefore != 0) {
@@ -371,7 +373,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     if (haveRed() && !ignoreRed) {
         return false;
     }
-    if (myAmCont && MSGlobals::gUsingInternalLanes) {
+    if (isCont() && MSGlobals::gUsingInternalLanes) {
         return true;
     }
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
@@ -608,6 +610,14 @@ MSLane*
 MSLink::getLane() const {
     return myLane;
 }
+
+
+bool 
+MSLink::isCont() const {
+    // when a traffic light is switched off minor roads have their cont status revoked
+    return myState != LINKSTATE_TL_OFF_BLINKING ? myAmCont : myAmContOff;
+}
+
 
 bool
 MSLink::lastWasContMajor() const {
@@ -1125,6 +1135,21 @@ void
 MSLink::initParallelLinks() {
     myParallelRight = computeParallelLink(-1);
     myParallelLeft = computeParallelLink(1);
+}
+
+bool 
+MSLink::checkContOff() const {
+    // check whether this link gets to keep its cont status switching the tls off
+    // @note: this could also be pre-computed in netconvert 
+    // we check whether there is any major link from this edge
+    for (const MSLane* cand : myLaneBefore->getEdge().getLanes()) {
+        for (const MSLink* link : cand->getLinkCont()) {
+            if (link->getOffState() == LINKSTATE_TL_OFF_NOSIGNAL) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 /****************************************************************************/

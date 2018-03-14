@@ -377,10 +377,8 @@ public:
         return myHasFoes;
     }
 
-    // @todo documentation
-    bool isCont() const {
-        return myAmCont;
-    }
+    // @brief return whether the vehicle may continute past this link to wait within the intersection
+    bool isCont() const; 
 
 
     /// @brief whether the junction after this link must be kept clear
@@ -529,6 +527,9 @@ private:
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
                       const SUMOVehicle* ego) const;
 
+    /// @brief figure out whether the cont status remains in effect when switching off the tls
+    bool checkContOff() const;
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;
@@ -571,9 +572,12 @@ private:
     /// @brief Whether any foe links exist
     bool myHasFoes;
 
-    // @todo documentation
+    // @brief whether vehicles may continue past this link to wait within the intersection
     bool myAmCont;
+    // @brief whether vehicles may continue past this link to wait within the intersection after switching of the traffic light at this intersection
+    bool myAmContOff;
 
+    // @brief whether vehicles must keep the intersection clear if there is a downstream jam
     bool myKeepClear;
 
     /// @brief The following junction-internal lane if used
