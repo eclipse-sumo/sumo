@@ -184,8 +184,7 @@ private:
      * @return the response string
      * @exception IOError not yet implemented
      */
-    std::string getResponseString(int tlIndex, const NBEdge* const from, const NBEdge* const to,
-                                  int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const;
+    std::string getResponseString(const NBEdge* const from, const NBEdge::Connection& c, const bool checkLaneFoes) const;
 
 
     /** writes which participating links are foes to the given */

@@ -503,18 +503,16 @@ NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const p
 int
 NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
                              int fromLane, int pos, const bool checkLaneFoes) const {
-    std::vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
-    for (std::vector<NBEdge::Connection>::iterator j = connected.begin(); j != connected.end(); j++) {
-        assert((*j).toEdge != 0);
+    for (const NBEdge::Connection& c : from->getConnectionsFromLane(fromLane)) {
+        assert(c.toEdge != 0);
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
-        const std::string foes = getFoesString(from, (*j).toEdge, fromLane, (*j).toLane, checkLaneFoes);
-        const std::string response = (myJunction->getType() == NODETYPE_ZIPPER ? foes
-                                      : getResponseString((*j).tlLinkIndex, from, (*j).toEdge, fromLane, (*j).toLane, (*j).mayDefinitelyPass, checkLaneFoes));
+        const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
+        const std::string response = myJunction->getType() == NODETYPE_ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
         od.writeAttr(SUMO_ATTR_RESPONSE, response);
         od.writeAttr(SUMO_ATTR_FOES, foes);
         if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-            od.writeAttr(SUMO_ATTR_CONT, j->haveVia);
+            od.writeAttr(SUMO_ATTR_CONT, c.haveVia);
         }
         od.closeTag();
     }
@@ -559,9 +557,11 @@ NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& cross
 
 
 std::string
-NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge* const to,
-                             int fromLane, int toLane, bool mayDefinitelyPass, const bool checkLaneFoes) const {
+NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection& c, const bool checkLaneFoes) const {
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    const NBEdge* const to = c.toEdge;
+    const int fromLane = c.fromLane;
+    const int toLane = c.toLane;
     int idx = 0;
     if (to != 0) {
         idx = getIndex(from, to);
@@ -580,7 +580,7 @@ NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                if (mayDefinitelyPass) {
+                if (c.mayDefinitelyPass) {
                     result += '0';
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
@@ -595,7 +595,7 @@ NBRequest::getResponseString(int tlIndex, const NBEdge* const from, const NBEdge
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
-                            || myJunction->rightOnRedConflict(tlIndex, connected[k].tlLinkIndex)
+                            || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                        ) {
                         result += '1';
                     } else {
