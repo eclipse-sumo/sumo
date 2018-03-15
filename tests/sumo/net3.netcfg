@@ -10,6 +10,7 @@
 
     <output>
         <output-file value="net3.net.xml"/>
+        <write-license value="true"/>
     </output>
 
 </configuration>

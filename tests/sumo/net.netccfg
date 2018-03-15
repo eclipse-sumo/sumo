@@ -9,6 +9,7 @@
 
     <output>
         <output-file value="net.net.xml"/>
+        <write-license value="true"/>
     </output>
 
     <processing>
