@@ -820,7 +820,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (gDebugFlag1) {
                 std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << "\n";
             }
-            if (distToCrossing + crossingWidth < 0) {
+            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal());
+            if (!contLane && distToCrossing + crossingWidth < 0) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
             }
             const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
@@ -829,7 +830,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             //
             // special care must be taken for continuation lanes. (next lane is also internal)
             // vehicles on these lanes should always block (gap = -1)
-            const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal());
             // vehicles on cont. lanes or on internal lanes with the same target as this link can never be ignored
             const bool cannotIgnore = (contLane || sameTarget || sameSource) && ego != 0;
             MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
