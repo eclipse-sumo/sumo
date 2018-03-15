@@ -846,7 +846,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 if (leader == ego) {
                     continue;
                 }
-                if (!cannotIgnore && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass && leader->isFrontOnLane(foeLane) && !isOpposite && !leader->isStopped()) {
+                if (!cannotIgnore 
+                        && !foeLane->getLinkCont()[0]->getApproaching(leader).willPass 
+                        && leader->isFrontOnLane(foeLane) 
+                        && !isOpposite 
+                        // willPass is false if the vehicle is stopped or already on the stopping edge
+                        && !leader->isStopped() 
+                        && !leader->willStop()) {
                     continue;
                 }
                 if (cannotIgnore || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {

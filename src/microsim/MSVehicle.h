@@ -977,6 +977,10 @@ public:
      */
     bool isStopped() const;
 
+    /** @brief Returns whether the vehicle will stop on the current edge
+     */
+    bool willStop() const;
+
     //// @brief Returns whether the vehicle is at a stop and on the correct lane
     bool isStoppedOnLane() const;
 

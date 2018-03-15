@@ -1335,6 +1335,12 @@ MSVehicle::isStopped() const {
     return !myStops.empty() && myStops.begin()->reached /*&& myState.mySpeed < SUMO_const_haltingSpeed @todo #1864#*/;
 }
 
+
+bool
+MSVehicle::willStop() const {
+    return !myStops.empty() && myLane != 0 && &myStops.front().lane->getEdge() == &myLane->getEdge();
+}
+
 bool
 MSVehicle::isStoppedOnLane() const {
     return isStopped() && myStops.front().lane == myLane;
