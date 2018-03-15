@@ -110,5 +110,10 @@ PlainXMLFormatter::writePreformattedTag(std::ostream& into, const std::string& v
     into << val;
 }
 
+void
+PlainXMLFormatter::writePadding(std::ostream& into, const std::string& val) {
+    into << val;
+}
+
 /****************************************************************************/
 

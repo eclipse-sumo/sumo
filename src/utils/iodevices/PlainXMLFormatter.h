@@ -114,6 +114,10 @@ public:
      */
     void writePreformattedTag(std::ostream& into, const std::string& val);
 
+    /** @brief writes arbitrary padding
+     */
+    void writePadding(std::ostream& into, const std::string& val);
+
 
     /** @brief writes an arbitrary attribute
      *

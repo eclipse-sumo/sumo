@@ -107,6 +107,8 @@ public:
 
     virtual void writePreformattedTag(std::ostream& into, const std::string& val) = 0;
 
+    virtual void writePadding(std::ostream& into, const std::string& val) = 0;
+
 };
 
 

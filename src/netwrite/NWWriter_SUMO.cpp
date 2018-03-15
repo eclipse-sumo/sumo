@@ -816,6 +816,9 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
         for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator j = phases.begin(); j != phases.end(); ++j) {
             into.openTag(SUMO_TAG_PHASE);
             into.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j->duration));
+            if (j->duration < TIME2STEPS(10)) {
+                into.writePadding(" ");
+            }
             into.writeAttr(SUMO_ATTR_STATE, j->state);
             if (varPhaseLength) {
                 if (j->minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {

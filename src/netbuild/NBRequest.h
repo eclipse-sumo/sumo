@@ -159,7 +159,7 @@ private:
     /** @brief writes the response of a certain lane
         Returns the next link index within the junction */
     int writeLaneResponse(OutputDevice& od, NBEdge* from, int lane,
-                          int pos, const bool checkLaneFoes) const;
+                          int pos, const bool checkLaneFoes, bool padding) const;
 
     /** @brief writes the response of a certain crossing
         Returns the next link index within the junction */

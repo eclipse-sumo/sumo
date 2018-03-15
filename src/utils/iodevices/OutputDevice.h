@@ -306,6 +306,11 @@ public:
         return *this;
     }
 
+    /// @brief writes length whitespace padding (ignored for binary output)
+    OutputDevice& writePadding(const std::string& val) {
+        myFormatter->writePadding(getOStream(), val);
+        return *this;
+    }
 
     /** @brief Retrieves a message to this device.
      *

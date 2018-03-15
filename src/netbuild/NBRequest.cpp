@@ -357,10 +357,11 @@ NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool chec
     int pos = 0;
     EdgeVector::const_iterator i;
     // normal connections
+    const bool padding = getSizes().second + myCrossings.size() > 10;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int k = 0; k < noLanes; k++) {
-            pos = writeLaneResponse(into, *i, k, pos, checkLaneFoes);
+            pos = writeLaneResponse(into, *i, k, pos, checkLaneFoes, padding);
         }
     }
     // crossings
@@ -502,11 +503,14 @@ NBRequest::forbids(const NBEdge* const possProhibitorFrom, const NBEdge* const p
 
 int
 NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
-                             int fromLane, int pos, const bool checkLaneFoes) const {
+                             int fromLane, int pos, const bool checkLaneFoes, bool padding) const {
     for (const NBEdge::Connection& c : from->getConnectionsFromLane(fromLane)) {
         assert(c.toEdge != 0);
         od.openTag(SUMO_TAG_REQUEST);
         od.writeAttr(SUMO_ATTR_INDEX, pos++);
+        if (padding && pos <= 10) {
+            od.writePadding(" ");
+        }
         const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
         const std::string response = myJunction->getType() == NODETYPE_ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
         od.writeAttr(SUMO_ATTR_RESPONSE, response);
