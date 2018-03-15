@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/21/18 20:24:35 by SUMO netgenerate Version v0_31_0+1647-6d8dc768ae
+<!-- generated on Thu Mar 15 10:22:14 2018 by SUMO netgenerate Version v0_32_0+0728-84f39ec
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -163,7 +163,7 @@
         <street-sign-output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
     </output>
 
@@ -393,7 +393,7 @@
         <!-- The default turning radius of intersections -->
         <default.junctions.radius value="1.5" type="FLOAT"/>
 
-        <!-- [traffic_light|priority|right_before_left] Determines the type of the build junctions -->
+        <!-- [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>
 
     </building_defaults>
