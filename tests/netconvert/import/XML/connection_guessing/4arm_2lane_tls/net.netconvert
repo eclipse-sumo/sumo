@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:51:41 2018 by SUMO netconvert Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 13:44:43 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -69,26 +69,26 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGgrrrrGGGgrrrr"/>
-        <phase duration="3" state="yyygrrrryyygrrrr"/>
-        <phase duration="6" state="rrrGrrrrrrrGrrrr"/>
-        <phase duration="3" state="rrryrrrrrrryrrrr"/>
+        <phase duration="3"  state="yyygrrrryyygrrrr"/>
+        <phase duration="6"  state="rrrGrrrrrrrGrrrr"/>
+        <phase duration="3"  state="rrryrrrrrrryrrrr"/>
         <phase duration="33" state="rrrrGGGgrrrrGGGg"/>
-        <phase duration="3" state="rrrryyygrrrryyyg"/>
-        <phase duration="6" state="rrrrrrrGrrrrrrrG"/>
-        <phase duration="3" state="rrrrrrryrrrrrrry"/>
+        <phase duration="3"  state="rrrryyygrrrryyyg"/>
+        <phase duration="6"  state="rrrrrrrGrrrrrrrG"/>
+        <phase duration="3"  state="rrrrrrryrrrrrrry"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes="" shape="93.45,108.05 106.55,108.05 108.05,106.55 108.05,93.45 106.55,91.95 93.45,91.95 91.95,93.45 91.95,106.55">
-        <request index="0" response="0000000000000000" foes="0000100001100000"/>
-        <request index="1" response="0000000000000000" foes="1111100011100000"/>
-        <request index="2" response="0000000000000000" foes="1111100011100000"/>
-        <request index="3" response="0000011100000000" foes="1110011111100000"/>
-        <request index="4" response="0000011000000000" foes="1000011000000000"/>
-        <request index="5" response="0000111000001111" foes="1000111000001111"/>
-        <request index="6" response="0000111000001111" foes="1000111000001111"/>
-        <request index="7" response="0111111000001110" foes="0111111000001110"/>
-        <request index="8" response="0000000000000000" foes="0110000000001000"/>
-        <request index="9" response="0000000000000000" foes="1110000011111000"/>
+        <request index="0"  response="0000000000000000" foes="0000100001100000"/>
+        <request index="1"  response="0000000000000000" foes="1111100011100000"/>
+        <request index="2"  response="0000000000000000" foes="1111100011100000"/>
+        <request index="3"  response="0000011100000000" foes="1110011111100000"/>
+        <request index="4"  response="0000011000000000" foes="1000011000000000"/>
+        <request index="5"  response="0000111000001111" foes="1000111000001111"/>
+        <request index="6"  response="0000111000001111" foes="1000111000001111"/>
+        <request index="7"  response="0111111000001110" foes="0111111000001110"/>
+        <request index="8"  response="0000000000000000" foes="0110000000001000"/>
+        <request index="9"  response="0000000000000000" foes="1110000011111000"/>
         <request index="10" response="0000000000000000" foes="1110000011111000"/>
         <request index="11" response="0000000000000111" foes="1110000011100111"/>
         <request index="12" response="0000000000000110" foes="0000000010000110"/>

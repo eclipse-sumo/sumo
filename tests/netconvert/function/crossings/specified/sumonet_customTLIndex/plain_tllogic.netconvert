@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 28 15:47:08 2017 by SUMO netconvert Version dev-SVN-r26275
+<!-- generated on Thu Mar 15 13:45:05 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -36,15 +37,15 @@ SPDX-License-Identifier: EPL-2.0
 <tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="28" state="gGGgrrrrgGGgrrrrrGrG"/>
-        <phase duration="5" state="gGGgrrrrgGGgrrrrrrrr"/>
-        <phase duration="3" state="yyygrrrryyygrrrrrrrr"/>
-        <phase duration="6" state="rrrGrrrrrrrGrrrrrrrr"/>
-        <phase duration="3" state="rrryrrrrrrryrrrrrrrr"/>
+        <phase duration="5"  state="gGGgrrrrgGGgrrrrrrrr"/>
+        <phase duration="3"  state="yyygrrrryyygrrrrrrrr"/>
+        <phase duration="6"  state="rrrGrrrrrrrGrrrrrrrr"/>
+        <phase duration="3"  state="rrryrrrrrrryrrrrrrrr"/>
         <phase duration="28" state="rrrrgGGgrrrrgGGgGrGr"/>
-        <phase duration="5" state="rrrrgGGgrrrrgGGgrrrr"/>
-        <phase duration="3" state="rrrryyygrrrryyygrrrr"/>
-        <phase duration="6" state="rrrrrrrGrrrrrrrGrrrr"/>
-        <phase duration="3" state="rrrrrrryrrrrrrryrrrr"/>
+        <phase duration="5"  state="rrrrgGGgrrrrgGGgrrrr"/>
+        <phase duration="3"  state="rrrryyygrrrryyygrrrr"/>
+        <phase duration="6"  state="rrrrrrrGrrrrrrrGrrrr"/>
+        <phase duration="3"  state="rrrrrrryrrrrrrryrrrr"/>
     </tlLogic>
 
     <connection from="EC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="4"/>

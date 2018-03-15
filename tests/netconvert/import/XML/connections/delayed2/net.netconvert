@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 12:24:21 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
+<!-- generated on Thu Mar 15 13:44:30 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -161,13 +161,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="cluster_42717004_42717128_42717332_42717527" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGggrrrrrGGGggrrrrr"/>
-        <phase duration="3" state="yyyggrrrrryyyggrrrrr"/>
-        <phase duration="6" state="rrrGGrrrrrrrrGGrrrrr"/>
-        <phase duration="3" state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="3"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3"  state="rrryyrrrrrrrryyrrrrr"/>
         <phase duration="33" state="rrrrrGGGggrrrrrGGGgg"/>
-        <phase duration="3" state="rrrrryyyggrrrrryyygg"/>
-        <phase duration="6" state="rrrrrrrrGGrrrrrrrrGG"/>
-        <phase duration="3" state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="3"  state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrrrryyrrrrrrrryy"/>
     </tlLogic>
 
     <junction id="42708272" type="dead_end" x="371.20" y="0.00" incLanes="" intLanes="" shape="368.18,-1.21 374.22,1.21"/>
@@ -186,16 +186,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
     <junction id="cluster_42717004_42717128_42717332_42717527" type="traffic_light" x="195.90" y="403.63" incLanes="7152678.-165_0 7152678.-165_1 7152678.-165_2 7152678.-165_3 7152615_0 7152615_1 7152689_0 7152689_1 7152674_0 7152674_1" intLanes=":cluster_42717004_42717128_42717332_42717527_0_0 :cluster_42717004_42717128_42717332_42717527_1_0 :cluster_42717004_42717128_42717332_42717527_1_1 :cluster_42717004_42717128_42717332_42717527_20_0 :cluster_42717004_42717128_42717332_42717527_21_0 :cluster_42717004_42717128_42717332_42717527_5_0 :cluster_42717004_42717128_42717332_42717527_6_0 :cluster_42717004_42717128_42717332_42717527_6_1 :cluster_42717004_42717128_42717332_42717527_22_0 :cluster_42717004_42717128_42717332_42717527_23_0 :cluster_42717004_42717128_42717332_42717527_10_0 :cluster_42717004_42717128_42717332_42717527_11_0 :cluster_42717004_42717128_42717332_42717527_11_1 :cluster_42717004_42717128_42717332_42717527_24_0 :cluster_42717004_42717128_42717332_42717527_25_0 :cluster_42717004_42717128_42717332_42717527_15_0 :cluster_42717004_42717128_42717332_42717527_16_0 :cluster_42717004_42717128_42717332_42717527_16_1 :cluster_42717004_42717128_42717332_42717527_26_0 :cluster_42717004_42717128_42717332_42717527_27_0" shape="208.13,426.94 217.79,394.53 216.91,392.71 188.72,381.10 184.98,383.94 175.00,412.76 175.40,415.97 202.00,426.66">
-        <request index="0" response="00000000000000000000" foes="10000010000011000000" cont="0"/>
-        <request index="1" response="01000000000100000000" foes="01111110000111000000" cont="0"/>
-        <request index="2" response="01000000000100000000" foes="01111110000111000000" cont="0"/>
-        <request index="3" response="01000001110100000000" foes="01110001111111000000" cont="1"/>
-        <request index="4" response="01000001110100000000" foes="01110001111111000000" cont="1"/>
-        <request index="5" response="00000001100000000000" foes="01000001100000000000" cont="0"/>
-        <request index="6" response="00000011100000011111" foes="11000011100000011111" cont="0"/>
-        <request index="7" response="00000011100000011111" foes="11000011100000011111" cont="0"/>
-        <request index="8" response="00111011100000011110" foes="00111111100000011110" cont="1"/>
-        <request index="9" response="00110000010000011000" foes="00110000010000011000" cont="1"/>
+        <request index="0"  response="00000000000000000000" foes="10000010000011000000" cont="0"/>
+        <request index="1"  response="01000000000100000000" foes="01111110000111000000" cont="0"/>
+        <request index="2"  response="01000000000100000000" foes="01111110000111000000" cont="0"/>
+        <request index="3"  response="01000001110100000000" foes="01110001111111000000" cont="1"/>
+        <request index="4"  response="01000001110100000000" foes="01110001111111000000" cont="1"/>
+        <request index="5"  response="00000001100000000000" foes="01000001100000000000" cont="0"/>
+        <request index="6"  response="00000011100000011111" foes="11000011100000011111" cont="0"/>
+        <request index="7"  response="00000011100000011111" foes="11000011100000011111" cont="0"/>
+        <request index="8"  response="00111011100000011110" foes="00111111100000011110" cont="1"/>
+        <request index="9"  response="00110000010000011000" foes="00110000010000011000" cont="1"/>
         <request index="10" response="00000000000000000000" foes="00110000001000011000" cont="0"/>
         <request index="11" response="01000000000100000000" foes="01110000000111111000" cont="0"/>
         <request index="12" response="01000000000100000000" foes="01110000000111111000" cont="0"/>

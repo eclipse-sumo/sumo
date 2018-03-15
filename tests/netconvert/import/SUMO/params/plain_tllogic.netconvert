@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct  6 17:02:10 2017 by SUMO netconvert Version dev-SVN-r26359
+<!-- generated on Thu Mar 15 13:44:52 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -36,13 +37,13 @@ SPDX-License-Identifier: EPL-2.0
 <tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="actuated" programID="0" offset="0">
         <phase duration="33" state="GGGggrrrrGGGggrrrr" minDur="5" maxDur="50"/>
-        <phase duration="3" state="yyyggrrrryyyggrrrr"/>
-        <phase duration="6" state="rrrGGrrrrrrrGGrrrr" minDur="5" maxDur="50"/>
-        <phase duration="3" state="rrryyrrrrrrryyrrrr"/>
+        <phase duration="3"  state="yyyggrrrryyyggrrrr"/>
+        <phase duration="6"  state="rrrGGrrrrrrrGGrrrr" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rrryyrrrrrrryyrrrr"/>
         <phase duration="33" state="rrrrrGGggrrrrrGGgg" minDur="5" maxDur="50"/>
-        <phase duration="3" state="rrrrryyggrrrrryygg"/>
-        <phase duration="6" state="rrrrrrrGGrrrrrrrGG" minDur="5" maxDur="50"/>
-        <phase duration="3" state="rrrrrrryyrrrrrrryy"/>
+        <phase duration="3"  state="rrrrryyggrrrrryygg"/>
+        <phase duration="6"  state="rrrrrrrGGrrrrrrrGG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rrrrrrryyrrrrrrryy"/>
         <param key="detector-gap" value="3.0"/>
         <param key="file" value="C_det.xml"/>
         <param key="freq" value="60"/>

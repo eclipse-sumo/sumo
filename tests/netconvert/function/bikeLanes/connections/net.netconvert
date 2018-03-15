@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 12:24:42 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
+<!-- generated on Thu Mar 15 13:45:04 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -150,26 +150,26 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="33" state="GggGGgrrrrrrGGGgrrrr"/>
-        <phase duration="3" state="yyyyygrrrrrryyygrrrr"/>
-        <phase duration="6" state="rrrrrGrrrrrrrrrGrrrr"/>
-        <phase duration="3" state="rrrrryrrrrrrrrryrrrr"/>
+        <phase duration="3"  state="yyyyygrrrrrryyygrrrr"/>
+        <phase duration="6"  state="rrrrrGrrrrrrrrrGrrrr"/>
+        <phase duration="3"  state="rrrrryrrrrrrrrryrrrr"/>
         <phase duration="33" state="rrrrrrGGgGGgrrrrGGGg"/>
-        <phase duration="3" state="rrrrrryyyyygrrrryyyg"/>
-        <phase duration="6" state="rrrrrrrrrrrGrrrrrrrG"/>
-        <phase duration="3" state="rrrrrrrrrrryrrrrrrry"/>
+        <phase duration="3"  state="rrrrrryyyyygrrrryyyg"/>
+        <phase duration="6"  state="rrrrrrrrrrrGrrrrrrrG"/>
+        <phase duration="3"  state="rrrrrrrrrrryrrrrrrry"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_20_0 :C_2_0 :C_3_0 :C_3_1 :C_21_0 :C_6_0 :C_7_0 :C_22_0 :C_9_0 :C_9_1 :C_23_0 :C_12_0 :C_13_0 :C_13_1 :C_24_0 :C_16_0 :C_17_0 :C_17_1 :C_25_0" shape="90.25,111.25 109.75,111.25 111.25,109.75 111.25,90.25 106.55,88.75 90.15,88.75 88.65,93.45 88.65,109.75">
-        <request index="0" response="00000000000000000000" foes="00001000011010000000" cont="0"/>
-        <request index="1" response="10000111100000011000" foes="11100111111010011000" cont="1"/>
-        <request index="2" response="00000000000000000010" foes="00001000011010000010" cont="0"/>
-        <request index="3" response="10000000100000000000" foes="11111000111010000000" cont="0"/>
-        <request index="4" response="10000000100000000000" foes="11111000111010000000" cont="0"/>
-        <request index="5" response="10000111100000000000" foes="11100111111010000000" cont="1"/>
-        <request index="6" response="00000110000000000000" foes="10000110000000000000" cont="0"/>
-        <request index="7" response="00001110000000111111" foes="10001110000000111111" cont="0"/>
-        <request index="8" response="00000110000010000000" foes="10000110000010000000" cont="1"/>
-        <request index="9" response="00001110000000111111" foes="10001110000000111111" cont="0"/>
+        <request index="0"  response="00000000000000000000" foes="00001000011010000000" cont="0"/>
+        <request index="1"  response="10000111100000011000" foes="11100111111010011000" cont="1"/>
+        <request index="2"  response="00000000000000000010" foes="00001000011010000010" cont="0"/>
+        <request index="3"  response="10000000100000000000" foes="11111000111010000000" cont="0"/>
+        <request index="4"  response="10000000100000000000" foes="11111000111010000000" cont="0"/>
+        <request index="5"  response="10000111100000000000" foes="11100111111010000000" cont="1"/>
+        <request index="6"  response="00000110000000000000" foes="10000110000000000000" cont="0"/>
+        <request index="7"  response="00001110000000111111" foes="10001110000000111111" cont="0"/>
+        <request index="8"  response="00000110000010000000" foes="10000110000010000000" cont="1"/>
+        <request index="9"  response="00001110000000111111" foes="10001110000000111111" cont="0"/>
         <request index="10" response="00001110000000111111" foes="10001110000000111111" cont="0"/>
         <request index="11" response="01111110000000111010" foes="01111110000000111010" cont="1"/>
         <request index="12" response="00000000000000000000" foes="01100000000000100010" cont="0"/>

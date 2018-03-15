@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:51:42 2018 by SUMO netconvert Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 13:44:44 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -340,20 +340,20 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="1565" type="static" programID="0" offset="0">
-        <phase duration="3" state="yyrrryyyrrrG"/>
-        <phase duration="8" state="rrrrrrrrrrrG"/>
-        <phase duration="7" state="rrrrrrrrGGGG"/>
-        <phase duration="3" state="rrrrrrrrGGyG"/>
-        <phase duration="1" state="rrrrrrrrGGrG"/>
-        <phase duration="3" state="rrrrrrrryyrG"/>
-        <phase duration="2" state="rrrrrrrrrrrG"/>
-        <phase duration="3" state="rrGGrrrrrrrg"/>
-        <phase duration="4" state="rrGGGrrrrrrg"/>
-        <phase duration="3" state="rrGGGrrrrrry"/>
-        <phase duration="8" state="rrGGGrrrrrrr"/>
-        <phase duration="3" state="rryyyrrrrrrr"/>
-        <phase duration="7" state="rrrrrrrrrrrr"/>
-        <phase duration="2" state="gGrrrGgGrrrr"/>
+        <phase duration="3"  state="yyrrryyyrrrG"/>
+        <phase duration="8"  state="rrrrrrrrrrrG"/>
+        <phase duration="7"  state="rrrrrrrrGGGG"/>
+        <phase duration="3"  state="rrrrrrrrGGyG"/>
+        <phase duration="1"  state="rrrrrrrrGGrG"/>
+        <phase duration="3"  state="rrrrrrrryyrG"/>
+        <phase duration="2"  state="rrrrrrrrrrrG"/>
+        <phase duration="3"  state="rrGGrrrrrrrg"/>
+        <phase duration="4"  state="rrGGGrrrrrrg"/>
+        <phase duration="3"  state="rrGGGrrrrrry"/>
+        <phase duration="8"  state="rrGGGrrrrrrr"/>
+        <phase duration="3"  state="rryyyrrrrrrr"/>
+        <phase duration="7"  state="rrrrrrrrrrrr"/>
+        <phase duration="2"  state="gGrrrGgGrrrr"/>
         <phase duration="18" state="gGrrrGgGrrrG"/>
     </tlLogic>
 
@@ -457,16 +457,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6" response="0000111" foes="0000111"/>
     </junction>
     <junction id="1565" type="traffic_light" x="920.00" y="2667.50" incLanes="-53091655_0 -53091655_1 -53091655_2 905002550_0 905002550_1 905002550_2 -905002551_0 -905002551_1 -905002551_2 -905002548_0 -905002548_1 -905002548_2 -905002548_3" intLanes="" shape="921.64,2682.63 932.93,2670.73 936.86,2664.80 925.39,2653.07 923.04,2651.55 908.37,2658.89 902.09,2670.26 918.28,2681.48">
-        <request index="0" response="00000000000110000" foes="00000010000110000"/>
-        <request index="1" response="11111000001110000" foes="11111110001110000"/>
-        <request index="2" response="11110001101110000" foes="11110001111110000"/>
-        <request index="3" response="00000000000000000" foes="11000001000000000"/>
-        <request index="4" response="00000000000000000" foes="11000011000000111"/>
-        <request index="5" response="00000000000000000" foes="11000011000000111"/>
-        <request index="6" response="00111000000000000" foes="00111111000000110"/>
-        <request index="7" response="00110000100000100" foes="00110000100000100"/>
-        <request index="8" response="00110000000000000" foes="00110000010000100"/>
-        <request index="9" response="11110000001111000" foes="11110000001111100"/>
+        <request index="0"  response="00000000000110000" foes="00000010000110000"/>
+        <request index="1"  response="11111000001110000" foes="11111110001110000"/>
+        <request index="2"  response="11110001101110000" foes="11110001111110000"/>
+        <request index="3"  response="00000000000000000" foes="11000001000000000"/>
+        <request index="4"  response="00000000000000000" foes="11000011000000111"/>
+        <request index="5"  response="00000000000000000" foes="11000011000000111"/>
+        <request index="6"  response="00111000000000000" foes="00111111000000110"/>
+        <request index="7"  response="00110000100000100" foes="00110000100000100"/>
+        <request index="8"  response="00110000000000000" foes="00110000010000100"/>
+        <request index="9"  response="11110000001111000" foes="11110000001111100"/>
         <request index="10" response="11110000001110011" foes="11110000001110011"/>
         <request index="11" response="00001000001000010" foes="00001000001000010"/>
         <request index="12" response="00000000000000000" foes="00000100001000010"/>
@@ -487,16 +487,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1568" type="priority" x="568.50" y="2954.50" incLanes="905002548_0 905002548_1 -905001109_0 -905006034_0 -905006034_1" intLanes="" shape="572.89,2959.96 566.82,2941.22 558.81,2942.50 554.73,2947.55 559.22,2953.04 566.78,2963.74">
-        <request index="0" response="000000000000" foes="100001000000"/>
-        <request index="1" response="000000000000" foes="100001000000"/>
-        <request index="2" response="011100000000" foes="011111000000"/>
-        <request index="3" response="011000110000" foes="011000110000"/>
-        <request index="4" response="011000000000" foes="011000001000"/>
-        <request index="5" response="011000000000" foes="011000001000"/>
-        <request index="6" response="011000000111" foes="111000000111"/>
-        <request index="7" response="000100000100" foes="000100000100"/>
-        <request index="8" response="000000000000" foes="000010000100"/>
-        <request index="9" response="000000000000" foes="000001111100"/>
+        <request index="0"  response="000000000000" foes="100001000000"/>
+        <request index="1"  response="000000000000" foes="100001000000"/>
+        <request index="2"  response="011100000000" foes="011111000000"/>
+        <request index="3"  response="011000110000" foes="011000110000"/>
+        <request index="4"  response="011000000000" foes="011000001000"/>
+        <request index="5"  response="011000000000" foes="011000001000"/>
+        <request index="6"  response="011000000111" foes="111000000111"/>
+        <request index="7"  response="000100000100" foes="000100000100"/>
+        <request index="8"  response="000000000000" foes="000010000100"/>
+        <request index="9"  response="000000000000" foes="000001111100"/>
         <request index="10" response="000000000000" foes="000001111100"/>
         <request index="11" response="000001000011" foes="000001000011"/>
     </junction>
@@ -526,16 +526,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1672" type="priority" x="1171.00" y="2905.50" incLanes="905005626_0 905005626_1 905006352_0 53091655_0 53091655_1" intLanes="" shape="1169.79,2913.24 1178.58,2903.52 1178.73,2900.90 1173.61,2896.89 1171.60,2897.04 1160.31,2908.94">
-        <request index="0" response="000000000000" foes="100001100000"/>
-        <request index="1" response="000000000000" foes="100001100000"/>
-        <request index="2" response="011100000000" foes="011111100000"/>
-        <request index="3" response="011000010000" foes="011000010000"/>
-        <request index="4" response="011000000000" foes="011000001000"/>
-        <request index="5" response="011000000111" foes="111000000111"/>
-        <request index="6" response="011000000111" foes="111000000111"/>
-        <request index="7" response="000100000100" foes="000100000100"/>
-        <request index="8" response="000000000000" foes="000010000100"/>
-        <request index="9" response="000000000000" foes="000001111100"/>
+        <request index="0"  response="000000000000" foes="100001100000"/>
+        <request index="1"  response="000000000000" foes="100001100000"/>
+        <request index="2"  response="011100000000" foes="011111100000"/>
+        <request index="3"  response="011000010000" foes="011000010000"/>
+        <request index="4"  response="011000000000" foes="011000001000"/>
+        <request index="5"  response="011000000111" foes="111000000111"/>
+        <request index="6"  response="011000000111" foes="111000000111"/>
+        <request index="7"  response="000100000100" foes="000100000100"/>
+        <request index="8"  response="000000000000" foes="000010000100"/>
+        <request index="9"  response="000000000000" foes="000001111100"/>
         <request index="10" response="000000000000" foes="000001111100"/>
         <request index="11" response="000001100011" foes="000001100011"/>
     </junction>
@@ -553,16 +553,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="00011" foes="00011"/>
     </junction>
     <junction id="814" type="priority" x="1551.00" y="3058.00" incLanes="-905005456_0 -905005456_1 -545285123_0 -905005626_0 -905005626_1" intLanes="" shape="1554.65,3065.87 1558.28,3053.28 1557.45,3051.50 1551.51,3048.86 1549.09,3050.63 1545.45,3063.21">
-        <request index="0" response="00000000000" foes="10000100000"/>
-        <request index="1" response="00000000000" foes="10000100000"/>
-        <request index="2" response="01110000000" foes="01111100000"/>
-        <request index="3" response="01100010000" foes="01100010000"/>
-        <request index="4" response="01100000000" foes="01100001000"/>
-        <request index="5" response="01100000111" foes="11100000111"/>
-        <request index="6" response="00010000100" foes="00010000100"/>
-        <request index="7" response="00000000000" foes="00001000100"/>
-        <request index="8" response="00000000000" foes="00000111100"/>
-        <request index="9" response="00000000000" foes="00000111100"/>
+        <request index="0"  response="00000000000" foes="10000100000"/>
+        <request index="1"  response="00000000000" foes="10000100000"/>
+        <request index="2"  response="01110000000" foes="01111100000"/>
+        <request index="3"  response="01100010000" foes="01100010000"/>
+        <request index="4"  response="01100000000" foes="01100001000"/>
+        <request index="5"  response="01100000111" foes="11100000111"/>
+        <request index="6"  response="00010000100" foes="00010000100"/>
+        <request index="7"  response="00000000000" foes="00001000100"/>
+        <request index="8"  response="00000000000" foes="00000111100"/>
+        <request index="9"  response="00000000000" foes="00000111100"/>
         <request index="10" response="00000100011" foes="00000100011"/>
     </junction>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:51:30 2018 by SUMO netgenerate Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 13:45:20 2018 by SUMO netgenerate Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -292,35 +292,35 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="1/1" type="static" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGg"/>
-        <phase duration="3" state="yggrrryyg"/>
-        <phase duration="6" state="rGGrrrrrG"/>
-        <phase duration="3" state="ryyrrrrry"/>
+        <phase duration="3"  state="yggrrryyg"/>
+        <phase duration="6"  state="rGGrrrrrG"/>
+        <phase duration="3"  state="ryyrrrrry"/>
         <phase duration="37" state="rrrGGgGrr"/>
-        <phase duration="3" state="rrryyyyrr"/>
+        <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="2/1" type="static" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGg"/>
-        <phase duration="3" state="yggrrryyg"/>
-        <phase duration="6" state="rGGrrrrrG"/>
-        <phase duration="3" state="ryyrrrrry"/>
+        <phase duration="3"  state="yggrrryyg"/>
+        <phase duration="6"  state="rGGrrrrrG"/>
+        <phase duration="3"  state="ryyrrrrry"/>
         <phase duration="37" state="rrrGGgGrr"/>
-        <phase duration="3" state="rrryyyyrr"/>
+        <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="3/1" type="static" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGg"/>
-        <phase duration="3" state="yggrrryyg"/>
-        <phase duration="6" state="rGGrrrrrG"/>
-        <phase duration="3" state="ryyrrrrry"/>
+        <phase duration="3"  state="yggrrryyg"/>
+        <phase duration="6"  state="rGGrrrrrG"/>
+        <phase duration="3"  state="ryyrrrrry"/>
         <phase duration="37" state="rrrGGgGrr"/>
-        <phase duration="3" state="rrryyyyrr"/>
+        <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="4/1" type="static" programID="0" offset="0">
         <phase duration="38" state="rrrGGgGgg"/>
-        <phase duration="3" state="rrryygygg"/>
-        <phase duration="6" state="rrrrrGrGG"/>
-        <phase duration="3" state="rrrrryryy"/>
+        <phase duration="3"  state="rrryygygg"/>
+        <phase duration="6"  state="rrrrrGrGG"/>
+        <phase duration="3"  state="rrrrryryy"/>
         <phase duration="37" state="GGgGrrrrr"/>
-        <phase duration="3" state="yyyyrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrr"/>
     </tlLogic>
 
     <junction id="1" type="unregulated" x="100.00" y="100.00" incLanes="2/1to1_0 1/1to1_0 4/1to1_0 3/1to1_0" intLanes=":1_0_0 :1_1_0 :1_2_0 :1_3_0 :1_4_0 :1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_9_0 :1_10_0 :1_11_0 :1_12_0 :1_13_0 :1_14_0 :1_15_0" shape="96.75,104.75 103.25,104.75 104.75,103.25 104.75,96.75 103.25,95.25 96.75,95.25 95.25,96.75 95.25,103.25"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 12:24:52 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
+<!-- generated on Thu Mar 15 13:45:15 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -201,15 +201,15 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="344" type="static" programID="0" offset="0">
         <phase duration="18" state="rrrrrrGGGGGgrrrrrrrGGgg"/>
-        <phase duration="4" state="rrrrrryyyyygrrrrrrryygg"/>
-        <phase duration="6" state="rrrrrrrrrrrGrrrrrrrrrGG"/>
-        <phase duration="4" state="rrrrrrrrrrryrrrrrrrrryy"/>
+        <phase duration="4"  state="rrrrrryyyyygrrrrrrryygg"/>
+        <phase duration="6"  state="rrrrrrrrrrrGrrrrrrrrrGG"/>
+        <phase duration="4"  state="rrrrrrrrrrryrrrrrrrrryy"/>
         <phase duration="20" state="GGGGggrrrrrrGGGGggrrrrr"/>
-        <phase duration="4" state="yyyyggrrrrrryyyyggrrrrr"/>
-        <phase duration="6" state="rrrrGGrrrrrrrrrrGGrrrrr"/>
-        <phase duration="4" state="rrrryyrrrrrrrrrryyrrrrr"/>
+        <phase duration="4"  state="yyyyggrrrrrryyyyggrrrrr"/>
+        <phase duration="6"  state="rrrrGGrrrrrrrrrrGGrrrrr"/>
+        <phase duration="4"  state="rrrryyrrrrrrrrrryyrrrrr"/>
         <phase duration="20" state="GGGrGGGGrrrrrrrrrrGrrrr"/>
-        <phase duration="4" state="yyyryyyyrrrrrrrrrryrrrr"/>
+        <phase duration="4"  state="yyyryyyyrrrrrrrrrryrrrr"/>
     </tlLogic>
 
     <junction id="1544507730" type="dead_end" x="113.72" y="0.00" incLanes="-388044807.6_0" intLanes="" shape="113.77,-0.00 120.26,-0.32 110.47,0.16"/>
@@ -224,16 +224,16 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="341283983" type="dead_end" x="0.00" y="114.09" incLanes="" intLanes="" shape="0.61,117.28 -0.61,110.90"/>
     <junction id="341283989" type="dead_end" x="1.91" y="123.13" incLanes="26229467#0.58_0 26229467#0.58_1" intLanes="" shape="2.43,126.34 1.39,119.92"/>
     <junction id="cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299" type="traffic_light" x="125.57" y="91.53" incLanes="-388044806_0 -388044806_1 210913010#0_0 210913010#0_1 210913010#0_2 388044807_0 388044807_1 gneE44_0 30804509.0.108_0 30804509.0.108_1" intLanes=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_0_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_1_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_2_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_3_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_23_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_24_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_6_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_7_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_1 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_2 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_25_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_12_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_13_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_1 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_26_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_27_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_18_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_1 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_28_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_29_0" shape="123.83,108.63 127.75,107.40 132.90,108.37 139.18,116.42 142.55,114.71 143.95,116.91 152.21,113.52 151.81,107.54 155.93,102.08 162.98,99.56 154.07,82.27 141.70,82.40 136.11,78.67 131.07,68.15 119.86,71.12 118.90,78.27 112.87,85.33 114.37,89.13 117.07,88.73" customShape="1">
-        <request index="0" response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
-        <request index="1" response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
-        <request index="2" response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
-        <request index="3" response="11111000000111100000000" foes="11111110000111100000000" cont="0"/>
-        <request index="4" response="11110001111111100000000" foes="11110001111111100000000" cont="1"/>
-        <request index="5" response="11110001111111100000000" foes="11110001111111100000000" cont="1"/>
-        <request index="6" response="00000000000000000000000" foes="11000001100000000000000" cont="0"/>
-        <request index="7" response="00000000000000000000000" foes="11000001100000000000000" cont="0"/>
-        <request index="8" response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
-        <request index="9" response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
+        <request index="0"  response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
+        <request index="1"  response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
+        <request index="2"  response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
+        <request index="3"  response="11111000000111100000000" foes="11111110000111100000000" cont="0"/>
+        <request index="4"  response="11110001111111100000000" foes="11110001111111100000000" cont="1"/>
+        <request index="5"  response="11110001111111100000000" foes="11110001111111100000000" cont="1"/>
+        <request index="6"  response="00000000000000000000000" foes="11000001100000000000000" cont="0"/>
+        <request index="7"  response="00000000000000000000000" foes="11000001100000000000000" cont="0"/>
+        <request index="8"  response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
+        <request index="9"  response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
         <request index="10" response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
         <request index="11" response="00110110000000000110000" foes="00111111100000000111000" cont="1"/>
         <request index="12" response="00110000000000000000000" foes="00110000000000000110000" cont="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:51:43 2018 by SUMO netconvert Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 13:44:44 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -701,56 +701,56 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="454" type="static" programID="0" offset="0">
-        <phase duration="2" state="GGGGGGrrrrrrrrrrrrrrry"/>
-        <phase duration="1" state="GGGGyyrrrrrrrrrrrrrrry"/>
-        <phase duration="1" state="GGGGyyrrrrrrrrrrrrrrrr"/>
-        <phase duration="1" state="yyyGyyrrrrrrrrrrrrrrrr"/>
-        <phase duration="1" state="yyyGrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="1" state="yyyyrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="1" state="rrryrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="1" state="rrryrrGGGGGGGGGGGGrrrr"/>
+        <phase duration="2"  state="GGGGGGrrrrrrrrrrrrrrry"/>
+        <phase duration="1"  state="GGGGyyrrrrrrrrrrrrrrry"/>
+        <phase duration="1"  state="GGGGyyrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="yyyGyyrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="yyyGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="yyyyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrryrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="1"  state="rrryrrGGGGGGGGGGGGrrrr"/>
         <phase duration="16" state="rrrrrrGGGGGGGGGGGGrrrr"/>
-        <phase duration="4" state="rrrrrrGGGGGGGGGGGGrrGr"/>
-        <phase duration="3" state="rrrrrryyyyyyyyyyyyrrGr"/>
-        <phase duration="1" state="rrrrrryyyyyyyyyyyyGGGr"/>
+        <phase duration="4"  state="rrrrrrGGGGGGGGGGGGrrGr"/>
+        <phase duration="3"  state="rrrrrryyyyyyyyyyyyrrGr"/>
+        <phase duration="1"  state="rrrrrryyyyyyyyyyyyGGGr"/>
         <phase duration="10" state="rrrrrrrrrrrrrrrrrrGGGr"/>
-        <phase duration="3" state="rrrrrrrrrrrrrrrrrrGGyr"/>
-        <phase duration="9" state="rrrrrrrrrrrrrrrrrrGGrr"/>
-        <phase duration="2" state="rrrrrrrrrrrrrrrrrryyrr"/>
-        <phase duration="1" state="rrrrrrrrrrrrrrrrrryyrG"/>
-        <phase duration="1" state="rrrrrrrrrrrrrrrrrryyGG"/>
-        <phase duration="1" state="rrrrrrrrrrrrrrrrrrrrGG"/>
-        <phase duration="2" state="rrrrGGrrrrrrrrrrrrrrGG"/>
-        <phase duration="4" state="rrrGGGrrrrrrrrrrrrrrGG"/>
-        <phase duration="2" state="gggGGGrrrrrrrrrrrrrrGG"/>
-        <phase duration="3" state="GGGGGGrrrrrrrrrrrrrryG"/>
-        <phase duration="4" state="GGGGGGrrrrrrrrrrrrrrrG"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrGGyr"/>
+        <phase duration="9"  state="rrrrrrrrrrrrrrrrrrGGrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrryyrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrryyrG"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrryyGG"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrGG"/>
+        <phase duration="2"  state="rrrrGGrrrrrrrrrrrrrrGG"/>
+        <phase duration="4"  state="rrrGGGrrrrrrrrrrrrrrGG"/>
+        <phase duration="2"  state="gggGGGrrrrrrrrrrrrrrGG"/>
+        <phase duration="3"  state="GGGGGGrrrrrrrrrrrrrryG"/>
+        <phase duration="4"  state="GGGGGGrrrrrrrrrrrrrrrG"/>
     </tlLogic>
     <tlLogic id="532" type="static" programID="0" offset="0">
         <phase duration="23" state="rrGGGGGGGrrrr"/>
-        <phase duration="2" state="rrGyyyyyyrrrr"/>
-        <phase duration="3" state="rryyyyyyyrrrr"/>
-        <phase duration="2" state="rryrrrrrrrrrr"/>
-        <phase duration="9" state="rrrrrrrrrrrrr"/>
+        <phase duration="2"  state="rrGyyyyyyrrrr"/>
+        <phase duration="3"  state="rryyyyyyyrrrr"/>
+        <phase duration="2"  state="rryrrrrrrrrrr"/>
+        <phase duration="9"  state="rrrrrrrrrrrrr"/>
         <phase duration="10" state="rrrrrrrrrrrGG"/>
-        <phase duration="2" state="rrrrrrrrrrryy"/>
-        <phase duration="1" state="GGrrrrrrrrryy"/>
-        <phase duration="2" state="GGrrrrrrrGGrr"/>
-        <phase duration="7" state="GGrGGGGGGGGrr"/>
-        <phase duration="5" state="GGrGGGGGGyyrr"/>
-        <phase duration="2" state="GGrGGGGGGrrrr"/>
-        <phase duration="2" state="yyrGGGGGGrrrr"/>
-        <phase duration="1" state="yyGGGGGGGrrrr"/>
-        <phase duration="4" state="rrGGGGGGGrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrryy"/>
+        <phase duration="1"  state="GGrrrrrrrrryy"/>
+        <phase duration="2"  state="GGrrrrrrrGGrr"/>
+        <phase duration="7"  state="GGrGGGGGGGGrr"/>
+        <phase duration="5"  state="GGrGGGGGGyyrr"/>
+        <phase duration="2"  state="GGrGGGGGGrrrr"/>
+        <phase duration="2"  state="yyrGGGGGGrrrr"/>
+        <phase duration="1"  state="yyGGGGGGGrrrr"/>
+        <phase duration="4"  state="rrGGGGGGGrrrr"/>
     </tlLogic>
     <tlLogic id="534" type="static" programID="0" offset="0">
-        <phase duration="5" state="yyrr"/>
+        <phase duration="5"  state="yyrr"/>
         <phase duration="11" state="rrrr"/>
-        <phase duration="7" state="rrgG"/>
-        <phase duration="3" state="rrGy"/>
-        <phase duration="4" state="rrGr"/>
-        <phase duration="3" state="rryr"/>
-        <phase duration="6" state="rrrr"/>
+        <phase duration="7"  state="rrgG"/>
+        <phase duration="3"  state="rrGy"/>
+        <phase duration="4"  state="rrGr"/>
+        <phase duration="3"  state="rryr"/>
+        <phase duration="6"  state="rrrr"/>
         <phase duration="36" state="GGrr"/>
     </tlLogic>
 
@@ -761,16 +761,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="1" type="priority" x="1007.93" y="1446.58" incLanes="3[1][1][1][1][1][1][1][1][1][0]_0 3[1][1][1][1][1][1][1][1][1][0]_1 2_0 2_1 5_0 5_1 5_2 4+103_0 4+103_1 4+103_2 1_0 1_1" intLanes="" shape="1014.63,1460.25 1018.33,1446.02 1021.97,1435.26 1009.85,1429.93 1001.51,1437.73 997.08,1446.48 994.98,1448.64 997.57,1454.61 998.29,1455.37 1007.14,1459.59">
-        <request index="0" response="111111100001000" foes="111111100001000"/>
-        <request index="1" response="111111100001000" foes="111111100001000"/>
-        <request index="2" response="000000000000000" foes="001100011100000"/>
-        <request index="3" response="000011000000000" foes="110011111100011"/>
-        <request index="4" response="000011000000000" foes="110011000000000"/>
-        <request index="5" response="000011000001100" foes="110011000001100"/>
-        <request index="6" response="001111000001100" foes="111111000001100"/>
-        <request index="7" response="001111000001100" foes="111111000001100"/>
-        <request index="8" response="000000000001000" foes="000000000001011"/>
-        <request index="9" response="000000000001000" foes="110000011111011"/>
+        <request index="0"  response="111111100001000" foes="111111100001000"/>
+        <request index="1"  response="111111100001000" foes="111111100001000"/>
+        <request index="2"  response="000000000000000" foes="001100011100000"/>
+        <request index="3"  response="000011000000000" foes="110011111100011"/>
+        <request index="4"  response="000011000000000" foes="110011000000000"/>
+        <request index="5"  response="000011000001100" foes="110011000001100"/>
+        <request index="6"  response="001111000001100" foes="111111000001100"/>
+        <request index="7"  response="001111000001100" foes="111111000001100"/>
+        <request index="8"  response="000000000001000" foes="000000000001011"/>
+        <request index="9"  response="000000000001000" foes="110000011111011"/>
         <request index="10" response="000000000001000" foes="110000011111011"/>
         <request index="11" response="110000000000111" foes="110000011000111"/>
         <request index="12" response="110000000000111" foes="110000011000111"/>
@@ -928,16 +928,16 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="29-DestinationNode" type="dead_end" x="1215.21" y="1529.17" incLanes="29_0" intLanes="" shape="1213.98,1528.15 1216.43,1530.20"/>
     <junction id="29-SourceNode" type="dead_end" x="1180.34" y="1570.73" incLanes="" intLanes="" shape="1181.57,1571.76 1179.12,1569.70"/>
     <junction id="3" type="priority" x="1555.39" y="1921.66" incLanes="3[1][0]_0 3[1][0]_1 69_0 69_1 71_0 71_1 71_2 71_3 73_0 70_0 70_1 6[1][1][1][1][1][1][1][0]_0 6[1][1][1][1][1][1][1][0]_1 72_0 66_0 65[1][0]_0 65[1][0]_1 67_0" intLanes="" shape="1552.22,1926.02 1558.72,1925.91 1569.80,1937.40 1571.10,1926.17 1575.18,1921.36 1562.51,1906.76 1551.35,1885.48 1528.92,1893.30 1568.34,1895.19 1566.18,1901.32 1554.85,1915.16 1556.02,1921.55 1547.23,1912.04 1543.69,1920.55 1542.95,1922.69 1549.57,1933.02 1536.37,1911.68 1539.32,1912.92">
-        <request index="0" response="000000000000000011000000000" foes="000000110000000011000000000"/>
-        <request index="1" response="000000000000000011000000000" foes="000000110000000011000000000"/>
-        <request index="2" response="111111000000000111000000000" foes="111111110000000111000000000"/>
-        <request index="3" response="111100000000000111000000000" foes="111100110000000111000000000"/>
-        <request index="4" response="111111000000000111000001000" foes="111111110000000111000001000"/>
-        <request index="5" response="111100001111100111000000000" foes="111100001111111111000000000"/>
-        <request index="6" response="111100001111100111000000000" foes="111100001111111111000000000"/>
-        <request index="7" response="000000000000000000000000000" foes="110000001100000000000000000"/>
-        <request index="8" response="000000000000000000000000000" foes="110000001100000000000000000"/>
-        <request index="9" response="000000000000000000000000000" foes="110000111100000000001111111"/>
+        <request index="0"  response="000000000000000011000000000" foes="000000110000000011000000000"/>
+        <request index="1"  response="000000000000000011000000000" foes="000000110000000011000000000"/>
+        <request index="2"  response="111111000000000111000000000" foes="111111110000000111000000000"/>
+        <request index="3"  response="111100000000000111000000000" foes="111100110000000111000000000"/>
+        <request index="4"  response="111111000000000111000001000" foes="111111110000000111000001000"/>
+        <request index="5"  response="111100001111100111000000000" foes="111100001111111111000000000"/>
+        <request index="6"  response="111100001111100111000000000" foes="111100001111111111000000000"/>
+        <request index="7"  response="000000000000000000000000000" foes="110000001100000000000000000"/>
+        <request index="8"  response="000000000000000000000000000" foes="110000001100000000000000000"/>
+        <request index="9"  response="000000000000000000000000000" foes="110000111100000000001111111"/>
         <request index="10" response="000000000000000000000000000" foes="110000111100000000001111111"/>
         <request index="11" response="000000000000000000000000000" foes="001111111100000000001111100"/>
         <request index="12" response="001100000011100000001100000" foes="001100000011100000001100000"/>

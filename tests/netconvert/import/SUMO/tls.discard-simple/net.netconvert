@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 12:24:29 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
+<!-- generated on Thu Mar 15 13:44:51 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -141,19 +141,19 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="gneJ1" type="static" programID="0" offset="0">
         <phase duration="31" state="rrGGrrrGg"/>
-        <phase duration="4" state="rryyrrryg"/>
-        <phase duration="6" state="rrrrrrrrG"/>
-        <phase duration="4" state="rrrrrrrry"/>
+        <phase duration="4"  state="rryyrrryg"/>
+        <phase duration="6"  state="rrrrrrrrG"/>
+        <phase duration="4"  state="rrrrrrrry"/>
         <phase duration="31" state="GgrrGGgrr"/>
-        <phase duration="4" state="ygrryygrr"/>
-        <phase duration="6" state="rGrrrrGrr"/>
-        <phase duration="4" state="ryrrrryrr"/>
+        <phase duration="4"  state="ygrryygrr"/>
+        <phase duration="6"  state="rGrrrrGrr"/>
+        <phase duration="4"  state="ryrrrryrr"/>
     </tlLogic>
     <tlLogic id="gneJ5" type="static" programID="0" offset="0">
         <phase duration="31" state="GGrr"/>
-        <phase duration="4" state="yyrr"/>
+        <phase duration="4"  state="yyrr"/>
         <phase duration="31" state="rrGG"/>
-        <phase duration="4" state="rryy"/>
+        <phase duration="4"  state="rryy"/>
     </tlLogic>
 
     <junction id="gneJ0" type="priority" x="39.86" y="2.41" incLanes="gneE6_0" intLanes=":gneJ0_0_0" shape="40.02,2.36 40.06,-0.84 39.81,-0.84 39.71,2.35">

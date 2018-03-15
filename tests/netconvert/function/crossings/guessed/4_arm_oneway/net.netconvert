@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:46 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Thu Mar 15 13:45:09 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -94,11 +95,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="37" state="gGGrrrGr"/>
-        <phase duration="5" state="gGGrrrrr"/>
-        <phase duration="3" state="yyyrrrrr"/>
+        <phase duration="5"  state="gGGrrrrr"/>
+        <phase duration="3"  state="yyyrrrrr"/>
         <phase duration="37" state="rrrGGGrG"/>
-        <phase duration="5" state="rrrGGGrr"/>
-        <phase duration="3" state="rrryyyrr"/>
+        <phase duration="5"  state="rrrGGGrr"/>
+        <phase duration="3"  state="rrryyyrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0" intLanes=":C_6_0 :C_1_0 :C_1_1 :C_3_0 :C_3_1 :C_5_0 :C_c0_0 :C_c1_0" shape="100.05,101.45 111.25,101.45 112.75,99.95 112.75,88.75 111.25,87.25 100.05,87.25 98.55,88.75 98.55,99.95">

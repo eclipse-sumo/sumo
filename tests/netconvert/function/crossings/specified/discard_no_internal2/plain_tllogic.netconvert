@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 30 08:39:56 2017 by SUMO netconvert Version dev-SVN-r24991
+<!-- generated on Thu Mar 15 13:45:08 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -34,13 +35,13 @@ SPDX-License-Identifier: EPL-2.0
 <tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="33" state="GGGgrrrrGGGgrrrr"/>
-        <phase duration="3" state="yyygrrrryyygrrrr"/>
-        <phase duration="6" state="rrrGrrrrrrrGrrrr"/>
-        <phase duration="3" state="rrryrrrrrrryrrrr"/>
+        <phase duration="3"  state="yyygrrrryyygrrrr"/>
+        <phase duration="6"  state="rrrGrrrrrrrGrrrr"/>
+        <phase duration="3"  state="rrryrrrrrrryrrrr"/>
         <phase duration="33" state="rrrrGGGgrrrrGGGg"/>
-        <phase duration="3" state="rrrryyygrrrryyyg"/>
-        <phase duration="6" state="rrrrrrrGrrrrrrrG"/>
-        <phase duration="3" state="rrrrrrryrrrrrrry"/>
+        <phase duration="3"  state="rrrryyygrrrryyyg"/>
+        <phase duration="6"  state="rrrrrrrGrrrrrrrG"/>
+        <phase duration="3"  state="rrrrrrryrrrrrrry"/>
     </tlLogic>
 
     <connection from="EC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="4"/>

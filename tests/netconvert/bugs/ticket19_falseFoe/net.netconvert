@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 12:24:49 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
+<!-- generated on Thu Mar 15 13:45:13 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,11 +93,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="6365" type="static" programID="0" offset="0">
         <phase duration="38" state="rrGgrrGg"/>
-        <phase duration="3" state="rryyrryy"/>
+        <phase duration="3"  state="rryyrryy"/>
         <phase duration="37" state="GgrrGgrr"/>
-        <phase duration="3" state="ygrrygrr"/>
-        <phase duration="6" state="rGrrrGrr"/>
-        <phase duration="3" state="ryrrryrr"/>
+        <phase duration="3"  state="ygrrygrr"/>
+        <phase duration="6"  state="rGrrrGrr"/>
+        <phase duration="3"  state="ryrrryrr"/>
     </tlLogic>
 
     <junction id="6365" type="traffic_light" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="152.36,252.96 151.66,249.84 150.58,245.66 144.10,245.11 142.54,246.17 141.62,249.23 143.34,254.52 149.82,255.01">

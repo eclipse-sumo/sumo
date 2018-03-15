@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:51:31 2018 by SUMO netconvert Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 13:44:25 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -334,11 +334,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="ErnstRuskaAltglienicker" type="static" programID="0" offset="0">
         <phase duration="36" state="GGgrrGGG"/>
-        <phase duration="4" state="yygrryyy"/>
-        <phase duration="6" state="rrGrrrrr"/>
-        <phase duration="4" state="rryrrrrr"/>
+        <phase duration="4"  state="yygrryyy"/>
+        <phase duration="6"  state="rrGrrrrr"/>
+        <phase duration="4"  state="rryrrrrr"/>
         <phase duration="36" state="rrrGGGrr"/>
-        <phase duration="4" state="rrryyyrr"/>
+        <phase duration="4"  state="rrryyyrr"/>
     </tlLogic>
 
     <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_1_1" shape="1905.22,181.50 1915.02,181.50 1911.72,178.50 1905.22,178.50">

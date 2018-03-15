@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 12:24:47 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
+<!-- generated on Thu Mar 15 13:45:10 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -163,11 +163,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="joinedS_7" type="static" programID="0" offset="0">
         <phase duration="68" state="GGGGggggggGGGGrrrrr"/>
-        <phase duration="3" state="yyyyggggggyyyyrrrrr"/>
-        <phase duration="6" state="GGGGGggGGgrrrrrrrrr"/>
-        <phase duration="3" state="yyyyyyyyyyrrrrrrrrr"/>
-        <phase duration="5" state="rrrrrrrrrrrrrrGGGGG"/>
-        <phase duration="5" state="rrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyggggggyyyyrrrrr"/>
+        <phase duration="6"  state="GGGGGggGGgrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyyyyyyrrrrrrrrr"/>
+        <phase duration="5"  state="rrrrrrrrrrrrrrGGGGG"/>
+        <phase duration="5"  state="rrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1193560217" type="dead_end" x="90.06" y="139.08" incLanes="312533962#0_0 312533962#0_1 312533962#0_2 312533962#0_3" intLanes="" shape="97.55,141.74 85.39,137.42"/>
@@ -179,16 +179,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="00000" foes="01111" cont="0"/>
     </junction>
     <junction id="29215077" type="traffic_light" x="93.79" y="94.20" incLanes="-4615548_0 -4615548_1 194962398#2_0 194962398#2_1 246044848#1_0 246044848#1_1 246044848#1_2 :29215077_w1_0 :29215077_w2_0 :29215077_w3_0 :29215077_w0_0" intLanes=":29215077_0_0 :29215077_10_0 :29215077_11_0 :29215077_12_0 :29215077_4_0 :29215077_13_0 :29215077_14_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0 :29215077_c2_0 :29215077_c3_0" shape="96.40,102.55 102.53,93.78 99.13,86.20 89.80,83.94 88.12,84.69 82.29,93.70 85.51,100.60 94.77,103.14">
-        <request index="0" response="01011111000000" foes="01011111100000" cont="0"/>
-        <request index="1" response="00111110011000" foes="00111110011000" cont="1"/>
-        <request index="2" response="00011000010000" foes="00011000010000" cont="1"/>
-        <request index="3" response="01100110000000" foes="01100110000010" cont="1"/>
-        <request index="4" response="01011110000000" foes="01011110000110" cont="0"/>
-        <request index="5" response="01000001000001" foes="01000001000001" cont="1"/>
-        <request index="6" response="11000000000000" foes="11000000100001" cont="1"/>
-        <request index="7" response="10100000001000" foes="10100000011011" cont="0"/>
-        <request index="8" response="10100000001000" foes="10100000011011" cont="0"/>
-        <request index="9" response="10010000000010" foes="10010000010111" cont="0"/>
+        <request index="0"  response="01011111000000" foes="01011111100000" cont="0"/>
+        <request index="1"  response="00111110011000" foes="00111110011000" cont="1"/>
+        <request index="2"  response="00011000010000" foes="00011000010000" cont="1"/>
+        <request index="3"  response="01100110000000" foes="01100110000010" cont="1"/>
+        <request index="4"  response="01011110000000" foes="01011110000110" cont="0"/>
+        <request index="5"  response="01000001000001" foes="01000001000001" cont="1"/>
+        <request index="6"  response="11000000000000" foes="11000000100001" cont="1"/>
+        <request index="7"  response="10100000001000" foes="10100000011011" cont="0"/>
+        <request index="8"  response="10100000001000" foes="10100000011011" cont="0"/>
+        <request index="9"  response="10010000000010" foes="10010000010111" cont="0"/>
         <request index="10" response="00000000000000" foes="00001000010111" cont="0"/>
         <request index="11" response="00000000000000" foes="00000110001010" cont="0"/>
         <request index="12" response="00000000000000" foes="00000001111001" cont="0"/>
