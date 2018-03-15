@@ -1510,7 +1510,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                     ((isRightTurn && getJunctionPriority(&n) > 0) || (isTurn && n.isTLControlled()))) {
                                 // build internal junctions (not for left turns at uncontrolled intersections)
                                 PositionVector crossingShape = crossing.shape;
-                                crossingShape.extrapolate(1.0); // sometimes shapes miss each other by a small margin
+                                crossingShape.extrapolate(5.0); // sometimes shapes miss each other by a small margin
                                 const double minDV = firstIntersection(shape, crossingShape, crossing.width / 2);
                                 if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
                                     assert(minDV >= 0);
