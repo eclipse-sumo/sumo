@@ -12,7 +12,7 @@
 # @author  Jakob Erdmann
 # @author  Laura Bieker
 # @date    2008
-# @version $Id$
+# @version $Id: dailyBuildMSVC.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
 
 """
 Does the nightly git pull on the windows server and the visual
@@ -110,7 +110,7 @@ optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
                      help="directory containg the binaries, relative to the root dir")
 optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
                      help="directory containg the tests, relative to the root dir")
-optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="I:\\daily",
+optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
                      help="directory to move the results to")
 optParser.add_option("-l", "--add-solution", dest="addSln",
                      default=r"git\build\msvc10\tools.sln",
