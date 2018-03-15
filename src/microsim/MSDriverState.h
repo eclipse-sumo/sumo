@@ -197,6 +197,29 @@ public:
     virtual void update();
     /// @}
 
+
+    /// @name Methods to obtain the current error quantities to be used by the car-following model
+    /// @see TCIModel
+    /// @{
+    /// @see myAccelerationError
+    inline double getAppliedAcceleration(double desiredAccel) {
+        return desiredAccel + myAccelerationError.getState();
+    };
+    /// @see mySpeedPerceptionError
+    inline double getPerceivedSpeedDifference(double trueSpeedDifference) {
+        return trueSpeedDifference + mySpeedPerceptionError.getState();
+    };
+    /// @see myHeadwayPerceptionError
+    inline double getPerceivedHeadway(double trueGap) {
+        return trueGap + myHeadwayPerceptionError.getState();
+    };
+    /// @see myActionStepLength
+    inline double getActionStepLength(){
+        return myActionStepLength;
+    };
+    /// @}
+
+
 private:
 
     /** @brief Updates the internal variables to track the time between
