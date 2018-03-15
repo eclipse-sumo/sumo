@@ -28,7 +28,7 @@
 
 #include <memory>
 #include <functional>
-#include "MSCFModel.h"
+#include "MSCFModel_Krauss.h"
 
 
 // ===========================================================================
@@ -45,7 +45,7 @@ class MSTrafficItem;
  * @brief Task Capability Interface car-following model.
  * @see MSCFModel
  */
-class MSCFModel_TCI : public MSCFModel {
+class MSCFModel_TCI : public MSCFModel_Krauss {
 public:
     /** @brief Constructor
      * @param[in] accel The maximum acceleration
@@ -61,11 +61,6 @@ public:
 
     /// @brief Destructor
     ~MSCFModel_TCI();
-
-    /// @name Implementations of the MSCFModel interface
-    /// @{
-    /// @brief apply dawdling
-    double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const;
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
      * this uses the maximumSafeStopSpeed

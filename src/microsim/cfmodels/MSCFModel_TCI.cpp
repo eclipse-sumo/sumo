@@ -12,7 +12,8 @@
 /// @date    Tue, 5 Feb 2018
 /// @version $Id$
 ///
-// Task Capability Interface car-following model.
+// Task Capability Interface car-following model. Basically the Krauss model with perception errors taken from the driver state.
+//
 /****************************************************************************/
 
 
@@ -34,6 +35,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSCFModel_TCI.h"
+#include <microsim/MSDriverState.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
@@ -42,7 +44,9 @@
 // ===========================================================================
 // DEBUG constants
 // ===========================================================================
+#define DEBUG_DRIVER_ERRORS
 //#define DEBUG_COND (true)
+#define DEBUG_COND (veh->isSelected())
 
 
 // ===========================================================================
@@ -52,40 +56,51 @@
 MSCFModel_TCI::MSCFModel_TCI(const MSVehicleType* vtype, double accel, double decel,
                                    double emergencyDecel, double apparentDecel,
                                    double headwayTime) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime)
-{
-}
+    MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime, 0.)
+{}
 
 
 MSCFModel_TCI::~MSCFModel_TCI() {}
 
-double 
-MSCFModel_TCI::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
-    const double sigma = (veh->passingMinor()
-                          ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, 0.)
-                          : 0.);
-//    const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma));
-//    return vDawdle;
-    return vMax;
-}
-
 
 double
 MSCFModel_TCI::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-    // NOTE: This allows return of smaller values than minNextSpeed().
-    // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
-    // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
-    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    assert(veh->getDriverState()!=nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
+    const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
+#ifdef DEBUG_DRIVER_ERRORS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_TCI::stopSpeed()\n"
+                << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;
+        const double exactStopSpeed = MSCFModel_Krauss::stopSpeed(veh, speed, gap);
+        const double errorStopSpeed = MSCFModel_Krauss::stopSpeed(veh, speed, perceivedGap);
+        const double accelError = SPEED2ACCEL(errorStopSpeed-exactStopSpeed);
+        std::cout << "  gapError=" << perceivedGap-gap << "\n  resulting accelError: " << accelError << std::endl;
+    }
+#endif
+    return MSCFModel_Krauss::stopSpeed(veh, speed, perceivedGap);
 }
 
 
 double
 MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel) const {
-    const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
-    const double vmin = minNextSpeed(speed);
-    const double vmax = maxNextSpeed(speed, veh);
-    // ballistic
-    return MAX2(MIN2(vsafe, vmax), vmin);
+    assert(veh->getDriverState()!=nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
+    const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
+    const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed);
+#ifdef DEBUG_DRIVER_ERRORS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_TCI::followSpeed()\n"
+                << "  speed=" << speed << " gap=" << gap << " predSpeed=" << predSpeed
+                << "\n  perceivedGap=" << perceivedGap << " perceivedLeaderSpeed=" << speed+perceivedSpeedDifference
+                << " perceivedSpeedDifference=" << perceivedSpeedDifference
+                << std::endl;
+        const double exactFollowSpeed = MSCFModel_Krauss::followSpeed(veh, speed, gap, predSpeed, predMaxDecel);
+        const double errorFollowSpeed = MSCFModel_Krauss::followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
+        const double accelError = SPEED2ACCEL(errorFollowSpeed-exactFollowSpeed);
+        std::cout << "  gapError=" << perceivedGap-gap << "  dvError=" << perceivedSpeedDifference-(predSpeed - speed)
+                << "\n  resulting accelError: " << accelError << std::endl;
+    }
+#endif
+    return MSCFModel_Krauss::followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
 }
 
 
