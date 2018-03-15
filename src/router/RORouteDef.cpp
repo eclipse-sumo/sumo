@@ -168,7 +168,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges) const {
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
-    ConstROEdgeVector mandatory;
     const int initialSize = (int)oldEdges.size();
     if (initialSize == 1) {
         if (myUsingJTRR) {
@@ -178,7 +177,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             newEdges = oldEdges;
         }
     } else {
-        // prepare mandatory edges
         if (oldEdges.front()->prohibits(&veh)) {
             // option repair.from is in effect
             const std::string& frontID = oldEdges.front()->getID();
@@ -196,23 +194,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             mh->inform("Could not find new starting edge for vehicle '" + veh.getID() + "'.");
             return false;
         }
-        mandatory.push_back(oldEdges.front());
-        ConstROEdgeVector stops = veh.getStopEdges();
-        for (ConstROEdgeVector::const_iterator i = stops.begin(); i != stops.end(); ++i) {
-            if ((*i)->isInternal()) {
-                // the edges before and after the internal edge are mandatory
-                const ROEdge* before = (*i)->getNormalBefore();
-                const ROEdge* after = (*i)->getNormalAfter();
-                if (after != mandatory.back()) {
-                    mandatory.push_back(before);
-                    mandatory.push_back(after);
-                }
-            } else {
-                if (*i != mandatory.back()) {
-                    mandatory.push_back(*i);
-                }
-            }
-        }
         if (oldEdges.back()->prohibits(&veh)) {
             // option repair.to is in effect
             const std::string& backID = oldEdges.back()->getID();
@@ -223,10 +204,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             WRITE_MESSAGE("Changing invalid destination edge '" + backID
                           + "' to edge '" + oldEdges.back()->getID() + "' for vehicle '" + veh.getID() + "'.");
         }
-        if (mandatory.size() < 2 || oldEdges.back() != mandatory.back()) {
-            mandatory.push_back(oldEdges.back());
-        }
-        assert(mandatory.size() >= 2);
+        ConstROEdgeVector mandatory = veh.getMandatoryEdges(oldEdges);
         // removed prohibited
         for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
             if ((*i)->prohibits(&veh)) {

@@ -105,6 +105,10 @@ public:
         return myStopEdges;
     }
 
+
+    /// @brief compute mandatory edges
+    ConstROEdgeVector getMandatoryEdges(const ConstROEdgeVector& oldEdges) const; 
+
     /** @brief Returns an upper bound for the speed factor of this vehicle
      *
      * @return the maximum speed factor

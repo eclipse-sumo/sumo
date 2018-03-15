@@ -160,6 +160,33 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
 }
 
 
+ConstROEdgeVector
+ROVehicle::getMandatoryEdges(const ConstROEdgeVector& oldEdges) const {
+    ConstROEdgeVector mandatory;
+    mandatory.push_back(oldEdges.front());
+    for (const ROEdge* e : getStopEdges()) {
+        if (e->isInternal()) {
+            // the edges before and after the internal edge are mandatory
+            const ROEdge* before = e->getNormalBefore();
+            const ROEdge* after = e->getNormalAfter();
+            if (after != mandatory.back()) {
+                mandatory.push_back(before);
+                mandatory.push_back(after);
+            }
+        } else {
+            if (e != mandatory.back()) {
+                mandatory.push_back(e);
+            }
+        }
+    }
+    if (mandatory.size() < 2 || oldEdges.back() != mandatory.back()) {
+        mandatory.push_back(oldEdges.back());
+    }
+    assert(mandatory.size() >= 2);
+    return mandatory;
+}
+
+
 void
 ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     if (typeos != 0 && getType() != 0 && !getType()->saved) {
