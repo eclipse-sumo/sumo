@@ -4,14 +4,14 @@ select_default
 # save selection
 select_save_selection
 
-# try to select elements with wrong parameters
-wrong_parameters
+# check set operators clear and invert
+select_setoperators
 
 # select differents busstops
 selectadditional_basic
 
-# check set operators clear and invert
-select_setoperators
-
 # check that undo-redo of elements works correctly
 undo_redo
+
+# try to select elements with wrong parameters
+wrong_parameters

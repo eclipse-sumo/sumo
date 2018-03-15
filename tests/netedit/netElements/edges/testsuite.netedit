@@ -34,5 +34,3 @@ select_vtypes_disallowed_2
 
 # check selection of edges through disallow parameter (3/3)
 select_vtypes_disallowed_3
-
-

@@ -1,11 +1,11 @@
-# junctions
-junctions
+# crossings
+crossings
 
 # edges
 edges
 
-# lanes
-lanes
+# junctions
+junctions
 
 # traffic lights
 #tls
@@ -16,5 +16,5 @@ lanes
 # prohibitions
 #prohibitions
 
-# crossings
-crossings
+# lanes
+lanes

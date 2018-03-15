@@ -5,6 +5,9 @@ create
 # delete additional
 delete
 
+# delete child
+delete_child
+
 # inspect additional
 inspect
 
@@ -14,14 +17,11 @@ inspect_selection
 # load additional
 load
 
-# move additional
-move
-
 # lock/unlock additional
 lock_unlock
 
-# delete child
-delete_child
+# move additional
+move
 
 # volatile recomputing
 volatileRecomputing

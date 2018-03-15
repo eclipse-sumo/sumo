@@ -90,11 +90,8 @@ Warning: Created connection 'fromgneE7_1togneE4_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
-Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Additionals saved
-Warning: Deleting unreferenced e3Detector 'e3Detector_0'
-Warning: Additionals has to be saved
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -291,6 +288,7 @@ Warning: Deleting unreferenced busStop 'busStop_gneE4_0_7' in GNENet destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE5_0_8' in GNENet destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9' in GNENet destructor
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6' in GNENet destructor
+Warning: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

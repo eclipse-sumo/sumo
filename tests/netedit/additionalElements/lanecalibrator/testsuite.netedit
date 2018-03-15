@@ -14,14 +14,14 @@ create
 # load additional
 load
 
+# load calibrator's flow values
+load_values_flows
+
 # load calibrator's routes values
 load_values_routes
 
 # load calibrator's vtypes values
 load_values_vtypes
-
-# load calibrator's flow values
-load_values_flows
 
 # volatile recomputing
 volatileRecomputing

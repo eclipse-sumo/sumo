@@ -78,13 +78,8 @@ Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
-Warning: Deleting unreferenced e3Detector 'e3Detector_1'
-Warning: Additionals has to be saved
-Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -106,6 +101,7 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry2' in GNENet destructor
@@ -122,6 +118,7 @@ Warning: Deleting unreferenced detExit 'e3Detector_0detExit4' in GNENet destruct
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit5' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit6' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit7' in GNENet destructor
+Warning: Deleting unreferenced e3Detector 'e3Detector_1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry0' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry1' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_1detEntry2' in GNENet destructor

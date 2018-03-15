@@ -1,3 +1,0 @@
-# this file needs to be intentionally blank until textest figures out
-# how to handle two applications where only one needs sequential
-# execution of tests while the other may run parallel

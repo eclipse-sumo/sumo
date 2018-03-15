@@ -25,11 +25,11 @@ abort-recomputing
 # geometry split
 #geometry.split
 
-# sidewalks guess
-sidewalks.guess
-
 # crossing guess
-crossings.guess 
+crossings.guess
 
 # sidewalks and crossings.guess 
-sidewalks-and-crossings.guess 
+sidewalks-and-crossings.guess
+
+# sidewalks guess
+sidewalks.guess
