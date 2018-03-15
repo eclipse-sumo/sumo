@@ -88,7 +88,7 @@ fillOptions() {
     NWFrame::fillOptions(true);
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
-    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left] Determines the type of the build junctions");
+    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)");
     RandHelper::insertRandOptions();
 }
 
