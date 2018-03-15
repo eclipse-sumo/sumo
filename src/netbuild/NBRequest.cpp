@@ -586,16 +586,18 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     // do not prohibit a connection by others from same lane
                     result += '0';
                 } else {
+                    assert(connected[k].toEdge != 0);
+                    const int idx2 = getIndex(*i, connected[k].toEdge);
                     assert(k < (int) connected.size());
                     assert(idx < (int)(myIncoming.size() * myOutgoing.size()));
-                    assert(connected[k].toEdge != 0);
-                    assert(getIndex(*i, connected[k].toEdge) < (int)(myIncoming.size() * myOutgoing.size()));
+                    assert(idx2 < (int)(myIncoming.size() * myOutgoing.size()));
                     // check whether the connection is prohibited by another one
-                    if ((myForbids[getIndex(*i, connected[k].toEdge)][idx] &&
+                    if ((myForbids[idx2][idx] &&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
+                            || myJunction->tlsContConflict(from, c, *i, connected[k])
                        ) {
                         result += '1';
                     } else {
@@ -700,7 +702,6 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
                                    || (angle > prohibitorAngle && !from->isTurningDirectionAt(to));
     return rightOfProhibitor ? toLane >= prohibitorToLane : toLane <= prohibitorToLane;
 }
-
 
 int
 NBRequest::getIndex(const NBEdge* const from, const NBEdge* const to) const {

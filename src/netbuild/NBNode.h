@@ -509,6 +509,11 @@ public:
     bool needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
                    const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
 
+    /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
+    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c, 
+        const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
+
+
     /**@brief Compute the shape for an internal lane
      * @param[in] fromE The starting edge
      * @param[in] con The connection for this internal lane

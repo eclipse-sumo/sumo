@@ -700,6 +700,16 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     return false;
 }
 
+bool 
+NBNode::tlsContConflict(const NBEdge* from, const NBEdge::Connection& c, 
+        const NBEdge* foeFrom, const NBEdge::Connection& foe) const {
+    return (foe.haveVia && isTLControlled() 
+        && !foeFrom->isTurningDirectionAt(foe.toEdge)
+        && foes(from, c.toEdge, foeFrom, foe.toEdge)
+        && !needsCont(foeFrom, from, foe, c));
+}
+
+
 void
 NBNode::removeJoinedTrafficLights() {
     std::set<NBTrafficLightDefinition*> trafficLights = myTrafficLights; // make a copy because we will modify the original
