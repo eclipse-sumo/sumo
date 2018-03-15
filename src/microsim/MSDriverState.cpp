@@ -40,6 +40,14 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSDriverState.h"
 
+// ===========================================================================
+// DEBUG constants
+// ===========================================================================
+#define DEBUG_OUPROCESS
+#define DEBUG_TRAFFIC_ITEMS
+//#define DEBUG_COND (true)
+#define DEBUG_COND (myVehicle->isSelected())
+
 
 /* -------------------------------------------------------------------------
 * static member definitions
@@ -97,7 +105,13 @@ MSDriverState::OUProcess::~OUProcess() {}
 
 void
 MSDriverState::OUProcess::step(double dt) {
+#ifdef DEBUG_OUPROCESS
+    const double oldstate = myState;
+#endif
     myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1);
+#ifdef DEBUG_OUPROCESS
+    std::cout << "  step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
+#endif
 }
 
 
@@ -181,26 +195,75 @@ MSDriverState::adaptTaskCapability() {
 
 void
 MSDriverState::updateAccelerationError() {
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Updating acceleration error (for " << myStepDuration << " s.):\n  "
+                << myAccelerationError.getState() << " -> ";
+    }
+#endif
+
     updateErrorProcess(myAccelerationError, myAccelerationErrorTimeScaleCoefficient, myAccelerationErrorNoiseIntensityCoefficient);
+
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << myAccelerationError.getState() << std::endl;
+    }
+#endif
 }
 
 void
 MSDriverState::updateSpeedPerceptionError() {
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Updating speed perception error (for " << myStepDuration << " s.):\n  "
+        << mySpeedPerceptionError.getState() << " -> ";
+    }
+#endif
+
     updateErrorProcess(mySpeedPerceptionError, mySpeedPerceptionErrorTimeScaleCoefficient, mySpeedPerceptionErrorNoiseIntensityCoefficient);
+
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << mySpeedPerceptionError.getState() << std::endl;
+    }
+#endif
 }
 
 void
 MSDriverState::updateHeadwayPerceptionError() {
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Updating headway perception error (for " << myStepDuration << " s.):\n  "
+        << myHeadwayPerceptionError.getState() << " -> ";
+    }
+#endif
+
     updateErrorProcess(myHeadwayPerceptionError, myHeadwayPerceptionErrorTimeScaleCoefficient, myHeadwayPerceptionErrorNoiseIntensityCoefficient);
+
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << myHeadwayPerceptionError.getState() << std::endl;
+    }
+#endif
 }
 
 void
 MSDriverState::updateActionStepLength() {
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " Updating action step length (for " << myStepDuration << " s.): \n" << myActionStepLength;
+    }
+#endif
     if (myActionStepLengthCoefficient*myCurrentDrivingDifficulty <= myMinActionStepLength) {
         myActionStepLength = myMinActionStepLength;
     } else {
         myActionStepLength = MIN2(myActionStepLengthCoefficient*myCurrentDrivingDifficulty - myMinActionStepLength, myMaxActionStepLength);
     }
+#ifdef DEBUG_OUPROCESS
+    if DEBUG_COND {
+        std::cout << " -> " << myActionStepLength << std::endl;
+    }
+#endif
 }
 
 
