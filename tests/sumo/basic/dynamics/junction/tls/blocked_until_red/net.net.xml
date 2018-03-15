@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 14 14:47:28 2015 by SUMO netconvert Version dev-SVN-r18632I
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Thu Mar 15 12:45:12 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="net.nod.xml"/>
-        <edge-files value="net.edg.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="new.net.xml"/>
     </output>
 
     <processing>
         <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -115,22 +114,22 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 EC_0 SC_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_12_0 :C_3_0 :C_4_0 :C_13_0 :C_6_0 :C_7_0 :C_14_0 :C_9_0 :C_10_0 :C_15_0" shape="96.95,104.55 103.05,104.55 104.55,103.05 104.55,96.95 103.05,95.45 96.95,95.45 95.45,96.95 95.45,103.05">
         <request index="0" response="000000000000" foes="000100010000" cont="0"/>
-        <request index="1" response="000000000000" foes="111100110000" cont="0"/>
-        <request index="2" response="000011000000" foes="110011110000" cont="1"/>
+        <request index="1" response="100000100000" foes="111100110000" cont="0"/>
+        <request index="2" response="100011100000" foes="110011110000" cont="1"/>
         <request index="3" response="000010000000" foes="100010000000" cont="0"/>
         <request index="4" response="000110000111" foes="100110000111" cont="0"/>
         <request index="5" response="011110000110" foes="011110000110" cont="1"/>
         <request index="6" response="000000000000" foes="010000000100" cont="0"/>
-        <request index="7" response="000000000000" foes="110000111100" cont="0"/>
-        <request index="8" response="000000000011" foes="110000110011" cont="1"/>
+        <request index="7" response="100000100000" foes="110000111100" cont="0"/>
+        <request index="8" response="100000100011" foes="110000110011" cont="1"/>
         <request index="9" response="000000000010" foes="000000100010" cont="0"/>
         <request index="10" response="000111000110" foes="000111100110" cont="0"/>
         <request index="11" response="000110011110" foes="000110011110" cont="1"/>
     </junction>
-    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,100.05 200.00,103.05 200.00,96.95 200.00,99.95"/>
-    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0" intLanes="" shape="99.95,200.00 96.95,200.00 103.05,200.00 100.05,200.00"/>
-    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.05,-0.00 103.05,-0.00 96.95,0.00 99.95,0.00"/>
-    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0" intLanes="" shape="-0.00,99.95 -0.00,96.95 0.00,103.05 0.00,100.05"/>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,100.05 200.00,96.95 200.00,99.95"/>
+    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0" intLanes="" shape="99.95,200.00 103.05,200.00 100.05,200.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.05,0.00 96.95,0.00 99.95,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0" intLanes="" shape="0.00,99.95 0.00,103.05 0.00,100.05"/>
 
     <junction id=":C_12_0" type="internal" x="99.97" y="99.97" incLanes=":C_2_0 SC_0" intLanes=":C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_10_0 :C_11_0"/>
     <junction id=":C_13_0" type="internal" x="99.97" y="100.03" incLanes=":C_5_0 WC_0" intLanes=":C_1_0 :C_2_0 :C_7_0 :C_8_0 :C_9_0 :C_10_0"/>
@@ -140,31 +139,31 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_3_0" tl="C" linkIndex="3" dir="r" state="o"/>
     <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="s" state="o"/>
     <connection from="EC" to="CS" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="l" state="o"/>
-    <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="o"/>
-    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="o"/>
+    <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="O"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="O"/>
     <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="l" state="o"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="r" state="o"/>
-    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="s" state="o"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="r" state="O"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="s" state="O"/>
     <connection from="SC" to="CW" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="l" state="o"/>
     <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="r" state="o"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_10_0" tl="C" linkIndex="10" dir="s" state="o"/>
     <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_11_0" tl="C" linkIndex="11" dir="l" state="o"/>
 
-    <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_2" to="CE" fromLane="0" toLane="0" via=":C_12_0" dir="s" state="m"/>
-    <connection from=":C_12" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_3" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_2" to="CE" fromLane="0" toLane="0" via=":C_12_0" dir="l" state="m"/>
+    <connection from=":C_12" to="CE" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_3" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_4" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_5" to="CS" fromLane="0" toLane="0" via=":C_13_0" dir="s" state="m"/>
-    <connection from=":C_13" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_6" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_5" to="CS" fromLane="0" toLane="0" via=":C_13_0" dir="l" state="m"/>
+    <connection from=":C_13" to="CS" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_6" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_7" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_8" to="CW" fromLane="0" toLane="0" via=":C_14_0" dir="s" state="m"/>
-    <connection from=":C_14" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_9" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_8" to="CW" fromLane="0" toLane="0" via=":C_14_0" dir="l" state="m"/>
+    <connection from=":C_14" to="CW" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_9" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_10" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_11" to="CN" fromLane="0" toLane="0" via=":C_15_0" dir="s" state="m"/>
-    <connection from=":C_15" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_11" to="CN" fromLane="0" toLane="0" via=":C_15_0" dir="l" state="m"/>
+    <connection from=":C_15" to="CN" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>
