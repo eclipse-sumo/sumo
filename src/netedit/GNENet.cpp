@@ -716,6 +716,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     const PositionVector& oldGeom = edge->getNBEdge()->getGeometry();
     const double linePos = oldGeom.nearest_offset_to_point2D(pos, false);
     std::pair<PositionVector, PositionVector> newGeoms = oldGeom.splitAt(linePos);
+    const std::string shapeEnd = edge->getAttribute(GNE_ATTR_SHAPE_END);
     // figure out the new name
     int posBase = 0;
     std::string baseName = edge->getMicrosimID();
@@ -739,13 +740,12 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // modify the edge so that it ends at the new junction (and all incoming connections are preserved
     undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_TO, newJunction->getID()));
     // fix first part of geometry
-    edge->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.first[-1]), undoList);
     newGeoms.first.pop_back();
     newGeoms.first.erase(newGeoms.first.begin());
+    edge->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
     edge->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.first), undoList);
     // fix second part of geometry
-    secondPart->setAttribute(GNE_ATTR_SHAPE_START, toString(newGeoms.second[0]), undoList);
-    secondPart->setAttribute(GNE_ATTR_SHAPE_END, toString(newGeoms.second[-1]), undoList);
+    secondPart->setAttribute(GNE_ATTR_SHAPE_END, shapeEnd, undoList);
     newGeoms.second.pop_back();
     newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
