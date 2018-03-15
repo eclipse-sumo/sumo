@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:34 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Thu Mar 15 12:24:21 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -130,11 +131,11 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="54536752" type="dead_end" x="47.39" y="0.00" incLanes="" intLanes="" shape="47.44,-0.02 50.43,-1.14 50.22,-1.12 58.22,-4.27" radius="5.00"/>
     <junction id="54536753" type="traffic_light" x="58.36" y="29.16" incLanes="-786367651_0 -786367651_1 -786367651_2 51811895b_0 51811895b_1 51811895b_2 51811895a_0 -51812052_0 -51812052_1 -51812052_2 :54536753_w1_0 :54536753_w0_0" intLanes=":54536753_8_0 :54536753_1_0 :54536753_1_1 :54536753_3_0 :54536753_3_1 :54536753_9_0 :54536753_6_0 :54536753_10_0 :54536753_c0_0 :54536753_c1_0" shape="54.15,41.24 72.10,34.97 70.74,31.17 63.68,33.69 59.79,23.69 56.61,24.99 52.93,15.82 44.93,18.99 42.01,25.07 46.07,38.47" radius="5.00" customShape="1">
-        <request index="0" response="1100000000" foes="1100100000" cont="1"/>
-        <request index="1" response="0100000000" foes="0111100000" cont="0"/>
-        <request index="2" response="0100000000" foes="0111100000" cont="0"/>
-        <request index="3" response="0100000000" foes="0110000000" cont="0"/>
-        <request index="4" response="0100000000" foes="0110000000" cont="0"/>
+        <request index="0" response="1100100000" foes="1100100000" cont="1"/>
+        <request index="1" response="0110100000" foes="0111100000" cont="0"/>
+        <request index="2" response="0110100000" foes="0111100000" cont="0"/>
+        <request index="3" response="0110000000" foes="0110000000" cont="0"/>
+        <request index="4" response="0110000000" foes="0110000000" cont="0"/>
         <request index="5" response="1000000111" foes="1010000111" cont="1"/>
         <request index="6" response="1000000110" foes="1000000110" cont="0"/>
         <request index="7" response="1100111110" foes="1100111110" cont="1"/>

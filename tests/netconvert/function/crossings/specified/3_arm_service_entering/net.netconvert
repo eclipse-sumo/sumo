@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct  4 13:27:43 2017 by SUMO netconvert Version dev-SVN-r26311
+<!-- generated on Thu Mar 15 12:24:42 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -113,12 +114,12 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 WC_0 WC_1 :C_w1_0 :C_w0_0" intLanes=":C_0_0 :C_6_0 :C_2_0 :C_7_0 :C_4_0 :C_5_0 :C_c0_0 :C_c1_0" shape="104.75,105.35 104.75,94.65 103.25,93.15 96.75,93.15 95.25,94.65 95.25,105.35">
-        <request index="0" response="11000000" foes="11001000" cont="0"/>
-        <request index="1" response="01110000" foes="01111000" cont="1"/>
+        <request index="0" response="11001000" foes="11001000" cont="0"/>
+        <request index="1" response="01111000" foes="01111000" cont="1"/>
         <request index="2" response="01100000" foes="01100000" cont="0"/>
         <request index="3" response="10100011" foes="10100011" cont="1"/>
         <request index="4" response="10000000" foes="10000010" cont="0"/>
-        <request index="5" response="11000000" foes="11001110" cont="0"/>
+        <request index="5" response="11001000" foes="11001110" cont="0"/>
         <request index="6" response="00000000" foes="00100111" cont="0"/>
         <request index="7" response="00000000" foes="00111001" cont="0"/>
     </junction>

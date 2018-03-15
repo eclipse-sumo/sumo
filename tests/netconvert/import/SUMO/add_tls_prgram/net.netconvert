@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:51:49 2018 by SUMO netconvert Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 12:24:30 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -203,16 +203,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="11100011110000" foes="11110011110000" cont="0"/>
         <request index="2" response="11101111110000" foes="11101111110000" cont="1"/>
         <request index="3" response="00000000000000" foes="10001000000000" cont="0"/>
-        <request index="4" response="00000000000000" foes="10011000000111" cont="0"/>
-        <request index="5" response="00000000000000" foes="10011000000111" cont="0"/>
-        <request index="6" response="00000000000000" foes="10011000000111" cont="0"/>
-        <request index="7" response="01100000000000" foes="01111000000110" cont="1"/>
+        <request index="4" response="00010000000100" foes="10011000000111" cont="0"/>
+        <request index="5" response="00010000000100" foes="10011000000111" cont="0"/>
+        <request index="6" response="00010000000100" foes="10011000000111" cont="0"/>
+        <request index="7" response="01110000000100" foes="01111000000110" cont="1"/>
         <request index="8" response="01100000000000" foes="01100000000100" cont="0"/>
         <request index="9" response="11100011111000" foes="11100011111100" cont="0"/>
         <request index="10" response="11100011110011" foes="11100011110011" cont="1"/>
-        <request index="11" response="00000000000000" foes="00011110000110" cont="0"/>
-        <request index="12" response="00000000000000" foes="00011110000110" cont="0"/>
-        <request index="13" response="00000001111000" foes="00011001111110" cont="1"/>
+        <request index="11" response="00010000000100" foes="00011110000110" cont="0"/>
+        <request index="12" response="00010000000100" foes="00011110000110" cont="0"/>
+        <request index="13" response="00010001111100" foes="00011001111110" cont="1"/>
     </junction>
     <junction id="29" type="dead_end" x="1529.63" y="663.50" incLanes="" intLanes="" shape="1534.23,664.69 1524.74,662.23"/>
     <junction id="33" type="priority" x="1608.69" y="435.69" incLanes="210_0 210_1 210_2" intLanes=":33_0_0 :33_0_1 :33_0_2" shape="1606.88,439.15 1597.38,436.73 1594.62,446.58 1604.12,449.00">

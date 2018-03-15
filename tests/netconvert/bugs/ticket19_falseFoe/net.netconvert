@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar  7 13:52:08 2018 by SUMO netconvert Version v0_32_0+0663-7536829
+<!-- generated on Thu Mar 15 12:24:49 2018 by SUMO netconvert Version v0_32_0+0733-f14fb4b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -103,11 +103,11 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="6365" type="traffic_light" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="152.36,252.96 151.66,249.84 150.58,245.66 144.10,245.11 142.54,246.17 141.62,249.23 143.34,254.52 149.82,255.01">
         <request index="0" response="00000100" foes="10100100" cont="0"/>
         <request index="1" response="01010100" foes="01011100" cont="1"/>
-        <request index="2" response="00000000" foes="10100011" cont="0"/>
+        <request index="2" response="00100010" foes="10100011" cont="0"/>
         <request index="3" response="01010010" foes="01010010" cont="1"/>
         <request index="4" response="01000000" foes="01001010" cont="0"/>
         <request index="5" response="01000101" foes="11000101" cont="1"/>
-        <request index="6" response="00000000" foes="00111010" cont="0"/>
+        <request index="6" response="00100010" foes="00111010" cont="0"/>
         <request index="7" response="00100101" foes="00100101" cont="1"/>
     </junction>
     <junction id="6366" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.05,-0.00 3.24,-0.24"/>
