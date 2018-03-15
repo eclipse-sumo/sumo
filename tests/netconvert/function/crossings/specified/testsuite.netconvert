@@ -14,6 +14,9 @@
 # 4 arm junction with crossings on all sides
 4_arm_complete
 
+# this is net3.net.xml in the sumo test suite
+4_arm_cycles_green_verge
+
 # 4 arm junction with crossings on all sides, built for a left-hand network
 4_arm_complete_lefthand
 
