@@ -883,6 +883,16 @@ public:
         return myType->getCarFollowModel();
     }
 
+    /** @brief Returns the vehicle driver's state
+     *
+     * @return The vehicle driver's state
+     *
+     * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
+     */
+    inline const std::shared_ptr<MSDriverState> getDriverState() const {
+        return myDriverState;
+    }
+
 
     /** @brief Returns the vehicle's car following model variables
      *
