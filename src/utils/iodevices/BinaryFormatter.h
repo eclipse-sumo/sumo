@@ -200,7 +200,7 @@ public:
     }
 
     /// @brief padding is ignored for binary output
-    void writePadding(std::ostream& into, const std::string&) { }
+    void writePadding(std::ostream& /*into*/, const std::string&) { }
 
 
     /* we need to use dummy templating here to compile those functions where they get
