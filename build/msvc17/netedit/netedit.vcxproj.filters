@@ -57,12 +57,6 @@
     <Filter Include="Quellcodedateien\Dialogs\AdditionalDialogs">
       <UniqueIdentifier>{1ec55ee2-0192-42e8-8ad4-436515a63786}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header-Dateien\Frames">
-      <UniqueIdentifier>{e856b894-a581-42ba-ba51-720cf8133a3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quellcodedateien\Frames">
-      <UniqueIdentifier>{25dc7873-d099-418e-9340-579db01c9035}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quellcodedateien\Items\Additionals\Rerouter">
       <UniqueIdentifier>{a89f84a4-21ee-48f4-a70a-cb6545593ff2}</UniqueIdentifier>
     </Filter>
@@ -121,9 +115,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp">
       <Filter>Quellcodedateien\Items\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEAdditionalFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_About.cpp">
       <Filter>Quellcodedateien\Dialogs</Filter>
@@ -203,32 +194,11 @@
     <ClCompile Include="..\..\..\src\netedit\GNEProhibition.cpp">
       <Filter>Quellcodedateien\Items\NetElements</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEConnectorFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEInspectorFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNESelectorFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNETLSEditorFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEContainerStop.cpp">
       <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEVaporizer.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNECrossingFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEDeleteFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNERerouter.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Rerouter</Filter>
@@ -305,9 +275,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEDialog_FixAdditionalPositions.cpp">
       <Filter>Quellcodedateien\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp">
-      <Filter>Quellcodedateien\Frames</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEParkingArea.cpp">
       <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
     </ClCompile>
@@ -327,9 +294,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEEdge.h">
       <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEAdditionalFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNECrossing.h">
       <Filter>Header-Dateien\Items\NetElements</Filter>
@@ -412,32 +376,11 @@
     <ClInclude Include="..\..\..\src\netedit\GNEProhibition.h">
       <Filter>Header-Dateien\Items\NetElements</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEConnectorFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEInspectorFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNESelectorFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNETLSEditorFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEContainerStop.h">
       <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVaporizer.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNECrossingFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEDeleteFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNERerouter.h">
       <Filter>Header-Dateien\Items\Additionals\Detectors\Rerouter</Filter>
@@ -513,9 +456,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEDialog_FixAdditionalPositions.h">
       <Filter>Header-Dateien\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h">
-      <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEParkingArea.h">
       <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
