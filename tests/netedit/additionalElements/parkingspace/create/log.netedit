@@ -25,10 +25,8 @@ Warning: Adding space 'parkingArea_gneE0_0_0space5' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space6' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
-Warning: Setting new attribute blockMovement '1' into space 'parkingArea_gneE0_0_0space8'
 Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into space 'parkingArea_gneE0_0_0space8'
 Warning: Removing space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
@@ -68,7 +66,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
-Warning: Setting new attribute blockMovement '1' into space 'parkingArea_gneE0_0_0space8'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

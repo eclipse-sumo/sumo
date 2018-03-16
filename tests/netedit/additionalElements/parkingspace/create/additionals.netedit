@@ -8,6 +8,6 @@
         <space x="22.00" y="13.00" z="3.50" width="2.50" length="3.10" angle="-4.00"/>
         <space x="23.00" y="13.00" z="3.50" width="2.50" length="3.10" angle="500.00"/>
         <space x="24.00" y="13.00" z="3.50" width="2.50" length="3.10" angle="120.00"/>
-        <space x="25.00" y="13.00" z="3.50" width="2.50" length="3.10" angle="120.00"/>
+        <space x="25.00" y="13.00" z="3.50" width="2.50" length="3.10" angle="120.00" blockMovement="1"/>
     </parkingArea>
 </additionals>

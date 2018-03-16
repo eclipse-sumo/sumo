@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.10.2017 15:25:38 by Netedit Version dev-SVN-r22737
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 15.03.2018 19:03:41 by Netedit Version v0_32_0+0748-380741a735
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/revision24081\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/revision24081\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/revision24081\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/revision24081\shapes.xml"/>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/revision24081\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/revision24081\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/revision24081\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/revision24081\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/revision24081\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -36,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/bugs/revision24081\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/revision24081\log.txt"/>
     </report>
 
 </configuration>
@@ -116,16 +112,16 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="gneJ5" type="dead_end" x="-50.00" y="0.00" incLanes="-gneE3_0" intLanes="" shape="-49.97,-0.04 -51.80,2.70 -50.03,0.04"/>
     <junction id="gneJ6" type="priority" x="25.00" y="50.00" incLanes="gneE5_0 -gneE4_0 gneE3_0 -gneE6_0" intLanes=":gneJ6_0_0 :gneJ6_12_0 :gneJ6_13_0 :gneJ6_3_0 :gneJ6_4_0 :gneJ6_5_0 :gneJ6_6_0 :gneJ6_7_0 :gneJ6_8_0 :gneJ6_9_0 :gneJ6_10_0 :gneJ6_11_0" shape="32.51,42.25 26.69,39.35 25.66,39.23 19.35,40.81 16.62,40.51 13.02,45.92 12.77,46.75 12.77,53.25">
-        <request index="0" response="000000000000" foes="000100010000" cont="0"/>
-        <request index="1" response="111000000000" foes="111100110000" cont="1"/>
-        <request index="2" response="110000000000" foes="110011110000" cont="1"/>
-        <request index="3" response="100000000000" foes="100010000000" cont="0"/>
-        <request index="4" response="100000000111" foes="100110000111" cont="0"/>
-        <request index="5" response="011000000110" foes="011110000110" cont="0"/>
-        <request index="6" response="010000000100" foes="010000000100" cont="0"/>
-        <request index="7" response="110000111100" foes="110000111100" cont="0"/>
-        <request index="8" response="110000110011" foes="110000110011" cont="0"/>
-        <request index="9" response="000000000000" foes="000000100010" cont="0"/>
+        <request index="0"  response="000000000000" foes="000100010000" cont="0"/>
+        <request index="1"  response="111000000000" foes="111100110000" cont="1"/>
+        <request index="2"  response="110000000000" foes="110011110000" cont="1"/>
+        <request index="3"  response="100000000000" foes="100010000000" cont="0"/>
+        <request index="4"  response="100000000111" foes="100110000111" cont="0"/>
+        <request index="5"  response="011000000110" foes="011110000110" cont="0"/>
+        <request index="6"  response="010000000100" foes="010000000100" cont="0"/>
+        <request index="7"  response="110000111100" foes="110000111100" cont="0"/>
+        <request index="8"  response="110000110011" foes="110000110011" cont="0"/>
+        <request index="9"  response="000000000000" foes="000000100010" cont="0"/>
         <request index="10" response="000000000000" foes="000111100110" cont="0"/>
         <request index="11" response="000000000000" foes="000110011110" cont="0"/>
     </junction>

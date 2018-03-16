@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.10.2017 14:04:27 by Netedit Version dev-SVN-r22737
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 15.03.2018 19:13:30 by Netedit Version v0_32_0+0748-380741a735
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/delete\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/delete\shapes.xml"/>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/delete\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <visualisation>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -37,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Oct133808.4976/netedit.gui/netElements/crossings/delete\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete\log.txt"/>
     </report>
 
 </configuration>
@@ -182,16 +178,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_20_0 :Center_21_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_22_0 :Center_23_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_18_0 :Center_19_0" shape="43.45,58.05 56.55,58.05 58.05,56.55 58.05,43.45 56.55,41.95 43.45,41.95 41.95,43.45 41.95,56.55">
-        <request index="0" response="00000000000000000000" foes="10000010000011000000" cont="0"/>
-        <request index="1" response="00000000000000000000" foes="01111110000111000000" cont="0"/>
-        <request index="2" response="00000000000000000000" foes="01111110000111000000" cont="0"/>
-        <request index="3" response="00000001110000000000" foes="01110001111111000000" cont="1"/>
-        <request index="4" response="01000001100000100000" foes="01000001100000100000" cont="1"/>
-        <request index="5" response="00000001100000000000" foes="01000001100000010000" cont="0"/>
-        <request index="6" response="00000011100000001111" foes="11000011100000001111" cont="0"/>
-        <request index="7" response="00000011100000001111" foes="11000011100000001111" cont="0"/>
-        <request index="8" response="00111011100000001110" foes="00111111100000001110" cont="0"/>
-        <request index="9" response="00110000010000001000" foes="00110000010000001000" cont="0"/>
+        <request index="0"  response="00000000000000000000" foes="10000010000011000000" cont="0"/>
+        <request index="1"  response="00000000000000000000" foes="01111110000111000000" cont="0"/>
+        <request index="2"  response="00000000000000000000" foes="01111110000111000000" cont="0"/>
+        <request index="3"  response="00000001110000000000" foes="01110001111111000000" cont="1"/>
+        <request index="4"  response="01000001100000100000" foes="01000001100000100000" cont="1"/>
+        <request index="5"  response="00000001100000000000" foes="01000001100000010000" cont="0"/>
+        <request index="6"  response="00000011100000001111" foes="11000011100000001111" cont="0"/>
+        <request index="7"  response="00000011100000001111" foes="11000011100000001111" cont="0"/>
+        <request index="8"  response="00111011100000001110" foes="00111111100000001110" cont="0"/>
+        <request index="9"  response="00110000010000001000" foes="00110000010000001000" cont="0"/>
         <request index="10" response="00000000000000000000" foes="00110000001000001000" cont="0"/>
         <request index="11" response="00000000000000000000" foes="01110000000111111000" cont="0"/>
         <request index="12" response="00000000000000000000" foes="01110000000111111000" cont="0"/>

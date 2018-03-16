@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.02.2018 15:06:40 by Netedit Version v0_32_0+0355-43cc681991
+<!-- generated on 15.03.2018 19:08:17 by Netedit Version v0_32_0+0748-380741a735
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.8_from_07Feb122507.3640/netedit.gui/bugs/crossings/ticket3288\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/crossings/ticket3288\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.8_from_07Feb122507.3640/netedit.gui/bugs/crossings/ticket3288\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.8_from_07Feb122507.3640/netedit.gui/bugs/crossings/ticket3288\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.8_from_07Feb122507.3640/netedit.gui/bugs/crossings/ticket3288\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/crossings/ticket3288\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/crossings/ticket3288\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/crossings/ticket3288\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.8_from_07Feb122507.3640/netedit.gui/bugs/crossings/ticket3288\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/crossings/ticket3288\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.8_from_07Feb122507.3640/netedit.gui/bugs/crossings/ticket3288\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/bugs/crossings/ticket3288\log.txt"/>
     </report>
 
 </configuration>
@@ -185,16 +185,16 @@
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes="" shape="49.95,100.00 56.55,100.00 50.05,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1 3_2" intLanes="" shape="0.00,49.95 0.00,59.85 0.00,50.05"/>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 5_0 5_1 7_0 7_1 7_2 :Center_w2_0 :Center_w3_0 :Center_w4_0 :Center_w5_0 :Center_w6_0 :Center_w1_0 :Center_w7_0 :Center_w0_0" intLanes=":Center_16_0 :Center_1_0 :Center_1_1 :Center_17_0 :Center_4_0 :Center_5_0 :Center_5_1 :Center_7_0 :Center_8_0 :Center_9_0 :Center_9_1 :Center_11_0 :Center_18_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c0_0 :Center_c1_0 :Center_c2_0 :Center_c3_0 :Center_c4_0 :Center_c5_0 :Center_c6_0 :Center_c7_0" shape="40.15,61.35 56.55,61.35 58.05,56.55 58.05,43.45 56.55,38.65 40.15,38.65 38.65,40.15 38.65,59.85">
-        <request index="0" response="100000000000000000000000" foes="100000010000100001100000" cont="1"/>
-        <request index="1" response="000000001111000000000000" foes="001000011111100011100000" cont="0"/>
-        <request index="2" response="000000001111000000000000" foes="001000011111100011100000" cont="0"/>
-        <request index="3" response="000010001110000000000000" foes="000010011110011111100000" cont="1"/>
-        <request index="4" response="000000101000000000000000" foes="000001101000011000000000" cont="0"/>
-        <request index="5" response="000000001000000000001111" foes="100001001000111000001111" cont="0"/>
-        <request index="6" response="000000001000000000001111" foes="100001001000111000001111" cont="0"/>
-        <request index="7" response="001000000111000000001110" foes="001001000111111000001110" cont="0"/>
-        <request index="8" response="000010000110000000001000" foes="000110000110000000001000" cont="0"/>
-        <request index="9" response="000000001110000011111000" foes="000100101110000011111000" cont="0"/>
+        <request index="0"  response="100000000000000000000000" foes="100000010000100001100000" cont="1"/>
+        <request index="1"  response="000000001111000000000000" foes="001000011111100011100000" cont="0"/>
+        <request index="2"  response="000000001111000000000000" foes="001000011111100011100000" cont="0"/>
+        <request index="3"  response="000010001110000000000000" foes="000010011110011111100000" cont="1"/>
+        <request index="4"  response="000000101000000000000000" foes="000001101000011000000000" cont="0"/>
+        <request index="5"  response="000000001000000000001111" foes="100001001000111000001111" cont="0"/>
+        <request index="6"  response="000000001000000000001111" foes="100001001000111000001111" cont="0"/>
+        <request index="7"  response="001000000111000000001110" foes="001001000111111000001110" cont="0"/>
+        <request index="8"  response="000010000110000000001000" foes="000110000110000000001000" cont="0"/>
+        <request index="9"  response="000000001110000011111000" foes="000100101110000011111000" cont="0"/>
         <request index="10" response="000000001110000011111000" foes="000100101110000011111000" cont="0"/>
         <request index="11" response="100000001110000011100111" foes="100100001110000011100111" cont="0"/>
         <request index="12" response="001000000000000000000000" foes="011000000000000010000110" cont="1"/>

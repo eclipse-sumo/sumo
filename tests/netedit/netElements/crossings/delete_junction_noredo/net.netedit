@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.01.2018 13:17:03 by Netedit Version v0_32_0+0239-f19c50d12d
+<!-- generated on 15.03.2018 19:14:09 by Netedit Version v0_32_0+0748-380741a735
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan131629.4424/netedit.gui/netElements/crossings/delete_junction_noredo\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete_junction_noredo\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan131629.4424/netedit.gui/netElements/crossings/delete_junction_noredo\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan131629.4424/netedit.gui/netElements/crossings/delete_junction_noredo\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan131629.4424/netedit.gui/netElements/crossings/delete_junction_noredo\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete_junction_noredo\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete_junction_noredo\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete_junction_noredo\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan131629.4424/netedit.gui/netElements/crossings/delete_junction_noredo\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete_junction_noredo\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.29Jan131629.4424/netedit.gui/netElements/crossings/delete_junction_noredo\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/crossings/delete_junction_noredo\log.txt"/>
     </report>
 
 </configuration>
@@ -193,16 +193,16 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_20_0 :Center_21_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_8_0 :Center_9_0 :Center_22_0 :Center_11_0 :Center_11_1 :Center_23_0 :Center_24_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_18_0 :Center_19_0 :Center_c0_0 :Center_c1_0" shape="43.45,58.05 56.55,58.05 58.05,56.55 58.05,43.45 56.55,41.95 43.45,41.95 41.95,43.45 41.95,56.55">
-        <request index="0" response="1000000000000000000000" foes="1010000010000011000000" cont="0"/>
-        <request index="1" response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
-        <request index="2" response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
-        <request index="3" response="0100000001110000000000" foes="0101110001111111000000" cont="1"/>
-        <request index="4" response="0001000001100000100000" foes="0001000001100000100000" cont="1"/>
-        <request index="5" response="0100000001100000000000" foes="0101000001100000010000" cont="0"/>
-        <request index="6" response="0100000011100000001111" foes="1111000011100000001111" cont="0"/>
-        <request index="7" response="0100000011100000001111" foes="1111000011100000001111" cont="0"/>
-        <request index="8" response="0100111011100000001110" foes="0100111111100000001110" cont="0"/>
-        <request index="9" response="0100110000010000001000" foes="0100110000010000001000" cont="0"/>
+        <request index="0"  response="1000000000000000000000" foes="1010000010000011000000" cont="0"/>
+        <request index="1"  response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
+        <request index="2"  response="0000000000000000000000" foes="0001111110000111000000" cont="0"/>
+        <request index="3"  response="0100000001110000000000" foes="0101110001111111000000" cont="1"/>
+        <request index="4"  response="0001000001100000100000" foes="0001000001100000100000" cont="1"/>
+        <request index="5"  response="0100000001100000000000" foes="0101000001100000010000" cont="0"/>
+        <request index="6"  response="0100000011100000001111" foes="1111000011100000001111" cont="0"/>
+        <request index="7"  response="0100000011100000001111" foes="1111000011100000001111" cont="0"/>
+        <request index="8"  response="0100111011100000001110" foes="0100111111100000001110" cont="0"/>
+        <request index="9"  response="0100110000010000001000" foes="0100110000010000001000" cont="0"/>
         <request index="10" response="0100000000000000000000" foes="0100110000001000001000" cont="1"/>
         <request index="11" response="0000000000000000000000" foes="0001110000000111111000" cont="0"/>
         <request index="12" response="0000000000000000000000" foes="0001110000000111111000" cont="0"/>

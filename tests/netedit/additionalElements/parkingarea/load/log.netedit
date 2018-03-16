@@ -24,9 +24,9 @@ Warning: Format of essential float attribute 'endPos' of parkingArea with ID 'pa
 Warning: Invalid position for parkingArea with ID = 'parkingArea_09'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_10'.
 Warning: Adding parkingArea 'parkingArea_11' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_12' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_13' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_14' in GNEChange_Additional
+Warning: Invalid position for parkingArea with ID = 'parkingArea_12'.
+Warning: Invalid position for parkingArea with ID = 'parkingArea_13'.
+Warning: Invalid position for parkingArea with ID = 'parkingArea_14'.
 Warning: Optional int attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_15' is missing; Default value '0' will be used.
 Warning: Adding parkingArea 'parkingArea_15' in GNEChange_Additional
 Warning: Format of optional int attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_16' is invalid; Default value '0' will be used.
@@ -80,9 +80,6 @@ Warning: Deleting unreferenced parkingArea 'parkingArea_18'
 Warning: Deleting unreferenced parkingArea 'parkingArea_17'
 Warning: Deleting unreferenced parkingArea 'parkingArea_16'
 Warning: Deleting unreferenced parkingArea 'parkingArea_15'
-Warning: Deleting unreferenced parkingArea 'parkingArea_14'
-Warning: Deleting unreferenced parkingArea 'parkingArea_13'
-Warning: Deleting unreferenced parkingArea 'parkingArea_12'
 Warning: Deleting unreferenced parkingArea 'parkingArea_11'
 Warning: Deleting unreferenced parkingArea 'parkingArea_00'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

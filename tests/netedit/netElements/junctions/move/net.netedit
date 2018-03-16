@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01.03.2018 16:33:16 by Netedit Version v0_32_0+0641-9faacd4ddc
+<!-- generated on 15.03.2018 19:36:41 by Netedit Version v0_32_0+0748-380741a735
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_01Mar135800.2820/netedit.gui/netElements/junctions/move\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/junctions/move\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_01Mar135800.2820/netedit.gui/netElements/junctions/move\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_01Mar135800.2820/netedit.gui/netElements/junctions/move\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_01Mar135800.2820/netedit.gui/netElements/junctions/move\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/junctions/move\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/junctions/move\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/junctions/move\net.net.xml"/>
     </output>
 
     <processing>
@@ -23,7 +23,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_01Mar135800.2820/netedit.gui/netElements/junctions/move\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/junctions/move\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,7 +32,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.1_from_01Mar135800.2820/netedit.gui/netElements/junctions/move\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.15Mar174600.2312/netedit.gui/netElements/junctions/move\log.txt"/>
     </report>
 
 </configuration>
@@ -392,16 +392,16 @@
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="gneJ19" type="priority" x="30.00" y="21.00" incLanes="-gneE16_0 -gneE17_0 -gneE19_0 -gneE18_0" intLanes=":gneJ19_0_0 :gneJ19_12_0 :gneJ19_13_0 :gneJ19_3_0 :gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0" shape="42.72,30.64 45.51,24.77 46.42,24.10 46.08,16.94 45.91,16.32 42.89,10.56">
-        <request index="0" response="000000000000" foes="000010010000" cont="0"/>
-        <request index="1" response="111000000000" foes="111010110000" cont="1"/>
-        <request index="2" response="110000000000" foes="110101110000" cont="1"/>
-        <request index="3" response="100000000000" foes="100001000000" cont="0"/>
-        <request index="4" response="100000000111" foes="100011000111" cont="0"/>
-        <request index="5" response="011000000110" foes="011011000110" cont="0"/>
-        <request index="6" response="110000111100" foes="110000111100" cont="0"/>
-        <request index="7" response="110000110011" foes="110000110011" cont="0"/>
-        <request index="8" response="010000000100" foes="010000000100" cont="0"/>
-        <request index="9" response="000000000000" foes="000000100010" cont="0"/>
+        <request index="0"  response="000000000000" foes="000010010000" cont="0"/>
+        <request index="1"  response="111000000000" foes="111010110000" cont="1"/>
+        <request index="2"  response="110000000000" foes="110101110000" cont="1"/>
+        <request index="3"  response="100000000000" foes="100001000000" cont="0"/>
+        <request index="4"  response="100000000111" foes="100011000111" cont="0"/>
+        <request index="5"  response="011000000110" foes="011011000110" cont="0"/>
+        <request index="6"  response="110000111100" foes="110000111100" cont="0"/>
+        <request index="7"  response="110000110011" foes="110000110011" cont="0"/>
+        <request index="8"  response="010000000100" foes="010000000100" cont="0"/>
+        <request index="9"  response="000000000000" foes="000000100010" cont="0"/>
         <request index="10" response="000000000000" foes="000111100110" cont="0"/>
         <request index="11" response="000000000000" foes="000011011110" cont="0"/>
     </junction>
