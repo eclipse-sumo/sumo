@@ -48,12 +48,6 @@
     <Filter Include="Quellcodedateien\Items\Additionals\Calibrator">
       <UniqueIdentifier>{bb370bbf-896a-4108-9725-037cf33131f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header-Dateien\Items\NetElements">
-      <UniqueIdentifier>{177f4314-7071-4f93-aef8-bbb20932c513}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quellcodedateien\Items\NetElements">
-      <UniqueIdentifier>{372ff15b-0c52-4502-918b-ba8ca7a6bf50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header-Dateien\Items\Additionals\VariableSpeedSigns">
       <UniqueIdentifier>{4f1ddf19-9dde-47b8-8384-abf20de492ec}</UniqueIdentifier>
     </Filter>
@@ -76,18 +70,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNELane.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEEdge.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNECrossing.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEDetectorE1.cpp">
       <Filter>Quellcodedateien\Items\Additionals\Detectors</Filter>
@@ -124,15 +106,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNERouteProbe.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEConnection.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNENetElement.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEProhibition.cpp">
-      <Filter>Quellcodedateien\Items\NetElements</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEContainerStop.cpp">
       <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
@@ -176,9 +149,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSignStep.cpp">
       <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEInternalLane.cpp">
-      <Filter>Quellcodedateien\Items</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEPOI.cpp">
       <Filter>Quellcodedateien\Items\Shapes</Filter>
     </ClCompile>
@@ -220,18 +190,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNEAdditional.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEJunction.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNELane.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEEdge.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNECrossing.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEDetector.h">
       <Filter>Header-Dateien\Items\Additionals\Detectors</Filter>
     </ClInclude>
@@ -267,15 +225,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNERouteProbe.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNENetElement.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEConnection.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEProhibition.h">
-      <Filter>Header-Dateien\Items\NetElements</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEContainerStop.h">
       <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
@@ -324,9 +273,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEPoly.h">
       <Filter>Header-Dateien\Items\Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEInternalLane.h">
-      <Filter>Header-Dateien\Items</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEShape.h">
       <Filter>Header-Dateien\Items\Shapes</Filter>

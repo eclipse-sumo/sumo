@@ -148,6 +148,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit_frames", "netedit_f
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit_dialogs", "netedit_dialogs\netedit_dialogs.vcxproj", "{14B4AA1C-3584-40F3-B89A-599C52353210}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netedit_netElements", "netedit_netElements\netedit_netElements.vcxproj", "{5AEFE467-6601-4091-ADB5-8241B1A5F094}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -1102,6 +1104,22 @@ Global
 		{14B4AA1C-3584-40F3-B89A-599C52353210}.Unittest|Win32.Build.0 = Release|Win32
 		{14B4AA1C-3584-40F3-B89A-599C52353210}.Unittest|x64.ActiveCfg = Release|x64
 		{14B4AA1C-3584-40F3-B89A-599C52353210}.Unittest|x64.Build.0 = Release|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Debug|Win32.Build.0 = Debug|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Debug|x64.ActiveCfg = Debug|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Debug|x64.Build.0 = Debug|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Fastbuild|Win32.ActiveCfg = Release|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Fastbuild|Win32.Build.0 = Release|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Fastbuild|x64.ActiveCfg = Release|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Fastbuild|x64.Build.0 = Release|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Release|Win32.ActiveCfg = Release|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Release|Win32.Build.0 = Release|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Release|x64.ActiveCfg = Release|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Release|x64.Build.0 = Release|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Unittest|Win32.ActiveCfg = Release|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Unittest|Win32.Build.0 = Release|Win32
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Unittest|x64.ActiveCfg = Release|x64
+		{5AEFE467-6601-4091-ADB5-8241B1A5F094}.Unittest|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
