@@ -28,12 +28,11 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNEAdditionalDialog.h"
-#include "GNEAdditional.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
-
 
 // ===========================================================================
 // FOX callback mapping

@@ -28,9 +28,9 @@
 #endif
 
 #include <map>
-#include "GNEAdditionalDialog.h"
-#include "GNEVariableSpeedSignStep.h"
+#include <netedit/GNEVariableSpeedSignStep.h>
 
+#include "GNEAdditionalDialog.h"
 
 // ===========================================================================
 // class declarations

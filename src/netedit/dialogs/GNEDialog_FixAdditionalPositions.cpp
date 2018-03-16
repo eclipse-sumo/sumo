@@ -31,17 +31,18 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-
-#include "GNEDialog_FixAdditionalPositions.h"
-#include "GNEAdditional.h"
-#include "GNEStoppingPlace.h"
-#include "GNELane.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNEStoppingPlace.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include "GNEAdditionalHandler.h"
-#include "GNEDetectorE2.h"
+#include <netedit/GNEAdditionalHandler.h>
+#include <netedit/GNEDetectorE2.h>
+
+#include "GNEDialog_FixAdditionalPositions.h"
+
 
 // ===========================================================================
 // FOX callback mapping

@@ -55,7 +55,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEDialog_AllowDisallow.h>
+#include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEDeleteFrame.h"

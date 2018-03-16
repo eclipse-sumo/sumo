@@ -30,20 +30,20 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
+#include <netedit/GNERerouter.h>
+#include <netedit/GNERerouterInterval.h>
+#include <netedit/GNEClosingLaneReroute.h>
+#include <netedit/GNEClosingReroute.h>
+#include <netedit/GNEDestProbReroute.h>
+#include <netedit/GNERouteProbReroute.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNERerouterIntervalDialog.h"
 #include "GNERerouterDialog.h"
-#include "GNERerouter.h"
-#include "GNERerouterInterval.h"
-#include "GNEClosingLaneReroute.h"
-#include "GNEClosingReroute.h"
-#include "GNEDestProbReroute.h"
-#include "GNERouteProbReroute.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNEViewNet.h"
-#include "GNENet.h"
-#include "GNEUndoList.h"
 
 
 // ===========================================================================

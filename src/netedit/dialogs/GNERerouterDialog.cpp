@@ -29,14 +29,14 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
+#include <netedit/GNERerouter.h>
+#include <netedit/GNERerouterInterval.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNERerouterDialog.h"
-#include "GNERerouter.h"
-#include "GNERerouterInterval.h"
 #include "GNERerouterIntervalDialog.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
 
 
 // ===========================================================================

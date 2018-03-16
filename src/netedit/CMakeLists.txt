@@ -32,16 +32,6 @@ set(netedit_SRCS
    GNEViewNet.cpp
    GNEViewParent.h
    GNEViewParent.cpp
-   GNEDialog_About.h
-   GNEDialog_About.cpp
-   GNEDialog_Wizard.h
-   GNEDialog_Wizard.cpp
-   GNEDialog_AllowDisallow.h
-   GNEDialog_AllowDisallow.cpp
-   GNEDialog_FixAdditionalPositions.h
-   GNEDialog_FixAdditionalPositions.cpp
-   GNEAdditionalDialog.h
-   GNEAdditionalDialog.cpp
    GNEUndoList.h
    GNEUndoList.cpp
    GNEAttributeCarrier.h
@@ -78,10 +68,6 @@ set(netedit_SRCS
    GNEDetectorExit.cpp
    GNERerouter.h
    GNERerouter.cpp
-   GNERerouterDialog.h
-   GNERerouterDialog.cpp
-   GNERerouterIntervalDialog.h
-   GNERerouterIntervalDialog.cpp
    GNERouteProbe.h
    GNERouteProbe.cpp
    GNEVaporizer.h
@@ -94,20 +80,10 @@ set(netedit_SRCS
    GNECalibratorVehicleType.cpp
    GNECalibratorRoute.h
    GNECalibratorRoute.cpp
-   GNECalibratorDialog.h
-   GNECalibratorDialog.cpp
-   GNECalibratorFlowDialog.h
-   GNECalibratorFlowDialog.cpp
-   GNECalibratorRouteDialog.h
-   GNECalibratorRouteDialog.cpp
-   GNECalibratorVehicleTypeDialog.h
-   GNECalibratorVehicleTypeDialog.cpp
    GNEVariableSpeedSign.h
    GNEVariableSpeedSign.cpp
    GNEVariableSpeedSignStep.h
    GNEVariableSpeedSignStep.cpp
-   GNEVariableSpeedSignDialog.h
-   GNEVariableSpeedSignDialog.cpp
    GNEClosingLaneReroute.h
    GNEClosingLaneReroute.cpp
    GNEClosingReroute.h
@@ -125,7 +101,7 @@ set(netedit_SRCS
 add_executable(netedit ${netedit_SRCS} netedit.rc)
 set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG neteditD)
 target_link_libraries(netedit utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings utils_gui_images utils_gui_tracker
-        utils_foxtools foreign_eulerspiral netedit_changes netedit_frames ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
+        utils_foxtools foreign_eulerspiral netedit_changes netedit_frames netedit_dialogs ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
 if (MSVC)
     set_target_properties(netedit PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(netedit opengl32 glu32)

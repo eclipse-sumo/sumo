@@ -31,19 +31,18 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNECalibrator.h>
+#include <netedit/GNECalibratorRoute.h>
+#include <netedit/GNECalibratorFlow.h>
+#include <netedit/GNECalibratorVehicleType.h>
 
-#include "GNEViewNet.h"
-#include "GNENet.h"
+#include <netedit/GNENet.h>
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
 #include "GNECalibratorRouteDialog.h"
 #include "GNECalibratorVehicleTypeDialog.h"
-#include "GNEUndoList.h"
-#include "GNECalibrator.h"
-#include "GNECalibratorRoute.h"
-#include "GNECalibratorFlow.h"
-#include "GNECalibratorVehicleType.h"
-
 
 // ===========================================================================
 // FOX callback mapping

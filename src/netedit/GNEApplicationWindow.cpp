@@ -59,14 +59,14 @@
 #include <utils/common/SystemFrame.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/dialogs/GNEDialog_About.h>
+#include <netedit/dialogs/GNEDialog_Wizard.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNEViewParent.h"
 #include "GNEViewNet.h"
-#include "GNEDialog_About.h"
-#include "GNEDialog_Wizard.h"
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
