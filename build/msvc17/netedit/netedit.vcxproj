@@ -139,20 +139,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorRouteDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleType.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Additional.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterItem.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEChargingStation.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEClosingLaneReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\GNEClosingReroute.cpp" />
@@ -208,9 +194,6 @@
     <ClCompile Include="..\..\..\src\netedit\netedit_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\src\netedit\GNEAdditional.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEAdditionalFrame.h" />
@@ -226,20 +209,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorRouteDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleType.h" />
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Additional.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterItem.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h" />
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEChargingStation.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEClosingLaneReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\GNEClosingReroute.h" />
@@ -296,6 +265,9 @@
     <ClInclude Include="..\..\..\src\netedit\GNEViewParent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\netedit_changes\netedit_changes.vcxproj">
+      <Project>{B75843A2-EBC7-4C78-B7F9-0C193FD86FE4}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\y_libnetbuild\y_libnetbuild.vcxproj">
       <Project>{bd855404-fa32-48ae-9ab3-fb8b3d71c8c6}</Project>
     </ProjectReference>
@@ -359,6 +331,9 @@
     <ProjectReference Include="..\z_libutils_xml\z_libutils_xml.vcxproj">
       <Project>{508f0bff-83fe-444c-9509-a359bca83bc4}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,18 +9,11 @@
       <UniqueIdentifier>{ba3cb8e7-edf2-49bd-95c1-51459ac14bbc}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
-    <Filter Include="Ressourcendateien">
-      <UniqueIdentifier>{f467b499-f05c-4284-b92e-b1bd9f8b701a}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
     <Filter Include="Header-Dateien\Items">
       <UniqueIdentifier>{e1ec5b4f-548e-4ec2-8a0a-240be07ee43e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header-Dateien\Items\Additionals">
       <UniqueIdentifier>{fae2b4c6-f001-4538-a874-f0b12e39875f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header-Dateien\Items\Changes">
-      <UniqueIdentifier>{8ab251c1-ea02-41e1-9127-fd987f0119e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header-Dateien\Main">
       <UniqueIdentifier>{6fc1e0c7-31d9-4c51-ab23-69488b587beb}</UniqueIdentifier>
@@ -42,9 +35,6 @@
     </Filter>
     <Filter Include="Quellcodedateien\Items\Additionals">
       <UniqueIdentifier>{b2f32ec9-cf11-4d3e-85e6-c2231ff203fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quellcodedateien\Items\Changes">
-      <UniqueIdentifier>{b9838d6c-66a3-45d5-b5ce-05e04fe0fdb3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Quellcodedateien\Items\Routes">
       <UniqueIdentifier>{a83f242b-86a5-4c4d-b2d7-05e7f3dea69b}</UniqueIdentifier>
@@ -94,23 +84,11 @@
     <Filter Include="Quellcodedateien\Dialogs\AdditionalDialogs\RerouterDialogs">
       <UniqueIdentifier>{b275ebd1-cd4f-4322-a046-fd6e81d17d16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header-Dateien\Items\Changes\NetElements">
-      <UniqueIdentifier>{bcf34f58-b5ac-49b3-ba4d-320f4c837bf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header-Dateien\Items\Changes\Additionals">
-      <UniqueIdentifier>{5fda88ad-64b6-40b8-8228-77f328ba409e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quellcodedateien\Items\Changes\NetElements">
-      <UniqueIdentifier>{1a975b6f-b31a-4300-b625-112da98a3ba7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header-Dateien\Items\NetElements">
       <UniqueIdentifier>{177f4314-7071-4f93-aef8-bbb20932c513}</UniqueIdentifier>
     </Filter>
     <Filter Include="Quellcodedateien\Items\NetElements">
       <UniqueIdentifier>{372ff15b-0c52-4502-918b-ba8ca7a6bf50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Quellcodedateien\Items\Changes\Additionals">
-      <UniqueIdentifier>{6968b610-def4-4bb3-a4a9-b4b7eb07e198}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header-Dateien\Items\Additionals\VariableSpeedSigns">
       <UniqueIdentifier>{4f1ddf19-9dde-47b8-8384-abf20de492ec}</UniqueIdentifier>
@@ -127,19 +105,13 @@
     <Filter Include="Header-Dateien\Items\Additionals\Detectors\Rerouter">
       <UniqueIdentifier>{d78f8503-f28f-4a62-a34a-71a7627f0b5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{d3b18e54-4d34-4fe3-be2b-71efd5c33bb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\netedit\GNEAdditional.cpp">
       <Filter>Quellcodedateien\Items\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange.cpp">
-      <Filter>Quellcodedateien\Items\Changes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Attribute.cpp">
-      <Filter>Quellcodedateien\Items\Changes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Selection.cpp">
-      <Filter>Quellcodedateien\Items\Changes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEJunction.cpp">
       <Filter>Quellcodedateien\Items\NetElements</Filter>
@@ -312,30 +284,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.cpp">
       <Filter>Quellcodedateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Lane.cpp">
-      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Junction.cpp">
-      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Edge.cpp">
-      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Crossing.cpp">
-      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Connection.cpp">
-      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_TLS.cpp">
-      <Filter>Quellcodedateien\Items\Changes\NetElements</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Additional.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_CalibratorItem.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEVariableSpeedSign.cpp">
       <Filter>Quellcodedateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClCompile>
@@ -360,15 +308,6 @@
     <ClCompile Include="..\..\..\src\netedit\GNEPolygonFrame.cpp">
       <Filter>Quellcodedateien\Frames</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_Shape.cpp">
-      <Filter>Quellcodedateien\Items\Changes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_RerouterItem.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.cpp">
-      <Filter>Quellcodedateien\Items\Changes\Additionals</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\GNEParkingArea.cpp">
       <Filter>Quellcodedateien\Items\Additionals\StoppingPlaces</Filter>
     </ClCompile>
@@ -377,20 +316,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
-      <Filter>Ressourcendateien</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange.h">
-      <Filter>Header-Dateien\Items\Changes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Attribute.h">
-      <Filter>Header-Dateien\Items\Changes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Selection.h">
-      <Filter>Header-Dateien\Items\Changes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEAdditional.h">
       <Filter>Header-Dateien\Items\Additionals</Filter>
     </ClInclude>
@@ -568,30 +493,6 @@
     <ClInclude Include="..\..\..\src\netedit\GNECalibratorVehicleTypeDialog.h">
       <Filter>Header-Dateien\Dialogs\AdditionalDialogs\CalibratorDialogs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Additional.h">
-      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_CalibratorItem.h">
-      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_TLS.h">
-      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Connection.h">
-      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Crossing.h">
-      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Edge.h">
-      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Junction.h">
-      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Lane.h">
-      <Filter>Header-Dateien\Items\Changes\NetElements</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEVariableSpeedSign.h">
       <Filter>Header-Dateien\Items\Additionals\VariableSpeedSigns</Filter>
     </ClInclude>
@@ -616,20 +517,16 @@
     <ClInclude Include="..\..\..\src\netedit\GNEPolygonFrame.h">
       <Filter>Header-Dateien\Frames</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_Shape.h">
-      <Filter>Header-Dateien\Items\Changes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_RerouterItem.h">
-      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\GNEChange_VariableSpeedSignItem.h">
-      <Filter>Header-Dateien\Items\Changes\Additionals</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEParkingArea.h">
       <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\GNEParkingSpace.h">
       <Filter>Header-Dateien\Items\Additionals\StoppingPlaces</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\src\netedit\netedit.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
