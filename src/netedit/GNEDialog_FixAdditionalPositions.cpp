@@ -38,8 +38,8 @@
 #include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Selection.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Selection.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEAdditionalHandler.h"
 #include "GNEDetectorE2.h"
 

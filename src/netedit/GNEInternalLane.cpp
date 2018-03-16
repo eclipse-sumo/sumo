@@ -45,7 +45,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 
 #include "GNENet.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEViewNet.h"
 #include "GNEInternalLane.h"
 #include "GNETLSEditorFrame.h"

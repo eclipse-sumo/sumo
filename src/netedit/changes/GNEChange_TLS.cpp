@@ -30,10 +30,11 @@
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBOwnTLDef.h>
+#include <netedit/GNEJunction.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+
 #include "GNEChange_TLS.h"
-#include "GNEJunction.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
 
 
 // ===========================================================================

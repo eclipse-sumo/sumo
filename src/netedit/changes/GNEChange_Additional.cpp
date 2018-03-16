@@ -25,20 +25,19 @@
 #endif
 
 #include <utils/common/MsgHandler.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEDetectorE3.h>
+#include <netedit/GNEDetectorEntry.h>
+#include <netedit/GNEDetectorExit.h>
+#include <netedit/GNEStoppingPlace.h>
+#include <netedit/GNERerouter.h>
+#include <netedit/GNEVariableSpeedSign.h>
 
 #include "GNEChange_Additional.h"
-#include "GNENet.h"
-#include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEAdditional.h"
-#include "GNEViewNet.h"
-#include "GNEDetectorE3.h"
-#include "GNEDetectorEntry.h"
-#include "GNEDetectorExit.h"
-#include "GNEStoppingPlace.h"
-#include "GNERerouter.h"
-#include "GNEVariableSpeedSign.h"
-
 
 // ===========================================================================
 // FOX-declarations

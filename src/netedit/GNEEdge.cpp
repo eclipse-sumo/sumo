@@ -38,13 +38,14 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Lane.h>
+#include <netedit/changes/GNEChange_Additional.h>
 
 #include "GNEEdge.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Attribute.h"
-#include "GNEChange_Lane.h"
 #include "GNEJunction.h"
 #include "GNELane.h"
 #include "GNEAdditional.h"
@@ -52,7 +53,7 @@
 #include "GNERouteProbe.h"
 #include "GNEVaporizer.h"
 #include "GNECrossing.h"
-#include "GNEChange_Additional.h"
+
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)

@@ -41,18 +41,17 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_TLS.h>
 
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
 #include "GNENet.h"
-#include "GNEChange_Attribute.h"
-#include "GNEChange_TLS.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEInternalLane.h"
-
 
 
 // ===========================================================================

@@ -52,7 +52,7 @@
 #include "GNEEdge.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEPoly.h"
 #include "GNEJunction.h"
 

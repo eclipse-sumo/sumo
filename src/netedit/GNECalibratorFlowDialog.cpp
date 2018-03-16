@@ -29,6 +29,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/changes/GNEChange_CalibratorItem.h>
 
 #include "GNECalibratorFlowDialog.h"
 #include "GNECalibrator.h"
@@ -41,8 +42,6 @@
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibrator.h"
 #include "GNEUndoList.h"
-#include "GNEChange_CalibratorItem.h"
-
 
 // ===========================================================================
 // FOX callback mapping

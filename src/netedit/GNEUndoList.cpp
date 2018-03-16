@@ -37,7 +37,7 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEUndoList.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEApplicationWindow.h"
 
 

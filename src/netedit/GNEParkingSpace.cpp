@@ -44,7 +44,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEEdge.h"
 #include "GNEJunction.h"
 #include "GNELane.h"

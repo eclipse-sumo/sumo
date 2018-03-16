@@ -34,13 +34,13 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <netedit/changes/GNEChange_Connection.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEConnectorFrame.h"
 #include "GNESelectorFrame.h"
 #include "GNEViewParent.h"
 #include "GNEViewNet.h"
-#include "GNEChange_Connection.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include "GNELane.h"

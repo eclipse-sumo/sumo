@@ -27,12 +27,11 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEShape.h>
 
 #include "GNEChange_Shape.h"
-#include "GNEShape.h"
-#include "GNEViewNet.h"
-#include "GNENet.h"
-
 
 // ===========================================================================
 // FOX-declarations

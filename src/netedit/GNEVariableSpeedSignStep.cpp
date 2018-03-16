@@ -30,7 +30,7 @@
 #include "GNEVariableSpeedSignStep.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignDialog.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEUndoList.h"
 
 

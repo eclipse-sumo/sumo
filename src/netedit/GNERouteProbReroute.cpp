@@ -28,7 +28,7 @@
 
 #include "GNERouteProbReroute.h"
 #include "GNEEdge.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEUndoList.h"
 #include "GNERerouter.h"
 #include "GNERerouterIntervalDialog.h"

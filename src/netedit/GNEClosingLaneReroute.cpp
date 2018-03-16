@@ -30,7 +30,7 @@
 #include "GNELane.h"
 #include "GNEEdge.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNERerouter.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"

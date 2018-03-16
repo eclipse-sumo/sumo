@@ -43,7 +43,7 @@
 #include "GNEViewParent.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Selection.h"
+#include <netedit/changes/GNEChange_Selection.h>
 #include "GNEAttributeCarrier.h"
 #include "GNEPoly.h"
 #include "GNEPOI.h"

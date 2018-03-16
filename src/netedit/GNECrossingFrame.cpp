@@ -35,6 +35,8 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <netedit/changes/GNEChange_Selection.h>
+#include <netedit/changes/GNEChange_Crossing.h>
 
 #include "GNECrossingFrame.h"
 #include "GNEViewNet.h"
@@ -45,9 +47,7 @@
 #include "GNELane.h"
 #include "GNECrossing.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Selection.h"
 #include "GNEAttributeCarrier.h"
-#include "GNEChange_Crossing.h"
 #include "GNECrossing.h"
 
 

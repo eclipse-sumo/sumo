@@ -1,3 +1,5 @@
+add_subdirectory(changes)
+
 set(netedit_SRCS
    netedit_main.cpp
    GNEApplicationWindow.h
@@ -40,34 +42,6 @@ set(netedit_SRCS
    GNEDialog_FixAdditionalPositions.cpp
    GNEAdditionalDialog.h
    GNEAdditionalDialog.cpp
-   GNEChange.h
-   GNEChange.cpp
-   GNEChange_Junction.h
-   GNEChange_Junction.cpp
-   GNEChange_Edge.h
-   GNEChange_Edge.cpp
-   GNEChange_Crossing.h
-   GNEChange_Crossing.cpp
-   GNEChange_Lane.h
-   GNEChange_Lane.cpp
-   GNEChange_Connection.h
-   GNEChange_Connection.cpp
-   GNEChange_Attribute.h
-   GNEChange_Attribute.cpp
-   GNEChange_TLS.h
-   GNEChange_TLS.cpp
-   GNEChange_Selection.h
-   GNEChange_Selection.cpp
-   GNEChange_Additional.h
-   GNEChange_Additional.cpp
-   GNEChange_RerouterItem.h
-   GNEChange_RerouterItem.cpp
-   GNEChange_CalibratorItem.h
-   GNEChange_CalibratorItem.cpp
-   GNEChange_VariableSpeedSignItem.h   
-   GNEChange_VariableSpeedSignItem.cpp
-   GNEChange_Shape.h
-   GNEChange_Shape.cpp
    GNEUndoList.h
    GNEUndoList.cpp
    GNEAttributeCarrier.h
@@ -169,7 +143,7 @@ set(netedit_SRCS
 add_executable(netedit ${netedit_SRCS} netedit.rc)
 set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG neteditD)
 target_link_libraries(netedit utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings utils_gui_images utils_gui_tracker
-        utils_foxtools foreign_eulerspiral ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
+        utils_foxtools foreign_eulerspiral netedit_changes ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
 if (MSVC)
     set_target_properties(netedit PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(netedit opengl32 glu32)

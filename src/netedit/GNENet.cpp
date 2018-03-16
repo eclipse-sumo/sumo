@@ -56,6 +56,15 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/changes/GNEChange_Crossing.h>
+#include <netedit/changes/GNEChange_Edge.h>
+#include <netedit/changes/GNEChange_Junction.h>
+#include <netedit/changes/GNEChange_Lane.h>
+#include <netedit/changes/GNEChange_Selection.h>
+#include <netedit/changes/GNEChange_Shape.h>
 
 #include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
@@ -63,15 +72,6 @@
 #include "GNEApplicationWindow.h"
 #include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
-#include "GNEChange_Additional.h"
-#include "GNEChange_Attribute.h"
-#include "GNEChange_Connection.h"
-#include "GNEChange_Crossing.h"
-#include "GNEChange_Edge.h"
-#include "GNEChange_Junction.h"
-#include "GNEChange_Lane.h"
-#include "GNEChange_Selection.h"
-#include "GNEChange_Shape.h"
 #include "GNEConnection.h"
 #include "GNECrossing.h"
 #include "GNEDetector.h"

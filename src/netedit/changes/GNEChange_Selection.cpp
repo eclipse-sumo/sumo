@@ -28,10 +28,10 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Selection.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
 
 
 // ===========================================================================

@@ -44,6 +44,8 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Additional.h>
 
 #include "GNELane.h"
 #include "GNEEdge.h"
@@ -52,13 +54,11 @@
 #include "GNEInternalLane.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include "GNEChange_Attribute.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEConnection.h"
 #include "GNEShape.h"
 #include "GNEAdditional.h"
-#include "GNEChange_Additional.h"
 
 // ===========================================================================
 // FOX callback mapping

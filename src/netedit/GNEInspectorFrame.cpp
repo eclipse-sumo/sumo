@@ -45,7 +45,7 @@
 #include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
 #include "GNEAttributeCarrier.h"
-#include "GNEChange_Selection.h"
+#include <netedit/changes/GNEChange_Selection.h>
 #include "GNEConnection.h"
 #include "GNECrossing.h"
 #include "GNEDeleteFrame.h"

@@ -30,6 +30,7 @@
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
 #include <netbuild/NBEdge.h>
+
 #include "GNEChange.h"
 
 // ===========================================================================

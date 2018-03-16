@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEChange_Junction.cpp
+/// @file    GNEChange_Edge.cpp
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 /// @version $Id$
@@ -25,100 +25,101 @@
 #endif
 
 #include <utils/common/MsgHandler.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNERerouter.h>
+#include <netedit/GNEViewNet.h>
 
-#include "GNEChange_Junction.h"
-#include "GNENet.h"
-#include "GNEJunction.h"
-#include "GNEViewNet.h"
-
+#include "GNEChange_Edge.h"
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, NULL, 0)
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 
-/// @brief constructor for creating a junction
-GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
-    GNEChange(junction->getNet(), forward),
-    myJunction(junction) {
+/// @brief constructor for creating an edge
+GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
+    GNEChange(edge->getNet(), forward),
+    myEdge(edge) {
     assert(myNet);
-    junction->incRef("GNEChange_Junction");
+    edge->incRef("GNEChange_Edge");
 }
 
 
-GNEChange_Junction::~GNEChange_Junction() {
-    assert(myJunction);
-    myJunction->decRef("GNEChange_Junction");
-    if (myJunction->unreferenced()) {
+GNEChange_Edge::~GNEChange_Edge() {
+    assert(myEdge);
+    myEdge->decRef("GNEChange_Edge");
+    if (myEdge->unreferenced()) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_Junction");
+            WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' GNEChange_Edge");
         }
-        delete myJunction;
+        delete myEdge;
     }
 }
 
 
 void
-GNEChange_Junction::undo() {
+GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
+            WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
-        // add junction to net
-        myNet->deleteSingleJunction(myJunction);
+        // delete edge from net
+        myNet->deleteSingleEdge(myEdge);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
+            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
-        // delete junction from net
-        myNet->insertJunction(myJunction);
+        // insert edge into net
+        myNet->insertEdge(myEdge);
     }
 }
 
 
 void
-GNEChange_Junction::redo() {
+GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
+            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
-        // add junction into net
-        myNet->insertJunction(myJunction);
+        // insert edge into net
+        myNet->insertEdge(myEdge);
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
+            WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         }
-        // delete junction from net
-        myNet->deleteSingleJunction(myJunction);
+        // delte edge from net
+        myNet->deleteSingleEdge(myEdge);
     }
 }
 
 
 FXString
-GNEChange_Junction::undoName() const {
+GNEChange_Edge::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Undo create " + toString(SUMO_TAG_EDGE)).c_str();
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Undo delete " + toString(SUMO_TAG_EDGE)).c_str();
     }
 }
 
 
 FXString
-GNEChange_Junction::redoName() const {
+GNEChange_Edge::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Redo create " + toString(SUMO_TAG_EDGE)).c_str();
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_JUNCTION)).c_str();
+        return ("Redo delete " + toString(SUMO_TAG_EDGE)).c_str();
     }
 }

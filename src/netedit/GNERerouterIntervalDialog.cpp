@@ -29,6 +29,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/changes/GNEChange_RerouterItem.h>
 
 #include "GNERerouterIntervalDialog.h"
 #include "GNERerouterDialog.h"
@@ -43,7 +44,6 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEChange_RerouterItem.h"
 
 
 // ===========================================================================

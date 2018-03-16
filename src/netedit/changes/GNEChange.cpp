@@ -25,9 +25,9 @@
 #include <config.h>
 #endif
 
-#include "GNEChange.h"
-#include "GNENet.h"
+#include <netedit/GNENet.h>
 
+#include "GNEChange.h"
 
 // ===========================================================================
 // FOX-declarations

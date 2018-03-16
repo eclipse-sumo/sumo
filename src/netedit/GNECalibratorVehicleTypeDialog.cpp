@@ -29,6 +29,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/changes/GNEChange_CalibratorItem.h>
 
 #include "GNECalibratorVehicleTypeDialog.h"
 #include "GNECalibrator.h"
@@ -38,7 +39,6 @@
 #include "GNENet.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNEUndoList.h"
-#include "GNEChange_CalibratorItem.h"
 
 
 // ===========================================================================

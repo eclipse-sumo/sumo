@@ -34,17 +34,18 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_CalibratorItem.h>
+#include <netedit/changes/GNEChange_RerouterItem.h>
+#include <netedit/changes/GNEChange_Selection.h>
+#include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
+
 
 #include "GNEAdditional.h"
 #include "GNEAdditionalFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEAttributeCarrier.h"
 #include "GNECalibrator.h"
-#include "GNEChange_Additional.h"
-#include "GNEChange_CalibratorItem.h"
-#include "GNEChange_RerouterItem.h"
-#include "GNEChange_Selection.h"
-#include "GNEChange_VariableSpeedSignItem.h"
 #include "GNEClosingLaneReroute.h"
 #include "GNEClosingReroute.h"
 #include "GNECrossing.h"

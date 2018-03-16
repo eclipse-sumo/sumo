@@ -44,17 +44,17 @@
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBAlgorithms.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/changes/GNEChange_TLS.h>
 
 #include "GNENet.h"
 #include "GNEEdge.h"
+#include "GNEConnection.h"
+#include "GNEJunction.h"
 #include "GNECrossing.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
-#include "GNEChange_Attribute.h"
-#include "GNEChange_Connection.h"
-#include "GNEChange_TLS.h"
-#include "GNEConnection.h"
-#include "GNEJunction.h"
 
 const double GNEJunction::BUBBLE_RADIUS(4);
 

@@ -28,13 +28,13 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
 
 #include "GNEVariableSpeedSignDialog.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEChange_VariableSpeedSignItem.h"
 
 
 // ===========================================================================

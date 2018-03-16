@@ -48,7 +48,7 @@
 #include "GNEJunction.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEViewNet.h"
 #include "GNEAdditionalHandler.h"
 

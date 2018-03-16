@@ -25,14 +25,13 @@
 #endif
 
 #include <utils/common/MsgHandler.h>
+#include <netedit/GNEConnection.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <cassert>
 
 #include "GNEChange_Connection.h"
-#include "GNEConnection.h"
-#include "GNEEdge.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-
 
 // ===========================================================================
 // FOX-declarations

@@ -52,7 +52,7 @@
 #include <utils/common/IDSupplier.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include "GNEChange.h"
+#include <netedit/changes/GNEChange.h>
 
 
 // ===========================================================================

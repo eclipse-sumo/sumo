@@ -47,7 +47,7 @@
 #include "GNEPoly.h"
 #include "GNEPOI.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Selection.h"
+#include <netedit/changes/GNEChange_Selection.h>
 #include "GNEAttributeCarrier.h"
 
 

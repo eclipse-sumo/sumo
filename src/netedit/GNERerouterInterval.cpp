@@ -36,7 +36,7 @@
 #include "GNERouteProbReroute.h"
 #include "GNERerouter.h"
 #include "GNEUndoList.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNERerouterDialog.h"

@@ -46,11 +46,12 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netwrite/NWWriter_SUMO.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
-#include "GNEChange_Attribute.h"
 #include "GNEPOI.h"
 #include "GNELane.h"
 

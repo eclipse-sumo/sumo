@@ -1,0 +1,34 @@
+
+set(netedit_changes_SRCS
+   GNEChange.h
+   GNEChange.cpp
+   GNEChange_Junction.h
+   GNEChange_Junction.cpp
+   GNEChange_Edge.h
+   GNEChange_Edge.cpp
+   GNEChange_Crossing.h
+   GNEChange_Crossing.cpp
+   GNEChange_Lane.h
+   GNEChange_Lane.cpp
+   GNEChange_Connection.h
+   GNEChange_Connection.cpp
+   GNEChange_Attribute.h
+   GNEChange_Attribute.cpp
+   GNEChange_TLS.h
+   GNEChange_TLS.cpp
+   GNEChange_Selection.h
+   GNEChange_Selection.cpp
+   GNEChange_Additional.h
+   GNEChange_Additional.cpp
+   GNEChange_RerouterItem.h
+   GNEChange_RerouterItem.cpp
+   GNEChange_CalibratorItem.h
+   GNEChange_CalibratorItem.cpp
+   GNEChange_VariableSpeedSignItem.h   
+   GNEChange_VariableSpeedSignItem.cpp
+   GNEChange_Shape.h
+   GNEChange_Shape.cpp
+   )
+
+add_library(netedit_changes STATIC ${netedit_changes_STAT_SRCS})
+set_property(TARGET netedit_changes PROPERTY PROJECT_LABEL "netedit_changes")

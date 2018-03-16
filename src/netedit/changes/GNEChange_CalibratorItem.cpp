@@ -26,15 +26,14 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNECalibrator.h>
+#include <netedit/GNECalibratorFlow.h>
+#include <netedit/GNECalibratorRoute.h>
+#include <netedit/GNECalibratorVehicleType.h>
 
 #include "GNEChange_CalibratorItem.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNECalibrator.h"
-#include "GNECalibratorFlow.h"
-#include "GNECalibratorRoute.h"
-#include "GNECalibratorVehicleType.h"
-
 
 // ===========================================================================
 // FOX-declarations

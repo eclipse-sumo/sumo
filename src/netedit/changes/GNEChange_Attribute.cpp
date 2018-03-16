@@ -27,13 +27,13 @@
 #include <cassert>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNEShape.h>
 
 #include "GNEChange_Attribute.h"
-#include "GNEAttributeCarrier.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNEAdditional.h"
-#include "GNEShape.h"
 
 // ===========================================================================
 // FOX-declarations

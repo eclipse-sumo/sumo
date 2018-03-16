@@ -47,7 +47,7 @@
 #include "GNENet.h"
 #include "GNEEdge.h"
 #include "GNEViewNet.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 
 // ===========================================================================
 // method definitions

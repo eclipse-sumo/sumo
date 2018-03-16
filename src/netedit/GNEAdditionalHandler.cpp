@@ -25,6 +25,11 @@
 #endif
 
 #include <utils/geom/GeomConvHelper.h>
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_CalibratorItem.h>
+#include <netedit/changes/GNEChange_RerouterItem.h>
+#include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
+
 
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
@@ -32,10 +37,6 @@
 #include "GNECalibratorFlow.h"
 #include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
-#include "GNEChange_Additional.h"
-#include "GNEChange_CalibratorItem.h"
-#include "GNEChange_RerouterItem.h"
-#include "GNEChange_VariableSpeedSignItem.h"
 #include "GNEChargingStation.h"
 #include "GNEClosingLaneReroute.h"
 #include "GNEClosingReroute.h"

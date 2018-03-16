@@ -50,7 +50,7 @@
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEJunction.h"
-#include "GNEChange_Attribute.h"
+#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEUndoList.h"
 
 

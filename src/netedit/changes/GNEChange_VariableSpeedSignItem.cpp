@@ -26,14 +26,12 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEVariableSpeedSign.h>
+#include <netedit/GNEVariableSpeedSignStep.h>
 
 #include "GNEChange_VariableSpeedSignItem.h"
-#include "GNEVariableSpeedSign.h"
-#include "GNEVariableSpeedSignStep.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-
-
 
 // ===========================================================================
 // FOX-declarations

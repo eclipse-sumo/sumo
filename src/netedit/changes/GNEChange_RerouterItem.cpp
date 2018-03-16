@@ -26,16 +26,16 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNERerouter.h>
+#include <netedit/GNERerouterInterval.h>
+#include <netedit/GNEClosingReroute.h>
+#include <netedit/GNEClosingLaneReroute.h>
+#include <netedit/GNEDestProbReroute.h>
+#include <netedit/GNERouteProbReroute.h>
 
 #include "GNEChange_RerouterItem.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNERerouter.h"
-#include "GNERerouterInterval.h"
-#include "GNEClosingReroute.h"
-#include "GNEClosingLaneReroute.h"
-#include "GNEDestProbReroute.h"
-#include "GNERouteProbReroute.h"
 
 
 // ===========================================================================
