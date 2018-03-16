@@ -65,9 +65,10 @@
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Shape.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/frames/GNEAdditionalFrame.h>
 
 #include "GNEAdditional.h"
-#include "GNEAdditionalFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEApplicationWindow.h"
 #include "GNECalibratorRoute.h"
@@ -89,7 +90,6 @@
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
-#include "GNEInspectorFrame.h"
 
 
 // ===========================================================================

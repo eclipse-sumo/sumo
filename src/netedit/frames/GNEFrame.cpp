@@ -40,23 +40,23 @@
 
 
 #include "GNEFrame.h"
-#include "GNEViewParent.h"
-#include "GNEViewNet.h"
-#include "GNEAttributeCarrier.h"
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEAttributeCarrier.h>
 #include "GNEInspectorFrame.h"
 #include "GNEPolygonFrame.h"
 #include "GNEDeleteFrame.h"
-#include "GNENet.h"
+#include <netedit/GNENet.h>
 
 
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNEConnection.h"
-#include "GNEJunction.h"
-#include "GNEAdditional.h"
-#include "GNECrossing.h"
-#include "GNEPOI.h"
-#include "GNEPoly.h"
+#include <netedit/GNEEdge.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNEConnection.h>
+#include <netedit/GNEJunction.h>
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNECrossing.h>
+#include <netedit/GNEPOI.h>
+#include <netedit/GNEPoly.h>
 
 // ===========================================================================
 // FOX callback mapping

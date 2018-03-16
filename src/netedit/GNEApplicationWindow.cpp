@@ -58,6 +58,7 @@
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
 #include <netimport/NIImporter_SUMO.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
@@ -72,7 +73,6 @@
 #include "GNEUndoList.h"
 #include "GNEPOI.h"
 #include "GNEAdditionalHandler.h"
-#include "GNETLSEditorFrame.h"
 
 
 // ===========================================================================

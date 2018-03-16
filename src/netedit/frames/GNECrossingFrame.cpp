@@ -37,18 +37,17 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEJunction.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNECrossing.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEAttributeCarrier.h>
 
 #include "GNECrossingFrame.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
-#include "GNENet.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNECrossing.h"
-#include "GNEUndoList.h"
-#include "GNEAttributeCarrier.h"
-#include "GNECrossing.h"
 
 
 // ===========================================================================

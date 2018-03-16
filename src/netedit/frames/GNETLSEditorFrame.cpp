@@ -45,14 +45,14 @@
 #include <netedit/changes/GNEChange_TLS.h>
 
 #include "GNETLSEditorFrame.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
-#include "GNENet.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNEUndoList.h"
-#include "GNEInternalLane.h"
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEJunction.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEInternalLane.h>
 
 // ===========================================================================
 // FOX callback mapping

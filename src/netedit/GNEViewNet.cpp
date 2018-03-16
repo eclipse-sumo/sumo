@@ -51,6 +51,14 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/frames/GNEConnectorFrame.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/frames/GNEAdditionalFrame.h>
+#include <netedit/frames/GNECrossingFrame.h>
+#include <netedit/frames/GNEPolygonFrame.h>
+#include <netedit/frames/GNEDeleteFrame.h>
 
 #include "GNEViewNet.h"
 #include "GNEEdge.h"
@@ -61,14 +69,6 @@
 #include "GNEViewParent.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEInspectorFrame.h"
-#include "GNESelectorFrame.h"
-#include "GNEConnectorFrame.h"
-#include "GNETLSEditorFrame.h"
-#include "GNEAdditionalFrame.h"
-#include "GNECrossingFrame.h"
-#include "GNEPolygonFrame.h"
-#include "GNEDeleteFrame.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEPoly.h"
 #include "GNECrossing.h"

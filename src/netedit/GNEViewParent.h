@@ -43,6 +43,7 @@
 // ===========================================================================
 class GUISUMOAbstractView;
 class GNENet;
+class GNEUndoList;
 class GNEApplicationWindow;
 class GNEFrame;
 class GNEInspectorFrame;

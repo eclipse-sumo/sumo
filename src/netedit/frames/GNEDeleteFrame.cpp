@@ -40,22 +40,22 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GNEAdditionalFrame.h"
-#include "GNEAttributeCarrier.h"
+#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/changes/GNEChange_Selection.h>
-#include "GNEConnection.h"
-#include "GNECrossing.h"
+#include <netedit/GNEConnection.h>
+#include <netedit/GNECrossing.h>
 #include "GNEDeleteFrame.h"
-#include "GNEEdge.h"
+#include <netedit/GNEEdge.h>
 #include "GNEInspectorFrame.h"
-#include "GNEJunction.h"
-#include "GNELane.h"
-#include "GNENet.h"
-#include "GNEPOI.h"
-#include "GNEPoly.h"
-#include "GNEUndoList.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
-#include "GNERerouter.h"
+#include <netedit/GNEJunction.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEPOI.h>
+#include <netedit/GNEPoly.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNERerouter.h>
 
 // ===========================================================================
 // FOX callback mapping

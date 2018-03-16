@@ -46,24 +46,6 @@ set(netedit_SRCS
    GNEUndoList.cpp
    GNEAttributeCarrier.h
    GNEAttributeCarrier.cpp
-   GNEFrame.h
-   GNEFrame.cpp
-   GNEInspectorFrame.h
-   GNEInspectorFrame.cpp
-   GNESelectorFrame.h
-   GNESelectorFrame.cpp
-   GNEConnectorFrame.h
-   GNEConnectorFrame.cpp
-   GNETLSEditorFrame.h
-   GNETLSEditorFrame.cpp
-   GNEAdditionalFrame.h
-   GNEAdditionalFrame.cpp
-   GNECrossingFrame.h
-   GNECrossingFrame.cpp
-   GNEDeleteFrame.h
-   GNEDeleteFrame.cpp
-   GNEPolygonFrame.h
-   GNEPolygonFrame.cpp
    GNEAdditionalHandler.h
    GNEAdditionalHandler.cpp
    GNEAdditional.h
@@ -143,7 +125,7 @@ set(netedit_SRCS
 add_executable(netedit ${netedit_SRCS} netedit.rc)
 set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG neteditD)
 target_link_libraries(netedit utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings utils_gui_images utils_gui_tracker
-        utils_foxtools foreign_eulerspiral netedit_changes ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
+        utils_foxtools foreign_eulerspiral netedit_changes netedit_frames ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
 if (MSVC)
     set_target_properties(netedit PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(netedit opengl32 glu32)

@@ -46,11 +46,11 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
 
 #include "GNELane.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
-#include "GNETLSEditorFrame.h"
 #include "GNEInternalLane.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"

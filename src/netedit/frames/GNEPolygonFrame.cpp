@@ -39,15 +39,15 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 
 #include "GNEPolygonFrame.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
-#include "GNENet.h"
-#include "GNEUndoList.h"
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Selection.h>
-#include "GNEAttributeCarrier.h"
-#include "GNEPoly.h"
-#include "GNEPOI.h"
-#include "GNELane.h"
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEPoly.h>
+#include <netedit/GNEPOI.h>
+#include <netedit/GNELane.h>
 
 // ===========================================================================
 // FOX callback mapping

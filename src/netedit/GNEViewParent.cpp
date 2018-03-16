@@ -47,6 +47,15 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 #include <utils/common/MsgHandler.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/frames/GNEConnectorFrame.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/frames/GNEAdditionalFrame.h>
+#include <netedit/frames/GNECrossingFrame.h>
+#include <netedit/frames/GNEDeleteFrame.h>
+#include <netedit/frames/GNEPolygonFrame.h>
+#include <netedit/frames/GNEInspectorFrame.h>
 
 #include "GNENet.h"
 #include "GNEEdge.h"
@@ -54,14 +63,6 @@
 #include "GNEViewParent.h"
 #include "GNEUndoList.h"
 #include "GNEApplicationWindow.h"
-#include "GNEInspectorFrame.h"
-#include "GNESelectorFrame.h"
-#include "GNEConnectorFrame.h"
-#include "GNETLSEditorFrame.h"
-#include "GNEAdditionalFrame.h"
-#include "GNECrossingFrame.h"
-#include "GNEDeleteFrame.h"
-#include "GNEPolygonFrame.h"
 
 
 // ===========================================================================

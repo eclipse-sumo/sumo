@@ -35,19 +35,19 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNELane.h>
+#include <netedit/GNEConnection.h>
+#include <netedit/GNEInternalLane.h>
+#include <netedit/GNEEdge.h>
+#include <netedit/GNEJunction.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEConnectorFrame.h"
 #include "GNESelectorFrame.h"
-#include "GNEViewParent.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
-#include "GNENet.h"
-#include "GNELane.h"
-#include "GNEConnection.h"
-#include "GNEInternalLane.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
 
 
 // ===========================================================================
