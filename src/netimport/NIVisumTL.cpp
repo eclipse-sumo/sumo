@@ -29,6 +29,7 @@
 
 #include <string>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/MsgHandler.h>
 #include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBEdgeCont.h>
@@ -77,6 +78,10 @@ void
 NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode* node = (*ni);
+        if (node == 0) {
+            WRITE_WARNING("invalid node for traffic light '" + myName + "'");
+            continue;
+        }
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
         NBLoadedTLDef* def = new NBLoadedTLDef(ec, node->getID(), node, myOffset, type);
         tlc.insert(def);
