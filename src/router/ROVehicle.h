@@ -107,7 +107,7 @@ public:
 
 
     /// @brief compute mandatory edges
-    ConstROEdgeVector getMandatoryEdges(const ConstROEdgeVector& oldEdges) const; 
+    ConstROEdgeVector getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const; 
 
     /** @brief Returns an upper bound for the speed factor of this vehicle
      *

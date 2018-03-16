@@ -204,7 +204,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             WRITE_MESSAGE("Changing invalid destination edge '" + backID
                           + "' to edge '" + oldEdges.back()->getID() + "' for vehicle '" + veh.getID() + "'.");
         }
-        ConstROEdgeVector mandatory = veh.getMandatoryEdges(oldEdges);
+        ConstROEdgeVector mandatory = veh.getMandatoryEdges(oldEdges.front(), oldEdges.back());
+        assert(mandatory.size() >= 2);
         // removed prohibited
         for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
             if ((*i)->prohibits(&veh)) {

@@ -79,8 +79,8 @@ RORoute::setProbability(double prob) {
 
 
 void
-RORoute::recheckForLoops() {
-    ROHelper::recheckForLoops(myRoute);
+RORoute::recheckForLoops(const ConstROEdgeVector& mandatory) {
+    ROHelper::recheckForLoops(myRoute, mandatory);
 }
 
 void

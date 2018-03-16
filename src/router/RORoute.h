@@ -171,7 +171,7 @@ public:
 
     /** @brief Checks whether this route contains loops and removes such
      */
-    void recheckForLoops();
+    void recheckForLoops(const ConstROEdgeVector& mandatory);
 
     OutputDevice&
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,

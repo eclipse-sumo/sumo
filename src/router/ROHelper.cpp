@@ -38,7 +38,7 @@
 
 namespace ROHelper {
 void
-recheckForLoops(ConstROEdgeVector& edges) {
+recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     // XXX check for stops, departLane, departPos, departSpeed, ....
 
     // removal of edge loops within the route (edge occurs twice)

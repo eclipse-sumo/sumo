@@ -145,7 +145,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     }
     // check whether we have to evaluate the route for not containing loops
     if (removeLoops) {
-        current->recheckForLoops();
+        current->recheckForLoops(getMandatoryEdges(0, 0));
         // check whether the route is still valid
         if (current->size() == 0) {
             delete current;
@@ -161,9 +161,11 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
 
 
 ConstROEdgeVector
-ROVehicle::getMandatoryEdges(const ConstROEdgeVector& oldEdges) const {
+ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const {
     ConstROEdgeVector mandatory;
-    mandatory.push_back(oldEdges.front());
+    if (requiredStart) {
+        mandatory.push_back(requiredStart);
+    }
     for (const ROEdge* e : getStopEdges()) {
         if (e->isInternal()) {
             // the edges before and after the internal edge are mandatory
@@ -179,10 +181,11 @@ ROVehicle::getMandatoryEdges(const ConstROEdgeVector& oldEdges) const {
             }
         }
     }
-    if (mandatory.size() < 2 || oldEdges.back() != mandatory.back()) {
-        mandatory.push_back(oldEdges.back());
+    if (requiredEnd) {
+        if (mandatory.size() < 2 || mandatory.back() != requiredEnd) {
+            mandatory.push_back(requiredEnd);
+        }
     }
-    assert(mandatory.size() >= 2);
     return mandatory;
 }
 

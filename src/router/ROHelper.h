@@ -81,7 +81,7 @@ namespace ROHelper {
  *
  * @param[in] edges The list of edges to remove loops from
  */
-void recheckForLoops(ConstROEdgeVector& edges);
+void recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory);
 
 }
 
