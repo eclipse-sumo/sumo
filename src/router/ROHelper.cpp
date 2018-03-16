@@ -29,6 +29,7 @@
 #include <vector>
 #include "ROEdge.h"
 #include "ROVehicle.h"
+#include "ROHelper.h"
 
 
 // ===========================================================================
@@ -39,13 +40,17 @@
 namespace ROHelper {
 void
 recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
-    // XXX check for stops, departLane, departPos, departSpeed, ....
+    // for simplicities sake, prevent removal of any mandatory edges
+    // in theory these edges could occur multiple times so it might be possible
+    // to delete some of them anyway.
+    // XXX check for departLane, departPos, departSpeed, ....
 
     // removal of edge loops within the route (edge occurs twice)
     std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
     for (int ii = 0; ii < (int)edges.size(); ++ii) {
         std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
-        if (it_pre != lastOccurence.end()) {
+        if (it_pre != lastOccurence.end() &&
+                noMandatory(mandatory, edges.begin() + it_pre->second, edges.begin() + ii)) {
             edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
             ii = it_pre->second;
         } else {
@@ -62,7 +67,7 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
             lastStart = i;
         }
     }
-    if (lastStart > 0) {
+    if (lastStart > 0 && noMandatory(mandatory, edges.begin(), edges.begin() + lastStart - 1)) {
         edges.erase(edges.begin(), edges.begin() + lastStart - 1);
     }
     // remove loops at the route's end
@@ -74,7 +79,7 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
             firstEnd = i;
         }
     }
-    if (firstEnd < (int)edges.size() - 1) {
+    if (firstEnd < (int)edges.size() - 1 && noMandatory(mandatory, edges.begin() + firstEnd + 2, edges.end())) {
         edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
 
@@ -100,6 +105,20 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
         }
     } while (changed);
     */
+}
+
+bool 
+noMandatory(const ConstROEdgeVector& mandatory, 
+        ConstROEdgeVector::const_iterator start,
+        ConstROEdgeVector::const_iterator end) {
+    for (const ROEdge* m : mandatory) {
+        for (auto it = start; it != end; it++) {
+            if (*it == m) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 

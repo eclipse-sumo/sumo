@@ -171,12 +171,12 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
             // the edges before and after the internal edge are mandatory
             const ROEdge* before = e->getNormalBefore();
             const ROEdge* after = e->getNormalAfter();
-            if (after != mandatory.back()) {
+            if (mandatory.size() == 0 || after != mandatory.back()) {
                 mandatory.push_back(before);
                 mandatory.push_back(after);
             }
         } else {
-            if (e != mandatory.back()) {
+            if (mandatory.size() == 0 || e != mandatory.back()) {
                 mandatory.push_back(e);
             }
         }
