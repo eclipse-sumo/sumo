@@ -2357,13 +2357,16 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             refreshElement(it.second);
         }
     }
-    // Clear current inspected ACs in inspectorFrame
-    myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
+    // Clear current inspected ACs in inspectorFrame if a previous net was loaded
+    if (myViewNet != 0) {
+        myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
+    }
     // Remove from container
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
     if (volatileOptions) {
+        assert(myViewNet != 0);
         // clear all Polys of grid
         for (const auto& i : myPolygons) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(i.second));
@@ -2408,7 +2411,8 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     initGNEConnections();
 
     for (const auto& it : myJunctions) {
-        it.second->setLogicValid(true, myViewNet->getUndoList());
+        // undolist may not yet exist but is also not needed when just marking junctions as valid
+        it.second->setLogicValid(true, 0);
         // updated shape
         it.second->updateGeometry();
         refreshElement(it.second);
