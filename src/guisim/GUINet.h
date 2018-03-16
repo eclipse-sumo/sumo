@@ -97,7 +97,6 @@ public:
      */
     GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
            MSEventControl* endOfTimestepEvents, 
-           MSEventControl* preInsertionEvents, 
            MSEventControl* insertionEvents);
 
 

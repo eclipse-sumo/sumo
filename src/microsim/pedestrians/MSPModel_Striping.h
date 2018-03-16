@@ -443,9 +443,6 @@ private:
     ///@brief add vehicles driving across
     static bool addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& crossingVehs);
 private:
-    /// @brief the MovePedestrians command that is registered
-    MovePedestrians* myCommand;
-
     /// @brief the total number of active pedestrians
     int myNumActivePedestrians;
 

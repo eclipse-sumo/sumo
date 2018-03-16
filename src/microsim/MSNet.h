@@ -136,7 +136,6 @@ public:
      */
     MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
           MSEventControl* endOfTimestepEvents, 
-          MSEventControl* preInsertionEvents, 
           MSEventControl* insertionEvents,
           ShapeContainer* shapeCont = 0);
 
@@ -421,15 +420,6 @@ public:
     }
 
 
-    /** @brief Returns the event control for insertion related events
-     * @return The control responsible for insertion related events
-     * @see myPreInsertionEvents
-     */
-    MSEventControl* getPreInsertionEvents() {
-        return myPreInsertionEvents;
-    }
-
-
     /** @brief Returns the shapes container
      * @return The shapes container
      * @see ShapeContainer
@@ -657,8 +647,6 @@ protected:
     MSEventControl* myBeginOfTimestepEvents;
     /// @brief Controls events executed at the end of a time step; @see MSEventControl
     MSEventControl* myEndOfTimestepEvents;
-    /// @brief Controls insertion related events that are not vehicle departures; @see MSDevice_Routing
-    MSEventControl* myPreInsertionEvents;
     /// @brief Controls insertion events; @see MSEventControl
     MSEventControl* myInsertionEvents;
     /// @brief A container for geometrical shapes; @see ShapeContainer

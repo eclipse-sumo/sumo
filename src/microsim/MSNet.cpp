@@ -169,7 +169,6 @@ MSNet::getInstance(void) {
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              MSEventControl* endOfTimestepEvents, 
-             MSEventControl* preInsertionEvents, 
              MSEventControl* insertionEvents,
              ShapeContainer* shapeCont):
     myVehiclesMoved(0),
@@ -202,7 +201,6 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
 
     myBeginOfTimestepEvents = beginOfTimestepEvents;
     myEndOfTimestepEvents = endOfTimestepEvents;
-    myPreInsertionEvents = preInsertionEvents;
     myInsertionEvents = insertionEvents;
     myLanesRTree.first = false;
 
@@ -254,13 +252,11 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
 MSNet::~MSNet() {
     // delete events first maybe they do some cleanup
     delete myBeginOfTimestepEvents;
-    myBeginOfTimestepEvents = 0;
+    myBeginOfTimestepEvents = nullptr;
     delete myEndOfTimestepEvents;
-    myEndOfTimestepEvents = 0;
-    delete myPreInsertionEvents;
-    myPreInsertionEvents = 0;
+    myEndOfTimestepEvents = nullptr;
     delete myInsertionEvents;
-    myInsertionEvents = 0;
+    myInsertionEvents = nullptr;
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
@@ -514,7 +510,6 @@ MSNet::simulationStep() {
     }
     // insert vehicles
     myInserter->determineCandidates(myStep);
-    myPreInsertionEvents->execute(myStep);
     myInsertionEvents->execute(myStep);
 #ifdef HAVE_FOX
     MSDevice_Routing::waitForAll();
@@ -558,8 +553,7 @@ MSNet::simulationState(SUMOTime stopTime) const {
         return SIMSTATE_LOADING;
     }
     if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == 0) {
-        if (myInsertionEvents->isEmpty()
-                && (myVehicleControl->getActiveVehicleCount() == 0)
+        if ((myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
                 && (myPersonControl == 0 || !myPersonControl->hasNonWaiting())
                 && (myContainerControl == 0 || !myContainerControl->hasNonWaiting())) {
