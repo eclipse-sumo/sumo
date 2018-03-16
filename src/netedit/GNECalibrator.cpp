@@ -41,16 +41,16 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/dialogs/GNECalibratorDialog.h>
 
 #include "GNECalibrator.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNERouteProbe.h"
-#include "GNECalibratorDialog.h"
 #include "GNECalibratorFlow.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNECalibratorRoute.h"

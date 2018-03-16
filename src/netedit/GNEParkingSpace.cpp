@@ -45,9 +45,9 @@
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include <netedit/changes/GNEChange_Attribute.h>
-#include "GNEEdge.h"
-#include "GNEJunction.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
 #include "GNENet.h"
 #include "GNEParkingArea.h"
 #include "GNEParkingSpace.h"

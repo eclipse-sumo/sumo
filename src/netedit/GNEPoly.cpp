@@ -49,12 +49,12 @@
 #include <netwrite/NWWriter_SUMO.h>
 
 #include "GNENet.h"
-#include "GNEEdge.h"
+#include <netedit/netelements/GNEEdge.h>
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEPoly.h"
-#include "GNEJunction.h"
+#include <netedit/netelements/GNEJunction.h>
 
 // ===========================================================================
 // static members

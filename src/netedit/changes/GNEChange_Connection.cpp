@@ -25,8 +25,8 @@
 #endif
 
 #include <utils/common/MsgHandler.h>
-#include <netedit/GNEConnection.h>
-#include <netedit/GNEEdge.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <cassert>

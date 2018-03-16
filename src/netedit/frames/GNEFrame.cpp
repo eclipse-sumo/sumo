@@ -49,12 +49,12 @@
 #include <netedit/GNENet.h>
 
 
-#include <netedit/GNEEdge.h>
-#include <netedit/GNELane.h>
-#include <netedit/GNEConnection.h>
-#include <netedit/GNEJunction.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNEAdditional.h>
-#include <netedit/GNECrossing.h>
+#include <netedit/netelements/GNECrossing.h>
 #include <netedit/GNEPOI.h>
 #include <netedit/GNEPoly.h>
 

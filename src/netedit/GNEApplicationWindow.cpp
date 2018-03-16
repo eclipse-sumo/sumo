@@ -68,8 +68,8 @@
 #include "GNEViewParent.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
 #include "GNEUndoList.h"
 #include "GNEPOI.h"
 #include "GNEAdditionalHandler.h"

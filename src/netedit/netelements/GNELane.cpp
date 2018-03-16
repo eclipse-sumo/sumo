@@ -47,18 +47,18 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEShape.h>
+#include <netedit/GNEAdditional.h>
 
 #include "GNELane.h"
 #include "GNEEdge.h"
 #include "GNEJunction.h"
 #include "GNEInternalLane.h"
-#include "GNEUndoList.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
 #include "GNEConnection.h"
-#include "GNEShape.h"
-#include "GNEAdditional.h"
 
 // ===========================================================================
 // FOX callback mapping

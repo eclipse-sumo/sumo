@@ -28,8 +28,8 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNENetElement.h"
-#include "GNEAdditional.h"
-#include "GNENet.h"
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNENet.h>
 
 // ===========================================================================
 // method definitions

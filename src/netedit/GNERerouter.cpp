@@ -42,17 +42,17 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netedit/dialogs/GNERerouterDialog.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNEViewNet.h"
 #include "GNERerouter.h"
-#include "GNERerouterDialog.h"
 #include "GNERerouterInterval.h"
-#include "GNELane.h"
-#include "GNEEdge.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include <netedit/changes/GNEChange_Attribute.h>
 
 
 // ===========================================================================

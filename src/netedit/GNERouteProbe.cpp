@@ -45,8 +45,8 @@
 
 #include "GNEViewNet.h"
 #include "GNERouteProbe.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"

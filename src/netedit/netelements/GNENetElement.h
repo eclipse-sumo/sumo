@@ -43,8 +43,7 @@
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-
-#include "GNEAttributeCarrier.h"
+#include <netedit/GNEAttributeCarrier.h>
 
 // ===========================================================================
 // class declarations

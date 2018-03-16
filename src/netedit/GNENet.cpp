@@ -67,20 +67,20 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
+#include <netedit/dialogs/GNEDialog_FixAdditionalPositions.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNECrossing.h>
 
 #include "GNEAdditional.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEApplicationWindow.h"
 #include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
-#include "GNEConnection.h"
-#include "GNECrossing.h"
 #include "GNEDetector.h"
 #include "GNEDetectorE2.h"
-#include "GNEDialog_FixAdditionalPositions.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
-#include "GNELane.h"
 #include "GNENet.h"
 #include "GNEPOI.h"
 #include "GNEPoly.h"

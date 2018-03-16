@@ -26,20 +26,20 @@
 
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
-
 #include "GNERerouterInterval.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/dialogs/GNERerouterDialog.h>
+
 #include "GNEClosingLaneReroute.h"
 #include "GNEClosingReroute.h"
 #include "GNEDestProbReroute.h"
 #include "GNERouteProbReroute.h"
 #include "GNERerouter.h"
 #include "GNEUndoList.h"
-#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNEViewNet.h"
 #include "GNENet.h"
-#include "GNERerouterDialog.h"
 
 // ===========================================================================
 // member method definitions

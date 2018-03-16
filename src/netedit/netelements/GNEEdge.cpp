@@ -41,18 +41,18 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEAdditional.h>
+#include <netedit/GNERouteProbe.h>
+#include <netedit/GNEVaporizer.h>
 
-#include "GNEEdge.h"
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNEUndoList.h"
+#include "GNEConnection.h"
+#include "GNECrossing.h"
 #include "GNEJunction.h"
 #include "GNELane.h"
-#include "GNEAdditional.h"
-#include "GNEConnection.h"
-#include "GNERouteProbe.h"
-#include "GNEVaporizer.h"
-#include "GNECrossing.h"
+#include "GNEEdge.h"
 
 
 //#define DEBUG_SMOOTH_GEOM

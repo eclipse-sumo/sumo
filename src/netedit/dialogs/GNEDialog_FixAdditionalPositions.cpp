@@ -33,7 +33,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/GNEAdditional.h>
 #include <netedit/GNEStoppingPlace.h>
-#include <netedit/GNELane.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Selection.h>

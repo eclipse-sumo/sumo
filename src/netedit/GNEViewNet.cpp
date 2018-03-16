@@ -59,11 +59,14 @@
 #include <netedit/frames/GNECrossingFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
+#include <netedit/netelements/GNECrossing.h>
+#include <netedit/dialogs/GNEAdditionalDialog.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEJunction.h>
 
 #include "GNEViewNet.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNEJunction.h"
 #include "GNEPOI.h"
 #include "GNEApplicationWindow.h"
 #include "GNEViewParent.h"
@@ -71,11 +74,8 @@
 #include "GNEUndoList.h"
 #include "GNEAdditionalHandler.h"
 #include "GNEPoly.h"
-#include "GNECrossing.h"
 #include "GNEAdditional.h"
-#include "GNEAdditionalDialog.h"
 #include "GNERerouter.h"
-#include "GNEConnection.h"
 
 // ===========================================================================
 // FOX callback mapping

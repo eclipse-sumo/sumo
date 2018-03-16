@@ -44,7 +44,7 @@
 
 #include "GNEDetectorEntry.h"
 #include "GNEDetectorE3.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNELane.h>
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"

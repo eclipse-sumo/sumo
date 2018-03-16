@@ -58,7 +58,7 @@
 #include <netedit/frames/GNEInspectorFrame.h>
 
 #include "GNENet.h"
-#include "GNEEdge.h"
+#include <netedit/netelements/GNEEdge.h>
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEUndoList.h"

@@ -27,8 +27,8 @@
 #include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEEdge.h>
-#include <netedit/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <cassert>
 
 #include "GNEChange_Lane.h"

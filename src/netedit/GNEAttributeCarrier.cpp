@@ -36,8 +36,8 @@
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 
 // ===========================================================================
 // static members

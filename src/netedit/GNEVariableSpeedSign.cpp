@@ -42,14 +42,14 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
+#include <netedit/netelements/GNELane.h>
 
 #include "GNEVariableSpeedSign.h"
-#include "GNELane.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include <netedit/changes/GNEChange_Attribute.h>
-#include "GNEVariableSpeedSignDialog.h"
 #include "GNEVariableSpeedSignStep.h"
 
 

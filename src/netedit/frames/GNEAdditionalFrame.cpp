@@ -46,11 +46,11 @@
 #include <netedit/GNECalibrator.h>
 #include <netedit/GNEClosingLaneReroute.h>
 #include <netedit/GNEClosingReroute.h>
-#include <netedit/GNECrossing.h>
+#include <netedit/netelements/GNECrossing.h>
 #include <netedit/GNEDestProbReroute.h>
-#include <netedit/GNEEdge.h>
-#include <netedit/GNEJunction.h>
-#include <netedit/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNERerouter.h>
 #include <netedit/GNERerouterInterval.h>

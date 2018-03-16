@@ -47,7 +47,7 @@
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEPoly.h>
 #include <netedit/GNEPOI.h>
-#include <netedit/GNELane.h>
+#include <netedit/netelements/GNELane.h>
 
 // ===========================================================================
 // FOX callback mapping

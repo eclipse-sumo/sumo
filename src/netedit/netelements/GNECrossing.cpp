@@ -43,10 +43,10 @@
 
 #include "GNECrossing.h"
 #include "GNEJunction.h"
-#include "GNEUndoList.h"
-#include "GNENet.h"
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include "GNEEdge.h"
-#include "GNEViewNet.h"
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
 // ===========================================================================

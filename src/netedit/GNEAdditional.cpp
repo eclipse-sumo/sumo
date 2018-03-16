@@ -45,9 +45,9 @@
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEAdditional.h"
-#include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
 #include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"

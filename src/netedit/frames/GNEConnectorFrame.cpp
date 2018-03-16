@@ -39,11 +39,11 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNELane.h>
-#include <netedit/GNEConnection.h>
-#include <netedit/GNEInternalLane.h>
-#include <netedit/GNEEdge.h>
-#include <netedit/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEInternalLane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEConnectorFrame.h"

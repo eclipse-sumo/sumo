@@ -48,11 +48,11 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEJunction.h>
-#include <netedit/GNEEdge.h>
-#include <netedit/GNELane.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEInternalLane.h>
+#include <netedit/netelements/GNEInternalLane.h>
 
 // ===========================================================================
 // FOX callback mapping

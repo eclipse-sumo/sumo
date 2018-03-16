@@ -48,13 +48,13 @@
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_TLS.h>
 
-#include "GNENet.h"
+#include <netedit/GNENet.h>
 #include "GNEEdge.h"
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNECrossing.h"
-#include "GNEUndoList.h"
-#include "GNEViewNet.h"
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 
 const double GNEJunction::BUBBLE_RADIUS(4);
 

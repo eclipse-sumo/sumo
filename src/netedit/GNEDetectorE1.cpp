@@ -43,12 +43,12 @@
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEDetectorE1.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNELane.h>
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include <netedit/changes/GNEChange_Attribute.h>
-#include "GNEEdge.h"
+#include <netedit/netelements/GNEEdge.h>
 
 
 // ===========================================================================

@@ -25,16 +25,16 @@
 #endif
 
 #include <utils/common/ToString.h>
+#include <netedit/dialogs/GNERerouterIntervalDialog.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNEDestProbReroute.h"
-#include "GNEEdge.h"
 #include "GNEUndoList.h"
-#include <netedit/changes/GNEChange_Attribute.h>
 #include "GNERerouter.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNERerouterInterval.h"
-#include "GNERerouterIntervalDialog.h"
 
 // ===========================================================================
 // member method definitions

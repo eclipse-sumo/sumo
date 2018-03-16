@@ -49,11 +49,11 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNENet.h"
-#include "GNEEdge.h"
+#include <netedit/netelements/GNEEdge.h>
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEPOI.h"
-#include "GNELane.h"
+#include <netedit/netelements/GNELane.h>
 
 
 // ===========================================================================

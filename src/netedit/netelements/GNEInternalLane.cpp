@@ -43,12 +43,12 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-
-#include "GNENet.h"
+#include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include "GNEViewNet.h"
+#include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+
 #include "GNEInternalLane.h"
-#include "GNETLSEditorFrame.h"
 
 
 // ===========================================================================

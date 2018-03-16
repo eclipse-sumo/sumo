@@ -31,8 +31,8 @@
 #include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
 #include <netedit/GNECalibrator.h>
-#include <netedit/GNEEdge.h>
-#include <netedit/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNECalibratorFlow.h>

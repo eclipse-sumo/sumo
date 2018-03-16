@@ -26,8 +26,8 @@
 
 #include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNELane.h>
-#include <netedit/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEAdditional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEDetectorE3.h>

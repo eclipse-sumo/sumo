@@ -8,26 +8,10 @@ set(netedit_SRCS
    GNELoadThread.cpp
    GNENet.h
    GNENet.cpp
-   GNENetElement.h
-   GNENetElement.cpp
-   GNEEdge.h
-   GNEEdge.cpp
-   GNELane.h
-   GNELane.cpp
-   GNEInternalLane.h
-   GNEInternalLane.cpp
-   GNEConnection.h
-   GNEConnection.cpp
-   GNECrossing.h
-   GNECrossing.cpp
-   GNEJunction.h
-   GNEJunction.cpp
    GNEPOI.h
    GNEPOI.cpp
    GNEPoly.h
    GNEPoly.cpp
-   GNEProhibition.h
-   GNEProhibition.cpp
    GNEViewNet.h
    GNEViewNet.cpp
    GNEViewParent.h
@@ -101,7 +85,7 @@ set(netedit_SRCS
 add_executable(netedit ${netedit_SRCS} netedit.rc)
 set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG neteditD)
 target_link_libraries(netedit utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings utils_gui_images utils_gui_tracker
-        utils_foxtools foreign_eulerspiral netedit_changes netedit_frames netedit_dialogs ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
+        utils_foxtools foreign_eulerspiral netedit_changes netedit_frames netedit_dialogs netedit_netElements ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
 if (MSVC)
     set_target_properties(netedit PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     target_link_libraries(netedit opengl32 glu32)

@@ -45,9 +45,9 @@
 #include <utils/common/MsgHandler.h>
 
 #include "GNEChargingStation.h"
-#include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
+#include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
 #include "GNEUndoList.h"
 #include "GNENet.h"
 #include <netedit/changes/GNEChange_Attribute.h>

@@ -28,8 +28,8 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNECrossing.h>
-#include <netedit/GNEJunction.h>
+#include <netedit/netelements/GNECrossing.h>
+#include <netedit/netelements/GNEJunction.h>
 
 #include "GNEChange_Crossing.h"
 

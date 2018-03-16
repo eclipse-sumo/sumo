@@ -30,7 +30,7 @@
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <netedit/GNEJunction.h>
+#include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 

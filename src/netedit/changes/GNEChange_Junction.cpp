@@ -26,7 +26,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEJunction.h>
+#include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Junction.h"

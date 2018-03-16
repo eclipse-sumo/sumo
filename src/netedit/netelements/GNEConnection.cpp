@@ -43,14 +43,14 @@
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNEEdge.h"
 #include "GNELane.h"
-#include "GNENet.h"
-#include "GNEUndoList.h"
-#include "GNEViewNet.h"
 #include "GNEInternalLane.h"
 
 
