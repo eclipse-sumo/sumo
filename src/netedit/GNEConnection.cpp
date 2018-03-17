@@ -119,8 +119,8 @@ GNEConnection::updateGeometry() {
         }
     } else {
         myShape.clear();
-        myShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
-        myShape.push_back(laneShapeTo.positionAtOffset(1));
+        myShape.push_back(laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)));
+        myShape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
     }
     if (nbCon.haveVia && nbCon.shape.size() != 0) {
         // create marker for interal junction waiting position (contPos)
