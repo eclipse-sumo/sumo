@@ -196,6 +196,7 @@ NIImporter_ArcView::load() {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
         double width = myTypeCont.getWidth(type);
+        bool oneway = myTypeCont.getIsOneWay(type);
         double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
@@ -291,7 +292,7 @@ NIImporter_ArcView::load() {
             }
         }
         // add negative direction if wanted
-        if (dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) {
+        if ((dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) && !oneway) {
             if (myEdgeCont.retrieve("-" + id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
