@@ -1,4 +1,4 @@
-SUMO netconvert Version v0_32_0+0769-3855782
+SUMO netconvert Version v0_32_0+0773-037458a
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -230,6 +230,8 @@ Processing Options:
                                          whether distinct shapes are connected
                                          (used when from-id and to-id are not
                                          available)
+  --shapefile.add-params STR           Add the list of field names as edge
+                                         params
   --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
   --shapefile.all-bidirectional        Insert edges in both directions
   --shapefile.guess-projection         Guess the proper projection

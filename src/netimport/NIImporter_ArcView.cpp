@@ -165,6 +165,7 @@ NIImporter_ArcView::load() {
     poLayer->ResetReading();
 
     const double nodeJoinDist = myOptions.getFloat("shapefile.node-join-dist");
+    const std::vector<std::string> params = myOptions.getStringVector("shapefile.add-params");
 
     int featureIndex = 0;
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
@@ -299,6 +300,7 @@ NIImporter_ArcView::load() {
                 edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
+                addParams(edge, poFeature, params);
             }
         }
         // add negative direction if wanted
@@ -309,6 +311,7 @@ NIImporter_ArcView::load() {
                 edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
+                addParams(edge, poFeature, params);
             }
         }
         //
@@ -467,6 +470,16 @@ NIImporter_ArcView::getFieldNames(OGRFeature* poFeature) const {
         fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
     }
     return fields;
+}
+
+void
+NIImporter_ArcView::addParams(NBEdge* edge, OGRFeature* poFeature, const std::vector<std::string>& params) const {
+    for (const std::string& p : params) {
+        int index = poFeature->GetDefnRef()->GetFieldIndex(p.c_str());
+        if (index >= 0 && poFeature->IsFieldSet(index)) {
+            edge->setParameter(p, poFeature->GetFieldAsString(index));
+        }
+    }
 }
 
 #endif
