@@ -139,6 +139,9 @@ private:
      * @param[out] into The read value/missing field is stored here
      */
     bool getStringEntry(OGRFeature* poFeature, const std::string& optionName, const char* defaultName, bool prune, std::string& into);
+
+    /// @brief return all fields support by the given feature
+    std::vector<std::string> getFieldNames(OGRFeature* poFeature) const; 
 #endif
 
 private:
@@ -163,7 +166,8 @@ private:
     /// @brief Whether the speed is given in km/h
     bool mySpeedInKMH;
 
-    /// @brief A running number to assure unique node ids
+    /// @brief A running number to assure unique ids (as fallback)
+    int myRunningEdgeID;
     int myRunningNodeID;
 
 

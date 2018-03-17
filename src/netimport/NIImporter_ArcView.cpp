@@ -113,7 +113,9 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
       myNameAddition(0),
       myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
       mySpeedInKMH(speedInKMH),
-      myRunningNodeID(0) {
+      myRunningEdgeID(0),
+      myRunningNodeID(0)
+{
     UNUSED_PARAMETER(dbf_name);
 }
 
@@ -166,11 +168,10 @@ NIImporter_ArcView::load() {
         // read in edge attributes
         std::string id, name, from_node, to_node;
         if (!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
-            WRITE_ERROR("Needed field '" + id + "' (from node id) is missing.");
+            WRITE_ERROR("Needed field '" + id + "' (street-id) is missing.");
         }
         if (id == "") {
-            WRITE_ERROR("Could not obtain edge id.");
-            return;
+            id = toString(myRunningEdgeID++);
         }
 
         getStringEntry(poFeature, "shapefile.street-id", "ST_NAME", true, name);
@@ -206,11 +207,7 @@ NIImporter_ArcView::load() {
                 const std::string lanesField = myOptions.isSet("shapefile.laneNumber") ? myOptions.getString("shapefile.laneNumber") : "nolanes";
                 const std::string speedField = myOptions.isSet("shapefile.speed") ? myOptions.getString("shapefile.speed") : "speed";
                 WRITE_ERROR("Required field '" + lanesField + "' or '" + speedField + "' is missing (add fields or set option --shapefile.use-defaults-on-failure).");
-                std::vector<std::string> fields;
-                for (int i = 0; i < poFeature->GetFieldCount(); i++) {
-                    fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
-                }
-                WRITE_ERROR("Available fields: " + toString(fields));
+                WRITE_ERROR("Available fields: " + toString(getFieldNames(poFeature)));
                 OGRFeature::DestroyFeature(poFeature);
                 return;
             }
@@ -223,9 +220,9 @@ NIImporter_ArcView::load() {
         // read in the geometry
         OGRGeometry* poGeometry = poFeature->GetGeometryRef();
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
-        if (gtype != wkbLineString) {
+        if (gtype != wkbLineString && gtype != wkbLineString25D) {
             OGRFeature::DestroyFeature(poFeature);
-            WRITE_ERROR("Road geometry must be of type 'linestring'.");
+            WRITE_ERROR("Road geometry must be of type 'linestring' or 'linestring25D' (found '" + toString(gtype) + "')");
             return;
         }
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
@@ -450,7 +447,14 @@ NIImporter_ArcView::getStringEntry(OGRFeature* poFeature, const std::string& opt
     return true;
 }
 
-
+std::vector<std::string> 
+NIImporter_ArcView::getFieldNames(OGRFeature* poFeature) const {
+    std::vector<std::string> fields;
+    for (int i = 0; i < poFeature->GetFieldCount(); i++) {
+        fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
+    }
+    return fields;
+}
 
 #endif
 
