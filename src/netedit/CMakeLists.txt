@@ -1,4 +1,8 @@
+add_subdirectory(additionals)
 add_subdirectory(changes)
+add_subdirectory(dialogs)
+add_subdirectory(frames)
+add_subdirectory(netelements)
 
 set(netedit_SRCS
    netedit_main.cpp

@@ -1,4 +1,3 @@
-
 set(netedit_netElements_SRCS
     GNENetElement.h
     GNENetElement.cpp

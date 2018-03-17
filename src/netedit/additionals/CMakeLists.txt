@@ -1,4 +1,3 @@
-
 set(netedit_additionals_SRCS
 	GNEPOI.h
     GNEPOI.cpp

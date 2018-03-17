@@ -1,4 +1,3 @@
-
 set(netedit_changes_SRCS
    GNEChange.h
    GNEChange.cpp
