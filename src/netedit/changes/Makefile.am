@@ -1,0 +1,16 @@
+noinst_LIBRARIES = netedit_changes.a
+
+netedit_changes_a_SOURCES = GNEChange.cpp GNEChange.h \
+GNEChange_Junction.cpp GNEChange_Junction.h \
+GNEChange_Edge.cpp GNEChange_Edge.h \
+GNEChange_Crossing.cpp GNEChange_Crossing.h \
+GNEChange_Lane.cpp GNEChange_Lane.h \
+GNEChange_Connection.cpp GNEChange_Connection.h \
+GNEChange_Attribute.cpp GNEChange_Attribute.h \
+GNEChange_TLS.cpp GNEChange_TLS.h \
+GNEChange_Selection.cpp GNEChange_Selection.h \
+GNEChange_Additional.cpp GNEChange_Additional.h \
+GNEChange_RerouterItem.cpp GNEChange_RerouterItem.h \
+GNEChange_CalibratorItem.cpp GNEChange_CalibratorItem.h \
+GNEChange_VariableSpeedSignItem.cpp GNEChange_VariableSpeedSignItem.h \
+GNEChange_Shape.cpp GNEChange_Shape.h
