@@ -51,8 +51,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEShape.h>
-#include <netedit/GNEAdditional.h>
+#include <netedit/additionals/GNEShape.h>
+#include <netedit/additionals/GNEAdditional.h>
 
 #include "GNELane.h"
 #include "GNEEdge.h"

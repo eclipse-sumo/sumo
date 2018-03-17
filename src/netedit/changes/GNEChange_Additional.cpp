@@ -28,14 +28,14 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/GNEAdditional.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEDetectorE3.h>
-#include <netedit/GNEDetectorEntry.h>
-#include <netedit/GNEDetectorExit.h>
-#include <netedit/GNEStoppingPlace.h>
-#include <netedit/GNERerouter.h>
-#include <netedit/GNEVariableSpeedSign.h>
+#include <netedit/additionals/GNEDetectorE3.h>
+#include <netedit/additionals/GNEDetectorEntry.h>
+#include <netedit/additionals/GNEDetectorExit.h>
+#include <netedit/additionals/GNEStoppingPlace.h>
+#include <netedit/additionals/GNERerouter.h>
+#include <netedit/additionals/GNEVariableSpeedSign.h>
 
 #include "GNEChange_Additional.h"
 

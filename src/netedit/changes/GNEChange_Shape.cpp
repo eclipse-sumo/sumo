@@ -29,7 +29,7 @@
 #include <utils/geom/PositionVector.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEShape.h>
+#include <netedit/additionals/GNEShape.h>
 
 #include "GNEChange_Shape.h"
 

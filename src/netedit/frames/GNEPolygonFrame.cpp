@@ -45,8 +45,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/GNEAttributeCarrier.h>
-#include <netedit/GNEPoly.h>
-#include <netedit/GNEPOI.h>
+#include <netedit/additionals/GNEPoly.h>
+#include <netedit/additionals/GNEPOI.h>
 #include <netedit/netelements/GNELane.h>
 
 // ===========================================================================

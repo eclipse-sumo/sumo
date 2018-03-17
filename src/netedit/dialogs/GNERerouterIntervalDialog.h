@@ -28,11 +28,11 @@
 #endif
 
 
-#include <netedit/GNERerouterInterval.h>
-#include <netedit/GNEClosingLaneReroute.h>
-#include <netedit/GNEClosingReroute.h>
-#include <netedit/GNEDestProbReroute.h>
-#include <netedit/GNERouteProbReroute.h>
+#include <netedit/additionals/GNERerouterInterval.h>
+#include <netedit/additionals/GNEClosingLaneReroute.h>
+#include <netedit/additionals/GNEClosingReroute.h>
+#include <netedit/additionals/GNEDestProbReroute.h>
+#include <netedit/additionals/GNERouteProbReroute.h>
 
 #include "GNEAdditionalDialog.h"
 

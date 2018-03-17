@@ -41,7 +41,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <netedit/GNEAdditional.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -50,8 +50,8 @@
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEPOI.h>
-#include <netedit/GNEPoly.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEPoly.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>

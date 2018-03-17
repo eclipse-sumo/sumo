@@ -30,15 +30,15 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
-#include <netedit/GNECalibrator.h>
+#include <netedit/additionals/GNECalibrator.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNECalibratorFlow.h>
-#include <netedit/GNECalibratorRoute.h>
-#include <netedit/GNECalibratorVehicleType.h>
-#include <netedit/GNECalibrator.h>
+#include <netedit/additionals/GNECalibratorFlow.h>
+#include <netedit/additionals/GNECalibratorRoute.h>
+#include <netedit/additionals/GNECalibratorVehicleType.h>
+#include <netedit/additionals/GNECalibrator.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNECalibratorFlowDialog.h"

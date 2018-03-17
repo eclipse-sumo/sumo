@@ -32,12 +32,12 @@
 #include <netedit/changes/GNEChange_CalibratorItem.h>
 
 #include "GNECalibratorVehicleTypeDialog.h"
-#include <netedit/GNECalibrator.h>
+#include <netedit/additionals/GNECalibrator.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNECalibratorVehicleType.h>
+#include <netedit/additionals/GNECalibratorVehicleType.h>
 #include <netedit/GNEUndoList.h>
 
 

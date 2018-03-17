@@ -8,10 +8,7 @@ set(netedit_SRCS
    GNELoadThread.cpp
    GNENet.h
    GNENet.cpp
-   GNEPOI.h
-   GNEPOI.cpp
-   GNEPoly.h
-   GNEPoly.cpp
+   
    GNEViewNet.h
    GNEViewNet.cpp
    GNEViewParent.h
@@ -20,64 +17,8 @@ set(netedit_SRCS
    GNEUndoList.cpp
    GNEAttributeCarrier.h
    GNEAttributeCarrier.cpp
-   GNEAdditionalHandler.h
-   GNEAdditionalHandler.cpp
-   GNEAdditional.h
-   GNEAdditional.cpp
-   GNEShape.h
-   GNEShape.cpp
-   GNEChargingStation.h
-   GNEChargingStation.cpp
-   GNEStoppingPlace.h
-   GNEStoppingPlace.cpp
-   GNEBusStop.h
-   GNEBusStop.cpp
-   GNEContainerStop.h
-   GNEContainerStop.cpp
-   GNEParkingArea.h
-   GNEParkingArea.cpp
-   GNEParkingSpace.h
-   GNEParkingSpace.cpp
-   GNEDetector.h
-   GNEDetector.cpp
-   GNEDetectorE1.h
-   GNEDetectorE1.cpp
-   GNEDetectorE2.h
-   GNEDetectorE2.cpp
-   GNEDetectorE3.h
-   GNEDetectorE3.cpp
-   GNEDetectorEntry.h
-   GNEDetectorEntry.cpp
-   GNEDetectorExit.h
-   GNEDetectorExit.cpp
-   GNERerouter.h
-   GNERerouter.cpp
-   GNERouteProbe.h
-   GNERouteProbe.cpp
-   GNEVaporizer.h
-   GNEVaporizer.cpp
-   GNECalibrator.h
-   GNECalibrator.cpp
-   GNECalibratorFlow.h
-   GNECalibratorFlow.cpp
-   GNECalibratorVehicleType.h
-   GNECalibratorVehicleType.cpp
-   GNECalibratorRoute.h
-   GNECalibratorRoute.cpp
-   GNEVariableSpeedSign.h
-   GNEVariableSpeedSign.cpp
-   GNEVariableSpeedSignStep.h
-   GNEVariableSpeedSignStep.cpp
-   GNEClosingLaneReroute.h
-   GNEClosingLaneReroute.cpp
-   GNEClosingReroute.h
-   GNEClosingReroute.cpp
-   GNEDestProbReroute.h
-   GNEDestProbReroute.cpp
-   GNERouteProbReroute.h
-   GNERouteProbReroute.cpp
-   GNERerouterInterval.h
-   GNERerouterInterval.cpp
+
+   
    GNEReferenceCounter.h
    GNEEvent_NetworkLoaded.h
 )

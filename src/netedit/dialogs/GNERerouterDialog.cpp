@@ -29,8 +29,8 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
-#include <netedit/GNERerouter.h>
-#include <netedit/GNERerouterInterval.h>
+#include <netedit/additionals/GNERerouter.h>
+#include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>

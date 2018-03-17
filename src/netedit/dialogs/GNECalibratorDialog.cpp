@@ -33,10 +33,10 @@
 #include <netedit/changes/GNEChange_CalibratorItem.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNECalibrator.h>
-#include <netedit/GNECalibratorRoute.h>
-#include <netedit/GNECalibratorFlow.h>
-#include <netedit/GNECalibratorVehicleType.h>
+#include <netedit/additionals/GNECalibrator.h>
+#include <netedit/additionals/GNECalibratorRoute.h>
+#include <netedit/additionals/GNECalibratorFlow.h>
+#include <netedit/additionals/GNECalibratorVehicleType.h>
 
 #include <netedit/GNENet.h>
 #include "GNECalibratorDialog.h"

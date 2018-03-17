@@ -29,7 +29,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
-#include <netedit/GNEVariableSpeedSign.h>
+#include <netedit/additionals/GNEVariableSpeedSign.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>

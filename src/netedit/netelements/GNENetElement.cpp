@@ -28,7 +28,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNENetElement.h"
-#include <netedit/GNEAdditional.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNENet.h>
 
 // ===========================================================================

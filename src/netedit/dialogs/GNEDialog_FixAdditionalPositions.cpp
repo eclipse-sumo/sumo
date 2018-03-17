@@ -31,15 +31,15 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <netedit/GNEAdditional.h>
-#include <netedit/GNEStoppingPlace.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEAdditionalHandler.h>
-#include <netedit/GNEDetectorE2.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/additionals/GNEDetectorE2.h>
 
 #include "GNEDialog_FixAdditionalPositions.h"
 

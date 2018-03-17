@@ -44,9 +44,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEAdditional.h>
-#include <netedit/GNERouteProbe.h>
-#include <netedit/GNEVaporizer.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNERouteProbe.h>
+#include <netedit/additionals/GNEVaporizer.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"

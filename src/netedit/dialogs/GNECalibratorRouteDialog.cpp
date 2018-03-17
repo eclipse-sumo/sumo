@@ -32,8 +32,8 @@
 #include <netedit/changes/GNEChange_CalibratorItem.h>
 
 #include "GNECalibratorRouteDialog.h"
-#include <netedit/GNECalibrator.h>
-#include <netedit/GNECalibratorRoute.h>
+#include <netedit/additionals/GNECalibrator.h>
+#include <netedit/additionals/GNECalibratorRoute.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>

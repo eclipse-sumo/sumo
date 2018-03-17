@@ -30,8 +30,8 @@
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEAdditional.h>
-#include <netedit/GNEShape.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEShape.h>
 
 #include "GNEChange_Attribute.h"
 

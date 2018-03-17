@@ -65,17 +65,18 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/additionals/GNEPoly.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNERerouter.h>
 
 #include "GNEViewNet.h"
-#include "GNEPOI.h"
 #include "GNEApplicationWindow.h"
 #include "GNEViewParent.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEAdditionalHandler.h"
-#include "GNEPoly.h"
-#include "GNEAdditional.h"
-#include "GNERerouter.h"
+
 
 // ===========================================================================
 // FOX callback mapping

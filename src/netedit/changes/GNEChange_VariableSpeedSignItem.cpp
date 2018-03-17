@@ -28,8 +28,8 @@
 #include <utils/options/OptionsCont.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEVariableSpeedSign.h>
-#include <netedit/GNEVariableSpeedSignStep.h>
+#include <netedit/additionals/GNEVariableSpeedSign.h>
+#include <netedit/additionals/GNEVariableSpeedSignStep.h>
 
 #include "GNEChange_VariableSpeedSignItem.h"
 

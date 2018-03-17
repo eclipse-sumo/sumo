@@ -28,7 +28,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/GNERerouter.h>
+#include <netedit/additionals/GNERerouter.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Edge.h"

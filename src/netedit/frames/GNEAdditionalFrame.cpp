@@ -40,24 +40,24 @@
 #include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
 
-#include <netedit/GNEAdditional.h>
-#include <netedit/GNEAdditionalHandler.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/GNEAttributeCarrier.h>
-#include <netedit/GNECalibrator.h>
-#include <netedit/GNEClosingLaneReroute.h>
-#include <netedit/GNEClosingReroute.h>
+#include <netedit/additionals/GNECalibrator.h>
+#include <netedit/additionals/GNEClosingLaneReroute.h>
+#include <netedit/additionals/GNEClosingReroute.h>
 #include <netedit/netelements/GNECrossing.h>
-#include <netedit/GNEDestProbReroute.h>
+#include <netedit/additionals/GNEDestProbReroute.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNERerouter.h>
-#include <netedit/GNERerouterInterval.h>
+#include <netedit/additionals/GNERerouter.h>
+#include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNERerouter.h>
-#include <netedit/GNEVariableSpeedSign.h>
-#include <netedit/GNEVariableSpeedSignStep.h>
+#include <netedit/additionals/GNERerouter.h>
+#include <netedit/additionals/GNEVariableSpeedSign.h>
+#include <netedit/additionals/GNEVariableSpeedSignStep.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 

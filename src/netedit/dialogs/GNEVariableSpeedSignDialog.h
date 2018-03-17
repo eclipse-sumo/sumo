@@ -28,7 +28,7 @@
 #endif
 
 #include <map>
-#include <netedit/GNEVariableSpeedSignStep.h>
+#include <netedit/additionals/GNEVariableSpeedSignStep.h>
 
 #include "GNEAdditionalDialog.h"
 

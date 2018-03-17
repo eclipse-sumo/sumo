@@ -28,12 +28,12 @@
 #include <utils/options/OptionsCont.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNERerouter.h>
-#include <netedit/GNERerouterInterval.h>
-#include <netedit/GNEClosingReroute.h>
-#include <netedit/GNEClosingLaneReroute.h>
-#include <netedit/GNEDestProbReroute.h>
-#include <netedit/GNERouteProbReroute.h>
+#include <netedit/additionals/GNERerouter.h>
+#include <netedit/additionals/GNERerouterInterval.h>
+#include <netedit/additionals/GNEClosingReroute.h>
+#include <netedit/additionals/GNEClosingLaneReroute.h>
+#include <netedit/additionals/GNEDestProbReroute.h>
+#include <netedit/additionals/GNERouteProbReroute.h>
 
 #include "GNEChange_RerouterItem.h"
 

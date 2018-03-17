@@ -28,10 +28,10 @@
 #include <utils/options/OptionsCont.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNECalibrator.h>
-#include <netedit/GNECalibratorFlow.h>
-#include <netedit/GNECalibratorRoute.h>
-#include <netedit/GNECalibratorVehicleType.h>
+#include <netedit/additionals/GNECalibrator.h>
+#include <netedit/additionals/GNECalibratorFlow.h>
+#include <netedit/additionals/GNECalibratorRoute.h>
+#include <netedit/additionals/GNECalibratorVehicleType.h>
 
 #include "GNEChange_CalibratorItem.h"
 

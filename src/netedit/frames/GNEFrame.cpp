@@ -53,10 +53,10 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNEAdditional.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/netelements/GNECrossing.h>
-#include <netedit/GNEPOI.h>
-#include <netedit/GNEPoly.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEPoly.h>
 
 // ===========================================================================
 // FOX callback mapping

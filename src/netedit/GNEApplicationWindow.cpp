@@ -61,6 +61,10 @@
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/dialogs/GNEDialog_About.h>
 #include <netedit/dialogs/GNEDialog_Wizard.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
@@ -68,11 +72,7 @@
 #include "GNEViewParent.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
 #include "GNEUndoList.h"
-#include "GNEPOI.h"
-#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
