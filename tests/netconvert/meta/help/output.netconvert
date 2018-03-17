@@ -1,4 +1,4 @@
-SUMO netconvert Version v0_32_0+0763-66f53b3
+SUMO netconvert Version v0_32_0+0769-3855782
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -226,6 +226,10 @@ Processing Options:
   --shapefile.laneNumber STR           Read lane number from column STR
   --shapefile.speed STR                Read speed from column STR
   --shapefile.name STR                 Read (non-unique) name from column STR
+  --shapefile.node-join-dist FLOAT     Distance threshold for determining
+                                         whether distinct shapes are connected
+                                         (used when from-id and to-id are not
+                                         available)
   --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
   --shapefile.all-bidirectional        Insert edges in both directions
   --shapefile.guess-projection         Guess the proper projection
