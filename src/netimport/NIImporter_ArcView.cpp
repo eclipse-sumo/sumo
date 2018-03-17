@@ -166,8 +166,12 @@ NIImporter_ArcView::load() {
 
     const double nodeJoinDist = myOptions.getFloat("shapefile.node-join-dist");
 
+    int featureIndex = 0;
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
+        if (featureIndex == 0) {
+            WRITE_MESSAGE("Available fields: " + toString(getFieldNames(poFeature)));
+        }
         std::string id, name, from_node, to_node;
         if (!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
             WRITE_ERROR("Needed field '" + id + "' (street-id) is missing.");
@@ -309,6 +313,7 @@ NIImporter_ArcView::load() {
         }
         //
         OGRFeature::DestroyFeature(poFeature);
+        featureIndex++;
     }
 #if GDAL_VERSION_MAJOR < 2
     OGRDataSource::DestroyDataSource(poDS);
