@@ -462,12 +462,12 @@ src/microsim/traffic_lights/Makefile
 src/microsim/trigger/Makefile
 src/marouter/Makefile
 src/netbuild/Makefile
-src/netedit/Makefile
 src/netedit/additionals/Makefile
 src/netedit/changes/Makefile
 src/netedit/dialogs/Makefile
 src/netedit/frames/Makefile
 src/netedit/netelements/Makefile
+src/netedit/Makefile
 src/mesogui/Makefile 
 src/mesosim/Makefile 
 src/osgview/Makefile

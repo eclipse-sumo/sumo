@@ -20,6 +20,8 @@ GNEAttributeCarrier.cpp GNEAttributeCarrier.h \
 GNEReferenceCounter.h \
 GNEEvent_NetworkLoaded.h
 
+SUBDIRS = additionals changes dialogs frames netelements
+
 netedit_LDADD = ../netimport/libnetimport.a \
 ../netimport/vissim/libvissimimport.a \
 ../netimport/vissim/typeloader/libvissimtypeload.a \
