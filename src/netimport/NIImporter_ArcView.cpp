@@ -197,6 +197,9 @@ NIImporter_ArcView::load() {
         } else if (poFeature->GetFieldIndex("ST_TYP_AFT") >= 0) {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
+        if ((type != "" || myOptions.isSet("shapefile.type-id")) && !myTypeCont.knows(type)) {
+            WRITE_WARNING("Unknown type '" + type + "' for edge '" + id + "'");
+        }
         double width = myTypeCont.getWidth(type);
         bool oneway = myTypeCont.getIsOneWay(type);
         double speed = getSpeed(*poFeature, id);
