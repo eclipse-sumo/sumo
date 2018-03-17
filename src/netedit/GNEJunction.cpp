@@ -798,7 +798,21 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TLID:
             return myNBNode.isTLControlled() ? toString((*myNBNode.getControllingTLS().begin())->getID()) : "";
         case SUMO_ATTR_KEEP_CLEAR:
-            return toString(myNBNode.getKeepClear());
+            // keep clear is only used as a convenience feature in plain xml
+            // input. When saving to .net.xml the status is saved only for the connections
+            // to show the correct state we must check all connections
+            if (!myNBNode.getKeepClear()) {
+                return toString(false);
+            } else {
+                for (auto i : myGNEIncomingEdges) {
+                    for (auto j : i->getGNEConnections()) {
+                        if (j->getNBEdgeConnection().keepClear) {
+                            return toString(true);
+                        }
+                    }
+                }
+                return toString(false);
+            }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -821,12 +835,14 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             break;
         case SUMO_ATTR_KEEP_CLEAR:
             // change Keep Clear attribute in all connections
+            undoList->p_begin("change keepClear for whole junction");
             for (auto i : myGNEIncomingEdges) {
                 for (auto j : i->getGNEConnections()) {
                     undoList->add(new GNEChange_Attribute(j, key, value), true);
                 }
             }
             undoList->add(new GNEChange_Attribute(this, key, value), true);
+            undoList->p_end();
             break;
         case SUMO_ATTR_TYPE: {
             undoList->p_begin("change " + toString(getTag()) + " type");
