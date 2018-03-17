@@ -196,6 +196,9 @@ NIFrame::fillOptions() {
     oc.doRegister("shapefile.name", new Option_String());
     oc.addDescription("shapefile.name", "Processing", "Read (non-unique) name from column STR");
 
+    oc.doRegister("shapefile.node-join-dist", new Option_Float(0));
+    oc.addDescription("shapefile.node-join-dist", "Processing", "Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)");
+
     oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));
     oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure", true);
     oc.addDescription("shapefile.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems");

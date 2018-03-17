@@ -164,6 +164,8 @@ NIImporter_ArcView::load() {
     OGRFeature* poFeature;
     poLayer->ResetReading();
 
+    const double nodeJoinDist = myOptions.getFloat("shapefile.node-join-dist");
+
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         std::string id, name, from_node, to_node;
@@ -245,7 +247,7 @@ NIImporter_ArcView::load() {
         NBNode* from = myNodeCont.retrieve(from_node);
         if (from == 0) {
             Position from_pos = shape[0];
-            from = myNodeCont.retrieve(from_pos);
+            from = myNodeCont.retrieve(from_pos, nodeJoinDist);
             if (from == 0) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
@@ -259,7 +261,7 @@ NIImporter_ArcView::load() {
         NBNode* to = myNodeCont.retrieve(to_node);
         if (to == 0) {
             Position to_pos = shape[-1];
-            to = myNodeCont.retrieve(to_pos);
+            to = myNodeCont.retrieve(to_pos, nodeJoinDist);
             if (to == 0) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
