@@ -1,11 +1,3 @@
-Warning: Device 'routing_veh125' cannot save state
-Warning: Device 'routing_veh126' cannot save state
-Warning: Device 'routing_veh127' cannot save state
-Warning: Device 'routing_veh128' cannot save state
-Warning: Device 'routing_veh129' cannot save state
-Warning: Device 'routing_veh130' cannot save state
-Warning: Device 'routing_veh131' cannot save state
-Warning: Device 'routing_veh132' cannot save state
 Warning: Device 'routing_veh133' cannot save state
 Warning: Device 'routing_veh134' cannot save state
 Warning: Device 'routing_veh135' cannot save state
@@ -133,7 +125,6 @@ Warning: Device 'routing_veh256' cannot save state
 Warning: Device 'routing_veh257' cannot save state
 Warning: Device 'routing_veh258' cannot save state
 Warning: Device 'routing_veh259' cannot save state
-Warning: Device 'routing_veh26' cannot save state
 Warning: Device 'routing_veh260' cannot save state
 Warning: Device 'routing_veh261' cannot save state
 Warning: Device 'routing_veh262' cannot save state
@@ -474,28 +465,38 @@ Warning: Device 'routing_veh596' cannot save state
 Warning: Device 'routing_veh597' cannot save state
 Warning: Device 'routing_veh598' cannot save state
 Warning: Device 'routing_veh599' cannot save state
+Warning: Device 'routing_veh60' cannot save state
 Warning: Device 'routing_veh600' cannot save state
 Warning: Device 'routing_veh601' cannot save state
 Warning: Device 'routing_veh602' cannot save state
 Warning: Device 'routing_veh603' cannot save state
 Warning: Device 'routing_veh604' cannot save state
-Warning: Device 'routing_veh83' cannot save state
-Warning: Device 'routing_veh95' cannot save state
-Warning: Teleporting vehicle 'veh83'; waited too long (yield), lane='gneE2_0', time=815.00.
-Warning: Vehicle 'veh83' ends teleporting on edge 'gneE3', time 815.00.
-Warning: Teleporting vehicle 'veh95'; waited too long (yield), lane='gneE2_0', time=1121.00.
-Warning: Vehicle 'veh95' ends teleporting on edge 'gneE3', time 1121.00.
-Warning: Teleporting vehicle 'veh155'; waited too long (yield), lane='gneE2_0', time=1425.00.
-Warning: Vehicle 'veh155' ends teleporting on edge 'gneE3', time 1425.00.
-Warning: Teleporting vehicle 'veh177'; waited too long (yield), lane='gneE2_0', time=1820.00.
-Warning: Vehicle 'veh177' ends teleporting on edge 'gneE3', time 1820.00.
-Warning: Teleporting vehicle 'veh314'; waited too long (yield), lane='gneE2_0', time=2125.00.
-Warning: Vehicle 'veh314' ends teleporting on edge 'gneE3', time 2125.00.
-Warning: Teleporting vehicle 'veh503'; waited too long (yield), lane='gneE2_0', time=2720.00.
-Warning: Vehicle 'veh503' ends teleporting on edge 'gneE3', time 2720.00.
-Warning: Teleporting vehicle 'veh26'; waited too long (yield), lane='gneE2_0', time=549.00.
-Warning: Vehicle 'veh26' ends teleporting on edge 'gneE3', time 549.00.
-Warning: Teleporting vehicle 'veh95'; waited too long (yield), lane='gneE2_0', time=1031.00.
-Warning: Vehicle 'veh95' ends teleporting on edge 'gneE3', time 1031.00.
-Warning: Teleporting vehicle 'veh509'; waited too long (yield), lane='gneE2_0', time=2245.00.
-Warning: Vehicle 'veh509' ends teleporting on edge 'gneE3', time 2245.00.
+Warning: Device 'routing_veh61' cannot save state
+Warning: Device 'routing_veh62' cannot save state
+Warning: Device 'routing_veh63' cannot save state
+Warning: Device 'routing_veh64' cannot save state
+Warning: Device 'routing_veh65' cannot save state
+Warning: Teleporting vehicle 'veh60'; waited too long (yield), lane='gneE2_0', time=515.00.
+Warning: Vehicle 'veh60' ends teleporting on edge 'gneE3', time 515.00.
+Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='gneE2_0', time=916.00.
+Warning: Vehicle 'veh62' ends teleporting on edge 'gneE3', time 916.00.
+Warning: Teleporting vehicle 'veh64'; waited too long (yield), lane='gneE2_0', time=1322.00.
+Warning: Vehicle 'veh64' ends teleporting on edge 'gneE3', time 1322.00.
+Warning: Teleporting vehicle 'veh65'; waited too long (yield), lane='gneE2_0', time=1627.00.
+Warning: Vehicle 'veh65' ends teleporting on edge 'gneE3', time 1627.00.
+Warning: Teleporting vehicle 'veh196'; waited too long (yield), lane='gneE2_0', time=1932.00.
+Warning: Vehicle 'veh196' ends teleporting on edge 'gneE3', time 1932.00.
+Warning: Teleporting vehicle 'veh301'; waited too long (yield), lane='gneE2_0', time=2590.00.
+Warning: Vehicle 'veh301' ends teleporting on edge 'gneE3', time 2590.00.
+Warning: Teleporting vehicle 'veh302'; waited too long (yield), lane='gneE2_0', time=2895.00.
+Warning: Vehicle 'veh302' ends teleporting on edge 'gneE3', time 2895.00.
+Warning: Teleporting vehicle 'veh60'; waited too long (yield), lane='gneE2_0', time=515.00.
+Warning: Vehicle 'veh60' ends teleporting on edge 'gneE3', time 515.00.
+Warning: Teleporting vehicle 'veh61'; waited too long (yield), lane='gneE2_0', time=821.00.
+Warning: Vehicle 'veh61' ends teleporting on edge 'gneE3', time 821.00.
+Warning: Teleporting vehicle 'veh62'; waited too long (yield), lane='gneE2_0', time=1126.00.
+Warning: Vehicle 'veh62' ends teleporting on edge 'gneE3', time 1126.00.
+Warning: Teleporting vehicle 'veh64'; waited too long (yield), lane='gneE2_0', time=1635.00.
+Warning: Vehicle 'veh64' ends teleporting on edge 'gneE3', time 1635.00.
+Warning: Teleporting vehicle 'veh515'; waited too long (yield), lane='gneE2_0', time=2250.00.
+Warning: Vehicle 'veh515' ends teleporting on edge 'gneE3', time 2250.00.
