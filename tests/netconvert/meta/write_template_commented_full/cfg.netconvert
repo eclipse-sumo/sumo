@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Mar 17 13:37:49 2018 by SUMO netconvert Version v0_32_0+0761-bb9dd62
+<!-- generated on Sat Mar 17 14:27:51 2018 by SUMO netconvert Version v0_32_0+0763-66f53b3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -380,6 +380,9 @@
 
         <!-- Read speed from column STR -->
         <shapefile.speed value="" type="STR"/>
+
+        <!-- Read (non-unique) name from column STR -->
+        <shapefile.name value="" type="STR"/>
 
         <!-- Uses edge type defaults on problems -->
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL"/>

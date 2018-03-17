@@ -193,6 +193,9 @@ NIFrame::fillOptions() {
     oc.doRegister("shapefile.speed", new Option_String());
     oc.addDescription("shapefile.speed", "Processing", "Read speed from column STR");
 
+    oc.doRegister("shapefile.name", new Option_String());
+    oc.addDescription("shapefile.name", "Processing", "Read (non-unique) name from column STR");
+
     oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));
     oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure", true);
     oc.addDescription("shapefile.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems");

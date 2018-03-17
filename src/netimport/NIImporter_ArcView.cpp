@@ -174,7 +174,7 @@ NIImporter_ArcView::load() {
             id = toString(myRunningEdgeID++);
         }
 
-        getStringEntry(poFeature, "shapefile.street-id", "ST_NAME", true, name);
+        getStringEntry(poFeature, "shapefile.name", "ST_NAME", true, name);
         name = StringUtils::replace(name, "&", "&amp;");
 
         if (!getStringEntry(poFeature, "shapefile.from-id", "REF_IN_ID", true, from_node)) {
