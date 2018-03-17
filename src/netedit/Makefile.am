@@ -51,7 +51,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netedit/dialogs/libnetedit_dialogs.a \
 ../netedit/frames/libnetedit_frames.a \
 ../netedit/netelements/libnetedit_netelements.a \
-
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
