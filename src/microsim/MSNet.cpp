@@ -250,13 +250,6 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
 
 
 MSNet::~MSNet() {
-    // delete events first maybe they do some cleanup
-    delete myBeginOfTimestepEvents;
-    myBeginOfTimestepEvents = nullptr;
-    delete myEndOfTimestepEvents;
-    myEndOfTimestepEvents = nullptr;
-    delete myInsertionEvents;
-    myInsertionEvents = nullptr;
     // delete controls
     delete myJunctions;
     delete myDetectorControl;
@@ -272,6 +265,13 @@ MSNet::~MSNet() {
         delete myContainerControl;
     }
     delete myVehicleControl; // must happen after deleting transportables
+    // delete events late so that vehicles can get rid of references first
+    delete myBeginOfTimestepEvents;
+    myBeginOfTimestepEvents = nullptr;
+    delete myEndOfTimestepEvents;
+    myEndOfTimestepEvents = nullptr;
+    delete myInsertionEvents;
+    myInsertionEvents = nullptr;
     delete myShapeContainer;
     delete myEdgeWeights;
     delete myRouterTT;
