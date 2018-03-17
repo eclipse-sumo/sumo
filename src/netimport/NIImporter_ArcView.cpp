@@ -287,6 +287,7 @@ NIImporter_ArcView::load() {
             if (myEdgeCont.retrieve(id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, origID, spread);
+                edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
@@ -296,6 +297,7 @@ NIImporter_ArcView::load() {
             if (myEdgeCont.retrieve("-" + id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
+                edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
             }
