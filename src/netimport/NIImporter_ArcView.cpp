@@ -161,6 +161,7 @@ NIImporter_ArcView::load() {
     const bool saveOrigIDs = OptionsCont::getOptions().getBool("output.original-names");
     OGRFeature* poFeature;
     poLayer->ResetReading();
+
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         std::string id, name, from_node, to_node;
@@ -202,8 +203,15 @@ NIImporter_ArcView::load() {
                 nolanes = myTypeCont.getNumLanes("");
                 speed = myTypeCont.getSpeed("");
             } else {
+                const std::string lanesField = myOptions.isSet("shapefile.laneNumber") ? myOptions.getString("shapefile.laneNumber") : "nolanes";
+                const std::string speedField = myOptions.isSet("shapefile.speed") ? myOptions.getString("shapefile.speed") : "speed";
+                WRITE_ERROR("Required field '" + lanesField + "' or '" + speedField + "' is missing (add fields or set option --shapefile.use-defaults-on-failure).");
+                std::vector<std::string> fields;
+                for (int i = 0; i < poFeature->GetFieldCount(); i++) {
+                    fields.push_back(poFeature->GetFieldDefnRef(i)->GetNameRef());
+                }
+                WRITE_ERROR("Available fields: " + toString(fields));
                 OGRFeature::DestroyFeature(poFeature);
-                WRITE_ERROR("Required field 'nolanes' or 'speed' is missing (add fields or set option --shapefile.use-defaults-on-failure).");
                 return;
             }
         }
@@ -311,6 +319,19 @@ NIImporter_ArcView::load() {
 #ifdef HAVE_GDAL
 double
 NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
+    if (myOptions.isSet("shapefile.speed")) {
+        int index = poFeature.GetDefnRef()->GetFieldIndex(myOptions.getString("shapefile.speed").c_str());
+        if (index >= 0 && poFeature.IsFieldSet(index)) {
+            const double speed = poFeature.GetFieldAsDouble(index);
+            if (speed <= 0) {
+                WRITE_WARNING("invalid value for field: '" 
+                        + myOptions.getString("shapefile.laneNumber") 
+                        + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
+            } else {
+                return speed;
+            }
+        }
+    }
     if (myOptions.isSet("shapefile.type-id")) {
         return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
@@ -337,6 +358,19 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
 int
 NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
                               double speed) {
+    if (myOptions.isSet("shapefile.laneNumber")) {
+        int index = poFeature.GetDefnRef()->GetFieldIndex(myOptions.getString("shapefile.laneNumber").c_str());
+        if (index >= 0 && poFeature.IsFieldSet(index)) {
+            const int laneNumber = poFeature.GetFieldAsInteger(index);
+            if (laneNumber <= 0) {
+                WRITE_WARNING("invalid value for field '" 
+                        + myOptions.getString("shapefile.laneNumber") 
+                        + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
+            } else {
+                return laneNumber;
+            }
+        }
+    }
     if (myOptions.isSet("shapefile.type-id")) {
         return (int) myTypeCont.getNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }

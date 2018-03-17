@@ -1,4 +1,4 @@
-SUMO netconvert Version v0_31_0+1647-6d8dc768ae
+SUMO netconvert Version v0_32_0+0761-bb9dd62
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network importer / builder for the road traffic simulation SUMO.
 
@@ -223,6 +223,8 @@ Processing Options:
   --shapefile.from-id STR              Read from-node ids from column STR
   --shapefile.to-id STR                Read to-node ids from column STR
   --shapefile.type-id STR              Read type ids from column STR
+  --shapefile.laneNumber STR           Read lane number from column STR
+  --shapefile.speed STR                Read speed from column STR
   --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
   --shapefile.all-bidirectional        Insert edges in both directions
   --shapefile.guess-projection         Guess the proper projection

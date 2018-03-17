@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/21/18 20:24:34 by SUMO netconvert Version v0_31_0+1647-6d8dc768ae
+<!-- generated on Sat Mar 17 13:37:49 2018 by SUMO netconvert Version v0_32_0+0761-bb9dd62
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -142,7 +142,7 @@
         <osm.stop-output.footway-max-accesses value="5" type="INT"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
-        <opendrive-output.straight-threshold value="1e-008" type="FLOAT"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
     </output>
 
@@ -374,6 +374,12 @@
 
         <!-- Read type ids from column STR -->
         <shapefile.type-id value="" synonymes="arcview.type-id" type="STR"/>
+
+        <!-- Read lane number from column STR -->
+        <shapefile.laneNumber value="" type="STR"/>
+
+        <!-- Read speed from column STR -->
+        <shapefile.speed value="" type="STR"/>
 
         <!-- Uses edge type defaults on problems -->
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL"/>

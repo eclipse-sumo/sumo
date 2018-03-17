@@ -187,6 +187,12 @@ NIFrame::fillOptions() {
     oc.addSynonyme("shapefile.type-id", "arcview.type-id", true);
     oc.addDescription("shapefile.type-id", "Processing", "Read type ids from column STR");
 
+    oc.doRegister("shapefile.laneNumber", new Option_String());
+    oc.addDescription("shapefile.laneNumber", "Processing", "Read lane number from column STR");
+
+    oc.doRegister("shapefile.speed", new Option_String());
+    oc.addDescription("shapefile.speed", "Processing", "Read speed from column STR");
+
     oc.doRegister("shapefile.use-defaults-on-failure", new Option_Bool(false));
     oc.addSynonyme("shapefile.use-defaults-on-failure", "arcview.use-defaults-on-failure", true);
     oc.addDescription("shapefile.use-defaults-on-failure", "Processing", "Uses edge type defaults on problems");
