@@ -693,27 +693,29 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 mySplits.insert(mySplits.begin(), start);
             }
             i = mySplits.begin();
-            for (; i != mySplits.end(); ++i) {
-                int maxLeft = (*i).lanes.back();
-                double offset = 0;
-                if (maxLeft < noLanesMax) {
-                    if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-                        offset = SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
-                    } else {
-                        offset = SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
+            if (e != 0) {
+                for (; i != mySplits.end(); ++i) {
+                    int maxLeft = (*i).lanes.back();
+                    double offset = 0;
+                    if (maxLeft < noLanesMax) {
+                        if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+                            offset = SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
+                        } else {
+                            offset = SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
+                        }
                     }
-                }
-                int maxRight = (*i).lanes.front();
-                if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                    offset -= SUMO_const_halfLaneAndOffset * maxRight;
-                }
-                if (offset != 0) {
-                    PositionVector g = e->getGeometry();
-                    g.move2side(offset);
-                    e->setGeometry(g);
-                }
-                if (e->getToNode()->getOutgoingEdges().size() != 0) {
-                    e = e->getToNode()->getOutgoingEdges()[0];
+                    int maxRight = (*i).lanes.front();
+                    if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+                        offset -= SUMO_const_halfLaneAndOffset * maxRight;
+                    }
+                    if (offset != 0) {
+                        PositionVector g = e->getGeometry();
+                        g.move2side(offset);
+                        e->setGeometry(g);
+                    }
+                    if (e->getToNode()->getOutgoingEdges().size() != 0) {
+                        e = e->getToNode()->getOutgoingEdges()[0];
+                    }
                 }
             }
         }
