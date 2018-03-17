@@ -447,6 +447,10 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             return;
         }
         const std::string nodeID = attrs.getOpt(SUMO_ATTR_ID, 0, ok, e.nameID);
+        if (nodeID == myCurrentEdge->getFromNode()->getID() || nodeID == myCurrentEdge->getToNode()->getID()) {
+            WRITE_ERROR("Invalid split node id for edge '" + myCurrentEdge->getID() + "' (from- and to-node are forbidden)");
+            return;
+        }
         e.node = myNodeCont.retrieve(nodeID);
         if (e.node == 0) {
             e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(e.pos));
