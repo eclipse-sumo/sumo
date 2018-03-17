@@ -29,5 +29,5 @@ set(netedit_changes_SRCS
    GNEChange_Shape.cpp
    )
 
-add_library(netedit_changes STATIC ${netedit_changes_STAT_SRCS})
+add_library(netedit_changes STATIC ${netedit_changes_SRCS})
 set_property(TARGET netedit_changes PROPERTY PROJECT_LABEL "netedit_changes")

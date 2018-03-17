@@ -19,5 +19,5 @@ set(netedit_frames_SRCS
    GNEPolygonFrame.cpp
    )
 
-add_library(netedit_frames STATIC ${netedit_changes_STAT_SRCS})
+add_library(netedit_frames STATIC ${netedit_frames_SRCS})
 set_property(TARGET netedit_frames PROPERTY PROJECT_LABEL "netedit_frames")

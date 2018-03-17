@@ -46,11 +46,11 @@
 #include <netimport/NIFrame.h>
 #include <netwrite/NWFrame.h>
 #include <netbuild/NBFrame.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
 
 #include "GNELoadThread.h"
 #include "GNENet.h"
 #include "GNEEvent_NetworkLoaded.h"
-#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
