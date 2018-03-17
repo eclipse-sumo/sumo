@@ -1,6 +1,6 @@
-noinst_LIBRARIES = netedit_frames.a
+noinst_LIBRARIES = libnetedit_frames.a
 
-netedit_frames_a_SOURCES = GNEFrame.cpp GNEFrame.h
+libnetedit_frames_a_SOURCES = GNEFrame.cpp GNEFrame.h
 GNEInspectorFrame.cpp GNEInspectorFrame.h \
 GNESelectorFrame.cpp GNESelectorFrame.h \
 GNEConnectorFrame.cpp GNEConnectorFrame.h \

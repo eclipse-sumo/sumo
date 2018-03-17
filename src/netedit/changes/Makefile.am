@@ -1,6 +1,6 @@
-noinst_LIBRARIES = netedit_changes.a
+noinst_LIBRARIES = libnetedit_changes.a
 
-netedit_changes_a_SOURCES = GNEChange.cpp GNEChange.h \
+libnetedit_changes_a_SOURCES = GNEChange.cpp GNEChange.h \
 GNEChange_Junction.cpp GNEChange_Junction.h \
 GNEChange_Edge.cpp GNEChange_Edge.h \
 GNEChange_Crossing.cpp GNEChange_Crossing.h \
