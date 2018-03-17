@@ -200,10 +200,10 @@ NIImporter_ArcView::load() {
         double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
-        if (nolanes == 0 || speed == 0) {
+        if (nolanes <= 0 || speed <= 0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
-                nolanes = myTypeCont.getNumLanes("");
-                speed = myTypeCont.getSpeed("");
+                nolanes = nolanes <= 0 ? myTypeCont.getNumLanes(type) : nolanes;
+                speed = speed <= 0 ? myTypeCont.getSpeed(type) : speed;
             } else {
                 const std::string lanesField = myOptions.isSet("shapefile.laneNumber") ? myOptions.getString("shapefile.laneNumber") : "nolanes";
                 const std::string speedField = myOptions.isSet("shapefile.speed") ? myOptions.getString("shapefile.speed") : "speed";
