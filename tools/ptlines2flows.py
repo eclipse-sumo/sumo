@@ -189,8 +189,13 @@ def createRoutes(options, trpMap):
             foutflows, "$Id$", "routes")
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix)
+        lineCount = collections.defaultdict(int)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
+            line, name, completeness = trpMap[id]
+            lineRef = "%s:%s" % (line, lineCount[line])
+            lineCount[line] += 1
+            flowID = "%s_%s" % (vehicle.type, lineRef)
             try:
                 if vehicle.route is not None:
                     edges = vehicle.route[0].edges
@@ -202,11 +207,11 @@ def createRoutes(options, trpMap):
                     continue
                 else:
                     sys.exit("Could not parse edges for vehicle '%s'\n" % id)
-            flows.append((id, vehicle.type, float(vehicle.depart)))
+            flows.append((id, flowID, lineRef, vehicle.type, float(vehicle.depart)))
             actualDepart[id] = float(vehicle.depart)
             parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
             stops = vehicle.stop
-            foutflows.write('    <route id="%s" edges="%s" >\n' % (id, edges))
+            foutflows.write('    <route id="%s" edges="%s" >\n' % (flowID, edges))
             if vehicle.stop is not None:
                 for stop in stops:
                     if (id, stop.busStop) in stopsUntil:
@@ -219,14 +224,11 @@ def createRoutes(options, trpMap):
             else:
                 sys.stderr.write("Warning: No stops for flow '%s'\n" % id)
             foutflows.write('    </route>\n')
-        lineCount = collections.defaultdict(int)
         flow_duration = options.end - options.begin
-        for flow, type, begin in flows:
-            line, name, completeness = trpMap[flow]
-            lineRef = "%s:%s" % (line, lineCount[line])
-            lineCount[line] += 1
-            foutflows.write('    <flow id="%s_%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
-                type, lineRef, type, flow, begin, begin + flow_duration, options.period, lineRef, options.flowattrs))
+        for vehID, flowID, lineRef, type, begin in flows:
+            line, name, completeness = trpMap[vehID]
+            foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
+                flowID, type, flowID, begin, begin + flow_duration, options.period, lineRef, options.flowattrs))
             foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
                             (escape(name), completeness))
         foutflows.write('</routes>\n')
