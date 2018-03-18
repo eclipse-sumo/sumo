@@ -322,8 +322,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
             // Save current color
             RGBColor current = GLHelper::getColor();
-            // Draw white on top with reduced width (the area between the two tracks)
-            glColor3d(1, 1, 1);
+            // Draw gray on top with reduced width (the area between the two tracks)
+            glColor3d(0.8, 0.8, 0.8);
             glTranslated(0, 0, .1);
             GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
             // Set current color back
@@ -342,7 +342,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // only draw details depending of the scale
         if (s.scale >= 10) {
             // if exaggeration is 1, draw drawMarkings
-            if (s.laneShowBorders && exaggeration == 1) {
+            if (s.laneShowBorders && exaggeration == 1 && !drawAsRailway(s)) {
                 drawMarkings(selectedEdge, exaggeration);
             }
             // draw ROWs only if target junction has a valid logic)
