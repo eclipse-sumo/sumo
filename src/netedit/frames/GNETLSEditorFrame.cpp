@@ -43,8 +43,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/changes/GNEChange_TLS.h>
-
-#include "GNETLSEditorFrame.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
@@ -53,6 +51,8 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/netelements/GNEInternalLane.h>
+
+#include "GNETLSEditorFrame.h"
 
 // ===========================================================================
 // FOX callback mapping

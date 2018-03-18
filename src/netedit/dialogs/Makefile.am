@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libnetedit_dialogs.a
+noinst_LIBRARIES = libneteditdialogs.a
 
-libnetedit_dialogs_a_SOURCES = GNEVariableSpeedSignDialog.cpp GNEVariableSpeedSignDialog.h \
+libneteditdialogs_a_SOURCES = GNEVariableSpeedSignDialog.cpp GNEVariableSpeedSignDialog.h \
 GNEDialog_About.cpp GNEDialog_About.h \
 GNEDialog_Wizard.cpp GNEDialog_Wizard.h \
 GNEDialog_AllowDisallow.cpp GNEDialog_AllowDisallow.h \

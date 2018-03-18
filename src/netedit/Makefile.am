@@ -48,11 +48,11 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/tcpip/libtcpip.a \
-../netedit/additionals/libnetedit_additionals.a \
-../netedit/changes/libnetedit_changes.a \
-../netedit/dialogs/libnetedit_dialogs.a \
-../netedit/frames/libnetedit_frames.a \
-../netedit/netelements/libnetedit_netelements.a \
+../netedit/additionals/libneteditadditionals.a \
+../netedit/changes/libneteditchanges.a \
+../netedit/dialogs/libneteditdialogs.a \
+../netedit/frames/libneteditframes.a \
+../netedit/netelements/libneteditnetelements.a \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif

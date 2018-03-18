@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libnetedit_netelements.a
+noinst_LIBRARIES = libneteditnetelements.a
 
-libnetedit_netelements_a_SOURCES = GNENetElement.cpp GNENetElement.h \
+libneteditnetelements_a_SOURCES = GNENetElement.cpp GNENetElement.h \
 GNEEdge.cpp GNEEdge.h \
 GNELane.cpp GNELane.h \
 GNEInternalLane.cpp GNEInternalLane.h \

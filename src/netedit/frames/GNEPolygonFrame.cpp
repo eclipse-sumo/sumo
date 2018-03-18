@@ -37,8 +37,6 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-
-#include "GNEPolygonFrame.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
@@ -48,6 +46,8 @@
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/netelements/GNELane.h>
+
+#include "GNEPolygonFrame.h"
 
 // ===========================================================================
 // FOX callback mapping

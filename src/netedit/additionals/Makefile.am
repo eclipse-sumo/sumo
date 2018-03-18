@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libnetedit_additionals.a
+noinst_LIBRARIES = libneteditadditionals.a
 
-libnetedit_additionals_a_SOURCES = GNEPOI.cpp GNEPOI.h \
+libneteditadditionals_a_SOURCES = GNEPOI.cpp GNEPOI.h \
 GNEPoly.cpp GNEPoly.h \
 GNEAdditionalHandler.cpp GNEAdditionalHandler.h \
 GNEAdditional.cpp GNEAdditional.h \
