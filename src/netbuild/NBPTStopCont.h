@@ -60,11 +60,11 @@ public:
         return myPTStops.end();
     }
 
-    /** @brief revise pt stops and remove stops on non existing (removed) edges
+    /** @brief remove stops on non existing (removed) edges
      *
      * @param cont
      */
-    void reviseStops(NBEdgeCont& cont);
+    void cleanupDeleted(NBEdgeCont& cont);
 
     void assignLanes(NBEdgeCont& cont);
 

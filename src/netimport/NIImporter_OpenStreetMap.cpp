@@ -250,7 +250,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     //revise pt stops; remove stops on deleted edges
     if (OptionsCont::getOptions().isSet("ptstop-output")) {
-        nb.getPTStopCont().reviseStops(nb.getEdgeCont());
+        nb.getPTStopCont().cleanupDeleted(nb.getEdgeCont());
     }
 
     // load relations (after edges are built since we want to apply

@@ -257,7 +257,7 @@ NBPTStopCont::getReverseEdge(NBEdge* edge) {
 
 
 void
-NBPTStopCont::reviseStops(NBEdgeCont& cont) {
+NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         if (cont.getByID((*i).second->getEdgeId()) == nullptr) {
             WRITE_WARNING("Removing pt stop:" + (*i).first + " on non existing edge: " + (*i).second->getEdgeId());
