@@ -142,7 +142,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 10) {
         glPushMatrix();
         // draw the lines
-        const double rotSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+        const double rotSign = MSNet::getInstance()->lefthand() ? 1 : -1;
         // Iterate over every line
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
