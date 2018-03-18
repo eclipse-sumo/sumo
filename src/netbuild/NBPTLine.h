@@ -46,6 +46,11 @@ public:
     void setRef(std::string basic_string);
 
     void setMyNumOfStops(int numStops);
+
+    /// @brief get line reference (not unique)
+    const std::string& getRef() const {
+        return myRef;
+    }
 private:
     std::string myName;
     std::string myType;

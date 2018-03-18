@@ -78,6 +78,9 @@ public:
 
     void setMyPTStopId(std::string id);
     void addAccess(std::string laneID, double offset);
+
+    /// @brief register line that services this stop (for displaying)
+    void addLine(const std::string& line);
 private:
     std::string myPTStopId;
     Position myPosition;
@@ -102,6 +105,9 @@ private:
     double myEndPos;
 
     std::vector<std::tuple<std::string, double>> myAccesses;
+
+    /// @brief list of public transport lines (for displaying)
+    std::vector<std::string> myLines;
 
 
 private:

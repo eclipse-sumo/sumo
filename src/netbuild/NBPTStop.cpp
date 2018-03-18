@@ -76,6 +76,14 @@ void NBPTStop::computExtent(double center, double edgeLength) {
     myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
 }
 
+void
+NBPTStop::addLine(const std::string& line) {
+    const std::string l = StringUtils::escapeXML(line);
+    if (std::find(myLines.begin(), myLines.end(), l) == myLines.end()) {
+        myLines.push_back(l);
+    }
+}
+
 void NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
@@ -86,6 +94,9 @@ void NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_STARTPOS, myStartPos);
     device.writeAttr(SUMO_ATTR_ENDPOS, myEndPos);
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    if (myLines.size() > 0) {
+        device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
+    }
     if (!myAccesses.empty()) {
 
         for (auto tuple : myAccesses) {

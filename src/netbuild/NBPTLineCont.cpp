@@ -167,6 +167,7 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
             WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
         }
         myServedPTStops.insert(stop->getID());
+        stop->addLine(myPTLine->getRef());
     }
 }
 void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
