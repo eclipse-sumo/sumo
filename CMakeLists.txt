@@ -152,9 +152,9 @@ if (MSVC)
             GIT_REPOSITORY    http://gitlab.onelab.info/gl2ps/gl2ps.git
             GIT_TAG           gl2ps_1_4_0
             PREFIX            "${CMAKE_BINARY_DIR}/gl2ps"
-            INSTALL_COMMAND   cp "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release/gl2ps.dll" "${CMAKE_SOURCE_DIR}/bin"
+            INSTALL_COMMAND   "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/$<CONFIG>/gl2ps.dll" "${CMAKE_SOURCE_DIR}/bin/gl2ps.dll"
         )
-        FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release")
+        FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release" "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Debug")
         if (GL2PS_LIBRARY)
             include_directories("${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps")
             set(GL2PS_LIBRARIES ${GL2PS_LIBRARY})
