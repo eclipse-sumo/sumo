@@ -556,8 +556,8 @@ GUIApplicationWindow::fillMenuBar() {
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Help", NULL, myHelpMenu);
-    new FXMenuCommand(myHelpMenu, "&Online Documentation", 0, this, MID_HELP);
-    new FXMenuCommand(myHelpMenu, "&About", GUIIconSubSys::getIcon(ICON_APP),
+    new FXMenuCommand(myHelpMenu, "&Online Documentation\tF1\tOpen Online documentation", 0, this, MID_HELP);
+    new FXMenuCommand(myHelpMenu, "&About\tF2\tAbout sumo-gui", GUIIconSubSys::getIcon(ICON_APP),
                       this, MID_ABOUT);
 }
 
