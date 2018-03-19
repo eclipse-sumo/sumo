@@ -45,11 +45,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
-        <xsd:sequence>
+        <xsd:choice  minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="lane" type="laneType" minOccurs="1" maxOccurs="63"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="stopOffset" type="stopOffsetType" minOccurs="0" maxOccurs="1"/>
-        </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="function" use="optional">
             <xsd:simpleType>
@@ -81,11 +81,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="laneType">
-        <xsd:sequence>
+        <xsd:choice  minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="neigh" type="neighType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="stopOffset" type="stopOffsetType" minOccurs="0" maxOccurs="1"/>
-        </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>

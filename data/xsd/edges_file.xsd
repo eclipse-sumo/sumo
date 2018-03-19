@@ -30,7 +30,7 @@
             <xsd:element name="lane" type="laneType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="split" type="splitType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="neigh" type="neighType" minOccurs="0" maxOccurs="unbounded"/>
-            <xsd:element name="stopOffset" type="stopOffsetType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="stopOffset" type="stopOffsetType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
@@ -60,11 +60,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="laneType">
-        <xsd:sequence>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="neigh" type="neighType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="stopOffset" type="stopOffsetType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="speed" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="width" type="positiveFloatType" use="optional"/>
