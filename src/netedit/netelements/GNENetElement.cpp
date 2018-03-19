@@ -53,6 +53,12 @@ GNENetElement::getNet() const {
 }
 
 
+bool 
+GNENetElement::isSelected() const {
+    return mySelected;
+}
+
+
 void
 GNENetElement::addAdditionalParent(GNEAdditional* additional) {
     // First check that additional wasn't already inserted

@@ -36,7 +36,6 @@
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <netbuild/NBTrafficLightLogic.h>
@@ -118,7 +117,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // must draw on top of junction
             glTranslated(0, 0, GLO_JUNCTION + 0.1);
             // set color depending of selection and priority
-            if (gSelected.isSelected(getType(), getGlID())) {
+            if (mySelected) {
                 glColor3d(0.118, 0.565, 1.000);
             } else if (!myCrossing->valid) {
                 glColor3d(1.0, 0.1, 0.1);

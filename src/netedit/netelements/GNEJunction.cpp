@@ -34,7 +34,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUITextureSubSys.h>
@@ -212,7 +211,7 @@ void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     GLfloat color[4];
-    double exaggeration = gSelected.isSelected(getType(), getGlID()) ? s.selectionScale : 1;
+    double exaggeration = mySelected ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
     // push name
     glPushName(getGlID());
@@ -1035,7 +1034,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                 return 0;
             }
         case 1:
-            return gSelected.isSelected(getType(), getGlID()) ? 1 : 0;
+            return mySelected;
         case 2:
             switch (myNBNode.getType()) {
                 case NODETYPE_TRAFFIC_LIGHT:
@@ -1096,7 +1095,7 @@ void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors (unless the color scheme is based on selection)
-    if (gSelected.isSelected(getType(), getGlID()) && s.junctionColorer.getActive() != 1) {
+    if (mySelected && s.junctionColorer.getActive() != 1) {
         GLHelper::setColor(GNENet::selectionColor);
     }
     if (myAmCreateEdgeSource) {

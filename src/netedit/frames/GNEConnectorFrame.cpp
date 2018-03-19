@@ -30,7 +30,6 @@
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -367,32 +366,20 @@ long
 GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     onCmdCancel(0, 0, 0);
     myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
-    const std::set<GUIGlID> ids = gSelected.getSelected();
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        if (object) {
-            switch (object->getType()) {
-                case GLO_JUNCTION: {
-                    GNEJunction* junction = dynamic_cast<GNEJunction*>(object);
-                    junction->setLogicValid(false, myViewNet->getUndoList()); // clear connections
-                    junction->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::MODIFIED); // prevent re-guessing
-                    break;
-                }
-                case GLO_EDGE: {
-                    const GNEEdge::LaneVector& lanes = dynamic_cast<GNEEdge*>(object)->getLanes();
-                    for (GNEEdge::LaneVector::const_iterator l_it = lanes.begin(); l_it != lanes.end(); ++l_it) {
-                        removeConnections(*l_it);
-                    }
-                    break;
-                }
-                case GLO_LANE:
-                    removeConnections(dynamic_cast<GNELane*>(object));
-                    break;
-                default:
-                    break;
-            }
+    // clear junction's connection
+    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION)) {
+        dynamic_cast<GNEJunction*>(i)->setLogicValid(false, myViewNet->getUndoList()); // clear connections
+        dynamic_cast<GNEJunction*>(i)->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::MODIFIED); // prevent re-guessing
+    }
+    // clear edge's connection
+    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_EDGE)) {
+        for (auto j : dynamic_cast<GNEEdge*>(i)->getLanes()) {
+            removeConnections(j);
         }
+    }
+    // clear lane's connection
+    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_LANE)) {
+        removeConnections(dynamic_cast<GNELane*>(i));
     }
     myViewNet->getUndoList()->p_end();
     return 1;
@@ -402,8 +389,8 @@ GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
 void
 GNEConnectorFrame::removeConnections(GNELane* lane) {
     handleLaneClick(lane, false, false, true); // select as current lane
-    for (std::set<GNELane*>::iterator it = myPotentialTargets.begin(); it != myPotentialTargets.end(); it++) {
-        handleLaneClick(*it, false, false, false);  // deselect
+    for (auto i : myPotentialTargets) {
+        handleLaneClick(i, false, false, false);  // deselect
     }
     onCmdOK(0, 0, 0); // save
 }
@@ -413,17 +400,8 @@ long
 GNEConnectorFrame::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     onCmdCancel(0, 0, 0);
     myViewNet->getUndoList()->p_begin("reset connections from selected lanes");
-    const std::set<GUIGlID> nodeIDs = gSelected.getSelected(GLO_JUNCTION);
-    for (std::set<GUIGlID>::const_iterator nid_it = nodeIDs.begin(); nid_it != nodeIDs.end(); nid_it++) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*nid_it);
-        if (object) {
-            GNEJunction* junction = dynamic_cast<GNEJunction*>(object);
-            if (junction) {
-                junction->setLogicValid(false, myViewNet->getUndoList());
-            } else {
-                throw ProcessError("Wrong object type returned from gIDStorage");
-            }
-        }
+    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION)) {
+        dynamic_cast<GNEJunction*>(i)->setLogicValid(false, myViewNet->getUndoList());
     }
     myViewNet->getUndoList()->p_end();
     return 1;

@@ -32,7 +32,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -49,6 +48,9 @@
 #include <netedit/GNEAttributeCarrier.h>
 
 #include "GNESelectorFrame.h"
+#include "GNEConnection.h"
+#include "GNECrossing.h"
+#include "GNEAdditionals.h"
 
 
 // ===========================================================================
@@ -164,9 +166,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 }
 
 
-GNESelectorFrame::~GNESelectorFrame() {
-    gSelected.remove2Update();
-}
+GNESelectorFrame::~GNESelectorFrame() {}
 
 
 long
@@ -325,7 +325,7 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
     myViewNet->getUndoList()->p_begin("clear selection");
-    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
     return 1;
@@ -334,64 +334,41 @@ GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
-    // declare a set to keep unselected elements
-    std::set<GUIGlID> unselectedElements;
-    // iterate over all junctions to obtain unselected
-    std::set<GUIGlID> ids = myViewNet->getNet()->getGlIDs(GLO_JUNCTION);
-    for (auto it : ids) {
-        if (gSelected.isSelected(GLO_JUNCTION, it) == false) {
-            unselectedElements.insert(it);
-        }
-
-    }
-    // iterate over all edges or lanes (Depending of checkbox) to obtain unselected
-    GUIGlObjectType currentEdgeOrLane = myViewNet->selectEdges() ? GLO_EDGE : GLO_LANE;
-    ids = myViewNet->getNet()->getGlIDs(currentEdgeOrLane);
-    for (auto it : ids) {
-        if (gSelected.isSelected(currentEdgeOrLane, it) == false) {
-            unselectedElements.insert(it);
-        }
-
-    }
-    // iterate over all additionals to obtain unselected
-    ids = myViewNet->getNet()->getGlIDs(GLO_ADDITIONAL);
-    for (auto it : ids) {
-        if (gSelected.isSelected(GLO_ADDITIONAL, it) == false) {
-            unselectedElements.insert(it);
-        }
-    }
-    // iterate over all connections to obtain unselected
-    ids = myViewNet->getNet()->getGlIDs(GLO_CONNECTION);
-    for (auto it : ids) {
-        if (gSelected.isSelected(GLO_CONNECTION, it) == false) {
-            unselectedElements.insert(it);
-        }
-    }
-    // iterate over all crossings to obtain unselected
-    ids = myViewNet->getNet()->getGlIDs(GLO_CROSSING);
-    for (auto it : ids) {
-        if (gSelected.isSelected(GLO_CROSSING, it) == false) {
-            unselectedElements.insert(it);
-        }
-    }
-    // iterate over all visible polygons to obtain unselected
-    for (const auto& it : myViewNet->getNet()->getPolygons()) {
-        GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
-        if (gSelected.isSelected(GLO_POLYGON, poly->getGlID()) == false) {
-            unselectedElements.insert(poly->getGlID());
-        }
-    }
-    // iterate over all visible POIs to obtain unselected
-    for (const auto& it : myViewNet->getNet()->getPOIs()) {
-        GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
-        if (gSelected.isSelected(GLO_POI, POI->getGlID()) == false) {
-            unselectedElements.insert(POI->getGlID());
-        }
-    }
+    // first make a copy of current selected elements
+    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
     // invert selection first cleaning current selection and next selecting elements of set "unselectedElements"
     myViewNet->getUndoList()->p_begin("invert selection");
-    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
-    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), unselectedElements, std::set<GUIGlID>(), true), true);
+    // select junctions, edges, lanes connections and crossings
+    std::vector<GNEJunction*> junctions = myViewNet->getNet()->retrieveJunctions();
+    for (auto i : junctions) {
+        i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+        // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+        for (auto j : i->getGNEIncomingEdges()) {
+            j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            for (auto k : j->getLanes()) {
+                k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            for (auto k : j->getGNEConnections()) {
+                k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+        }
+        for (auto j : i->getGNECrossings()) {
+            j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+        }
+    }
+    // select additionals
+    std::vector<GNEAdditional*> additionals = myViewNet->getNet()->getAdditionals();
+    for (auto i : additionals) {
+        i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+    }
+    // select polygons
+    for (auto i : myViewNet->getNet()->getPolygons()) {
+        dynamic_cast<GNEPoly*>(i)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+    }
+    // select POIs
+    for (auto i : myViewNet->getNet()->getPOIs()) {
+        dynamic_cast<GNEPOI*>(i)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+    }
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
     return 1;
@@ -622,8 +599,7 @@ GNESelectorFrame::onCmdScaleSelection(FXObject*, FXSelector, void*) {
 
 void
 GNESelectorFrame::show() {
-    // selection may have changed due to deletions
-    gSelected.add2Update(this);
+    // update label
     selectionUpdated();
     // Show frame
     GNEFrame::show();
@@ -632,8 +608,6 @@ GNESelectorFrame::show() {
 
 void
 GNESelectorFrame::hide() {
-    // selection may have changed due to deletions
-    gSelected.remove2Update();
     // hide frame
     GNEFrame::hide();
 }
@@ -644,25 +618,25 @@ GNESelectorFrame::selectionUpdated() {
     // show extra information for tests
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Current selection: " +
-                      toString(gSelected.getSelected(GLO_JUNCTION).size()) + " Junctions, " +
-                      toString(gSelected.getSelected(GLO_EDGE).size()) + " Edges, " +
-                      toString(gSelected.getSelected(GLO_LANE).size()) + " Lanes, " +
-                      toString(gSelected.getSelected(GLO_CONNECTION).size()) + " connections, " +
-                      toString(gSelected.getSelected(GLO_ADDITIONAL).size()) + " Additionals, " +
-                      toString(gSelected.getSelected(GLO_CROSSING).size()) + " Crossings, " +
-                      toString(gSelected.getSelected(GLO_POLYGON).size()) + " Polygons, " +
-                      toString(gSelected.getSelected(GLO_POI).size()) + " POIs");
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()) + " Junctions, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()) + " Edges, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()) + " Lanes, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_CONNECTION).size()) + " connections, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_ADDITIONAL).size()) + " Additionals, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()) + " Crossings, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()) + " Polygons, " +
+                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POI).size()) + " POIs");
     }
     // update labels
 
-    myTypeEntries[GLO_JUNCTION].count->setText(toString(gSelected.getSelected(GLO_JUNCTION).size()).c_str());
-    myTypeEntries[GLO_EDGE].count->setText(toString(gSelected.getSelected(GLO_EDGE).size()).c_str());
-    myTypeEntries[GLO_LANE].count->setText(toString(gSelected.getSelected(GLO_LANE).size()).c_str());
-    myTypeEntries[GLO_CONNECTION].count->setText(toString(gSelected.getSelected(GLO_CONNECTION).size()).c_str());
-    myTypeEntries[GLO_ADDITIONAL].count->setText(toString(gSelected.getSelected(GLO_ADDITIONAL).size()).c_str());
-    myTypeEntries[GLO_CROSSING].count->setText(toString(gSelected.getSelected(GLO_CROSSING).size()).c_str());
-    myTypeEntries[GLO_POLYGON].count->setText(toString(gSelected.getSelected(GLO_POLYGON).size()).c_str());
-    myTypeEntries[GLO_POI].count->setText(toString(gSelected.getSelected(GLO_POI).size()).c_str());
+    myTypeEntries[GLO_JUNCTION].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()).c_str());
+    myTypeEntries[GLO_EDGE].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()).c_str());
+    myTypeEntries[GLO_LANE].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()).c_str());
+    myTypeEntries[GLO_CONNECTION].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_CONNECTION).size()).c_str());
+    myTypeEntries[GLO_ADDITIONAL].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_ADDITIONAL).size()).c_str());
+    myTypeEntries[GLO_CROSSING].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()).c_str());
+    myTypeEntries[GLO_POLYGON].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()).c_str());
+    myTypeEntries[GLO_POI].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POI).size()).c_str());
     update();
 }
 
@@ -673,10 +647,10 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
     std::set<GUIGlID> previousSelection;
     myViewNet->getUndoList()->p_begin("change selection");
     if (setOperation == SET_REPLACE) {
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
     } else if (setOperation == SET_RESTRICT) {
-        previousSelection = gSelected.getSelected(); // have to make a copy
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
+        previousSelection = myViewNet->getNet()->getSelectedAttributeCarriers(); // have to make a copy
+        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
     }
     // handle ids
     GUIGlObject* object;

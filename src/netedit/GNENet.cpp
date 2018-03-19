@@ -46,7 +46,6 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -413,13 +412,6 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
     junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
 
-    // save selection status
-    if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(junction->getGlID());
-        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-    }
-
     // delete edge
     undoList->add(new GNEChange_Junction(junction, false), true);
     undoList->p_end();
@@ -469,12 +461,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     if(edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
             edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), undoList);
     }
-    // save selection status
-    if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(edge->getGlID());
-        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-    }
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
     // remove edge requieres always a recompute (due geometry and connections)
@@ -523,12 +509,6 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         undoList->add(new GNEChange_Connection(which, con, false, false), true);
         undoList->add(new GNEChange_Connection(by, con, false, true), true);
     }
-    // save selection status
-    if (gSelected.isSelected(GLO_EDGE, which->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(which->getGlID());
-        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-    }
     undoList->add(new GNEChange_ReplaceEdgeInTLS(getTLLogicCont(), which->getNBEdge(), by->getNBEdge()), true);
     // Delete edge
     undoList->add(new GNEChange_Edge(which, false), true);
@@ -563,20 +543,9 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
             edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
             edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
         }
-        // save selection status
-        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
-            std::set<GUIGlID> deselected;
-            deselected.insert(edge->getGlID());
-            undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-        }
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
         undoList->add(new GNEChange_Lane(edge, lane, laneAttrs, false, recomputeConnections), true);
-        if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
-            std::set<GUIGlID> deselected;
-            deselected.insert(lane->getGlID());
-            undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-        }
         // remove lane requieres always a recompute (due geometry and connections)
         requireRecompute();
         undoList->p_end();
@@ -591,12 +560,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     NBConnection deleted = connection->getNBConnection();
     GNEJunction* junctionDestiny = connection->getEdgeFrom()->getGNEJunctionDestiny();
     junctionDestiny->markAsModified(undoList);
-    // check if GNEConnection was previouslyselected, and if true, unselect it.
-    bool selected = gSelected.isSelected(GLO_CONNECTION, connection->getGlID());
-    if (selected) {
-        gSelected.deselect(connection->getGlID());
-    }
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), selected, false), true);
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isSelected(), false), true);
     junctionDestiny->invalidateTLS(undoList, deleted);
     // remove connection requieres always a recompute (due geometry and connections)
     requireRecompute();
@@ -607,16 +571,12 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
 void
 GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
     undoList->p_begin("delete crossing");
-    // check if GNECrossing was previouslyselected, and if true, unselect it.
-    bool selected = gSelected.isSelected(GLO_CROSSING, crossing->getGlID());
-    if (selected) {
-        gSelected.deselect(crossing->getGlID());
-    }
+    // remove it using GNEChange_Crossing
     undoList->add(new GNEChange_Crossing(crossing->getParentJunction(), crossing->getNBCrossing()->edges,
                                          crossing->getNBCrossing()->width, crossing->getNBCrossing()->priority,
                                          crossing->getNBCrossing()->customTLIndex,
                                          crossing->getNBCrossing()->customTLIndex2,
-                                         crossing->getNBCrossing()->customShape, selected, false), true);
+                                         crossing->getNBCrossing()->customShape, false), true);
     // remove crossing requieres always a recompute (due geometry and connections)
     requireRecompute();
     undoList->p_end();
@@ -626,12 +586,6 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 void
 GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(shape->getTag()));
-    // save selection status
-    if (gSelected.isSelected(GLO_POLYGON, shape->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(shape->getGlID());
-        undoList->add(new GNEChange_Selection(this, std::set<GUIGlID>(), deselected, true), true);
-    }
     // delete shape
     undoList->add(new GNEChange_Shape(shape, false), true);
     undoList->p_end();
@@ -802,12 +756,11 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
         reversed = createEdge(src, dest, edge, undoList, "-" + edge->getID(), false, true);
         assert(reversed != 0);
         reversed->setAttribute(SUMO_ATTR_SHAPE, toString(origInner.reverse()), undoList);
+        reversed->setAttribute(SUMO_ATTR_SHAPE, toString(origInner.reverse()), undoList);
         // select the new edge and its nodes
-        std::set<GUIGlID> toSelect;
-        toSelect.insert(reversed->getGlID());
-        toSelect.insert(src->getGlID());
-        toSelect.insert(dest->getGlID());
-        undoList->add(new GNEChange_Selection(this, toSelect, gSelected.getSelected(), true), true);
+        reversed->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+        src->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+        dest->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
     }
     undoList->p_end();
     return reversed;
@@ -1019,9 +972,15 @@ GNENet::retrieveCrossing(const std::string& id, bool failHard) const {
 std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
-    for (auto it : myEdges) {
-        if (!onlySelected || gSelected.isSelected(GLO_EDGE, it.second->getGlID())) {
-            result.push_back(it.second);
+    if(onlySelected) {
+        // only returns selected edges
+        for (auto i : mySelectedAttributeCarriers[GLO_EDGE]) {
+            result.push_back(dynamic_cast<GNEEdge*>(i));
+        }
+    } else {
+        // returns all edges
+        for (auto i : myEdges) {
+            result.push_back(i.second);
         }
     }
     return result;
@@ -1031,9 +990,15 @@ GNENet::retrieveEdges(bool onlySelected) {
 std::vector<GNELane*>
 GNENet::retrieveLanes(bool onlySelected) {
     std::vector<GNELane*> result;
-    for (auto it : myEdges) {
-        for (auto it_lane : it.second->getLanes()) {
-            if (!onlySelected || gSelected.isSelected(GLO_LANE, it_lane->getGlID())) {
+    if(onlySelected) {
+        // only returns selected edges
+        for (auto i : mySelectedAttributeCarriers[GLO_LANE]) {
+            result.push_back(dynamic_cast<GNELane*>(i));
+        }
+    } else {
+        // returns all edges
+        for (auto it : myEdges) {
+            for (auto it_lane : it.second->getLanes()) {
                 result.push_back(it_lane);
             }
         }
@@ -1078,9 +1043,15 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
 std::vector<GNEJunction*>
 GNENet::retrieveJunctions(bool onlySelected) {
     std::vector<GNEJunction*> result;
-    for (auto it : myJunctions) {
-        if (!onlySelected || gSelected.isSelected(GLO_JUNCTION, it.second->getGlID())) {
-            result.push_back(it.second);
+    if(onlySelected) {
+        // only returns selected junctions
+        for (auto i : mySelectedAttributeCarriers[GLO_JUNCTION]) {
+            result.push_back(dynamic_cast<GNEJunction*>(i));
+        }
+    } else {
+        // returns all edges
+        for (auto i : myJunctions) {
+            result.push_back(i.second);
         }
     }
     return result;
@@ -1090,23 +1061,31 @@ GNENet::retrieveJunctions(bool onlySelected) {
 std::vector<GNEShape*>
 GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
-    // fill polygons
+    // fill polygons (SUMO_TAG_NOTHING is for return all polygons and POIS)
     if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POLY)) {
-        for (const auto& it : getPolygons()) {
-            GNEPoly* poly = dynamic_cast<GNEPoly*>(it.second);
-            // only add visible polygons
-            if (poly && (!onlySelected || gSelected.isSelected(GLO_POLYGON, poly->getGlID()))) {
-                result.push_back(poly);
+         if(onlySelected) {
+            // only returns selected polygons
+            for (auto i : mySelectedAttributeCarriers[GLO_POLYGON]) {
+                result.push_back(dynamic_cast<GNEPoly*>(i));
+            }
+        } else {
+             // return all polygons
+            for (const auto& it : getPolygons()) {
+                result.push_back(dynamic_cast<GNEPoly*>(it.second));
             }
         }
     }
     // fill POIs
     if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POI)) {
-        for (const auto& it : getPOIs()) {
-            GNEPOI* POI = dynamic_cast<GNEPOI*>(it.second);
-            // only add visible POIs
-            if (POI && (!onlySelected || gSelected.isSelected(GLO_POI, POI->getGlID()))) {
-                result.push_back(POI);
+         if(onlySelected) {
+            // only returns selected POIs
+            for (auto i : mySelectedAttributeCarriers[GLO_POI]) {
+                result.push_back(dynamic_cast<GNEPOI*>(i));
+            }
+        } else {
+             // return all POIs
+            for (const auto& it : getPOIs()) {
+                result.push_back(dynamic_cast<GNEPOI*>(it.second));
             }
         }
     }
@@ -1165,103 +1144,6 @@ GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType 
         if (ac->getGUIGLObject()->getType() == type) {
             result.push_back(ac);
         }
-    }
-    return result;
-}
-
-
-std::set<GUIGlID>
-GNENet::getGlIDs(GUIGlObjectType type) {
-    std::set<GUIGlID> result;
-    switch (type) {
-        case GLO_MAX: {
-            std::set<GUIGlObjectType> knownTypes;
-            knownTypes.insert(GLO_JUNCTION);
-            knownTypes.insert(GLO_EDGE);
-            knownTypes.insert(GLO_LANE);
-            // knownTypes.insert(GLO_TLLOGIC); makes no sense to include them
-            knownTypes.insert(GLO_ADDITIONAL);
-            knownTypes.insert(GLO_CONNECTION);
-            knownTypes.insert(GLO_CROSSING);
-            knownTypes.insert(GLO_POLYGON);
-            knownTypes.insert(GLO_POI);
-            // obtain all GLIDS calling getGlIDs(...) recursively
-            for (const auto& it : knownTypes) {
-                const std::set<GUIGlID> tmp = getGlIDs(it);
-                result.insert(tmp.begin(), tmp.end());
-            }
-            break;
-        }
-        case GLO_JUNCTION:
-            for (const auto& it : myJunctions) {
-                result.insert(it.second->getGlID());
-            }
-            break;
-        case GLO_EDGE:
-            for (const auto& it : myEdges) {
-                result.insert(it.second->getGlID());
-            }
-            break;
-        case GLO_LANE: {
-            for (const auto& i : myEdges) {
-                // iterate over every edge's lane
-                for (auto j : i.second->getLanes()) {
-                    result.insert(j->getGlID());
-                }
-            }
-            break;
-        }
-        case GLO_TLLOGIC: {
-            // return all junctions which have a traffic light (we do not have a GUIGlObject for each traffic light)
-            for (const auto& it : myJunctions) {
-                if (it.second->getNBNode()->isTLControlled()) {
-                    result.insert(it.second->getGlID());
-                }
-            }
-            break;
-        }
-        case GLO_ADDITIONAL: {
-            // Iterate over all additionals of net
-            for (const auto& it : myAdditionals) {
-                // Insert every additional in result
-                result.insert(it.second->getGlID());
-            }
-            break;
-        }
-        case GLO_CONNECTION: {
-            for (const auto& i : myEdges) {
-                // Iterate over edge's connections
-                for (const auto& j : i.second->getGNEConnections()) {
-                    // Insert every connection of edge in result
-                    result.insert(j->getGlID());
-                }
-            }
-            break;
-        }
-        case GLO_CROSSING: {
-            for (const auto& i : myJunctions) {
-                // Iterate over junction's crossings
-                for (const auto& j : i.second->getGNECrossings()) {
-                    // Insert every crossing of junction in result
-                    result.insert(j->getGlID());
-                }
-            }
-            break;
-        }
-        case GLO_POLYGON: {
-            for (const auto& i : myPolygons) {
-                result.insert(dynamic_cast<GNEPoly*>(i.second)->getGlID());
-            }
-            break;
-        }
-        case GLO_POI: {
-            for (const auto& i : myPOIs) {
-                result.insert(dynamic_cast<GNEPOI*>(i.second)->getGlID());
-            }
-            break;
-        }
-        default: // add other types once we know them
-            break;
     }
     return result;
 }
@@ -1421,7 +1303,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
                     WRITE_WARNING("Closed FXMessageBox 'Join non-selected junction' with 'Yes'");
                 }
                 // select conflicted junction an join all again
-                gSelected.select(i.second->getGlID());
+                i.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 return joinSelectedJunctions(undoList);
             }
         }
@@ -1645,6 +1527,54 @@ GNENet::getViewNet() const {
 }
 
 
+std::vector<GNEAttributeCarrier*>
+GNENet::getSelectedAttributeCarriers() const {
+    std::vector<GNEAttributeCarrier*> result;
+    for(auto i : mySelectedAttributeCarriers) {
+        result.reserve(result.size() + i.second.size());
+        std::move(i.second.begin(), i.second.end(), std::back_inserter(result));
+    }
+    return result;
+}
+
+
+const std::vector<GNEAttributeCarrier*> &
+GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) const {
+    return mySelectedAttributeCarriers.at(type);
+}
+
+
+void 
+GNENet::selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
+    if(attributeCarrier == NULL) {
+        throw ProcessError("AttributeCarrier cannot be NULL");
+    } else {
+        GUIGlObjectType glType = attributeCarrier->getGUIGLObject()->getType();
+        if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
+            mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
+        } else {
+            throw ProcessError("AttributeCarrier isn't selected");
+        }
+    }
+}
+
+
+void 
+GNENet::unselectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
+    if(attributeCarrier == NULL) {
+        throw ProcessError("AttributeCarrier cannot be NULL");
+    } else {
+        GUIGlObjectType glType = attributeCarrier->getGUIGLObject()->getType();
+        std::vector<GNEAttributeCarrier*>::iterator it = std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier);
+        if(it == mySelectedAttributeCarriers[glType].end()) {
+            mySelectedAttributeCarriers[glType].erase(it);
+        } else {
+            throw ProcessError("AttributeCarrier isn't selected");
+        }
+    }
+}
+
+
 NBTrafficLightLogicCont&
 GNENet::getTLLogicCont() {
     return myNetBuilder->getTLLogicCont();
@@ -1690,9 +1620,15 @@ GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
 std::vector<GNEAdditional*>
 GNENet::retrieveAdditionals(bool onlySelected) {
     std::vector<GNEAdditional*> result;
-    for (auto it : myAdditionals) {
-        if (!onlySelected || gSelected.isSelected(GLO_ADDITIONAL, it.second->getGlID())) {
-            result.push_back(it.second);
+    if(onlySelected) {
+        // only returns selected additionals
+        for (auto i : mySelectedAttributeCarriers[GLO_ADDITIONAL]) {
+            result.push_back(dynamic_cast<GNEAdditional*>(i));
+        }
+    } else {
+        // returns all additionals
+        for (auto i : myAdditionals) {
+            result.push_back(i.second);
         }
     }
     return result;
@@ -2226,8 +2162,6 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
-    // selection status is lost when removing junction via undo and the selection operation was not part of a command group
-    gSelected.deselect(junction->getGlID());
     update();
 }
 
@@ -2243,8 +2177,6 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     myNetBuilder->getEdgeCont().extract(myNetBuilder->getDistrictCont(), edge->getNBEdge());
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
-    // selection status is lost when removing edge via undo and the selection operation was not part of a command group
-    gSelected.deselect(edge->getGlID());
     // Remove refrences from GNEJunctions
     edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
     edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);

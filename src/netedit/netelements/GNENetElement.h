@@ -78,6 +78,9 @@ public:
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
+    /// @brief check if netElement is selected
+    bool isSelected() const;
+
     /// @brief add additional child to this edge
     void addAdditionalParent(GNEAdditional* additional);
 

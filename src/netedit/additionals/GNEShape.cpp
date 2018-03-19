@@ -28,7 +28,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEShape.h"
 #include <netedit/GNENet.h>
@@ -69,6 +68,12 @@ GNEShape::isShapeBlocked() const {
 }
 
 
+bool 
+GNEShape::isSelected() const {
+    return mySelected;
+}
+
+
 void
 GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
     if (myNet->getViewNet()->showLockIcon()) {
@@ -81,7 +86,7 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
         // Set draw color
         glColor3d(1, 1, 1);
         // Draw icon depending of the selection status
-        if (gSelected.isSelected(getGUIGLObject()->getType(), getGlID())) {
+        if (mySelected) {
             if (myBlockMovement) {
                 // Draw lock texture if shape is movable, is blocked and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);

@@ -35,7 +35,6 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>

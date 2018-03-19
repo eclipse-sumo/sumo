@@ -24,7 +24,6 @@
 #include <config.h>
 #endif
 
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -59,6 +58,7 @@ GNEChange_Selection::~GNEChange_Selection() {
 
 void
 GNEChange_Selection::undo() {
+    /*
     if (myForward) {
         int counter = 0;
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
@@ -107,11 +107,13 @@ GNEChange_Selection::undo() {
         }
     }
     myNet->getViewNet()->update();
+    */
 }
 
 
 void
 GNEChange_Selection::redo() {
+    /*
     if (myForward) {
         int counter = 0;
         for (std::set<GUIGlID>::const_iterator it = mySelectedIDs.begin(); it != mySelectedIDs.end(); it++) {
@@ -160,6 +162,7 @@ GNEChange_Selection::redo() {
         }
     }
     myNet->getViewNet()->update();
+    */
 }
 
 

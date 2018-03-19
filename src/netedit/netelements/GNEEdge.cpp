@@ -36,7 +36,6 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/geom/bezier.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
@@ -424,7 +423,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry hints
     if (s.scale > 3.0) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        if (gSelected.isSelected(getType(), getGlID()) && s.laneColorer.getActive() != 1) {
+        if (mySelected && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
         }

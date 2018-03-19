@@ -30,7 +30,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -1329,9 +1328,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
 }
 
 
-GNEAdditionalFrame::~GNEAdditionalFrame() {
-    gSelected.remove2Update();
-}
+GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 
 GNEAdditionalFrame::AddAdditionalResult
@@ -1586,12 +1583,6 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
 void
 GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
     myViewNet->getUndoList()->p_begin("delete " + toString(additional->getTag()));
-    // save selection status
-    if (gSelected.isSelected(GLO_ADDITIONAL, additional->getGlID())) {
-        std::set<GUIGlID> deselected;
-        deselected.insert(additional->getGlID());
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), deselected, true), true);
-    }
     // first remove all additional childs of this additional calling this function recursively
     while (additional->getAdditionalChilds().size() > 0) {
         removeAdditional(additional->getAdditionalChilds().front());

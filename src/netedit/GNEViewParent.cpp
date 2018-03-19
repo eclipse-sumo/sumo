@@ -40,7 +40,6 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -63,6 +62,12 @@
 #include "GNEViewParent.h"
 #include "GNEUndoList.h"
 #include "GNEApplicationWindow.h"
+#include "GNEJunction.h"
+#include "GNEEdge.h"
+#include "GNELane.h"
+#include "GNEAdditional.h"
+#include "GNEPOI.h"
+#include "GNEPoly.h"
 
 
 // ===========================================================================
@@ -313,45 +318,73 @@ long
 GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     GNEViewNet* view = dynamic_cast<GNEViewNet*>(myView);
     assert(view);
-    GUIGlObjectType type;
     GUIIcon icon;
     std::string dialogtitle;
+    std::vector<GUIGlID> ids;
     switch (FXSELID(sel)) {
-        case MID_LOCATEJUNCTION:
-            type = GLO_JUNCTION;
+        case MID_LOCATEJUNCTION: {
+            // fill ids with junctions
+            std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
+            for(auto i : junctions) {
+                ids.push_back(i->getGUIGLObject()->getType());
+            }
             icon = ICON_LOCATEJUNCTION;
             dialogtitle = "Junction Chooser";
             break;
-        case MID_LOCATEEDGE:
-            type = GLO_EDGE;
+        }
+        case MID_LOCATEEDGE: {
+            // fill ids with edges
+            std::vector<GNEEdge*> edges = view->getNet()->retrieveEdges();
+            for(auto i : edges) {
+                ids.push_back(i->getGUIGLObject()->getType());
+            }
             icon = ICON_LOCATEEDGE;
             dialogtitle = "Edge Chooser";
             break;
-        case MID_LOCATETLS:
-            type = GLO_TLLOGIC;
+        }
+        case MID_LOCATETLS: {
+            // fill ids with junctions that haven TLS
+            std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
+            for(auto i : junctions) {
+                if(i->getNBNode()->getControllingTLS().size() > 0) {
+                    ids.push_back(i->getGUIGLObject()->getType());
+                }
+            }
             icon = ICON_LOCATETLS;
-            dialogtitle = "Traffic-Light-Junctions Chooser";
+            dialogtitle = "TLS Chooser";
             break;
-        case MID_LOCATEADD:
-            type = GLO_ADDITIONAL;
+        }
+        case MID_LOCATEADD: {
+            // fill ids with additionals
+            std::vector<GNEAdditional*> additionals = view->getNet()->retrieveAdditionals();
+            for(auto i : additionals) {
+                ids.push_back(i->getGUIGLObject()->getType());
+            }
             icon = ICON_LOCATEADD;
-            title = "Additional Objects Chooser";
+            dialogtitle = "Additional Chooser";
             break;
-        case MID_LOCATEPOI:
-            type = GLO_POI;
+        }
+        case MID_LOCATEPOI: {
+            // fill ids with POIs
+            for(auto i : view->getNet()->getPOIs()) {
+                ids.push_back(dynamic_cast<GNEPOI*>(i.second)->getGUIGLObject()->getType());
+            }
             icon = ICON_LOCATEPOI;
-            title = "POI Chooser";
+            dialogtitle = "Junction Chooser";
             break;
-        case MID_LOCATEPOLY:
-            type = GLO_POLYGON;
+        }
+        case MID_LOCATEPOLY: {
+            // fill ids with polys
+            for(auto i : view->getNet()->getPolygons()) {
+                ids.push_back(dynamic_cast<GNEPoly*>(i.second)->getGUIGLObject()->getType());
+            }
             icon = ICON_LOCATEPOLY;
-            title = "Polygon Chooser";
+            dialogtitle = "Poly Chooser";
             break;
+        }
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");
     }
-    std::set<GUIGlID> idSet = view->getNet()->getGlIDs(type);
-    std::vector<GUIGlID> ids(idSet.begin(), idSet.end());
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
@@ -360,27 +393,6 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     chooser->create();
     chooser->show();
     return 1;
-}
-
-
-bool
-GNEViewParent::isSelected(GUIGlObject* o) const {
-    GUIGlObjectType type = o->getType();
-    if (gSelected.isSelected(type, o->getGlID())) {
-        return true;
-    } else if (type == GLO_EDGE) {
-        GNEEdge* edge = dynamic_cast<GNEEdge*>(o);
-        assert(edge);
-        const std::set<GUIGlID> laneIDs = edge->getLaneGlIDs();
-        for (std::set<GUIGlID>::const_iterator it = laneIDs.begin(); it != laneIDs.end(); it++) {
-            if (gSelected.isSelected(GLO_LANE, *it)) {
-                return true;
-            }
-        }
-        return false;
-    } else {
-        return false;
-    }
 }
 
 

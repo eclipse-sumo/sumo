@@ -137,6 +137,9 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;
 
+    /// @brief check if additional is selected
+    bool isSelected() const;
+
     /// @brief Returns additional element's shape
     PositionVector getShape() const;
 

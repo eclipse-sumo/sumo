@@ -38,7 +38,6 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -118,6 +117,12 @@ GNEAdditional::getViewNet() const {
 }
 
 
+bool 
+GNEAdditional::isSelected() const {
+    return mySelected;
+}
+
+
 PositionVector
 GNEAdditional::getShape() const {
     return myShape;
@@ -132,7 +137,7 @@ GNEAdditional::isAdditionalBlocked() const {
 
 bool
 GNEAdditional::isAdditionalSelected() const {
-    return gSelected.isSelected(getType(), getGlID());
+    return mySelected;
 }
 
 

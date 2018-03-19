@@ -89,6 +89,9 @@ public:
     /// @brief return true if shape is blocked
     bool isShapeBlocked() const;
 
+    /// @brief check if netElement is selected
+    bool isSelected() const;
+
     /// @brief draw lock icon
     void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
 

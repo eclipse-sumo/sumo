@@ -30,7 +30,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/netelements/GNELane.h>

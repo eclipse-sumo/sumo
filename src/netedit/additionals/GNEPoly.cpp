@@ -38,7 +38,6 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -268,8 +267,6 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-    // change temporally attribute color if polygon is selected
-    bool selected = gSelected.isSelected(GLO_POLYGON, getGlID());
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
     // draw geometry details hints if is not too small
@@ -281,7 +278,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         double distanceToShape = myShape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
-        if (selected) {
+        if (mySelected) {
             invertedColor = myNet->selectionColor.invertedColor();
             darkerColor = myNet->selectedLaneColor;
         } else {

@@ -1144,8 +1144,6 @@ GNEApplicationWindow::closeAllWindows() {
         delete mySubWindows[0];
     }
     mySubWindows.clear();
-    // clear selected items
-    gSelected.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();

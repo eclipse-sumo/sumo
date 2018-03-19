@@ -31,7 +31,6 @@
 #include <utils/common/ToString.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -124,7 +123,7 @@ GNECrossingFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction
     // check if use selected eges must be enabled
     myUseSelectedEdges->disable();
     for (auto i : myCurrentJunction->getGNEEdges()) {
-        if (gSelected.isSelected(i->getType(), i->getGlID())) {
+        if (i->isSelected()) {
             myUseSelectedEdges->enable();
         }
     }
@@ -314,7 +313,7 @@ void
 GNECrossingFrame::crossingParameters::useSelectedEdges(GNEJunction* parentJunction) {
     std::vector<std::string> crossingEdges;
     for (auto i : parentJunction->getGNEEdges()) {
-        if (gSelected.isSelected(i->getType(), i->getGlID())) {
+        if (i->isSelected()) {
             crossingEdges.push_back(i->getID());
         }
     }
@@ -488,7 +487,6 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 
 
 GNECrossingFrame::~GNECrossingFrame() {
-    gSelected.remove2Update();
 }
 
 
@@ -545,8 +543,7 @@ GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
                                           myCrossingParameters->getCrossingWidth(),
                                           myCrossingParameters->getCrossingPriority(),
                                           -1, -1,
-                                          PositionVector::EMPTY,
-                                          false, true), true);
+                                          PositionVector::EMPTY, true), true);
             // clear selected edges
             myEdgeSelector->onCmdClearSelection(0, 0, 0);
         } else {

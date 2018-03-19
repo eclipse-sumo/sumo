@@ -38,7 +38,6 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/common/RandHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/SUMOVehicleClass.h>

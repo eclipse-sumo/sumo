@@ -467,13 +467,20 @@ public:
     /// @brief get view net
     GNEViewNet* getViewNet() const;
 
+    /// @brief get all selected attribute carriers
+    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers() const;
+
+    /// @brief get selected attribute carriers by GLType
+    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type) const;
+
+    /// @brief select attribute carrier
+    void selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier);
+
+     /// @brief unselect attribute carrier
+    void unselectAttributeCarrier(GNEAttributeCarrier* attributeCarrier);
+
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
-
-    /**@brief get ids of currently active objects
-     * @param[in] type If type != GLO_MAX, get active ids of that type, otherwise get all active ids
-     */
-    std::set<GUIGlID> getGlIDs(GUIGlObjectType type = GLO_MAX);
 
     /// @brief initialize GNEConnections
     void initGNEConnections();
@@ -691,6 +698,9 @@ protected:
 
     /// @brief map with the name and pointer to Calibrator Vehicle Types of net
     std::map<std::string, GNECalibratorVehicleType*> myCalibratorVehicleTypes;
+
+    /// @brief set with selected attribute carriers
+    std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriers;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{

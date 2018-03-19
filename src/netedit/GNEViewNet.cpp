@@ -46,7 +46,6 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBEdge.h>
@@ -768,7 +767,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
                 } else if (pointed_junction) {
-                    if (gSelected.isSelected(GLO_JUNCTION, pointed_junction->getGlID())) {
+                    if (pointed_junction->isSelected()) {
                         begingMoveSelection(pointed_junction, getPositionInformation());
                     } else {
                         myMovedItems.junctionToMove = pointed_junction;
@@ -776,7 +775,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = pointed_junction->getPositionInView();
                 } else if (pointed_edge) {
-                    if (gSelected.isSelected(GLO_EDGE, pointed_edge->getGlID())) {
+                    if (pointed_edge->isSelected()) {
                         begingMoveSelection(pointed_edge, getPositionInformation());
                     } else if(((FXEvent*)eventData)->state & SHIFTMASK) {
                         pointed_edge->editEndpoint(getPositionInformation(), myUndoList);
@@ -797,7 +796,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         }
                     }
                 } else if (pointed_additional) {
-                    if (gSelected.isSelected(GLO_ADDITIONAL, pointed_additional->getGlID())) {
+                    if (pointed_additional->isSelected()) {
                         myMovingSelection = true;
                     } else {
                         myMovedItems.additionalToMove = pointed_additional;
@@ -838,61 +837,40 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_INSPECT: {
                 GNEAttributeCarrier* pointedAC = 0;
-                GUIGlObject* pointedO = 0;
                 if (pointed_junction) {
                     pointedAC = pointed_junction;
-                    pointedO = pointed_junction;
                 } else if (pointed_lane) { // implies pointed_edge
                     if (mySelectEdges) {
                         pointedAC = pointed_edge;
-                        pointedO = pointed_edge;
                     } else {
                         pointedAC = pointed_lane;
-                        pointedO = pointed_lane;
                     }
                 } else if (pointed_edge) {
                     pointedAC = pointed_edge;
-                    pointedO = pointed_edge;
                 } else if (pointed_crossing) {
                     pointedAC = pointed_crossing;
-                    pointedO = pointed_crossing;
                 } else if (pointed_additional) {
                     pointedAC = pointed_additional;
-                    pointedO = pointed_additional;
                 } else if (pointed_connection) {
                     pointedAC = pointed_connection;
-                    pointedO = pointed_connection;
                 } else if (pointed_poly) {
                     pointedAC = pointed_poly;
-                    pointedO = pointed_poly;
                 } else if (pointed_poi) {
                     pointedAC = pointed_poi;
-                    pointedO = pointed_poi;
                 }
-                // obtain selected ACs
-                std::vector<GNEAttributeCarrier*> selectedElements;
-                std::vector<GNEAttributeCarrier*> selectedFilteredElements;
-                if (pointedO && gSelected.isSelected(pointedO->getType(), pointedO->getGlID())) {
-                    // retrieve selected Attribute Carriers
-                    selectedElements = myNet->retrieveAttributeCarriers(gSelected.getSelected(pointedO->getType()), pointedO->getType());
-                    // filter selected elements (example: if we have two E2 and one busStop selected, and user click over one E2,
-                    // attribues of busstop musn't be shown
-                    for (auto i : selectedElements) {
-                        if (i->getTag() == pointedAC->getTag()) {
-                            selectedFilteredElements.push_back(i);
-                        }
-                    }
-                }
-                // Inspect seleted ACs, or single clicked AC
-                if (selectedFilteredElements.size() > 0) {
-                    myViewParent->getInspectorFrame()->inspectMultisection(selectedFilteredElements);
-                } else if (pointedAC != NULL) {
+                // check if clicked AC is selected
+                GUIGlObjectType glType = pointedAC->getGUIGLObject()->getType();
+                if(std::find(myNet->getSelectedAttributeCarriers(glType).begin(), myNet->getSelectedAttributeCarriers(glType).end(), pointedAC) != myNet->getSelectedAttributeCarriers(glType).endl()) {
+                    myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(glType));
+
+                } else {
                     myViewParent->getInspectorFrame()->inspectElement(pointedAC);
+
                 }
                 // process click
                 processClick(e, eventData);
                 // focus upper element of inspector frame
-                if ((selectedFilteredElements.size() > 0) || (pointedAC != NULL)) {
+                if ((myNet->getSelectedAttributeCarriers(glType).size() > 0) || (pointedAC != NULL)) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
                 }
                 update();
@@ -1148,9 +1126,6 @@ GNEViewNet::abortOperation(bool clearSelection) {
         myCreateEdgeSource = 0;
     } else if (myEditMode == GNE_MODE_SELECT) {
         myAmInRectSelect = false;
-        if (clearSelection) {
-            gSelected.clear();
-        }
     } else if (myEditMode == GNE_MODE_CONNECT) {
         myViewParent->getConnectorFrame()->onCmdCancel(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {
@@ -1608,7 +1583,7 @@ long
 GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+        if (edge->isSelected()) {
             myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1629,7 +1604,7 @@ long
 GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+        if (edge->isSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1650,7 +1625,7 @@ long
 GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+        if (edge->isSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1671,7 +1646,7 @@ long
 GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (gSelected.isSelected(GLO_EDGE, edge->getGlID())) {
+        if (edge->isSelected()) {
             myUndoList->p_begin("smooth elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1845,7 +1820,7 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
-        if (gSelected.isSelected(GLO_LANE, lane->getGlID())) {
+        if (lane->isSelected()) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (auto it : lanes) {
@@ -2219,7 +2194,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         // check if we're handling a selection
-        if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
+        if (junction->isSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
             myUndoList->p_begin("clear connections of selected junctions");
             for (auto i : selectedJunction) {
@@ -2243,7 +2218,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         // check if we're handling a selection
-        if (gSelected.isSelected(GLO_JUNCTION, junction->getGlID())) {
+        if (junction->isSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
             myUndoList->p_begin("reset connections of selected junctions");
             for (auto i : selectedJunction) {
@@ -2632,7 +2607,7 @@ GNEViewNet::deleteSelectedCrossings() {
     std::vector<GNECrossing*> crossings;
     for (auto i : junctions) {
         for (auto j : i->getGNECrossings()) {
-            if (gSelected.isSelected(GLO_CROSSING, j->getGlID())) {
+            if (j->isSelected()) {
                 crossings.push_back(j);
             }
         }
@@ -2656,7 +2631,7 @@ GNEViewNet::deleteSelectedConnections() {
     std::vector<GNEConnection*> connections;
     for (auto i : edges) {
         for (auto j : i->getGNEConnections()) {
-            if (gSelected.isSelected(GLO_CONNECTION, j->getGlID())) {
+            if (j->isSelected()) {
                 connections.push_back(j);
             }
         }
