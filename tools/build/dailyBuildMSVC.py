@@ -12,7 +12,7 @@
 # @author  Jakob Erdmann
 # @author  Laura Bieker
 # @date    2008
-# @version $Id: dailyBuildMSVC.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 """
 Does the nightly git pull on the windows server and the visual
