@@ -258,10 +258,10 @@ MSNet::~MSNet() {
     delete myInserter;
     delete myLogics;
     delete myRouteLoaders;
-    if (myPersonControl != 0) {
+    if (myPersonControl != nullptr) {
         delete myPersonControl;
     }
-    if (myContainerControl != 0) {
+    if (myContainerControl != nullptr) {
         delete myContainerControl;
     }
     delete myVehicleControl; // must happen after deleting transportables
@@ -276,7 +276,7 @@ MSNet::~MSNet() {
     delete myEdgeWeights;
     delete myRouterTT;
     delete myRouterEffort;
-    if (myPedestrianRouter != 0) {
+    if (myPedestrianRouter != nullptr) {
         delete myPedestrianRouter;
     }
     myLanesRTree.second.RemoveAll();
@@ -284,8 +284,7 @@ MSNet::~MSNet() {
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
     }
-//    delete myPedestrianRouter;
-    myInstance = 0;
+    myInstance = nullptr;
 }
 
 
