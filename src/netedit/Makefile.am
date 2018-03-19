@@ -49,9 +49,9 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/tcpip/libtcpip.a \
 ../netedit/additionals/libneteditadditionals.a \
-../netedit/changes/libneteditchanges.a \
-../netedit/dialogs/libneteditdialogs.a \
 ../netedit/frames/libneteditframes.a \
+../netedit/dialogs/libneteditdialogs.a \
+../netedit/changes/libneteditchanges.a \
 ../netedit/netelements/libneteditnetelements.a \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
