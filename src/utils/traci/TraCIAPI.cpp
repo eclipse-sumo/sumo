@@ -3016,6 +3016,27 @@ TraCIAPI::PersonScope::setColor(const std::string& personID, const TraCIColor& c
     myParent.check_resultState(inMsg, CMD_SET_PERSON_VARIABLE);
 }
 
+std::string
+TraCIAPI::TraCIScopeWrapper::getParameter(const std::string& objectID, const std::string& key) const {
+    tcpip::Storage content;
+    content.writeByte(TYPE_STRING);
+    content.writeString(key);
+    return myParent.getString(myCmdGetID, VAR_PARAMETER, objectID, &content);
+}
+
+void
+TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std::string& key, const std::string& value) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(key);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(value);
+    myParent.send_commandSetValue(myCmdSetID, VAR_PARAMETER, objectID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, myCmdSetID);
+}
 
 /****************************************************************************/
 

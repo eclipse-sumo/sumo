@@ -789,6 +789,8 @@ TraCITestClient::testAPI() {
     vehicle.setMaxSpeed("0", 30);
     answerLog << "    getMaxSpeed: " << vehicle.getMaxSpeed("0") << "\n";
     answerLog << "    isRouteValid: " << vehicle.isRouteValid("0") << "\n";
+    vehicle.setParameter("0", "meaningOfLife", "42");
+    answerLog << "    param: " << vehicle.getParameter("0", "meaningOfLife") << "\n";
     TraCIColor col1;
     col1.r = 255;
     col1.g = 255;
@@ -845,6 +847,7 @@ TraCITestClient::testAPI() {
     // simulaton
     answerLog << "  simulation:\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
+    answerLog << "    parkingArea param: " << simulation.getParameter("park1", "parkingArea.capacity") << "\n";
     answerLog << "    subscribe to road and pos of vehicle '1':\n";
     std::vector<int> vars;
     vars.push_back(VAR_ROAD_ID);
@@ -883,6 +886,8 @@ TraCITestClient::testAPI() {
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p0") << "\n";
     answerLog << "    getVehicle: " << person.getVehicle("p0") << "\n";
     answerLog << "    getEdges: " << joinToString(person.getEdges("p0"), " ") << "\n";
+    person.setParameter("p0", "foo", "bar");
+    answerLog << "    param: " << person.getParameter("p0", "foo") << "\n";
     person.setSpeed("p0", 3);
     simulationStep();
     answerLog << "    getSpeed: " << person.getSpeed("p0") << "\n";

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Jan 30 14:43:26 2018
+TraCITestClient output file. Date: Mon Mar 19 21:26:23 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -52,6 +52,7 @@ testAPI:
     getVia: e_shape1
     getMaxSpeed: 30.00
     isRouteValid: 1
+    param: 42
     getColor:  r=255 g=255 b=0 a=128
     getNextTLS:
       tls=n_m4 tlIndex=4 dist=351.95 state=r
@@ -74,6 +75,7 @@ testAPI:
     getVehicleData:
   simulation:
     getCurrentTime: 7000
+    parkingArea param: 5
     subscribe to road and pos of vehicle '1':
     subscription results:
       roadID=e_u1 pos=7.38
@@ -91,6 +93,7 @@ testAPI:
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
+    param: bar
     getSpeed: 2.60
     getRemainingStages: 4
     getRemainingStages: 3
