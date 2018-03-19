@@ -12,7 +12,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalNetwork.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The Edge definition for the Intermodal Router
 /****************************************************************************/
@@ -205,16 +205,18 @@ public:
             // all sidewalks at a crossing are interconnected
             _IntermodalEdge* const toNodeConn = myWalkingConnectorLookup[edge->getToJunction()];
             if (toNodeConn != nullptr) {
-                pair.first->addSuccessor(toNodeConn);
+                if (!haveSeenWalkingArea) {
+                    // if we have walking areas we should use them and not the connector
+                    pair.first->addSuccessor(toNodeConn);
+                }
                 toNodeConn->addSuccessor(pair.second);
             }
             _IntermodalEdge* const fromNodeConn = myWalkingConnectorLookup[edge->getFromJunction()];
             if (fromNodeConn != nullptr) {
-                pair.second->addSuccessor(fromNodeConn);
+                if (!haveSeenWalkingArea) {
+                    pair.second->addSuccessor(fromNodeConn);
+                }
                 fromNodeConn->addSuccessor(pair.first);
-            }
-            if (edge->isWalkingArea()) {
-                continue;
             }
             // build connections from depart connector
             _IntermodalEdge* startConnector = getDepartConnector(edge);
