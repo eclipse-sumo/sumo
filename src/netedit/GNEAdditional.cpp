@@ -61,10 +61,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myAdditionalParent(NULL),
-    myBlockIconRotation(0),
-    myMovable(movable), 
-    myBlockMovement(blockMovement) {
+    myMovable(movable),
+    myBlockMovement(blockMovement),
+    myAdditionalParent(nullptr),
+    myBlockIconRotation(0.) {
 }
 
 
@@ -72,10 +72,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myAdditionalParent(additionalParent),
-    myBlockIconRotation(0),
     myMovable(movable),
-    myBlockMovement(blockMovement) {
+    myBlockMovement(blockMovement),
+    myAdditionalParent(additionalParent),
+    myBlockIconRotation(0.) {
 }
 
 
@@ -83,11 +83,11 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myAdditionalParent(NULL),
-    myEdgeChilds(edgeChilds),
-    myBlockIconRotation(0),
     myMovable(movable),
-    myBlockMovement(blockMovement) {
+    myBlockMovement(blockMovement),
+    myAdditionalParent(nullptr),
+    myEdgeChilds(edgeChilds),
+    myBlockIconRotation(0.) {
 }
 
 
@@ -95,11 +95,11 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     GUIGlObject(GLO_ADDITIONAL, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
-    myAdditionalParent(NULL),
-    myLaneChilds(laneChilds),
-    myBlockIconRotation(0),
     myMovable(movable),
-    myBlockMovement(blockMovement) {
+    myBlockMovement(blockMovement),
+    myAdditionalParent(nullptr),
+    myLaneChilds(laneChilds),
+    myBlockIconRotation(0.) {
 }
 
 
