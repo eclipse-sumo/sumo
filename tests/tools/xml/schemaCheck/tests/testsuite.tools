@@ -7,6 +7,9 @@ netconvert
 # Testing network files
 nets
 
+# Testing edge childs of multiple types
+ticket3917
+
 # Testing route files
 routes
 
