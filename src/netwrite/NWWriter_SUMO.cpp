@@ -387,8 +387,12 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     const double length = e.getFinalLength();
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
+        std::map<int,double> stopOffsets;
+        if (l.stopOffsets != e.getStopOffsets()){
+            stopOffsets = l.stopOffsets;
+        }
         writeLane(into, e.getLaneID(i), l.speed,
-                  l.permissions, l.preferred, l.endOffset, l.stopOffsets, l.width, l.shape, &l,
+                  l.permissions, l.preferred, l.endOffset, stopOffsets, l.width, l.shape, &l,
                   length, i, l.oppositeID, l.accelRamp, l.customShape.size() > 0);
     }
     // close the edge
@@ -845,6 +849,7 @@ NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermission
     if(stopOffsets.size() == 0) {
         return;
     }
+    assert(stopOffsets.size() == 1);
     std::pair<int,double> offset = *stopOffsets.begin();
     std::string ss_vclasses = getVehicleClassNames(offset.first);
     if (ss_vclasses.length() == 0) {
