@@ -667,6 +667,30 @@ NIXMLEdgesHandler::myEndElement(int element) {
                         }
                         pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
                     }
+                    //  if there are edges at this node which are not connected
+                    //  we can assume that this split was attached to an
+                    //  existing node. Reset all connections to let the default
+                    //  algorithm recompute them
+                    bool reset = false;
+                    EdgeSet untargeted(exp.node->getOutgoingEdges().begin(), exp.node->getOutgoingEdges().end());
+                    for (NBEdge* in : exp.node->getIncomingEdges()) {
+                        EdgeVector connected = in->getConnectedEdges();
+                        if (connected.size() == 0) {
+                            // found deadend edge
+                            reset = true;
+                            break;
+                        } else {
+                            for (NBEdge* out : connected) {
+                                untargeted.erase(out);
+                            }
+                        }
+                    }
+                    if (reset || untargeted.size() > 0) {
+                        for (NBEdge* in : exp.node->getIncomingEdges()) {
+                            in->invalidateConnections(true);
+                        }
+                    }
+
                     // move to next
                     e = ne;
                     currLanes = newLanes;
