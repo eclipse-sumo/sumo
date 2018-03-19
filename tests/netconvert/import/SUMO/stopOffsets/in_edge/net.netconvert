@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 13:44:48 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
+<!-- generated on Mon Mar 19 13:14:10 2018 by SUMO netconvert Version v0_32_0+0794-18a5b92
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -139,15 +139,9 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="1si" from="m1" to="0" priority="3">
         <stopOffset vClasses="all" value="5.00"/>
-        <lane id="1si_0" index="0" speed="50.00" length="237.15" shape="251.50,491.75 488.65,491.75">
-            <stopOffset vClasses="all" value="5.00"/>
-        </lane>
-        <lane id="1si_1" index="1" speed="50.00" length="237.15" shape="251.50,495.05 488.65,495.05">
-            <stopOffset vClasses="all" value="5.00"/>
-        </lane>
-        <lane id="1si_2" index="2" speed="50.00" length="237.15" shape="251.50,498.35 488.65,498.35">
-            <stopOffset vClasses="all" value="5.00"/>
-        </lane>
+        <lane id="1si_0" index="0" speed="50.00" length="237.15" shape="251.50,491.75 488.65,491.75"/>
+        <lane id="1si_1" index="1" speed="50.00" length="237.15" shape="251.50,495.05 488.65,495.05"/>
+        <lane id="1si_2" index="2" speed="50.00" length="237.15" shape="251.50,498.35 488.65,498.35"/>
     </edge>
     <edge id="2fi" from="2" to="m2" priority="2">
         <lane id="2fi_0" index="0" speed="40.00" length="248.50" shape="1000.00,504.95 751.50,504.95"/>
@@ -158,15 +152,9 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="2si" from="m2" to="0" priority="3">
         <stopOffset exceptions="bicycle" value="5.00"/>
-        <lane id="2si_0" index="0" speed="50.00" length="237.15" shape="748.50,508.25 511.35,508.25">
-            <stopOffset exceptions="bicycle" value="5.00"/>
-        </lane>
-        <lane id="2si_1" index="1" speed="50.00" length="237.15" shape="748.50,504.95 511.35,504.95">
-            <stopOffset exceptions="bicycle" value="5.00"/>
-        </lane>
-        <lane id="2si_2" index="2" speed="50.00" length="237.15" shape="748.50,501.65 511.35,501.65">
-            <stopOffset exceptions="bicycle" value="5.00"/>
-        </lane>
+        <lane id="2si_0" index="0" speed="50.00" length="237.15" shape="748.50,508.25 511.35,508.25"/>
+        <lane id="2si_1" index="1" speed="50.00" length="237.15" shape="748.50,504.95 511.35,504.95"/>
+        <lane id="2si_2" index="2" speed="50.00" length="237.15" shape="748.50,501.65 511.35,501.65"/>
     </edge>
     <edge id="3fi" from="3" to="m3" priority="2">
         <lane id="3fi_0" index="0" speed="40.00" length="248.50" shape="504.95,0.00 504.95,248.50"/>
@@ -177,15 +165,9 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="3si" from="m3" to="0" priority="3">
         <stopOffset vClasses="army moped bicycle" value="5.00"/>
-        <lane id="3si_0" index="0" speed="50.00" length="237.15" shape="508.25,251.50 508.25,488.65">
-            <stopOffset vClasses="army moped bicycle" value="5.00"/>
-        </lane>
-        <lane id="3si_1" index="1" speed="50.00" length="237.15" shape="504.95,251.50 504.95,488.65">
-            <stopOffset vClasses="army moped bicycle" value="5.00"/>
-        </lane>
-        <lane id="3si_2" index="2" speed="50.00" length="237.15" shape="501.65,251.50 501.65,488.65">
-            <stopOffset vClasses="army moped bicycle" value="5.00"/>
-        </lane>
+        <lane id="3si_0" index="0" speed="50.00" length="237.15" shape="508.25,251.50 508.25,488.65"/>
+        <lane id="3si_1" index="1" speed="50.00" length="237.15" shape="504.95,251.50 504.95,488.65"/>
+        <lane id="3si_2" index="2" speed="50.00" length="237.15" shape="501.65,251.50 501.65,488.65"/>
     </edge>
     <edge id="4fi" from="4" to="m4" priority="2">
         <lane id="4fi_0" index="0" speed="40.00" length="248.50" shape="495.05,1000.00 495.05,751.50"/>
