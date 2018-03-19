@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 19 Mar 2018 08:17:32 AM CET by Netedit Version v0_32_0+0786-7f0e815
+<!-- generated on Mon 19 Mar 2018 08:46:50 AM CET by Netedit Version v0_32_0+0788-cde551b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -43,9 +43,13 @@
         <lane id="gneE0_0" index="0" speed="13.89" length="141.42" shape="-1.17,98.83 98.83,-1.17"/>
     </edge>
 
-    <junction id="A" type="dead_end" x="100.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="100.04,0.04 97.70,-2.30 99.96,-0.04"/>
+    <junction id="A" type="priority" x="100.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="100.04,0.04 97.70,-2.30 99.96,-0.04">
+        <request index="0" response="0" foes="0"/>
+    </junction>
     <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="-beg_0 -beg_1" intLanes="" shape="0.00,-0.05 0.00,6.55 0.00,0.05"/>
     <junction id="gneJ1" type="dead_end" x="200.00" y="0.00" incLanes="beg_0 beg_1" intLanes="" shape="200.00,0.05 200.00,-6.55 200.00,-0.05"/>
     <junction id="gneJ2" type="dead_end" x="0.00" y="100.00" incLanes="-gneE0_0" intLanes="" shape="-0.04,99.96 2.30,102.30 0.04,100.04"/>
+
+    <connection from="gneE0" to="-gneE0" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>
