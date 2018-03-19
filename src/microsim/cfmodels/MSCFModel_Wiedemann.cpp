@@ -138,7 +138,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
         }
     }
     // since we have hard constrainst on accel we may as well use them here
-    accel = MAX2(MIN2(accel, myAccel), -myDecel);
+    accel = MAX2(MIN2(accel, myAccel), -myEmergencyDecel);
     const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
     return vNew;
 }
@@ -187,7 +187,7 @@ MSCFModel_Wiedemann::emergency(double /* dv */, double /* dx */) const {
     */
 
     // emergency according to C.Werner
-    return -myDecel;
+    return -myEmergencyDecel;
 }
 
 
