@@ -160,7 +160,7 @@
     </xsd:complexType>
 
     <xsd:complexType name="stopOffsetType">
-        <xsd:attribute name="value" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="value" type="nonNegativeFloatType" use="required"/>
         <xsd:attribute name="vClasses" type="xsd:string" use="optional"/>
         <xsd:attribute name="exceptions" type="xsd:string" use="optional"/>
     </xsd:complexType>
@@ -197,6 +197,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="M"/>
                     <xsd:enumeration value="m"/>
+                    <xsd:enumeration value="O"/>
                     <xsd:enumeration value="o"/>
                     <xsd:enumeration value="="/>
                     <xsd:enumeration value="-"/>

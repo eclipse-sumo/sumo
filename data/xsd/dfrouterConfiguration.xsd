@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on Mon Mar 19 10:44:03 2018 by SUMO dfrouter Version v0_32_0+0012-0c5c31c131
+-->
+
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
@@ -27,6 +30,7 @@
 
     <xsd:complexType name="outputType">
         <xsd:all>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
