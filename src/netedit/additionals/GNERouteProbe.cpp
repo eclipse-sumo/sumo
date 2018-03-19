@@ -288,6 +288,8 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
             return toString(myFrequency);
         case SUMO_ATTR_BEGIN:
             return toString(myBegin);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -305,6 +307,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_BEGIN:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -330,6 +333,8 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -353,6 +358,9 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<double>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

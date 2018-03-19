@@ -164,6 +164,9 @@ protected:
     /// @brief list of Additional Childs of this NetElement
     std::vector<GNEAdditional*> myAdditionalChilds;
 
+    /// @brief boolean to check if netelement is selected
+    bool mySelected;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

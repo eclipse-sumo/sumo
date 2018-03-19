@@ -409,6 +409,8 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -428,6 +430,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_OUTPUT:
         case SUMO_ATTR_ROUTEPROBE:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -483,6 +486,8 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -521,6 +526,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROUTEPROBE:
             myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
+            break;
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

@@ -43,7 +43,8 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlock
     GNEAttributeCarrier(tag, icon),
     myNet(net),
     myBlockMovement(movementBlocked),
-    myBlockShape(shapeBlocked) {
+    myBlockShape(shapeBlocked),
+    mySelected(false) {
 }
 
 

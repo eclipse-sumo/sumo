@@ -567,6 +567,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departureVariation",     AGEN_ATTR_DEP_VARIATION },
 
     // netEdit
+    { "selected",   GNE_ATTR_SELECTED },
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },

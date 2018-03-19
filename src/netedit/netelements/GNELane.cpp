@@ -782,6 +782,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(edge->getLaneStruct(myIndex).customShape);
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -810,6 +812,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ACCELERATION:
         case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_INDEX:
+        case GNE_ATTR_SELECTED:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -846,6 +849,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_INDEX:
             return canParse<int>(value) && (parse<int>(value) == myIndex);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -900,6 +905,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setLaneShape(myIndex, GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true));
             break;
         }
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

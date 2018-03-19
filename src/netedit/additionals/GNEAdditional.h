@@ -269,9 +269,6 @@ private:
     bool myMovable;
 
 protected:
-    /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
-    bool myBlockMovement;
-
     /// @brief pointer to Addititional parent
     GNEAdditional* myAdditionalParent;
 
@@ -283,6 +280,12 @@ protected:
 
     /// @brief vector with the lane childs of this additional
     std::vector<GNELane*> myLaneChilds;
+
+    /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
+    bool myBlockMovement;
+
+    /// @brief boolean to check if additional element is selected
+    bool mySelected;
 
     /// @name members and functions relative to block icon
     /// @{

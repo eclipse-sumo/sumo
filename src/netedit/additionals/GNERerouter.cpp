@@ -321,6 +321,8 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return toString(myOff);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -341,6 +343,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_OFF:
         case GNE_ATTR_BLOCK_MOVEMENT:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -371,6 +374,8 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OFF:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
+            return canParse<bool>(value);
+        case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -414,6 +419,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

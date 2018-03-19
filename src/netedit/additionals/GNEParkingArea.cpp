@@ -216,68 +216,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && myName != "") {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.size / s.scale, s.addFullName.color, myBlockIconRotation);
     }
-
-
-
-
-
-
-
-
-
-    /**
-
-
-
-
-
-
-
-    // draw the area
-    glTranslated(0, 0, getType());
-    GLHelper::setColor(blue);
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
-    // draw details unless zoomed out to far
-    const double exaggeration = s.addSize.getExaggeration(s);
-    if (s.scale * exaggeration >= 1) {
-        // draw the lots
-        glTranslated(0, 0, .1);
-        GLHelper::setColor(blue);
-
-        // draw the lines
-        for (size_t i = 0; i != myLines.size(); ++i) {
-            // push a new matrix for every line
-            glPushMatrix();
-            // traslate and rotate
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(180, 1, 0, 0);
-            glRotated(mySignRot, 0, 0, 1);
-            // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
-            // pop matrix for every line
-            glPopMatrix();
-
-        }
-
-        // draw the sign
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        int noPoints = 9;
-        if (s.scale * exaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        }
-        glScaled(exaggeration, exaggeration, 1);
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-        glTranslated(0, 0, .1);
-        GLHelper::setColor(grey);
-        GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("P", Position(), .1, 1.6, blue, myBlockIconRotation);
-        }
-    }
-    glPopMatrix();
-    glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    */
 }
 
 
@@ -306,6 +244,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -337,6 +277,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
         case GNE_ATTR_BLOCK_MOVEMENT:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -384,6 +325,8 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -428,6 +371,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

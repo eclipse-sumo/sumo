@@ -224,6 +224,8 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -242,6 +244,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_PARENT:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -265,6 +268,8 @@ GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
             return (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, value) != NULL);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -290,6 +295,9 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARENT:
             changeAdditionalParent(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

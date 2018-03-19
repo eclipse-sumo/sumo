@@ -340,6 +340,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.speed);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -360,6 +362,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_VISIBILITY_DISTANCE:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_CUSTOMSHAPE:
+        case GNE_ATTR_SELECTED:
             // no special handling
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -431,6 +434,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
             return ok;
         }
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -466,6 +471,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getViewNet()->update();
             break;
         }
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

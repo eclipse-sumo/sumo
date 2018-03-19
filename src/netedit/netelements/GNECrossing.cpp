@@ -235,6 +235,8 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return toString(myCrossing->customTLIndex2);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(myCrossing->customShape);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -255,6 +257,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
         case SUMO_ATTR_CUSTOMSHAPE:
+        case GNE_ATTR_SELECTED:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         default:
@@ -285,6 +288,8 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);
             return ok;
         }
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -356,6 +361,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->refreshElement(this);
             break;
         }
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

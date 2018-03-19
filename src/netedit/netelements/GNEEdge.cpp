@@ -845,6 +845,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_BIDIR:
             return toString(myNBEdge.isBidiRail());
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -924,6 +926,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_MODIFICATION_STATUS:
         case GNE_ATTR_SHAPE_START:
         case GNE_ATTR_SHAPE_END:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         case SUMO_ATTR_NAME:
@@ -1025,11 +1028,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok;
             if (value != "") {
                 PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
-                if ((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[-1])) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return ((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[-1]));
             } else {
                 return true;
             }
@@ -1038,17 +1037,15 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             bool ok;
             if (value != "") {
                 PositionVector shapeStart = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, false);
-                if ((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[0])) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return ((shapeStart.size() == 1) && (shapeStart[0] != myNBEdge.getGeometry()[0]));
             } else {
                 return true;
             }
         }
         case GNE_ATTR_BIDIR:
             return false;
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1163,6 +1160,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

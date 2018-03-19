@@ -834,6 +834,8 @@ enum SumoXMLAttr {
 
     //@name Netedit Attributes (used as virtual property holders, must be in SumoXMLAttr)
     //@{
+    /// @brief element is selected
+    GNE_ATTR_SELECTED,
     /// @brief whether a feature has been loaded,guessed,modified or approved
     GNE_ATTR_MODIFICATION_STATUS,
     /// @brief first coordinate of edge shape

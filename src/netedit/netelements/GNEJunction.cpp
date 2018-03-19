@@ -813,6 +813,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
                 }
                 return toString(false);
             }
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -831,6 +833,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_TLTYPE:
+        case GNE_ATTR_SELECTED:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_KEEP_CLEAR:
@@ -943,6 +946,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return myNBNode.isTLControlled() && (value != "");
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1011,6 +1016,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBNode.setKeepClear(parse<bool>(value));
             break;
         }
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

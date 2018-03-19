@@ -160,6 +160,9 @@ protected:
     /// @brief flag for block shape
     bool myBlockShape;
 
+    /// @brief boolean to check if shape is selected
+    bool mySelected;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

@@ -246,6 +246,8 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
             return toString(myStartTime);
         case SUMO_ATTR_END:
             return toString(myEnd);
+        case GNE_ATTR_SELECTED:
+            return toString(mySelected);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -262,6 +264,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_STARTTIME:
         case SUMO_ATTR_END:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -283,26 +286,18 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_STARTTIME:
             if (canParse<double>(value) && (parse<double>(value) >= 0)) {
-                double startTime = parse<double>(value);
-                if (startTime <= myEnd) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (parse<double>(value) <= myEnd);
             } else {
                 return false;
             }
         case SUMO_ATTR_END:
             if (canParse<double>(value) && (parse<double>(value) >= 0)) {
-                double end = parse<double>(value);
-                if (myStartTime <= end) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (myStartTime <= parse<double>(value));
             } else {
                 return false;
             }
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -323,6 +318,9 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_END:
             myEnd = parse<double>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            mySelected = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
