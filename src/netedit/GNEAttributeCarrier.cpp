@@ -46,6 +46,7 @@ std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > GNEAtt
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
+std::vector<SumoXMLTag> GNEAttributeCarrier::mySelectTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
@@ -719,6 +720,36 @@ GNEAttributeCarrier::allowedShapeTags() {
         myAllowedShapeTags.push_back(SUMO_TAG_POILANE);
     }
     return myAllowedShapeTags;
+}
+
+
+bool 
+GNEAttributeCarrier::canBeSelected(SumoXMLTag tag) {
+    // define on first access
+    if (mySelectTags.empty()) {
+        mySelectTags.push_back(SUMO_TAG_EDGE);
+        mySelectTags.push_back(SUMO_TAG_JUNCTION);
+        mySelectTags.push_back(SUMO_TAG_LANE);
+        mySelectTags.push_back(SUMO_TAG_CONNECTION);
+        mySelectTags.push_back(SUMO_TAG_CROSSING);
+        mySelectTags.push_back(SUMO_TAG_BUS_STOP);
+        mySelectTags.push_back(SUMO_TAG_CONTAINER_STOP);
+        mySelectTags.push_back(SUMO_TAG_CHARGING_STATION);
+        mySelectTags.push_back(SUMO_TAG_PARKING_AREA);
+        mySelectTags.push_back(SUMO_TAG_PARKING_SPACE);
+        mySelectTags.push_back(SUMO_TAG_E1DETECTOR);
+        mySelectTags.push_back(SUMO_TAG_E2DETECTOR);
+        mySelectTags.push_back(SUMO_TAG_E3DETECTOR);
+        mySelectTags.push_back(SUMO_TAG_DET_ENTRY);
+        mySelectTags.push_back(SUMO_TAG_DET_EXIT);
+        mySelectTags.push_back(SUMO_TAG_REROUTER);
+        mySelectTags.push_back(SUMO_TAG_VSS);
+        mySelectTags.push_back(SUMO_TAG_CALIBRATOR);
+        mySelectTags.push_back(SUMO_TAG_LANECALIBRATOR);
+        mySelectTags.push_back(SUMO_TAG_ROUTEPROBE);
+        mySelectTags.push_back(SUMO_TAG_VAPORIZER);
+    }
+    return std::find(mySelectTags.begin(), mySelectTags.end(), tag) != mySelectTags.end();
 }
 
 
