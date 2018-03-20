@@ -718,7 +718,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
                 } else if (myObjectsUnderCursor.junction) {
-                    if (myObjectsUnderCursor.junction->isnetElementSelected()) {
+                    if (myObjectsUnderCursor.junction->isNetElementSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.junction, getPositionInformation());
                     } else {
                         myMovedItems.junctionToMove = myObjectsUnderCursor.junction;
@@ -726,7 +726,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.junction->getPositionInView();
                 } else if (myObjectsUnderCursor.edge) {
-                    if (myObjectsUnderCursor.edge->isnetElementSelected()) {
+                    if (myObjectsUnderCursor.edge->isNetElementSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
                     } else if(((FXEvent*)eventData)->state & SHIFTMASK) {
                         myObjectsUnderCursor.edge->editEndpoint(getPositionInformation(), myUndoList);
@@ -801,16 +801,37 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_SELECT:
                 if ((myObjectsUnderCursor.lane != NULL) && mySelectEdges) {
                     if (!myViewParent->getSelectorFrame()->locked(GLO_EDGE)) {
-                        if(myObjectsUnderCursor.edge->isnetElementSelected()) {
+                        if(myObjectsUnderCursor.edge->isNetElementSelected()) {
                             myObjectsUnderCursor.edge->unselectNetElement();
                         } else {
                             myObjectsUnderCursor.edge->selectNetElement();
                         }
                     }
                 } else if (myObjectsUnderCursor.attributeCarrier && !myViewParent->getSelectorFrame()->locked(myObjectsUnderCursor.attributeCarrier->getGUIGLObject()->getType()) && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
-                    myObjectsUnderCursor.attributeCarrier->toogleSelection();
+                    if(myObjectsUnderCursor.netElement) {
+                        // toogle netElement selection
+                        if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
+                            myObjectsUnderCursor.netElement->unselectNetElement();
+                        } else {
+                            myObjectsUnderCursor.netElement->selectNetElement();
+                        }
+                    } else if(myObjectsUnderCursor.additional) {
+                        // toogle additional selection
+                        if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
+                            myObjectsUnderCursor.additional->unselectAdditional();
+                        } else {
+                            myObjectsUnderCursor.additional->selectAdditional();
+                        }
+                    } else if (myObjectsUnderCursor.shape) {
+                        // toogle shape selection
+                        if(myObjectsUnderCursor.shape->isShapeSelected()) {
+                            myObjectsUnderCursor.shape->unselectShape();
+                        } else {
+                            myObjectsUnderCursor.shape->selectShape();
+                        }
+                    }
                 }
-
+                // check if a rect for selecting are being created
                 myAmInRectSelect = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
                 if (myAmInRectSelect) {
                     mySelCorner1 = getPositionInformation();
@@ -821,7 +842,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 }
                 update();
                 break;
-
             case GNE_MODE_CONNECT: {
                 if (myObjectsUnderCursor.lane) {
                     const bool mayPass = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
@@ -850,7 +870,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // process click
                     processClick(e, eventData);
                 }
-
                 break;
             }
             case GNE_MODE_CROSSING: {
@@ -1512,7 +1531,7 @@ long
 GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isnetElementSelected()) {
+        if (edge->isNetElementSelected()) {
             myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1533,7 +1552,7 @@ long
 GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isnetElementSelected()) {
+        if (edge->isNetElementSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1554,7 +1573,7 @@ long
 GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isnetElementSelected()) {
+        if (edge->isNetElementSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1575,7 +1594,7 @@ long
 GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isnetElementSelected()) {
+        if (edge->isNetElementSelected()) {
             myUndoList->p_begin("smooth elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1749,7 +1768,7 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
-        if (lane->isnetElementSelected()) {
+        if (lane->isNetElementSelected()) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (auto it : lanes) {
@@ -2123,7 +2142,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         // check if we're handling a selection
-        if (junction->isnetElementSelected()) {
+        if (junction->isNetElementSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
             myUndoList->p_begin("clear connections of selected junctions");
             for (auto i : selectedJunction) {
@@ -2147,7 +2166,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         // check if we're handling a selection
-        if (junction->isnetElementSelected()) {
+        if (junction->isNetElementSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
             myUndoList->p_begin("reset connections of selected junctions");
             for (auto i : selectedJunction) {
@@ -2536,7 +2555,7 @@ GNEViewNet::deleteSelectedCrossings() {
     std::vector<GNECrossing*> crossings;
     for (auto i : junctions) {
         for (auto j : i->getGNECrossings()) {
-            if (j->isnetElementSelected()) {
+            if (j->isNetElementSelected()) {
                 crossings.push_back(j);
             }
         }
@@ -2560,7 +2579,7 @@ GNEViewNet::deleteSelectedConnections() {
     std::vector<GNEConnection*> connections;
     for (auto i : edges) {
         for (auto j : i->getGNEConnections()) {
-            if (j->isnetElementSelected()) {
+            if (j->isNetElementSelected()) {
                 connections.push_back(j);
             }
         }
