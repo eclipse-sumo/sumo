@@ -920,13 +920,14 @@ MSVehicle::getPosition(const double offset) const {
         }
     }
     const bool changingLanes = getLaneChangeModel().isChangingLanes();
+    const double posLat = (MSNet::getInstance()->lefthand() ? 1 : -1) * getLateralPositionOnLane();
     if (offset == 0. && !changingLanes) {
         if (myCachedPosition == Position::INVALID) {
-            myCachedPosition = validatePosition(myLane->geometryPositionAtOffset(myState.myPos, -myState.myPosLat));
+            myCachedPosition = validatePosition(myLane->geometryPositionAtOffset(myState.myPos, posLat));
         }
         return myCachedPosition;
     }
-    Position result = validatePosition(myLane->geometryPositionAtOffset(getPositionOnLane() + offset, -getLateralPositionOnLane()), offset);
+    Position result = validatePosition(myLane->geometryPositionAtOffset(getPositionOnLane() + offset, posLat), offset);
     return result;
 }
 
