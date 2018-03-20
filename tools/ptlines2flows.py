@@ -239,7 +239,9 @@ def createRoutes(options, trpMap):
 def main(options):
     if options.seed:
         random.seed(options.seed)
+    sys.stderr.flush()
     trpMap = createTrips(options)
+    sys.stderr.flush()
     runSimulation(options)
     createRoutes(options, trpMap)
 
