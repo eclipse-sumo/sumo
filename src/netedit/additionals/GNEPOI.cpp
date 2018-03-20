@@ -253,7 +253,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(mySelected);
+            return toString(isShapeSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -415,7 +415,11 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            mySelected = parse<bool>(value);
+            if(value == "true") {
+                selectShape();
+            } else {
+                unselectShape();
+            }
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");

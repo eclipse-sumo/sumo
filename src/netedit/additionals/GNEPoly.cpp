@@ -278,7 +278,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         double distanceToShape = myShape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
-        if (mySelected) {
+        if (isShapeSelected()) {
             invertedColor = myNet->selectionColor.invertedColor();
             darkerColor = myNet->selectedLaneColor;
         } else {
@@ -564,7 +564,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myClosedShape);
         case GNE_ATTR_SELECTED:
-            return toString(mySelected);
+            return toString(isShapeSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -755,7 +755,11 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             break;
         case GNE_ATTR_SELECTED:
-            mySelected = parse<bool>(value);
+            if(value == "true") {
+                selectShape();
+            } else {
+                unselectShape();
+            }
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

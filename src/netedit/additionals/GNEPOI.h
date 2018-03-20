@@ -78,7 +78,7 @@ public:
     * @param[in] angle The rotation of the POI
     * @param[in] imgFile The raster image of the shape
     * @param[in] relativePath set image file as relative path
-    * @param[in] lane lane in which tis POILane is placed
+    * @param[in] lane lane in which this POILane is placed
     * @param[in] posOverLane Position over lane in which this POILane is placed
     * @param[in] posLat Lateral position over lane
     * @param[in] width The width of the POI image
