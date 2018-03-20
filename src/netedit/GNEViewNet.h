@@ -70,6 +70,7 @@ enum EditMode {
 // class declarations
 // ===========================================================================
 class GNENet;
+class GNENetElement;
 class GNEJunction;
 class GNEEdge;
 class GNELane;
@@ -77,6 +78,7 @@ class GNEConnection;
 class GNEViewParent;
 class GNEUndoList;
 class GNEAdditional;
+class GNEShape;
 class GNEPoly;
 class GNEPOI;
 class GNEFrame;
@@ -429,6 +431,67 @@ private:
         int movingIndexShape;
     };
 
+    /// @brief struct used to group all variables related with objects under cursor after a click over view
+    struct objectsUnderCursor {
+        /// @brief constructor
+        objectsUnderCursor(): 
+            glID(0),
+            glObject(NULL),
+            attributeCarrier(NULL),
+            netElement(NULL),
+            additional(NULL),
+            shape(NULL),
+            junction(NULL),
+            lane(NULL),
+            edge(NULL),
+            poi(NULL),
+            poly(NULL),
+            crossing(NULL),
+            connection(NULL) {}
+
+        /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
+        void updateObjectUnderCursor(GUIGlID glIDObject,  GNEPoly* editedPolyShape);
+
+        /// @brief GUI GL ID
+        GUIGlID glID;
+
+        /// @brief GUI GL object
+        GUIGlObject* glObject;
+
+        /// @brief attribute carrier
+        GNEAttributeCarrier* attributeCarrier;
+
+        /// @brief net element
+        GNENetElement* netElement;
+
+        /// @brief additional element
+        GNEAdditional* additional;
+
+        /// @brief shape element (Poly and POIs)
+        GNEShape* shape;
+
+        /// @brief junction
+        GNEJunction* junction;
+
+        /// @brief edge
+        GNEEdge* edge;
+
+        /// @brief lane
+        GNELane* lane;
+
+        /// @brief crossing
+        GNECrossing* crossing;
+
+        /// @brief connection
+        GNEConnection* connection;
+
+        /// @brief POI
+        GNEPOI* poi;
+
+        /// @brief Poly
+        GNEPoly* poly;
+    };
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
@@ -483,6 +546,9 @@ private:
     /// @brief apply movement to elevation
     FXMenuCheck* myMenuCheckMoveElevation;
     // @}
+
+    /// @brief variable use to save all pointers to objects under cursor after a click
+    objectsUnderCursor myObjectsUnderCursor;
 
     /// @brief variable use to save pointers to moved elements
     movedItems myMovedItems;
