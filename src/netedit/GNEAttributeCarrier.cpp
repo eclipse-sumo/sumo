@@ -226,6 +226,21 @@ GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
 }
 
 
+void 
+GNEAttributeCarrier::toogleSelection() {
+    if(canBeSelected(myTag)) {
+        // change select flag using setAttribute
+        if(getAttribute(GNE_ATTR_SELECTED) == "1") {
+            setAttribute(GNE_ATTR_SELECTED, "false");
+        } else {
+            setAttribute(GNE_ATTR_SELECTED, "true");
+        }
+    } else {
+        throw ProcessError("Element isn't selectable");
+    }
+}
+
+
 SumoXMLTag
 GNEAttributeCarrier::getTag() const {
     return myTag;

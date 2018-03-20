@@ -103,6 +103,11 @@ public:
     /// @brief method for getting the attribute in the context of object selection
     virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
+    /**@brief toogle selection without saving 
+     * @throw ProcessError if AC isn't selectable
+     */
+    void toogleSelection();
+
     /// @brief get XML Tag assigned to this object
     SumoXMLTag getTag() const;
 

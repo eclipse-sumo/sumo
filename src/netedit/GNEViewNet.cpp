@@ -843,14 +843,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myViewParent->getInspectorFrame()->inspectElement(pointed_AC);
 
                     }
-                    // process click
-                    processClick(e, eventData);
                     // focus upper element of inspector frame
-                    if ((myNet->getSelectedAttributeCarriers(glType).size() > 0) || (pointed_AC != NULL)) {
-                        myViewParent->getInspectorFrame()->focusUpperElement();
-                    }
-                    update();
+                    myViewParent->getInspectorFrame()->focusUpperElement();
                 }
+                // process click
+                processClick(e, eventData);
+                update();
                 break;
             }
             case GNE_MODE_SELECT:
@@ -862,8 +860,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             pointed_edge->selectNetElement();
                         }
                     }
-                } else if (pointed_AC && !myViewParent->getSelectorFrame()->locked(pointed_AC->getGUIGLObject()->getType())) {
-                    ;//gSelected.toggleSelection(pointed->getGlID());
+                } else if (pointed_AC && !myViewParent->getSelectorFrame()->locked(pointed_AC->getGUIGLObject()->getType()) && GNEAttributeCarrier::canBeSelected(pointed_AC->getTag())) {
+                    pointed_AC->toogleSelection();
                 }
 
                 myAmInRectSelect = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
