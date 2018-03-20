@@ -219,14 +219,16 @@ public:
                 }
                 fromNodeConn->addSuccessor(pair.first);
             }
-            // build connections from depart connector
-            _IntermodalEdge* startConnector = getDepartConnector(edge);
-            startConnector->addSuccessor(pair.first);
-            startConnector->addSuccessor(pair.second);
-            // build connections to arrival connector
-            _IntermodalEdge* endConnector = getArrivalConnector(edge);
-            pair.first->addSuccessor(endConnector);
-            pair.second->addSuccessor(endConnector);
+            if (!edge->isWalkingArea()) {
+                // build connections from depart connector
+                _IntermodalEdge* startConnector = getDepartConnector(edge);
+                startConnector->addSuccessor(pair.first);
+                startConnector->addSuccessor(pair.second);
+                // build connections to arrival connector
+                _IntermodalEdge* endConnector = getArrivalConnector(edge);
+                pair.first->addSuccessor(endConnector);
+                pair.second->addSuccessor(endConnector);
+            }
 #ifdef IntermodalRouter_DEBUG_NETWORK
             std::cout << "     " << startConnector->getID() << " -> " << pair.first->getID() << "\n";
             std::cout << "     " << startConnector->getID() << " -> " << pair.second->getID() << "\n";
