@@ -1136,26 +1136,88 @@ GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
 std::vector<GNEAttributeCarrier*>
 GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     std::vector<GNEAttributeCarrier*> result;
-    /**
-     myViewNet->getNet()->retrieveAttributeCarriers();
-    myViewNet->getNet()->retrieveJunctions();
-    myViewNet->getNet()->retrieveEdges();
-    myViewNet->getNet()->retrieveLanes();
-    myViewNet->getNet()->retrieveConnections();
-    myViewNet->getNet()->retrieveAdditionals();
-    myViewNet->getNet()->retrieveCrossings();
-    myViewNet->getNet()->getPolygons();
-    myViewNet->getNet()->getPOIs();
-
-    // iterate over GUIGLIdsd
-    for (auto it : ids) {
-        // obtain attribute carrier vinculated to GLID
-        GNEAttributeCarrier* ac = retrieveAttributeCarrier(it);
-        if (ac->getGUIGLObject()->getType() == type) {
-            result.push_back(ac);
+    if(type == SUMO_TAG_NOTHING) {
+        // return all elements
+        for (auto i : myJunctions) {
+            result.push_back(i.second);
+            for(auto j : i.second->getGNECrossings()) {
+                result.push_back(j);
+            }
+        }
+        for (auto i : myEdges) {
+            result.push_back(i.second);
+            for(auto j : i.second->getLanes()) {
+                result.push_back(j);
+            }
+            for(auto j : i.second->getGNEConnections()) {
+                result.push_back(j);
+            }
+        }
+        for (auto i : myAdditionals) {
+            result.push_back(i.second);
+        }
+        for (auto i : myPolygons) {
+            result.push_back(dynamic_cast<GNEPoly*>(i.second));
+        }
+        for (auto i : myPOIs) {
+            result.push_back(dynamic_cast<GNEPOI*>(i.second));
+        }
+    } else if (std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), type) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+        // only returns additionals of a certain type.
+        for (auto i : myAdditionals) {
+            if(i.first.second == type) {
+                result.push_back(i.second);
+            }
+        }
+    } else {
+        // return only a part of elements, depending of type
+        switch (type) {
+            case GLO_JUNCTION:
+                for (auto i : myJunctions) {
+                    result.push_back(i.second);
+                }
+                break;
+            case GLO_EDGE:
+                for (auto i : myEdges) {
+                    result.push_back(i.second);
+                }
+                break;
+            case GLO_LANE:
+                for (auto i : myEdges) {
+                    for(auto j : i.second->getLanes()) {
+                        result.push_back(j);
+                    }
+                }
+                break;
+            case GLO_CONNECTION:
+                for (auto i : myEdges) {
+                    for(auto j : i.second->getGNEConnections()) {
+                        result.push_back(j);
+                    }
+                }
+                break;
+            case GLO_CROSSING:
+                for (auto i : myJunctions) {
+                    for(auto j : i.second->getGNECrossings()) {
+                       result.push_back(j);
+                    }
+                }
+                break;
+            case GLO_POLYGON:
+                for (auto i : myPolygons) {
+                    result.push_back(dynamic_cast<GNEPoly*>(i.second));
+                }
+                break;
+            case GLO_POI:
+                for (auto i : myPOIs) {
+                    result.push_back(dynamic_cast<GNEPOI*>(i.second));
+                }
+                break;
+            default:
+                // return nothing
+                break;
         }
     }
-    */
     return result;
 }
 

@@ -396,9 +396,9 @@ public:
     GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true);
 
     /**@brief get the attribute carriers based on Type
-     * @param[in] type The GUI-type of the AC
+     * @param[in] type The GUI-type of the AC. SUMO_TAG_NOTHING returns all elements (Warning: bottleneck)
      */
-    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag type);
+    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag type = SUMO_TAG_NOTHING);
 
     /**@brief return all edges
      * @param[in] onlySelected Whether to return only selected edges
