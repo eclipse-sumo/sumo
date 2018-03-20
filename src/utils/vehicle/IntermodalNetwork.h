@@ -161,7 +161,7 @@ public:
         // build the connections
         for (const E* const edge : edges) {
             const L* const sidewalk = getSidewalk<E, L>(edge);
-            if (edge->isInternal() || sidewalk == 0) {
+            if (edge->isInternal() || sidewalk == nullptr) {
                 continue;
             }
             // find all incoming and outgoing lanes for the sidewalk and
@@ -201,8 +201,9 @@ public:
                     }
                 }
             }
-            // we may have a network without pedestrian structures or a car-only edge. Assume that
-            // all sidewalks at a crossing are interconnected
+            // We may have a network without pedestrian structures or a car-only edge.
+            // In the first case we assume that all sidewalks at a junction are interconnected,
+            // in the second we connect all car-only edges to all sidewalks.
             _IntermodalEdge* const toNodeConn = myWalkingConnectorLookup[edge->getToJunction()];
             if (toNodeConn != nullptr) {
                 if (!haveSeenWalkingArea) {
