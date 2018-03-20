@@ -8,7 +8,6 @@ GNEChange_Lane.cpp GNEChange_Lane.h \
 GNEChange_Connection.cpp GNEChange_Connection.h \
 GNEChange_Attribute.cpp GNEChange_Attribute.h \
 GNEChange_TLS.cpp GNEChange_TLS.h \
-GNEChange_Selection.cpp GNEChange_Selection.h \
 GNEChange_Additional.cpp GNEChange_Additional.h \
 GNEChange_RerouterItem.cpp GNEChange_RerouterItem.h \
 GNEChange_CalibratorItem.cpp GNEChange_CalibratorItem.h \

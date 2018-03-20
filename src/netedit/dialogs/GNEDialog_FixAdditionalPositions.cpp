@@ -35,7 +35,6 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/additionals/GNEDetectorE2.h>

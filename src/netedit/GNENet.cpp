@@ -62,7 +62,6 @@
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/frames/GNEAdditionalFrame.h>

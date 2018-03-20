@@ -36,9 +36,7 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
-#include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
-
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/GNEAttributeCarrier.h>

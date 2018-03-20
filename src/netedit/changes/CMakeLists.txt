@@ -15,8 +15,6 @@ set(netedit_changes_SRCS
    GNEChange_Attribute.cpp
    GNEChange_TLS.h
    GNEChange_TLS.cpp
-   GNEChange_Selection.h
-   GNEChange_Selection.cpp
    GNEChange_Additional.h
    GNEChange_Additional.cpp
    GNEChange_RerouterItem.h

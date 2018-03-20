@@ -38,7 +38,6 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <netedit/GNEAttributeCarrier.h>
-#include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>

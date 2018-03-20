@@ -48,7 +48,6 @@
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/GNEAttributeCarrier.h>
 
 #include "GNESelectorFrame.h"

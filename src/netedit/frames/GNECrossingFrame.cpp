@@ -34,7 +34,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <netedit/changes/GNEChange_Selection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
