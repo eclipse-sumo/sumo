@@ -423,7 +423,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry hints
     if (s.scale > 3.0) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        if (isnetElementSelected() && s.laneColorer.getActive() != 1) {
+        if (isNetElementSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
         }
@@ -845,7 +845,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BIDIR:
             return toString(myNBEdge.isBidiRail());
         case GNE_ATTR_SELECTED:
-            return toString(isnetElementSelected());
+            return toString(isNetElementSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

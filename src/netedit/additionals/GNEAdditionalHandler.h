@@ -549,7 +549,7 @@ public:
     /**@brief Builds a vaporizer (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-     * @param[in] edge edge in which tis vaporizer is placed
+     * @param[in] edge edge in which this vaporizer is placed
      * @param[in] startTime time in which this vaporizer start
      * @param[in] end time in which this vaporizer ends
      * @return true if was sucesfully created, false in other case

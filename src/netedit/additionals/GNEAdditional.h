@@ -182,12 +182,12 @@ public:
     /// @{
 
     /**@brief select additional
-     * @throw processError if viewnet in which tis additional is inserted is empty
+     * @throw processError if viewnet in which this additional is inserted is empty
      **/
     void selectAdditional();
 
     /**@brief unselect additional
-     * @throw processError if viewnet in which tis additional is inserted is empty
+     * @throw processError if viewnet in which this additional is inserted is empty
      **/
     void unselectAdditional();
 

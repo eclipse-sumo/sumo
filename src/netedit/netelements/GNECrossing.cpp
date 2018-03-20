@@ -117,7 +117,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // must draw on top of junction
             glTranslated(0, 0, GLO_JUNCTION + 0.1);
             // set color depending of selection and priority
-            if (isnetElementSelected()) {
+            if (isNetElementSelected()) {
                 glColor3d(0.118, 0.565, 1.000);
             } else if (!myCrossing->valid) {
                 glColor3d(1.0, 0.1, 0.1);
@@ -235,7 +235,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(myCrossing->customShape);
         case GNE_ATTR_SELECTED:
-            return toString(isnetElementSelected());
+            return toString(isNetElementSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

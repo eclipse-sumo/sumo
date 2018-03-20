@@ -100,17 +100,17 @@ public:
     /// @{
 
     /**@brief select netElement
-     * @throw processError if net in which tis additional is placed is empty
+     * @throw processError if net in which this additional is placed is empty
      **/
     void selectNetElement();
 
     /**@brief unselect netelement
-     * @throw processError if net in which tis additional is placed is empty
+     * @throw processError if net in which this additional is placed is empty
      **/
     void unselectNetElement();
 
     /// @brief check if additional is selected
-    bool isnetElementSelected() const;
+    bool isNetElementSelected() const;
 
      /// @}
 

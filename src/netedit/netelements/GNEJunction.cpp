@@ -211,7 +211,7 @@ void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     GLfloat color[4];
-    double exaggeration = isnetElementSelected() ? s.selectionScale : 1;
+    double exaggeration = isNetElementSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
     // push name
     glPushName(getGlID());
@@ -813,7 +813,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
                 return toString(false);
             }
         case GNE_ATTR_SELECTED:
-            return toString(isnetElementSelected());
+            return toString(isNetElementSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1038,7 +1038,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                 return 0;
             }
         case 1:
-            return isnetElementSelected();
+            return isNetElementSelected();
         case 2:
             switch (myNBNode.getType()) {
                 case NODETYPE_TRAFFIC_LIGHT:
@@ -1099,7 +1099,7 @@ void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors (unless the color scheme is based on selection)
-    if (isnetElementSelected() && s.junctionColorer.getActive() != 1) {
+    if (isNetElementSelected() && s.junctionColorer.getActive() != 1) {
         GLHelper::setColor(GNENet::selectionColor);
     }
     if (myAmCreateEdgeSource) {

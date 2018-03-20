@@ -146,7 +146,7 @@ GNENetElement::unselectNetElement() {
 
 
 bool 
-GNENetElement::isnetElementSelected() const {
+GNENetElement::isNetElementSelected() const {
     return mySelected;
 }
 
