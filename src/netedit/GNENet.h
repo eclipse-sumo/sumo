@@ -395,12 +395,10 @@ public:
     */
     GNEAttributeCarrier* retrieveAttributeCarrier(const GUIGlID id, bool failHard = true);
 
-    /**@brief get the attribute carriers based on GlIDs
-     * @param[in] ids The set of ids for which to retrive the ACs
-     * @param[in] type The GUI-type of the objects with the given ids.
-     * @throws InvalidArgument if any given id does not match the declared type
+    /**@brief get the attribute carriers based on Type
+     * @param[in] type The GUI-type of the AC
      */
-    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type);
+    std::vector<GNEAttributeCarrier*> retrieveAttributeCarriers(SumoXMLTag type);
 
     /**@brief return all edges
      * @param[in] onlySelected Whether to return only selected edges
@@ -471,7 +469,7 @@ public:
     std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers() const;
 
     /// @brief get selected attribute carriers by GLType
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type) const;
+    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
 
     /// @brief select attribute carrier
     void selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier);

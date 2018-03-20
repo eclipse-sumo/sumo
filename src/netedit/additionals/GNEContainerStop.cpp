@@ -257,7 +257,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(mySelected);
+            return toString(isAdditionalSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -359,7 +359,11 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            mySelected = parse<bool>(value);
+            if(value == "true") {
+                selectAdditional();
+            } else {
+                unselectAdditional();
+            }
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

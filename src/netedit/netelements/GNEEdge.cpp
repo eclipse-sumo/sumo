@@ -423,7 +423,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry hints
     if (s.scale > 3.0) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        if (mySelected && s.laneColorer.getActive() != 1) {
+        if (isnetElementSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
         }
@@ -845,7 +845,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BIDIR:
             return toString(myNBEdge.isBidiRail());
         case GNE_ATTR_SELECTED:
-            return toString(mySelected);
+            return toString(isnetElementSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1160,7 +1160,11 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case GNE_ATTR_SELECTED:
-            mySelected = parse<bool>(value);
+            if(value == "true") {
+                selectNetElement();
+            } else {
+                unselectNetElement();
+            }
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1292,7 +1296,7 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         myGNEConnections.back()->incRef("GNEEdge::addConnection");
         // select GNEConnection if needed
         if (selectAfterCreation) {
-            gSelected.deselect(con->getGlID());
+            con->selectNetElement();
         }
         // update geometry
         con->updateGeometry();

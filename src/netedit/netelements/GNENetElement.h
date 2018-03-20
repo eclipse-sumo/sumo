@@ -78,9 +78,6 @@ public:
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
-    /// @brief check if netElement is selected
-    bool isSelected() const;
-
     /// @brief add additional child to this edge
     void addAdditionalParent(GNEAdditional* additional);
 
@@ -98,6 +95,24 @@ public:
 
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+
+    /// @name members and functions relative to select and unselect additionals
+    /// @{
+
+    /**@brief select netElement
+     * @throw processError if net in which tis additional is placed is empty
+     **/
+    void selectNetElement();
+
+    /**@brief unselect netelement
+     * @throw processError if net in which tis additional is placed is empty
+     **/
+    void unselectNetElement();
+
+    /// @brief check if additional is selected
+    bool isnetElementSelected() const;
+
+     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -167,12 +182,12 @@ protected:
     /// @brief list of Additional Childs of this NetElement
     std::vector<GNEAdditional*> myAdditionalChilds;
 
-    /// @brief boolean to check if netelement is selected
-    bool mySelected;
-
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief boolean to check if netElement is selected
+    bool mySelected;
 
     /// @brief Invalidated copy constructor.
     GNENetElement(const GNENetElement&) = delete;

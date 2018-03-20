@@ -35,6 +35,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
@@ -278,7 +279,11 @@ GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
         // @todo maybe rewrite so that mySetOperation also applies to loaded items?
         std::string errors;
         std::set<GUIGlID> ids = gSelected.loadIDs(file, errors);
-        handleIDs(std::vector<GUIGlID>(ids.begin(), ids.end()), false);
+        std::vector<GNEAttributeCarrier*> ACs;
+        for(auto i : ids) {
+            ACs.push_back(myViewNet->getNet()->retrieveAttributeCarrier(i, false));
+        }
+        handleIDs(ACs, false);
         if (errors != "") {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -325,7 +330,11 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
     myViewNet->getUndoList()->p_begin("clear selection");
-    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
+    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    for (auto i : selectedAC) {
+        ;
+    }
+
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
     return 1;
@@ -363,11 +372,11 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     }
     // select polygons
     for (auto i : myViewNet->getNet()->getPolygons()) {
-        dynamic_cast<GNEPoly*>(i)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+        dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
     }
     // select POIs
     for (auto i : myViewNet->getNet()->getPOIs()) {
-        dynamic_cast<GNEPOI*>(i)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+        dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
     }
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
@@ -642,17 +651,18 @@ GNESelectorFrame::selectionUpdated() {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, SetOperation setop) {
+GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, SetOperation setop) {
     const SetOperation setOperation = (setop == SET_DEFAULT ? (SetOperation)mySetOperation : setop);
     std::set<GUIGlID> previousSelection;
     myViewNet->getUndoList()->p_begin("change selection");
     if (setOperation == SET_REPLACE) {
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
+        ;//myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
     } else if (setOperation == SET_RESTRICT) {
-        previousSelection = myViewNet->getNet()->getSelectedAttributeCarriers(); // have to make a copy
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
+        ;//previousSelection = myViewNet->getNet()->getSelectedAttributeCarriers(); // have to make a copy
+        ;//myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
     }
     // handle ids
+    /**
     GUIGlObject* object;
     GUIGlObjectType type;
     std::set<GUIGlID> idsSet(ids.begin(), ids.end());
@@ -709,74 +719,69 @@ GNESelectorFrame::handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, S
             }
         }
     }
+
     myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), selected, deselected, true), true);
     myViewNet->getUndoList()->p_end();
+    */
     myViewNet->update();
 }
 
 
-std::vector<GUIGlID>
+std::vector<GNEAttributeCarrier*>
 GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
-    GNEAttributeCarrier* ac;
-    std::vector<GUIGlID> result;
-    const std::set<GUIGlID> allIDs = myViewNet->getNet()->getGlIDs();
+    std::vector<GNEAttributeCarrier*> result;
+    std::vector<GNEAttributeCarrier*> allACbyTag = myViewNet->getNet()->retrieveAttributeCarriers(ACTag);
     const bool numerical = GNEAttributeCarrier::isNumerical(ACTag, ACAttr);
-    for (auto it : allIDs) {
-        // retrieve Attribute Carrier related to GLID
-        ac = myViewNet->getNet()->retrieveAttributeCarrier(it);
-        // not all objects need to be attribute carriers
-        if (ac->getTag() == ACTag) {
-            if (expr == "") {
-                result.push_back(it);
-            } else if (numerical) {
-                double acVal;
-                std::istringstream buf(ac->getAttribute(ACAttr));
-                buf >> acVal;
-                switch (compOp) {
-                    case '<':
-                        if (acVal < val) {
-                            result.push_back(it);
-                        }
-                        break;
-                    case '>':
-                        if (acVal > val) {
-                            result.push_back(it);
-                        }
-                        break;
-                    case '=':
-                        if (acVal == val) {
-                            result.push_back(it);
-                        }
-                        break;
-                }
-            } else {
-                // string match
-                std::string acVal = ac->getAttributeForSelection(ACAttr);
-                switch (compOp) {
-                    case '@':
-                        if (acVal.find(expr) != std::string::npos) {
-                            result.push_back(it);
-                        }
-                        break;
-                    case '!':
-                        if (acVal.find(expr) == std::string::npos) {
-                            result.push_back(it);
-                        }
-                        break;
-                    case '=':
-                        if (acVal == expr) {
-                            result.push_back(it);
-                        }
-                        break;
-                    case '^':
-                        if (acVal != expr) {
-                            result.push_back(it);
-                        }
-                        break;
-                }
+    for (auto it : allACbyTag) {
+        if (expr == "") {
+            result.push_back(it);
+        } else if (numerical) {
+            double acVal;
+            std::istringstream buf(it->getAttribute(ACAttr));
+            buf >> acVal;
+            switch (compOp) {
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(it);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(it);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(it);
+                    }
+                    break;
+            }
+        } else {
+            // string match
+            std::string acVal = it->getAttributeForSelection(ACAttr);
+            switch (compOp) {
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(it);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(it);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(it);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(it);
+                    }
+                    break;
             }
         }
-        GUIGlObjectStorage::gIDStorage.unblockObject(it);
     }
     return result;
 }

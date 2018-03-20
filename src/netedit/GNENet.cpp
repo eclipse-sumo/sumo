@@ -560,7 +560,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     NBConnection deleted = connection->getNBConnection();
     GNEJunction* junctionDestiny = connection->getEdgeFrom()->getGNEJunctionDestiny();
     junctionDestiny->markAsModified(undoList);
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isSelected(), false), true);
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isnetElementSelected(), false), true);
     junctionDestiny->invalidateTLS(undoList, deleted);
     // remove connection requieres always a recompute (due geometry and connections)
     requireRecompute();
@@ -1135,8 +1135,19 @@ GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
 
 
 std::vector<GNEAttributeCarrier*>
-GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType type) {
+GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     std::vector<GNEAttributeCarrier*> result;
+    /**
+     myViewNet->getNet()->retrieveAttributeCarriers();
+    myViewNet->getNet()->retrieveJunctions();
+    myViewNet->getNet()->retrieveEdges();
+    myViewNet->getNet()->retrieveLanes();
+    myViewNet->getNet()->retrieveConnections();
+    myViewNet->getNet()->retrieveAdditionals();
+    myViewNet->getNet()->retrieveCrossings();
+    myViewNet->getNet()->getPolygons();
+    myViewNet->getNet()->getPOIs();
+
     // iterate over GUIGLIdsd
     for (auto it : ids) {
         // obtain attribute carrier vinculated to GLID
@@ -1145,6 +1156,7 @@ GNENet::retrieveAttributeCarriers(const std::set<GUIGlID>& ids, GUIGlObjectType 
             result.push_back(ac);
         }
     }
+    */
     return result;
 }
 
@@ -1539,8 +1551,8 @@ GNENet::getSelectedAttributeCarriers() const {
 
 
 const std::vector<GNEAttributeCarrier*> &
-GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) const {
-    return mySelectedAttributeCarriers.at(type);
+GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
+    return mySelectedAttributeCarriers[type];
 }
 
 
@@ -1566,7 +1578,7 @@ GNENet::unselectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
     } else {
         GUIGlObjectType glType = attributeCarrier->getGUIGLObject()->getType();
         std::vector<GNEAttributeCarrier*>::iterator it = std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier);
-        if(it == mySelectedAttributeCarriers[glType].end()) {
+        if(it != mySelectedAttributeCarriers[glType].end()) {
             mySelectedAttributeCarriers[glType].erase(it);
         } else {
             throw ProcessError("AttributeCarrier isn't selected");

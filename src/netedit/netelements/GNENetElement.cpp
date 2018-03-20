@@ -44,18 +44,16 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
 }
 
 
-GNENetElement::~GNENetElement() {}
+GNENetElement::~GNENetElement() {
+    if(mySelected) {
+        unselectNetElement();
+    }
+}
 
 
 GNENet*
 GNENetElement::getNet() const {
     return myNet;
-}
-
-
-bool 
-GNENetElement::isSelected() const {
-    return mySelected;
 }
 
 
@@ -122,6 +120,34 @@ GNENetElement::getAdditionalParents() const {
 const std::vector<GNEAdditional*>&
 GNENetElement::getAdditionalChilds() const {
     return myAdditionalChilds;
+}
+
+
+void 
+GNENetElement::selectNetElement() {
+    if(myNet) {
+        myNet->selectAttributeCarrier(this);
+        mySelected = true;
+    } else {
+        throw ProcessError("Net cannot be NULL");
+    }
+}
+
+
+void 
+GNENetElement::unselectNetElement() {
+    if(myNet) {
+        myNet->unselectAttributeCarrier(this);
+        mySelected = false;
+    } else {
+        throw ProcessError("Net cannot be NULL");
+    }
+}
+
+
+bool 
+GNENetElement::isnetElementSelected() const {
+    return mySelected;
 }
 
 

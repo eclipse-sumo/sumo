@@ -211,7 +211,7 @@ void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     GLfloat color[4];
-    double exaggeration = mySelected ? s.selectionScale : 1;
+    double exaggeration = isnetElementSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
     // push name
     glPushName(getGlID());
@@ -813,7 +813,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
                 return toString(false);
             }
         case GNE_ATTR_SELECTED:
-            return toString(mySelected);
+            return toString(isnetElementSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1016,7 +1016,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SELECTED:
-            mySelected = parse<bool>(value);
+            if(value == "true") {
+                selectNetElement();
+            } else {
+                unselectNetElement();
+            }
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1034,7 +1038,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                 return 0;
             }
         case 1:
-            return mySelected;
+            return isnetElementSelected();
         case 2:
             switch (myNBNode.getType()) {
                 case NODETYPE_TRAFFIC_LIGHT:
@@ -1095,7 +1099,7 @@ void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors (unless the color scheme is based on selection)
-    if (mySelected && s.junctionColorer.getActive() != 1) {
+    if (isnetElementSelected() && s.junctionColorer.getActive() != 1) {
         GLHelper::setColor(GNENet::selectionColor);
     }
     if (myAmCreateEdgeSource) {

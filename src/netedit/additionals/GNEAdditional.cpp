@@ -63,7 +63,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
-    myBlockIconRotation(0.) {
+    myBlockIconRotation(0.),
+    mySelected(false) {
 }
 
 
@@ -74,7 +75,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(additionalParent),
-    myBlockIconRotation(0.) {
+    myBlockIconRotation(0.),
+    mySelected(false) {
 }
 
 
@@ -86,7 +88,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myEdgeChilds(edgeChilds),
-    myBlockIconRotation(0.) {
+    myBlockIconRotation(0.),
+    mySelected(false) {
 }
 
 
@@ -98,11 +101,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myLaneChilds(laneChilds),
-    myBlockIconRotation(0.) {
+    myBlockIconRotation(0.),
+    mySelected(false) {
 }
 
 
-GNEAdditional::~GNEAdditional() {}
+GNEAdditional::~GNEAdditional() {
+    if(mySelected) {
+        unselectAdditional();
+    }
+}
 
 
 void
@@ -117,12 +125,6 @@ GNEAdditional::getViewNet() const {
 }
 
 
-bool 
-GNEAdditional::isSelected() const {
-    return mySelected;
-}
-
-
 PositionVector
 GNEAdditional::getShape() const {
     return myShape;
@@ -132,12 +134,6 @@ GNEAdditional::getShape() const {
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;
-}
-
-
-bool
-GNEAdditional::isAdditionalSelected() const {
-    return mySelected;
 }
 
 
@@ -240,6 +236,34 @@ GNEAdditional::removeLaneChild(GNELane* lane) {
 const std::vector<GNELane*>&
 GNEAdditional::getLaneChilds() const {
     return myLaneChilds;
+}
+
+
+void 
+GNEAdditional::selectAdditional() {
+    if(myViewNet) {
+        myViewNet->getNet()->selectAttributeCarrier(this);
+        mySelected = true;
+    } else {
+        throw ProcessError("Viewnet cannot be NULL");
+    }
+}
+
+
+void 
+GNEAdditional::unselectAdditional() {
+    if(myViewNet) {
+        myViewNet->getNet()->unselectAttributeCarrier(this);
+        mySelected = false;
+    } else {
+        throw ProcessError("Viewnet cannot be NULL");
+    }
+}
+
+
+bool 
+GNEAdditional::isAdditionalSelected() const {
+    return mySelected;
 }
 
 

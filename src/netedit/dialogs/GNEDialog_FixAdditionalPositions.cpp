@@ -285,19 +285,10 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
     } else if (myOptionD->getCheck() == TRUE) {
         std::set<GUIGlID> GLIDsToSelect;
         myViewNet->getUndoList()->p_begin("select invalid additionals");
-        // clear previous selection
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), gSelected.getSelected(), true), true);
-        // iterate over invalid stopping places to select it
-        for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
-            GLIDsToSelect.insert((*i)->getGlID());
+         for (auto i : myInvalidStoppingPlaces) {
+            i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
         }
-        // iterate over invalid detectors to enable to select it
-        for (auto i = myInvalidDetectors.begin(); i != myInvalidDetectors.end(); i++) {
-            GLIDsToSelect.insert((*i)->getGlID());
-        }
-        myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), GLIDsToSelect, std::set<GUIGlID>(), true), true);
         myViewNet->getUndoList()->p_end();
-        myViewNet->update();
         // stop modal with FALSE (abort saving)
         getApp()->stopModal(this, FALSE);
         return 0;

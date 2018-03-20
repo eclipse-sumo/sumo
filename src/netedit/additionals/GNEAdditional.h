@@ -137,22 +137,16 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
     GNEViewNet* getViewNet() const;
 
-    /// @brief check if additional is selected
-    bool isSelected() const;
-
     /// @brief Returns additional element's shape
     PositionVector getShape() const;
 
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
 
-    // @brief Check if additional item is selected
-    bool isAdditionalSelected() const;
-
     // @brief get additional parent
     GNEAdditional* getAdditionalParent() const;
 
-    /// @name members and functions relative to  childs of this additional
+    /// @name members and functions relative to additional's childs 
     /// @{
 
     /// @brief add additional child to this additional
@@ -183,6 +177,24 @@ public:
     const std::vector<GNELane*>& getLaneChilds() const;
 
     /// @}
+
+    /// @name members and functions relative to select and unselect additionals
+    /// @{
+
+    /**@brief select additional
+     * @throw processError if viewnet in which tis additional is inserted is empty
+     **/
+    void selectAdditional();
+
+    /**@brief unselect additional
+     * @throw processError if viewnet in which tis additional is inserted is empty
+     **/
+    void unselectAdditional();
+
+    /// @brief check if additional is selected
+    bool isAdditionalSelected() const;
+
+     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -287,9 +299,6 @@ protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief boolean to check if additional element is selected
-    bool mySelected;
-
     /// @name members and functions relative to block icon
     /// @{
     /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
@@ -359,6 +368,9 @@ protected:
 private:
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
+
+    /// @brief boolean to check if additional element is selected
+    bool mySelected;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

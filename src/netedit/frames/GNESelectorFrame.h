@@ -131,7 +131,7 @@ public:
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
-    void handleIDs(std::vector<GUIGlID> ids, bool selectEdgesEnabled, SetOperation setop = SET_DEFAULT);
+    void handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, SetOperation setop = SET_DEFAULT);
 
     /// @brief called if currently registered for updates for changes of global selection
     void selectionUpdated();
@@ -189,12 +189,12 @@ private:
     std::map<GUIGlObjectType, ObjectTypeEntry> myTypeEntries;
 
 private:
-    /**@brief return  objects of the given type with matching attrs
+    /**@brief return ACs of the given type with matching attrs
      * @param[in] ACTag XML Tag of AttributeCarrier
      * @param[in] ACAttr XML Attribute of AttributeCarrier
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GUIGlID> getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr);
+    std::vector<GNEAttributeCarrier*> getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr);
 };
 
 
