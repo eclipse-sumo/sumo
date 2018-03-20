@@ -1564,7 +1564,7 @@ GNENet::selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
         if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
             mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
         } else {
-            throw ProcessError("AttributeCarrier isn't selected");
+            throw ProcessError("AttributeCarrier is already selected");
         }
     }
 }

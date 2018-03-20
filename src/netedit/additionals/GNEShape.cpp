@@ -70,23 +70,23 @@ GNEShape::isShapeBlocked() const {
 
 void 
 GNEShape::selectShape() {
-    if(myNet) {
+    if(!myNet) {
+        throw ProcessError("Net cannot be NULL");
+    } else if (!mySelected) {
         myNet->selectAttributeCarrier(this);
         mySelected = true;
-    } else {
-        throw ProcessError("Net cannot be NULL");
-    }
+    } 
 }
 
 
 void 
 GNEShape::unselectShape() {
-    if(myNet) {
+    if(!myNet) {
+        throw ProcessError("Net cannot be NULL");
+    } else if (mySelected) {
         myNet->unselectAttributeCarrier(this);
         mySelected = false;
-    } else {
-        throw ProcessError("Net cannot be NULL");
-    }
+    } 
 }
 
 

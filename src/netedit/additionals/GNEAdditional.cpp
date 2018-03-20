@@ -241,23 +241,23 @@ GNEAdditional::getLaneChilds() const {
 
 void 
 GNEAdditional::selectAdditional() {
-    if(myViewNet) {
+    if(!myViewNet) {
+        throw ProcessError("ViewNet cannot be NULL");
+    } else if (!mySelected) {
         myViewNet->getNet()->selectAttributeCarrier(this);
         mySelected = true;
-    } else {
-        throw ProcessError("Viewnet cannot be NULL");
-    }
+    } 
 }
 
 
 void 
 GNEAdditional::unselectAdditional() {
-    if(myViewNet) {
+    if(!myViewNet) {
+        throw ProcessError("ViewNet cannot be NULL");
+    } else if (mySelected) {
         myViewNet->getNet()->unselectAttributeCarrier(this);
         mySelected = false;
-    } else {
-        throw ProcessError("Viewnet cannot be NULL");
-    }
+    } 
 }
 
 

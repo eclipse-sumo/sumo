@@ -92,7 +92,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create combo box and labels for selected items
     FXGroupBox* mySelectedItemsComboBox = new FXGroupBox(myContentFrame, "Selected items", 0, GUIDesignGroupBoxFrame);
     FXMatrix* mSelectedItems = new FXMatrix(mySelectedItemsComboBox, 3, (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
+    // create typeEntries for the differet elements
     myTypeEntries[GLO_JUNCTION] = ObjectTypeEntry(mSelectedItems, "Junctions", "junction");
     myTypeEntries[GLO_EDGE] = ObjectTypeEntry(mSelectedItems, "Edges", "edge");
     myTypeEntries[GLO_LANE] = ObjectTypeEntry(mSelectedItems, "Lanes", "lane");
@@ -330,11 +330,12 @@ long
 GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
     myViewNet->getUndoList()->p_begin("clear selection");
     std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    // change attribute selected of all selected items
     for (auto i : selectedAC) {
-        ;
+        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
     }
-
     myViewNet->getUndoList()->p_end();
+    // update view
     myViewNet->update();
     return 1;
 }
@@ -343,7 +344,7 @@ GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
-    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
     // invert selection first cleaning current selection and next selecting elements of set "unselectedElements"
     myViewNet->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings
@@ -376,6 +377,10 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     // select POIs
     for (auto i : myViewNet->getNet()->getPOIs()) {
         dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+    }
+    // now iterate over all copy of selected ACs and undselect it 
+    for (auto i : copyOfSelectedAC) {
+        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
     }
     myViewNet->getUndoList()->p_end();
     myViewNet->update();
