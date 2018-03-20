@@ -556,11 +556,13 @@ MSTransportable::getBoundingBox() const {
     return result;
 }
 
+
 std::string 
 MSTransportable::getStageSummary(int stageIndex) const {
-    assert(stageIndex < myPlan->size());
+    assert(stageIndex < (int)myPlan->size());
     assert(stageIndex >= 0);
     return (*myPlan)[stageIndex]->getStageSummary();
 }
+
 
 /****************************************************************************/
