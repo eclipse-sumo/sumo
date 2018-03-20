@@ -226,21 +226,6 @@ GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
 }
 
 
-void 
-GNEAttributeCarrier::toogleSelection() {
-    if(canBeSelected(myTag)) {
-        // change select flag using setAttribute
-        if(getAttribute(GNE_ATTR_SELECTED) == "1") {
-            setAttribute(GNE_ATTR_SELECTED, "false");
-        } else {
-            setAttribute(GNE_ATTR_SELECTED, "true");
-        }
-    } else {
-        throw ProcessError("Element isn't selectable");
-    }
-}
-
-
 SumoXMLTag
 GNEAttributeCarrier::getTag() const {
     return myTag;
@@ -763,6 +748,9 @@ GNEAttributeCarrier::canBeSelected(SumoXMLTag tag) {
         mySelectTags.push_back(SUMO_TAG_LANECALIBRATOR);
         mySelectTags.push_back(SUMO_TAG_ROUTEPROBE);
         mySelectTags.push_back(SUMO_TAG_VAPORIZER);
+        mySelectTags.push_back(SUMO_TAG_POLY);
+        mySelectTags.push_back(SUMO_TAG_POI);
+        mySelectTags.push_back(SUMO_TAG_POILANE);
     }
     return std::find(mySelectTags.begin(), mySelectTags.end(), tag) != mySelectTags.end();
 }
