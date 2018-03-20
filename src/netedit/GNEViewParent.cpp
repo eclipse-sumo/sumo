@@ -55,6 +55,12 @@
 #include <netedit/frames/GNEDeleteFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEPoly.h>
 
 #include "GNENet.h"
 #include <netedit/netelements/GNEEdge.h>
@@ -62,12 +68,6 @@
 #include "GNEViewParent.h"
 #include "GNEUndoList.h"
 #include "GNEApplicationWindow.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
-#include "GNEAdditional.h"
-#include "GNEPOI.h"
-#include "GNEPoly.h"
 
 
 // ===========================================================================

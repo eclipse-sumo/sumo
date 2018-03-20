@@ -41,6 +41,9 @@
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNECrossing.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/GNEUndoList.h>
@@ -48,9 +51,6 @@
 #include <netedit/GNEAttributeCarrier.h>
 
 #include "GNESelectorFrame.h"
-#include "GNEConnection.h"
-#include "GNECrossing.h"
-#include "GNEAdditionals.h"
 
 
 // ===========================================================================
