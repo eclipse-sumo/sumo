@@ -927,9 +927,9 @@ optParser.add_option("-M", "--max-flow", type="int", dest="maxflow",
 optParser.add_option("--max-turn-flow", type="int", dest="maxturnflow",
                      help="limit the number of vehicles per turn-around connection and hour to this value")
 optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
-                     help="read edge and route restrictions from FILEs", metavar="FILE+")
+                     help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')", metavar="FILE+")
 optParser.add_option("-s", "--synthetic-flows", dest="syntheticflowfile",
-                     help="read artificial detector values from FILE", metavar="FILE")
+                     help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')", metavar="FILE")
 optParser.add_option("--timeline", default=("0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8," +
                                             "4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"),
                      help="use time line for artificial detector values")
