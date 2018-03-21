@@ -655,7 +655,7 @@ GNESelectorFrame::selectionUpdated() {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, SetOperation setop) {
+GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool /* selectEdgesEnabled */, SetOperation setop) {
     const SetOperation setOperation = (setop == SET_DEFAULT ? (SetOperation)mySetOperation : setop);
     std::set<GUIGlID> previousSelection;
     myViewNet->getUndoList()->p_begin("change selection");

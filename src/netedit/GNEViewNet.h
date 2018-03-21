@@ -380,14 +380,14 @@ protected:
 
 private:
     /// @brief struct used to group all pointers to moved elements
-    struct movedItems {
-        /// @brief constuctor
-        movedItems() :
-            junctionToMove(NULL),
-            edgeToMove(NULL),
-            polyToMove(NULL),
-            poiToMove(NULL),
-            additionalToMove(NULL) {}
+    struct MovedItems {
+        /// @brief constructor
+        MovedItems() :
+            junctionToMove(nullptr),
+            edgeToMove(nullptr),
+            polyToMove(nullptr),
+            poiToMove(nullptr),
+            additionalToMove(nullptr) {}
 
         /// @brief the Junction to be moved.
         GNEJunction* junctionToMove;
@@ -406,9 +406,9 @@ private:
     };
 
     /// @brief struct used to group all variables related with movement of single elements
-    struct moveSingleElementValues {
+    struct MoveSingleElementValues {
         /// @brief constructor
-        moveSingleElementValues() :
+        MoveSingleElementValues() :
             movingStartPos(false),
             movingEndPos(false),
             movingIndexShape(-1) {}
@@ -431,23 +431,24 @@ private:
         int movingIndexShape;
     };
 
-    /// @brief struct used to group all variables related with objects under cursor after a click over view
-    struct objectsUnderCursor {
+    /// @brief class used to group all variables related with objects under cursor after a click over view
+    class ObjectsUnderCursor {
+    public:
         /// @brief constructor
-        objectsUnderCursor(): 
+        ObjectsUnderCursor(): 
             glID(0),
-            glObject(NULL),
-            attributeCarrier(NULL),
-            netElement(NULL),
-            additional(NULL),
-            shape(NULL),
-            junction(NULL),
-            lane(NULL),
-            edge(NULL),
-            poi(NULL),
-            poly(NULL),
-            crossing(NULL),
-            connection(NULL) {}
+            glObject(nullptr),
+            attributeCarrier(nullptr),
+            netElement(nullptr),
+            additional(nullptr),
+            shape(nullptr),
+            junction(nullptr),
+            edge(nullptr),
+            lane(nullptr),
+            crossing(nullptr),
+            connection(nullptr),
+            poi(nullptr),
+            poly(nullptr) {}
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
         void updateObjectUnderCursor(GUIGlID glIDObject,  GNEPoly* editedPolyShape);
@@ -548,13 +549,13 @@ private:
     // @}
 
     /// @brief variable use to save all pointers to objects under cursor after a click
-    objectsUnderCursor myObjectsUnderCursor;
+    ObjectsUnderCursor myObjectsUnderCursor;
 
     /// @brief variable use to save pointers to moved elements
-    movedItems myMovedItems;
+    MovedItems myMovedItems;
 
     /// @brief variable used to save variables related with movement of single elements 
-    moveSingleElementValues myMoveSingleElementValues;
+    MoveSingleElementValues myMoveSingleElementValues;
 
     /// @brief whether a selection is being moved
     bool myMovingSelection;
@@ -566,14 +567,14 @@ private:
     /// @brief Selected Edges that are being moved < Edge, PositionVector >
     std::map<GNEEdge*, PositionVector> myOriginShapesMovedEntireShapes;
 
-    struct movingEdges {
+    struct MovingEdges{
         PositionVector originalShape;
         int index;
         Position originalPosition;
         bool inverted;
     };
 
-    std::map<GNEEdge*, movingEdges> myOriginShapesMovedPartialShapes;
+    std::map<GNEEdge*, MovingEdges> myOriginShapesMovedPartialShapes;
     // @}
 
     /// @name state-variables of inspect-mode and select-mode
@@ -740,4 +741,3 @@ private:
 #endif
 
 /****************************************************************************/
-

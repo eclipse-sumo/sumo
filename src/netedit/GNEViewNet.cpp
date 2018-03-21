@@ -359,7 +359,7 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 void
 GNEViewNet::startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill) {
-    if ((myEditShapePoly == NULL) && (element != NULL) && (shape.size() > 1)) {
+    if ((myEditShapePoly == nullptr) && (element != nullptr) && (shape.size() > 1)) {
         // save current edit mode before starting
         myPreviousEditMode = myEditMode;
         setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
@@ -770,8 +770,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != myObjectsUnderCursor.attributeCarrier) {
                             myViewParent->getDeleteFrame()->markAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
                         }
-                    } else if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != NULL) {
-                        myViewParent->getDeleteFrame()->markAttributeCarrier(NULL);
+                    } else if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != nullptr) {
+                        myViewParent->getDeleteFrame()->markAttributeCarrier(nullptr);
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
                     }
@@ -799,7 +799,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_SELECT:
-                if ((myObjectsUnderCursor.lane != NULL) && mySelectEdges) {
+                if ((myObjectsUnderCursor.lane != nullptr) && mySelectEdges) {
                     if (!myViewParent->getSelectorFrame()->locked(GLO_EDGE)) {
                         if(myObjectsUnderCursor.edge->isNetElementSelected()) {
                             myObjectsUnderCursor.edge->unselectNetElement();
@@ -873,7 +873,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_CROSSING: {
-                if (myObjectsUnderCursor.crossing == NULL) {
+                if (myObjectsUnderCursor.crossing == nullptr) {
                     if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor.netElement)) {
                         update();
                     }
@@ -883,7 +883,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_POLYGON: {
-                if (myObjectsUnderCursor.poi == NULL) {
+                if (myObjectsUnderCursor.poi == nullptr) {
                     GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor.lane);
                     // view net must be always update
                     update();
@@ -1068,7 +1068,7 @@ void
 GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields
     setFocus();
-    if (myCreateEdgeSource != NULL) {
+    if (myCreateEdgeSource != nullptr) {
         // remove current created edge source
         myCreateEdgeSource->unMarkAsCreateEdgeSource();
         myCreateEdgeSource = 0;
@@ -1142,7 +1142,7 @@ GNEViewNet::hotkeyEnter() {
 void
 GNEViewNet::hotkeyFocusFrame() {
     // if there is a visible frame, set focus over it. In other case, set focus over ViewNet
-    if (myCurrentFrame != NULL) {
+    if (myCurrentFrame != nullptr) {
         myCurrentFrame->focusUpperElement();
     } else {
         setFocus();
@@ -2270,7 +2270,7 @@ void
 GNEViewNet::setEditMode(EditMode mode) {
     if (mode == myEditMode) {
         setStatusBarText("Mode already selected");
-        if (myCurrentFrame != NULL) {
+        if (myCurrentFrame != nullptr) {
             myCurrentFrame->focusUpperElement();
         }
     } else if (myEditMode == GNE_MODE_TLS && !myViewParent->getTLSEditorFrame()->isTLSSaved()) {
@@ -2333,7 +2333,7 @@ GNEViewNet::buildEditModeControls() {
     myEditModePolygon = new MFXCheckableButton(false, myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
             GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
 
-    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, NULL, 0, GUIDesignToolbarGrip);
+    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, nullptr, 0, GUIDesignToolbarGrip);
 
     // initialize mode specific controls
     myChainCreateEdge = new FXMenuCheck(myToolbar, ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), this, 0);
@@ -2689,20 +2689,20 @@ GNEViewNet::updateControls() {
 }
 
 void 
-GNEViewNet::objectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape) {
+GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape) {
     // first reset all variables
-    glObject = NULL;
-    attributeCarrier = NULL;
-    netElement = NULL;
-    additional = NULL;
-    shape = NULL;
-    junction = NULL;
-    edge = NULL;
-    lane = NULL;
-    crossing = NULL;
-    connection = NULL;
-    poi = NULL;
-    poly = NULL;
+    glObject = nullptr;
+    attributeCarrier = nullptr;
+    netElement = nullptr;
+    additional = nullptr;
+    shape = nullptr;
+    junction = nullptr;
+    edge = nullptr;
+    lane = nullptr;
+    crossing = nullptr;
+    connection = nullptr;
+    poi = nullptr;
+    poly = nullptr;
     // set GLID of object under cursor
     glID = glIDObject;
     // only continue if isn't 0
@@ -2712,18 +2712,18 @@ GNEViewNet::objectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
     // obtain glObject associated to these glID
     glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
     GUIGlObjectStorage::gIDStorage.unblockObject(glID);
-    // only continue if glObject isn't NULL;
-    if(glObject == NULL) {
+    // only continue if glObject isn't nullptr;
+    if(glObject == nullptr) {
         return;
     }
     // cast attribute carrier from glObject
     attributeCarrier = dynamic_cast<GNEAttributeCarrier*>(glObject);
-    // only continue if attributeCarrier isn't NULL;
-    if(attributeCarrier == NULL) {
+    // only continue if attributeCarrier isn't nullptr;
+    if(attributeCarrier == nullptr) {
         return;
     }
     // If we're editing a shape, ignore rest of elements (including other polygons)
-    if (editedPolyShape != NULL) {
+    if (editedPolyShape != nullptr) {
         if (attributeCarrier == editedPolyShape) {
             // cast Poly from attribute carrier
             poly = dynamic_cast<GNEPoly*>(attributeCarrier);
