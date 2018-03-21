@@ -21,7 +21,7 @@ import de.tudresden.sumo.cmd.Vehicle;
 
 public class Main {
 
-	static String sumo_bin = "f:/Programme/sumo/sumo-svn/bin/sumo-gui.exe";
+	static String sumo_bin = "sumo-gui";
 	static String config_file = "simulation/config.sumo.cfg";
 	static double step_length = 0.01;		
 
@@ -32,7 +32,7 @@ public class Main {
 			
 			SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
 			conn.addOption("step-length", step_length+"");
-			conn.addOption("start", ""); //start sumo immediately
+			conn.addOption("start", "true"); //start sumo immediately
 		
 			//start Traci Server
 			conn.runServer();
