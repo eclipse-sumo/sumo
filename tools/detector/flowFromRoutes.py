@@ -26,6 +26,18 @@ from optparse import OptionParser
 import detector
 from detector import relError
 
+def make_geh(interval_minutes):
+    def geh(m,c):
+        # GEH expects hourly flow
+        m = m * 60 / interval_minutes
+        c = c * 60 / interval_minutes
+        """Error function for hourly traffic flow measures after Geoffrey E. Havers"""
+        if m+c == 0:
+            return 0
+        else:
+            return math.sqrt(2 * (m-c) * (m-c) / float(m+c))
+    return geh
+
 
 class LaneMap:
 
@@ -43,6 +55,8 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         self._parser.setContentHandler(self)
         self._begin = None
         self._end = None
+        self.minTime = 10e10
+        self.maxTime = 0
 
     def reset(self, start, end):
         self._routes = {}
@@ -63,10 +77,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if name == 'vehicle':
             if self._begin is None or float(attrs['depart']) >= self._begin:
                 self.addRouteFlow(attrs['route'], 1)
+                self.minTime = min(self.minTime, float(attrs['depart']))
+                self.maxTime = max(self.maxTime, float(attrs['depart']))
         if name == 'flow':
             if 'route' in attrs:
                 if self._begin is None or float(attrs['begin']) >= self._begin and float(attrs['end']) <= self._end:
                     self.addRouteFlow(attrs['route'], float(attrs['number']))
+                    self.minTime = min(self.minTime, float(attrs['begin']))
+                    self.maxTime = max(self.maxTime, float(attrs['end']))
         if name == 'routeDistribution':
             if 'routes' in attrs:
                 routes = attrs['routes'].split()
@@ -81,16 +99,24 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time",
                                              timeVal=self._begin / 60, timeMax=self._end / 60)
 
+    def getDataIntervalMinutes(self, fallback=3600):
+        interval = (self.maxTime - self.minTime) / 60
+        if interval == 0:
+            interval = fallback
+        return interval
+
     def clearFlows(self):
         self._detReader.clearFlows()
 
-    def calcStatistics(self):
+    def calcStatistics(self, interval):
         rSum = 0
         dSum = 0
         sumAbsDev = 0
         sumSquaredDev = 0
         sumSquaredPercent = 0
+        sumGEH = 0
         n = 0
+        geh = make_geh(interval)
         for edge, detData in self._detReader._edge2DetData.iteritems():
             rFlow = self._edgeFlow.get(edge, 0)
             for group in detData:
@@ -104,20 +130,31 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                         sumSquaredDev += dev * dev
                         if dFlow > 0:
                             sumSquaredPercent += dev * dev / dFlow / dFlow
+                        sumGEH += geh(rFlow, dFlow)
                         n += 1
         if self._begin is not None:
             print('# interval', self._begin)
-        print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE')
+        print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE GEH')
         if n == 0:
             # avoid division by zero
             n = -1
-        print('#', rSum / n, dSum / n, sumAbsDev / n,
-              math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n))
+        print('#', rSum / n, 
+                dSum / n, 
+                sumAbsDev / n,
+                math.sqrt(sumSquaredDev / n), 
+                math.sqrt(sumSquaredPercent / n),
+                sumGEH / n)
 
-    def printFlows(self, includeDets):
+    def printFlows(self, includeDets, useGEH, interval):
         edgeIDCol = "edge " if options.edgenames else ""
+        measureCol = "ratio"
+        measure = relError
+        if useGEH:
+            measureCol = "GEH"
+            measure = make_geh(interval)
+
         if includeDets:
-            print('# detNames %sRouteFlow DetFlow ratio' % edgeIDCol)
+            print('# detNames %sRouteFlow DetFlow %s' % (edgeIDCol, measureCol))
         else:
             print('# detNames %sRouteFlow' % edgeIDCol)
         output = []
@@ -141,9 +178,9 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             for group, edge, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
                     if options.edgenames:
-                        print(group, edge, rflow, dflow, relError(rflow, dflow))
+                        print(group, edge, rflow, dflow, measure(rflow, dflow))
                     else:
-                        print(group, rflow, dflow, relError(rflow, dflow))
+                        print(group, rflow, dflow, measure(rflow, dflow))
         else:
             for group, edge, flow in sorted(output):
                 if options.edgenames:
@@ -174,6 +211,8 @@ optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                      default=False, help="include detector group edge name in output")
 optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
 optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
+optParser.add_option("--geh", action="store_true", dest="geh",
+                     default=False, help="compare flows using GEH measure")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
@@ -205,9 +244,9 @@ if options.interval:
                 print("Reading flows")
             haveFlows = reader.readDetFlows(options.flowfile, options.flowcol)
         if haveFlows:
-            reader.printFlows(bool(options.flowfile))
+            reader.printFlows(bool(options.flowfile), options.geh, options.interval)
             if options.flowfile:
-                reader.calcStatistics()
+                reader.calcStatistics(options.interval)
             reader.clearFlows()
         start += options.interval
 else:
@@ -221,6 +260,10 @@ else:
         if options.verbose:
             print("Reading flows")
         reader.readDetFlows(options.flowfile, options.flowcol)
-    reader.printFlows(bool(options.flowfile))
+    fallbackInterval = 3600
+    if options.begin and options.end:
+        fallbackInterval = options.end - options.begin
+    dataInterval = reader.getDataIntervalMinutes(fallbackInterval)
+    reader.printFlows(bool(options.flowfile), options.geh, dataInterval)
     if options.flowfile:
-        reader.calcStatistics()
+        reader.calcStatistics(dataInterval)

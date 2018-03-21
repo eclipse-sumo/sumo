@@ -1,5 +1,8 @@
 # Copy of zero with routes output
 routes_out
 
+# compare using GEH
+routes_out_geh
+
 # Copy of lanes_zero with routes output
 routes_out_lanes
