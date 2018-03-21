@@ -332,11 +332,32 @@ public class Edge {
 	 * @return SumoCommand
 	 */
 
-	public static SumoCommand adaptTraveltime(String edgeID, int time){
-
+	public static SumoCommand adaptTraveltime(String edgeID, double time){
+		Object[] array = new Object[]{time};
 		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, time);
 	}
 
+	
+	/**
+	 * Adapt the travel time value (in s) used for (re-)routing on the given
+	 * edge.
+	 * 
+	 * @param edgeID
+	 *            a string identifying the edge
+	 * @param time
+	 *            travel time value (in s)
+     * @param begin
+	 *            begin value
+	 * @param end
+	 *            end value
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand adaptTraveltime(String edgeID, double time, int begin, int end){
+		Object[] array = new Object[]{begin, end, time};
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, array);
+	}
+	
 	/**
 	 * Adapt the effort value used for (re-)routing on the given edge.
 	 * 
@@ -348,10 +369,29 @@ public class Edge {
 	 */
 
 	public static SumoCommand setEffort(String edgeID, double effort){
-
-		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, effort);
+		Object[] array = new Object[]{effort};
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array);
 	}
 
+	/**
+	 * Adapt the effort value used for (re-)routing on the given edge.
+	 * 
+	 * @param edgeID
+	 *            a string identifying the edge
+	 * @param effort
+	 *            effort value
+	 * @param begin
+	 *            begin value
+	 * @param end
+	 *            end value
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setEffort(String edgeID, double effort, int begin, int end){
+		Object[] array = new Object[]{begin, end, effort};
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_EFFORT, edgeID, array);
+	}
+	
 	/**
 	 * Set a new maximum speed (in m/s) for all lanes of the edge.
 	 * 
