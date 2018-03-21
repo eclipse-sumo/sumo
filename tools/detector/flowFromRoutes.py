@@ -108,13 +108,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
     def clearFlows(self):
         self._detReader.clearFlows()
 
-    def calcStatistics(self, interval):
+    def calcStatistics(self, interval, geh_threshold):
         rSum = 0
         dSum = 0
         sumAbsDev = 0
         sumSquaredDev = 0
         sumSquaredPercent = 0
         sumGEH = 0
+        nGEHthresh = 0
         n = 0
         geh = make_geh(interval)
         for edge, detData in self._detReader._edge2DetData.iteritems():
@@ -131,10 +132,12 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                         if dFlow > 0:
                             sumSquaredPercent += dev * dev / dFlow / dFlow
                         sumGEH += geh(rFlow, dFlow)
+                        if geh(rFlow, dFlow) < geh_threshold:
+                            nGEHthresh += 1
                         n += 1
         if self._begin is not None:
             print('# interval', self._begin)
-        print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE GEH')
+        print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE GEH GEH%')
         if n == 0:
             # avoid division by zero
             n = -1
@@ -143,7 +146,8 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                 sumAbsDev / n,
                 math.sqrt(sumSquaredDev / n), 
                 math.sqrt(sumSquaredPercent / n),
-                sumGEH / n)
+                sumGEH / n,
+                100 * nGEHthresh / n)
 
     def printFlows(self, includeDets, useGEH, interval):
         edgeIDCol = "edge " if options.edgenames else ""
@@ -213,6 +217,8 @@ optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time
 optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
 optParser.add_option("--geh", action="store_true", dest="geh",
                      default=False, help="compare flows using GEH measure")
+optParser.add_option( "--geh-treshold", type="float", default=5, dest="geh_threshold", 
+                     help="report percentage of detectors below threshold")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
@@ -246,7 +252,7 @@ if options.interval:
         if haveFlows:
             reader.printFlows(bool(options.flowfile), options.geh, options.interval)
             if options.flowfile:
-                reader.calcStatistics(options.interval)
+                reader.calcStatistics(options.interval, options.geh_threshold)
             reader.clearFlows()
         start += options.interval
 else:
@@ -266,4 +272,4 @@ else:
     dataInterval = reader.getDataIntervalMinutes(fallbackInterval)
     reader.printFlows(bool(options.flowfile), options.geh, dataInterval)
     if options.flowfile:
-        reader.calcStatistics(dataInterval)
+        reader.calcStatistics(dataInterval, options.geh_threshold)
