@@ -180,6 +180,8 @@ class Builder(object):
             netconvertOptions += ",--ptline-output,%s" % self.files["ptlines"]
             self.additionalFiles.append(self.files["stops"])
             self.routenames.append(self.files["ptroutes"])
+        if self.data["leftHand"]:
+            netconvertOptions += ",--lefthand"
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
@@ -419,6 +421,7 @@ if __name__ == "__main__":
                 u'osm': os.path.abspath('osm_bbox.osm.xml'),
                 u'poly': True,
                 u'publicTransport': True,
+                u'leftHand': False,
                 }
         builder = Builder(data, True)
         builder.build()

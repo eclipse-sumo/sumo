@@ -244,6 +244,20 @@ on("ready", function(){
             elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
         }
 
+        var leftHandBounds = [new OpenLayers.Bounds(-9, 50, 3, 60), // British Isles
+                              new OpenLayers.Bounds(66, 3, 90, 30), // India, Pakistan
+                              new OpenLayers.Bounds(95, -45, 179, 2), // Australia, Indonesia
+                              new OpenLayers.Bounds(-20, -35, 40, -15), // Southern Africa
+                              new OpenLayers.Bounds(135, 30, 150, 42), // Japan
+                             ];
+        elem("#leftHand").checked = false;
+        for (var i = 0; i < leftHandBounds.length; i++) {
+            if (leftHandBounds[i].contains(lon, lat)) {
+                elem("#leftHand").checked = true;
+                break;
+            }
+        }
+
         var lonLat = new OpenLayers.LonLat(lon, lat);
         lonLat.transform(
             new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
@@ -270,6 +284,12 @@ on("ready", function(){
             }
           });
     }
+
+    elem("#address").on("keyup", function(e){
+        if (e.keyCode == 13) {
+            setPositionByString();
+        }
+    });
 
     var getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
@@ -401,6 +421,7 @@ on("ready", function(){
             poly: elem("#polygons").checked,
             duration: parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
+            leftHand: elem("#leftHand").checked,
             vehicles: {}
         };
 
