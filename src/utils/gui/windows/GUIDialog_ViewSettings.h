@@ -66,6 +66,7 @@ public:
         FXCheckButton* myCheck;
         FXRealSpinner* mySizeDial;
         FXColorWell* myColorWell;
+        FXCheckButton* myConstSizeCheck;
     };
 
     class SizePanel {

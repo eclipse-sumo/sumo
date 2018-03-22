@@ -329,7 +329,8 @@ GUISettingsHandler::parseTextSettings(
     return GUIVisualizationTextSettings(
                TplConvert::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
                TplConvert::_2double(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
-               RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok));
+               RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", 0, true, ok),
+               TplConvert::_2bool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize)).c_str()));
 }
 
 

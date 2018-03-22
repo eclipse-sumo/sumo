@@ -52,17 +52,19 @@ class GUIVisualizationSettings;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color) :
-        show(_show), size(_size), color(_color) {}
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, bool _constSize=true) :
+        show(_show), size(_size), color(_color), constSize(_constSize) {}
 
     bool show;
     double size;
     RGBColor color;
+    bool constSize;
 
     bool operator==(const GUIVisualizationTextSettings& other) {
         return show == other.show &&
                size == other.size &&
-               color == other.color;
+               color == other.color &&
+               constSize == other.constSize;
     }
     bool operator!=(const GUIVisualizationTextSettings& other) {
         return !((*this) == other);
@@ -72,6 +74,11 @@ struct GUIVisualizationTextSettings {
         dev.writeAttr(name + "_show", show);
         dev.writeAttr(name + "_size", size);
         dev.writeAttr(name + "_color", color);
+        dev.writeAttr(name + "_constantSize", constSize);
+    }
+
+    double scaledSize(double scale, double constFactor=0.1) const {
+        return constSize ? size / scale : size * constFactor;
     }
 };
 

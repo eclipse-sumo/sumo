@@ -503,7 +503,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         if (drawStreetName) {
             GLHelper::drawText(myNBEdge.getStreetName(), p, GLO_MAX,
-                               s.streetName.size / s.scale, s.streetName.color, angle);
+                               s.streetName.scaledSize(s.scale), s.streetName.color, angle);
         }
         glPopName();
     }

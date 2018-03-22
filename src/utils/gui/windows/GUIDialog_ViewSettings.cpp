@@ -1551,7 +1551,8 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     const GUIVisualizationTextSettings& settings) {
     myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
     myCheck->setCheck(settings.show);
-    new FXLabel(parent, "");
+    myConstSizeCheck = new FXCheckButton(parent, "constant text size", target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
+    myConstSizeCheck->setCheck(settings.constSize);
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Size", 0, GUIDesignViewSettingsLabel1);
     mySizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
@@ -1565,7 +1566,10 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
 
 GUIVisualizationTextSettings
 GUIDialog_ViewSettings::NamePanel::getSettings() {
-    return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE, mySizeDial->getValue(), MFXUtils::getRGBColor(myColorWell->getRGBA()));
+    return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE, 
+            mySizeDial->getValue(), 
+            MFXUtils::getRGBColor(myColorWell->getRGBA()), 
+            myConstSizeCheck->getCheck() != FALSE);
 }
 
 
@@ -1574,6 +1578,7 @@ GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings& se
     myCheck->setCheck(settings.show);
     mySizeDial->setValue(settings.size);
     myColorWell->setRGBA(MFXUtils::getFXColor(settings.color));
+    myConstSizeCheck->setCheck(settings.constSize);
 }
 
 

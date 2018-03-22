@@ -1033,7 +1033,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     if (s.vehicleName.show && myVehicle.getParameter().line != "") {
         glTranslated(0, 0.6 * s.vehicleName.size / s.scale, 0);
         GLHelper::drawText("line:" + myVehicle.getParameter().line, Position(0, 0),
-                           GLO_MAX, s.vehicleName.size / s.scale, s.vehicleName.color, s.angle);
+                           GLO_MAX, s.vehicleName.scaledSize(s.scale), s.vehicleName.color, s.angle);
     }
     glPopMatrix();
     glPopName();
