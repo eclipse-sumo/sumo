@@ -898,6 +898,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // scale
     const double upscale = s.vehicleSize.getExaggeration(s);
     double upscaleLength = upscale;
+    if (upscale > 1 && length > 5) {
+        // reduce the length/width ratio because this is not usefull at high zoom
+        upscaleLength *= (5 + sqrt(length - 5)) / length;
+    }
     glScaled(upscale, upscaleLength, 1);
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
