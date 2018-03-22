@@ -884,9 +884,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     glPushMatrix();
     Position p1 = pos;
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
+    const double length = getVType().getLength();
     // one seat in the center of the vehicle by default
     if (myVehicle.getLane() != 0) {
-        mySeatPositions[0] = myVehicle.getPosition(- getVType().getLength() / 2);
+        mySeatPositions[0] = myVehicle.getPosition(-length / 2);
     } else {
         mySeatPositions[0] = p1;
     }
@@ -896,7 +897,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     setColor(s);
     // scale
     const double upscale = s.vehicleSize.getExaggeration(s);
-    glScaled(upscale, upscale, 1);
+    double upscaleLength = upscale;
+    glScaled(upscale, upscaleLength, 1);
     /*
         MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
@@ -966,14 +968,14 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
                 break;
             case SVS_MOTORCYCLE:
             case SVS_MOPED:
-                drawAction_drawVehicleBlinker(getVType().getLength());
-                drawAction_drawVehicleBrakeLight(getVType().getLength(), true);
+                drawAction_drawVehicleBlinker(length);
+                drawAction_drawVehicleBrakeLight(length, true);
                 break;
             default:
                 // only SVS_RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
                 if (!drawCarriages) {
-                    drawAction_drawVehicleBlinker(getVType().getLength());
-                    drawAction_drawVehicleBrakeLight(getVType().getLength());
+                    drawAction_drawVehicleBlinker(length);
+                    drawAction_drawVehicleBrakeLight(length);
                 }
                 break;
         }
@@ -1025,7 +1027,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glEnd();
     }
     */
-    glTranslated(0, MIN2(getVType().getLength() / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
+    glTranslated(0, MIN2(length / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
     glRotated(-degAngle, 0, 0, 1);
     glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,
