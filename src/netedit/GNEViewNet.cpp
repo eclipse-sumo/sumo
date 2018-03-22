@@ -642,7 +642,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // interpret object under cursor
     if (makeCurrent()) {
         // first update objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getObjectUnderCursor(), myEditShapePoly);
+        myObjectsUnderCursor.updateObjectUnderCursor(getObjectUnderCursor(), myEditShapePoly, mySelectEdges);
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
@@ -2689,7 +2689,7 @@ GNEViewNet::updateControls() {
 }
 
 void 
-GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape) {
+GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, bool selectEdges) {
     // first reset all variables
     glObject = nullptr;
     attributeCarrier = nullptr;
@@ -2755,6 +2755,9 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
                 lane = dynamic_cast<GNELane*>(attributeCarrier);
                 // edge is always set
                 edge = &lane->getParentEdge();
+                if (selectEdges) {
+                    attributeCarrier = edge;
+                }
                 break;
             case GLO_POI:
                 poi = dynamic_cast<GNEPOI*>(attributeCarrier);
