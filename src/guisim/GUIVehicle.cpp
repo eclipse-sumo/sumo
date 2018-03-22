@@ -570,14 +570,14 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {
         // reduce the length/width ratio because this is not usefull at high zoom
-        upscaleLength *= (5 + sqrt(totalLength - 5)) / totalLength;
+        upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(totalLength - 5)) / totalLength);
     }
-    defaultLength *= exaggeration;
+    defaultLength *= upscaleLength;
     if (exaggeration == 0) {
         return;
     }
-    carriageGap *= exaggeration;
-    const double length = getVehicleType().getLength() * exaggeration;
+    carriageGap *= upscaleLength;
+    const double length = totalLength * upscaleLength;
     const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
     glPopMatrix(); // undo scaling and 90 degree rotation
     glPopMatrix(); // undo initial translation and rotation
