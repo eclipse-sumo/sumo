@@ -548,6 +548,14 @@ GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
     if (furtherIndex < (int)myFurtherLanes.size()) {
         return myFurtherLanes[furtherIndex++];
     } else {
+        int routeIndex = getCurrentRouteEdge() - myRoute->begin();
+        int backIndex = furtherIndex + 1;
+        if (routeIndex > backIndex) {
+            furtherIndex++;
+            // could also look for the first lane that allows this vehicle class
+            // but this is probably not an issue for trains
+            return (*(getCurrentRouteEdge() - backIndex))->getLanes()[0];
+        }
         return current;
     }
 }
