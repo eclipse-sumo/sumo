@@ -566,6 +566,12 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
     const double exaggeration = s.vehicleSize.getExaggeration(s);
+    const double totalLength = getVType().getLength();
+    double upscaleLength = exaggeration;
+    if (exaggeration > 1 && totalLength > 5) {
+        // reduce the length/width ratio because this is not usefull at high zoom
+        upscaleLength *= (5 + sqrt(totalLength - 5)) / totalLength;
+    }
     defaultLength *= exaggeration;
     if (exaggeration == 0) {
         return;
@@ -664,9 +670,9 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     glPushMatrix();
     front = getPosition();
     glTranslated(front.x(), front.y(), getType());
-    glRotated(angle, 0, 0, 1);
-    const double upscale = s.vehicleSize.getExaggeration(s);
-    glScaled(upscale, upscale, 1);
+    const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
+    glRotated(degAngle, 0, 0, 1);
+    glScaled(exaggeration, upscaleLength, 1);
     glPushMatrix();
 }
 

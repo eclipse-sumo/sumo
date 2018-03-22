@@ -1032,8 +1032,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     }
     */
     glTranslated(0, MIN2(length / 2, double(5)), -getType()); // drawing name at GLO_MAX fails unless translating z
+    glScaled(1 / upscale, 1 / upscaleLength, 1);
     glRotated(-degAngle, 0, 0, 1);
-    glScaled(1 / upscale, 1 / upscale, 1);
     drawName(Position(0, 0), s.scale,
              getVType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName, s.angle);
     if (s.vehicleName.show && myVehicle.getParameter().line != "") {
