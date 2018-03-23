@@ -565,6 +565,13 @@ NBLoadedSUMOTLDef::getMaxIndex() {
     return maxIndex;
 }
 
+
+int 
+NBLoadedSUMOTLDef::getMaxValidIndex() {
+    return myTLLogic->getNumLinks() - 1;
+}
+
+
 bool 
 NBLoadedSUMOTLDef::hasValidIndices() const {
     for (const NBConnection& c : myControlledLinks) {

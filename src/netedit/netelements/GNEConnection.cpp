@@ -422,7 +422,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
                     && canParse<int>(value) 
                     && parse<int>(value) >= 0) {
                 NBTrafficLightDefinition* def = *getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().begin();
-                return def->getMaxIndex() >= parse<int>(value);
+                return def->getMaxValidIndex() >= parse<int>(value);
             } else {
                 return false;
             }

@@ -169,6 +169,9 @@ protected:
 
     /// @brief return the highest known tls link index used by any controlled connection or crossing
     int getMaxIndex();
+
+    ///@brief Returns the maximum index controlled by this traffic light
+    int getMaxValidIndex(); 
     
 private:
 
