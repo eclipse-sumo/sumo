@@ -763,12 +763,12 @@ NIImporter_VISUM::parse_Lanes() {
 void
 NIImporter_VISUM::parse_TrafficLights() {
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
-    SUMOTime cycleTime = (SUMOTime) getNamedFloat("Umlaufzeit", "UMLZEIT");
-    SUMOTime intermediateTime = (SUMOTime) getNamedFloat("StdZwischenzeit", "STDZWZEIT");
+    SUMOTime cycleTime = (SUMOTime) getWeightedFloat2("Umlaufzeit", "UMLZEIT", "s");
+    SUMOTime intermediateTime = (SUMOTime) getWeightedFloat2("StdZwischenzeit", "STDZWZEIT", "s");
     bool phaseBased = myLineParser.know("PhasenBasiert")
                       ? TplConvert::_2bool(myLineParser.get("PhasenBasiert").c_str())
                       : false;
-    SUMOTime offset = myLineParser.know("ZEITVERSATZ") ? TIME2STEPS(getNamedFloat("ZEITVERSATZ")) : 0;
+    SUMOTime offset = myLineParser.know("ZEITVERSATZ") ? TIME2STEPS(getWeightedFloat("ZEITVERSATZ", "s")) : 0;
     // add to the list
     myTLS[myCurrentID] = new NIVisumTL(myCurrentID, cycleTime, offset, intermediateTime, phaseBased);
 }
@@ -777,6 +777,10 @@ NIImporter_VISUM::parse_TrafficLights() {
 void
 NIImporter_VISUM::parse_NodesToTrafficLights() {
     std::string node = myLineParser.get("KnotNr").c_str();
+    if (node == "0") {
+        // this is a dummy value which cannot be assigned to
+        return;
+    }
     std::string trafficLight = myLineParser.get("LsaNr").c_str();
     // add to the list
     NBNode* n = myNetBuilder.getNodeCont().retrieve(node);
@@ -810,6 +814,11 @@ void
 NIImporter_VISUM::parse_TurnsToSignalGroups() {
     // get the id
     std::string SGid = getNamedString("SGNR", "SIGNALGRUPPENNR");
+    if (!myLineParser.know("LsaNr")) {
+        /// XXX could be retrieved from context
+        WRITE_WARNING("Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known");
+        return;
+    }
     std::string LSAid = getNamedString("LsaNr");
     // nodes
     NBNode* from = myLineParser.know("VonKnot") ? getNamedNode("VonKnot") : 0;
@@ -934,15 +943,23 @@ void NIImporter_VISUM::parse_SignalGroupsToPhases() {
 
 
 void NIImporter_VISUM::parse_LanesConnections() {
-    // get the node
-    NBNode* node = getNamedNode("KNOTNR", "KNOT");
-    if (node == 0) {
+    NBNode* node = 0;
+    NBEdge* fromEdge = 0;
+    NBEdge* toEdge = 0;
+    // get the node and edges depending on network format
+    const std::string nodeID = getNamedString("KNOTNR", "KNOT");
+    if (nodeID == "0") {
+        fromEdge = getNamedEdge("VONSTRNR", "VONSTR");
+        toEdge = getNamedEdge("NACHSTRNR", "NACHSTR");
+        node = fromEdge->getToNode();
+        WRITE_WARNING("Ignoring lane-to-lane connection (not yet implemented for this format version)");
         return;
+    } else {
+        myNetBuilder.getNodeCont().retrieve(nodeID);
+        fromEdge = getNamedEdgeContinuating("VONSTRNR", "VONSTR", node);
+        toEdge = getNamedEdgeContinuating("NACHSTRNR", "NACHSTR", node);
     }
-    // get the from-edge
-    NBEdge* fromEdge = getNamedEdgeContinuating("VONSTRNR", "VONSTR", node);
-    NBEdge* toEdge = getNamedEdgeContinuating("NACHSTRNR", "NACHSTR", node);
-    if (fromEdge == 0 || toEdge == 0) {
+    if (node == 0 || fromEdge == 0 || toEdge == 0) {
         return;
     }
 
@@ -1039,6 +1056,17 @@ NIImporter_VISUM::getWeightedFloat(const std::string& name, const std::string& s
     return -1;
 }
 
+
+double 
+NIImporter_VISUM::getWeightedFloat2(const std::string& name, const std::string& name2, const std::string& suffix) {
+    double result = getWeightedFloat(name, suffix);
+    if (result != -1) {
+        return result;
+    } else {
+        return getWeightedFloat(name2, suffix);
+    }
+
+}
 
 bool
 NIImporter_VISUM::getWeightedBool(const std::string& name) {

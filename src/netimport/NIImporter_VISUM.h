@@ -194,6 +194,9 @@ private:
      */
     double getWeightedFloat(const std::string& name, const std::string& suffix);
 
+    /// @brief as above but with two alternative names
+    double getWeightedFloat2(const std::string& name, const std::string& name2, const std::string& suffix);
+
 
     /** @brief tries to get a bool which is possibly assigned to a certain modality
      *
