@@ -220,6 +220,7 @@ private:
      * @exception UnknownElement If the named data field is not in the line
      */
     NBNode* getNamedNode(const std::string& fieldName);
+    NBNode* getNamedNodeSecure(const std::string& fieldName, NBNode* fallback=0);
 
     /** @brief The same, but two different names for the field are allowed
      *
@@ -453,6 +454,11 @@ private:
      * @param[in] function The function to use for parsing the named db
      */
     void addParser(const std::string& name, ParsingFunction function);
+
+private:
+
+    /// @brief whether the edge id ends with _nodeID
+    static bool isSplitEdge(NBEdge* edge, NBNode* node);
 
 
 private:

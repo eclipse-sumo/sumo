@@ -623,13 +623,22 @@ NIImporter_VISUM::parse_EdgePolys() {
 
 void
 NIImporter_VISUM::parse_Lanes() {
-    // get the node
-    NBNode* node = getNamedNode("KNOTNR");
+    // The base number of lanes for the edge was already defined in STRECKE 
+    // this refines lane specific attribute (width) and optionally introduces splits for additional lanes
+    // It is permitted for KNOTNR to be 0
+    //
     // get the edge
     NBEdge* baseEdge = getNamedEdge("STRNR");
-    NBEdge* edge = getNamedEdgeContinuating("STRNR", node);
+    NBEdge* edge = baseEdge;
+    // get the node
+    NBNode* node = getNamedNodeSecure("KNOTNR");
+    if (node == 0) {
+        node = edge->getToNode();
+    } else {
+        edge = getNamedEdgeContinuating("STRNR", node);
+    }
     // check
-    if (node == 0 || edge == 0) {
+    if (edge == 0) {
         return;
     }
     // get the lane
@@ -653,7 +662,10 @@ NIImporter_VISUM::parse_Lanes() {
     int prevLaneNo = baseEdge->getNumLanes();
     if ((dirS == "1" && !(node->hasIncoming(edge))) || (dirS == "0" && !(node->hasOutgoing(edge)))) {
         // get the last part of the turnaround direction
-        edge = getReversedContinuating(edge, node);
+        NBEdge* cand = getReversedContinuating(edge, node);
+        if (cand) {
+            edge = cand;
+        }
     }
     // get the length
     std::string lengthS = NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
@@ -682,7 +694,7 @@ NIImporter_VISUM::parse_Lanes() {
         edge->incLaneNo(1);
     } else {
         // check whether this edge already has been created
-        if (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID()) {
+        if (isSplitEdge(edge, node)) {
             if (edge->getID().substr(edge->getID().find('_')) == "_" + toString(length) + "_" + node->getID()) {
                 if ((int) edge->getNumLanes() > lane) {
                     // ok, we know this already...
@@ -698,7 +710,7 @@ NIImporter_VISUM::parse_Lanes() {
         bool mustRecheck = true;
         double seenLength = 0;
         while (mustRecheck) {
-            if (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID()) {
+            if (isSplitEdge(edge, node)) {
                 // ok, we have a previously created edge here
                 std::string sub = edge->getID();
                 sub = sub.substr(sub.rfind('_', sub.rfind('_') - 1));
@@ -727,7 +739,7 @@ NIImporter_VISUM::parse_Lanes() {
         useLength = edge->getLength() - useLength;
         std::string edgeID = edge->getID();
         p = edge->getGeometry().positionAtOffset(useLength);
-        if (edgeID.substr(edgeID.length() - node->getID().length() - 1) == "_" + node->getID()) {
+        if (isSplitEdge(edge, node)) {
             edgeID = edgeID.substr(0, edgeID.find('_'));
         }
         NBNode* rn = new NBNode(edgeID + "_" +  toString((int) length) + "_" + node->getID(), p);
@@ -739,7 +751,7 @@ NIImporter_VISUM::parse_Lanes() {
                                            edge->getID(), nid, edge->getNumLanes() + 0, edge->getNumLanes() + 1);
         NBEdge* nedge = myNetBuilder.getEdgeCont().retrieve(nid);
         nedge = nedge->getToNode()->getOutgoingEdges()[0];
-        while (nedge->getID().substr(nedge->getID().length() - node->getID().length() - 1) == "_" + node->getID()) {
+        while (isSplitEdge(edge, node)) {
             assert(nedge->getToNode()->getOutgoingEdges().size() > 0);
             nedge->incLaneNo(1);
             nedge = nedge->getToNode()->getOutgoingEdges()[0];
@@ -1050,6 +1062,16 @@ NIImporter_VISUM::getNamedNode(const std::string& fieldName) {
     return node;
 }
 
+NBNode* 
+NIImporter_VISUM::getNamedNodeSecure(const std::string& fieldName, NBNode* fallback) {
+    std::string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+    NBNode* node = myNetBuilder.getNodeCont().retrieve(nodeS);
+    if (node == 0) {
+        return fallback;
+    }
+    return node;
+}
+
 
 NBNode*
 NIImporter_VISUM::getNamedNode(const std::string& fieldName1, const std::string& fieldName2) {
@@ -1293,6 +1315,11 @@ NIImporter_VISUM::checkNodes(NBNode* from, NBNode* to)  {
     return from != 0 && to != 0 && from != to;
 }
 
+bool 
+NIImporter_VISUM::isSplitEdge(NBEdge* edge, NBNode* node) {
+    return (edge->getID().length() > node->getID().length() + 1 
+            && (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID())); 
+}
 
 /****************************************************************************/
 
