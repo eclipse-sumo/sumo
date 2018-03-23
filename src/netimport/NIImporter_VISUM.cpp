@@ -441,7 +441,7 @@ NIImporter_VISUM::parse_Connectors() {
         return;
     }
     // get the weight of the connection
-    double proz = getWeightedFloat("Proz");
+    double proz = getWeightedFloat("Proz", "(IV)");
     if (proz > 0) {
         proz /= 100.;
     } else {
@@ -1029,12 +1029,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
 
 
 double
-NIImporter_VISUM::getWeightedFloat(const std::string& name) {
+NIImporter_VISUM::getWeightedFloat(const std::string& name, const std::string& suffix) {
     try {
         return TplConvert::_2double(myLineParser.get(name).c_str());
     } catch (...) {}
     try {
-        return TplConvert::_2double(myLineParser.get((name + "(IV)")).c_str());
+        return TplConvert::_2double(myLineParser.get((name + suffix)).c_str());
     } catch (...) {}
     return -1;
 }

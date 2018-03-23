@@ -190,9 +190,9 @@ private:
      * yet support public traffic.
      *
      * @param[in] name Name of the column to extract the real from
-     * @return The real stored under the named column, or if not found the one from "(IV)"+name, or if not found -1
+     * @return The real stored under the named column, or if not found the one from name + suffix, or if not found -1
      */
-    double getWeightedFloat(const std::string& name);
+    double getWeightedFloat(const std::string& name, const std::string& suffix);
 
 
     /** @brief tries to get a bool which is possibly assigned to a certain modality
