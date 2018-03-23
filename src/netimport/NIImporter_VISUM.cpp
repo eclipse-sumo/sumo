@@ -767,7 +767,14 @@ NIImporter_VISUM::parse_NodesToTrafficLights() {
     std::string node = myLineParser.get("KnotNr").c_str();
     std::string trafficLight = myLineParser.get("LsaNr").c_str();
     // add to the list
-    myTLS[trafficLight]->addNode(myNetBuilder.getNodeCont().retrieve(node));
+    NBNode* n = myNetBuilder.getNodeCont().retrieve(node);
+    auto tlIt = myTLS.find(trafficLight);
+    if (n != 0 && tlIt != myTLS.end()) {
+        tlIt->second->addNode(n);
+    } else {
+        WRITE_ERROR("Could not assign" + std::string(n == 0 ? " missing" : "") + " node '" + node 
+                + "' to" + std::string(tlIt == myTLS.end() ? " missing" : "") +" traffic light '" + trafficLight + "'");
+    }
 }
 
 
