@@ -20,4 +20,4 @@ set(netedit_frames_SRCS
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})
-set_property(TARGET netedit_frames PROPERTY PROJECT_LABEL "netedit_frames")
+set_property(TARGET netedit_frames PROPERTY PROJECT_LABEL "z_netedit_frames")

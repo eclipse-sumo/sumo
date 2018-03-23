@@ -64,4 +64,4 @@ set(netedit_additionals_SRCS
    )
 
 add_library(netedit_additionals STATIC ${netedit_additionals_SRCS})
-set_property(TARGET netedit_additionals PROPERTY PROJECT_LABEL "netedit_additionals")
+set_property(TARGET netedit_additionals PROPERTY PROJECT_LABEL "z_netedit_additionals")

@@ -18,4 +18,4 @@ set(netedit_netelements_SRCS
    )
 
 add_library(netedit_netelements STATIC ${netedit_netelements_SRCS})
-set_property(TARGET netedit_netelements PROPERTY PROJECT_LABEL "netedit_netElements")
+set_property(TARGET netedit_netelements PROPERTY PROJECT_LABEL "z_netedit_netelements")

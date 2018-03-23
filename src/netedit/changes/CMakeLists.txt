@@ -28,4 +28,4 @@ set(netedit_changes_SRCS
    )
 
 add_library(netedit_changes STATIC ${netedit_changes_SRCS})
-set_property(TARGET netedit_changes PROPERTY PROJECT_LABEL "netedit_changes")
+set_property(TARGET netedit_changes PROPERTY PROJECT_LABEL "z_netedit_changes")
