@@ -231,16 +231,19 @@ NIImporter_VISUM::parse_Types() {
     } else if (speed < 0) {
         WRITE_ERROR("Type '" + myCurrentID + "' has speed " + toString(speed));
     }
+    // get the permissions
+    SVCPermissions permissions = getPermissions();
     // get the priority
     const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
     const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", "KAPIV"));
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, SVCAll, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH);
+    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, permissions, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_ONEWAY);
+    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_ALLOW);
 }
 
 
@@ -1096,6 +1099,35 @@ NIImporter_VISUM::getWeightedBool(const std::string& name) {
     return false;
 }
 
+SVCPermissions 
+NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissions unknown) {
+    SVCPermissions result = 0;
+    for (std::string v : StringTokenizer(myLineParser.get(name), ",").getVector()) {
+        // common values in english and german
+        std::transform(v.begin(), v.end(), v.begin(), tolower);
+        if (v == "bus") {
+            result |= SVC_BUS;
+        } else if (v == "walk" || v == "w" || v == "f") {
+            result |= SVC_PEDESTRIAN;
+        } else if (v == "l" || v == "lkw" || v == "h" || v == "hgv") {
+            result |= SVC_TRUCK;
+        } else if (v == "b" || v == "bike") {
+            result |= SVC_BICYCLE;
+        } else if (v == "train") {
+            result |= SVC_RAIL;
+        } else if (v == "tram") {
+            result |= SVC_TRAM;
+        } else if (v == "p" || v == "pkw") {
+            result |= SVC_PASSENGER;
+        } else {
+            if (warn) {
+                WRITE_WARNING("Encountered unknown vehicle type '" + v + "'");
+            }
+            result |= unknown;
+        }
+    }
+    return result;
+}
 
 NBNode*
 NIImporter_VISUM::getNamedNode(const std::string& fieldName) {

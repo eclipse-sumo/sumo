@@ -197,6 +197,8 @@ private:
     /// @brief as above but with two alternative names
     double getWeightedFloat2(const std::string& name, const std::string& name2, const std::string& suffix);
 
+    /// @brief parse permissions
+    SVCPermissions getPermissions(const std::string& name = "VSYSSET", bool warn=false, SVCPermissions unknown=SVCAll);
 
     /** @brief tries to get a bool which is possibly assigned to a certain modality
      *
