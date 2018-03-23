@@ -391,11 +391,11 @@ NIImporter_VISUM::parse_Edges() {
         // @todo parse name from visum files
         NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
+        e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
         }
-        e->setPermissions(permissions);
     }
     myTouchedEdges.push_back(myCurrentID);
     // nothing more to do, when the edge is a one-way street
@@ -409,11 +409,11 @@ NIImporter_VISUM::parse_Edges() {
         // @todo parse name from visum files
         NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
+        e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
         }
-        e->setPermissions(permissions);
     }
     myTouchedEdges.push_back(myCurrentID);
 }
