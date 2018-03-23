@@ -337,8 +337,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("speed.offset")) {
         const double speedOffset = oc.getFloat("speed.offset");
         const double speedFactor = oc.getFloat("speed.factor");
-        if (speedOffset != 0 || speedFactor != 1) {
-            const double speedMin = oc.getFloat("speed.minimum");
+        const double speedMin = oc.getFloat("speed.minimum");
+        if (speedOffset != 0 || speedFactor != 1 || speedMin > 0) {
             before = SysUtils::getCurrentMillis();
             PROGRESS_BEGIN_MESSAGE("Applying speed modifications");
             for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
