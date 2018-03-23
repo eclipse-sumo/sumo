@@ -228,6 +228,8 @@ NIImporter_VISUM::parse_Types() {
     if (speed == 0) {
         // unlimited speed
         speed = 3600;
+    } else if (speed < 0) {
+        WRITE_ERROR("Type '" + myCurrentID + "' has speed " + toString(speed));
     }
     // get the priority
     const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
@@ -445,11 +447,9 @@ NIImporter_VISUM::parse_Connectors() {
         return;
     }
     // get the weight of the connection
-    double proz = getWeightedFloat("Proz", "(IV)");
-    if (proz > 0) {
-        proz /= 100.;
-    } else {
-        proz = 1;
+    double proz = 1;
+    if (myLineParser.know("Proz") || myLineParser.know("Proz(IV)")) {
+        proz = getNamedFloat("Proz", "Proz(IV)") / 100;
     }
     // get the duration to wait (unused)
 //     double retard = -1;
@@ -1065,10 +1065,11 @@ void NIImporter_VISUM::parse_LanesConnections() {
 double
 NIImporter_VISUM::getWeightedFloat(const std::string& name, const std::string& suffix) {
     try {
-        return TplConvert::_2double(myLineParser.get(name).c_str());
-    } catch (...) {}
-    try {
-        return TplConvert::_2double(myLineParser.get((name + suffix)).c_str());
+        std::string val = myLineParser.get(name);
+        if (val.find(suffix) != std::string::npos) {
+            val = val.substr(0, val.find(suffix));
+        }
+        return TplConvert::_2double(val.c_str());
     } catch (...) {}
     return -1;
 }
@@ -1082,7 +1083,6 @@ NIImporter_VISUM::getWeightedFloat2(const std::string& name, const std::string& 
     } else {
         return getWeightedFloat(name2, suffix);
     }
-
 }
 
 bool
