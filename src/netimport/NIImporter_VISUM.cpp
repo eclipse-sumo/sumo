@@ -224,7 +224,11 @@ NIImporter_VISUM::parse_Types() {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
     // get the maximum speed
-    const double speed = getNamedFloat("v0-IV", "V0IV");
+    double speed = getWeightedFloat2("v0-IV", "V0IV", "km/h");
+    if (speed == 0) {
+        // unlimited speed
+        speed = 3600;
+    }
     // get the priority
     const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
@@ -629,6 +633,9 @@ NIImporter_VISUM::parse_Lanes() {
     //
     // get the edge
     NBEdge* baseEdge = getNamedEdge("STRNR");
+    if (baseEdge == 0) {
+        return;
+    }
     NBEdge* edge = baseEdge;
     // get the node
     NBNode* node = getNamedNodeSecure("KNOTNR");
@@ -737,6 +744,10 @@ NIImporter_VISUM::parse_Lanes() {
         Position p;
         double useLength = length - seenLength;
         useLength = edge->getLength() - useLength;
+        if (useLength < 0 || useLength > edge->getLength()) {
+            WRITE_WARNING("Could not find split position for edge '" + edge->getID() + "'.");
+            return;
+        }
         std::string edgeID = edge->getID();
         p = edge->getGeometry().positionAtOffset(useLength);
         if (isSplitEdge(edge, node)) {
@@ -951,6 +962,9 @@ void NIImporter_VISUM::parse_LanesConnections() {
     if (nodeID == "0") {
         fromEdge = getNamedEdge("VONSTRNR", "VONSTR");
         toEdge = getNamedEdge("NACHSTRNR", "NACHSTR");
+        if (fromEdge == 0) {
+            return;
+        }
         node = fromEdge->getToNode();
         WRITE_WARNING("Ignoring lane-to-lane connection (not yet implemented for this format version)");
         return;

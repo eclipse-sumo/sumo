@@ -507,6 +507,9 @@ PositionVector::splitAt(double where) const {
     if (size() < 2) {
         throw InvalidArgument("Vector to short for splitting");
     }
+    if (where < 0 || where > length()) {
+        throw InvalidArgument("Invalid split position " + toString(where) + " for vector of length " + toString(length()));
+    }
     if (where <= POSITION_EPS || where >= length() - POSITION_EPS) {
         WRITE_WARNING("Splitting vector close to end (pos: " + toString(where) + ", length: " + toString(length()) + ")");
     }
