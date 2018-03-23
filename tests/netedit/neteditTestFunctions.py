@@ -30,7 +30,7 @@ Settings.MoveMouseDelay = 0.2
 Settings.DelayBeforeDrop = 0.2
 Settings.DelayAfterDrag = 0.2
 
-NeteditApp = os.environ.get("NETEDIT_BINARY", "Netedit")
+NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
 referenceImage = os.path.join("imageResources", "reference.png")
 
