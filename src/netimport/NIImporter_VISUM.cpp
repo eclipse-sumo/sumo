@@ -232,7 +232,7 @@ NIImporter_VISUM::parse_Types() {
         WRITE_ERROR("Type '" + myCurrentID + "' has speed " + toString(speed));
     }
     // get the permissions
-    SVCPermissions permissions = getPermissions();
+    SVCPermissions permissions = getPermissions("VSYSSET", true);
     // get the priority
     const int priority = 1000 - TplConvert::_2int(myLineParser.get("Rang").c_str());
     // try to retrieve the number of lanes
@@ -384,6 +384,7 @@ NIImporter_VISUM::parse_Edges() {
         oneway_checked = false;
     }
     // add the edge
+    const SVCPermissions permissions = getPermissions("VSYSSET", false, myNetBuilder.getTypeCont().getPermissions(type));
     int prio = myUseVisumPrio ? myNetBuilder.getTypeCont().getPriority(type) : -1;
     if (nolanes != 0 && speed != 0) {
         LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
@@ -394,6 +395,7 @@ NIImporter_VISUM::parse_Edges() {
             delete e;
             WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
         }
+        e->setPermissions(permissions);
     }
     myTouchedEdges.push_back(myCurrentID);
     // nothing more to do, when the edge is a one-way street
@@ -411,6 +413,7 @@ NIImporter_VISUM::parse_Edges() {
             delete e;
             WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
         }
+        e->setPermissions(permissions);
     }
     myTouchedEdges.push_back(myCurrentID);
 }
@@ -1109,7 +1112,7 @@ NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissi
             result |= SVC_BUS;
         } else if (v == "walk" || v == "w" || v == "f") {
             result |= SVC_PEDESTRIAN;
-        } else if (v == "l" || v == "lkw" || v == "h" || v == "hgv") {
+        } else if (v == "l" || v == "lkw" || v == "h" || v == "hgv" || v == "lw" || v == "truck" || v == "tru") {
             result |= SVC_TRUCK;
         } else if (v == "b" || v == "bike") {
             result |= SVC_BICYCLE;
@@ -1117,11 +1120,11 @@ NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissi
             result |= SVC_RAIL;
         } else if (v == "tram") {
             result |= SVC_TRAM;
-        } else if (v == "p" || v == "pkw") {
+        } else if (v == "p" || v == "pkw" || v == "car" || v == "c") {
             result |= SVC_PASSENGER;
         } else {
             if (warn) {
-                WRITE_WARNING("Encountered unknown vehicle type '" + v + "'");
+                WRITE_WARNING("Encountered unknown vehicle category '" + v + "' in type '" + myLineParser.get("Nr") + "'");
             }
             result |= unknown;
         }
