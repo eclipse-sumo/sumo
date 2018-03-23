@@ -955,11 +955,14 @@ void NIImporter_VISUM::parse_LanesConnections() {
         WRITE_WARNING("Ignoring lane-to-lane connection (not yet implemented for this format version)");
         return;
     } else {
-        myNetBuilder.getNodeCont().retrieve(nodeID);
+        node = getNamedNode("KNOTNR", "KNOT");
+        if (node  == 0) {
+            return;
+        }
         fromEdge = getNamedEdgeContinuating("VONSTRNR", "VONSTR", node);
         toEdge = getNamedEdgeContinuating("NACHSTRNR", "NACHSTR", node);
     }
-    if (node == 0 || fromEdge == 0 || toEdge == 0) {
+    if (fromEdge == 0 || toEdge == 0) {
         return;
     }
 
