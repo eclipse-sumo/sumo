@@ -31,5 +31,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="f1.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="36.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="36.00" routeLength="1000.00" waitingTime="0.00" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_f1.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="f1.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="36.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="36.00" routeLength="1000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_f1.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
