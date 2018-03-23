@@ -13,7 +13,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id: MSRouteHandler.cpp v0_32_0+0556-cae8329bfc oss@behrisch.de 2018-02-27 11:24:39 +0100 $
+/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
@@ -48,6 +48,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/vehicle/PedestrianRouter.h>
 #include "MSNet.h"
 
 #include "MSParkingArea.h"

@@ -10,7 +10,7 @@
 /// @file    PedestrianRouter.h
 /// @author  Jakob Erdmann
 /// @date    Mon, 03 March 2014
-/// @version $Id: PedestrianRouter.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The Pedestrian Router builds a special network and delegates to a SUMOAbstractRouter.
 /****************************************************************************/
@@ -48,25 +48,26 @@
  * @class PedestrianRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
-template<class E, class L, class N, class V, class INTERNALROUTER>
+template<class E, class L, class N, class V>
 class PedestrianRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
-public:
-
+private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
+    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalRouter;
 
+public:
     /// Constructor
     PedestrianRouter():
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
-        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+        myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true) {
         myPedNet = net;
-        myInternalRouter = new INTERNALROUTER(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+        myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
     /// Destructor
@@ -78,7 +79,7 @@ public:
     }
 
     virtual SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
-        return new PedestrianRouter<E, L, N, V, INTERNALROUTER>(myPedNet);
+        return new PedestrianRouter<E, L, N, V>(myPedNet);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -142,7 +143,7 @@ public:
 
 private:
     const bool myAmClone;
-    INTERNALROUTER* myInternalRouter;
+    _InternalRouter* myInternalRouter;
     _IntermodalNetwork* myPedNet;
 
 
@@ -151,11 +152,6 @@ private:
     PedestrianRouter& operator=(const PedestrianRouter& s);
 
 };
-
-// common specializations
-template<class E, class L, class N, class V>
-class PedestrianRouterDijkstra : public PedestrianRouter < E, L, N, V,
-    DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > > { };
 
 
 #endif

@@ -50,7 +50,9 @@ class MSLink;
 class MSLane;
 class MSEdge;
 
+typedef std::vector<MSEdge*> MSEdgeVector;
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
+
 
 // ===========================================================================
 // class definitions

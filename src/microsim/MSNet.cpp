@@ -60,6 +60,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
+#include <utils/vehicle/IntermodalRouter.h>
 #include <utils/vehicle/PedestrianRouter.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
 #include <utils/xml/XMLSubSys.h>
@@ -902,10 +903,10 @@ MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
 }
 
 
-MSNet::MSPedestrianRouterDijkstra&
+MSNet::MSPedestrianRouter&
 MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
     if (myPedestrianRouter == 0) {
-        myPedestrianRouter = new MSPedestrianRouterDijkstra();
+        myPedestrianRouter = new MSPedestrianRouter();
     }
     myPedestrianRouter->prohibit(prohibited);
     return *myPedestrianRouter;

@@ -30,6 +30,8 @@
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsIO.h>
+#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/vehicle/PedestrianRouter.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>

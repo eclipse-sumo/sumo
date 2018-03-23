@@ -11,7 +11,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalRouter.h v0_32_0+0557-f9fef86256 oss@behrisch.de 2018-02-20 17:38:42 +0100 $
+/// @version $Id$
 ///
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
@@ -53,15 +53,16 @@
  * @class IntermodalRouter
  * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
  */
-template<class E, class L, class N, class V, class INTERNALROUTER = DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > >
+template<class E, class L, class N, class V>
 class IntermodalRouter : public SUMOAbstractRouter<E, IntermodalTrip<E, N, V> > {
 public:
     typedef IntermodalNetwork<E, L, N, V> Network;
 
 private:
-    typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V, INTERNALROUTER>&);
+    typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
+    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalRouter;
 
 public:
     struct TripItem {
@@ -89,7 +90,7 @@ public:
 
     SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
         createNet();
-        return new IntermodalRouter<E, L, N, V, INTERNALROUTER>(myIntermodalNet);
+        return new IntermodalRouter<E, L, N, V>(myIntermodalNet);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -206,7 +207,7 @@ public:
 private:
     IntermodalRouter(Network* net):
         SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
-        myInternalRouter(new INTERNALROUTER(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
+        myInternalRouter(new _InternalRouter(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myCarWalkTransfer(0) {}
 
     inline void createNet() {
@@ -214,13 +215,13 @@ private:
             myIntermodalNet = new Network(E::getAllEdges(), false, myCarWalkTransfer);
             myIntermodalNet->addCarEdges(E::getAllEdges());
             myCallback(*this);
-            myInternalRouter = new INTERNALROUTER(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+            myInternalRouter = new _InternalRouter(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
         }
     }
 
 private:
     const bool myAmClone;
-    INTERNALROUTER* myInternalRouter;
+    _InternalRouter* myInternalRouter;
     Network* myIntermodalNet;
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;

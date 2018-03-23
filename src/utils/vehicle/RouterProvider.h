@@ -11,7 +11,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalRouter.h v0_32_0+0557-f9fef86256 oss@behrisch.de 2018-02-20 17:38:42 +0100 $
+/// @version $Id$
 ///
 // The RouterProvider provides car, pedestrian and intermodal routing in one object
 /****************************************************************************/
@@ -42,20 +42,20 @@ template<class E, class L, class N, class V>
 class RouterProvider {
 public:
     RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
-                   PedestrianRouterDijkstra<E, L, N, V>* pedRouter,
+                   PedestrianRouter<E, L, N, V>* pedRouter,
                    IntermodalRouter<E, L, N, V>* interRouter)
         : myVehRouter(vehRouter), myPedRouter(pedRouter), myInterRouter(interRouter) {}
 
     RouterProvider(const RouterProvider& original)
         : myVehRouter(original.getVehicleRouter().clone()),
-          myPedRouter(static_cast<PedestrianRouterDijkstra<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
+          myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.getPedestrianRouter().clone())),
           myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.getIntermodalRouter().clone())) {}
 
     SUMOAbstractRouter<E, V>& getVehicleRouter() const {
         return *myVehRouter;
     }
 
-    PedestrianRouterDijkstra<E, L, N, V>& getPedestrianRouter() const {
+    PedestrianRouter<E, L, N, V>& getPedestrianRouter() const {
         return *myPedRouter;
     }
 
@@ -72,7 +72,7 @@ public:
 
 private:
     SUMOAbstractRouter<E, V>* const myVehRouter;
-    PedestrianRouterDijkstra<E, L, N, V>* const myPedRouter;
+    PedestrianRouter<E, L, N, V>* const myPedRouter;
     IntermodalRouter<E, L, N, V>* const myInterRouter;
 
 

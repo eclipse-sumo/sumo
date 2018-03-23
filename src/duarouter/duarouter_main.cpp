@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 06 Jun 2002
-/// @version $Id: duarouter_main.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // Main for DUAROUTER
 /****************************************************************************/
@@ -201,7 +201,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS;
         }
     }
-    RORouterProvider provider(router, new PedestrianRouterDijkstra<ROEdge, ROLane, RONode, ROVehicle>(),
+    RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
                               new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk));
     // process route definitions
     try {

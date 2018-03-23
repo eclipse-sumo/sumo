@@ -40,6 +40,7 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/vehicle/IntermodalRouter.h>
 
 
 // ===========================================================================

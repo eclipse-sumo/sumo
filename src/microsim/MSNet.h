@@ -46,8 +46,6 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/vehicle/SUMOAbstractRouter.h>
-#include <utils/vehicle/PedestrianRouter.h>
-#include <utils/vehicle/IntermodalRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
 #include "MSParkingArea.h"
@@ -58,7 +56,6 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
-class MSJunction;
 class MSEdgeControl;
 class MSEventControl;
 class MSVehicleControl;
@@ -75,8 +72,11 @@ class ShapeContainer;
 class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
+template<class E, class L, class N, class V>
+class IntermodalRouter;
+template<class E, class L, class N, class V>
+class PedestrianRouter;
 
-typedef std::vector<MSEdge*> MSEdgeVector;
 
 // ===========================================================================
 // class definitions
@@ -107,8 +107,7 @@ public:
         SIMSTATE_TOO_MANY_TELEPORTS
     };
 
-    //typedef PedestrianRouterDijkstra<MSEdge, MSLane> MSPedestrianRouterDijkstra;
-    typedef PedestrianRouterDijkstra<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouterDijkstra;
+    typedef PedestrianRouter<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouter;
     typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSIntermodalRouter;
 
 
@@ -573,7 +572,7 @@ public:
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSPedestrianRouterDijkstra& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSPedestrianRouter& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSIntermodalRouter& getIntermodalRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
@@ -725,7 +724,7 @@ protected:
      * because the class structure makes it inconvenient to use a superclass*/
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterTT;
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterEffort;
-    mutable MSPedestrianRouterDijkstra* myPedestrianRouter;
+    mutable MSPedestrianRouter* myPedestrianRouter;
     mutable MSIntermodalRouter* myIntermodalRouter;
 
 

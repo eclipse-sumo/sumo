@@ -14,7 +14,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: MSInsertionControl.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
+#include <utils/vehicle/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include "MSGlobals.h"
 #include "MSVehicle.h"

@@ -32,6 +32,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/vehicle/PedestrianRouter.h>
 #include "VehicleType.h"
 #include "Person.h"
 
