@@ -1172,43 +1172,44 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     } else {
         // return only a part of elements, depending of type
         switch (type) {
-            case GLO_JUNCTION:
+            case SUMO_TAG_JUNCTION:
                 for (auto i : myJunctions) {
                     result.push_back(i.second);
                 }
                 break;
-            case GLO_EDGE:
+            case SUMO_TAG_EDGE:
                 for (auto i : myEdges) {
                     result.push_back(i.second);
                 }
                 break;
-            case GLO_LANE:
+            case SUMO_TAG_LANE:
                 for (auto i : myEdges) {
                     for(auto j : i.second->getLanes()) {
                         result.push_back(j);
                     }
                 }
                 break;
-            case GLO_CONNECTION:
+            case SUMO_TAG_CONNECTION:
                 for (auto i : myEdges) {
                     for(auto j : i.second->getGNEConnections()) {
                         result.push_back(j);
                     }
                 }
                 break;
-            case GLO_CROSSING:
+            case SUMO_TAG_CROSSING:
                 for (auto i : myJunctions) {
                     for(auto j : i.second->getGNECrossings()) {
                        result.push_back(j);
                     }
                 }
                 break;
-            case GLO_POLYGON:
+            case SUMO_TAG_POLY:
                 for (auto i : myPolygons) {
                     result.push_back(dynamic_cast<GNEPoly*>(i.second));
                 }
                 break;
-            case GLO_POI:
+            case SUMO_TAG_POI:
+            case SUMO_TAG_POILANE:
                 for (auto i : myPOIs) {
                     result.push_back(dynamic_cast<GNEPOI*>(i.second));
                 }

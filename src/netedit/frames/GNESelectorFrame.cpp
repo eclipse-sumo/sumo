@@ -328,12 +328,14 @@ GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
+    // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
     myViewNet->getUndoList()->p_begin("clear selection");
     std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
-    // change attribute selected of all selected items
+    // change attribute GNE_ATTR_SELECTED of all selected items to false
     for (auto i : selectedAC) {
         i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
     }
+    // finish clear selection
     myViewNet->getUndoList()->p_end();
     // update view
     myViewNet->update();
@@ -398,6 +400,7 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
+    // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     if (mySetComboBox->getText() == "Net Element") {
@@ -421,14 +424,14 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     } else {
         throw ProcessError("Unkown set");
     }
-
-    // check that typed by user value is correct
+    // check that typed-by-user value is correct
     if (myCurrentTag != SUMO_TAG_NOTHING) {
         // set color and enable items
         myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchAttrComboBox->enable();
         myMatchString->enable();
         myMatchAttrComboBox->clearItems();
+        // fill attribute combo box
         for (auto it : GNEAttributeCarrier::allowedAttributes(myCurrentTag)) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
@@ -444,11 +447,11 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
         }
-        // check if item can have parernt
+        // check if item can have parent
         if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
         }
-        // @ToDo: Here can be placed a butto to set the default value
+        // @ToDo: Here can be placed a button to set the default value
         myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
         onCmdSelMBAttribute(0, 0, 0);
     } else {
@@ -464,8 +467,8 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
+    // first obtain all item attributes vinculated with current tag
     std::vector<std::pair <SumoXMLAttr, std::string> > itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
-
     // add extra attribute if item can block movement
     if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
         itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BLOCK_MOVEMENT, "false"));
@@ -478,11 +481,11 @@ GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
         itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_CLOSE_SHAPE, "true"));
     }
-    // add extra attribute if item can have parernt
+    // add extra attribute if item can have parent
     if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
         itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_PARENT, ""));
     }
-    // set current attribute
+    // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
     for (auto i : itemAttrs) {
         if (toString(i.first) == myMatchAttrComboBox->getText().text()) {
@@ -503,11 +506,12 @@ GNESelectorFrame::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
+    // obtain expresion
     std::string expr(myMatchString->getText().text());
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
-        handleIDs(getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr), false);
+        handleIDs(getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr), myViewNet->selectEdges());
     } else if (GNEAttributeCarrier::isNumerical(myCurrentTag, myCurrentAttribute)) {
         // The expression must have the form
         //  <val matches if attr < val
@@ -521,7 +525,7 @@ GNESelectorFrame::onCmdSelMBString(FXObject*, FXSelector, void*) {
             compOp = '=';
         }
         try {
-            handleIDs(getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr), false);
+            handleIDs(getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr), myViewNet->selectEdges());
         } catch (EmptyData&) {
             valid = false;
         } catch (NumberFormatException&) {
@@ -649,7 +653,6 @@ GNESelectorFrame::selectionUpdated() {
                       toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POI).size()) + " POIs");
     }
     // update labels
-
     myTypeEntries[GLO_JUNCTION].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()).c_str());
     myTypeEntries[GLO_EDGE].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()).c_str());
     myTypeEntries[GLO_LANE].count->setText(toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()).c_str());
@@ -663,78 +666,54 @@ GNESelectorFrame::selectionUpdated() {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool /* selectEdgesEnabled */, SetOperation setop) {
-    const SetOperation setOperation = (setop == SET_DEFAULT ? (SetOperation)mySetOperation : setop);
-    std::set<GUIGlID> previousSelection;
+GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, SetOperation setop) {
+    const SetOperation setOperation = ((setop == SET_DEFAULT) ? mySetOperation : setop);
+    // first save previous selection
+    std::vector<GNEAttributeCarrier*> previousACSelection = myViewNet->getNet()->getSelectedAttributeCarriers();
+    // start change selection operation
     myViewNet->getUndoList()->p_begin("change selection");
-    if (setOperation == SET_REPLACE) {
-        ;//myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
-    } else if (setOperation == SET_RESTRICT) {
-        ;//previousSelection = myViewNet->getNet()->getSelectedAttributeCarriers(); // have to make a copy
-        ;//myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), std::set<GUIGlID>(), myViewNet->getNet()->getSelectedAttributeCarriers(), true), true);
+    // if we're replacing or restricting, we need to unselect all previous selected attribute carrier
+    if ((setOperation == SET_REPLACE) || (setOperation == SET_RESTRICT)) {
+        // change attribute GNE_ATTR_SELECTED of all selected items to false
+        for (auto i : previousACSelection) {
+            i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+        }
     }
+    // declare set to keep ACs to select and undselect
+    std::vector<GNEAttributeCarrier*> selectACs;
+    std::vector<GNEAttributeCarrier*> unselectACs;
     // handle ids
-    /**
-    GUIGlObject* object;
-    GUIGlObjectType type;
-    std::set<GUIGlID> idsSet(ids.begin(), ids.end());
-    std::set<GUIGlID> selected;
-    std::set<GUIGlID> deselected;
-    if (myViewNet->autoSelectNodes()) {
-        for (auto it : ids) {
-            if (it > 0) { // net object?
-                object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
-                if ((object->getType() == GLO_LANE) && selectEdgesEnabled) {
-                    const GNEEdge& edge = (static_cast<GNELane*>(object))->getParentEdge();
-                    idsSet.insert(edge.getGNEJunctionSource()->getGlID());
-                    idsSet.insert(edge.getGNEJunctionDestiny()->getGlID());
+    for (auto i : ACs) {
+        // doing the switch outside the loop requires functional techniques. this was deemed to ugly
+        switch (setOperation) {
+            case GNESelectorFrame::SET_ADD:
+            case GNESelectorFrame::SET_REPLACE:
+                selectACs.push_back(i);
+                break;
+            case GNESelectorFrame::SET_SUB:
+                unselectACs.push_back(i);
+                break;
+            case GNESelectorFrame::SET_RESTRICT:
+                if (std::find(previousACSelection.begin(), previousACSelection.end(), i) != previousACSelection.end()) {
+                    selectACs.push_back(i);
+                } else {
+                    unselectACs.push_back(i);
                 }
-                GUIGlObjectStorage::gIDStorage.unblockObject(it);
-            }
+                break;
+            default:
+                break;
         }
     }
-    for (auto it : idsSet) {
-        if (it > 0) { // net object?
-            object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
-            if (object == 0) {
-                // in debug mode we would like to know about this.
-                // It might be caused by a corrupted gl-name stack.
-                // However, most cases of uninitizliaed values would go hidden since 0 is assumed to be the net object anyway
-                assert(false);
-                continue;
-            }
-            type = object->getType();
-            if (type == GLO_LANE && selectEdgesEnabled) {
-                type = GLO_EDGE;
-                it = (dynamic_cast<GNELane*>(object))->getParentEdge().getGlID();
-            }
-            if (myTypeEntries[type].locked->getCheck()) {
-                continue;
-            }
-            GUIGlObjectStorage::gIDStorage.unblockObject(it);
-            // doing the switch outside the loop requires functional techniques. this was deemed to ugly
-            switch (setOperation) {
-                case GNESelectorFrame::SET_ADD:
-                case GNESelectorFrame::SET_REPLACE:
-                    selected.insert(it);
-                    break;
-                case GNESelectorFrame::SET_SUB:
-                    deselected.insert(it);
-                    break;
-                case GNESelectorFrame::SET_RESTRICT:
-                    if (previousSelection.count(it)) {
-                        selected.insert(it);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
+    // change attribute selection of selectACs and unselectACs
+    for (auto i : selectACs) {
+        i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
     }
-
-    myViewNet->getUndoList()->add(new GNEChange_Selection(myViewNet->getNet(), selected, deselected, true), true);
+    for (auto i : unselectACs) {
+        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+    }
+    // finish operation
     myViewNet->getUndoList()->p_end();
-    */
+    // update view
     myViewNet->update();
 }
 
