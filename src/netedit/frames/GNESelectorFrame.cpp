@@ -345,7 +345,7 @@ long
 GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
     std::vector<GNEAttributeCarrier*> copyOfSelectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
-    // invert selection first cleaning current selection and next selecting elements of set "unselectedElements"
+    // for invert selection, first clean current selection and next select elements of set "unselectedElements"
     myViewNet->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings
     std::vector<GNEJunction*> junctions = myViewNet->getNet()->retrieveJunctions();
@@ -353,14 +353,20 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
         i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
         // due we iterate over all junctions, only it's neccesary iterate over incoming edges
         for (auto j : i->getGNEIncomingEdges()) {
-            j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            for (auto k : j->getLanes()) {
-                k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            // only select edges if "select edges" flag is enabled. In other case, select only lanes
+            if(myViewNet->selectEdges()) {
+                j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            } else {
+                for (auto k : j->getLanes()) {
+                    k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+                }
             }
+            // select connections
             for (auto k : j->getGNEConnections()) {
                 k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
         }
+        // select crossings
         for (auto j : i->getGNECrossings()) {
             j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
         }
@@ -378,11 +384,13 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     for (auto i : myViewNet->getNet()->getPOIs()) {
         dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
     }
-    // now iterate over all copy of selected ACs and undselect it 
+    // now iterate over all elements of "copyOfSelectedAC" and undselect it 
     for (auto i : copyOfSelectedAC) {
         i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
     }
+    // finish selection operation
     myViewNet->getUndoList()->p_end();
+    // update view
     myViewNet->update();
     return 1;
 }
