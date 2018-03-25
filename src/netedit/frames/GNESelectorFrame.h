@@ -114,7 +114,7 @@ public:
         FXDECLARE(GNESelectorFrame::ElementSet)
 
     public:
-    /// @brief type of Set
+        /// @brief type of Set
         enum ElementSetType {
             ELEMENTSET_NETELEMENT = 1,
             ELEMENTSET_ADDITIONAL = 2,
@@ -152,6 +152,76 @@ public:
 
         /// @brief current element set selected
         ElementSetType myCurrentElementSet;
+    };
+
+    // ===========================================================================
+    // class MatchAttribute
+    // ===========================================================================
+
+    class MatchAttribute : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::MatchAttribute)
+
+    public:
+        /// @brief constructor
+        MatchAttribute(GNESelectorFrame *selectorFrameParent);
+
+        /// @brief destructor
+        ~MatchAttribute();
+
+        /// @brief enable match attributes 
+        void enableMatchAttribute();
+
+        /// @brief disable match attributes 
+        void disableMatchAttribute();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /**@brief Called when the user selectes a tag in the match box
+         * @note updates the attr listbox and repaints itself
+         */
+        long onCmdSelMBTag(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user selectes a tag in the match box
+         * @note updates the attr listbox and repaints itself
+         */
+        long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user enters a new selection expression
+         * @note validates expression and modifies current selection
+         */
+        long onCmdSelMBString(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user clicks the help button
+         * @note pop up help window
+         */
+        long onCmdHelp(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        MatchAttribute() {}
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief tag of the match box
+        FXComboBox* myMatchTagComboBox;
+
+        /// @brief attributes of the match box
+        FXComboBox* myMatchAttrComboBox;
+
+        /// @brief current SumoXMLTag tag
+        SumoXMLTag myCurrentTag;
+
+        /// @brief current SumoXMLTag Attribute
+        SumoXMLAttr myCurrentAttribute;
+
+        /// @brief string of the match
+        FXTextField* myMatchString;
     };
 
     /**@brief Constructor
@@ -194,26 +264,6 @@ public:
      */
     long onCmdInvert(FXObject*, FXSelector, void*);
 
-    /**@brief Called when the user selectes a tag in the match box
-     * @note updates the attr listbox and repaints itself
-     */
-    long onCmdSelMBTag(FXObject*, FXSelector, void*);
-
-    /**@brief Called when the user selectes a tag in the match box
-     * @note updates the attr listbox and repaints itself
-     */
-    long onCmdSelMBAttribute(FXObject*, FXSelector, void*);
-
-    /**@brief Called when the user enters a new selection expression
-     * @note validates expression and modifies current selection
-     */
-    long onCmdSelMBString(FXObject*, FXSelector, void*);
-
-    /**@brief Called when the user clicks the help button
-     * @note pop up help window
-     */
-    long onCmdHelp(FXObject*, FXSelector, void*);
-
     /// @brief Called when the user changes visual scaling
     long onCmdScaleSelection(FXObject*, FXSelector, void*);
     /// @}
@@ -241,23 +291,11 @@ private:
     /// @brief modul for select element set
     ElementSet* myElementSet;
 
-    /// @brief tag of the match box
-    FXComboBox* myMatchTagComboBox;
-
-    /// @brief attributes of the match box
-    FXComboBox* myMatchAttrComboBox;
-
-    /// @brief string of the match
-    FXTextField* myMatchString;
+    /// @brief modul for matchAttribute
+    MatchAttribute* myMatchAttribute;
 
     /// @brief selection scaling
     FXRealSpinner* mySelectionScaling;
-
-    /// @brief current SumoXMLTag tag
-    SumoXMLTag myCurrentTag;
-
-    /// @brief current SumoXMLTag Attribute
-    SumoXMLAttr myCurrentAttribute;
 
     struct ObjectTypeEntry {
         ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2);
