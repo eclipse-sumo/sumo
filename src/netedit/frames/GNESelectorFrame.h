@@ -224,6 +224,41 @@ public:
         FXTextField* myMatchString;
     };
 
+    // ===========================================================================
+    // class VisualScaling
+    // ===========================================================================
+
+    class VisualScaling : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::VisualScaling)
+
+    public:
+        /// @brief constructor
+        VisualScaling(GNESelectorFrame *selectorFrameParent);
+
+        /// @brief destructor
+        ~VisualScaling();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when the user changes visual scaling
+        long onCmdScaleSelection(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        VisualScaling() {}
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief Spinner for selection scaling
+        FXRealSpinner* mySelectionScaling;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -264,8 +299,6 @@ public:
      */
     long onCmdInvert(FXObject*, FXSelector, void*);
 
-    /// @brief Called when the user changes visual scaling
-    long onCmdScaleSelection(FXObject*, FXSelector, void*);
     /// @}
 
     bool locked(GUIGlObjectType type) {
@@ -291,11 +324,11 @@ private:
     /// @brief modul for select element set
     ElementSet* myElementSet;
 
-    /// @brief modul for matchAttribute
+    /// @brief modul for matchA ttribute
     MatchAttribute* myMatchAttribute;
 
-    /// @brief selection scaling
-    FXRealSpinner* mySelectionScaling;
+    /// @brief modul for visual scaling
+    VisualScaling* myVisualScaling;
 
     struct ObjectTypeEntry {
         ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2);

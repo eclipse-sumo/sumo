@@ -57,11 +57,11 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNESelectorFrame::ModificationMode) ModificationModeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode)
 };
 
 FXDEFMAP(GNESelectorFrame::ElementSet) ElementSetMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNESelectorFrame::ElementSet::onCmdSelectElementSet),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNESelectorFrame::ElementSet::onCmdSelectElementSet)
 };
 
 FXDEFMAP(GNESelectorFrame::MatchAttribute) MatchAttributeMap[] = {
@@ -71,12 +71,15 @@ FXDEFMAP(GNESelectorFrame::MatchAttribute) MatchAttributeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNESelectorFrame::MatchAttribute::onCmdHelp)
 };
 
+FXDEFMAP(GNESelectorFrame::VisualScaling) VisualScalingMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTSCALE,      GNESelectorFrame::VisualScaling::onCmdScaleSelection)
+};
+
 FXDEFMAP(GNESelectorFrame) SelectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                       GNESelectorFrame::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                       GNESelectorFrame::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,                     GNESelectorFrame::onCmdInvert),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                      GNESelectorFrame::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTSCALE,      GNESelectorFrame::onCmdScaleSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                      GNESelectorFrame::onCmdClear)
 };
 
 // Object implementation
@@ -84,6 +87,7 @@ FXIMPLEMENT(GNESelectorFrame,                   FXVerticalFrame,    SelectorFram
 FXIMPLEMENT(GNESelectorFrame::ModificationMode, FXGroupBox,         ModificationModeMap,    ARRAYNUMBER(ModificationModeMap))
 FXIMPLEMENT(GNESelectorFrame::ElementSet,       FXGroupBox,         ElementSetMap,          ARRAYNUMBER(ElementSetMap))
 FXIMPLEMENT(GNESelectorFrame::MatchAttribute,   FXGroupBox,         MatchAttributeMap,      ARRAYNUMBER(MatchAttributeMap))
+FXIMPLEMENT(GNESelectorFrame::VisualScaling,    FXGroupBox,         VisualScalingMap,       ARRAYNUMBER(VisualScalingMap))
 
 // ===========================================================================
 // method definitions
@@ -116,16 +120,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myElementSet = new ElementSet(this);
     // create MatchAttribute modul
     myMatchAttribute = new MatchAttribute(this);
-    // Create Groupbox for visual scalings
-    FXGroupBox* selSizeBox = new FXGroupBox(myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame);
-    // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinner(selSizeBox, 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
-    //mySelectionScaling->setNumberFormat(1);
-    //mySelectionScaling->setIncrements(0.1, .5, 1);
-    mySelectionScaling->setIncrement(0.5);
-    mySelectionScaling->setRange(1, 100);
-    mySelectionScaling->setValue(1);
-    mySelectionScaling->setHelpText("Enlarge selected objects");
+    // create VisualScaling modul
+    myVisualScaling = new VisualScaling(this);
     // Create groupbox for additional buttons
     FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame);
     // Create "Clear List" Button
@@ -277,14 +273,6 @@ GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
     // finish selection operation
     myViewNet->getUndoList()->p_end();
     // update view
-    myViewNet->update();
-    return 1;
-}
-
-
-long
-GNESelectorFrame::onCmdScaleSelection(FXObject*, FXSelector, void*) {
-    myViewNet->setSelectionScaling(mySelectionScaling->getValue());
     myViewNet->update();
     return 1;
 }
@@ -848,6 +836,35 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Close help dialog of selector frame");
     }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// ModificationMode::VisualScaling - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame *selectorFrameParent) :
+    FXGroupBox(selectorFrameParent->myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame),
+    mySelectorFrameParent(selectorFrameParent) {
+    // Create spin button and configure it
+    mySelectionScaling = new FXRealSpinner(this, 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
+    //mySelectionScaling->setNumberFormat(1);
+    //mySelectionScaling->setIncrements(0.1, .5, 1);
+    mySelectionScaling->setIncrement(0.5);
+    mySelectionScaling->setRange(1, 100);
+    mySelectionScaling->setValue(1);
+    mySelectionScaling->setHelpText("Enlarge selected objects");
+}
+
+
+GNESelectorFrame::VisualScaling::~VisualScaling() {}
+
+
+long
+GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void*) {
+    // set scale in viewnet
+    mySelectorFrameParent->getViewNet()->setSelectionScaling(mySelectionScaling->getValue());
+    mySelectorFrameParent->getViewNet()->update();
     return 1;
 }
 
