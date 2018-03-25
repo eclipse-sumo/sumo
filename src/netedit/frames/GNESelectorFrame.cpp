@@ -56,8 +56,11 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNESelectorFrame::onCmdSelectOperation),
+FXDEFMAP(GNESelectorFrame::ModificationMode) ModificationModeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode),
+};
+
+FXDEFMAP(GNESelectorFrame) SelectorFrameMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,                   GNESelectorFrame::onCmdSubset),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                       GNESelectorFrame::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                       GNESelectorFrame::onCmdSave),
@@ -71,7 +74,8 @@ FXDEFMAP(GNESelectorFrame) GNESelectorFrameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, GNESelectorFrameMap, ARRAYNUMBER(GNESelectorFrameMap))
+FXIMPLEMENT(GNESelectorFrame::ModificationMode, FXGroupBox, ModificationModeMap, ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, SelectorFrameMap, ARRAYNUMBER(SelectorFrameMap))
 
 // ===========================================================================
 // method definitions
@@ -86,13 +90,12 @@ GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::
 
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Selection"),
-    mySetOperation(SET_ADD),
     myCurrentTag(SUMO_TAG_NOTHING),
     myCurrentAttribute(SUMO_ATTR_NOTHING) {
     // create combo box and labels for selected items
     FXGroupBox* mySelectedItemsComboBox = new FXGroupBox(myContentFrame, "Selected items", 0, GUIDesignGroupBoxFrame);
     FXMatrix* mSelectedItems = new FXMatrix(mySelectedItemsComboBox, 3, (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    // create typeEntries for the differet elements
+    // create typeEntries for the different elements
     myTypeEntries[GLO_JUNCTION] = ObjectTypeEntry(mSelectedItems, "Junctions", "junction");
     myTypeEntries[GLO_EDGE] = ObjectTypeEntry(mSelectedItems, "Edges", "edge");
     myTypeEntries[GLO_LANE] = ObjectTypeEntry(mSelectedItems, "Lanes", "lane");
@@ -101,18 +104,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myTypeEntries[GLO_CROSSING] = ObjectTypeEntry(mSelectedItems, "Crossings", "crossing");
     myTypeEntries[GLO_POLYGON] = ObjectTypeEntry(mSelectedItems, "Polygons", "polygon");
     myTypeEntries[GLO_POI] = ObjectTypeEntry(mSelectedItems, "POIs", "POI");
-    // create combo box for selection modification mode
-    FXGroupBox* selBox = new FXGroupBox(myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame);
-    // Create all options buttons
-    myAddRadioButton = new FXRadioButton(selBox, "add\t\tSelected objects are added to the previous selection",
-                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRemoveRadioButton = new FXRadioButton(selBox, "remove\t\tSelected objects are removed from the previous selection",
-                                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myKeepRadioButton = new FXRadioButton(selBox, "keep\t\tRestrict previous selection by the current selection",
-                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myReplaceRadioButton = new FXRadioButton(selBox, "replace\t\tReplace previous selection by the current selection",
-            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myAddRadioButton->setCheck(true);
+    // create Modification Mode selector
+    myModificationMode = new ModificationMode(this);
     // Create groupBox for selection by expression matching (match box)
     FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags and fill it
@@ -167,42 +160,6 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 
 
 GNESelectorFrame::~GNESelectorFrame() {}
-
-
-long
-GNESelectorFrame::onCmdSelectOperation(FXObject* obj, FXSelector, void*) {
-    if (obj == myAddRadioButton) {
-        mySetOperation = SET_ADD;
-        myAddRadioButton->setCheck(true);
-        myRemoveRadioButton->setCheck(false);
-        myKeepRadioButton->setCheck(false);
-        myReplaceRadioButton->setCheck(false);
-        return 1;
-    } else if (obj == myRemoveRadioButton) {
-        mySetOperation = SET_SUB;
-        myAddRadioButton->setCheck(false);
-        myRemoveRadioButton->setCheck(true);
-        myKeepRadioButton->setCheck(false);
-        myReplaceRadioButton->setCheck(false);
-        return 1;
-    } else if (obj == myKeepRadioButton) {
-        mySetOperation = SET_RESTRICT;
-        myAddRadioButton->setCheck(false);
-        myRemoveRadioButton->setCheck(false);
-        myKeepRadioButton->setCheck(true);
-        myReplaceRadioButton->setCheck(false);
-        return 1;
-    } else if (obj == myReplaceRadioButton) {
-        mySetOperation = SET_REPLACE;
-        myAddRadioButton->setCheck(false);
-        myRemoveRadioButton->setCheck(false);
-        myKeepRadioButton->setCheck(false);
-        myReplaceRadioButton->setCheck(true);
-        return 1;
-    } else {
-        return 0;
-    }
-}
 
 
 long
@@ -666,14 +623,14 @@ GNESelectorFrame::selectionUpdated() {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, SetOperation setop) {
-    const SetOperation setOperation = ((setop == SET_DEFAULT) ? mySetOperation : setop);
+GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, ModificationMode::SetOperation setop) {
+    const ModificationMode::SetOperation setOperation = ((setop == ModificationMode::SET_DEFAULT) ? myModificationMode->getModificationMode() : setop);
     // first save previous selection
     std::vector<GNEAttributeCarrier*> previousACSelection = myViewNet->getNet()->getSelectedAttributeCarriers();
     // start change selection operation
     myViewNet->getUndoList()->p_begin("change selection");
     // if we're replacing or restricting, we need to unselect all previous selected attribute carrier
-    if ((setOperation == SET_REPLACE) || (setOperation == SET_RESTRICT)) {
+    if ((setOperation == ModificationMode::SET_REPLACE) || (setOperation == ModificationMode::SET_RESTRICT)) {
         // change attribute GNE_ATTR_SELECTED of all selected items to false
         for (auto i : previousACSelection) {
             i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -686,14 +643,14 @@ GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEd
     for (auto i : ACs) {
         // doing the switch outside the loop requires functional techniques. this was deemed to ugly
         switch (setOperation) {
-            case GNESelectorFrame::SET_ADD:
-            case GNESelectorFrame::SET_REPLACE:
+            case GNESelectorFrame::ModificationMode::SET_ADD:
+            case GNESelectorFrame::ModificationMode::SET_REPLACE:
                 selectACs.push_back(i);
                 break;
-            case GNESelectorFrame::SET_SUB:
+            case GNESelectorFrame::ModificationMode::SET_SUB:
                 unselectACs.push_back(i);
                 break;
-            case GNESelectorFrame::SET_RESTRICT:
+            case GNESelectorFrame::ModificationMode::SET_RESTRICT:
                 if (std::find(previousACSelection.begin(), previousACSelection.end(), i) != previousACSelection.end()) {
                     selectACs.push_back(i);
                 } else {
@@ -775,6 +732,71 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
         }
     }
     return result;
+}
+
+// ---------------------------------------------------------------------------
+// ModificationMode::ModificationMode - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame *selectorFrameParent) :
+    FXGroupBox(selectorFrameParent->myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame),
+    mySelectorFrameParent(selectorFrameParent),
+    myModificationModeType(SET_ADD) {
+    // Create all options buttons
+    myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myRemoveRadioButton = new FXRadioButton(this, "remove\t\tSelected objects are removed from the previous selection",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myKeepRadioButton = new FXRadioButton(this, "keep\t\tRestrict previous selection by the current selection",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myReplaceRadioButton = new FXRadioButton(this, "replace\t\tReplace previous selection by the current selection",
+        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myAddRadioButton->setCheck(true);
+}
+
+
+GNESelectorFrame::ModificationMode::~ModificationMode() {}
+
+
+GNESelectorFrame::ModificationMode::SetOperation 
+GNESelectorFrame::ModificationMode::getModificationMode() const {
+    return myModificationModeType;
+}
+
+
+long
+GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, FXSelector, void*) {
+    if (obj == myAddRadioButton) {
+        myModificationModeType = SET_ADD;
+        myAddRadioButton->setCheck(true);
+        myRemoveRadioButton->setCheck(false);
+        myKeepRadioButton->setCheck(false);
+        myReplaceRadioButton->setCheck(false);
+        return 1;
+    } else if (obj == myRemoveRadioButton) {
+        myModificationModeType = SET_SUB;
+        myAddRadioButton->setCheck(false);
+        myRemoveRadioButton->setCheck(true);
+        myKeepRadioButton->setCheck(false);
+        myReplaceRadioButton->setCheck(false);
+        return 1;
+    } else if (obj == myKeepRadioButton) {
+        myModificationModeType = SET_RESTRICT;
+        myAddRadioButton->setCheck(false);
+        myRemoveRadioButton->setCheck(false);
+        myKeepRadioButton->setCheck(true);
+        myReplaceRadioButton->setCheck(false);
+        return 1;
+    } else if (obj == myReplaceRadioButton) {
+        myModificationModeType = SET_REPLACE;
+        myAddRadioButton->setCheck(false);
+        myRemoveRadioButton->setCheck(false);
+        myKeepRadioButton->setCheck(false);
+        myReplaceRadioButton->setCheck(true);
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 /****************************************************************************/

@@ -46,13 +46,63 @@ class GNESelectorFrame : public GNEFrame, public GUISelectedStorage::UpdateTarge
     FXDECLARE(GNESelectorFrame)
 
 public:
-    /// @brief operations of selector
-    enum SetOperation {
-        SET_ADD      = 1,
-        SET_SUB      = 2,
-        SET_RESTRICT = 3,
-        SET_REPLACE  = 4,
-        SET_DEFAULT  = 5  // use mySetOperation instead of override
+
+    // ===========================================================================
+    // class ModificationMode
+    // ===========================================================================
+
+    class ModificationMode : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::ModificationMode)
+
+    public:
+        /// @brief operations of selector
+        enum SetOperation {
+            SET_ADD      = 1,
+            SET_SUB      = 2,
+            SET_RESTRICT = 3,
+            SET_REPLACE  = 4,
+            SET_DEFAULT  = 5  // use mySetOperation instead of override
+        };
+
+        /// @brief constructor
+        ModificationMode(GNESelectorFrame *selectorFrameParent);
+
+        /// @brief destructor
+        ~ModificationMode();
+
+        /// @brief get current modification mode
+        SetOperation getModificationMode() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief called when user change type of selction operation
+        long onCmdSelectModificationMode(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ModificationMode() {}
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief add radio button
+        FXRadioButton* myAddRadioButton;
+
+        /// @brief remove radio button
+        FXRadioButton* myRemoveRadioButton;
+
+        /// @brief keep button
+        FXRadioButton* myKeepRadioButton;
+
+        /// @brief replace radio button
+        FXRadioButton* myReplaceRadioButton;
+
+        /// @brief how to modify selection
+        SetOperation myModificationModeType;
     };
 
     /**@brief Constructor
@@ -72,8 +122,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief called when user change type of selction operation
-    long onCmdSelectOperation(FXObject*, FXSelector, void*);
 
     /// @brief Called when the user change the type of element to search (netElement or Additional)
     long onCmdSubset(FXObject*, FXSelector, void*);
@@ -131,7 +179,7 @@ public:
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
-    void handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, SetOperation setop = SET_DEFAULT);
+    void handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
 
     /// @brief called if currently registered for updates for changes of global selection
     void selectionUpdated();
@@ -141,23 +189,10 @@ protected:
     GNESelectorFrame() {}
 
 private:
-    /// @brief how to modify selection
-    SetOperation mySetOperation;
-
-    /// @brief add radio button
-    FXRadioButton* myAddRadioButton;
-
-    /// @brief remove radio button
-    FXRadioButton* myRemoveRadioButton;
-
-    /// @brief keep button
-    FXRadioButton* myKeepRadioButton;
-
-    /// @brief replace radio button
-    FXRadioButton* myReplaceRadioButton;
-
     /// @brief tag of the sets of elements
     FXComboBox* mySetComboBox;
+
+    ModificationMode* myModificationMode;
 
     /// @brief tag of the match box
     FXComboBox* myMatchTagComboBox;
