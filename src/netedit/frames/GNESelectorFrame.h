@@ -105,6 +105,55 @@ public:
         SetOperation myModificationModeType;
     };
 
+    // ===========================================================================
+    // class ElementSet
+    // ===========================================================================
+
+    class ElementSet : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::ElementSet)
+
+    public:
+    /// @brief type of Set
+        enum ElementSetType {
+            ELEMENTSET_NETELEMENT = 1,
+            ELEMENTSET_ADDITIONAL = 2,
+            ELEMENTSET_SHAPE      = 3,
+            ELEMENTSET_INVALID    = 4,
+        };
+
+        /// @brief constructor
+        ElementSet(GNESelectorFrame *selectorFrameParent);
+
+        /// @brief destructor
+        ~ElementSet();
+
+        /// @brief get current selected element set
+        ElementSetType getElementSet() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when the user change the set of element to search (netElement, Additional or shape)
+        long onCmdSelectElementSet(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ElementSet() {}
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief Combo Box with the element sets
+        FXComboBox* mySetComboBox;
+
+        /// @brief current element set selected
+        ElementSetType myCurrentElementSet;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -122,9 +171,6 @@ public:
 
     /// @name FOX-callbacks
     /// @{
-
-    /// @brief Called when the user change the type of element to search (netElement or Additional)
-    long onCmdSubset(FXObject*, FXSelector, void*);
 
     /**@brief Called when the user presses the Load-button
      * @note Opens a file dialog and forces the parent to load the list of selected
@@ -189,10 +235,11 @@ protected:
     GNESelectorFrame() {}
 
 private:
-    /// @brief tag of the sets of elements
-    FXComboBox* mySetComboBox;
-
+    /// @brief modul for change modification mode
     ModificationMode* myModificationMode;
+
+    /// @brief modul for select element set
+    ElementSet* myElementSet;
 
     /// @brief tag of the match box
     FXComboBox* myMatchTagComboBox;

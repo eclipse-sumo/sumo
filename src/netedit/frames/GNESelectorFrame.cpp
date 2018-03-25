@@ -57,16 +57,19 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNESelectorFrame::ModificationMode) ModificationModeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNESelectorFrame::ModificationMode::onCmdSelectModificationMode),
+};
+
+FXDEFMAP(GNESelectorFrame::ElementSet) ElementSetMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,   GNESelectorFrame::ElementSet::onCmdSelectElementSet),
 };
 
 FXDEFMAP(GNESelectorFrame) SelectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_ELEMENTS,                   GNESelectorFrame::onCmdSubset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNESelectorFrame::onCmdSelMBTag),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                       GNESelectorFrame::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                       GNESelectorFrame::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,                     GNESelectorFrame::onCmdInvert),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                      GNESelectorFrame::onCmdClear),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTTAG,        GNESelectorFrame::onCmdSelMBTag),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTATTRIBUTE,  GNESelectorFrame::onCmdSelMBAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PROCESSSTRING,    GNESelectorFrame::onCmdSelMBString),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTSCALE,      GNESelectorFrame::onCmdScaleSelection),
@@ -74,8 +77,9 @@ FXDEFMAP(GNESelectorFrame) SelectorFrameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame::ModificationMode, FXGroupBox, ModificationModeMap, ARRAYNUMBER(ModificationModeMap))
 FXIMPLEMENT(GNESelectorFrame, FXVerticalFrame, SelectorFrameMap, ARRAYNUMBER(SelectorFrameMap))
+FXIMPLEMENT(GNESelectorFrame::ModificationMode, FXGroupBox, ModificationModeMap, ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT(GNESelectorFrame::ElementSet, FXGroupBox, ElementSetMap, ARRAYNUMBER(ElementSetMap))
 
 // ===========================================================================
 // method definitions
@@ -90,7 +94,6 @@ GNESelectorFrame::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::
 
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Selection"),
-    myCurrentTag(SUMO_TAG_NOTHING),
     myCurrentAttribute(SUMO_ATTR_NOTHING) {
     // create combo box and labels for selected items
     FXGroupBox* mySelectedItemsComboBox = new FXGroupBox(myContentFrame, "Selected items", 0, GUIDesignGroupBoxFrame);
@@ -106,14 +109,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myTypeEntries[GLO_POI] = ObjectTypeEntry(mSelectedItems, "POIs", "POI");
     // create Modification Mode selector
     myModificationMode = new ModificationMode(this);
-    // Create groupBox for selection by expression matching (match box)
-    FXGroupBox* elementBox = new FXGroupBox(myContentFrame, "type of element", GUIDesignGroupBoxFrame);
-    // Create MatchTagBox for tags and fill it
-    mySetComboBox = new FXComboBox(elementBox, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
-    mySetComboBox->appendItem("Net Element");
-    mySetComboBox->appendItem("Additional");
-    mySetComboBox->appendItem("Shape");
-    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+    // create ElementSet selector
+    myElementSet = new ElementSet(this);
     // Create groupBox fro selection by expression matching (match box)
     FXGroupBox* matchBox = new FXGroupBox(myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame);
     // Create MatchTagBox for tags
@@ -123,7 +120,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create TextField for Match string
     myMatchString = new FXTextField(matchBox, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Fill list of sub-items
-    onCmdSubset(0, 0, 0);
+    myElementSet->onCmdSelectElementSet(0, 0, 0);
     // Set speed of edge as default attribute
     myCurrentTag = SUMO_TAG_EDGE;
     myMatchAttrComboBox->setCurrentItem(3);
@@ -160,63 +157,6 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 
 
 GNESelectorFrame::~GNESelectorFrame() {}
-
-
-long
-GNESelectorFrame::onCmdSubset(FXObject*, FXSelector, void*) {
-    if (mySetComboBox->getText() == "Net Element") {
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        myMatchTagComboBox->enable();
-        myMatchAttrComboBox->enable();
-        myMatchString->enable();
-        // Clear items of myMatchTagComboBox
-        myMatchTagComboBox->clearItems();
-        // Set items depending of current items
-        for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
-            myMatchTagComboBox->appendItem(toString(i).c_str());
-        }
-        myMatchTagComboBox->setCurrentItem(0); // edges
-        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-        // Fill attributes with the current element type
-        onCmdSelMBTag(0, 0, 0);
-    } else if (mySetComboBox->getText() == "Additional") {
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        myMatchTagComboBox->enable();
-        myMatchAttrComboBox->enable();
-        myMatchString->enable();
-        // Clear items of myMatchTagComboBox
-        myMatchTagComboBox->clearItems();
-        // Set items depending of current items
-        for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
-            myMatchTagComboBox->appendItem(toString(i).c_str());
-        }
-        myMatchTagComboBox->setCurrentItem(0); // edges
-        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-        // Fill attributes with the current element type
-        onCmdSelMBTag(0, 0, 0);
-    } else if (mySetComboBox->getText() == "Shape") {
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        myMatchTagComboBox->enable();
-        myMatchAttrComboBox->enable();
-        myMatchString->enable();
-        // Clear items of myMatchTagComboBox
-        myMatchTagComboBox->clearItems();
-        // Set items depending of current items
-        for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
-            myMatchTagComboBox->appendItem(toString(i).c_str());
-        }
-        myMatchTagComboBox->setCurrentItem(0); // edges
-        myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
-        // Fill attributes with the current element type
-        onCmdSelMBTag(0, 0, 0);
-    } else {
-        mySetComboBox->setTextColor(FXRGB(255, 0, 0));
-        myMatchTagComboBox->disable();
-        myMatchAttrComboBox->disable();
-        myMatchString->disable();
-    }
-    return 1;
-}
 
 
 long
@@ -360,19 +300,19 @@ GNESelectorFrame::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
-    if (mySetComboBox->getText() == "Net Element") {
+    if (myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
         for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
         }
-    } else if (mySetComboBox->getText() == "Additional") {
+    } else if (myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
         for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
         }
-    } else if (mySetComboBox->getText() == "Shape") {
+    } else if (myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
         for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
@@ -798,5 +738,92 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
         return 0;
     }
 }
+
+// ---------------------------------------------------------------------------
+// ModificationMode::MachTag - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame *selectorFrameParent) :
+    FXGroupBox(selectorFrameParent->myContentFrame, "Element Set", GUIDesignGroupBoxFrame),
+    mySelectorFrameParent(selectorFrameParent),
+    myCurrentElementSet(ELEMENTSET_NETELEMENT) {
+    // Create MatchTagBox for tags and fill it
+    mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
+    mySetComboBox->appendItem("Net Element");
+    mySetComboBox->appendItem("Additional");
+    mySetComboBox->appendItem("Shape");
+    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+}
+
+
+GNESelectorFrame::ElementSet::~ElementSet() {}
+
+
+GNESelectorFrame::ElementSet::ElementSetType
+GNESelectorFrame::ElementSet::getElementSet() const {
+    return myCurrentElementSet;
+}
+
+
+long
+GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
+    if (mySetComboBox->getText() == "Net Element") {
+        myCurrentElementSet = ELEMENTSET_NETELEMENT;
+        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        mySelectorFrameParent->myMatchTagComboBox->enable();
+        mySelectorFrameParent->myMatchAttrComboBox->enable();
+        mySelectorFrameParent->myMatchString->enable();
+        // Clear items of myMatchTagComboBox
+        mySelectorFrameParent->myMatchTagComboBox->clearItems();
+        // Set items depending of current items
+        for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
+            mySelectorFrameParent->myMatchTagComboBox->appendItem(toString(i).c_str());
+        }
+        mySelectorFrameParent->myMatchTagComboBox->setCurrentItem(0); // edges
+        mySelectorFrameParent->myMatchTagComboBox->setNumVisible(mySelectorFrameParent->myMatchTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        mySelectorFrameParent->onCmdSelMBTag(0, 0, 0);
+    } else if (mySetComboBox->getText() == "Additional") {
+        myCurrentElementSet = ELEMENTSET_ADDITIONAL;
+        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        mySelectorFrameParent->myMatchTagComboBox->enable();
+        mySelectorFrameParent->myMatchAttrComboBox->enable();
+        mySelectorFrameParent->myMatchString->enable();
+        // Clear items of myMatchTagComboBox
+        mySelectorFrameParent->myMatchTagComboBox->clearItems();
+        // Set items depending of current items
+        for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+            mySelectorFrameParent->myMatchTagComboBox->appendItem(toString(i).c_str());
+        }
+        mySelectorFrameParent->myMatchTagComboBox->setCurrentItem(0); // edges
+        mySelectorFrameParent->myMatchTagComboBox->setNumVisible(mySelectorFrameParent->myMatchTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        mySelectorFrameParent->onCmdSelMBTag(0, 0, 0);
+    } else if (mySetComboBox->getText() == "Shape") {
+        myCurrentElementSet = ELEMENTSET_SHAPE;
+        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+        mySelectorFrameParent->myMatchTagComboBox->enable();
+        mySelectorFrameParent->myMatchAttrComboBox->enable();
+        mySelectorFrameParent->myMatchString->enable();
+        // Clear items of myMatchTagComboBox
+        mySelectorFrameParent->myMatchTagComboBox->clearItems();
+        // Set items depending of current items
+        for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+            mySelectorFrameParent->myMatchTagComboBox->appendItem(toString(i).c_str());
+        }
+        mySelectorFrameParent->myMatchTagComboBox->setCurrentItem(0); // edges
+        mySelectorFrameParent->myMatchTagComboBox->setNumVisible(mySelectorFrameParent->myMatchTagComboBox->getNumItems());
+        // Fill attributes with the current element type
+        mySelectorFrameParent->onCmdSelMBTag(0, 0, 0);
+    } else {
+        myCurrentElementSet = ELEMENTSET_INVALID;
+        mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+        mySelectorFrameParent->myMatchTagComboBox->disable();
+        mySelectorFrameParent->myMatchAttrComboBox->disable();
+        mySelectorFrameParent->myMatchString->disable();
+    }
+    return 1;
+}
+
 
 /****************************************************************************/
