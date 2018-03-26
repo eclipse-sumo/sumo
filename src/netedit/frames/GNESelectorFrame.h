@@ -48,6 +48,41 @@ class GNESelectorFrame : public GNEFrame, public GUISelectedStorage::UpdateTarge
 public:
 
     // ===========================================================================
+    // class SelectedItems
+    // ===========================================================================
+
+    class SelectedItems : public FXGroupBox {
+
+    public:
+        /// @brief constructor
+        SelectedItems(GNESelectorFrame *selectorFrameParent);
+
+        /// @brief destructor
+        ~SelectedItems();
+
+        /// @brief update selected items
+        void updateSelectedItems();
+
+        /// @brief check if an object is locked
+        bool IsObjectTypeLocked(GUIGlObjectType type) const;
+
+    private:
+        struct ObjectTypeEntry {
+            ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2);
+            ObjectTypeEntry() : count(0), typeName(0), locked(0) {}
+            FXLabel* count;
+            FXLabel* typeName;
+            FXMenuCheck* locked;
+        };
+
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief check boxes for type-based selection locking and selected object counts
+        std::map<GUIGlObjectType, ObjectTypeEntry> myTypeEntries;
+    };
+
+    // ===========================================================================
     // class ModificationMode
     // ===========================================================================
 
@@ -301,9 +336,8 @@ public:
 
     /// @}
 
-    bool locked(GUIGlObjectType type) {
-        return myTypeEntries[type].locked->getCheck() != FALSE;
-    }
+    /// @brief check if a object type is locked
+    bool locked(GUIGlObjectType type) const;
 
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
@@ -318,6 +352,9 @@ protected:
     GNESelectorFrame() {}
 
 private:
+    /// @brief modul for lock selected items
+    SelectedItems* mySelectedItems;
+
     /// @brief modul for change modification mode
     ModificationMode* myModificationMode;
 
@@ -329,17 +366,6 @@ private:
 
     /// @brief modul for visual scaling
     VisualScaling* myVisualScaling;
-
-    struct ObjectTypeEntry {
-        ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2);
-        ObjectTypeEntry() : count(0), typeName(0), locked(0) {}
-        FXLabel* count;
-        FXLabel* typeName;
-        FXMenuCheck* locked;
-    };
-
-    /// @brief check boxes for type-based selection locking and selected object counts
-    std::map<GUIGlObjectType, ObjectTypeEntry> myTypeEntries;
 
 private:
     /**@brief return ACs of the given type with matching attrs
