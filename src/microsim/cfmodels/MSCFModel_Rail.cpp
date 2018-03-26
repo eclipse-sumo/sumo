@@ -106,7 +106,6 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
             a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
         }
     }
-
     double maxNextSpeed = speed + a * DELTA_T / 1000.;
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
@@ -129,6 +128,7 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
 }
 
 double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const {
+    speed = speed * 3.6; // lookup values in km/h
     std::map<double, double>::const_iterator low, prev;
     low = lookUpMap->lower_bound(speed);
 
