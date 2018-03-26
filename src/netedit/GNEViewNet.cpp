@@ -800,14 +800,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_SELECT:
                 if ((myObjectsUnderCursor.lane != nullptr) && mySelectEdges) {
-                    if (!myViewParent->getSelectorFrame()->locked(GLO_EDGE)) {
+                    if (!myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(GLO_EDGE)) {
                         if(myObjectsUnderCursor.edge->isNetElementSelected()) {
                             myObjectsUnderCursor.edge->unselectNetElement();
                         } else {
                             myObjectsUnderCursor.edge->selectNetElement();
                         }
                     }
-                } else if (myObjectsUnderCursor.attributeCarrier && !myViewParent->getSelectorFrame()->locked(myObjectsUnderCursor.attributeCarrier->getGUIGLObject()->getType()) && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
+                } else if (myObjectsUnderCursor.attributeCarrier && !myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(myObjectsUnderCursor.attributeCarrier->getGUIGLObject()->getType()) && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
                     if(myObjectsUnderCursor.netElement) {
                         // toogle netElement selection
                         if(myObjectsUnderCursor.netElement->isNetElementSelected()) {

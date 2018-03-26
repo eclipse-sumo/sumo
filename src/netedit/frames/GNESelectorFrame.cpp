@@ -75,19 +75,19 @@ FXDEFMAP(GNESelectorFrame::VisualScaling) VisualScalingMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTSCALE,      GNESelectorFrame::VisualScaling::onCmdScaleSelection)
 };
 
-FXDEFMAP(GNESelectorFrame) SelectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                       GNESelectorFrame::onCmdLoad),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                       GNESelectorFrame::onCmdSave),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,                     GNESelectorFrame::onCmdInvert),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                      GNESelectorFrame::onCmdClear)
+FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,   GNESelectorFrame::SelectionOperation::onCmdLoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,   GNESelectorFrame::SelectionOperation::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT, GNESelectorFrame::SelectionOperation::onCmdInvert),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,  GNESelectorFrame::SelectionOperation::onCmdClear)
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame,                   FXVerticalFrame,    SelectorFrameMap,       ARRAYNUMBER(SelectorFrameMap))
-FXIMPLEMENT(GNESelectorFrame::ModificationMode, FXGroupBox,         ModificationModeMap,    ARRAYNUMBER(ModificationModeMap))
-FXIMPLEMENT(GNESelectorFrame::ElementSet,       FXGroupBox,         ElementSetMap,          ARRAYNUMBER(ElementSetMap))
-FXIMPLEMENT(GNESelectorFrame::MatchAttribute,   FXGroupBox,         MatchAttributeMap,      ARRAYNUMBER(MatchAttributeMap))
-FXIMPLEMENT(GNESelectorFrame::VisualScaling,    FXGroupBox,         VisualScalingMap,       ARRAYNUMBER(VisualScalingMap))
+FXIMPLEMENT(GNESelectorFrame::ModificationMode,     FXGroupBox,     ModificationModeMap,    ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT(GNESelectorFrame::ElementSet,           FXGroupBox,     ElementSetMap,          ARRAYNUMBER(ElementSetMap))
+FXIMPLEMENT(GNESelectorFrame::MatchAttribute,       FXGroupBox,     MatchAttributeMap,      ARRAYNUMBER(MatchAttributeMap))
+FXIMPLEMENT(GNESelectorFrame::VisualScaling,        FXGroupBox,     VisualScalingMap,       ARRAYNUMBER(VisualScalingMap))
+FXIMPLEMENT(GNESelectorFrame::SelectionOperation,   FXGroupBox,     SelectionOperationMap,  ARRAYNUMBER(SelectionOperationMap))
 
 // ===========================================================================
 // method definitions
@@ -105,16 +105,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myMatchAttribute = new MatchAttribute(this);
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
-    // Create groupbox for additional buttons
-    FXGroupBox* additionalButtons = new FXGroupBox(myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame);
-    // Create "Clear List" Button
-    new FXButton(additionalButtons, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
-    // Create "Invert" Button
-    new FXButton(additionalButtons, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, GUIDesignButton);
-    // Create "Save" Button
-    new FXButton(additionalButtons, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, GUIDesignButton);
-    // Create "Load" Button
-    new FXButton(additionalButtons, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, GUIDesignButton);
+    // create SelectionOperation modul
+    mySelectionOperation = new SelectionOperation(this);
     // Create groupbox for information about selections
     FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     // Create Selection Hint
@@ -125,146 +117,10 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 GNESelectorFrame::~GNESelectorFrame() {}
 
 
-long
-GNESelectorFrame::onCmdLoad(FXObject*, FXSelector, void*) {
-    // get the new file name
-    FXFileDialog opendialog(this, "Open List of Selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        // @todo maybe rewrite so that mySetOperation also applies to loaded items?
-        std::string errors;
-        std::set<GUIGlID> ids = gSelected.loadIDs(file, errors);
-        std::vector<GNEAttributeCarrier*> ACs;
-        for(auto i : ids) {
-            ACs.push_back(myViewNet->getNet()->retrieveAttributeCarrier(i, false));
-        }
-        handleIDs(ACs, false);
-        if (errors != "") {
-            // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox 'error loading selection'");
-            }
-            // open message box error
-            FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", errors.c_str());
-            // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'error loading selection' with 'OK'");
-            }
-        }
-    }
-    myViewNet->update();
-    return 1;
-}
-
-
-long
-GNESelectorFrame::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(
-                        this, "Save List of selected Items", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
-    if (file == "") {
-        return 1;
-    }
-    try {
-        gSelected.save(file.text());
-    } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'error storing selection'");
-        }
-        // open message box error
-        FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'error storing selection' with 'OK'");
-        }
-    }
-    return 1;
-}
-
-
-long
-GNESelectorFrame::onCmdClear(FXObject*, FXSelector, void*) {
-    // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
-    myViewNet->getUndoList()->p_begin("clear selection");
-    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
-    // change attribute GNE_ATTR_SELECTED of all selected items to false
-    for (auto i : selectedAC) {
-        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-    }
-    // finish clear selection
-    myViewNet->getUndoList()->p_end();
-    // update view
-    myViewNet->update();
-    return 1;
-}
-
-
-long
-GNESelectorFrame::onCmdInvert(FXObject*, FXSelector, void*) {
-    // first make a copy of current selected elements
-    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
-    // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-    myViewNet->getUndoList()->p_begin("invert selection");
-    // select junctions, edges, lanes connections and crossings
-    std::vector<GNEJunction*> junctions = myViewNet->getNet()->retrieveJunctions();
-    for (auto i : junctions) {
-        i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-        // due we iterate over all junctions, only it's neccesary iterate over incoming edges
-        for (auto j : i->getGNEIncomingEdges()) {
-            // only select edges if "select edges" flag is enabled. In other case, select only lanes
-            if(myViewNet->selectEdges()) {
-                j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            } else {
-                for (auto k : j->getLanes()) {
-                    k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-                }
-            }
-            // select connections
-            for (auto k : j->getGNEConnections()) {
-                k->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-        }
-        // select crossings
-        for (auto j : i->getGNECrossings()) {
-            j->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-        }
-    }
-    // select additionals
-    std::vector<GNEAdditional*> additionals = myViewNet->getNet()->getAdditionals();
-    for (auto i : additionals) {
-        i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-    }
-    // select polygons
-    for (auto i : myViewNet->getNet()->getPolygons()) {
-        dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-    }
-    // select POIs
-    for (auto i : myViewNet->getNet()->getPOIs()) {
-        dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-    }
-    // now iterate over all elements of "copyOfSelectedAC" and undselect it 
-    for (auto i : copyOfSelectedAC) {
-        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-    }
-    // finish selection operation
-    myViewNet->getUndoList()->p_end();
-    // update view
-    myViewNet->update();
-    return 1;
-}
-
-
 void
 GNESelectorFrame::show() {
-    // update label
-    selectionUpdated();
+    // update selected items
+    mySelectedItems->updateSelectedItems();
     // Show frame
     GNEFrame::show();
 }
@@ -277,30 +133,9 @@ GNESelectorFrame::hide() {
 }
 
 
-void
-GNESelectorFrame::selectionUpdated() {
-    // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Current selection: " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()) + " Junctions, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()) + " Edges, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()) + " Lanes, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_CONNECTION).size()) + " connections, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_ADDITIONAL).size()) + " Additionals, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()) + " Crossings, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()) + " Polygons, " +
-                      toString(myViewNet->getNet()->getSelectedAttributeCarriers(GLO_POI).size()) + " POIs");
-    }
-    // update selected items
-    mySelectedItems->updateSelectedItems();
-    // update frame
-    update();
-}
-
-
-bool 
-GNESelectorFrame::locked(GUIGlObjectType type) const {
-    return mySelectedItems->IsObjectTypeLocked(type);
+GNESelectorFrame::SelectedItems* 
+GNESelectorFrame::getSelectedItems() const {
+    return mySelectedItems;
 }
 
 
@@ -450,6 +285,18 @@ GNESelectorFrame::SelectedItems::updateSelectedItems() {
     myTypeEntries[GLO_CROSSING].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()).c_str());
     myTypeEntries[GLO_POLYGON].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()).c_str());
     myTypeEntries[GLO_POI].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POI).size()).c_str());
+    // show information in debug mode
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+    WRITE_WARNING("Current selection: " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()) + " Junctions, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()) + " Edges, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()) + " Lanes, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CONNECTION).size()) + " connections, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_ADDITIONAL).size()) + " Additionals, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()) + " Crossings, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()) + " Polygons, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POI).size()) + " POIs");
+    }
 }
 
 
@@ -590,7 +437,7 @@ GNESelectorFrame::MatchAttribute::MatchAttribute(GNESelectorFrame *selectorFrame
     FXGroupBox(selectorFrameParent->myContentFrame, "Match Attribute", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent),
     myCurrentTag(SUMO_TAG_EDGE),
-    myCurrentAttribute(SUMO_ATTR_SPEED) {
+    myCurrentAttribute(SUMO_ATTR_ID) {
     // Create MatchTagBox for tags
     myMatchTagComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
@@ -602,7 +449,8 @@ GNESelectorFrame::MatchAttribute::MatchAttribute(GNESelectorFrame *selectorFrame
     // Fill list of sub-items (first element will be "edge")
     enableMatchAttribute();
     // Set speed of edge as default attribute
-    myMatchAttrComboBox->setCurrentItem(3);
+    myMatchAttrComboBox->setText("speed");
+    myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for Match string
     myMatchString->setText(">10.0");
 }
@@ -896,6 +744,162 @@ long
 GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void*) {
     // set scale in viewnet
     mySelectorFrameParent->getViewNet()->setSelectionScaling(mySelectionScaling->getValue());
+    mySelectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// ModificationMode::SelectionOperation - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame *selectorFrameParent) :
+    FXGroupBox(selectorFrameParent->myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame),
+    mySelectorFrameParent(selectorFrameParent) {
+    // Create "Clear List" Button
+    new FXButton(this, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
+    // Create "Invert" Button
+    new FXButton(this, "Invert\t\t", 0, this, MID_CHOOSEN_INVERT, GUIDesignButton);
+    // Create "Save" Button
+    new FXButton(this, "Save\t\tSave ids of currently selected objects to a file.", 0, this, MID_CHOOSEN_SAVE, GUIDesignButton);
+    // Create "Load" Button
+    new FXButton(this, "Load\t\tLoad ids from a file according to the current modfication mode.", 0, this, MID_CHOOSEN_LOAD, GUIDesignButton);
+}
+
+
+GNESelectorFrame::SelectionOperation::~SelectionOperation() {}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
+    // get the new file name
+    FXFileDialog opendialog(this, "Open List of Selected Items");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // @todo maybe rewrite so that mySetOperation also applies to loaded items?
+        std::string errors;
+        std::set<GUIGlID> ids = gSelected.loadIDs(file, errors);
+        std::vector<GNEAttributeCarrier*> ACs;
+        for(auto i : ids) {
+            ACs.push_back(mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(i, false));
+        }
+        mySelectorFrameParent->handleIDs(ACs, false);
+        if (errors != "") {
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Opening FXMessageBox 'error loading selection'");
+            }
+            // open message box error
+            FXMessageBox::error(this, MBOX_OK, "Errors while loading Selection", "%s", errors.c_str());
+            // write warning if netedit is running in testing mode
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Closed FXMessageBox 'error loading selection' with 'OK'");
+            }
+        }
+    }
+    mySelectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
+    FXString file = MFXUtils::getFilename2Write(
+                        this, "Save List of selected Items", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if (file == "") {
+        return 1;
+    }
+    try {
+        gSelected.save(file.text());
+    } catch (IOError& e) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox 'error storing selection'");
+        }
+        // open message box error
+        FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Closed FXMessageBox 'error storing selection' with 'OK'");
+        }
+    }
+    return 1;
+}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
+    // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
+    mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("clear selection");
+    std::vector<GNEAttributeCarrier*> selectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
+    // change attribute GNE_ATTR_SELECTED of all selected items to false
+    for (auto i : selectedAC) {
+        i->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+    }
+    // finish clear selection
+    mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
+    // update view
+    mySelectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
+    // first make a copy of current selected elements
+    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
+    // for invert selection, first clean current selection and next select elements of set "unselectedElements"
+    mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
+    // select junctions, edges, lanes connections and crossings
+    std::vector<GNEJunction*> junctions = mySelectorFrameParent->getViewNet()->getNet()->retrieveJunctions();
+    for (auto i : junctions) {
+        i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+        for (auto j : i->getGNEIncomingEdges()) {
+            // only select edges if "select edges" flag is enabled. In other case, select only lanes
+            if(mySelectorFrameParent->getViewNet()->selectEdges()) {
+                j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+            } else {
+                for (auto k : j->getLanes()) {
+                    k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
+            }
+            // select connections
+            for (auto k : j->getGNEConnections()) {
+                k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+            }
+        }
+        // select crossings
+        for (auto j : i->getGNECrossings()) {
+            j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        }
+    }
+    // select additionals
+    std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->getAdditionals();
+    for (auto i : additionals) {
+        i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    }
+    // select polygons
+    for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPolygons()) {
+        dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    }
+    // select POIs
+    for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPOIs()) {
+        dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    }
+    // now iterate over all elements of "copyOfSelectedAC" and undselect it 
+    for (auto i : copyOfSelectedAC) {
+        i->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+    }
+    // finish selection operation
+    mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
+    // update view
     mySelectorFrameParent->getViewNet()->update();
     return 1;
 }

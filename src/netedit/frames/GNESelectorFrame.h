@@ -41,9 +41,7 @@ class GNEAttributeCarrier;
  * @class GNESelectorFrame
  * The Widget for modifying selections of network-elements
  */
-class GNESelectorFrame : public GNEFrame, public GUISelectedStorage::UpdateTarget {
-    /// @brief FOX-declaration
-    FXDECLARE(GNESelectorFrame)
+class GNESelectorFrame : public GNEFrame {
 
 public:
 
@@ -294,6 +292,57 @@ public:
         FXRealSpinner* mySelectionScaling;
     };
 
+    // ===========================================================================
+    // class SelectionOperation
+    // ===========================================================================
+
+    class SelectionOperation : public FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::SelectionOperation)
+
+    public:
+        /// @brief constructor
+        SelectionOperation(GNESelectorFrame *selectorFrameParent);
+
+        /// @brief destructor
+        ~SelectionOperation();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /**@brief Called when the user presses the Load-button
+         * @note Opens a file dialog and forces the parent to load the list of selected
+         * objects when a file was chosen. Rebuilds the list, then, and redraws itself.
+         */
+        long onCmdLoad(FXObject*, FXSelector, void*);
+
+        /** @brief Called when the user presses the Save-button
+         * @note Opens a file dialog and forces the selection container to save the list
+           of selected objects when a file was chosen. If the saveing failed, a message window is shown.
+         */
+        long onCmdSave(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user presses the Clear-button
+         * @note Clear the internal list and calls GUISelectedStorage::clear and repaints itself
+         */
+        long onCmdClear(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user presses the Invert-button
+         * @note invert the selection and repaints itself
+         */
+        long onCmdInvert(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        SelectionOperation() {}
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -309,47 +358,13 @@ public:
     /// @brief hide Frame
     void hide();
 
-    /// @name FOX-callbacks
-    /// @{
-
-    /**@brief Called when the user presses the Load-button
-     * @note Opens a file dialog and forces the parent to load the list of selected
-     * objects when a file was chosen. Rebuilds the list, then, and redraws itself.
-     */
-    long onCmdLoad(FXObject*, FXSelector, void*);
-
-    /** @brief Called when the user presses the Save-button
-     * @note Opens a file dialog and forces the selection container to save the list
-       of selected objects when a file was chosen. If the saveing failed, a message window is shown.
-     */
-    long onCmdSave(FXObject*, FXSelector, void*);
-
-    /**@brief Called when the user presses the Clear-button
-     * @note Clear the internal list and calls GUISelectedStorage::clear and repaints itself
-     */
-    long onCmdClear(FXObject*, FXSelector, void*);
-
-    /**@brief Called when the user presses the Invert-button
-     * @note invert the selection and repaints itself
-     */
-    long onCmdInvert(FXObject*, FXSelector, void*);
-
-    /// @}
-
-    /// @brief check if a object type is locked
-    bool locked(GUIGlObjectType type) const;
+    /// @brief get selected items
+    SelectedItems* getSelectedItems() const;
 
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
     void handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
-
-    /// @brief called if currently registered for updates for changes of global selection
-    void selectionUpdated();
-
-protected:
-    /// @brief FOX needs this
-    GNESelectorFrame() {}
 
 private:
     /// @brief modul for lock selected items
@@ -366,6 +381,9 @@ private:
 
     /// @brief modul for visual scaling
     VisualScaling* myVisualScaling;
+
+    /// @brief modul for selection operations
+    SelectionOperation* mySelectionOperation;
 
 private:
     /**@brief return ACs of the given type with matching attrs
