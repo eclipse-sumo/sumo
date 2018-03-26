@@ -67,7 +67,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, ICON_LOCATEPOLY, movementBlocked, shapeBlocked),
-    myNetElementShapeEdited(NULL),
+    myNetElementShapeEdited(nullptr),
     myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false),
     myCurrentMovingVertexIndex(-1) {
@@ -166,7 +166,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
             shapeToCommit.push_back(shapeToCommit.front());
         }
         // only use GNEChange_Attribute if we aren't editing a junction's shape
-        if (myNetElementShapeEdited == NULL) {
+        if (myNetElementShapeEdited == nullptr) {
             myShape = oldShape;
             // commit new shape
             undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
@@ -205,7 +205,7 @@ GNEPoly::getGlID() const {
 
 const std::string&
 GNEPoly::getParentName() const {
-    if (myNetElementShapeEdited != NULL) {
+    if (myNetElementShapeEdited != nullptr) {
         return myNetElementShapeEdited->getMicrosimID();
     } else {
         return myNet->getMicrosimID();
@@ -227,8 +227,8 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (mySimplifiedShape) {
         simplifyShape->disable();
     }
-    // create open or close polygon's shape only if myNetElementShapeEdited is NULL
-    if (myNetElementShapeEdited == NULL) {
+    // create open or close polygon's shape only if myNetElementShapeEdited is nullptr
+    if (myNetElementShapeEdited == nullptr) {
         if (myClosedShape) {
             new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
         } else {
@@ -403,7 +403,7 @@ GNEPoly::setShapeEditedElement(GNENetElement* element) {
     if (element) {
         myNetElementShapeEdited = element;
     } else {
-        throw InvalidArgument("Junction cannot be NULL");
+        throw InvalidArgument("Junction cannot be nullptr");
     }
 }
 

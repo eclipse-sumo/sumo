@@ -570,7 +570,7 @@ public:
 
     /* @brief retrieve Rerouter Interval
      * @param rerouterIntervalID ID of rerouter interval
-     * @param rerouter interval if was found, or NULL in other case
+     * @param rerouter interval if was found, or nullptr in other case
      */
     GNERerouterInterval* getRerouterInterval(const std::string& rerouterIntervalID) const;
 

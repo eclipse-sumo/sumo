@@ -1344,15 +1344,15 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     Position currentPosition = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
 
     // Declare pointer to netElements
-    GNEJunction* pointed_junction = NULL;
-    GNEEdge* pointed_edge = NULL;
-    GNELane* pointed_lane = NULL;
-    GNECrossing* pointed_crossing = NULL;
+    GNEJunction* pointed_junction = nullptr;
+    GNEEdge* pointed_edge = nullptr;
+    GNELane* pointed_lane = nullptr;
+    GNECrossing* pointed_crossing = nullptr;
 
     // Check if additional should be placed over a junction
     if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_JUNCTION)) {
         pointed_junction = dynamic_cast<GNEJunction*>(netElement);
-        if (pointed_junction != NULL) {
+        if (pointed_junction != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
@@ -1369,10 +1369,10 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     // Check if additional should be placed over a edge
     else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGE)) {
         // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
-        if (dynamic_cast<GNELane*>(netElement) != NULL) {
+        if (dynamic_cast<GNELane*>(netElement) != nullptr) {
             pointed_edge = &(dynamic_cast<GNELane*>(netElement)->getParentEdge());
         }
-        if (pointed_edge != NULL) {
+        if (pointed_edge != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
@@ -1389,7 +1389,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     // Check if additional should be placed over a lane
     else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_LANE)) {
         pointed_lane = dynamic_cast<GNELane*>(netElement);
-        if (pointed_lane != NULL) {
+        if (pointed_lane != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
@@ -1406,7 +1406,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     // Check if additional should be placed over a crossing
     else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_CROSSING)) {
         pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
-        if (pointed_crossing != NULL) {
+        if (pointed_crossing != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
             if (myAdditionalParameters->areValuesValid() == false) {
                 myAdditionalParameters->showWarningMessage();
@@ -1421,7 +1421,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     } else {
         // Generate id of element
-        valuesOfElement[SUMO_ATTR_ID] = generateID(NULL);
+        valuesOfElement[SUMO_ATTR_ID] = generateID(nullptr);
     }
 
     // show warning dialogbox and stop check if input parameters are valid
@@ -1658,13 +1658,13 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
     std::string currentAdditionalTypeStr = toString(myAdditionalSelector->getCurrentAdditionalType());
     if (netElement) {
         // generate ID using netElement
-        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex)) != NULL) {
+        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex)) != nullptr) {
             additionalIndex++;
         }
         return currentAdditionalTypeStr + "_" + netElement->getID() + "_" + toString(additionalIndex);
     } else {
         // generate ID without netElement
-        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + toString(additionalIndex)) != NULL) {
+        while (myViewNet->getNet()->getAdditional(myAdditionalSelector->getCurrentAdditionalType(), currentAdditionalTypeStr + "_" + toString(additionalIndex)) != nullptr) {
             additionalIndex++;
         }
         return currentAdditionalTypeStr + "_" + toString(additionalIndex);

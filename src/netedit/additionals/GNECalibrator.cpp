@@ -62,22 +62,22 @@
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output) :
     GNEAdditional(id, viewNet, SUMO_TAG_CALIBRATOR, ICON_CALIBRATOR, false, false),
     myEdge(edge),
-    myLane(NULL),
+    myLane(nullptr),
     myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL) { /** change this in the future **/
+    myRouteProbe(nullptr) { /** change this in the future **/
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& output) :
     GNEAdditional(id, viewNet, SUMO_TAG_LANECALIBRATOR, ICON_CALIBRATOR, false, false),
-    myEdge(NULL),
+    myEdge(nullptr),
     myLane(lane),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(NULL) { /** change this in the future **/
+    myRouteProbe(nullptr) { /** change this in the future **/
 }
 
 
@@ -255,8 +255,8 @@ GNECalibrator::openAdditionalDialog() {
 
 void
 GNECalibrator::addCalibratorRoute(GNECalibratorRoute* route) {
-    if(route == NULL) {
-        throw ProcessError("Route cannot be NULL");
+    if(route == nullptr) {
+        throw ProcessError("Route cannot be nullptr");
     } else if (std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route) != myCalibratorRoutes.end()) {
         throw ProcessError("Route was already inserted");
     } else {
@@ -267,8 +267,8 @@ GNECalibrator::addCalibratorRoute(GNECalibratorRoute* route) {
 
 void
 GNECalibrator::removeCalibratorRoute(GNECalibratorRoute* route) {
-    if(route == NULL) {
-        throw ProcessError("Route cannot be NULL");
+    if(route == nullptr) {
+        throw ProcessError("Route cannot be nullptr");
     } else if (std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route) == myCalibratorRoutes.end()) {
         throw ProcessError("Route wasn't inserted");
     } else {
@@ -285,8 +285,8 @@ GNECalibrator::getCalibratorRoutes() const {
 
 void
 GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
-    if(flow == NULL) {
-        throw ProcessError("Flow cannot be NULL");
+    if(flow == nullptr) {
+        throw ProcessError("Flow cannot be nullptr");
     } else if (std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow) != myCalibratorFlows.end()) {
         throw ProcessError("Flow was already inserted");
     } else {
@@ -297,8 +297,8 @@ GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
 
 void
 GNECalibrator::removeCalibratorFlow(GNECalibratorFlow* flow) {
-    if(flow == NULL) {
-        throw ProcessError("Flow cannot be NULL");
+    if(flow == nullptr) {
+        throw ProcessError("Flow cannot be nullptr");
     } else if (std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow) == myCalibratorFlows.end()) {
         throw ProcessError("Flow wasn't inserted");
     } else {
@@ -315,8 +315,8 @@ GNECalibrator::getCalibratorFlows() const {
 
 void
 GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if(vehicleType == NULL) {
-        throw ProcessError("VehicleType cannot be NULL");
+    if(vehicleType == nullptr) {
+        throw ProcessError("VehicleType cannot be nullptr");
     } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) != myCalibratorVehicleTypes.end()) {
         throw ProcessError("VehicleType was already inserted");
     } else {
@@ -327,8 +327,8 @@ GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
 
 void
 GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if(vehicleType == NULL) {
-        throw ProcessError("VehicleType cannot be NULL");
+    if(vehicleType == nullptr) {
+        throw ProcessError("VehicleType cannot be nullptr");
     } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) == myCalibratorVehicleTypes.end()) {
         throw ProcessError("VehicleType wasn't inserted");
     } else {
@@ -345,9 +345,9 @@ GNECalibrator::getCalibratorVehicleTypes() const {
 
 bool 
 GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const {
-    // Check that calibrator flow ins't NULL
-    if (calibratorFlow == NULL) {
-        throw ProcessError("calibratorFlow cannot be NULL");
+    // Check that calibrator flow ins't nullptr
+    if (calibratorFlow == nullptr) {
+        throw ProcessError("calibratorFlow cannot be nullptr");
     }
     // find calibrator flow in calibrator flows container
     auto finder = std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), calibratorFlow);
@@ -364,9 +364,9 @@ GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failH
 
 int 
 GNECalibrator::getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const {
-    // Check that calibrator flow ins't NULL
-    if (calibratorFlow == NULL) {
-        throw ProcessError("calibratorFlow cannot be NULL");
+    // Check that calibrator flow ins't nullptr
+    if (calibratorFlow == nullptr) {
+        throw ProcessError("calibratorFlow cannot be nullptr");
     }
     int index = 0;
     for (auto i : myCalibratorFlows) {
@@ -445,13 +445,13 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -480,7 +480,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
-            if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != NULL)) {
+            if (isValidID(value) && (myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value) != nullptr)) {
                 return true;
             } else {
                 return false;

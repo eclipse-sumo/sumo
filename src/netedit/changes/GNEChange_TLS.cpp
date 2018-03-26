@@ -40,7 +40,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_TLS, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions

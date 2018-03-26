@@ -120,7 +120,7 @@ bool
 GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
+            return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:

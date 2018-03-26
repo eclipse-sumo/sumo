@@ -79,7 +79,7 @@ GNEShape::isShapeBlocked() const {
 void 
 GNEShape::selectShape() {
     if(!myNet) {
-        throw ProcessError("Net cannot be NULL");
+        throw ProcessError("Net cannot be nullptr");
     } else if (!mySelected) {
         if(getTag() == SUMO_TAG_POLY) {
             myNet->selectAttributeCarrier(GLO_POLYGON, this);
@@ -94,7 +94,7 @@ GNEShape::selectShape() {
 void 
 GNEShape::unselectShape() {
     if(!myNet) {
-        throw ProcessError("Net cannot be NULL");
+        throw ProcessError("Net cannot be nullptr");
     } else if (mySelected) {
         if(getTag() == SUMO_TAG_POLY) {
             myNet->unselectAttributeCarrier(GLO_POLYGON, this);

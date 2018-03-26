@@ -42,7 +42,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
@@ -51,8 +51,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, NULL, 0)
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
-    myLaneParent(NULL),
-    myEdgeParent(NULL),
+    myLaneParent(nullptr),
+    myEdgeParent(nullptr),
     myAdditionalParent(myAdditional->getAdditionalParent()),
     myEdgeChilds(myAdditional->getEdgeChilds()),
     myLaneChilds(myAdditional->getLaneChilds()) {
@@ -127,7 +127,7 @@ GNEChange_Additional::undo() {
             myLaneParent->addAdditionalChild(myAdditional);
         }
         // 2 - If additional own a edge parent, add it to edge
-        if (myEdgeParent != NULL) {
+        if (myEdgeParent != nullptr) {
             myEdgeParent->addAdditionalChild(myAdditional);
         }
         // 3 - If additional has a parent, add it into additional parent
@@ -162,7 +162,7 @@ GNEChange_Additional::redo() {
             myLaneParent->addAdditionalChild(myAdditional);
         }
         // 2 - If additional own a edge parent, add it to edge
-        if (myEdgeParent != NULL) {
+        if (myEdgeParent != nullptr) {
             myEdgeParent->addAdditionalChild(myAdditional);
         }
         // 3 - If additional has a parent, add it into additional parent

@@ -354,7 +354,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

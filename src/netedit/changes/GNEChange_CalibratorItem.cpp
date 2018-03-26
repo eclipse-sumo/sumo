@@ -38,7 +38,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
@@ -48,25 +48,25 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, NULL, 0)
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorFlow* calibratorFlow, bool forward) :
     GNEChange(calibratorFlow->getCalibratorParent()->getViewNet()->getNet(), forward),
     myCalibratorFlow(calibratorFlow),
-    myCalibratorRoute(NULL),
-    myCalibratorVehicleType(NULL) {
+    myCalibratorRoute(nullptr),
+    myCalibratorVehicleType(nullptr) {
     myCalibratorFlow->incRef("GNEChange_CalibratorItem");
 }
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibratorRoute, bool forward) :
     GNEChange(calibratorRoute->getCalibratorParent()->getViewNet()->getNet(), forward),
-    myCalibratorFlow(NULL),
+    myCalibratorFlow(nullptr),
     myCalibratorRoute(calibratorRoute),
-    myCalibratorVehicleType(NULL) {
+    myCalibratorVehicleType(nullptr) {
     myCalibratorRoute->incRef("GNEChange_CalibratorItem");
 }
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward) :
     GNEChange(calibratorVehicleType->getCalibratorParent()->getViewNet()->getNet(), forward),
-    myCalibratorFlow(NULL),
-    myCalibratorRoute(NULL),
+    myCalibratorFlow(nullptr),
+    myCalibratorRoute(nullptr),
     myCalibratorVehicleType(calibratorVehicleType) {
     myCalibratorVehicleType->incRef("GNEChange_CalibratorItem");
 }

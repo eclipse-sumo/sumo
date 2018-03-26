@@ -67,11 +67,11 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow)
     FXGroupBox* myGroupBoxOptions = new FXGroupBox(mainFrame, "Selection options", GUIDesignGroupBoxFrame);
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
     mySelectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Allow all vehicles", NULL, GUIDesignLabelLeftThick);
+    new FXLabel(myOptionsFrame, "Allow all vehicles", nullptr, GUIDesignLabelLeftThick);
     mySelectOnlyNonRoadVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Allow only non-road vehicles", NULL, GUIDesignLabelLeftThick);
+    new FXLabel(myOptionsFrame, "Allow only non-road vehicles", nullptr, GUIDesignLabelLeftThick);
     myUnselectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Disallow all vehicles", NULL, GUIDesignLabelLeftThick);
+    new FXLabel(myOptionsFrame, "Disallow all vehicles", nullptr, GUIDesignLabelLeftThick);
     // create groupbox for vehicles
     FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
     // Create frame for vehicles's columns
@@ -235,7 +235,7 @@ GNEDialog_AllowDisallow::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicle
     FXHorizontalFrame* buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
     // create status and text button
     myVClassMap[vclass].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, "status", NULL, GUIDesignLabelLeftThick);
+    myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, "status", nullptr, GUIDesignLabelLeftThick);
     // create label for description of vehicle
     new FXLabel(buttonAndInformationFrame, description.c_str(), 0, GUIDesignLabelLeftThick);
 }

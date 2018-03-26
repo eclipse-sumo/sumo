@@ -36,7 +36,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions

@@ -126,7 +126,7 @@ GNENetElement::getAdditionalChilds() const {
 void 
 GNENetElement::selectNetElement() {
     if(!myNet) {
-        throw ProcessError("Net cannot be NULL");
+        throw ProcessError("Net cannot be nullptr");
     } else if (!mySelected) {
         myNet->selectAttributeCarrier(getType(), this);
         mySelected = true;
@@ -137,7 +137,7 @@ GNENetElement::selectNetElement() {
 void 
 GNENetElement::unselectNetElement() {
     if(!myNet) {
-        throw ProcessError("Net cannot be NULL");
+        throw ProcessError("Net cannot be nullptr");
     } else if (mySelected) {
         myNet->unselectAttributeCarrier(getType(), this);
         mySelected = false;

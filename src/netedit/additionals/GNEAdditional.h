@@ -302,7 +302,7 @@ protected:
     /// @name members and functions relative to block icon
     /// @{
     /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
-    void setBlockIconRotation(GNELane* additionalLane = NULL);
+    void setBlockIconRotation(GNELane* additionalLane = nullptr);
 
     /// @brief draw lock icon
     void drawLockIcon(double size = 0.5) const;

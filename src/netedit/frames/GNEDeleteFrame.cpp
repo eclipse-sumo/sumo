@@ -76,7 +76,7 @@ FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNED
 
 GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Delete"),
-    myMarkedAC(NULL) {
+    myMarkedAC(nullptr) {
     // Create Groupbox for current element
     myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current element", GUIDesignGroupBoxFrame);
     myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "No item under cursor", 0, GUIDesignLabelFrameInformation);
@@ -514,7 +514,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
 void
 GNEDeleteFrame::markAttributeCarrier(GNEAttributeCarrier* ac) {
     // Check if under cursor there are an Attribute Carrier
-    if (ac != NULL) {
+    if (ac != nullptr) {
         myMarkedElementLabel->setText(("  " + toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
         myMarkedElementLabel->setIcon(ac->getIcon());
     } else {
@@ -529,7 +529,7 @@ GNEDeleteFrame::markAttributeCarrier(GNEAttributeCarrier* ac) {
 void
 GNEDeleteFrame::updateCurrentLabel(GNEAttributeCarrier* ac) {
     // change label
-    if (ac != NULL) {
+    if (ac != nullptr) {
         myCurrentElementLabel->setText((toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
         myCurrentElementLabel->setIcon(ac->getIcon());
     } else {
@@ -572,7 +572,7 @@ GNEDeleteFrame::onCmdCenterChildItem(FXObject*, FXSelector, void*) {
 
 long
 GNEDeleteFrame::onCmdInspectChildItem(FXObject*, FXSelector, void*) {
-    if (myMarkedAC != NULL) {
+    if (myMarkedAC != nullptr) {
         myViewNet->getViewParent()->getInspectorFrame()->show();
         myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAC, myMarkedAC, true);
         // Hide delete frame and show inspector frame

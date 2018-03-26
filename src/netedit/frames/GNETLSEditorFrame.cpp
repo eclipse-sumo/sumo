@@ -234,7 +234,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
                 myViewNet->getUndoList()->add(new GNEChange_TLS(junction, myEditedDef, true), true);
             }
-            myEditedDef = NULL;
+            myEditedDef = nullptr;
             myViewNet->getUndoList()->p_end();
             cleanup();
             myViewNet->update();
@@ -542,10 +542,10 @@ GNETLSEditorFrame::cleanup() {
         myTLSJunction->getCurrentJunction()->selectTLS(false);
     }
     // clean data structures
-    myTLSJunction->setCurrentJunction(NULL);
+    myTLSJunction->setCurrentJunction(nullptr);
     myTLSModifications->setHaveModifications(false);
     delete myEditedDef;
-    myEditedDef = NULL;
+    myEditedDef = nullptr;
     buildIinternalLanes(0); // only clears
     // clean up controls
     myTLSAttributes->clearTLSAttributes();
@@ -1040,7 +1040,7 @@ GNETLSEditorFrame::TLSFile::myStartElement(int element, const SUMOSAXAttributes&
     switch (element) {
         case SUMO_TAG_TLLOGIC: {
             std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
-            if(myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(id, false) == NULL) {
+            if(myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(id, false) == nullptr) {
                 WRITE_ERROR("ERROR, Junction doesn't exist");
             } else {
                 std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");

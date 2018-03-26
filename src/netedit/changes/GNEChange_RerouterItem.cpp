@@ -41,7 +41,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_RerouterItem, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_RerouterItem, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
@@ -50,53 +50,53 @@ FXIMPLEMENT_ABSTRACT(GNEChange_RerouterItem, GNEChange, NULL, 0)
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNERerouterInterval* rerouterInterval, bool forward) :
     GNEChange(rerouterInterval->getRerouterParent()->getViewNet()->getNet(), forward),
     myRerouterInterval(rerouterInterval),
-    myClosingReroute(NULL),
-    myClosingLaneReroute(NULL),
-    myDestProbReroute(NULL),
-    myRouteProbReroute(NULL) {
+    myClosingReroute(nullptr),
+    myClosingLaneReroute(nullptr),
+    myDestProbReroute(nullptr),
+    myRouteProbReroute(nullptr) {
     myRerouterInterval->incRef("GNEChange_RerouterItem");
 }
 
 
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingReroute* closingReroute, bool forward) :
     GNEChange(closingReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(NULL),
+    myRerouterInterval(nullptr),
     myClosingReroute(closingReroute),
-    myClosingLaneReroute(NULL),
-    myDestProbReroute(NULL),
-    myRouteProbReroute(NULL) {
+    myClosingLaneReroute(nullptr),
+    myDestProbReroute(nullptr),
+    myRouteProbReroute(nullptr) {
     myClosingReroute->incRef("GNEChange_RerouterItem");
 }
 
 
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingLaneReroute* closingLaneReroute, bool forward) :
     GNEChange(closingLaneReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(NULL),
-    myClosingReroute(NULL),
+    myRerouterInterval(nullptr),
+    myClosingReroute(nullptr),
     myClosingLaneReroute(closingLaneReroute),
-    myDestProbReroute(NULL),
-    myRouteProbReroute(NULL) {
+    myDestProbReroute(nullptr),
+    myRouteProbReroute(nullptr) {
     myClosingLaneReroute->incRef("GNEChange_RerouterItem");
 }
 
 
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNEDestProbReroute* destProbReroute, bool forward) :
     GNEChange(destProbReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(NULL),
-    myClosingReroute(NULL),
-    myClosingLaneReroute(NULL),
+    myRerouterInterval(nullptr),
+    myClosingReroute(nullptr),
+    myClosingLaneReroute(nullptr),
     myDestProbReroute(destProbReroute),
-    myRouteProbReroute(NULL) {
+    myRouteProbReroute(nullptr) {
     myDestProbReroute->incRef("GNEChange_RerouterItem");
 }
 
 
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNERouteProbReroute* routeProbReroute, bool forward) :
     GNEChange(routeProbReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(NULL),
-    myClosingReroute(NULL),
-    myClosingLaneReroute(NULL),
-    myDestProbReroute(NULL),
+    myRerouterInterval(nullptr),
+    myClosingReroute(nullptr),
+    myClosingLaneReroute(nullptr),
+    myDestProbReroute(nullptr),
     myRouteProbReroute(routeProbReroute) {
     myRouteProbReroute->incRef("GNEChange_RerouterItem");
 }

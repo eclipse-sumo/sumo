@@ -970,7 +970,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (isValidID(value) && (value != myGNEJunctionDestiny->getMicrosimID())) {
                 GNEJunction* junctionFrom = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
-                if ((junctionFrom != NULL) && (myNet->retrieveEdge(junctionFrom, myGNEJunctionDestiny, false) == NULL)) {
+                if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, myGNEJunctionDestiny, false) == nullptr)) {
                     return true;
                 } else {
                     return false;
@@ -984,7 +984,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (isValidID(value) && (value != myGNEJunctionSource->getMicrosimID())) {
                 GNEJunction* junctionTo = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
-                if ((junctionTo != NULL) && (myNet->retrieveEdge(myGNEJunctionSource, junctionTo, false) == NULL)) {
+                if ((junctionTo != nullptr) && (myNet->retrieveEdge(myGNEJunctionSource, junctionTo, false) == nullptr)) {
                     return true;
                 } else {
                     return false;
@@ -1315,7 +1315,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     myNBEdge.removeFromConnections(nbCon);
     // remove their associated GNEConnection
     GNEConnection* con = retrieveGNEConnection(nbCon.fromLane, nbCon.toEdge, nbCon.toLane, false);
-    if (con != NULL) {
+    if (con != nullptr) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         if (con->unreferenced()) {
@@ -1346,7 +1346,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         }
         return createdConnection;
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 

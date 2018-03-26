@@ -95,7 +95,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXIMPLEMENT_ABSTRACT(GNENet::GNEChange_ReplaceEdgeInTLS, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNENet::GNEChange_ReplaceEdgeInTLS, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // static members
@@ -230,7 +230,7 @@ bool
 GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
                    const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, bool /*ignorePruning*/) {
     // check if ID is duplicated
-    if (myPolygons.get(id) == NULL) {
+    if (myPolygons.get(id) == nullptr) {
         // create poly
         myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, relativePath, false, false);
@@ -248,7 +248,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
                const std::string& lane, double posOverLane, double posLat, double layer, double angle,
                const std::string& imgFile, bool relativePath, double width, double height, bool /*ignorePruning*/) {
     // check if ID is duplicated
-    if (myPOIs.get(id) == NULL) {
+    if (myPOIs.get(id) == nullptr) {
         // create POI or POILane depending of parameter lane
         if (lane == "") {
             // create POI
@@ -737,7 +737,7 @@ GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
 GNEEdge*
 GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("add reversed " + toString(SUMO_TAG_EDGE));
-    GNEEdge* reversed = NULL;
+    GNEEdge* reversed = nullptr;
     if (edge->getNBEdge()->getLaneSpreadFunction() == LANESPREAD_RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
         // for rail edges, we assume bi-directional tracks are wanted
         reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, "-" + edge->getID(), false, true);
@@ -865,7 +865,7 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Junction " + id);
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -880,25 +880,25 @@ GNENet::retrieveEdge(const std::string& id, bool failHard) {
         // If edge wasn't found, throw exception
         throw UnknownElement("Edge " + id);
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
 
 GNEEdge*
 GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) {
-    assert((from != NULL) && (to != NULL));
+    assert((from != nullptr) && (to != nullptr));
     // iterate over Junctions of net
     for (auto i : myEdges) {
         if ((i.second->getGNEJunctionSource() == from) && (i.second->getGNEJunctionDestiny() == to)) {
             return i.second;
         }
     }
-    // if edge wasn' found, throw exception or return NULL
+    // if edge wasn' found, throw exception or return nullptr
     if (failHard) {
         throw UnknownElement("Edge with from='" + from->getID() + "' and to='" + to->getID() + "'");
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -911,7 +911,7 @@ GNENet::retrievePolygon(const std::string& id, bool failHard) const {
         // If Polygon wasn't found, throw exception
         throw UnknownElement("Polygon " + id);
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -924,7 +924,7 @@ GNENet::retrievePOI(const std::string& id, bool failHard) const {
         // If POI wasn't found, throw exception
         throw UnknownElement("POI " + id);
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -944,7 +944,7 @@ GNENet::retrieveConnection(const std::string& id, bool failHard) const {
         // If POI wasn't found, throw exception
         throw UnknownElement("Connection " + id);
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -964,7 +964,7 @@ GNENet::retrieveCrossing(const std::string& id, bool failHard) const {
         // If POI wasn't found, throw exception
         throw UnknownElement("Crossing " + id);
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -1012,15 +1012,15 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
     GNEEdge* edge = retrieveEdge(edge_id, failHard);
     if (edge != 0) {
-        GNELane* lane = NULL;
+        GNELane* lane = nullptr;
         // search  lane in lane's edges
         for (auto it : edge->getLanes()) {
             if (it->getID() == id) {
                 lane = it;
             }
         }
-        // throw exception or return NULL if lane wasn't found
-        if (lane == NULL) {
+        // throw exception or return nullptr if lane wasn't found
+        if (lane == nullptr) {
             if (failHard) {
                 // Throw exception if failHard is enabled
                 throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
@@ -1036,7 +1036,7 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
         // Throw exception if failHard is enabled
         throw UnknownElement(toString(SUMO_TAG_EDGE) + " " + edge_id);
     }
-    return NULL;
+    return nullptr;
 }
 
 
@@ -1116,18 +1116,18 @@ GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
     // obtain blocked GUIGlObject
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     // Make sure that object exists
-    if (object != NULL) {
+    if (object != nullptr) {
         // unblock and try to parse to AtributeCarrier
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
         GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
         // If was sucesfully parsed, return it
-        if (ac == NULL) {
+        if (ac == nullptr) {
             throw ProcessError("GUIGlObject does not match the declared type");
         } else {
             return ac;
         }
     } else if (failHard) {
-        return NULL;
+        return nullptr;
     } else {
         throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
     }
@@ -1621,8 +1621,8 @@ GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
 
 void 
 GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame) {
-    if(attributeCarrier == NULL) {
-        throw ProcessError("AttributeCarrier cannot be NULL");
+    if(attributeCarrier == nullptr) {
+        throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
         if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
             mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
@@ -1639,8 +1639,8 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
 
 void 
 GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame) {
-    if(attributeCarrier == NULL) {
-        throw ProcessError("AttributeCarrier cannot be NULL");
+    if(attributeCarrier == nullptr) {
+        throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
         std::vector<GNEAttributeCarrier*>::iterator it = std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier);
         if(it != mySelectedAttributeCarriers[glType].end()) {
@@ -1693,7 +1693,7 @@ GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional");
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -1719,11 +1719,11 @@ GNENet::retrieveAdditionals(bool onlySelected) {
 GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
     if (myAdditionals.empty()) {
-        return NULL;
+        return nullptr;
     } else if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(id, type)) != myAdditionals.end())  {
         return myAdditionals.at(std::pair<std::string, SumoXMLTag>(id, type));
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -1754,7 +1754,7 @@ GNENet::getRerouterInterval(const std::string& rerouterIntervalID) const {
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 
@@ -1804,9 +1804,9 @@ GNENet::saveAdditionals(const std::string& filename) {
         GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
         GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
         // check if has to be fixed
-        if ((stoppingPlace != NULL) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
+        if ((stoppingPlace != nullptr) && (stoppingPlace->areStoppingPlacesPositionsFixed() == false)) {
             invalidStoppingPlaces.push_back(stoppingPlace);
-        } else if ((detector != NULL) && (detector->isDetectorPositionFixed() == false)) {
+        } else if ((detector != nullptr) && (detector->isDetectorPositionFixed() == false)) {
             invalidDetectors.push_back(detector);
         }
     }
@@ -1834,7 +1834,7 @@ GNENet::saveAdditionals(const std::string& filename) {
         device.openTag("additionals");
         for (auto i : myAdditionals) {
             // only save additionals that doesn't have Additional parents
-            if (i.second->getAdditionalParent() == NULL) {
+            if (i.second->getAdditionalParent() == nullptr) {
                 i.second->writeAdditional(device);
             }
         }
@@ -1860,7 +1860,7 @@ GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant calibrator route");
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -1876,7 +1876,7 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant calibrator vehicle type");
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -1960,7 +1960,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
         int counter = 0;
         std::string newID = "poly_" + toString(counter);
         // generate new IDs to find a non-assigned ID
-        while (myPolygons.get(newID) != NULL) {
+        while (myPolygons.get(newID) != nullptr) {
             counter++;
             newID = "poly_" + toString(counter);
         }
@@ -1969,7 +1969,7 @@ GNENet::generateShapeID(SumoXMLTag shapeTag) const {
         int counter = 0;
         std::string newID = "POI_" + toString(counter);
         // generate new IDs to find a non-assigned ID
-        while (myPOIs.get(newID) != NULL) {
+        while (myPOIs.get(newID) != nullptr) {
             counter++;
             newID = "POI_" + toString(counter);
         }

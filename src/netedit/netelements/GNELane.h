@@ -136,7 +136,7 @@ public:
     void setIndex(int index);
 
     /** @brief returns the parameteric length of the lane
-     *  @note is the same as their Edge parent, and cannot be never NULL
+     *  @note is the same as their Edge parent, and cannot be never nullptr
      */
     double getLaneParametricLength() const;
 

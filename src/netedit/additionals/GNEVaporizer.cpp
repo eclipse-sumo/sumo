@@ -278,7 +278,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myViewNet->getNet()->retrieveEdge(value, false) != NULL) {
+            if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;

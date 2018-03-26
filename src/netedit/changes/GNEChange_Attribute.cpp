@@ -38,7 +38,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
@@ -52,8 +52,8 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
     myKey(key),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
     myNewValue(value),
-    myAdditional(NULL),
-    myShape(NULL) {
+    myAdditional(nullptr),
+    myShape(nullptr) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
     // try to cast AC as additional and Shape
     myAdditional = dynamic_cast<GNEAdditional*>(myAC);

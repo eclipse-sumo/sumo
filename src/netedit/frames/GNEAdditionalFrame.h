@@ -600,8 +600,8 @@ public:
     ~GNEAdditionalFrame();
 
     /**@brief add additional element
-     * @param[in] netElement clicked GNENetElement. If user doesn't clicked over a GNENetElement in view, netElement will be NULL
-     * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be NULL
+     * @param[in] netElement clicked GNENetElement. If user doesn't clicked over a GNENetElement in view, netElement will be nullptr
+     * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be nullptr
      * @return AddAdditionalStatus with the result of operation
      */
     AddAdditionalResult addAdditional(GNENetElement* netElement, GNEAdditional* additional);

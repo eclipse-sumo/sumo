@@ -62,7 +62,7 @@ public:
     void removeAttributeCarrier(GNEAttributeCarrier* ac);
 
     /**@brief mark attribute carrier (element)
-     * @note if ac == NULL current marked attribute carrier will be dismarked
+     * @note if ac == nullptr current marked attribute carrier will be dismarked
      */
     void markAttributeCarrier(GNEAttributeCarrier* ac);
 

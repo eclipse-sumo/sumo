@@ -259,7 +259,7 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            return (myViewNet->getNet()->retrieveLane(value, false) != NULL);
+            return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
             return canParse<double>(value);
         case SUMO_ATTR_FRIENDLY_POS:
@@ -267,7 +267,7 @@ GNEDetectorExit::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            return (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, value) != NULL);
+            return (myViewNet->getNet()->getAdditional(SUMO_TAG_E3DETECTOR, value) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         default:

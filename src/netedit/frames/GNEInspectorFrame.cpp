@@ -109,8 +109,8 @@ FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,                      FXGroupBox, 
 
 GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
-    myPreviousElementInspect(NULL),
-    myPreviousElementDelete(NULL) {
+    myPreviousElementInspect(nullptr),
+    myPreviousElementDelete(nullptr) {
 
     // Create back button
     myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
@@ -139,7 +139,7 @@ GNEInspectorFrame::~GNEInspectorFrame() {}
 
 void
 GNEInspectorFrame::show() {
-    inspectElement(NULL);
+    inspectElement(nullptr);
     GNEFrame::show();
 }
 
@@ -148,7 +148,7 @@ void
 GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemToInspect;
-    if (AC != NULL) {
+    if (AC != nullptr) {
         itemToInspect.push_back(AC);
     }
     inspectMultisection(itemToInspect);
@@ -216,9 +216,9 @@ void
 GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
     // Show back button if myPreviousElementInspect was defined
     myPreviousElementInspect = previousElement;
-    if (myPreviousElementInspect != NULL) {
+    if (myPreviousElementInspect != nullptr) {
         // disable myPreviousElementDelete to avoid inconsistences
-        myPreviousElementDelete = NULL;
+        myPreviousElementDelete = nullptr;
         inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
@@ -231,9 +231,9 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
     myPreviousElementDelete = previousElement;
     myPreviousElementDeleteWasMarked = previousElementWasMarked;
     // Show back button if myPreviousElementDelete is valid
-    if (myPreviousElementDelete != NULL) {
+    if (myPreviousElementDelete != nullptr) {
         // disable myPreviousElementInspect to avoid inconsistences
-        myPreviousElementInspect = NULL;
+        myPreviousElementInspect = nullptr;
         inspectElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
@@ -302,13 +302,13 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     // Inspect previous element or go back to Delete Frame
     if (myPreviousElementInspect) {
         inspectElement(myPreviousElementInspect);
-        myPreviousElementInspect = NULL;
-    } else if (myPreviousElementDelete != NULL) {
+        myPreviousElementInspect = nullptr;
+    } else if (myPreviousElementDelete != nullptr) {
         myViewNet->getViewParent()->getDeleteFrame()->showChildsOfMarkedAttributeCarrier();
         if (myPreviousElementDeleteWasMarked) {
             myViewNet->getViewParent()->getDeleteFrame()->markAttributeCarrier(myPreviousElementDelete);
         }
-        myPreviousElementDelete = NULL;
+        myPreviousElementDelete = nullptr;
         // Hide inspect frame and show delete frame
         hide();
         myViewNet->getViewParent()->getDeleteFrame()->show();
@@ -735,8 +735,8 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         // reset myCurrentIndex;
         myCurrentIndex = 0;
         // Declare pointer for allow/Disallow vehicles
-        std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myAllowAttribute(NULL, "");
-        std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myDisallowAttribute(NULL,"");
+        std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myAllowAttribute(nullptr, "");
+        std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myDisallowAttribute(nullptr,"");
         // Gets tag and attributes of element
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
         const std::vector<SumoXMLAttr> &ACFrontAttrs = myInspectorFrameParent->getInspectedACs().front()->getAttrs();
@@ -1254,7 +1254,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelec
 GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent), 
-    myEdgeTemplate(NULL) {
+    myEdgeTemplate(nullptr) {
 
     // Create copy template button
     myCopyTemplateButton = new FXButton(this, "", 0, this, MID_GNE_INSPECTORFRAME_COPYTEMPLATE, GUIDesignButton);
@@ -1354,11 +1354,11 @@ GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate(FXObject* sender, FXSelecto
         } else {
             caption = ("Copy '" + myEdgeTemplate->getMicrosimID() + "' into " + toString(myInspectorFrameParent->getInspectedACs().size()) + " selected edges").c_str();
         }
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), NULL);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
     else {
         caption = "No edge Template Set";
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), NULL);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
     sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
     return 1;

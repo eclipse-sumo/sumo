@@ -289,9 +289,9 @@ bool
 GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != NULL);
+            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != NULL);
+            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
@@ -310,7 +310,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
             } else {
-                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
+                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_DEPARTPOS:
             if ((value == "random") || (value == "free") || (value == "random_free") || (value == "base") || (value == "last")) {
@@ -328,7 +328,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "current") {
                 return true;
             } else {
-                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != NULL);
+                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_ARRIVALPOS:
             if ((value == "random") || (value == "max")) {

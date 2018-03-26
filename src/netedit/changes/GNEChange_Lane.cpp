@@ -37,7 +37,7 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, NULL, 0)
+FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
@@ -95,10 +95,10 @@ GNEChange_Lane::undo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != NULL) {
+            if (myLane != nullptr) {
                 WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
             }
         }
         // remove lane from edge
@@ -114,10 +114,10 @@ GNEChange_Lane::undo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != NULL) {
+            if (myLane != nullptr) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
             }
         }
         // add lane and their attributes to edge
@@ -140,10 +140,10 @@ GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != NULL) {
+            if (myLane != nullptr) {
                 WRITE_WARNING("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Adding NULL " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
             }
         }
         // add lane and their attributes to edge
@@ -159,10 +159,10 @@ GNEChange_Lane::redo() {
     } else {
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            if (myLane != NULL) {
+            if (myLane != nullptr) {
                 WRITE_WARNING("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
             } else {
-                WRITE_WARNING("Removing NULL " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
+                WRITE_WARNING("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
             }
         }
         // remove lane from edge

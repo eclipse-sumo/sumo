@@ -771,7 +771,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         }
         return createdGNECrossing;
     } else {
-        return NULL;
+        return nullptr;
     }
 }
 

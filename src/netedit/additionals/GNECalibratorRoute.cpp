@@ -147,7 +147,7 @@ bool
 GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) == NULL);
+            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) == nullptr);
         case SUMO_ATTR_EDGES:
             if (checkGNEEdgesValid(myCalibratorParent->getViewNet()->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route

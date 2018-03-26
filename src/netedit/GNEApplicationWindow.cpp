@@ -574,7 +574,7 @@ GNEApplicationWindow::fillMenuBar() {
     */
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Locate", NULL, myLocatorMenu);
+    new FXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
                       GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
@@ -1083,7 +1083,7 @@ GNEApplicationWindow::openNewView() {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(),
-            myNet, myUndoList, NULL, opts, 10, 10, 300, 200);
+            myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
     if (myMDIClient->numChildren() == 1) {
         viewParent->maximize();
     } else {
@@ -1304,7 +1304,7 @@ GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 long 
 GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
     // only toogle grid if there is a GNEViewNet
-    if (getView() != NULL) {
+    if (getView() != nullptr) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
         if(getView()->getMenuCheckShowGrid()->getCheck() == 1) {
             getView()->getMenuCheckShowGrid()->setCheck(0);

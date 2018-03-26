@@ -140,7 +140,7 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
             errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
         }
         GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
-        if ((E2Detector != NULL) && ((E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght()) > i->getLane()->getLaneParametricLength())) {
+        if ((E2Detector != nullptr) && ((E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght()) > i->getLane()->getLaneParametricLength())) {
             errorLenght = (toString(SUMO_ATTR_LENGTH) + " > lanes's length");
         }
 
@@ -240,7 +240,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         // iterate over invalid stopping places to fix positions
         for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
             GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
-            if (stoppingPlace != NULL) {
+            if (stoppingPlace != nullptr) {
                 // obtain start and end position
                 double startPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS));
                 double endPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS));
@@ -255,7 +255,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         for (auto i = myInvalidDetectors.begin(); i != myInvalidDetectors.end(); i++) {
             GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(*i);
             // Check if we're handling a E2 detector o a E1/Entry/Exit
-            if (E2Detector != NULL) {
+            if (E2Detector != nullptr) {
                 // obtain position and lenght
                 double pos = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_POSITION));
                 double length = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_LENGTH));

@@ -1934,7 +1934,7 @@ GNEAttributeCarrier::checkGNEEdgesValid(GNENet* net, const std::string& value, b
     std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     // Iterate over edges IDs and check if edge exist
     for (auto i : edgeIds) {
-        if (net->retrieveEdge(i, false) == NULL) {
+        if (net->retrieveEdge(i, false) == nullptr) {
             if (report) {
                 WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
             }
@@ -1952,7 +1952,7 @@ GNEAttributeCarrier::checkGNELanesValid(GNENet* net, const std::string& value, b
     std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     // Iterate over lanes IDs and check if lane exist
     for (auto i : laneIds) {
-        if (net->retrieveLane(i, false) == NULL) {
+        if (net->retrieveLane(i, false) == nullptr) {
             if (report) {
                 WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist.");
             }

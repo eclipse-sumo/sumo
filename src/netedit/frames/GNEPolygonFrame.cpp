@@ -923,8 +923,8 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
             myShapeAttributes->showWarningMessage();
             return ADDSHAPE_INVALID;
         }
-        // abort if lane is NULL
-        if (lane == NULL) {
+        // abort if lane is nullptr
+        if (lane == nullptr) {
             WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
             return ADDSHAPE_INVALID;
         }

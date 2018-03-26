@@ -70,7 +70,7 @@ GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* titleName, int
         if (it_topic == "Configuration") {
             continue;
         }
-        new FXTabItem(tabbook, it_topic.c_str(), NULL, TAB_LEFT_NORMAL);
+        new FXTabItem(tabbook, it_topic.c_str(), nullptr, TAB_LEFT_NORMAL);
         FXScrollWindow* scrollTab = new FXScrollWindow(tabbook, LAYOUT_FILL_X | LAYOUT_FILL_Y);
         FXVerticalFrame* tabContent = new FXVerticalFrame(scrollTab, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y);
         const std::vector<std::string> entries = oc.getSubTopicsEntries(it_topic);

@@ -178,7 +178,7 @@ GNEAdditional::getAdditionalChilds() const {
 void
 GNEAdditional::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
-    if (edge == NULL) {
+    if (edge == nullptr) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) != myEdgeChilds.end()) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
@@ -191,7 +191,7 @@ GNEAdditional::addEdgeChild(GNEEdge* edge) {
 void
 GNEAdditional::removeEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and exist previously
-    if (edge == NULL) {
+    if (edge == nullptr) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) == myEdgeChilds.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
@@ -210,7 +210,7 @@ GNEAdditional::getEdgeChilds() const {
 void
 GNEAdditional::addLaneChild(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
-    if (lane == NULL) {
+    if (lane == nullptr) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) != myLaneChilds.end()) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
@@ -223,7 +223,7 @@ GNEAdditional::addLaneChild(GNELane* lane) {
 void
 GNEAdditional::removeLaneChild(GNELane* lane) {
     // Check that lane is valid and exist previously
-    if (lane == NULL) {
+    if (lane == nullptr) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) == myLaneChilds.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
@@ -242,7 +242,7 @@ GNEAdditional::getLaneChilds() const {
 void 
 GNEAdditional::selectAdditional() {
     if(!myViewNet) {
-        throw ProcessError("ViewNet cannot be NULL");
+        throw ProcessError("ViewNet cannot be nullptr");
     } else if (!mySelected) {
         myViewNet->getNet()->selectAttributeCarrier(getType(), this);
         mySelected = true;
@@ -253,7 +253,7 @@ GNEAdditional::selectAdditional() {
 void 
 GNEAdditional::unselectAdditional() {
     if(!myViewNet) {
-        throw ProcessError("ViewNet cannot be NULL");
+        throw ProcessError("ViewNet cannot be nullptr");
     } else if (mySelected) {
         myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
         mySelected = false;
@@ -567,7 +567,7 @@ GNEAdditional::getAdditionalID() const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (isValidID(newID) && (myViewNet->getNet()->getAdditional(getTag(), newID) == NULL)) {
+    if (isValidID(newID) && (myViewNet->getNet()->getAdditional(getTag(), newID) == nullptr)) {
         return true;
     } else {
         return false;
@@ -577,7 +577,7 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 void
 GNEAdditional::changeAdditionalID(const std::string& newID) {
-    if (myViewNet->getNet()->getAdditional(getTag(), newID) != NULL) {
+    if (myViewNet->getNet()->getAdditional(getTag(), newID) != nullptr) {
         throw InvalidArgument("An Additional with tag " + toString(getTag()) + " and ID = " + newID + " already exists");
     } else if (isValidID(newID) == false) {
         throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
@@ -594,7 +594,7 @@ GNEAdditional::changeAdditionalID(const std::string& newID) {
 
 GNEEdge*
 GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
-    if (oldEdge == NULL) {
+    if (oldEdge == nullptr) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
         oldEdge->removeAdditionalChild(this);
@@ -608,7 +608,7 @@ GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
 
 GNELane*
 GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
-    if (oldLane == NULL) {
+    if (oldLane == nullptr) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
         oldLane->removeAdditionalChild(this);
@@ -622,7 +622,7 @@ GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
 
 void
 GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) {
-    if (myAdditionalParent == NULL) {
+    if (myAdditionalParent == nullptr) {
         throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
         // remove this additional of the childs of parent additional
