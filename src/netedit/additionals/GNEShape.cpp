@@ -47,7 +47,15 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlock
 }
 
 
-GNEShape::~GNEShape() {}
+GNEShape::~GNEShape() {
+    if(mySelected) {
+        if(getTag() == SUMO_TAG_POLY) {
+            myNet->unselectAttributeCarrier(GLO_POLYGON, this, false);
+        } else {
+            myNet->unselectAttributeCarrier(GLO_POI, this, false);
+        }
+    }
+}
 
 
 GNENet*
@@ -73,7 +81,11 @@ GNEShape::selectShape() {
     if(!myNet) {
         throw ProcessError("Net cannot be NULL");
     } else if (!mySelected) {
-        myNet->selectAttributeCarrier(this);
+        if(getTag() == SUMO_TAG_POLY) {
+            myNet->selectAttributeCarrier(GLO_POLYGON, this);
+        } else {
+            myNet->selectAttributeCarrier(GLO_POI, this);
+        }
         mySelected = true;
     } 
 }
@@ -84,7 +96,11 @@ GNEShape::unselectShape() {
     if(!myNet) {
         throw ProcessError("Net cannot be NULL");
     } else if (mySelected) {
-        myNet->unselectAttributeCarrier(this);
+        if(getTag() == SUMO_TAG_POLY) {
+            myNet->unselectAttributeCarrier(GLO_POLYGON, this);
+        } else {
+            myNet->unselectAttributeCarrier(GLO_POI, this);
+        }
         mySelected = false;
     } 
 }

@@ -65,6 +65,7 @@
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/dialogs/GNEDialog_FixAdditionalPositions.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
@@ -1619,13 +1620,16 @@ GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
 
 
 void 
-GNENet::selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
+GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame) {
     if(attributeCarrier == NULL) {
         throw ProcessError("AttributeCarrier cannot be NULL");
     } else {
-        GUIGlObjectType glType = attributeCarrier->getGUIGLObject()->getType();
         if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
             mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
+            // check if selector frame has to be updated
+            if(updateSelectorFrame) {
+                myViewNet->getViewParent()->getSelectorFrame()->getSelectedItems()->updateSelectedItems();
+            }
         } else {
             throw ProcessError("AttributeCarrier is already selected");
         }
@@ -1634,14 +1638,17 @@ GNENet::selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
 
 
 void 
-GNENet::unselectAttributeCarrier(GNEAttributeCarrier* attributeCarrier) {
+GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame) {
     if(attributeCarrier == NULL) {
         throw ProcessError("AttributeCarrier cannot be NULL");
     } else {
-        GUIGlObjectType glType = attributeCarrier->getGUIGLObject()->getType();
         std::vector<GNEAttributeCarrier*>::iterator it = std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier);
         if(it != mySelectedAttributeCarriers[glType].end()) {
             mySelectedAttributeCarriers[glType].erase(it);
+            // check if selector frame has to be updated
+            if(updateSelectorFrame) {
+                myViewNet->getViewParent()->getSelectorFrame()->getSelectedItems()->updateSelectedItems();
+            }
         } else {
             throw ProcessError("AttributeCarrier isn't selected");
         }

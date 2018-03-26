@@ -46,7 +46,7 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
 
 GNENetElement::~GNENetElement() {
     if(mySelected) {
-        unselectNetElement();
+        myNet->unselectAttributeCarrier(getType(), this, false);    
     }
 }
 
@@ -128,7 +128,7 @@ GNENetElement::selectNetElement() {
     if(!myNet) {
         throw ProcessError("Net cannot be NULL");
     } else if (!mySelected) {
-        myNet->selectAttributeCarrier(this);
+        myNet->selectAttributeCarrier(getType(), this);
         mySelected = true;
     } 
 }
@@ -139,7 +139,7 @@ GNENetElement::unselectNetElement() {
     if(!myNet) {
         throw ProcessError("Net cannot be NULL");
     } else if (mySelected) {
-        myNet->unselectAttributeCarrier(this);
+        myNet->unselectAttributeCarrier(getType(), this);
         mySelected = false;
     } 
 }

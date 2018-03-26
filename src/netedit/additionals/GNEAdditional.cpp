@@ -108,7 +108,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 
 GNEAdditional::~GNEAdditional() {
     if(mySelected) {
-        unselectAdditional();
+        myViewNet->getNet()->unselectAttributeCarrier(getType(), this, false);
     }
 }
 
@@ -244,7 +244,7 @@ GNEAdditional::selectAdditional() {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be NULL");
     } else if (!mySelected) {
-        myViewNet->getNet()->selectAttributeCarrier(this);
+        myViewNet->getNet()->selectAttributeCarrier(getType(), this);
         mySelected = true;
     } 
 }
@@ -255,7 +255,7 @@ GNEAdditional::unselectAdditional() {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be NULL");
     } else if (mySelected) {
-        myViewNet->getNet()->unselectAttributeCarrier(this);
+        myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
         mySelected = false;
     } 
 }

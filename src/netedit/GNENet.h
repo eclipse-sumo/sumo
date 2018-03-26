@@ -472,10 +472,10 @@ public:
     const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
 
     /// @brief select attribute carrier
-    void selectAttributeCarrier(GNEAttributeCarrier* attributeCarrier);
+    void selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
 
      /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(GNEAttributeCarrier* attributeCarrier);
+    void unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
