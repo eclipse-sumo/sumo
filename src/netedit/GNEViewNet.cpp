@@ -642,7 +642,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // interpret object under cursor
     if (makeCurrent()) {
         // first update objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getObjectUnderCursor(), myEditShapePoly, mySelectEdges);
+        myObjectsUnderCursor.updateObjectUnderCursor(getObjectUnderCursor(), myEditShapePoly);
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
@@ -800,6 +800,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_SELECT:
+                // first we need to change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
+                if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                    myObjectsUnderCursor.swapLane2Edge();
+                }
                 if (myObjectsUnderCursor.attributeCarrier && 
                           !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType) && 
                            GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
@@ -2697,7 +2701,7 @@ GNEViewNet::updateControls() {
 }
 
 void 
-GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, bool selectEdges) {
+GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape) {
     // first reset all variables
     glType = GLO_NETWORK;
     attributeCarrier = nullptr;
@@ -2763,15 +2767,6 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
                 break;
             case GLO_LANE:
                 lane = dynamic_cast<GNELane*>(attributeCarrier);
-                // if we clicked over an edge but selectEdges is enabled, select edge parent instead lane
-                if (selectEdges) {
-                    edge = &lane->getParentEdge();
-                    lane = nullptr;
-                    // set AttributeCarrier, netElement and glType
-                    attributeCarrier = edge;
-                    netElement = edge;
-                    glType = GLO_EDGE;
-                }
                 break;
             case GLO_POI:
                 poi = dynamic_cast<GNEPOI*>(attributeCarrier);
@@ -2788,6 +2783,16 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
             default:
                 break;
         }
+    }
+}
+
+
+void 
+GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
+    if(lane) {
+        edge = &lane->getParentEdge();
+        netElement = edge;
+        glType = GLO_EDGE;
     }
 }
 

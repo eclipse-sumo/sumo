@@ -451,7 +451,10 @@ private:
             poly(nullptr) {}
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(GUIGlID glIDObject,  GNEPoly* editedPolyShape, bool selectEdges);
+        void updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape);
+
+        /// @brief swap lane to edge
+        void swapLane2Edge();
 
         /// @brief GUI GL ID
         GUIGlID glID;
