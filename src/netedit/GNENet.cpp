@@ -1628,7 +1628,7 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
             mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
-                myViewNet->getViewParent()->getSelectorFrame()->getSelectedItems()->updateSelectedItems();
+                myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
             }
         } else {
             throw ProcessError("AttributeCarrier is already selected");
@@ -1647,7 +1647,7 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
             mySelectedAttributeCarriers[glType].erase(it);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
-                myViewNet->getViewParent()->getSelectorFrame()->getSelectedItems()->updateSelectedItems();
+                myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
             }
         } else {
             throw ProcessError("AttributeCarrier isn't selected");

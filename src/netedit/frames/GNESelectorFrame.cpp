@@ -96,7 +96,7 @@ FXIMPLEMENT(GNESelectorFrame::SelectionOperation,   FXGroupBox,     SelectionOpe
 GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Selection") {
     // create selectedItems modul
-    mySelectedItems = new SelectedItems(this);
+    myLockGLObjectTypes = new LockGLObjectTypes(this);
     // create Modification Mode modul
     myModificationMode = new ModificationMode(this);
     // create ElementSet modul
@@ -120,7 +120,7 @@ GNESelectorFrame::~GNESelectorFrame() {}
 void
 GNESelectorFrame::show() {
     // update selected items
-    mySelectedItems->updateSelectedItems();
+    myLockGLObjectTypes->updateLockGLObjectTypes();
     // Show frame
     GNEFrame::show();
 }
@@ -133,9 +133,9 @@ GNESelectorFrame::hide() {
 }
 
 
-GNESelectorFrame::SelectedItems* 
-GNESelectorFrame::getSelectedItems() const {
-    return mySelectedItems;
+GNESelectorFrame::LockGLObjectTypes* 
+GNESelectorFrame::getLockGLObjectTypes() const {
+    return myLockGLObjectTypes;
 }
 
 
@@ -269,31 +269,31 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
 }
 
 // ---------------------------------------------------------------------------
-// ModificationMode::SelectedItems - methods
+// ModificationMode::LockGLObjectTypes - methods
 // ---------------------------------------------------------------------------
 
-GNESelectorFrame::SelectedItems::SelectedItems(GNESelectorFrame *selectorFrameParent) :
+GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame *selectorFrameParent) :
     FXGroupBox(selectorFrameParent->myContentFrame, "Selected items", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent) {
     // create combo box and labels for selected items
-    FXMatrix* mSelectedItems = new FXMatrix(this, 3, (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    FXMatrix* mLockGLObjectTypes = new FXMatrix(this, 3, (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     // create typeEntries for the different elements
-    myTypeEntries[GLO_JUNCTION] = ObjectTypeEntry(mSelectedItems, "Junctions", "junction");
-    myTypeEntries[GLO_EDGE] = ObjectTypeEntry(mSelectedItems, "Edges", "edge");
-    myTypeEntries[GLO_LANE] = ObjectTypeEntry(mSelectedItems, "Lanes", "lane");
-    myTypeEntries[GLO_CONNECTION] = ObjectTypeEntry(mSelectedItems, "Connections", "connection");
-    myTypeEntries[GLO_ADDITIONAL] = ObjectTypeEntry(mSelectedItems, "Additionals", "additional");
-    myTypeEntries[GLO_CROSSING] = ObjectTypeEntry(mSelectedItems, "Crossings", "crossing");
-    myTypeEntries[GLO_POLYGON] = ObjectTypeEntry(mSelectedItems, "Polygons", "polygon");
-    myTypeEntries[GLO_POI] = ObjectTypeEntry(mSelectedItems, "POIs", "POI");
+    myTypeEntries[GLO_JUNCTION] = ObjectTypeEntry(mLockGLObjectTypes, "Junctions", "junction");
+    myTypeEntries[GLO_EDGE] = ObjectTypeEntry(mLockGLObjectTypes, "Edges", "edge");
+    myTypeEntries[GLO_LANE] = ObjectTypeEntry(mLockGLObjectTypes, "Lanes", "lane");
+    myTypeEntries[GLO_CONNECTION] = ObjectTypeEntry(mLockGLObjectTypes, "Connections", "connection");
+    myTypeEntries[GLO_ADDITIONAL] = ObjectTypeEntry(mLockGLObjectTypes, "Additionals", "additional");
+    myTypeEntries[GLO_CROSSING] = ObjectTypeEntry(mLockGLObjectTypes, "Crossings", "crossing");
+    myTypeEntries[GLO_POLYGON] = ObjectTypeEntry(mLockGLObjectTypes, "Polygons", "polygon");
+    myTypeEntries[GLO_POI] = ObjectTypeEntry(mLockGLObjectTypes, "POIs", "POI");
 }
 
 
-GNESelectorFrame::SelectedItems::~SelectedItems() {}
+GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {}
 
 
 void 
-GNESelectorFrame::SelectedItems::updateSelectedItems() {
+GNESelectorFrame::LockGLObjectTypes::updateLockGLObjectTypes() {
     myTypeEntries[GLO_JUNCTION].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()).c_str());
     myTypeEntries[GLO_EDGE].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()).c_str());
     myTypeEntries[GLO_LANE].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()).c_str());
@@ -318,12 +318,12 @@ GNESelectorFrame::SelectedItems::updateSelectedItems() {
 
 
 bool 
-GNESelectorFrame::SelectedItems::IsObjectTypeLocked(GUIGlObjectType type) const {
+GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(GUIGlObjectType type) const {
     return myTypeEntries.at(type).locked->getCheck() != FALSE;
 }
 
 
-GNESelectorFrame::SelectedItems::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) {
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2) {
     count = new FXLabel(parent, "0", 0, GUIDesignLabelLeft);
     typeName = new FXLabel(parent, label.c_str(), 0, GUIDesignLabelLeft);
     locked = new FXMenuCheck(parent, ("lock\t\tLock " + label2 + " selection").c_str(), 0, 0, LAYOUT_FILL_X | LAYOUT_RIGHT);

@@ -46,20 +46,20 @@ class GNESelectorFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class SelectedItems
+    // class LockGLObjectTypes
     // ===========================================================================
 
-    class SelectedItems : public FXGroupBox {
+    class LockGLObjectTypes : public FXGroupBox {
 
     public:
         /// @brief constructor
-        SelectedItems(GNESelectorFrame *selectorFrameParent);
+        LockGLObjectTypes(GNESelectorFrame *selectorFrameParent);
 
         /// @brief destructor
-        ~SelectedItems();
+        ~LockGLObjectTypes();
 
         /// @brief update selected items
-        void updateSelectedItems();
+        void updateLockGLObjectTypes();
 
         /// @brief check if an object is locked
         bool IsObjectTypeLocked(GUIGlObjectType type) const;
@@ -359,7 +359,7 @@ public:
     void hide();
 
     /// @brief get selected items
-    SelectedItems* getSelectedItems() const;
+    LockGLObjectTypes* getLockGLObjectTypes() const;
 
     /// @brief clear current selection witout possibility of undo/redo
     void clearCurrentSelection() const;
@@ -371,7 +371,7 @@ public:
 
 private:
     /// @brief modul for lock selected items
-    SelectedItems* mySelectedItems;
+    LockGLObjectTypes* myLockGLObjectTypes;
 
     /// @brief modul for change modification mode
     ModificationMode* myModificationMode;

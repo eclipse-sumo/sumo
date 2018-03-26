@@ -801,7 +801,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_SELECT:
                 if (myObjectsUnderCursor.attributeCarrier && 
-                          !myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(myObjectsUnderCursor.glType) && 
+                          !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType) && 
                            GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
                     if(myObjectsUnderCursor.netElement) {
                         // toogle netElement selection
