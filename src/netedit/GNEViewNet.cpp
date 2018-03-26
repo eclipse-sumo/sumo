@@ -784,9 +784,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_INSPECT: {
                 if(myObjectsUnderCursor.attributeCarrier) {
                     // check if clicked AC is selected
-                    GUIGlObjectType glType = myObjectsUnderCursor.glObject->getType();
-                    if(std::find(myNet->getSelectedAttributeCarriers(glType).begin(), myNet->getSelectedAttributeCarriers(glType).end(), myObjectsUnderCursor.attributeCarrier) != myNet->getSelectedAttributeCarriers(glType).end()) {
-                        myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(glType));
+                    if(std::find(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType).begin(), 
+                                 myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType).end(), myObjectsUnderCursor.attributeCarrier) != 
+                                 myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType).end()) {
+                        myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType));
                     } else {
                         myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
                     }
@@ -799,15 +800,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_SELECT:
-                if ((myObjectsUnderCursor.lane != nullptr) && mySelectEdges) {
-                    if (!myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(GLO_EDGE)) {
-                        if(myObjectsUnderCursor.edge->isNetElementSelected()) {
-                            myObjectsUnderCursor.edge->unselectNetElement();
-                        } else {
-                            myObjectsUnderCursor.edge->selectNetElement();
-                        }
-                    }
-                } else if (myObjectsUnderCursor.attributeCarrier && !myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(myObjectsUnderCursor.glObject->getType()) && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
+                if (myObjectsUnderCursor.attributeCarrier && 
+                          !myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(myObjectsUnderCursor.glType) && 
+                           GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
                     if(myObjectsUnderCursor.netElement) {
                         // toogle netElement selection
                         if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
@@ -2691,7 +2686,7 @@ GNEViewNet::updateControls() {
 void 
 GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, bool selectEdges) {
     // first reset all variables
-    glObject = nullptr;
+    glType = GLO_NETWORK;
     attributeCarrier = nullptr;
     netElement = nullptr;
     additional = nullptr;
@@ -2710,12 +2705,14 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
         return;
     }
     // obtain glObject associated to these glID
-    glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
+    GUIGlObject* glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
     GUIGlObjectStorage::gIDStorage.unblockObject(glID);
     // only continue if glObject isn't nullptr;
     if(glObject == nullptr) {
         return;
     }
+    // set glType
+    glType = glObject->getType();
     // cast attribute carrier from glObject
     attributeCarrier = dynamic_cast<GNEAttributeCarrier*>(glObject);
     // only continue if attributeCarrier isn't nullptr;
@@ -2753,10 +2750,14 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
                 break;
             case GLO_LANE:
                 lane = dynamic_cast<GNELane*>(attributeCarrier);
-                // edge is always set
-                edge = &lane->getParentEdge();
+                // if we clicked over an edge but selectEdges is enabled, select edge parent instead lane
                 if (selectEdges) {
+                    edge = &lane->getParentEdge();
+                    lane = nullptr;
+                    // set AttributeCarrier, netElement and glType
                     attributeCarrier = edge;
+                    netElement = edge;
+                    glType = GLO_EDGE;
                 }
                 break;
             case GLO_POI:

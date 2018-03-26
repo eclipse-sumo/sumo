@@ -437,7 +437,7 @@ private:
         /// @brief constructor
         ObjectsUnderCursor(): 
             glID(0),
-            glObject(nullptr),
+            glType(GLO_NETWORK),
             attributeCarrier(nullptr),
             netElement(nullptr),
             additional(nullptr),
@@ -456,8 +456,8 @@ private:
         /// @brief GUI GL ID
         GUIGlID glID;
 
-        /// @brief GUI GL object
-        GUIGlObject* glObject;
+        /// @brief GUI GL object type
+        GUIGlObjectType glType;
 
         /// @brief attribute carrier
         GNEAttributeCarrier* attributeCarrier;
