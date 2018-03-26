@@ -141,7 +141,13 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         parameterGiven = true;
         haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter(key, "false").c_str());
     }
-    return (haveByNumber && !parameterGiven) || haveByName || haveByParameter;
+    if (haveByName) {
+        return true;
+    } else if (parameterGiven) {
+        return haveByParameter;
+    } else {
+        return haveByNumber;
+    }
 }
 
 
