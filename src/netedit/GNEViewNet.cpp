@@ -807,7 +807,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             myObjectsUnderCursor.edge->selectNetElement();
                         }
                     }
-                } else if (myObjectsUnderCursor.attributeCarrier && !myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(myObjectsUnderCursor.attributeCarrier->getGUIGLObject()->getType()) && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
+                } else if (myObjectsUnderCursor.attributeCarrier && !myViewParent->getSelectorFrame()->getSelectedItems()->IsObjectTypeLocked(myObjectsUnderCursor.glObject->getType()) && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
                     if(myObjectsUnderCursor.netElement) {
                         // toogle netElement selection
                         if(myObjectsUnderCursor.netElement->isNetElementSelected()) {

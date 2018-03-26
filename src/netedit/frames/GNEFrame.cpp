@@ -126,8 +126,9 @@ GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData
 
 long 
 GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    if (myRightClickedAC != NULL) {
-        myFrameParent->getViewNet()->centerTo(myRightClickedAC->getGUIGLObject()->getGlID(), false);
+    GUIGlObject *glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
+    if (glObject) {
+        myFrameParent->getViewNet()->centerTo(glObject->getGlID(), false);
         myFrameParent->getViewNet()->update();
     }
     return 1;
@@ -179,12 +180,8 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 FXTreeItem* 
 GNEFrame::ACHierarchy::showAttributeCarrierParents() {
     // Switch gl type of ac
-    switch (myAC->getGUIGLObject()->getType()) {
-        case GLO_JUNCTION: {
-            // Junctions don't have parents
-            return NULL;
-        }
-        case GLO_EDGE: {
+    switch (myAC->getTag()) {
+        case SUMO_TAG_EDGE: {
             // obtain Edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(myAC->getID());
             // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
@@ -197,7 +194,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             // return junction destiny Item
             return junctionDestinyItem;
         }
-        case GLO_LANE: {
+        case SUMO_TAG_LANE: {
             // obtain lane
             GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(myAC->getID());
             // obtain edge parent
@@ -216,42 +213,32 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             // return edge item
             return edgeItem;
         }
-        case GLO_POI: {
-            // check type of POI
-            if (myAC->getTag() == SUMO_TAG_POI) {
-                // POIs don't have lane parents
-                return NULL;
-            } else {
-                // Obtain GNEPOI
-                GNEPOI* GNEPOI = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID());
-                // obtain lane parent
-                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(GNEPOI->getLane()->getID());
-                // obtain edge parent
-                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
-                //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                junctionDestinyItem->setExpanded(true);
-                // Create edge item
-                FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
-                edgeItem->setExpanded(true);
-                // Create lane item
-                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
-                laneItem->setExpanded(true);
-                // Save items in myTreeItemToACMap
-                myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-                myTreeItemToACMap[edgeItem] = edge;
-                myTreeItemToACMap[laneItem] = lane;
-                // return Lane item
-                return laneItem;
-            }
+        case SUMO_TAG_POILANE: {
+            // Obtain POILane
+            GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID());
+            // obtain lane parent
+            GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLane()->getID());
+            // obtain edge parent
+            GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+            //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+            FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            junctionDestinyItem->setExpanded(true);
+            // Create edge item
+            FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+            edgeItem->setExpanded(true);
+            // Create lane item
+            FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+            laneItem->setExpanded(true);
+            // Save items in myTreeItemToACMap
+            myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+            myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+            myTreeItemToACMap[edgeItem] = edge;
+            myTreeItemToACMap[laneItem] = lane;
+            // return Lane item
+            return laneItem;
         }
-        case GLO_POLYGON: {
-            // Polygons doesn't have parents
-            return NULL;
-        }
-        case GLO_CROSSING: {
+        case SUMO_TAG_CROSSING: {
             // obtain Crossing
             GNECrossing* crossing = myFrameParent->getViewNet()->getNet()->retrieveCrossing(myAC->getID());
             // obtain junction
@@ -264,62 +251,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             // return junction Item
             return junctionItem;
         }
-        case GLO_ADDITIONAL: {
-            // Obtain Additional
-            GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID());
-            // first check if additional has another additional as parent (to add it into root)
-             if (GNEAttributeCarrier::canHaveParent(additional->getTag())) {
-                 GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
-                 // create additional parent item
-                 FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
-                 additionalParentItem->setExpanded(true);
-                 // Save it in myTreeItemToACMap
-                 myTreeItemToACMap[additionalParentItem] = additionalParent;
-             }
-            if(additional->hasAttribute(additional->getTag(), SUMO_ATTR_EDGE)) {
-                // obtain edge parent
-                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
-                //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                junctionDestinyItem->setExpanded(true);
-                // Create edge item
-                FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
-                edgeItem->setExpanded(true);
-                // Save items in myTreeItemToACMap
-                myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-                myTreeItemToACMap[edgeItem] = edge;
-                // return edge item
-                return edgeItem;
-            } else if (additional->hasAttribute(additional->getTag(), SUMO_ATTR_LANE)) {
-                // obtain lane parent
-                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(additional->getAttribute(SUMO_ATTR_LANE));
-                // obtain edge parent
-                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
-                //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                junctionDestinyItem->setExpanded(true);
-                // Create edge item
-                FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
-                edgeItem->setExpanded(true);
-                // Create lane item
-                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
-                laneItem->setExpanded(true);
-                // Save items in myTreeItemToACMap
-                myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-                myTreeItemToACMap[edgeItem] = edge;
-                myTreeItemToACMap[laneItem] = lane;
-                // return lane item
-                return laneItem;
-            } else {
-                // Certain additionals don't have parents
-                return NULL;
-            }
-        }
-        case GLO_CONNECTION: {
+        case SUMO_TAG_CONNECTION: {
             // obtain Connection
             GNEConnection* connection = myFrameParent->getViewNet()->getNet()->retrieveConnection(myAC->getID());
             // create edge from item
@@ -339,7 +271,64 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             return connectionItem;
         }
         default: {
-            throw ProcessError("Invalid GUIGLObject type");
+            // check if is an additional, and in other case return NULL
+            if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), myAC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+                // Obtain Additional
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID());
+                // first check if additional has another additional as parent (to add it into root)
+                 if (GNEAttributeCarrier::canHaveParent(additional->getTag())) {
+                     GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
+                     // create additional parent item
+                     FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
+                     additionalParentItem->setExpanded(true);
+                     // Save it in myTreeItemToACMap
+                     myTreeItemToACMap[additionalParentItem] = additionalParent;
+                 }
+                if(additional->hasAttribute(additional->getTag(), SUMO_ATTR_EDGE)) {
+                    // obtain edge parent
+                    GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
+                    //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                    junctionDestinyItem->setExpanded(true);
+                    // Create edge item
+                    FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                    edgeItem->setExpanded(true);
+                    // Save items in myTreeItemToACMap
+                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                    myTreeItemToACMap[edgeItem] = edge;
+                    // return edge item
+                    return edgeItem;
+                } else if (additional->hasAttribute(additional->getTag(), SUMO_ATTR_LANE)) {
+                    // obtain lane parent
+                    GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(additional->getAttribute(SUMO_ATTR_LANE));
+                    // obtain edge parent
+                    GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+                    //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(NULL, NULL, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                    junctionDestinyItem->setExpanded(true);
+                    // Create edge item
+                    FXTreeItem* edgeItem = myTreelist->insertItem(NULL, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                    edgeItem->setExpanded(true);
+                    // Create lane item
+                    FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+                    laneItem->setExpanded(true);
+                    // Save items in myTreeItemToACMap
+                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                    myTreeItemToACMap[edgeItem] = edge;
+                    myTreeItemToACMap[laneItem] = lane;
+                    // return lane item
+                    return laneItem;
+                } else {
+                    // Certain additionals don't have parents
+                    return NULL;
+                }
+            } else {
+                return NULL;
+            }
         }
     }
 }
@@ -348,8 +337,8 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
 void
 GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index) {
     // Switch gl type of ac
-    switch (AC->getGUIGLObject()->getType()) {
-        case GLO_JUNCTION: {
+    switch (AC->getTag()) {
+        case SUMO_TAG_JUNCTION: {
             // insert junction item
             FXTreeItem* junctionItem = addACIntoList(AC, itemParent, index);
             // retrieve junction
@@ -364,7 +353,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
             }
             break;
         }
-        case GLO_EDGE: {
+        case SUMO_TAG_EDGE: {
             // insert edge item
             FXTreeItem* edgeItem = addACIntoList(AC, itemParent, index);
             // retrieve edge
@@ -379,7 +368,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
             }
             break;
         }
-        case GLO_LANE: {
+        case SUMO_TAG_LANE: {
             // insert lane item
             FXTreeItem* laneItem = addACIntoList(AC, itemParent, index);
             // retrieve lane
@@ -410,45 +399,27 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
             }
             break;
         }
-        case GLO_POI: {
-            // check type of POI
-            if (AC->getTag() == SUMO_TAG_POI) {
-                // insert POI item
-                addACIntoList(AC, itemParent, index);
-            } else {
-                // insert POILane item
-                addACIntoList(AC, itemParent, index);
-            }
-            break;
-        }
-        case GLO_POLYGON: {
-            // retrieve polygon
-            addACIntoList(AC, itemParent, index);
-            break;
-        }
-        case GLO_CROSSING: {
-            // insert crossing item
-            addACIntoList(AC, itemParent, index);
-            break;
-        }
-        case GLO_ADDITIONAL: {
-            // insert additional item
-            FXTreeItem* additionalItem = addACIntoList(AC, itemParent, index);
-            // retrieve additional
-            GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
-            // insert additionals childs
-            for (int i = 0; i < (int)additional->getAdditionalChilds().size(); i++) {
-                showAttributeCarrierChilds(additional->getAdditionalChilds().at(i), additionalItem, i);
-            }
-            break;
-        }
-        case GLO_CONNECTION: {
+        case SUMO_TAG_POI: 
+        case SUMO_TAG_POLY:
+        case SUMO_TAG_CROSSING:
+        case SUMO_TAG_CONNECTION: {
             // insert connection item
             addACIntoList(AC, itemParent, index);
             break;
         }
         default: {
-            throw ProcessError("Invalid GUIGLObject type");
+            // check if is an additional
+            if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), AC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+                // insert additional item
+                FXTreeItem* additionalItem = addACIntoList(AC, itemParent, index);
+                // retrieve additional
+                GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
+                // insert additionals childs
+                for (int i = 0; i < (int)additional->getAdditionalChilds().size(); i++) {
+                    showAttributeCarrierChilds(additional->getAdditionalChilds().at(i), additionalItem, i);
+                }
+            }
+            break;
         }
     }
 }

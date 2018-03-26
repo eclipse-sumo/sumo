@@ -1945,7 +1945,7 @@ GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(polygon);
         // Remove from grid
-        myGrid.removeAdditionalGLObject(polygon->getGUIGLObject());
+        myGrid.removeAdditionalGLObject(polygon);
         myViewNet->update();
     } else {
         throw ProcessError("Polygon for edit shapes has to be inicializated");
@@ -2268,13 +2268,15 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
 
 void
 GNENet::insertShape(GNEShape* shape) {
-    // add shape to grid
-    myGrid.addAdditionalGLObject(shape->getGUIGLObject());
-    // add shape depending of their types
+    // add shape depending of their type
     if (shape->getTag() == SUMO_TAG_POLY) {
-        myPolygons.add(shape->getID(), dynamic_cast<GUIPolygon*>(shape));
+        GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
+        myGrid.addAdditionalGLObject(poly);
+        myPolygons.add(shape->getID(), poly);
     } else {
-        myPOIs.add(shape->getID(), dynamic_cast<GUIPointOfInterest*>(shape));
+        GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
+        myGrid.addAdditionalGLObject(poi);
+        myPOIs.add(shape->getID(), poi);
     }
     // POILanes has to be added from lane
     if (shape->getTag() == SUMO_TAG_POILANE) {
@@ -2289,13 +2291,14 @@ void
 GNENet::removeShape(GNEShape* shape) {
     // remove it from Inspector Frame
     myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(shape);
-    // remove shape from grid
-    myGrid.removeAdditionalGLObject(shape->getGUIGLObject());
-    // remove shape depending of their types
     if (shape->getTag() == SUMO_TAG_POLY) {
-        myPolygons.remove(shape->getID(), false);
+        GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
+        myGrid.removeAdditionalGLObject(poly);
+        myPolygons.remove(shape->getID(), poly);
     } else {
-        myPOIs.remove(shape->getID(), false);
+        GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
+        myGrid.removeAdditionalGLObject(poi);
+        myPOIs.remove(shape->getID(), poi);
     }
     // POILanes has to be removed from lane
     if (shape->getTag() == SUMO_TAG_POILANE) {

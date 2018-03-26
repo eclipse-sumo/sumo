@@ -114,8 +114,8 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
     myTreeItemsWithoutAC.clear();
     // Switch gl type of ac
     if (myMarkedAC) {
-        switch (myMarkedAC->getGUIGLObject()->getType()) {
-            case GLO_JUNCTION: {
+        switch (myMarkedAC->getTag()) {
+            case SUMO_TAG_JUNCTION: {
                 // insert junction root
                 GNEJunction* junction = dynamic_cast<GNEJunction*>(myMarkedAC);
                 FXTreeItem* junctionItem = myTreelist->insertItem(0, 0, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
@@ -183,7 +183,7 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 }
                 break;
             }
-            case GLO_EDGE: {
+            case SUMO_TAG_EDGE: {
                 // insert edge root
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(myMarkedAC);
                 FXTreeItem* edgeItem = myTreelist->insertItem(0, 0, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
@@ -249,7 +249,7 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 }
                 break;
             }
-            case GLO_LANE: {
+            case SUMO_TAG_LANE: {
                 // insert lane root
                 GNELane* lane = dynamic_cast<GNELane*>(myMarkedAC);
                 FXTreeItem* laneItem = myTreelist->insertItem(0, 0, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
@@ -288,7 +288,8 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 }
                 break;
             }
-            case GLO_POI: {
+            case SUMO_TAG_POI: 
+            case SUMO_TAG_POILANE: {
                 // insert POI root
                 GNEPOI* POI = dynamic_cast<GNEPOI*>(myMarkedAC);
                 FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
@@ -296,7 +297,7 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 POIItem->setExpanded(true);
                 break;
             }
-            case GLO_POLYGON: {
+            case SUMO_TAG_POLY: {
                 // insert polygon root
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(myMarkedAC);
                 FXTreeItem* polygonItem = myTreelist->insertItem(0, 0, toString(polygon->getTag()).c_str(), polygon->getIcon(), polygon->getIcon());
@@ -304,7 +305,7 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 polygonItem->setExpanded(true);
                 break;
             }
-            case GLO_CROSSING: {
+            case SUMO_TAG_CROSSING: {
                 // insert crossing root
                 GNECrossing* crossing = dynamic_cast<GNECrossing*>(myMarkedAC);
                 FXTreeItem* crossingItem = myTreelist->insertItem(0, 0, toString(crossing->getTag()).c_str(), crossing->getIcon(), crossing->getIcon());
@@ -312,15 +313,7 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 crossingItem->setExpanded(true);
                 break;
             }
-            case GLO_ADDITIONAL: {
-                // insert additional root
-                GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myMarkedAC);
-                FXTreeItem* additionalItem = myTreelist->insertItem(0, 0, toString(additional->getTag()).c_str(), additional->getIcon(), additional->getIcon());
-                myTreeItemToACMap[additionalItem] = additional;
-                additionalItem->setExpanded(true);
-                break;
-            }
-            case GLO_CONNECTION: {
+            case SUMO_TAG_CONNECTION: {
                 // insert connection root
                 GNEConnection* connection = dynamic_cast<GNEConnection*>(myMarkedAC);
                 FXTreeItem* connectionItem = myTreelist->insertItem(0, 0, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
@@ -329,6 +322,13 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
                 break;
             }
             default: {
+                if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), myMarkedAC->getTag()) !=  GNEAttributeCarrier::allowedAdditionalTags().end()) {
+                    // insert additional root
+                    GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myMarkedAC);
+                    FXTreeItem* additionalItem = myTreelist->insertItem(0, 0, toString(additional->getTag()).c_str(), additional->getIcon(), additional->getIcon());
+                    myTreeItemToACMap[additionalItem] = additional;
+                    additionalItem->setExpanded(true);
+                }
                 break;
             }
         }
@@ -347,15 +347,15 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         show();
     } else if (myDeleteOnlyGeometryPoints->getCheck()) {
         // check type of of GL object
-        switch (ac->getGUIGLObject()->getType()) {
-            case GLO_EDGE: {
+        switch (ac->getTag()) {
+            case SUMO_TAG_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
                 if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
                 }
                 break;
             }
-            case GLO_POLYGON: {
+            case SUMO_TAG_POLY: {
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
                 if (polygon->getVertexIndex(clickedPosition, false) != -1) {
                     polygon->deleteGeometryPoint(clickedPosition);
@@ -368,8 +368,8 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         }
     } else {
         // check type of of GL object
-        switch (ac->getGUIGLObject()->getType()) {
-            case GLO_JUNCTION: {
+        switch (ac->getTag()) {
+            case SUMO_TAG_JUNCTION: {
                 GNEJunction* junction = dynamic_cast<GNEJunction*>(ac);
                 // obtain number of additionals of junction's childs
                 int numberOfAdditionals = 0;
@@ -404,7 +404,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 }
                 break;
             }
-            case GLO_EDGE: {
+            case SUMO_TAG_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
                 // check if click was over a geometry point or over a shape's edge
                 if (edge->getVertexIndex(clickedPosition, false) != -1) {
@@ -457,7 +457,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 }
                 break;
             }
-            case GLO_LANE: {
+            case SUMO_TAG_LANE: {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
                 // Check if lane can be deleted
                 if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
@@ -484,24 +484,24 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                 }
                 break;
             }
-            case GLO_POLYGON:
-            case GLO_POI: {
-                myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
+            case SUMO_TAG_CROSSING: {
+                myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(ac), myViewNet->getUndoList());
                 break;
             }
-            case GLO_CROSSING: {
-                myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(ac), myViewNet->getUndoList());
+            case SUMO_TAG_CONNECTION: {
+                myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
                 break;
             }
             case GLO_ADDITIONAL: {
                 myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
                 break;
             }
-            case GLO_CONNECTION: {
-                myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
-                break;
-            }
             default: {
+                if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), ac->getTag()) !=  GNEAttributeCarrier::allowedAdditionalTags().end()) {
+                    myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
+                } else if(std::find(GNEAttributeCarrier::allowedShapeTags().begin(), GNEAttributeCarrier::allowedShapeTags().end(), ac->getTag()) !=  GNEAttributeCarrier::allowedShapeTags().end()) {
+                    myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
+                }
                 break;
             }
         }
@@ -560,8 +560,12 @@ GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
 
 long
 GNEDeleteFrame::onCmdCenterChildItem(FXObject*, FXSelector, void*) {
-    myViewNet->centerTo(myClickedAC->getGUIGLObject()->getGlID(), false);
-    myViewNet->update();
+    // first check if clicked AC has an associated GUIGLObject
+    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myClickedAC);
+    if(glObject) {
+        myViewNet->centerTo(glObject->getGlID(), false);
+        myViewNet->update();
+    }
     return 1;
 }
 

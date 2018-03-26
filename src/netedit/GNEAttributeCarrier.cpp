@@ -244,30 +244,6 @@ GNEAttributeCarrier::getGUIIcon() const {
 }
 
 
-const GUIGlObject*
-GNEAttributeCarrier::getGUIGLObject() const {
-    const GUIGlObject* GLObject = dynamic_cast<const GUIGlObject*>(this);
-    // Make sure that casting was sucesfully
-    if (GLObject) {
-        return GLObject;
-    } else {
-        throw ProcessError("Current Attribute Carrier doesn't have a associated const GUIGlObject");
-    }
-}
-
-
-GUIGlObject*
-GNEAttributeCarrier::getGUIGLObject() {
-    GUIGlObject* GLObject = dynamic_cast<GUIGlObject*>(this);
-    // Make sure that casting was sucesfully
-    if (GLObject) {
-        return GLObject;
-    } else {
-        throw ProcessError("Current Attribute Carrier doesn't have a associated GUIGlObject");
-    }
-}
-
-
 std::vector<SumoXMLAttr>
 GNEAttributeCarrier::getAttrs() const {
     std::vector<SumoXMLAttr> attr;
