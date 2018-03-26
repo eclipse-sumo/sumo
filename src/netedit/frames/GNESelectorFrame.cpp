@@ -157,7 +157,7 @@ GNESelectorFrame::clearCurrentSelection() const {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, ModificationMode::SetOperation setop) {
+GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationMode::SetOperation setop) {
     const ModificationMode::SetOperation setOperation = ((setop == ModificationMode::SET_DEFAULT) ? myModificationMode->getModificationMode() : setop);
     // first save previous selection
     std::vector<GNEAttributeCarrier*> previousACSelection = myViewNet->getNet()->getSelectedAttributeCarriers();
@@ -634,7 +634,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr), mySelectorFrameParent->myViewNet->selectEdges());
+        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
     } else if (GNEAttributeCarrier::isNumerical(myCurrentTag, myCurrentAttribute)) {
         // The expression must have the form
         //  <val matches if attr < val
@@ -648,7 +648,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
             compOp = '=';
         }
         try {
-            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr), mySelectorFrameParent->myViewNet->selectEdges());
+            mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, GNEAttributeCarrier::parse<double>(expr.c_str()), expr));
         } catch (EmptyData&) {
             valid = false;
         } catch (NumberFormatException&) {
@@ -667,7 +667,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
         } else {
             compOp = '@';
         }
-        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr), false);
+        mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, compOp, 0, expr));
     }
     if (valid) {
         myMatchString->setTextColor(FXRGB(0, 0, 0));
@@ -806,7 +806,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         for(auto i : ids) {
             ACs.push_back(mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(i, false));
         }
-        mySelectorFrameParent->handleIDs(ACs, false);
+        mySelectorFrameParent->handleIDs(ACs);
         if (errors != "") {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

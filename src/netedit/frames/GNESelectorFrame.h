@@ -367,7 +367,7 @@ public:
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
-    void handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
+    void handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
 
 private:
     /// @brief modul for lock selected items

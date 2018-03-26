@@ -272,7 +272,7 @@ GNEConnectorFrame::onCmdSelectDeadEnds(FXObject*, FXSelector, void*) {
             }
         }
     }
-    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(deadEnds, false, GNESelectorFrame::ModificationMode::SET_REPLACE);
+    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(deadEnds, GNESelectorFrame::ModificationMode::SET_REPLACE);
     return 1;
 }
 
@@ -298,7 +298,7 @@ GNEConnectorFrame::onCmdSelectDeadStarts(FXObject*, FXSelector, void*) {
             }
         }
     }
-    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(deadStarts, false, GNESelectorFrame::ModificationMode::SET_REPLACE);
+    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(deadStarts, GNESelectorFrame::ModificationMode::SET_REPLACE);
     return 1;
 }
 
@@ -322,7 +322,7 @@ GNEConnectorFrame::onCmdSelectConflicts(FXObject*, FXSelector, void*) {
         }
 
     }
-    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(conflicts, false, GNESelectorFrame::ModificationMode::SET_REPLACE);
+    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(conflicts, GNESelectorFrame::ModificationMode::SET_REPLACE);
     return 1;
 }
 
@@ -338,7 +338,7 @@ GNEConnectorFrame::onCmdSelectPass(FXObject*, FXSelector, void*) {
             }
         }
     }
-    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(pass, false, GNESelectorFrame::ModificationMode::SET_REPLACE);
+    myViewNet->getViewParent()->getSelectorFrame()->handleIDs(pass, GNESelectorFrame::ModificationMode::SET_REPLACE);
     return 1;
 }
 

@@ -943,9 +943,18 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
                 std::vector<GUIGlID> ids = getObjectsInBoundary(b);
                 std::vector<GNEAttributeCarrier*> ACs;
                 for(auto i : ids) {
-                    ACs.push_back(myNet->retrieveAttributeCarrier(i, false));
+                    // avoid to select Net (i = 0)
+                    if (i != 0) {
+                        GNEAttributeCarrier *retrievedAC = myNet->retrieveAttributeCarrier(i);
+                        // in the case of a Lane, we need to add the edge parent if mySelectEdges is enabled
+                        if((retrievedAC->getTag() == SUMO_TAG_LANE) && mySelectEdges) {
+                            ACs.push_back(&dynamic_cast<GNELane*>(retrievedAC)->getParentEdge());
+                        } else {
+                            ACs.push_back(retrievedAC);
+                        }
+                    }
                 }
-                myViewParent->getSelectorFrame()->handleIDs(ACs, mySelectEdges);
+                myViewParent->getSelectorFrame()->handleIDs(ACs);
                 makeNonCurrent();
             }
         }
