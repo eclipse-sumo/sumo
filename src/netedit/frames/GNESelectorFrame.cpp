@@ -139,6 +139,23 @@ GNESelectorFrame::getSelectedItems() const {
 }
 
 
+void 
+GNESelectorFrame::clearCurrentSelection() const {
+    std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers();
+    for (auto i : selectedACs) {
+        if(std::find(GNEAttributeCarrier::allowedNetElementsTags().begin(), GNEAttributeCarrier::allowedNetElementsTags().end(), i->getTag()) != GNEAttributeCarrier::allowedNetElementsTags().end()) {
+            dynamic_cast<GNENetElement*>(i)->unselectNetElement();
+        } else if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), i->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+            dynamic_cast<GNEAdditional*>(i)->unselectAdditional();
+        } else if(std::find(GNEAttributeCarrier::allowedShapeTags().begin(), GNEAttributeCarrier::allowedShapeTags().end(), i->getTag()) != GNEAttributeCarrier::allowedShapeTags().end()) {
+            dynamic_cast<GNEShape*>(i)->unselectShape();
+        } else {
+            throw ProcessError("Invalid element set");
+        }
+    }
+}
+
+
 void
 GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, bool selectEdgesEnabled, ModificationMode::SetOperation setop) {
     const ModificationMode::SetOperation setOperation = ((setop == ModificationMode::SET_DEFAULT) ? myModificationMode->getModificationMode() : setop);

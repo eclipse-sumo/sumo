@@ -1069,6 +1069,10 @@ GNEViewNet::abortOperation(bool clearSelection) {
         myCreateEdgeSource = 0;
     } else if (myEditMode == GNE_MODE_SELECT) {
         myAmInRectSelect = false;
+        // check if current selection has to be cleaned
+        if(clearSelection) {
+            myViewParent->getSelectorFrame()->clearCurrentSelection();
+        }
     } else if (myEditMode == GNE_MODE_CONNECT) {
         myViewParent->getConnectorFrame()->onCmdCancel(0, 0, 0);
     } else if (myEditMode == GNE_MODE_TLS) {

@@ -361,6 +361,9 @@ public:
     /// @brief get selected items
     SelectedItems* getSelectedItems() const;
 
+    /// @brief clear current selection witout possibility of undo/redo
+    void clearCurrentSelection() const;
+
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
