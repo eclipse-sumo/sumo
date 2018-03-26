@@ -5,8 +5,8 @@
     <type id="parking"       priority="1"  speed="1.39"  width="2.50" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="entry"         priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="exit"          priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="OffRamp"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
-    <type id="OnRamp"        priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
+    <type id="offRamp"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
+    <type id="onRamp"        priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
     <type id="roadWorks"     priority="0"  speed="1.39"  width="3.65" allow="authority"/>
     <type id="tram"          priority="2"  speed="13.89" width="3.65" allow="tram"/>
     <type id="rail"          priority="3"  speed="33.33" width="3.65" allow="rail rail_urban rail_electric"/>
