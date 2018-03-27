@@ -1619,6 +1619,18 @@ GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
 }
 
 
+std::vector<GNEAttributeCarrier*> 
+GNENet::getSelectedAttributeCarriers(GUIGlObjectType type, SumoXMLTag tag) {
+    std::vector<GNEAttributeCarrier*> result;
+    for (auto i : mySelectedAttributeCarriers[type]) {
+        if(i->getTag() == tag) {
+            result.push_back(i);
+        }
+    }
+    return result;
+}
+
+
 void 
 GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame) {
     if(attributeCarrier == nullptr) {

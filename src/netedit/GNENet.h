@@ -471,6 +471,9 @@ public:
     /// @brief get selected attribute carriers by GLType
     const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
 
+    /// @brief get selected attribute carriers by GLType AND Tag (used by additional and shapes)
+    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(GUIGlObjectType type, SumoXMLTag tag);
+
     /// @brief select attribute carrier
     void selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
 

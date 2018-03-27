@@ -790,7 +790,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // check if clicked AC is selected
                     if(GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && 
                        (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
-                        myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType));
+                        // if we inspect additional or shapes, we need to specify the Tag
+                        if(myObjectsUnderCursor.netElement) {
+                            myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType));
+                        } else {
+                            myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType, myObjectsUnderCursor.attributeCarrier->getTag()));
+                        }
                     } else {
                         myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
                     }
