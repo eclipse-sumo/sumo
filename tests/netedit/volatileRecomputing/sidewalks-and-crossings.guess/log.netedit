@@ -115,7 +115,6 @@ Warning: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Warning: Additionals saved
-Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor

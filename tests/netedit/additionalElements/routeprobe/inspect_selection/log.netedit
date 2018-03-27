@@ -6,13 +6,18 @@ Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Loaded texture Route Probe in GUITextureSubSys::getTexture
 Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into junction 'gneJ1'
 Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_01'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into routeProbe 'routeProbe_02'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Selected 6 elements in GNEChange_Selection
 Warning: Loaded texture Route Probe selected in GUITextureSubSys::getTexture
 Warning: Loaded texture not moving selected in GUITextureSubSys::getTexture
 Warning: Value '-30' for attribute freq of routeProbe isn't valid
