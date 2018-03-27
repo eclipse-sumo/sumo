@@ -31,29 +31,66 @@ Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '2'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '2'
+Warning: Setting new attribute selected 'true' into edge '2'
+Warning: Setting new attribute selected 'true' into edge '2'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Setting new attribute selected 'true' into edge '6'
+Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Setting new attribute selected 'true' into edge '7'
+Warning: Setting new attribute selected 'true' into edge '3'
+Warning: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '3'
+Warning: Setting new attribute selected 'true' into edge '3'
+Warning: Setting new attribute selected 'true' into edge '3'
+Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Setting new attribute selected 'true' into edge '5'
+Warning: Setting new attribute selected 'true' into edge '1'
+Warning: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '1'
+Warning: Setting new attribute selected 'true' into edge '1'
+Warning: Setting new attribute selected 'true' into edge '1'
+Warning: Setting new attribute selected 'true' into junction 'Center'
+Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
+Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
+Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Setting new attribute selected 'true' into edge '8'
+Warning: Setting new attribute selected 'true' into edge '4'
 Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Selected 12 elements in GNEChange_Selection
+Warning: Setting new attribute selected 'true' into edge '4'
+Warning: Setting new attribute selected 'true' into edge '4'
+Warning: Setting new attribute selected 'true' into edge '4'
 Warning: Key DEL (delete) pressed
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing connection '6_2->4_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Warning: Removing connection '6_2->1_2' from edge '6'
@@ -91,147 +128,99 @@ Warning: Removing connection '7_1->1_1' from edge '7'
 Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '1' from net
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '2' from net
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '3' from net
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '4' from net
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '5' from net
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '6' from net
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '7' from net
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Removing edge '3' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Removing edge '5' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Warning: Removing edge '1' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '8' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Removing edge '4' from net
 Warning: Removing junction 'Center' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'Center' into net
-Warning: Selected 1 elements in GNEChange_Selection
+Warning: Adding edge '4' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Adding edge '8' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
+Warning: Adding edge '1' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Adding edge '5' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
+Warning: Adding edge '3' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '3'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Adding edge '7' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding edge '6' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Adding edge '5' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Adding edge '4' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Adding edge '3' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding edge '2' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Adding edge '1' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
 Warning: Adding connection '7_1->1_1' into edge '7'
@@ -269,20 +258,14 @@ Warning: Adding connection '6_2->1_2' into edge '6'
 Warning: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Warning: Adding connection '6_2->4_2' into edge '6'
 Warning: Created connection 'from6_2to4_2' in retrieveGNEConnection()
-Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Loaded texture empty selected in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
+Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing connection '6_2->4_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Warning: Removing connection '6_2->1_2' from edge '6'
@@ -320,129 +303,99 @@ Warning: Removing connection '7_1->1_1' from edge '7'
 Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '1' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '2' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '3' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '4' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Deselected 1 elements in GNEChange_Selection
-Warning: Removing edge '5' from net
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '6' from net
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '7' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Removing edge '3' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Removing edge '5' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Warning: Removing edge '1' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Deselected 1 elements in GNEChange_Selection
 Warning: Removing edge '8' from net
-Warning: Deselected 1 elements in GNEChange_Selection
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Removing edge '4' from net
 Warning: Removing junction 'Center' from net
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding junction 'Center' into net
-Warning: Selected 1 elements in GNEChange_Selection
+Warning: Adding edge '4' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '4'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Adding edge '8' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
+Warning: Adding edge '1' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Adding edge '5' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
+Warning: Adding edge '3' from net
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '3'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Adding edge '7' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding edge '6' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
+Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Adding edge '5' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Warning: Adding edge '4' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Adding edge '3' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding edge '2' from net
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
-Warning: Adding edge '1' from net
-Warning: Selected 1 elements in GNEChange_Selection
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
-Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
 Warning: Adding connection '7_1->1_1' into edge '7'
@@ -480,12 +433,9 @@ Warning: Adding connection '6_2->1_2' into edge '6'
 Warning: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Warning: Adding connection '6_2->4_2' into edge '6'
 Warning: Created connection 'from6_2to4_2' in retrieveGNEConnection()
-Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Selected 1 elements in GNEChange_Selection
+Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Additionals has to be saved
