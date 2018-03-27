@@ -1,4 +1,4 @@
-SUMO Version v0_31_0+1647-6d8dc768ae
+SUMO Version v0_32_0+0903-eae183f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -92,10 +92,6 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -350,6 +346,14 @@ Bluelight Device Options:
   --device.bluelight.parameter FLOAT   An exemplary parameter which can be used
                                          by all instances of the example device
 
+FCD Device Options:
+  --device.fcd.probability FLOAT       The probability for a vehicle to have a
+                                         'fcd' device
+  --device.fcd.explicit STR            Assign a 'fcd' device to named vehicles
+  --device.fcd.deterministic           The 'fcd' devices are set deterministic
+                                         using a fraction of 1000
+  --device.fcd.period STR              Recording period for FCD-data
+
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
   --num-clients INT                    Expected number of connecting clients
@@ -412,8 +416,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

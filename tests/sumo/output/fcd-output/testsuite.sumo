@@ -16,5 +16,11 @@ signals
 angle
 subsecond
 
+# output not in every time step
+period
+
+# output not from every vehicle
+explicit_assignment
+
 # correctly compute positions when vehicle is on a short lane
 short_lane

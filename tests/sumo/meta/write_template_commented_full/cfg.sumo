@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 12 07:57:45 2018 by SUMO Version v0_32_0+0674-29ed3af
+<!-- generated on Mon Mar 26 23:09:30 2018 by SUMO Version v0_32_0+0905-5b0fa2b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -505,6 +505,21 @@
         <device.bluelight.parameter value="0" type="FLOAT"/>
 
     </bluelight_device>
+
+    <fcd_device>
+        <!-- The probability for a vehicle to have a &apos;fcd&apos; device -->
+        <device.fcd.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;fcd&apos; device to named vehicles -->
+        <device.fcd.explicit value="" synonymes="device.fcd.knownveh" type="STR"/>
+
+        <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.fcd.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording period for FCD-data -->
+        <device.fcd.period value="0" type="STR"/>
+
+    </fcd_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->
