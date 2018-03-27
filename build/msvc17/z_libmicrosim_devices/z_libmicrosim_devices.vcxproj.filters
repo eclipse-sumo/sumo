@@ -88,8 +88,8 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Bluelight.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_FCD.cpp">
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_FCD.cpp">
       <Filter>Quellcodedateien</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
 </Project>
