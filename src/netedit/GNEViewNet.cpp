@@ -783,10 +783,13 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_INSPECT: {
                 if(myObjectsUnderCursor.attributeCarrier) {
+                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
+                    if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
                     // check if clicked AC is selected
-                    if(std::find(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType).begin(), 
-                                 myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType).end(), myObjectsUnderCursor.attributeCarrier) != 
-                                 myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType).end()) {
+                    if(GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && 
+                       (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
                         myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.glType));
                     } else {
                         myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
@@ -2794,6 +2797,7 @@ GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
     if(lane) {
         edge = &lane->getParentEdge();
         netElement = edge;
+        attributeCarrier = edge;
         glType = GLO_EDGE;
     }
 }
