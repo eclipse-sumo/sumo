@@ -67,11 +67,16 @@ Warning: Setting new attribute shape '22.36,-5.95 22.36,-0.95 17.36,-0.95 17.36,
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Removing poly 'poly_4' from net
-Warning: Removing poly 'poly_3' from net
-Warning: Removing poly 'poly_2' from net
-Warning: Removing poly 'poly_1' from net
-Warning: Removing poly 'poly_0' from net
+Warning: Removing poly 'poly_4' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_4' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_3' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_3' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_2' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_2' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_1' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

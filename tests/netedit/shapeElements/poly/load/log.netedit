@@ -30,12 +30,12 @@ Warning: Adding poly 'poly_17' into viewNet
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
 Warning: Adding poly 'poly_18' into viewNet
 Warning: Adding poly 'poly_19' into viewNet
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Feb153307.2804/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.27Mar190417.980/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Warning: Adding poly 'poly_20' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
 Warning: Adding poly 'poly_21' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.08Feb153307.2804/netedit.gui/shapeElements/poly/load\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.27Mar190417.980/netedit.gui/shapeElements/poly/load\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poly 'poly_22' into viewNet
 Error: Attribute 'angle' in definition of poly 'poly_23' is not of type float.
 Warning: Adding poly 'poly_23' into viewNet
@@ -57,35 +57,64 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
-Warning: Removing poly 'poly_29' from net
-Warning: Removing poly 'poly_28' from net
-Warning: Removing poly 'poly_27' from net
-Warning: Removing poly 'poly_26' from net
-Warning: Removing poly 'poly_25' from net
-Warning: Removing poly 'poly_24' from net
-Warning: Removing poly 'poly_23' from net
-Warning: Removing poly 'poly_22' from net
-Warning: Removing poly 'poly_21' from net
-Warning: Removing poly 'poly_20' from net
-Warning: Removing poly 'poly_19' from net
-Warning: Removing poly 'poly_18' from net
-Warning: Removing poly 'poly_17' from net
-Warning: Removing poly 'poly_16' from net
-Warning: Removing poly 'poly_15' from net
-Warning: Removing poly 'poly_14' from net
-Warning: Removing poly 'poly_13' from net
-Warning: Removing poly 'poly_10' from net
-Warning: Removing poly 'poly_9' from net
-Warning: Removing poly 'poly_8' from net
-Warning: Removing poly 'poly_7' from net
-Warning: Removing poly 'poly_6' from net
-Warning: Removing poly 'poly_5' from net
-Warning: Removing poly 'poly_4' from net
-Warning: Removing poly 'poly_3' from net
-Warning: Removing poly 'poly_2' from net
-Warning: Removing poly 'poly_1' from net
-Warning: Removing poly '%%%%$$$%' from net
-Warning: Removing poly 'poly_0' from net
+Warning: Removing poly 'poly_29' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_29' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_28' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_28' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_27' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_27' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_26' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_26' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_25' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_25' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_24' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_24' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_23' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_23' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_22' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_22' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_21' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_21' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_20' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_20' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_19' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_19' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_18' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_18' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_17' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_17' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_16' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_16' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_15' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_15' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_14' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_14' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_13' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_13' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_10' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_10' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_9' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_9' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_8' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_8' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_7' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_7' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_6' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_6' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_5' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_5' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_4' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_4' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_3' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_3' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_2' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_2' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_1' in ~GNEChange_Shape()
+Warning: Removing poly '%%%%$$$%' from net in ~GNEChange_Shape()
+Warning: delete poly '%%%%$$$%' in ~GNEChange_Shape()
+Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

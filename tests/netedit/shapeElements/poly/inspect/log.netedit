@@ -153,8 +153,10 @@ Warning: Setting new attribute closedShape 'false' into poly 'newID'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Removing poly 'poly_1' from net
-Warning: Removing poly 'newID' from net
+Warning: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_1' in ~GNEChange_Shape()
+Warning: Removing poly 'newID' from net in ~GNEChange_Shape()
+Warning: delete poly 'newID' in ~GNEChange_Shape()
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

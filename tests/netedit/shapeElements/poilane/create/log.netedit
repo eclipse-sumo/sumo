@@ -110,24 +110,42 @@ Warning: Setting new attribute blockMovement '1' into poiLane 'POI_17'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: Removing poiLane 'POI_17' from net
-Warning: Removing poiLane 'POI_16' from net
-Warning: Removing poiLane 'POI_15' from net
-Warning: Removing poiLane 'POI_14' from net
-Warning: Removing poiLane 'POI_13' from net
-Warning: Removing poiLane 'POI_12' from net
-Warning: Removing poiLane 'POI_11' from net
-Warning: Removing poiLane 'POI_10' from net
-Warning: Removing poiLane 'POI_9' from net
-Warning: Removing poiLane 'POI_8' from net
-Warning: Removing poiLane 'POI_7' from net
-Warning: Removing poiLane 'POI_6' from net
-Warning: Removing poiLane 'POI_5' from net
-Warning: Removing poiLane 'POI_4' from net
-Warning: Removing poiLane 'POI_3' from net
-Warning: Removing poiLane 'POI_2' from net
-Warning: Removing poiLane 'POI_1' from net
-Warning: Removing poiLane 'POI_0' from net
+Warning: Removing poiLane 'POI_17' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_17' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_16' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_16' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_15' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_15' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_14' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_14' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_13' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_13' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_12' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_12' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_11' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_11' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_10' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_10' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_9' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_9' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_8' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_8' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_7' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_7' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_6' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_6' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_5' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_4' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_3' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_3' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_2' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_1' in ~GNEChange_Shape()
+Warning: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
+Warning: delete poiLane 'POI_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
