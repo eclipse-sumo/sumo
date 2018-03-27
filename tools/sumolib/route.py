@@ -34,7 +34,8 @@ def _getMinPath(paths):
 
 def mapTrace(trace, net, delta, verbose=False):
     """
-    matching a list of 2D positions to consecutive edges in a network
+    matching a list of 2D positions to consecutive edges in a network.
+    The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
     paths = {}
