@@ -241,11 +241,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
             p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
             p.mul(.5);
-            double angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.);
-            angle += 90;
-            if (angle > 90 && angle < 270) {
-                angle -= 180;
-            }
+            double angle = s.getTextAngle(lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.) + 90);
             if (drawEdgeName) {
                 drawName(p, s.scale, s.edgeName, angle);
             } else if (drawInternalEdgeName) {

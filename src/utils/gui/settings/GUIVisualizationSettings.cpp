@@ -1210,6 +1210,21 @@ GUIVisualizationSettings::getLinkColor(const LinkState& ls) {
     }
 }
 
+double 
+GUIVisualizationSettings::getTextAngle(double objectAngle) const {
+    double viewAngle = objectAngle - angle;
+    while (viewAngle < 0) {
+        viewAngle += 360;
+    }
+    // fmod round towards zero which is not want we want for negative numbers
+    viewAngle = fmod(viewAngle, 360);
+    if (viewAngle > 90 && viewAngle < 270) {
+        // avoid reading text on it's head
+        objectAngle -= 180;
+    }
+    return objectAngle;
+}
+
 /****************************************************************************/
 
 

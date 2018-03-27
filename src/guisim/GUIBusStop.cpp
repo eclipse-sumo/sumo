@@ -175,7 +175,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
     }
     if (s.addFullName.show && getMyName() != "") {
-        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myFGSignRot);
+        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(myFGSignRot));
     }
     glPopMatrix();
     glPopName();
