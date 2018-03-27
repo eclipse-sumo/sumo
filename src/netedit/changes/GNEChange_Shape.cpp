@@ -54,16 +54,25 @@ GNEChange_Shape::~GNEChange_Shape() {
     assert(myShape);
     myShape->decRef("GNEChange_Shape");
     if (myShape->unreferenced()) {
+        // make sure that shape are removed of ShapeContainer (net)
+        if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
+            }
+            myNet->myPolygons.remove(myShape->getID(), false);
+        } else if(myNet->retrievePOI(myShape->getID(), false) != nullptr) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
+            }
+            myNet->myPOIs.remove(myShape->getID(), false);
+        }
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myShape->getTag()) + " '" + myShape->getID() + "' from net");
+            WRITE_WARNING("delete " + toString(myShape->getTag()) + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
         }
-        // make sure that shape are removed of ShapeContainer
-        if (myShape->getTag() == SUMO_TAG_POLY) {
-            myNet->myPolygons.remove(myShape->getID());
-        } else {
-            myNet->myPOIs.remove(myShape->getID());
-        }
+        delete myShape;
     }
 }
 

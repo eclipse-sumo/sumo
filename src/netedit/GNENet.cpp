@@ -2296,6 +2296,8 @@ GNENet::insertShape(GNEShape* shape) {
     }
     // insert shape requieres always save shapes
     requiereSaveShapes();
+    // update view
+    myViewNet->update();
 }
 
 
@@ -2306,11 +2308,11 @@ GNENet::removeShape(GNEShape* shape) {
     if (shape->getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);
-        myPolygons.remove(shape->getID(), poly);
+        myPolygons.remove(shape->getID(), false);
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.removeAdditionalGLObject(poi);
-        myPOIs.remove(shape->getID(), poi);
+        myPOIs.remove(shape->getID(), false);
     }
     // POILanes has to be removed from lane
     if (shape->getTag() == SUMO_TAG_POILANE) {
@@ -2318,6 +2320,8 @@ GNENet::removeShape(GNEShape* shape) {
     }
     // remove shape requires always save shapes
     requiereSaveShapes();
+    // update view
+    myViewNet->update();
 }
 
 
