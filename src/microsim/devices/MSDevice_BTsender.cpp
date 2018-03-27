@@ -58,7 +58,7 @@ MSDevice_BTsender::insertOptions(OptionsCont& oc) {
 
 void
 MSDevice_BTsender::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
-    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "btsender", v)) {
+    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "btsender", v, false)) {
         MSDevice_BTsender* device = new MSDevice_BTsender(v, "btsender_" + v.getID());
         into.push_back(device);
     }

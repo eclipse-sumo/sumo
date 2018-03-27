@@ -40,6 +40,7 @@
 #include "MSDevice_Battery.h"
 #include "MSDevice_SSM.h"
 #include "MSDevice_Bluelight.h"
+#include "MSDevice_FCD.h"
 
 
 // ===========================================================================
@@ -64,6 +65,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
     MSDevice_Bluelight::insertOptions(oc);
+    MSDevice_FCD::insertOptions(oc);
 }
 
 
@@ -87,6 +89,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Battery::buildVehicleDevices(v, into);
     MSDevice_SSM::buildVehicleDevices(v, into);
     MSDevice_Bluelight::buildVehicleDevices(v, into);
+    MSDevice_FCD::buildVehicleDevices(v, into);
 }
 
 void
@@ -110,19 +113,24 @@ MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const st
 
 
 bool
-MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v) {
+MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v, bool outputOptionSet) {
     // assignment by number
     bool haveByNumber = false;
+    bool numberGiven = false;
     if (oc.exists("device." + deviceName + ".deterministic") && oc.getBool("device." + deviceName + ".deterministic")) {
+        numberGiven = true;
         haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat("device." + deviceName + ".probability")) == 1;
     } else {
         if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") != 0) {
+            numberGiven = true;
             haveByNumber = RandHelper::rand(&myEquipmentRNG) <= oc.getFloat("device." + deviceName + ".probability");
         }
     }
     // assignment by name
     bool haveByName = false;
+    bool nameGiven = false;
     if (oc.exists("device." + deviceName + ".explicit") && oc.isSet("device." + deviceName + ".explicit")) {
+        nameGiven = true;
         if (myExplicitIDs.find(deviceName) == myExplicitIDs.end()) {
             myExplicitIDs[deviceName] = std::set<std::string>();
             const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector("device." + deviceName + ".explicit");
@@ -145,8 +153,10 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         return true;
     } else if (parameterGiven) {
         return haveByParameter;
-    } else {
+    } else if (numberGiven) {
         return haveByNumber;
+    } else {
+        return !nameGiven && outputOptionSet;
     }
 }
 

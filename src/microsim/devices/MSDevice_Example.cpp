@@ -57,7 +57,7 @@ MSDevice_Example::insertOptions(OptionsCont& oc) {
 void
 MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "example", v)) {
+    if (equippedByDefaultAssignmentOptions(oc, "example", v, false)) {
         // build the device
         // get custom vehicle parameter
         double customParameter2 = -1;

@@ -78,7 +78,7 @@ MSDevice_BTreceiver::insertOptions(OptionsCont& oc) {
 void
 MSDevice_BTreceiver::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "btreceiver", v)) {
+    if (equippedByDefaultAssignmentOptions(oc, "btreceiver", v, false)) {
         MSDevice_BTreceiver* device = new MSDevice_BTreceiver(v, "btreceiver_" + v.getID());
         into.push_back(device);
         if (!myWasInitialised) {

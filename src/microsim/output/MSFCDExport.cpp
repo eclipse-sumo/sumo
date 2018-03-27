@@ -32,6 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
+#include <microsim/devices/MSDevice_FCD.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -52,12 +53,17 @@ void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
+    const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
+    if (period > 0 && timestep % period != 0) {
+        return;
+    }
     of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        if (veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled()) {
+        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled()) 
+                && veh->getDevice(typeid(MSDevice_FCD)) != nullptr) {
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(gPrecisionGeo);

@@ -152,7 +152,7 @@ MSDevice_Routing::checkOptions(OptionsCont& oc) {
 void
 MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     const OptionsCont& oc = OptionsCont::getOptions();
-    if (v.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", v)) {
+    if (v.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", v, false)) {
         // route computation is enabled
         myWithTaz = oc.getBool("device.rerouting.with-taz");
         const SUMOTime period = string2time(oc.getString("device.rerouting.period"));

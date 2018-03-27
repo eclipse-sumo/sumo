@@ -178,7 +178,7 @@ protected:
      * @param[in] deviceName The name of the device type
      * @param[in] v The vehicle to determine whether it shall be equipped or not
      */
-    static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v);
+    static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v, bool outputOptionSet);
     /// @}
 
 protected:

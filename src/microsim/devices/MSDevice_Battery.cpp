@@ -57,7 +57,7 @@ MSDevice_Battery::insertOptions(OptionsCont& oc) {
 void
 MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     // Check if vehicle should get a battery
-    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v)) {
+    if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
         const HelpersEnergy& e = PollutantsInterface::getEnergyHelper();
         const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
         std::map<int, double> param;
