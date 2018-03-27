@@ -39,16 +39,17 @@ else:
     print("Searching libraries...")
 
     # append custom lib dir to search path
-    if os.path.exists(os.path.join(SUMO_HOME, "lib")):
-        pathFolders += [os.path.join(SUMO_HOME, "lib", f, "bin") for f in os.listdir(os.path.join(SUMO_HOME, "lib"))]
+    for libDir in (os.path.join(SUMO_HOME, "lib"), os.path.join(SUMO_HOME, "SUMOLibraries"),
+                   os.path.join(SUMO_HOME, "..", "SUMOLibraries"), os.path.join(SUMO_HOME, "..", "..", "SUMOLibraries")):
+        if os.path.exists(libDir):
+            pathFolders += [os.path.join(libDir, f, "bin") for f in os.listdir(libDir)]
     for folder in pathFolders:
         if "fox-1.6" in folder.lower():
             os.environ["FOX_LIBRARY"] = folder[:-3] + "lib"
             os.environ["FOX_INCLUDE_DIR"] = folder[:-3] + "include"
         elif "xerces-c-3" in folder.lower():
-            os.environ["XERCES_BIN"] = folder
-            os.environ["XERCES_INCLUDE"] = folder[:-3] + "include"
-            os.environ["XERCES_LIB"] = folder[:-3] + "lib"
+            os.environ["CMAKE_LIBRARY_PATH"] = folder[:-3] + "lib"
+            os.environ["CMAKE_INCLUDE_PATH"] = folder[:-3] + "include"
         elif "gdal" in folder.lower():
             os.environ["GDAL_DIR"] = os.path.dirname(folder)
         elif "python27" in folder.lower() and "scripts" not in folder.lower():
@@ -66,4 +67,4 @@ else:
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
     print ("Creating solution for", generator)
-    subprocess.call([CMAKE[0], "../..", "-G", generator], cwd=buildDir)
+    subprocess.call([CMAKE[0], "../..", "-G", generator, "-DBUILD_GTEST_FROM_GIT=true"], cwd=buildDir)
