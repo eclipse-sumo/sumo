@@ -800,33 +800,35 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_SELECT:
-                // first we need to change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
-                if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
-                if (myObjectsUnderCursor.attributeCarrier && 
-                          !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType) && 
-                           GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
-                    if(myObjectsUnderCursor.netElement) {
-                        // toogle netElement selection
-                        if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
-                            myObjectsUnderCursor.netElement->unselectNetElement();
-                        } else {
-                            myObjectsUnderCursor.netElement->selectNetElement();
-                        }
-                    } else if(myObjectsUnderCursor.additional) {
-                        // toogle additional selection
-                        if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
-                            myObjectsUnderCursor.additional->unselectAdditional();
-                        } else {
-                            myObjectsUnderCursor.additional->selectAdditional();
-                        }
-                    } else if (myObjectsUnderCursor.shape) {
-                        // toogle shape selection
-                        if(myObjectsUnderCursor.shape->isShapeSelected()) {
-                            myObjectsUnderCursor.shape->unselectShape();
-                        } else {
-                            myObjectsUnderCursor.shape->selectShape();
+                // first check that under cursor there is an attribute carrier and is selectable
+                if(myObjectsUnderCursor.attributeCarrier && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
+                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
+                    if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
+                    // Check if this GLobject type is locked
+                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType)) {
+                        if(myObjectsUnderCursor.netElement) {
+                            // toogle netElement selection
+                            if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
+                                myObjectsUnderCursor.netElement->unselectNetElement();
+                            } else {
+                                myObjectsUnderCursor.netElement->selectNetElement();
+                            }
+                        } else if(myObjectsUnderCursor.additional) {
+                            // toogle additional selection
+                            if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
+                                myObjectsUnderCursor.additional->unselectAdditional();
+                            } else {
+                                myObjectsUnderCursor.additional->selectAdditional();
+                            }
+                        } else if (myObjectsUnderCursor.shape) {
+                            // toogle shape selection
+                            if(myObjectsUnderCursor.shape->isShapeSelected()) {
+                                myObjectsUnderCursor.shape->unselectShape();
+                            } else {
+                                myObjectsUnderCursor.shape->selectShape();
+                            }
                         }
                     }
                 }
