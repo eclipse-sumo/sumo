@@ -34,6 +34,7 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_BTsender.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Example.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Emissions.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_FCD.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_SSM.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Transportable.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_BTsender.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Example.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Emissions.cpp" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_FCD.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_SSM.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Transportable.cpp" />
