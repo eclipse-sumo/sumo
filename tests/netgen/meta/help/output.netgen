@@ -1,4 +1,4 @@
-SUMO netgenerate Version v0_32_0+0728-84f39ec
+SUMO netgenerate Version v0_32_0+0931-c519dbd
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Road network generator for the microscopic road traffic simulation SUMO.
 
@@ -79,6 +79,9 @@ Output Options:
                                          comma for floating point output
   --precision.geo INT                  Defines the number of digits after the
                                          comma for lon,lat output
+  -H, --human-readable-time            Write time values as hour:minute:second
+                                         or day:hour:minute:second rathern than
+                                         seconds
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml

@@ -1,4 +1,4 @@
-SUMO Version v0_32_0+0903-eae183f
+SUMO Version v0_32_0+0931-c519dbd
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic road traffic simulation.
 
@@ -36,6 +36,9 @@ Output Options:
                                          comma for floating point output
   --precision.geo INT                  Defines the number of digits after the
                                          comma for lon,lat output
+  -H, --human-readable-time            Write time values as hour:minute:second
+                                         or day:hour:minute:second rathern than
+                                         seconds
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
                                          dumping

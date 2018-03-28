@@ -1,4 +1,4 @@
-SUMO jtrrouter Version v0_31_0+1647-6d8dc768ae
+SUMO jtrrouter Version v0_32_0+0931-c519dbd
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
@@ -30,6 +30,8 @@ Output Options:
                                      for floating point output
   --precision.geo INT              Defines the number of digits after the comma
                                      for lon,lat output
+  -H, --human-readable-time        Write time values as hour:minute:second or
+                                     day:hour:minute:second rathern than seconds
   -o, --output-file FILE           Write generated routes to FILE
   --vtype-output FILE              Write used vehicle types into separate FILE
   --keep-vtype-distributions       Keep vTypeDistribution ids when writing

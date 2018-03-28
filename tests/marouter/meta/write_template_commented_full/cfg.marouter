@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/21/18 20:24:33 by SUMO marouter Version v0_31_0+1647-6d8dc768ae
+<!-- generated on Wed Mar 28 13:49:45 2018 by SUMO marouter Version v0_32_0+0931-c519dbd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -68,6 +68,9 @@
 
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
+
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Write flow definitions with route distributions to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>

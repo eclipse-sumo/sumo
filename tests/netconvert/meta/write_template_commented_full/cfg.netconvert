@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Mar 17 22:41:47 2018 by SUMO netconvert Version v0_32_0+0773-037458a
+<!-- generated on Wed Mar 28 13:49:58 2018 by SUMO netconvert Version v0_32_0+0931-c519dbd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -89,6 +89,9 @@
 
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
+
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- The generated net will be written to FILE -->
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 26 23:09:30 2018 by SUMO Version v0_32_0+0905-5b0fa2b
+<!-- generated on Wed Mar 28 13:49:09 2018 by SUMO Version v0_32_0+0931-c519dbd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -62,6 +62,9 @@
 
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
+
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Save complete network states into FILE -->
         <netstate-dump value="" synonymes="ndump netstate netstate-output" type="FILE"/>
