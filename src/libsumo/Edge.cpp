@@ -15,7 +15,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 
-
+#include <iterator>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdgeWeightsStorage.h>
