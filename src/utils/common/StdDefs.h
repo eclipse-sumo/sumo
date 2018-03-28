@@ -112,6 +112,7 @@ ISNAN(T a) {
 /// the precision for floating point outputs
 extern int gPrecision;
 extern int gPrecisionGeo; // for lon,lat
+extern bool gHumanReadableTime; 
 
 
 /// @brief global utility flags for debugging

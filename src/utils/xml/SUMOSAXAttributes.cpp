@@ -52,6 +52,19 @@ SUMOSAXAttributes::SUMOSAXAttributes(const std::string& objectType):
     myObjectType(objectType) {}
 
 
+template<> const std::string invalid_return<std::string>::value = "";
+template<> const std::string invalid_return<std::string>::type = "string";
+template<>
+std::string SUMOSAXAttributes::getInternal(const int attr) const {
+    const std::string ret = getString(attr);
+    if (ret == "") {
+        throw EmptyData();
+    }
+    return ret;
+}
+
+
+
 SUMOTime
 SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
                                         bool& ok, bool report) const {
@@ -63,8 +76,9 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
         return -1;
     }
     try {
-        return TIME2STEPS(getFloat(attr));
-    } catch (NumberFormatException&) {
+        const std::string val = getInternal<std::string>(attr);
+        return string2time(val);
+    } catch (ProcessError&) {
         if (report) {
             emitFormatError(getName(attr), "a time value", objectid);
         }
@@ -85,8 +99,9 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
         return defaultValue;
     }
     try {
-        return (SUMOTime)(getFloat(attr) * 1000.);
-    } catch (NumberFormatException&) {
+        const std::string val = getInternal<std::string>(attr);
+        return string2time(val);
+    } catch (ProcessError&) {
         if (report) {
             emitFormatError(getName(attr), "a real number", objectid);
         }
@@ -204,18 +219,6 @@ template<> const std::string invalid_return<bool>::type = "bool";
 template<>
 bool SUMOSAXAttributes::getInternal(const int attr) const {
     return getBool(attr);
-}
-
-
-template<> const std::string invalid_return<std::string>::value = "";
-template<> const std::string invalid_return<std::string>::type = "string";
-template<>
-std::string SUMOSAXAttributes::getInternal(const int attr) const {
-    const std::string ret = getString(attr);
-    if (ret == "") {
-        throw EmptyData();
-    }
-    return ret;
 }
 
 

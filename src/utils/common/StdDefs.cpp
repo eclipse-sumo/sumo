@@ -26,6 +26,7 @@
 // set by option --precision (see SystemFrame.cpp)
 int gPrecision = 2;
 int gPrecisionGeo = 6;
+bool gHumanReadableTime = false;
 
 bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;

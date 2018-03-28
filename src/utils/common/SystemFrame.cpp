@@ -112,6 +112,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
     oc.doRegister("precision.geo", new Option_Integer(6));
     oc.addDescription("precision.geo", "Output", "Defines the number of digits after the comma for lon,lat output");
+
+    oc.doRegister("human-readable-time", 'H', new Option_Bool(false));
+    oc.addDescription("human-readable-time", "Output", "Write time values as hour:minute:second or day:hour:minute:second rathern than seconds");
 }
 
 
@@ -120,6 +123,7 @@ SystemFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     gPrecision = oc.getInt("precision");
     gPrecisionGeo = oc.getInt("precision.geo");
+    gHumanReadableTime = oc.getBool("human-readable-time");
     return true;
 }
 

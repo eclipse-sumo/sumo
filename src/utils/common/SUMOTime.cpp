@@ -26,8 +26,10 @@
 #endif
 
 #include <sstream>
+#include <iostream>
 #include "SUMOTime.h"
 #include "TplConvert.h"
+#include "StringTokenizer.h"
 #include "StdDefs.h"
 
 
@@ -42,24 +44,67 @@ SUMOTime DELTA_T = 1000;
 // ===========================================================================
 SUMOTime
 string2time(const std::string& r) {
-    double time;
-    std::istringstream buf(r);
-    buf >> time;
-    if (buf.fail() || time > STEPS2TIME(SUMOTime_MAX)) {
-        throw ProcessError("Input string '" + r + "' is not a valid number or exceeds the time value range.");
-    } else {
+    if (r.find(":") == std::string::npos) {
+        double time;
+        std::istringstream buf(r);
+        buf >> time;
+        if (buf.fail() || time > STEPS2TIME(SUMOTime_MAX)) {
+            throw ProcessError("Input string '" + r + "' is not a valid number or exceeds the time value range.");
+        } 
         return TIME2STEPS(time);
+    } else {
+        // try to parse jj:hh:mm:ss.s
+        std::vector<std::string> hrt = StringTokenizer(r, ":").getVector();
+        if (hrt.size() == 3) {
+            //std::cout << "parsed '" << r << "' as " << (3600 * string2time(hrt[0]) + 60 * string2time(hrt[1]) + string2time(hrt[2])) << "\n";
+            return 3600 * string2time(hrt[0]) + 60 * string2time(hrt[1]) + string2time(hrt[2]);
+        } else if (hrt.size() == 3) {
+            //std::cout << "parsed '" << r << "' as " << (24 * 3600 * string2time(hrt[0]) + 3600 * string2time(hrt[1]) + 60 * string2time(hrt[2]) + string2time(hrt[3])) << "\n";
+            return 24 * 3600 * string2time(hrt[0]) + 3600 * string2time(hrt[1]) + 60 * string2time(hrt[2]) + string2time(hrt[3]);
+        }
+        throw ProcessError("Input string '" + r + "' is not a valid time format (jj:HH:MM:SS.S).");
     }
 }
 
 
 std::string
 time2string(SUMOTime t) {
-    // 123456 -> "12.34"
     std::ostringstream oss;
     oss.setf(oss.fixed);
     oss.precision(gPrecision);
-    oss << STEPS2TIME(t);
+    if (gHumanReadableTime) {
+        // 123456 -> "00:00:12.34"
+        double s = STEPS2TIME(t);
+        if (s > 3600 * 24) {
+            // days
+            oss << (int)(s / (3600 * 24)) << ":";
+            s = fmod(s, 3600 * 24);
+        }
+        // hours, pad with zero
+        if (s / 3600 < 10) {
+            oss << "0";
+        }
+        oss << (int)(s / 3600) << ":";
+        // minutes, pad with zero
+        s = fmod(s, 3600);
+        if (s / 60 < 10) {
+            oss << "0";
+        }
+        oss << (int)(s / 60) << ":";
+        s = fmod(s, 60);
+        if (s < 10) {
+            oss << "0";
+        }
+        if (fmod(s, 1) == 0) {
+            oss << (int)s;
+        } else {
+            oss << s;
+        }
+
+    } else {
+        // 123456 -> "12.34"
+        oss << STEPS2TIME(t);
+    }
     return oss.str();
 }
 
