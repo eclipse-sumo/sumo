@@ -575,6 +575,8 @@
                     <xsd:attribute name="lines" type="xsd:string" use="required"/>
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
+                    <xsd:attribute name="intended" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="depart" type="xsd:float" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">

@@ -447,6 +447,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargingStation",        SUMO_ATTR_CHARGING_STATION},
     { "line",                   SUMO_ATTR_LINE },
     { "lines",                  SUMO_ATTR_LINES },
+    { "intended",               SUMO_ATTR_INTENDED },
     { "value",                  SUMO_ATTR_VALUE },
     { "prohibitor",             SUMO_ATTR_PROHIBITOR },
     { "prohibited",             SUMO_ATTR_PROHIBITED },

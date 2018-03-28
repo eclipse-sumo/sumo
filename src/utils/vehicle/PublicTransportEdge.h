@@ -38,10 +38,13 @@ template<class E, class L, class N, class V>
 class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
 private:
     struct Schedule {
-        Schedule(const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const double _travelTimeSec)
-            : begin(STEPS2TIME(_begin)), end(STEPS2TIME(_end)), period(STEPS2TIME(_period)), travelTimeSec(_travelTimeSec) {}
+        Schedule(const std::string& _id, const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const double _travelTimeSec)
+            : id(_id), begin(STEPS2TIME(_begin)), end(STEPS2TIME(_end)), period(STEPS2TIME(_period)), travelTimeSec(_travelTimeSec) {}
+        // the id of the vehicle or flow from which this schedule is generated
+        const std::string id;
         const double begin;
         const double end;
+        // the repetition period for a flow or -1 for a vehicle
         const double period;
         const double travelTimeSec;
     private:
@@ -65,11 +68,11 @@ public:
         return myEntryStop;
     }
 
-    void addSchedule(const SUMOTime begin, const SUMOTime end, const SUMOTime period, const double travelTimeSec) {
+    void addSchedule(const std::string id, const SUMOTime begin, const SUMOTime end, const SUMOTime period, const double travelTimeSec) {
         //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(begin) << " end=" << STEPS2TIME(end)
         //    << " period=" << STEPS2TIME(period)
         //    << " travelTime=" << travelTimeSec << "\n";
-        mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(begin, end, period, travelTimeSec)));
+        mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(id, begin, end, period, travelTimeSec)));
     }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double time) const {
@@ -97,6 +100,36 @@ public:
             }
         }
         return minArrivalSec - time;
+    }
+
+    void setIntended(const IntermodalTrip<E, N, V>* const /* trip */, double time, std::string& intended, double& depart) const {
+        /// @note: duplicates some code of getTravelTime()
+        double minArrivalSec = std::numeric_limits<double>::max();
+        double bestDepartTime = std::numeric_limits<double>::max();
+        for (typename std::multimap<double, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
+            const Schedule& s = it->second;
+            if (it->first > minArrivalSec) {
+                break;
+            }
+            if (time < s.end) {
+                int running;
+                if (s.period <= 0 || time < s.begin) {
+                    // single vehicle or flow begin
+                    running = 0;
+                } else {
+                    // subsequent flow
+                    running = (int)ceil((time - s.begin) / s.period);
+                }
+                const double nextDepart = s.begin + running * s.period;
+                if (nextDepart + s.travelTimeSec < minArrivalSec) {
+                    minArrivalSec = nextDepart + s.travelTimeSec;
+                    bestDepartTime = nextDepart;
+                    // see naming scheme inMSInsertionControl::determineCandidates()
+                    intended = s.period <= 0 ? s.id : s.id + "." + toString(running);
+                }
+            }
+        }
+        depart = bestDepartTime;
     }
 
 private:

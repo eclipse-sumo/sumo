@@ -158,8 +158,13 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const double _cost, const std::string& _destStop = "")
-            : TripItem(_cost), from(_from), to(_to), lines(_lines), destStop(_destStop) {}
+             const std::string& _lines, const double _cost, const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) : 
+            TripItem(_cost), 
+            from(_from), to(_to), 
+            lines(_lines), 
+            destStop(_destStop),
+            intended(_intended), 
+            depart(_depart) {}
 
         const ROEdge* getOrigin() const {
             return from;
@@ -173,6 +178,8 @@ public:
         const ROEdge* const from;
         const ROEdge* const to;
         const std::string lines;
+        const std::string intended;
+        const SUMOTime depart;
         const std::string destStop;
 
     private:

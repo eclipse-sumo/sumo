@@ -97,6 +97,10 @@ public:
         return 0.;
     }
 
+    /// @brief set intended vehicle id and departure time of next public transport ride
+    virtual void setIntended(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */, std::string& intended, double& depart) const {
+    }
+
     static inline double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {
         return edge == nullptr ? 0. : edge->getTravelTime(trip, time);
     }

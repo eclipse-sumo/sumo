@@ -69,6 +69,8 @@ public:
         TripItem(const std::string& _line = "") : line(_line), cost(0.) {}
         std::string line;
         std::string destStop;
+        std::string intended; // intended public transport vehicle id
+        double depart; // intended public transport departure
         std::vector<const E*> edges;
         double cost;
     };
@@ -124,6 +126,7 @@ public:
                                 into.push_back(TripItem());
                             } else {
                                 into.push_back(TripItem(lastLine));
+                                iEdge->setIntended(&trip, time, into.back().intended, into.back().depart);
                             }
                         }
                         if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {

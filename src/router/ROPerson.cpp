@@ -127,6 +127,12 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
         os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
     }
     os.writeAttr(SUMO_ATTR_LINES, lines);
+    if (intended != "") {
+        os.writeAttr(SUMO_ATTR_INTENDED, intended);
+    }
+    if (depart >= 0) {
+        os.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
+    }
     os.closeTag();
 }
 
@@ -184,7 +190,7 @@ ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const 
                 veh->getRouteDefinition()->addLoadedAlternative(new RORoute(veh->getID() + "_RouteDef", it->edges));
                 carUsed = true;
             } else {
-                trip->addTripItem(new Ride(0, 0, it->line, it->cost, it->destStop));
+                trip->addTripItem(new Ride(0, 0, it->line, it->cost, it->destStop, it->intended, TIME2STEPS(it->depart)));
             }
         }
     }
