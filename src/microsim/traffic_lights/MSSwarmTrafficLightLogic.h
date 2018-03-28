@@ -46,7 +46,7 @@ public:
     }
 
     virtual ~CircularBuffer() {
-        delete m_buffer;
+        delete[] m_buffer;
     }
 
     bool addValue(const T newValue, T& replacedValue) {

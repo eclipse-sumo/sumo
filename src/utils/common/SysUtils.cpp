@@ -84,7 +84,7 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
     strcpy(args, winCmd.c_str());
     if (!CreateProcess(NULL, args, NULL, NULL, FALSE,
                        CREATE_NEW_CONSOLE, NULL, NULL, &StartupInfo, &ProcessInfo)) {
-        delete args;
+        delete[] args;
         return (unsigned long)GetLastError();
     }
 
@@ -96,7 +96,7 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
     CloseHandle(ProcessInfo.hThread);
     CloseHandle(ProcessInfo.hProcess);
 
-    delete args;
+    delete[] args;
     return rc;
 #else
     return (unsigned long)system(cmd.c_str());
