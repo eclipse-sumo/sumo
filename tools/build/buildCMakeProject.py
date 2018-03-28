@@ -37,7 +37,7 @@ if len(CMAKE) == 0:
     or add the folder of cmake executable to PATH""")
 else:
     print("Searching libraries...")
-
+    cmakeOpt = ["-DBUILD_GTEST_FROM_GIT=true"]
     # append custom lib dir to search path
     for libDir in (os.path.join(SUMO_HOME, "lib"), os.path.join(SUMO_HOME, "SUMOLibraries"),
                    os.path.join(SUMO_HOME, "..", "SUMOLibraries"), os.path.join(SUMO_HOME, "..", "..", "SUMOLibraries")):
@@ -58,6 +58,8 @@ else:
         elif "python36" in folder.lower() and "scripts" not in folder.lower():
             os.environ["PYTHON_LIB"] = folder + "libs\python36.lib"
             os.environ["PYTHON_INCLUDE"] = folder + "include"
+        elif "swig" in folder.lower():
+            cmakeOpt += ["-DSWIG_EXECUTABLE=%sswig.exe" % folder[:-3]]
 
     generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 12 2013 Win64"
     buildDir = os.path.join(SUMO_HOME, "build/cmake-build-" + generator.replace(" ", "-"))
@@ -67,4 +69,4 @@ else:
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
     print ("Creating solution for", generator)
-    subprocess.call([CMAKE[0], "../..", "-G", generator, "-DBUILD_GTEST_FROM_GIT=true"], cwd=buildDir)
+    subprocess.call([CMAKE[0], "../..", "-G", generator] + cmakeOpt, cwd=buildDir)
