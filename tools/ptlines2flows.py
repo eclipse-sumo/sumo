@@ -61,6 +61,7 @@ def get_options(args=None):
     optParser.add_option("--vtype-prefix", default="", dest='vtypeprefix', help="prefix for vtype ids")
     optParser.add_option("-d", "--stop-duration", default=30, type="float", dest='stopduration', 
             help="Configure the minimum stopping duration")
+    optParser.add_option("-H", "--human-readable-time", dest="hrtime", default=False, action="store_true", help="write times as h:m:s")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
 
@@ -178,12 +179,16 @@ def runSimulation(options):
                      "--stop-output", options.stopinfos, ])
     print("done.")
 
+def formatTime(seconds):
+    return "%02i:%02i:%02i" % (seconds / 3600, (seconds % 3600) / 60, (seconds % 60))
 
 def createRoutes(options, trpMap, stopNames):
     print("creating routes...")
     stopsUntil = {}
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
         stopsUntil[(stop.id, stop.busStop)] = float(stop.ended)
+
+    ft = formatTime if options.hrtime else lambda x : x
 
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
         flows = []
@@ -222,7 +227,7 @@ def createRoutes(options, trpMap, stopNames):
                         untilZeroBased = stopsUntil[(id, stop.busStop)] - actualDepart[id]
                         foutflows.write(
                             '        <stop busStop="%s" duration="%s" until="%s"%s/>%s\n' % (
-                                stop.busStop, stop.duration, untilZeroBased, parking, stopname))
+                                stop.busStop, stop.duration, ft(untilZeroBased), parking, stopname))
                     else:
                         sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             else:
@@ -232,7 +237,7 @@ def createRoutes(options, trpMap, stopNames):
         for vehID, flowID, lineRef, type, begin in flows:
             line, name, completeness = trpMap[vehID]
             foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
-                flowID, type, flowID, begin, begin + flow_duration, options.period, lineRef, options.flowattrs))
+                flowID, type, flowID, ft(begin), ft(begin + flow_duration), options.period, lineRef, options.flowattrs))
             foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
                             (escape(name), completeness))
         foutflows.write('</routes>\n')
