@@ -111,30 +111,32 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     const double v = veh->getSpeed();
     const double vpref = veh->getMaxSpeed();
     const double dv = v - predSpeed;
-    const double bx = myAX + (1 + 7 * mySecurity) * sqrt(v); // Harding propose a factor of  *.8 here
+    // desired minimum following distance at low speed difference
+    const double bx = (1 + 7 * mySecurity) * sqrt(v); // Harding propose a factor of  *.8 here
+    const double abx = myAX + bx; // Harding propose a factor of  *.8 here
     const double ex = 2 - myEstimation; // + RandHelper::randNorm(0.5, 0.15)
-    const double sdx = myAX + ex * (bx - myAX); /// the distance at which we drift out of following
+    const double sdx = myAX + ex * bx; /// the distance at which we drift out of following
     const double sdv_root = (dx - myAX) / myCX;
     const double sdv = sdv_root * sdv_root;
     const double cldv = sdv * ex * ex;
     const double opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15));
     // select the regime, get new acceleration, compute new speed based
     double accel;
-    if (dx <= bx) {
+    if (dx <= abx) {
         accel = emergency(dv, dx);
     } else if (dx < sdx) {
         if (dv > cldv) {
-            accel = approaching(dv, dx, bx);
+            accel = approaching(dv, dx, abx);
         } else if (dv > opdv) {
             accel = following(vars->accelSign);
         } else {
-            accel = fullspeed(v, vpref, dx, bx);
+            accel = fullspeed(v, vpref, dx, abx);
         }
     } else {
         if (dv > sdv && dx < D_MAX) { //@note other versions have an disjunction instead of conjunction
-            accel = approaching(dv, dx, bx);
+            accel = approaching(dv, dx, abx);
         } else {
-            accel = fullspeed(v, vpref, dx, bx);
+            accel = fullspeed(v, vpref, dx, abx);
         }
     }
     // since we have hard constrainst on accel we may as well use them here
@@ -145,10 +147,11 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
 
 
 double
-MSCFModel_Wiedemann::fullspeed(double v, double vpref, double dx, double bx) const {
+MSCFModel_Wiedemann::fullspeed(double v, double vpref, double dx, double abx) const {
+    // maximum acceleration is reduced with increasing speed
     double bmax = 0.2 + 0.8 * myAccel * (7 - sqrt(v));
     // if veh just drifted out of a 'following' process the acceleration is reduced
-    double accel = dx <= 2 * bx ? MIN2(myMinAccel, bmax * (dx - bx) / bx) : bmax;
+    double accel = dx <= 2 * abx ? MIN2(myMinAccel, bmax * (dx - abx) / abx) : bmax;
     if (v > vpref) {
         accel = - accel;
     }
@@ -163,10 +166,10 @@ MSCFModel_Wiedemann::following(double sign) const {
 
 
 double
-MSCFModel_Wiedemann::approaching(double dv, double dx, double bx) const {
+MSCFModel_Wiedemann::approaching(double dv, double dx, double abx) const {
     // there is singularity in the formula. we do the sanity check outside
     assert(bx < dx);
-    return 0.5 * dv * dv / (bx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
+    return 0.5 * dv * dv / (abx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
 }
 
 

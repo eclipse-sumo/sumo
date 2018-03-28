@@ -151,7 +151,7 @@ private:
     /// @{
     double fullspeed(double v, double vpref, double dx, double bx) const; // also 'WUNSCH'
     double following(double sign) const; // also 'FOLGEN'
-    double approaching(double dv, double dx, double bx) const;  // also 'BREMSBX'
+    double approaching(double dv, double dx, double abx) const;  // also 'BREMSBX'
     double emergency(double dv, double dx) const; // also 'BREMSAX'
     /// @}
 
@@ -165,13 +165,13 @@ private:
     /// @brief The driver's estimation parameter // also 'ZF2'
     const double myEstimation;
 
-    /// @brief front-bumper to front-bumper distance
+    /// @brief the minimum front-bumper to front-bumper distance when standing
     const double myAX;
 
     /// @brief perception threshold modifier
     const double myCX;
 
-    /// @brief The vehicle's minimum acceleration [m/s^2]
+    /// @brief The vehicle's minimum acceleration [m/s^2] // also b_null
     const double myMinAccel;
 
     /// @brief free-flow distance in m
