@@ -94,8 +94,11 @@ def writeTypes(fout, prefix):
 def createTrips(options):
     print("generating trips...")
     stopsLanes = {}
-    for stop in sumolib.output.parse_fast(options.ptstops, 'busStop', ['id', 'lane']):
+    stopNames = {}
+    for stop in sumolib.output.parse(options.ptstops, 'busStop'):
         stopsLanes[stop.id] = stop.lane
+        if stop.name:
+            stopNames[stop.id] = stop.attr_name
 
     trpMap = {}
     with open(options.trips, 'w') as fouttrips:
@@ -158,7 +161,7 @@ def createTrips(options):
             fouttrips.write('    </trip>\n')
         fouttrips.write("</routes>\n")
     print("done.")
-    return trpMap
+    return trpMap, stopNames
 
 
 def runSimulation(options):
@@ -176,7 +179,7 @@ def runSimulation(options):
     print("done.")
 
 
-def createRoutes(options, trpMap):
+def createRoutes(options, trpMap, stopNames):
     print("creating routes...")
     stopsUntil = {}
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
@@ -215,10 +218,11 @@ def createRoutes(options, trpMap):
             if vehicle.stop is not None:
                 for stop in stops:
                     if (id, stop.busStop) in stopsUntil:
+                        stopname = ' <!-- %s -->' % stopNames[stop.busStop] if stop.busStop in stopNames else ''
                         untilZeroBased = stopsUntil[(id, stop.busStop)] - actualDepart[id]
                         foutflows.write(
-                            '        <stop busStop="%s" duration="%s" until="%s"%s/>\n' % (
-                                stop.busStop, stop.duration, untilZeroBased, parking))
+                            '        <stop busStop="%s" duration="%s" until="%s"%s/>%s\n' % (
+                                stop.busStop, stop.duration, untilZeroBased, parking, stopname))
                     else:
                         sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
             else:
@@ -240,10 +244,10 @@ def main(options):
     if options.seed:
         random.seed(options.seed)
     sys.stderr.flush()
-    trpMap = createTrips(options)
+    trpMap, stopNames = createTrips(options)
     sys.stderr.flush()
     runSimulation(options)
-    createRoutes(options, trpMap)
+    createRoutes(options, trpMap, stopNames)
 
 
 if __name__ == "__main__":
