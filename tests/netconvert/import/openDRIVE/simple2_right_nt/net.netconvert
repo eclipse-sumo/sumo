@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:05 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Wed Mar 28 08:27:23 2018 by SUMO netconvert Version v0_32_0+0910-0aebdf1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <opendrive-output value="foreign.net"/>
     </output>
@@ -22,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
     </tls_building>
 
     <processing>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <rectangular-lane-cut value="true"/>
     </processing>
@@ -38,8 +40,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
 
-    <type id="OffRamp" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
-    <type id="OnRamp" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="bidirectional" priority="1" speed="1.39" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
     <type id="border" priority="0" speed="1.39" disallow="all" discard="1" width="0.10"/>
     <type id="driving" priority="1" speed="13.89" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
@@ -49,6 +49,8 @@ SPDX-License-Identifier: EPL-2.0
     <type id="mwyEntry" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="mwyExit" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="none" priority="0" speed="1.39" disallow="all" discard="1" width="1.00"/>
+    <type id="offRamp" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
+    <type id="onRamp" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="parking" priority="1" speed="1.39" disallow="tram rail_urban rail rail_electric pedestrian ship" width="2.50"/>
     <type id="rail" priority="3" speed="33.33" allow="rail_urban rail rail_electric" width="3.65"/>
     <type id="restricted" priority="0" speed="13.89" disallow="all" width="3.65"/>
