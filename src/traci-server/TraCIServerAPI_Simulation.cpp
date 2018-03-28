@@ -377,6 +377,10 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
     outputStorage.writeDouble(stage.travelTime);
     outputStorage.writeUnsignedByte(TYPE_DOUBLE);
     outputStorage.writeDouble(stage.cost);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.intended);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.depart);
 }
 
 

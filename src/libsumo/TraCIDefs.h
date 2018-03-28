@@ -205,7 +205,7 @@ struct TraCIBestLanesData {
 class TraCIStage {
 public:
     TraCIStage() {} // only to make swig happy
-    TraCIStage(int _type) : type(_type) {}
+    TraCIStage(int _type) : type(_type), depart(-1) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
     /// @brief The line or the id of the vehicle type
@@ -218,6 +218,10 @@ public:
     double travelTime;
     /// @brief effort needed
     double cost;
+    /// @brief id of the intended vehicle for public transport ride
+    std::string intended;
+    /// @brief intended depart time for public transport ride or -1
+    double depart;
 };
 }
 

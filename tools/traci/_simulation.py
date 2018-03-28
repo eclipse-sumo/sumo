@@ -21,7 +21,7 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop', 'edges', 'travelTime', 'cost'])
+Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop', 'edges', 'travelTime', 'cost', 'intended', 'depart'])
 
 def _readStage(result):
     # compound size and type
@@ -33,7 +33,11 @@ def _readStage(result):
     result.read("!B")                   # Type
     edges = result.readStringList()
     _, travelTime, _, cost = result.read("!BdBd")
-    return Stage(stageType, line, destStop, edges, travelTime, cost)
+    result.read("!B")                   # Type
+    intended = result.readString()
+    result.read("!B")                   # Type
+    depart = result.readDouble()
+    return Stage(stageType, line, destStop, edges, travelTime, cost, intended, depart)
 
 _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,

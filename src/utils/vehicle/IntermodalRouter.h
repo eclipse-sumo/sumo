@@ -66,7 +66,8 @@ private:
 
 public:
     struct TripItem {
-        TripItem(const std::string& _line = "") : line(_line), cost(0.) {}
+        TripItem(const std::string& _line = "") :
+            line(_line), intended(_line), depart(-1), cost(0.) {}
         std::string line;
         std::string destStop;
         std::string intended; // intended public transport vehicle id

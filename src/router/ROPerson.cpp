@@ -127,7 +127,7 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
         os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
     }
     os.writeAttr(SUMO_ATTR_LINES, lines);
-    if (intended != "") {
+    if (intended != "" && intended != lines) {
         os.writeAttr(SUMO_ATTR_INTENDED, intended);
     }
     if (depart >= 0) {
