@@ -256,15 +256,19 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, MSTransportabl
 void
 MSPerson::MSPersonStage_Walking::routeOutput(OutputDevice& os) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
+    std::string comment = "";
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+        if (myDestinationStop->getMyName() != "") {
+            comment =  " <!-- " + myDestinationStop->getMyName() + " -->";
+        }
     }
     if (myWalkingTime > 0) {
         os.writeAttr(SUMO_ATTR_DURATION, time2string(myWalkingTime));
     } else if (mySpeed > 0) {
         os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     }
-    os.closeTag();
+    os.closeTag(comment);
 }
 
 
@@ -405,8 +409,12 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportabl
 void
 MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     os.openTag("ride").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
+    std::string comment = "";
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+        if (myDestinationStop->getMyName() != "") {
+            comment =  " <!-- " + myDestinationStop->getMyName() + " -->";
+        }
     }
     os.writeAttr(SUMO_ATTR_LINES, myLines);
     if (myIntendedVehicleID != "") {
@@ -415,7 +423,7 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     if (myIntendedDepart >= 0) {
         os.writeAttr(SUMO_ATTR_DEPART, time2string(myIntendedDepart));
     }
-    os.closeTag();
+    os.closeTag(comment);
 }
 
 

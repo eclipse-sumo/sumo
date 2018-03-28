@@ -693,6 +693,17 @@ RONet::setPermissionsFound() {
     myHavePermissions = true;
 }
 
+const std::string
+RONet::getStoppingPlaceName(const std::string& id) const {
+    for (const auto& mapItem : myStoppingPlaces) {
+        SUMOVehicleParameter::Stop* stop = mapItem.second.get(id);
+        if (stop != 0) {
+            // see RONetHandler::parseStoppingPlace
+            return stop->busstop;
+        }
+    }
+    return "";
+}
 
 #ifdef HAVE_FOX
 // ---------------------------------------------------------------------------

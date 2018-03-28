@@ -114,6 +114,7 @@ ROPerson::addStop(const SUMOVehicleParameter::Stop& stopPar, const ROEdge* const
 void
 ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
     os.openTag(SUMO_TAG_RIDE);
+    std::string comment = "";
     if (extended && cost >= 0.) {
         os.writeAttr(SUMO_ATTR_COST, cost);
     }
@@ -125,6 +126,10 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
     }
     if (destStop != "") {
         os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
+        const std::string name = RONet::getInstance()->getStoppingPlaceName(destStop);
+        if (name != "") {
+            comment =  " <!-- " + name + " -->";
+        }
     }
     os.writeAttr(SUMO_ATTR_LINES, lines);
     if (intended != "" && intended != lines) {
@@ -133,13 +138,14 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
     if (depart >= 0) {
         os.writeAttr(SUMO_ATTR_DEPART, time2string(depart));
     }
-    os.closeTag();
+    os.closeTag(comment);
 }
 
 
 void
 ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
     os.openTag(SUMO_TAG_WALK);
+    std::string comment = "";
     if (extended && cost >= 0.) {
         os.writeAttr(SUMO_ATTR_COST, cost);
     }
@@ -158,8 +164,12 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
     }
     if (destStop != "") {
         os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
+        const std::string name = RONet::getInstance()->getStoppingPlaceName(destStop);
+        if (name != "") {
+            comment =  " <!-- " + name + " -->";
+        }
     }
-    os.closeTag();
+    os.closeTag(comment);
 }
 
 

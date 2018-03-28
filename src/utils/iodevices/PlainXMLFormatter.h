@@ -104,7 +104,7 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(std::ostream& into);
+    bool closeTag(std::ostream& into, const std::string& comment = "");
 
 
     /** @brief writes a preformatted tag to the device but ensures that any

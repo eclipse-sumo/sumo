@@ -97,13 +97,13 @@ public:
     virtual void openTag(std::ostream& into, const SumoXMLTag& xmlElement) = 0;
 
 
-    /** @brief Closes the most recently opened tag
+    /** @brief Closes the most recently opened tag and optinally add a comment
      *
      * @param[in] into The output stream to use
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    virtual bool closeTag(std::ostream& into) = 0;
+    virtual bool closeTag(std::ostream& into, const std::string& comment = "") = 0;
 
     virtual void writePreformattedTag(std::ostream& into, const std::string& val) = 0;
 

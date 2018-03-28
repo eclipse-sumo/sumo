@@ -245,8 +245,8 @@ OutputDevice::openTag(const SumoXMLTag& xmlElement) {
 
 
 bool
-OutputDevice::closeTag() {
-    if (myFormatter->closeTag(getOStream())) {
+OutputDevice::closeTag(const std::string& comment) {
+    if (myFormatter->closeTag(getOStream(), comment)) {
         postWriteHook();
         return true;
     }

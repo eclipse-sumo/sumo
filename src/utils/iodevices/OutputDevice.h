@@ -217,7 +217,7 @@ public:
     OutputDevice& openTag(const SumoXMLTag& xmlElement);
 
 
-    /** @brief Closes the most recently opened tag
+    /** @brief Closes the most recently opened tag and optionally adds a comment
      *
      * The topmost xml-element from the stack is written into the stream
      *  as a closing element. Depending on the formatter used
@@ -227,7 +227,7 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag();
+    bool closeTag(const std::string& comment = "");
 
 
 
@@ -306,7 +306,7 @@ public:
         return *this;
     }
 
-    /// @brief writes length whitespace padding (ignored for binary output)
+    /// @brief writes padding (ignored for binary output)
     OutputDevice& writePadding(const std::string& val) {
         myFormatter->writePadding(getOStream(), val);
         return *this;

@@ -85,14 +85,14 @@ PlainXMLFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
 
 
 bool
-PlainXMLFormatter::closeTag(std::ostream& into) {
+PlainXMLFormatter::closeTag(std::ostream& into, const std::string& comment) {
     if (!myXMLStack.empty()) {
         if (myHavePendingOpener) {
-            into << "/>\n";
+            into << "/>" << comment << "\n";
             myHavePendingOpener = false;
         } else {
             const std::string indent(4 * (myXMLStack.size() + myDefaultIndentation - 1), ' ');
-            into << indent << "</" << myXMLStack.back() << ">\n";
+            into << indent << "</" << myXMLStack.back() << ">" << comment << "\n";
         }
         myXMLStack.pop_back();
         return true;

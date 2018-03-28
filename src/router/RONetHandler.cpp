@@ -309,6 +309,8 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
     if (!ok || !SUMORouteHandler::checkStopPos(myCurrentStoppingPlace->startPos, myCurrentStoppingPlace->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
+    // this is a hack: the busstop attribute is meant to hold the id within the simulation context but this is not used within the router context
+    myCurrentStoppingPlace->busstop = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     myNet.addStoppingPlace(id, element, myCurrentStoppingPlace);
 }
 

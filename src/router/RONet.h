@@ -219,6 +219,9 @@ public:
         }
         return 0;
     }
+
+    /// @brief return the name for the given stopping place id
+    const std::string getStoppingPlaceName(const std::string& id) const; 
     //@}
 
 
