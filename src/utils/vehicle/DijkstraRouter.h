@@ -220,6 +220,8 @@ public:
             const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
             const double effort = minimumInfo->effort + effortDelta;
             const double leaveTime = minimumInfo->leaveTime + getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            assert(effort >= minimumInfo->effort);
+            assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
             const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
             for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {

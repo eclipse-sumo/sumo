@@ -39,10 +39,10 @@ class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
 private:
     struct Schedule {
         Schedule(const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const double _travelTimeSec)
-            : begin(_begin), end(_end), period(_period), travelTimeSec(_travelTimeSec) {}
-        const SUMOTime begin;
-        const SUMOTime end;
-        const SUMOTime period;
+            : begin(STEPS2TIME(_begin)), end(STEPS2TIME(_end)), period(STEPS2TIME(_period)), travelTimeSec(_travelTimeSec) {}
+        const double begin;
+        const double end;
+        const double period;
         const double travelTimeSec;
     private:
         /// @brief Invalidated assignment operator
@@ -75,14 +75,22 @@ public:
     double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double time) const {
         double minArrivalSec = std::numeric_limits<double>::max();
         for (typename std::multimap<double, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
+            const Schedule& s = it->second;
             if (it->first > minArrivalSec) {
                 break;
             }
-            if (time < STEPS2TIME(it->second.end)) {
-                const int running = MAX2(0, (int)ceil((time - STEPS2TIME(it->second.begin)) / STEPS2TIME(it->second.period)));
-                const SUMOTime nextDepart = it->second.begin + running * it->second.period;
-                minArrivalSec = MIN2(STEPS2TIME(nextDepart) + it->second.travelTimeSec, minArrivalSec);
-                //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(it->second.begin) << " end=" << STEPS2TIME(it->second.end)
+            if (time < s.end) {
+                int running;
+                if (s.period <= 0 || time < s.begin) {
+                    // single vehicle or flow begin
+                    running = 0;
+                } else {
+                    // subsequent flow
+                    running = (int)ceil((time - s.begin) / s.period);
+                }
+                const double nextDepart = s.begin + running * s.period;
+                minArrivalSec = MIN2(nextDepart + s.travelTimeSec, minArrivalSec);
+                //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << s.begin << " end=" << s.end
                 //    << " atTime=" << time
                 //    << " running=" << running << " nextDepart=" << nextDepart
                 //    << " minASec=" << minArrivalSec << " travelTime=" << minArrivalSec - time << "\n";
