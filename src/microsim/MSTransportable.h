@@ -304,7 +304,8 @@ public:
     public:
         /// constructor
         Stage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                      const double arrivalPos, const std::vector<std::string>& lines);
+                      const double arrivalPos, const std::vector<std::string>& lines,
+                      const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
         /// destructor
         virtual ~Stage_Driving();
@@ -368,6 +369,7 @@ public:
         /// @brief cached vehicle data for output after the vehicle has been removed
         std::string myVehicleID;
         std::string myVehicleLine;
+
         SUMOVehicleClass myVehicleVClass;
         double myVehicleDistance;
 
@@ -376,6 +378,9 @@ public:
         SUMOTime myWaitingSince;
         const MSEdge* myWaitingEdge;
         Position myStopWaitPos;
+
+        std::string myIntendedVehicleID;
+        SUMOTime myIntendedDepart;
 
     private:
         /// @brief Invalidated copy constructor.

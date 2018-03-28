@@ -236,7 +236,8 @@ public:
     public:
         /// constructor
         MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                              const double arrivalPos, const std::vector<std::string>& lines);
+                              const double arrivalPos, const std::vector<std::string>& lines,
+                              const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
         /// destructor
         ~MSPersonStage_Driving();

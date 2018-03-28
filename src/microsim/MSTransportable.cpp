@@ -249,13 +249,17 @@ MSTransportable::Stage_Waiting::getStageSummary() const {
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) :
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
+        const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING),
     myLines(lines.begin(), lines.end()),
     myVehicle(0),
     myVehicleID("NULL"),
     myVehicleDistance(-1.),
-    myStopWaitPos(Position::INVALID) {}
+    myStopWaitPos(Position::INVALID),
+    myIntendedVehicleID(intendedVeh),
+    myIntendedDepart(intendedDepart)
+{}
 
 
 MSTransportable::Stage_Driving::~Stage_Driving() {}

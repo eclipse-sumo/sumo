@@ -326,11 +326,13 @@ MSPerson::MSPersonStage_Walking::getStageSummary() const {
  * MSPerson::MSPersonStage_Driving - methods
  * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) :
+        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
+        const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage_Driving(destination, toStop,
                                    SUMOVehicleParameter::interpretEdgePos(
                                        arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination.getID()),
-                                   lines) {
+                                   lines,
+                                   intendedVeh, intendedDepart) {
 }
 
 
@@ -375,8 +377,11 @@ MSPerson::MSPersonStage_Driving::getStageSummary() const {
     const std::string dest = (getDestinationStop() == 0 ? 
         " edge '" + getDestination().getID() + "'" : 
         " stop '" + getDestinationStop()->getID() + "'");
+    const std::string intended = myIntendedVehicleID != "" ?
+        " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
+        "";
     return isWaiting4Vehicle() ? 
-        "waiting for " + joinToString(myLines, ",") + " then drive to " + dest: 
+        "waiting for " + joinToString(myLines, ",") + intended + " then drive to " + dest: 
         "driving to " + dest;
 }
 
@@ -403,7 +408,14 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
     }
-    os.writeAttr(SUMO_ATTR_LINES, myLines).closeTag();
+    os.writeAttr(SUMO_ATTR_LINES, myLines);
+    if (myIntendedVehicleID != "") {
+        os.writeAttr(SUMO_ATTR_INTENDED, myIntendedVehicleID);
+    }
+    if (myIntendedDepart >= 0) {
+        os.writeAttr(SUMO_ATTR_DEPART, time2string(myIntendedDepart));
+    }
+    os.closeTag();
 }
 
 

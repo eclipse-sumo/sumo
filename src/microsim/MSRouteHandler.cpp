@@ -214,7 +214,9 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
                     }
                 }
-                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, arrivalPos, st.getVector()));
+                const std::string intendedVeh = attrs.getOpt<std::string>(SUMO_ATTR_INTENDED, 0, ok, "");
+                const SUMOTime intendedDepart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, 0, ok, -1);
+                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*to, bs, arrivalPos, st.getVector(), intendedVeh, intendedDepart));
                 break;
             }
             case SUMO_TAG_TRANSPORT:
@@ -1157,7 +1159,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                                 vehControl.addVehicle(vehPar->id, vehicle);
                                 carUsed = true;
                             } else {
-                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(*it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line })));
+                                myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(
+                                            *it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
                             }
                         }
                     }
