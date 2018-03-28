@@ -321,7 +321,8 @@ std::string
 MSPerson::MSPersonStage_Walking::getStageSummary() const {
     const std::string dest = (getDestinationStop() == 0 ? 
         " edge '" + getDestination().getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'");
+        " stop '" + getDestinationStop()->getID() + "'" + (
+            getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     return "walking to " + dest;
 }
 
@@ -380,7 +381,8 @@ std::string
 MSPerson::MSPersonStage_Driving::getStageSummary() const {
     const std::string dest = (getDestinationStop() == 0 ? 
         " edge '" + getDestination().getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'");
+        " stop '" + getDestinationStop()->getID() + "'" + (
+            getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     const std::string intended = myIntendedVehicleID != "" ?
         " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
         "";
