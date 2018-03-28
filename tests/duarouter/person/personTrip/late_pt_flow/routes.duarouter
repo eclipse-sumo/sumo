@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 28 09:49:02 2018 by SUMO duarouter Version v0_32_0+0910-0aebdf1
+<!-- generated on 10/11/17 14:47:34 by SUMO duarouter Version dev-SVN-r26415
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,20 +9,21 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="hello.net.xml"/>
         <additional-files value="input_additional.add.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <route-files value="input_person.rou.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <output-file value="routes.rou.xml"/>
-        <alternatives-output value="routes.rou.alt.xml"/>
+        <output-file value="output_person.rou.xml"/>
     </output>
 
+    <processing>
+        <routing-threads value="0"/>
+    </processing>
+
     <report>
-        <xml-validation value="never"/>
-        <no-step-log value="true"/>
+        <verbose value="true"/>
     </report>
 
 </configuration>
@@ -30,8 +31,8 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="public" depart="4.00">
-        <walk cost="28.80" edges="b" busStop="busstop1"/>
-        <ride cost="77.20" busStop="busstop3" lines="100"/>
-        <walk cost="28.80" edges="g"/>
+        <walk edges="b" busStop="busstop1"/>
+        <ride busStop="busstop3" lines="100"/>
+        <walk edges="g"/>
     </person>
 </routes>
