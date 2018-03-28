@@ -274,7 +274,7 @@ main(int argc, char** argv) {
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
         MsgHandler::initOutputOptions();
-        if (!RODFFrame::checkOptions()) {
+        if (!(RODFFrame::checkOptions() && SystemFrame::checkOptions())) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();
