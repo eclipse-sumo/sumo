@@ -168,7 +168,7 @@ MSCFModel_Wiedemann::following(double sign) const {
 double
 MSCFModel_Wiedemann::approaching(double dv, double dx, double abx) const {
     // there is singularity in the formula. we do the sanity check outside
-    assert(bx < dx);
+    assert(abx < dx);
     return 0.5 * dv * dv / (abx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
 }
 
