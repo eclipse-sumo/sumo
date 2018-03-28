@@ -309,9 +309,9 @@
         <xsd:attribute name="to" type="xsd:string"/>
         <xsd:attribute name="via" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
-        <xsd:attribute name="begin" type="nonNegativeFloatType"/>
-        <xsd:attribute name="end" type="nonNegativeFloatType"/>
-        <xsd:attribute name="period" type="positiveFloatType"/>
+        <xsd:attribute name="begin" type="timeType"/>
+        <xsd:attribute name="end" type="timeType"/>
+        <xsd:attribute name="period" type="timeType"/>
         <xsd:attribute name="vehsPerHour" type="nonNegativeFloatType"/>
         <xsd:attribute name="probability" type="nonNegativeFloatType"/>
         <xsd:attribute name="number" type="xsd:int"/>
@@ -377,7 +377,7 @@
     </xsd:complexType>
 
     <xsd:simpleType name="departType">
-        <xsd:union memberTypes="nonNegativeFloatType">
+        <xsd:union memberTypes="timeType">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="triggered"/>
@@ -519,7 +519,7 @@
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
         <xsd:attribute name="duration" type="nonNegativeFloatType"/>
-        <xsd:attribute name="until" type="nonNegativeFloatType"/>
+        <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
         <xsd:attribute name="parking" type="boolType"/>
         <xsd:attribute name="triggered" type="boolType"/>
@@ -576,7 +576,7 @@
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
-                    <xsd:attribute name="depart" type="xsd:float" use="optional"/>
+                    <xsd:attribute name="depart" type="timeType" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -598,7 +598,7 @@
             <xsd:element name="param" type="paramType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="depart" type="xsd:float" use="required"/>
+        <xsd:attribute name="depart" type="timeType" use="required"/>
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>
@@ -632,7 +632,7 @@
             <xsd:element name="param" type="paramType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="depart" type="xsd:float" use="required"/>
+        <xsd:attribute name="depart" type="timeType" use="required"/>
         <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>
