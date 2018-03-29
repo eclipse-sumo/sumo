@@ -3,3 +3,6 @@ headonconflict
 
 # Tests interlocked block signalling
 interlocking
+
+# speed when passing tracks with different speed limits
+slow_fast_slow
