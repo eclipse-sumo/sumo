@@ -637,16 +637,16 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
 
 long
 GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
-    FXEvent* e = (FXEvent*) eventData;
+    FXEvent* evt = (FXEvent*) eventData;
     setFocus();
     // interpret object under cursor
     if (makeCurrent()) {
         // first update objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getObjectUnderCursor(), myEditShapePoly);
+        myObjectsUnderCursor.updateObjectUnderCursor(getObjectUnderCursor(), myEditShapePoly, evt);
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
-                if ((e->state & CONTROLMASK) == 0) {
+                if (myObjectsUnderCursor.controltKeyPressed()) {
                     // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
@@ -692,7 +692,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                 }
                 // process click
-                processClick(e, eventData);
+                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_MOVE: {
@@ -730,7 +730,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myObjectsUnderCursor.swapLane2Edge();
                     if (myObjectsUnderCursor.edge->isNetElementSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
-                    } else if(((FXEvent*)eventData)->state & SHIFTMASK) {
+                    } else if(myObjectsUnderCursor.shiftKeyPressed()) {
                         myObjectsUnderCursor.edge->editEndpoint(getPositionInformation(), myUndoList);
                     } else {
                         myMovedItems.edgeToMove = myObjectsUnderCursor.edge;
@@ -758,17 +758,15 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                 } else {
                     // process click
-                    processClick(e, eventData);
+                    processClick(evt, eventData);
                 }
                 update();
                 break;
             }
             case GNE_MODE_DELETE: {
-                // Check if Control key is pressed
-                bool markElementMode = (((FXEvent*)eventData)->state & CONTROLMASK) != 0;
                 if (myObjectsUnderCursor.attributeCarrier) {
                     // if pointed element is an attribute carrier, remove it or mark it
-                    if (markElementMode) {
+                    if (myObjectsUnderCursor.controltKeyPressed()) {
                         if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != myObjectsUnderCursor.attributeCarrier) {
                             myViewParent->getDeleteFrame()->markAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
                         }
@@ -779,7 +777,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                 } else {
                     // process click
-                    processClick(e, eventData);
+                    processClick(evt, eventData);
                 }
                 break;
             }
@@ -805,7 +803,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myViewParent->getInspectorFrame()->focusUpperElement();
                 }
                 // process click
-                processClick(e, eventData);
+                processClick(evt, eventData);
                 update();
                 break;
             }
@@ -842,26 +840,24 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         }
                     }
                 }
-                // check if a rect for selecting are being created
-                myAmInRectSelect = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
-                if (myAmInRectSelect) {
+                // check if a rect for selecting is being created
+                if (myObjectsUnderCursor.shiftKeyPressed()) {
                     mySelCorner1 = getPositionInformation();
                     mySelCorner2 = getPositionInformation();
                 } else {
                     // process click
-                    processClick(e, eventData);
+                    processClick(evt, eventData);
                 }
                 update();
                 break;
             case GNE_MODE_CONNECT: {
                 if (myObjectsUnderCursor.lane) {
-                    const bool mayPass = (((FXEvent*)eventData)->state & SHIFTMASK) != 0;
-                    const bool allowConflict = (((FXEvent*)eventData)->state & CONTROLMASK) != 0;
-                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, mayPass, allowConflict, true);
+                    // shift key may pass connections, Control key allow conflicts.
+                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controltKeyPressed(), true);
                     update();
                 }
                 // process click
-                processClick(e, eventData);
+                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_TLS: {
@@ -870,7 +866,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     update();
                 }
                 // process click
-                processClick(e, eventData);
+                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
@@ -879,7 +875,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 if ((result == GNEAdditionalFrame::ADDADDITIONAL_SUCCESS) || (result == GNEAdditionalFrame::ADDADDITIONAL_INVALID_PARENT)) {
                     update();
                     // process click
-                    processClick(e, eventData);
+                    processClick(evt, eventData);
                 }
                 break;
             }
@@ -890,7 +886,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                 }
                 // process click
-                processClick(e, eventData);
+                processClick(evt, eventData);
                 break;
             }
             case GNE_MODE_POLYGON: {
@@ -901,14 +897,14 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // process clickw depending of the result of "add additional"
                     if ((result != GNEPolygonFrame::ADDSHAPE_NEWPOINT)) {
                         // process click
-                        processClick(e, eventData);
+                        processClick(evt, eventData);
                     }
                 }
                 break;
             }
             default: {
                 // process click
-                processClick(e, eventData);
+                processClick(evt, eventData);
             }
         }
         makeNonCurrent();
@@ -2713,8 +2709,9 @@ GNEViewNet::updateControls() {
 }
 
 void 
-GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape) {
+GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev) {
     // first reset all variables
+    eventInfo = nullptr;
     glType = GLO_NETWORK;
     attributeCarrier = nullptr;
     netElement = nullptr;
@@ -2727,6 +2724,8 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
     connection = nullptr;
     poi = nullptr;
     poly = nullptr;
+    // set event
+    eventInfo = ev;
     // set GLID of object under cursor
     glID = glIDObject;
     // only continue if isn't 0
@@ -2808,5 +2807,26 @@ GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
         glType = GLO_EDGE;
     }
 }
+
+
+bool 
+GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
+    if(eventInfo) {
+        return (eventInfo->state & SHIFTMASK);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEViewNet::ObjectsUnderCursor::controltKeyPressed() const {
+    if(eventInfo) {
+        return (eventInfo->state & CONTROLMASK);
+    } else {
+        return false;
+    }
+}
+
 
 /****************************************************************************/

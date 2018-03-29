@@ -436,6 +436,7 @@ private:
     public:
         /// @brief constructor
         ObjectsUnderCursor(): 
+            eventInfo(nullptr),
             glID(0),
             glType(GLO_NETWORK),
             attributeCarrier(nullptr),
@@ -451,10 +452,19 @@ private:
             poly(nullptr) {}
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape);
+        void updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev);
 
         /// @brief swap lane to edge
         void swapLane2Edge();
+
+        /// @brief check if SHIFT key was pressed during click
+        bool shiftKeyPressed() const;
+
+        /// @brief check if CONTROL key was pressed during click
+        bool controltKeyPressed() const;
+
+        /// @brief information of event of onLeftBtnPress
+        FXEvent* eventInfo;
 
         /// @brief GUI GL ID
         GUIGlID glID;
