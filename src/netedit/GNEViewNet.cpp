@@ -847,6 +847,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 }
                 // check if a rect for selecting is being created
                 if (myObjectsUnderCursor.shiftKeyPressed()) {
+                    myAmInRectSelect = true;
                     mySelCorner1 = getPositionInformation();
                     mySelCorner2 = getPositionInformation();
                 } else {
