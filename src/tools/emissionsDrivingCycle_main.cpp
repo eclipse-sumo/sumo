@@ -237,7 +237,7 @@ main(int argc, char** argv) {
         if (!quiet) {
             handler.writeSums(std::cout, "");
         }
-		delete sumOut;
+        delete sumOut;
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

@@ -154,7 +154,7 @@ public:
         }
         if (myLandmarks.empty()) {
             WRITE_WARNING("No landmarks in '" + filename + "', falling back to standard A*.");
-			delete ostrm;
+            delete ostrm;
             return;
         }
 #ifdef HAVE_FOX
