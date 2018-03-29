@@ -69,7 +69,10 @@ MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers
 
 void
 MSStopOut::loadedPersons(const SUMOVehicle* veh, int n) {
-    myStopped[veh].loadedPersons += n;
+    // ignore triggered vehicles
+    if (veh->hasDeparted()) {
+        myStopped[veh].loadedPersons += n;
+    }
 }
 
 void
