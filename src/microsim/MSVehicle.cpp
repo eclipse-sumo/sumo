@@ -1723,6 +1723,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
     const bool opposite = getLaneChangeModel().isOpposite();
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
+    if (isRailway((SVCPermissions)getVehicleType().getVehicleClass())) {
+        // speed limits must hold for the whole length of the train
+        for (MSLane* l : myFurtherLanes) {
+            laneMaxV = MIN2(laneMaxV, l->getVehicleMaxSpeed(this));
+        }
+    }
     if (myInfluencer && !myInfluencer->considerSafeVelocity()) {
         laneMaxV = std::numeric_limits<double>::max();
     }
