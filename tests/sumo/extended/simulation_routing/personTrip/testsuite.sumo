@@ -99,4 +99,8 @@ early_pt
 
 # parse additionals first to get late public transport
 late_pt
+
+# Test for parsing and writing human-readable-time
+# putting it here because it covers a lot of different inputs
+public_walk_human_readable_time
 errors
