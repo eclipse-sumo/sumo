@@ -820,6 +820,8 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
                 changedLane.insert(p->myPerson);
                 myActiveLanes[p->myLane].push_back(p);
             } else {
+                // end walking stage and destroy PState
+                p->myStage->moveToNextEdge(p->myPerson, currentTime);
                 myNumActivePedestrians--;
             }
         }
@@ -1267,10 +1269,12 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
         if (myLane == nullptr) {
             myRelX = myStage->getArrivalPos();
         }
-        if (myStage->moveToNextEdge(myPerson, currentTime, normalLane ? nullptr : &myLane->getEdge())) {
+        // moveToNextEdge might destroy the person and thus mess up the heap. Better check first
+        if (myStage->getRouteStep() == myStage->getRoute().end() - 1) {
             myLane = nullptr;
-        }
-        if (myLane != nullptr) {
+        } else {
+            const bool arrived = myStage->moveToNextEdge(myPerson, currentTime, normalLane ? nullptr : &myLane->getEdge());
+            assert(!arrived);
             assert(myDir != UNDEFINED_DIRECTION);
             myNLI = getNextLane(*this, myLane, oldLane);
             assert(myNLI.lane != oldLane); // do not turn around
