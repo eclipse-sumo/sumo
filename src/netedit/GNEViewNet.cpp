@@ -765,6 +765,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_DELETE: {
                 if (myObjectsUnderCursor.attributeCarrier) {
+                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
+                    if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
                     // if pointed element is an attribute carrier, remove it or mark it
                     if (myObjectsUnderCursor.controltKeyPressed()) {
                         if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != myObjectsUnderCursor.attributeCarrier) {
