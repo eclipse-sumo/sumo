@@ -36,6 +36,7 @@ import sys
 import status
 import version
 import wix
+import buildCMakeProject
 
 
 def repositoryUpdate(options, repoLogFile):
@@ -90,7 +91,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
         # Check if sikulixServer is already opened
-        # if runSikulixServer.checkStatus() == False :
+        # if runSikulixServer.checkStatus() == False:
         #    runSikulixServer.startSikulixServer()
         subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
@@ -102,8 +103,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
 optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default=r"D:\Sumo", help="root for git and log output")
-optParser.add_option(
-    "-s", "--suffix", default="", help="suffix to the fileprefix")
+optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
 optParser.add_option("-p", "--project", default=r"git\build\msvc10\prj.sln",
                      help="path to project solution relative to the root dir")
 optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
@@ -122,6 +122,8 @@ optParser.add_option("-u", "--no-update", action="store_true",
                      default=False, help="skip repository update")
 optParser.add_option("-n", "--no-tests", action="store_true",
                      default=False, help="skip tests")
+optParser.add_option("-c", "--cmake", action="store_true",
+                     default=False, help="do a cmake build")
 (options, args) = optParser.parse_args()
 
 sys.path.append(os.path.join(options.rootDir, options.testsDir))
@@ -163,11 +165,18 @@ for platform, dllDir in platformDlls:
             os.remove(f)
         except WindowsError:
             pass
-    subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
-                    (platform, options.rootDir, options.project, makeLog))
-    if options.addSln:
+    if options.cmake:
+        generator = "Visual Studio 12 2013"
+        if platform == "x64":
+            generator += " Win64"
+        buildDir = buildCMakeProject.generate(generator)
+        buildCMakeProject.build(buildDir, "Release")
+    else:
         subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
-                        (platform, options.rootDir, options.addSln, makeLog))
+                        (platform, options.rootDir, options.project, makeLog))
+        if options.addSln:
+            subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
+                            (platform, options.rootDir, options.addSln, makeLog))
     envSuffix = ""
     if platform == "x64":
         envSuffix = "_64"
@@ -218,11 +227,14 @@ for platform, dllDir in platformDlls:
         print("Warning: Could not create nightly sumo-game.zip! (%s)" %
               e, file=log)
     log.close()
-    subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
-                    (platform, options.rootDir, options.project, makeAllLog))
-    if options.addSln:
+    if options.cmake:
+        buildCMakeProject.build(buildDir, "Debug")
+    else:
         subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
-                        (platform, options.rootDir, options.addSln, makeAllLog))
+                        (platform, options.rootDir, options.project, makeAllLog))
+        if options.addSln:
+            subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
+                            (platform, options.rootDir, options.addSln, makeAllLog))
     if sumoAllZip:
         try:
             debugZip = sumoAllZip.replace("-all-", "Debug-%s-" % env["FILEPREFIX"])

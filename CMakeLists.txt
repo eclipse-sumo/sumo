@@ -150,7 +150,7 @@ if (MSVC)
         configure_file(build/CMakeLists.txt.gl2ps gl2ps-download/CMakeLists.txt)
         execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
                 WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/gl2ps-download")
-        execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+        execute_process(COMMAND "${CMAKE_COMMAND}" --build . --config Release
                 WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/gl2ps-download")
         FIND_LIBRARY(GL2PS_LIBRARY NAMES gl2ps PATHS "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Release" "${CMAKE_BINARY_DIR}/gl2ps/src/gl2ps-build/Debug")
         if (GL2PS_LIBRARY)

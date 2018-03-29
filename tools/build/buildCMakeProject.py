@@ -21,24 +21,28 @@ import sys
 import subprocess
 import shutil
 import glob
+import argparse
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-pathFolders = os.environ["PATH"].split(os.pathsep)
+PATH = os.environ["PATH"].split(os.pathsep)
 CMAKE = []
-for folder in pathFolders:
+for folder in PATH:
     cmakeExe = os.path.join(folder, "cmake.exe")
     if os.path.exists(cmakeExe):
         CMAKE.append(cmakeExe)
 CMAKE += glob.glob("C:/Program*/CMake/bin/cmake.exe")
-# First check that CMake was correctly installed
-if len(CMAKE) == 0:
-    print("""CMake executable wasn't found.
-    Please install the last version of Cmake from https://cmake.org/download/,
-    or add the folder of cmake executable to PATH""")
-else:
+
+def generate(generator):
+    # First check that CMake was correctly installed
+    if len(CMAKE) == 0:
+        print("""CMake executable wasn't found.
+        Please install the last version of Cmake from https://cmake.org/download/,
+        or add the folder of cmake executable to PATH""")
+        return None
     print("Searching libraries...")
     cmakeOpt = ["-DBUILD_GTEST_FROM_GIT=true"]
     # append custom lib dir to search path
+    pathFolders = list(PATH)
     for libDir in (os.path.join(SUMO_HOME, "lib"), os.path.join(SUMO_HOME, "SUMOLibraries"),
                    os.path.join(SUMO_HOME, "..", "SUMOLibraries"), os.path.join(SUMO_HOME, "..", "..", "SUMOLibraries")):
         if os.path.exists(libDir):
@@ -61,12 +65,25 @@ else:
         elif "swig" in folder.lower():
             cmakeOpt += ["-DSWIG_EXECUTABLE=%sswig.exe" % folder[:-3]]
 
-    generator = sys.argv[1] if len(sys.argv) > 1 else "Visual Studio 12 2013 Win64"
     buildDir = os.path.join(SUMO_HOME, "build/cmake-build-" + generator.replace(" ", "-"))
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
-        print ("Cleaning directory of", generator)
+        print("Cleaning directory of", generator)
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
-    print ("Creating solution for", generator)
+    print("Creating solution for", generator)
     subprocess.call([CMAKE[0], "../..", "-G", generator] + cmakeOpt, cwd=buildDir)
+    return buildDir
+    
+def build(buildDir, config):
+    subprocess.call([CMAKE[0], "--build", ".", "--config", config], cwd=buildDir)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--generator", default="Visual Studio 12 2013 Win64",
+                        help="the Visual Studio version or Eclipse project you are targeting, see cmake --help")
+    parser.add_argument("--config", help="trigger an immediate build of the given configuration")
+    args = parser.parse_args()
+    buildDir = generate(args.generator)
+    if buildDir is not None and args.config is not None:
+        build(buildDir, args.config)
