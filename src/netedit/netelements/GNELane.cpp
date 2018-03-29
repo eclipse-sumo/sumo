@@ -295,7 +295,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
         const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (myParentEdge.isNetElementSelected() ? .3 : 0));
-        if (drawAsRailway(s)) {
+        // Check if lane has to be draw as railway and if isn't being drawn for selecting
+        if (drawAsRailway(s) && !s.drawForSelecting) {
             PositionVector shape = getShape();
             const double width = myParentEdge.getNBEdge()->getLaneWidth(myIndex);
             // draw as railway: assume standard gauge of 1435mm when lane width is not set
@@ -335,8 +336,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop draw matrix 1
         glPopMatrix();
-        // only draw details depending of the scale
-        if (s.scale >= 10) {
+        // only draw details depending of the scale and if isn't being drawn for selecting
+        if ((s.scale >= 10) && !s.drawForSelecting) {
             // if exaggeration is 1, draw drawMarkings
             if (s.laneShowBorders && exaggeration == 1 && !drawAsRailway(s)) {
                 drawMarkings(myParentEdge.isNetElementSelected(), exaggeration);
@@ -362,8 +363,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawTLSLinkNo(s);
             }
         }
-        // If there are texture of restricted lanes to draw, and draw lane icons is enabled in options
-        if ((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && (myLaneRestrictedTexturePositions.size() > 0) && (s.scale >= 10)) {
+        // If there are texture of restricted lanes to draw, check if icons can be drawn
+        if ((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && 
+            (myLaneRestrictedTexturePositions.size() > 0) && 
+            (s.scale >= 10) && !s.drawForSelecting) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different

@@ -264,8 +264,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 Position pos = myNBNode.getPosition();
                 glTranslated(pos.x(), pos.y(), getType() - 0.05);
-                // resolution of drawn circle depending of the zoom (To improve smothness)
-                if (s.scale >= 10) {
+                // resolution of drawn circle depending of the zoom and if isn't being drawn for selecting (To improve smothness)
+                if(s.drawForSelecting) {
+                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 8);
+                } else if (s.scale >= 10) {
                     GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 32);
                 } else if (s.scale >= 2) {
                     GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 16);
@@ -277,8 +279,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
-
-        if (s.editMode == GNE_MODE_TLS && myNBNode.isTLControlled() && !myAmTLSSelected) {
+        // draw TLS icon if isn't being drawn for selecting
+        if ((s.editMode == GNE_MODE_TLS && myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
             glPushMatrix();
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
@@ -292,8 +294,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         for (auto it : myGNECrossings) {
             it->drawGL(s);
         }
-        // (optional) draw name @todo expose this setting
-        drawName(myNBNode.getPosition(), s.scale, s.junctionName);
+        // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
+        if(!s.drawForSelecting) {
+            drawName(myNBNode.getPosition(), s.scale, s.junctionName);
+        }
     }
     glPopName();
 }

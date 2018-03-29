@@ -287,8 +287,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // Set color depending of the link state
             GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
-        // draw connection checking whether it is not too small
-        if (s.scale < 1.) {
+        // draw connection checking whether it is not too small if isn't being drawn for selecting
+        if ((s.scale < 1.) && !s.drawForSelecting) {
             // If it's small, dra a simple line
             GLHelper::drawLine(myShape);
         } else {

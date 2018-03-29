@@ -420,8 +420,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw geometry hints
-    if (s.scale > 3.0) { // check whether it is not too small
+    // draw geometry hints if isn't being drawn for selecting
+    if ((s.scale > 3.0) && !s.selectionScale) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         if (isNetElementSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
@@ -484,9 +484,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
 
-    // (optionally) draw the name and/or the street name
+    // (optionally) draw the name and/or the street name if isn't being drawn for selecting
     const bool drawStreetName = s.streetName.show && myNBEdge.getStreetName() != "";
-    if (s.edgeName.show || drawStreetName) {
+    if ((s.edgeName.show || drawStreetName) && !s.selectionScale) {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];

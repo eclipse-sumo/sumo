@@ -139,16 +139,26 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             for (int i = 0; i < (int)shape.size() - 1; ++i) {
                 // push three draw matrix
                 glPushMatrix();
-                // traslete and rotate
+                // translate and rotate
                 glTranslated(shape[i].x(), shape[i].y(), 0.0);
                 glRotated(myShapeRotations[i], 0, 0, 1);
-                // draw crossing
-                for (double t = 0; t < myShapeLengths[i]; t += spacing) {
+                // draw crossing depending if isn't being drawn for selecting
+                if(!s.drawForSelecting) {
+                    for (double t = 0; t < myShapeLengths[i]; t += spacing) {
+                        glBegin(GL_QUADS);
+                        glVertex2d(-halfWidth, -t);
+                        glVertex2d(-halfWidth, -t - length);
+                        glVertex2d(halfWidth, -t - length);
+                        glVertex2d(halfWidth, -t);
+                        glEnd();
+                    }
+                } else {
+                    // only draw a single rectangle if it's being drawn only for selecting
                     glBegin(GL_QUADS);
-                    glVertex2d(-halfWidth, -t);
-                    glVertex2d(-halfWidth, -t - length);
-                    glVertex2d(halfWidth, -t - length);
-                    glVertex2d(halfWidth, -t);
+                    glVertex2d(-halfWidth, 0);
+                    glVertex2d(-halfWidth, -myShapeLengths.back());
+                    glVertex2d(halfWidth, -myShapeLengths.back());
+                    glVertex2d(halfWidth, 0);
                     glEnd();
                 }
                 // pop three draw matrix
@@ -164,8 +174,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // pop draw matrix
             glPopMatrix();
         }
-        // link indices must be drawn in all edit modes
-        if (s.drawLinkTLIndex.show) {
+        // link indices must be drawn in all edit modes if isn't being drawn for selecting
+        if (s.drawLinkTLIndex.show && !s.drawForSelecting) {
             drawTLSLinkNo(s);
         }
     }
