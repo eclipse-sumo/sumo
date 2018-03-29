@@ -725,7 +725,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.junction->getPositionInView();
-                } else if (myObjectsUnderCursor.edge) {
+                } else if (myObjectsUnderCursor.lane) {
+                        // allways swap lanes to edges in movement mode
+                        myObjectsUnderCursor.swapLane2Edge();
                     if (myObjectsUnderCursor.edge->isNetElementSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
                     } else if(((FXEvent*)eventData)->state & SHIFTMASK) {
