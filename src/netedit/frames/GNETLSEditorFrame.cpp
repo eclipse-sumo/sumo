@@ -118,11 +118,11 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // create TLSPhases modul
     myTLSPhases = new GNETLSEditorFrame::TLSPhases(this);
 
-    // create TLSFile modul
-    myTLSFile = new GNETLSEditorFrame::TLSFile(this);
-
     // create TLSModifications modul
     myTLSModifications = new GNETLSEditorFrame::TLSModifications(this);
+
+    // create TLSFile modul
+    myTLSFile = new GNETLSEditorFrame::TLSFile(this);
 
     // "Add 'off' program"
     /*
