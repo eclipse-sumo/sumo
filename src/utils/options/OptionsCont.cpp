@@ -833,7 +833,7 @@ OptionsCont::writeSchema(std::ostream& os) {
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
-        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "Type\" minOccurs=\"0\"/>\n";
+        os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "TopicType\" minOccurs=\"0\"/>\n";
     }
     os << "        </xsd:all>\n";
     os << "    </xsd:complexType>\n\n";
@@ -844,7 +844,7 @@ OptionsCont::writeSchema(std::ostream& os) {
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
-        os << "    <xsd:complexType name=\"" << subtopic << "Type\">\n";
+        os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
         const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {

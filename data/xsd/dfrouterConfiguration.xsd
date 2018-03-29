@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 19 10:44:03 2018 by SUMO dfrouter Version v0_32_0+0012-0c5c31c131
+<!-- generated on Thu Mar 29 14:33:25 2018 by SUMO dfrouter Version v0_32_0+0962-3a69e5b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -10,17 +10,17 @@
 
     <xsd:complexType name="configurationType">
         <xsd:all>
-            <xsd:element name="input" type="inputType" minOccurs="0"/>
-            <xsd:element name="output" type="outputType" minOccurs="0"/>
-            <xsd:element name="processing" type="processingType" minOccurs="0"/>
-            <xsd:element name="defaults" type="defaultsType" minOccurs="0"/>
-            <xsd:element name="time" type="timeType" minOccurs="0"/>
-            <xsd:element name="report" type="reportType" minOccurs="0"/>
-            <xsd:element name="random_number" type="random_numberType" minOccurs="0"/>
+            <xsd:element name="input" type="inputTopicType" minOccurs="0"/>
+            <xsd:element name="output" type="outputTopicType" minOccurs="0"/>
+            <xsd:element name="processing" type="processingTopicType" minOccurs="0"/>
+            <xsd:element name="defaults" type="defaultsTopicType" minOccurs="0"/>
+            <xsd:element name="time" type="timeTopicType" minOccurs="0"/>
+            <xsd:element name="report" type="reportTopicType" minOccurs="0"/>
+            <xsd:element name="random_number" type="random_numberTopicType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="inputType">
+    <xsd:complexType name="inputTopicType">
         <xsd:all>
             <xsd:element name="net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="detector-files" type="fileOptionType" minOccurs="0"/>
@@ -28,12 +28,13 @@
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="outputType">
+    <xsd:complexType name="outputTopicType">
         <xsd:all>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routes-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="routes-for-all" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="detector-output" type="fileOptionType" minOccurs="0"/>
@@ -49,7 +50,7 @@
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="processingType">
+    <xsd:complexType name="processingTopicType">
         <xsd:all>
             <xsd:element name="guess-empty-flows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="highway-mode" type="boolOptionType" minOccurs="0"/>
@@ -77,7 +78,7 @@
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="defaultsType">
+    <xsd:complexType name="defaultsTopicType">
         <xsd:all>
             <xsd:element name="departlane" type="strOptionType" minOccurs="0"/>
             <xsd:element name="departpos" type="strOptionType" minOccurs="0"/>
@@ -89,14 +90,14 @@
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="timeType">
+    <xsd:complexType name="timeTopicType">
         <xsd:all>
             <xsd:element name="begin" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="end" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="reportType">
+    <xsd:complexType name="reportTopicType">
         <xsd:all>
             <xsd:element name="verbose" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="print-options" type="boolOptionType" minOccurs="0"/>
@@ -114,7 +115,7 @@
         </xsd:all>
     </xsd:complexType>
 
-    <xsd:complexType name="random_numberType">
+    <xsd:complexType name="random_numberTopicType">
         <xsd:all>
             <xsd:element name="random" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="seed" type="intOptionType" minOccurs="0"/>
