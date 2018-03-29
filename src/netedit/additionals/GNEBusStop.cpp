@@ -147,8 +147,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
 
-    // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
+    // Check if the distance is enought to draw details and isn't being drawn for selecting
+    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
 
         // Add a draw matrix for details
         glPushMatrix();
@@ -229,14 +229,16 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // pop draw matrix
     glPopMatrix();
 
-    // Pop name
-    glPopName();
-
-    // Draw name
+    // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    if (s.addFullName.show && myName != "") {
+    if (s.addFullName.show && (myName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
+
+
+
+    // Pop name
+    glPopName();
 }
 
 

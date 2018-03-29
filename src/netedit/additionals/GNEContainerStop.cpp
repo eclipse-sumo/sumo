@@ -147,8 +147,8 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
 
-    // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
+    // Check if the distance is enought to draw details and isn't being drawn for selecting
+    if ((s.scale * exaggeration >= 10) && !s.selectionScale) {
 
         // Add a draw matrix for details
         glPushMatrix();
@@ -229,8 +229,10 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // pop draw matrix
     glPopMatrix();
 
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    // Draw name if isn't being drawn for selecting
+    if(!s.selectionScale) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
 
     // Pop name
     glPopName();

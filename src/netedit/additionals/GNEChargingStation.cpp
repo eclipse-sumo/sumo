@@ -206,8 +206,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
 
-    // draw details unless zoomed out to far
-    if (s.scale * exaggeration >= 10) {
+    // draw details unless zoomed out to far and isn't being drawn for selecting
+    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting ) {
         // Push matrix for details
         glPushMatrix();
 
@@ -278,14 +278,14 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Pop base matrix
     glPopMatrix();
 
+    // Draw name if isn't being drawn for selecting
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    if (s.addFullName.show && (myName != "") && !s.drawForSelecting) {
+        GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
+    }    
+    
     // Pop name matrix
     glPopName();
-
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    if (s.addFullName.show && myName != "") {
-        GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
-    }
 }
 
 
