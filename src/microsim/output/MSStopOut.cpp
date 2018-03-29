@@ -27,7 +27,9 @@
 
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/trigger/MSChargingStation.h>
@@ -61,7 +63,9 @@ void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers) {
     assert(veh != 0);
     if (myStopped.count(veh) != 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' is already stopped.");
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID() 
+                + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) 
+                + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
     }
     StopInfo stopInfo(MSNet::getInstance()->getCurrentTimeStep(), numPersons, numContainers);
     myStopped[veh] = stopInfo;
@@ -94,7 +98,8 @@ void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
     assert(veh != 0);
     if (myStopped.count(veh) == 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' is not stopped.");
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID() 
+                + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
         return;
     }
     double delay = -1;
