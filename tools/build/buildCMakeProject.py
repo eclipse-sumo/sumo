@@ -32,14 +32,14 @@ for folder in PATH:
         CMAKE.append(cmakeExe)
 CMAKE += glob.glob("C:/Program*/CMake/bin/cmake.exe")
 
-def generate(generator):
+def generate(generator, log=sys.stdout):
     # First check that CMake was correctly installed
     if len(CMAKE) == 0:
         print("""CMake executable wasn't found.
         Please install the last version of Cmake from https://cmake.org/download/,
         or add the folder of cmake executable to PATH""")
         return None
-    print("Searching libraries...")
+    print("Searching libraries...", file=log)
     cmakeOpt = ["-DBUILD_GTEST_FROM_GIT=true"]
     # append custom lib dir to search path
     pathFolders = list(PATH)
@@ -68,15 +68,15 @@ def generate(generator):
     buildDir = os.path.join(SUMO_HOME, "build/cmake-build-" + generator.replace(" ", "-"))
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
-        print("Cleaning directory of", generator)
+        print("Cleaning directory of", generator, file=log)
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
-    print("Creating solution for", generator)
-    subprocess.call([CMAKE[0], "../..", "-G", generator] + cmakeOpt, cwd=buildDir)
+    print("Creating solution for", generator, file=log)
+    subprocess.call([CMAKE[0], "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     return buildDir
-    
-def build(buildDir, config):
-    subprocess.call([CMAKE[0], "--build", ".", "--config", config], cwd=buildDir)
+
+def build(buildDir, config, log=sys.stdout):
+    subprocess.call([CMAKE[0], "--build", ".", "--config", config], cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

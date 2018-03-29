@@ -166,11 +166,12 @@ for platform, dllDir in platformDlls:
         except WindowsError:
             pass
     if options.cmake:
-        generator = "Visual Studio 12 2013"
-        if platform == "x64":
-            generator += " Win64"
-        buildDir = buildCMakeProject.generate(generator)
-        buildCMakeProject.build(buildDir, "Release")
+        with open(makeLog, 'a') as log:
+            generator = "Visual Studio 12 2013"
+            if platform == "x64":
+                generator += " Win64"
+            buildDir = buildCMakeProject.generate(generator, log)
+            buildCMakeProject.build(buildDir, "Release", log)
     else:
         subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.project, makeLog))
@@ -213,22 +214,20 @@ for platform, dllDir in platformDlls:
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
-                wix.buildMSI(
-                    binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
+                wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
         except IOError as ziperr:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
     try:
         setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
-        subprocess.call(
-            ['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
+        subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
     except Exception as e:
-        print("Warning: Could not create nightly sumo-game.zip! (%s)" %
-              e, file=log)
+        print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
     log.close()
     if options.cmake:
-        buildCMakeProject.build(buildDir, "Debug")
+        with open(makeAllLog, 'a') as log:
+            buildCMakeProject.build(buildDir, "Debug", log)
     else:
         subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.project, makeAllLog))
@@ -262,10 +261,8 @@ for platform, dllDir in platformDlls:
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
     runTests(options, env, gitrev)
-    log = open(statusLog, 'w')
-    status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
-    log.close()
+    with open(statusLog, 'w') as log:
+        status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
 runTests(options, env, gitrev, "D")
-log = open(prefix + "Dstatus.log", 'w')
-status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
-log.close()
+with open(prefix + "Dstatus.log", 'w') as log:
+    status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
