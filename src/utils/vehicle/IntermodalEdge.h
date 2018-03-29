@@ -12,7 +12,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalEdge.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The Edge definition for the Intermodal Router
 /****************************************************************************/
@@ -97,8 +97,9 @@ public:
         return 0.;
     }
 
-    /// @brief set intended vehicle id and departure time of next public transport ride
-    virtual void setIntended(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */, std::string& intended, double& depart) const {
+    /// @brief get intended vehicle id and departure time of next public transport ride
+    virtual double getIntended(const double /* time */, std::string& /* intended */) const {
+        return 0.;
     }
 
     static inline double getTravelTimeStatic(const IntermodalEdge* const edge, const IntermodalTrip<E, N, V>* const trip, double time) {

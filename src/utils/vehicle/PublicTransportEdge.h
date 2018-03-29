@@ -10,7 +10,7 @@
 /// @file    PublicTransportEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id: CarEdge.h v0_32_0+0478-2bb98619fa oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // The PublicTransportEdge is a special intermodal edge connecting the stop edges with scheduled traffic
 /****************************************************************************/
@@ -102,7 +102,7 @@ public:
         return minArrivalSec - time;
     }
 
-    void setIntended(const IntermodalTrip<E, N, V>* const /* trip */, double time, std::string& intended, double& depart) const {
+    double getIntended(const double time, std::string& intended) const {
         /// @note: duplicates some code of getTravelTime()
         double minArrivalSec = std::numeric_limits<double>::max();
         double bestDepartTime = std::numeric_limits<double>::max();
@@ -129,7 +129,7 @@ public:
                 }
             }
         }
-        depart = bestDepartTime;
+        return bestDepartTime;
     }
 
 private:

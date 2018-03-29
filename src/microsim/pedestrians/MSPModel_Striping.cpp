@@ -1274,6 +1274,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             myLane = nullptr;
         } else {
             const bool arrived = myStage->moveToNextEdge(myPerson, currentTime, normalLane ? nullptr : &myLane->getEdge());
+            UNUSED_PARAMETER(arrived);
             assert(!arrived);
             assert(myDir != UNDEFINED_DIRECTION);
             myNLI = getNextLane(*this, myLane, oldLane);

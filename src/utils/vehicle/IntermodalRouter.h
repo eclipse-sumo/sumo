@@ -127,7 +127,7 @@ public:
                                 into.push_back(TripItem());
                             } else {
                                 into.push_back(TripItem(lastLine));
-                                iEdge->setIntended(&trip, time, into.back().intended, into.back().depart);
+                                into.back().depart = iEdge->getIntended(time, into.back().intended);
                             }
                         }
                         if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {
