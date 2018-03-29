@@ -154,8 +154,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s);
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth * exaggeration);
-    // draw details unless zoomed out to far
-    if (s.scale * exaggeration >= 10) {
+    // draw details unless zoomed out to far and if isn't being drawn for selecting
+    if ((s.scale * exaggeration >= 10) && !s.selectionScale) {
         // Push matrix for details
         glPushMatrix();
         // Set position over sign
@@ -207,14 +207,14 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Pop base matrix
     glPopMatrix();
 
-    // Pop name matrix
-    glPopName();
-
-    // Draw name
+    // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    if (s.addFullName.show && myName != "") {
+    if (s.addFullName.show && (myName != "") && !s.selectionScale) {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
+
+    // Pop name matrix
+    glPopName();
 }
 
 

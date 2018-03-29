@@ -132,20 +132,23 @@ GNEParkingSpace::getParentName() const {
 
 
 void
-GNEParkingSpace::drawGL(const GUIVisualizationSettings& ) const {
+GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // push name and matrix
     glPushName(getGlID());
     glPushMatrix();
     // Traslate matrix and draw green contour
     glTranslated(myX, myY, getType() + 0.1);
     glRotated(myAngle, 0, 0, 1);
-    // Set Color depending of selection
-    if (isAdditionalSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
-    } else {
-        GLHelper::setColor(RGBColor(0, 255, 0, 255));
+    // only drawn small box if isn't being drawn for selecting
+    if (!s.selectionScale) {
+        // Set Color depending of selection
+        if (isAdditionalSelected()) {
+            GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
+        } else {
+            GLHelper::setColor(RGBColor(0, 255, 0, 255));
+        }
+        GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
     }
-    GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
     // Traslate matrix and draw blue innen
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
@@ -155,9 +158,11 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& ) const {
         GLHelper::setColor(RGBColor(255,200,200, 255));
     }
     GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
-    // Traslate matrix and draw lock icon
-    glTranslated(0, myLength/2, 0.1);
-    drawLockIcon();
+    // Traslate matrix and draw lock icon if isn't being drawn for selecting
+    if (!s.selectionScale) {
+        glTranslated(0, myLength/2, 0.1);
+        drawLockIcon();
+    }
     // pop matrix and name
     glPopMatrix();
     glPopName();
