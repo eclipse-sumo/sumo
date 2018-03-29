@@ -167,8 +167,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(0, -2 + .1);
     glEnd();
 
-    // outline
-    if (width * exaggeration > 1) {
+    // outline if isn't being drawn for selecting
+    if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
@@ -185,8 +185,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
-    // position indicator
-    if (width * exaggeration > 1) {
+    // position indicator if isn't being drawn for selecting
+    if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
@@ -203,8 +203,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // Pop shape matrix
     glPopMatrix();
 
-    // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
+    // Check if the distance is enought to draw details and isn't being drawn for selecting
+    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -225,8 +225,10 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         drawLockIcon();
     }
 
-    // Finish draw
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    // Finish draw if isn't being drawn for selecting
+    if(!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
     glPopName();
 }
 

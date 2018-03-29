@@ -183,29 +183,34 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
-    glColor3d(1, 1, 1);
-    glRotated(180, 0, 0, 1);
-    // Draw icon depending of detector is or isn't selected
-    if (isAdditionalSelected()) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3SELECTED), 1);
+    // Draw icon depending of detector is selected and if isn't being drawn for selecting
+    if(s.drawForSelecting) {
+        GLHelper::setColor(RGBColor::GREY);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), 1);
+        glColor3d(1, 1, 1);
+        glRotated(180, 0, 0, 1);
+        if (isAdditionalSelected()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3SELECTED), 1);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), 1);
+        }
     }
 
     // Pop logo matrix
     glPopMatrix();
 
-    // Show Lock icon depending of the Edit mode
-    drawLockIcon(0.4);
-
-    // Draw connections
-    drawChildConnections();
+    if(!s.drawForSelecting) {
+        // Show Lock icon depending of the Edit mode
+        drawLockIcon(0.4);
+        // Draw connections
+        drawChildConnections();
+    }
+    // Draw name
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 
     // Pop name
     glPopName();
-
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 }
 
 

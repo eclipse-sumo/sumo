@@ -152,16 +152,19 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.7, -.5);
     glVertex2d(1.7, .5);
     glEnd();
+    
+    // draw details if isn't being drawn for selecting
+    if(!s.selectionScale) {
+        // first Arrow
+        glTranslated(1.5, 0, 0);
+        GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+        GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
 
-    // first Arrow
-    glTranslated(1.5, 0, 0);
-    GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-
-    // second Arrow
-    glTranslated(-3, 0, 0);
-    GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-    GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+        // second Arrow
+        glTranslated(-3, 0, 0);
+        GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+        GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+    }
 
     // Pop polygon matrix
     glPopMatrix();
@@ -169,8 +172,8 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     // Pop detector matrix
     glPopMatrix();
 
-    // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
+    // Check if the distance is enought to draw details 
+    if (((s.scale * exaggeration) >= 10)) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -179,8 +182,11 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myBlockIconRotation, 0, 0, -1);
         //move to logo position
         glTranslated(1.9, 0, 0);
-        // draw Entry logo
-        if (isAdditionalSelected()) {
+        // draw Entry logo if isn't being drawn for selecting
+        if( s.selectionScale) {
+            GLHelper::setColor(s.SUMO_color_E3Entry);
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        } else if (isAdditionalSelected()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::drawText("E3", Position(), .1, 2.8, RGBColor(0, 204, 0));
@@ -189,20 +195,26 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(1.7, 0, 0);
         // Rotate depending of myBlockIconRotation
         glRotated(90, 0, 0, 1);
-        // draw Entry text
-        if (isAdditionalSelected()) {
+        // draw Entry text if isn't being drawn for selecting
+        if( s.selectionScale) {
+            GLHelper::setColor(s.SUMO_color_E3Entry);
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        } else if (isAdditionalSelected()) {
             GLHelper::drawText("Entry", Position(), .1, 1, myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::drawText("Entry", Position(), .1, 1, RGBColor(0, 204, 0));
         }
         // pop matrix
         glPopMatrix();
-        // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        // Show Lock icon depending of the Edit mode and if isn't being drawn for selecting
+        if(!s.selectionScale) {
+            drawLockIcon(0.4);
+        }
     }
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-
+    // Draw name if isn't being drawn for selecting
+    if(!s.selectionScale) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
     // pop gl identificator
     glPopName();
 }

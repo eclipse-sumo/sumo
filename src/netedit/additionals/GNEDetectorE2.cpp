@@ -193,8 +193,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Pop last matrix
     glPopMatrix();
 
-    // Check if the distance is enougth to draw details
-    if (s.scale * exaggeration >= 10) {
+    // Check if the distance is enougth to draw details and isn't being drawn for selecting
+    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -216,8 +216,10 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         drawLockIcon();
     }
 
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    // Draw name if isn't being drawn for selecting
+    if(!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
 
     // Pop name
     glPopName();
