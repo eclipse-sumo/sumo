@@ -646,7 +646,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
-                if (myObjectsUnderCursor.controltKeyPressed()) {
+                // make sure that Control key isn't pressed
+                if (!myObjectsUnderCursor.controltKeyPressed()) {
                     // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
