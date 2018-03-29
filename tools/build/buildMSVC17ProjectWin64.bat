@@ -1,1 +1,1 @@
-buildCMakeProject.py "Visual Studio 15 2017 Win64"
+buildCMakeProject.py --generator "Visual Studio 15 2017 Win64"

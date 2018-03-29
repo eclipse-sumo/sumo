@@ -1,1 +1,1 @@
-buildCMakeProject.py "Eclipse CDT4"
+buildCMakeProject.py --generator "Eclipse CDT4"
