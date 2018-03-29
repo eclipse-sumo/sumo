@@ -590,7 +590,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     const double xCornerCut = 0.3 * exaggeration;
     const double yCornerCut = 0.4 * exaggeration;
     // round to closest integer
-    const int numCarriages = (int)(length / (defaultLength + carriageGap) + 0.5);
+    const int numCarriages = MAX2(1, (int)(length / (defaultLength + carriageGap) + 0.5));
     assert(numCarriages > 0);
     const double carriageLengthWithGap = length / numCarriages;
     const double carriageLength = carriageLengthWithGap - carriageGap;
