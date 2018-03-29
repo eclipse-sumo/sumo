@@ -178,9 +178,9 @@ public:
         const ROEdge* const from;
         const ROEdge* const to;
         const std::string lines;
+        const std::string destStop;
         const std::string intended;
         const SUMOTime depart;
-        const std::string destStop;
 
     private:
         /// @brief Invalidated assignment operator
