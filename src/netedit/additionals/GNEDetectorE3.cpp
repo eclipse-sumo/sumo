@@ -183,6 +183,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
+
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
     if(s.drawForSelecting) {
         GLHelper::setColor(RGBColor::GREY);
@@ -206,8 +207,10 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         // Draw connections
         drawChildConnections();
     }
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    // Draw name if isn't being drawn for selecting
+    if(!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
 
     // Pop name
     glPopName();

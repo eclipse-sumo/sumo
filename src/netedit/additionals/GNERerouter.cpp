@@ -240,59 +240,68 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
-    glColor3d(1, 1, 1);
-    glRotated(180, 0, 0, 1);
 
-    // Draw icon depending of rerouter is or isn't selected
-    if (isAdditionalSelected()) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), 1);
+
+    // Draw icon depending of detector is selected and if isn't being drawn for selecting
+    if(s.drawForSelecting) {
+        GLHelper::setColor(RGBColor::RED);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
+        glColor3d(1, 1, 1);
+        glRotated(180, 0, 0, 1);
+        if (isAdditionalSelected()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), 1);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
+        }
     }
 
     // Pop draw matrix
     glPopMatrix();
 
-    // Show Lock icon depending of the Edit mode
-    drawLockIcon(0.4);
+    // Only lock and childs if isn't being drawn for selecting
+    if(!s.drawForSelecting) {
 
-    // Draw symbols in every lane
-    const double exaggeration = s.addSize.getExaggeration(s);
+        // Show Lock icon depending of the Edit mode
+        drawLockIcon(0.4);
 
-    if (s.scale * exaggeration >= 3) {
-        // draw rerouter symbol over all lanes
-        for (auto i : mySymbolsPositionAndRotation) {
-            glPushMatrix();
-            glTranslated(i.first.x(), i.first.y(), getType());
-            glRotated(-1 * i.second, 0, 0, 1);
-            glScaled(exaggeration, exaggeration, 1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        // Draw symbols in every lane
+        const double exaggeration = s.addSize.getExaggeration(s);
 
-            glBegin(GL_TRIANGLES);
-            glColor3d(1, .8f, 0);
-            // base
-            glVertex2d(0 - 1.4, 0);
-            glVertex2d(0 - 1.4, 6);
-            glVertex2d(0 + 1.4, 6);
-            glVertex2d(0 + 1.4, 0);
-            glVertex2d(0 - 1.4, 0);
-            glVertex2d(0 + 1.4, 6);
-            glEnd();
+        if (s.scale * exaggeration >= 3) {
+            // draw rerouter symbol over all lanes
+            for (auto i : mySymbolsPositionAndRotation) {
+                glPushMatrix();
+                glTranslated(i.first.x(), i.first.y(), getType());
+                glRotated(-1 * i.second, 0, 0, 1);
+                glScaled(exaggeration, exaggeration, 1);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-            // draw "U"
-            GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
+                glBegin(GL_TRIANGLES);
+                glColor3d(1, .8f, 0);
+                // base
+                glVertex2d(0 - 1.4, 0);
+                glVertex2d(0 - 1.4, 6);
+                glVertex2d(0 + 1.4, 6);
+                glVertex2d(0 + 1.4, 0);
+                glVertex2d(0 - 1.4, 0);
+                glVertex2d(0 + 1.4, 6);
+                glEnd();
 
-            // draw Probability
-            GLHelper::drawText((toString((int)(myProbability * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+                // draw "U"
+                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
 
-            glPopMatrix();
+                // draw Probability
+                GLHelper::drawText((toString((int)(myProbability * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+
+                glPopMatrix();
+            }
+            glPopName();
         }
-        glPopName();
+
+        // Draw connections
+        drawChildConnections();
     }
-
-    // Draw connections
-    drawChildConnections();
-
     // Pop name
     glPopName();
 

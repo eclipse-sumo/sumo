@@ -229,66 +229,77 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
-    glColor3d(1, 1, 1);
-    glRotated(180, 0, 0, 1);
 
-    // Draw icon depending of variable speed sign is or isn't selected
-    if (isAdditionalSelected()) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), 1);
+    // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
+    if(s.drawForSelecting) {
+        GLHelper::setColor(RGBColor::WHITE);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
+        glColor3d(1, 1, 1);
+        glRotated(180, 0, 0, 1);
+        if (isAdditionalSelected()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), 1);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
+        }
     }
 
     // Pop draw icon matrix
     glPopMatrix();
 
-    // Show Lock icon depending of the Edit mode
-    drawLockIcon(0.4);
+    // Only lock and childs if isn't being drawn for selecting
+    if(!s.drawForSelecting) {
 
-    // obtain exxageration
-    const double exaggeration = s.addSize.getExaggeration(s);
+        // Show Lock icon depending of the Edit mode
+        drawLockIcon(0.4);
 
-    // iterate over symbols and rotation
-    for (auto i : mySymbolsPositionAndRotation) {
-        glPushMatrix();
-        glScaled(exaggeration, exaggeration, 1);
-        glTranslated(i.first.x(), i.first.y(), getType());
-        glRotated(-1 * i.second, 0, 0, 1);
-        glTranslated(0, -1.5, 0);
+        // obtain exxageration
+        const double exaggeration = s.addSize.getExaggeration(s);
 
-        int noPoints = 9;
-        if (s.scale > 25) {
-            noPoints = (int)(9.0 + s.scale / 10.0);
-            if (noPoints > 36) {
-                noPoints = 36;
+        // iterate over symbols and rotation
+        for (auto i : mySymbolsPositionAndRotation) {
+            glPushMatrix();
+            glScaled(exaggeration, exaggeration, 1);
+            glTranslated(i.first.x(), i.first.y(), getType());
+            glRotated(-1 * i.second, 0, 0, 1);
+            glTranslated(0, -1.5, 0);
+
+            int noPoints = 9;
+            if (s.scale > 25) {
+                noPoints = (int)(9.0 + s.scale / 10.0);
+                if (noPoints > 36) {
+                    noPoints = 36;
+                }
             }
-        }
-        glColor3d(1, 0, 0);
-        GLHelper::drawFilledCircle((double) 1.3, noPoints);
-        if (s.scale >= 5) {
-            glTranslated(0, 0, .1);
-            glColor3d(0, 0, 0);
-            GLHelper::drawFilledCircle((double) 1.1, noPoints);
-            // draw the speed string
-            //draw
-            glColor3d(1, 1, 0);
-            glTranslated(0, 0, .1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glColor3d(1, 0, 0);
+            GLHelper::drawFilledCircle((double) 1.3, noPoints);
+            if (s.scale >= 5) {
+                glTranslated(0, 0, .1);
+                glColor3d(0, 0, 0);
+                GLHelper::drawFilledCircle((double) 1.1, noPoints);
+                // draw the speed string
+                //draw
+                glColor3d(1, 1, 0);
+                glTranslated(0, 0, .1);
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-            // draw last value string
-            GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
+                // draw last value string
+                GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
+            }
+            glPopMatrix();
         }
-        glPopMatrix();
+
+        // Draw connections
+        drawChildConnections();
     }
-
-    // Draw connections
-    drawChildConnections();
 
     // Pop symbol matrix
     glPopMatrix();
 
-    // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    // Draw name if isn't being drawn for selecting
+    if(!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
 
     // Pop name
     glPopName();

@@ -225,8 +225,8 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0 + 1.4, 6);
         glEnd();
 
-        // draw text
-        if (s.scale * exaggeration >= 1.) {
+        // draw text if isn't being drawn for selecting
+        if ((s.scale * exaggeration >= 1.) && !s.drawForSelecting) {
             // set color depending of selection status
             RGBColor textColor = isAdditionalSelected() ? myViewNet->getNet()->selectionColor : RGBColor::BLACK;
             // draw "C"

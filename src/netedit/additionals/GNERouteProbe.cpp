@@ -228,7 +228,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glEnd();
 
     // position indicator (White)
-    if (width * exaggeration > 1) {
+    if ((width * exaggeration > 1) && !s.drawForSelecting) {
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
@@ -252,18 +252,23 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glColor3d(1, 1, 1);
     glRotated(-90, 0, 0, 1);
 
-    // Draw icon depending of detector is or isn't selected
-    if (isAdditionalSelected()) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), 1);
+    // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+    if(s.drawForSelecting) {
+        GLHelper::setColor(RGBColor::YELLOW);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), 1);
+        if (isAdditionalSelected()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), 1);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), 1);
+        }
     }
 
     // Pop logo matrix
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
+    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
     }

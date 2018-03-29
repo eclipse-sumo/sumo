@@ -187,8 +187,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(0, -0.25 + .1);
     glEnd();
 
-    // position indicator (White)
-    if (width * exaggeration > 1) {
+    // draw position indicator (White) if isn't being drawn for selecting
+    if ((width * exaggeration > 1) && !s.drawForSelecting) {
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
@@ -209,21 +209,26 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
     glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
-    glColor3d(1, 1, 1);
-    glRotated(-90, 0, 0, 1);
 
-    // Draw icon depending of detector is or isn't selected
-    if (isAdditionalSelected()) {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), 1);
+    // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
+    if(s.drawForSelecting) {
+        GLHelper::setColor(RGBColor::GREEN);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);
+        glColor3d(1, 1, 1);
+        glRotated(-90, 0, 0, 1);
+        if (isAdditionalSelected()) {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), 1);
+        } else {
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);
+        }
     }
 
     // Pop logo matrix
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (s.scale * exaggeration >= 10) {
+    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         drawLockIcon(0.4);
     }
