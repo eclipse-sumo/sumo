@@ -62,6 +62,8 @@ public:
         return myInstance != 0;
     }
 
+    static void cleanup();
+
     static MSStopOut* getInstance() {
         return myInstance;
     }

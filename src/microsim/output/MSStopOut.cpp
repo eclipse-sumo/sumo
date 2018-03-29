@@ -48,6 +48,11 @@ MSStopOut::init() {
     }
 }
 
+void 
+MSStopOut::cleanup() {
+    delete myInstance;
+    myInstance = 0;
+}
 
 // ===========================================================================
 // method definitions

@@ -83,6 +83,7 @@
 #include <microsim/output/MSVTKExport.h>
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSAmitranTrajectories.h>
+#include <microsim/output/MSStopOut.h>
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -614,6 +615,7 @@ MSNet::clearAll() {
     MSCModel_NonInteracting::cleanup();
     MSDevice_BTsender::cleanup();
     MSDevice_SSM::cleanup();
+    MSStopOut::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
     if (t != 0) {
         t->cleanup();
