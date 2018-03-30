@@ -37,17 +37,23 @@ def generate(generator, log=sys.stdout):
     if len(CMAKE) == 0:
         print("""CMake executable wasn't found.
         Please install the last version of Cmake from https://cmake.org/download/,
-        or add the folder of cmake executable to PATH""")
+        or add the folder of cmake executable to PATH""", file=log)
         return None
     print("Searching libraries...", file=log)
     cmakeOpt = ["-DBUILD_GTEST_FROM_GIT=true"]
     # append custom lib dir to search path
-    pathFolders = list(PATH)
+    libFolders = []
     for libDir in (os.path.join(SUMO_HOME, "lib"), os.path.join(SUMO_HOME, "SUMOLibraries"),
                    os.path.join(SUMO_HOME, "..", "SUMOLibraries"), os.path.join(SUMO_HOME, "..", "..", "SUMOLibraries")):
         if os.path.exists(libDir):
-            pathFolders += [os.path.join(libDir, f, "bin") for f in os.listdir(libDir)]
-    for folder in pathFolders:
+            libFolders += [os.path.join(libDir, f, "bin") for f in os.listdir(libDir)]
+    for folder in libFolders + PATH:
+        if generator.endswith("Win64"):
+            if "_64" not in folder and folder.replace("\\bin", "_64\\bin") in libFolders:
+                continue
+        else:
+            if "_64" in folder and folder.replace("_64", "") in libFolders:
+                continue
         if "fox-1.6" in folder.lower():
             os.environ["FOX_LIBRARY"] = folder[:-3] + "lib"
             os.environ["FOX_INCLUDE_DIR"] = folder[:-3] + "include"
