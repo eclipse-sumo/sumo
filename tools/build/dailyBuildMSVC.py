@@ -90,11 +90,12 @@ def runTests(options, env, gitrev, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        # Check if sikulixServer is already opened
-        # if runSikulixServer.checkStatus() == False:
-        #    runSikulixServer.startSikulixServer()
-        subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
-                        stdout=log, stderr=subprocess.STDOUT, shell=True)
+        if not options.no_extended_tests:
+            # Check if sikulixServer is already opened
+            # if runSikulixServer.checkStatus() == False:
+            #    runSikulixServer.startSikulixServer()
+            subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
+                            stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
@@ -122,6 +123,8 @@ optParser.add_option("-u", "--no-update", action="store_true",
                      default=False, help="skip repository update")
 optParser.add_option("-n", "--no-tests", action="store_true",
                      default=False, help="skip tests")
+optParser.add_option("-e", "--no-extended-tests", action="store_true",
+                     default=False, help="skip netedit tests and tests for the debug build")
 optParser.add_option("-c", "--cmake", action="store_true",
                      default=False, help="do a cmake build")
 (options, args) = optParser.parse_args()
@@ -263,6 +266,7 @@ for platform, dllDir in platformDlls:
     runTests(options, env, gitrev)
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
-runTests(options, env, gitrev, "D")
-with open(prefix + "Dstatus.log", 'w') as log:
-    status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
+if not options.no_extended_tests:
+    runTests(options, env, gitrev, "D")
+    with open(prefix + "Dstatus.log", 'w') as log:
+        status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)
