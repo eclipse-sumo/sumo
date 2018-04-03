@@ -682,6 +682,10 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 // add vehicle obstacles
                 addCrossingVehs(nextLane, stripes, offset, nextDir, obs);
             }
+            if (nextLane->getVehicleNumberWithPartials() > 0) {
+                Obstacles vehObs = getVehicleObstacles(nextLane, nextDir);
+                PState::mergeObstacles(obs, vehObs, nextDir, offset);
+            }
             transformToCurrentLanePositions(obs, currentDir, nextDir, currentLength, nextLength);
         }
         nextLanesObs[nextLane] = obs;
@@ -1716,6 +1720,24 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
         }
         if (distanceTo(obs2[i]) < distanceTo(into[i])) {
             into[i] = obs2[i];
+        }
+    }
+}
+
+void
+MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2, int dir, int offset) {
+    for (int i = 0; i < (int)into.size(); ++i) {
+        int i2 = i + offset;
+        if (i2 >= 0 && i2 < obs2.size()) {
+            if (dir == FORWARD) {
+                if (obs2[i2].xBack < into[i].xBack) {
+                    into[i] = obs2[i2];
+                }
+            } else {
+                if (obs2[i2].xFwd > into[i].xFwd) {
+                    into[i] = obs2[i2];
+                }
+            }
         }
     }
 }
