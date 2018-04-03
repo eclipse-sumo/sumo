@@ -69,7 +69,7 @@ private:
     static GUITextureSubSys* myInstance;
 
     /// @brief vector with the Gifs
-    std::map<GUITexture, std::pair<bool, GUIGlID> > myTextures;
+    std::map<GUITexture, GUIGlID> myTextures;
 };
 
 
