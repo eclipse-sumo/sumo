@@ -284,23 +284,34 @@ GNEApplicationWindow::dependentBuild() {
 
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
 
-    //initialize some hotkeys
-    getAccelTable()->addAccel(parseAccel("e"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));
-    getAccelTable()->addAccel(parseAccel("m"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));
-    getAccelTable()->addAccel(parseAccel("d"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));
-    getAccelTable()->addAccel(parseAccel("i"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));
-    getAccelTable()->addAccel(parseAccel("s"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));
-    getAccelTable()->addAccel(parseAccel("c"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));
-    getAccelTable()->addAccel(parseAccel("t"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));
-    getAccelTable()->addAccel(parseAccel("a"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));
-    getAccelTable()->addAccel(parseAccel("r"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));
-    getAccelTable()->addAccel(parseAccel("p"), this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));
+    //initialize some hotkeys using decimal code
+    getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // e
+    getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // E
+    getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // m
+    getAccelTable()->addAccel(77,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // M
+    getAccelTable()->addAccel(100, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));       // d
+    getAccelTable()->addAccel(68,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));       // D
+    getAccelTable()->addAccel(105, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));      // i
+    getAccelTable()->addAccel(73,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));      // I
+    getAccelTable()->addAccel(115, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // s
+    getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // S
+    getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // c
+    getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // C
+    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // t
+    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // T
+    getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // a
+    getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // A
+    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // r
+    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // R
+    getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // p
+    getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
+    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
+    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // V
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
     getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_FOCUSFRAME));
-    getAccelTable()->addAccel(parseAccel("v"), this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));
-    getAccelTable()->addAccel(parseAccel("ctrl+G"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));
+    getAccelTable()->addAccel(parseAccel("ctrl+G"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID)); 
 }
 
 void
