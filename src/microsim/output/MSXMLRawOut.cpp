@@ -36,6 +36,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/pedestrians/MSPModel.h>
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSContainer.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -147,7 +148,7 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
         if (!MSGlobals::gUseMesoSim) {
             const MSVehicle& microVeh = static_cast<const MSVehicle&>(veh);
             // microsim-specific stuff
-            if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
+            if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
                 const double posLat = microVeh.getLateralPositionOnLane();
                 of.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
             }

@@ -1179,7 +1179,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
     std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess> toRemove;
     std::set<const MSVehicle*> toTeleport;
-    if (MSGlobals::gLateralResolution <= 0 && MSGlobals::gLaneChangeDuration <= 0) {
+    if (!MSAbstractLaneChangeModel::haveLateralDynamics()) {
         // no sublanes
         VehCont::iterator lastVeh = myVehicles.end() - 1;
         for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh; ++veh) {
@@ -1396,7 +1396,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 #endif
     if (gap < -NUMERICAL_EPS) {
         double latGap = 0;
-        if (MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0) {
+        if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
             latGap = (fabs(victim->getCenterOnEdge(this) - collider->getCenterOnEdge(this))
                       - 0.5 * fabs(victim->getVehicleType().getWidth() + collider->getVehicleType().getWidth()));
             if (latGap + NUMERICAL_EPS > 0) {

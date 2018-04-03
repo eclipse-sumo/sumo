@@ -101,7 +101,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
-    if (MSGlobals::gLaneChangeDuration > 0 || MSGlobals::gLateralResolution > 0) {
+    if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
         const MSLane* shadowLane = getLaneChangeModel().getShadowLane();
         ret->mkItem("shadow lane [id]", false, shadowLane == 0 ? "" : shadowLane->getID());
     }
