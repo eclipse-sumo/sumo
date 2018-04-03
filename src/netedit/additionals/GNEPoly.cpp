@@ -269,8 +269,19 @@ void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
-    // draw geometry details hints if is not too small
-    if (s.scale * myHintSize > 1.) {
+    // push matrix
+    glPushName(getGlID());
+    // draw geometry details hints if is not too small and isn't in selecting mode
+    if(s.drawForSelecting) {
+        GLHelper::setColor(GLHelper::getColor().changedBrightness(-32));
+        // draw points of shape in low resolution
+        for (auto i : myShape) {
+            glPushMatrix();
+            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+            GLHelper:: drawFilledCircle(myHintSize, 8);
+            glPopMatrix();
+        }
+    } else if (s.scale * myHintSize > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
@@ -285,8 +296,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);
         }
-        // push matrix
-        glPushName(getGlID());
         // Draw geometry hints if polygon's shape isn't blocked
         if (myBlockShape == false) {
             // draw a boundary for moving using darkerColor
@@ -334,9 +343,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
         }
-        // pop name
-        glPopName();
     }
+    // pop name
+    glPopName();
 }
 
 

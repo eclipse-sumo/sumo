@@ -204,14 +204,16 @@ GNEPOI::getCenteringBoundary() const {
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
-    // draw a label with the type of POI
-    if(myGNELane) {
-        GLHelper::drawText("POI Lane", *this, getShapeLayer() + .1, 0.6, getShapeColor().invertedColor());
-    } else {
-        GLHelper::drawText("POI", *this, getShapeLayer() + .1, 0.6, getShapeColor().invertedColor());
-    }
+    // draw a label with the type of POI if isn't in selecting mode
+    if(!s.drawForSelecting) {
+        if(myGNELane) {
+            GLHelper::drawText("POI Lane", *this, getShapeLayer() + .1, 0.6, getShapeColor().invertedColor());
+        } else {
+            GLHelper::drawText("POI", *this, getShapeLayer() + .1, 0.6, getShapeColor().invertedColor());
+        }
     // draw lock icon
     drawLockIcon(*this + Position(0, -0.5), GLO_POI, 0.2);
+    }
 }
 
 

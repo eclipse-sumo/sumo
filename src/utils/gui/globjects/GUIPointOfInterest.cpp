@@ -112,19 +112,25 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                                               -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
-                                               myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
+                                                -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
+                                                myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
         }
     } else {
         // fallback if no image is defined
-        GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 16);
+        if(s.drawForSelecting) {
+            GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
+        } else {
+            GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 16);
+        }
     }
     glPopMatrix();
-    const Position namePos = *this;
-    drawName(namePos, s.scale, s.poiName, s.angle);
-    if (s.poiType.show) {
-        GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
-                           GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
+    if(!s.drawForSelecting) {
+        const Position namePos = *this;
+        drawName(namePos, s.scale, s.poiName, s.angle);
+        if (s.poiType.show) {
+            GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
+                               GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
+        }
     }
     glPopName();
 }
