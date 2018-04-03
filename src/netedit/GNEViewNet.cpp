@@ -527,7 +527,9 @@ GNEViewNet::finishMoveSelection() {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
-    // init view settings
+    // init view settings 
+    // (uncomment the next line to check select mode)
+    // myVisualizationSettings->drawForSelecting = true;
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -626,8 +628,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
 
     glTranslated(0, 0, GLO_ADDITIONAL);
-    for (std::map<const GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
-        (i->first)->drawGLAdditional(this, *myVisualizationSettings);
+    for (auto i : myAdditionallyDrawn) {
+        i.first->drawGLAdditional(this, *myVisualizationSettings);
     }
 
     glPopMatrix();

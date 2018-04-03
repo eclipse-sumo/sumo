@@ -280,7 +280,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // recognize full transparency and simply don't draw
     GLfloat color[4];
     glGetFloatv(GL_CURRENT_COLOR, color);
-    if (color[3] == 0 || s.scale * exaggeration < s.laneMinSize) {
+    if ((color[3] == 0) || (s.scale * exaggeration < s.laneMinSize)) {
         // Pop draw matrix 1
         glPopMatrix();
     } else if (s.scale * exaggeration < 1.) {
@@ -327,7 +327,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(current);
             // Draw crossties
             GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
-        } else {
+        } 
+        else {
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
             } else {
@@ -364,9 +365,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if ((OptionsCont::getOptions().getBool("disable-laneIcons") == false) && 
-            (myLaneRestrictedTexturePositions.size() > 0) && 
-            (s.scale >= 10) && !s.drawForSelecting) {
+        if (!s.drawForSelecting && !OptionsCont::getOptions().getBool("disable-laneIcons") && (myLaneRestrictedTexturePositions.size() > 0) &&  (s.scale >= 10)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different

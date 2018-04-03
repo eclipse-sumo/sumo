@@ -83,8 +83,8 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
         myLanes.back()->incRef("GNEEdge::GNEEdge");
     }
     // update Lane geometries
-    for (LaneVector::iterator i = myLanes.begin(); i != myLanes.end(); i++) {
-        (*i)->updateGeometry();
+    for (auto i : myLanes) {
+        i->updateGeometry();
     }
 }
 
@@ -407,21 +407,23 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     */
     // obtain resolution for points
     int circleResolution = 0;
-    if (s.scale >= 10) {
-        circleResolution = 32;
-    } else if (s.scale >= 2) {
-        circleResolution = 16;
-    } else if (s.scale >= 1) {
-        circleResolution = 8;
-    } else {
-        circleResolution = 4;
+    if(!s.drawForSelecting) {
+        if (s.scale >= 10) {
+            circleResolution = 32;
+        } else if (s.scale >= 2) {
+            circleResolution = 16;
+        } else if (s.scale >= 1) {
+            circleResolution = 8;
+        } else {
+            circleResolution = 4;
+        }
     }
     // draw the lanes
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw geometry hints if isn't being drawn for selecting
-    if ((s.scale > 3.0) && !s.selectionScale) { // check whether it is not too small
+    // draw geometry hints if isn't in selecting mode
+    if (!s.drawForSelecting && (s.scale > 3.0)) { // check whether it is not too small
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         if (isNetElementSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
@@ -442,7 +444,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
             }
-            // draw line geometry and start and end points if shapeStart or shape end are edited
+            // draw line geometry and start and end points if shapeStart or shape end are edited and isn't in selecting mode
             if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION - 0.01);
@@ -485,8 +487,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // (optionally) draw the name and/or the street name if isn't being drawn for selecting
-    const bool drawStreetName = s.streetName.show && myNBEdge.getStreetName() != "";
-    if ((s.edgeName.show || drawStreetName) && !s.selectionScale) {
+    const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
+    if (!s.drawForSelecting && (s.edgeName.show || drawStreetName)) {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];
