@@ -4,7 +4,6 @@ Warning: Selected shape 'poiLane' in ShapeSelector
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poiLane 'POI_1' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Value 'POI_1' for attribute id of poiLane isn't valid
 Warning: Setting new attribute id '' into poiLane 'POI_0'
 Warning: Value 'ID with spaces' for attribute id of poiLane isn't valid
@@ -53,7 +52,6 @@ Warning: Setting new attribute angle '-12' into poiLane 'newID'
 Warning: Setting new attribute angle '500' into poiLane 'newID'
 Warning: Setting new attribute angle '30' into poiLane 'newID'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'newID'
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed

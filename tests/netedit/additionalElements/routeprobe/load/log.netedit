@@ -28,8 +28,6 @@ Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Warning: Format of optional time attribute 'begin' of routeProbe with ID 'routeProbe_16' is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
-Warning: Loaded texture Route Probe in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

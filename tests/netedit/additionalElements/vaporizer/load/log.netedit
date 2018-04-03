@@ -24,8 +24,6 @@ Warning: Format of optional time attribute 'end' of vaporizer is invalid; Time c
 Warning: Adding vaporizer 'vaporizer_9' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_10' in GNEChange_Additional
 Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
-Warning: Loaded texture Vaporizer in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

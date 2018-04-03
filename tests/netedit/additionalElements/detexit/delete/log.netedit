@@ -7,8 +7,6 @@ Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_4detExit0' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'e3Detector' in AdditionalSelector
 Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
@@ -29,9 +27,17 @@ Warning: Adding TLS into junction 'gneJ0'
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Deleting TLS from junction 'gneJ0'
 Warning: Adding TLS into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Setting new attribute type 'priority' into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Setting new attribute type 'priority' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Adding edge 'gneE0' from net
+Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
+Warning: Adding TLS into junction 'gneJ1'
+Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
+Warning: Adding TLS into junction 'gneJ0'
 Warning: Removing TLS from junction 'gneJ0'
 Warning: Adding TLS into junction 'gneJ0'
 Warning: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
@@ -73,13 +79,15 @@ Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
 Warning: Deleting TLS from junction 'gneJ0'
 Warning: Adding TLS into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ0'
+Warning: Setting new attribute type 'priority' into junction 'gneJ0'
+Warning: Deleting TLS from junction 'gneJ1'
+Warning: Setting new attribute type 'priority' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
 Warning: e3Detector with ID 'e3Detector_1' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_4' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_5' cannot be writed in additional file because doesn't have childs.
 Warning: Additionals saved
-Warning: The traffic light 'gneJ1' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'gneJ1'
 Warning: Deleting unreferenced edge 'gneE0' GNEChange_Edge
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced detExit 'e3Detector_5detExit0'

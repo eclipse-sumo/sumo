@@ -19,8 +19,7 @@ Warning: Adding poiLane 'POI_6' into viewNet
 Warning: Adding poiLane 'POI_7' into viewNet
 Warning: Adding poiLane 'POI_8' into viewNet
 Warning: Adding poiLane 'POI_9' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -66,7 +65,6 @@ Warning: Setting new attribute selected 'true' into poiLane 'POI_8'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 17 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_9'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
-Warning: Loaded texture empty selected in GUITextureSubSys::getTexture
 Warning: Setting new attribute posLat '0' into poiLane 'POI_0'
 Warning: Setting new attribute posLat '0' into poiLane 'POI_1'
 Warning: Setting new attribute posLat '0' into poiLane 'POI_10'
@@ -508,7 +506,6 @@ Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_6'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_7'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_8'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_9'
-Warning: Loaded texture lock selected in GUITextureSubSys::getTexture
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Setting new attribute selected 'false' into edge 'gneE1'
 Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
@@ -572,7 +569,6 @@ Warning: Setting new attribute selected 'false' into poiLane 'POI_6'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_7'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_8'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_9'
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '0' into poiLane 'POI_9'
 Warning: Setting previous attribute selected '0' into poiLane 'POI_8'
@@ -745,17 +741,17 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
@@ -765,7 +761,7 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_0'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_27Mar190417.1584/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_9'
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_8'

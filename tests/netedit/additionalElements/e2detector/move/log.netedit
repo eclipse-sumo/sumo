@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'e2Detector' in AdditionalSelector
 Warning: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Setting new attribute pos '11.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '18.00' into e2Detector 'e2Detector_gneE0_0_0'
 Warning: Setting new attribute pos '28.00' into e2Detector 'e2Detector_gneE0_0_0'

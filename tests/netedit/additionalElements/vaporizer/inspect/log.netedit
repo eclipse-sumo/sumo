@@ -3,8 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'vaporizer' in AdditionalSelector
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture Vaporizer in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
 Warning: Setting new attribute edge 'gneE0' into vaporizer 'vaporizer_0'
 Warning: Setting new attribute startTime '0' into vaporizer 'vaporizer_0'

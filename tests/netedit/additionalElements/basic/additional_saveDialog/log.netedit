@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'busStop' in AdditionalSelector
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Opening FXMessageBox 'Save additionals before exit'

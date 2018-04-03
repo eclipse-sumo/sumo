@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -17,7 +16,6 @@ Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Loaded texture empty selected in GUITextureSubSys::getTexture
 Warning: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
 Warning: Value '-5' for attribute roadsideCapacity of parkingArea isn't valid
 Warning: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaA'
@@ -50,7 +48,6 @@ Warning: Setting new attribute angle '32.5' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute angle '32.5' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute blockMovement 'true' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute blockMovement 'true' into parkingArea 'parkingAreaB'
-Warning: Loaded texture lock selected in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute blockMovement '0' into parkingArea 'parkingAreaA'

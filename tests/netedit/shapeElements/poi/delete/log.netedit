@@ -3,8 +3,7 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding poi 'POI_img' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poi 'POI_nonDeleted' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.27Mar190417.980/netedit.gui/shapeElements/poi/delete\berlin_icon.ico' in GUITexturesHelper::getTextureID
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poi/delete\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Removing poi 'POI_0' from viewNet

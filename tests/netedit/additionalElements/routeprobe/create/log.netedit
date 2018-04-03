@@ -3,8 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'routeProbe' in AdditionalSelector
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture Route Probe in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Adding routeProbe 'routeProbe_gneE1_1' in GNEChange_Additional
 Warning: Invalid input parameter of routeProbe: 'freq' cannot be negative
 Warning: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional

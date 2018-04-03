@@ -14,8 +14,6 @@ Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Loaded texture E3 in GUITextureSubSys::getTexture
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -106,18 +104,12 @@ Warning: Setting new attribute keepClear 'false' into connection 'fromgneE19_0to
 Warning: Setting new attribute keepClear 'false' into junction 'gneJ17'
 Warning: Key F5 (Compute) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute keepClear '1' into junction 'gneJ17'
-Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute keepClear '0' into junction 'gneJ17'
 Warning: Setting previous attribute keepClear '1' into connection 'fromgneE19_0to-gneE13_0'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute keepClear '1' into connection 'fromgneE19_0togneE14_0'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute keepClear '1' into connection 'fromgneE13_0togneE14_0'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute keepClear '1' into connection 'fromgneE13_0to-gneE19_0'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute keepClear '1' into connection 'from-gneE14_0to-gneE19_0'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute keepClear '1' into connection 'from-gneE14_0to-gneE13_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute radius '-1.00' into junction 'gneJ17'
@@ -151,7 +143,55 @@ Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ3'
 Warning: Removing TLS from junction 'gneJ3'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type 'priority' into junction 'gneJ2'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type 'dead_end' into junction 'gneJ1'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type 'dead_end' into junction 'OwnID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute pos '0.00,60.00' into junction 'OwnID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute id '' into junction 'OwnID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute id 'gneJ0' into junction ''
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Warning: Removing busStop 'busStop_gneE6_0_9' in GNEChange_Additional
+Warning: Removing busStop 'busStop_gneE5_0_8' in GNEChange_Additional
+Warning: Removing busStop 'busStop_gneE4_0_7' in GNEChange_Additional
+Warning: Removing busStop 'busStop_gneE2_0_0' in GNEChange_Additional
+Warning: Removing busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
+Warning: Removing busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
+Warning: Removing busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
+Warning: Removing busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
+Warning: Removing busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Warning: Key F5 (Compute) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
+Warning: Adding busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE2_0_0' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
+Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute id '' into junction 'gneJ0'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute id 'OwnID' into junction ''
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute pos '20.00,50.00' into junction 'OwnID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type 'allway_stop' into junction 'OwnID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type 'allway_stop' into junction 'gneJ1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'allway_stop' into junction 'gneJ2'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -186,17 +226,11 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute radius '2' into junction 'gneJ17'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into connection 'from-gneE14_0to-gneE13_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into connection 'from-gneE14_0to-gneE19_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into connection 'fromgneE13_0to-gneE19_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into connection 'fromgneE13_0togneE14_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into connection 'fromgneE19_0togneE14_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into connection 'fromgneE19_0to-gneE13_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute keepClear 'false' into junction 'gneJ17'
 Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'

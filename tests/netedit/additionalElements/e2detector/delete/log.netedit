@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding e2Detector 'E2_02' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected additional 'e2Detector' in AdditionalSelector
 Warning: Adding e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
 Warning: Removing e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional

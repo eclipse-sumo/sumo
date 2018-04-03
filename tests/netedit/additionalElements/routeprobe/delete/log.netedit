@@ -3,8 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
-Warning: Loaded texture Route Probe in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Selected additional 'routeProbe' in AdditionalSelector
 Warning: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
 Warning: Removing routeProbe 'routeProbe_01' in GNEChange_Additional

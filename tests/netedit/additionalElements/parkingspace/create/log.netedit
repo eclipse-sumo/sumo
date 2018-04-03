@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected additional 'space' in AdditionalSelector
 Warning: Invalid input parameter of space: A parkingArea must be selected before insertion of space.
 Warning: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
@@ -25,7 +24,6 @@ Warning: Adding space 'parkingArea_gneE0_0_0space5' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space6' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space7' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing space 'parkingArea_gneE0_0_0space8' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed

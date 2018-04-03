@@ -3,13 +3,11 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected additional 'space' in AdditionalSelector
 Warning: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
 Warning: Setting new attribute x '34.00' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute y '9.00' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute blockMovement 'true' into space 'parkingArea_gneE0_0_0space0'
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Setting new attribute blockMovement 'false' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute x '16.00' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute y '14.00' into space 'parkingArea_gneE0_0_0space0'

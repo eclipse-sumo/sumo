@@ -1,6 +1,5 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()

@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Setting new attribute startPos '8.00' into parkingArea 'parkingArea_gneE0_0_0'
 Warning: Setting new attribute endPos '18.00' into parkingArea 'parkingArea_gneE0_0_0'
 Warning: Setting new attribute startPos '15.00' into parkingArea 'parkingArea_gneE0_0_0'

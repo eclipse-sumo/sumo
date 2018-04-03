@@ -3,8 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
-Warning: Loaded texture Rerouter in GUITextureSubSys::getTexture
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'rerouter' in AdditionalSelector
 Warning: Adding rerouter 'rerouter_3' in GNEChange_Additional

@@ -15,8 +15,7 @@ Warning: Adding poi 'POI_10' into viewNet
 Warning: Adding poi 'POI_11' into viewNet
 Warning: Adding poi 'POI_12' into viewNet
 Warning: Adding poi 'POI_13' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.27Mar190417.980/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.63'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -71,7 +70,6 @@ Warning: Setting new attribute selected 'true' into poi 'POI_12'
 Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 12 POIs
 Warning: Setting new attribute selected 'true' into poi 'POI_13'
 Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 13 POIs
-Warning: Loaded texture empty selected in GUITextureSubSys::getTexture
 Warning: Value 'Jren' for attribute color of poi isn't valid
 Warning: Setting new attribute color 'green' into poi 'POI_01'
 Warning: Setting new attribute color 'green' into poi 'POI_02'
@@ -271,7 +269,6 @@ Warning: Setting new attribute blockMovement 'true' into poi 'POI_10'
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_11'
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_12'
 Warning: Setting new attribute blockMovement 'true' into poi 'POI_13'
-Warning: Loaded texture lock selected in GUITextureSubSys::getTexture
 Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 13 POIs
 Warning: Setting new attribute selected 'false' into edge 'gneE3'
 Warning: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 13 POIs
@@ -338,7 +335,6 @@ Warning: Setting new attribute selected 'false' into poi 'POI_10'
 Warning: Setting new attribute selected 'false' into poi 'POI_11'
 Warning: Setting new attribute selected 'false' into poi 'POI_12'
 Warning: Setting new attribute selected 'false' into poi 'POI_13'
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '0' into poi 'POI_13'
 Warning: Setting previous attribute selected '0' into poi 'POI_12'

@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'containerStop' in AdditionalSelector
 Warning: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Adding containerStop 'containerStop_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'containerStop_gneE2_1_1' for attribute id of containerStop isn't valid
 Warning: Value 'Id with spaces' for attribute id of containerStop isn't valid

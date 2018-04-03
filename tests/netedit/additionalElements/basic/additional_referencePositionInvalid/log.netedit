@@ -4,7 +4,6 @@ Warning: Selected additional 'busStop' in AdditionalSelector
 Warning: Invalid input parameter of busStop: Current selected reference point isn't valid
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

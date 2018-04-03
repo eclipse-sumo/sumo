@@ -5,8 +5,6 @@ Warning: Selected additional 'rerouter' in AdditionalSelector
 Warning: Invalid input parameter of rerouter: List of edges cannot be empty
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture Rerouter in GUITextureSubSys::getTexture
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Invalid input parameter of rerouter: 'probability' takes only values between 0 and 1
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Invalid input parameter of rerouter: 'timeThreshold' doesn't have a valid 'float' format

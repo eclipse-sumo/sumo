@@ -13,7 +13,6 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -57,7 +56,6 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
-Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Shapes saved
 Warning: Removing poi 'POI_9' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_9' in ~GNEChange_Shape()

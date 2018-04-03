@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding chargingStation 'chargingStation_1' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected additional 'chargingStation' in AdditionalSelector
 Warning: Adding chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
 Warning: Removing chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional

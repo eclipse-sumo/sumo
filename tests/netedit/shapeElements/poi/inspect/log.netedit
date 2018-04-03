@@ -4,7 +4,6 @@ Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poi 'POI_1' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Value 'POI_1' for attribute id of poi isn't valid
 Warning: Setting new attribute id '' into poi 'POI_0'
 Warning: Value 'ID with spaces' for attribute id of poi isn't valid

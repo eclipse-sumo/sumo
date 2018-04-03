@@ -3,11 +3,9 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'containerStop' in AdditionalSelector
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Setting new attribute startPos '23.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute endPos '33.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into containerStop 'containerStop_gneE0_0_0'
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Setting new attribute blockMovement 'false' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute startPos '30.00' into containerStop 'containerStop_gneE0_0_0'
 Warning: Setting new attribute endPos '40.00' into containerStop 'containerStop_gneE0_0_0'

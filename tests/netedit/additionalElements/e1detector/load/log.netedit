@@ -37,7 +37,6 @@ Warning: Format of optional bool attribute 'friendlyPos' of e1Detector with ID '
 Warning: Adding e1Detector 'E1_21' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_22' in GNEChange_Additional
 Warning: Adding e1Detector 'E1_23' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

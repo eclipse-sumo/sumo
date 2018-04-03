@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'busStop' in AdditionalSelector
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Adding busStop 'busStop_gneE0_0_1' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE0_0_3' in GNEChange_Additional

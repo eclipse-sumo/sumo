@@ -24,8 +24,6 @@ Warning: Adding poi 'POI_9' into viewNet
 Warning: Adding poi 'POI_10' into viewNet
 Warning: Adding poi 'POI_11' into viewNet
 Warning: Setting new attribute blockMovement '1' into poi 'POI_11'
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poi 'POI_11'
 Warning: Removing poi 'POI_11' from viewNet

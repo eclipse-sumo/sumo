@@ -15,11 +15,6 @@ Warning: Adding space 'parkingArea_gneE1_0_0space1' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE1_0_0space2' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
-Warning: Loaded texture Variable Speed Sign in GUITextureSubSys::getTexture
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
-Warning: Loaded texture E3 in GUITextureSubSys::getTexture
-Warning: Loaded texture Rerouter in GUITextureSubSys::getTexture
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -41,7 +36,6 @@ Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE1_0_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Warning: Loaded texture Lane Pedestrian in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

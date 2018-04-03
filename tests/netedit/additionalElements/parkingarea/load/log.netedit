@@ -57,7 +57,6 @@ Warning: Adding parkingArea 'parkingArea_29' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_30' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_31' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_32' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

@@ -3,8 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'vaporizer' in AdditionalSelector
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture Vaporizer in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
 Warning: Invalid input parameter of vaporizer: 'startTime' cannot be negative
 Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional

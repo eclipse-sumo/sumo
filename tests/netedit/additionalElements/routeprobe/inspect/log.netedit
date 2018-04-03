@@ -3,8 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'routeProbe' in AdditionalSelector
 Warning: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture Route Probe in GUITextureSubSys::getTexture
-Warning: Loaded texture not moving in GUITextureSubSys::getTexture
 Warning: Adding routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
 Warning: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
 Warning: Value 'Id with spaces' for attribute id of routeProbe isn't valid

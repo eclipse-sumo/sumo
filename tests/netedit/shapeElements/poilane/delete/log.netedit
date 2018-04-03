@@ -3,7 +3,6 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poiLane 'POI_nonDeleted' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Selected shape 'poiLane' in ShapeSelector
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Removing poiLane 'POI_1' from viewNet

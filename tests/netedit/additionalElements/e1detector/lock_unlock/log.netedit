@@ -3,10 +3,8 @@ Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'e1Detector' in AdditionalSelector
 Warning: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Setting new attribute pos '28.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Setting new attribute blockMovement 'true' into e1Detector 'e1Detector_gneE0_0_0'
-Warning: Loaded texture lock in GUITextureSubSys::getTexture
 Warning: Setting new attribute blockMovement 'false' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Setting new attribute pos '35.00' into e1Detector 'e1Detector_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
