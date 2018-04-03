@@ -1021,9 +1021,27 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
 MSPModel_Striping::Obstacles 
 MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped) {
     const int stripes = numStripes(lane);
-    const PState& p = *ped;
     Obstacles vehObs(stripes, Obstacle(dir));
-    const int current = p.stripe();
+    int current = -1;
+    int minX = 0;
+    int maxX = 0;
+    double pRelY = -1;
+    double pWidth = 0;
+    std::string pID;
+    bool debug = DEBUGCOND2(lane);
+    if (ped != 0) {
+        current = ped->stripe();
+        minX = ped->getMinX();
+        maxX = ped->getMaxX();
+        pRelY = ped->myRelY;
+        pWidth = ped->myPerson->getVehicleType().getWidth();
+        pID = ped->myPerson->getID();
+        debug = DEBUGCOND(*ped);
+    } else if (dir == BACKWARD) {
+        // checking vehicles on the next lane. Use entry point as reference
+        minX = lane->getLength();
+        maxX = lane->getLength();
+    }
     MSLane::AnyVehicleIterator begin = (dir == FORWARD ? lane->anyVehiclesUpstreamBegin() : lane->anyVehiclesBegin());
     MSLane::AnyVehicleIterator end = (dir == FORWARD ? lane->anyVehiclesUpstreamEnd() : lane->anyVehiclesEnd());
     for (MSLane::AnyVehicleIterator it = begin; it != end; ++it) {
@@ -1033,8 +1051,8 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
         // ensure that vehicles are not blocked
         const double vehNextSpeed = MAX2(veh->getSpeed(), 1.0);
         const double clearance = SAFETY_GAP + vehNextSpeed * LOOKAHEAD_SAMEDIR;
-        if ((dir == FORWARD && vehFront + clearance > p.getMinX() && vehBack <= p.getMaxX() + LOOKAHEAD_SAMEDIR)
-                || (dir == BACKWARD && vehBack < p.getMaxX() && vehFront >= p.getMinX() - LOOKAROUND_VEHICLES)) {
+        if ((dir == FORWARD && vehFront + clearance > minX && vehBack <= maxX + LOOKAHEAD_SAMEDIR)
+                || (dir == BACKWARD && vehBack < maxX && vehFront >= minX - LOOKAROUND_VEHICLES)) {
             Obstacle vo(vehBack, veh->getSpeed(), OBSTACLE_VEHICLE, veh->getID(), 0);
             // moving vehicles block space along their path
             vo.xFwd += veh->getVehicleType().getLength() + clearance;
@@ -1043,13 +1061,13 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
             // XXX lateral offset for partial vehicles
             const double vehYmax = 0.5 * (lane->getWidth() + veh->getVehicleType().getWidth() - stripeWidth) - veh->getLateralPositionOnLane();
             const double vehYmin = vehYmax - veh->getVehicleType().getWidth();
-            for (int s = MAX2(0, p.stripe(vehYmin)); s < MIN2(p.stripe(vehYmax) + 1, stripes); ++s) {
+            for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax) + 1, stripes); ++s) {
                 vehObs[s] = vo;
-                if (s == current && vehFront + SAFETY_GAP < p.getMinX()) {
+                if (s == current && vehFront + SAFETY_GAP < minX) {
                     // ignore if aleady overlapping while vehicle is still behind
-                    if (p.myRelY - p.myPerson->getVehicleType().getWidth() < vehYmax &&
-                            p.myRelY + p.myPerson->getVehicleType().getWidth() > vehYmin && dir == FORWARD) {
-                        if DEBUGCOND(p) {
+                    if (pRelY - pWidth < vehYmax &&
+                            pRelY + pWidth > vehYmin && dir == FORWARD) {
+                        if (debug) {
                             std::cout << "   ignoring vehicle on stripe " << s << "\n";
                         }
                         if (dir == FORWARD) {
@@ -1060,14 +1078,14 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
                     }
                 }
             }
-            if DEBUGCOND(p) {
-                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID()
+            if (debug) {
+                std::cout << SIMTIME << " ped=" << pID << " veh=" << veh->getID() << " obstacle on lane=" << lane->getID()
                     << "\n"
                     << "     ymin=" << vehYmin
                     << " ymax=" << vehYmax
                     << " smin=" << PState::stripe(vehYmin)
                     << " smax=" << PState::stripe(vehYmax)
-                    << " relY=" << p.myRelY
+                    << " relY=" << pRelY
                     << " current=" << current
                     << "\n";
             }
