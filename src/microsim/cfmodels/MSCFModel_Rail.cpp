@@ -68,7 +68,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType
     setMaxDecel(myTrainParams.decl);
     // update type parameters so they are shown correctly in the gui (if defaults from trainType are used)
     const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
-    //const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
+    const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
 }
 
