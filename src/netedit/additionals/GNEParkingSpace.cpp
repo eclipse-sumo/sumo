@@ -140,7 +140,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(myX, myY, getType() + 0.1);
     glRotated(myAngle, 0, 0, 1);
     // only drawn small box if isn't being drawn for selecting
-    if (!s.selectionScale) {
+    if (!s.drawForSelecting) {
         // Set Color depending of selection
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
@@ -159,7 +159,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
     // Traslate matrix and draw lock icon if isn't being drawn for selecting
-    if (!s.selectionScale) {
+    if (!s.drawForSelecting) {
         glTranslated(0, myLength/2, 0.1);
         drawLockIcon();
     }

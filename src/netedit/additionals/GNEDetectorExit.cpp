@@ -154,7 +154,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     glEnd();
 
     // draw details if isn't being drawn for selecting
-    if(!s.selectionScale) {
+    if(!s.drawForSelecting) {
         // first Arrow
         glTranslated(1.5, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -183,36 +183,36 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
         //move to logo position
         glTranslated(1.9, 0, 0);
         // draw Entry logo if isn't being drawn for selecting
-        if( s.selectionScale) {
+        if(s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Exit);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAdditionalSelected()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, myViewNet->getNet()->selectedAdditionalColor);
         } else {
-            GLHelper::drawText("E3", Position(), .1, 2.8, RGBColor(0, 204, 0));
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Exit);
         }
         //move to logo position
         glTranslated(1.7, 0, 0);
         // Rotate depending of myBlockIconRotation
         glRotated(90, 0, 0, 1);
         // draw Entry text if isn't being drawn for selecting
-        if( s.selectionScale) {
+        if(s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Exit);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAdditionalSelected()) {
             GLHelper::drawText("Exit", Position(), .1, 1, myViewNet->getNet()->selectedAdditionalColor);
         } else {
-            GLHelper::drawText("Exit", Position(), .1, 1, RGBColor(0, 204, 0));
+            GLHelper::drawText("Exit", Position(), .1, 1, s.SUMO_color_E3Exit);
         }
         // pop matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode and if isn't being drawn for selecting
-        if(!s.selectionScale) {
+        if(!s.drawForSelecting) {
             drawLockIcon(0.4);
         }
     }
     // Draw name if isn't being drawn for selecting
-    if(!s.selectionScale) {
+    if(!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // pop gl identificator
