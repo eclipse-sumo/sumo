@@ -386,6 +386,10 @@ MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {
 
 void
 MSAbstractLaneChangeModel::updateShadowLane() {
+    if (!haveLateralDynamics()) {
+        // assume each vehicle drives at the center of its lane and act as if it fits
+        return;
+    }
     if (myShadowLane != 0) {
         if (debugVehicle()) {
             std::cout << SIMTIME << " updateShadowLane()\n";
