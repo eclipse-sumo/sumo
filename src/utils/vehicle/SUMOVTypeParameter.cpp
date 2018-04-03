@@ -152,7 +152,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             break;
         case SVC_RAIL:
             length = 67.5 * 2;
-            maxSpeed = 1600. / 3.6;
+            maxSpeed = 160. / 3.6;
             width = 2.84;
             height = 3.75;
             shape = SVS_RAIL;

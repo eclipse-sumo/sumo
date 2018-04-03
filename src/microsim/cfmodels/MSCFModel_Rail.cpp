@@ -57,7 +57,18 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType
         WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
         throw ProcessError();
     }
+    // override with user values
+    if (vtype->wasSet(VTYPEPARS_MAXSPEED_SET)) {
+        myTrainParams.vmax = vtype->getMaxSpeed();
+    }
+    if (vtype->wasSet(VTYPEPARS_LENGTH_SET)) {
+        myTrainParams.length = vtype->getLength();
+    }
+    myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
+    // update type parameters so they are shown correctly in the gui (if defaults from trainType are used)
+    const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
+    //const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
 }
 
