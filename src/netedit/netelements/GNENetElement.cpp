@@ -44,11 +44,7 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
 }
 
 
-GNENetElement::~GNENetElement() {
-    if(mySelected) {
-        myNet->unselectAttributeCarrier(getType(), this, false);    
-    }
-}
+GNENetElement::~GNENetElement() {}
 
 
 GNENet*

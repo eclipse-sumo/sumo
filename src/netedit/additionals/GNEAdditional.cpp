@@ -106,11 +106,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 }
 
 
-GNEAdditional::~GNEAdditional() {
-    if(mySelected) {
-        myViewNet->getNet()->unselectAttributeCarrier(getType(), this, false);
-    }
-}
+GNEAdditional::~GNEAdditional() {}
 
 
 void

@@ -141,6 +141,10 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         // delete non retrieved GNECrossings
         for (auto it : myGNECrossings) {
             it->decRef();
+            // check if crossing is selected
+            if(it->isNetElementSelected()) {
+                myNet->unselectAttributeCarrier(GLO_CROSSING, it);
+            }
             if (it->unreferenced()) {
                 // show extra information for tests
                 if (OptionsCont::getOptions().getBool("gui-testing-debug")) {

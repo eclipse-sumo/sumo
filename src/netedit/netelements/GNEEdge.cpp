@@ -634,6 +634,10 @@ void
 GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
     for (auto i : myGNEConnections) {
+        // check if connection is selected
+        if(i->isNetElementSelected()) {
+            myNet->unselectAttributeCarrier(GLO_CONNECTION, i);
+        }
         // Dec reference of connection
         i->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced
@@ -1210,6 +1214,10 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
         myLanes.push_back(lane);
     }
     lane->incRef("GNEEdge::addLane");
+    // check if lane is selected
+    if(lane->isNetElementSelected()) {
+        myNet->selectAttributeCarrier(GLO_LANE, lane);
+    }
     // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge.setSpeed(lane->getIndex(), laneAttrs.speed);
     myNBEdge.setPermissions(laneAttrs.permissions, lane->getIndex());
@@ -1246,6 +1254,10 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     }
     if (lane == 0) {
         lane = myLanes.back();
+    }
+    // check if lane is selected
+    if(lane->isNetElementSelected()) {
+        myNet->unselectAttributeCarrier(GLO_LANE, lane);
     }
     // Delete lane of edge's container
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -1320,6 +1332,10 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     if (con != nullptr) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
+        // check if connection is selected
+        if(con->isNetElementSelected()) {
+            myNet->unselectAttributeCarrier(GLO_CONNECTION, con);
+        }
         if (con->unreferenced()) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1327,6 +1343,8 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
             }
             delete con;
             myNet->refreshElement(this); // actually we only do this to force a redraw
+        } else if (con->getShape().size() > 0) {
+            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(con);
         }
     }
 }

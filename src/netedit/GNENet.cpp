@@ -406,8 +406,8 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incident = junction->getNBNode()->getEdges();
-    for (EdgeVector::const_iterator it = incident.begin(); it != incident.end(); it++) {
-        deleteEdge(myEdges[(*it)->getID()], undoList, true);
+    for (auto it : incident) {
+        deleteEdge(myEdges[it->getID()], undoList, true);
     }
 
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
@@ -2106,6 +2106,10 @@ GNENet::insertAdditional(GNEAdditional* additional) {
     if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) == myAdditionals.end()) {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
+        // check if additional is selected
+        if(additional->isAdditionalSelected()) {
+            selectAttributeCarrier(GLO_ADDITIONAL, additional);
+        }
         // update geometry after insertion of additionals
         additional->updateGeometry();
         // additionals has to be saved
@@ -2130,6 +2134,10 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.erase(additionalToRemove);
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
+        // check if additional is selected
+        if(additional->isAdditionalSelected()) {
+            unselectAttributeCarrier(GLO_ADDITIONAL, additional);
+        }
         // update view
         update();
         // additionals has to be saved
@@ -2237,6 +2245,10 @@ GNENet::registerJunction(GNEJunction* junction) {
     myJunctions[junction->getMicrosimID()] = junction;
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
+    // check if junction is selected
+    if(junction->isNetElementSelected()) {
+        selectAttributeCarrier(GLO_JUNCTION, junction);
+    }
     // @todo let Boundary class track z-coordinate natively
     const double z = junction->getNBNode()->getPosition().z();
     if (z != 0) {
@@ -2256,6 +2268,10 @@ GNENet::registerEdge(GNEEdge* edge) {
     // add edge to grid
     myGrid.add(edge->getBoundary());
     myGrid.addAdditionalGLObject(edge);
+    // check if edge is selected
+    if(edge->isNetElementSelected()) {
+        selectAttributeCarrier(GLO_EDGE, edge);
+    }
     // Add references into GNEJunctions
     edge->getGNEJunctionSource()->addOutgoingGNEEdge(edge);
     edge->getGNEJunctionDestiny()->addIncomingGNEEdge(edge);
@@ -2271,6 +2287,10 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(junction);
     // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
+    // check if junction is selected
+    if(junction->isNetElementSelected()) {
+        unselectAttributeCarrier(GLO_JUNCTION, junction);
+    }
     myJunctions.erase(junction->getMicrosimID());
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
@@ -2285,6 +2305,10 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(edge);
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
+    // check if junction is selected
+    if(edge->isNetElementSelected()) {
+        unselectAttributeCarrier(GLO_EDGE, edge);
+    }
     myEdges.erase(edge->getMicrosimID());
     // extract edge of district container
     myNetBuilder->getEdgeCont().extract(myNetBuilder->getDistrictCont(), edge->getNBEdge());
@@ -2300,15 +2324,21 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
 
 void
 GNENet::insertShape(GNEShape* shape) {
-    // add shape depending of their type
+    // add shape depending of their type and if is selected
     if (shape->getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.addAdditionalGLObject(poly);
         myPolygons.add(shape->getID(), poly);
+        if(shape->isShapeSelected()) {
+            selectAttributeCarrier(GLO_POLYGON, shape);
+        }
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.addAdditionalGLObject(poi);
         myPOIs.add(shape->getID(), poi);
+        if(shape->isShapeSelected()) {
+            selectAttributeCarrier(GLO_POI, shape);
+        }
     }
     // POILanes has to be added from lane
     if (shape->getTag() == SUMO_TAG_POILANE) {
@@ -2329,10 +2359,16 @@ GNENet::removeShape(GNEShape* shape) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);
         myPolygons.remove(shape->getID(), false);
+        if(shape->isShapeSelected()) {
+            unselectAttributeCarrier(GLO_POLYGON, shape);
+        }
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.removeAdditionalGLObject(poi);
         myPOIs.remove(shape->getID(), false);
+        if(shape->isShapeSelected()) {
+            unselectAttributeCarrier(GLO_POI, shape);
+        }
     }
     // POILanes has to be removed from lane
     if (shape->getTag() == SUMO_TAG_POILANE) {

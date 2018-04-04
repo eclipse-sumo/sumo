@@ -47,15 +47,7 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlock
 }
 
 
-GNEShape::~GNEShape() {
-    if(mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->unselectAttributeCarrier(GLO_POLYGON, this, false);
-        } else {
-            myNet->unselectAttributeCarrier(GLO_POI, this, false);
-        }
-    }
-}
+GNEShape::~GNEShape() {}
 
 
 GNENet*
