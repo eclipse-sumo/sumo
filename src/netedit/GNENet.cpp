@@ -1608,8 +1608,11 @@ GNENet::getSelectedAttributeCarriers() const {
     std::vector<GNEAttributeCarrier*> result;
     for (auto i : mySelectedAttributeCarriers) {
         for (auto j : i.second) {
-            result.reserve(result.size() + j.second.size());
-            std::move(j.second.begin(), j.second.end(), std::back_inserter(result));
+            // make sure that additionals and pois aren't returned duplicated
+            if(j.first == SUMO_TAG_NOTHING) {
+                result.reserve(result.size() + j.second.size());
+                std::move(j.second.begin(), j.second.end(), std::back_inserter(result));
+            }
         }
     }
     return result;
