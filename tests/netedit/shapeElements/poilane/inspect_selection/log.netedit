@@ -19,7 +19,7 @@ Warning: Adding poiLane 'POI_6' into viewNet
 Warning: Adding poiLane 'POI_7' into viewNet
 Warning: Adding poiLane 'POI_8' into viewNet
 Warning: Adding poiLane 'POI_9' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -551,43 +551,7 @@ Warning: Setting new attribute selected 'false' into poiLane 'POI_8'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 1 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_9'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into poiLane 'POI_0'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_1'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_10'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_11'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_12'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_13'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_14'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_15'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_16'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_17'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_2'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_3'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_4'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_5'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_6'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_7'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_8'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_9'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute selected '0' into poiLane 'POI_9'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_8'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_7'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_6'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_5'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_4'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_3'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_2'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_17'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_16'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_15'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_14'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_13'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_12'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_11'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_10'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_1'
-Warning: Setting previous attribute selected '0' into poiLane 'POI_0'
 Warning: Setting previous attribute selected '1' into poiLane 'POI_9'
 Warning: Setting previous attribute selected '1' into poiLane 'POI_8'
 Warning: Setting previous attribute selected '1' into poiLane 'POI_7'
@@ -741,17 +705,17 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
@@ -761,7 +725,7 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_0'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_9'
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_8'
@@ -1147,24 +1111,6 @@ Warning: Setting new attribute selected 'false' into edge 'gneE1'
 Warning: Setting new attribute selected 'false' into edge 'gneE0'
 Warning: Setting new attribute selected 'false' into junction 'gneJ0'
 Warning: Setting new attribute selected 'false' into junction 'gneJ1'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_0'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_1'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_10'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_11'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_12'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_13'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_14'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_15'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_16'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_17'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_2'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_3'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_4'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_5'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_6'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_7'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_8'
-Warning: Setting new attribute selected 'false' into poiLane 'POI_9'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_0'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_1'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_10'

@@ -186,10 +186,14 @@ Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced space 'parkingArea_gneE0_0_1space0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Additionals has to be saved
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_1'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deleting unreferenced space 'parkingArea_gneE0_0_0space0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
