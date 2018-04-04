@@ -5,7 +5,6 @@ Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poi 'POI_1' into viewNet
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Setting new attribute pos '24.00,13.00' into poi 'POI_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '2.00,13.00' into poi 'POI_0'
