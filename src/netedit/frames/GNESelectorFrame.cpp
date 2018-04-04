@@ -34,7 +34,6 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
@@ -800,7 +799,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // @todo maybe rewrite so that mySetOperation also applies to loaded items?
         std::string errors;
-        std::set<GUIGlID> ids = gSelected.loadIDs(file, errors);
+        std::set<GUIGlID> ids /*= gSelected.loadIDs(file, errors)*/;
         std::vector<GNEAttributeCarrier*> ACs;
         for(auto i : ids) {
             ACs.push_back(mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(i, false));
