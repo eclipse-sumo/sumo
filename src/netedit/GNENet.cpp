@@ -975,7 +975,7 @@ GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
     if(onlySelected) {
         // only returns selected edges
-        for (auto i : mySelectedAttributeCarriers[GLO_EDGE][SUMO_TAG_NOTHING]) {
+        for (auto i : mySelectedAttributeCarriersByTag[SUMO_TAG_EDGE]) {
             result.push_back(dynamic_cast<GNEEdge*>(i));
         }
     } else {
@@ -993,7 +993,7 @@ GNENet::retrieveLanes(bool onlySelected) {
     std::vector<GNELane*> result;
     if(onlySelected) {
         // only returns selected edges
-        for (auto i : mySelectedAttributeCarriers[GLO_LANE][SUMO_TAG_NOTHING]) {
+        for (auto i : mySelectedAttributeCarriersByTag[SUMO_TAG_LANE]) {
             result.push_back(dynamic_cast<GNELane*>(i));
         }
     } else {
@@ -1046,7 +1046,7 @@ GNENet::retrieveJunctions(bool onlySelected) {
     std::vector<GNEJunction*> result;
     if(onlySelected) {
         // only returns selected junctions
-        for (auto i : mySelectedAttributeCarriers[GLO_JUNCTION][SUMO_TAG_NOTHING]) {
+        for (auto i : mySelectedAttributeCarriersByTag[SUMO_TAG_JUNCTION]) {
             result.push_back(dynamic_cast<GNEJunction*>(i));
         }
     } else {
@@ -1062,32 +1062,54 @@ GNENet::retrieveJunctions(bool onlySelected) {
 std::vector<GNEShape*>
 GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
-    // fill polygons (SUMO_TAG_NOTHING is for return all polygons and POIS)
-    if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POLY)) {
-         if(onlySelected) {
-            // only returns selected polygons
-            for (auto i : mySelectedAttributeCarriers[GLO_POLYGON][SUMO_TAG_NOTHING]) {
-                result.push_back(dynamic_cast<GNEPoly*>(i));
+    if(onlySelected) {
+        // only returns selected polygons
+        for (auto i : mySelectedAttributeCarriersByTag[shapeTag]) {
+            GNEShape* shape = dynamic_cast<GNEShape*>(i);
+            // null shapes aren't allowed
+            if(shape) {
+                result.push_back(dynamic_cast<GNEShape*>(i));
+            }
+        }
+    } else {
+        // return dependingn of shape type
+        if(shapeTag == SUMO_TAG_POLY) {
+            // return all polys
+            for (auto it : getPolygons()) {
+                result.push_back(dynamic_cast<GNEShape*>(it.second));
             }
         } else {
-             // return all polygons
-            for (const auto& it : getPolygons()) {
-                result.push_back(dynamic_cast<GNEPoly*>(it.second));
+            // check if we need to return a POI or POILane
+            for (auto it : getPOIs()) {
+                GNEPOI *poi = dynamic_cast<GNEPOI*>(it.second);
+                if(poi && (poi->getTag() == shapeTag)) {
+                    result.push_back(poi);
+                }
             }
         }
     }
-    // fill POIs
-    if ((shapeTag == SUMO_TAG_NOTHING) || (shapeTag == SUMO_TAG_POI)) {
-         if(onlySelected) {
-            // only returns selected POIs
-            for (auto i : mySelectedAttributeCarriers[GLO_POI][SUMO_TAG_NOTHING]) {
-                result.push_back(dynamic_cast<GNEPOI*>(i));
-            }
-        } else {
-             // return all POIs
-            for (const auto& it : getPOIs()) {
-                result.push_back(dynamic_cast<GNEPOI*>(it.second));
-            }
+    return result;
+}
+
+
+std::vector<GNEShape*> 
+GNENet::retrieveShapes(bool onlySelected) {
+    std::vector<GNEShape*> result;
+    if(onlySelected) {
+        // only returns selected polygons and POIs
+        for (auto i : mySelectedAttributeCarriers[GLO_POLYGON]) {
+            result.push_back(dynamic_cast<GNEPoly*>(i));
+        }
+        for (auto i : mySelectedAttributeCarriers[GLO_POI]) {
+            result.push_back(dynamic_cast<GNEPOI*>(i));
+        }
+    } else {
+        // return all polygons and POIs
+        for (const auto& it : getPolygons()) {
+            result.push_back(dynamic_cast<GNEPoly*>(it.second));
+        }
+        for (const auto& it : getPOIs()) {
+            result.push_back(dynamic_cast<GNEPOI*>(it.second));
         }
     }
     return result;
@@ -1607,21 +1629,22 @@ std::vector<GNEAttributeCarrier*>
 GNENet::getSelectedAttributeCarriers() const {
     std::vector<GNEAttributeCarrier*> result;
     for (auto i : mySelectedAttributeCarriers) {
-        for (auto j : i.second) {
-            // make sure that additionals and pois aren't returned duplicated
-            if(j.first == SUMO_TAG_NOTHING) {
-                result.reserve(result.size() + j.second.size());
-                std::move(j.second.begin(), j.second.end(), std::back_inserter(result));
-            }
-        }
+        result.reserve(result.size() + i.second.size());
+        std::move(i.second.begin(), i.second.end(), std::back_inserter(result));
     }
     return result;
 }
 
 
 const std::vector<GNEAttributeCarrier*> &
-GNENet::getSelectedAttributeCarriers(GUIGlObjectType type, SumoXMLTag tag) {
-    return mySelectedAttributeCarriers[type][tag];
+GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
+    return mySelectedAttributeCarriers[type];
+}
+
+
+const std::vector<GNEAttributeCarrier*> &
+GNENet::getSelectedAttributeCarriers(SumoXMLTag tag) {
+    return mySelectedAttributeCarriersByTag[tag];
 }
 
 
@@ -1630,13 +1653,9 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
     if(attributeCarrier == nullptr) {
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
-        if(std::find(mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].begin(), 
-            mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].end(), attributeCarrier) == mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].end()) {
-            mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].push_back(attributeCarrier);
-            // we need a special case for additionals and POIS (It's used to avoid copies of mySelectedAttributeCarriers)
-            if((glType == GLO_ADDITIONAL) || (glType == GLO_POI)) {
-                mySelectedAttributeCarriers[glType][attributeCarrier->getTag()].push_back(attributeCarrier);
-            }
+        if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
+            mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
+            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].push_back(attributeCarrier);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1653,14 +1672,11 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
     if(attributeCarrier == nullptr) {
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
-        std::vector<GNEAttributeCarrier*>::iterator it = std::find(mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].begin(), mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].end(), attributeCarrier);
-        if(it != mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].end()) {
-            mySelectedAttributeCarriers[glType][SUMO_TAG_NOTHING].erase(it);
-            // we need a special case for additionals and POIS (It's used to avoid copies of mySelectedAttributeCarriers)
-            if((glType == GLO_ADDITIONAL) || (glType == GLO_POI)) {
-                it = std::find(mySelectedAttributeCarriers[glType][attributeCarrier->getTag()].begin(), mySelectedAttributeCarriers[glType][attributeCarrier->getTag()].end(), attributeCarrier);
-                mySelectedAttributeCarriers[glType][attributeCarrier->getTag()].erase(it);
-            }
+        auto itGlType = std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier);
+        auto itTag = std::find(mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier);
+        if((itGlType != mySelectedAttributeCarriers[glType].end()) && (itTag != mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
+            mySelectedAttributeCarriers[glType].erase(itGlType);
+            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].erase(itTag);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1719,7 +1735,7 @@ GNENet::retrieveAdditionals(bool onlySelected) {
     std::vector<GNEAdditional*> result;
     if(onlySelected) {
         // only returns selected additionals
-        for (auto i : mySelectedAttributeCarriers[GLO_ADDITIONAL][SUMO_TAG_NOTHING]) {
+        for (auto i : mySelectedAttributeCarriers[GLO_ADDITIONAL]) {
             result.push_back(dynamic_cast<GNEAdditional*>(i));
         }
     } else {

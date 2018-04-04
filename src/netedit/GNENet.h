@@ -423,11 +423,16 @@ public:
     */
     std::vector<GNEJunction*> retrieveJunctions(bool onlySelected = false);
 
-    /**@brief return all shapes
-    * @param[in] shapeTag Type of shape. SUMO_TAG_NOTHING returns all shapes
+    /**@brief return shape by type shapes
+    * @param[in] shapeTag Type of shape.
     * @param[in] onlySelected Whether to return only selected junctions
     */
-    std::vector<GNEShape*> retrieveShapes(SumoXMLTag shapeTag = SUMO_TAG_NOTHING, bool onlySelected = false);
+    std::vector<GNEShape*> retrieveShapes(SumoXMLTag shapeTag, bool onlySelected = false);
+
+    /**@brief return all shapes
+    * @param[in] onlySelected Whether to return only selected junctions
+    */
+    std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
@@ -468,10 +473,11 @@ public:
     /// @brief get all selected attribute carriers
     std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers() const;
 
-    /**@brief get selected attribute carriers by GLType
-     * @note in the case of additionals and POIs, if a tag is specified, returns only the additionals selected with these tag)
-     */
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type, SumoXMLTag tag = SUMO_TAG_NOTHING);
+    // @brief get selected attribute carriers by GLType
+    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
+
+    // @brief get selected attribute carriers by Tag
+    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(SumoXMLTag tag);
 
     /// @brief select attribute carrier
     void selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
@@ -700,7 +706,10 @@ protected:
     std::map<std::string, GNECalibratorVehicleType*> myCalibratorVehicleTypes;
 
     /// @brief set with selected attribute carriers grouped by GUIGlObjectType
-    std::map<GUIGlObjectType, std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > > mySelectedAttributeCarriers;
+    std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriers;
+
+    /// @brief set with selected attribute carriers grouped by Tags
+    std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriersByTag;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{
