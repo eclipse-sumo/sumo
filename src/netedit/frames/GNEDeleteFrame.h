@@ -92,8 +92,11 @@ public:
     /// @brief remove selected attribute carriers (element)
     void removeSelectedAttributeCarriers();
 
-    /// @brief remove attribute carrier (element)
-    void removeAttributeCarrier(GNEAttributeCarrier* ac);
+    /**@brief remove attribute carrier (element)
+     * @param ac Attribute Carrier to remove
+     * @param ignoreOptions ignore delete options and ALWAYS remove AC 
+     */
+    void removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptions = false);
 
     /// @brief update current label
     void updateCurrentLabel(GNEAttributeCarrier* ac);

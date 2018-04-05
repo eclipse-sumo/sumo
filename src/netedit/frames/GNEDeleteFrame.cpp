@@ -126,14 +126,14 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // remove all selected attribute carriers
     myViewNet->getUndoList()->p_begin("remove selected items");
     while(myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
-        removeAttributeCarrier(myViewNet->getNet()->getSelectedAttributeCarriers().front());
+        removeAttributeCarrier(myViewNet->getNet()->getSelectedAttributeCarriers().front(), true);
     }
     myViewNet->getUndoList()->p_end();
 }
 
 
 void
-GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
+GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptions) {
     // obtain clicked position
     Position clickedPosition = myViewNet->getPositionInformation();
     // To remove an attribute carrier deleteFrame must be visible
@@ -141,7 +141,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         // Hide inspector frame and show delete frame
         myViewNet->getViewParent()->getInspectorFrame()->hide();
         show();
-    } else if (myDeleteOptions->deleteOnlyGeometryPoints()) {
+    } else if (myDeleteOptions->deleteOnlyGeometryPoints() && !ignoreOptions) {
         // check type of of GL object
         switch (ac->getTag()) {
             case SUMO_TAG_EDGE: {
@@ -177,7 +177,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     }
                 }
                 // Check if junction can be deleted
-                if (myDeleteOptions->forceDeleteAdditionals()) {
+                if (myDeleteOptions->forceDeleteAdditionals() || ignoreOptions) {
                     myViewNet->getNet()->deleteJunction(junction, myViewNet->getUndoList());
                 } else {
                     if (numberOfAdditionals > 0) {
@@ -213,7 +213,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                         numberOfAdditionalChilds += (int)i->getAdditionalChilds().size();
                     }
                     // Check if edge can be deleted
-                    if (myDeleteOptions->forceDeleteAdditionals()) {
+                    if (myDeleteOptions->forceDeleteAdditionals() || ignoreOptions) {
                         // when deleting a single edge, keep all unaffected connections as they were
                         myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList(), false);
                     } else {
@@ -256,7 +256,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             case SUMO_TAG_LANE: {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
                 // Check if lane can be deleted
-                if (myDeleteOptions->forceDeleteAdditionals()) {
+                if (myDeleteOptions->forceDeleteAdditionals() || ignoreOptions) {
                     // when deleting a single lane, keep all unaffected connections as they were
                     myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList(), false);
                 } else {
@@ -286,10 +286,6 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             }
             case SUMO_TAG_CONNECTION: {
                 myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
-                break;
-            }
-            case GLO_ADDITIONAL: {
-                myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
                 break;
             }
             default: {
