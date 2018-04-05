@@ -1107,7 +1107,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         }
         const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - avi.dist;
         const double follow = ego->getCarFollowModel().followSpeed(
-                                  ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel());
+                                  ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel(), foe);
         // speed adaption to follow the foe can be spread over secondsToArrival
         const double followInTime = vSafeOrig + (follow - vSafeOrig) / MAX2((double)1, secondsToArrival / TS);
         vSafe = MIN2(vSafe, followInTime);

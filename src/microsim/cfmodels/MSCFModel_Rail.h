@@ -27,7 +27,7 @@ class MSCFModel_Rail : public MSCFModel {
 public:
 
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
-                       double predMaxDecel) const;
+                       double predMaxDecel, const MSVehicle* const pred = 0) const;
 
     virtual int getModelID() const;
 

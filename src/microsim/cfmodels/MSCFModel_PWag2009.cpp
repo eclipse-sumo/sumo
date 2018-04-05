@@ -66,7 +66,7 @@ MSCFModel_PWag2009::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 // seen so far in data ...
 
 double
-MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/) const {
+MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
     if (predSpeed == 0 && gap < 0.01) {
         return 0;
     }

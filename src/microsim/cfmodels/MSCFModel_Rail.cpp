@@ -76,7 +76,7 @@ MSCFModel_Rail::~MSCFModel_Rail() {
 }
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double /* gap2pred*/,
-                                   double /* predSpeed */, double /* predMaxDecel*/) const {
+                                   double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
     return maxNextSpeed(speed, veh);
 }
 
