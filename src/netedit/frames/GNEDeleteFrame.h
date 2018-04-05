@@ -58,6 +58,9 @@ public:
     /// @brief show childs of marked attribute carrier
     void showChildsOfMarkedAttributeCarrier();
 
+    /// @brief remove selected attribute carriers (element)
+    void removeSelectedAttributeCarriers();
+
     /// @brief remove attribute carrier (element)
     void removeAttributeCarrier(GNEAttributeCarrier* ac);
 

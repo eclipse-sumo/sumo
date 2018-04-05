@@ -335,6 +335,17 @@ GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
 }
 
 
+void 
+GNEDeleteFrame::removeSelectedAttributeCarriers() {
+    // remove all selected attribute carriers
+    myViewNet->getUndoList()->p_begin("remove selected items");
+    while(myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
+        removeAttributeCarrier(myViewNet->getNet()->getSelectedAttributeCarriers().front());
+    }
+    myViewNet->getUndoList()->p_end();
+}
+
+
 void
 GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
     // obtain clicked position

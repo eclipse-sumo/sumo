@@ -772,20 +772,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
-                    // if pointed element is an attribute carrier, remove it or mark it
-                    if (myObjectsUnderCursor.controltKeyPressed()) {
-                        if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != myObjectsUnderCursor.attributeCarrier) {
-                            myViewParent->getDeleteFrame()->markAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
-                        }
-                    } else if (myViewParent->getDeleteFrame()->getMarkedAttributeCarrier() != nullptr) {
-                        myViewParent->getDeleteFrame()->markAttributeCarrier(nullptr);
-                    } else if (GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
-                        // remove all selected attribute carriers
-                        myUndoList->p_begin("remove selection");
-                        while(myNet->getSelectedAttributeCarriers().size() > 0) {
-                            myViewParent->getDeleteFrame()->removeAttributeCarrier(myNet->getSelectedAttributeCarriers().front());
-                        }
-                        myUndoList->p_end();
+                    // check if we are deleting a selection or an single attribute carrier
+                    if (GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
                     }
