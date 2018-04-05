@@ -69,6 +69,38 @@ FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNEDeleteFrameMap))
 
+// ---------------------------------------------------------------------------
+// GNEDeleteFrame::DeleteOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame *deleteFrameParent) :
+    FXGroupBox(deleteFrameParent->myContentFrame, "Options", GUIDesignGroupBoxFrame),
+    myDeleteFrameParent(deleteFrameParent) {
+
+    // Create checkbox for enabling/disabling automatic deletion of additionals childs (by default, enabled)
+    myForceDeleteAdditionals = new FXCheckButton(this, "Force deletion of additionals", deleteFrameParent, MID_GNE_DELETEFRAME_AUTODELETEADDITIONALS, GUIDesignCheckButtonAttribute);
+    myForceDeleteAdditionals->setCheck(TRUE);
+
+    // Create checkbox for enabling/disabling delete only geomtery point(by default, disabled)
+    myDeleteOnlyGeometryPoints = new FXCheckButton(this, "Delete only geometryPoints", deleteFrameParent, MID_GNE_DELETEFRAME_ONLYGEOMETRYPOINTS, GUIDesignCheckButtonAttribute);
+    myDeleteOnlyGeometryPoints->setCheck(FALSE);
+}
+
+
+GNEDeleteFrame::DeleteOptions::~DeleteOptions() {}
+
+
+bool 
+GNEDeleteFrame::DeleteOptions::forceDeleteAdditionals() const {
+    return (myForceDeleteAdditionals->getCheck() == TRUE);
+}
+
+
+bool 
+GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
+    return (myDeleteOnlyGeometryPoints->getCheck() == TRUE);
+}
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -79,17 +111,9 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     // Create Groupbox for current element
     myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current element", GUIDesignGroupBoxFrame);
     myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "No item under cursor", 0, GUIDesignLabelFrameInformation);
-
-    // Create Groupbox for current element
-    myGroupBoxOptions = new FXGroupBox(myContentFrame, "Options", GUIDesignGroupBoxFrame);
-
-    // Create checkbox for enabling/disabling automatic deletion of additionals childs (by default, enabled)
-    myAutomaticallyDeleteAdditionalsCheckButton = new FXCheckButton(myGroupBoxOptions, "Force deletion of additionals", this, MID_GNE_DELETEFRAME_AUTODELETEADDITIONALS, GUIDesignCheckButtonAttribute);
-    myAutomaticallyDeleteAdditionalsCheckButton->setCheck(true);
-
-    // Create checkbox for enabling/disabling delete only geomtery point(by default, disabled)
-    myDeleteOnlyGeometryPoints = new FXCheckButton(myGroupBoxOptions, "Delete only geometryPoints", this, MID_GNE_DELETEFRAME_ONLYGEOMETRYPOINTS, GUIDesignCheckButtonAttribute);
-    myDeleteOnlyGeometryPoints->setCheck(false);
+    
+    // create delete options modul
+    myDeleteOptions = new DeleteOptions(this);
 
     // Create groupbox for tree list
     myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
@@ -355,7 +379,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
         // Hide inspector frame and show delete frame
         myViewNet->getViewParent()->getInspectorFrame()->hide();
         show();
-    } else if (myDeleteOnlyGeometryPoints->getCheck()) {
+    } else if (myDeleteOptions->deleteOnlyGeometryPoints()) {
         // check type of of GL object
         switch (ac->getTag()) {
             case SUMO_TAG_EDGE: {
@@ -391,7 +415,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                     }
                 }
                 // Check if junction can be deleted
-                if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
+                if (myDeleteOptions->forceDeleteAdditionals()) {
                     myViewNet->getNet()->deleteJunction(junction, myViewNet->getUndoList());
                 } else {
                     if (numberOfAdditionals > 0) {
@@ -427,7 +451,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
                         numberOfAdditionalChilds += (int)i->getAdditionalChilds().size();
                     }
                     // Check if edge can be deleted
-                    if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
+                    if (myDeleteOptions->forceDeleteAdditionals()) {
                         // when deleting a single edge, keep all unaffected connections as they were
                         myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList(), false);
                     } else {
@@ -470,7 +494,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
             case SUMO_TAG_LANE: {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
                 // Check if lane can be deleted
-                if (myAutomaticallyDeleteAdditionalsCheckButton->getCheck()) {
+                if (myDeleteOptions->forceDeleteAdditionals()) {
                     // when deleting a single lane, keep all unaffected connections as they were
                     myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList(), false);
                 } else {

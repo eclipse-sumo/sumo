@@ -46,6 +46,36 @@ class GNEDeleteFrame : public GNEFrame {
 
 public:
 
+    // ===========================================================================
+    // class DeleteOptions
+    // ===========================================================================
+
+    class DeleteOptions : public FXGroupBox {
+
+    public:
+        /// @brief constructor
+        DeleteOptions(GNEDeleteFrame *deleteFrameParent);
+
+        /// @brief destructor
+        ~DeleteOptions();
+
+        /// @brief check if force delete additionals checkbox is enabled
+        bool forceDeleteAdditionals() const;
+
+        /// @brief check if only delete geometry points checkbox is enabled
+        bool deleteOnlyGeometryPoints() const;
+
+    private:
+        /// @brief pointer to delete Frame Parent
+        GNEDeleteFrame * myDeleteFrameParent;
+
+        /// @brief checkbox for enable/disable automatically delete additionals childs
+        FXCheckButton* myForceDeleteAdditionals;
+
+        /// @brief checkbox for enable/disable delete only geometry points
+        FXCheckButton* myDeleteOnlyGeometryPoints;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -98,6 +128,9 @@ protected:
     void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
 
 private:
+    /// @brief modul for delete options
+    DeleteOptions* myDeleteOptions;
+
     /// @brief groupbox for current element
     FXGroupBox* myGroupBoxCurrentElement;
 
@@ -107,9 +140,6 @@ private:
     /// @brief label for marked element
     FXLabel* myMarkedElementLabel;
 
-    /// @brief groupbox options
-    FXGroupBox* myGroupBoxOptions;
-
     /// @brief groupbox for tree list childs
     FXGroupBox* myGroupBoxTreeList;
 
@@ -118,12 +148,6 @@ private:
 
     /// @brief Label for information 1
     FXLabel* myInformationLabel;
-
-    /// @brief checkbox for enable/disable automatically delete additionals childs
-    FXCheckButton* myAutomaticallyDeleteAdditionalsCheckButton;
-
-    /// @brief checkbox for enable/disable delete only geometry points
-    FXCheckButton* myDeleteOnlyGeometryPoints;
 
     /// @brief tree list to show the childs of the element to erase
     FXTreeList* myTreelist;
