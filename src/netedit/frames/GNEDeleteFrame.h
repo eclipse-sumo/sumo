@@ -41,8 +41,6 @@ class GNEAttributeCarrier;
  * The Widget for deleting elements
  */
 class GNEDeleteFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEDeleteFrame)
 
 public:
 
@@ -85,8 +83,11 @@ public:
     /// @brief Destructor
     ~GNEDeleteFrame();
 
-    /// @brief show childs of marked attribute carrier
-    void showChildsOfMarkedAttributeCarrier();
+    /// @brief show delete frame
+    void show();
+
+    /// @brief hide delete frame
+    void hide();
 
     /// @brief remove selected attribute carriers (element)
     void removeSelectedAttributeCarriers();
@@ -94,69 +95,15 @@ public:
     /// @brief remove attribute carrier (element)
     void removeAttributeCarrier(GNEAttributeCarrier* ac);
 
-    /**@brief mark attribute carrier (element)
-     * @note if ac == nullptr current marked attribute carrier will be dismarked
-     */
-    void markAttributeCarrier(GNEAttributeCarrier* ac);
-
     /// @brief update current label
     void updateCurrentLabel(GNEAttributeCarrier* ac);
-
-    /// @brief returns marked atrribute carrier
-    GNEAttributeCarrier* getMarkedAttributeCarrier() const;
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief called when user press right click over an item of list of childs
-    long onCmdShowChildMenu(FXObject*, FXSelector, void* eventData);
-
-    /// @brief called when user select option "center item" of child Menu
-    long onCmdCenterChildItem(FXObject*, FXSelector, void*);
-
-    /// @brief called when user select option "inspect item" of child menu
-    long onCmdInspectChildItem(FXObject*, FXSelector, void*);
-
-    /// @brief called when user select option "delte item" of child menu
-    long onCmdDeleteChildItem(FXObject*, FXSelector, void*);
-    /// @}
-
-protected:
-    /// @brief FOX needs this
-    GNEDeleteFrame() {}
-
-    // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
-    void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
 
 private:
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions;
 
-    /// @brief groupbox for current element
-    FXGroupBox* myGroupBoxCurrentElement;
-
-    /// @brief label for current element
-    FXLabel* myCurrentElementLabel;
-
-    /// @brief label for marked element
-    FXLabel* myMarkedElementLabel;
-
-    /// @brief groupbox for tree list childs
-    FXGroupBox* myGroupBoxTreeList;
-
-    /// @brief groupbox for information
-    FXGroupBox* myGroupBoxInformation;
-
-    /// @brief Label for information 1
-    FXLabel* myInformationLabel;
-
-    /// @brief tree list to show the childs of the element to erase
-    FXTreeList* myTreelist;
-
-    /// @brief map used to save the Tree items with their AC
-    std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
-
-    /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
-    std::set<FXTreeItem*> myTreeItemsWithoutAC;
+    /// @brief modul for hierarchy
+    ACHierarchy* myACHierarchy;
 
     /// @brief pointer to marked attributeCarrier (element)
     GNEAttributeCarrier* myMarkedAC;

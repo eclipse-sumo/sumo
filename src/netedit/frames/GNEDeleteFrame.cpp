@@ -55,20 +55,6 @@
 #include "GNEAdditionalFrame.h"
 
 
-// ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEDeleteFrame) GNEDeleteFrameMap[] = {
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,     GNEDeleteFrame::onCmdShowChildMenu),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_CENTER,     GNEDeleteFrame::onCmdCenterChildItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_INSPECT,    GNEDeleteFrame::onCmdInspectChildItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETEFRAME_DELETE,     GNEDeleteFrame::onCmdDeleteChildItem),
-};
-
-// Object implementation
-FXIMPLEMENT(GNEDeleteFrame, FXVerticalFrame, GNEDeleteFrameMap, ARRAYNUMBER(GNEDeleteFrameMap))
-
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
 // ---------------------------------------------------------------------------
@@ -106,256 +92,32 @@ GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
 // ===========================================================================
 
 GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Delete"),
-    myMarkedAC(nullptr) {
-    // Create Groupbox for current element
-    myGroupBoxCurrentElement = new FXGroupBox(myContentFrame, "Current element", GUIDesignGroupBoxFrame);
-    myCurrentElementLabel = new FXLabel(myGroupBoxCurrentElement, "No item under cursor", 0, GUIDesignLabelFrameInformation);
-    
+    GNEFrame(horizontalFrameParent, viewNet, "Delete") {
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
 
-    // Create groupbox for tree list
-    myGroupBoxTreeList = new FXGroupBox(myContentFrame, "Childs", GUIDesignGroupBoxFrame);
-    myMarkedElementLabel = new FXLabel(myGroupBoxTreeList, "No item marked", 0, GUIDesignLabelFrameInformation);
-    myTreelist = new FXTreeList(myGroupBoxTreeList, this, MID_GNE_DELETEFRAME_CHILDS, GUIDesignTreeListFrame);
-
-    // Create groupbox for help
-    myGroupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
-    myInformationLabel = new FXLabel(myGroupBoxInformation, " - Left click to delete element.\n - Hold <CTRL> and left click\n   to mark element.\n - Left click in another element\n   dismark marked element.", 0, GUIDesignLabelFrameInformation);
+    // Create groupbox and tree list
+    myACHierarchy = new GNEFrame::ACHierarchy(this);
 }
 
 
 GNEDeleteFrame::~GNEDeleteFrame() {}
 
+void 
+GNEDeleteFrame::show() {
+    if (myViewNet->getNet()->getSelectedAttributeCarriers().size() == 1) {
+        myACHierarchy->showACHierarchy(myViewNet->getNet()->getSelectedAttributeCarriers().front());
+    } else {
+        myACHierarchy->hideACHierarchy();
+    }
+    GNEFrame::show();
+}
+
 
 void
-GNEDeleteFrame::showChildsOfMarkedAttributeCarrier() {
-    // clear items
-    myTreelist->clearItems();
-    myTreeItemToACMap.clear();
-    myTreeItemsWithoutAC.clear();
-    // Switch gl type of ac
-    if (myMarkedAC) {
-        switch (myMarkedAC->getTag()) {
-            case SUMO_TAG_JUNCTION: {
-                // insert junction root
-                GNEJunction* junction = dynamic_cast<GNEJunction*>(myMarkedAC);
-                FXTreeItem* junctionItem = myTreelist->insertItem(0, 0, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
-                myTreeItemToACMap[junctionItem] = junction;
-                junctionItem->setExpanded(true);
-                // insert edges
-                for (int i = 0; i < (int)junction->getGNEEdges().size(); i++) {
-                    GNEEdge* edge = junction->getGNEEdges().at(i);
-                    FXTreeItem* edgeItem = myTreelist->insertItem(0, junctionItem, (toString(edge->getTag()) + " " + toString(i)).c_str(), edge->getIcon(), edge->getIcon());
-                    myTreeItemToACMap[edgeItem] = edge;
-                    edgeItem->setExpanded(true);
-                    // insert lanes
-                    for (int j = 0; j < (int)edge->getLanes().size(); j++) {
-                        GNELane* lane = edge->getLanes().at(j);
-                        FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(j)).c_str(), lane->getIcon(), lane->getIcon());
-                        myTreeItemToACMap[laneItem] = lane;
-                        laneItem->setExpanded(true);
-                        // insert additionals of lanes
-                        for (int k = 0; k < (int)lane->getAdditionalChilds().size(); k++) {
-                            GNEAdditional* additional = lane->getAdditionalChilds().at(k);
-                            FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(k)).c_str(), additional->getIcon(), additional->getIcon());
-                            myTreeItemToACMap[additionalItem] = additional;
-                            additionalItem->setExpanded(true);
-                        }
-                        // insert incoming connections of lanes (by default isn't expanded)
-                        if (lane->getGNEIncomingConnections().size() > 0) {
-                            FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                            myTreeItemsWithoutAC.insert(incomingConnections);
-                            incomingConnections->setExpanded(false);
-                            for (int k = 0; k < (int)lane->getGNEIncomingConnections().size(); k++) {
-                                GNEConnection* connection = lane->getGNEIncomingConnections().at(k);
-                                FXTreeItem* connectionItem = myTreelist->insertItem(0, incomingConnections, (toString(connection->getTag()) + " " + toString(k)).c_str(), connection->getIcon(), connection->getIcon());
-                                myTreeItemToACMap[connectionItem] = connection;
-                                connectionItem->setExpanded(true);
-                            }
-                        }
-                        // insert outcoming connections of lanes (by default isn't expanded)
-                        if (lane->getGNEOutcomingConnections().size() > 0) {
-                            FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                            myTreeItemsWithoutAC.insert(outgoingConnections);
-                            outgoingConnections->setExpanded(false);
-                            for (int k = 0; k < (int)lane->getGNEOutcomingConnections().size(); k++) {
-                                GNEConnection* connection = lane->getGNEOutcomingConnections().at(k);
-                                FXTreeItem* connectionItem = myTreelist->insertItem(0, outgoingConnections, (toString(connection->getTag()) + " " + toString(k)).c_str(), connection->getIcon(), connection->getIcon());
-                                myTreeItemToACMap[connectionItem] = connection;
-                                connectionItem->setExpanded(true);
-                            }
-                        }
-                    }
-                    // insert additionals of edge
-                    for (int j = 0; j < (int)edge->getAdditionalChilds().size(); j++) {
-                        GNEAdditional* additional = edge->getAdditionalChilds().at(j);
-                        FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additional->getTag()) + " " + toString(j)).c_str(), additional->getIcon(), additional->getIcon());
-                        myTreeItemToACMap[additionalItem] = additional;
-                        additionalItem->setExpanded(true);
-                    }
+GNEDeleteFrame::hide() {
 
-                }
-                // insert crossings
-                for (int i = 0; i < (int)junction->getGNECrossings().size(); i++) {
-                    GNECrossing* crossing = junction->getGNECrossings().at(i);
-                    FXTreeItem* crossingItem = myTreelist->insertItem(0, junctionItem, (toString(crossing->getTag()) + " " + toString(i)).c_str(), crossing->getIcon(), crossing->getIcon());
-                    myTreeItemToACMap[crossingItem] = crossing;
-                    crossingItem->setExpanded(true);
-                }
-                break;
-            }
-            case SUMO_TAG_EDGE: {
-                // insert edge root
-                GNEEdge* edge = dynamic_cast<GNEEdge*>(myMarkedAC);
-                FXTreeItem* edgeItem = myTreelist->insertItem(0, 0, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
-                myTreeItemToACMap[edgeItem] = edge;
-                edgeItem->setExpanded(true);
-                // insert lanes
-                for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-                    GNELane* lane = edge->getLanes().at(i);
-                    FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, (toString(lane->getTag()) + " " + toString(i)).c_str(), lane->getIcon(), lane->getIcon());
-                    myTreeItemToACMap[laneItem] = lane;
-                    laneItem->setExpanded(true);
-                    // insert additionals of lanes
-                    for (int j = 0; j < (int)lane->getAdditionalChilds().size(); j++) {
-                        GNEAdditional* additional = lane->getAdditionalChilds().at(j);
-                        FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(j)).c_str(), additional->getIcon(), additional->getIcon());
-                        myTreeItemToACMap[additionalItem] = additional;
-                        additionalItem->setExpanded(true);
-                    }
-                    // insert incoming connections of lanes (by default isn't expanded)
-                    if (lane->getGNEIncomingConnections().size() > 0) {
-                        FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                        myTreeItemsWithoutAC.insert(incomingConnections);
-                        incomingConnections->setExpanded(false);
-                        for (int j = 0; j < (int)lane->getGNEIncomingConnections().size(); j++) {
-                            GNEConnection* connection = lane->getGNEIncomingConnections().at(j);
-                            FXTreeItem* connectionItem = myTreelist->insertItem(0, incomingConnections, (toString(connection->getTag()) + " " + toString(j)).c_str(), connection->getIcon(), connection->getIcon());
-                            myTreeItemToACMap[connectionItem] = connection;
-                            connectionItem->setExpanded(true);
-                        }
-                    }
-                    // insert outcoming connections of lanes (by default isn't expanded)
-                    if (lane->getGNEOutcomingConnections().size() > 0) {
-                        FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                        myTreeItemsWithoutAC.insert(outgoingConnections);
-                        outgoingConnections->setExpanded(false);
-                        for (int j = 0; j < (int)lane->getGNEOutcomingConnections().size(); j++) {
-                            GNEConnection* connection = lane->getGNEOutcomingConnections().at(j);
-                            FXTreeItem* connectionItem = myTreelist->insertItem(0, outgoingConnections, (toString(connection->getTag()) + " " + toString(j)).c_str(), connection->getIcon(), connection->getIcon());
-                            myTreeItemToACMap[connectionItem] = connection;
-                            connectionItem->setExpanded(true);
-                        }
-                    }
-                }
-                // insert additionals of edge
-                for (int i = 0; i < (int)edge->getAdditionalChilds().size(); i++) {
-                    GNEAdditional* additionalChild = edge->getAdditionalChilds().at(i);
-                    FXTreeItem* additionalItem = myTreelist->insertItem(0, edgeItem, (toString(additionalChild->getTag()) + " " + toString(i)).c_str(), additionalChild->getIcon(), additionalChild->getIcon());
-                    myTreeItemToACMap[additionalItem] = additionalChild;
-                    additionalItem->setExpanded(true);
-                }
-                // add a extra section for additional parent in which this edge is part
-                if (edge->getAdditionalParents().size() > 0) {
-                    FXTreeItem* additionalParents = myTreelist->insertItem(0, edgeItem, "part of", 0, 0);
-                    myTreeItemsWithoutAC.insert(additionalParents);
-                    additionalParents->setExpanded(true);
-                    // insert reroutes of edge
-                    for (int i = 0; i < (int)edge->getAdditionalParents().size(); i++) {
-                        GNEAdditional* additionalParent = edge->getAdditionalParents().at(i);
-                        FXTreeItem* additionalItem = myTreelist->insertItem(0, additionalParents, (toString(additionalParent->getTag()) + " " + toString(i)).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
-                        myTreeItemToACMap[additionalItem] = additionalParent;
-                        additionalItem->setExpanded(true);
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_LANE: {
-                // insert lane root
-                GNELane* lane = dynamic_cast<GNELane*>(myMarkedAC);
-                FXTreeItem* laneItem = myTreelist->insertItem(0, 0, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
-                myTreeItemToACMap[laneItem] = lane;
-                laneItem->setExpanded(true);
-                // insert additionals of lanes
-                for (int i = 0; i < (int)lane->getAdditionalChilds().size(); i++) {
-                    GNEAdditional* additional = lane->getAdditionalChilds().at(i);
-                    FXTreeItem* additionalItem = myTreelist->insertItem(0, laneItem, (toString(additional->getTag()) + " " + toString(i)).c_str(), additional->getIcon(), additional->getIcon());
-                    myTreeItemToACMap[additionalItem] = additional;
-                    additionalItem->setExpanded(true);
-                }
-                // insert incoming connections of lanes (by default isn't expanded)
-                if (lane->getGNEIncomingConnections().size() > 0) {
-                    FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                    myTreeItemsWithoutAC.insert(incomingConnections);
-                    incomingConnections->setExpanded(false);
-                    for (int i = 0; i < (int)lane->getGNEIncomingConnections().size(); i++) {
-                        GNEConnection* connection = lane->getGNEIncomingConnections().at(i);
-                        FXTreeItem* connectionItem = myTreelist->insertItem(0, incomingConnections, (toString(connection->getTag()) + " " + toString(i)).c_str(), connection->getIcon(), connection->getIcon());
-                        myTreeItemToACMap[connectionItem] = connection;
-                        connectionItem->setExpanded(true);
-                    }
-                }
-                // insert outcoming connections of lanes (by default isn't expanded)
-                if (lane->getGNEOutcomingConnections().size() > 0) {
-                    FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                    myTreeItemsWithoutAC.insert(outgoingConnections);
-                    outgoingConnections->setExpanded(false);
-                    for (int i = 0; i < (int)lane->getGNEOutcomingConnections().size(); i++) {
-                        GNEConnection* connection = lane->getGNEOutcomingConnections().at(i);
-                        FXTreeItem* connectionItem = myTreelist->insertItem(0, outgoingConnections, (toString(connection->getTag()) + " " + toString(i)).c_str(), connection->getIcon(), connection->getIcon());
-                        myTreeItemToACMap[connectionItem] = connection;
-                        connectionItem->setExpanded(true);
-                    }
-                }
-                break;
-            }
-            case SUMO_TAG_POI: 
-            case SUMO_TAG_POILANE: {
-                // insert POI root
-                GNEPOI* POI = dynamic_cast<GNEPOI*>(myMarkedAC);
-                FXTreeItem* POIItem = myTreelist->insertItem(0, 0, toString(POI->getTag()).c_str(), POI->getIcon(), POI->getIcon());
-                myTreeItemToACMap[POIItem] = POI;
-                POIItem->setExpanded(true);
-                break;
-            }
-            case SUMO_TAG_POLY: {
-                // insert polygon root
-                GNEPoly* polygon = dynamic_cast<GNEPoly*>(myMarkedAC);
-                FXTreeItem* polygonItem = myTreelist->insertItem(0, 0, toString(polygon->getTag()).c_str(), polygon->getIcon(), polygon->getIcon());
-                myTreeItemToACMap[polygonItem] = polygon;
-                polygonItem->setExpanded(true);
-                break;
-            }
-            case SUMO_TAG_CROSSING: {
-                // insert crossing root
-                GNECrossing* crossing = dynamic_cast<GNECrossing*>(myMarkedAC);
-                FXTreeItem* crossingItem = myTreelist->insertItem(0, 0, toString(crossing->getTag()).c_str(), crossing->getIcon(), crossing->getIcon());
-                myTreeItemToACMap[crossingItem] = crossing;
-                crossingItem->setExpanded(true);
-                break;
-            }
-            case SUMO_TAG_CONNECTION: {
-                // insert connection root
-                GNEConnection* connection = dynamic_cast<GNEConnection*>(myMarkedAC);
-                FXTreeItem* connectionItem = myTreelist->insertItem(0, 0, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
-                myTreeItemToACMap[connectionItem] = connection;
-                connectionItem->setExpanded(true);
-                break;
-            }
-            default: {
-                if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), myMarkedAC->getTag()) !=  GNEAttributeCarrier::allowedAdditionalTags().end()) {
-                    // insert additional root
-                    GNEAdditional* additional = dynamic_cast<GNEAdditional*>(myMarkedAC);
-                    FXTreeItem* additionalItem = myTreelist->insertItem(0, 0, toString(additional->getTag()).c_str(), additional->getIcon(), additional->getIcon());
-                    myTreeItemToACMap[additionalItem] = additional;
-                    additionalItem->setExpanded(true);
-                }
-                break;
-            }
-        }
-    }
+    GNEFrame::hide();
 }
 
 
@@ -543,105 +305,5 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac) {
     // update view to show changes
     myViewNet->update();
 }
-
-
-void
-GNEDeleteFrame::markAttributeCarrier(GNEAttributeCarrier* ac) {
-    // Check if under cursor there are an Attribute Carrier
-    if (ac != nullptr) {
-        myMarkedElementLabel->setText(("  " + toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
-        myMarkedElementLabel->setIcon(ac->getIcon());
-    } else {
-        myMarkedElementLabel->setText("No item marked");
-        myMarkedElementLabel->setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    }
-    // mark ac
-    myMarkedAC = ac;
-}
-
-
-void
-GNEDeleteFrame::updateCurrentLabel(GNEAttributeCarrier* ac) {
-    // change label
-    if (ac != nullptr) {
-        myCurrentElementLabel->setText((toString(ac->getTag()) + " '" + ac->getID() + "'").c_str());
-        myCurrentElementLabel->setIcon(ac->getIcon());
-    } else {
-        myCurrentElementLabel->setText("No item under cursor");
-        myCurrentElementLabel->setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    }
-}
-
-
-GNEAttributeCarrier*
-GNEDeleteFrame::getMarkedAttributeCarrier() const {
-    return myMarkedAC;
-}
-
-
-long
-GNEDeleteFrame::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
-    // Obtain event
-    FXEvent* e = (FXEvent*) eventData;
-    FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
-    // Check if there are an item in the position and create pop-up menu
-    if (item && (myTreeItemsWithoutAC.find(item) == myTreeItemsWithoutAC.end())) {
-        createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[myTreelist->getItemAt(e->win_x, e->win_y)]);
-    }
-    return 1;
-}
-
-
-long
-GNEDeleteFrame::onCmdCenterChildItem(FXObject*, FXSelector, void*) {
-    // first check if clicked AC has an associated GUIGLObject
-    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myClickedAC);
-    if(glObject) {
-        myViewNet->centerTo(glObject->getGlID(), false);
-        myViewNet->update();
-    }
-    return 1;
-}
-
-
-long
-GNEDeleteFrame::onCmdInspectChildItem(FXObject*, FXSelector, void*) {
-    if (myMarkedAC != nullptr) {
-        myViewNet->getViewParent()->getInspectorFrame()->show();
-        myViewNet->getViewParent()->getInspectorFrame()->inspectFromDeleteFrame(myClickedAC, myMarkedAC, true);
-        // Hide delete frame and show inspector frame
-        hide();
-    }
-    return 1;
-}
-
-
-long
-GNEDeleteFrame::onCmdDeleteChildItem(FXObject*, FXSelector, void*) {
-    removeAttributeCarrier(myClickedAC);
-    return 1;
-}
-
-
-void
-GNEDeleteFrame::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
-    // create FXMenuPane
-    FXMenuPane* pane = new FXMenuPane(myTreelist);
-    // set current clicked AC
-    myClickedAC = ac;
-    // set name
-    new MFXMenuHeader(pane, myViewNet->getViewParent()->getApp()->getBoldFont(), (toString(myClickedAC->getTag()) + ": " + myClickedAC->getID()).c_str(), myClickedAC->getIcon());
-    new FXMenuSeparator(pane);
-    // Fill FXMenuCommand
-    new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_DELETEFRAME_CENTER);
-    new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_DELETEFRAME_INSPECT);
-    new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_DELETEFRAME_DELETE);
-    // Center in the mouse position and create pane
-    pane->setX(X);
-    pane->setY(Y);
-    pane->create();
-    pane->show();
-}
-
 
 /****************************************************************************/

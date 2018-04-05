@@ -303,10 +303,6 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
         inspectElement(myPreviousElementInspect);
         myPreviousElementInspect = nullptr;
     } else if (myPreviousElementDelete != nullptr) {
-        myViewNet->getViewParent()->getDeleteFrame()->showChildsOfMarkedAttributeCarrier();
-        if (myPreviousElementDeleteWasMarked) {
-            myViewNet->getViewParent()->getDeleteFrame()->markAttributeCarrier(myPreviousElementDelete);
-        }
         myPreviousElementDelete = nullptr;
         // Hide inspect frame and show delete frame
         hide();
