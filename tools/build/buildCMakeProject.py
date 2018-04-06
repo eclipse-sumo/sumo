@@ -75,7 +75,7 @@ def generate(generator, log=sys.stdout):
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
         print("Cleaning directory of", generator, file=log)
-        shutil.rmtree(buildDir)
+        shutil.rmtree(buildDir, ignore_errors=True)
     os.makedirs(buildDir)
     print("Creating solution for", generator, file=log)
     subprocess.call([CMAKE[0], "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
