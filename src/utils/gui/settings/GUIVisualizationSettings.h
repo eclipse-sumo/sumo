@@ -340,18 +340,41 @@ public:
      */
     GUIScaleScheme& getLaneEdgeScaleScheme();
 
-    /** @brief Comparison operator */
+    /// @brief Comparison operator
     bool operator==(const GUIVisualizationSettings& vs2);
 
-    /* @brief map from LinkState to color constants  */
+    /// @brief map from LinkState to color constants
     static const RGBColor& getLinkColor(const LinkState& ls);
 
+    /// @brief color for busStops
+    static const RGBColor SUMO_color_busStop;
+
+    /// @brief color for busStops signs
+    static const RGBColor SUMO_color_busStop_sign;
+
+    /// @brief color for containerStops
+    static const RGBColor SUMO_color_containerStop;
+
+    /// @brief color for containerStop signs
+    static const RGBColor SUMO_color_containerStop_sign;
+
+    /// @brief color for chargingStations
+    static const RGBColor SUMO_color_chargingStation;
+
+    /// @brief color for chargingStation sign
+    static const RGBColor SUMO_color_chargingStation_sign;
+
+    /// @brief color for chargingStation during charging
+    static const RGBColor SUMO_color_chargingStation_charge;
+
+    /// @brief color for Entrys
     static const RGBColor SUMO_color_E3Entry;
+
+    /// @brief color for Exits
     static const RGBColor SUMO_color_E3Exit;
 
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;
-
 };
 
 

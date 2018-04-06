@@ -121,11 +121,9 @@ void
 GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    RGBColor grey(177, 184, 186, 171);
-    RGBColor blue(83, 89, 172, 255);
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(blue);
+    GLHelper::setColor(s.SUMO_color_containerStop);
     const double exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, 1.0);
     // draw details unless zoomed out to far
@@ -141,7 +139,7 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(83, 89, 172, 255), 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_containerStop, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }
@@ -154,10 +152,10 @@ GUIContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        GLHelper::setColor(grey);
+        GLHelper::setColor(s.SUMO_color_containerStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("C", Position(), .1, 1.6, blue, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, s.SUMO_color_containerStop, myFGSignRot);
         }
         glPopMatrix();
     }

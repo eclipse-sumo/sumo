@@ -56,9 +56,17 @@ const RGBColor SUMO_color_ALLWAY_STOP(0, 0, 192);
 const RGBColor SUMO_color_ZIPPER(192, 128, 64);
 const RGBColor SUMO_color_DEADEND(0, 0, 0);
 
-/* -------------------------------------------------------------------------
- * color constants for other objects
- * ----------------------------------------------------------------------- */
+// -------------------------------------------------------------------------
+// color constants for other objects
+// -------------------------------------------------------------------------
+
+const RGBColor GUIVisualizationSettings::SUMO_color_busStop(76, 170, 50);
+const RGBColor GUIVisualizationSettings::SUMO_color_busStop_sign(255, 235, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_containerStop(83, 89, 172);
+const RGBColor GUIVisualizationSettings::SUMO_color_containerStop_sign(177, 184, 186, 171);
+const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation(114, 210, 252);
+const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_sign(255, 235, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_charge(255, 180, 0);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
 

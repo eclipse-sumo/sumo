@@ -138,7 +138,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(76, 170, 50));
+        GLHelper::setColor(s.SUMO_color_busStop);
     }
 
     // Obtain exaggeration of the draw
@@ -160,7 +160,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
 
         // set color
-        GLHelper::setColor(RGBColor(76, 170, 50));
+        GLHelper::setColor(s.SUMO_color_busStop);
 
         // Draw circle
         GLHelper::drawFilledCircle((double) 1.1, 8);
@@ -186,7 +186,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             if (isAdditionalSelected()) {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
             }
 
             // pop matrix for every line
@@ -211,7 +211,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor(76, 170, 50));
+            GLHelper::setColor(s.SUMO_color_busStop);
         }
 
         // Draw circle
@@ -224,7 +224,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::setColor(RGBColor(255, 235, 0));
+            GLHelper::setColor(s.SUMO_color_busStop_sign);
         }
 
         // draw another circle in the same position, but a little bit more small
@@ -235,7 +235,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             if (isAdditionalSelected()) {
                 GLHelper::drawText("H", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, RGBColor(76, 170, 50, 255), myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, 1.6, s.SUMO_color_busStop, myBlockIconRotation);
             }
         }
 

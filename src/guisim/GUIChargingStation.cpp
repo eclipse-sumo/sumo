@@ -132,18 +132,15 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Draw Charging Station
     glPushName(getGlID());
     glPushMatrix();
-    RGBColor blue(114, 210, 252, 255);
-    RGBColor green(76, 170, 50, 255);
-    RGBColor yellow(255, 235, 0, 255);
-    RGBColor yellowCharge(255, 180, 0, 255);
 
     // draw the area depending if the vehicle is charging
     glTranslated(0, 0, getType());
 
+    // set color depending if charging station is charging
     if (myChargingVehicle == true) {
-        GLHelper::setColor(yellowCharge);
+        GLHelper::setColor(s.SUMO_color_chargingStation_charge);
     } else {
-        GLHelper::setColor(blue);
+        GLHelper::setColor(s.SUMO_color_chargingStation);
     }
     const double exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
@@ -154,7 +151,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // push charging power matrix
         glPushMatrix();
         // draw charging power
-        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myFGSignRot, FONS_ALIGN_LEFT);
+        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myFGSignRot, FONS_ALIGN_LEFT);
         // pop charging power matrix
         glPopMatrix();
 
@@ -169,11 +166,11 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
 
-        GLHelper::setColor(yellow);
+        GLHelper::setColor(s.SUMO_color_busStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
 
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("C", Position(), .1, 1.6, blue, myFGSignRot);
+            GLHelper::drawText("C", Position(), .1, 1.6, s.SUMO_color_chargingStation, myFGSignRot);
         }
 
         glTranslated(5, 0, 0);

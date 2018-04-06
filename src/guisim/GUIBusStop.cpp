@@ -131,11 +131,9 @@ void
 GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    RGBColor green(76, 170, 50, 255);
-    RGBColor yellow(255, 235, 0, 255);
     // draw the area
     glTranslated(0, 0, getType());
-    GLHelper::setColor(green);
+    GLHelper::setColor(s.SUMO_color_busStop);
     const double exaggeration = s.addSize.getExaggeration(s);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
     // draw details unless zoomed out to far
@@ -151,7 +149,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
             glRotated(rotSign * myFGSignRot, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, RGBColor(76, 170, 50), 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }
@@ -170,7 +168,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(yellow);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
-            GLHelper::drawText("H", Position(), .1, 1.6, green, myFGSignRot);
+            GLHelper::drawText("H", Position(), .1, 1.6, s.SUMO_color_busStop, myFGSignRot);
         }
         glPopMatrix();
     }

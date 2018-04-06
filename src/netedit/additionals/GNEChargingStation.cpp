@@ -197,7 +197,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(114, 210, 252));
+        GLHelper::setColor(s.SUMO_color_chargingStation);
     }
 
     // Get exaggeration
@@ -219,7 +219,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
 
         // set color
-        GLHelper::setColor(RGBColor(114, 210, 252));
+        GLHelper::setColor(s.SUMO_color_chargingStation);
 
         // Draw circle
         GLHelper::drawFilledCircle((double) 1.1, 8);
@@ -238,7 +238,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         if (isAdditionalSelected()) {
             GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIconRotation, FONS_ALIGN_LEFT);
         } else {
-            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myBlockIconRotation, FONS_ALIGN_LEFT);
+            GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myBlockIconRotation, FONS_ALIGN_LEFT);
         }
 
         // pop matrix for charging power
@@ -262,7 +262,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
-            GLHelper::setColor(RGBColor(114, 210, 252));
+            GLHelper::setColor(s.SUMO_color_chargingStation);
         }
 
         // Draw extern
@@ -275,7 +275,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
-            GLHelper::setColor(RGBColor(255, 235, 0));
+            GLHelper::setColor(s.SUMO_color_chargingStation_sign);
         }
         // Draw internt sign
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
@@ -285,7 +285,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             if (isAdditionalSelected()) {
                 GLHelper::drawText("C", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, 1.6, RGBColor(114, 210, 252, 255), myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, 1.6, s.SUMO_color_chargingStation, myBlockIconRotation);
             }
         }
         // Pop sign matrix
