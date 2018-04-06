@@ -82,7 +82,7 @@ class Lane:
 
     """ Lanes from a sumo network """
 
-    def __init__(self, edge, speed, length, allow, disallow):
+    def __init__(self, edge, speed, length, allow, disallow, width):
         self._edge = edge
         self._speed = speed
         self._length = length
@@ -93,6 +93,7 @@ class Lane:
         self._outgoing = []
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
+        self._width = width
         edge.addLane(self)
 
     def getSpeed(self):
@@ -100,6 +101,9 @@ class Lane:
 
     def getLength(self):
         return self._length
+
+    def getWidth(self):
+        return self._width
 
     def setShape(self, shape):
         """Set the shape of the lane

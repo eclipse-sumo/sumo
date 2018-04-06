@@ -175,8 +175,9 @@ class Net:
             self._id2edge[id] = e
         return self._id2edge[id]
 
-    def addLane(self, edge, speed, length, allow=None, disallow=None):
-        return lane.Lane(edge, speed, length, allow, disallow)
+    def addLane(self, edge, speed, length, allow=None, disallow=None,
+                width=0):
+        return lane.Lane(edge, speed, length, allow, disallow, float(width))
 
     def addRoundabout(self, nodes, edges=None):
         r = roundabout.Roundabout(nodes, edges)
@@ -451,7 +452,8 @@ class NetReader(handler.ContentHandler):
                 float(attrs['speed']),
                 float(attrs['length']),
                 attrs.get('allow'),
-                attrs.get('disallow'))
+                attrs.get('disallow'),
+                attrs.get('width'))
             self._currentLane.setShape(convertShape(attrs.get('shape', '')))
         if name == 'junction':
             if attrs['id'][0] != ':':
