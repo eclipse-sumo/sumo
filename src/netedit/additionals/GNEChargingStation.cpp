@@ -206,8 +206,28 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
 
-    // draw details unless zoomed out to far and isn't being drawn for selecting
-    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting ) {
+    // Check if the distance is enought to draw details and if is being drawn for selecting
+    if(s.drawForSelecting) {
+
+        // Add a draw matrix for details
+        glPushMatrix();
+
+        // Start drawing sign traslating matrix to signal position
+        glTranslated(mySignPos.x(), mySignPos.y(), 0);
+
+        // scale matrix depending of the exaggeration
+        glScaled(exaggeration, exaggeration, 1);
+
+        // set color
+        GLHelper::setColor(RGBColor(114, 210, 252));
+
+        // Draw circle
+        GLHelper::drawFilledCircle((double) 1.1, 8);
+
+        // pop draw matrix
+        glPopMatrix();
+
+    } else if (s.scale * exaggeration >= 10) {
         // Push matrix for details
         glPushMatrix();
 
