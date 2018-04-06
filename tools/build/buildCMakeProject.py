@@ -71,7 +71,7 @@ def generate(generator, log=sys.stdout):
         elif "swig" in folder.lower():
             cmakeOpt += ["-DSWIG_EXECUTABLE=%sswig.exe" % folder[:-3]]
 
-    buildDir = os.path.join(SUMO_HOME, "build/cmake-build-" + generator.replace(" ", "-"))
+    buildDir = os.path.join(SUMO_HOME, "build", "cmake-build-" + generator.replace(" ", "-"))
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
         print("Cleaning directory of", generator, file=log)
