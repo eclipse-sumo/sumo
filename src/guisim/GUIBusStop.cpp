@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 07.12.2005
-/// @version $Id: GUIBusStop.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
@@ -165,7 +165,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
         glTranslated(0, 0, .1);
-        GLHelper::setColor(yellow);
+        GLHelper::setColor(s.SUMO_color_busStop_sign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.scale * exaggeration >= 4.5) {
             GLHelper::drawText("H", Position(), .1, 1.6, s.SUMO_color_busStop, myFGSignRot);
