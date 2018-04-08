@@ -1688,7 +1688,7 @@ NBEdge::computeLaneShapes() {
     }
     if (myLaneSpreadFunction == LANESPREAD_RIGHT) {
         double laneWidth = myLanes.back().width != UNSPECIFIED_WIDTH ? myLanes.back().width : SUMO_const_laneWidth;
-        offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @todo: why is the lane offset counted in here?
+        offset = (laneWidth + SUMO_const_laneOffset) / 2.; // @note: offset for half of the center-line marking of the road
     } else {
         double width = 0;
         for (int i = 0; i < (int)myLanes.size(); ++i) {
