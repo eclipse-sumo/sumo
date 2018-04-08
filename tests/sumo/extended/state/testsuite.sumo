@@ -29,6 +29,9 @@ load_and_save_including_actionStepLength2
 # save state for a network with internal links
 save_with_internal_links
 
+# save loaded flow
+save_flow
+
 # save a parking vehicle
 save_parking
 
