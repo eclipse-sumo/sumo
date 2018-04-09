@@ -144,6 +144,13 @@ GNEInspectorFrame::show() {
 
 
 void
+GNEInspectorFrame::hide() {
+    myInspectedACs.clear();
+    GNEFrame::hide();
+}
+
+
+void
 GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemToInspect;
@@ -160,7 +167,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myHeaderLeftFrame->hide();
     myBackButton->hide();
     // Assing ACs to myACs
-    myACs = ACs;
+    myInspectedACs = ACs;
     // Hide all elements
     myAttributesEditor->hideAttributesEditor();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
@@ -168,21 +175,21 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myTemplateEditor->hideTemplateEditor();
     myACHierarchy->hideACHierarchy();
     // If vector of attribute Carriers contain data
-    if (myACs.size() > 0) {
+    if (myInspectedACs.size() > 0) {
         // Set header
         std::string headerString;
-        if (dynamic_cast<GNENetElement*>(myACs.front())) {
+        if (dynamic_cast<GNENetElement*>(myInspectedACs.front())) {
             headerString = "Net: ";
-        } else if (dynamic_cast<GNEAdditional*>(myACs.front())) {
+        } else if (dynamic_cast<GNEAdditional*>(myInspectedACs.front())) {
             headerString = "Additional: ";
-        } else if (dynamic_cast<GNEShape*>(myACs.front())) {
+        } else if (dynamic_cast<GNEShape*>(myInspectedACs.front())) {
             headerString = "Shape: ";
         }
-        if (myACs.size() > 1) {
-            headerString += toString(myACs.size()) + " ";
+        if (myInspectedACs.size() > 1) {
+            headerString += toString(myInspectedACs.size()) + " ";
         }
-        headerString += toString(myACs.front()->getTag());
-        if (myACs.size() > 1) {
+        headerString += toString(myInspectedACs.front()->getTag());
+        if (myInspectedACs.size() > 1) {
             headerString += "s";
         }
         // Set headerString into header label
@@ -201,8 +208,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         myTemplateEditor->showTemplateEditor();
 
         // if we inspect a single Attribute carrier vector, show their childs
-        if (myACs.size() == 1) {
-            myACHierarchy->showACHierarchy(myACs.front());
+        if (myInspectedACs.size() == 1) {
+            myACHierarchy->showACHierarchy(myInspectedACs.front());
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
@@ -242,19 +249,19 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
 void 
 GNEInspectorFrame::removeInspectedAC(GNEAttributeCarrier *ac) {
     // Only remove if there is inspected ACs
-    if(myACs.size() > 0) {
+    if(myInspectedACs.size() > 0) {
         // Try to find AC in myACs 
-        auto i = std::find(myACs.begin(), myACs.end(), ac);
+        auto i = std::find(myInspectedACs.begin(), myInspectedACs.end(), ac);
         // if was found
-        if(i != myACs.end()){
-            // erase AC from my AC
-            myACs.erase(i);
+        if(i != myInspectedACs.end()){
+            // erase AC from inspected ACs
+            myInspectedACs.erase(i);
             // Write Warning in console if we're in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removed inspected element from Inspected ACs. " + toString(myACs.size()) + " ACs remains.");
+                WRITE_WARNING("Removed inspected element from Inspected ACs. " + toString(myInspectedACs.size()) + " ACs remains.");
             }
             // Inspect multi selection again
-            inspectMultisection(myACs);
+            inspectMultisection(myInspectedACs);
         }
     }
 }
@@ -263,11 +270,11 @@ GNEInspectorFrame::removeInspectedAC(GNEAttributeCarrier *ac) {
 void 
 GNEInspectorFrame::clearInspectedAC() {
     // Only remove if there is inspected ACs
-    if (myACs.size() > 0) {
+    if (myInspectedACs.size() > 0) {
         // clear ACs
-        myACs.clear();
+        myInspectedACs.clear();
         // Inspect multi selection again (to hide all Editors)
-        inspectMultisection(myACs);
+        inspectMultisection(myInspectedACs);
     }
 }
 
@@ -311,9 +318,10 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
 const std::vector<GNEAttributeCarrier*>&
 GNEInspectorFrame::getInspectedACs() const {
-    return myACs;
+    return myInspectedACs;
 }
 
 // ===========================================================================

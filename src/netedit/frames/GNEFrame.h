@@ -67,10 +67,10 @@ public:
         /// @brief destructor
         ~ACHierarchy();
 
-        /// @brief show NeteditAttributes
+        /// @brief show ACHierarchy
         void showACHierarchy(GNEAttributeCarrier* AC);
 
-        /// @brief hide NeteditAttributes
+        /// @brief hide ACHierarchy
         void hideACHierarchy();
 
         /// @name FOX-callbacks
@@ -99,10 +99,10 @@ public:
         FXTreeItem* showAttributeCarrierParents();
 
         /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index);
+        void showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent);
 
         /// @brief add item into list
-        FXTreeItem* addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index);
+        FXTreeItem* addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent);
 
     private:
         /// @brief Frame Parent
@@ -117,8 +117,8 @@ public:
         /// @brief map used to save the Tree items with their AC
         std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
 
-        /// @brief set used to save tree items without AC assigned (for example, Incoming/Outcoming connections)
-        std::set<FXTreeItem*> myTreeItemsWithoutAC;
+        /// @brief set used to save tree items without AC assigned, the Incoming/Outcoming connections
+        std::set<FXTreeItem*> myTreeItemsConnections;
 
         /// @brief pointer to current right clicked Attribute Carrier
         GNEAttributeCarrier* myRightClickedAC;

@@ -61,14 +61,14 @@
 // ===========================================================================
 
 FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,          GNEFrame::ACHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,         GNEFrame::ACHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,          GNEFrame::ACHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,             GNEFrame::ACHierarchy::onCmdShowChildMenu),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::ACHierarchy::onCmdDeleteItem),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ACHierarchy,          FXGroupBox,     GNEFrameACHierarchyMap,         ARRAYNUMBER(GNEFrameACHierarchyMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,  FXGroupBox, GNEFrameACHierarchyMap, ARRAYNUMBER(GNEFrameACHierarchyMap))
 
 
 // ===========================================================================
@@ -97,10 +97,10 @@ GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
-    myTreeItemsWithoutAC.clear();
+    myTreeItemsConnections.clear();
     show();
     // show ACChilds
-    showAttributeCarrierChilds(myAC, showAttributeCarrierParents(), 0);
+    showAttributeCarrierChilds(myAC, showAttributeCarrierParents());
 }
 
 
@@ -114,10 +114,11 @@ long
 GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
+    // obtain FXTreeItem in the given position
     FXTreeItem* item = myTreelist->getItemAt(e->win_x, e->win_y);
-    // Check if there are an item in the position and create pop-up menu
-    if (item && (myTreeItemsWithoutAC.find(item) == myTreeItemsWithoutAC.end())) {
-        createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[myTreelist->getItemAt(e->win_x, e->win_y)]);
+    // open Pop-up if FXTreeItem has a Attribute Carrier vinculated
+    if (item && (myTreeItemsConnections.find(item) == myTreeItemsConnections.end())) {
+        createPopUpMenu(e->root_x, e->root_y, myTreeItemToACMap[item]);
     }
     return 1;
 }
@@ -145,12 +146,19 @@ GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
 
 long 
 GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+    // check if Inspector frame was opened before removing
+    std::vector<GNEAttributeCarrier*> currentInspectedACs= myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getInspectedACs();
     // Remove Attribute Carrier
-    myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->show();
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->removeAttributeCarrier(myRightClickedAC);
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->hide();
-    // show again childs of attribute carrier
-    showAttributeCarrierChilds(nullptr, nullptr, 0);
+    // check if inspector frame has to be shown again
+    if(currentInspectedACs.size() == 1) {
+        if(currentInspectedACs.front() != myRightClickedAC) {
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(currentInspectedACs.front());
+        } else {
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(nullptr);
+        }
+    }
     return 1;
 }
 
@@ -334,66 +342,68 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
 
 
 void
-GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int index) {
+GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent) {
     // Switch gl type of ac
     switch (AC->getTag()) {
         case SUMO_TAG_JUNCTION: {
             // insert junction item
-            FXTreeItem* junctionItem = addACIntoList(AC, itemParent, index);
+            FXTreeItem* junctionItem = addACIntoList(AC, itemParent);
             // retrieve junction
             GNEJunction* junction = myFrameParent->getViewNet()->getNet()->retrieveJunction(AC->getID());
             // insert edges
-            for (int i = 0; i < (int)junction->getGNEEdges().size(); i++) {
-                showAttributeCarrierChilds(junction->getGNEEdges().at(i), junctionItem, i);
+            for (auto i : junction->getGNEEdges()) {
+                showAttributeCarrierChilds(i, junctionItem);
             }
             // insert crossings
-            for (int i = 0; i < (int)junction->getGNECrossings().size(); i++) {
-                showAttributeCarrierChilds(junction->getGNECrossings().at(i), junctionItem, i);
+            for (auto i : junction->getGNECrossings()) {
+                showAttributeCarrierChilds(i, junctionItem);
             }
             break;
         }
         case SUMO_TAG_EDGE: {
             // insert edge item
-            FXTreeItem* edgeItem = addACIntoList(AC, itemParent, index);
+            FXTreeItem* edgeItem = addACIntoList(AC, itemParent);
             // retrieve edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(AC->getID());
             // insert lanes
             for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-                showAttributeCarrierChilds(edge->getLanes().at(i), edgeItem, i);
+                showAttributeCarrierChilds(edge->getLanes().at(i), edgeItem);
             }
             // insert additionals of edge
-            for (int i = 0; i < (int)edge->getAdditionalChilds().size(); i++) {
-                showAttributeCarrierChilds(edge->getAdditionalChilds().at(i), edgeItem, i);
+            for (auto i : edge->getAdditionalChilds()) {
+                showAttributeCarrierChilds(i, edgeItem);
             }
             break;
         }
         case SUMO_TAG_LANE: {
             // insert lane item
-            FXTreeItem* laneItem = addACIntoList(AC, itemParent, index);
+            FXTreeItem* laneItem = addACIntoList(AC, itemParent);
             // retrieve lane
             GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(AC->getID());
             // insert additionals of lanes
-            for (int i = 0; i < (int)lane->getAdditionalChilds().size(); i++) {
-                showAttributeCarrierChilds(lane->getAdditionalChilds().at(i), laneItem, i);
+            for (auto i : lane->getAdditionalChilds()) {
+                showAttributeCarrierChilds(i, laneItem);
             }
             // insert incoming connections of lanes (by default isn't expanded)
             if (lane->getGNEIncomingConnections().size() > 0) {
-                FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", lane->getGNEIncomingConnections().front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
-                myTreeItemsWithoutAC.insert(incomingConnections);
+                std::vector<GNEConnection*> incomingLaneConnections = lane->getGNEIncomingConnections();
+                FXTreeItem* incomingConnections = myTreelist->insertItem(0, laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), lane->getGNEIncomingConnections().front()->getIcon());
+                myTreeItemsConnections.insert(incomingConnections);
                 incomingConnections->setExpanded(false);
                 // insert incoming connections
-                for (int i = 0; i < (int)lane->getGNEIncomingConnections().size(); i++) {
-                    showAttributeCarrierChilds(lane->getGNEIncomingConnections().at(i), incomingConnections, i);
+                for (auto i : incomingLaneConnections) {
+                    showAttributeCarrierChilds(i, incomingConnections);
                 }
             }
             // insert outcoming connections of lanes (by default isn't expanded)
             if (lane->getGNEOutcomingConnections().size() > 0) {
-                FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", lane->getGNEOutcomingConnections().front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
-                myTreeItemsWithoutAC.insert(outgoingConnections);
+                std::vector<GNEConnection*> outcomingLaneConnections = lane->getGNEOutcomingConnections();
+                FXTreeItem* outgoingConnections = myTreelist->insertItem(0, laneItem, "Outcomings", outcomingLaneConnections.front()->getIcon(), lane->getGNEOutcomingConnections().front()->getIcon());
+                myTreeItemsConnections.insert(outgoingConnections);
                 outgoingConnections->setExpanded(false);
                 // insert outcoming connections
-                for (int i = 0; i < (int)lane->getGNEOutcomingConnections().size(); i++) {
-                    showAttributeCarrierChilds(lane->getGNEOutcomingConnections().at(i), outgoingConnections, i);
+                for (auto i : outcomingLaneConnections) {
+                    showAttributeCarrierChilds(i, outgoingConnections);
                 }
             }
             break;
@@ -403,19 +413,19 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         case SUMO_TAG_CROSSING:
         case SUMO_TAG_CONNECTION: {
             // insert connection item
-            addACIntoList(AC, itemParent, index);
+            addACIntoList(AC, itemParent);
             break;
         }
         default: {
             // check if is an additional
             if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), AC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
                 // insert additional item
-                FXTreeItem* additionalItem = addACIntoList(AC, itemParent, index);
+                FXTreeItem* additionalItem = addACIntoList(AC, itemParent);
                 // retrieve additional
                 GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID());
                 // insert additionals childs
-                for (int i = 0; i < (int)additional->getAdditionalChilds().size(); i++) {
-                    showAttributeCarrierChilds(additional->getAdditionalChilds().at(i), additionalItem, i);
+                for (auto i : additional->getAdditionalChilds()) {
+                    showAttributeCarrierChilds(i, additionalItem);
                 }
             }
             break;
@@ -425,9 +435,9 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent, int /* index */) {
+GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent) {
     FXTreeItem* item = myTreelist->insertItem(0, itemParent, toString(AC->getTag()).c_str(), AC->getIcon(), AC->getIcon());
-    myTreeItemToACMap[itemParent] = AC;
+    myTreeItemToACMap[item] = AC;
     item->setExpanded(true);
     return item;
 }

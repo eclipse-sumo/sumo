@@ -396,6 +396,9 @@ public:
     /// @brief show inspector frame
     void show();
 
+    /// @brief hide inspector frame
+    void hide();
+
     /// @brief Inspect a single element
     void inspectElement(GNEAttributeCarrier* AC);
 
@@ -433,12 +436,12 @@ public:
     long onCmdGoBack(FXObject*, FXSelector, void*);
     /// @}
 
+    /// @brief get current list of inspected ACs
+    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
+
 protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
-
-    /// @brief get current list of inspected ACs
-    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
 
 private:
     /// @brief Attribute editor
@@ -469,7 +472,7 @@ private:
     bool myPreviousElementDeleteWasMarked;
 
     /// @brief the multi-selection currently being inspected
-    std::vector<GNEAttributeCarrier*> myACs;
+    std::vector<GNEAttributeCarrier*> myInspectedACs;
 };
 
 

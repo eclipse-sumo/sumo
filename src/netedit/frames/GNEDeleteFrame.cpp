@@ -136,12 +136,7 @@ void
 GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptions) {
     // obtain clicked position
     Position clickedPosition = myViewNet->getPositionInformation();
-    // To remove an attribute carrier deleteFrame must be visible
-    if (shown() == false) {
-        // Hide inspector frame and show delete frame
-        myViewNet->getViewParent()->getInspectorFrame()->hide();
-        show();
-    } else if (myDeleteOptions->deleteOnlyGeometryPoints() && !ignoreOptions) {
+    if (myDeleteOptions->deleteOnlyGeometryPoints() && !ignoreOptions) {
         // check type of of GL object
         switch (ac->getTag()) {
             case SUMO_TAG_EDGE: {
