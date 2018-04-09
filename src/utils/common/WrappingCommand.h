@@ -85,6 +85,10 @@ public:
         myAmDescheduledByParent = true;
     }
 
+    /// @brief whether this command has been descheduled
+    bool isDescheduled() {
+        return myAmDescheduledByParent;
+    }
 
 
     /// @name Derived from Command
