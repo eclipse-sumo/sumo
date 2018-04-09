@@ -134,7 +134,7 @@ class DetectorGroupData:
         self.interval = interval
         self.timeline = []
 
-    def getName(self, longName, firstName, sep=";"):
+    def getName(self, longName, firstName, sep='|'):
         if firstName:
             return self.ids[0]
         name = os.path.commonprefix(self.ids)
