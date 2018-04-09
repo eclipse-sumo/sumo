@@ -814,7 +814,7 @@ MSRouteHandler::closeFlow() {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (myAddVehiclesDirectly || checkLastDepart()) {
-        if (MSNet::getInstance()->getInsertionControl().add(myVehicleParameter)) {
+        if (MSNet::getInstance()->getInsertionControl().addFlow(myVehicleParameter)) {
             registerLastDepart();
         } else {
             throw ProcessError("Another flow with the id '" + myVehicleParameter->id + "' exists.");

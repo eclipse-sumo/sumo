@@ -43,6 +43,11 @@
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="flowStateType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
+    </xsd:complexType>
+
     <xsd:complexType name="vehicleStateType">
         <xsd:sequence>
 			<xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>

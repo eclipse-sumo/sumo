@@ -74,16 +74,32 @@ MSInsertionControl::add(SUMOVehicle* veh) {
 
 
 bool
-MSInsertionControl::add(SUMOVehicleParameter* const pars) {
+MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
+    const bool loadingFromState = index >= 0;
     if (myFlowIDs.count(pars->id) > 0) {
+        if (loadingFromState) {
+            // flows loaded from simulation state must be unique
+            return false;
+        }
+        // set actual parameters for a state-loaded flow (for which only index is known)
+        for (Flow& flow : myFlows) {
+            // if the flow was loaded from state this is recognizable by having
+            // neither repetitionNumber nor repetitionProbability
+            if (flow.pars->id == pars->id && flow.pars->repetitionNumber == -1 && flow.pars->repetitionProbability == -1) {
+                delete flow.pars;
+                flow.pars = pars;
+                return true;
+            }
+        }
         return false;
+    } else {
+        Flow flow;
+        flow.pars = pars;
+        flow.index = loadingFromState ? index : 0;
+        myFlows.push_back(flow);
+        myFlowIDs.insert(pars->id);
+        return true;
     }
-    Flow flow;
-    flow.pars = pars;
-    flow.index = 0;
-    myFlows.push_back(flow);
-    myFlowIDs.insert(pars->id);
-    return true;
 }
 
 
@@ -313,6 +329,18 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
             }
             router.getNetwork()->addSchedule(*f.pars, addStops);
         }
+    }
+}
+
+
+void
+MSInsertionControl::saveState(OutputDevice& out) {
+    // save flow states
+    for (const Flow& flow : myFlows) {
+        out.openTag(SUMO_TAG_FLOWSTATE);
+        out.writeAttr(SUMO_ATTR_ID, flow.pars->id);
+        out.writeAttr(SUMO_ATTR_INDEX, flow.index);
+        out.closeTag();
     }
 }
 

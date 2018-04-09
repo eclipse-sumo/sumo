@@ -109,10 +109,11 @@ public:
 
     /** @brief Adds parameter for a vehicle flow for departure
      *
-     * @param[in] flow The flow to add for later insertion
+     * @param[in] pars The flow parameters to add for later insertion
+     * @param[in] index The current index when loading this flow from a simulation state
      * @return whether it could be added (no other flow with the same id was present)
      */
-    bool add(SUMOVehicleParameter* const pars);
+    bool addFlow(SUMOVehicleParameter* const pars, int index = -1);
 
 
     /** @brief Returns the number of waiting vehicles
@@ -152,6 +153,10 @@ public:
     int getPendingEmits(const MSLane* lane);
 
     void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
+
+    /** @brief Saves the current state into the given stream
+     */
+    void saveState(OutputDevice& out);
 
 private:
     /** @brief Tries to emit the vehicle

@@ -79,6 +79,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");
     out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step));
     MSRoute::dict_saveState(out);
+    MSNet::getInstance()->getInsertionControl().saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
     MSVehicleTransfer::getInstance()->saveState(out);
     if (MSGlobals::gUseMesoSim) {
@@ -118,6 +119,13 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                         attrs.getInt(SUMO_ATTR_END),
                         attrs.getFloat(SUMO_ATTR_DEPART),
                         attrs.getFloat(SUMO_ATTR_TIME));
+            break;
+        }
+        case SUMO_TAG_FLOWSTATE: {
+            SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+            pars->id = attrs.getString(SUMO_ATTR_ID);
+            MSNet::getInstance()->getInsertionControl().addFlow(pars,
+                    attrs.getInt(SUMO_ATTR_INDEX));
             break;
         }
         case SUMO_TAG_VTYPE: {

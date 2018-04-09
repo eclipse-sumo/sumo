@@ -144,6 +144,8 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP,
     /// @brief a flow definition (used by router)
     SUMO_TAG_FLOW,
+    /// @brief a flow state definition (used when saving and loading simulatino state)
+    SUMO_TAG_FLOWSTATE,
     /// @brief trigger: a step description
     SUMO_TAG_STEP,
     /// @brief an aggreagated-output interval
