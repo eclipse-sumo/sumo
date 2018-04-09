@@ -4,5 +4,8 @@ routes_out
 # compare using GEH
 routes_out_geh
 
+# output only first id of group ids
+routes_out_firstname
+
 # Copy of lanes_zero with routes output
 routes_out_lanes
