@@ -37,6 +37,7 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_FCD.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Routing.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_SSM.h" />
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_ToC.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Transportable.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h" />
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_FCD.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Routing.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_SSM.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_ToC.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Transportable.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp" />
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Vehroutes.cpp" />
