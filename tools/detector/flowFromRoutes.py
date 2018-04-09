@@ -157,6 +157,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def printFlows(self, includeDets, useGEH, interval):
         edgeIDCol = ["edge"] if options.edgenames else []
+        timeCol =  ["Time"] if options.writetime else []
         measureCol = "ratio"
         measure = relError
         if useGEH:
@@ -164,11 +165,12 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             measure = make_geh(interval)
 
         if includeDets:
-            cols = ['detNames'] + edgeIDCol + ['RouteFlow','DetFlow',measureCol]
+            cols = ['detNames'] + edgeIDCol + timeCol + ['RouteFlow','DetFlow',measureCol]
         else:
-            cols = ['detNames'] + edgeIDCol + ['RouteFlow']
+            cols = ['detNames'] + edgeIDCol + timeCol + ['RouteFlow']
         print_record(*cols, comment=True)
         output = []
+        time = self._begin if self._begin is not None else 0
         for edge, detData in self._detReader._edge2DetData.iteritems():
             detString = []
             dFlow = []
@@ -186,16 +188,16 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if includeDets:
             for group, edge, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
-                    if options.edgenames:
-                        print_record(group, edge, rflow, dflow, measure(rflow, dflow))
-                    else:
-                        print_record(group, rflow, dflow, measure(rflow, dflow))
+                    edgeCol = [edge] if options.edgenames else []
+                    timeCol = [time] if options.writetime else []
+                    cols = [group] + edgeCol + timeCol + [rflow, dflow, measure(rflow, dflow)]
+                    print_record(*cols)
         else:
             for group, edge, flow in sorted(output):
-                if options.edgenames:
-                    print_record(group, edge, flow)
-                else:
-                    print_record(group, flow)
+                edgeCol = [edge] if options.edgenames else []
+                timeCol = [time] if options.writetime else []
+                cols = [group] + edgeCol + timeCol + [flow]
+                print_record(*cols)
 
 
 optParser = OptionParser()
@@ -226,6 +228,8 @@ optParser.add_option("--geh", action="store_true", dest="geh",
                      default=False, help="compare flows using GEH measure")
 optParser.add_option( "--geh-treshold", type="float", default=5, dest="geh_threshold", 
                      help="report percentage of detectors below threshold")
+optParser.add_option("--write-time", action="store_true", dest="writetime",
+                     default=False, help="write time in output")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()
