@@ -30,6 +30,8 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_Edge.h"
 
@@ -82,6 +84,10 @@ GNEChange_Edge::undo() {
         // insert edge into net
         myNet->insertEdge(myEdge);
     }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 
@@ -101,6 +107,10 @@ GNEChange_Edge::redo() {
         }
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);
+    }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
 }
 

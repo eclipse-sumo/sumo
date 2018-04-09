@@ -29,6 +29,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_Crossing.h"
 
@@ -104,6 +106,10 @@ void GNEChange_Crossing::undo() {
         // Update view
         myNet->getViewNet()->update();
     }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 
@@ -147,6 +153,10 @@ void GNEChange_Crossing::redo() {
         }
         // Update view
         myNet->getViewNet()->update();
+    }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
 }
 

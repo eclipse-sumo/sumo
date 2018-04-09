@@ -36,6 +36,8 @@
 #include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNEVariableSpeedSign.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_Additional.h"
 
@@ -145,6 +147,10 @@ GNEChange_Additional::undo() {
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals();
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 
@@ -207,6 +213,10 @@ GNEChange_Additional::redo() {
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals();
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 

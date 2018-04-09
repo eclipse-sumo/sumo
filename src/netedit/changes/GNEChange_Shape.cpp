@@ -30,6 +30,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/additionals/GNEShape.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_Shape.h"
 
@@ -94,6 +96,10 @@ GNEChange_Shape::undo() {
         // Add shape in net
         myNet->insertShape(myShape);
     }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 
@@ -113,6 +119,10 @@ GNEChange_Shape::redo() {
         }
         // remove shape from net
         myNet->removeShape(myShape);
+    }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
 }
 

@@ -417,16 +417,10 @@ public:
     /// @brief Clear all current inspected ACs
     void clearInspectedAC();
 
-    /// @brief get Attributes editor
-    AttributesEditor *getAttributesEditor() const;
+    /// @brief get ACHierarchy
+    GNEFrame::ACHierarchy *getACHierarchy() const;
 
-    /// @brief get Netedit Attributes editor
-    NeteditAttributesEditor *getNeteditAttributesEditor() const;
-
-    /// @brief get GEO Attributes editor
-    GEOAttributesEditor *getGEOAttributesEditor() const;
-
-    /// @brief get Template editor
+    /// @brief get template editor
     TemplateEditor *getTemplateEditor() const;
 
     /// @name FOX-callbacks

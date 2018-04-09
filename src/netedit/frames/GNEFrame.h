@@ -73,6 +73,9 @@ public:
         /// @brief hide ACHierarchy
         void hideACHierarchy();
 
+        /// @brief refresh ACHierarchy
+        void refreshACHierarchy();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief called when user press right click over an item of list of childs

@@ -28,6 +28,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_Junction.h"
 
@@ -80,6 +82,10 @@ GNEChange_Junction::undo() {
         // delete junction from net
         myNet->insertJunction(myJunction);
     }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 
@@ -99,6 +105,10 @@ GNEChange_Junction::redo() {
         }
         // delete junction from net
         myNet->deleteSingleJunction(myJunction);
+    }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
 }
 

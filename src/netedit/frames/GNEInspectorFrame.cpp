@@ -279,21 +279,9 @@ GNEInspectorFrame::clearInspectedAC() {
 }
 
 
-GNEInspectorFrame::AttributesEditor*
-GNEInspectorFrame::getAttributesEditor() const {
-    return myAttributesEditor;
-}
-
-
-GNEInspectorFrame::NeteditAttributesEditor*
-GNEInspectorFrame::getNeteditAttributesEditor() const {
-    return myNeteditAttributesEditor;
-}
-
-
-GNEInspectorFrame::GEOAttributesEditor*
-GNEInspectorFrame::getGEOAttributesEditor() const {
-    return myGEOAttributesEditor;
+GNEFrame::ACHierarchy*
+GNEInspectorFrame::getACHierarchy() const {
+    return myACHierarchy;
 }
 
 
@@ -598,8 +586,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         }
         // Check if GEO and Netedit editors must be refresh
         if(refreshGEOAndNeteditEditors) {
-            myAttributesEditorParent->getInspectorFrameParent()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
-            myAttributesEditorParent->getInspectorFrameParent()->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
+            myAttributesEditorParent->getInspectorFrameParent()->myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
+            myAttributesEditorParent->getInspectorFrameParent()->myGEOAttributesEditor->refreshGEOAttributesEditor(true);
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
@@ -1083,8 +1071,8 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             myInspectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
         // force refresh values of AttributesEditor and GEOAttributesEditor
-        myInspectorFrameParent->getAttributesEditor()->refreshAttributeEditor(true, true);
-        myInspectorFrameParent->getGEOAttributesEditor()->refreshGEOAttributesEditor(true);
+        myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->myGEOAttributesEditor->refreshGEOAttributesEditor(true);
     }
     return 1;
 }
@@ -1224,8 +1212,8 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
             }
         }
         // force refresh values of Attributes editor and NeteditAttributesEditor
-        myInspectorFrameParent->getAttributesEditor()->refreshAttributeEditor(true, true);
-        myInspectorFrameParent->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
+        myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
+        myInspectorFrameParent->myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     }
     return 1;
 }

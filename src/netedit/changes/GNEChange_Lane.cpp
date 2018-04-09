@@ -29,6 +29,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/GNEViewParent.h>
 #include <cassert>
 
 #include "GNEChange_Lane.h"
@@ -132,6 +134,10 @@ GNEChange_Lane::undo() {
             myNet->removeShape(i);
         }
     }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    }
 }
 
 
@@ -175,6 +181,10 @@ GNEChange_Lane::redo() {
         for (auto i : myShapeChilds) {
             myNet->removeShape(i);
         }
+    }
+    // check if inspector frame has to be updated
+    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
 }
 
