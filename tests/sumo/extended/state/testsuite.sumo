@@ -32,6 +32,9 @@ save_with_internal_links
 # save loaded flow
 save_flow
 
+# the input is taken from test save_flow/state.sumo
+load_flow
+
 # save a parking vehicle
 save_parking
 
