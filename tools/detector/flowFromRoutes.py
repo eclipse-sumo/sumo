@@ -167,7 +167,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         if includeDets:
             cols = ['Detector'] + edgeIDCol + timeCol + ['RouteFlow','DetFlow',measureCol]
         else:
-            cols = ['Detector'] + edgeIDCol + timeCol + ['RouteFlow']
+            cols = ['Detector'] + edgeIDCol + timeCol + ['qPkw']
         print_record(*cols)
         output = []
         time = self._begin if self._begin is not None else 0
