@@ -38,7 +38,7 @@ def make_geh(interval_minutes):
             return math.sqrt(2 * (m-c) * (m-c) / float(m+c))
     return geh
 
-SEP = " "
+SEP = ";"
 def print_record(*args, **kwargs):
     comment = '#' + SEP if kwargs.get('comment', False) else ''
     print(comment + SEP.join(map(str, args)))
