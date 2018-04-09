@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr  9 07:51:11 2018 by SUMO Version v0_32_0+1012-7913e89
+<!-- generated on Mon Apr  9 12:36:08 2018 by SUMO Version v0_32_0+1013-f056405
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,8 +30,11 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v0_32_0+1012-7913e89" time="10.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v0_32_0+1013-f056405" time="10.00">
     <route id="r0" state="1" edges="beg middle end"/>
+    <flowState id="flowNumber" index="2"/>
+    <flowState id="flowPeriod" index="1"/>
+    <flowState id="flowProb" index="0"/>
     <delay number="3" begin="3" end="0" depart="1.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
