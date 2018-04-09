@@ -38,6 +38,10 @@ def make_geh(interval_minutes):
             return math.sqrt(2 * (m-c) * (m-c) / float(m+c))
     return geh
 
+SEP = " "
+def print_record(*args, **kwargs):
+    comment = '#' + SEP if kwargs.get('comment', False) else ''
+    print(comment + SEP.join(map(str, args)))
 
 class LaneMap:
 
@@ -136,21 +140,23 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                             nGEHthresh += 1
                         n += 1
         if self._begin is not None:
-            print('# interval', self._begin)
-        print('# avgRouteFlow avgDetFlow avgDev RMSE RMSPE GEH GEH%')
+            print_record('interval', self._begin, comment=True)
+        print_record('avgRouteFlow','avgDetFlow','avgDev','RMSE','RMSPE','GEH','GEH%', comment=True)
         if n == 0:
             # avoid division by zero
             n = -1
-        print('#', rSum / n, 
+        print_record(
+                rSum / n, 
                 dSum / n, 
                 sumAbsDev / n,
                 math.sqrt(sumSquaredDev / n), 
                 math.sqrt(sumSquaredPercent / n),
                 sumGEH / n,
-                100 * nGEHthresh / n)
+                100 * nGEHthresh / n,
+                comment=True)
 
     def printFlows(self, includeDets, useGEH, interval):
-        edgeIDCol = "edge " if options.edgenames else ""
+        edgeIDCol = ["edge"] if options.edgenames else []
         measureCol = "ratio"
         measure = relError
         if useGEH:
@@ -158,19 +164,18 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             measure = make_geh(interval)
 
         if includeDets:
-            print('# detNames %sRouteFlow DetFlow %s' % (edgeIDCol, measureCol))
+            cols = ['detNames'] + edgeIDCol + ['RouteFlow','DetFlow',measureCol]
         else:
-            print('# detNames %sRouteFlow' % edgeIDCol)
+            cols = ['detNames'] + edgeIDCol + ['RouteFlow']
+        print_record(*cols, comment=True)
         output = []
         for edge, detData in self._detReader._edge2DetData.iteritems():
             detString = []
             dFlow = []
             for group in detData:
                 if group.isValid:
-                    groupName = os.path.commonprefix(group.ids)
-                    if groupName == "" or options.longnames:
-                        groupName = ';'.join(sorted(group.ids))
-                    detString.append(groupName)
+                    detString.append(group.getName(
+                        options.longnames, options.firstname))
                     dFlow.append(group.totalFlow)
             rFlow = len(detString) * [self._edgeFlow.get(edge, 0)]
             edges = len(detString) * [edge]
@@ -182,15 +187,15 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             for group, edge, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
                     if options.edgenames:
-                        print(group, edge, rflow, dflow, measure(rflow, dflow))
+                        print_record(group, edge, rflow, dflow, measure(rflow, dflow))
                     else:
-                        print(group, rflow, dflow, measure(rflow, dflow))
+                        print_record(group, rflow, dflow, measure(rflow, dflow))
         else:
             for group, edge, flow in sorted(output):
                 if options.edgenames:
-                    print(group, edge, flow)
+                    print_record(group, edge, flow)
                 else:
-                    print(group, flow)
+                    print_record(group, flow)
 
 
 optParser = OptionParser()
@@ -211,6 +216,8 @@ optParser.add_option("-D", "--dfrouter-style", action="store_true", dest="dfrsty
 optParser.add_option("-i", "--interval", type="int", help="aggregation interval in minutes")
 optParser.add_option("--long-names", action="store_true", dest="longnames",
                      default=False, help="do not use abbreviated names for detector groups")
+optParser.add_option("--first-name", action="store_true", dest="firstname",
+                     default=False, help="use first id in group as representative")
 optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                      default=False, help="include detector group edge name in output")
 optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
