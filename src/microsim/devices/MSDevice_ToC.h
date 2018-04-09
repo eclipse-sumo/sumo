@@ -8,9 +8,10 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    MSDevice_ToC.h
+/// @author  Leonhard Luecken
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
-/// @date    11.06.2013
+/// @date    01.04.2018
 /// @version $Id$
 ///
 // The ToC Device controls transition of control between automated and manual driving.
@@ -31,12 +32,16 @@
 
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
+#include <utils/common/WrappingCommand.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class MSVehicle;
+class Command_ToCTrigger;
+class Command_ToCProcess;
 
 
 // ===========================================================================
@@ -44,9 +49,8 @@ class SUMOVehicle;
 // ===========================================================================
 /**
  * @class MSDevice_ToC
- * @brief A device which collects info on the vehicle trip (mainly on departure and arrival)
  *
- * Each device collects departure time, lane and speed and the same for arrival.
+ * @brief The ToC Device controls transition of control between automated and manual driving.
  *
  * @see MSDevice
  */
@@ -84,8 +88,10 @@ private:
         MANUAL = 1,
         AUTOMATED = 2,
         PREPARING_TOC = 3, // this applies only to the transition AUTOMATED -> MANUAL !
-        MRM = 4
+        MRM = 4,
+        RECOVERING
     };
+
 
     void setState(ToCState state);
 
@@ -140,10 +146,22 @@ public:
 
 
     /// @brief Trigger execution of an MRM
-    void triggerMRM();
+    SUMOTime triggerMRM(SUMOTime t);
 
-    /// @brief Trigger execution of a ToC
-    void triggerToC(ToCState targetState);
+    /// @brief Trigger execution of a ToC X-->AUTOMATED ("upwards")
+    SUMOTime triggerUpwardToC(SUMOTime t);
+
+    /// @brief Trigger execution of a ToC X-->MANUAL ("downwards")
+    SUMOTime triggerDownwardToC(SUMOTime t);
+
+    /// @brief Continue the ToC preparation for one time step
+    SUMOTime ToCPreparationStep(SUMOTime t);
+
+    /// @brief Continue the MRM for one time step
+    SUMOTime MRMExecutionStep(SUMOTime t);
+
+    /// @brief Continue the awareness recovery for one time step
+    SUMOTime awarenessRecoveryStep(SUMOTime t);
 
 private:
     /** @brief Constructor
@@ -171,14 +189,6 @@ private:
     /// @brief Switch the device holder's vehicle type
     void switchHolderType(const std::string& targetTypeID);
 
-    /// @brief Continue the ToC preparation for one time step
-    void ToCPreparationStep();
-    /// @brief Continue the MRM for one time step
-    void MRMExecutionStep();
-    /// @brief Continue the awareness recovery for one time step
-    void awarenessRecoveryStep();
-
-
 
 private:
     /// @name private state members of the ToC device
@@ -204,7 +214,19 @@ private:
 
     /// @}
 
+    /// @brief The holder vehicle casted to MSVehicle*
     MSVehicle* myHolderMS;
+
+    /// @name Commands sent to the EventControl (used for cleanup)
+    /// @note Must be removed in destructor.
+    /// @{
+    WrappingCommand<MSDevice_ToC>* myTriggerMRMCommand;
+    WrappingCommand<MSDevice_ToC>* myTriggerToCCommand;
+    WrappingCommand<MSDevice_ToC>* myRecoverAwarenessCommand;
+    WrappingCommand<MSDevice_ToC>* myExecuteMRMCommand;
+    WrappingCommand<MSDevice_ToC>* myPrepareToCCommand;
+    /// @}
+
 
 private:
     /// @brief Invalidated copy constructor.
