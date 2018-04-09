@@ -165,10 +165,10 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             measure = make_geh(interval)
 
         if includeDets:
-            cols = ['detNames'] + edgeIDCol + timeCol + ['RouteFlow','DetFlow',measureCol]
+            cols = ['Detector'] + edgeIDCol + timeCol + ['RouteFlow','DetFlow',measureCol]
         else:
-            cols = ['detNames'] + edgeIDCol + timeCol + ['RouteFlow']
-        print_record(*cols, comment=True)
+            cols = ['Detector'] + edgeIDCol + timeCol + ['RouteFlow']
+        print_record(*cols)
         output = []
         time = self._begin if self._begin is not None else 0
         for edge, detData in self._detReader._edge2DetData.iteritems():

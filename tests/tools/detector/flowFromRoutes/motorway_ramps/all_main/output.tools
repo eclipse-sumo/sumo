@@ -2,7 +2,7 @@ Reading detectors
 Reading routes
 Reading emitters
 Reading flows
-#;detNames;RouteFlow;DetFlow;ratio
+Detector;RouteFlow;DetFlow;ratio
 1_;900.0;900.0;0.0
 2_;900.0;900.0;0.0
 #;avgRouteFlow;avgDetFlow;avgDev;RMSE;RMSPE;GEH;GEH%

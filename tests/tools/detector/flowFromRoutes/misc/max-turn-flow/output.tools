@@ -2,7 +2,7 @@ Reading detectors
 Reading routes
 Reading emitters
 Reading flows
-#;detNames;RouteFlow;DetFlow;ratio
+Detector;RouteFlow;DetFlow;ratio
 -1_0;1000.0;1000.0;0.0
 -2_0;1000.0;1000.0;0.0
 1_0;1000.0;1000.0;0.0
