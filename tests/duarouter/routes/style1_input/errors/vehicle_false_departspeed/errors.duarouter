@@ -1,3 +1,0 @@
-Error: Invalid departSpeed definition for vehicle '0';
- must be one of ("random", "max", or a float>=0)
-Quitting (on error).

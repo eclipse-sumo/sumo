@@ -1,1 +1,0 @@
---base-date 0 -i fcd.xml --gpsdat-output gpsdat.txt --boundary 500,400,600,500

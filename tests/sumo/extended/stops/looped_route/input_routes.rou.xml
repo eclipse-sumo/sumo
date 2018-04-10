@@ -1,9 +1,0 @@
-<vehicles>
-    <vType     id="xxx" maxSpeed="16.8" accel="0.5"    decel="0.5"    length="18.0"   width="2.5"    minGap="0.5"   sigma="0.0"    />
-
-    <route id="r0" edges="links oben rechts unten links"/>
-
-    <vehicle id="v0" route="r0" depart="0" departPos="190">
-        <stop lane="links_0" endPos="100" duration="10"/>
-    </vehicle>
-</vehicles>

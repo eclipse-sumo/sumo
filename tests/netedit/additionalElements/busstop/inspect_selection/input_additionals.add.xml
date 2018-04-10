@@ -1,7 +1,0 @@
-<additionals>
-    <!-- Bus A -->
-    <busStop id="busStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="true"/>
-
-	<!-- Bus B -->
-    <busStop id="busStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="busStop" friendlyPos="false"/>
-</additionals>

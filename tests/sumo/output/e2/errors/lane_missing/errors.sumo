@@ -1,3 +1,0 @@
-Warning: Trying to specify detector's lane by the given id since the argument 'lane' is missing.
-Error: The lane with the id '4/1to3/1' is not known (while building e2Detector '4/1to3/1').
-Quitting (on error).

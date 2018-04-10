@@ -1,6 +1,0 @@
-TraCITestClient output file. Date: Tue May 16 11:56:57 2017
-
-
--> Command sent: <SimulationStep>:
-tcpip::Socket::recvAndCheck @ recv: Socket reset by peer
-send failed: Socket reset by peer

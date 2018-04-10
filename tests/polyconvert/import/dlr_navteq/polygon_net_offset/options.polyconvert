@@ -1,1 +1,0 @@
--v --dlr-navteq-poly-files dlr_navteq_polygons.txt -o pois.poi.xml -n input_net.net.xml --offset.x 100

@@ -1,6 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-   <vTypeDistribution id="0" vTypes="DEFAULT_VEHTYPE"/>
-   <flow id="0" type="0" begin="0" end="0" number="10">
-      <route edges="beg middle end rend"/>
-   </flow>
-</routes>

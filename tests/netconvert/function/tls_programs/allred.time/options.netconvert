@@ -1,3 +1,0 @@
--e input_plain.edg.xml -n input_plain.nod.xml -o net.net.xml
---tls.allred.time 3 --no-internal-links --no-turnarounds
-

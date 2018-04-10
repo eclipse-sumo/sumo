@@ -1,3 +1,0 @@
-Error: Invalid arrivalLane definition for vehicle '1';
- must be one of ("current", or an int>=0)
-Quitting (on error).

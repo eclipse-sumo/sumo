@@ -1,1 +1,0 @@
-$SUMO_HOME/tests tls.scenario tools/xml/schemaCheck.py

@@ -1,8 +1,0 @@
-# invalid flow definition
-invalid_flow
-
-# not all routes are appropriate for the vehicle type
-vClass_mismatch
-
-# not all routes are appropriate for the vehicle type. use option --ignore-route-errors
-vClass_mismatch_ignore

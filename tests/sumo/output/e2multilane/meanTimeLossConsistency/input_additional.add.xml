@@ -1,6 +1,0 @@
-<additionals>
-    <e2Detector id="e2Detector_Win1" lane="L4_0" endPos="35" length="133.9" freq="100.00" file="detector.xml"/>
-    <e2Detector id="e2Detector_Win2" lane="L4_0" endPos="35" length="133.9" freq="50.00" file="detector.xml"/>
-    <e2Detector id="e2Detector_Win3" lane="L4_0" endPos="35" length="133.9" freq="25.00" file="detector.xml"/>
-    <e2Detector id="e2Detector_Win4" lane="L4_0" endPos="35" length="133.9" freq="10.00" file="detector.xml"/>
-</additionals>

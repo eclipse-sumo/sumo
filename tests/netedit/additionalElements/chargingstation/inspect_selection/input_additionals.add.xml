@@ -1,7 +1,0 @@
-<additionals>
-    <!-- chargingStation A -->
-    <chargingStation id="chargingStationA" lane="gneE0_0" startPos="5" endPos="10" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
-
-	<!-- chargingStation B -->
-    <chargingStation id="chargingStationB" lane="gneE0_0" startPos="15" endPos="20" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" name="chargingStation" friendlyPos="true"/>
-</additionals>

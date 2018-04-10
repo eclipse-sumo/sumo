@@ -1,5 +1,0 @@
-Success.
-score	route	(airDistRatio, detourRatio, detour, shortestDist, airDist)
-4.6942305	0	(3.050330452465684, 1.5, 14.39, 400.0, 196.7)
-overal implausiblity: count 1, min 4.69 (0), max 4.69 (0), mean 4.69 Q1 4.69, median 4.69, Q3 4.69
-implausiblity above threshold: count 1, min 4.69 (0), max 4.69 (0), mean 4.69 Q1 4.69, median 4.69, Q3 4.69

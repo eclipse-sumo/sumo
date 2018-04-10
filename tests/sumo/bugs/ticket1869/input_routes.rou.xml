@@ -1,6 +1,0 @@
-<routes>
-    <vType id="bicycle" vClass="bicycle"/>
-    <vehicle id="bike38" type="bicycle" depart="0">
-        <route edges="CE"/>
-    </vehicle>
-</routes>

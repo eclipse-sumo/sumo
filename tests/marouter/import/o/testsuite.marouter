@@ -1,8 +1,0 @@
-# Spreads 100 vehicles over a day
-100vehs_day
-
-# Spreads 100 vehicles over a day and calculates multiple shortest paths
-kshortest
-
-# Spreads 100 vehicles over an hour
-100vehs_hour

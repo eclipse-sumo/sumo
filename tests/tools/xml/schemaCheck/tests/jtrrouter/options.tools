@@ -1,1 +1,0 @@
-$SUMO_HOME/tests *.turns.xml tools/xml/schemaCheck.py

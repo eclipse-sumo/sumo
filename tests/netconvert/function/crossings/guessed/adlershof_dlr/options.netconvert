@@ -1,3 +1,0 @@
---node-files input_plain.nod.xml --edge-files input_plain.edg.xml --output net.net.xml --ignore-errors.edge-type --roundabouts.guess --crossings.guess
-
-

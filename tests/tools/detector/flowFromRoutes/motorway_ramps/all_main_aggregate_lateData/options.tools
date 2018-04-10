@@ -1,6 +1,0 @@
--d input_detectors.det.xml
--f input_flows.txt
--r input_routes.rou.xml
--e input_flows.flows.xml
--i 60
---verbose

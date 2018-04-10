@@ -1,6 +1,0 @@
-<routes>
-    <person id="visitor2" depart="0" departPos="-3">
-        <walk from="SC" to="SC"/>
-        <walk edges="SC" to="CE"/>
-    </person>
-</routes>

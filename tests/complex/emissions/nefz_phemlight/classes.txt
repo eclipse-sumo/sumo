@@ -1,3 +1,0 @@
-PHEMlight/zero
-PHEMlight/PC_D_EU4
-PHEMlight/PC_G_EU4

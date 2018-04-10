@@ -1,1 +1,0 @@
--n net.net.xml --route-files input_routes.rou.xml --max-num-teleports 5 --no-step-log -v

@@ -1,7 +1,0 @@
-
-[Reported by Windows at 27Mar15:48:10]
-search_string:Attribute 'x' is missing
-search_file:errors
-ignore_other_errors:1
-bug_system:trac
-bug_id:1715

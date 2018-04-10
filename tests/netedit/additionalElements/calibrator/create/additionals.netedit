@@ -1,8 +1,0 @@
-<additionals>
-    <calibrator id="calibrator_gneE0_0" edge="gneE0" pos="0.00" freq="100.00" output="calibrator_gneE0_0.txt"/>
-    <calibrator id="calibrator_gneE0_1" edge="gneE0" pos="10.00" freq="100.00" output="calibrator_gneE0_1.txt"/>
-    <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="10.00" freq="250.00" output="calibrator_gneE1_2.txt"/>
-    <calibrator id="calibrator_gneE1_3" edge="gneE1" pos="10.00" freq="250.00" output="calibrator_gneE1_3.txt"/>
-    <calibrator id="calibrator_gneE1_4" edge="gneE1" pos="10.00" freq="250.00" output="calibrator_gneE1_4.txt"/>
-    <calibrator id="calibrator_gneE1_5" edge="gneE1" pos="10.00" freq="250.00" output="myOwnOutput"/>
-</additionals>

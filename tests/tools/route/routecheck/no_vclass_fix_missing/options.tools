@@ -1,3 +1,0 @@
-{CLEAR} -v -n input_net.net.xml routes2.rou.xml --fix routes.rou.xml tools/route/routecheck.py
-
-

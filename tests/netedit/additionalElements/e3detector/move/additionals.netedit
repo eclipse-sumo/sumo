@@ -1,5 +1,0 @@
-<additionals>
-    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="31.00,-2.00">
-        <detEntry lane="gneE0_0" pos="28.00" friendlyPos="0"/>
-    </e3Detector>
-</additionals>

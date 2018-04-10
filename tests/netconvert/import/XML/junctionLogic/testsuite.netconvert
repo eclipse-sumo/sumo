@@ -1,8 +1,0 @@
-# giving higher priority to the edges of a roundabout should give right of way inside the roundabout
-priority_roundabout
-
-# straight going bicycles on a parallel edge should get priority over turning traffic
-parallel_bike_path
-
-# as above but with fewer edges
-parallel_bike_path2

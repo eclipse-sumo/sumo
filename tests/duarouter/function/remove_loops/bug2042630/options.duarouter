@@ -1,1 +1,0 @@
---remove-loops --net-file input_net.net.xml --output-file routes.rou.xml --route-files=input_trips.trips.xml -b 0 -e 90000 --ignore-errors --no-warnings

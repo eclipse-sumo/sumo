@@ -1,8 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-   <vType id="tSpeedAssist" sigma="0" actionStepLength="0.2"/>
-   <vType id="tNeedsHelp" sigma="0" actionStepLength="0.2"/>
-    <route id="1" edges="end end2"/>
-
-    <vehicle depart="0." id="speedAssist" type="tSpeedAssist" route="1" departPos="-15" departSpeed="3." departLane="0"/>
-    <vehicle depart="0." id="needsHelp" type="tNeedsHelp" route="1" departPos="-0.01" departLane="1"/>
-</routes>

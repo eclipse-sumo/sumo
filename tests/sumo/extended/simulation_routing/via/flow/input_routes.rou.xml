@@ -1,7 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<vType id="DEFAULT_VEHTYPE" sigma="0"/>
-
-    <route id="r0" edges="A0toB0 B0toC0 C0toD0 D0toD1 D1toC1 C1toB1 B1toA1 A1toA2 A2toB2 B2toC2 C2toD2 D2toD3"/>
-    <flow id="0" begin="0" number="1" route="r0" via="A1toA2"/>
-
-</routes>

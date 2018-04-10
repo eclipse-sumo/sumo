@@ -1,6 +1,0 @@
-<routes>
-    <vType id="DEFAULT_VEHTYPE" vClass="bus"/>
-
-    <trip id="1" depart="0" from="SC" to="CN" departLane="0"/>
-
-</routes>

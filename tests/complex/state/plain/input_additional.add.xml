@@ -1,3 +1,0 @@
-<add>
-    <timedEvent type="SaveTLSStates" source="0/0" dest="tls_state.xml"/>
-        </add>

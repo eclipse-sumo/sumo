@@ -1,3 +1,0 @@
---persons
--i fcd.xml -n net.net.xml 
---dri-output test.dri --str-output test.str --flt-output test.flt --fzp-output test.fzp

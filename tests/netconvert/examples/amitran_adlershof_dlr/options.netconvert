@@ -1,1 +1,0 @@
---sumo-net-file input_net.net.xml --junctions.join --amitran-output foreign.net

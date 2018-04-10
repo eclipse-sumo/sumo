@@ -1,4 +1,0 @@
-[run_dependent_text]
-rawdump: posLat="0\.00"{REPLACE }
-tripinfos: arrivalPosLat="0\.00"{REPLACE }
-tripinfos: departPosLat="0\.00"{REPLACE }

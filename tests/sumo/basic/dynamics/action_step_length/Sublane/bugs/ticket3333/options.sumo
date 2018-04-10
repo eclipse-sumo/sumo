@@ -1,3 +1,0 @@
---no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
---netstate-dump rawdump.xml
---lateral-resolution 0.2

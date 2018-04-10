@@ -1,8 +1,0 @@
-<additionals>
-    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="12.00" endPos="22.00" friendlyPos="0" roadsideCapacity="0" width="3.20" length="5.00" angle="0.00">
-        <space x="17.00" y="7.00" z="10.00" width="4.00" length="5.00" angle="45.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE0_0_1" lane="gneE0_0" startPos="29.00" endPos="39.00" friendlyPos="0" roadsideCapacity="0" width="3.20" length="5.00" angle="0.00">
-        <space x="34.00" y="7.00"/>
-    </parkingArea>
-</additionals>

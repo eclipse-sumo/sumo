@@ -1,9 +1,0 @@
-# Copy of tau1.0_actionsteplength1.0
-tau1.0_actionsteplength1.0
-
-# collision expected
-tau0.5_actionsteplength1.0
-
-# collision expected
-tau1.0_actionsteplength0.5
-tau0.2_actionsteplength0.2

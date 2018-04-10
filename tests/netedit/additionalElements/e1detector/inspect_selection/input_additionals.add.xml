@@ -1,7 +1,0 @@
-<additionals>
-    <!-- E1 A -->
-    <e1Detector id="E1_A" lane="gneE0_0" pos="6" freq="120.00" file="e1Detector_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
-
-	<!-- E1 B -->
-	<e1Detector id="E1_B" lane="gneE0_0" pos="10" freq="90.00" file="e1Detector_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
-</additionals>

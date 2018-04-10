@@ -1,4 +1,0 @@
-<additionals>
-    <poi id="POI_img" color="white" layer="0.00" x="12.40" y="17.50" width="5.00" height="5.00" imgFile="berlin_icon.ico"/>
-    <poi id="POI_nonDeleted" color="yellow" layer="2.00" x="22.40" y="17.50" width="0.00" height="0.00"/>
-</additionals>

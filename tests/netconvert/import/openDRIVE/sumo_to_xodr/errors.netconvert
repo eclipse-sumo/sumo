@@ -1,2 +1,0 @@
-Warning: Target lane 'gneE0_1' has multiple connections from 's4'.
-Warning: Could not compute smooth shape from lane 's3_0' to lane 's3-AddedOffRampEdge_0'. Use option 'junctions.scurve-stretch' or increase radius of junction 's3-AddedOffRampNode' to fix this.

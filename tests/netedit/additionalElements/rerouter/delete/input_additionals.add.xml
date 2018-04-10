@@ -1,4 +1,0 @@
-<additionals>
-    <rerouter id="rerouter_1" edges="gneE1" probability="0.30" file="rerouter_1.txt" off = "1" pos="24.07,4.46"/>
-    <rerouter id="rerouter_2" edges="gneE1" probability="0.30" file="rerouter_2.txt" off = "0" pos="27.64,4.46"/>
-</additionals>

@@ -1,8 +1,0 @@
-# Two trains approaching conflicting block simultaneously causing a head-on conflict
-headonconflict
-
-# Tests interlocked block signalling
-interlocking
-
-# speed when passing tracks with different speed limits
-slow_fast_slow

@@ -1,1 +1,0 @@
-{CLEAR} --no-step-log --routing-algorithm=CHWrapper --net-file=input_net.net.xml --weight-files=input_weights.dump.xml --route-files=input_trips.trips.xml -o routes.rou.xml

@@ -1,4 +1,0 @@
-<additionals>
-    <routeProbe id="routeProbe_01" edge="gneE1" freq="100.00" file="routeProbe_01.txt" begin="0.00"/>
-	<routeProbe id="routeProbe_02" edge="gneE0" freq="100.00" file="routeProbe_02.txt" begin="0.00"/>
-</additionals>

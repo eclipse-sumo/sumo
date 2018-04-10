@@ -1,1 +1,0 @@
---travel-distance 10. --radius 0. -o districts.xml net.net.xml tools/generateBidiDistricts.py

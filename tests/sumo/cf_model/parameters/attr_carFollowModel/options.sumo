@@ -1,3 +1,0 @@
---no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
---save-state.files state.xml --save-state.times 2
-

@@ -1,7 +1,0 @@
-<routes>
-    <route id="WE" edges="WC CE"/>
-
-    <vType id="car" vClass="passenger" sigma="0" guiShape="passenger" decel="2"/>
-
-    <flow id="WE"  route="WE" type="car"        begin="0" end="20" probability="0.2" departLane="best" departSpeed="7.8"/>
-</routes>

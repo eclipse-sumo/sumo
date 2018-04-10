@@ -1,9 +1,0 @@
-# load poi with x and y coordinate
-# 
-poi_xy
-
-# load poi with lane/pos specification
-poi_lanepos
-
-# load poi with lon/lat specification
-poi_lonlat

@@ -1,8 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="DEFAULT_VEHTYPE" sigma="0" vClass="tram"/>
-    <route id="r1" edges="beg beg"/>
-    
-    <vehicle id="0" depart="0" departPos="0" route="r1">
-        <stop lane="beg_0" duration="10" endPos="20.84"/>
-    </vehicle>
-</routes>

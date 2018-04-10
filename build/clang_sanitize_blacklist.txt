@@ -1,2 +1,0 @@
-fun:*_Ios_Fmtflags*
-src:/usr/bin/\.\./lib/gcc/x86_64-linux-gnu/5\.4\.0/\.\./\.\./\.\./\.\./include/c\+\+/5\.4\.0/bits/random\.tcc

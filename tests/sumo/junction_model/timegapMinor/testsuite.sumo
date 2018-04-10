@@ -1,5 +1,0 @@
-# the low priority vehicle should not cause braking on the main road at impatience 0
-default
-
-# increase timegap when passing minor link
-3s

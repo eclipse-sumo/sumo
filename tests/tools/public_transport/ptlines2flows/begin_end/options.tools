@@ -1,4 +1,0 @@
--n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
--b 18000
--e 20000
-tools/ptlines2flows.py

@@ -1,5 +1,0 @@
-<additionals>
-    <busStop id="bs" lane="CW_0" startPos="10" endPos="20" friendlyPos="0"/>
-    <containerStop id="cs" lane="CW_0" startPos="30" endPos="40" friendlyPos="0"/>
-    <parkingArea id="pa" lane="CW_0" startPos="50" endPos="60" friendlyPos="0" roadsideCapacity="2"/>
-</additionals>

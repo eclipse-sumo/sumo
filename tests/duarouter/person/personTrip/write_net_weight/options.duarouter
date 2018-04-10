@@ -1,4 +1,0 @@
---net-file=input_net.net.xml --additional input_additional.add.xml
---route-files=input_routes.rou.xml -o routes.rou.xml
---intermodal-network-output additional.xml
---intermodal-weight-output weights.xml

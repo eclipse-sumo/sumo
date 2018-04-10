@@ -1,6 +1,0 @@
-
-[Reported by Windows at 19Mar08:35:42]
-search_string:.*
-search_file:net
-bug_system:trac
-bug_id:1691

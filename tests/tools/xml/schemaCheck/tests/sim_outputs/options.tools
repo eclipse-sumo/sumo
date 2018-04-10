@@ -1,1 +1,0 @@
-$SUMO_HOME/tests detector.sumo*,rawdump.sumo*,aggregated*.sumo*,tripinfos.sumo*,queue.sumo*,emissions.sumo*,tripinfos.traci,net_state.traci,bt.sumo*,stopinfos.sumo*,vtypeprobe.sumo*,*state*.* tools/xml/schemaCheck.py

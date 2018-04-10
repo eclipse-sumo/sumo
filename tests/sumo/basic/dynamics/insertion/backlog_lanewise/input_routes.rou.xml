@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="t0" sigma="0"/>
-    <route id="r0" edges="end"/>
-    <vehicle id="blocker" depart="0" route="r0" type="t0" departLane="1">
-        <stop lane="end_1" endPos="6" duration="100"/>
-    </vehicle>
-    <vehicle id="backlogged" depart="0" route="r0" type="t0" departLane="1"/>
-    <flow id="unblocked" route="r0" type="t0" begin="0" end="100" period="10"/>
-</routes>

@@ -1,2 +1,0 @@
-route departs: count 100, min 0.00 (0), max 99.00 (99), mean 49.50 Q1 25.00, median 50.00, Q3 75.00
- histogram: [(0.0, 25), (50.0, 50), (100.0, 25)]

@@ -1,1 +1,0 @@
---net-file=input_net.net.xml --route-files=input_trips.trips.xml -o routes.rou.xml --astar.landmark-distances lookuptable --astar.save-landmark-distances landmarks.csv -v --routing-threads 2

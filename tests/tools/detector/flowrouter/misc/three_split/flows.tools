@@ -1,5 +1,0 @@
-<additional>
-    <flow id="beg_rend.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="beg_rend.qPKW.0" number="300" begin="0" end="3600"/>
-    <flow id="beg_rend.1.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="beg_rend.1.qPKW.0" number="350" begin="0" end="3600"/>
-    <flow id="beg_rend.2.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="beg_rend.2.qPKW.0" number="350" begin="0" end="3600"/>
-</additional>

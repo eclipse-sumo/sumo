@@ -1,6 +1,0 @@
-<additionals>
-    <e1Detector id="e1Detector_gneE0_0_0" lane="gneE0_0" pos="12.00" freq="100.00" file="e1Detector_gneE0_0_0.txt" friendlyPos="0"/>
-    <e1Detector id="e1Detector_gneE0_0_1" lane="gneE0_0" pos="17.00" freq="150.00" file="e1Detector_gneE0_0_1.txt" friendlyPos="0"/>
-    <e1Detector id="e1Detector_gneE0_0_2" lane="gneE0_0" pos="22.00" freq="150.00" file="e1Detector_gneE0_0_2.txt" vTypes="private passenger taxi bus" friendlyPos="0"/>
-    <e1Detector id="e1Detector_gneE0_0_3" lane="gneE0_0" pos="27.00" freq="150.00" file="e1Detector_gneE0_0_3.txt" vTypes="private passenger taxi bus" friendlyPos="1"/>
-</additionals>

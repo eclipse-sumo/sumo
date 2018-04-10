@@ -1,3 +1,0 @@
---node-files input_plain.nod.xml --edge-files input_plain.edg.xml,input_edges.edg.xml --offset.disable-normalization --plain-output-prefix plain -o net.net.xml
-
-

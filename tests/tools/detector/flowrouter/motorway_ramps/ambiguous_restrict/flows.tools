@@ -1,6 +1,0 @@
-<additional>
-    <flow id="1_9.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1_9.qPKW.0" number="1540" begin="0" end="3600"/>
-    <flow id="1_off3.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1_off3.qPKW.0" number="460" begin="0" end="3600"/>
-    <flow id="on3_9.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="on3_9.qPKW.0" number="460" begin="0" end="3600"/>
-    <flow id="on3_off3.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="on3_off3.qPKW.0" number="40" begin="0" end="3600"/>
-</additional>

@@ -1,7 +1,0 @@
-<routes>
-    <route id="SE" edges="SC CE"/>
-
-    <vType id="car" vClass="passenger" sigma="0" guiShape="passenger" jmCrossingGap="1"/>
-
-    <flow id="car_SE"  route="SE" type="car"        begin="46" end="52" period="4" departLane="best" color="yellow"/>
-</routes>

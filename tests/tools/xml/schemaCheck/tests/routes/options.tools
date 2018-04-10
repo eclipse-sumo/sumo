@@ -1,1 +1,0 @@
-$SUMO_HOME/tests *.rou.xml,routes.*router,alts.*router,vehroutes*.sumo* tools/xml/schemaCheck.py

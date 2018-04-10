@@ -1,4 +1,0 @@
-<additionals>
-    <parkingArea id="parkingAreaA" lane="gneE0_0" startPos="5.00" endPos="10.00" name="new Parking Area Name" friendlyPos="1" roadsideCapacity="7" width="2.30" length="3.40" angle="32.50" blockMovement="1"/>
-    <parkingArea id="parkingAreaB" lane="gneE0_0" startPos="15.00" endPos="20.00" name="new Parking Area Name" friendlyPos="1" roadsideCapacity="7" width="2.30" length="3.40" angle="32.50" blockMovement="1"/>
-</additionals>

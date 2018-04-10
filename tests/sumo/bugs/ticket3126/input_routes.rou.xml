@@ -1,4 +1,0 @@
-<routes>
-    <route id="0" edges="e1 e2 e3 e4" />
-    <vehicle id="v0" depart="0" route="0" departSpeed="max" departPos="0"/>
-</routes>

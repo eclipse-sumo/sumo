@@ -1,5 +1,0 @@
-<configuration>
-	
-    <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
-
-</configuration>

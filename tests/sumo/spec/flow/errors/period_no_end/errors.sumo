@@ -1,2 +1,0 @@
-Error: If 'period', 'vehsPerHour' or 'probability' are given at most one of 'end' and 'number' are allowed in flow 'f1'.
-Quitting (on error).

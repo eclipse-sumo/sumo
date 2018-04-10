@@ -1,1 +1,0 @@
--n net.net.xml -r input_routes.rou.xml --precision 32 --fcd-output fcd.xml --no-step-log --no-duration-log

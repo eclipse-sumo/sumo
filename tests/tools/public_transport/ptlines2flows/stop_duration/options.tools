@@ -1,4 +1,0 @@
--n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
---stop-duration 60
--v
-tools/ptlines2flows.py

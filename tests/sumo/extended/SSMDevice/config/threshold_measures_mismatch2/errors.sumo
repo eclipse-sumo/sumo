@@ -1,2 +1,0 @@
-Error: Given list of thresholds ('0.1') is not of the same size as the list of measures ('TTC PET').
-Please specify exactly one threshold for each measure.

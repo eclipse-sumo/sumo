@@ -1,7 +1,0 @@
-<configuration>
-    <input>
-       <net-file value="circles.net.xml" />
-       <route-files value="circles.rou.xml" />
-       <additional-files value="circles.add.xml" />
-    </input>
-</configuration>

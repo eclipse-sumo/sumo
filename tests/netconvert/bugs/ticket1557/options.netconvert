@@ -1,1 +1,0 @@
---sumo-net-file input_net.net.xml --remove-edges.explicit CE,EC

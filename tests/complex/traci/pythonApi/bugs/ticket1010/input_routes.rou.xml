@@ -1,5 +1,0 @@
-<routes>
-    <vehicle id="v0" depart="0" departSpeed="max" departPos="-1">
-        <route edges="beg end"/>
-    </vehicle>
-</routes>

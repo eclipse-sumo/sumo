@@ -1,3 +1,0 @@
---input-file routes.rou.xml --output-file out.rou.xml 
---depart-interval 3,6,30,60
-tools/route/route_departOffset.py

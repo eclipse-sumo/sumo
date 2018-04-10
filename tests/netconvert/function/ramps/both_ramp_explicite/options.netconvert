@@ -1,2 +1,0 @@
---no-internal-links  --ramps.set s2,s3 --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --output=net.net.xml 
-

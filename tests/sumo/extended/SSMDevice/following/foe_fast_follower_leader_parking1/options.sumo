@@ -1,1 +1,0 @@
--n net2.net.xml -r input_routes.rou.xml --step-length=0.1 --step-method.ballistic  --no-step-log

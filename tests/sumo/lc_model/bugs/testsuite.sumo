@@ -1,8 +1,0 @@
-# changeProbability should diminsh if there is no advantage in changing
-ticket3337
-
-# for away leaders should not trigger lane-changing behavior
-ticket3360
-
-# overtaking over two lanes
-ticket3377

@@ -1,2 +1,0 @@
--n net.net.xml --no-step-log -a input_additional.add.xml --tripinfo-output
-tripinfos.xml -e 100 --ignore-route-errors

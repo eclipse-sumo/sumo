@@ -1,1 +1,0 @@
-jtrrouter --xml-validation.net auto tests/complex/broken_nets/runner.py

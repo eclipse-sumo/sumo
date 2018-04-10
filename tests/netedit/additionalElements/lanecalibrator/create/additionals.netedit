@@ -1,8 +1,0 @@
-<additionals>
-    <calibrator id="laneCalibrator_gneE0_0_0" lane="gneE0_0" pos="0.00" freq="100.00" output="laneCalibrator_gneE0_0_0.txt"/>
-    <calibrator id="laneCalibrator_gneE0_0_1" lane="gneE0_0" pos="10.00" freq="100.00" output="laneCalibrator_gneE0_0_1.txt"/>
-    <calibrator id="laneCalibrator_gneE1_0_2" lane="gneE1_0" pos="10.00" freq="250.00" output="laneCalibrator_gneE1_0_2.txt"/>
-    <calibrator id="laneCalibrator_gneE1_0_3" lane="gneE1_0" pos="10.00" freq="250.00" output="laneCalibrator_gneE1_0_3.txt"/>
-    <calibrator id="laneCalibrator_gneE1_0_4" lane="gneE1_0" pos="10.00" freq="250.00" output="laneCalibrator_gneE1_0_4.txt"/>
-    <calibrator id="laneCalibrator_gneE1_0_5" lane="gneE1_0" pos="10.00" freq="250.00" output="myOwnOutput"/>
-</additionals>
