@@ -382,9 +382,9 @@ void
 MSDriverState::updateItemIntegration(std::shared_ptr<MSTrafficItem> ti) const {
     // Eventually decrease integration time and take into account integration cost.
     ti->remainingIntegrationTime -= myStepDuration;
-    if (ti->remainingIntegrationTime <= 0) {
-        ti->remainingIntegrationTime = 0;
-        ti->integrationDemand = 0;
+    if (ti->remainingIntegrationTime <= 0.) {
+        ti->remainingIntegrationTime = 0.;
+        ti->integrationDemand = 0.;
     }
 }
 
@@ -472,7 +472,7 @@ MSDriverState::calculateJunctionIntegrationDemand(std::shared_ptr<JunctionCharac
     const double INTEGRATION_DEMAND_JUNCTION_ZIPPER = 0.3;
 
     double result = INTEGRATION_DEMAND_JUNCTION_BASE;
-    LinkState linkState = ch->approachingLink->getState();
+//    LinkState linkState = ch->approachingLink->getState();
     switch (ch->junction->getType()) {
     case NODETYPE_NOJUNCTION:
     case NODETYPE_UNKNOWN:
@@ -531,9 +531,8 @@ MSDriverState::calculateJunctionIntegrationDemand(std::shared_ptr<JunctionCharac
 
 double
 MSDriverState::calculateVehicleIntegrationDemand(std::shared_ptr<VehicleCharacteristics> ch) const {
-
     // TODO
-
+    return 0.;
 }
 
 
@@ -585,7 +584,6 @@ double
 MSDriverState::calculateLatentPedestrianDemand(std::shared_ptr<PedestrianCharacteristics> ch) const {
     // Latent demand for pedestrian is proportional to the euclidean distance to the
     // pedestrian (i.e. its potential to 'jump in front of the car) [~1/(c*dist + 1)]
-    const MSPerson* p = ch->pedestrian;
     const double LATENT_DEMAND_COEFF_PEDESTRIAN_DIST = 0.1;
     const double LATENT_DEMAND_COEFF_PEDESTRIAN = 0.5;
     double result = LATENT_DEMAND_COEFF_PEDESTRIAN/(1. + LATENT_DEMAND_COEFF_PEDESTRIAN_DIST*ch->dist);

@@ -77,7 +77,7 @@ protected:
         MSTrafficItemType type;
         size_t id_hash;
         std::shared_ptr<MSTrafficItemCharacteristics> data;
-        SUMOTime remainingIntegrationTime;
+        double remainingIntegrationTime;
         double integrationDemand;
         double latentDemand;
     };
