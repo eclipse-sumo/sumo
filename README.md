@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/DLR-TS/sumo.svg?branch=master)](https://travis-ci.org/DLR-TS/sumo)
 
-SUMO - Simulation of Urban MObility 
-===================================
+Eclipse SUMO - Simulation of Urban MObility 
+===========================================
 
 What is SUMO
 ------------
@@ -23,11 +23,7 @@ As the program is still under development and is extended continuously, we advic
 use the latest sources from our GitHub repository. Using a command line client
 the following command should work:
 
-        git clone --recursive https://github.com/DLR-TS/sumo.git
-
-(or if you still prefer subversion)
-
-        svn co https://github.com/DLR-TS/sumo.git
+        git clone --recursive https://github.comi/eclipse/sumo
 
 
 Mailing List
@@ -66,7 +62,7 @@ homepage.
 Bugs
 ----
 
-Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/DLR-TS/sumo/issues)
+Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues)
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
@@ -78,6 +74,7 @@ License
 SUMO is licensed under the [Eclipse Public License Version 2](https://eclipse.org/legal/epl-v20.html).
 For the licenses of the different libraries and supplementary code information is in the
 subdirectories and the [wiki](http://sumo.dlr.de/wiki/License).
+
 
 Derivative Works
 ----------------
