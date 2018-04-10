@@ -29,6 +29,9 @@
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_SSM.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_ToC.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
@@ -68,6 +71,9 @@
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_SSM.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_ToC.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\microsim\devices\MSDevice_Tripinfo.cpp">

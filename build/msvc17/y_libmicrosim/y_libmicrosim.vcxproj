@@ -112,6 +112,7 @@
     <ClCompile Include="..\..\..\src\microsim\MSBaseVehicle.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSCModel_NonInteracting.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSContainer.cpp" />
+    <ClCompile Include="..\..\..\src\microsim\MSDriverState.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdge.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeControl.cpp" />
     <ClCompile Include="..\..\..\src\microsim\MSEdgeWeightsStorage.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\..\..\src\microsim\MSBitSetLogic.h" />
     <ClInclude Include="..\..\..\src\microsim\MSCModel_NonInteracting.h" />
     <ClInclude Include="..\..\..\src\microsim\MSContainer.h" />
+    <ClInclude Include="..\..\..\src\microsim\MSDriverState.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdge.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeControl.h" />
     <ClInclude Include="..\..\..\src\microsim\MSEdgeWeightsStorage.h" />
