@@ -1,0 +1,33 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="0" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="1" type="KRAUSS_DEFAULT" depart="1" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="2" type="KRAUSS_DEFAULT" depart="2" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="3" type="KRAUSS_DEFAULT" depart="3" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="4" type="KRAUSS_DEFAULT" depart="4" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="5" type="KRAUSS_DEFAULT" depart="5" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="6" type="KRAUSS_DEFAULT" depart="6" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="7" type="KRAUSS_DEFAULT" depart="7" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="8" type="KRAUSS_DEFAULT" depart="8" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="9" type="KRAUSS_DEFAULT" depart="9" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+</routes>

@@ -1,0 +1,78 @@
+# Tests for e1Detectors (induction loops)
+e1
+
+# Tests for instantenous e1Detectors (induction loops)
+#e1Instant
+
+# Tests for e2Detectors (lane-areal)
+#e2
+
+# Tests for e3Detectors (areal)
+#e3
+
+# Tests for e2Detectors (lane-areal) couppled to a tls
+#e2_tls
+
+# Tests for e2Detectors (lane-areal) couppled to a tls link
+#e2_tls_link
+
+# Output coupled to tls
+tls
+
+# Tests for summary-output (earlier: emission-output)
+summary
+
+# Tests for tripinfo-output
+tripinfo
+
+# Tests for vehroutes-output
+vehroutes
+
+# Tests for rawdump-output
+rawdump
+
+# Tests for vtypeprobe-output
+vtypeprobe
+
+# Tests for routeprobe-output
+route_probe
+
+# Tests for edge-based mean data output (aka "edgedump")
+meandata_edgebased
+
+# Tests for lane-based mean data output (aka "lanedump")
+meandata_lanebased
+
+# Tests for edge-based mean emission data output (aka "mean hbefa edge dump")
+meanhbefa_edgebased
+
+# Tests for lane-based mean emission data output (aka "mean hbefa lane dump")
+meanhbefa_lanebased
+
+# Tests for edge-based mean noise output (aka "mean harmonoise edge dump")
+meannoise_edgebased
+
+# Tests for lane-based mean noise output (aka "mean harmonoise lane dump")
+meannoise_lanebased
+
+# test the duration log output
+duration_log
+
+# Test for Floating Car Data
+fcd-output
+link-output
+
+# Tests for full-output (huge overhead)
+full-output
+
+# Tests for emission-output 
+emission-output
+
+# Tests for vkt-output (The Visualization Toolkit)
+vtk-output
+
+# Tests for the queue-output
+queue-output
+
+# Tests which serve as examples
+examples

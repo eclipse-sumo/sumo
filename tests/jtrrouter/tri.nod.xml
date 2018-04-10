@@ -1,0 +1,15 @@
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+
+    <node id="absBeg" x="0" y="-400" type="priority"/>
+
+    <node id="begleft" x="-50" y="-200" type="priority"/>
+    <node id="beg" x="0" y="-200" type="priority"/>
+    <node id="begright" x="50" y="-200" type="priority"/>
+
+    <node id="endleft" x="-50" y="200" type="priority"/>
+    <node id="end" x="0" y="200" type="traffic_light"/>
+    <node id="endright" x="50" y="200" type="priority"/>
+
+    <node id="absEnd" x="0" y="400" type="priority"/>
+
+</nodes>

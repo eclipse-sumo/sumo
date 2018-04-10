@@ -1,0 +1,3 @@
+--default.lanenumber 1 --grid --grid.x-number=3 --grid.y-number=3
+--no-internal-links
+--grid.y-length=40 --grid.x-length=40 --output=net.net.xml --numerical-ids

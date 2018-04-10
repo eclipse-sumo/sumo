@@ -1,0 +1,6 @@
+--no-step-log --net-file=net.net.xml
+--device.rerouting.probability 0.3
+--device.rerouting.pre-period 0
+--route-files=input_routes.rou.xml --additional-files=input_additional.add.xml
+--duration-log.statistics --seed 42
+--vehroute-output vehroutes.xml

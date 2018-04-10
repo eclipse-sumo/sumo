@@ -1,0 +1,1 @@
+--full-output=rawdump.xml --no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -a input_additional2.add.xml  -b 0 -e 10

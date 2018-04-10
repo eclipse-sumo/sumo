@@ -1,0 +1,32 @@
+cross3ltl_summary
+cross3ltl_fcd
+cross3ltl_inductloops
+
+# lane area detectors in front of tl junction (NOTE: discrepancies to original E2 test results due to new feature of snapping the detector ends to the lane ends, delete NOTE after approval)
+cross3ltl_laneArea
+
+# lane area detectors that span multiple lanes
+cross3ltl_laneArea_longDetector
+cross3ltl_entryExit
+cross3ltl_meandata_constrained
+cross3ltl_meandata_edges
+cross3ltl_meandata_lanes
+cross3ltl_rawdump
+cross3ltl_tripinfo
+cross3ltl_vehroutes
+cross3ltl_vtypeprobe
+cross3ltl_queue
+cross3ltl_emission
+cross3ltl_full
+
+# testing amitran trajectories
+cross3ltl_amitran
+
+# Copy of cross3ltl_meandata_edges
+cross3ltl_meandata_amitran
+
+# test output option --output-prefix
+cross3ltl_prefixed_meandata_and_tripinfo_and_log
+
+# test output option --output-prefix
+cross3ltl_prefixed_nul

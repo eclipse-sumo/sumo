@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="../../../../../networkInputs/cross3l/input_nodes.nod.xml"/>
+        <edge-files value="../../../../../networkInputs/cross3l/input_edges.edg.xml"/>
+        <connection-files value="input_connections.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <speed-in-kmh value="true"/>
+        <no-internal-links value="true"/>
+    </processing>
+
+</configuration>

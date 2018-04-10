@@ -1,0 +1,78 @@
+# container with a transfer between two unconnceted edges. Its route is specified by a from and to edge
+transfer_unconnected_fromto
+
+# container with a transfer between two unconnceted edges. Its route is specified by a from and to edge and an edge chain. only the start and end element of the chain shall be considered for the route
+transfer_unconnected_fromto_chain
+
+# container with a transfer between two unconnceted edges. Its route is specified by a chain, but only the start and end element shall be considered
+transfer_unconnected_chain
+
+# container with a transfer between two unconnceted edges
+transfer_unconnected_4
+
+# container with a transfer between two unconnceted edges
+transfer_unconnected_3
+
+# container with a transfer between two unconnceted edges
+transfer_unconnected
+
+# container with a transfer between two unconnceted edges
+transfer_unconnected_2
+
+# person ride for restricted capacity
+capacity
+
+# test wheather the containerNumber of a vehicle increases/decreases if a container gets loaded/unloaded
+container_number
+
+# tests if a container leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the container reached its current destination stop (plus minos some tolerance)
+leaving_vehicle_at_stop
+
+# If a vehicle leaves the simulation before delivering all containers a warning should be triggered
+transport_wrong_destination
+
+# container stops for a given duration between two transfers
+stop_duration
+
+# car triggered by containers
+triggered
+
+# car triggered by containers
+triggeredParking
+
+# car triggered by containers (on departure and at stop)
+triggeredDepartParking
+
+# triggered stop cannot be fulfilled due to capacity
+triggeredParkingNoCapacity
+
+# car triggered by containers (on departure and at stop) with a waiting container
+triggeredParkingWait
+
+# container waiting for a car for a transport
+waiting_container
+
+# container that gets transportet by a truck that belongs to a certain line
+line
+
+# a truck has a small loading duration such that the stop duration will not be extended by the loading of the container
+loading_duration_no_extension
+
+# a truck has a large loading duration such that the stop duration will be extended by the loading of the containers
+loading_duration_extension
+
+# a truck will stop at two containerstop that are located at the same edge and a container is waiting at the second container stop. the container has to get loaded onto the truck when the truck stops at the second container stop and not before.
+two_containerstops_at_one_edge
+
+# test whether a chain of walks rides and stops works
+trip_chain
+
+# container with a transfer from one edge to the next one
+transfer
+
+# When all vehicles have left the simulation, any remainig container waiting for a transport should abort their plan.
+abort_impossible_transport
+
+# container with a single transport
+transport
+errors

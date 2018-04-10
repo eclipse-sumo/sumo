@@ -1,0 +1,3 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <calibrator id="calibtest" lane="beg_0" pos="105" file="input_definition.def.xml"/>
+</additional>

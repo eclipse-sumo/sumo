@@ -1,0 +1,2 @@
+Error: Attribute 'priority' in definition of edge '4' is not of type int.
+Quitting (on error).

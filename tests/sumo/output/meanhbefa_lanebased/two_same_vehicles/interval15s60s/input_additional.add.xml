@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<laneData id="dump_15" type="emissions" freq="15" file="aggregated_15.xml" excludeEmpty="true"/>
+	<laneData id="dump_60" type="emissions" freq="60" file="aggregated_60.xml" excludeEmpty="true"/>
+
+</additional>

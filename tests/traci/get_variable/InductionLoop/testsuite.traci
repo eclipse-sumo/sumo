@@ -1,0 +1,23 @@
+# Tests retrieval of induction loop number in scenario (ID_COUNT)
+ID_COUNT
+
+# Tests retrieval of induction loops in scenario (ID_LIST)
+ID_LIST
+
+# Tests retrieval of induction loop lane id (VAR_LANE_ID)
+VAR_LANE_ID
+
+# Tests retrieval of induction loop position (VAR_POSITION)
+VAR_POSITION
+
+# one vehicle is moving
+one_vehicle
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s
+two_vehicles_diff_speed
+
+# Testing error cases
+errors
+
+
+

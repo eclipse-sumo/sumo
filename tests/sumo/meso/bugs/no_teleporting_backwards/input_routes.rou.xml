@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="car" length="5" minGap="2"/>
+
+    <flow id="flow0" type="car" begin="0" end="6000" period="1.0">
+        <route edges="start0 start2 dest"/>
+    </flow>
+    <flow id="flow1" type="car" begin="0" end="6000" period="1.0">
+        <route edges="start1 start2 dest"/>
+    </flow>
+    <flow id="flow3" type="car" begin="0" end="6000" period="1.4">
+        <route edges="start3 start2 dest"/>
+    </flow>
+
+    <flow id="flow2" type="car" begin="0" end="6000" period="1.0">
+        <route edges="start2 dest"/>
+    </flow>
+</routes>

@@ -1,0 +1,22 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+   <edge id="-1000+0.-500+0" from="-1000+0" to="-500+0" numLanes="1" speed="19" />
+   <edge id="-500+0.-1000+0" from="-500+0" to="-1000+0" numLanes="1" speed="19" />
+
+   <edge id="-500+0.+0+0" from="-500+0" to="+0+0" numLanes="3" speed="19" />
+   <edge id="+0+0.-500+0" from="+0+0" to="-500+0" numLanes="1" speed="19" />
+
+   <edge id="+0+0.+500+0" from="+0+0" to="+500+0" numLanes="3" speed="19" />
+   <edge id="+500+0.+0+0" from="+500+0" to="+0+0" numLanes="2" speed="19" />
+
+   <edge id="+500+0.+1000+0" from="+500+0" to="+1000+0" numLanes="3" speed="19" />
+   <edge id="+1000+0.+500+0" from="+1000+0" to="+500+0" numLanes="1" speed="19" />
+
+
+   <edge id="+0+0.+0+500" from="+0+0" to="+0+500" numLanes="3" speed="19" />
+   <edge id="+0+500.+0+0" from="+0+500" to="+0+0" numLanes="4" speed="19" />
+
+   <edge id="+0+0.+0-500" from="+0+0" to="+0-500" numLanes="3" speed="19" />
+   <edge id="+0-500.+0+0" from="+0-500" to="+0+0" numLanes="3" speed="19" />
+
+
+</edges>

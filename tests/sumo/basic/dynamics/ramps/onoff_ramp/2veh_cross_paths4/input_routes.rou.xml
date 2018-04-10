@@ -1,0 +1,12 @@
+<routes>
+    <!-- A brakes to let B merge but A is much to fast for this to be useful -->
+    <route id="leave" edges="main_beg main_ramp1 main_ramp2 ramp_end"/>
+    <route id="stay" edges="main_beg main_ramp1 main_ramp2 main_end"/>
+    <route id="enter" edges="ramp_beg main_ramp1 main_ramp2 main_end"/>
+    <vType id="t0" maxSpeed="40" sigma="0"/>
+    <vType id="long" length="20" minGap="2.5" maxSpeed="30" sigma="0"/>
+
+    <vehicle id="C" type="t0" route="stay" depart="0" departSpeed="max" color="yellow"/>
+    <vehicle id="B" type="long" route="enter" depart="0" departSpeed="max" color="green" departPos="-1"/>
+    <vehicle id="A" type="t0" route="leave" depart="3" departSpeed="max" color="yellow"/>
+</routes>

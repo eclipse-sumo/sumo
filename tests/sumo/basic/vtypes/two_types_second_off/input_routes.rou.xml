@@ -1,0 +1,19 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="0" edges="beg middle end rend"/>
+   <vTypeDistribution id="vt1">
+       <vType id="t1" probability="0.8" sigma="0"/>
+       <vType id="t2" probability="0" sigma="0"/>
+   </vTypeDistribution>
+
+   <vehicle id="0" route="0" depart="0" type="vt1"/>
+   <vehicle id="1" route="0" depart="10" type="vt1"/>
+   <vehicle id="2" route="0" depart="20" type="vt1"/>
+   <vehicle id="3" route="0" depart="30" type="vt1"/>
+   <vehicle id="4" route="0" depart="40" type="vt1"/>
+   <vehicle id="5" route="0" depart="50" type="vt1"/>
+   <vehicle id="6" route="0" depart="60" type="vt1"/>
+   <vehicle id="7" route="0" depart="70" type="vt1"/>
+   <vehicle id="8" route="0" depart="80" type="vt1"/>
+   <vehicle id="9" route="0" depart="90" type="vt1"/>
+
+</routes>

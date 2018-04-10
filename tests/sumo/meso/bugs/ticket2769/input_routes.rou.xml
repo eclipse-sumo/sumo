@@ -1,0 +1,42 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE"/>
+
+   <vehicle id="Ablocker" depart="0">
+      <route edges="beg end"/>
+      <stop lane="end_0" duration="300"/>
+   </vehicle>
+
+   <vehicle id="Bblocker" depart="0">
+      <route edges="beg2 end2"/>
+      <stop lane="end2_0" duration="300"/>
+   </vehicle>
+
+   <vehicle id="Cblocker" depart="0">
+      <route edges="beg0 end0"/>
+      <stop lane="end0_0" duration="300"/>
+   </vehicle>
+
+   <flow id="A" begin="0" period="1" number="130">
+      <route edges="beg end"/>
+   </flow>
+
+   <flow id="B" begin="0" period="1" number="130">
+      <route edges="beg2 end2"/>
+   </flow>
+
+   <flow id="C" begin="0" period="1" number="130">
+      <route edges="beg0 end0"/>
+   </flow>
+
+   <flow id="Aside" begin="0" period="1" number="130">
+      <route edges="side end"/>
+   </flow>
+
+   <flow id="Bside" begin="0" period="1" number="130">
+      <route edges="side2 end2"/>
+   </flow>
+
+   <flow id="Cside" begin="0" period="1" number="130">
+      <route edges="side0 end0"/>
+   </flow>
+</routes>

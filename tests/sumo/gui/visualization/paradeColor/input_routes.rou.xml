@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="always_right" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i" color="1,0,0"/>
+   <route id="always_left" edges="3i 2o 2i 4o 4i 1o 1i 3o 3i" /> 
+
+   <vType sigma="0" id="passenger" length="5" minGap="2.5" guiShape="passenger" color="0,1,0"/>
+   <vehicle id="passenger" route="always_right" depart="0" type="passenger"/>
+   <vehicle id="passenger2" route="always_right" depart="0" type="passenger" color="0,0,1"/>
+
+   <vType sigma="0" id="truck" length="8" minGap="2" guiShape="truck" width="2.5"/>
+   <vehicle id="truck" route="always_left" depart="0" type="truck"/>
+   <vehicle id="truck2" route="always_right" depart="0" type="truck"/>
+
+</routes>

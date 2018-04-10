@@ -1,0 +1,6 @@
+<additional>
+	<e2Detector file="e2_output.xml" freq="3600" friendlyPos="x" id="e2det_1i_0" lane="1i_0" pos="245" length="250" />
+	<e2Detector file="e2_output.xml" freq="3600" friendlyPos="x" id="e2det_2i_0" lane="2i_0" pos="245" length="250" />
+	<e2Detector file="e2_output.xml" freq="3600" friendlyPos="x" id="e2det_3i_0" lane="3i_0" pos="245" length="250" />
+	<e2Detector file="e2_output.xml" freq="3600" friendlyPos="x" id="e2det_4i_0" lane="4i_0" pos="245" length="250" />
+</additional>

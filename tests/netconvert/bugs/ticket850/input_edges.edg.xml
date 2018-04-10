@@ -1,0 +1,3 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+   <edge id="allows_now" from="1" to="2" disallow="private emergency authority army vip ignoring passenger hov taxi bus coach trailer evehicle delivery truck tram rail_urban rail rail_electric motorcycle moped bicycle pedestrian"/>
+</edges>

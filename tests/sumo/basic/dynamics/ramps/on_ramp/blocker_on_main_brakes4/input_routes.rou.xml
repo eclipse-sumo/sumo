@@ -1,0 +1,9 @@
+<routes>
+    <route id="main" edges="main_beg merge main_end"/>
+    <route id="ramp" edges="ramp_beg merge main_end"/>
+    <vType id="main" maxSpeed="35"/>
+    <vType id="ramp"/>
+    <flow id="main" route="main" type="main" begin="0" end="400" period="2" departSpeed="max"/>
+    <flow id="main2" route="main" type="main" begin="0" end="400" period="2" departSpeed="max" departLane="1" arrivalLane="1"/>
+    <vehicle id="ramp" route="ramp" type="ramp" depart="4" departSpeed="max"/>
+</routes>

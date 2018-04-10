@@ -1,0 +1,1 @@
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -b 0 -e 100 --log log.txt -v 

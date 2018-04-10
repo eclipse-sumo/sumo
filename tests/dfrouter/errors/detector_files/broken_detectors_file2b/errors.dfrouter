@@ -1,0 +1,5 @@
+Error: input ended before all started tags were ended; last tag started is 'a'
+ In file 'input_messstrecke.det.xml'
+ At line/column 8/1.
+
+Quitting (on error).

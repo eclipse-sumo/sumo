@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 27Jul16:32:41]
+search_string:probability="0.5"
+use_regexp:0
+trigger_on_absence:1
+search_file:emitters
+full_description:invalid probabilities
+brief_description:see #2551

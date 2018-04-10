@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="very_slow" maxSpeed="0.5"/>
+    <vType sigma="0" id="slow" maxSpeed="1"/>
+    <vehicle id="blocker" type="very_slow" departPos="0" depart="0">
+        <route edges="target"/>
+        <stop lane="target_0" endPos="15" duration="200"/>
+    </vehicle>
+    <vehicle id="victim" departPos="100" depart="6">
+        <route edges="beg2 target"/>
+    </vehicle>
+    <vehicle id="perp" type="slow" departPos="110" depart="6">
+        <route edges="beg3 target"/>
+    </vehicle>
+</routes>

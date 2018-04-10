@@ -1,0 +1,20 @@
+# Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
+offset10
+
+# also modify ids
+offset10_modify_ids
+
+# mix different styles of vehicle definitions
+offset10_heterogeneous
+
+# modifying departure times for vehicles departing from specified edges
+offset10_departEdges
+
+# modifying departure times for vehicles departing from specified edges
+offset10_departEdges_file
+
+# modifying departure times for vehicles arriving on specified edges
+offset10_arrivalEdges
+
+# Tests for <SUMO_DIST>/tools/route_tools/route_departOffset.py
+offset_move_interval

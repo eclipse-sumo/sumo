@@ -1,0 +1,6 @@
+Warning: Cannot find local schema 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/xsd/blub_file.xsd', will try website lookup.
+Error: unable to open file 'http://sumo.dlr.de/xsd/blub_file.xsd'
+ In file 'input_routes.rou.xml'
+ At line/column 1/0.
+
+Quitting (on error).

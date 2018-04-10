@@ -1,0 +1,19 @@
+# Tests for E1 Detector generation script
+generateTLSE1Detectors
+
+# Tests for E2 Detector geration script
+generateTLSE2Detectors
+
+# Tests for E3 Detector generation script
+generateTLSE3Detectors
+
+# Tests for ITetris Intersection Metrics
+generateITetrisIntersectionMetrics
+
+# Tests for generateMeanDataDefinitions.py
+generateMeanDataDefinitions
+
+# Tests for output converters
+converter
+vehrouteDiff
+tripinfoDiff

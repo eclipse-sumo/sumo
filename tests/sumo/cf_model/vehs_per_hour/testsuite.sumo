@@ -1,0 +1,5 @@
+# test flow when the road is clear
+free_flow
+
+# test flow of vehicles starting from a stopped queue
+stopped

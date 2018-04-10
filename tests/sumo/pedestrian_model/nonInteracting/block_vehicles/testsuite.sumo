@@ -1,0 +1,9 @@
+walking_forward
+walking_backward
+
+# left turning vehicles should be blocked as well
+walking_forward_left_turning_vehicle
+
+# this time the left turning vehicle is blocked from entering lane before an internal junction
+walking_forward_left_turning_vehicle2
+walking_backward_left_turning_vehicle

@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 09Jun08:11:57]
+search_string:<connection from="EC" to="CW" fromLane="1"
+search_file:net
+full_description:straight connection should be from lane 0 here
+brief_description:see #1633

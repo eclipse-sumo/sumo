@@ -1,0 +1,14 @@
+#Test with plain network
+plain
+
+#Test with cross1ltl and a frequency of 300
+cross1ltl_freq300
+
+#Test with cross3ltl and a frequency of 300
+cross3ltl_freq300
+
+#Test with cross1ltl and a frequency of 600
+cross1ltl_freq3600
+
+#Test with cross3ltland a frequency of 600
+cross3ltl_freq3600

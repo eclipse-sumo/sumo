@@ -1,0 +1,37 @@
+import_config_file:../config_all
+binary:$DUAROUTER_BINARY
+copy_test_path:input_alts.rou.alt.xml
+copy_test_path:input_routes.rou.xml
+copy_test_path:input_flows.flows.xml
+copy_test_path:input_trips.trips.xml
+copy_test_path:input_weights.dump.xml
+copy_test_path:input_net.net.xml
+copy_test_path:input_net2.net.xml
+copy_test_path:input_districts.taz.xml
+copy_test_path:input_additional.add.xml
+copy_test_path:lookuptable
+
+[collate_file]
+routes:routes.rou.xml
+alts:routes.rou.alt.xml
+vtypes:vtypes.rou.xml
+cfg:config.cfg
+log:log.txt
+landmarks:landmarks.csv
+weights:weights.xml
+additional:additional.xml
+
+[run_dependent_text]
+errors:The length does not include*{LINES 1}
+log:The length does not include*{LINES 1}
+routes:<!--{[->]}-->
+alts:<!--{[->]}-->
+vtypes:<!--{[->]}-->
+weights:<!--{[->]}-->
+additional:<!--{[->]}-->
+output:ms answering queries
+log:ms answering queries
+
+[floating_point_tolerance]
+routes:0.0101
+alts:0.0101

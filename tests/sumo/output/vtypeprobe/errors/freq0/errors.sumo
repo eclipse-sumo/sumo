@@ -1,0 +1,2 @@
+Error: Sampling frequency must not be zero (in vTypeProbe 'test1').
+Quitting (on error).

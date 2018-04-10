@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Wed Oct 26 13:23:31 2011 by SUMO netconvert Version dev-SVN-r11408
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="connections.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="connections"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="1fi" to="1si" fromLane="0" toLane="0"/>
+
+    <connection from="1o" to="1fi" fromLane="3" toLane="0"/>
+
+    <connection from="1si" to="3o" fromLane="0" toLane="0"/>
+    <connection from="1si" to="2o" fromLane="0" toLane="1"/>
+    <connection from="1si" to="4o" fromLane="0" toLane="0"/>
+    <connection from="1si" to="1o" fromLane="0" toLane="3"/>
+
+    <connection from="2fi" to="2si" fromLane="0" toLane="0"/>
+    <connection from="2fi" to="2si" fromLane="0" toLane="1"/>
+
+    <connection from="2o" to="2fi" fromLane="2" toLane="0"/>
+
+    <connection from="2si" to="4o" fromLane="0" toLane="0"/>
+    <connection from="2si" to="1o" fromLane="0" toLane="1"/>
+    <connection from="2si" to="1o" fromLane="1" toLane="2"/>
+    <connection from="2si" to="1o" fromLane="1" toLane="3"/>
+    <connection from="2si" to="3o" fromLane="1" toLane="1"/>
+    <connection from="2si" to="2o" fromLane="1" toLane="2"/>
+
+    <connection from="3fi" to="3si" fromLane="0" toLane="0"/>
+    <connection from="3fi" to="3si" fromLane="0" toLane="1"/>
+    <connection from="3fi" to="3si" fromLane="0" toLane="2"/>
+
+    <connection from="3o" to="3fi" fromLane="1" toLane="0"/>
+
+    <connection from="3si" to="2o" fromLane="0" toLane="0"/>
+    <connection from="3si" to="4o" fromLane="0" toLane="0"/>
+    <connection from="3si" to="1o" fromLane="1" toLane="2"/>
+    <connection from="3si" to="1o" fromLane="2" toLane="3"/>
+    <connection from="3si" to="3o" fromLane="2" toLane="1"/>
+
+    <connection from="4fi" to="4si" fromLane="0" toLane="0"/>
+    <connection from="4fi" to="4si" fromLane="0" toLane="1"/>
+    <connection from="4fi" to="4si" fromLane="0" toLane="2"/>
+    <connection from="4fi" to="4si" fromLane="0" toLane="3"/>
+
+    <connection from="4o" to="4fi" fromLane="0" toLane="0"/>
+
+    <connection from="4si" to="1o" fromLane="0" toLane="0"/>
+    <connection from="4si" to="1o" fromLane="1" toLane="1"/>
+    <connection from="4si" to="3o" fromLane="2" toLane="1"/>
+    <connection from="4si" to="2o" fromLane="3" toLane="2"/>
+    <connection from="4si" to="4o" fromLane="3" toLane="0"/>
+
+</connections>

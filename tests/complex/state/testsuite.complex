@@ -1,0 +1,23 @@
+# two vehicles saved and reloaded
+plain
+
+# include route and vtype dists
+dists
+
+# two vehicles saved and reloaded with prefix file
+prefix
+
+# trying to start the loaded state at a different time
+diff_begin
+
+# save and reload with broken route
+disconnected
+
+# two vehicles saved and reloaded with xml output
+xml
+
+# include route and vtype dists with xml output
+dists_xml
+
+# lots of vehicles with rerouting, insertion backlog and vehroute output
+rerouting

@@ -1,0 +1,15 @@
+simstep2 0
+setvalue 0xc4 0xb4 veh0 <compound> 5 <string> dummy <int> 1 <double> 101 <double> 104 <double> 0
+getvariable 0xa4 0x54 veh0
+simstep2 0
+getvariable 0xa4 0x54 veh0
+setvalue 0xc4 0xb4 veh0 <compound> 5 <string> dummy <int> 1 <double> 106 <double> 96 <double> 0
+getvariable 0xa4 0x54 veh0
+simstep2 0
+getvariable 0xa4 0x54 veh0
+repeat 5 simstep2 0
+setvalue 0xc4 0xb4 veh0 <compound> 5 <string> dummy <int> 1 <double> 106 <double> 96 <double> 0
+getvariable 0xa4 0x54 veh0
+simstep2 0
+getvariable 0xa4 0x54 veh0
+repeat 5 simstep2 0

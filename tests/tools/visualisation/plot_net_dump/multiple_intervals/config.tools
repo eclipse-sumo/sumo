@@ -1,0 +1,11 @@
+[collate_file]
+image-600:image-600.0.svg
+image-800:image-800.0.svg
+
+[run_dependent_text]
+image-600:id="[^"]*"{REPLACE id="ReplacedTransientID"}
+image-600:url\(.*\){REPLACE url(ReplacedTransientURL)}
+image-600:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
+image-800:id="[^"]*"{REPLACE id="ReplacedTransientID"}
+image-800:url\(.*\){REPLACE url(ReplacedTransientURL)}
+image-800:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}

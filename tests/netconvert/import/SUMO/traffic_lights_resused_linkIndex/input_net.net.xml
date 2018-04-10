@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Wed Aug 24 09:33:54 2011 by SUMO netconvert Version dev-SVN-r11145
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-30.00,0.00,30.00,30.00" origBoundary="-30.00,0.00,30.00,30.00" projParameter="!"/>
+
+    <edge id=":node_centertl_0" function="internal">
+        <lane id=":node_centertl_0_0" index="0" speed="10.00" length="5.00" shape="-1.65,4.75 -1.84,3.39 -2.42,2.43 -3.39,1.84 -4.75,1.65"/>
+    </edge>
+    <edge id=":node_centertl_1" function="internal">
+        <lane id=":node_centertl_1_0" index="0" speed="10.00" length="3.18" shape="-1.65,4.75 -1.25,1.95 -1.07,1.65"/>
+    </edge>
+    <edge id=":node_centertl_9" function="internal">
+        <lane id=":node_centertl_9_0" index="0" speed="10.00" length="7.14" shape="-1.07,1.65 -0.05,-0.05 1.95,-1.25 4.75,-1.65"/>
+    </edge>
+    <edge id=":node_centertl_2" function="internal">
+        <lane id=":node_centertl_2_0" index="0" speed="10.00" length="2.41" shape="-1.65,4.75 -0.83,3.51 -0.00,3.10"/>
+    </edge>
+    <edge id=":node_centertl_10" function="internal">
+        <lane id=":node_centertl_10_0" index="0" speed="10.00" length="2.41" shape="-0.00,3.10 0.82,3.51 1.65,4.75"/>
+    </edge>
+    <edge id=":node_centertl_3" function="internal">
+        <lane id=":node_centertl_3_0" index="0" speed="10.00" length="5.00" shape="4.75,1.65 3.39,1.84 2.43,2.42 1.84,3.39 1.65,4.75"/>
+    </edge>
+    <edge id=":node_centertl_4" function="internal">
+        <lane id=":node_centertl_4_0" index="0" speed="10.00" length="9.50" shape="4.75,1.65 -4.75,1.65"/>
+    </edge>
+    <edge id=":node_centertl_5" function="internal">
+        <lane id=":node_centertl_5_0" index="0" speed="10.00" length="2.41" shape="4.75,1.65 3.51,0.83 3.10,0.00"/>
+    </edge>
+    <edge id=":node_centertl_11" function="internal">
+        <lane id=":node_centertl_11_0" index="0" speed="10.00" length="2.41" shape="3.10,0.00 3.51,-0.82 4.75,-1.65"/>
+    </edge>
+    <edge id=":node_centertl_6" function="internal">
+        <lane id=":node_centertl_6_0" index="0" speed="10.00" length="9.50" shape="-4.75,-1.65 4.75,-1.65"/>
+    </edge>
+    <edge id=":node_centertl_7" function="internal">
+        <lane id=":node_centertl_7_0" index="0" speed="10.00" length="7.14" shape="-4.75,-1.65 -1.95,-1.25 0.05,-0.05 1.07,1.65"/>
+    </edge>
+    <edge id=":node_centertl_12" function="internal">
+        <lane id=":node_centertl_12_0" index="0" speed="10.00" length="3.18" shape="1.07,1.65 1.25,1.95 1.65,4.75"/>
+    </edge>
+    <edge id=":node_centertl_8" function="internal">
+        <lane id=":node_centertl_8_0" index="0" speed="10.00" length="2.41" shape="-4.75,-1.65 -3.51,-0.83 -3.10,-0.00"/>
+    </edge>
+    <edge id=":node_centertl_13" function="internal">
+        <lane id=":node_centertl_13_0" index="0" speed="10.00" length="2.41" shape="-3.10,-0.00 -3.51,0.82 -4.75,1.65"/>
+    </edge>
+    <edge id=":node_left_0" function="internal">
+        <lane id=":node_left_0_0" index="0" speed="10.00" length="4.82" shape="-30.00,1.65 -31.24,0.83 -31.65,0.00 -31.24,-0.82 -30.00,-1.65"/>
+    </edge>
+    <edge id=":node_right_0" function="internal">
+        <lane id=":node_right_0_0" index="0" speed="10.00" length="4.82" shape="30.00,-1.65 31.24,-0.83 31.65,-0.00 31.24,0.82 30.00,1.65"/>
+    </edge>
+    <edge id=":node_up_0" function="internal">
+        <lane id=":node_up_0_0" index="0" speed="10.00" length="4.82" shape="1.65,30.00 0.83,31.24 0.00,31.65 -0.82,31.24 -1.65,30.00"/>
+    </edge>
+
+    <edge id="-edge_left" from="node_centertl" to="node_left" priority="2">
+        <lane id="-edge_left_0" index="0" speed="10.00" length="25.25" shape="-4.75,1.65 -30.00,1.65"/>
+    </edge>
+    <edge id="-edge_right" from="node_centertl" to="node_right" priority="2">
+        <lane id="-edge_right_0" index="0" speed="10.00" length="25.25" shape="4.75,-1.65 30.00,-1.65"/>
+    </edge>
+    <edge id="-edge_up" from="node_centertl" to="node_up" priority="2">
+        <lane id="-edge_up_0" index="0" speed="10.00" length="25.25" shape="1.65,4.75 1.65,30.00"/>
+    </edge>
+    <edge id="edge_left" from="node_left" to="node_centertl" priority="2">
+        <lane id="edge_left_0" index="0" speed="10.00" length="25.25" shape="-30.00,-1.65 -4.75,-1.65"/>
+    </edge>
+    <edge id="edge_right" from="node_right" to="node_centertl" priority="2">
+        <lane id="edge_right_0" index="0" speed="10.00" length="25.25" shape="30.00,1.65 4.75,1.65"/>
+    </edge>
+    <edge id="edge_up" from="node_up" to="node_centertl" priority="2">
+        <lane id="edge_up_0" index="0" speed="10.00" length="25.25" shape="-1.65,30.00 -1.65,4.75"/>
+    </edge>
+
+    <tlLogic id="node_centertl" type="static" programID="0" offset="0">
+        <phase duration="31" state="rrrGGgGg"/>
+        <phase duration="3" state="rrryygyg"/>
+        <phase duration="6" state="rrrrrGrG"/>
+        <phase duration="3" state="rrrrryry"/>
+        <phase duration="31" state="GGgGrrrr"/>
+        <phase duration="3" state="yyyyrrrr"/>
+    </tlLogic>
+
+    <junction id="node_centertl" type="traffic_light" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_9_0 :node_centertl_10_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_11_0 :node_centertl_6_0 :node_centertl_12_0 :node_centertl_13_0" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 -4.75,-3.25 -4.75,3.25">
+        <request index="0" response="000010000" foes="100010000" cont="0"/>
+        <request index="1" response="011010000" foes="011110000" cont="1"/>
+        <request index="2" response="010001000" foes="010001000" cont="1"/>
+        <request index="3" response="000000000" foes="010000100" cont="0"/>
+        <request index="4" response="000000000" foes="110000011" cont="0"/>
+        <request index="5" response="001000010" foes="001000010" cont="1"/>
+        <request index="6" response="000000000" foes="000100010" cont="0"/>
+        <request index="7" response="000011000" foes="000011110" cont="1"/>
+        <request index="8" response="000010001" foes="000010001" cont="1"/>
+    </junction>
+    <junction id="node_left" type="priority" x="-30.00" y="0.00" incLanes="-edge_left_0" intLanes=":node_left_0_0" shape="-30.00,-0.05 -30.00,-3.25 -30.00,3.25 -30.00,0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="node_right" type="priority" x="30.00" y="0.00" incLanes="-edge_right_0" intLanes=":node_right_0_0" shape="30.00,0.05 30.00,3.25 30.00,-3.25 30.00,-0.05">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="node_up" type="priority" x="0.00" y="30.00" incLanes="-edge_up_0" intLanes=":node_up_0_0" shape="-0.05,30.00 -3.25,30.00 3.25,30.00 0.05,30.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <junction id=":node_centertl_9_0" type="internal" x="-1.07" y="1.65" incLanes=":node_centertl_1_0 edge_right_0" intLanes=":node_centertl_4_0"/>
+    <junction id=":node_centertl_10_0" type="internal" x="-0.00" y="3.10" incLanes=":node_centertl_2_0 edge_right_0" intLanes=":node_centertl_3_0"/>
+    <junction id=":node_centertl_11_0" type="internal" x="3.10" y="0.00" incLanes=":node_centertl_5_0 edge_left_0" intLanes=":node_centertl_6_0"/>
+    <junction id=":node_centertl_12_0" type="internal" x="1.07" y="1.65" incLanes=":node_centertl_7_0 edge_right_0" intLanes=":node_centertl_3_0 :node_centertl_4_0"/>
+    <junction id=":node_centertl_13_0" type="internal" x="-3.10" y="-0.00" incLanes=":node_centertl_8_0 edge_right_0" intLanes=":node_centertl_4_0"/>
+
+    <connection from="-edge_left" to="edge_left" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="-edge_right" to="edge_right" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
+    <connection from="-edge_up" to="edge_up" fromLane="0" toLane="0" via=":node_up_0_0" dir="t" state="M"/>
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_6_0" tl="node_centertl" linkIndex="6" dir="s" state="o"/>
+    <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_7_0" tl="node_centertl" linkIndex="7" dir="l" state="o"/>
+    <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_8_0" tl="node_centertl" linkIndex="7" dir="t" state="o"/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_3_0" tl="node_centertl" linkIndex="3" dir="r" state="o"/>
+    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_4_0" tl="node_centertl" linkIndex="4" dir="s" state="o"/>
+    <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_5_0" tl="node_centertl" linkIndex="5" dir="t" state="o"/>
+    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_0_0" tl="node_centertl" linkIndex="0" dir="r" state="o"/>
+    <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_1_0" tl="node_centertl" linkIndex="1" dir="l" state="o"/>
+    <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_2_0" tl="node_centertl" linkIndex="2" dir="t" state="o"/>
+
+    <connection from=":node_centertl_0" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_1" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_9_0" dir="s" state="M"/>
+    <connection from=":node_centertl_9" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_2" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_10_0" dir="s" state="M"/>
+    <connection from=":node_centertl_10" to="-edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_3" to="-edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_4" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_5" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_11_0" dir="s" state="M"/>
+    <connection from=":node_centertl_11" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_6" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_7" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_12_0" dir="s" state="M"/>
+    <connection from=":node_centertl_12" to="-edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_8" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_13_0" dir="s" state="M"/>
+    <connection from=":node_centertl_13" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_left_0" to="edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_right_0" to="edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_up_0" to="edge_up" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

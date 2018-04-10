@@ -1,0 +1,15 @@
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <edge id="gneE0" from="node_L" spreadType="center" priority="1" to="gneJ1" numLanes="1" speed="13.89"/>
+    <edge id="gneE1" from="gneJ1" priority="1" to="node_U" numLanes="1" speed="13.89"/>
+    <edge id="gneE2" from="node_U" priority="1" to="gneJ1" numLanes="1" speed="13.89"/>
+    <!-- Changed Elements -->
+    <edge id="edge_C2R" shape="10.00,9.00 29.00,-0.20"/>
+    <edge id="edge_C2U" shape="0.00,10.00 5.00,25.00 0.00,40.00" speed="23.00"/>
+    <edge id="edge_C2L" shape="0.00,10.00 -15.00,4.00 -40.00,0.00">
+        <lane index="0" disallow="bus"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="edge_R2C" shape="29.00,0.20 3.00,10.20"/>
+</edges>

@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vTypeDistribution id="vt1">
+       <vType sigma="0" id="v1"/>
+       <vType sigma="0" id="v2"/>
+   </vTypeDistribution>
+   <vehicle id="1" depart="0" type="vt1">
+       <route edges="beg end"/>
+   </vehicle>
+</routes>

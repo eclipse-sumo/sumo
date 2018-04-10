@@ -1,0 +1,69 @@
+Usage: Assignment.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -m FILE, --matrix-file=FILE
+                        read OD matrix for passenger vehicles from FILE
+                        (mandatory)
+  -G FILE, --globalmatrix-file=FILE
+                        read daily OD matrix for passenger vehicles from FILE
+                        (mandatory)
+  -n FILE, --net-file=FILE
+                        read SUMO network from FILE (mandatory)
+  -d FILE, --district-file=FILE
+                        read OD Zones from FILE (mandatory)
+  -s FILE, --extrasignal-file=FILE
+                        read extra/updated signal timing plans from FILE
+  -u FILE, --crCurve-file=FILE
+                        read parameters used in cost functions from FILE
+  -k KPATHS, --k-shortest-paths=KPATHS
+                        number of the paths should be found at the first
+                        iteration
+  -i MAXITERATION, --max-sue-iteration=MAXITERATION
+                        maximum number of the assignment iterations
+  -t SUETOLERANCE, --sue-tolerance=SUETOLERANCE
+                        difference tolerance for the convergence in the
+                        c-logit model
+  -a ALPHA, --alpha=ALPHA
+                        alpha value to determine the commonality factor
+  -g GAMMA, --gamma=GAMMA
+                        gamma value to determine the commonality factor
+  -l LAMDA, --lambda=LAMDA
+                        lambda value to determine the penalty time due to
+                        queue
+  -U UNDER, --under-value=UNDER
+                        parameter 'under' to determine auxiliary link cost
+  -p UPPER, --upper-value=UPPER
+                        parameter 'upper' to determine auxiliary link cost
+  -X V1, --parameter-1=V1
+                        parameter 'v1' to determine auxiliary link cost in the
+                        lohse model
+  -y V2, --parameter-2=V2
+                        parameter 'v2' to determine auxiliary link cost in the
+                        lohse model
+  -z V3, --parameter-3=V3
+                        parameter 'v3' to determine auxiliary link cost in the
+                        lohse model
+  -c CVG1, --convergence-parameter-1=CVG1
+                        parameter 'cvg1' to calculate the convergence value in
+                        the lohse model
+  -o CVG2, --convergence-parameter-2=CVG2
+                        parameter 'cvg2' to calculate the convergence value in
+                        the lohse model
+  -q CVG3, --convergence-parameter-3=CVG3
+                        parameter 'cvg3' to calculate the convergence value in
+                        the lohse model
+  -v, --verbose         tell me what you are doing
+  -b, --debug           debug the program
+  -e TYPE, --type=TYPE  type of assignment [default: clogit]
+  -H HOURS, --hours=HOURS
+                        the analysing period(hours)
+  -r, --profile         writing profiling info
+  -+ DIJKSTRA, --dijkstra=DIJKSTRA
+                        use penalty, plain(original) or boost in dijkstra
+                        implementation [default: plain]
+  -x, --odestimation    generate trips for OD estimation
+  -f DEMANDSCALE, --scale-factor=DEMANDSCALE
+                        scale demand by
+  -O OUTPUTDIR, --output-dir=OUTPUTDIR
+                        define the output directory name and path

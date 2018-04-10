@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <WAUT refTime="0" id="w1" startProg="0">
+        <wautSwitch time="0" to="off"/>
+    </WAUT>
+    <wautJunction wautID="w1" junctionID="0"/>
+</additional>

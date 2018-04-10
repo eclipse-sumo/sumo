@@ -1,0 +1,11 @@
+# low visibility (vehicles should slow down before passing minor link)
+low
+
+# high visibility (vehicles may pass minor link with high velocity in absence of foes)
+high
+
+# high visibility with foes (in presence of foes vehicles must wait regardless of visibility)
+with_foe
+
+# for major links, the visibility makes no difference
+major

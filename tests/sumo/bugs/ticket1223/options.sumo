@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=net.net.xml --begin 30 --end 100 --step-length 60

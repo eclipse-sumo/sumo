@@ -1,0 +1,14 @@
+$ns_ at 55.0 "$g(3) start"; # SUMO-ID: pNE
+$ns_ at 58.0 "$g(3) stop"; # SUMO-ID: pNE
+$ns_ at 55.0 "$g(4) start"; # SUMO-ID: pNW
+$ns_ at 58.0 "$g(4) stop"; # SUMO-ID: pNW
+$ns_ at 55.0 "$g(5) start"; # SUMO-ID: pWE
+$ns_ at 58.0 "$g(5) stop"; # SUMO-ID: pWE
+$ns_ at 55.0 "$g(6) start"; # SUMO-ID: pWN
+$ns_ at 58.0 "$g(6) stop"; # SUMO-ID: pWN
+$ns_ at 10.0 "$g(0) start"; # SUMO-ID: r1#1
+$ns_ at 95.0 "$g(0) stop"; # SUMO-ID: r1#1
+$ns_ at 30.0 "$g(2) start"; # SUMO-ID: r1#2
+$ns_ at 115.0 "$g(2) stop"; # SUMO-ID: r1#2
+$ns_ at 20.0 "$g(1) start"; # SUMO-ID: r2
+$ns_ at 105.0 "$g(1) stop"; # SUMO-ID: r2

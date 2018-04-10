@@ -1,0 +1,22 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+   <edge id="1i" from="1" to="0" priority="2" numLanes="2" speed="11.111" />
+   <edge id="1o" from="0" to="1" priority="1" numLanes="1" speed="11.111" />
+   <edge id="1fi" from="1f" to="1" priority="2" numLanes="2" speed="11.111" />
+   <edge id="1fo" from="1" to="1f" priority="1" numLanes="1" speed="11.111" />
+
+   <edge id="2i" from="2" to="0" priority="2" numLanes="2" speed="11.111" />
+   <edge id="2o" from="0" to="2" priority="1" numLanes="1" speed="11.111" />
+   <edge id="2fi" from="2f" to="2" priority="2" numLanes="2" speed="11.111" />
+   <edge id="2fo" from="2" to="2f" priority="1" numLanes="1" speed="11.111" />
+
+   <edge id="3i" from="3" to="0" priority="2" numLanes="2" speed="11.111" />
+   <edge id="3o" from="0" to="3" priority="1" numLanes="1" speed="11.111" />
+   <edge id="3fi" from="3f" to="3" priority="2" numLanes="2" speed="11.111" />
+   <edge id="3fo" from="3" to="3f" priority="1" numLanes="1" speed="11.111" />
+
+   <edge id="4i" from="4" to="0" priority="2" numLanes="2" speed="11.111" />
+   <edge id="4o" from="0" to="4" priority="1" numLanes="1" speed="11.111" />
+   <edge id="4fi" from="4f" to="4" priority="2" numLanes="2" speed="11.111" />
+   <edge id="4fo" from="4" to="4f" priority="1" numLanes="1" speed="11.111" />
+
+</edges>

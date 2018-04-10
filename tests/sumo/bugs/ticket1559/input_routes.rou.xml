@@ -1,0 +1,5 @@
+<routes>
+    <vType sigma="0" id="t0"/>
+    <trip id="0" depart="0" from="beg" to="end"/>
+    <trip id="1" depart="0" from="beg" to="end" departLane="free"/>
+</routes>

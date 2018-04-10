@@ -1,0 +1,16 @@
+# guess sidewalks using plain xml input
+basic
+
+# guess sidewalks using plain xml input
+basic_2lane
+
+# guess sidewalks but prevent one edge from receiving a sidewalks 
+basic_disable1
+
+# patch loaded signal plans when guessing sidewalks
+patch_tls_from_sumonet
+
+# add sidewalk via typemap
+typemap
+addFromPlainXML
+guess.from-permissions

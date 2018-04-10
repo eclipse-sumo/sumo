@@ -1,0 +1,101 @@
+# Empty edge id (first edge)
+edge#id__empty1
+
+# Empty edge id (fourth edge)
+edge#id__empty4
+
+# Missing edge id (first edge)
+edge#id__missing1
+
+# Missing edge id (fourth edge)
+edge#id__missing4
+
+# Empty from node id (first edge)
+edge#fromnode__empty1
+
+# Empty from node id (fourth edge)
+edge#fromnode__empty4
+
+# Missing from node id (first edge)
+edge#fromnode__missing1
+
+# Missing from node id (fourth edge)
+edge#fromnode__missing4
+
+# Empty to node id (first edge)
+edge#tonode__empty1
+
+# Empty to node id (fourth edge)
+edge#tonode__empty4
+
+# Missing to node id (first edge)
+edge#tonode__missing1
+
+# Missing to node id (fourth edge)
+edge#tonode__missing4
+
+# Empty length (first edge)
+edge#length__empty1
+
+# Empty length (fourth edge)
+edge#length__empty4
+
+# Invalid length (first edge)
+edge#length__false1
+
+# Invalid length (fourth edge)
+edge#length__false4
+
+# Empty lane number (first edge)
+edge#nolanes__empty1
+
+# Empty lane number (fourth edge)
+edge#nolanes__empty4
+
+# Invalid lane number (first edge)
+edge#nolanes__false1
+
+# Invalid lane number (fourth edge)
+edge#nolanes__false4
+
+# Empty type (first edge)
+edge#type__empty1
+
+# Empty type (fourth edge)
+edge#type__empty4
+
+# Invalid type (first edge)
+edge#type__false1
+
+# Invalid type (fourth edge)
+edge#type__false4
+
+# Invalid priority (first edge)
+edge#priority__false1
+
+# Invalid priority (fourth edge)
+edge#priority__false4
+
+# Broken shape (first edge)
+edge#shape__false1a
+
+# Brokenshape (fourth edge)
+edge#shape__false4a
+
+# Broken shape (first edge)
+edge#shape__false1b
+
+# Brokenshape (fourth edge)
+edge#shape__false4b
+
+# Broken shape (first edge)
+edge#shape__false1c
+
+# Brokenshape (fourth edge)
+edge#shape__false4c
+
+# Broken shape (first edge)
+edge#shape__false1d
+
+# Brokenshape (fourth edge)
+edge#shape__false4d

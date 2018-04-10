@@ -1,0 +1,76 @@
+Loading configuration... done.
+> Executing step 0
+>> Running router on input_trips.trips.xml
+>>> Begin time: 2015-10-27 12:13:59.872000
+>>> End time: 2015-10-27 12:14:00.141000
+>>> Duration: 0:00:00.269000
+<<
+>> Running simulation
+>>> Begin time: 2015-10-27 12:14:00.141000
+>>> End time: 2015-10-27 12:14:00.398000
+>>> Duration: 0:00:00.257000
+<<
+< Step 0 ended (duration: 0:00:00.527000)
+------------------
+
+Loading configuration... done.
+> Executing step 1
+>> Running router on input_trips_000.rou.alt.xml
+>>> Begin time: 2015-10-27 12:14:00.405000
+>>> End time: 2015-10-27 12:14:00.624000
+>>> Duration: 0:00:00.219000
+<<
+>> Running simulation
+>>> Begin time: 2015-10-27 12:14:00.624000
+>>> End time: 2015-10-27 12:14:00.919000
+>>> Duration: 0:00:00.295000
+<<
+< Step 1 ended (duration: 0:00:00.514000)
+------------------
+
+Loading configuration... done.
+> Executing step 2
+>> Running router on input_trips_001.rou.alt.xml
+>>> Begin time: 2015-10-27 12:14:00.928000
+>>> End time: 2015-10-27 12:14:01.278000
+>>> Duration: 0:00:00.350000
+<<
+>> Running simulation
+>>> Begin time: 2015-10-27 12:14:01.278000
+>>> End time: 2015-10-27 12:14:01.584000
+>>> Duration: 0:00:00.306000
+<<
+< Step 2 ended (duration: 0:00:00.656000)
+------------------
+
+Loading configuration... done.
+> Executing step 3
+>> Running router on input_trips_002.rou.alt.xml
+>>> Begin time: 2015-10-27 12:14:01.589000
+>>> End time: 2015-10-27 12:14:01.947000
+>>> Duration: 0:00:00.358000
+<<
+>> Running simulation
+>>> Begin time: 2015-10-27 12:14:01.947000
+>>> End time: 2015-10-27 12:14:02.239000
+>>> Duration: 0:00:00.292000
+<<
+< Step 3 ended (duration: 0:00:00.650000)
+------------------
+
+Loading configuration... done.
+> Executing step 4
+>> Running router on input_trips_003.rou.alt.xml
+>>> Begin time: 2015-10-27 12:14:02.245000
+>>> End time: 2015-10-27 12:14:02.596000
+>>> Duration: 0:00:00.351000
+<<
+>> Running simulation
+>>> Begin time: 2015-10-27 12:14:02.596000
+>>> End time: 2015-10-27 12:14:02.916000
+>>> Duration: 0:00:00.320000
+<<
+< Step 4 ended (duration: 0:00:00.671000)
+------------------
+
+dua-iterate ended (duration: 0:00:03.052000)

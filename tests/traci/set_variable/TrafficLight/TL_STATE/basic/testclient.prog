@@ -1,0 +1,5 @@
+simstep2 10
+setvalue 0xc2 0x20 1/1 <string> gggggggggggggggg
+simstep2 20
+setvalue 0xc2 0x20 1/1 <string> rrrrrrrrrrrrrrrr
+simstep2 30

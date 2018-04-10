@@ -1,0 +1,3 @@
+Warning: Ambiguity in turnarounds computation at junction 'E'.
+Warning: Ambiguity in turnarounds computation at junction 'W'.
+Warning: Edge 'VODUGES_beg' is not connected to outgoing edges at junction 'E'.

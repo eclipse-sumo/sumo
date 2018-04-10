@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" sigma="0" speedDev="0.0"/>
+    <route id="r0" edges="beg2 merge"/>
+    <flow id="f" route="r0" type="t0" begin="0" end="3600" period="0.3" departPos="last" departLane="best" departSpeed="max"/>
+</routes>

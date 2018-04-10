@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<netstats>
+    <!-- Deleted Elements -->
+    <delete begin="0" end="1"/>
+    <!-- Created Elements -->
+    <interval begin="4" end="5" >
+        <edge id="53486709" traveltime="43"/>
+        <edge id="53486708" traveltime="4"/>
+    </interval>
+    <!-- Changed Elements -->
+    <interval begin="1" end="2" >
+        <edge id="53486709" traveltime="34"/>
+    </interval>
+    <interval begin="3" end="4" >
+        <edge id="added" traveltime="42"/>
+    </interval>
+</netstats>

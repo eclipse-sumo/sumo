@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="debug"/>
+    <vehicle id="reckless" departPos="95" depart="0" departSpeed="0" arrivalSpeed="current">
+        <route edges="beg1 end"/>
+    </vehicle>
+    <vehicle id="collider" departPos="180" depart="0" departSpeed="max" arrivalSpeed="current">
+        <route edges="beg2 end"/>
+    </vehicle>
+</routes>

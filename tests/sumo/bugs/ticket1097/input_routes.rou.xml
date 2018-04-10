@@ -1,0 +1,4 @@
+<routes>
+    <route id="r0" edges="beg middle end"/>
+    <flow id="flow" route="r0" begin="0" end="1000" period="2" departSpeed="max"/>
+</routes>

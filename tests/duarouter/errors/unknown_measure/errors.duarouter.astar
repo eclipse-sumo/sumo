@@ -1,0 +1,2 @@
+Error: Routing algorithm 'astar' does not support weight-attribute 'blub'.
+Quitting (on error).

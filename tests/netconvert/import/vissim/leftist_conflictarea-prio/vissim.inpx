@@ -1,0 +1,2118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<network version="101">
+	<links>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" level="1" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="1" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane width="3.500000"/>
+			</lanes>
+			<geometry>
+				<points3D>
+					<point3D x="975.728543" y="-32.879254" zOffset="0.000000"/>
+					<point3D x="1023.709374" y="-32.778454" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" level="1" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="2" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane width="3.500000"/>
+			</lanes>
+			<geometry>
+				<points3D>
+					<point3D x="1031.571706" y="-68.159196" zOffset="0.000000"/>
+					<point3D x="1031.168507" y="-36.306449" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" level="1" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="4" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane width="3.500000"/>
+			</lanes>
+			<geometry>
+				<points3D>
+					<point3D x="1031.168507" y="-25.924066" zOffset="0.000000"/>
+					<point3D x="1031.067707" y="1.795888" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" level="1" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="5" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane width="3.500000"/>
+			</lanes>
+			<geometry>
+				<points3D>
+					<point3D x="1023.702021" y="-29.278462" zOffset="0.000000"/>
+					<point3D x="975.721190" y="-29.379262" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" level="1" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="6" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane width="3.500000"/>
+			</lanes>
+			<geometry>
+				<points3D>
+					<point3D x="1027.668787" y="-36.350749" zOffset="0.000000"/>
+					<point3D x="1028.071986" y="-68.203496" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" level="1" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="7" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane width="3.500000"/>
+			</lanes>
+			<geometry>
+				<points3D>
+					<point3D x="1027.567730" y="1.480762" zOffset="0.000000"/>
+					<point3D x="1027.668530" y="-26.239192" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="10001" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane/>
+			</lanes>
+			<fromLinkEndPt lane="2 1" pos="30.143115"/>
+			<toLinkEndPt lane="4 1" pos="2.018549"/>
+			<geometry>
+				<points3D>
+					<point3D x="1031.190178" y="-38.018496" zOffset="0.000000"/>
+					<point3D x="1031.161167" y="-23.905530" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="10002" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane/>
+			</lanes>
+			<fromLinkEndPt lane="2 1" pos="29.738672"/>
+			<toLinkEndPt lane="5 1" pos="0.698241"/>
+			<geometry>
+				<points3D>
+					<point3D x="1031.195298" y="-38.422906" zOffset="0.000000"/>
+					<point3D x="1031.112444" y="-35.569136" zOffset="0.000000"/>
+					<point3D x="1030.187335" y="-31.751865" zOffset="0.000000"/>
+					<point3D x="1027.362361" y="-29.522244" zOffset="0.000000"/>
+					<point3D x="1023.003782" y="-29.279929" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="10006" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane/>
+			</lanes>
+			<fromLinkEndPt lane="7 1" pos="25.993723"/>
+			<toLinkEndPt lane="6 1" pos="1.067882"/>
+			<geometry>
+				<points3D>
+					<point3D x="1027.662252" y="-24.512789" zOffset="0.000000"/>
+					<point3D x="1027.682303" y="-37.418545" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="10007" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane/>
+			</lanes>
+			<fromLinkEndPt lane="7 1" pos="26.598518"/>
+			<toLinkEndPt lane="5 1" pos="1.404897"/>
+			<geometry>
+				<points3D>
+					<point3D x="1027.664451" y="-25.117580" zOffset="0.000000"/>
+					<point3D x="1027.856337" y="-27.828127" zOffset="0.000000"/>
+					<point3D x="1025.254713" y="-29.170393" zOffset="0.000000"/>
+					<point3D x="1022.297127" y="-29.281413" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="10010" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane/>
+			</lanes>
+			<fromLinkEndPt lane="1 1" pos="46.367665"/>
+			<toLinkEndPt lane="6 1" pos="0.862471"/>
+			<geometry>
+				<points3D>
+					<point3D x="1022.096106" y="-32.781843" zOffset="0.000000"/>
+					<point3D x="1026.078857" y="-32.952322" zOffset="0.000000"/>
+					<point3D x="1027.473717" y="-35.022508" zOffset="0.000000"/>
+					<point3D x="1027.679703" y="-37.213151" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+		<link costPerKm="0.000000" direction="ALL" displayType="1" emergStopDist="5.000000" gradient="0.000000" isPedArea="false" linkBehavType="1" linkEvalAct="true" linkEvalSegLen="10.000000" lnChgDist="200.000000" lnChgDistIsPerLn="false" lnChgEvalAct="true" name="" no="10011" onlyOvtBus="false" showClsfValues="true" showVeh="true" surch1="0.000000" surch2="0.000000" thickness="0.000000" vehRecAct="true">
+			<lanes>
+				<lane/>
+			</lanes>
+			<fromLinkEndPt lane="1 1" pos="46.569052"/>
+			<toLinkEndPt lane="4 1" pos="1.511621"/>
+			<geometry>
+				<points3D>
+					<point3D x="1022.297492" y="-32.781420" zOffset="0.000000"/>
+					<point3D x="1027.234323" y="-32.773181" zOffset="0.000000"/>
+					<point3D x="1030.123967" y="-31.439645" zOffset="0.000000"/>
+					<point3D x="1031.192709" y="-27.586608" zOffset="0.000000"/>
+					<point3D x="1031.163010" y="-24.412455" zOffset="0.000000"/>
+				</points3D>
+			</geometry>
+		</link>
+	</links>
+	<vehicleClasses>
+		<vehicleClass anmid="" color="ff000000" name="Pkw" no="10" useVehTypeColor="true">
+			<vehTypes>
+				<intObjectRef key="100"/>
+			</vehTypes>
+		</vehicleClass>
+		<vehicleClass anmid="" color="ff000000" name="Lkw" no="20" useVehTypeColor="true">
+			<vehTypes>
+				<intObjectRef key="200"/>
+			</vehTypes>
+		</vehicleClass>
+		<vehicleClass anmid="" color="ff000000" name="Bus" no="30" useVehTypeColor="true">
+			<vehTypes>
+				<intObjectRef key="300"/>
+			</vehTypes>
+		</vehicleClass>
+		<vehicleClass anmid="" color="ff000000" name="Bahn" no="40" useVehTypeColor="true">
+			<vehTypes>
+				<intObjectRef key="400"/>
+			</vehTypes>
+		</vehicleClass>
+		<vehicleClass anmid="" color="ff000000" name="Fußgänger" no="50" useVehTypeColor="true">
+			<vehTypes>
+				<intObjectRef key="510"/>
+				<intObjectRef key="520"/>
+			</vehTypes>
+		</vehicleClass>
+		<vehicleClass anmid="" color="ff000000" name="Zweirad" no="60" useVehTypeColor="true">
+			<vehTypes>
+				<intObjectRef key="600"/>
+			</vehTypes>
+		</vehicleClass>
+	</vehicleClasses>
+	<netPara concatMaxLen="255" concatSeparator="," drivSimActive="false" leftHandTraffic="false" pedDefCellSize="0.150000" pedDefObstDist="0.500000" pedDirChgAngle="4.000000" pedDirChgClip="true" pedNbhSearGridSize="5.000000" pedNeverWalkBack="false" pedQueueOrder="0.700000" pedQueueStraight="0.600000" sig3DColArrow="false" unitAccel="METRIC" unitLenLong="METRIC" unitLenShort="METRIC" unitLenVeryShort="METRIC" unitSpeed="METRIC" unitSpeedSmall="METRIC" useGradFromZCoord="false">
+		<refPointMap x="-9839261.384823" y="-2757390.421375"/>
+		<refPointNet x="999.718959" y="-32.828854"/>
+	</netPara>
+	<vehicleTypes>
+		<vehicleType alightTm="0.000000" anmFlag="false" boardTm="0.000000" capacity="0" category="CAR" clearTm="0.000000" colorDistr1="1" desAccelFunc="1" desDecelFunc="1" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="1" maxDecelFunc="1" model2D3DDistr="10" name="Pkw" no="100" occupDistr="1" travTmCoeff="1.000000">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+		<vehicleType alightTm="0.000000" anmFlag="false" boardTm="0.000000" capacity="0" category="HGV" clearTm="0.000000" colorDistr1="1" desAccelFunc="2" desDecelFunc="2" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="2" maxDecelFunc="2" model2D3DDistr="20" name="Lkw" no="200" powerDistr="2" travTmCoeff="1.000000" weightDistr="2">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+		<vehicleType alightTm="1.000000" anmFlag="false" boardTm="2.000000" capacity="110" category="BUS" clearTm="8.000000" colorDistr1="1" desAccelFunc="3" desDecelFunc="3" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="3" maxDecelFunc="3" model2D3DDistr="30" name="Bus" no="300" occupDistr="1" travTmCoeff="1.000000">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+		<vehicleType alightTm="0.500000" anmFlag="false" boardTm="0.500000" capacity="215" category="TRAM" clearTm="12.000000" colorDistr1="1" desAccelFunc="4" desDecelFunc="4" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="4" maxDecelFunc="4" model2D3DDistr="40" name="Bahn" no="400" occupDistr="1" travTmCoeff="1.000000">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+		<vehicleType alightTm="0.000000" anmFlag="false" boardTm="0.000000" capacity="0" category="PEDESTRIAN" clearTm="0.000000" colorDistr1="101" colorDistr2="102" colorDistr3="103" colorDistr4="104" desAccelFunc="5" desDecelFunc="5" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="5" maxDecelFunc="5" model2D3DDistr="100" name="Mann" no="510" travTmCoeff="1.000000">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+		<vehicleType alightTm="0.000000" anmFlag="false" boardTm="0.000000" capacity="0" category="PEDESTRIAN" clearTm="0.000000" colorDistr1="201" colorDistr2="202" colorDistr3="203" colorDistr4="204" desAccelFunc="5" desDecelFunc="5" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="5" maxDecelFunc="5" model2D3DDistr="200" name="Frau" no="520" travTmCoeff="1.000000">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+		<vehicleType alightTm="0.000000" anmFlag="false" boardTm="0.000000" capacity="0" category="BIKE" clearTm="0.000000" colorDistr1="1" desAccelFunc="6" desDecelFunc="6" distCoeffPerMeter="0.000000" dwellTmIsAdd="true" equip="" extDriver="false" extDriverDLLFile="" extDriverParFile="" extEmissionDLLFile="" linkCostCoeff="1.000000" maxAccelFunc="6" maxDecelFunc="6" model2D3DDistr="60" name="Zweirad" no="600" travTmCoeff="1.000000">
+			<parkLotSelPars>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DEPARTUREFROMPARKINGLOT" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="DYNAMICROUTINGDECISION" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC1" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+				<parkingLotSelectionParameters attrac="0.000000" avail="0.000000" decSituation="ROUTEGUIDANCETACTIC2" distFromCurPosM="0.000000" distFromDestM="0.000000" parkFee="0.000000"/>
+			</parkLotSelPars>
+		</vehicleType>
+	</vehicleTypes>
+	<linkBehaviorTypes>
+		<linkBehaviorType anmFlag="false" drivBehavDef="1" name="Innerorts (motorisiert)" no="1"/>
+		<linkBehaviorType anmFlag="false" drivBehavDef="2" name="Rechtsfahrgebot (motorisiert)" no="2"/>
+		<linkBehaviorType anmFlag="false" drivBehavDef="3" name="Außerorts (freie Spurwahl)" no="3"/>
+		<linkBehaviorType anmFlag="false" drivBehavDef="4" name="Fußweg (interaktionsfrei)" no="4"/>
+		<linkBehaviorType anmFlag="false" drivBehavDef="5" name="Radweg (freies Überholen)" no="5"/>
+	</linkBehaviorTypes>
+	<maxAccelerationFunctions>
+		<maxAccelerationFunction name="Pkw" no="1">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="3.500000" yMax="3.500000" yMin="1.960000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="3.200000" yMax="3.500000" yMin="1.493000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="2.786000" yMax="3.500000" yMin="1.300000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="2.468000" yMax="3.500000" yMin="1.152000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="2.200000" yMax="3.500000" yMin="1.027000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.964000" yMax="3.273000" yMin="0.917000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="1.751000" yMax="2.918000" yMin="0.817000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="1.554000" yMax="2.590000" yMin="0.725000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="1.372000" yMax="2.286000" yMin="0.640000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="1.200000" yMax="2.000000" yMin="0.560000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="1.038000" yMax="1.730000" yMin="0.484000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.969000" yMax="1.614000" yMin="0.452000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.899000" yMax="1.499000" yMin="0.420000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.830000" yMax="1.384000" yMin="0.387000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.761000" yMax="1.268000" yMin="0.355000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.692000" yMax="1.153000" yMin="0.323000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.623000" yMax="1.038000" yMin="0.291000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.553000" yMax="0.922000" yMin="0.258000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.484000" yMax="0.807000" yMin="0.226000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.415000" yMax="0.692000" yMin="0.194000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.346000" yMax="0.577000" yMin="0.161000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.277000" yMax="0.461000" yMin="0.129000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.208000" yMax="0.346000" yMin="0.097000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.138000" yMax="0.231000" yMin="0.065000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.069000" yMax="0.115000" yMin="0.032000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</maxAccelerationFunction>
+		<maxAccelerationFunction name="Lkw" no="2">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="7.300000" yMax="9.300000" yMin="2.500000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="6.900000" yMax="9.300000" yMin="2.400000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="3.100000" yMax="5.200000" yMin="1.120000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="2.000000" yMax="3.200000" yMin="0.730000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="1.520000" yMax="2.350000" yMin="0.530000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="0.950000" yMax="1.550000" yMin="0.320000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="0.790000" yMax="1.310000" yMin="0.250000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="0.640000" yMax="1.100000" yMin="0.190000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="0.520000" yMax="0.900000" yMin="0.150000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="0.410000" yMax="0.750000" yMin="0.110000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="0.350000" yMax="0.650000" yMin="0.080000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.200000" yMax="0.550000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.000000" yMax="0.100000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</maxAccelerationFunction>
+		<maxAccelerationFunction name="Bus" no="3">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="1.100000" yMax="1.320000" yMin="0.924000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.000000" yMax="1.200000" yMin="0.840000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="0.900000" yMax="1.080000" yMin="0.756000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="0.800000" yMax="0.960000" yMin="0.672000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="0.600000" yMax="0.720000" yMin="0.504000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="0.400000" yMax="0.480000" yMin="0.336000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</maxAccelerationFunction>
+		<maxAccelerationFunction name="Bahn" no="4">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</maxAccelerationFunction>
+		<maxAccelerationFunction name="Fußgänger" no="5">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="3.000000" yMax="3.000000" yMin="3.000000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="3.000000" yMax="3.000000" yMin="3.000000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</maxAccelerationFunction>
+		<maxAccelerationFunction name="Zweirad" no="6">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="3.500000" yMax="3.500000" yMin="1.960000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="3.200000" yMax="3.500000" yMin="1.493000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="2.786000" yMax="3.500000" yMin="1.300000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="2.468000" yMax="3.500000" yMin="1.152000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="2.200000" yMax="3.500000" yMin="1.027000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.964000" yMax="3.273000" yMin="0.917000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="1.751000" yMax="2.918000" yMin="0.817000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="1.554000" yMax="2.590000" yMin="0.725000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="1.372000" yMax="2.286000" yMin="0.640000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="1.200000" yMax="2.000000" yMin="0.560000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="1.038000" yMax="1.730000" yMin="0.484000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.969000" yMax="1.614000" yMin="0.452000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.899000" yMax="1.499000" yMin="0.420000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.830000" yMax="1.384000" yMin="0.387000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.761000" yMax="1.268000" yMin="0.355000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.692000" yMax="1.153000" yMin="0.323000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.623000" yMax="1.038000" yMin="0.291000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.553000" yMax="0.922000" yMin="0.258000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.484000" yMax="0.807000" yMin="0.226000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.415000" yMax="0.692000" yMin="0.194000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.346000" yMax="0.577000" yMin="0.161000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.277000" yMax="0.461000" yMin="0.129000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.208000" yMax="0.346000" yMin="0.097000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.138000" yMax="0.231000" yMin="0.065000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.069000" yMax="0.115000" yMin="0.032000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</maxAccelerationFunction>
+	</maxAccelerationFunctions>
+	<desAccelerationFunctions>
+		<desAccelerationFunction name="Pkw" no="1">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="3.500000" yMax="3.500000" yMin="1.960000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="3.200000" yMax="3.500000" yMin="1.493000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="2.786000" yMax="3.500000" yMin="1.300000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="2.468000" yMax="3.500000" yMin="1.152000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="2.200000" yMax="3.500000" yMin="1.027000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.964000" yMax="3.273000" yMin="0.917000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="1.751000" yMax="2.918000" yMin="0.817000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="1.554000" yMax="2.590000" yMin="0.725000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="1.372000" yMax="2.286000" yMin="0.640000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="1.200000" yMax="2.000000" yMin="0.560000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="1.038000" yMax="1.730000" yMin="0.484000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.969000" yMax="1.614000" yMin="0.452000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.899000" yMax="1.499000" yMin="0.420000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.830000" yMax="1.384000" yMin="0.387000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.761000" yMax="1.268000" yMin="0.355000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.692000" yMax="1.153000" yMin="0.323000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.623000" yMax="1.038000" yMin="0.291000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.553000" yMax="0.922000" yMin="0.258000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.484000" yMax="0.807000" yMin="0.226000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.415000" yMax="0.692000" yMin="0.194000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.346000" yMax="0.577000" yMin="0.161000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.277000" yMax="0.461000" yMin="0.129000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.208000" yMax="0.346000" yMin="0.097000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.138000" yMax="0.231000" yMin="0.065000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.069000" yMax="0.115000" yMin="0.032000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</desAccelerationFunction>
+		<desAccelerationFunction name="Lkw" no="2">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="2.500000" yMax="2.500000" yMin="2.500000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="2.500000" yMax="2.500000" yMin="2.400000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="2.500000" yMax="2.500000" yMin="1.120000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="2.000000" yMax="2.500000" yMin="0.730000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="1.520000" yMax="2.350000" yMin="0.530000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="0.950000" yMax="1.550000" yMin="0.320000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="0.790000" yMax="1.310000" yMin="0.250000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="0.640000" yMax="1.100000" yMin="0.190000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="0.520000" yMax="0.900000" yMin="0.150000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="0.410000" yMax="0.750000" yMin="0.110000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="0.350000" yMax="0.650000" yMin="0.080000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.200000" yMax="0.550000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.000000" yMax="0.100000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</desAccelerationFunction>
+		<desAccelerationFunction name="Bus" no="3">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="1.240000" yMax="1.488000" yMin="1.042000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="1.100000" yMax="1.320000" yMin="0.924000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.000000" yMax="1.200000" yMin="0.840000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="0.900000" yMax="1.080000" yMin="0.756000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="0.800000" yMax="0.960000" yMin="0.672000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="0.600000" yMax="0.720000" yMin="0.504000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="0.400000" yMax="0.480000" yMin="0.336000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</desAccelerationFunction>
+		<desAccelerationFunction name="Bahn" no="4">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="1.000000" yMax="1.000000" yMin="1.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</desAccelerationFunction>
+		<desAccelerationFunction name="Fußgänger" no="5">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="3.000000" yMax="3.000000" yMin="3.000000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="3.000000" yMax="3.000000" yMin="3.000000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</desAccelerationFunction>
+		<desAccelerationFunction name="Zweirad" no="6">
+			<accelFuncDataPts>
+				<accelerationFunctionDataPoint x="0.000000" y="3.500000" yMax="3.500000" yMin="1.960000"/>
+				<accelerationFunctionDataPoint x="10.000000" y="3.200000" yMax="3.500000" yMin="1.493000"/>
+				<accelerationFunctionDataPoint x="20.000000" y="2.786000" yMax="3.500000" yMin="1.300000"/>
+				<accelerationFunctionDataPoint x="30.000000" y="2.468000" yMax="3.500000" yMin="1.152000"/>
+				<accelerationFunctionDataPoint x="40.000000" y="2.200000" yMax="3.500000" yMin="1.027000"/>
+				<accelerationFunctionDataPoint x="50.000000" y="1.964000" yMax="3.273000" yMin="0.917000"/>
+				<accelerationFunctionDataPoint x="60.000000" y="1.751000" yMax="2.918000" yMin="0.817000"/>
+				<accelerationFunctionDataPoint x="70.000000" y="1.554000" yMax="2.590000" yMin="0.725000"/>
+				<accelerationFunctionDataPoint x="80.000000" y="1.372000" yMax="2.286000" yMin="0.640000"/>
+				<accelerationFunctionDataPoint x="90.000000" y="1.200000" yMax="2.000000" yMin="0.560000"/>
+				<accelerationFunctionDataPoint x="100.000000" y="1.038000" yMax="1.730000" yMin="0.484000"/>
+				<accelerationFunctionDataPoint x="110.000000" y="0.969000" yMax="1.614000" yMin="0.452000"/>
+				<accelerationFunctionDataPoint x="120.000000" y="0.899000" yMax="1.499000" yMin="0.420000"/>
+				<accelerationFunctionDataPoint x="130.000000" y="0.830000" yMax="1.384000" yMin="0.387000"/>
+				<accelerationFunctionDataPoint x="140.000000" y="0.761000" yMax="1.268000" yMin="0.355000"/>
+				<accelerationFunctionDataPoint x="150.000000" y="0.692000" yMax="1.153000" yMin="0.323000"/>
+				<accelerationFunctionDataPoint x="160.000000" y="0.623000" yMax="1.038000" yMin="0.291000"/>
+				<accelerationFunctionDataPoint x="170.000000" y="0.553000" yMax="0.922000" yMin="0.258000"/>
+				<accelerationFunctionDataPoint x="180.000000" y="0.484000" yMax="0.807000" yMin="0.226000"/>
+				<accelerationFunctionDataPoint x="190.000000" y="0.415000" yMax="0.692000" yMin="0.194000"/>
+				<accelerationFunctionDataPoint x="200.000000" y="0.346000" yMax="0.577000" yMin="0.161000"/>
+				<accelerationFunctionDataPoint x="210.000000" y="0.277000" yMax="0.461000" yMin="0.129000"/>
+				<accelerationFunctionDataPoint x="220.000000" y="0.208000" yMax="0.346000" yMin="0.097000"/>
+				<accelerationFunctionDataPoint x="230.000000" y="0.138000" yMax="0.231000" yMin="0.065000"/>
+				<accelerationFunctionDataPoint x="240.000000" y="0.069000" yMax="0.115000" yMin="0.032000"/>
+				<accelerationFunctionDataPoint x="250.000000" y="0.000000" yMax="0.000000" yMin="0.000000"/>
+			</accelFuncDataPts>
+		</desAccelerationFunction>
+	</desAccelerationFunctions>
+	<maxDecelerationFunctions>
+		<maxDecelerationFunction name="Pkw" no="1">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-7.500000" yMax="-6.500000" yMin="-8.500000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-7.400000" yMax="-6.400000" yMin="-8.400000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-7.300000" yMax="-6.300000" yMin="-8.300000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-7.200000" yMax="-6.200000" yMin="-8.200000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-7.100000" yMax="-6.100000" yMin="-8.100000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-7.000000" yMax="-6.000000" yMin="-8.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-6.900000" yMax="-5.900000" yMin="-7.900000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-6.800000" yMax="-5.800000" yMin="-7.800000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-6.700000" yMax="-5.700000" yMin="-7.700000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-6.600000" yMax="-5.600000" yMin="-7.600000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-6.500000" yMax="-5.500000" yMin="-7.500000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-6.400000" yMax="-5.400000" yMin="-7.400000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-6.300000" yMax="-5.300000" yMin="-7.300000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-6.200000" yMax="-5.200000" yMin="-7.200000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-6.100000" yMax="-5.100000" yMin="-7.100000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-6.000000" yMax="-5.000000" yMin="-7.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-5.900000" yMax="-4.900000" yMin="-6.900000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-5.800000" yMax="-4.800000" yMin="-6.800000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-5.700000" yMax="-4.700000" yMin="-6.700000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-5.600000" yMax="-4.600000" yMin="-6.600000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-5.500000" yMax="-4.500000" yMin="-6.500000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-5.400000" yMax="-4.400000" yMin="-6.400000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-5.300000" yMax="-4.300000" yMin="-6.300000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-5.200000" yMax="-4.200000" yMin="-6.200000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-5.100000" yMax="-4.100000" yMin="-6.100000"/>
+			</decelFuncDataPts>
+		</maxDecelerationFunction>
+		<maxDecelerationFunction name="Lkw" no="2">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-5.500000" yMax="-5.000000" yMin="-6.000000"/>
+			</decelFuncDataPts>
+		</maxDecelerationFunction>
+		<maxDecelerationFunction name="Bus" no="3">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-7.500000" yMax="-6.500000" yMin="-8.500000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-7.400000" yMax="-6.400000" yMin="-8.400000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-7.300000" yMax="-6.300000" yMin="-8.300000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-7.200000" yMax="-6.200000" yMin="-8.200000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-7.100000" yMax="-6.100000" yMin="-8.100000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-7.000000" yMax="-6.000000" yMin="-8.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-6.900000" yMax="-5.900000" yMin="-7.900000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-6.800000" yMax="-5.800000" yMin="-7.800000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-6.700000" yMax="-5.700000" yMin="-7.700000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-6.600000" yMax="-5.600000" yMin="-7.600000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-6.500000" yMax="-5.500000" yMin="-7.500000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-6.400000" yMax="-5.400000" yMin="-7.400000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-6.300000" yMax="-5.300000" yMin="-7.300000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-6.200000" yMax="-5.200000" yMin="-7.200000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-6.100000" yMax="-5.100000" yMin="-7.100000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-6.000000" yMax="-5.000000" yMin="-7.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-5.900000" yMax="-4.900000" yMin="-6.900000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-5.800000" yMax="-4.800000" yMin="-6.800000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-5.700000" yMax="-4.700000" yMin="-6.700000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-5.600000" yMax="-4.600000" yMin="-6.600000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-5.500000" yMax="-4.500000" yMin="-6.500000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-5.400000" yMax="-4.400000" yMin="-6.400000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-5.300000" yMax="-4.300000" yMin="-6.300000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-5.200000" yMax="-4.200000" yMin="-6.200000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-5.100000" yMax="-4.100000" yMin="-6.100000"/>
+			</decelFuncDataPts>
+		</maxDecelerationFunction>
+		<maxDecelerationFunction name="Bahn" no="4">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-5.000000" yMax="-4.000000" yMin="-6.000000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-4.900000" yMax="-3.900000" yMin="-5.900000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-4.800000" yMax="-3.800000" yMin="-5.800000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-4.700000" yMax="-3.700000" yMin="-5.700000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-4.600000" yMax="-3.600000" yMin="-5.600000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-4.500000" yMax="-3.500000" yMin="-5.500000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-4.400000" yMax="-3.400000" yMin="-5.400000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-4.300000" yMax="-3.300000" yMin="-5.300000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-4.200000" yMax="-3.200000" yMin="-5.200000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-4.100000" yMax="-3.100000" yMin="-5.100000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-4.000000" yMax="-3.000000" yMin="-5.000000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-3.900000" yMax="-2.900000" yMin="-4.900000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-3.800000" yMax="-2.800000" yMin="-4.800000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-3.700000" yMax="-2.700000" yMin="-4.700000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-3.600000" yMax="-2.600000" yMin="-4.600000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-3.500000" yMax="-2.500000" yMin="-4.500000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-3.400000" yMax="-2.400000" yMin="-4.400000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-3.300000" yMax="-2.300000" yMin="-4.300000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-3.200000" yMax="-2.200000" yMin="-4.200000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-3.100000" yMax="-2.100000" yMin="-4.100000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-3.000000" yMax="-2.000000" yMin="-4.000000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-2.900000" yMax="-1.900000" yMin="-3.900000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-2.800000" yMax="-1.800000" yMin="-3.800000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-2.700000" yMax="-1.700000" yMin="-3.700000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-2.600000" yMax="-1.600000" yMin="-3.600000"/>
+			</decelFuncDataPts>
+		</maxDecelerationFunction>
+		<maxDecelerationFunction name="Fußgänger" no="5">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-9.000000" yMax="-8.500000" yMin="-9.500000"/>
+			</decelFuncDataPts>
+		</maxDecelerationFunction>
+		<maxDecelerationFunction name="Zweirad" no="6">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-7.500000" yMax="-6.500000" yMin="-8.500000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-7.400000" yMax="-6.400000" yMin="-8.400000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-7.300000" yMax="-6.300000" yMin="-8.300000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-7.200000" yMax="-6.200000" yMin="-8.200000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-7.100000" yMax="-6.100000" yMin="-8.100000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-7.000000" yMax="-6.000000" yMin="-8.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-6.900000" yMax="-5.900000" yMin="-7.900000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-6.800000" yMax="-5.800000" yMin="-7.800000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-6.700000" yMax="-5.700000" yMin="-7.700000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-6.600000" yMax="-5.600000" yMin="-7.600000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-6.500000" yMax="-5.500000" yMin="-7.500000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-6.400000" yMax="-5.400000" yMin="-7.400000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-6.300000" yMax="-5.300000" yMin="-7.300000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-6.200000" yMax="-5.200000" yMin="-7.200000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-6.100000" yMax="-5.100000" yMin="-7.100000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-6.000000" yMax="-5.000000" yMin="-7.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-5.900000" yMax="-4.900000" yMin="-6.900000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-5.800000" yMax="-4.800000" yMin="-6.800000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-5.700000" yMax="-4.700000" yMin="-6.700000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-5.600000" yMax="-4.600000" yMin="-6.600000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-5.500000" yMax="-4.500000" yMin="-6.500000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-5.400000" yMax="-4.400000" yMin="-6.400000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-5.300000" yMax="-4.300000" yMin="-6.300000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-5.200000" yMax="-4.200000" yMin="-6.200000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-5.100000" yMax="-4.100000" yMin="-6.100000"/>
+			</decelFuncDataPts>
+		</maxDecelerationFunction>
+	</maxDecelerationFunctions>
+	<desDecelerationFunctions>
+		<desDecelerationFunction name="Pkw" no="1">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+			</decelFuncDataPts>
+		</desDecelerationFunction>
+		<desDecelerationFunction name="Lkw" no="2">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-1.250000" yMax="-1.050000" yMin="-1.500000"/>
+			</decelFuncDataPts>
+		</desDecelerationFunction>
+		<desDecelerationFunction name="Bus" no="3">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+			</decelFuncDataPts>
+		</desDecelerationFunction>
+		<desDecelerationFunction name="Bahn" no="4">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-0.850000" yMax="-0.730000" yMin="-1.000000"/>
+			</decelFuncDataPts>
+		</desDecelerationFunction>
+		<desDecelerationFunction name="Fußgänger" no="5">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-9.000000" yMax="-8.600000" yMin="-9.500000"/>
+			</decelFuncDataPts>
+		</desDecelerationFunction>
+		<desDecelerationFunction name="Zweirad" no="6">
+			<decelFuncDataPts>
+				<decelerationFunctionDataPoint x="0.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="10.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="20.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="30.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="40.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="50.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="60.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="70.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="80.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="90.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="100.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="110.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="120.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="130.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="140.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="150.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="160.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="170.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="180.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="190.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="200.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="210.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="220.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="230.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+				<decelerationFunctionDataPoint x="240.000000" y="-2.750000" yMax="-2.550000" yMin="-3.000000"/>
+			</decelFuncDataPts>
+		</desDecelerationFunction>
+	</desDecelerationFunctions>
+	<desSpeedDistributions>
+		<desSpeedDistribution name="5 km/h" no="5">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="4.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="6.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="12 km/h" no="12">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="12.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="15.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="15 km/h" no="15">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="15.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="20.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="20 km/h" no="20">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="20.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="25.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="25 km/h" no="25">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="25.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="30.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="30 km/h" no="30">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="30.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="35.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="40 km/h" no="40">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="40.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="45.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="50 km/h" no="50">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="48.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="58.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="60 km/h" no="60">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="58.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="68.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="70 km/h" no="70">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="68.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="78.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="80 km/h" no="80">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="75.000000"/>
+				<speedDistributionDataPoint fx="0.050000" x="80.000000"/>
+				<speedDistributionDataPoint fx="0.800000" x="90.000000"/>
+				<speedDistributionDataPoint fx="0.950000" x="100.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="110.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="85 km/h" no="85">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="84.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="88.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="90 km/h" no="90">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="85.000000"/>
+				<speedDistributionDataPoint fx="0.050000" x="90.000000"/>
+				<speedDistributionDataPoint fx="0.800000" x="100.000000"/>
+				<speedDistributionDataPoint fx="0.950000" x="110.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="120.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="100 km/h" no="100">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="88.000000"/>
+				<speedDistributionDataPoint fx="0.030000" x="95.000000"/>
+				<speedDistributionDataPoint fx="0.100000" x="100.000000"/>
+				<speedDistributionDataPoint fx="0.700000" x="110.000000"/>
+				<speedDistributionDataPoint fx="0.910000" x="120.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="130.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="120 km/h" no="120">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="85.000000"/>
+				<speedDistributionDataPoint fx="0.030000" x="105.000000"/>
+				<speedDistributionDataPoint fx="0.100000" x="110.000000"/>
+				<speedDistributionDataPoint fx="0.680000" x="125.000000"/>
+				<speedDistributionDataPoint fx="0.910000" x="140.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="155.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="130 km/h" no="130">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="80.000000"/>
+				<speedDistributionDataPoint fx="0.030000" x="98.000000"/>
+				<speedDistributionDataPoint fx="0.100000" x="110.000000"/>
+				<speedDistributionDataPoint fx="0.680000" x="130.000000"/>
+				<speedDistributionDataPoint fx="0.720000" x="135.000000"/>
+				<speedDistributionDataPoint fx="0.910000" x="143.000000"/>
+				<speedDistributionDataPoint fx="0.970000" x="155.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="170.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="140 km/h" no="140">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="80.000000"/>
+				<speedDistributionDataPoint fx="0.030000" x="99.000000"/>
+				<speedDistributionDataPoint fx="0.100000" x="109.000000"/>
+				<speedDistributionDataPoint fx="0.260000" x="121.000000"/>
+				<speedDistributionDataPoint fx="0.470000" x="131.000000"/>
+				<speedDistributionDataPoint fx="0.800000" x="149.000000"/>
+				<speedDistributionDataPoint fx="0.930000" x="165.000000"/>
+				<speedDistributionDataPoint fx="0.990000" x="185.000000"/>
+				<speedDistributionDataPoint fx="1.000000" x="205.000000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-M 30-50" no="1001">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.490000"/>
+				<speedDistributionDataPoint fx="1.000000" x="5.830000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-F 30-50" no="1002">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.560000"/>
+				<speedDistributionDataPoint fx="1.000000" x="4.280000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="Predt-Milinski" no="1003">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="0.000000"/>
+				<speedDistributionDataPoint fx="0.011000" x="0.300000"/>
+				<speedDistributionDataPoint fx="0.052000" x="0.900000"/>
+				<speedDistributionDataPoint fx="0.138000" x="1.500000"/>
+				<speedDistributionDataPoint fx="0.320000" x="2.100000"/>
+				<speedDistributionDataPoint fx="0.553000" x="2.700000"/>
+				<speedDistributionDataPoint fx="0.713000" x="3.300000"/>
+				<speedDistributionDataPoint fx="0.790000" x="3.900000"/>
+				<speedDistributionDataPoint fx="0.850000" x="4.500000"/>
+				<speedDistributionDataPoint fx="0.893000" x="5.100000"/>
+				<speedDistributionDataPoint fx="0.927000" x="5.700000"/>
+				<speedDistributionDataPoint fx="0.953000" x="6.300000"/>
+				<speedDistributionDataPoint fx="0.976000" x="6.900000"/>
+				<speedDistributionDataPoint fx="0.993000" x="7.500000"/>
+				<speedDistributionDataPoint fx="1.000000" x="8.100000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="Fruin 1" no="1004">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.110000"/>
+				<speedDistributionDataPoint fx="0.013000" x="2.560000"/>
+				<speedDistributionDataPoint fx="0.071000" x="3.010000"/>
+				<speedDistributionDataPoint fx="0.175000" x="3.450000"/>
+				<speedDistributionDataPoint fx="0.406000" x="3.900000"/>
+				<speedDistributionDataPoint fx="0.685000" x="4.350000"/>
+				<speedDistributionDataPoint fx="0.880000" x="4.840000"/>
+				<speedDistributionDataPoint fx="0.961000" x="5.280000"/>
+				<speedDistributionDataPoint fx="0.981000" x="5.730000"/>
+				<speedDistributionDataPoint fx="0.994000" x="6.180000"/>
+				<speedDistributionDataPoint fx="1.000000" x="6.620000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="Fruin 2" no="1005">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.110000"/>
+				<speedDistributionDataPoint fx="0.006000" x="2.560000"/>
+				<speedDistributionDataPoint fx="0.032000" x="3.010000"/>
+				<speedDistributionDataPoint fx="0.119000" x="3.450000"/>
+				<speedDistributionDataPoint fx="0.304000" x="3.900000"/>
+				<speedDistributionDataPoint fx="0.516000" x="4.350000"/>
+				<speedDistributionDataPoint fx="0.744000" x="4.840000"/>
+				<speedDistributionDataPoint fx="0.891000" x="5.280000"/>
+				<speedDistributionDataPoint fx="0.968000" x="5.730000"/>
+				<speedDistributionDataPoint fx="0.987000" x="6.180000"/>
+				<speedDistributionDataPoint fx="1.000000" x="6.620000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="Treppen Kretz 1" no="1006">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="0.720000"/>
+				<speedDistributionDataPoint fx="0.055000" x="1.080000"/>
+				<speedDistributionDataPoint fx="0.452000" x="1.440000"/>
+				<speedDistributionDataPoint fx="0.877000" x="1.800000"/>
+				<speedDistributionDataPoint fx="0.945000" x="2.160000"/>
+				<speedDistributionDataPoint fx="0.973000" x="2.520000"/>
+				<speedDistributionDataPoint fx="0.986000" x="2.880000"/>
+				<speedDistributionDataPoint fx="1.000000" x="4.680000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="Treppen Kretz 2" no="1007">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="0.360000"/>
+				<speedDistributionDataPoint fx="0.003000" x="0.540000"/>
+				<speedDistributionDataPoint fx="0.008000" x="0.720000"/>
+				<speedDistributionDataPoint fx="0.069000" x="1.080000"/>
+				<speedDistributionDataPoint fx="0.296000" x="1.260000"/>
+				<speedDistributionDataPoint fx="0.689000" x="1.440000"/>
+				<speedDistributionDataPoint fx="0.887000" x="1.620000"/>
+				<speedDistributionDataPoint fx="0.967000" x="1.800000"/>
+				<speedDistributionDataPoint fx="0.985000" x="1.980000"/>
+				<speedDistributionDataPoint fx="0.987000" x="2.160000"/>
+				<speedDistributionDataPoint fx="0.992000" x="2.340000"/>
+				<speedDistributionDataPoint fx="0.995000" x="2.520000"/>
+				<speedDistributionDataPoint fx="0.997000" x="2.700000"/>
+				<speedDistributionDataPoint fx="1.000000" x="4.140000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="An Flughäfen – S.B. Young" no="1008">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.300000"/>
+				<speedDistributionDataPoint fx="0.015034" x="3.336462"/>
+				<speedDistributionDataPoint fx="0.053041" x="3.590810"/>
+				<speedDistributionDataPoint fx="0.103666" x="3.773071"/>
+				<speedDistributionDataPoint fx="0.255365" x="4.040716"/>
+				<speedDistributionDataPoint fx="0.449933" x="4.256679"/>
+				<speedDistributionDataPoint fx="0.542538" x="4.410480"/>
+				<speedDistributionDataPoint fx="0.582693" x="4.516479"/>
+				<speedDistributionDataPoint fx="0.624137" x="4.682254"/>
+				<speedDistributionDataPoint fx="0.686649" x="5.026911"/>
+				<speedDistributionDataPoint fx="0.723180" x="5.337051"/>
+				<speedDistributionDataPoint fx="0.774515" x="5.613145"/>
+				<speedDistributionDataPoint fx="0.877368" x="6.020304"/>
+				<speedDistributionDataPoint fx="0.912392" x="6.271403"/>
+				<speedDistributionDataPoint fx="0.943356" x="6.634187"/>
+				<speedDistributionDataPoint fx="0.964368" x="7.168421"/>
+				<speedDistributionDataPoint fx="0.987865" x="7.508381"/>
+				<speedDistributionDataPoint fx="0.997839" x="7.808130"/>
+				<speedDistributionDataPoint fx="1.000000" x="8.229600"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="On Moving Walkways at Airports - S.B. Young" no="1009">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="0.000000"/>
+				<speedDistributionDataPoint fx="0.000100" x="0.765462"/>
+				<speedDistributionDataPoint fx="0.254852" x="0.765562"/>
+				<speedDistributionDataPoint fx="0.286270" x="1.304489"/>
+				<speedDistributionDataPoint fx="0.302666" x="1.656738"/>
+				<speedDistributionDataPoint fx="0.325205" x="2.407758"/>
+				<speedDistributionDataPoint fx="0.351299" x="2.953785"/>
+				<speedDistributionDataPoint fx="0.362231" x="3.124574"/>
+				<speedDistributionDataPoint fx="0.382169" x="3.300298"/>
+				<speedDistributionDataPoint fx="0.406531" x="3.463337"/>
+				<speedDistributionDataPoint fx="0.459020" x="3.700048"/>
+				<speedDistributionDataPoint fx="0.589058" x="4.121024"/>
+				<speedDistributionDataPoint fx="0.675660" x="4.407455"/>
+				<speedDistributionDataPoint fx="0.751254" x="4.774043"/>
+				<speedDistributionDataPoint fx="0.866077" x="5.514790"/>
+				<speedDistributionDataPoint fx="0.924504" x="5.961132"/>
+				<speedDistributionDataPoint fx="0.947342" x="6.237696"/>
+				<speedDistributionDataPoint fx="0.971817" x="6.615232"/>
+				<speedDistributionDataPoint fx="0.985613" x="7.152273"/>
+				<speedDistributionDataPoint fx="1.000000" x="8.229600"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="2.09 km/h (0.58 m/s)" no="1010">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.080000"/>
+				<speedDistributionDataPoint fx="0.000100" x="2.087900"/>
+				<speedDistributionDataPoint fx="0.999900" x="2.088100"/>
+				<speedDistributionDataPoint fx="1.000000" x="2.090000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="2.88 km/h (0.80 m/s)" no="1011">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.870000"/>
+				<speedDistributionDataPoint fx="0.000100" x="2.879900"/>
+				<speedDistributionDataPoint fx="0.999900" x="2.880100"/>
+				<speedDistributionDataPoint fx="1.000000" x="2.890000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="4.75 km/h (1.32 m/s)" no="1012">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.354000"/>
+				<speedDistributionDataPoint fx="0.050000" x="3.665000"/>
+				<speedDistributionDataPoint fx="0.130000" x="3.976000"/>
+				<speedDistributionDataPoint fx="0.250000" x="4.286000"/>
+				<speedDistributionDataPoint fx="0.410000" x="4.597000"/>
+				<speedDistributionDataPoint fx="0.590000" x="4.907000"/>
+				<speedDistributionDataPoint fx="0.750000" x="5.222000"/>
+				<speedDistributionDataPoint fx="0.870000" x="5.528000"/>
+				<speedDistributionDataPoint fx="0.950000" x="5.839000"/>
+				<speedDistributionDataPoint fx="1.000000" x="6.150000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="4.93 km/h (1.37 m/s)" no="1013">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.481000"/>
+				<speedDistributionDataPoint fx="0.050000" x="3.804000"/>
+				<speedDistributionDataPoint fx="0.130000" x="4.126000"/>
+				<speedDistributionDataPoint fx="0.250000" x="4.448000"/>
+				<speedDistributionDataPoint fx="0.410000" x="4.771000"/>
+				<speedDistributionDataPoint fx="0.590000" x="5.093000"/>
+				<speedDistributionDataPoint fx="0.750000" x="5.416000"/>
+				<speedDistributionDataPoint fx="0.870000" x="5.738000"/>
+				<speedDistributionDataPoint fx="0.950000" x="6.060000"/>
+				<speedDistributionDataPoint fx="1.000000" x="6.383000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="5.51 km/h (1.53 m/s)" no="1014">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.888000"/>
+				<speedDistributionDataPoint fx="0.050000" x="4.248000"/>
+				<speedDistributionDataPoint fx="0.130000" x="4.608000"/>
+				<speedDistributionDataPoint fx="0.250000" x="4.968000"/>
+				<speedDistributionDataPoint fx="0.410000" x="5.328000"/>
+				<speedDistributionDataPoint fx="0.590000" x="5.688000"/>
+				<speedDistributionDataPoint fx="0.750000" x="6.048000"/>
+				<speedDistributionDataPoint fx="0.870000" x="6.408000"/>
+				<speedDistributionDataPoint fx="0.950000" x="6.768000"/>
+				<speedDistributionDataPoint fx="1.000000" x="7.128000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-M &lt;30" no="1015">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.996000"/>
+				<speedDistributionDataPoint fx="1.000000" x="6.660000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-F &lt;30" no="1016">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.348000"/>
+				<speedDistributionDataPoint fx="1.000000" x="5.580000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-M &gt;50" no="1017">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="3.024000"/>
+				<speedDistributionDataPoint fx="1.000000" x="5.040000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-F &gt;50" no="1018">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.016000"/>
+				<speedDistributionDataPoint fx="1.000000" x="3.384000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-M MI1" no="1019">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="2.304000"/>
+				<speedDistributionDataPoint fx="1.000000" x="3.816000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-F MI1" no="1020">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="1.548000"/>
+				<speedDistributionDataPoint fx="1.000000" x="2.556000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-M MI2" no="1021">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="1.980000"/>
+				<speedDistributionDataPoint fx="1.000000" x="3.276000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+		<desSpeedDistribution name="IMO-F MI2" no="1022">
+			<speedDistrDatPts>
+				<speedDistributionDataPoint fx="0.000000" x="1.332000"/>
+				<speedDistributionDataPoint fx="1.000000" x="2.196000"/>
+			</speedDistrDatPts>
+		</desSpeedDistribution>
+	</desSpeedDistributions>
+	<weightDistributions>
+		<weightDistribution name="Pkw" no="1">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="800.000000"/>
+				<distributionDataPoint fx="1.000000" x="2000.000000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Lkw" no="2">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="2800.000000"/>
+				<distributionDataPoint fx="1.000000" x="40000.000000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Bus" no="3">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="4000.000000"/>
+				<distributionDataPoint fx="1.000000" x="12000.000000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Bahn" no="4">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="23000.000000"/>
+				<distributionDataPoint fx="1.000000" x="58000.000000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Fußgänger" no="5">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="30.000000"/>
+				<distributionDataPoint fx="1.000000" x="120.000000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Zweirad" no="6">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="40.000000"/>
+				<distributionDataPoint fx="1.000000" x="130.000000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Dreyfuss M" no="7">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="73.700000"/>
+				<distributionDataPoint fx="1.000000" x="83.100000"/>
+			</distrDataPts>
+		</weightDistribution>
+		<weightDistribution name="Dreyfuss F" no="8">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="53.400000"/>
+				<distributionDataPoint fx="0.500000" x="62.500000"/>
+				<distributionDataPoint fx="1.000000" x="78.800000"/>
+			</distrDataPts>
+		</weightDistribution>
+	</weightDistributions>
+	<powerDistributions>
+		<powerDistribution name="" no="1">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="55.000000"/>
+				<distributionDataPoint fx="1.000000" x="160.000000"/>
+			</distrDataPts>
+		</powerDistribution>
+		<powerDistribution name="" no="2">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="150.000000"/>
+				<distributionDataPoint fx="1.000000" x="400.000000"/>
+			</distrDataPts>
+		</powerDistribution>
+		<powerDistribution name="" no="3">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="150.000000"/>
+				<distributionDataPoint fx="1.000000" x="300.000000"/>
+			</distrDataPts>
+		</powerDistribution>
+		<powerDistribution name="" no="4">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="300.000000"/>
+				<distributionDataPoint fx="1.000000" x="600.000000"/>
+			</distrDataPts>
+		</powerDistribution>
+		<powerDistribution name="" no="5">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.500000"/>
+				<distributionDataPoint fx="1.000000" x="0.700000"/>
+			</distrDataPts>
+		</powerDistribution>
+		<powerDistribution name="" no="6">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.500000"/>
+				<distributionDataPoint fx="1.000000" x="0.700000"/>
+			</distrDataPts>
+		</powerDistribution>
+	</powerDistributions>
+	<timeDistributions>
+		<timeDistribution mean="20.000000" name="" no="1" stdDev="2.000000" type="NORMAL"/>
+	</timeDistributions>
+	<locationDistributions>
+		<locationDistribution name="Gleichverteilt" no="1">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.000000"/>
+				<distributionDataPoint fx="1.000000" x="1.000000"/>
+			</distrDataPts>
+		</locationDistribution>
+		<locationDistribution name="Mitte" no="2">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.000000"/>
+				<distributionDataPoint fx="0.200000" x="0.300000"/>
+				<distributionDataPoint fx="0.800000" x="0.700000"/>
+				<distributionDataPoint fx="1.000000" x="1.000000"/>
+			</distrDataPts>
+		</locationDistribution>
+		<locationDistribution name="Vorne" no="3">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.000000"/>
+				<distributionDataPoint fx="0.800000" x="0.300000"/>
+				<distributionDataPoint fx="1.000000" x="1.000000"/>
+			</distrDataPts>
+		</locationDistribution>
+		<locationDistribution name="Hinten" no="4">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.000000"/>
+				<distributionDataPoint fx="0.200000" x="0.700000"/>
+				<distributionDataPoint fx="1.000000" x="1.000000"/>
+			</distrDataPts>
+		</locationDistribution>
+		<locationDistribution name="Vorne und Hinten" no="5">
+			<distrDataPts>
+				<distributionDataPoint fx="0.000000" x="0.000000"/>
+				<distributionDataPoint fx="0.400000" x="0.300000"/>
+				<distributionDataPoint fx="0.600000" x="0.700000"/>
+				<distributionDataPoint fx="1.000000" x="1.000000"/>
+			</distrDataPts>
+		</locationDistribution>
+	</locationDistributions>
+	<colorDistributions>
+		<colorDistribution name="Standard" no="1">
+			<colorDistrEl>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ffd62828" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ff1543b6" share="1.000000"/>
+				<colorDistributionElement color="ffd1d1d1" share="1.000000"/>
+				<colorDistributionElement color="ff5f5f5f" share="0.500000"/>
+				<colorDistributionElement color="ff148e47" share="0.250000"/>
+				<colorDistributionElement color="ff0080ff" share="0.250000"/>
+				<colorDistributionElement color="fffeff60" share="0.100000"/>
+				<colorDistributionElement color="ffffa13d" share="0.100000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Shirt Mann" no="101">
+			<colorDistrEl>
+				<colorDistributionElement color="ffc9dade" share="1.000000"/>
+				<colorDistributionElement color="ffff8040" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ff80ffff" share="1.000000"/>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ff5765a8" share="1.000000"/>
+				<colorDistributionElement color="ff82486c" share="0.700000"/>
+				<colorDistributionElement color="ff235c34" share="0.700000"/>
+				<colorDistributionElement color="ffffffc4" share="0.500000"/>
+				<colorDistributionElement color="ff4286bd" share="1.000000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Haar Mann" no="102">
+			<colorDistrEl>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ff804000" share="1.000000"/>
+				<colorDistributionElement color="ff504530" share="1.000000"/>
+				<colorDistributionElement color="ffe4c07c" share="0.500000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Hose Mann" no="103">
+			<colorDistrEl>
+				<colorDistributionElement color="ff2e2f52" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ff1e2362" share="1.000000"/>
+				<colorDistributionElement color="ff4885b7" share="1.000000"/>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ffd92626" share="0.500000"/>
+				<colorDistributionElement color="ff919191" share="0.500000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Schuhe Mann" no="104">
+			<colorDistrEl>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ff804000" share="1.000000"/>
+				<colorDistributionElement color="ff808080" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ff000037" share="1.000000"/>
+				<colorDistributionElement color="ff400000" share="1.000000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Shirt Frau" no="201">
+			<colorDistrEl>
+				<colorDistributionElement color="ffd2ffff" share="1.000000"/>
+				<colorDistributionElement color="ffff8040" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ffd02f88" share="1.000000"/>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ff5765a8" share="1.000000"/>
+				<colorDistributionElement color="ffff8080" share="0.500000"/>
+				<colorDistributionElement color="ffa5ebbb" share="0.500000"/>
+				<colorDistributionElement color="ffffffc4" share="0.500000"/>
+				<colorDistributionElement color="ff4286bd" share="1.000000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Haar Frau" no="202">
+			<colorDistrEl>
+				<colorDistributionElement color="ff000000" share="1.000000"/>
+				<colorDistributionElement color="ff804000" share="1.000000"/>
+				<colorDistributionElement color="ff504530" share="1.000000"/>
+				<colorDistributionElement color="ffe4c07c" share="0.500000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Hose Frau" no="203">
+			<colorDistrEl>
+				<colorDistributionElement color="ff2e2f52" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ff1e2362" share="1.000000"/>
+				<colorDistributionElement color="ff4885b7" share="1.000000"/>
+				<colorDistributionElement color="ffffffd2" share="0.500000"/>
+				<colorDistributionElement color="ffd92626" share="1.000000"/>
+				<colorDistributionElement color="ffff8040" share="0.500000"/>
+				<colorDistributionElement color="ff275828" share="0.500000"/>
+				<colorDistributionElement color="ff533c2d" share="0.500000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="Schuhe Frau" no="204">
+			<colorDistrEl>
+				<colorDistributionElement color="ff135ecc" share="1.000000"/>
+				<colorDistributionElement color="ff804000" share="1.000000"/>
+				<colorDistributionElement color="ffb64d49" share="1.000000"/>
+				<colorDistributionElement color="ffffffff" share="1.000000"/>
+				<colorDistributionElement color="ff000037" share="1.000000"/>
+				<colorDistributionElement color="ffdabe96" share="1.000000"/>
+				<colorDistributionElement color="ffde6c27" share="1.000000"/>
+				<colorDistributionElement color="ff8989b8" share="0.500000"/>
+				<colorDistributionElement color="fffffdce" share="1.000000"/>
+				<colorDistributionElement color="ff0080c0" share="1.000000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="white" no="205">
+			<colorDistrEl>
+				<colorDistributionElement color="ffffffff" share="0.100000"/>
+			</colorDistrEl>
+		</colorDistribution>
+		<colorDistribution name="red" no="206">
+			<colorDistrEl>
+				<colorDistributionElement color="ffff0000" share="0.100000"/>
+			</colorDistrEl>
+		</colorDistribution>
+	</colorDistributions>
+	<model2D3DDistributions>
+		<model2D3DDistribution name="Pkw" no="10">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="1" share="0.240000"/>
+				<model2D3DDistributionElement model2D3D="2" share="0.180000"/>
+				<model2D3DDistributionElement model2D3D="3" share="0.160000"/>
+				<model2D3DDistributionElement model2D3D="4" share="0.160000"/>
+				<model2D3DDistributionElement model2D3D="5" share="0.140000"/>
+				<model2D3DDistributionElement model2D3D="6" share="0.020000"/>
+				<model2D3DDistributionElement model2D3D="7" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Lkw" no="20">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="21" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Bus" no="30">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="31" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Bahn" no="40">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="41" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Zweirad" no="60">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="61" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Mann" no="100">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="101" share="0.100000"/>
+				<model2D3DDistributionElement model2D3D="102" share="0.100000"/>
+				<model2D3DDistributionElement model2D3D="103" share="0.100000"/>
+				<model2D3DDistributionElement model2D3D="104" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Frau" no="200">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="201" share="0.100000"/>
+				<model2D3DDistributionElement model2D3D="202" share="0.100000"/>
+				<model2D3DDistributionElement model2D3D="203" share="0.100000"/>
+				<model2D3DDistributionElement model2D3D="204" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Rollstuhl" no="300">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="205" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+		<model2D3DDistribution name="Mom+Kid" no="400">
+			<model2D3DDistrEl>
+				<model2D3DDistributionElement model2D3D="206" share="0.100000"/>
+			</model2D3DDistrEl>
+		</model2D3DDistribution>
+	</model2D3DDistributions>
+	<drivingBehaviors>
+		<drivingBehavior accDecelOwn="-1.000000" accDecelTrail="-1.000000" advMerg="true" amberA="1.588581" amberB1="-0.261981" amberB2="0.269453" amberBehav="CONTINUOUSCHECK" carFollowModType="WIEDEMANN74" consNextTurn="false" coopDecel="-3.000000" coopLnChg="false" coopLnChgCollTm="10.000000" coopLnChgSpeedDiff="10.800000" decelRedDistOwn="100.000000" decelRedDistTrail="100.000000" desLatPos="MIDDLE" diamQueu="false" diffusTm="60.000000" freeDrivTm="11.000000" latDirChgMinTm="0.000000" latDistDrivDef="1.000000" latDistStandDef="1.000000" lnChgRule="FREELANESELECTION" lookAheadDistMax="250.000000" lookAheadDistMin="0.000000" lookBackDistMax="150.000000" lookBackDistMin="0.000000" maxDecelOwn="-4.000000" maxDecelTrail="-3.000000" minCollTmGain="2.000000" minHdwy="0.500000" minSpeedForLat="3.600000" name="Innerorts (motorisiert)" no="1" obsrvAdjLn="false" obsrvdVehs="4" ovtLDef="false" ovtRDef="false" ovtRedSpeedAreas="false" rearCorr="false" rearCorrEnd="10.000000" rearCorrMaxSpeed="3.000000" rearCorrStart="1.000000" redAmberBehav="GO" safDistFactLnChg="0.600000" safDistFactSig="0.600000" safDistFactSigEnd="100.000000" safDistFactSigStart="100.000000" sleepDur="0.000000" sleepProb="0.000000" smthClsup="false" standDist="0.500000" standDistIsFix="false" vehRoutDecLookAhead="true" w74ax="2.000000" w74bxAdd="2.000000" w74bxMult="3.000000" w99cc0="1.500000" w99cc1="0.900000" w99cc2="4.000000" w99cc3="-8.000000" w99cc4="-0.350000" w99cc5="0.350000" w99cc6="11.440000" w99cc7="0.250000" w99cc8="3.500000" w99cc9="1.500000"/>
+		<drivingBehavior accDecelOwn="-1.000000" accDecelTrail="-0.500000" advMerg="true" amberA="1.588581" amberB1="-0.261981" amberB2="0.269453" amberBehav="CONTINUOUSCHECK" carFollowModType="WIEDEMANN99" consNextTurn="false" coopDecel="-3.000000" coopLnChg="false" coopLnChgCollTm="10.000000" coopLnChgSpeedDiff="10.800000" decelRedDistOwn="200.000000" decelRedDistTrail="200.000000" desLatPos="MIDDLE" diamQueu="false" diffusTm="60.000000" freeDrivTm="11.000000" latDirChgMinTm="0.000000" latDistDrivDef="1.000000" latDistStandDef="1.000000" lnChgRule="OUTSIDERULE" lookAheadDistMax="250.000000" lookAheadDistMin="0.000000" lookBackDistMax="150.000000" lookBackDistMin="0.000000" maxDecelOwn="-4.000000" maxDecelTrail="-3.000000" minCollTmGain="2.000000" minHdwy="0.500000" minSpeedForLat="3.600000" name="Rechtsfahrgebot (motorisiert)" no="2" obsrvAdjLn="false" obsrvdVehs="2" ovtLDef="false" ovtRDef="false" ovtRedSpeedAreas="false" rearCorr="false" rearCorrEnd="10.000000" rearCorrMaxSpeed="3.000000" rearCorrStart="1.000000" redAmberBehav="GO" safDistFactLnChg="0.600000" safDistFactSig="0.600000" safDistFactSigEnd="100.000000" safDistFactSigStart="100.000000" sleepDur="0.000000" sleepProb="0.000000" smthClsup="false" standDist="0.500000" standDistIsFix="false" vehRoutDecLookAhead="true" w74ax="2.000000" w74bxAdd="2.000000" w74bxMult="3.000000" w99cc0="1.500000" w99cc1="0.900000" w99cc2="4.000000" w99cc3="-8.000000" w99cc4="-0.350000" w99cc5="0.350000" w99cc6="11.440000" w99cc7="0.250000" w99cc8="3.500000" w99cc9="1.500000"/>
+		<drivingBehavior accDecelOwn="-1.000000" accDecelTrail="-0.500000" advMerg="true" amberA="1.588581" amberB1="-0.261981" amberB2="0.269453" amberBehav="CONTINUOUSCHECK" carFollowModType="WIEDEMANN99" consNextTurn="false" coopDecel="-3.000000" coopLnChg="false" coopLnChgCollTm="10.000000" coopLnChgSpeedDiff="10.800000" decelRedDistOwn="200.000000" decelRedDistTrail="200.000000" desLatPos="MIDDLE" diamQueu="false" diffusTm="60.000000" freeDrivTm="11.000000" latDirChgMinTm="0.000000" latDistDrivDef="1.000000" latDistStandDef="1.000000" lnChgRule="FREELANESELECTION" lookAheadDistMax="250.000000" lookAheadDistMin="0.000000" lookBackDistMax="150.000000" lookBackDistMin="0.000000" maxDecelOwn="-4.000000" maxDecelTrail="-3.000000" minCollTmGain="2.000000" minHdwy="0.500000" minSpeedForLat="3.600000" name="Außerorts (freie Spurwahl)" no="3" obsrvAdjLn="false" obsrvdVehs="2" ovtLDef="false" ovtRDef="false" ovtRedSpeedAreas="false" rearCorr="false" rearCorrEnd="10.000000" rearCorrMaxSpeed="3.000000" rearCorrStart="1.000000" redAmberBehav="GO" safDistFactLnChg="0.600000" safDistFactSig="0.600000" safDistFactSigEnd="100.000000" safDistFactSigStart="100.000000" sleepDur="0.000000" sleepProb="0.000000" smthClsup="false" standDist="0.500000" standDistIsFix="false" vehRoutDecLookAhead="true" w74ax="2.000000" w74bxAdd="2.000000" w74bxMult="3.000000" w99cc0="1.500000" w99cc1="0.900000" w99cc2="4.000000" w99cc3="-8.000000" w99cc4="-0.350000" w99cc5="0.350000" w99cc6="11.440000" w99cc7="0.250000" w99cc8="3.500000" w99cc9="1.500000"/>
+		<drivingBehavior accDecelOwn="-1.000000" accDecelTrail="-1.000000" advMerg="true" amberA="1.588581" amberB1="-0.261981" amberB2="0.269453" amberBehav="CONTINUOUSCHECK" carFollowModType="NOINTERACTION" consNextTurn="false" coopDecel="-3.000000" coopLnChg="false" coopLnChgCollTm="10.000000" coopLnChgSpeedDiff="10.800000" decelRedDistOwn="100.000000" decelRedDistTrail="100.000000" desLatPos="ANY" diamQueu="false" diffusTm="60.000000" freeDrivTm="11.000000" latDirChgMinTm="0.000000" latDistDrivDef="1.000000" latDistStandDef="1.000000" lnChgRule="FREELANESELECTION" lookAheadDistMax="250.000000" lookAheadDistMin="0.000000" lookBackDistMax="150.000000" lookBackDistMin="0.000000" maxDecelOwn="-4.000000" maxDecelTrail="-3.000000" minCollTmGain="2.000000" minHdwy="0.500000" minSpeedForLat="3.600000" name="Fußweg (interaktionsfrei)" no="4" obsrvAdjLn="false" obsrvdVehs="2" ovtLDef="false" ovtRDef="false" ovtRedSpeedAreas="false" rearCorr="false" rearCorrEnd="10.000000" rearCorrMaxSpeed="3.000000" rearCorrStart="1.000000" redAmberBehav="GO" safDistFactLnChg="0.600000" safDistFactSig="0.600000" safDistFactSigEnd="100.000000" safDistFactSigStart="100.000000" sleepDur="0.000000" sleepProb="0.000000" smthClsup="false" standDist="0.500000" standDistIsFix="false" vehRoutDecLookAhead="true" w74ax="2.000000" w74bxAdd="2.000000" w74bxMult="3.000000" w99cc0="1.500000" w99cc1="0.900000" w99cc2="4.000000" w99cc3="-8.000000" w99cc4="-0.350000" w99cc5="0.350000" w99cc6="11.440000" w99cc7="0.250000" w99cc8="3.500000" w99cc9="1.500000"/>
+		<drivingBehavior accDecelOwn="-1.000000" accDecelTrail="-1.000000" advMerg="true" amberA="1.588581" amberB1="-0.261981" amberB2="0.269453" amberBehav="CONTINUOUSCHECK" carFollowModType="WIEDEMANN99" consNextTurn="false" coopDecel="-3.000000" coopLnChg="false" coopLnChgCollTm="10.000000" coopLnChgSpeedDiff="10.800000" decelRedDistOwn="100.000000" decelRedDistTrail="100.000000" desLatPos="RIGHT" diamQueu="true" diffusTm="60.000000" freeDrivTm="11.000000" latDirChgMinTm="0.000000" latDistDrivDef="0.300000" latDistStandDef="0.100000" lnChgRule="FREELANESELECTION" lookAheadDistMax="250.000000" lookAheadDistMin="10.000000" lookBackDistMax="150.000000" lookBackDistMin="0.000000" maxDecelOwn="-4.000000" maxDecelTrail="-3.000000" minCollTmGain="2.000000" minHdwy="0.500000" minSpeedForLat="3.600000" name="Radweg (freies Überholen)" no="5" obsrvAdjLn="false" obsrvdVehs="2" ovtLDef="true" ovtRDef="true" ovtRedSpeedAreas="false" rearCorr="false" rearCorrEnd="10.000000" rearCorrMaxSpeed="3.000000" rearCorrStart="1.000000" redAmberBehav="GO" safDistFactLnChg="0.600000" safDistFactSig="0.600000" safDistFactSigEnd="100.000000" safDistFactSigStart="100.000000" sleepDur="0.000000" sleepProb="0.000000" smthClsup="false" standDist="0.500000" standDistIsFix="false" vehRoutDecLookAhead="true" w74ax="2.000000" w74bxAdd="2.000000" w74bxMult="3.000000" w99cc0="0.500000" w99cc1="0.500000" w99cc2="0.000000" w99cc3="-8.000000" w99cc4="-0.350000" w99cc5="0.350000" w99cc6="11.440000" w99cc7="0.250000" w99cc8="3.500000" w99cc9="1.500000"/>
+	</drivingBehaviors>
+	<displayTypes>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff808080" curved="false" invisible="false" name="Straße grau" no="1" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="false" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff655c4b" curved="true" invisible="false" name="Schiene (Schotter)" no="11" noMipmap="false" rail="true" railFlangeHgt="0.010000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.038000" railHeadWid="0.065000" railHgt="0.130000" railType="STANDARD" railWebWid="0.013000" shaded="false" texHorizLen="3.333333" textureFilename="#3dmodels#Textures\Material\Stones02.bmp" tiesHgt="0.020000" tiesLen="2.200000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.220000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff808080" curved="false" invisible="false" name="Schiene (Straße)" no="12" noMipmap="false" rail="true" railFlangeHgt="0.007000" railFlangeWid="0.200000" railGauge="1.435000" railHeadHgt="0.003000" railHeadWid="0.065000" railHgt="0.010000" railType="STANDARD" railWebWid="0.000000" shaded="false" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="NONE" tiesWid="0.260000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff808080" curved="false" invisible="false" name="Fußgängerfläche grau" no="21" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="false" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff800000" curved="false" invisible="false" name="Hindernis" no="22" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="false" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff6c6c6c" curved="true" invisible="false" name="Fahrtreppe Stufen" no="31" noMipmap="true" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="true" texHorizLen="0.500000" textureFilename="#3dmodels#Textures\Material\Metal01.jpg" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="ff808080" curved="true" invisible="false" name="Fahrtreppe Antritt" no="32" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="true" texHorizLen="0.166667" textureFilename="#3dmodels#Textures\Material\Metal02.jpg" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="true" anisoFilt="true" color="ff000000" curved="false" invisible="false" name="Fahrtreppe Handlauf" no="33" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="true" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="true" anisoFilt="true" color="ffa0a0a0" curved="false" invisible="false" name="Fahrtreppe Balustrade" no="34" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="true" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="true" anisoFilt="true" color="ff808080" curved="false" invisible="false" name="Fahrtreppe Sockel" no="35" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="true" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+		<displayType allSidesSame="false" anisoFilt="true" color="fffff1b2" curved="false" invisible="false" name="Ausschnitt" no="51" noMipmap="false" rail="false" railFlangeHgt="0.013000" railFlangeWid="0.150000" railGauge="1.435000" railHeadHgt="0.043000" railHeadWid="0.073000" railHgt="0.172000" railType="STANDARD" railWebWid="0.016000" shaded="false" texHorizLen="1.000000" textureFilename="" tiesHgt="0.020000" tiesLen="2.600000" tiesSpac="0.600000" tiesTexFilename="" tiesTexHorizLen="1.000000" tiesType="STANDARD" tiesWid="0.260000"/>
+	</displayTypes>
+	<vehicleCompositions>
+		<vehicleComposition name="Standard" no="1">
+			<vehCompRelFlows>
+				<vehicleCompositionRelativeFlow desSpeedDistr="50" relFlow="0.980000" vehType="100"/>
+				<vehicleCompositionRelativeFlow desSpeedDistr="50" relFlow="0.020000" vehType="200"/>
+			</vehCompRelFlows>
+		</vehicleComposition>
+	</vehicleCompositions>
+	<vehicleInputs>
+		<vehicleInput anmFlag="false" link="2" name="" no="1">
+			<timeIntVehVols>
+				<timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="1" volType="STOCHASTIC" volume="800.000000"/>
+			</timeIntVehVols>
+		</vehicleInput>
+		<vehicleInput anmFlag="false" link="7" name="" no="2">
+			<timeIntVehVols>
+				<timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="1" volType="STOCHASTIC" volume="800.000000"/>
+			</timeIntVehVols>
+		</vehicleInput>
+		<vehicleInput anmFlag="false" link="1" name="" no="3">
+			<timeIntVehVols>
+				<timeIntervalVehVolume cont="false" timeInt="1 0" vehComp="1" volType="STOCHASTIC" volume="800.000000"/>
+			</timeIntVehVols>
+		</vehicleInput>
+	</vehicleInputs>
+	<levels>
+		<level height="0.000000" name="Nullebene" no="1"/>
+	</levels>
+	<pedestrianTypes>
+		<pedestrianType hairColorDistr="102" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="100" name="Mann" no="100" shirtColorDistr="101" shoesColorDistr="104" trousersColorDistr="103" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="202" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="200" name="Frau" no="200" shirtColorDistr="201" shoesColorDistr="204" trousersColorDistr="203" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="205" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="100" name="Man (white hair)" no="300" shirtColorDistr="101" shoesColorDistr="104" trousersColorDistr="103" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="205" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="200" name="Woman (white hair)" no="400" shirtColorDistr="201" shoesColorDistr="204" trousersColorDistr="203" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="206" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="100" name="Man (red hair)" no="500" shirtColorDistr="101" shoesColorDistr="104" trousersColorDistr="103" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="206" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="200" name="Woman (red hair)" no="600" shirtColorDistr="201" shoesColorDistr="204" trousersColorDistr="203" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="102" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="300" name="Man (wheelchair)" no="700" shirtColorDistr="101" shoesColorDistr="104" trousersColorDistr="103" walkBehav="1" widVar="0.100000"/>
+		<pedestrianType hairColorDistr="202" hgtVar="0.150000" lenVar="0.100000" model2D3DDistr="400" name="Mom&amp;Kid" no="800" shirtColorDistr="201" shoesColorDistr="204" trousersColorDistr="203" walkBehav="1" widVar="0.100000"/>
+	</pedestrianTypes>
+	<pedestrianClasses>
+		<pedestrianClass color="ff000000" name="Leute" no="1" usePedTypeColor="true">
+			<pedTypes>
+				<intObjectRef key="100"/>
+				<intObjectRef key="200"/>
+			</pedTypes>
+		</pedestrianClass>
+		<pedestrianClass color="ff000000" name="Non-PRM" no="2" usePedTypeColor="true">
+			<pedTypes>
+				<intObjectRef key="100"/>
+				<intObjectRef key="200"/>
+			</pedTypes>
+		</pedestrianClass>
+		<pedestrianClass color="ff000000" name="PRM" no="3" usePedTypeColor="true">
+			<pedTypes>
+				<intObjectRef key="300"/>
+				<intObjectRef key="400"/>
+				<intObjectRef key="500"/>
+				<intObjectRef key="600"/>
+				<intObjectRef key="700"/>
+				<intObjectRef key="800"/>
+			</pedTypes>
+		</pedestrianClass>
+		<pedestrianClass color="ff000000" name="Wheelchairs" no="4" usePedTypeColor="true">
+			<pedTypes>
+				<intObjectRef key="700"/>
+			</pedTypes>
+		</pedestrianClass>
+		<pedestrianClass color="ff000000" name="Leute" no="11" usePedTypeColor="true">
+			<pedTypes>
+				<intObjectRef key="100"/>
+				<intObjectRef key="200"/>
+				<intObjectRef key="300"/>
+				<intObjectRef key="400"/>
+				<intObjectRef key="500"/>
+				<intObjectRef key="600"/>
+				<intObjectRef key="700"/>
+				<intObjectRef key="800"/>
+			</pedTypes>
+		</pedestrianClass>
+	</pedestrianClasses>
+	<walkingBehaviors>
+		<walkingBehavior aSocIso="2.720000" aSocMean="0.400000" bSocIso="0.200000" bSocMean="2.800000" lambda="0.176000" name="Standard" no="1" noise="1.200000" reactToN="8" sidePref="NONE" tau="0.400000" vd="3.000000"/>
+	</walkingBehaviors>
+	<timeIntervalSets>
+		<timeIntervalSet no="VEHICLEINPUT">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="VEHICLEROUTESTATIC">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="VEHICLEROUTEPARTIAL">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="VEHICLEROUTEPARKING">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="PEDESTRIANINPUT">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="PEDESTRIANROUTEPARTIAL">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="VEHICLEROUTEPARTIALPT">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="AREABEHAVIORTYPE">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="MANAGEDLANESFACILITY">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+		<timeIntervalSet no="PEDESTRIANROUTESTATIC">
+			<timeInts>
+				<timeInterval start="0.000000"/>
+			</timeInts>
+		</timeIntervalSet>
+	</timeIntervalSets>
+	<pedestrianCompositions>
+		<pedestrianComposition name="Fußgänger" no="1">
+			<pedCompRelFlows>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1001" pedType="100" relFlow="1.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1002" pedType="200" relFlow="1.000000"/>
+			</pedCompRelFlows>
+		</pedestrianComposition>
+		<pedestrianComposition name="Pendler an einer Haltestelle" no="2">
+			<pedCompRelFlows>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1014" pedType="100" relFlow="30.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1014" pedType="200" relFlow="30.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1011" pedType="300" relFlow="10.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1011" pedType="400" relFlow="10.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1012" pedType="500" relFlow="4.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1012" pedType="600" relFlow="4.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1010" pedType="700" relFlow="2.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1013" pedType="800" relFlow="10.000000"/>
+			</pedCompRelFlows>
+		</pedestrianComposition>
+		<pedestrianComposition name="International Maritime Organization MSC/Circ. 1238" no="3">
+			<pedCompRelFlows>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1001" pedType="100" relFlow="7.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1015" pedType="100" relFlow="7.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1017" pedType="100" relFlow="16.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1002" pedType="200" relFlow="7.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1016" pedType="200" relFlow="7.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1018" pedType="200" relFlow="16.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1019" pedType="300" relFlow="10.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1021" pedType="300" relFlow="10.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1020" pedType="400" relFlow="10.000000"/>
+				<pedestrianCompositionRelativeFlow desSpeedDistr="1022" pedType="400" relFlow="10.000000"/>
+			</pedCompRelFlows>
+		</pedestrianComposition>
+	</pedestrianCompositions>
+	<conflictAreas>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="2" link2="10001" no="2" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="4" link2="10001" no="3" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="5" link2="10002" no="7" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10001" link2="10002" no="10" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="6" link2="10006" no="27" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10002" link2="10006" no="28" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="TWOYIELDSONE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="5" link2="10007" no="31" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="7" link2="10007" no="32" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10002" link2="10007" no="33" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="TWOYIELDSONE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10006" link2="10007" no="35" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="6" link2="10010" no="56" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10006" link2="10010" no="58" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="ONEYIELDSTWO" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="1" link2="10011" no="60" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="4" link2="10011" no="61" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10001" link2="10011" no="64" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="ONEYIELDSTWO" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10002" link2="10011" no="65" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="ONEYIELDSTWO" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10006" link2="10011" no="68" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="ONEYIELDSTWO" visibLink1="100.000000" visibLink2="100.000000"/>
+		<conflictArea addStopDist="0.000000" anticipRout="0.000000" avoidBlock="1.000000" frontGapDef="0.500000" link1="10010" link2="10011" no="72" obsAdjLns="false" rearGapDef="0.500000" safDistFactDef="1.500000" status="PASSIVE" visibLink1="100.000000" visibLink2="100.000000"/>
+	</conflictAreas>
+	<occupancyDistributions>
+		<occupancyDistribution mean="1.000000" name="Einzelperson" no="1" stdDev="0.000000" type="NORMAL"/>
+	</occupancyDistributions>
+	<vehicleRoutingDecisionsStatic>
+		<vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="2" name="" no="1" pos="0.189144">
+			<vehRoutSta>
+				<vehicleRouteStatic destLink="4" destPos="27.514965" name="" no="1" relFlow="2 0:0.500000">
+					<linkSeq>
+						<intObjectRef key="10001"/>
+					</linkSeq>
+				</vehicleRouteStatic>
+				<vehicleRouteStatic destLink="5" destPos="47.719724" name="" no="2" relFlow="2 0:0.500000">
+					<linkSeq>
+						<intObjectRef key="10002"/>
+					</linkSeq>
+				</vehicleRouteStatic>
+			</vehRoutSta>
+		</vehicleRoutingDecisionStatic>
+		<vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="1" name="" no="2" pos="0.377154">
+			<vehRoutSta>
+				<vehicleRouteStatic destLink="6" destPos="31.120731" name="" no="1" relFlow="2 0:0.500000">
+					<linkSeq>
+						<intObjectRef key="10010"/>
+					</linkSeq>
+				</vehicleRouteStatic>
+				<vehicleRouteStatic destLink="4" destPos="27.392632" name="" no="2" relFlow="2 0:0.500000">
+					<linkSeq>
+						<intObjectRef key="10011"/>
+					</linkSeq>
+				</vehicleRouteStatic>
+			</vehRoutSta>
+		</vehicleRoutingDecisionStatic>
+		<vehicleRoutingDecisionStatic allVehTypes="true" anmFlag="false" combineStaRoutDec="false" link="7" name="" no="3" pos="0.013196">
+			<vehRoutSta>
+				<vehicleRouteStatic destLink="6" destPos="31.742706" name="" no="1" relFlow="2 0:0.500000">
+					<linkSeq>
+						<intObjectRef key="10006"/>
+					</linkSeq>
+				</vehicleRouteStatic>
+				<vehicleRouteStatic destLink="5" destPos="47.720518" name="" no="2" relFlow="2 0:0.500000">
+					<linkSeq>
+						<intObjectRef key="10007"/>
+					</linkSeq>
+				</vehicleRouteStatic>
+			</vehRoutSta>
+		</vehicleRoutingDecisionStatic>
+	</vehicleRoutingDecisionsStatic>
+	<anmDefaults colorDistr="1" crosswalkDisplayType="1" hgvPowerDistr="2" hgvWeightDistr="2" level="1" linkDisplayType="1" panmFilename="" panmRoutesFilename="" pedestrianVehicleType="510" zoneConnectorDisplayType="1">
+		<vehicleCategoryANMDefaults>
+			<vehicleCategoryANMDefaults desAccelFunc="1" desDecelFunc="1" maxAccelFunc="1" maxDecelFunc="1" modelDistr="10" occupDistr="1" vehCat="CAR"/>
+			<vehicleCategoryANMDefaults desAccelFunc="2" desDecelFunc="2" maxAccelFunc="2" maxDecelFunc="2" modelDistr="20" occupDistr="1" vehCat="HGV"/>
+			<vehicleCategoryANMDefaults desAccelFunc="3" desDecelFunc="3" maxAccelFunc="3" maxDecelFunc="3" modelDistr="30" occupDistr="1" vehCat="BUS"/>
+			<vehicleCategoryANMDefaults desAccelFunc="4" desDecelFunc="4" maxAccelFunc="4" maxDecelFunc="4" modelDistr="40" occupDistr="1" vehCat="TRAM"/>
+			<vehicleCategoryANMDefaults desAccelFunc="5" desDecelFunc="5" maxAccelFunc="5" maxDecelFunc="5" modelDistr="100" occupDistr="1" vehCat="PEDESTRIAN"/>
+			<vehicleCategoryANMDefaults desAccelFunc="6" desDecelFunc="6" maxAccelFunc="6" maxDecelFunc="6" modelDistr="60" occupDistr="1" vehCat="BIKE"/>
+		</vehicleCategoryANMDefaults>
+		<anmDefaultDrivingBehavior>
+			<anmDefaultDrivingBehavior anmDrivBehavDefType="NONE" drivBehav="1"/>
+			<anmDefaultDrivingBehavior anmDrivBehavDefType="URBAN" drivBehav="1"/>
+			<anmDefaultDrivingBehavior anmDrivBehavDefType="RIGHTLEFTSIDE" drivBehav="2"/>
+			<anmDefaultDrivingBehavior anmDrivBehavDefType="HIGHWAY" drivBehav="3"/>
+			<anmDefaultDrivingBehavior anmDrivBehavDefType="PEDESTRIANS" drivBehav="4"/>
+			<anmDefaultDrivingBehavior anmDrivBehavDefType="BICYCLELANE" drivBehav="5"/>
+		</anmDefaultDrivingBehavior>
+	</anmDefaults>
+	<models2D3D>
+		<model2D3D name="Car - Volkswagen Golf" no="1">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.900545" axleRear="3.478034" file3D="#3dmodels#Vehicles\Road\Car - Volkswagen Golf (2007).v3d" height="1.475281" jointFront="0.000000" jointRear="4.211000" length="4.211000" shaftLen="0.000000" width="2.003672"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Car - Audi A4" no="2">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.945812" axleRear="3.594970" file3D="#3dmodels#Vehicles\Road\Car - Audi A4 (2005) Hatchback.v3d" height="1.436974" jointFront="0.000000" jointRear="4.610000" length="4.610000" shaftLen="0.000000" width="1.949314"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Car - Mercedes CLK" no="3">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.852695" axleRear="3.567580" file3D="#3dmodels#Vehicles\Road\Car - Mercedes CLK500 (2006).v3d" height="1.430868" jointFront="0.000000" jointRear="4.644000" length="4.644000" shaftLen="0.000000" width="1.998714"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Car - Peugeot 607" no="4">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.943622" axleRear="3.743124" file3D="#3dmodels#Vehicles\Road\Car - Peugeot 607 (2006).v3d" height="1.429614" jointFront="0.000000" jointRear="4.761000" length="4.760000" shaftLen="0.000000" width="2.069114"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Car - Volkswagen Beetle" no="5">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.783123" axleRear="3.298000" file3D="#3dmodels#Vehicles\Road\Car - Volkswagen Beetle (2005).v3d" height="1.715635" jointFront="0.000000" jointRear="4.012000" length="4.012000" shaftLen="0.000000" width="1.852215"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Car - Porsche Cayman" no="6">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="1.040662" axleRear="3.455783" file3D="#3dmodels#Vehicles\Road\Car - Porsche Cayman (2008).v3d" height="1.291583" jointFront="0.000000" jointRear="4.359000" length="4.359000" shaftLen="0.000000" width="1.969790"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Car - Toyota Yaris" no="7">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.748674" axleRear="3.208604" file3D="#3dmodels#Vehicles\Road\Car - Toyota Yaris (2006).v3d" height="1.535941" jointFront="0.000000" jointRear="3.749000" length="3.749000" shaftLen="0.000000" width="1.987091"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="HGV - EU 04" no="21">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="1.559000" axleRear="7.333000" file3D="#3dmodels#Vehicles\Road\HGV - EU 04 Tractor.v3d" height="3.927001" jointFront="0.000000" jointRear="9.940000" length="10.215000" shaftLen="0.000000" width="2.496000"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Bus - EU Standard" no="31">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="2.567000" axleRear="8.446000" file3D="#3dmodels#Vehicles\Road\Bus - EU Standard.v3d" height="2.821114" jointFront="0.000000" jointRear="11.262000" length="11.541000" shaftLen="0.000000" width="3.170224"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Tram - GT8-2S" no="41">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="3.850000" axleRear="13.880000" file3D="#3dmodels#Vehicles\Rail\Tram - GT8-2S front.v3d" height="3.656292" jointFront="3.850000" jointRear="13.880000" length="13.619994" shaftLen="3.850000" width="2.690111">
+					<doors>
+						<door pos="5.838716" side="LEFT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="5.838716" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="6.630116" side="LEFT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="6.630116" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="10.926715" side="LEFT" usage="BOTH" width="0.791393" zOffset="0.493478"/>
+						<door pos="10.926715" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="11.718116" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="11.720056" side="LEFT" usage="BOTH" width="0.791393" zOffset="0.493478"/>
+					</doors>
+				</model2D3DSegment>
+				<model2D3DSegment axleFront="1.500000" axleRear="1.600000" file3D="#3dmodels#Vehicles\Rail\Tram - GT8-2S joint.v3d" height="3.699986" jointFront="1.500000" jointRear="1.600000" length="3.099988" shaftLen="0.000000" width="2.557242"/>
+				<model2D3DSegment axleFront="-0.260000" axleRear="9.430000" file3D="#3dmodels#Vehicles\Rail\Tram - GT8-2S mid.v3d" height="4.472814" jointFront="-0.260000" jointRear="9.430000" length="9.170000" shaftLen="0.000000" width="2.644946"/>
+				<model2D3DSegment axleFront="1.500000" axleRear="1.600000" file3D="#3dmodels#Vehicles\Rail\Tram - GT8-2S joint.v3d" height="3.699986" jointFront="1.500000" jointRear="1.600000" length="3.099988" shaftLen="0.000000" width="2.557242"/>
+				<model2D3DSegment axleFront="-0.260000" axleRear="9.770000" file3D="#3dmodels#Vehicles\Rail\Tram - GT8-2S rear.v3d" height="3.656292" jointFront="-0.260000" jointRear="13.500000" length="13.619994" shaftLen="0.000000" width="2.690111">
+					<doors>
+						<door pos="1.108413" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="1.110352" side="LEFT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="1.901753" side="LEFT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="1.901753" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="6.198351" side="LEFT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="6.198352" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="6.989751" side="LEFT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+						<door pos="6.989752" side="RIGHT" usage="BOTH" width="0.791394" zOffset="0.493478"/>
+					</doors>
+				</model2D3DSegment>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Bike - Cycle Man 01" no="61">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.320000" axleRear="1.440000" file3D="#3dmodels#Vehicles\Road\Bike - Cycle Man 01.v3d" height="1.724360" jointFront="0.000000" jointRear="1.774750" length="1.774750" shaftLen="0.000000" width="0.627504"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Man 01" no="101">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.000000" axleRear="0.050000" file3D="#3dmodels#Pedestrians\Ped - Man 01.v3d" height="1.775128" jointFront="0.000000" jointRear="0.000000" length="0.455692" shaftLen="0.000000" width="0.574744"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Man 02" no="102">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.000000" axleRear="0.050000" file3D="#3dmodels#Pedestrians\Ped - Man 02.v3d" height="1.700000" jointFront="0.000000" jointRear="0.000000" length="0.409000" shaftLen="0.000000" width="0.631226"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Man 03" no="103">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.000000" axleRear="0.050000" file3D="#3dmodels#Pedestrians\Ped - Man 03.v3d" height="1.830008" jointFront="0.000000" jointRear="0.000000" length="0.442000" shaftLen="0.000000" width="0.596209"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Man 04" no="104">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="0.000000" axleRear="0.050000" file3D="#3dmodels#Pedestrians\Ped - Man 04.v3d" height="1.714677" jointFront="0.000000" jointRear="0.000000" length="0.435000" shaftLen="0.000000" width="0.590810"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Woman 01" no="201">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="-0.030000" axleRear="0.000000" file3D="#3dmodels#Pedestrians\Ped - Woman 01.v3d" height="1.700000" jointFront="-0.030000" jointRear="0.000000" length="0.360000" shaftLen="0.000000" width="0.503967"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Woman 02" no="202">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="-0.033000" axleRear="0.000000" file3D="#3dmodels#Pedestrians\Ped - Woman 02.v3d" height="1.590396" jointFront="-0.033000" jointRear="0.000000" length="0.342000" shaftLen="0.000000" width="0.457616"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Woman 03" no="203">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="-0.030000" axleRear="0.000000" file3D="#3dmodels#Pedestrians\Ped - Woman 03.v3d" height="1.675166" jointFront="-0.030000" jointRear="0.000000" length="0.397000" shaftLen="0.000000" width="0.484253"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Ped - Woman 04" no="204">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="-0.030000" axleRear="0.000000" file3D="#3dmodels#Pedestrians\Ped - Woman 04.v3d" height="1.646016" jointFront="-0.030000" jointRear="0.000000" length="0.310000" shaftLen="0.000000" width="0.455930"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="Rollstuhl" no="205">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="-0.120000" axleRear="0.335000" file3D="#3dmodels#Pedestrians\Ped - Wheelchair Simple.v3d" height="1.527828" jointFront="-0.520000" jointRear="0.580000" length="1.235834" shaftLen="0.000000" width="0.797027"/>
+			</model2D3DSegs>
+		</model2D3D>
+		<model2D3D name="MomNkid" no="206">
+			<model2D3DSegs>
+				<model2D3DSegment axleFront="-0.054955" axleRear="0.054955" file3D="#3dmodels#Pedestrians\Ped - Woman &amp; Child.v3d" height="1.675099" jointFront="-0.054955" jointRear="0.000000" length="0.357164" shaftLen="0.000000" width="0.938736"/>
+			</model2D3DSegs>
+		</model2D3D>
+	</models2D3D>
+	<simulation comment="" numCores="1" numRuns="1" randSeed="42" randSeedIncr="1" retroSync="false" simPeriod="3600" simRes="10" simSpeed="10.000000" startTm="0.000000" useAllCores="false" useMaxSimSpeed="true" volumeIncrDynAssign="0.000000"/>
+	<dynamicAssignment altPathSearchEdgPenSpread="0.500000" altPathSearchNumPasses="5" avoidDetours="false" avoidDetoursFact="2.500000" chkConvgTravTmEdg="false" chkConvgTravTmPaths="false" chkConvgVolEdg="false" chkEdgOnReadingCostFile="true" chkEdgOnReadingPathFile="true" convgEdgLenMin="20.000000" convgTravTmEdgPerc="0.150000" convgTravTmPathsPerc="0.150000" convgVolEdg="15" correctOverlappingPaths="false" costFile="" createArchiveFiles="true" edgCostCalc="EXPSMOOTHING" evalInt="600" expSmoothingFact="0.200000" kirchExp="3.500000" logitLowerLimit="0.001000" logitScalingFact="1.500000" msaPreviousIterations="0" pathFile="" pathSelMethod="KIRCHHOFFEDGETT" pathsForZeroVols="false" pathsLimitMaxNumPaths="999" pathsLimitNumPaths="false" pathsRejectCostPerc="0.750000" pathsRejectHighCost="false" scaleTotVol="false" scaleTotVolPerc="1.000000" searchNewPaths="true" storeCosts="true" storePathsAndVols="true" tripChainFile="" useAltPathSearchForAllRels="false" useMatrices="false" useTripChains="false">
+		<routGuid2 interval="999999" offset="0" strategy="NEWROUTETODESTINATIONPARKINGLOT"/>
+		<routGuid1 interval="999999" offset="0" strategy="NEWROUTETODESTINATIONPARKINGLOT"/>
+	</dynamicAssignment>
+	<evaluation autoCreateResultColumns="true" databaseConnection="" evalOutDir="#data#" keepPrevResults="KEEPALL" listAutoExportType="FILE" nodesDelaySegmentStart="100.000000" queueBeginSpeed="5.000000" queueConsiderAdjacentLanes="true" queueEndSpeed="10.000000" queueMaxHeadway="20.000000" queueMaxLength="500.000000">
+		<vehTravTms aggrBySect="DESTINATION" collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<nodeRawData fromTime="0" toTime="99999" writeDatabase="false" writeFile="false"/>
+		<vehTravTmRawData fromTime="0" toTime="99999" writeDatabase="false" writeFile="false"/>
+		<dataCollRawData fromTime="0" toTime="99999" writeFile="false"/>
+		<lnChgs filterType="ALL" fromTime="0" toTime="99999" writeFile="false"/>
+		<vehInpData writeFile="false"/>
+		<ptWaitingTimes writeFile="false"/>
+		<convergence writeFile="false"/>
+		<managedLanes writeFile="false"/>
+		<greenTimeDistribution fromTime="0" toTime="99999" writeFile="false"/>
+		<scDetRec writeFile="false"/>
+		<sigChgs writeDatabase="false" writeFile="false"/>
+		<ssam writeFile="false"/>
+		<nodeResults collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<linkResults collectData="false" fromTime="0" interval="99999" perLane="false" toTime="99999"/>
+		<delays collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<dataColl collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<queues collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<vehNetPerf collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<pathResults collectData="false" fromTime="0" toTime="99999"/>
+		<pedRec filterType="ALL" fromTime="0" resolution="1" toTime="99999" writeDatabase="false" writeFile="false">
+			<attributes>
+				<attributeSelection attributeID="SIMSEC" decimals="2" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="NO" decimals="0" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="CONSTRELTYPE" decimals="0" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="CONSTRELNO" decimals="0" format="DEFAULT" showUnits="false"/>
+			</attributes>
+		</pedRec>
+		<vehRec filterType="ALL" fromTime="0" inclParkVehs="false" resolution="1" toTime="99999" writeDatabase="false" writeFile="false">
+			<attributes>
+				<attributeSelection attributeID="SIMSEC" decimals="2" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="NO" decimals="0" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="LANE\LINK\NO" decimals="0" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="LANE\INDEX" decimals="0" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="POS" decimals="2" format="DEFAULT" showUnits="false"/>
+				<attributeSelection attributeID="POSLAT" decimals="2" format="DEFAULT" showUnits="false"/>
+			</attributes>
+		</vehRec>
+		<areaResults cellSize="1.000000" collectData="false" collectGridData="true" fromTime="0" interval="99999" rangeOfInfluence="1" toTime="99999"/>
+		<pedTravTms collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<areaMeasResults collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+		<pedTravTmRawData fromTime="0" toTime="99999" writeFile="false"/>
+		<pedTravTmODData fromTime="0" interval="99999" toTime="99999" writeFile="false"/>
+		<areaMeasRawData fromTime="0" toTime="99999" writeFile="false"/>
+		<dischRec fromTime="0" toTime="99999" writeFile="false"/>
+		<pedNetPerf collectData="false" fromTime="0" interval="99999" toTime="99999"/>
+	</evaluation>
+</network>

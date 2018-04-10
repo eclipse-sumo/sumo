@@ -1,0 +1,15 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+   <edge id="1to2" from="1" to="2" />
+   <edge id="2to3" from="2" to="3" />
+   <edge id="3to4" from="3" to="4" />
+   <edge id="4to5" from="4" to="5" />
+   <edge id="6to7" from="6" to="7" />
+   <edge id="7to8" from="7" to="8" />
+   <edge id="8to9" from="8" to="9" />
+   <edge id="9to10" from="9" to="10" />
+   <edge id="2to9split" from="2" to="9" />
+   <edge id="5out" from="5" to="5a" />
+   <edge id="10out" from="10" to="10a" />
+
+</edges>

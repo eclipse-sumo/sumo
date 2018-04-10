@@ -1,0 +1,24 @@
+<vehicle-type-probes>
+    <timestep time="0.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="10.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="20.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="30.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="40.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="50.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="60.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="70.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="80.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="90.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="100.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="110.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="120.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="130.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="140.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="150.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="160.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="170.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="180.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="190.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="200.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+    <timestep time="210.00" id="test1" vType="SUMO_DEFAULT_TYPE"/>
+</vehicle-type-probes>

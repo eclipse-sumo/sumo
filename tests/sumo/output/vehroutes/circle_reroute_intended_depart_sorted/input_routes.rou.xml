@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="Eissfeldt" length="5" minGap="2"/>
+    <flow id="0" type="Eissfeldt" begin="0" end="30" period="0.1" from="1/1to2/1" to="6/1to7/1"/>
+</routes>

@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">   
+
+    <vehicle id="connected.1" type="connected" depart="0" departPos="0" arrivalPos="70" departSpeed="max">
+        <route edges="NC CE"/>
+    </vehicle>
+    
+    <vehicle id="conventional.1" type="conventional" depart="1" departPos="0" arrivalPos="70" departSpeed="max">
+        <route edges="WC CN"/>
+    </vehicle>
+    
+    <vehicle id="IAMconnectedTOO" type="connected" depart="3" departPos="0" arrivalPos="70" departSpeed="max">
+        <route edges="NC CE"/>
+    </vehicle>
+    
+</routes>

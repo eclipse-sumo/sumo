@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="end2 end3"/>
+    <flow id="f" route="r0" type="t0" begin="0" end="900" period="1.5" departPos="free" departLane="best" departSpeed="max"/>
+
+    <vehicle id="blocker" depart="0" departPos="-60" route="r0">
+        <stop lane="end2_0" endPos="-1" until="839"/>
+    </vehicle>
+
+</routes>

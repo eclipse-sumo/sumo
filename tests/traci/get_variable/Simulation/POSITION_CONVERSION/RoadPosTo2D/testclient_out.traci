@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Mon Jul 01 13:27:16 2013
+
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=1 position value: (2483.05,495.05)
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=1 position value: (3501.65,741.45)
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Answered with error to command (171), [description: Position on lane invalid]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

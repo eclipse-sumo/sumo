@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="D1">
+        <tazSource id="L1" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D2">
+        <tazSource id="L7" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D3">
+        <tazSource id="L21" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D4">
+        <tazSource id="L23" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D5">
+        <tazSource id="L12" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D6">
+        <tazSource id="L6" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D7">
+        <tazSource id="L16" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+        <tazSink id="L13" weight="1"/>
+    </taz>
+    <taz id="D8">
+        <tazSource id="L14" weight="1"/>
+        <tazSink id="L10" weight="1"/>
+        <tazSink id="L22" weight="1"/>
+        <tazSink id="L24" weight="1"/>
+        <tazSink id="L9" weight="1"/>
+        <tazSink id="L3" weight="1"/>
+        <tazSink id="L15" weight="1"/>
+        <tazSink id="L4" weight="1"/>
+    </taz>
+</tazs>
+

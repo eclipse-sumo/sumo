@@ -1,0 +1,12 @@
+Warning! Net is not connected.
+Component: #0 Edge Count: 4
+ 1i 1o 2i 2o
+
+Component: #1 Edge Count: 4
+ 3i 3o 4i 4o
+
+Total Edges: 8
+Largest Component: #0 Edge Count: 4 Coverage: 50.0%
+
+Edges	Incidence
+4	2

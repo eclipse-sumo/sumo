@@ -1,0 +1,9 @@
+Warning: Value of tau=0.1 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Error: Answered with error to command 0xab: Parameter 'foo.bla' is not supported.
+Error: Answered with error to command 0xab: Invalid chargingStation parameter 'bla'
+Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
+Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', lane='o_0', gap=-0.18, time=13.00 stage=move.
+Warning: Vehicle 'collider' teleports beyond arrival edge 'o', time 13.00.

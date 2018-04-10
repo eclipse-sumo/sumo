@@ -1,0 +1,23 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="foo" sigma="0"/>
+
+    <route id="route0" edges="a b c d"/>
+
+    <vehicle id="veh0" depart="1" color="red">
+        <route edges="c e f g"/>
+    </vehicle>
+
+    <vehicle id="veh1" depart="2" color="red" route="route0"/>
+
+    <trip id="trip0" depart="3" color="blue" from="h" to="j"/>
+
+    <flow id="flow0" begin="4" end="40" color="green" from="k" to="l"/>
+
+    <flow id="flow1" begin="4.5" end="40" color="green" route="route0"/>
+
+    <flow id="flow2" begin="5" end="40" color="green">
+        <route edges="c e f g"/>
+    </flow>
+
+
+</routes>

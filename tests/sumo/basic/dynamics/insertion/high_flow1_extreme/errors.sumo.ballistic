@@ -1,0 +1,301 @@
+Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Teleporting vehicle 'f.173'; collision with vehicle 'f.172', lane='end2_0', gap=-1.31, time=211.00 stage=move.
+Warning: Vehicle 'f.173' teleports beyond arrival edge 'end2', time 211.00.
+Warning: Teleporting vehicle 'f.179'; collision with vehicle 'f.178', lane='end2_0', gap=-2.75, time=215.00 stage=move.
+Warning: Vehicle 'f.179' teleports beyond arrival edge 'end2', time 215.00.
+Warning: Teleporting vehicle 'f.180'; collision with vehicle 'f.178', lane='end2_0', gap=-5.89, time=216.00 stage=move.
+Warning: Teleporting vehicle 'f.154'; collision with vehicle 'f.153', lane='end2_0', gap=-2.84, time=216.00 stage=move.
+Warning: Vehicle 'f.154' teleports beyond arrival edge 'end2', time 216.00.
+Warning: Vehicle 'f.180' teleports beyond arrival edge 'end2', time 216.00.
+Warning: Teleporting vehicle 'f.178'; collision with vehicle 'f.177', lane='end2_0', gap=-0.97, time=217.00 stage=move.
+Warning: Vehicle 'f.178' teleports beyond arrival edge 'end2', time 217.00.
+Warning: Teleporting vehicle 'f.181'; collision with vehicle 'f.177', lane='end2_0', gap=-3.23, time=218.00 stage=move.
+Warning: Vehicle 'f.181' teleports beyond arrival edge 'end2', time 218.00.
+Warning: Teleporting vehicle 'f.183'; collision with vehicle 'f.182', lane='end2_0', gap=-1.18, time=220.00 stage=move.
+Warning: Vehicle 'f.183' teleports beyond arrival edge 'end2', time 220.00.
+Warning: Teleporting vehicle 'f.164'; collision with vehicle 'f.163', lane='end2_0', gap=-0.90, time=227.00 stage=move.
+Warning: Vehicle 'f.164' teleports beyond arrival edge 'end2', time 227.00.
+Warning: Teleporting vehicle 'f.192'; collision with vehicle 'f.191', lane='end2_0', gap=-1.09, time=283.00 stage=move.
+Warning: Vehicle 'f.192' teleports beyond arrival edge 'end2', time 283.00.
+Warning: Teleporting vehicle 'f.193'; collision with vehicle 'f.191', lane='end2_0', gap=-2.34, time=284.00 stage=move.
+Warning: Vehicle 'f.193' teleports beyond arrival edge 'end2', time 284.00.
+Warning: Teleporting vehicle 'f.279'; collision with vehicle 'f.278', lane='end2_0', gap=-0.33, time=310.00 stage=move.
+Warning: Vehicle 'f.279' teleports beyond arrival edge 'end2', time 310.00.
+Warning: Teleporting vehicle 'f.272'; collision with vehicle 'f.271', lane='end2_0', gap=-3.11, time=320.00 stage=move.
+Warning: Vehicle 'f.272' teleports beyond arrival edge 'end2', time 320.00.
+Warning: Teleporting vehicle 'f.302'; collision with vehicle 'f.301', lane='end2_0', gap=-0.40, time=327.00 stage=move.
+Warning: Vehicle 'f.302' teleports beyond arrival edge 'end2', time 327.00.
+Warning: Teleporting vehicle 'f.282'; collision with vehicle 'f.281', lane='end2_0', gap=-1.38, time=328.00 stage=move.
+Warning: Vehicle 'f.282' teleports beyond arrival edge 'end2', time 328.00.
+Warning: Teleporting vehicle 'f.309'; collision with vehicle 'f.308', lane='end2_0', gap=-4.15, time=335.00 stage=move.
+Warning: Vehicle 'f.309' teleports beyond arrival edge 'end2', time 335.00.
+Warning: Teleporting vehicle 'f.316'; collision with vehicle 'f.315', lane='end2_0', gap=-1.08, time=341.00 stage=move.
+Warning: Vehicle 'f.316' teleports beyond arrival edge 'end2', time 341.00.
+Warning: Teleporting vehicle 'f.315'; collision with vehicle 'f.314', lane='end2_0', gap=-2.52, time=342.00 stage=move.
+Warning: Vehicle 'f.315' teleports beyond arrival edge 'end2', time 342.00.
+Warning: Teleporting vehicle 'f.320'; collision with vehicle 'f.319', lane='end2_0', gap=-2.70, time=346.00 stage=move.
+Warning: Teleporting vehicle 'f.319'; collision with vehicle 'f.318', lane='end2_0', gap=-2.98, time=346.00 stage=move.
+Warning: Vehicle 'f.319' teleports beyond arrival edge 'end2', time 346.00.
+Warning: Vehicle 'f.320' teleports beyond arrival edge 'end2', time 346.00.
+Warning: Teleporting vehicle 'f.297'; collision with vehicle 'f.296', lane='end2_0', gap=-0.38, time=358.00 stage=move.
+Warning: Vehicle 'f.297' teleports beyond arrival edge 'end2', time 358.00.
+Warning: Teleporting vehicle 'f.269'; collision with vehicle 'f.268', lane='end2_0', gap=-2.18, time=368.00 stage=move.
+Warning: Vehicle 'f.269' teleports beyond arrival edge 'end2', time 368.00.
+Warning: Teleporting vehicle 'f.312'; collision with vehicle 'f.311', lane='end2_0', gap=-3.74, time=370.00 stage=move.
+Warning: Vehicle 'f.312' teleports beyond arrival edge 'end2', time 370.00.
+Warning: Teleporting vehicle 'f.273'; collision with vehicle 'f.271', lane='end2_0', gap=-0.45, time=371.00 stage=move.
+Warning: Vehicle 'f.273' teleports beyond arrival edge 'end2', time 371.00.
+Warning: Teleporting vehicle 'f.318'; collision with vehicle 'f.317', lane='end2_0', gap=-2.15, time=374.00 stage=move.
+Warning: Vehicle 'f.318' teleports beyond arrival edge 'end2', time 374.00.
+Warning: Teleporting vehicle 'f.278'; collision with vehicle 'f.277', lane='end2_0', gap=-1.66, time=376.00 stage=move.
+Warning: Teleporting vehicle 'f.277'; collision with vehicle 'f.276', lane='end2_0', gap=-2.02, time=376.00 stage=move.
+Warning: Vehicle 'f.277' teleports beyond arrival edge 'end2', time 376.00.
+Warning: Vehicle 'f.278' teleports beyond arrival edge 'end2', time 376.00.
+Warning: Teleporting vehicle 'f.399'; collision with vehicle 'f.398', lane='end2_0', gap=-1.18, time=454.00 stage=move.
+Warning: Vehicle 'f.399' teleports beyond arrival edge 'end2', time 454.00.
+Warning: Teleporting vehicle 'f.398'; collision with vehicle 'f.397', lane='end2_0', gap=-0.14, time=455.00 stage=move.
+Warning: Vehicle 'f.398' teleports beyond arrival edge 'end2', time 455.00.
+Warning: Teleporting vehicle 'f.445'; collision with vehicle 'f.444', lane='end2_0', gap=-0.10, time=512.00 stage=move.
+Warning: Vehicle 'f.445' teleports beyond arrival edge 'end2', time 512.00.
+Warning: Teleporting vehicle 'f.450'; collision with vehicle 'f.449', lane='end2_0', gap=-0.23, time=517.00 stage=move.
+Warning: Vehicle 'f.450' teleports beyond arrival edge 'end2', time 517.00.
+Warning: Teleporting vehicle 'f.487'; collision with vehicle 'f.486', lane='end2_0', gap=-0.52, time=520.00 stage=move.
+Warning: Vehicle 'f.487' teleports beyond arrival edge 'end2', time 520.00.
+Warning: Teleporting vehicle 'f.488'; collision with vehicle 'f.486', lane='end2_0', gap=-0.41, time=522.00 stage=move.
+Warning: Teleporting vehicle 'f.455'; collision with vehicle 'f.454', lane='end2_0', gap=-1.73, time=522.00 stage=move.
+Warning: Vehicle 'f.455' teleports beyond arrival edge 'end2', time 522.00.
+Warning: Vehicle 'f.488' teleports beyond arrival edge 'end2', time 522.00.
+Warning: Teleporting vehicle 'f.456'; collision with vehicle 'f.454', lane='end2_0', gap=-1.93, time=523.00 stage=move.
+Warning: Vehicle 'f.456' teleports beyond arrival edge 'end2', time 523.00.
+Warning: Teleporting vehicle 'f.470'; collision with vehicle 'f.469', lane='end2_0', gap=-0.02, time=539.00 stage=move.
+Warning: Vehicle 'f.470' teleports beyond arrival edge 'end2', time 539.00.
+Warning: Teleporting vehicle 'f.485'; collision with vehicle 'f.484', lane='end2_0', gap=-4.85, time=555.00 stage=move.
+Warning: Vehicle 'f.485' teleports beyond arrival edge 'end2', time 555.00.
+Warning: Teleporting vehicle 'f.486'; collision with vehicle 'f.484', lane='end2_0', gap=-0.05, time=556.00 stage=move.
+Warning: Vehicle 'f.486' teleports beyond arrival edge 'end2', time 556.00.
+Warning: Teleporting vehicle 'f.536'; collision with vehicle 'f.535', lane='end2_0', gap=-2.38, time=571.00 stage=move.
+Warning: Vehicle 'f.536' teleports beyond arrival edge 'end2', time 571.00.
+Warning: Teleporting vehicle 'f.540'; collision with vehicle 'f.539', lane='end2_0', gap=-2.77, time=576.00 stage=move.
+Warning: Vehicle 'f.540' teleports beyond arrival edge 'end2', time 576.00.
+Warning: Teleporting vehicle 'f.491'; collision with vehicle 'f.490', lane='end2_0', gap=-0.01, time=579.00 stage=move.
+Warning: Vehicle 'f.491' teleports beyond arrival edge 'end2', time 579.00.
+Warning: Teleporting vehicle 'f.494'; collision with vehicle 'f.493', lane='end2_0', gap=-1.40, time=583.00 stage=move.
+Warning: Vehicle 'f.494' teleports beyond arrival edge 'end2', time 583.00.
+Warning: Teleporting vehicle 'f.549'; collision with vehicle 'f.548', lane='end2_0', gap=-0.37, time=584.00 stage=move.
+Warning: Vehicle 'f.549' teleports beyond arrival edge 'end2', time 584.00.
+Warning: Teleporting vehicle 'f.501'; collision with vehicle 'f.500', lane='end2_0', gap=-0.60, time=594.00 stage=move.
+Warning: Vehicle 'f.501' teleports beyond arrival edge 'end2', time 594.00.
+Warning: Teleporting vehicle 'f.503'; collision with vehicle 'f.502', lane='end2_0', gap=-2.08, time=596.00 stage=move.
+Warning: Vehicle 'f.503' teleports beyond arrival edge 'end2', time 596.00.
+Warning: Teleporting vehicle 'f.504'; collision with vehicle 'f.502', lane='end2_0', gap=-1.47, time=597.00 stage=move.
+Warning: Vehicle 'f.504' teleports beyond arrival edge 'end2', time 597.00.
+Warning: Teleporting vehicle 'f.551'; collision with vehicle 'f.550', lane='end2_0', gap=-0.54, time=615.00 stage=move.
+Warning: Vehicle 'f.551' teleports beyond arrival edge 'end2', time 615.00.
+Warning: Teleporting vehicle 'f.559'; collision with vehicle 'f.558', lane='end2_0', gap=-0.11, time=624.00 stage=move.
+Warning: Vehicle 'f.559' teleports beyond arrival edge 'end2', time 624.00.
+Warning: Teleporting vehicle 'f.530'; collision with vehicle 'f.529', lane='end2_0', gap=-0.81, time=626.00 stage=move.
+Warning: Vehicle 'f.530' teleports beyond arrival edge 'end2', time 626.00.
+Warning: Teleporting vehicle 'f.563'; collision with vehicle 'f.562', lane='end2_0', gap=-1.96, time=627.00 stage=move.
+Warning: Vehicle 'f.563' teleports beyond arrival edge 'end2', time 627.00.
+Warning: Teleporting vehicle 'f.570'; collision with vehicle 'f.569', lane='end2_0', gap=-0.33, time=636.00 stage=move.
+Warning: Teleporting vehicle 'f.569'; collision with vehicle 'f.568', lane='end2_0', gap=-0.05, time=636.00 stage=move.
+Warning: Vehicle 'f.569' teleports beyond arrival edge 'end2', time 636.00.
+Warning: Vehicle 'f.570' teleports beyond arrival edge 'end2', time 636.00.
+Warning: Teleporting vehicle 'f.572'; collision with vehicle 'f.571', lane='end2_0', gap=-1.18, time=637.00 stage=move.
+Warning: Vehicle 'f.572' teleports beyond arrival edge 'end2', time 637.00.
+Warning: Teleporting vehicle 'f.545'; collision with vehicle 'f.544', lane='end2_0', gap=-0.58, time=638.00 stage=move.
+Warning: Vehicle 'f.545' teleports beyond arrival edge 'end2', time 638.00.
+Warning: Teleporting vehicle 'f.573'; collision with vehicle 'f.571', lane='end2_0', gap=-0.45, time=639.00 stage=move.
+Warning: Vehicle 'f.573' teleports beyond arrival edge 'end2', time 639.00.
+Warning: Teleporting vehicle 'f.548'; collision with vehicle 'f.547', lane='end2_0', gap=-0.70, time=641.00 stage=move.
+Warning: Vehicle 'f.548' teleports beyond arrival edge 'end2', time 641.00.
+Warning: Teleporting vehicle 'f.576'; collision with vehicle 'f.575', lane='end2_0', gap=-2.10, time=642.00 stage=move.
+Warning: Vehicle 'f.576' teleports beyond arrival edge 'end2', time 642.00.
+Warning: Teleporting vehicle 'f.578'; collision with vehicle 'f.577', lane='end2_0', gap=-0.07, time=644.00 stage=move.
+Warning: Teleporting vehicle 'f.552'; collision with vehicle 'f.550', lane='end2_0', gap=-0.63, time=644.00 stage=move.
+Warning: Vehicle 'f.552' teleports beyond arrival edge 'end2', time 644.00.
+Warning: Vehicle 'f.578' teleports beyond arrival edge 'end2', time 644.00.
+Warning: Teleporting vehicle 'f.587'; collision with vehicle 'f.586', lane='end2_0', gap=-0.14, time=653.00 stage=move.
+Warning: Vehicle 'f.587' teleports beyond arrival edge 'end2', time 653.00.
+Warning: Teleporting vehicle 'f.592'; collision with vehicle 'f.591', lane='end2_0', gap=-2.32, time=657.00 stage=move.
+Warning: Vehicle 'f.592' teleports beyond arrival edge 'end2', time 657.00.
+Warning: Teleporting vehicle 'f.594'; collision with vehicle 'f.593', lane='end2_0', gap=-1.11, time=659.00 stage=move.
+Warning: Vehicle 'f.594' teleports beyond arrival edge 'end2', time 659.00.
+Warning: Teleporting vehicle 'f.669'; collision with vehicle 'f.668', lane='end2_0', gap=-4.26, time=760.00 stage=move.
+Warning: Vehicle 'f.669' teleports beyond arrival edge 'end2', time 760.00.
+Warning: Teleporting vehicle 'f.670'; collision with vehicle 'f.668', lane='end2_0', gap=-0.13, time=761.00 stage=move.
+Warning: Vehicle 'f.670' teleports beyond arrival edge 'end2', time 761.00.
+Warning: Teleporting vehicle 'f.675'; collision with vehicle 'f.674', lane='end2_0', gap=-0.23, time=767.00 stage=move.
+Warning: Vehicle 'f.675' teleports beyond arrival edge 'end2', time 767.00.
+Warning: Teleporting vehicle 'f.681'; collision with vehicle 'f.680', lane='end2_0', gap=-0.85, time=773.00 stage=move.
+Warning: Vehicle 'f.681' teleports beyond arrival edge 'end2', time 773.00.
+Warning: Teleporting vehicle 'f.705'; collision with vehicle 'f.704', lane='end2_0', gap=-1.31, time=786.00 stage=move.
+Warning: Vehicle 'f.705' teleports beyond arrival edge 'end2', time 786.00.
+Warning: Teleporting vehicle 'f.756'; collision with vehicle 'f.755', lane='end2_0', gap=-1.29, time=826.00 stage=move.
+Warning: Vehicle 'f.756' teleports beyond arrival edge 'end2', time 826.00.
+Warning: Teleporting vehicle 'f.761'; collision with vehicle 'f.760', lane='end2_0', gap=-1.47, time=830.00 stage=move.
+Warning: Vehicle 'f.761' teleports beyond arrival edge 'end2', time 830.00.
+Warning: Teleporting vehicle 'f.797'; collision with vehicle 'f.796', lane='end2_0', gap=-0.75, time=832.00 stage=move.
+Warning: Vehicle 'f.797' teleports beyond arrival edge 'end2', time 832.00.
+Warning: Teleporting vehicle 'f.764'; collision with vehicle 'f.763', lane='end2_0', gap=-0.84, time=834.00 stage=move.
+Warning: Vehicle 'f.764' teleports beyond arrival edge 'end2', time 834.00.
+Warning: Teleporting vehicle 'f.801'; collision with vehicle 'f.800', lane='end2_0', gap=-1.75, time=836.00 stage=move.
+Warning: Vehicle 'f.801' teleports beyond arrival edge 'end2', time 836.00.
+Warning: Teleporting vehicle 'f.819'; collision with vehicle 'f.818', lane='end2_0', gap=-0.01, time=878.00 stage=move.
+Warning: Vehicle 'f.819' teleports beyond arrival edge 'end2', time 878.00.
+Warning: Teleporting vehicle 'f.824'; collision with vehicle 'f.823', lane='end2_0', gap=-0.29, time=883.00 stage=move.
+Warning: Vehicle 'f.824' teleports beyond arrival edge 'end2', time 883.00.
+Warning: Teleporting vehicle 'f.826'; collision with vehicle 'f.825', lane='end2_0', gap=-2.22, time=887.00 stage=move.
+Warning: Vehicle 'f.826' teleports beyond arrival edge 'end2', time 887.00.
+Warning: Teleporting vehicle 'f.800'; collision with vehicle 'f.799', lane='end2_0', gap=-1.28, time=888.00 stage=move.
+Warning: Vehicle 'f.800' teleports beyond arrival edge 'end2', time 888.00.
+Warning: Teleporting vehicle 'f.809'; collision with vehicle 'f.808', lane='end2_0', gap=-1.55, time=897.00 stage=move.
+Warning: Vehicle 'f.809' teleports beyond arrival edge 'end2', time 897.00.
+Warning: Teleporting vehicle 'f.920'; collision with vehicle 'f.919', lane='end2_0', gap=-1.67, time=987.00 stage=move.
+Warning: Teleporting vehicle 'f.918'; collision with vehicle 'f.917', lane='end2_0', gap=-1.36, time=987.00 stage=move.
+Warning: Vehicle 'f.918' teleports beyond arrival edge 'end2', time 987.00.
+Warning: Vehicle 'f.920' teleports beyond arrival edge 'end2', time 987.00.
+Warning: Teleporting vehicle 'f.929'; collision with vehicle 'f.928', lane='end2_0', gap=-4.53, time=997.00 stage=move.
+Warning: Vehicle 'f.929' teleports beyond arrival edge 'end2', time 997.00.
+Warning: Teleporting vehicle 'f.931'; collision with vehicle 'f.930', lane='end2_0', gap=-2.69, time=999.00 stage=move.
+Warning: Vehicle 'f.931' teleports beyond arrival edge 'end2', time 999.00.
+Warning: Teleporting vehicle 'f.934'; collision with vehicle 'f.933', lane='end2_0', gap=-2.58, time=1002.00 stage=move.
+Warning: Vehicle 'f.934' teleports beyond arrival edge 'end2', time 1002.00.
+Warning: Teleporting vehicle 'f.936'; collision with vehicle 'f.935', lane='end2_0', gap=-4.35, time=1004.00 stage=move.
+Warning: Vehicle 'f.936' teleports beyond arrival edge 'end2', time 1004.00.
+Warning: Teleporting vehicle 'f.941'; collision with vehicle 'f.940', lane='end2_0', gap=-0.42, time=1010.00 stage=move.
+Warning: Vehicle 'f.941' teleports beyond arrival edge 'end2', time 1010.00.
+Warning: Teleporting vehicle 'f.1026'; collision with vehicle 'f.1025', lane='end2_0', gap=-0.33, time=1105.00 stage=move.
+Warning: Vehicle 'f.1026' teleports beyond arrival edge 'end2', time 1105.00.
+Warning: Teleporting vehicle 'f.1028'; collision with vehicle 'f.1027', lane='end2_0', gap=-0.76, time=1112.00 stage=move.
+Warning: Vehicle 'f.1028' teleports beyond arrival edge 'end2', time 1112.00.
+Warning: Teleporting vehicle 'f.1059'; collision with vehicle 'f.1058', lane='end2_0', gap=-0.32, time=1120.00 stage=move.
+Warning: Vehicle 'f.1059' teleports beyond arrival edge 'end2', time 1120.00.
+Warning: Teleporting vehicle 'f.1065'; collision with vehicle 'f.1064', lane='end2_0', gap=-0.14, time=1125.00 stage=move.
+Warning: Vehicle 'f.1065' teleports beyond arrival edge 'end2', time 1125.00.
+Warning: Teleporting vehicle 'f.1117'; collision with vehicle 'f.1116', lane='end2_0', gap=-1.10, time=1143.00 stage=move.
+Warning: Vehicle 'f.1117' teleports beyond arrival edge 'end2', time 1143.00.
+Warning: Teleporting vehicle 'f.1083'; collision with vehicle 'f.1082', lane='end2_0', gap=-1.04, time=1144.00 stage=move.
+Warning: Teleporting vehicle 'f.1082'; collision with vehicle 'f.1081', lane='end2_0', gap=-0.23, time=1144.00 stage=move.
+Warning: Vehicle 'f.1082' teleports beyond arrival edge 'end2', time 1144.00.
+Warning: Vehicle 'f.1083' teleports beyond arrival edge 'end2', time 1144.00.
+Warning: Teleporting vehicle 'f.1122'; collision with vehicle 'f.1121', lane='end2_0', gap=-0.91, time=1148.00 stage=move.
+Warning: Vehicle 'f.1122' teleports beyond arrival edge 'end2', time 1148.00.
+Warning: Teleporting vehicle 'f.1061'; collision with vehicle 'f.1060', lane='end2_0', gap=-0.88, time=1159.00 stage=move.
+Warning: Vehicle 'f.1061' teleports beyond arrival edge 'end2', time 1159.00.
+Warning: Teleporting vehicle 'f.1110'; collision with vehicle 'f.1109', lane='end2_0', gap=-0.02, time=1168.00 stage=move.
+Warning: Vehicle 'f.1110' teleports beyond arrival edge 'end2', time 1168.00.
+Warning: Teleporting vehicle 'f.1112'; collision with vehicle 'f.1111', lane='end2_0', gap=-2.58, time=1170.00 stage=move.
+Warning: Vehicle 'f.1112' teleports beyond arrival edge 'end2', time 1170.00.
+Warning: Teleporting vehicle 'f.1114'; collision with vehicle 'f.1113', lane='end2_0', gap=-0.07, time=1172.00 stage=move.
+Warning: Vehicle 'f.1114' teleports beyond arrival edge 'end2', time 1172.00.
+Warning: Teleporting vehicle 'f.1119'; collision with vehicle 'f.1118', lane='end2_0', gap=-2.75, time=1176.00 stage=move.
+Warning: Vehicle 'f.1119' teleports beyond arrival edge 'end2', time 1176.00.
+Warning: Teleporting vehicle 'f.1121'; collision with vehicle 'f.1120', lane='end2_0', gap=-2.23, time=1178.00 stage=move.
+Warning: Vehicle 'f.1121' teleports beyond arrival edge 'end2', time 1178.00.
+Warning: Teleporting vehicle 'f.1123'; collision with vehicle 'f.1120', lane='end2_0', gap=-1.89, time=1179.00 stage=move.
+Warning: Vehicle 'f.1123' teleports beyond arrival edge 'end2', time 1179.00.
+Warning: Teleporting vehicle 'f.1126'; collision with vehicle 'f.1125', lane='end2_0', gap=-0.34, time=1183.00 stage=move.
+Warning: Teleporting vehicle 'f.1108'; collision with vehicle 'f.1107', lane='end2_0', gap=-1.19, time=1183.00 stage=move.
+Warning: Vehicle 'f.1108' teleports beyond arrival edge 'end2', time 1183.00.
+Warning: Vehicle 'f.1126' teleports beyond arrival edge 'end2', time 1183.00.
+Warning: Teleporting vehicle 'f.1113'; collision with vehicle 'f.1111', lane='end2_0', gap=-1.34, time=1186.00 stage=move.
+Warning: Vehicle 'f.1113' teleports beyond arrival edge 'end2', time 1186.00.
+Warning: Teleporting vehicle 'f.1128'; collision with vehicle 'f.1127', lane='end2_0', gap=-3.69, time=1228.00 stage=move.
+Warning: Vehicle 'f.1128' teleports beyond arrival edge 'end2', time 1228.00.
+Warning: Teleporting vehicle 'f.1131'; collision with vehicle 'f.1130', lane='end2_0', gap=-0.05, time=1231.00 stage=move.
+Warning: Vehicle 'f.1131' teleports beyond arrival edge 'end2', time 1231.00.
+Warning: Teleporting vehicle 'f.1162'; collision with vehicle 'f.1161', lane='end2_0', gap=-1.55, time=1232.00 stage=move.
+Warning: Vehicle 'f.1162' teleports beyond arrival edge 'end2', time 1232.00.
+Warning: Teleporting vehicle 'f.1133'; collision with vehicle 'f.1132', lane='end2_0', gap=-3.34, time=1233.00 stage=move.
+Warning: Vehicle 'f.1133' teleports beyond arrival edge 'end2', time 1233.00.
+Warning: Teleporting vehicle 'f.1138'; collision with vehicle 'f.1137', lane='end2_0', gap=-3.36, time=1238.00 stage=move.
+Warning: Vehicle 'f.1138' teleports beyond arrival edge 'end2', time 1238.00.
+Warning: Teleporting vehicle 'f.1141'; collision with vehicle 'f.1140', lane='end2_0', gap=-0.31, time=1241.00 stage=move.
+Warning: Vehicle 'f.1141' teleports beyond arrival edge 'end2', time 1241.00.
+Warning: Teleporting vehicle 'f.1157'; collision with vehicle 'f.1156', lane='end2_0', gap=-0.26, time=1245.00 stage=move.
+Warning: Vehicle 'f.1157' teleports beyond arrival edge 'end2', time 1245.00.
+Warning: Teleporting vehicle 'f.1160'; collision with vehicle 'f.1159', lane='end2_0', gap=-0.52, time=1250.00 stage=move.
+Warning: Vehicle 'f.1160' teleports beyond arrival edge 'end2', time 1250.00.
+Warning: Teleporting vehicle 'f.1165'; collision with vehicle 'f.1164', lane='end2_0', gap=-1.72, time=1253.00 stage=move.
+Warning: Vehicle 'f.1165' teleports beyond arrival edge 'end2', time 1253.00.
+Warning: Teleporting vehicle 'f.1326'; collision with vehicle 'f.1325', lane='end2_0', gap=-1.43, time=1371.00 stage=move.
+Warning: Vehicle 'f.1326' teleports beyond arrival edge 'end2', time 1371.00.
+Warning: Teleporting vehicle 'f.1328'; collision with vehicle 'f.1327', lane='end2_0', gap=-0.98, time=1373.00 stage=move.
+Warning: Vehicle 'f.1328' teleports beyond arrival edge 'end2', time 1373.00.
+Warning: Teleporting vehicle 'f.1352'; collision with vehicle 'f.1351', lane='end2_0', gap=-4.57, time=1376.00 stage=move.
+Warning: Vehicle 'f.1352' teleports beyond arrival edge 'end2', time 1376.00.
+Warning: Teleporting vehicle 'f.1347'; collision with vehicle 'f.1346', lane='end2_0', gap=-0.28, time=1414.00 stage=move.
+Warning: Vehicle 'f.1347' teleports beyond arrival edge 'end2', time 1414.00.
+Warning: Teleporting vehicle 'f.1333'; collision with vehicle 'f.1332', lane='end2_0', gap=-0.16, time=1428.00 stage=move.
+Warning: Vehicle 'f.1333' teleports beyond arrival edge 'end2', time 1428.00.
+Warning: Teleporting vehicle 'f.1390'; collision with vehicle 'f.1389', lane='end2_0', gap=-0.77, time=1431.00 stage=move.
+Warning: Vehicle 'f.1390' teleports beyond arrival edge 'end2', time 1431.00.
+Warning: Teleporting vehicle 'f.1393'; collision with vehicle 'f.1392', lane='end2_0', gap=-1.16, time=1436.00 stage=move.
+Warning: Vehicle 'f.1393' teleports beyond arrival edge 'end2', time 1436.00.
+Warning: Teleporting vehicle 'f.1384'; collision with vehicle 'f.1383', lane='end2_0', gap=-1.64, time=1441.00 stage=move.
+Warning: Teleporting vehicle 'f.1383'; collision with vehicle 'f.1382', lane='end2_0', gap=-1.31, time=1441.00 stage=move.
+Warning: Vehicle 'f.1383' teleports beyond arrival edge 'end2', time 1441.00.
+Warning: Vehicle 'f.1384' teleports beyond arrival edge 'end2', time 1441.00.
+Warning: Teleporting vehicle 'f.1434'; collision with vehicle 'f.1433', lane='end2_0', gap=-1.20, time=1469.00 stage=move.
+Warning: Vehicle 'f.1434' teleports beyond arrival edge 'end2', time 1469.00.
+Warning: Teleporting vehicle 'f.1437'; collision with vehicle 'f.1436', lane='end2_0', gap=-0.91, time=1472.00 stage=move.
+Warning: Vehicle 'f.1437' teleports beyond arrival edge 'end2', time 1472.00.
+Warning: Teleporting vehicle 'f.1369'; collision with vehicle 'f.1368', lane='end2_0', gap=-1.28, time=1475.00 stage=move.
+Warning: Vehicle 'f.1369' teleports beyond arrival edge 'end2', time 1475.00.
+Warning: Teleporting vehicle 'f.1426'; collision with vehicle 'f.1425', lane='end2_0', gap=-0.28, time=1496.00 stage=move.
+Warning: Vehicle 'f.1426' teleports beyond arrival edge 'end2', time 1496.00.
+Warning: Teleporting vehicle 'f.1431'; collision with vehicle 'f.1430', lane='end2_0', gap=-0.53, time=1512.00 stage=move.
+Warning: Vehicle 'f.1431' teleports beyond arrival edge 'end2', time 1512.00.
+Warning: Teleporting vehicle 'f.1468'; collision with vehicle 'f.1467', lane='end2_0', gap=-3.78, time=1523.00 stage=move.
+Warning: Teleporting vehicle 'f.1467'; collision with vehicle 'f.1466', lane='end2_0', gap=-0.60, time=1523.00 stage=move.
+Warning: Vehicle 'f.1467' teleports beyond arrival edge 'end2', time 1523.00.
+Warning: Vehicle 'f.1468' teleports beyond arrival edge 'end2', time 1523.00.
+Warning: Teleporting vehicle 'f.1469'; collision with vehicle 'f.1466', lane='end2_0', gap=-1.74, time=1525.00 stage=move.
+Warning: Vehicle 'f.1469' teleports beyond arrival edge 'end2', time 1525.00.
+Warning: Teleporting vehicle 'f.1472'; collision with vehicle 'f.1471', lane='end2_0', gap=-1.20, time=1527.00 stage=move.
+Warning: Teleporting vehicle 'f.1471'; collision with vehicle 'f.1470', lane='end2_0', gap=-1.44, time=1527.00 stage=move.
+Warning: Vehicle 'f.1471' teleports beyond arrival edge 'end2', time 1527.00.
+Warning: Vehicle 'f.1472' teleports beyond arrival edge 'end2', time 1527.00.
+Warning: Teleporting vehicle 'f.1477'; collision with vehicle 'f.1476', lane='end2_0', gap=-4.21, time=1532.00 stage=move.
+Warning: Vehicle 'f.1477' teleports beyond arrival edge 'end2', time 1532.00.
+Warning: Teleporting vehicle 'f.1478'; collision with vehicle 'f.1476', lane='end2_0', gap=-1.91, time=1533.00 stage=move.
+Warning: Vehicle 'f.1478' teleports beyond arrival edge 'end2', time 1533.00.
+Warning: Teleporting vehicle 'f.1501'; collision with vehicle 'f.1500', lane='end2_0', gap=-2.25, time=1536.00 stage=move.
+Warning: Vehicle 'f.1501' teleports beyond arrival edge 'end2', time 1536.00.
+Warning: Teleporting vehicle 'f.1454'; collision with vehicle 'f.1453', lane='end2_0', gap=-1.15, time=1551.00 stage=move.
+Warning: Vehicle 'f.1454' teleports beyond arrival edge 'end2', time 1551.00.
+Warning: Teleporting vehicle 'f.1456'; collision with vehicle 'f.1455', lane='end2_0', gap=-1.34, time=1554.00 stage=move.
+Warning: Vehicle 'f.1456' teleports beyond arrival edge 'end2', time 1554.00.
+Warning: Teleporting vehicle 'f.1480'; collision with vehicle 'f.1479', lane='end2_0', gap=-3.76, time=1571.00 stage=move.
+Warning: Vehicle 'f.1480' teleports beyond arrival edge 'end2', time 1571.00.
+Warning: Teleporting vehicle 'f.1508'; collision with vehicle 'f.1507', lane='end2_0', gap=-1.06, time=1592.00 stage=move.
+Warning: Vehicle 'f.1508' teleports beyond arrival edge 'end2', time 1592.00.
+Warning: Teleporting vehicle 'f.1509'; collision with vehicle 'f.1507', lane='end2_0', gap=-3.99, time=1593.00 stage=move.
+Warning: Vehicle 'f.1509' teleports beyond arrival edge 'end2', time 1593.00.
+Warning: Teleporting vehicle 'f.1510'; collision with vehicle 'f.1507', lane='end2_0', gap=-6.32, time=1594.00 stage=move.
+Warning: Vehicle 'f.1510' teleports beyond arrival edge 'end2', time 1594.00.
+Warning: Teleporting vehicle 'f.1638'; collision with vehicle 'f.1637', lane='end2_0', gap=-2.72, time=1680.00 stage=move.
+Warning: Vehicle 'f.1638' teleports beyond arrival edge 'end2', time 1680.00.
+Warning: Teleporting vehicle 'f.1639'; collision with vehicle 'f.1637', lane='end2_0', gap=-1.10, time=1681.00 stage=move.
+Warning: Vehicle 'f.1639' teleports beyond arrival edge 'end2', time 1681.00.
+Warning: Teleporting vehicle 'f.1643'; collision with vehicle 'f.1642', lane='end2_0', gap=-2.45, time=1709.00 stage=move.
+Warning: Vehicle 'f.1643' teleports beyond arrival edge 'end2', time 1709.00.
+Warning: Teleporting vehicle 'f.1674'; collision with vehicle 'f.1673', lane='end2_0', gap=-1.79, time=1736.00 stage=move.
+Warning: Vehicle 'f.1674' teleports beyond arrival edge 'end2', time 1736.00.
+Warning: Teleporting vehicle 'f.1708'; collision with vehicle 'f.1707', lane='end2_0', gap=-0.10, time=1746.00 stage=move.
+Warning: Vehicle 'f.1708' teleports beyond arrival edge 'end2', time 1746.00.
+Warning: Teleporting vehicle 'f.1713'; collision with vehicle 'f.1712', lane='end2_0', gap=-0.13, time=1751.00 stage=move.
+Warning: Vehicle 'f.1713' teleports beyond arrival edge 'end2', time 1751.00.
+Warning: Teleporting vehicle 'f.1691'; collision with vehicle 'f.1690', lane='end2_0', gap=-0.49, time=1754.00 stage=move.
+Warning: Vehicle 'f.1691' teleports beyond arrival edge 'end2', time 1754.00.
+Warning: Teleporting vehicle 'f.1695'; collision with vehicle 'f.1694', lane='end2_0', gap=-1.13, time=1757.00 stage=move.
+Warning: Vehicle 'f.1695' teleports beyond arrival edge 'end2', time 1757.00.
+Warning: Teleporting vehicle 'f.1700'; collision with vehicle 'f.1699', lane='end2_0', gap=-1.98, time=1776.00 stage=move.
+Warning: Vehicle 'f.1700' teleports beyond arrival edge 'end2', time 1776.00.
+Warning: Teleporting vehicle 'f.1702'; collision with vehicle 'f.1701', lane='end2_0', gap=-0.97, time=1778.00 stage=move.
+Warning: Vehicle 'f.1702' teleports beyond arrival edge 'end2', time 1778.00.
+Warning: Teleporting vehicle 'f.1703'; collision with vehicle 'f.1701', lane='end2_0', gap=-1.03, time=1779.00 stage=move.
+Warning: Vehicle 'f.1703' teleports beyond arrival edge 'end2', time 1779.00.
+Warning: Teleporting vehicle 'f.1715'; collision with vehicle 'f.1714', lane='end2_0', gap=-1.75, time=1791.00 stage=move.
+Warning: Vehicle 'f.1715' teleports beyond arrival edge 'end2', time 1791.00.

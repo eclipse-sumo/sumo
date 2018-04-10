@@ -1,0 +1,20 @@
+# handling of basic structures
+basic
+
+# tests for additional structures
+extended
+
+# testing car-following model properties
+cf_model
+
+# test lane-changing model properties
+lc_model
+
+# tests for opposite direction overtaking
+opposite_direction_driving
+
+# tests for the sublane model
+sublane_model
+
+# demonstration and regression tests for known bugs
+bugs

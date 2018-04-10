@@ -1,0 +1,5 @@
+getvariable_plus 0xab 0x82 0 <compound> 2 <position3D> 2300 900 0 <ubyte> 4
+getvariable_plus 0xab 0x82 0 <compound> 2 <position3D> 3900 1300 0 <ubyte> 4
+getvariable_plus 0xab 0x82 0 <compound> 2 <position3D> 3330 1000 0 <ubyte> 4
+getvariable_plus 0xab 0x82 0 <compound> 2 <position3D> 3400 200 0 <ubyte> 4
+getvariable_plus 0xab 0x82 0 <compound> 2 <position3D> -100 489 0 <ubyte> 4

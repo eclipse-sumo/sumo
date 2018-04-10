@@ -1,0 +1,1 @@
+--net-file net.net.xml --route-files input_routes.rou.xml --additional-files input_additional.add.xml --tripinfo-output tripinfos.xml --verbose --no-step-log -e 140 --netstate-dump=rawdump.xml

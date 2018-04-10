@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="441" depart="0" departLane="free" departPos="-20" departSpeed="15">
+        <route edges="1to22.17 out gneE4"/>
+    </vehicle>
+</routes>

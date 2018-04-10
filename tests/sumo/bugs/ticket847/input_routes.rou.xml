@@ -1,0 +1,10 @@
+<routes>
+    <vType sigma="0" id="high_accel_low_decel" accel="6" decel="0.2"/>
+    <vehicle id="priority" type="high_accel_low_decel" depart="0.00" departPos="950">
+        <route edges="middle end"/>
+    </vehicle>
+    <vType sigma="0" id="low_accel_and_slow" accel="2.0" maxSpeed="6"/>
+    <vehicle id="should_break" type="low_accel_and_slow" depart="0.00" departPos="493">
+        <route edges="right2end end"/>
+    </vehicle>
+</routes>

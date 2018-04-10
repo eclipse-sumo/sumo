@@ -1,0 +1,2 @@
+--no-step-log --no-duration-log --net-file=net.net.xml -a input_routes.rou.xml,input_additional.add.xml -b 0 -e 10
+

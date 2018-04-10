@@ -1,0 +1,15 @@
+<routes>
+    <person id="forward_turn_left" depart="0" departPos="-10">
+        <walk from="SC" to="CW" arrivalPos="10"/>
+    </person>
+    <person id="backward_turn_left" depart="0" departPos="10">
+        <walk from="CW" to="SC" arrivalPos="-10"/>
+    </person>
+    <person id="forward_change_side" depart="0" departPos="-10">
+        <walk from="EC" to="WC" arrivalPos="-10"/>
+    </person>
+    <person id="backward_change_side" depart="0" departPos="10">
+        <walk from="CE" to="CW" arrivalPos="10"/>
+    </person>
+
+</routes>

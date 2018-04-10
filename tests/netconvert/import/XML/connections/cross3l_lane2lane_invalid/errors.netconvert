@@ -1,0 +1,4 @@
+Warning: Could not set connection from '1si_2' to '2o_5'.
+Warning: Could not set connection from '1si_2' to '2o_5'.
+Error: Could not insert connection between '1si' and '2o' after build.
+Quitting (on error).

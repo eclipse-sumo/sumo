@@ -1,0 +1,10 @@
+activity_only
+mobility_only
+config_only
+all
+
+# keep the original IDs (should be numeric)
+keep_orig_ids
+
+# ignore disappearence of vehicles until the end
+ignore-gaps

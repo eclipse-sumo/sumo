@@ -1,0 +1,25 @@
+
+[Reported by leonhard at 03Jun07:55:11]
+search_string:written at a different time
+search_file:output
+bug_system:trac
+bug_id:2370
+
+[Reported by leonhard at 03Jun07:55:35]
+search_string:written at a different time
+search_file:errors
+bug_system:trac
+bug_id:2370
+
+[Reported by leonhard at 03Jun08:01:55]
+search_string:was written at a different time
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:2370
+
+[Reported by leonhard at 03Jun08:16:57]
+search_string:State was written at a different time
+search_file:errors
+bug_system:trac
+bug_id:2370

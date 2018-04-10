@@ -1,0 +1,613 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{df2e0a92-e7d4-499a-a0fe-87d3deca6f20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icons">
+      <UniqueIdentifier>{651e2245-4896-4a75-bda2-dda15d6c3330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icons\Additionals">
+      <UniqueIdentifier>{395db992-ebe5-4ad8-a274-5189459f8e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icons\Locate">
+      <UniqueIdentifier>{a8822090-479f-4c54-9def-aca918f41083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icons\Netedit_modes">
+      <UniqueIdentifier>{e8b3b76d-0ff4-4fe5-8fd1-a05db16a3ae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icons\NetElements">
+      <UniqueIdentifier>{0631ae90-79c1-4685-a058-1de58f1549ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Icons\VehicleTypes">
+      <UniqueIdentifier>{0568104b-0d6d-4201-9278-fc94a8482726}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GUITextureSubSys.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag_minus.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag_plus.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3Selected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Empty.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_EmptySelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Lock.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LockSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMoving.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMovingSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Rerouter.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RerouterSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RouteProbe.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RouteProbeSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_TLS.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Vaporizer.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VaporizerSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\manip.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBike.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBus.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LanePedestrian.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignSelected.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSign.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUIIcons.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUIIconSubSys.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUITexturesHelper.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUITextureSubSys.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUITextures.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\utils\gui\images\filesave.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\add.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\allow_rotation.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_breakpoints.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_finder.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_selector.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_table.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_tlstracker.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\app_tracker.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\camera.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\close_gaps.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\closing.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\colorwheel.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\colour_lane.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\colour_vehicle.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cont.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\create_graph.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cut.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\dilate.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\document.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\edit_graph.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\erase_stains.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\erode.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\ext.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\extract_streets.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\eyedrop.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\fileopen.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\fileprint.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\green_edge.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\zoomstyle.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\green_person.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\green_vehicle.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\halt.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lanebike.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lanebus.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lanepedestrian.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lock.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\magnify.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\netedit.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\neteditarrow.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\netopen.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\new_window.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\no.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\open_bmp_dialog.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\opening.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush1x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush2x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush3x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush4x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\paintbrush5x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\play.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rarify.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\recenter_view.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\redo.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\reload.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\remove.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\removedb.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber1x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber2x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber3x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber4x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rubber5x.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\savedb.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\shapeopen.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\show_tooltips.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\skeletonize.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\step.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\stop.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\undo.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\view1.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\view2.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\view3.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\windows_cascade.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\windows_tile_horizontally.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\windows_tile_vertically.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yellow_edge.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yellow_person.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yellow_vehicle.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\yes.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cleanjunctions.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\options.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\computejunctions.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\joinjunctions.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vaporizer.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\empty.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\busstop.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\calibrator.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\chargingstation.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\containerstop.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e1.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e3exit.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e2.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e3.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\e3entry.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\rerouter.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\routeprobe.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_vehicle.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_add.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_edge.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_junction.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_person.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_poi.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_poly.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\locate_tls.xpm">
+      <Filter>Icons\Locate</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeadditional.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modetrafficlight.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeconnection.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modecreateedge.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modecrossing.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modedelete.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeinspect.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modemove.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modeselect.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\connection.xpm">
+      <Filter>Icons\NetElements</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\edge.xpm">
+      <Filter>Icons\NetElements</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\lane.xpm">
+      <Filter>Icons\NetElements</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\crossing.xpm">
+      <Filter>Icons\NetElements</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\junction.xpm">
+      <Filter>Icons\NetElements</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\prohibition.xpm">
+      <Filter>Icons\NetElements</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_taxi.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_trailer.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_tram.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_truck.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_vip.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_army.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_authority.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_bicycle.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_bus.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_coach.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_custom1.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_custom2.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_delivery.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_emergency.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_hov.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_ignoring.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_moped.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_motorcycle.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_passenger.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_pedestrian.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_private.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_rail.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_rail_electric.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_rail_urban.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_ship.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\vclass_evehicle.xpm">
+      <Filter>Icons\VehicleTypes</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\variablespeedsign.xpm">
+      <Filter>Icons\Additionals</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\correct.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\error.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\reset.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\warning.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\accept.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\cancel.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\grid2.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\grid3.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\grid1.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\dlr.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\sumo.xpm">
+      <Filter>Icons</Filter>
+    </None>
+    <None Include="..\..\..\src\utils\gui\images\modepolygon.xpm">
+      <Filter>Icons\Netedit_modes</Filter>
+    </None>
+  </ItemGroup>
+</Project>

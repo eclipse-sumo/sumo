@@ -1,0 +1,26 @@
+<routes>
+    <vType id="t0" decel="2.5"/>
+    <vType id="t1" accel="4.5"/>
+
+    <vehicle id="blocker" depart="75" departPos="-10" arrivalPos="2">
+        <route edges="EC CS"/>
+        <stop lane="CS_0" endPos="1" duration="10"/>
+    </vehicle>
+
+    <vehicle id="minor" depart="76" departPos="-10">
+        <route edges="EC CS"/>
+    </vehicle>
+
+    <vehicle id="major2" depart="91" departPos="-10">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="major3" depart="91" departPos="-18" speedFactor="1.5">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="major" type="t0" depart="94" departPos="-28" departSpeed="max" speedFactor="2">
+        <route edges="NC CS"/>
+    </vehicle>
+
+
+</routes>

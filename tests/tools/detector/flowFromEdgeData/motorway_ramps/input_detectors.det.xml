@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<detectors>
+   <detectorDefinition id="1_0" lane="1_0" pos="50" type="source"/>
+   <detectorDefinition id="1_1" lane="1_1" pos="50" type="source"/>
+   <detectorDefinition id="on3" lane="on3_0" pos="50" type="source"/>
+   <detectorDefinition id="on7" lane="on7_0" pos="50" type="source"/>
+
+   <detectorDefinition id="2_0" lane="2_0" pos="50" type="between"/>
+   <detectorDefinition id="2_1" lane="2_1" pos="50" type="between"/>
+   <detectorDefinition id="3_0" lane="3_0" pos="50" type="between"/>
+   <detectorDefinition id="3_1" lane="3_1" pos="50" type="between"/>
+   <detectorDefinition id="4_0" lane="4_0" pos="50" type="between"/>
+   <detectorDefinition id="4_1" lane="4_1" pos="50" type="between"/>
+   <detectorDefinition id="5_0" lane="5_0" pos="50" type="between"/>
+   <detectorDefinition id="5_1" lane="5_1" pos="50" type="between"/>
+   <detectorDefinition id="6_0" lane="6_0" pos="50" type="between"/>
+   <detectorDefinition id="6_1" lane="6_1" pos="50" type="between"/>
+   <detectorDefinition id="7_0" lane="7_0" pos="50" type="between"/>
+   <detectorDefinition id="7_1" lane="7_1" pos="50" type="between"/>
+   <detectorDefinition id="8_0" lane="8_0" pos="50" type="between"/>
+   <detectorDefinition id="8_1" lane="8_1" pos="50" type="between"/>
+
+   <detectorDefinition id="9_0" lane="9_0" pos="50" type="sink"/>
+   <detectorDefinition id="9_1" lane="9_1" pos="50" type="sink"/>
+   <detectorDefinition id="off3" lane="off3_0" pos="50" type="sink"/>
+   <detectorDefinition id="off7" lane="off7_0" pos="50" type="sink"/>
+</detectors>

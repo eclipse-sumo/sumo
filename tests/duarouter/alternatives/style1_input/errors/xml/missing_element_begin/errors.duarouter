@@ -1,0 +1,7 @@
+Error: Attribute 'id' is missing in definition of a route.
+Error: Route '' has no edges.
+Error: expected end of tag 'routes'
+ In file 'input_alts.rou.alt.xml'
+ At line/column 10/6.
+
+Quitting (on error).

@@ -1,0 +1,3 @@
+Warning: Cannot keep destination edge 'middle' for vehicle 'flow_dest_forbidden.0' due to closed edges. Terminating route.
+Warning: Cannot keep destination edge 'middle' for vehicle 'flow_dest_forbidden.1' due to closed edges. Terminating route.
+Warning: Cannot keep destination edge 'middle' for vehicle 'flow_dest_forbidden.3' due to closed edges. Terminating route.

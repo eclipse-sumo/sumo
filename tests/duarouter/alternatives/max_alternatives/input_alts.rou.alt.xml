@@ -1,0 +1,9 @@
+<routes>
+   <vType id="0" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+   <vehicle id="0" type="0" depart="0" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="1000.0" probability="0.5" edges="beg 1toL L Lto2 end"/>
+         <route cost="1000.0" probability="0.5" edges="beg 1toR R Rto2 end"/>
+      </routeDistribution>
+   </vehicle>
+</routes>

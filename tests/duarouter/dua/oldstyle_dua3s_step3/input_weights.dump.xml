@@ -1,0 +1,52 @@
+<!--
+- noVehContrib is the number of vehicles have been on the lane for
+  at least one timestep during the current intervall.
+  They contribute to speed, speedsquare and density.
+  They may not have passed the entire lane.
+- noVehEntireLane is the number of vehicles that have passed the
+  entire lane and left the lane during the current intervall. They
+  may have started their journey on this lane in a previous intervall.
+  Only those vehicles contribute to traveltime.
+- noVehEntered is the number of vehicles that entered this lane
+  during the current intervall either by move, emit or lanechange.
+  Note that noVehEntered might be high if vehicles are emitted on
+  this lane.
+- noVehLeft is the number of vehicles that left this lane during
+  the current intervall by move.
+- traveltime [s]
+  If noVehContrib==0 then traveltime is set to laneLength / laneMaxSpeed.
+  If noVehContrib!=0 && noVehEntireLane==0 then traveltime is set to
+  laneLength / speed.
+  Else traveltime is calculated from the data of the vehicles that
+  passed the entire lane.
+- speed [m/s]
+  If noVehContrib==0 then speed is set to laneMaxSpeed.
+- speedsquare [(m/s)^2]
+  If noVehContrib==0 then speedsquare is set to -1.
+- density [veh/km]
+  If noVehContrib==0 then density is set to 0.
+-->
+<netstats>
+<interval begin="0" end="299" >
+      <edge id="beg" traveltime="21.6326" noVehContrib="2022" density="0.17575" noStops="0" speed="8.86393"/>
+      <edge id="beg2left" traveltime="2.891" noVehContrib="250" density="0.0905797" noStops="0" speed="15.9114"/>
+      <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
+      <edge id="end" traveltime="14.3252" noVehContrib="62" density="0.00538896" noStops="0" speed="13.3855"/>
+      <edge id="left" traveltime="84.6603" noVehContrib="5151" density="0.21817" noStops="2481" speed="4.64799"/>
+      <edge id="left2end" traveltime="40.0117" noVehContrib="1879" density="0.680797" noStops="1421" speed="1.14966"/>
+      <edge id="middle" traveltime="128.512" noVehContrib="7646" density="0.3255" noStops="4490" speed="3.0464"/>
+      <edge id="right" traveltime="11.1111" noVehContrib="0" density="0" noStops="0" speed="36"/>
+      <edge id="right2end" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
+</interval>
+<interval begin="300" end="594" >
+      <edge id="beg" traveltime="5.32639" noVehContrib="0" density="0" noStops="0" speed="36"/>
+      <edge id="beg2left" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
+      <edge id="beg2right" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
+      <edge id="end" traveltime="22.6786" noVehContrib="66" density="0.00583387" noStops="0" speed="8.4551"/>
+      <edge id="left" traveltime="651.722" noVehContrib="2016" density="0.0868348" noStops="1471" speed="0.603785"/>
+      <edge id="left2end" traveltime="63.5768" noVehContrib="1861" density="0.685704" noStops="1488" speed="0.723534"/>
+      <edge id="middle" traveltime="507.487" noVehContrib="4413" density="0.191051" noStops="3232" speed="0.771448"/>
+      <edge id="right" traveltime="11.1111" noVehContrib="0" density="0" noStops="0" speed="36"/>
+      <edge id="right2end" traveltime="1.27083" noVehContrib="0" density="0" noStops="0" speed="36"/>
+</interval>
+</netstats>

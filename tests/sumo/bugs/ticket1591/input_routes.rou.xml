@@ -1,0 +1,10 @@
+<routes>
+    <vType id="t0" sigma="0" impatience="1" accel="1" maxSpeed="3"/>
+    <vType id="t1" sigma="0"/>
+
+    <route id="r0" edges="-51811684 51811183 -51811177"/>
+    <route id="r1" edges="779258013 51811184 51811183 -51811177"/>
+
+    <vehicle id="unsafe_lc" type="t0" route="r0" depart="0" departPos="-1"/>
+    <vehicle id="collider" type="t1" route="r1" depart="0" departPos="0" departSpeed="max"/>
+</routes>

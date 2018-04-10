@@ -1,0 +1,36 @@
+# only flow on the main motorway
+all_main
+
+# only flow on the main motorway, aggregate by hour
+all_main_aggregate
+
+# only flow on the main motorway, aggregate by hour
+# flow data does not start at 0
+all_main_aggregate_lateData
+
+# only flow on the main motorway, aggregate by hour, only 1 time entry exists
+all_main_aggregate_1time
+
+# two sources and sinks
+ambiguous
+
+# two sources and sinks. restrict usage of a route
+ambiguous_restrict
+
+# two sources and sinks. restrict usage of a route via setting origin an destination
+ambiguous_restrict_od
+
+# two sources and sinks. restrict usage of multiple routes
+restrict_inconsistent
+
+# test pull-flow functionality
+pull
+
+# use routeDistributions
+random
+
+# set detectors as via-edges
+via-detectors
+
+# only flow on the main motorway
+debug

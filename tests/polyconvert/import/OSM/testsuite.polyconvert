@@ -1,0 +1,25 @@
+# whether using the name works
+use_name
+
+# same but without the osm.use-name option
+use_name.plain
+
+# using type name made from key/value pair
+keep_full_type
+
+# checks import of all attributes
+all_attributes
+
+# handling corrupt input
+error_missing_key_node
+error_missing_key_node__ignored
+error_missing_key_way
+error_missing_key_way__ignored
+error_missing_node
+error_missing_shape
+error_missing_shape__ignored
+geo-output
+
+# output in dlr-tdp format (formerly known as dlr-navteq)
+dlr-tdp-output
+buildings_from_relation

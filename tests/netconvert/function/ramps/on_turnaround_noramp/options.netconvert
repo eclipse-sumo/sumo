@@ -1,0 +1,2 @@
+--no-internal-links  --ramps.guess --edge-files=input_plain.edg.xml --node-files=input_plain.nod.xml --plain-output-prefix=plain
+

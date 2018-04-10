@@ -1,0 +1,13 @@
+<routes>
+    <vType id="egoType" sigma="0"/>
+    <vType id="blockerType" sigma="0"/>
+
+    <route id="r0" edges="beg end"/>
+    <route id="r1" edges="beg2 end"/>
+
+    <flow id="block1"  type="blockerType"  route="r0" departSpeed="max" departPos="50"  departLane="1" departPosLat="center" begin="0" end="30" period="1.5"/>
+    <flow id="block2"  type="blockerType"  route="r0" departSpeed="max" departPos="50"  departLane="2" departPosLat="center" begin="0" end="30" period="1.5"/>
+    <vehicle id="blocker"  type="blockerType"  route="r1" departSpeed="max" departPos="0"  departLane="0" departPosLat="center" depart="0"/>
+
+    <vehicle id="ego"   type="egoType"   route="r0" departSpeed="max" departPos="145"  departLane="0" departPosLat="center" depart="7" color="green"/>
+</routes>

@@ -1,0 +1,5 @@
+repeat 5 simstep2 0
+setvalue 0xc4 0xb4 veh0 <compound> 5 <string> dummy <int> 1 <double> 23 <double> 494 <double> 0
+repeat 5 simstep2 0
+setvalue 0xc4 0xb4 veh0 <compound> 5 <string> dummy <int> 1 <double> 123 <double> 496 <double> 0
+repeat 5 simstep2 0

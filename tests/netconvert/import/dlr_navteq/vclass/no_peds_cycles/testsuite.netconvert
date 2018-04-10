@@ -1,0 +1,11 @@
+# no pedestrians and cycles
+plain
+
+# same as cross_no_peds_cycles, but vclass is dismissed
+dismissing
+
+# same as cross_no_peds_cycles, but the trailing 0 is missing
+no_trailing
+
+
+

@@ -1,0 +1,16 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent dest="tls_state_switch.xml" source="0" type="SaveTLSSwitchStates"/>
+
+
+   <tlLogic id="0" type="static" programID="2" offset="124">
+      <phase duration="20" state="GGggrrrrGGggrrrr"/>
+      <phase duration="4" state="yyggrrrryyggrrrr"/>
+      <phase duration="3" state="rrGGrrrrrrGGrrrr"/>
+      <phase duration="4" state="rryyrrrrrryyrrrr"/>
+      <phase duration="20" state="rrrrGGggrrrrGGgg"/>
+      <phase duration="4" state="rrrryyggrrrryygg"/>
+      <phase duration="3" state="rrrrrrGGrrrrrrGG"/>
+      <phase duration="4" state="rrrrrryyrrrrrryy"/>
+   </tlLogic>
+
+</additional>

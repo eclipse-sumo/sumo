@@ -1,0 +1,13 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="NS" edges="NC CS"/>
+    <route id="NE" edges="NC CE"/>
+    <route id="SN" edges="SC CN"/>
+    <route id="SW" edges="SC CW"/>
+
+    <flow id="NS" type="t0" route="NS" begin="0" end="200" departLane="0" departSpeed="max" period="3"/>
+    <flow id="NE" type="t0" route="NE" begin="0" end="200" departLane="0" departSpeed="max" period="3"/>
+    <flow id="SN" type="t0" route="SN" begin="0" end="200" departLane="0" departSpeed="max" period="3"/>
+    <flow id="SW" type="t0" route="SW" begin="0" end="200" departLane="0" departSpeed="max" period="3"/>
+
+</routes>

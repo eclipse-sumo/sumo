@@ -1,0 +1,8 @@
+# all vehicle classes allowed
+plain
+
+# disalllowing per command line
+default_disallow
+
+# same as cross_all_allowed, but vclass is dismissed
+dismissing

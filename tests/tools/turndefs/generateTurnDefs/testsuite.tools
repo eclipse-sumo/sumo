@@ -1,0 +1,11 @@
+# Tests plain output of the generateTurnDefs.py script
+plain
+
+# Tests whether the script reacts to missing input properly.
+missing_connections_file
+
+# Tests whether the script reacts to missing output option properly.
+missing_turn-definitions_file
+
+# Tests the uniform distribution of the traffic among available destinations.
+uniform_distribution

@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 07Nov16:10:22]
+search_string:Warning
+search_file:errors
+ignore_other_errors:1
+full_description:vehicle stops even though it could drive
+brief_description:see #3573

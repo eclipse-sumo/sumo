@@ -1,0 +1,23 @@
+# Simple cross using types for edge definition (verbose). 
+# The additional --remove-edges.by-vclass should remove 
+# one edge during net conversion.
+cross_allow_v
+
+# Overwriting the allowed attribute using an own (edge-) value
+cross_allow_with_own_v
+
+# Simple cross using explicite edge information
+cross_notypes
+
+# Simple cross using explicite edge information, speed is given in km/h (verbose)
+cross_notypes_v
+
+# Simple cross using types for edge definition
+cross_usingtypes
+
+# Simple cross using types for edge definition (verbose)
+cross_usingtypes_v
+
+# Simple cross disallowing ships
+cross_default_disallow
+ignore_unknown_type

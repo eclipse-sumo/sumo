@@ -1,0 +1,2 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Error: Answered with error to command 0xc2: Change TLS State: unsupported variable 0xff specified

@@ -1,0 +1,5 @@
+simstep2 0
+getvariable 0xa8 0x55 p1
+setvalue 0xc8 0x55 p1 <ubyte> 0
+getvariable 0xa8 0x55 p1
+simstep2 0

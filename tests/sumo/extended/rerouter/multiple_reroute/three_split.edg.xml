@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Mon Jul 11 21:54:49 2011 by SUMO netconvert Version dev-SVN-r10919
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="three_split.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="three_split"/>
+    </output>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="beg" from="absBeg" to="beg" priority="-1" numLanes="1" speed="27.80"/>
+    <edge id="beg2left" from="beg" to="begleft" priority="-1" numLanes="1" speed="13.90"/>
+    <edge id="beg2right" from="beg" to="begright" priority="-1" numLanes="1" speed="13.90"/>
+    <edge id="end" from="end" to="absEnd" priority="-1" numLanes="1" speed="27.80"/>
+    <edge id="left" from="begleft" to="endleft" priority="-1" numLanes="1" speed="13.90"/>
+    <edge id="left2end" from="endleft" to="end" priority="-1" numLanes="1" speed="13.90"/>
+    <edge id="middle" from="beg" to="end" priority="-1" numLanes="1" speed="27.80"/>
+    <edge id="preBeg" from="beforBeg" to="absBeg" priority="-1" numLanes="1" speed="27.80"/>
+    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1" numLanes="1" speed="27.80"/>
+    <edge id="right" from="begright" to="endright" priority="-1" numLanes="1" speed="13.90"/>
+    <edge id="right2end" from="endright" to="end" priority="-1" numLanes="1" speed="13.90"/>
+</edges>

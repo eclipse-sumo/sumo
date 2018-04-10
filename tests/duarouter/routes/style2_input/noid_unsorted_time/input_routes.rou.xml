@@ -1,0 +1,43 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="25">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="1" type="KRAUSS_DEFAULT" depart="71">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="2" type="KRAUSS_DEFAULT" depart="60">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="3" type="KRAUSS_DEFAULT" depart="38">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="4" type="KRAUSS_DEFAULT" depart="57">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="5" type="KRAUSS_DEFAULT" depart="66">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="6" type="KRAUSS_DEFAULT" depart="94">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="7" type="KRAUSS_DEFAULT" depart="90">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="8" type="KRAUSS_DEFAULT" depart="97">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="9" type="KRAUSS_DEFAULT" depart="1">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+</routes>

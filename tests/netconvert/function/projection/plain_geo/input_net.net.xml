@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Jul  5 11:10:02 2011 by SUMO netconvert Version dev-SVN-r10842
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-277843.65,-5330206.51" convBoundary="0.00,0.00,3330.25,3904.56" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="o" from="0" to="1" priority="-1">
+        <lane id="o_0" index="0" speed="13.90" length="5131.88" shape="-1.26,3903.49 1000,1000 3328.99,-1.07"/>
+    </edge>
+
+    <junction id="0" type="unregulated" x="0.00" y="3904.56" incLanes="" intLanes="" shape="-0.04,3904.53 -2.47,3902.45">
+    </junction>
+    <junction id="1" type="unregulated" x="3330.25" y="0.00" incLanes="o_0" intLanes="" shape="3327.77,-2.11 3330.21,-0.03">
+    </junction>
+
+</net>

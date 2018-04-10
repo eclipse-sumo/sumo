@@ -1,0 +1,5 @@
+simstep2 0
+getvariable 0xa7 0x42 p1
+setvalue 0xc7 0x42 p1 <position2D> 10 11
+getvariable 0xa7 0x42 p1
+simstep2 0

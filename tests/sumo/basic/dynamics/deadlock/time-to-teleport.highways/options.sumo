@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=net.net.xml --route-files=input_routes.rou.xml --time-to-teleport.highways 5

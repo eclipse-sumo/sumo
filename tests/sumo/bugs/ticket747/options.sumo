@@ -1,0 +1,1 @@
+--no-step-log -b 0 -e 1200 --no-duration-log --net-file=net.net.xml --route-files=input_routes.rou.xml --additional-files=input_additional.add.xml --max-depart-delay 60

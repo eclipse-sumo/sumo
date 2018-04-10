@@ -1,0 +1,10 @@
+<edges>
+    <edge id="beg">
+        <split id="A" pos="100"/>
+    </edge>
+
+    <edge id="-beg">
+        <split id="A" pos="-100"/>
+    </edge>
+
+</edges>

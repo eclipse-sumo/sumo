@@ -1,0 +1,21 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="1" sigma="0" maxSpeed="10"/>
+   <vType id="2" sigma="0" maxSpeed="20"/>
+       
+    <vehicle id="ego1" type="1" depart="0" departPos="0" arrivalPos="300" departSpeed="0" color="1,0,0">
+        <route edges="WE"/>
+        <param key="has.ssm.device" value="true"/>
+        <param key="device.ssm.measures" value="TTC DRAC PET"/>
+        <param key="device.ssm.thresholds" value="10 0 10"/> 
+        <param key="device.ssm.frequency" value="10" /> 
+        <param key="device.ssm.range" value="20" />
+        <param key="device.ssm.file" value="ssm.xml" />
+        <param key="device.ssm.trajectories" value="false" />
+        <stop lane="WE_0" endPos="100" duration="1" parking="true" />
+    </vehicle>    
+   
+    <vehicle id="foe1" type="2" depart="5" departPos="0" arrivalPos="300" departSpeed="max">
+        <route edges="WE"/>
+    </vehicle>
+     
+</routes>

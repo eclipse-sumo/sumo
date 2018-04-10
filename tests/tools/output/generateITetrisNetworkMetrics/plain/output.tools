@@ -1,0 +1,18 @@
+Missing arguments
+Usage: 
+generateITetrisNetworkMetrics.py -n inputs\a_costa\acosta.net.xml -p outputs\a_costa\ -t passenger2a,passenger5,passenger1,passenger2b,passenger3,passenger4 -i 500 
+generateITetrisNetworkMetrics.py -n inputs\a_costa\acosta.net.xml -p outputs\a_costa\ -i 500
+generateITetrisNetworkMetrics.py -n inputs\a_costa\acosta.net.xml -p outputs\a_costa\
+
+Options:
+  -h, --help            show this help message and exit
+  -n <FILE>, --netfile=<FILE>
+                        name of the netfile (f.e.
+                        'inputs\pasubio\a_costa.net.xml')
+  -p <FOLDER>, --path=<FOLDER>
+                        name of folder to work with (f.e. 'outputs\a_costa\')
+  -t <VEHICLE_TYPE>[,<VEHICLE_TYPE>], --vehicle-types=<VEHICLE_TYPE>[,<VEHICLE_TYPE>]
+                        vehicle-types for which the values shall be generated
+  -i <TIME>, --intervals=<TIME>
+                        intervals to be generated ([0:<TIME>-1],
+                        [<TIME>:2*<TIME>-1], ...)

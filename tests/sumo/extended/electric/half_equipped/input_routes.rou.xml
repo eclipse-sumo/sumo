@@ -1,0 +1,21 @@
+<routes>
+   <vType accel="2.6" decel="4.5" id="PKW" impatience="0.05" length="4.5" maxSpeed="41.667" minGap="2.5" sigma="0.5" speedDev="0.05" speedFactor="1.07" tau="1" vClass="private">
+      <param key="maximumBatteryCapacity" value="35000"/>
+      <param key="maximumPower" value="100000"/>
+      <param key="vehicleMass" value="1600"/>
+      <param key="internalMomentOfInertia" value="30"/>
+      <param key="frontSurfaceArea" value="2.2"/>
+      <param key="airDragCoefficient" value="0.33"/>
+      <param key="radialDragCoefficient" value="0"/>
+      <param key="rollDragCoefficient" value="0.1"/>
+      <param key="constantPowerIntake" value="40"/>
+      <param key="propulsionEfficiency" value="0.8"/>
+      <param key="recuperationEfficiency" value="0.8"/>
+   </vType>
+
+
+	<flow id="flow" bgin="0" end="10" number="10" type="PKW" departLane="free" departPos="0.00" departSpeed="max" arrivalPos="1000">
+		<route edges="beg"/>
+		<param key="actualBatteryCapacity" value="10000"/>
+	</flow>
+</routes>

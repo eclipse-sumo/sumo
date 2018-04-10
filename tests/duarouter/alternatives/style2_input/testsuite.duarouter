@@ -1,0 +1,35 @@
+# same as one_time but with new style definition (no id in route alternatives)
+noid_one_time
+
+# same as increasing_time but with new style definition (no id in route alternatives)
+noid_increasing_time
+
+# same as unsorted_time but with new style definition (no id in route alternatives)
+noid_unsorted_time
+
+# same as noid_increasing_time, but a non-standard vehicle type defined
+with_vehtype
+
+# same as with_vehtype, but two non-standard vehicle types defined
+with_2vehtypes
+
+# same as noid_increasing_time, but a non-standard vehicle type is used but not defined
+with_vehtype_nodef
+
+# Checks whether passing optional vehicle attributes works
+withparams
+
+# Checks whether the vehicle class is processed
+with_vehtype_with_class
+
+# Checks whether processing of vehicles with no vevtapye works
+no_vehtype
+
+# Tests whether vehicle type attributes are parsed
+vtypecheck
+
+# Route's cost is not given
+route_cost_missing
+
+# Checks handling of broken input
+errors

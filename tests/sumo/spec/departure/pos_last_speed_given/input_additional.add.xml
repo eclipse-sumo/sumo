@@ -1,0 +1,6 @@
+<routes>
+
+    <vType id="t0" sigma="0" minGap="0"/>
+	<flow id="flow" type="t0" begin="0" end="3600" vehsPerHour="3600" route="1" departPos="last" departSpeed="15"/>
+
+</routes>

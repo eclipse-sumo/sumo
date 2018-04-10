@@ -1,0 +1,4 @@
+Error: While processing option 'verbose':
+ 'invalidInput' is not a valid bool.
+Error: Could not parse commandline options.
+Quitting (on error).

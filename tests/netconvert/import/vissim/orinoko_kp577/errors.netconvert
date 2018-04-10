@@ -1,0 +1,19 @@
+Warning: Will not build edge '1001200'.
+Warning: Will not build edge '1001202'.
+Warning: Could not set connection between '1001201_0' and '64_0'.
+Warning: Could not set connection between '1001201_0' and '15_0'.
+Warning: Could not set connection between '1001203_1' and '64_0'.
+Warning: Could not set connection between '1001203_1' and '15_1'.
+Warning: Could not set connection between '1001205_0' and '64_0'.
+Warning: Could not set connection between '1001205_1' and '15_1'.
+Warning: Could not set connection between '1001205_0' and '15_0'.
+Warning: Could not set connection between '1001201_0' and '64_0'.
+Warning: Could not set connection between '1001201_0' and '15_0'.
+Warning: Could not set connection between '1001201_1' and '15_1'.
+Warning: 10 of 236 connections could not be assigned.
+Warning: Could not build 36 of 66 disturbances.
+Warning: Found sharp turn with radius 5.74 at the start of edge '1000702[1]'.
+Warning: Found sharp turn with radius 5.75 at the start of edge '1000705[1]'.
+Warning: Found sharp turn with radius 5.68 at the start of edge '1000708[1]'.
+Warning: Found sharp turn with radius 5.72 at the start of edge '1000711[1]'.
+Warning: Found sharp turn with radius 4.34 at the start of edge '31'.

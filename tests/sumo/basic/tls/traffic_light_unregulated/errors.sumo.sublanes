@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle '1to2.0'; collision with vehicle '3to2.0', lane='2o_0', gap=-5.26', latGap=-1.80, time=50.00 stage=move.
+Warning: Vehicle '1to2.0' teleports beyond arrival edge '2o', time 50.00.
+Warning: Teleporting vehicle '3to2.3'; collision with vehicle '1to2.4', lane='2o_0', gap=-3.74', latGap=-1.80, time=71.00 stage=move.
+Warning: Vehicle '3to2.3' teleports beyond arrival edge '2o', time 71.00.
+Warning: Teleporting vehicle '3to2.8'; collision with vehicle '1to2.11', lane='2o_0', gap=-4.87', latGap=-1.80, time=106.00 stage=move.
+Warning: Vehicle '3to2.8' teleports beyond arrival edge '2o', time 106.00.
+Warning: Teleporting vehicle '1to2.18'; collision with vehicle '3to2.13', lane='2o_0', gap=-4.95', latGap=-1.80, time=142.00 stage=move.
+Warning: Vehicle '1to2.18' teleports beyond arrival edge '2o', time 142.00.

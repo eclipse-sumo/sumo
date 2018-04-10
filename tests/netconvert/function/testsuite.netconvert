@@ -1,0 +1,67 @@
+# Tests for keeping edges (--keep-edges)
+keep_edges
+
+# Tests for keeping edges in a bounding box (--keep-edges.in-boundary)
+keep_edges_boundary
+
+# Tests for removing edges (--remove-edges)
+remove_edges
+
+# tests for option --geometry.remove
+geometry.remove
+
+# Tests for building tls programs
+tls_programs
+
+# Tests for guessing on/off-ramps
+ramps
+
+# Tests for guessing roundabouts
+roundabouts
+
+# Tests for guessing opposites
+opposites
+
+# Tests fpr building left-hand networks
+lefthand
+
+# Tests for geocoordinate projection
+projection
+translation
+
+# tests for joining double connections
+join_double_conn
+
+# tests for joining of close junctions
+junctions.join
+tls.join
+
+# tests for disabling left-turns
+no_left
+
+# test option --geometry.max-segment-length
+max_segment_length
+
+# tests related to adding sidewalks
+sidewalks
+bikeLanes
+
+# test building of pedestrian crossings
+crossings
+
+# tests whether removing self-loop edges works
+self_loop_edges
+
+# test speed factor and offset
+speed_modification
+min_speed
+
+# generate street signs based on edge priority at junctions
+street_sign_output
+
+# test right-of-way matrix when a right turning connection conflicts with a pedestrian crossing
+rightTurnConflict
+
+# a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
+3_arm_service_entering
+scale

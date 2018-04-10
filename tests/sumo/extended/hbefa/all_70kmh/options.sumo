@@ -1,0 +1,1 @@
+--device.emissions.probability 1  --no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml --tripinfo-output=tripinfos.xml

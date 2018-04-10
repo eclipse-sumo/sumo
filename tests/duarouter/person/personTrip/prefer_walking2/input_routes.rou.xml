@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="3">
+        <personTrip from="beg" to="end" modes="public"/>
+    </person>
+    <route id="busRoute" edges="beg middle end">
+        <stop busStop="beg_0" until="5"/>
+        <stop busStop="end_0" until="105"/>
+    </route>
+
+    <flow id="bus" route="busRoute" line="bus" from="beg" to="end" begin="7" end="8000" period="5000"/>
+    
+</routes>

@@ -1,0 +1,6 @@
+<additional>
+    <poi id="0" imgFile="dlr.gif" x="734.30" y="279.06" height="100" width="100" angle="0.00"/>
+    <poi id="1" imgFile="dlr.tif" x="734.30" y="579.06" height="100" width="100" angle="0.00"/>
+    <poi id="2" imgFile="dlr.png" x="434.30" y="279.06" height="100" width="100" angle="0.00"/>
+    <poi id="3" imgFile="dlr.jpg" x="434.30" y="579.06" height="100" width="100" angle="0.00"/>
+</additional>

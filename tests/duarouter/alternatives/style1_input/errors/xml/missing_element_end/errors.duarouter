@@ -1,0 +1,6 @@
+Error: The route of the vehicle '1' is not known.
+Error: expected end of tag 'routeDistribution'
+ In file 'input_alts.rou.alt.xml'
+ At line/column 13/3.
+
+Quitting (on error).

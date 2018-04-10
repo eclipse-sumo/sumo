@@ -1,0 +1,5 @@
+# tests for combination of 50km/h nodes
+combinations_50
+
+# test node shape computaton for various edge combinations
+node_shape

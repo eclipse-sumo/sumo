@@ -1,0 +1,3 @@
+simstep2 48
+setvalue 0xc2 0x22 xxx <int> 0
+simstep2 49

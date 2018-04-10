@@ -1,0 +1,12 @@
+<routes>
+    <route id="main" edges="main"/>
+
+    <vType id="want_change" sigma="0" accel="0.1" decel="0.1"/>
+    <vType id="default" sigma="0"/>
+
+    <vehicle id="change_right" route="main" type="want_change" depart="0" departSpeed="max" departPos="500.00" departLane="1" arrivalLane="0" color="green"/>
+    <vehicle id="change_left"  route="main" type="want_change" depart="0" departSpeed="max" departPos="500.00" departLane="0" arrivalLane="1" color="red"/>
+
+    <vehicle id="needless_wait"  route="main" type="default" depart="1"  departLane="0" arrivalLane="0" color="yellow" arrivalPos="250"/>
+
+</routes>

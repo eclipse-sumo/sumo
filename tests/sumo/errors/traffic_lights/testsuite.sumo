@@ -1,0 +1,23 @@
+# The following tests are based on the network from
+#  tests\netconvert\import\XML\connections\cross3l_no_tls_turnarounds
+
+# ok, initial network's program is right
+initial_ok
+
+# initial network's program has a false phase size (one too large)
+initial_phase_longer
+
+# initial network's program has a false phase size (one too few)
+initial_phase_shorter
+
+# ok, loaded program is right
+loaded_ok
+
+# loaded program has a false phase size (one too large)
+loaded_phase_longer
+
+# loaded program has a false phase size (one too large)
+loaded_phase_shorter
+
+
+

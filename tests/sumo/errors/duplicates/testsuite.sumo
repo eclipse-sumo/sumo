@@ -1,0 +1,18 @@
+# plain emission, new style: duplicate route
+route_newstyle_plainemission
+
+# plain emission, new style: duplicate vehicle type
+vtype_newstyle_plainemission
+
+# plain emission, new style: duplicate vehicle id
+vehicleid_newstyle_plainemission
+
+
+# plain emission, old style: duplicate route
+route_oldstyle_plainemission
+
+# plain emission, old style: duplicate vehicle type
+vtype_oldstyle_plainemission
+
+# plain emission, old style: duplicate vehicle id
+vehicleid_oldstyle_plainemission

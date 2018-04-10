@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- generated on 2014-09-22 08:46:55.903617 by $Id: route2trips.py 17083 2014-09-19 07:42:22Z behrisch $ -->
+<trips>
+    <trip depart="0" departPos="100" departSpeed="10" from="4/1to3/1" id="0" route="r1" to="1/1to0/1"/>
+</trips>

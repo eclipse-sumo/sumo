@@ -1,0 +1,87 @@
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+
+
+Testing adding and removing connected vehicles...
+Could not connect to TraCI server at localhost:40043 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
+original type: 'connected' (Config)
+platoon leader type: 'connected_pLeader' (Config)
+platoon follower type: 'connected_pFollower' (Config)
+catchup type: 'connected_pCatchup' (Config)
+catchup follower type: 'connected_pCatchupFollower' (Config)
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+0.1: Adding vehicle 'connected.1' (PlatoonManager)
+3.1: Adding vehicle 'IAMconnectedTOO' (PlatoonManager)
+11.4: Platoon '1' joined Platoon '0', which now contains vehicles:
+['connected.1', 'IAMconnectedTOO'] (PlatoonManager)
+16.0: Platoon '0' splits (ID of new platoon: '2'):
+    Platoon '0': ['connected.1']
+    Platoon '2': ['IAMconnectedTOO'] (PlatoonManager)
+17.3: Removing arrived vehicle 'connected.1' (PlatoonManager)
+19.8: Removing arrived vehicle 'IAMconnectedTOO' (PlatoonManager)
+
+
+Testing platoon manager initialization...
+Could not connect to TraCI server at localhost:38051 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
+original type: 'connected' (Config)
+platoon leader type: 'connected_pLeader' (Config)
+platoon follower type: 'connected_pFollower' (Config)
+catchup type: 'connected_pCatchup' (Config)
+catchup follower type: 'connected_pCatchupFollower' (Config)
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+
+
+Testing specification per vtypemap xml-element...
+Could not connect to TraCI server at localhost:39397 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+
+
+Testing Warnings...
+Could not connect to TraCI server at localhost:59517 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
+original type: 'connected' (Config)
+platoon leader type: 'connected_pLeader' (Config)
+platoon follower type: 'connected_pFollower' (Config)
+catchup type: 'connected_pCatchup' (Config)
+catchup follower type: 'connected_pCatchupFollower' (Config)
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+1.0: Adding vehicle 'connected.1' (PlatoonManager)
+
+
+Testing platoon formation...
+Could not connect to TraCI server at localhost:59467 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/platoon_manager/vtype.map'... (Config)
+original type: 'connected' (Config)
+platoon leader type: 'connected_pLeader' (Config)
+platoon follower type: 'connected_pFollower' (Config)
+catchup type: 'connected_pCatchup' (Config)
+catchup follower type: 'connected_pCatchupFollower' (Config)
+Initializing simpla.PlatoonManager... (PlatoonManager)
+Managing all vTypes selected by ['connected'] (PlatoonManager)
+0.1: Adding vehicle 'connected.1' (PlatoonManager)
+3.1: Adding vehicle 'connected.2' (PlatoonManager)
+13.7: Platoon '1' joined Platoon '0', which now contains vehicles:
+['connected.1', 'connected.2'] (PlatoonManager)
+75.0: Platoon '0' splits (ID of new platoon: '6'):
+    Platoon '0': ['connected.1']
+    Platoon '6': ['connected.2'] (PlatoonManager)
+
+
+Testing Exceptions for unknown vTypes...
+Could not connect to TraCI server at localhost:54345 [Errno 111] Connection refused
+ Retrying in 1 seconds

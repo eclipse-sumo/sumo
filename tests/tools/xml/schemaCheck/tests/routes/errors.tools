@@ -1,0 +1,50 @@
+Error on parsing 'sumo/meta/xml_invalid_schema/input_routes.rou.xml'!
+Traceback (most recent call last):
+  File "/home/leo/repos/sumo_git/sumo/tests/../tools/xml/schemaCheck.py", line 57, in validate
+    schemes[schemaLoc] = etree.XMLSchema(etree.parse(schemaLoc))
+  File "src/lxml/lxml.etree.pyx", line 3427, in lxml.etree.parse (src/lxml/lxml.etree.c:85131)
+  File "src/lxml/parser.pxi", line 1782, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:124005)
+  File "src/lxml/parser.pxi", line 1808, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:124374)
+  File "src/lxml/parser.pxi", line 1712, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:123169)
+  File "src/lxml/parser.pxi", line 1115, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:117533)
+  File "src/lxml/parser.pxi", line 573, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:110510)
+  File "src/lxml/parser.pxi", line 683, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:112276)
+  File "src/lxml/parser.pxi", line 611, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:111078)
+IOError: Error reading file 'http://sumo.dlr.de/xsd/blub_file.xsd': failed to load HTTP resource
+sumo/basic/routes/parsing/nested_ref/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
+sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'walk', attribute 'duration': [facet 'minExclusive'] The value '0' must be greater than '0'.
+sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'walk', attribute 'duration': '0' is not a valid value of the atomic type 'positiveFloatType'.
+sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'vType', attribute 'laneChangeModel': [facet 'enumeration'] The value 'foo' is not an element of the set {'default', 'DK2008', 'LC2013', 'SL2015'}.
+sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'laneChangeModel': 'foo' is not a valid value of the local atomic type.
+sumo/errors/routes/emptyperson/input_routes.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'person': Missing child element(s). Expected is one of ( personTrip, ride, walk, stop, param ).
+sumo/errors/duplicates/route_newstyle_plainemission/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'route': This element is not expected. Expected is one of ( param, stop ).
+sumo/errors/action_step_negative_warning/input_routes.rou.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'actionStepLength': [facet 'minExclusive'] The value '-2.2' must be greater than '0'.
+sumo/errors/action_step_negative_warning/input_routes.rou.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vType', attribute 'actionStepLength': '-2.2' is not a valid value of the atomic type 'positiveFloatType'.
+tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
+tools/route/routecheck/missing_edges_attribute/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
+tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'route': The attribute 'edges' is required but missing.
+tools/route/routecheck/missing_edges_attribute_fix/routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_2_3: Element 'route': Character content other than whitespace is not allowed because the content type is 'element-only'.
+duarouter/routes/style2_input/errors/vehicle_false_departlane/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departLane': 'xxx' is not a valid value of the union type 'departLaneType'.
+duarouter/routes/style2_input/errors/vehicle_empty_arrivalspeed/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalSpeed': '' is not a valid value of the union type 'arrivalSpeedType'.
+duarouter/routes/style2_input/errors/vehicle_empty_arrivallane/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalLane': '' is not a valid value of the union type 'arrivalLaneType'.
+duarouter/routes/style2_input/errors/vehicle_false_departspeed/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departSpeed': 'xxx' is not a valid value of the union type 'departSpeedType'.
+duarouter/routes/style2_input/errors/vehicle_empty_departlane/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departLane': '' is not a valid value of the union type 'departLaneType'.
+duarouter/routes/style2_input/errors/vehicle_false_arrivallane/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalLane': 'xxx' is not a valid value of the union type 'arrivalLaneType'.
+duarouter/routes/style2_input/errors/vehicle_empty_departspeed/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departSpeed': '' is not a valid value of the union type 'departSpeedType'.
+duarouter/routes/style2_input/errors/vehicle_false_departpos/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departPos': 'xxx' is not a valid value of the union type 'departPosType'.
+duarouter/routes/style2_input/errors/vehicle_empty_arrivalpos/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalPos': '' is not a valid value of the union type 'arrivalPosType'.
+duarouter/routes/style2_input/errors/vehicle_empty_departpos/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departPos': '' is not a valid value of the union type 'departPosType'.
+duarouter/routes/style2_input/errors/vehicle_false_arrivalpos/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalPos': 'xxx' is not a valid value of the union type 'arrivalPosType'.
+duarouter/routes/style2_input/errors/vehicle_false_arrivalspeed/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalSpeed': 'xxx' is not a valid value of the union type 'arrivalSpeedType'.
+duarouter/routes/style1_input/errors/vehicle_false_departlane/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departLane': 'xxx' is not a valid value of the union type 'departLaneType'.
+duarouter/routes/style1_input/errors/vehicle_empty_arrivalspeed/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalSpeed': '' is not a valid value of the union type 'arrivalSpeedType'.
+duarouter/routes/style1_input/errors/vehicle_empty_arrivallane/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalLane': '' is not a valid value of the union type 'arrivalLaneType'.
+duarouter/routes/style1_input/errors/vehicle_false_departspeed/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departSpeed': 'xxx' is not a valid value of the union type 'departSpeedType'.
+duarouter/routes/style1_input/errors/vehicle_empty_departlane/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departLane': '' is not a valid value of the union type 'departLaneType'.
+duarouter/routes/style1_input/errors/vehicle_false_arrivallane/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalLane': 'xxx' is not a valid value of the union type 'arrivalLaneType'.
+duarouter/routes/style1_input/errors/vehicle_empty_departspeed/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departSpeed': '' is not a valid value of the union type 'departSpeedType'.
+duarouter/routes/style1_input/errors/vehicle_false_departpos/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departPos': 'xxx' is not a valid value of the union type 'departPosType'.
+duarouter/routes/style1_input/errors/vehicle_empty_arrivalpos/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalPos': '' is not a valid value of the union type 'arrivalPosType'.
+duarouter/routes/style1_input/errors/vehicle_empty_departpos/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'departPos': '' is not a valid value of the union type 'departPosType'.
+duarouter/routes/style1_input/errors/vehicle_false_arrivalpos/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalPos': 'xxx' is not a valid value of the union type 'arrivalPosType'.
+duarouter/routes/style1_input/errors/vehicle_false_arrivalspeed/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'arrivalSpeed': 'xxx' is not a valid value of the union type 'arrivalSpeedType'.

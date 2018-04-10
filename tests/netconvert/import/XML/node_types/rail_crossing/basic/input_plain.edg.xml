@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges version="0.26" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="EC" from="E" to="C" priority="2" numLanes="1" speed="33.33" allow="rail"/>
+    <edge id="CE" from="C" to="E" priority="2" numLanes="1" speed="33.33" allow="rail"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="1" speed="33.33" allow="rail"/>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="1" speed="33.33" allow="rail"/>
+
+    <edge id="NC" from="N" to="C" priority="3" numLanes="1" speed="13.89" disallow="rail"/>
+    <edge id="CN" from="C" to="N" priority="3" numLanes="1" speed="13.89" disallow="rail"/>
+    <edge id="SC" from="S" to="C" priority="3" numLanes="1" speed="13.89" disallow="rail"/>
+    <edge id="CS" from="C" to="S" priority="3" numLanes="1" speed="13.89" disallow="rail"/>
+</edges>

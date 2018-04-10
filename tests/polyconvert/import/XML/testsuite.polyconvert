@@ -1,0 +1,17 @@
+# using geo information from the net
+geo
+
+# swapped x and y for lon and lat
+invalid_geo
+
+# using lon lat attributes
+lonlat
+
+# using lane and pos attributes
+lanepos
+
+# do fill by default
+default_fill
+
+# do not fill by default
+default_nofill

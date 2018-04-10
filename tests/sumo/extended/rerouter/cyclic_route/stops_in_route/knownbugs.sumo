@@ -1,0 +1,6 @@
+[Reported by Windows at 22Nov13:32:28]
+search_string:Teleport
+search_file:errors
+ignore_other_errors:1
+full_description:stops in cyclic routes don't work as expected
+brief_description:see #1055

@@ -1,0 +1,7 @@
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+   <node id="15031670" x="19419.0" y="26785.0"/>
+   <node id="15031669" x="19418.0" y="26792.0"/>
+   <node id="15034028" x="19664.0" y="26848.0"/>
+   <node id="15031635" x="19284.0" y="26734.0"/>
+   <node id="915660425" x="19407.0" y="26887.0"/>
+</nodes>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/09/11 10:08:41 by SUMO sumo Version dev-SVN-r11217
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="..\..\..\net.net.xml"/>
+        <additional-files value="..\input_routes.rou.xml,input_additional.add.xml,..\input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+</configuration>
+-->
+
+<instantE1>
+    <instantOut id="4/1to3/1" time="11.00" state="enter" vehID="0.99" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE">    </instantOut>

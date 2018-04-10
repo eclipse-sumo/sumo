@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <route id="l" edges="-1570 -1841"/>
+    <route id="r" edges="1816 -1841"/>
+
+    <flow id="r" period="2" begin="0" end="10" departPos="0" arrivalPos="-10" route="r"/>
+    <flow id="l" period="2" begin="0" end="10" departPos="0" arrivalPos="-10" route="l"/>
+
+
+</routes>

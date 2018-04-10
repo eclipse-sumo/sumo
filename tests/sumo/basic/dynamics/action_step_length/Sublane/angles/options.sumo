@@ -1,0 +1,2 @@
+--no-step-log --net-file=net2.net.xml --routes=input_routes.rou.xml
+--lateral-resolution 0.8 --fcd-output fcd.xml

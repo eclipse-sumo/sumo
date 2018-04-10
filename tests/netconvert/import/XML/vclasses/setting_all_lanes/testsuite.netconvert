@@ -1,0 +1,20 @@
+
+# right lanes of si-edges are for busses (allowed: bus)
+si_right_bus_lane
+
+# left lanes of si-edges are for busses (allowed: bus)
+si_left_bus_lane
+
+# center lanes of si-edges are for busses (allowed: bus)
+si_center_bus_lane
+
+
+# right lanes of si-edges are not for passengers (disallowed: passenger)
+si_right_no_passenger_lane
+
+# left lanes of si-edges are not for passengers (disallowed: passenger)
+si_left_no_passenger_lane
+
+# center lanes of si-edges are not for passengers (disallowed: passenger)
+si_center_no_passenger_lane
+

@@ -1,0 +1,6 @@
+Error: The parameter 'of' is not allowed in this context.
+ Switch or parameter name expected.
+Error: The parameter 'net.net.xml' is not allowed in this context.
+ Switch or parameter name expected.
+Error: Could not parse commandline options.
+Quitting (on error).

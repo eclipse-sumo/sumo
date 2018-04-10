@@ -1,0 +1,13 @@
+<turns>
+   <interval begin="0" end="3600">
+      <fromEdge id="2/3to2/2">
+         <toEdge id="2/2to3/2" probability="0.8"/>
+      </fromEdge>
+      <fromEdge id="1/2to2/2">
+         <toEdge id="2/2to3/2" probability="0.8"/>
+      </fromEdge>
+      <fromEdge id="2/1to2/2">
+         <toEdge id="2/2to3/2" probability="0.8"/>
+      </fromEdge>
+   </interval>
+</turns>

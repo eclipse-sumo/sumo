@@ -1,0 +1,17 @@
+# Tests for importing trips with an empty vehicle class
+empty_vclass_test_trips
+
+# Tests for importing flows with an empty vehicle class
+empty_vclass_test_flows
+
+# Tests for importing routes with an empty vehicle class (previous was shorter)
+empty_vclass_test_routes_shorter
+
+# Tests for importing routes with an empty vehicle class (previous was longer)
+empty_vclass_test_routes_longer
+
+# Tests for importing alternatives an empty vehicle class (previous was shorter)
+empty_vclass_test_alts_shorter
+
+# Tests for importing alternatives an empty vehicle class (previous was longer)
+empty_vclass_test_alts_longer

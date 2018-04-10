@@ -1,0 +1,6 @@
+$ns_ at 10.0 "$g(0) start"; # SUMO-ID: r1#1
+$ns_ at 95.0 "$g(0) stop"; # SUMO-ID: r1#1
+$ns_ at 30.0 "$g(2) start"; # SUMO-ID: r1#2
+$ns_ at 115.0 "$g(2) stop"; # SUMO-ID: r1#2
+$ns_ at 20.0 "$g(1) start"; # SUMO-ID: r2
+$ns_ at 105.0 "$g(1) stop"; # SUMO-ID: r2

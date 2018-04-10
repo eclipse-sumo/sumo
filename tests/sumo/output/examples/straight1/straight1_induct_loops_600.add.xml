@@ -1,0 +1,16 @@
+<sumo-detectors>
+
+   <detector id="e1_1_0"  lane="1_0" pos="0" freq="600" file="e1_1_0.xml"/>
+   <detector id="e1_1_1"  lane="1_0" pos="1" freq="600" file="e1_1_1.xml"/>
+   <detector id="e1_1_5"  lane="1_0" pos="5" freq="600" file="e1_1_5.xml"/>
+   <detector id="e1_1_10" lane="1_0" pos="10" freq="600" file="e1_1_10.xml"/>
+   <detector id="e1_1_50" lane="1_0" pos="50" freq="600" file="e1_1_50.xml"/>
+   <detector id="e1_1_100"  lane="1_0" pos="100" freq="600" file="e1_1_100.xml"/>
+
+   <detector id="e1_1_-1"  lane="1_0" pos="-1" freq="600" file="e1_1_-1.xml"/>
+   <detector id="e1_1_-5"  lane="1_0" pos="-5" freq="600" file="e1_1_-5.xml"/>
+   <detector id="e1_1_-10" lane="1_0" pos="-10" freq="600" file="e1_1_-10.xml"/>
+   <detector id="e1_1_-50" lane="1_0" pos="-50" freq="600" file="e1_1_-50.xml"/>
+   <detector id="e1_1_-100"  lane="1_0" pos="-100" freq="600" file="e1_1_-100.xml"/>
+
+</sumo-detectors>

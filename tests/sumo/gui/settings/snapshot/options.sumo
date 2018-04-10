@@ -1,0 +1,3 @@
+-n net.net.xml --no-step-log --gui-settings-file settings.xml -e 10
+--window-pos 150,150
+--window-size 500,500

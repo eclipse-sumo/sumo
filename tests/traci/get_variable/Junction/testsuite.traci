@@ -1,0 +1,15 @@
+# Variables Retrieval
+ID_COUNT
+ID_COUNT_subseconds
+ID_LIST
+ID_LIST_subseconds
+VAR_POSITION
+VAR_POSITION_subseconds
+VAR_SHAPE
+VAR_SHAPE_subseconds
+
+# Testing error cases
+errors
+errors_subseconds
+
+

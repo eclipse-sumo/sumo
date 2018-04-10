@@ -1,0 +1,27 @@
+# modify existing network elements and create new ones
+create_and_modify
+
+# delete a edges
+delete_edge
+
+# delete a node (and all incident edges)
+delete_node
+
+# test the diff after applying --junctions.join to a network
+join_junctions
+
+# let an edge start at a different node
+change_from_node_of_edge
+
+# do not crash if not all of the diff is supplied
+change_from_node_of_edge_incomplete
+
+# lane specific settings needs to be preserved when applying a diff
+lane_specific_settings
+
+# change node type from traffic_light to traffic_light_right_on_red
+change_node_type_right_on_red
+remove_tll_connection
+
+# remove connection and keep fewer than before
+remove_tll_connection2

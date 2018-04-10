@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType sigma="0" id="t0" laneChangeModel="DK2008"/>
+
+    <vehicle id="v0" depart="0" type="t0">
+        <route edges="beg"/>
+    </vehicle>
+
+</routes>

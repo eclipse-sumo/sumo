@@ -1,0 +1,65 @@
+# Tests what happens if no detectors are given
+no_detector_files
+
+# The first used lane does not exist
+broken_detectors_file1a
+
+# The second used lane does not exist
+broken_detectors_file1b
+
+# The first lane position is not numeric
+broken_detectors_file1c
+
+# The second lane position is not numeric
+broken_detectors_file1d
+
+# The first lane position is empty
+broken_detectors_file1e
+
+# The second lane position is empty
+broken_detectors_file1f
+
+# The first lane position is not given
+broken_detectors_file1g
+
+# The second lane position is not given
+broken_detectors_file1h
+
+# The first lane position is empty
+broken_detectors_file1i
+
+# The second lane position is empty
+broken_detectors_file1j
+
+# The first lane position is not given
+broken_detectors_file1k
+
+# The second lane position is not given
+broken_detectors_file1l
+
+# Broken XML (element trailing closure missing)
+broken_detectors_file2a
+
+# Broken XML (closing tag missing)
+broken_detectors_file2b
+
+# Broken XML (German Umlaut with no encoding)
+broken_detectors_file2c
+
+# Tests what happens if the given detector file does not exist
+false_detectors_file1
+
+# Tests what happens if one of the given detector files does not exist
+false_detectors_file2
+
+# Tests what happens if two of the given detector files does not exist
+false_detectors_file3
+
+# Same as false_detectors_file2 but with a deprecated divider (";")
+false_detectors_file2_deprecated
+
+# Same as false_detectors_file3 but with a deprecated divider (";")
+false_detectors_file3_deprecated
+
+# Only warn about wrong detector def
+broken_detectors_file_warn

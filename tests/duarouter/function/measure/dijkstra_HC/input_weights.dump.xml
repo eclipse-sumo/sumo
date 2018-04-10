@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/13/09 09:40:46 by SUMO sumo Version dev-SVN-r7857
+<configuration>
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="routes.duarouter"/>
+        <additional-files value="add.add.xml"/>
+    </input>
+
+    <time>
+        <end value="3600"/>
+    </time>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="86400" id="dump_300">
+      <edge id="a1e" traveltime="1" HC_perVeh="169.23" />
+      <edge id="a25e" traveltime="1" HC_perVeh="88.47"/>
+      <edge id="a2e" traveltime="1" HC_perVeh="103.07"/>
+      <edge id="a3a25" traveltime="1" HC_perVeh="0.50"/>
+      <edge id="b1e" traveltime="1" HC_perVeh="235.71"/>
+      <edge id="b2a1" traveltime="1" HC_perVeh="8.00"/>
+      <edge id="b2a2" traveltime="1" HC_perVeh="7.00"/>
+      <edge id="b2a25" traveltime="1" HC_perVeh="6.00"/>
+      <edge id="b2b1" traveltime="1" HC_perVeh="9.00"/>
+      <edge id="b2b3" traveltime="1" HC_perVeh="1.00"/>
+      <edge id="b2c1" traveltime="1" HC_perVeh="10.00"/>
+      <edge id="b2c2" traveltime="1" HC_perVeh="12.00"/>
+      <edge id="b2c3" traveltime="1" HC_perVeh="11.00"/>
+      <edge id="b3a3" traveltime="1" HC_perVeh="4.00"/>
+      <edge id="b3c3" traveltime="1" HC_perVeh="3.00"/>
+      <edge id="beg" traveltime="1" HC_perVeh="1.00"/>
+      <edge id="c1e" traveltime="1" HC_perVeh="327.19"/>
+      <edge id="c2e" traveltime="1" HC_perVeh="296.72"/>
+      <edge id="c3e" traveltime="1" HC_perVeh="291.98"/>
+   </interval>
+</netstats>

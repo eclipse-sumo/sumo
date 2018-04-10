@@ -1,0 +1,14 @@
+<routes>
+    <vehicle id="horizontal.0" depart="100.00" arrival="310.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+    <vehicle id="horizontal.1" depart="110.00" arrival="320.00">
+        <route edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+    </vehicle>
+    <vehicle id="vertical.0" depart="102.00" arrival="346.00">
+        <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
+    </vehicle>
+    <vehicle id="vertical.1" depart="113.00" arrival="348.00">
+        <route edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
+    </vehicle>
+</routes>

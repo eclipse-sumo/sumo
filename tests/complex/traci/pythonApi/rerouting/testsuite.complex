@@ -1,0 +1,8 @@
+rerouteTraveltime_default
+rerouteTraveltime_adaptEdgeWeight
+
+# set custom weight that changes over time
+rerouteTraveltime_adaptEdgeWeight_varyWithTime
+
+# adapt vehicle specific custom edge weights
+rerouteTraveltime_adaptVehicleEdgeWeight

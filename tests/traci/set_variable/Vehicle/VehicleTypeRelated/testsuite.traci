@@ -1,0 +1,11 @@
+# changing more than one value
+multi_set
+
+# checking whether vehicle id is set properly (after changing one value)
+get_id_single_set
+
+# checking whether vehicle id is set properly (after changing two value)
+get_id_multi_set
+
+# set the length of the vehicle but do not change the length of other vehicles with this type
+set_individual_length

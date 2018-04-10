@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="bus" vClass="bus"/>
+    <person id="p0" depart="0">
+        <personTrip from="absBeg" to="beg2left" vTypes="bus"/>
+    </person>
+</routes>

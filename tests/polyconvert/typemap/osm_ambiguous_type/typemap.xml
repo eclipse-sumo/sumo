@@ -1,0 +1,4 @@
+<polygonTypes>
+    <polygonType id="admin_level.10" name="admin_level.10" color=".82,.82,.80" layer="-11"/> 
+    <polygonType id="boundary.administrative" name="boundary.administrative" color=".5,.0,.2" layer="-12" fill="false"/>
+</polygonTypes>

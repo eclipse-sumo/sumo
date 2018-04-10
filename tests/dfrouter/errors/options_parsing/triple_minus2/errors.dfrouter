@@ -1,0 +1,4 @@
+Error: On processing option '---net-file=net.net.xml':
+ No option with the name '-net-file' exists.
+Error: Could not parse commandline options.
+Quitting (on error).

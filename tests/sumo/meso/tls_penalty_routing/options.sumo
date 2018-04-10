@@ -1,0 +1,2 @@
+--meso-tls-penalty 1.0 --no-step-log --net-file=net.net.xml
+--routes=input_routes.rou.xml --vehroute-output vehroutes.xml 

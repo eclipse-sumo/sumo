@@ -1,0 +1,1 @@
+input_net.net.xml input_routes.rou.xml --routes-output out.rou.xml --orig-net three_split.net.xml tools/route/cutRoutes.py

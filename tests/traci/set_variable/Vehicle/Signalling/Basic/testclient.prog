@@ -1,0 +1,8 @@
+simstep2 0
+
+setvalue 0xc4 0x5b 0 <int> 16
+getvariable 0xa4 0x5b 0
+setvalue 0xc4 0x5b 0 <int> 32
+getvariable 0xa4 0x5b 0
+
+repeat 4 simstep2 0

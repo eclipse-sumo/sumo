@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 04Sep08:46:50]
+search_string:Warning: Teleporting vehicle
+search_file:errors
+full_description:changing lanes is sometimes unsafe
+brief_description:see #967

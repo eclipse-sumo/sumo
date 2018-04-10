@@ -1,0 +1,10 @@
+plain
+radius1000
+travel_dist
+travel_dist_radius1000
+
+# test asymmetrical behavior
+asym
+
+# test symmetrical behavior
+sym

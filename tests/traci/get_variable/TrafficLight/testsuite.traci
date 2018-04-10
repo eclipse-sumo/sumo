@@ -1,0 +1,48 @@
+# Tests retrieval of traffic light number in scenario (ID_COUNT)
+ID_COUNT
+ID_COUNT_subseconds
+
+# Tests retrieval of traffic lights in scenario (ID_LIST)
+ID_LIST
+ID_LIST_subseconds
+
+# Tests TL_RED_YELLOW_GREEN_STATE retrieval
+TL_RYG_STATE
+TL_RYG_STATE_subseconds
+
+# Tests TL_COMPLETE_DEFINITION_RYG
+TL_RYG_COMPLETE
+TL_RYG_COMPLETE_subseconds
+
+# Tests TL_CONTROLLED_LANES
+TL_LANES
+TL_LANES_subseconds
+
+# Tests TL_CONTROLLED_LINKS
+TL_LINKS
+TL_LINKS_subseconds
+
+# Tests TL_CURRENT_PHASE
+TL_CURRENT_PHASE
+TL_CURRENT_PHASE_subseconds
+
+# Tests TL_CURRENT_PROGRAM
+TL_CURRENT_PROGRAM
+TL_CURRENT_PROGRAM_subseconds
+
+# Tests TL_NEXT_SWITCH
+TL_NEXT_SWITCH
+TL_NEXT_SWITCH_subseconds
+
+# Tests TL_PHASE_DURATION
+TL_DURATION
+TL_DURATION_subseconds
+
+
+
+# Testing error cases
+errors
+errors_subseconds
+
+
+

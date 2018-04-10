@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 27Aug13:27:55]
+search_string:<connection from="beg" to="end" fromLane="1" toLane="1" 
+trigger_on_absence:1
+search_file:net
+ignore_other_errors:1
+full_description:not enough connections
+brief_description:#1865

@@ -1,0 +1,97 @@
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings
+Warning: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_02' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_02detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_03' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_03detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_04' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_04detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_05' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_05detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_06' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_06detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_07' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_07detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_08' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_08detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_09' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_09detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_10' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_10detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_11' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_11detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_12' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_12detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_13' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_13detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_14' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_14detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_15' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_15detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_16' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_16detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_17' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_17detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_18' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_18detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_19' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_19detEntry0' in GNEChange_Additional
+Warning: Adding e3Detector 'e3Detector_20' in GNEChange_Additional
+Warning: Adding detEntry 'e3Detector_20detEntry0' in GNEChange_Additional
+Warning: Keys Shift + F5 (Compute with volatile options) pressed
+Warning: Opening FXMessageBox of type 'question'
+Warning: Closed FXMessageBox of type 'question' with 'Yes'
+Warning: Deleting unreferenced detEntry 'e3Detector_20detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_20'
+Warning: Deleting unreferenced detEntry 'e3Detector_19detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_19'
+Warning: Deleting unreferenced detEntry 'e3Detector_18detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_18'
+Warning: Deleting unreferenced detEntry 'e3Detector_17detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_17'
+Warning: Deleting unreferenced detEntry 'e3Detector_16detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_16'
+Warning: Deleting unreferenced detEntry 'e3Detector_15detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_15'
+Warning: Deleting unreferenced detEntry 'e3Detector_14detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_14'
+Warning: Deleting unreferenced detEntry 'e3Detector_13detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_13'
+Warning: Deleting unreferenced detEntry 'e3Detector_12detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_12'
+Warning: Deleting unreferenced detEntry 'e3Detector_11detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_11'
+Warning: Deleting unreferenced detEntry 'e3Detector_10detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_10'
+Warning: Deleting unreferenced detEntry 'e3Detector_09detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_09'
+Warning: Deleting unreferenced detEntry 'e3Detector_08detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_08'
+Warning: Deleting unreferenced detEntry 'e3Detector_07detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_07'
+Warning: Deleting unreferenced detEntry 'e3Detector_06detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_06'
+Warning: Deleting unreferenced detEntry 'e3Detector_05detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_05'
+Warning: Deleting unreferenced detEntry 'e3Detector_04detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_04'
+Warning: Deleting unreferenced detEntry 'e3Detector_03detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_03'
+Warning: Deleting unreferenced detEntry 'e3Detector_02detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_02'
+Warning: Deleting unreferenced detEntry 'e3Detector_00detEntry0'
+Warning: Deleting unreferenced e3Detector 'e3Detector_00'
+Warning: Created connection 'gneE0_1 -> gneE1_1' in retrieveGNEConnection()
+Warning: Created connection 'gneE1_1 -> gneE0_1' in retrieveGNEConnection()
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE0_1 -> gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'gneE1_1 -> gneE0_1' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor

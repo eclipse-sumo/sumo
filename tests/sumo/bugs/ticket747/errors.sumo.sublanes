@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'flow_block.78'; waited too long (jam), lane='3/1to3/0_0', time=684.00.
+Warning: Teleporting vehicle 'flow_block.79'; waited too long (jam), lane='3/1to3/0_0', time=987.00.
+Warning: Vehicle 'flow_block.78' teleports beyond arrival edge '3/0to4/0', time 1077.00.
+Warning: Vehicle 'flow_block.78' skips stop on lane '3/0to4/0_0' time=1077.00.

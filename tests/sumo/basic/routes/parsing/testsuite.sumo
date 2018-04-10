@@ -1,0 +1,40 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+# Tests whether the old-style routes can be handled
+old_style
+
+# Tests whether the new-style routes can be handled
+nested
+
+# Tests whether reusing vehicle ids in routes can be handled (first vehicle still runs)
+reuse_id_false
+
+# Tests whether reusing vehicle ids in routes can be handled (first vehicle has left)
+reuse_id_ok
+
+# Tests whether the new-style routes can be handled
+nested_ref
+
+# Tests whether giving the edge list as attribute works with nested routes
+edgeattr_nested
+
+# Tests whether giving the edge list as attribute works
+edgeattr
+
+# Test repeated vehicle creation
+repeat
+
+# Tests whether the include mechanism works
+include
+
+# Tests whether vehicles can have aroute of one edge only
+one_edge
+
+# test whether sume can parse trip input
+trip
+
+# test whether sume can parse trip input
+trip_via
+
+# test disallowed via edge
+trip_via_invalid

@@ -1,0 +1,10 @@
+# tests tools\net\netextract.py
+netextract
+
+# tests tools\net\0103to0110.py
+0103to0110
+
+# tests tools\net\netcheck.py
+netcheck
+netdiff
+netmatch

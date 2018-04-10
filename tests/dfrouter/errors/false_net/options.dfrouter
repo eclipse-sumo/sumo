@@ -1,0 +1,1 @@
+--net-file=input/input_net.net.xml --detector-files=input_detectors.det.xml --detector-output detectors_def.det.xml

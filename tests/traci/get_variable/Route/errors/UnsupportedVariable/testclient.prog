@@ -1,0 +1,3 @@
+simstep2 5
+getvariable 0xa6 0xff dummy
+simstep2 6

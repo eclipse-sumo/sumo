@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 31Jul13:42:20]
+search_string:<request index="2" response="00000" foes="00001" cont="0"/>
+trigger_on_absence:1
+search_file:net
+full_description:invalid right-of-way
+brief_description:see #3316

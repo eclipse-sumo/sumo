@@ -1,0 +1,6 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+	<edge id="-9890">
+		<split pos="20" idBefore="a" idAfter="b"/>
+		<split pos="-20" idAfter="c"/>
+    </edge>
+</edges>

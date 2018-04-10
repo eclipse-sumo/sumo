@@ -1,0 +1,8 @@
+<routes>
+
+  <vType id="passenger" vClass="passenger"/>
+	<vehicle type="passenger" id="1" depart="0" route="1"/>
+	<vehicle type="passenger" id="2" depart="0" route="1"/>
+	<vehicle type="passenger" id="3" depart="0" route="1"/>
+
+</routes>

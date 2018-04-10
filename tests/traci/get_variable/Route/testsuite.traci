@@ -1,0 +1,19 @@
+# Tests retrieval of route number in scenario (ID_COUNT)
+ID_COUNT
+ID_COUNT_subseconds
+
+# Tests retrieval of routes in scenario (ID_LIST)
+ID_LIST
+ID_LIST_subseconds
+
+# Variables Retrieval
+VAR_EDGES
+VAR_EDGES_subseconds
+
+
+# Testing error cases
+errors
+errors_subseconds
+
+
+

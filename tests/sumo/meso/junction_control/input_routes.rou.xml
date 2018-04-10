@@ -1,0 +1,37 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="SUMO_DEFAULT_TYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70"/>
+
+   <!-- color by turn direction: straight:green, right:blue, left:red -->
+
+   <route id="1to2" edges="1fi 1si 2o" color="0,1,0"/>
+   <route id="1to3" edges="1fi 1si 3o" color="0,0,1"/>
+   <route id="1to4" edges="1fi 1si 4o" color="1,0,0"/>
+
+   <route id="2to1" edges="2fi 2si 1o" color="0,1,0"/>
+   <route id="2to3" edges="2fi 2si 3o" color="1,0,0"/>
+   <route id="2to4" edges="2fi 2si 4o" color="0,0,1"/>
+
+   <route id="3to1" edges="3fi 3si 1o" color="1,0,0"/>
+   <route id="3to2" edges="3fi 3si 2o" color="0,0,1"/>
+   <route id="3to4" edges="3fi 3si 4o" color="0,1,0"/>
+
+   <route id="4to1" edges="4fi 4si 1o" color="0,0,1"/>
+   <route id="4to2" edges="4fi 4si 2o" color="1,0,0"/>
+   <route id="4to3" edges="4fi 4si 3o" color="0,1,0"/>
+
+   <flow id="1to2" route="1to2" type="SUMO_DEFAULT_TYPE" begin="0" end="3600" period="8"/>
+   <flow id="1to3" route="1to3" type="SUMO_DEFAULT_TYPE" begin="1" end="3600" period="8"/>
+   <flow id="1to4" route="1to4" type="SUMO_DEFAULT_TYPE" begin="2" end="3600" period="8"/>
+
+   <flow id="2to1" route="2to1" type="SUMO_DEFAULT_TYPE" begin="2" end="3600" period="8"/>
+   <flow id="2to3" route="2to3" type="SUMO_DEFAULT_TYPE" begin="3" end="3600" period="8"/>
+   <flow id="2to4" route="2to4" type="SUMO_DEFAULT_TYPE" begin="4" end="3600" period="8"/>
+
+   <flow id="3to1" route="3to1" type="SUMO_DEFAULT_TYPE" begin="4" end="3600" period="8"/>
+   <flow id="3to2" route="3to2" type="SUMO_DEFAULT_TYPE" begin="5" end="3600" period="8"/>
+   <flow id="3to4" route="3to4" type="SUMO_DEFAULT_TYPE" begin="6" end="3600" period="8"/>
+
+   <flow id="4to1" route="4to1" type="SUMO_DEFAULT_TYPE" begin="6" end="3600" period="8"/>
+   <flow id="4to2" route="4to2" type="SUMO_DEFAULT_TYPE" begin="7" end="3600" period="8"/>
+   <flow id="4to3" route="4to3" type="SUMO_DEFAULT_TYPE" begin="7" end="3600" period="8"/>
+</routes>

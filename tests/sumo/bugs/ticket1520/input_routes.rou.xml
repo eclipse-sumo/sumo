@@ -1,0 +1,8 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg end"/>
+    <vehicle id="blocker" depart="0" type="t0" route="r0">
+        <stop lane="end_0" endPos="6" duration="50"/>
+    </vehicle>
+    <vehicle id="teleport" depart="2" type="t0" route="r0"/>
+</routes>

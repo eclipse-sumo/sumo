@@ -1,0 +1,15 @@
+# Vaporization begins at 0, simulation at 0
+vapor_b0_off0
+
+# Vaporization begins at 100, simulation at 0
+vapor_b0_off100
+
+# Vaporization begins at 50, simulation at 0, vapor ends at 100
+vapor_b50_e100_off0
+
+# Vaporization begins at 0, simulation at 100
+vapor_b100_off0
+
+
+
+

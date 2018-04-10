@@ -1,0 +1,12 @@
+<routes>
+    <vType sigma="0" id="long" length="25"/>
+    <vType sigma="0" id="high_accel" accel="10"/>
+
+    <vehicle id="priority" type="long" depart="0" departPos="55">
+        <route edges="beg1 end"/>
+    </vehicle>
+    <vehicle id="yield" type="high_accel" depart="0" departPos="65">
+        <route edges="beg2 end"/>
+    </vehicle>
+
+</routes>

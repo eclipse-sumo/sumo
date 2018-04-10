@@ -1,0 +1,2 @@
+--no-internal-links -v --vissim-file vissim.inp --output=net.net.xml --tls.yellow.patch-small
+

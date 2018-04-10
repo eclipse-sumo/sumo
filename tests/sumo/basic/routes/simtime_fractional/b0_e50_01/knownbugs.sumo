@@ -1,0 +1,5 @@
+[Reported by erdm_ja at 04Sep15:03:09]
+search_string:inserted="1"
+search_file:summary
+full_description:fractional end time bug
+brief_description:see #689

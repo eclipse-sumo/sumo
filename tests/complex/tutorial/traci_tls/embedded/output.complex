@@ -1,0 +1,16 @@
+Loading configuration... done.
+Loading net-file from 'data/cross.net.xml'... done (3ms).
+Loading additional-files from 'data/cross.det.xml'... done (1ms).
+Loading done.
+Simulation started with time: 0.00
+Performance: 
+ Duration: 1005ms
+ Real time factor: 3721.39
+ UPS: 107491.542289
+Vehicles: 
+ Inserted: 768
+ Running: 0
+ Waiting: 0
+
+Simulation ended at time: 3740.00
+Reason: Script ended

@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0" length="5" minGap="0" jmIgnoreKeepClearTime="1"/>
+    <route id="r1" edges="SC CN"/>
+
+    <flow id="0" begin="0" end="100" number="100" departLane="0" departPos="last" route="r1">
+        <stop lane="CN_0" duration="1000"/>
+    </flow>
+    
+    <flow id="1" begin="0" end="100" number="100" departLane="1" departPos="last" route="r1">
+        <stop lane="CN_1" duration="1000"/>
+    </flow>
+
+</routes>

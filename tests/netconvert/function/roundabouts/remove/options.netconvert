@@ -1,0 +1,2 @@
+--sumo-net-file input_net.net.xml --output=net.net.xml --remove-edges.explicit
+-9892,-9891,-9890,gneE0,gneE1,gneE2

@@ -1,0 +1,2 @@
+-e input_plain.edg.xml -n input_plain.nod.xml --output net.net.xml
+--keep-edges.by-vclass passenger --no-internal-links

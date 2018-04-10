@@ -1,0 +1,4 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+   <edge id="1fi" type="b"/>
+   <edge id="2fi" type="c"/>
+</edges>

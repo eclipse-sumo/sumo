@@ -1,0 +1,8 @@
+# tests are based upon the cross example
+
+# no_removal (plain import)
+plain
+
+# no left connections
+no_left
+

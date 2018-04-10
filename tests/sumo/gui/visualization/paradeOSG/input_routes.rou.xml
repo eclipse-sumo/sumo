@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="always_right" edges="1i 4o 4i 2o 2i 3o 3i 1o 1i"/>
+
+   <vType sigma="0" id="passenger" length="5" minGap="2.5" osgFile="../../../src/osgview/VWGolf.lwo"/>
+   <vehicle id="passenger" route="always_right" depart="0" type="passenger"/>
+
+   <vType sigma="0" id="delivery" length="5" minGap="2.5" osgFile="../../../src/osgview/VWGolf.lwo"/>
+   <vehicle id="delivery" route="always_right" depart="0" type="delivery"/>
+
+</routes>

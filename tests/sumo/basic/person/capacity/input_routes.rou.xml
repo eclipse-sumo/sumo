@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0" personCapacity="2"/>
+    <flow id="bus" line="l100" begin="0" period="120" departPos="0" >
+        <route edges="beg beg2left left left2end end">
+            <stop lane="beg_0" endPos="50" duration="30"/>
+        </route>
+    </flow>
+    <person id="p1" depart="20" departPos="50">
+        <ride from="beg" to="end" lines="l100"/>
+    </person>
+    <person id="p2" depart="20" departPos="50">
+        <ride from="beg" to="end" lines="l100"/>
+    </person>
+    <person id="p3" depart="20" departPos="50">
+        <ride from="beg" to="end" lines="l100"/>
+    </person>
+</routes>

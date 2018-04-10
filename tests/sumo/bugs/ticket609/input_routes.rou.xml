@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/10/11 15:43:39 by SUMO duarouter Version 0.11.1
+<configuration>
+
+    <input>
+        <net-file value="A.net.xml"/>
+        <trip-defs value="A.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="A.rou.xml"/>
+    </output>
+
+    <processing>
+        <continue-on-unbuild value="true"/>
+        <prune-random value="true"/>
+        <remove-loops value="true"/>
+        <repair value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="7700"/>
+    </time>
+
+</configuration>
+-->
+
+<routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <vehicle id="3553" arrivalPos="-0.1" depart="0" departLane="0" departSpeed="max">
+      <route edges="55226753 -55226773"/>
+   </vehicle>
+</routes>

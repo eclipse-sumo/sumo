@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Thu 13 Oct 2011 03:23:19 PM CEST by Netedit Version dev-SVN-r11382
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/max-segment-length/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1" spreadType="center" shape="0.00,0.00 100.00,0.00 100.00,50.00">
+        <lane id="gneE0_0" index="0" speed="13.89" length="150.00" shape="0.00,0.00 100.00,0.00 100.00,50.00"/>
+    </edge>
+
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,1.60 0.00,-1.60">
+    </junction>
+    <junction id="gneJ1" type="unregulated" x="100.00" y="50.00" incLanes="gneE0_0" intLanes="" shape="101.60,50.00 98.40,50.00">
+    </junction>
+
+</net>

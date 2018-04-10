@@ -1,0 +1,2 @@
+Error: Vehicle '0' has no valid route. No connection between edge 'beg' and edge 'end'.
+Quitting (on error).

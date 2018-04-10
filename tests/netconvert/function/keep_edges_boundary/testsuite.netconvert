@@ -1,0 +1,32 @@
+# tests are based upon the cross example
+
+# no_removal (plain import)
+plain
+
+# The top edges are removed
+removing_top
+
+# The bottom edges are removed
+removing_bottom
+
+# The left edges are removed
+removing_left
+
+# The right edges are removed
+removing_right
+
+# tests whether dividing boundary information by a ';' yields in a deprecation warning (based on removing_bottom)
+_deprecated_
+
+# not enough coordinates
+malformed_boundary1
+
+# uneven numbers
+malformed_boundary2
+geo_boundary
+
+# test with sumo net as input
+geo_boundary2
+
+# keep edges in a triangular boundary
+polygon

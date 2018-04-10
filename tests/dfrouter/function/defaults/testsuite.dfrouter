@@ -1,0 +1,29 @@
+# Setting arrivallane to 0, not overriding
+arrivallane
+
+# Setting arrivalpos to 0, not overriding
+arrivalpos
+
+# Setting arrivalspeed to 0, not overriding
+arrivalspeed
+
+# Setting departlane to 0, not overriding
+departlane
+
+# Setting departpos to 0, not overriding
+departpos
+
+# Setting departspeed to 0, not overriding
+departspeed
+
+# Setting departpos to detector pos, not overriding
+departposDet
+
+# Setting departpos to detector pos - 1, not overriding
+departposDet-1
+
+# Setting departpos to detector pos + 5, not overriding
+departposDet5
+
+# Setting departpos to default, not overriding
+departposDefault

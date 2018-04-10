@@ -1,0 +1,1 @@
+--no-internal-links -v --sumo-net-file input_net.net.xml --output=net.net.xml --keep-edges.in-geo-boundary 13.53,52.0,14.0,53.0 --output.street-names false --offset.disable-normalization false

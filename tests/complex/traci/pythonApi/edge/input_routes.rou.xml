@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>
+   <vehicle id="horiz" route="horizontal" depart="0"/>
+   <person id="p0" depart="0" departPos="-10">
+       <walk edges="2fi 2si 1o"/>
+   </person>
+   <vType id="slow" sigma="0" maxSpeed="3"/>
+   <vehicle id="veh2" type="slow" depart="6" departSpeed="max">
+       <route edges="3si"/>
+   </vehicle>
+</routes>

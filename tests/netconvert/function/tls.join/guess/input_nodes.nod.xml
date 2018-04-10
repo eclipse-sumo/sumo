@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue May 24 15:53:53 2011 by SUMO netconvert Version dev-SVN-r10434
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="clusterjunctin.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_edges"/>
+    </output>
+
+</configuration>
+-->
+
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+   <node id="301292612" x="43.13" y="56.80" type="priority"/>
+   <node id="38918157" x="88.72" y="78.21" type="unregulated"/>
+   <node id="38919945" x="35.18" y="54.83" type="priority"/>
+   <node id="492462300" x="1.87" y="40.76" type="unregulated"/>
+   <node id="56231397" x="45.80" y="46.84" type="priority"/>
+   <node id="567607201" x="92.46" y="68.26" type="unregulated"/>
+   <node id="59993001" x="36.97" y="44.55" type="priority"/>
+   <node id="945141569" x="0.00" y="51.05" type="unregulated"/>
+   <node id="gneJ0" x="48.35" y="0.00" type="unregulated"/>
+   <node id="gneJ1" x="59.75" y="2.19" type="unregulated"/>
+</nodes>

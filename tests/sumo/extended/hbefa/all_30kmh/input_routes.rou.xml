@@ -1,0 +1,188 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="HDV_3_1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_3_1"/>
+	<vType id="HDV_3_2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_3_2"/>
+	<vType id="HDV_3_3" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_3_3"/>
+
+	<vType id="HDV_6_1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_6_1"/>
+	<vType id="HDV_6_2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_6_2"/>
+	<vType id="HDV_6_3" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_6_3"/>
+	<vType id="HDV_6_4" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_6_4"/>
+	<vType id="HDV_6_5" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_6_5"/>
+	<vType id="HDV_6_6" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_6_6"/>
+
+	<vType id="HDV_12_1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_1"/>
+	<vType id="HDV_12_2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_2"/>
+	<vType id="HDV_12_3" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_3"/>
+	<vType id="HDV_12_4" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_4"/>
+	<vType id="HDV_12_5" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_5"/>
+	<vType id="HDV_12_6" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_6"/>
+	<vType id="HDV_12_7" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_7"/>
+	<vType id="HDV_12_8" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_8"/>
+	<vType id="HDV_12_9" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_9"/>
+	<vType id="HDV_12_10" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_10"/>
+	<vType id="HDV_12_11" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_11"/>
+	<vType id="HDV_12_12" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="HDV_12_12"/>
+
+
+	<vType id="P_7_1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_1"/>
+	<vType id="P_7_2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_2"/>
+	<vType id="P_7_3" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_3"/>
+	<vType id="P_7_4" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_4"/>
+	<vType id="P_7_5" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_5"/>
+	<vType id="P_7_6" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_6"/>
+	<vType id="P_7_7" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_7_7"/>
+
+	<vType id="P_14_1" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_1"/>
+	<vType id="P_14_2" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_2"/>
+	<vType id="P_14_3" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_3"/>
+	<vType id="P_14_4" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_4"/>
+	<vType id="P_14_5" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_5"/>
+	<vType id="P_14_6" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_6"/>
+	<vType id="P_14_7" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_7"/>
+	<vType id="P_14_8" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_8"/>
+	<vType id="P_14_9" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_9"/>
+	<vType id="P_14_10" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_10"/>
+	<vType id="P_14_11" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_11"/>
+	<vType id="P_14_12" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_12"/>
+	<vType id="P_14_13" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_13"/>
+	<vType id="P_14_14" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="8.34" emissionClass="P_14_14"/>
+
+
+	<vehicle departPos="0" id="HDV_3_1" depart="0" departSpeed="8.34" type="HDV_3_1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_3_2" depart="20" departSpeed="8.34" type="HDV_3_2">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_3_3" depart="40" departSpeed="8.34" type="HDV_3_3">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+
+
+	<vehicle departPos="0" id="HDV_6_1" depart="100" departSpeed="8.34" type="HDV_6_1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_6_2" depart="120" departSpeed="8.34" type="HDV_6_2">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_6_3" depart="140" departSpeed="8.34" type="HDV_6_3">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_6_4" depart="160" departSpeed="8.34" type="HDV_6_4">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_6_5" depart="180" departSpeed="8.34" type="HDV_6_5">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_6_6" depart="200" departSpeed="8.34" type="HDV_6_6">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+
+
+	<vehicle departPos="0" id="HDV_12_1" depart="300" departSpeed="8.34" type="HDV_12_1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_2" depart="320" departSpeed="8.34" type="HDV_12_2">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_3" depart="340" departSpeed="8.34" type="HDV_12_3">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_4" depart="360" departSpeed="8.34" type="HDV_12_4">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_5" depart="380" departSpeed="8.34" type="HDV_12_5">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_6" depart="400" departSpeed="8.34" type="HDV_12_6">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_7" depart="420" departSpeed="8.34" type="HDV_12_7">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_8" depart="440" departSpeed="8.34" type="HDV_12_8">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_9" depart="460" departSpeed="8.34" type="HDV_12_9">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_10" depart="480" departSpeed="8.34" type="HDV_12_10">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_11" depart="500" departSpeed="8.34" type="HDV_12_11">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="HDV_12_12" depart="520" departSpeed="8.34" type="HDV_12_12">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+
+
+
+
+	<vehicle departPos="0" id="P_7_1" depart="600" departSpeed="8.34" type="P_7_1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_7_2" depart="620" departSpeed="8.34" type="P_7_2">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_7_3" depart="640" departSpeed="8.34" type="P_7_3">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_7_4" depart="660" departSpeed="8.34" type="P_7_4">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_7_5" depart="680" departSpeed="8.34" type="P_7_5">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_7_6" depart="700" departSpeed="8.34" type="P_7_6">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_7_7" depart="720" departSpeed="8.34" type="P_7_7">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+
+
+	<vehicle departPos="0" id="P_14_1" depart="800" departSpeed="8.34" type="P_14_1">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_2" depart="820" departSpeed="8.34" type="P_14_2">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_3" depart="840" departSpeed="8.34" type="P_14_3">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_4" depart="860" departSpeed="8.34" type="P_14_4">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_5" depart="880" departSpeed="8.34" type="P_14_5">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_6" depart="900" departSpeed="8.34" type="P_14_6">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_7" depart="920" departSpeed="8.34" type="P_14_7">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_8" depart="940" departSpeed="8.34" type="P_14_8">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_9" depart="960" departSpeed="8.34" type="P_14_9">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_10" depart="980" departSpeed="8.34" type="P_14_10">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_11" depart="1000" departSpeed="8.34" type="P_14_11">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_12" depart="1020" departSpeed="8.34" type="P_14_12">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_13" depart="1040" departSpeed="8.34" type="P_14_13">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+	<vehicle departPos="0" id="P_14_14" depart="1060" departSpeed="8.34" type="P_14_14">
+		<route edges="beg beg2right right right2end end rend"/>
+	</vehicle>
+
+</routes>

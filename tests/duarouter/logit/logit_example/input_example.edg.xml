@@ -1,0 +1,12 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+   <edge id="oa" from="o" to="a"/>
+   <edge id="ab" from="a" to="b"/>
+   <edge id="bd" from="b" to="d"/>
+   <edge id="ox" from="o" to="x"/>
+   <edge id="xy" from="x" to="y"/>
+   <edge id="yd" from="y" to="d"/>
+   <edge id="ax" from="a" to="x"/>
+   <edge id="by" from="b" to="y"/>
+
+</edges>

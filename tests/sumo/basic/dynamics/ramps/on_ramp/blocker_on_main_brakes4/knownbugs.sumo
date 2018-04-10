@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 09Oct16:35:29]
+search_string:Teleporting vehicle
+trigger_on_absence:1
+search_file:errors
+ignore_other_errors:1
+full_description:to much curtesy braking
+brief_description:see #1044

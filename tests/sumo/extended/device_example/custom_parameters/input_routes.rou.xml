@@ -1,0 +1,10 @@
+<routes>
+    <vType sigma="0" id="custom">
+        <param key="example" value="113"/>
+    </vType>
+    <vehicle id="veh0" depart="0" departPos="400" endPos="20" type="custom">
+        <route edges="right2end end"/>
+        <param key="example" value="42"/>
+    </vehicle>
+
+</routes>

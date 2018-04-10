@@ -1,0 +1,4 @@
+--no-internal-links --edge-files=input_plain.edg.xml
+--node-files=input_plain.nod.xml --output=net.net.xml --ignore-errors.edge-type
+--ramps.guess
+

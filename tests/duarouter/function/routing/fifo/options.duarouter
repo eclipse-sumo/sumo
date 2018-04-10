@@ -1,0 +1,1 @@
+--net-file=input_net.net.xml --weight-files=input_weights.dump.xml -b 0 -e 86400 --route-files=input_trips.trips.xml -o routes.rou.xml --exit-times

@@ -1,0 +1,29 @@
+write_trips
+write_routes
+
+# write_routes with some attributes missing
+unfinished
+keep_disconnected
+
+# Using keep_disconnected with original net, tests correct departure offsets for different route parts.
+keep_disconnected_with_original_net
+exitTimes
+
+# test extrapolating new departure times using the original network
+origNet
+
+# modify the speeds when extrapolation new departure times
+origNet_speedFactor
+
+# test memory efficient sorting
+big
+minLength
+
+# keep stops in routes
+with_stops
+
+# keep bus stops in routes
+with_busstops
+
+# remove unknown bus stops from routes
+with_unknown_busstops

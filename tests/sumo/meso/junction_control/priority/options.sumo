@@ -1,0 +1,4 @@
+--meso-junction-control
+--no-step-log --verbose --net-file=net2.net.xml --routes=input_routes.rou.xml 
+--meso-minor-penalty 4
+--duration-log.statistics

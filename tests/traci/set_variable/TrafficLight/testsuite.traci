@@ -1,0 +1,21 @@
+# Tests for setting a phase definition (rRgGyYoO tuple)
+TL_STATE
+
+# Tests for setting a phase index
+TL_PHASE_INDEX
+
+# Tests for setting a program
+TL_PROGRAM
+
+# Tests for setting a phase duration
+TL_PHASE_DURATION
+
+# Tests for inserting a new program
+TL_COMPLETE_PROGRAM
+
+# getting/setting an abstract parameter
+VAR_PARAMETER
+
+
+# Tests for error handling
+errors

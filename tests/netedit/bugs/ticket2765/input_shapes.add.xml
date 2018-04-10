@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Mar  8 00:01:22 2015 by SUMO polyconvert Version dev-SVN-r18045
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <dlr-navteq-poly-files value="dlr_navteq_polygons.txt"/>
+    </input>
+
+    <output>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="POI1" type="unknown" color="51,60,255" layer="-1.00" x="50" y="20"/>
+    <poi id="POI2" type="unknown" color="51,30,255" layer="-1.00" x="70" y="20"/>
+    <poly id="PolyA" type="unknown" color="51,128,255" fill="0" layer="-1.00" shape="10,10 20,10 20,20 10,10"/>
+    <poly id="PolyB" type="unknown" color="100,128,255" fill="1" layer="-1.00" shape="25,35 35,35 35,25 25,25"/>
+</additional>

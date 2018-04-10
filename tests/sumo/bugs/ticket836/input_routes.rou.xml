@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="slow" maxSpeed="23.5"/>
+    <route id="straight" edges="-554712454 middle1 middle2 end end2"/>
+    <vehicle id="pkwFern_16077019_16077017_1__324" depart="0"  departPos="53" departLane="1" departSpeed="max" route="straight"/>
+    <vehicle id="slow" type="slow"                 depart="27" departPos="1700"  departLane="0" departSpeed="max" route="straight"/>
+</routes>

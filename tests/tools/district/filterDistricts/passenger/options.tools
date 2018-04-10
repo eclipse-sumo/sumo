@@ -1,0 +1,4 @@
+-n net.net.xml --taz-file input_districts.xml
+--vclass passenger 
+-o districts.xml
+tools/district/filterDistricts.py

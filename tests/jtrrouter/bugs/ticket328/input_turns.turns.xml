@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
+	<interval begin="0" end="10000">
+            <!-- at the first junction, do not drive straight -->
+		<fromEdge id="beg">
+			<toEdge id="beg2right" probability=".5"/>
+			<toEdge id="beg2left" probability=".5"/>
+			<toEdge id="middle" probability="0"/>
+			<toEdge id="-beg" probability="0"/>
+		</fromEdge>
+
+		<!-- when the roads merge, drive back -->
+		<fromEdge id="right2end">
+			<toEdge id="-middle" probability="1"/>
+			<toEdge id="end" probability="0"/>
+			<toEdge id="-left2end" probability="0"/>
+			<toEdge id="-right2end" probability="0"/>
+		</fromEdge>
+		<fromEdge id="left2end">
+			<toEdge id="-middle" probability="1"/>
+			<toEdge id="end" probability="0"/>
+			<toEdge id="-right2end" probability="0"/>
+			<toEdge id="-left2end" probability="0"/>
+		</fromEdge>
+
+		<!-- after being almost at the begin again, drive back -->
+		<fromEdge id="-middle">
+			<toEdge id="middle" probability="1"/>
+			<toEdge id="-beg" probability="0"/>
+			<toEdge id="beg2right" probability="0"/>
+			<toEdge id="beg2left" probability="0"/>
+		</fromEdge>
+
+		<!-- leave then -->
+		<fromEdge id="middle">
+			<toEdge id="end" probability="1"/>
+			<toEdge id="-middle" probability="0"/>
+			<toEdge id="-right2end" probability="0"/>
+			<toEdge id="-left2end" probability="0"/>
+		</fromEdge>
+
+		<!-- these asssert that vehicles do not turn around anywhere else -->
+		<fromEdge id="beg2right">
+			<toEdge id="right" probability="1"/>
+			<toEdge id="-beg2right" probability="0"/>
+		</fromEdge>
+		<fromEdge id="beg2left">
+			<toEdge id="left" probability="1"/>
+			<toEdge id="-beg2left" probability="0"/>
+		</fromEdge>
+		<fromEdge id="right">
+			<toEdge id="right2end" probability="1"/>
+			<toEdge id="-right" probability="0"/>
+		</fromEdge>
+		<fromEdge id="left">
+			<toEdge id="left2end" probability="1"/>
+			<toEdge id="-left" probability="0"/>
+		</fromEdge>
+
+	</interval>
+</turns>

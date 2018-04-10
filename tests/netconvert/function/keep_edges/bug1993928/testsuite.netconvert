@@ -1,0 +1,20 @@
+# tests are based upon the cross example
+
+# no_removal (plain import)
+plain
+
+# no_removal (all edges are kept)
+keeping_all
+
+# The top (4*) edges are removed (not kept)
+removing_top
+
+# The bottom (3*) edges are removed (not kept)
+removing_bottom
+
+# The left (1*) edges are removed (not kept)
+removing_left
+
+# The right (2*) edges are removed (not kept)
+removing_right
+

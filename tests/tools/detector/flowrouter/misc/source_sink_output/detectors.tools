@@ -1,0 +1,5 @@
+<detectors>
+    <e1Detector id="A_0" lane="A_0" pos="1" type="source" friendlyPos="true" file="NUL" freq="86400"/>
+    <e1Detector id="C_0" lane="C_0" pos="-1" type="sink" friendlyPos="true" file="NUL" freq="86400"/>
+    <e1Detector id="D_0" lane="D_0" pos="-1" type="sink" friendlyPos="true" file="NUL" freq="86400"/>
+</detectors>

@@ -1,0 +1,2 @@
+-v --xml input_poi.poi.xml -o pois.poi.xml
+

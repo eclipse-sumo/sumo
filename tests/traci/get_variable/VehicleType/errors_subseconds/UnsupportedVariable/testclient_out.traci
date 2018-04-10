@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Thu Jan 28 14:27:10 2016
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=165 varID=255 objID=dummy
+.. Answered with error to command (165), [description: Get Vehicle Type Variable: unsupported variable 0xff specified]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

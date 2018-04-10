@@ -1,0 +1,22 @@
+Usage: districtMapper.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -v, --verbose         tell me what you are doing
+  -1 FILE, --net-file1=FILE
+                        read first SUMO network from FILE (mandatory)
+  -2 FILE, --net-file2=FILE
+                        read second SUMO network from FILE (mandatory)
+  -o FILE, --output=FILE
+                        write resulting districts to FILE (default:
+                        districts.add.xml)
+  -p FILE, --polyoutput=FILE
+                        write districts as polygons to FILE
+  -a JUNCTIONS1, --junctions1=JUNCTIONS1
+                        list of junction ids to use from first network
+                        (mandatory)
+  -b JUNCTIONS2, --junctions2=JUNCTIONS2
+                        list of junction ids to use from second network
+                        (mandatory)
+  -c COLOR, --color=COLOR
+                        Assign this color to districts (default: 1,0,0)

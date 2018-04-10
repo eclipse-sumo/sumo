@@ -1,0 +1,11 @@
+# tests where vehicles are vaporized when departing
+on_depart
+
+# tests where vehicles are vaporized while being on road
+while_driving
+
+
+
+# testing false user input
+errors
+

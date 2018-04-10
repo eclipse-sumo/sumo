@@ -1,0 +1,21 @@
+import_config_file:../config_all
+binary:$NETGENERATE_BINARY
+copy_test_path:input_net.net.xml
+
+[collate_file]
+net:net.net.xml
+cfg:config.cfg
+log:log.txt
+
+[run_dependent_text]
+net:<!--{[->]}-->
+output:done \(.*\)\.{REPLACE done.}
+log:done \(.*\)\.{REPLACE done.}
+errors:Leaked object at 
+errors:*** 9 leaks found
+errors:delete: freed
+
+[floating_point_tolerance]
+net:0.0101
+output:0.0101
+cfg:0.000000001

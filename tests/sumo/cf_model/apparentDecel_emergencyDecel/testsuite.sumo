@@ -1,0 +1,17 @@
+# vehicle follows at closer distance
+apparentDecel_lower
+
+# vehicle follows at closer distance and cannot react in time
+apparentDecel_lower_collision
+
+# vehicle follows at closer distance and performs stronger braking (emergencyDecel)
+apparentDecel_lower_collision_avoided
+
+# vehicle follows at higher distance
+apparentDecel_higher
+
+# warn about low values
+emergencyDecel_low_warning
+
+# a vehicle performs emergency braking which causes the follower to collide
+emergency_decel_collision

@@ -1,0 +1,1 @@
+ -o districts.xml --symmetrical net.net.xml tools/generateBidiDistricts.py

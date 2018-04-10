@@ -1,0 +1,10 @@
+Loading net... done.
+Loading detector definitions from 'input_messstrecke.det.xml'... done.
+Computing detector types... done.
+Computed detector types:
+ 11 source detectors
+ 7 sink detectors
+ 25 in-between detectors
+ 1 invalid detectors
+Computing routes... done.
+Success.

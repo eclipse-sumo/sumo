@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 04Jul10:57:40]
+search_string:<connection from="EC" to="CS" fromLane="3" toLane="0" 
+trigger_on_absence:1
+search_file:net
+full_description:invalid connections
+brief_description:see #2472

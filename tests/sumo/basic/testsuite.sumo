@@ -1,0 +1,25 @@
+# testing route loading
+routes
+
+# tests for the traffic lights subsystem
+tls
+
+# tests for vehicle type handling
+vtypes
+
+# tests whether vehicles move properly
+dynamics
+
+# tests whether loading networks works
+networks
+
+# running around in Japan
+hokkaido
+
+# examples with small networks
+simple_nets
+
+# Tests related to person and plan parsing
+person
+container
+stops

@@ -1,0 +1,5 @@
+simstep2 0
+getvariable 0xa4 0x0 x
+setvalue 0xcb 0x94 x <string> ""
+getvariable 0xa4 0x0 x
+simstep2 0

@@ -1,0 +1,33 @@
+# the first grid network example from the user documentation
+user_example1
+
+# the second grid network example from the user documentation
+user_example2
+
+# the first grid network example from the user documentation (verbose)
+user_example1_v
+
+# the second grid network example from the user documentation (verbose)
+user_example2_v
+
+# testing what happens when the nodes are 10m away from each other
+user_example1_10m
+
+# testing what happens when only two nodes are built in each direction
+user_example1_2nodes
+
+# attaching streets at the border
+attach
+
+# no internal lanes
+nointernal
+alphanumerical-ids
+
+# Copy of alphanumerical-ids
+numerical_ids
+
+# set alternative defaults
+defaults
+
+# Tests processing of errors in input
+errors

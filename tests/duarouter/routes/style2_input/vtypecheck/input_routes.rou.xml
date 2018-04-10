@@ -1,0 +1,54 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="0" accel="100"/>
+   <vType id="1" decel="100"/>
+   <vType id="2" sigma="1.00"/>
+   <vType id="3" length="100"/>
+   <vType id="4" minGap="100"/>
+   <vType id="5" maxSpeed="100"/>
+   <vType id="6" color="0,0,0"/>
+   <vType id="7" vClass="bus"/>
+   <vType id="8" emissionClass="P_7_1"/>
+   <vType id="9" guiShape="passenger/hatchback"/>
+   <vType id="10" width="100"/>
+   <vType id="11">
+    <param key="bla" value="blub"/>
+   </vType>
+
+  <vehicle id="0" type="0" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="1" type="1" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="2" type="2" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="3" type="3" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="4" type="4" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="5" type="5" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="6" type="6" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="7" type="7" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="8" type="8" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="9" type="9" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="10" type="10" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+  <vehicle id="11" type="11" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+</routes>

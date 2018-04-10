@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="SW" depart="0" departSpeed="max">
+        <route edges="SC CW"/>
+    </vehicle>
+    <vehicle id="NE" depart="0" departSpeed="max">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="SN" depart="0" departSpeed="max">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="NS" depart="0" departSpeed="max">
+        <route edges="NC CS"/>
+    </vehicle>
+</routes>

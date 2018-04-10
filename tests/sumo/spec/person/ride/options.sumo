@@ -1,0 +1,1 @@
+--no-step-log -b 0 -e 1 --no-duration-log --net-file=net.net.xml -r=input_routes.rou.xml --netstate-dump=rawdump.xml 

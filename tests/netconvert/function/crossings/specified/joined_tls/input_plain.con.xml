@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="0.13">
+    <!--
+    -->
+    <crossing node="C" edges="SC" width="4.5"/>
+    <crossing node="C2" edges="S2C2" width="4.5"/>
+</connections>

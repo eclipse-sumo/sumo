@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 04Sep08:43:32]
+search_string:Warning: Teleporting vehicle
+search_file:errors
+full_description:two vehicles fail to swap their lanes at an on-off-ramp
+brief_description:see #886

@@ -1,0 +1,36 @@
+Loading configuration... done.
+Loading configuration... done.
+Could not connect to TraCI server at localhost:33487 [Errno 111] Connection refused
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+step 0
+step 1
+step 2
+routes ['horizontal', 'vertical', 'withTaz2']
+route count 3
+examining horizontal
+edges ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+routes ['horizontal', 'vertical', 'withTaz2']
+route count 3
+examining horizontal
+edges ['2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si']
+{0: ['horizontal', 'vertical', 'withTaz2']}
+step 3
+{0: ['horizontal', 'vertical', 'withTaz2']}
+step 4
+{0: ['horizontal', 'vertical', 'withTaz2']}
+step 5
+{0: ['horizontal', 'vertical', 'withTaz2']}
+routes ['h2', 'horizontal', 'vertical', 'withTaz2']
+edges ['1o']
+{0: ['horizontal', 'vertical', 'withTaz2']}
+step 3
+{0: ['horizontal', 'vertical', 'withTaz2']}
+step 4
+{0: ['horizontal', 'vertical', 'withTaz2']}
+step 5
+{0: ['horizontal', 'vertical', 'withTaz2']}
+routes ['h2', 'horizontal', 'vertical', 'withTaz2']
+edges ['1o']

@@ -1,0 +1,23 @@
+# Tests whether the import of route alternatives with one departure time works
+one_time
+
+# Tests with route alternatives which departure time increases
+increasing_time
+
+# Test whether route alternatives with unsorted are imported correctly
+unsorted_time
+
+# Tests whether the vehicle type may be omitted
+increasing_time_novehtype
+
+# Tests whether color information is processed properly
+increasing_time_color
+
+# Tests whether processing vehicle parameter works
+withparams
+
+# Route's cost is not given
+route_cost_missing
+
+# Checks handling of broken input
+errors

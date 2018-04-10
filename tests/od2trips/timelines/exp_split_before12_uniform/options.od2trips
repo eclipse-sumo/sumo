@@ -1,0 +1,1 @@
+--spread.uniform --timeline 0:100,43200:0,86400:0 -n input_taz.taz.xml -d input_od_o.fma -o trips.trips.xml

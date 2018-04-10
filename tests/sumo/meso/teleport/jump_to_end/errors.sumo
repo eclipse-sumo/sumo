@@ -1,0 +1,33 @@
+Warning: Teleporting vehicle 'horizontal.0'; waited too long, from edge '2si':2, time 341.50.
+Warning: Teleporting vehicle 'long_jam.0'; waited too long, from edge '1si':2 to edge '2o':1, time 386.50.
+Warning: Vehicle 'horizontal.0' teleports beyond arrival edge '1si', time 427.00.
+Warning: Teleporting vehicle 'horizontal.1'; waited too long, from edge '2si':2, time 641.50.
+Warning: Teleporting vehicle 'long_jam.1'; waited too long, from edge '1si':2 to edge '2o':1, time 689.68.
+Warning: Vehicle 'horizontal.1' teleports beyond arrival edge '1si', time 727.00.
+Warning: Teleporting vehicle 'horizontal.2'; waited too long, from edge '2si':2, time 941.50.
+Warning: Teleporting vehicle 'long_jam.2'; waited too long, from edge '1si':2 to edge '2o':1, time 992.86.
+Warning: Vehicle 'horizontal.2' teleports beyond arrival edge '1si', time 1027.00.
+Warning: Teleporting vehicle 'horizontal.3'; waited too long, from edge '2si':2, time 1241.50.
+Warning: Teleporting vehicle 'long_jam.3'; waited too long, from edge '1si':2 to edge '2o':1, time 1296.04.
+Warning: Vehicle 'horizontal.3' teleports beyond arrival edge '1si', time 1327.00.
+Warning: Teleporting vehicle 'horizontal.4'; waited too long, from edge '2si':2, time 1541.50.
+Warning: Teleporting vehicle 'long_jam.4'; waited too long, from edge '1si':2 to edge '2o':1, time 1599.22.
+Warning: Vehicle 'horizontal.4' teleports beyond arrival edge '1si', time 1627.01.
+Warning: Teleporting vehicle 'horizontal.5'; waited too long, from edge '2si':2, time 1841.50.
+Warning: Teleporting vehicle 'long_jam.5'; waited too long, from edge '1si':2 to edge '2o':1, time 1902.40.
+Warning: Vehicle 'horizontal.5' teleports beyond arrival edge '1si', time 1927.01.
+Warning: Teleporting vehicle 'horizontal.6'; waited too long, from edge '2si':2, time 2141.50.
+Warning: Vehicle 'horizontal.6' teleports beyond arrival edge '1si', time 2227.01.
+Warning: Teleporting vehicle 'long_jam.6'; waited too long, from edge '1si':2 to edge '2o':1, time 2205.58.
+Warning: Teleporting vehicle 'horizontal.7'; waited too long, from edge '2si':2, time 2441.50.
+Warning: Vehicle 'horizontal.7' teleports beyond arrival edge '1si', time 2527.01.
+Warning: Teleporting vehicle 'long_jam.7'; waited too long, from edge '1si':2 to edge '2o':1, time 2508.76.
+Warning: Teleporting vehicle 'horizontal.8'; waited too long, from edge '2si':2, time 2741.51.
+Warning: Vehicle 'horizontal.8' teleports beyond arrival edge '1si', time 2827.01.
+Warning: Teleporting vehicle 'long_jam.8'; waited too long, from edge '1si':2 to edge '2o':1, time 2811.94.
+Warning: Teleporting vehicle 'horizontal.9'; waited too long, from edge '2si':2, time 3041.51.
+Warning: Vehicle 'horizontal.9' teleports beyond arrival edge '1si', time 3127.01.
+Warning: Teleporting vehicle 'long_jam.9'; waited too long, from edge '1si':2 to edge '2o':1, time 3115.12.
+Warning: Teleporting vehicle 'horizontal.10'; waited too long, from edge '2si':2, time 3341.51.
+Warning: Vehicle 'horizontal.10' teleports beyond arrival edge '1si', time 3427.01.
+Warning: Teleporting vehicle 'long_jam.10'; waited too long, from edge '1si':2 to edge '2o':1, time 3418.30.

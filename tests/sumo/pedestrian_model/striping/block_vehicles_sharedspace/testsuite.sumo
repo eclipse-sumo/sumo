@@ -1,0 +1,11 @@
+walking_forward
+walking_forward_2edges
+walking_forward_2lanes
+walking_forward_insertion
+walking_forward_2edges_insertion
+walking_backward
+walking_backward_overlap
+walkingarea
+
+# not all vehicles should be blocked by pedestrians on an upcoming walkingarea
+walkingarea_noconflict

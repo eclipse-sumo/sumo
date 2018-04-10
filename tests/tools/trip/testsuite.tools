@@ -1,0 +1,5 @@
+# Tests random Trips
+randomTrips
+
+# Tests the transformation from routes to trips
+route2trips

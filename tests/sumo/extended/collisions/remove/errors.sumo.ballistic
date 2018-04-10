@@ -1,0 +1,24 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
+Warning: Removing collision participants: vehicle 'always_right.0', vehicle 'horizontal.0', lane='2o_0', gap=-5.00, time=27.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.1', vehicle 'horizontal.1', lane='2o_0', gap=-5.00, time=31.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.2', vehicle 'horizontal.2', lane='2o_0', gap=-5.00, time=35.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.3', vehicle 'horizontal.3', lane='2o_0', gap=-5.00, time=39.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.4', vehicle 'horizontal.4', lane='2o_0', gap=-5.00, time=43.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.5', vehicle 'horizontal.5', lane='2o_0', gap=-5.00, time=47.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.6', vehicle 'horizontal.6', lane='2o_0', gap=-5.00, time=51.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.7', vehicle 'horizontal.7', lane='2o_0', gap=-5.00, time=55.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.8', vehicle 'horizontal.8', lane='2o_0', gap=-5.00, time=59.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.9', vehicle 'horizontal.9', lane='2o_0', gap=-5.00, time=63.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.10', vehicle 'horizontal.10', lane='2o_0', gap=-5.00, time=67.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.11', vehicle 'horizontal.11', lane='2o_0', gap=-5.00, time=71.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.12', vehicle 'horizontal.12', lane='2o_0', gap=-5.00, time=75.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.13', vehicle 'horizontal.13', lane='2o_0', gap=-5.00, time=79.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.14', vehicle 'horizontal.14', lane='2o_0', gap=-5.00, time=83.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.15', vehicle 'horizontal.15', lane='2o_0', gap=-5.00, time=87.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.16', vehicle 'horizontal.16', lane='2o_0', gap=-5.00, time=91.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.17', vehicle 'horizontal.17', lane='2o_0', gap=-5.00, time=95.00 stage=move.
+Warning: Removing collision participants: vehicle 'always_right.18', vehicle 'horizontal.18', lane='2o_0', gap=-5.00, time=99.00 stage=move.
+Warning: Teleporting vehicle 'horizontal.19'; waited too long (yield), lane='1si_1', time=404.00.
+Warning: Teleporting vehicle 'always_right.19'; waited too long (yield), lane='3si_0', time=404.00.
+Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 404.00.
+Warning: Vehicle 'always_right.19' ends teleporting on edge '2o', time 404.00.

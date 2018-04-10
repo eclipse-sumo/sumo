@@ -1,0 +1,36 @@
+# no traffic, just plain output
+no_vehicles
+
+# one vehicle is moving
+one_vehicle
+
+# one vehicle is moving, subsecond
+one_vehicle_subsecond
+
+# two vehicles are moving which have same properties
+two_same_vehicles
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s; vtype "t1" is reported
+two_vehicles_diff_speed_t1
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s; vtype "t2" is reported
+two_vehicles_diff_speed_t2
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s; both vtypes are reported
+two_vehicles_diff_speed_both
+
+# two vehicles are moving; the first is 5m long, the second 15m; vtype "t1" is reported
+two_vehicles_diff_length_t1
+
+# two vehicles are moving; the first is 5m long, the second 15m; vtype "t2" is reported
+two_vehicles_diff_length_t2
+
+# two vehicles are moving; the first is 5m long, the second 15m; both vtypes are reported
+two_vehicles_diff_length_both
+
+# one vehicle is moving, subsecond step size, sampling at .1s
+one_vehicle_.1s
+elevation
+
+# Testing error cases
+errors

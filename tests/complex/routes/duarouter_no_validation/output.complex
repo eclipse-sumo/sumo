@@ -1,0 +1,5672 @@
+flow 0 0
+Error: The route for vehicle 'v' has no edges.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Error: The route for vehicle 'v' has no edges.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+flow 0 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 0 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 1 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 2 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 3 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 4 0
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+flow 4 1
+Success.
+Success.
+flow 4 2
+Success.
+Success.
+flow 4 3
+Success.
+Success.
+flow 4 4
+Success.
+Success.
+flow 4 5
+Success.
+Success.
+flow 4 6
+Success.
+Success.
+flow 4 7
+Success.
+Success.
+flow 4 8
+Success.
+Success.
+flow 4 9
+Success.
+Success.
+flow 4 10
+Success.
+Success.
+flow 4 11
+Success.
+Success.
+flow 4 12
+Success.
+Success.
+flow 4 13
+Success.
+Success.
+flow 4 14
+Success.
+Success.
+flow 4 15
+Success.
+Success.
+flow 5 0
+Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+flow 5 1
+Success.
+Success.
+flow 5 2
+Success.
+Success.
+flow 5 3
+Success.
+Success.
+flow 5 4
+Success.
+Success.
+flow 5 5
+Success.
+Success.
+flow 5 6
+Success.
+Success.
+flow 5 7
+Success.
+Success.
+flow 5 8
+Success.
+Success.
+flow 5 9
+Success.
+Success.
+flow 5 10
+Success.
+Success.
+flow 5 11
+Success.
+Success.
+flow 5 12
+Success.
+Success.
+flow 5 13
+Success.
+Success.
+flow 5 14
+Success.
+Success.
+flow 5 15
+Success.
+Success.
+flow 6 0
+Success.
+Success.
+flow 6 1
+Success.
+Success.
+flow 6 2
+Success.
+Success.
+flow 6 3
+Success.
+Success.
+flow 6 4
+Success.
+Success.
+flow 6 5
+Success.
+Success.
+flow 6 6
+Success.
+Success.
+flow 6 7
+Success.
+Success.
+flow 6 8
+Success.
+Success.
+flow 6 9
+Success.
+Success.
+flow 6 10
+Success.
+Success.
+flow 6 11
+Success.
+Success.
+flow 6 12
+Success.
+Success.
+flow 6 13
+Success.
+Success.
+flow 6 14
+Success.
+Success.
+flow 6 15
+Success.
+Success.
+flow 7 0
+Success.
+Success.
+flow 7 1
+Success.
+Success.
+flow 7 2
+Success.
+Success.
+flow 7 3
+Success.
+Success.
+flow 7 4
+Success.
+Success.
+flow 7 5
+Success.
+Success.
+flow 7 6
+Success.
+Success.
+flow 7 7
+Success.
+Success.
+flow 7 8
+Success.
+Success.
+flow 7 9
+Success.
+Success.
+flow 7 10
+Success.
+Success.
+flow 7 11
+Success.
+Success.
+flow 7 12
+Success.
+Success.
+flow 7 13
+Success.
+Success.
+flow 7 14
+Success.
+Success.
+flow 7 15
+Success.
+Success.
+flow 8 0
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+flow 8 1
+Success.
+Success.
+flow 8 2
+Success.
+Success.
+flow 8 3
+Success.
+Success.
+flow 8 4
+Success.
+Success.
+flow 8 5
+Success.
+Success.
+flow 8 6
+Success.
+Success.
+flow 8 7
+Success.
+Success.
+flow 8 8
+Success.
+Success.
+flow 8 9
+Success.
+Success.
+flow 8 10
+Success.
+Success.
+flow 8 11
+Success.
+Success.
+flow 8 12
+Success.
+Success.
+flow 8 13
+Success.
+Success.
+flow 8 14
+Success.
+Success.
+flow 8 15
+Success.
+Success.
+flow 9 0
+Success.
+Success.
+flow 9 1
+Success.
+Success.
+flow 9 2
+Success.
+Success.
+flow 9 3
+Success.
+Success.
+flow 9 4
+Success.
+Success.
+flow 9 5
+Success.
+Success.
+flow 9 6
+Success.
+Success.
+flow 9 7
+Success.
+Success.
+flow 9 8
+Success.
+Success.
+flow 9 9
+Success.
+Success.
+flow 9 10
+Success.
+Success.
+flow 9 11
+Success.
+Success.
+flow 9 12
+Success.
+Success.
+flow 9 13
+Success.
+Success.
+flow 9 14
+Success.
+Success.
+flow 9 15
+Success.
+Success.
+flow 10 0
+Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route '!v' for flow 'v' is not known.
+Quitting (on error).
+flow 10 1
+Success.
+Success.
+flow 10 2
+Success.
+Success.
+flow 10 3
+Success.
+Success.
+flow 10 4
+Success.
+Success.
+flow 10 5
+Success.
+Success.
+flow 10 6
+Success.
+Success.
+flow 10 7
+Success.
+Success.
+flow 10 8
+Success.
+Success.
+flow 10 9
+Success.
+Success.
+flow 10 10
+Success.
+Success.
+flow 10 11
+Success.
+Success.
+flow 10 12
+Success.
+Success.
+flow 10 13
+Success.
+Success.
+flow 10 14
+Success.
+Success.
+flow 10 15
+Success.
+Success.
+flow 11 0
+Success.
+Success.
+flow 11 1
+Success.
+Success.
+flow 11 2
+Success.
+Success.
+flow 11 3
+Success.
+Success.
+flow 11 4
+Success.
+Success.
+flow 11 5
+Success.
+Success.
+flow 11 6
+Success.
+Success.
+flow 11 7
+Success.
+Success.
+flow 11 8
+Success.
+Success.
+flow 11 9
+Success.
+Success.
+flow 11 10
+Success.
+Success.
+flow 11 11
+Success.
+Success.
+flow 11 12
+Success.
+Success.
+flow 11 13
+Success.
+Success.
+flow 11 14
+Success.
+Success.
+flow 11 15
+Success.
+Success.
+flow 12 0
+Success.
+Success.
+flow 12 1
+Success.
+Success.
+flow 12 2
+Success.
+Success.
+flow 12 3
+Success.
+Success.
+flow 12 4
+Success.
+Success.
+flow 12 5
+Success.
+Success.
+flow 12 6
+Success.
+Success.
+flow 12 7
+Success.
+Success.
+flow 12 8
+Success.
+Success.
+flow 12 9
+Success.
+Success.
+flow 12 10
+Success.
+Success.
+flow 12 11
+Success.
+Success.
+flow 12 12
+Success.
+Success.
+flow 12 13
+Success.
+Success.
+flow 12 14
+Success.
+Success.
+flow 12 15
+Success.
+Success.
+flow 13 0
+Success.
+Success.
+flow 13 1
+Success.
+Success.
+flow 13 2
+Success.
+Success.
+flow 13 3
+Success.
+Success.
+flow 13 4
+Success.
+Success.
+flow 13 5
+Success.
+Success.
+flow 13 6
+Success.
+Success.
+flow 13 7
+Success.
+Success.
+flow 13 8
+Success.
+Success.
+flow 13 9
+Success.
+Success.
+flow 13 10
+Success.
+Success.
+flow 13 11
+Success.
+Success.
+flow 13 12
+Success.
+Success.
+flow 13 13
+Success.
+Success.
+flow 13 14
+Success.
+Success.
+flow 13 15
+Success.
+Success.
+flow 14 0
+Success.
+Success.
+flow 14 1
+Success.
+Success.
+flow 14 2
+Success.
+Success.
+flow 14 3
+Success.
+Success.
+flow 14 4
+Success.
+Success.
+flow 14 5
+Success.
+Success.
+flow 14 6
+Success.
+Success.
+flow 14 7
+Success.
+Success.
+flow 14 8
+Success.
+Success.
+flow 14 9
+Success.
+Success.
+flow 14 10
+Success.
+Success.
+flow 14 11
+Success.
+Success.
+flow 14 12
+Success.
+Success.
+flow 14 13
+Success.
+Success.
+flow 14 14
+Success.
+Success.
+flow 14 15
+Success.
+Success.
+flow 15 0
+Success.
+Success.
+flow 15 1
+Success.
+Success.
+flow 15 2
+Success.
+Success.
+flow 15 3
+Success.
+Success.
+flow 15 4
+Success.
+Success.
+flow 15 5
+Success.
+Success.
+flow 15 6
+Success.
+Success.
+flow 15 7
+Success.
+Success.
+flow 15 8
+Success.
+Success.
+flow 15 9
+Success.
+Success.
+flow 15 10
+Success.
+Success.
+flow 15 11
+Success.
+Success.
+flow 15 12
+Success.
+Success.
+flow 15 13
+Success.
+Success.
+flow 15 14
+Success.
+Success.
+flow 15 15
+Success.
+Success.
+flow 16 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 16 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 17 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 18 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 0
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 1
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 2
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 3
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 4
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 5
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 6
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 7
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 8
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 9
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 10
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 11
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 12
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 13
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 14
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 19 15
+Success.
+Warning: Taz usage was requested but no taz present in flow 'v'!
+Success.
+flow 20 0
+Success.
+Success.
+flow 20 1
+Success.
+Success.
+flow 20 2
+Success.
+Success.
+flow 20 3
+Success.
+Success.
+flow 20 4
+Success.
+Success.
+flow 20 5
+Success.
+Success.
+flow 20 6
+Success.
+Success.
+flow 20 7
+Success.
+Success.
+flow 20 8
+Success.
+Success.
+flow 20 9
+Success.
+Success.
+flow 20 10
+Success.
+Success.
+flow 20 11
+Success.
+Success.
+flow 20 12
+Success.
+Success.
+flow 20 13
+Success.
+Success.
+flow 20 14
+Success.
+Success.
+flow 20 15
+Success.
+Success.
+flow 21 0
+Success.
+Success.
+flow 21 1
+Success.
+Success.
+flow 21 2
+Success.
+Success.
+flow 21 3
+Success.
+Success.
+flow 21 4
+Success.
+Success.
+flow 21 5
+Success.
+Success.
+flow 21 6
+Success.
+Success.
+flow 21 7
+Success.
+Success.
+flow 21 8
+Success.
+Success.
+flow 21 9
+Success.
+Success.
+flow 21 10
+Success.
+Success.
+flow 21 11
+Success.
+Success.
+flow 21 12
+Success.
+Success.
+flow 21 13
+Success.
+Success.
+flow 21 14
+Success.
+Success.
+flow 21 15
+Success.
+Success.
+flow 22 0
+Success.
+Success.
+flow 22 1
+Success.
+Success.
+flow 22 2
+Success.
+Success.
+flow 22 3
+Success.
+Success.
+flow 22 4
+Success.
+Success.
+flow 22 5
+Success.
+Success.
+flow 22 6
+Success.
+Success.
+flow 22 7
+Success.
+Success.
+flow 22 8
+Success.
+Success.
+flow 22 9
+Success.
+Success.
+flow 22 10
+Success.
+Success.
+flow 22 11
+Success.
+Success.
+flow 22 12
+Success.
+Success.
+flow 22 13
+Success.
+Success.
+flow 22 14
+Success.
+Success.
+flow 22 15
+Success.
+Success.
+flow 23 0
+Success.
+Success.
+flow 23 1
+Success.
+Success.
+flow 23 2
+Success.
+Success.
+flow 23 3
+Success.
+Success.
+flow 23 4
+Success.
+Success.
+flow 23 5
+Success.
+Success.
+flow 23 6
+Success.
+Success.
+flow 23 7
+Success.
+Success.
+flow 23 8
+Success.
+Success.
+flow 23 9
+Success.
+Success.
+flow 23 10
+Success.
+Success.
+flow 23 11
+Success.
+Success.
+flow 23 12
+Success.
+Success.
+flow 23 13
+Success.
+Success.
+flow 23 14
+Success.
+Success.
+flow 23 15
+Success.
+Success.
+flow 24 0
+Success.
+Success.
+flow 24 1
+Success.
+Success.
+flow 24 2
+Success.
+Success.
+flow 24 3
+Success.
+Success.
+flow 24 4
+Success.
+Success.
+flow 24 5
+Success.
+Success.
+flow 24 6
+Success.
+Success.
+flow 24 7
+Success.
+Success.
+flow 24 8
+Success.
+Success.
+flow 24 9
+Success.
+Success.
+flow 24 10
+Success.
+Success.
+flow 24 11
+Success.
+Success.
+flow 24 12
+Success.
+Success.
+flow 24 13
+Success.
+Success.
+flow 24 14
+Success.
+Success.
+flow 24 15
+Success.
+Success.
+flow 25 0
+Success.
+Success.
+flow 25 1
+Success.
+Success.
+flow 25 2
+Success.
+Success.
+flow 25 3
+Success.
+Success.
+flow 25 4
+Success.
+Success.
+flow 25 5
+Success.
+Success.
+flow 25 6
+Success.
+Success.
+flow 25 7
+Success.
+Success.
+flow 25 8
+Success.
+Success.
+flow 25 9
+Success.
+Success.
+flow 25 10
+Success.
+Success.
+flow 25 11
+Success.
+Success.
+flow 25 12
+Success.
+Success.
+flow 25 13
+Success.
+Success.
+flow 25 14
+Success.
+Success.
+flow 25 15
+Success.
+Success.
+flow 26 0
+Success.
+Success.
+flow 26 1
+Success.
+Success.
+flow 26 2
+Success.
+Success.
+flow 26 3
+Success.
+Success.
+flow 26 4
+Success.
+Success.
+flow 26 5
+Success.
+Success.
+flow 26 6
+Success.
+Success.
+flow 26 7
+Success.
+Success.
+flow 26 8
+Success.
+Success.
+flow 26 9
+Success.
+Success.
+flow 26 10
+Success.
+Success.
+flow 26 11
+Success.
+Success.
+flow 26 12
+Success.
+Success.
+flow 26 13
+Success.
+Success.
+flow 26 14
+Success.
+Success.
+flow 26 15
+Success.
+Success.
+flow 27 0
+Success.
+Success.
+flow 27 1
+Success.
+Success.
+flow 27 2
+Success.
+Success.
+flow 27 3
+Success.
+Success.
+flow 27 4
+Success.
+Success.
+flow 27 5
+Success.
+Success.
+flow 27 6
+Success.
+Success.
+flow 27 7
+Success.
+Success.
+flow 27 8
+Success.
+Success.
+flow 27 9
+Success.
+Success.
+flow 27 10
+Success.
+Success.
+flow 27 11
+Success.
+Success.
+flow 27 12
+Success.
+Success.
+flow 27 13
+Success.
+Success.
+flow 27 14
+Success.
+Success.
+flow 27 15
+Success.
+Success.
+flow 28 0
+Success.
+Success.
+flow 28 1
+Success.
+Success.
+flow 28 2
+Success.
+Success.
+flow 28 3
+Success.
+Success.
+flow 28 4
+Success.
+Success.
+flow 28 5
+Success.
+Success.
+flow 28 6
+Success.
+Success.
+flow 28 7
+Success.
+Success.
+flow 28 8
+Success.
+Success.
+flow 28 9
+Success.
+Success.
+flow 28 10
+Success.
+Success.
+flow 28 11
+Success.
+Success.
+flow 28 12
+Success.
+Success.
+flow 28 13
+Success.
+Success.
+flow 28 14
+Success.
+Success.
+flow 28 15
+Success.
+Success.
+flow 29 0
+Success.
+Success.
+flow 29 1
+Success.
+Success.
+flow 29 2
+Success.
+Success.
+flow 29 3
+Success.
+Success.
+flow 29 4
+Success.
+Success.
+flow 29 5
+Success.
+Success.
+flow 29 6
+Success.
+Success.
+flow 29 7
+Success.
+Success.
+flow 29 8
+Success.
+Success.
+flow 29 9
+Success.
+Success.
+flow 29 10
+Success.
+Success.
+flow 29 11
+Success.
+Success.
+flow 29 12
+Success.
+Success.
+flow 29 13
+Success.
+Success.
+flow 29 14
+Success.
+Success.
+flow 29 15
+Success.
+Success.
+flow 30 0
+Success.
+Success.
+flow 30 1
+Success.
+Success.
+flow 30 2
+Success.
+Success.
+flow 30 3
+Success.
+Success.
+flow 30 4
+Success.
+Success.
+flow 30 5
+Success.
+Success.
+flow 30 6
+Success.
+Success.
+flow 30 7
+Success.
+Success.
+flow 30 8
+Success.
+Success.
+flow 30 9
+Success.
+Success.
+flow 30 10
+Success.
+Success.
+flow 30 11
+Success.
+Success.
+flow 30 12
+Success.
+Success.
+flow 30 13
+Success.
+Success.
+flow 30 14
+Success.
+Success.
+flow 30 15
+Success.
+Success.
+flow 31 0
+Success.
+Success.
+flow 31 1
+Success.
+Success.
+flow 31 2
+Success.
+Success.
+flow 31 3
+Success.
+Success.
+flow 31 4
+Success.
+Success.
+flow 31 5
+Success.
+Success.
+flow 31 6
+Success.
+Success.
+flow 31 7
+Success.
+Success.
+flow 31 8
+Success.
+Success.
+flow 31 9
+Success.
+Success.
+flow 31 10
+Success.
+Success.
+flow 31 11
+Success.
+Success.
+flow 31 12
+Success.
+Success.
+flow 31 13
+Success.
+Success.
+flow 31 14
+Success.
+Success.
+flow 31 15
+Success.
+Success.
+trip 0 0
+Error: The route for vehicle 'v' has no edges.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+trip 0 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 0 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 0 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 0
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 1 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 1 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 0
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 2 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 2 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 0
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 3 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 3 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 0
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+trip 4 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 2
+Success.
+Success.
+trip 4 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 4
+Success.
+Success.
+trip 4 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 6
+Success.
+Success.
+trip 4 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 8
+Success.
+Success.
+trip 4 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 10
+Success.
+Success.
+trip 4 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 12
+Success.
+Success.
+trip 4 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 4 14
+Success.
+Success.
+trip 4 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 0
+Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+trip 5 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 2
+Success.
+Success.
+trip 5 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 4
+Success.
+Success.
+trip 5 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 6
+Success.
+Success.
+trip 5 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 8
+Success.
+Success.
+trip 5 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 10
+Success.
+Success.
+trip 5 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 12
+Success.
+Success.
+trip 5 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 5 14
+Success.
+Success.
+trip 5 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 0
+Success.
+Success.
+trip 6 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 2
+Success.
+Success.
+trip 6 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 4
+Success.
+Success.
+trip 6 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 6
+Success.
+Success.
+trip 6 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 8
+Success.
+Success.
+trip 6 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 10
+Success.
+Success.
+trip 6 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 12
+Success.
+Success.
+trip 6 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 6 14
+Success.
+Success.
+trip 6 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 0
+Success.
+Success.
+trip 7 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 2
+Success.
+Success.
+trip 7 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 4
+Success.
+Success.
+trip 7 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 6
+Success.
+Success.
+trip 7 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 8
+Success.
+Success.
+trip 7 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 10
+Success.
+Success.
+trip 7 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 12
+Success.
+Success.
+trip 7 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 7 14
+Success.
+Success.
+trip 7 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 0
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+trip 8 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 2
+Success.
+Success.
+trip 8 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 4
+Success.
+Success.
+trip 8 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 6
+Success.
+Success.
+trip 8 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 8
+Success.
+Success.
+trip 8 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 10
+Success.
+Success.
+trip 8 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 12
+Success.
+Success.
+trip 8 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 8 14
+Success.
+Success.
+trip 8 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 0
+Success.
+Success.
+trip 9 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 2
+Success.
+Success.
+trip 9 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 4
+Success.
+Success.
+trip 9 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 6
+Success.
+Success.
+trip 9 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 8
+Success.
+Success.
+trip 9 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 10
+Success.
+Success.
+trip 9 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 12
+Success.
+Success.
+trip 9 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 9 14
+Success.
+Success.
+trip 9 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 0
+Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+trip 10 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 2
+Success.
+Success.
+trip 10 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 4
+Success.
+Success.
+trip 10 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 6
+Success.
+Success.
+trip 10 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 8
+Success.
+Success.
+trip 10 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 10
+Success.
+Success.
+trip 10 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 12
+Success.
+Success.
+trip 10 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 10 14
+Success.
+Success.
+trip 10 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 0
+Success.
+Success.
+trip 11 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 2
+Success.
+Success.
+trip 11 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 4
+Success.
+Success.
+trip 11 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 6
+Success.
+Success.
+trip 11 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 8
+Success.
+Success.
+trip 11 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 10
+Success.
+Success.
+trip 11 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 12
+Success.
+Success.
+trip 11 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 11 14
+Success.
+Success.
+trip 11 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 0
+Success.
+Success.
+trip 12 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 2
+Success.
+Success.
+trip 12 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 4
+Success.
+Success.
+trip 12 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 6
+Success.
+Success.
+trip 12 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 8
+Success.
+Success.
+trip 12 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 10
+Success.
+Success.
+trip 12 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 12
+Success.
+Success.
+trip 12 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 12 14
+Success.
+Success.
+trip 12 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 0
+Success.
+Success.
+trip 13 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 2
+Success.
+Success.
+trip 13 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 4
+Success.
+Success.
+trip 13 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 6
+Success.
+Success.
+trip 13 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 8
+Success.
+Success.
+trip 13 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 10
+Success.
+Success.
+trip 13 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 12
+Success.
+Success.
+trip 13 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 13 14
+Success.
+Success.
+trip 13 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 0
+Success.
+Success.
+trip 14 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 2
+Success.
+Success.
+trip 14 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 4
+Success.
+Success.
+trip 14 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 6
+Success.
+Success.
+trip 14 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 8
+Success.
+Success.
+trip 14 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 10
+Success.
+Success.
+trip 14 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 12
+Success.
+Success.
+trip 14 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 14 14
+Success.
+Success.
+trip 14 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 0
+Success.
+Success.
+trip 15 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 2
+Success.
+Success.
+trip 15 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 4
+Success.
+Success.
+trip 15 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 6
+Success.
+Success.
+trip 15 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 8
+Success.
+Success.
+trip 15 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 10
+Success.
+Success.
+trip 15 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 12
+Success.
+Success.
+trip 15 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 15 14
+Success.
+Success.
+trip 15 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 0
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 16 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 16 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 0
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 17 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 17 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 0
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 18 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 18 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 0
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 2
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 4
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 6
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 8
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 10
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 12
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 19 14
+Success.
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Success.
+trip 19 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Warning: Taz usage was requested but no taz present in trip 'v'!
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 0
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+trip 20 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 2
+Success.
+Success.
+trip 20 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 4
+Success.
+Success.
+trip 20 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 6
+Success.
+Success.
+trip 20 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 8
+Success.
+Success.
+trip 20 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 10
+Success.
+Success.
+trip 20 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 12
+Success.
+Success.
+trip 20 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 20 14
+Success.
+Success.
+trip 20 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 0
+Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+trip 21 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 2
+Success.
+Success.
+trip 21 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 4
+Success.
+Success.
+trip 21 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 6
+Success.
+Success.
+trip 21 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 8
+Success.
+Success.
+trip 21 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 10
+Success.
+Success.
+trip 21 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 12
+Success.
+Success.
+trip 21 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 21 14
+Success.
+Success.
+trip 21 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 0
+Success.
+Success.
+trip 22 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 2
+Success.
+Success.
+trip 22 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 4
+Success.
+Success.
+trip 22 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 6
+Success.
+Success.
+trip 22 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 8
+Success.
+Success.
+trip 22 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 10
+Success.
+Success.
+trip 22 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 12
+Success.
+Success.
+trip 22 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 22 14
+Success.
+Success.
+trip 22 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 0
+Success.
+Success.
+trip 23 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 2
+Success.
+Success.
+trip 23 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 4
+Success.
+Success.
+trip 23 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 6
+Success.
+Success.
+trip 23 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 8
+Success.
+Success.
+trip 23 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 10
+Success.
+Success.
+trip 23 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 12
+Success.
+Success.
+trip 23 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 23 14
+Success.
+Success.
+trip 23 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 0
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+trip 24 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 2
+Success.
+Success.
+trip 24 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 4
+Success.
+Success.
+trip 24 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 6
+Success.
+Success.
+trip 24 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 8
+Success.
+Success.
+trip 24 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 10
+Success.
+Success.
+trip 24 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 12
+Success.
+Success.
+trip 24 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 24 14
+Success.
+Success.
+trip 24 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 0
+Success.
+Success.
+trip 25 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 2
+Success.
+Success.
+trip 25 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 4
+Success.
+Success.
+trip 25 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 6
+Success.
+Success.
+trip 25 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 8
+Success.
+Success.
+trip 25 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 10
+Success.
+Success.
+trip 25 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 12
+Success.
+Success.
+trip 25 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 25 14
+Success.
+Success.
+trip 25 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 0
+Success.
+Error: The routing information for vehicle 'v' is insufficient.
+Quitting (on error).
+trip 26 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 2
+Success.
+Success.
+trip 26 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 4
+Success.
+Success.
+trip 26 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 6
+Success.
+Success.
+trip 26 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 8
+Success.
+Success.
+trip 26 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 10
+Success.
+Success.
+trip 26 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 12
+Success.
+Success.
+trip 26 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 26 14
+Success.
+Success.
+trip 26 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 0
+Success.
+Success.
+trip 27 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 2
+Success.
+Success.
+trip 27 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 4
+Success.
+Success.
+trip 27 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 6
+Success.
+Success.
+trip 27 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 8
+Success.
+Success.
+trip 27 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 10
+Success.
+Success.
+trip 27 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 12
+Success.
+Success.
+trip 27 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 27 14
+Success.
+Success.
+trip 27 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 0
+Success.
+Success.
+trip 28 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 2
+Success.
+Success.
+trip 28 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 4
+Success.
+Success.
+trip 28 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 6
+Success.
+Success.
+trip 28 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 8
+Success.
+Success.
+trip 28 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 10
+Success.
+Success.
+trip 28 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 12
+Success.
+Success.
+trip 28 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 28 14
+Success.
+Success.
+trip 28 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 0
+Success.
+Success.
+trip 29 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 2
+Success.
+Success.
+trip 29 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 4
+Success.
+Success.
+trip 29 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 6
+Success.
+Success.
+trip 29 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 8
+Success.
+Success.
+trip 29 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 10
+Success.
+Success.
+trip 29 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 12
+Success.
+Success.
+trip 29 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 29 14
+Success.
+Success.
+trip 29 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 0
+Success.
+Success.
+trip 30 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 2
+Success.
+Success.
+trip 30 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 4
+Success.
+Success.
+trip 30 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 6
+Success.
+Success.
+trip 30 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 8
+Success.
+Success.
+trip 30 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 10
+Success.
+Success.
+trip 30 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 12
+Success.
+Success.
+trip 30 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 30 14
+Success.
+Success.
+trip 30 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 0
+Success.
+Success.
+trip 31 1
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 2
+Success.
+Success.
+trip 31 3
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 4
+Success.
+Success.
+trip 31 5
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 6
+Success.
+Success.
+trip 31 7
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 8
+Success.
+Success.
+trip 31 9
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 10
+Success.
+Success.
+trip 31 11
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 12
+Success.
+Success.
+trip 31 13
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+trip 31 14
+Success.
+Success.
+trip 31 15
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+Error: The route for vehicle 'v' has no edges.
+Quitting (on error).
+vehicle 0 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 1
+Success.
+Success.
+vehicle 0 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 3
+Success.
+Success.
+vehicle 0 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 5
+Success.
+Success.
+vehicle 0 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 7
+Success.
+Success.
+vehicle 0 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 9
+Success.
+Success.
+vehicle 0 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 11
+Success.
+Success.
+vehicle 0 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 13
+Success.
+Success.
+vehicle 0 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 0 15
+Success.
+Success.
+vehicle 1 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 1
+Success.
+Success.
+vehicle 1 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 3
+Success.
+Success.
+vehicle 1 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 5
+Success.
+Success.
+vehicle 1 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 7
+Success.
+Success.
+vehicle 1 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 9
+Success.
+Success.
+vehicle 1 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 11
+Success.
+Success.
+vehicle 1 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 13
+Success.
+Success.
+vehicle 1 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 1 15
+Success.
+Success.
+vehicle 2 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 1
+Success.
+Success.
+vehicle 2 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 3
+Success.
+Success.
+vehicle 2 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 5
+Success.
+Success.
+vehicle 2 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 7
+Success.
+Success.
+vehicle 2 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 9
+Success.
+Success.
+vehicle 2 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 11
+Success.
+Success.
+vehicle 2 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 13
+Success.
+Success.
+vehicle 2 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 2 15
+Success.
+Success.
+vehicle 3 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 1
+Success.
+Success.
+vehicle 3 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 3
+Success.
+Success.
+vehicle 3 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 5
+Success.
+Success.
+vehicle 3 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 7
+Success.
+Success.
+vehicle 3 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 9
+Success.
+Success.
+vehicle 3 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 11
+Success.
+Success.
+vehicle 3 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 13
+Success.
+Success.
+vehicle 3 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 3 15
+Success.
+Success.
+vehicle 4 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 1
+Success.
+Success.
+vehicle 4 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 3
+Success.
+Success.
+vehicle 4 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 5
+Success.
+Success.
+vehicle 4 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 7
+Success.
+Success.
+vehicle 4 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 9
+Success.
+Success.
+vehicle 4 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 11
+Success.
+Success.
+vehicle 4 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 13
+Success.
+Success.
+vehicle 4 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 4 15
+Success.
+Success.
+vehicle 5 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 1
+Success.
+Success.
+vehicle 5 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 3
+Success.
+Success.
+vehicle 5 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 5
+Success.
+Success.
+vehicle 5 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 7
+Success.
+Success.
+vehicle 5 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 9
+Success.
+Success.
+vehicle 5 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 11
+Success.
+Success.
+vehicle 5 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 13
+Success.
+Success.
+vehicle 5 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 5 15
+Success.
+Success.
+vehicle 6 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 1
+Success.
+Success.
+vehicle 6 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 3
+Success.
+Success.
+vehicle 6 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 5
+Success.
+Success.
+vehicle 6 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 7
+Success.
+Success.
+vehicle 6 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 9
+Success.
+Success.
+vehicle 6 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 11
+Success.
+Success.
+vehicle 6 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 13
+Success.
+Success.
+vehicle 6 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 6 15
+Success.
+Success.
+vehicle 7 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 1
+Success.
+Success.
+vehicle 7 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 3
+Success.
+Success.
+vehicle 7 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 5
+Success.
+Success.
+vehicle 7 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 7
+Success.
+Success.
+vehicle 7 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 9
+Success.
+Success.
+vehicle 7 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 11
+Success.
+Success.
+vehicle 7 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 13
+Success.
+Success.
+vehicle 7 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 7 15
+Success.
+Success.
+vehicle 8 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 1
+Success.
+Success.
+vehicle 8 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 3
+Success.
+Success.
+vehicle 8 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 5
+Success.
+Success.
+vehicle 8 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 7
+Success.
+Success.
+vehicle 8 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 9
+Success.
+Success.
+vehicle 8 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 11
+Success.
+Success.
+vehicle 8 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 13
+Success.
+Success.
+vehicle 8 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 8 15
+Success.
+Success.
+vehicle 9 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 1
+Success.
+Success.
+vehicle 9 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 3
+Success.
+Success.
+vehicle 9 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 5
+Success.
+Success.
+vehicle 9 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 7
+Success.
+Success.
+vehicle 9 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 9
+Success.
+Success.
+vehicle 9 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 11
+Success.
+Success.
+vehicle 9 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 13
+Success.
+Success.
+vehicle 9 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 9 15
+Success.
+Success.
+vehicle 10 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 1
+Success.
+Success.
+vehicle 10 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 3
+Success.
+Success.
+vehicle 10 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 5
+Success.
+Success.
+vehicle 10 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 7
+Success.
+Success.
+vehicle 10 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 9
+Success.
+Success.
+vehicle 10 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 11
+Success.
+Success.
+vehicle 10 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 13
+Success.
+Success.
+vehicle 10 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 10 15
+Success.
+Success.
+vehicle 11 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 1
+Success.
+Success.
+vehicle 11 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 3
+Success.
+Success.
+vehicle 11 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 5
+Success.
+Success.
+vehicle 11 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 7
+Success.
+Success.
+vehicle 11 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 9
+Success.
+Success.
+vehicle 11 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 11
+Success.
+Success.
+vehicle 11 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 13
+Success.
+Success.
+vehicle 11 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 11 15
+Success.
+Success.
+vehicle 12 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 1
+Success.
+Success.
+vehicle 12 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 3
+Success.
+Success.
+vehicle 12 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 5
+Success.
+Success.
+vehicle 12 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 7
+Success.
+Success.
+vehicle 12 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 9
+Success.
+Success.
+vehicle 12 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 11
+Success.
+Success.
+vehicle 12 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 13
+Success.
+Success.
+vehicle 12 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 12 15
+Success.
+Success.
+vehicle 13 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 1
+Success.
+Success.
+vehicle 13 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 3
+Success.
+Success.
+vehicle 13 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 5
+Success.
+Success.
+vehicle 13 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 7
+Success.
+Success.
+vehicle 13 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 9
+Success.
+Success.
+vehicle 13 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 11
+Success.
+Success.
+vehicle 13 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 13
+Success.
+Success.
+vehicle 13 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 13 15
+Success.
+Success.
+vehicle 14 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 1
+Success.
+Success.
+vehicle 14 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 3
+Success.
+Success.
+vehicle 14 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 5
+Success.
+Success.
+vehicle 14 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 7
+Success.
+Success.
+vehicle 14 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 9
+Success.
+Success.
+vehicle 14 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 11
+Success.
+Success.
+vehicle 14 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 13
+Success.
+Success.
+vehicle 14 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 14 15
+Success.
+Success.
+vehicle 15 0
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 1
+Success.
+Success.
+vehicle 15 2
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 3
+Success.
+Success.
+vehicle 15 4
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 5
+Success.
+Success.
+vehicle 15 6
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 7
+Success.
+Success.
+vehicle 15 8
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 9
+Success.
+Success.
+vehicle 15 10
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 11
+Success.
+Success.
+vehicle 15 12
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 13
+Success.
+Success.
+vehicle 15 14
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+Error: The route of the vehicle 'v' is not known.
+Quitting (on error).
+vehicle 15 15
+Success.
+Success.
+vehicle 16 0
+Success.
+Success.
+vehicle 16 1
+Success.
+Success.
+vehicle 16 2
+Success.
+Success.
+vehicle 16 3
+Success.
+Success.
+vehicle 16 4
+Success.
+Success.
+vehicle 16 5
+Success.
+Success.
+vehicle 16 6
+Success.
+Success.
+vehicle 16 7
+Success.
+Success.
+vehicle 16 8
+Success.
+Success.
+vehicle 16 9
+Success.
+Success.
+vehicle 16 10
+Success.
+Success.
+vehicle 16 11
+Success.
+Success.
+vehicle 16 12
+Success.
+Success.
+vehicle 16 13
+Success.
+Success.
+vehicle 16 14
+Success.
+Success.
+vehicle 16 15
+Success.
+Success.
+vehicle 17 0
+Success.
+Success.
+vehicle 17 1
+Success.
+Success.
+vehicle 17 2
+Success.
+Success.
+vehicle 17 3
+Success.
+Success.
+vehicle 17 4
+Success.
+Success.
+vehicle 17 5
+Success.
+Success.
+vehicle 17 6
+Success.
+Success.
+vehicle 17 7
+Success.
+Success.
+vehicle 17 8
+Success.
+Success.
+vehicle 17 9
+Success.
+Success.
+vehicle 17 10
+Success.
+Success.
+vehicle 17 11
+Success.
+Success.
+vehicle 17 12
+Success.
+Success.
+vehicle 17 13
+Success.
+Success.
+vehicle 17 14
+Success.
+Success.
+vehicle 17 15
+Success.
+Success.
+vehicle 18 0
+Success.
+Success.
+vehicle 18 1
+Success.
+Success.
+vehicle 18 2
+Success.
+Success.
+vehicle 18 3
+Success.
+Success.
+vehicle 18 4
+Success.
+Success.
+vehicle 18 5
+Success.
+Success.
+vehicle 18 6
+Success.
+Success.
+vehicle 18 7
+Success.
+Success.
+vehicle 18 8
+Success.
+Success.
+vehicle 18 9
+Success.
+Success.
+vehicle 18 10
+Success.
+Success.
+vehicle 18 11
+Success.
+Success.
+vehicle 18 12
+Success.
+Success.
+vehicle 18 13
+Success.
+Success.
+vehicle 18 14
+Success.
+Success.
+vehicle 18 15
+Success.
+Success.
+vehicle 19 0
+Success.
+Success.
+vehicle 19 1
+Success.
+Success.
+vehicle 19 2
+Success.
+Success.
+vehicle 19 3
+Success.
+Success.
+vehicle 19 4
+Success.
+Success.
+vehicle 19 5
+Success.
+Success.
+vehicle 19 6
+Success.
+Success.
+vehicle 19 7
+Success.
+Success.
+vehicle 19 8
+Success.
+Success.
+vehicle 19 9
+Success.
+Success.
+vehicle 19 10
+Success.
+Success.
+vehicle 19 11
+Success.
+Success.
+vehicle 19 12
+Success.
+Success.
+vehicle 19 13
+Success.
+Success.
+vehicle 19 14
+Success.
+Success.
+vehicle 19 15
+Success.
+Success.
+vehicle 20 0
+Success.
+Success.
+vehicle 20 1
+Success.
+Success.
+vehicle 20 2
+Success.
+Success.
+vehicle 20 3
+Success.
+Success.
+vehicle 20 4
+Success.
+Success.
+vehicle 20 5
+Success.
+Success.
+vehicle 20 6
+Success.
+Success.
+vehicle 20 7
+Success.
+Success.
+vehicle 20 8
+Success.
+Success.
+vehicle 20 9
+Success.
+Success.
+vehicle 20 10
+Success.
+Success.
+vehicle 20 11
+Success.
+Success.
+vehicle 20 12
+Success.
+Success.
+vehicle 20 13
+Success.
+Success.
+vehicle 20 14
+Success.
+Success.
+vehicle 20 15
+Success.
+Success.
+vehicle 21 0
+Success.
+Success.
+vehicle 21 1
+Success.
+Success.
+vehicle 21 2
+Success.
+Success.
+vehicle 21 3
+Success.
+Success.
+vehicle 21 4
+Success.
+Success.
+vehicle 21 5
+Success.
+Success.
+vehicle 21 6
+Success.
+Success.
+vehicle 21 7
+Success.
+Success.
+vehicle 21 8
+Success.
+Success.
+vehicle 21 9
+Success.
+Success.
+vehicle 21 10
+Success.
+Success.
+vehicle 21 11
+Success.
+Success.
+vehicle 21 12
+Success.
+Success.
+vehicle 21 13
+Success.
+Success.
+vehicle 21 14
+Success.
+Success.
+vehicle 21 15
+Success.
+Success.
+vehicle 22 0
+Success.
+Success.
+vehicle 22 1
+Success.
+Success.
+vehicle 22 2
+Success.
+Success.
+vehicle 22 3
+Success.
+Success.
+vehicle 22 4
+Success.
+Success.
+vehicle 22 5
+Success.
+Success.
+vehicle 22 6
+Success.
+Success.
+vehicle 22 7
+Success.
+Success.
+vehicle 22 8
+Success.
+Success.
+vehicle 22 9
+Success.
+Success.
+vehicle 22 10
+Success.
+Success.
+vehicle 22 11
+Success.
+Success.
+vehicle 22 12
+Success.
+Success.
+vehicle 22 13
+Success.
+Success.
+vehicle 22 14
+Success.
+Success.
+vehicle 22 15
+Success.
+Success.
+vehicle 23 0
+Success.
+Success.
+vehicle 23 1
+Success.
+Success.
+vehicle 23 2
+Success.
+Success.
+vehicle 23 3
+Success.
+Success.
+vehicle 23 4
+Success.
+Success.
+vehicle 23 5
+Success.
+Success.
+vehicle 23 6
+Success.
+Success.
+vehicle 23 7
+Success.
+Success.
+vehicle 23 8
+Success.
+Success.
+vehicle 23 9
+Success.
+Success.
+vehicle 23 10
+Success.
+Success.
+vehicle 23 11
+Success.
+Success.
+vehicle 23 12
+Success.
+Success.
+vehicle 23 13
+Success.
+Success.
+vehicle 23 14
+Success.
+Success.
+vehicle 23 15
+Success.
+Success.
+vehicle 24 0
+Success.
+Success.
+vehicle 24 1
+Success.
+Success.
+vehicle 24 2
+Success.
+Success.
+vehicle 24 3
+Success.
+Success.
+vehicle 24 4
+Success.
+Success.
+vehicle 24 5
+Success.
+Success.
+vehicle 24 6
+Success.
+Success.
+vehicle 24 7
+Success.
+Success.
+vehicle 24 8
+Success.
+Success.
+vehicle 24 9
+Success.
+Success.
+vehicle 24 10
+Success.
+Success.
+vehicle 24 11
+Success.
+Success.
+vehicle 24 12
+Success.
+Success.
+vehicle 24 13
+Success.
+Success.
+vehicle 24 14
+Success.
+Success.
+vehicle 24 15
+Success.
+Success.
+vehicle 25 0
+Success.
+Success.
+vehicle 25 1
+Success.
+Success.
+vehicle 25 2
+Success.
+Success.
+vehicle 25 3
+Success.
+Success.
+vehicle 25 4
+Success.
+Success.
+vehicle 25 5
+Success.
+Success.
+vehicle 25 6
+Success.
+Success.
+vehicle 25 7
+Success.
+Success.
+vehicle 25 8
+Success.
+Success.
+vehicle 25 9
+Success.
+Success.
+vehicle 25 10
+Success.
+Success.
+vehicle 25 11
+Success.
+Success.
+vehicle 25 12
+Success.
+Success.
+vehicle 25 13
+Success.
+Success.
+vehicle 25 14
+Success.
+Success.
+vehicle 25 15
+Success.
+Success.
+vehicle 26 0
+Success.
+Success.
+vehicle 26 1
+Success.
+Success.
+vehicle 26 2
+Success.
+Success.
+vehicle 26 3
+Success.
+Success.
+vehicle 26 4
+Success.
+Success.
+vehicle 26 5
+Success.
+Success.
+vehicle 26 6
+Success.
+Success.
+vehicle 26 7
+Success.
+Success.
+vehicle 26 8
+Success.
+Success.
+vehicle 26 9
+Success.
+Success.
+vehicle 26 10
+Success.
+Success.
+vehicle 26 11
+Success.
+Success.
+vehicle 26 12
+Success.
+Success.
+vehicle 26 13
+Success.
+Success.
+vehicle 26 14
+Success.
+Success.
+vehicle 26 15
+Success.
+Success.
+vehicle 27 0
+Success.
+Success.
+vehicle 27 1
+Success.
+Success.
+vehicle 27 2
+Success.
+Success.
+vehicle 27 3
+Success.
+Success.
+vehicle 27 4
+Success.
+Success.
+vehicle 27 5
+Success.
+Success.
+vehicle 27 6
+Success.
+Success.
+vehicle 27 7
+Success.
+Success.
+vehicle 27 8
+Success.
+Success.
+vehicle 27 9
+Success.
+Success.
+vehicle 27 10
+Success.
+Success.
+vehicle 27 11
+Success.
+Success.
+vehicle 27 12
+Success.
+Success.
+vehicle 27 13
+Success.
+Success.
+vehicle 27 14
+Success.
+Success.
+vehicle 27 15
+Success.
+Success.
+vehicle 28 0
+Success.
+Success.
+vehicle 28 1
+Success.
+Success.
+vehicle 28 2
+Success.
+Success.
+vehicle 28 3
+Success.
+Success.
+vehicle 28 4
+Success.
+Success.
+vehicle 28 5
+Success.
+Success.
+vehicle 28 6
+Success.
+Success.
+vehicle 28 7
+Success.
+Success.
+vehicle 28 8
+Success.
+Success.
+vehicle 28 9
+Success.
+Success.
+vehicle 28 10
+Success.
+Success.
+vehicle 28 11
+Success.
+Success.
+vehicle 28 12
+Success.
+Success.
+vehicle 28 13
+Success.
+Success.
+vehicle 28 14
+Success.
+Success.
+vehicle 28 15
+Success.
+Success.
+vehicle 29 0
+Success.
+Success.
+vehicle 29 1
+Success.
+Success.
+vehicle 29 2
+Success.
+Success.
+vehicle 29 3
+Success.
+Success.
+vehicle 29 4
+Success.
+Success.
+vehicle 29 5
+Success.
+Success.
+vehicle 29 6
+Success.
+Success.
+vehicle 29 7
+Success.
+Success.
+vehicle 29 8
+Success.
+Success.
+vehicle 29 9
+Success.
+Success.
+vehicle 29 10
+Success.
+Success.
+vehicle 29 11
+Success.
+Success.
+vehicle 29 12
+Success.
+Success.
+vehicle 29 13
+Success.
+Success.
+vehicle 29 14
+Success.
+Success.
+vehicle 29 15
+Success.
+Success.
+vehicle 30 0
+Success.
+Success.
+vehicle 30 1
+Success.
+Success.
+vehicle 30 2
+Success.
+Success.
+vehicle 30 3
+Success.
+Success.
+vehicle 30 4
+Success.
+Success.
+vehicle 30 5
+Success.
+Success.
+vehicle 30 6
+Success.
+Success.
+vehicle 30 7
+Success.
+Success.
+vehicle 30 8
+Success.
+Success.
+vehicle 30 9
+Success.
+Success.
+vehicle 30 10
+Success.
+Success.
+vehicle 30 11
+Success.
+Success.
+vehicle 30 12
+Success.
+Success.
+vehicle 30 13
+Success.
+Success.
+vehicle 30 14
+Success.
+Success.
+vehicle 30 15
+Success.
+Success.
+vehicle 31 0
+Success.
+Success.
+vehicle 31 1
+Success.
+Success.
+vehicle 31 2
+Success.
+Success.
+vehicle 31 3
+Success.
+Success.
+vehicle 31 4
+Success.
+Success.
+vehicle 31 5
+Success.
+Success.
+vehicle 31 6
+Success.
+Success.
+vehicle 31 7
+Success.
+Success.
+vehicle 31 8
+Success.
+Success.
+vehicle 31 9
+Success.
+Success.
+vehicle 31 10
+Success.
+Success.
+vehicle 31 11
+Success.
+Success.
+vehicle 31 12
+Success.
+Success.
+vehicle 31 13
+Success.
+Success.
+vehicle 31 14
+Success.
+Success.
+vehicle 31 15
+Success.
+Success.

@@ -1,0 +1,5 @@
+Error: Negative index of a route alternative (id='1').
+Error: Attribute 'id' is missing in definition of a route.
+Error: Route '' has no edges.
+Error: The route of the vehicle '1' is not known.
+Quitting (on error).

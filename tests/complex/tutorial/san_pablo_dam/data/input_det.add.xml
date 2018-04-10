@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="obs1" lane="1to7_0" pos="25.0" freq="1" file="detector.xml"/>
+    <inductionLoop id="obs2" lane="1to7_0" pos="2896.82" freq="1" file="detector.xml"/>
+    <inductionLoop id="obs3" lane="1to7_0" pos="3610.97" freq="1" file="detector.xml"/>
+    <inductionLoop id="obs4" lane="1to7_0" pos="4506.16" freq="1" file="detector.xml"/>
+    <inductionLoop id="obs5" lane="1to7_0" pos="4755.49" freq="1" file="detector.xml"/>
+    <inductionLoop id="obs6" lane="1to7_0" pos="5363.87" freq="1" file="detector.xml"/>
+    <inductionLoop id="obs7" lane="1to7_0" pos="5688.17" freq="1" file="detector.xml"/>
+</additional>

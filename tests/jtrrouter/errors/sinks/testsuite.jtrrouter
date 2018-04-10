@@ -1,0 +1,22 @@
+# unknown edge in straight only with sinks
+false_edge__straight_only_sinks
+
+# unknown edge in straight only with sinks which are defined in defs
+false_edge__straight_only_sinks_in_defs
+
+
+# First edge is not known (from multiple_sinks)
+false_edge1__multiple_sinks
+
+# Second edge is not known (from multiple_sinks)
+false_edge2__multiple_sinks
+
+# First edge is not known (from multiple_sinks_in_defs)
+false_edge1__multiple_sinks_in_defs
+
+# Second edge is not known (from multiple_sinks_in_defs)
+false_edge2__multiple_sinks_in_defs
+
+
+# multiple_sinks but with a deprecated divider
+deprecated__multiple_sinks

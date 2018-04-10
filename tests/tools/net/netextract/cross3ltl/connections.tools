@@ -1,0 +1,34 @@
+<connections>
+<connection from="1fi" to="1si" fromLane="0" toLane="0"/>
+<connection from="1fi" to="1si" fromLane="0" toLane="1"/>
+<connection from="1fi" to="1si" fromLane="0" toLane="2"/>
+<connection from="1o" to="1fi" fromLane="0" toLane="0"/>
+<connection from="1si" to="1o" fromLane="2" toLane="0"/>
+<connection from="1si" to="2o" fromLane="1" toLane="0"/>
+<connection from="1si" to="3o" fromLane="0" toLane="0"/>
+<connection from="1si" to="4o" fromLane="2" toLane="0"/>
+<connection from="2fi" to="2si" fromLane="0" toLane="0"/>
+<connection from="2fi" to="2si" fromLane="0" toLane="1"/>
+<connection from="2fi" to="2si" fromLane="0" toLane="2"/>
+<connection from="2o" to="2fi" fromLane="0" toLane="0"/>
+<connection from="2si" to="1o" fromLane="1" toLane="0"/>
+<connection from="2si" to="2o" fromLane="2" toLane="0"/>
+<connection from="2si" to="3o" fromLane="2" toLane="0"/>
+<connection from="2si" to="4o" fromLane="0" toLane="0"/>
+<connection from="3fi" to="3si" fromLane="0" toLane="0"/>
+<connection from="3fi" to="3si" fromLane="0" toLane="1"/>
+<connection from="3fi" to="3si" fromLane="0" toLane="2"/>
+<connection from="3o" to="3fi" fromLane="0" toLane="0"/>
+<connection from="3si" to="1o" fromLane="2" toLane="0"/>
+<connection from="3si" to="2o" fromLane="0" toLane="0"/>
+<connection from="3si" to="3o" fromLane="2" toLane="0"/>
+<connection from="3si" to="4o" fromLane="1" toLane="0"/>
+<connection from="4fi" to="4si" fromLane="0" toLane="0"/>
+<connection from="4fi" to="4si" fromLane="0" toLane="1"/>
+<connection from="4fi" to="4si" fromLane="0" toLane="2"/>
+<connection from="4o" to="4fi" fromLane="0" toLane="0"/>
+<connection from="4si" to="1o" fromLane="0" toLane="0"/>
+<connection from="4si" to="2o" fromLane="2" toLane="0"/>
+<connection from="4si" to="3o" fromLane="1" toLane="0"/>
+<connection from="4si" to="4o" fromLane="2" toLane="0"/>
+</connections>

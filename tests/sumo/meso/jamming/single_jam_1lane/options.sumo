@@ -1,0 +1,2 @@
+--meso-junction-control --no-step-log --verbose --net-file=net.net.xml
+--routes=input_routes.rou.xml --tripinfo-output tripinfos.xml 

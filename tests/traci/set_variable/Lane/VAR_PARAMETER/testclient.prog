@@ -1,0 +1,5 @@
+simstep2 5
+getvariable_plus 0xa3 0x7e 2/1to2/0_0 <string> foo
+setvalue 0xc3 0x7e 2/1to2/0_0 <compound> 2 <string> foo <string> bar
+getvariable_plus 0xa3 0x7e 2/1to2/0_0 <string> foo
+simstep2 0

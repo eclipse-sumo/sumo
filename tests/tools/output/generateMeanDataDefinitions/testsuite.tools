@@ -1,0 +1,29 @@
+# Tests plain help output
+plain
+
+# Whether edge-based output is generated.
+edge_based
+
+# Whether lane-based output is generated.
+lane_based
+
+# Whether the output can be saved in a file.
+file_output
+
+# Whether the detectors' output suffixes are set appropriately.
+output_suffixes
+
+# Whether works for E1 detectors.
+detector_type_e1
+
+# Whether works for E2 detectors.
+detector_type_e2
+
+# Whether works for E3 detectors.
+detector_type_e3
+
+# Tests whether fails informatively on unknown detector type.
+detector_type_unknown
+
+# Tests whether fails informatively on unknown detector type.
+detector_type_missing

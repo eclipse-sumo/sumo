@@ -1,0 +1,1 @@
+--rand.bidi-probability 0 --default-junction-type priority -v --rand -o net.net.xml --rand.iterations=10

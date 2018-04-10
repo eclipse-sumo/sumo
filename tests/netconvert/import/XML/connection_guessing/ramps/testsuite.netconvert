@@ -1,0 +1,5 @@
+# a motorway off-ramp with 4 incoming lanes, 3 lanes continuing on the motorway and 2 lanes exiting
+4in3main2ramp
+
+# a split in the road with 5 incoming lanes, 2 lanes continuing left and 3 lanes continuing right
+5in2main3ramp_with_bike_lane

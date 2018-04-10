@@ -1,0 +1,19 @@
+# some basic tests for importing files
+import
+
+# testing meta processing
+meta
+
+# tests for what happens if an error occures
+errors
+
+# Tests for splitting matrices by time lines
+timelines
+
+# Tests incremental assignment
+incremental
+
+# Tests for sue assignment
+sue
+all_pair
+load

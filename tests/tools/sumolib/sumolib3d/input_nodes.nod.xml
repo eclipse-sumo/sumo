@@ -1,0 +1,26 @@
+<nodes>
+  
+  <!-- points for straight edge both ways-->
+  <node id="a0"  x="100.0" y="0.0"  />
+  <node id="a1"  x="200.0" y="0.0" z="10.0" />
+
+  <!-- points for straight edge one way-->
+  <node id="b0"  x="100.0" y="100.0" z="10.0" />
+  <node id="b1"  x="200.0" y="100.0" z="10.0" />
+
+  <!-- points for a sloopy edge with shape points  -->
+  <node id="sloopy_west"     x="3000.0" y="200.0" z="10.0" />
+  <node id="sloopy_east"     x="3500.0" y="200.0" z="10.0" />
+
+  <!-- points the build the frist leg of the H -->
+  <node id="left_top"     x="1000.0" y="200.0" z="10.0" />
+  <node id="left_center"  x="1000.0" y="100.0" z="10.0" />
+  <node id="left_botton"  x="1000.0" y="0.0"   z="10.0" />
+
+  <!-- points the build the second leg of the H -->
+  <node id="right_top"     x="1200.0" y="200.0" z="10.0" />
+  <node id="right_center"  x="1200.0" y="100.0" z="10.0" />
+  <node id="right_botton"  x="1200.0" y="0.0"   z="10.0" />
+
+  
+</nodes>

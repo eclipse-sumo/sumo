@@ -1,0 +1,3 @@
+Success.
+calling  D:\behr_mi\Projekte\sumo\git\tests\\..\bin\duarouter.exe -n net2.net.xml -r trips.trips.xml -o out.rou.xml --ignore-errors --begin 0 --end 10.0 --no-step-log --no-warnings --additional-files input_additional.add.xml
+calling route2trips

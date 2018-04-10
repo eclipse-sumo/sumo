@@ -1,0 +1,11 @@
+# select additional invalid
+additional_invalid
+
+# reference position of stoppingPlace invalid
+additional_referencePositionInvalid
+
+# create additional and save it using save additional dialgo before closing
+additional_saveDialog
+
+# check that additionals maintain their positions when a edge's lenght is changed
+relative_positions

@@ -1,0 +1,26 @@
+# splits so that all vehicles are inserted before 12:00
+exp_split_before12
+
+# splits so that all vehicles are inserted after 12:00
+exp_split_after12
+
+# splits so that all vehicles are inserted before 12:00 uniformly
+exp_split_before12_uniform
+
+# splits so that all vehicles are inserted after 12:00 uniformly
+exp_split_after12_uniform
+
+# splits by hours so that all vehicles are inserted before 12:00
+hours_split_before12
+
+# splits by hours so that all vehicles are inserted after 12:00
+hours_split_after12
+
+# splits by hours so that all vehicles are inserted before 12:00 uniformly
+hours_split_before12_uniform
+
+# splits by hours so that all vehicles are inserted after 12:00 uniformly
+hours_split_after12_uniform
+
+# real timeseries with 12 districts and v matrix
+timeline_v

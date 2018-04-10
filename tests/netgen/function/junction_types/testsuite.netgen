@@ -1,0 +1,19 @@
+# plain network building (no junction type set)
+plain
+
+# junction type set to priority
+junction_type_priority
+
+# junction type set to static traffic light
+junction_type_static_tls
+
+# junction type set to right-before-left
+junction_type_right_before_left
+
+
+# setting tls explicite 
+explicite_tls
+
+
+# Tests for error handling
+errors

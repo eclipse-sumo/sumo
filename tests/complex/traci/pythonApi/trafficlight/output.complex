@@ -1,0 +1,204 @@
+Loading configuration... done.
+Could not connect to TraCI server at localhost:33815 [Errno 111] Connection refused
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+trafficlights deprecated ['0']
+trafficlight ['0']
+trafficlight count 1
+examining 0
+ryg rrrrGGggrrrrGGgg
+rygdef [Logic:
+subID: 0
+type: 0
+subParameter: 0
+currentPhaseIndex: 0
+Phase:
+duration: 31000
+minDuration: 31000
+maxDuration: 31000
+phaseDef: GGggrrrrGGggrrrr
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: yyggrrrryyggrrrr
+Phase:
+duration: 6000
+minDuration: 6000
+maxDuration: 6000
+phaseDef: rrGGrrrrrrGGrrrr
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: rryyrrrrrryyrrrr
+Phase:
+duration: 31000
+minDuration: 31000
+maxDuration: 31000
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: rrrryyggrrrryygg
+Phase:
+duration: 6000
+minDuration: 6000
+maxDuration: 6000
+phaseDef: rrrrrrGGrrrrrrGG
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: rrrrrryyrrrrrryy
+, Logic:
+subID: custom
+type: 0
+subParameter: 0
+currentPhaseIndex: 4
+Phase:
+duration: 30
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 10
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 40
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 20
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 20
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 20
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+]
+lanes ['4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2']
+links [[['4si_0', '1o_0', '']], [['4si_1', '3o_0', '']], [['4si_2', '2o_0', '']], [['4si_2', '4o_0', '']], [['2si_0', '4o_0', '']], [['2si_1', '1o_0', '']], [['2si_2', '3o_0', '']], [['2si_2', '2o_0', '']], [['3si_0', '2o_0', '']], [['3si_1', '4o_0', '']], [['3si_2', '1o_0', '']], [['3si_2', '3o_0', '']], [['1si_0', '3o_0', '']], [['1si_1', '2o_0', '']], [['1si_2', '4o_0', '']], [['1si_2', '1o_0', '']]]
+program custom
+phase 4
+switch 26000
+numDefs=2 numPhases=[8, 6]
+{0: ['0']}
+step 3
+{0: ['0']}
+step 4
+{0: ['0']}
+step 5
+{0: ['0']}
+caught Invalid tlsLinkIndex 16 for tls '0' with maximum index 15.
+examining 0
+ryg rrrruGggrrrrGGgg
+rygdef [Logic:
+subID: 0
+type: 0
+subParameter: 0
+currentPhaseIndex: 0
+Phase:
+duration: 31000
+minDuration: 31000
+maxDuration: 31000
+phaseDef: GGggrrrrGGggrrrr
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: yyggrrrryyggrrrr
+Phase:
+duration: 6000
+minDuration: 6000
+maxDuration: 6000
+phaseDef: rrGGrrrrrrGGrrrr
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: rryyrrrrrryyrrrr
+Phase:
+duration: 31000
+minDuration: 31000
+maxDuration: 31000
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: rrrryyggrrrryygg
+Phase:
+duration: 6000
+minDuration: 6000
+maxDuration: 6000
+phaseDef: rrrrrrGGrrrrrrGG
+Phase:
+duration: 4000
+minDuration: 4000
+maxDuration: 4000
+phaseDef: rrrrrryyrrrrrryy
+, Logic:
+subID: custom
+type: 0
+subParameter: 0
+currentPhaseIndex: 4
+Phase:
+duration: 30
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 10
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 40
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 20
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 20
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+Phase:
+duration: 20
+minDuration: 0
+maxDuration: 0
+phaseDef: rrrrGGggrrrrGGgg
+, Logic:
+subID: online
+type: 0
+subParameter: 0
+currentPhaseIndex: 0
+Phase:
+duration: 1000
+minDuration: 1000
+maxDuration: 1000
+phaseDef: rrrruGggrrrrGGgg
+]
+lanes ['4si_0', '4si_1', '4si_2', '4si_2', '2si_0', '2si_1', '2si_2', '2si_2', '3si_0', '3si_1', '3si_2', '3si_2', '1si_0', '1si_1', '1si_2', '1si_2']
+links [[['4si_0', '1o_0', '']], [['4si_1', '3o_0', '']], [['4si_2', '2o_0', '']], [['4si_2', '4o_0', '']], [['2si_0', '4o_0', '']], [['2si_1', '1o_0', '']], [['2si_2', '3o_0', '']], [['2si_2', '2o_0', '']], [['3si_0', '2o_0', '']], [['3si_1', '4o_0', '']], [['3si_2', '1o_0', '']], [['3si_2', '3o_0', '']], [['1si_0', '3o_0', '']], [['1si_1', '2o_0', '']], [['1si_2', '4o_0', '']], [['1si_2', '1o_0', '']]]
+program online
+phase 0
+switch 7000

@@ -1,0 +1,8 @@
+<a>
+<!-- nür zum Testen -->
+   <detectorDefinition id="MQ11Fs1" lane="ErnstRuska2O_0" pos="5"/>
+   <detectorDefinition id="MQ11Fs2" lane="ErnstRuska2O_1" pos="5"/>
+   <detectorDefinition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5"/>
+   <detectorDefinition id="MQ12Fs2" lane="ErnstRuska2W_1" pos="-5"/>
+
+</a>

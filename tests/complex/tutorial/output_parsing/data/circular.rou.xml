@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType accel="1.5" decel="4.5" id="car" length="5" maxSpeed="36.1"/>
+    <vType accel="0.4" decel="4.5" id="truck" length="12" maxSpeed="22.2"/>
+    <flow begin="0" departPos="free" id="carRight" period="1" number="70" route="routeRight" type="car"/>
+    <flow begin="0" departPos="free" id="carTop" period="1" number="70" route="routeTop" type="car"/>
+    <flow begin="0" departPos="free" id="carLeft" period="1" number="70" route="routeLeft" type="car"/>
+    <flow begin="0" departPos="free" id="carBottom" period="1" number="70" route="routeBottom" type="car"/>
+    <flow begin="0" departPos="free" id="truckRight" period="1" number="30" route="routeRight" type="truck"/>
+    <flow begin="0" departPos="free" id="truckTop" period="1" number="30" route="routeTop" type="truck"/>
+    <flow begin="0" departPos="free" id="truckLeft" period="1" number="30" route="routeLeft" type="truck"/>
+    <flow begin="0" departPos="free" id="truckBottom" period="1" number="30" route="routeBottom" type="truck"/>
+</routes>

@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="1" sigma="0" accel="0.1"/>
+
+    <vehicle id="veh" type="1" depart="0" departPos="49.9" arrivalPos="50" departSpeed="1">
+        <route edges="edge1 edge2"/>
+    </vehicle>
+    
+    
+<!--
+frontonlane = TS although it is off for the whole time step (happens if a vehicle's back is on the edge but not the front for a whole time step)
+-->
+
+</routes>
+

@@ -1,0 +1,12 @@
+# The network from the "equil" example from MATSIM 0.3.0
+0_3_0_equil
+
+# as 0_3_0_equil, but keeping the edge lengths
+0_3_0_equil_keep_length
+
+# as 0_3_0_equil, but computing the lanes from capacities 
+0_3_0_equil_cap2lanes
+
+# Reading and writing the network
+0_3_0_equil_roundtrip
+

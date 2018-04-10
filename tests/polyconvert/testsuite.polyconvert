@@ -1,0 +1,26 @@
+# testing meta processing
+meta
+
+# testing previous bugs
+bugs
+
+# tests typemap usage
+typemap
+
+# importing formats
+import
+
+# testing XML-import
+#XML
+
+# Visum import tests
+#visum
+
+# Vissim import tests
+#vissim
+
+# testing SUMO-import
+#SUMO
+
+# testing OpenStreetMap-import
+#OSM

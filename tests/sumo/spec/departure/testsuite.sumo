@@ -1,0 +1,119 @@
+# checks using the default lane (rightmost allowed - 0)
+lane_default
+
+# checks using the default lane (rightmost allowed, only accessible for busses, all should use 0)
+lane_default_3veh_bus
+
+# checks using the default lane (rightmost allowed, only accessible for busses, all must not use 0)
+lane_default_3veh_passenger
+
+# checks using a free lane (1 vehicle)
+lane_free
+
+# checks using a free lane (3 vehicles)
+lane_free_3veh
+
+# candidate lanes are occupied by vehicles of different lengths, the lane with the least occupancy should be taken
+lane_free_occupancy
+
+# checks using the best lane (3 vehicles)
+lane_best_3veh
+
+# checks using a free allowed lane (3 vehicles)
+lane_allowed_3veh
+
+# checks using a free allowed lane on a multimodal edge (3 vehicles)
+lane_allowed_3veh_multimodal
+
+# checks using the given lane (lane 0)
+lane_given0
+
+# checks using the given lane (lane 1)
+lane_given1
+
+# checks using a random lane
+lane_random
+
+# one vehicle approaching a lane with a lower max speed
+approach_slow_lane
+
+# checks using the default position (0)
+pos_default
+
+# checks using a free position (1 vehicle)
+pos_free
+
+# checks using a free position (3 vehicles)
+pos_free_3veh
+
+# checks using a free position (3 vehicles, starting with 10m/s)
+pos_free_3veh_10ms
+
+# checks using the given position (0)
+pos_given0
+
+# checks using the given position (10)
+pos_given10
+
+# checks using the given position (-10)
+pos_given-10
+
+# checks using a random position (1 vehicle)
+pos_random
+
+# checks using a random position (3 vehicles)
+pos_random_3veh
+
+# checks using a free position (3 vehicles, vmax)
+pos_free_3veh_vmax
+
+# departPos="last" departSpeed="15"
+pos_last_speed_given
+
+# departPos="last" departSpeed="max" 
+# (should insert with maximum vehicle speed
+pos_last_speed_max
+
+# checks using the default speed (0)
+speed_default
+
+# checks using the given speed (0)
+speed_given0
+
+# checks using the given speed (10)
+speed_given10
+
+# checks using the given speed when speedDev is present
+speed_given_deviation
+
+# checks using the given speed when speedDev is present but quite low
+speed_given_deviation_low
+
+# checks using the maximum speed (bounded by lane's vmax)
+speed_max__lanelimit
+
+# checks using the maximum speed (bounded by veh's vmax)
+speed_max__vehlimit
+
+# checks using the maximum speed (bounded by leader vehicles)
+speed_max__leader
+
+# checks using the random speed (bounded by lane's vmax)
+speed_random__lanelimit
+
+# unknown lane
+# lane not in edge
+# position larger than lane length (positive/negative)
+# position not numeric
+# speed negative
+# speed larger than vehicle's max
+# speed larger than lane's max
+
+# checks using the random speed (bounded by veh's vmax)
+speed_random__vehlimit
+
+# test option --random-depart-offset
+depart_random
+
+# Errors on emission
+errors

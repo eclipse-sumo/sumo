@@ -1,0 +1,31 @@
+CRITICAL:root:Invalid detector type.
+Usage: generateMeanDataDefinitions.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -d DETECTOR_FILE, --detector-file=DETECTOR_FILE
+                        Input detector FILE
+  -t DETECTOR_TYPE, --detector-type=DETECTOR_TYPE
+                        Type of detectors defined in the input. Allowed
+                        values: e1, e2, e3. Mandatory.
+  -f FREQUENCY, --frequency=FREQUENCY
+                        The aggregation period the values the detector
+                        collects shall be summed up. If not given, the whole
+                        time interval from begin to end is aggregated, which
+                        is the default. If specified, must be a positive
+                        integer (seconds) representing time range length.
+  -l, --lane-based-dump
+                        Generate lane based dump instead of edge-based dump.
+  -e, --edge-based-dump
+                        Generate edge-based dump instead of lane-based dump.
+                        This is the default.
+  -p OUTPUT_SUFFIX, --output-suffix=OUTPUT_SUFFIX
+                        Suffix to append to aggregated detector output. For
+                        each detector, the detector's aggregated results file
+                        with have the name build from the detector's ID and
+                        this suffix, with '.xml' extension. Defaults to
+                        -results-aggregated.
+  -o OUTPUT, --output=OUTPUT
+                        Output to write the mean data definition to. Defaults
+                        to stdout.
+

@@ -1,0 +1,11 @@
+# from open street map
+OSM
+
+# Tests for DLR Navteq (elmar2) import
+dlr_navteq
+
+# importing our own XML format
+XML
+
+# importing ESRI shapes
+shape

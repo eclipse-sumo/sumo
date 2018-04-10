@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vTypeDistribution id="DEFAULT_VEHTYPE">
+        <vType id="PkwClass_1" accel="1.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="40" probability="0.453"/>
+        <vType id="PkwClass_2" accel="1.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="40" probability="0.453"/>
+        <vType id="LkwClass_1" accel="0.8" decel="4.5" sigma="0" length="12" minGap="3" maxSpeed="23" probability="0.093"/>
+    </vTypeDistribution>
+
+    <route id="always_right" edges="1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi"/>
+    <vehicle id="always_right" type="DEFAULT_VEHTYPE" route="always_right" depart="1"/>
+
+</routes>

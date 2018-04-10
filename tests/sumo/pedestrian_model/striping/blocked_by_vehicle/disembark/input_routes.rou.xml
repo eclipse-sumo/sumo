@@ -1,0 +1,11 @@
+<routes>    
+    <vType id="car" sigma="0"/>
+    <vehicle id="v0" type="car" depart="triggered">
+        <route edges="beg"/>
+        <stop lane="beg_0" endPos="50" duration="5"/>
+    </vehicle>
+    <person id="p0" depart="0">
+        <ride lines="v0" from="beg" to="beg"/>
+        <walk edges="beg" arrivalPos="-0.01"/>
+    </person>
+</routes>

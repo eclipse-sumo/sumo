@@ -1,0 +1,19 @@
+# placing multiple ques on a segment
+multique
+
+# Tests for setting different tau parameters
+tau
+
+# controlling traffic lights and priority junctions
+junction_control
+bugs
+teleport
+
+# modelling of jamming and jam resolution
+jamming
+
+# tls_penalty should affect empty-network travel times
+tls_penalty_routing
+
+# minor_penalty should affect empty-network travel times
+minor_penalty_routing

@@ -1,0 +1,14 @@
+# Test basic functionality of <ChangeTarget>
+Basic
+
+# Test rerouting on an internal edge
+OnInternal
+
+# Test behaviour  when specifying unreachable target
+UnreachableTarget
+
+# Test error on specifying an invalid node id
+InvalidNodeId
+
+# Test error on specifying an unknown edge id
+InvalidEdgeId

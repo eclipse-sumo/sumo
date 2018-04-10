@@ -1,0 +1,22 @@
+# Tests whether connecting with mutlitple clients works (for both the client and the server being the one who ends first)
+basic
+
+# sumo (automatically commented due to no test directory being found)
+
+# TraCI clients working with different steplengths (smaller/equal/larger than SUMO steplength). Check if all are informed about all departures.
+differentSteplengths
+
+# As for different_steplengths except that one client disconnects earlier than the other
+asyncDisconnect
+subsecondSUMOstep
+
+# Test warning if setOrder() is not called
+unspecifiedOrderWarning
+
+# sumo-gui (automatically commented due to no test directory being found)
+
+# Multiple clients subscribe and receive subscriptions.
+concurringSubscriptions
+
+# This tests dependence of query results on the clients order
+orderDependentResults

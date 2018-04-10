@@ -1,0 +1,9 @@
+<routes>
+   <!-- there will be no suitable gaps unless vehicles dawdle -->
+   <vType id="DEFAULT_VEHTYPE" sigma="0.5"/>
+    <route id="r1" edges="in1 out"/>
+    <route id="r2" edges="in2 out"/>
+
+    <flow id="flow1" route="r1" begin="0" end="3600" period="2"/>
+    <flow id="flow2" route="r2" begin="1" end="3600" period="2"/>
+</routes>

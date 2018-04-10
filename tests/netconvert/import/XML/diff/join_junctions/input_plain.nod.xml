@@ -1,0 +1,10 @@
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <!-- Deleted Elements -->
+    <delete id="301292612"/>
+    <delete id="38919945"/>
+    <delete id="56231397"/>
+    <delete id="59993001"/>
+    <!-- Created Elements -->
+    <node id="cluster_301292612_38919945_56231397_59993001" y="50.75" x="40.27" tl="cluster_301292612_38919945_56231397_59993001" type="traffic_light"/>
+    <!-- Changed Elements -->
+</nodes>

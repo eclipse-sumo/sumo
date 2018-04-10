@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="ego" depart="0" arrivalPos="4">
+        <route edges="beg middle"/>
+    </vehicle>
+
+    <vehicle id="blocker" depart="0" departPos="21">
+        <route edges="middle"/>
+        <stop lane="middle_0" endPos="22" duration="1000"/>
+    </vehicle>
+
+    <vehicle id="filler" depart="0">
+        <route edges=":gneJ1_1 middle"/>
+    </vehicle>
+
+    <vehicle id="across" depart="0">
+        <route edges="across1 across2"/>
+    </vehicle>
+</routes>

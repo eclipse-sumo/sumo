@@ -1,0 +1,5 @@
+# testing meta processing
+meta
+
+# Tests the normal function of ActivityGen to generate routes from a net and a statistics file.
+demand_generation

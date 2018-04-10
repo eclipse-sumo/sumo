@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="A" x="-6000.00" y="0.00" type="unregulated"/>
+    <node id="B" x="-3000.00" y="0.00" type="unregulated"/>
+    <node id="C" x="0.00" y="0.00" type="priority"/>
+    <node id="D" x="100.00" y="0.00" type="priority"/>
+    <node id="E" x="300.00" y="0.00" type="unregulated"/>
+    <node id="F" x="3300.00" y="0.00" type="unregulated"/>
+    <node id="G" x="3500.00" y="0.00" type="unregulated"/>
+    <node id="onRampBeg" x="-300.00" y="-50.00" type="unregulated"/>
+    <node id="offRampEnd" x="300.00" y="-50.00" type="unregulated"/>
+</nodes>

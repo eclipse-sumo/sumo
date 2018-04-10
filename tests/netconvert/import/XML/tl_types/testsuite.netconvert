@@ -1,0 +1,14 @@
+default
+default_actuated
+static
+actuated
+plain_tll_actuated
+
+# test a tl-controlled junction which has no junction logic
+unregulated
+
+# test node type "traffic_light_right_on_red"
+right_on_red
+
+# adapt junction logic to custom tls program
+right_on_red_custom_program

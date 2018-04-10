@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p1" depart="0" departPos="50">
+        <walk from="beg" to="end"/>
+    </person>
+    <person id="p1" depart="0" departPos="50">
+        <walk from="beg" to="end"/>
+    </person>
+</routes>

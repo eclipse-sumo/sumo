@@ -1,0 +1,7 @@
+# a single approaching vehicle needs to stop before passing
+# 
+basic
+
+# train is inserted directly in front of the crossing
+# 
+sudden_insertion

@@ -1,0 +1,5 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="WC" from="W" to="C" allow="ship"/>
+    <edge id="CE" from="C" to="E" allow="ship"/>
+    <edge id="NC" from="N" to="C" allow="ship"/>
+</edges>

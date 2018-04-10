@@ -1,0 +1,4 @@
+simstep2 0
+setvalue 0xc8 0x55 p1 <double> 1
+simstep2 0
+

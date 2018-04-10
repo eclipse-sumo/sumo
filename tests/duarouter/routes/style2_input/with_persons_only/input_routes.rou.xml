@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p1" depart="0" departPos="2">
+        <walk edges="middle end" arrivalPos="23"/>
+        <stop lane="end_0" duration="10"/>
+    </person>
+</routes>

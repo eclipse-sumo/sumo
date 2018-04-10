@@ -1,0 +1,65 @@
+# set speed implied by the position change
+implicit_speed
+
+# move vehicle that has not yet departed
+undeparted
+
+# move vehicle that has not yet departed, vehicle reaches the end of its route soon afterwards
+undeparted2
+
+# move vehicle onto the rear end of another one
+force_collision
+
+# vehicle skips forward to another edge on its route
+subsequent_edge
+
+# could not find a suitable edge in range
+failed
+
+# vehicle jumps to an edge not on its route
+offroute_edge
+
+# vehicle jumps to an edge not on its route twice
+offroute_edge2
+
+# old school behavior, vehicle id = VTD_EGO
+offroute_edge_by_id
+
+# vehicle jumps to an edge not on its route
+offroute_failed
+
+# vehicle is mapped to a position outside the network
+leave_net
+
+# set position while on an intersection (within the current internal edge)
+junction
+
+# place vehicle onto an internal lane that is not on the current route
+offroute_junction
+
+# call moveToVTD and also set the speed
+set_speed
+
+# call moveToVTD and also set a custom angle
+set_angle
+
+# call moveToVTD and set an angle value that shall be ignored
+set_ignored_angle
+
+# position with sublane precision
+sublane
+
+# position with sublane precision when vehicle jumps to an edge not on its route
+sublane_offroute
+
+# position with sublane precision while driving across an intersection
+sublane_junction
+
+# place vehicle onto an internal lane that is not on the current route (with sublane precision)
+sublane_offroute_junction
+
+# vehicle gets position outside the road network but is mapped onto the edge of the road
+sublane_offroad
+
+# vehicle jumps outside the road network
+sublane_offroad_mode2

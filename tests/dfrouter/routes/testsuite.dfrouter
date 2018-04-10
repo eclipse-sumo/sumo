@@ -1,0 +1,12 @@
+
+# Tests route computation on the dlr-testtrack 
+messstrecke
+
+# Tests route computation on an abstract network
+tri
+
+# Tests route computation on an abstract network (only shortest)
+tri_only_shortest
+
+# (user) errors on routes computation
+errors

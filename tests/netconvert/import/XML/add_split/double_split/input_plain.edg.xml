@@ -1,0 +1,9 @@
+<edges>
+    <edge id="beg">
+        <split id="newNode" pos="150"/>
+    </edge>
+
+    <edge id="-beg">
+        <split id="newNode" pos="-150"/>
+    </edge>
+</edges>

@@ -1,0 +1,10 @@
+Checking tls '0'
+   Checking program '0'
+      Error: phase 0 describes 13 signals instead of 12.
+      Error: phase 1 describes 13 signals instead of 12.
+      Error: phase 2 describes 13 signals instead of 12.
+      Error: phase 3 describes 13 signals instead of 12.
+      Error: phase 4 describes 13 signals instead of 12.
+      Error: phase 5 describes 13 signals instead of 12.
+      Error: phase 6 describes 13 signals instead of 12.
+      Error: phase 7 describes 13 signals instead of 12.

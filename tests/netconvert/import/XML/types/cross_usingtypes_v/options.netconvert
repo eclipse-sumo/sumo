@@ -1,0 +1,1 @@
+-v --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --type-files=input_types.typ.xml --output=net.net.xml

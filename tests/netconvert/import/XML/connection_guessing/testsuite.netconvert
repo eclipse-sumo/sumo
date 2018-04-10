@@ -1,0 +1,60 @@
+# a roundabout from the TAPASCologne scenario
+# (at 51.049877, 6.840966)
+test1
+
+# continuation with changes in modes
+cont2to2_buslane_gap
+
+# continuation with changes in modes
+cont2to3_buslane_gap
+
+# complete 4-arm intersection with 2 lanes for every edge and priority for the vertical streams
+4arm_2lane_prio_vert
+
+# complete 4-arm intersection with 2 lanes for every incoming edge, 1 lane for every outgoing edge and priority for the vertical streams
+4arm_2lane1_prio_vert
+
+# complete 4-arm intersection with 3 lanes for every edge and priority for the vertical streams
+4arm_3lane_prio_vert
+
+# complete 4-arm intersection with 4 lanes for every edge and priority for the vertical streams
+4arm_4lane_prio_vert
+
+# complete 4-arm intersection with 2 lanes for every edge and priority for a turning  streamst
+4arm_2lane_prio_turn
+
+# complete 4-arm intersection with 3 lanes for every edge and priority for a turning stream
+4arm_3lane_prio_turn
+
+# complete 4-arm intersection with 4 lanes for every edge and priority for a turning stream
+4arm_4lane_prio_turn
+
+# complete 4-arm intersection with 2 lanes for every edge and tls
+4arm_2lane_tls
+
+# complete 4-arm intersection with 3 lanes for every edge and tls
+4arm_3lane_tls
+
+# complete 4-arm intersection with 4 lanes for every edge and tls
+4arm_4lane_tls
+
+# complete 4-arm intersection with 2 lanes for every edge and tls
+4arm_2lane_tls_prio_turn
+
+# vehicular lanes should be built rather than bicycle lanes
+bike_lane_ends
+
+# the lane which allows passenger and bicycle should have connections to all following lanes (passenger-only lanes as well as bike lane)
+bike_lane_starts
+3arm_bike_lane
+3arm_bike_lane2
+
+# special case a)
+case_a_with_sidewalk
+
+# complete 4-arm intersection, real world example (Berlin)
+4arm_rw1
+
+# complete 4-arm intersection, real world example (Berlin)
+4arm_rw2
+ramps

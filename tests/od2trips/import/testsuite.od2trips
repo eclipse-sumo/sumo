@@ -1,0 +1,14 @@
+# Tests for importing the Amitran format
+amitran
+
+# Tests for importing V(R)-format
+v
+
+# Tests for importing VM(R)-format
+vm
+
+# Tests for importing O(R)-format
+o
+
+# Tests for importing OM(R)-format
+om

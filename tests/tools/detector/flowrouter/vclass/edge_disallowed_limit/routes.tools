@@ -1,0 +1,4 @@
+<routes>
+    <route id="beg_end.qPKW" edges="beg beg2left left left2end end"/>
+    <route id="beg_end.1.qPKW" edges="beg beg2right right right2end end"/>
+</routes>

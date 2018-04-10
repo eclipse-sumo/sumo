@@ -1,0 +1,23 @@
+# Tests for changing TL values
+TrafficLight
+
+# Tests for changing vehicle values
+Vehicle
+
+# Tests for changing PoI values
+POI
+
+# Tests for changing polygon values
+Polygon
+
+# Tests for changing lane values
+Lane
+
+# Tests for changing edge values
+Edge
+
+# Tests for changing route values
+Route
+
+# Tests for changing simulation values
+Simulation

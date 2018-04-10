@@ -1,0 +1,14 @@
+# Simple test for setting a phase index
+basic
+
+# error case: false value type is used
+error_FalseValueType
+
+# error case: the wished index is negative
+error_IndexNegative
+
+# error case: the wished index is too large
+error_IndexTooLarge
+
+
+

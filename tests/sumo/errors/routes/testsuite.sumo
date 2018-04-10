@@ -1,0 +1,57 @@
+# Test with a vehicle and no route given
+no_route
+
+# Test with a vehicle and a route which does not exist
+false_route1
+
+# Test with a vehicle and a route with an empty id
+false_route2
+
+# plain emission, new style: a valid definition
+ok_newstyle_plainemission
+
+# plain emission, new style: empty route
+emptyroute_newstyle_plainemission
+
+# plain emission, new style: first edge is not in the network
+first_edge_false__newstyle_plainemission
+
+# plain emission, new style: second edge is not in the network
+second_edge_false__newstyle_plainemission
+
+# plain emission, new style: last edge is not in the network
+last_edge_false__newstyle_plainemission
+
+# plain emission, old style: a valid definition
+ok_oldstyle_plainemission
+
+# plain emission, old style: empty route
+emptyroute_oldstyle_plainemission
+
+# plain emission, old style: first edge is not in the network
+first_edge_false__oldstyle_plainemission
+
+# plain emission, old style: second edge is not in the network
+second_edge_false__oldstyle_plainemission
+
+# plain emission, old style: last edge is not in the network
+last_edge_false__oldstyle_plainemission
+
+# disconnected routes
+disconnected
+
+# disconnected routes with check switched off
+disconnected_off
+
+# route file with empty person
+emptyperson
+
+# route file with disconnected walk for a person
+disconnected_walk
+
+# position beyond the lanes end
+invalid_departpos
+first_edge_disallowed
+
+# with --ignore-route-errors
+first_edge_disallowed_ignore

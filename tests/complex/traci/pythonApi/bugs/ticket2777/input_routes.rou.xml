@@ -1,0 +1,22 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- to fast to stop (stop on the current edge) -->
+    <vehicle id="v0" depart="0" departSpeed="max" departPos="0">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <!-- to fast to stop (stop is on the next edge) -->
+    <vehicle id="v1" depart="20" departSpeed="max" departPos="0">
+        <route edges="middle end"/>
+    </vehicle>
+
+    <!-- to fast to stop (stop is on the next edge but that edge is very short) -->
+    <vehicle id="v2" depart="40" departSpeed="max" departPos="-1">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <!-- to fast to stop (stop is on the next edge but that edge is very short,
+         the route ends after the stop edge) -->
+    <vehicle id="v3" depart="60" departSpeed="max" departPos="-1">
+        <route edges="beg middle"/>
+    </vehicle>
+</routes>

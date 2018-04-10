@@ -1,0 +1,6 @@
+[Reported by erdm_ja at 04Sep17:23:46]
+search_string:<tripinfo id="across"
+trigger_on_absence:1
+search_file:tripinfos
+full_description:crll bug
+brief_description:see #913

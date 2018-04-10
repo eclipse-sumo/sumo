@@ -1,0 +1,2 @@
+# make sure that flows are random when the option --randomized-flow is enabled
+randomized_flow

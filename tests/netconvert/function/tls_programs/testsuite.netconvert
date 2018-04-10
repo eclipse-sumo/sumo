@@ -1,0 +1,14 @@
+# Tests for building tls programs on single-node tls with three arms
+single_3arms
+
+# Tests for building tls programs on single-node tls with two incoming
+single_incoming2arms
+
+# warn about traffic light with a high cycle time
+high_cycle_time
+
+# configure left green time
+left-green.time
+
+# configure left green time
+allred.time

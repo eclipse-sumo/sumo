@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.nod.xml"/>
+        <edge-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.edg.xml"/>
+        <connection-files value="../../../../networkInputs/bell_pfe/bell_pfe_koeln.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
+
+</configuration>

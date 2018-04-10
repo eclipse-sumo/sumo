@@ -1,0 +1,51 @@
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+Loading configuration... done.
+Could not connect to TraCI server at localhost:38399 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Testing config warnings...
+Could not connect to TraCI server at localhost:59467 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Testing exception messages...
+Could not connect to TraCI server at localhost:35893 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Testing malformed vtype map file causing exception...
+Could not connect to TraCI server at localhost:43999 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Testing empty config...
+Could not connect to TraCI server at localhost:54629 [Errno 111] Connection refused
+ Retrying in 1 seconds
+Testing standard config...
+Loading vehicle type mappings from file '/home/leo/sumo_master/sumo/tests/complex/simpla/config/vtype.map'... (Config)
+original type: 'pkwFern5' (Config)
+platoon leader type: 'pkwFern5_pLeader' (Config)
+platoon follower type: 'pkwFern5_pFollower' (Config)
+catchup type: 'pkwFern5_pCatchup' (Config)
+catchup follower type: 'pkwFern5_pCatchupFollower' (Config)
+original type: 'pkwFern4' (Config)
+platoon leader type: 'pkwFern4_pLeader' (Config)
+platoon follower type: 'pkwFern4_pFollower' (Config)
+catchup type: 'pkwFern4_pCatchup' (Config)
+catchup follower type: 'pkwFern4_pCatchupFollower' (Config)
+original type: 'pkwFern3' (Config)
+platoon leader type: 'pkwFern3_pLeader' (Config)
+platoon follower type: 'pkwFern3_pFollower' (Config)
+catchup type: 'pkwFern3_pCatchup' (Config)
+catchup follower type: 'pkwFern3_pCatchupFollower' (Config)
+original type: 'pkwFern1' (Config)
+platoon leader type: 'pkwFern1_pLeader' (Config)
+platoon follower type: 'pkwFern1_pFollower' (Config)
+catchup type: 'pkwFern1_pCatchup' (Config)
+catchup follower type: 'pkwFern1_pCatchupFollower' (Config)
+original type: 'pkwFern2a' (Config)
+platoon leader type: 'pkwFern2a_pLeader' (Config)
+platoon follower type: 'pkwFern2a_pFollower' (Config)
+catchup type: 'pkwFern2a_pCatchup' (Config)
+catchup follower type: 'pkwFern2a_pCatchupFollower' (Config)
+original type: 'pkwFern2b' (Config)
+platoon leader type: 'pkwFern2b_pLeader' (Config)
+platoon follower type: 'pkwFern2b_pFollower' (Config)
+catchup type: 'pkwFern2b_pCatchup' (Config)
+catchup follower type: 'pkwFern2b_pCatchupFollower' (Config)

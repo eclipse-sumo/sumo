@@ -1,0 +1,5 @@
+--node-files input_plain.nod.xml --edge-files input_plain.edg.xml
+--connection-files input_plain.con.xml --output net.net.xml --no-turnarounds
+--tls.cycle.time 38
+
+

@@ -1,0 +1,1 @@
+--no-step-log -b 0 --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --vehroutes=vehroutes.xml --scale .8

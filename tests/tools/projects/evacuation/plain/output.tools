@@ -1,0 +1,98 @@
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing nodes from osm-file 'osm_bbox.osm.xml'... 
+Found duplicate nodes. Substituting 3215103784 with 288002013
+Found duplicate nodes. Substituting 3987794203 with 3987794202
+Found duplicate nodes. Substituting 3997661445 with 3517810193
+Found duplicate nodes. Substituting 4016273048 with 26992494
+Found duplicate nodes. Substituting 4016273049 with 2306772973
+done.
+Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
+Removing duplicate edges... 
+Found duplicate edges. Removing 310058575
+Found duplicate edges. Removing 310058576
+Found duplicate edges. Removing 310058577
+Found duplicate edges. Removing 335703516
+Found duplicate edges. Removing 335703519
+Found duplicate edges. Removing 335703532
+Found duplicate edges. Removing 377118659
+Found duplicate edges. Removing 377494320
+Found duplicate edges. Removing 391385403
+done.
+Adding new type 'highway.service|railway.tram' (first occurence for edge '167272531#0').
+Parsing relations from osm-file 'osm_bbox.osm.xml'... 
+done.
+ Removed 1494 traffic lights before loading plain-XML
+ Import done:
+   37203 nodes loaded.
+   34 types loaded.
+   36921 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops... done (5ms).
+Joining junction clusters... 
+done (128ms).
+ Joined 721 junction cluster(s).
+Removing empty nodes and geometry nodes... done (1404ms).
+   26635 nodes removed.
+Moving network to origin... done (88ms).
+Computing turning directions... 
+done (27ms).
+Guessing and setting on-/off-ramps... done (40ms).
+Sorting nodes' edges... done (35ms).
+Computing node shapes... 
+done (763ms).
+Computing edge shapes... done (335ms).
+Computing node types... done (13ms).
+Computing priorities... done (19ms).
+Computing approached edges... done (25ms).
+Guessing and setting roundabouts... 
+ Guessed 9 roundabout(s).
+done (7ms).
+Computing approaching lanes... done (94ms).
+Dividing of lanes on approached lanes... done (67ms).
+Processing turnarounds... done (9ms).
+Rechecking of lane endings... done (10ms).
+Assigning nodes to traffic lights... done (5ms).
+Joining traffic light nodes... done (24ms).
+Computing traffic light control information... done (13ms).
+Computing node logics... done (263ms).
+Computing traffic light logics... 
+done (44ms).
+ 462 traffic light(s) computed.
+Building inner edges... 
+done (757ms).
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 304
+  Priority junctions          : 6828
+  Right-before-left junctions : 2455
+ Network boundaries:
+  Original boundary  : 13.29,52.45,13.57,52.57
+  Applied offset     : -384858.11,-5815627.58
+  Converted boundary : 0.00,0.00,12996.54,7685.60
+-----------------------------------------------------
+Writing network... done (6578ms).
+Success.
+Written configuration to '/home/micha/.texttest/tmp/tools.28Feb143017.21825/tools/projects/evacuation/plain/evacuationArea.netccfg'
+Parsing network projection from '/home/micha/.texttest/tmp/tools.28Feb143017.21825/tools/projects/evacuation/plain/evacuationArea.net.xml'... done.
+Parsing nodes from osm-file 'osm_bbox.osm.xml'... done.
+Parsing relations from osm-file 'osm_bbox.osm.xml'... done.
+Parsing edges from osm-file 'osm_bbox.osm.xml'... done.
+Success.
+Written configuration to '/home/micha/.texttest/tmp/tools.28Feb143017.21825/tools/projects/evacuation/plain/evacuationArea.polycfg'
+building Evacuation Site
+osm Get
+200 OK
+osm Build
+polyconvert
+Success.
+Success.
+merging
+extracting population data
+merge!
+generating traffic
+EdgesInDistricts - done
+OD Matrix - done
+calling sumo
+Loading configuration... done.
+done

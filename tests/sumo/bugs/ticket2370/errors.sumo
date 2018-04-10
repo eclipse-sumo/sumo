@@ -1,0 +1,5 @@
+Error: unable to open primary document entity <path_to_file>
+ In file 'nonexisting.xml'
+ At line/column 1/0.
+
+Quitting (on error).

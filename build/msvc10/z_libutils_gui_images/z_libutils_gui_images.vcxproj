@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Fastbuild|Win32">
+      <Configuration>Fastbuild</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Fastbuild|x64">
+      <Configuration>Fastbuild</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5F818AF6-963E-40B3-93F3-35E145FDE30B}</ProjectGuid>
+    <RootNamespace>z_libutils_gui_images</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Fastbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+    <Import Project="..\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Win32.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Fastbuild.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+    <Import Project="..\Release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\x64.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Fastbuild|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag_minus.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\flag_plus.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_E3Selected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Empty.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_EmptySelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBike.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LaneBus.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LanePedestrian.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Lock.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_LockSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMoving.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_NotMovingSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Rerouter.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RerouterSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RouteProbe.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_RouteProbeSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_TLS.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_Vaporizer.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VaporizerSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSign.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GNETexture_VariableSpeedSignSelected.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GUIIconSubSys.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GUITexturesHelper.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\GUITextureSubSys.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\images\manip.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUIIcons.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUIIconSubSys.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUITextures.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUITexturesHelper.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\images\GUITextureSubSys.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\utils\gui\images\accept.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\add.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\allow_rotation.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\app_breakpoints.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\app_finder.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\app_selector.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\app_table.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\app_tlstracker.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\app_tracker.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\busstop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\calibrator.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\camera.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\cancel.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\chargingstation.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\cleanjunctions.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\close_gaps.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\closing.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\colorwheel.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\colour_lane.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\colour_vehicle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\computejunctions.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\connection.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\cont.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\containerstop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\correct.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\create_graph.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\crossing.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\cut.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\dilate.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\dlr.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\document.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\e1.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\e2.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\e3.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\e3entry.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\e3exit.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\edge.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\edit_graph.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\empty.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\erase_stains.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\erode.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\error.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\ext.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\extract_streets.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\eyedrop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\fileopen.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\fileprint.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\filesave.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\grid1.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\grid2.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\grid3.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\junction.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lane.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modeadditional.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modeconnection.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modecreateedge.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modecrossing.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modedelete.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modeinspect.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modemove.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modepolygon.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modeselect.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\modetrafficlight.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\green_edge.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\green_person.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\green_vehicle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\halt.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\joinjunctions.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lanebike.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lanebus.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lanepedestrian.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_add.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_edge.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_junction.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_person.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_poi.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_poly.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_tls.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\locate_vehicle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\lock.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\magnify.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\netedit.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\neteditarrow.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\netopen.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\new_window.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\no.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\opening.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\open_bmp_dialog.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\options.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\paintbrush1x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\paintbrush2x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\paintbrush3x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\paintbrush4x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\paintbrush5x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\play.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\prohibition.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rarify.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\recenter_view.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\redo.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\reload.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\remove.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\removedb.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rerouter.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\reset.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\routeprobe.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rubber1x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rubber2x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rubber3x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rubber4x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\rubber5x.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\savedb.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\shapeopen.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\show_tooltips.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\skeletonize.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\step.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\stop.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\sumo.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\undo.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vaporizer.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\variablespeedsign.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_army.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_authority.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_bicycle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_bus.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_coach.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_custom1.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_custom2.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_delivery.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_emergency.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_evehicle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_hov.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_ignoring.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_moped.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_motorcycle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_passenger.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_pedestrian.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_private.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_rail.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_rail_electric.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_rail_urban.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_ship.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_taxi.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_trailer.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_tram.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_truck.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\vclass_vip.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\view1.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\view2.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\view3.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\warning.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\windows_cascade.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\windows_tile_horizontally.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\windows_tile_vertically.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\yellow_edge.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\yellow_person.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\yellow_vehicle.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\yes.xpm" />
+    <None Include="..\..\..\src\utils\gui\images\zoomstyle.xpm" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

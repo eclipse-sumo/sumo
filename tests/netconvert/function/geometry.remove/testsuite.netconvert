@@ -1,0 +1,5 @@
+# removing geometry should not create self-loops
+no_self_loop
+
+# exclude some edges from being joined
+exclude

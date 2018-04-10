@@ -1,0 +1,22 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vTypeDistribution id="tdist">
+        <vType id="0" accel="2.0" decel="4" sigma="0.9" length="3.5" minGap="2" maxSpeed="70"/>
+        <vType id="1" accel="2.0" decel="4" sigma="0.9" length="3.5" minGap="2" maxSpeed="70"/>
+    </vTypeDistribution>
+   <vehicle id="0" type="tdist" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="1" type="tdist" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="10" type="tdist" depart="10">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="11" type="tdist" depart="10">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+</routes>

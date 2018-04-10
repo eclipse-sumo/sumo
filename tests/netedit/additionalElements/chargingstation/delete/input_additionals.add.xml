@@ -1,0 +1,4 @@
+<additionals>
+	<chargingStation id="chargingStation_0" lane="gneE0_0" startPos="32.40" endPos="42.40" power="22000.00" efficiency="0.95" chargeInTransit="1" chargeDelay="2" name="chargingStation" friendlyPos="false"/>
+	<chargingStation id="chargingStation_1" lane="gneE1_0" startPos="10" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="1" chargeDelay="2" name="chargingStation" friendlyPos="false"/>
+</additionals>

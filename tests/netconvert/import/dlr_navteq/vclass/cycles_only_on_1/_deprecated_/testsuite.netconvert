@@ -1,0 +1,9 @@
+# same as plain, but pedestrian and cycles links are removed (using deprecated ';' divider)
+removing_peds_cycles
+
+# same as plain, but pedestrian and cycles links are removed and vclasses are dismissed (using deprecated ';' divider)
+dismissing__removing_peds_cycles
+
+
+
+

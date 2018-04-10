@@ -1,0 +1,20 @@
+...Warning: Value of 'emergencyDecel' is should be higher than 'decel' for vType 'connected_pCatchup'.
+Warning: Value of 'emergencyDecel' lower than 'apparentDecel' for vType 'connected_pCatchup' may cause collisions.
+WARNING: Restricting given control rate (= 1000 per sec.) to 1 per timestep (= 10 per sec.) (PlatoonManager)
+WARNING: emergencyDecel of mapped vType 'connected_pCatchup' (0.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)
+WARNING: length of mapped vType 'connected_pLeader' (10.0m.) does not equal length of original vType 'connected' (5.0m.)
+This will probably lead to collisions. (PlatoonManager)
+WARNING: emergencyDecel of mapped vType 'connected_pFollower' (1.7m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)
+WARNING: length of mapped vType 'connected_pCatchupFollower' (3.0m.) does not equal length of original vType 'connected' (5.0m.)
+This will probably lead to collisions. (PlatoonManager)
+WARNING: emergencyDecel of mapped vType 'connected_pCatchupFollower' (10.5m.) does not equal emergencyDecel of original vType 'connected' (4.5m.) (PlatoonManager)
+1.0: WARNING: Step lengths that differ from SUMO's simulation step length are not supported and probably lead to undesired behavior.
+Consider decreasing simpla's control rate instead. (PlatoonManager)
+..Warning: Value of 'emergencyDecel' is should be higher than 'decel' for vType 'connected_pCatchup'.
+Warning: Value of 'emergencyDecel' lower than 'apparentDecel' for vType 'connected_pCatchup' may cause collisions.
+WARNING: No typeSubstring given. Managing all vehicles. (PlatoonManager)
+.
+----------------------------------------------------------------------
+Ran 6 tests in 7.380s
+
+OK

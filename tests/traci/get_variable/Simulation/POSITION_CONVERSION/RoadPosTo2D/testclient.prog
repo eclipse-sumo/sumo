@@ -1,0 +1,3 @@
+getvariable_plus 0xab 0x82 0 <compound> 2 <positionRoadmap> e_m4 475 1 <ubyte> 1
+getvariable_plus 0xab 0x82 0 <compound> 2 <positionRoadmap> e_shape0 240 2 <ubyte> 1
+getvariable_plus 0xab 0x82 0 <compound> 2 <positionRoadmap> e_m0 99999 0 <ubyte> 1

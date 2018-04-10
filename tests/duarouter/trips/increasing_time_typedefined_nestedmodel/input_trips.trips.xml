@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="0" length="5" color="1,0,0">
+        <carFollowing-KraussOrig1/>
+    </vType>
+    <trip id="0" depart="0" from="beg" to="rend" type="0"/>
+    <trip id="1" depart="10" from="beg" to="rend" type="0"/>
+    <trip id="2" depart="20" from="beg" to="rend" type="0"/>
+    <trip id="3" depart="30" from="beg" to="rend" type="0"/>
+    <trip id="4" depart="40" from="beg" to="rend" type="0"/>
+    <trip id="5" depart="50" from="beg" to="rend" type="0"/>
+    <trip id="6" depart="60" from="beg" to="rend" type="0"/>
+    <trip id="7" depart="70" from="beg" to="rend" type="0"/>
+    <trip id="8" depart="80" from="beg" to="rend" type="0"/>
+    <trip id="9" depart="90" from="beg" to="rend" type="0"/>
+</routes>

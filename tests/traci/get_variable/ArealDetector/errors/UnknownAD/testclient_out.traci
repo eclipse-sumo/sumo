@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Thu Mar 16 09:25:15 2017
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=173 varID=24 objID=xxx
+.. Answered with error to command (173), [description: Lane area detector 'xxx' is not known]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

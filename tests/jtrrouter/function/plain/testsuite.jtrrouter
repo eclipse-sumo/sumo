@@ -1,0 +1,26 @@
+# Plain test
+plain
+
+# Disallow turning
+no_turnarounds
+
+# driving straight only
+straight_only
+
+# straight only with sinks
+straight_only_sinks
+
+# straight only with sinks which are defined in defs
+straight_only_sinks_in_defs
+
+# Test for multiple sinks
+multiple_sinks
+
+# Test for multiple sinks which are defined in defs
+multiple_sinks_in_defs
+
+# Same as multiple_sinks_in_defs but using a single xml-element
+multiple_sinks_in_defs__single
+
+# empty flows in input
+flow0

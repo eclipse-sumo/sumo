@@ -1,0 +1,9 @@
+<routes>
+
+	<vehicle id="1" depart="0" route="1" departLane="free"/>
+	<vehicle id="2" depart="0" route="1" departLane="free"/>
+	<vehicle id="3" depart="0" route="1" departLane="free"/>
+
+	<flow id="flow" begin="20" end="50" period="10" route="1" departLane="free"/>
+
+</routes>

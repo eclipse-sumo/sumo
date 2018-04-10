@@ -1,0 +1,3 @@
+-v --osm osm.xml -o pois.poi.xml --osm.use-name
+
+

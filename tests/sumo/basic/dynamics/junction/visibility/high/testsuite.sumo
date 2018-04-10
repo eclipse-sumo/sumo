@@ -1,0 +1,5 @@
+# left turnig vehicle with high visibility and without foes (should turn fast)
+left_turn
+
+# straight going vehicle on minor with high visibility and without foes (should go fast)
+straight

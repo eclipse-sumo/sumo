@@ -1,0 +1,14 @@
+<edges>
+   <edge id="1fi" from="1" to="m1" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="0.0,498.35 248.5,498.35"/>
+   <edge id="1o" from="0" to="1" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="488.65,501.65 0.0,501.65"/>
+   <edge id="1si" from="m1" to="0" speed="13.89" priority="74" spreadType="center" numLanes="3" shape="251.5,495.05 488.65,495.05"/>
+   <edge id="2fi" from="2" to="m2" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="1000.0,501.65 751.5,501.65"/>
+   <edge id="2o" from="0" to="2" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="511.35,498.35 1000.0,498.35"/>
+   <edge id="2si" from="m2" to="0" speed="13.89" priority="74" spreadType="center" numLanes="3" shape="748.5,504.95 511.35,504.95"/>
+   <edge id="3fi" from="3" to="m3" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="501.65,0.0 501.65,248.5"/>
+   <edge id="3o" from="0" to="3" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="498.35,488.65 498.35,0.0"/>
+   <edge id="3si" from="m3" to="0" speed="13.89" priority="74" spreadType="center" numLanes="3" shape="504.95,251.5 504.95,488.65"/>
+   <edge id="4fi" from="4" to="m4" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="498.35,1000.0 498.35,751.5"/>
+   <edge id="4o" from="0" to="4" speed="11.11" priority="46" spreadType="center" numLanes="1" shape="501.65,511.35 501.65,1000.0"/>
+   <edge id="4si" from="m4" to="0" speed="13.89" priority="74" spreadType="center" numLanes="3" shape="495.05,748.5 495.05,511.35"/>
+</edges>

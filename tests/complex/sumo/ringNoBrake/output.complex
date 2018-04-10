@@ -1,0 +1,15 @@
+>>> Building the network (with internal)
+Loading configuration... done.
+Success.
+Loading configuration... done.
+>>> Checking Simulation (network: internal, simulation: internal)
+Loading configuration... done.
+>>> Checking Simulation (network: internal, simulation: no internal)
+
+>>> Building the network (without internal)
+Loading configuration... done.
+Success.
+Loading configuration... done.
+>>> Checking Simulation (network: no internal, simulation: internal)
+Loading configuration... done.
+>>> Checking Simulation (network: no internal, simulation: no internal)

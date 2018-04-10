@@ -1,0 +1,20 @@
+# Tests --help
+help
+
+# Tests --version
+version
+
+# Tests no input
+noop
+
+# Tests full template writing
+write_template_full
+
+# Tests commented, full template writing
+write_template_commented_full
+
+# Tests configuration writing
+write_config
+
+# Tests whether log-file output works
+with_log

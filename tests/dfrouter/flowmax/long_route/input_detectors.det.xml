@@ -1,0 +1,5 @@
+<a>
+   <detectorDefinition id="MQ_1to2"  lane="1to2_0" pos="5"/>
+   <detectorDefinition id="MQ_2to3"  lane="2to3_0" pos="5"/>
+   <detectorDefinition id="MQ_3to4"  lane="3to4_0" pos="5"/>
+</a>

@@ -1,0 +1,24 @@
+# Tests for nodes building
+node_building
+
+# Tests for building inner lanes
+inner_lanes
+
+# example networks
+examples
+
+# testing import
+import
+
+# Tests whether other options work
+function
+
+# testing meta processing
+meta
+
+# testing error input
+errors
+
+# testing previous bugs
+bugs
+

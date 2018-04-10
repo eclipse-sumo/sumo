@@ -1,0 +1,10 @@
+<routes>
+    <route id="r0" edges="L2 L3 L4 L5 L6 L7 Out"/>
+    <route id="r1" edges="In L2 L3 L4 L5 L6 L7 Out"/>
+    <route id="r2" edges="In L2 L3 midexit"/>
+    <route id="r3" edges="midentry L3 L4 L5 L6 L7 Out"/>
+    <vType id="t1" sigma="0" length="5" accel="0.1"/>
+    <vehicle id="v1" type ="t1" depart="0" route="r0" departSpeed="0"/>
+    <vehicle id="v2" type ="t1" depart="50" route="r0" departSpeed="0"/>
+    <vehicle id="v3" type ="t1" depart="51" route="r0" departSpeed="0"/>
+</routes>

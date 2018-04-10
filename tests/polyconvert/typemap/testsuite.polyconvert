@@ -1,0 +1,5 @@
+# osm example
+osm
+
+# elements may have multiple type defining tags. In case the typemap requests multiple of these types they should be exported multiple times.
+osm_ambiguous_type

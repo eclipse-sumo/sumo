@@ -1,0 +1,22 @@
+[general];;;;;;
+cycle time;60;;;;;
+key;1;;;;;
+subkey;SZP_2Green;;;;;
+offset;0;;;;;
+parameter;key1;value1;;;;
+parameter;key2;value2;;;;
+[links];;;;;;
+FZ11;-474_0;;;;;
+FZ12;-474_1;;;;;
+FZ21;-472_0;;;;;
+FZ31;-468_0;;;;;
+FZ32;-468_1;;;;;
+FZ41;-470_0;;;;;
+[signal groups];;;;;;
+id;on1;off1;transOn;transOff;on2;off2
+FZ11;0;15;1;3;;
+FZ12;0;15;1;3;40;55
+FZ21;25;35;1;3;;
+FZ31;0;25;1;3;;
+FZ32;0;15;1;3;40;55
+FZ41;25;35;1;3;;

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/17/07 12:35:45 by SUMO duarouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <trip-defs>trips.trips.xml</trip-defs>
+   </input>
+
+   <output>
+      <output-file>routes_0.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>true</continue-on-unbuild>
+      <gBeta>0.9</gBeta>
+      <gA>0.5</gA>
+   </processing>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <report>
+      <verbose>true</verbose>
+      <suppress-warnings>true</suppress-warnings>
+   </report>
+
+</configuration>
+-->
+
+<routes>
+   <vType model="SUMO_KRAUSS" id="CarA" accel="2.00" decel="6.00" sigma="0.00" length="2.00" minGap="0" maxSpeed="180.00" tau="1.00"/>
+   <vehicle id="veh0" type="CarA" depart="1" color="1.00,0.00,0.00">
+      <routeDistribution last="0">
+         <route cost="218.12" probability="1" color="1.00,0.00,0.00" edges="L1 L9 L17 L26"/>
+      </routeDistribution>
+   </vehicle>
+</routes>

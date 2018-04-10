@@ -1,0 +1,4 @@
+Building line offset index for input_routes.rou.xml
+Parsing input_routes.rou.xml for line indices and departs
+  found 5 items
+Copying elements from input_routes.rou.xml to out.rou.xml sorted by departure

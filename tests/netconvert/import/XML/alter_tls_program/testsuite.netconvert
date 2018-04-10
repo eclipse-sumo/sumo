@@ -1,0 +1,14 @@
+# Test for using sumo networks as input
+basic
+
+# Test for using plain XML as input
+plain_input
+
+# only change the offset of the tls program
+offset_only
+
+# only change the type of the traffic light
+type_only
+
+# only modify the link indices for selected links
+linkIndex_only

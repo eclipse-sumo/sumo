@@ -1,0 +1,8 @@
+# no longer supported: junction type set to agentbasedtraffic light
+junction_type_agentbased_tls
+
+# no longer supported: junction type set to actuatedtraffic light
+junction_type_actuated_tls
+
+# (base) unknown junction type
+unknown_junction_type

@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <container id="c1" depart="0" >
+        <tranship edges="beg middle"/>
+        <stop lane="middle_0" duration="20"/>
+        <tranship edges="middle end"/>
+    </container>
+</routes>

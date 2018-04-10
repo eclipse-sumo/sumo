@@ -1,0 +1,1 @@
+--device.rerouting.probability 1 --no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml -a=input_trips.trips.xml --vehroute-output=vehroutes.xml

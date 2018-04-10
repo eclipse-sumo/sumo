@@ -1,0 +1,20 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vType id="t1" sigma="0" length="8"/>
+
+    <person id="p0" depart="0" departPos="-5">
+        <walk edges="WC NC"/>
+    </person>
+
+    <vehicle id="v0" type="t1" depart="0" departPos="60">
+        <route edges="WC CN"/>
+    </vehicle>
+
+    <vehicle id="v1" type="t0" depart="0" departPos="50">
+        <route edges="EC CN"/>
+    </vehicle>
+
+    <vehicle id="v2" type="t0" depart="1" departPos="0">
+        <route edges="EC CW"/>
+    </vehicle>
+</routes>

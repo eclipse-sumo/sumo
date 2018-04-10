@@ -1,0 +1,6 @@
+<!-- generated with cutRoutes.py for input_net.net.xml from ['input_routes.rou.xml'] -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle depart="0.00" id="straight" type="slow">
+        <route edges="middle end"/>
+    </vehicle>
+</routes>

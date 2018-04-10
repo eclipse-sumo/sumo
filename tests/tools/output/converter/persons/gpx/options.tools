@@ -1,0 +1,2 @@
+--persons
+--base-date 0 -i fcd.xml --gpx-output output.gpx

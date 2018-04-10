@@ -1,0 +1,10 @@
+<flowdefs>
+    <flow id="Togliatti" from="85" begin="0.0" end="3600.0" no="2528"/>
+    <flow id="Costa" from="78" begin="0.0" end="3600.0" no="1378"/>
+    <flow id="XXI Aprile" from="6" begin="0.0" end="3600.0" no="1012"/>
+    <flow id="Turati" from="195" begin="0.0" end="3600.0" no="103"/>
+    <flow id="Audinot" from="131" begin="0.0" end="3600.0" no="168"/>
+    <flow id="Pepoli" from="210" begin="0.0" end="3600.0" no="2100"/>
+    <flow id="Silvani" from="203" begin="0.0" end="3600.0" no="1526"/>
+    <flow id="Vittorio Veneto" from="224" begin="0.0" end="3600.0" no="785"/>
+</flowdefs>

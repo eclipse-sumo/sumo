@@ -1,0 +1,2 @@
+--opendrive opendrive.xodr -v  --opendrive-output foreign.net --output
+net.net.xml --keep-edges.explicit foo

@@ -1,0 +1,28 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="a" edges="i1 i2 i3 i4 i5 i6 i7 o e1 e2 e3 e4 e5 e6 e7 e8"/>
+
+   <vTypeDistribution id="v">
+       <vType id="pedestrian"            probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length=".25"   minGap="0" guiShape="pedestrian" width=".25"/>
+       <vType id="bicycle"               probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="1.5"   minGap=".5" guiShape="bicycle" width=".25"/>
+       <vType id="motorcycle"            probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="2"     minGap=".5" guiShape="motorcycle" width=".25"/>
+       <vType id="passenger"             probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger"/>
+       <vType id="passenger/sedan"       probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger/sedan"/>
+       <vType id="passenger/hatchback"   probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger/hatchback"/>
+       <vType id="passenger/wagon"       probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger/wagon"/>
+       <vType id="passenger/van"         probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="passenger/van"/>
+       <vType id="delivery"              probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="2.0" guiShape="delivery"/>
+       <vType id="truck"                 probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="7.5"   minGap="2.5" guiShape="truck" width="2.5"/>
+       <vType id="truck/semitrailer"     probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.25" minGap="2.5" guiShape="truck/semitrailer" width="2.6"/>
+       <vType id="truck/trailer"         probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.25" minGap="2.5" guiShape="truck/trailer" width="2.6"/>
+       <vType id="bus"                   probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="12.5"  minGap="2.5" guiShape="bus" width="2.4"/>
+       <vType id="bus/flexible"          probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.5"  minGap="2.5" guiShape="bus/flexible" width="2.4"/>
+       <vType id="bus/overland"          probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="16.5"  minGap="2.5" guiShape="bus/coach" width="2.6"/>
+       <vType id="rail"                  probability="15"  speedFactor="1.1" speedDev="0.1" sigma="0" length="200"   minGap="25.0" guiShape="rail"/>
+       <vType id="rail/railcar"          probability="15"  speedFactor="1.1" speedDev="0.1" sigma="0" length="40"    minGap="25.0" guiShape="rail/railcar"/>
+       <vType id="rail/cargo"            probability="5"   speedFactor="1.1" speedDev="0.1" sigma="0" length="350"   minGap="25.0" guiShape="rail/cargo"/>
+       <vType id="evehicle"              probability="100" speedFactor="1.1" speedDev="0.1" sigma="0" length="5"     minGap="1.0" guiShape="evehicle"/>
+   </vTypeDistribution>
+
+   <flow id="vehicle" route="a" begin="0" number="3000" period="1" type="v" departSpeed="max" departLane="free"/>
+
+</routes>

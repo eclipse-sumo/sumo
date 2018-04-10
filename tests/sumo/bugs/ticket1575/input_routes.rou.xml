@@ -1,0 +1,15 @@
+<routes>
+    <vType id="tLong" sigma="0" length="40" maxSpeed="17"/>
+    <vehicle id="long" type="tLong" depart="0" departPos="0" departSpeed="max">
+        <route edges="end"/>
+        <!--
+        <stop lane="end_0" endPos="15" duration="5"/>
+        -->
+    </vehicle>
+
+    <vType id="tCollider" sigma="0" minGap="0"/>
+    <vehicle id="collider" type="tCollider" depart="0" departPos="-1" departSpeed="0">
+        <route edges="beg2 middle end"/>
+    </vehicle>
+
+</routes>

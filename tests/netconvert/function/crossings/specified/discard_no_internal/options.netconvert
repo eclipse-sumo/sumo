@@ -1,0 +1,4 @@
+-s input_net.net.xml --output net.net.xml --no-internal-links
+--plain-output-prefix plain
+
+

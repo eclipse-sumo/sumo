@@ -1,0 +1,10 @@
+<routes>
+   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+
+   <vehicle type="KRAUSS_DEFAULT" route="1" depart="10">
+   <routeDistribution last="0">
+      <route cost="125.126" probability="1" edges="beg middle end rend"/>
+   </routeDistribution>
+   </vehicle>
+
+</routes>

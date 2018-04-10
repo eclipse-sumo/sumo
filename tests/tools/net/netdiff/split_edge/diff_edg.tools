@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <delete id="gneE0"/>
+    <!-- Created Elements -->
+    <edge id="gneE0.0" from="gneJ0" name="Teststraße" numLanes="1" priority="1" speed="13.89" to="gneJ2"/>
+    <edge id="gneE0.50" from="gneJ2" name="Teststraße" numLanes="1" priority="1" speed="13.89" to="gneJ1"/>
+    <!-- Changed Elements -->
+</edges>

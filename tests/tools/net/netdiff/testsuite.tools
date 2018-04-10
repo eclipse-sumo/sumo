@@ -1,0 +1,27 @@
+# regression test for deleting a traffic light
+deleted_tll
+
+# handle multiple identical (id-less) children of an element
+duplicate_phases
+
+# diff for a complex network change
+join_junctions
+
+# use netdiff to compare dump files
+direct
+
+# tests copying of unchanged elements
+copy_location
+
+# with non-ascii street name
+split_edge
+
+# add and remove pedestrian crossings
+crossing
+
+# add and remove roundabout
+roundabout
+
+# if the new object has an attribute which is not written anymore due to changing to the default value, the default value must be written explicitliy in the diff
+# (i.e. changing spreadType="center" to spreadType="right")
+change_to_unwritten_default

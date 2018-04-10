@@ -1,0 +1,14 @@
+# Spreads 100 vehicles over a day
+100vehs_day
+
+# Spreads 100 vehicles over a day, specify begin and end time
+100vehs_day_begin_end
+
+# Spreads 100 vehicles over a day uniformly
+100vehs_day_uniform
+
+# Spreads 100 vehicles over an hour
+100vehs_hour
+
+# Spreads 100 vehicles over an hour uniformly
+100vehs_hour_uniform

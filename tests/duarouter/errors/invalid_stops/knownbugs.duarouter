@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 15Nov15:08:16]
+search_string:1
+trigger_on_absence:1
+search_file:exitcode
+full_description:crash on cleanup
+brief_description:see #3588

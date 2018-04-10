@@ -1,0 +1,54 @@
+# circular route tests
+cyclic_route
+
+# Testing multiple reroutes
+multiple_reroute
+
+# combine closing rerouter with dest_prob rerouter.
+# Also test the special dest values 'keepDestination' and 'terminateRoute'.
+# Vehicles which's route do not take them across the closed edges should not be affected.
+closing_and_dest_prob_and_specialDestinations
+
+# combine closing rerouter with dest_prob rerouter.
+# Vehicles that do not drive through the closed area should not be affected
+closing_and_dest_prob_unaffected
+
+# closing an edge with probability 0.5
+closing_with_prob
+
+# closing an edge with modifying permissions
+closing_with_disallow
+
+# multiple rerouters that close the same edge with modifying permissions
+closing_with_disallow2
+
+# closing an edge with modifying permissions
+closing_with_disallow_teleport
+
+# closing rerouter where the destination is not closed but is not reachable anymore
+closing_disconnects_dest
+
+# the destination edge is not reachable and the closed edge disallows all traffic
+closing_disconnects_dest_disallow
+
+# a vehicle on an internal edge suddenly has its follower edge disallowed
+disallowed_while_on_internal
+
+# the route is terminated on an edge, which the vehicle already passed
+terminateRoute_on_jumped_edge
+terminateRoute_on_depart
+
+# reroute vehicles that are already on the rerouter edge when the reouter becomse active
+on_edge_when_activated
+
+# vehicles that are equipped with a routing device should use the corresponding edge weights instead of empty-network weights.
+use_routing_device
+
+# closing 2 lanes from a 3-lane road which results in reduced flow
+closingLane
+
+# closing 2 lanes from a 3-lane road which results in reduced flow and causes some vehicles to reroute
+closingLane_with_rerouting
+
+# tests for using parkingZoneReroute
+parking

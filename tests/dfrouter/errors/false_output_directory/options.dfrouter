@@ -1,0 +1,1 @@
+--include-unused-routes --measure-files input_tri_flows.txt --keep-longer-routes --net-file=input_tri.net.xml --detector-files=input_tri.det.xml --routes-output routes.rou.xml --emitters-output invalid/emitters.add.xml -e 60

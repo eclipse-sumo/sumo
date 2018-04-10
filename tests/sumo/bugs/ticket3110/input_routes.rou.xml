@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="always_right" edges="1i 2o"/>
+   <flow id="always_right" route="always_right" begin="0" end="120" period="60"/>
+</routes>

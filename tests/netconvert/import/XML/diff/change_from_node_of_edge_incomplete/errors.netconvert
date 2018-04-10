@@ -1,0 +1,3 @@
+Warning: Found and removed invalid connection from edge 'edge_D2C' to edge 'edge_C2U' via junction 'node_C'.
+Warning: Found and removed invalid connection from edge 'edge_R2C' to edge 'edge_C2U' via junction 'node_C'.
+Warning: Found and removed invalid connection from edge 'edge_U2C' to edge 'edge_C2U' via junction 'node_C'.

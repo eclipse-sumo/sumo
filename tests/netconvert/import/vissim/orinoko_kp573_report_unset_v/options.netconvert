@@ -1,0 +1,1 @@
+--no-internal-links -v --vissim-file vissim.inp --output=net.net.xml --vissim.report-unset-speeds --output.street-names

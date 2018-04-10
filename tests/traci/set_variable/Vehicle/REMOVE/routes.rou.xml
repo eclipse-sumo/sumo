@@ -1,0 +1,22 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">   
+    <vType id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70"/>
+    <vehicle id="veh0" depart="0" departPos="0">
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
+    </vehicle>
+    <vehicle id="veh1" depart="1" departPos="0">
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
+    </vehicle>
+    <vehicle id="veh2" depart="2" departPos="0">
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
+    </vehicle>
+    <vehicle id="veh3" depart="3" departPos="0">
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
+    </vehicle>
+    <vehicle id="veh4" depart="4" departPos="0">
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
+    </vehicle>
+    <vehicle id="veh5" depart="5" departPos="0">
+        <route edges="e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6"/>
+    </vehicle>
+</routes>
+

@@ -1,0 +1,6 @@
+<additionals>
+    <busStop id="busStop_3_2_0" lane="3_2" startPos="24.60" endPos="34.60" friendlyPos="0"/>
+    <busStop id="busStop_4_2_2" lane="4_2" startPos="20.45" endPos="30.45" friendlyPos="0"/>
+    <busStop id="busStop_7_1_3" lane="7_1" startPos="11.51" endPos="21.51" friendlyPos="0"/>
+    <busStop id="busStop_8_2_1" lane="8_2" startPos="11.40" endPos="21.40" friendlyPos="0"/>
+</additionals>

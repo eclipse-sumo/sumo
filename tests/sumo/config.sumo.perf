@@ -1,0 +1,14 @@
+kill_timeout:15000
+performance_variation_%:30
+
+[performance_logfile]
+performance:output
+
+[performance_logfile_extractor]
+performance: Duration: ([0-9\.]*)ms
+
+[performance_unit]
+performance:ms
+
+[performance_test_machine]
+performance:any

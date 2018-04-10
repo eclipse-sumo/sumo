@@ -1,0 +1,4 @@
+<flowdefs>
+    <flow id="0" from="beg" to="rend" begin="0" end="100" number="10" type="DEFAULT_VEHTYPE"/>
+
+</flowdefs>

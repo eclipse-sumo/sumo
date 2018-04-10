@@ -1,0 +1,7 @@
+repeat 5 simstep2 0
+setvalue 0xc4 0x5c veh0 <compound> 2 <string> e_m0_1 <double> 10
+repeat 5 simstep2 0
+setvalue 0xc4 0x5c veh0 <compound> 2 <string> e_m2_0 <double> 20
+repeat 5 simstep2 0
+setvalue 0xc4 0x5c veh0 <compound> 2 <string> e_m4_1 <double> 10
+repeat 5 simstep2 0

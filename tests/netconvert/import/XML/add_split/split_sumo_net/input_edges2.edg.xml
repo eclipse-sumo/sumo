@@ -1,0 +1,5 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/edgediff_file.xsd">
+	<edge id="middle">
+		<split lanes="0 1 2" pos="50"/>
+	</edge>
+</edges>

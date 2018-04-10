@@ -1,0 +1,14 @@
+# Tests for variable retrieval
+get_variable
+
+# Tests for setting variables
+set_variable
+
+# Tests for variable subscription
+variable_subscription
+
+# Tests for context subscription
+context_subscription
+
+# call all methods of the TraCIAPI library
+testAPI

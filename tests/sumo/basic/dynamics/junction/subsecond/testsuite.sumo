@@ -1,0 +1,2 @@
+# when approaching a minor link, there should be no collision due to the delay between comitting to enter the intersection and actually entering (and thus 'blocking') the intersection.
+approaching_minor

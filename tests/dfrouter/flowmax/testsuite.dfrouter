@@ -1,0 +1,11 @@
+# Tests flows on simple split network
+simple_split
+
+# No flow over the splitting edge
+zero_split
+
+# Flow over the splitting edge violates flow equality (flowrouter functionality)
+#wrong_split
+
+# A "long" street with multiple sinks and sources (flowrouter functionality)
+#long_route

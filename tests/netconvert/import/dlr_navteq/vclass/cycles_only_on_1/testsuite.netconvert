@@ -1,0 +1,25 @@
+# link 1 only allows pedestrians
+plain
+
+# same as plain, but pedestrian links are removed
+removing_peds
+
+# same as plain, but pedestrian and cycles links are removed
+removing_peds_cycles
+
+# same as plain, but vclasses are dismissed
+dismissing
+
+# same as plain, but pedestrian links are removed and vclasses are dismissed
+dismissing__removing_peds
+
+# same as plain, but pedestrian and cycles links are removed and vclasses are dismissed
+dismissing__removing_peds_cycles
+
+
+# some tests that use a deprecated divider (';')
+_deprecated_
+
+
+
+

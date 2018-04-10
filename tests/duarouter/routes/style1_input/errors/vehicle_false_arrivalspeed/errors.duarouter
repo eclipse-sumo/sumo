@@ -1,0 +1,3 @@
+Error: Invalid arrivalSpeed definition for vehicle '0';
+ must be one of ("current", or a float>=0)
+Quitting (on error).

@@ -1,0 +1,3 @@
+Error: Vehicle '0_0' is not allowed to arrive on edge 'left2end'.
+Error: The vehicle '0_0' has no valid route.
+Quitting (on error).

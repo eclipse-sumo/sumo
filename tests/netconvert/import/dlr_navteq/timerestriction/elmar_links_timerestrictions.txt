@@ -1,0 +1,5 @@
+# Net version: NavTeq-2012-Q2 ; Extraction version: V3.1 ; Creator: Elmar Brockfeld, Sten Ruppe, DLR-TS, Berlin ; Extraction date: 2012-07-17, 14:51:44 o'clock
+# LINK_ID	TIMERESTR_TYPE	direction_of_flow	through_traffic	vehicle_type	validity_period
+1	CS	2	1	1000000000	[(y2015M4d1){y7M8w2d1}]
+-1	CS	3	1	1000000000	[(y2025M4d1){y7M8w2d1}]
+2	CS	3	1	1000000000	[(y2005M4d1){y7M8w2d1}]

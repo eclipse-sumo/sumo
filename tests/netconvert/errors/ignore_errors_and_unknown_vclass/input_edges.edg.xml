@@ -1,0 +1,6 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+  <edge id="0" from="0" to="1" allow="bus"/>
+  <edge id="1" from="1" to="2" allow="error-vclass1 bus"/>
+  <edge id="2" from="2" to="3" disallow="bus error-vclass2"/>
+  <edge id="3" from="0" to="3" disallow="error-vclass3"/>
+</edges>

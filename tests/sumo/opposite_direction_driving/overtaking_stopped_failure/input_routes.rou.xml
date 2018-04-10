@@ -1,0 +1,16 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="stopper" lcCooperative="0.2"/>
+
+    <route id="r0" edges="VODUGES_beg"/>
+    <route id="r1" edges="-VODUGES_beg"/>
+
+    <vehicle id="stopped" type="stopper" route="r0" departPos="40" depart="0">
+        <stop lane="VODUGES_beg_0" endPos="50" duration="3"/>
+    </vehicle>
+    <vehicle id="overtaking" route="r0" departPos="0"  depart="0"/>
+
+    <vehicle id="oncoming1" route="r1" departPos="100"  depart="0"/>
+    <vehicle id="oncoming2" route="r1" departPos="0"  depart="0"/>
+
+</routes>

@@ -1,0 +1,16 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="device_by_prob" sigma="0"/>
+
+	<vType id="device_always" sigma="0">
+        <param key="has.example.device" value="true"/>
+    </vType>
+	<vType id="device_never" sigma="0">
+        <param key="has.example.device" value="false"/>
+    </vType>
+
+    <route id="r0" edges="beg"/>
+    <flow id="prob" type="device_by_prob" route="r0" begin="0" end="100" number="10" arrivalPos="6"/>
+    <flow id="always" type="device_always" route="r0" begin="100" end="200" number="10" arrivalPos="6"/>
+    <flow id="never" type="device_never" route="r0" begin="200" end="300" number="10" arrivalPos="6"/>
+
+</routes>

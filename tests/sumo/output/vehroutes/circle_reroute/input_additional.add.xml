@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="firstHalf" edges="10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>
+    <route id="secondHalf" edges="5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1"/>
+    <rerouter id="rerouter5" edges="5/1to6/1" file="input_definition.def.xml"/>
+    <rerouter id="rerouter10" edges="10/1to1/1" file="input_definition2.def.xml"/>
+</additional>

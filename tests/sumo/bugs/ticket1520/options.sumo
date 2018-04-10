@@ -1,0 +1,2 @@
+--no-step-log --net-file=net.net.xml -r input_routes.rou.xml --vehroute-output
+vehroutes.xml --vehroute-output.exit-times --time-to-teleport 10

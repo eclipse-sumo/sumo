@@ -1,0 +1,15 @@
+# check that a jam moves upstream under high flow conditions
+high_flow
+
+# check jam development and flow at bottleneck (reduction in number of lanes)
+bottleneck
+bottleneck_departLane_random
+
+# check jam development and flow at bottleneck (reduction in number of lanes) with link type 'Z' (zipper merge)
+bottleneck_zipper
+
+# check jam development and flow at bottleneck (two 1-lane roads merge into a 1-lane road)
+bottleneck_confluence
+
+# create a long jam at a traffic light and then resolve it (3 different edge speeds in parallel)
+tls

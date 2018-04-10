@@ -1,0 +1,3 @@
+Warning: No connection between edge 'beg_depart_connector' and edge 'left_arrival_connector' found.
+Error: No route for trip in person 'p1'.
+Quitting (on error).

@@ -1,0 +1,7 @@
+<tazs>
+    <taz id="3/2to2/2" edges="2/2to3/2 3/2to2/2"/>
+    <taz id="2/1to3/1" edges="2/1to3/1 3/1to2/1"/>
+    <taz id="3/1to4/1" edges="3/1to4/1 4/1to3/1"/>
+    <taz id="3/2to4/2" edges="3/2to4/2 4/2to3/2"/>
+    <taz id="1/1to0/1" edges="0/1to1/1 1/1to0/1"/>
+</tazs>

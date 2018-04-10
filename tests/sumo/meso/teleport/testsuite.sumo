@@ -1,0 +1,6 @@
+single_jump
+multiple_jumps
+jump_to_end
+
+# teleport to the end of the route while on the final edge
+single_jump_to_end

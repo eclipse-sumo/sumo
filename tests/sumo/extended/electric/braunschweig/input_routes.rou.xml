@@ -1,0 +1,31 @@
+<routes>
+   <vType accel="2.6" decel="4.5" id="PKW" impatience="0.05" length="4.5" maxSpeed="41.667" minGap="2.5" sigma="0.5" speedDev="0.05" speedFactor="1.07" tau="1" vClass="private">
+      <param key="maximumBatteryCapacity" value="35000"/>
+      <param key="maximumPower" value="100000"/>
+      <param key="vehicleMass" value="1600"/>
+      <param key="internalMomentOfInertia" value="30"/>
+      <param key="frontSurfaceArea" value="2.2"/>
+      <param key="airDragCoefficient" value="0.33"/>
+      <param key="radialDragCoefficient" value="0"/>
+      <param key="rollDragCoefficient" value="0.1"/>
+      <param key="constantPowerIntake" value="40"/>
+      <param key="propulsionEfficiency" value="0.8"/>
+      <param key="recuperationEfficiency" value="0.8"/>
+   </vType>
+
+
+	<vehicle id="vehWithCustDepartEnergy" depart="0" type="PKW" departLane="best" departPos="0.00" departSpeed="random" >
+		<route edges="76to16 16to38 38to167"/>
+		<param key="actualBatteryCapacity" value="10000"/>
+	</vehicle>
+	<vehicle id="vehWithBusStop" depart="11" type="PKW" departLane="best" departPos="0.00" departSpeed="random" >
+		<route edges="76to16 16to13 13to1 1to17 17to2 2to19 19to20 20to87 87to29 29to41 41to42 42to40 40to39 39to75 75to36 36to48 48to72 72to132 132to155"/>
+		<stop busStop="bS_2to19_0a" duration="20"/>
+	</vehicle>
+	<vehicle id="vehWithChrgStn0" depart="43" type="PKW" departLane="best" departPos="0.00" departSpeed="random" >
+		<route edges="76to16 16to13 13to1 1to17 17to2 2to3 3to4 4to9"/>
+	</vehicle>
+	<vehicle id="vehWithChrgStn1" depart="54" type="PKW" departLane="best" departPos="0.00" departSpeed="random" >
+		<route edges="76to16 16to13 13to1 1to17 17to2 2to19 19to20 20to87 87to29 29to41 41to42 42to40 40to55 55to50 50to53 53to70 70to69 69to63 63to64 64to90 90to94 94to95 95to96 96to110 110to109 109to111 111to112 112to124 124to152 152to172"/>
+	</vehicle>
+</routes>

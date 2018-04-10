@@ -1,0 +1,11 @@
+# using shapes to model hokkaido (recheck whether the plain output is almost the same as the input edges)
+hokkaido
+set_node_shape
+
+# set custom shape for an internal lane
+set_internalShape
+reset_internalShape
+set_lane_shape
+
+# load a sumo net with custom lane shapes and define additional customization
+set_lane_shape_sumo_net

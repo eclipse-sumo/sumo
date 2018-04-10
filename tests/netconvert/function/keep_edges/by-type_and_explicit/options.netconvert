@@ -1,0 +1,2 @@
+--verbose --sumo-net-file input_net.net.xml --output net.net.xml
+--keep-edges.by-type highway.primary --keep-edges.explicit -38#1,--38#2

@@ -1,0 +1,17 @@
+# pedestrians jam and block the previous edge at a traffic light
+jam_trafficlight
+
+# test interaction with default pedestrian attributes
+jam_trafficlight_defaults
+bidirectional_flow_2stripes
+bidirectional_flow_3stripes
+
+# two streams of pedestrians using the same sidewalk in opposite direction
+bidirectional_flow_4stripes
+bidirectional_flow_5stripes
+
+# test dynamics when jammed
+bidirectional_flow_jammed
+
+# orthogonal streams crossing on a wide plaza
+plaza

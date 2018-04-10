@@ -1,0 +1,39 @@
+
+# The list of attributes is not given
+broken_detectors_flows_file1a
+
+# Missing Detector-field in attributes
+broken_detectors_flows_file1b
+
+# Missing Time-field in attributes
+broken_detectors_flows_file1c
+
+# Missing qPKW-field in attributes
+broken_detectors_flows_file1d
+
+# Missing qLKW-field in attributes
+broken_detectors_flows_file1e
+
+# Missing vPKW-field in attributes
+broken_detectors_flows_file1f
+
+# Missing vLKW-field in attributes
+broken_detectors_flows_file1g
+
+
+
+# Tests what happens if the given detector flow file does not exist
+false_detectors_flows_file1
+
+# Tests what happens if one of the given detector flow files does not exist
+false_detectors_flows_file2
+
+# Tests what happens if two of the given detector flow files do not exist
+false_detectors_flows_file3
+
+# Same as false_detectors_flows_file2 but with a deprecated divider (";")
+false_detectors_flows_file2_deprecated
+
+# Same as false_detectors_flows_file3 but with a deprecated divider (";")
+false_detectors_flows_file3_deprecated
+

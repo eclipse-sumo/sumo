@@ -1,0 +1,20 @@
+<configuration>
+
+    <input>
+        <net-file value="corridor/corridor.net.xml"/>
+        <gui-settings-file value="corridor/corridor.settings.xml"/>
+        <route-files value="corridor/corridor.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <output-prefix value="corridor."/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="600"/>
+        <step-length value="1.0"/>
+    </time>
+
+</configuration>

@@ -1,0 +1,3 @@
+repeat 30 simstep2 0
+setvalue 0xc4 0x57 bus_1 <string*> 3 e_m5 e_m6 e_shape0
+simstep2 70

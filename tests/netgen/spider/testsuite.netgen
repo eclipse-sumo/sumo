@@ -1,0 +1,26 @@
+# the first spider network example from the user documentation
+user_example1
+
+# the second spider network example from the user documentation
+user_example2
+
+# the first spider network example from the user documentation (verbose)
+user_example1_v
+
+# the second spider network example from the user documentation (verbose)
+user_example2_v
+
+# creating a circle network
+circle
+
+# omitting the center node of the spider web
+nocenter
+
+# trying to build the minimal spider-net
+min_version
+
+# Tests processing of errors in input
+errors
+
+# no internal lanes
+nointernal

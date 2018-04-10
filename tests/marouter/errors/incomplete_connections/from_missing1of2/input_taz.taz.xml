@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="1">
+        <tazSink id="beg" weight="1"/>
+    </taz>
+    <taz id="2">
+        <tazSource id="end" weight="1"/>
+        <tazSink id="end" weight="1"/>
+    </taz>
+</tazs>
+

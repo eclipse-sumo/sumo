@@ -1,0 +1,4 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
+Error: Answered with error to command 0xa3: Lane 'dummy' is not known
+Error: Requested command not implemented (0xcc): Command not implemented in sumo

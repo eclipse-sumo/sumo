@@ -1,0 +1,6 @@
+# One detector, no traffic, just plain output
+one_no_vehicles
+
+# Two detectors, same file, no traffic
+two_no_vehicles
+

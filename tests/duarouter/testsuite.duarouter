@@ -1,0 +1,35 @@
+# Testing trip processing
+trips
+
+# Testing flow processing
+flows
+
+# testing routes processing
+routes
+
+# testing route alternatives processing
+alternatives
+
+# testing the dua
+dua
+
+# Tests of the logit model
+logit
+
+# testing vehicle class processing
+vclasses
+
+# testing some additional options
+function
+
+# testing meta processing
+meta
+
+# testing error input
+errors
+
+# routing of pedestrians
+person
+
+# Testing previously buggy behaviour
+bugs

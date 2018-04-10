@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<routes>
+    <vTypeDistribution id="1">
+        <vType accel="3.500000" id="t100_D1" length="4.3688400000000005" maxSpeed="14.722222222222221" probability="0.980000"/>
+        <vType accel="7.300000" id="t200_D1" length="10.215" maxSpeed="14.722222222222221" probability="0.020000"/>
+    </vTypeDistribution>
+    <routeDistribution id="1_0.0">
+        <route edges="1 6" id="1" probability="0.5"/>
+        <route edges="1 4" id="2" probability="0.5"/>
+    </routeDistribution>
+    <routeDistribution id="2_0.0">
+        <route edges="2 4" id="1" probability="0.5"/>
+        <route edges="2 5" id="2" probability="0.5"/>
+    </routeDistribution>
+    <routeDistribution id="7_0.0">
+        <route edges="7 6" id="1" probability="0.5"/>
+        <route edges="7 5" id="2" probability="0.5"/>
+    </routeDistribution>
+    <flow begin="0.0" color="1,1,0" end="3600" id="fl1_st0.0" route="1_0.0" type="1" vehsPerHour="100.0"/>
+    <flow begin="0.0" color="1,1,0" end="3600" id="fl2_st0.0" route="2_0.0" type="1" vehsPerHour="800.0"/>
+    <flow begin="0.0" color="1,1,0" end="3600" id="fl7_st0.0" route="7_0.0" type="1" vehsPerHour="800.0"/>
+</routes>

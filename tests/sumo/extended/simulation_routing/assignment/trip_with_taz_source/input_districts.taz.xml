@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<tazs>
+    <taz id="1">
+        <tazSource id="beg"/>
+        <tazSource id="beg2left"/>
+    </taz>
+    <taz id="2" edges="end rend">
+    </taz>
+</tazs>
+

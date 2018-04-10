@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10"/>
+    <route id="r" edges="beg middle end"/>
+    <vehicle id="0" route="r" depart="0"/> 
+    <vehicle id="1" route="r" depart="1"/> 
+    <vehicle id="2" route="r" depart="2"/> 
+    <vehicle id="3" route="r" depart="3"/> 
+    <vehicle id="4" route="r" depart="4"/> 
+    <vehicle id="5" route="r" depart="5"/> 
+    <vehicle id="6" route="r" depart="6"/> 
+    <vehicle id="7" route="r" depart="7"/> 
+    <vehicle id="8" route="r" depart="8"/> 
+    <vehicle id="9" route="r" depart="9"/> 
+</routes>

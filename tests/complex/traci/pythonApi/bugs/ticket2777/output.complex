@@ -1,0 +1,53 @@
+Loading configuration... done.
+Could not connect to TraCI server at localhost:37132 [Errno 111] Connection refused
+ Retrying in 1 seconds
+1.0 vehicle v0 on lane=beg_0 pos=0.0 speed=13.89
+1.0 setStop for v0
+1.0 vehicle v0 on lane=beg_0 pos=0.0 speed=13.89
+2.0 vehicle v0 on lane=beg_0 pos=12.7316886697 speed=12.7316886697
+3.0 vehicle v0 on lane=beg_0 pos=25.6954472965 speed=12.9637586268
+4.0 vehicle v0 on lane=beg_0 pos=39.5263240489 speed=13.8308767523
+5.0 vehicle v0 on lane=beg_0 pos=52.7774452873 speed=13.2511212384
+6.0 vehicle v0 on lane=beg_0 pos=65.9005040525 speed=13.1230587652
+7.0 vehicle v0 on lane=beg_0 pos=79.7338086679 speed=13.8333046154
+8.0 vehicle v0 on lane=beg_0 pos=92.6575740738 speed=12.9237654059
+9.0 vehicle v0 on lane=end_0 pos=4.22582340537 speed=13.5682493316
+10.0 vehicle v0 on lane=end_0 pos=17.4069656073 speed=13.181142202
+
+21.0 vehicle v1 on lane=middle_0 pos=0.0 speed=13.89
+21.0 setStop for v1
+21.0 vehicle v1 on lane=middle_0 pos=0.0 speed=13.89
+22.0 vehicle v1 on lane=end_0 pos=7.39 speed=9.39
+23.0 vehicle v1 on lane=end_0 pos=12.28 speed=4.89
+24.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.39
+25.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
+26.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
+27.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
+28.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
+29.0 vehicle v1 on lane=end_0 pos=14.4464803455 speed=1.77648034547
+30.0 vehicle v1 on lane=end_0 pos=17.6022098416 speed=3.15572949615
+
+41.0 vehicle v2 on lane=beg_0 pos=99.0 speed=13.89
+41.0 setStop for v2
+41.0 vehicle v2 on lane=beg_0 pos=99.0 speed=13.89
+42.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+43.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+44.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+45.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+46.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+47.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+48.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+49.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
+50.0 vehicle v2 on lane=end_0 pos=2.25670572133 speed=2.25670572133
+
+61.0 vehicle v3 on lane=beg_0 pos=99.0 speed=13.89
+61.0 setStop for v3
+61.0 vehicle v3 on lane=beg_0 pos=99.0 speed=13.89
+62.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+63.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+64.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+65.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+66.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+67.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+68.0 vehicle v3 on lane=middle_0 pos=2.0 speed=0.0
+

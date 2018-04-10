@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="1" edges="1fi 1si 1o 1fi 1si"/>
+    <vehicle depart="1" id="stopped" route="1">
+        <stop lane="1si_0" endPos="8" duration="50"/>
+    </vehicle>
+    <vehicle depart="10" id="stop_as_well" route="1">
+        <stop lane="1si_0" endPos="7" duration="50"/>
+    </vehicle>
+</routes>

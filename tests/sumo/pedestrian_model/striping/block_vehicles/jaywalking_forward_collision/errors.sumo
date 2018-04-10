@@ -1,0 +1,4 @@
+Warning: Vehicle 'WE.0' collision with person 'p0', lane=':C_21_0, time=8.00 stage=move.
+Warning: Vehicle 'WE.0' collision with person 'p0', lane=':C_21_0, time=8.00 stage=laneChange.
+Warning: Vehicle 'WE.0' collision with person 'p0', lane=':C_21_0, time=8.00 stage=insertion.
+Warning: Vehicle 'WE.0' collision with person 'p0', lane=':C_21_0, time=9.00 stage=events.

@@ -1,0 +1,20 @@
+# extracting nodes/edges from data/examples/simple_nets/cross/cross1l
+cross1l
+
+# extracting nodes/edges from a broken network
+broken
+
+# find edges reachable from source
+source
+
+# find reachable edges from source restricted by vClass
+source_vclass
+
+# find edges that can reach the given destination
+destination
+
+# write weakly connectec components to an edge selection
+components
+
+# get very weakly connected components (node graph)
+ignore_connections

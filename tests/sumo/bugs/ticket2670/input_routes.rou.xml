@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="beg end" />
+
+    <vType id="rail" vClass="rail" />
+
+    <vehicle id="rail0" type="rail" route="r0" depart="0" line="RE3" departSpeed="max">
+        <stop busStop="railstop" until="70"/>
+    </vehicle>
+</routes>

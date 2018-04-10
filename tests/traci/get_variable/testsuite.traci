@@ -1,0 +1,41 @@
+# Tests retrieval of variables from induction loops (0xa0)
+InductionLoop
+
+# Tests retrieval of variables from areal detectors (0x8e)
+ArealDetector
+
+# Tests retrieval of variables from multi-entry/multi-exit detectors (0xa1)
+MeMeDetector
+
+# Tests retrieval of variables from traffic lights (0xa2)
+TrafficLight
+
+# Tests retrieval of variables from lanes (0xa3)
+Lane
+
+# Tests retrieval of variables from vehicles (0xa4)
+Vehicle
+
+# Tests retrieval of variables from vehicle types (0xa5)
+VehicleType
+
+# Tests retrieval of variables from vehicles (0xae)
+Person
+
+# Tests retrieval of variables from routes (0xa6)
+Route
+
+# Tests retrieval of variables from PoIs (0xa7)
+POI
+
+# Tests retrieval of variables from polygons (0xa8)
+Polygon
+
+# Tests retrieval of variables from junctions (0xa9)
+Junction
+
+# Tests retrieval of variables from edges (0xaa)
+Edge
+
+# Tests retrieval of variables from the simulation (0xab)
+Simulation

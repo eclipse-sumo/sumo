@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">   
+
+    <vehicle id="connected.1" type="connected" depart="0" departPos="0" arrivalPos="990" departSpeed="max">
+        <route edges="WC CE"/>
+    </vehicle>
+    
+    <vehicle id="connected.2" type="connected" depart="3" departPos="0" arrivalPos="90" departSpeed="max">
+        <route edges="WC CN"/>
+    </vehicle>
+    
+</routes>

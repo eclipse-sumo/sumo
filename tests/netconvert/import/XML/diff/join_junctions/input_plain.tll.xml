@@ -1,0 +1,32 @@
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="27437972" to="27441189" fromLane="0" toLane="2" tl="joinedS_0" linkIndex="0"/>
+    <delete from="27437972" to="27441189" fromLane="1" toLane="3" tl="joinedS_0" linkIndex="1"/>
+    <delete from="27441168" to="27445015#0" fromLane="0" toLane="1" tl="56231397" linkIndex="3"/>
+    <delete from="27441168" to="27445003" fromLane="0" toLane="1" tl="56231397" linkIndex="4"/>
+    <delete from="27441289.95" to="27445003" fromLane="0" toLane="0" tl="56231397" linkIndex="1"/>
+    <delete from="27441289.95" to="27445003" fromLane="1" toLane="1" tl="56231397" linkIndex="2"/>
+    <delete from="27445003" to="27441189" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="2"/>
+    <delete from="27445003" to="27441189" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="3"/>
+    <delete from="46039050" to="27441168" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="5"/>
+    <delete from="6137245" to="27441289.0" fromLane="0" toLane="0" tl="joinedS_0" linkIndex="6"/>
+    <delete from="6137245" to="27441289.0" fromLane="1" toLane="1" tl="joinedS_0" linkIndex="7"/>
+    <delete from="6137245" to="27441168" fromLane="1" toLane="0" tl="joinedS_0" linkIndex="8"/>
+    <!-- Created Elements -->
+    <tlLogic id="cluster_301292612_38919945_56231397_59993001" programID="0" type="static" offset="0">
+        <phase duration="31" state="GGGGgrr"/>
+        <phase duration="7" state="yyyygrr"/>
+        <phase duration="6" state="rrrrGrr"/>
+        <phase duration="7" state="rrrryrr"/>
+        <phase duration="31" state="GrrrrGG"/>
+        <phase duration="7" state="yrrrryy"/>
+    </tlLogic>
+    <connection from="27437972" to="27445000#0" fromLane="0" toLane="0" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="0"/>
+    <connection from="27437972" to="27441289.0" fromLane="1" toLane="1" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="1"/>
+    <connection from="27441289.95" to="27445015#0" fromLane="1" toLane="1" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="3"/>
+    <connection from="27441289.95" to="27445000#0" fromLane="1" toLane="0" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="4"/>
+    <connection from="46039050" to="27445015#0" fromLane="0" toLane="1" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="6"/>
+    <!-- Changed Elements -->
+    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="2"/>
+    <connection from="46039050" to="27441289.0" fromLane="0" toLane="0" tl="cluster_301292612_38919945_56231397_59993001" linkIndex="5"/>
+</tlLogics>

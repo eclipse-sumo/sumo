@@ -1,0 +1,8 @@
+# an example where no deadlocks occurs
+plain
+
+# an example where deadlocks occurs due to too long vehicles
+length
+
+# an example where deadlocks occurs for small sigma
+sigma

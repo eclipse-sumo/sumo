@@ -1,0 +1,13 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+   <edge id="in1" from="i1" to="r1" />
+   <edge id="in2" from="i2" to="r2" />
+   <edge id="1to2" from="r1" to="r2" />
+   <edge id="2to3" from="r2" to="r3" />
+   <edge id="3to4" from="r3" to="r4" />
+   <edge id="out3" from="r3" to="o3" />
+   <edge id="out4" from="r4" to="o4" />
+   <edge id="post3" from="o3" to="p3" />
+   <edge id="post4" from="o4" to="p4" />
+
+</edges>

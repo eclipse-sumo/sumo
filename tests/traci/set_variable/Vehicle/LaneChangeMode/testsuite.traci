@@ -1,0 +1,20 @@
+# tests preventing strategic lane changing
+NoStrategic
+
+# tests preventing cooperative lane changing
+NoCoop
+
+# tests preventing lane changing for speed gain
+NoSpeedGain
+
+# tests preventing right drive lane changing
+NoRight
+
+# tests urgency of traci lane change
+Prio_Always
+# tests urgency of traci lane change
+Prio_NoOverlap
+# tests urgency of traci lane change
+Prio_Urgent
+# tests urgency of traci lane change
+Prio_Opportunistic

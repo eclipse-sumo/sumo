@@ -1,0 +1,17 @@
+# DUA iteration tests
+dua-iterate
+
+# test the coupling between Sumo and  Cadyts
+calibration
+
+# DUA cost function tests
+costFunctionChecker
+
+# in simulation rerouting tests
+one-shot
+
+# Assignment test
+Assignment
+
+# Networkstatistics test
+networkStatistics

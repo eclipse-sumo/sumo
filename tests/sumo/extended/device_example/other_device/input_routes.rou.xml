@@ -1,0 +1,7 @@
+<routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="veh0" depart="0" departPos="400">
+        <route edges="right2end"/>
+    </vehicle>
+
+</routes>

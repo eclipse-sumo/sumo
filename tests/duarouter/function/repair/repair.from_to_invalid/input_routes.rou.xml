@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" vClass="passenger"/>
+    <trip id="invalid_trip" type="t0" depart="0" from="absBeg" to="beg2left"/>
+
+    <vehicle id="unrepairable_route" type="t0" depart="0">
+        <route edges="beg2left left left2end"/>
+    </vehicle>
+
+    <vehicle id="unrepairable_route2" type="t0" depart="0">
+        <route edges="beg2left"/>
+    </vehicle>
+</routes>

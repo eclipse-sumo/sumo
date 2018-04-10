@@ -1,0 +1,1 @@
+--rand.bidi-probability 0 --default-junction-type traffic_light -v --rand -o net.net.xml --rand.iterations=10

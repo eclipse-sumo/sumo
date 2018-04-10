@@ -1,0 +1,70 @@
+# Tests for vehicle class usage
+# The network has a shorter, straight path where only "passenger" are allowed
+# and a longer path where "bus" is allowed
+
+# Tests for importing passenger-trip
+passenger_test_trips
+
+# Tests for importing passenger-flow
+passenger_test_flows
+
+# Tests for importing passenger-routes (previous was correct)
+passenger_test_routes_correct
+
+# Tests for importing passenger-routes (previous was false)
+passenger_test_routes_false
+passenger_test_routes_false_repair
+
+# route start is inaccessible
+passenger_test_start_false_repair
+
+# route end is inaccessible
+passenger_test_end_false_repair
+
+# Tests for importing passenger-alternatives (previous was correct)
+passenger_test_alts_correct
+
+# Tests for importing passenger-alternatives(previous was false)
+passenger_test_alts_false
+
+# Tests for importing bus-trip
+bus_test_trips
+
+# Tests for importing bus-flow
+bus_test_flows
+
+# Tests for importing bus-routes (previous was correct)
+bus_test_routes_correct
+
+# Tests for importing bus-routes (previous was false)
+bus_test_routes_false
+
+# Tests for importing bus-alternatives (previous was correct)
+bus_test_alts_correct
+
+# Tests for importing bus-alternatives (previous was false)
+bus_test_alts_false
+
+# the vehicle type is defined in an additional file
+bus_test_trips_additional
+
+# Tests for importing trips with no vehicle class given
+no_vclass_test_trips
+
+# Tests for importing flows with no vehicle class given
+no_vclass_test_flows
+
+# Tests for importing routes with no vehicle class given (previous was shorter)
+no_vclass_test_routes_shorter
+
+# Tests for importing routes with no vehicle class given (previous was longer)
+no_vclass_test_routes_longer
+
+# Tests for importing alternatives with no vehicle class given (previous was shorter)
+no_vclass_test_alts_shorter
+
+# Tests for importing alternatives with no vehicle class given (previous was longer)
+no_vclass_test_alts_longer
+
+# the desired trip is connected for some vClasses but not for the given one
+no_valid_connection

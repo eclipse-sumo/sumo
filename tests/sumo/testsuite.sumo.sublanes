@@ -1,0 +1,26 @@
+# whether specification is implemented
+spec
+
+# handling of basic structures
+basic
+
+# output tests
+output
+
+# tests for additional structures
+extended
+
+# error handling tests
+errors
+
+# testing car-following model properties
+cf_model
+
+# test lane-changing model properties
+lc_model
+
+# testing the dynamics and interaction of different pedestrian models
+pedestrian_model
+
+# demonstration and regression tests for known bugs
+bugs

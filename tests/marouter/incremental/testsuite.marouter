@@ -1,0 +1,11 @@
+# straight call of the incremental assignment
+simple
+
+# adaptive call of the incremental assignment
+adapt
+
+# 50 iterations
+iter50
+
+# multi threaded call of the incremental assignment
+threading

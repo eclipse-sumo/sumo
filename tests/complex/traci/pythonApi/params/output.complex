@@ -1,0 +1,17 @@
+Loading configuration... done.
+step 0
+vehicle foo=""
+vehicle foo="42"
+person foo=""
+person foo="42"
+edge foo=""
+edge foo="42"
+lane foo=""
+lane foo="42"
+vType foo=""
+vType foo="42"
+route foo=""
+route foo="42"
+trafficlight foo=""
+trafficlight foo="42"
+step 1

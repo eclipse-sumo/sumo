@@ -1,0 +1,12 @@
+<routes>
+    <vType sigma="0" id="t_ego"/>
+    <vehicle id="ego" depart="0" departPos="485" type="t_ego" departSpeed="max">
+        <route edges="right2end end"/>
+        <stop lane="end_0" endPos="20" duration="10"/>
+    </vehicle>
+
+    <vType sigma="0" id="t_leader" decel="1"/>
+    <vehicle id="priority" type="t_leader" depart="0" departPos="750" departSpeed="max">
+        <route edges="middle end"/>
+    </vehicle>
+</routes>

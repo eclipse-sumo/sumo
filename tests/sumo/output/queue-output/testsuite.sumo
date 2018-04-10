@@ -1,0 +1,9 @@
+# no traffic, just plain output
+no_vehicles
+
+# small jam to have a valid queue in front of a tls
+small_jam
+
+# Testing error cases
+errors
+

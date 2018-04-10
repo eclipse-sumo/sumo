@@ -1,0 +1,10 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+   <edge id="edge_L2C" from="node_L" to="node_C"/>
+   <edge id="edge_C2L" from="node_C" to="node_L"/>
+   <edge id="edge_R2C" from="node_R" to="node_C"/>
+   <edge id="edge_C2R" from="node_C" to="node_R"/>
+   <edge id="edge_U2C" from="node_U" to="node_C"/>
+   <edge id="edge_C2U" from="node_C" to="node_U"/>
+   <edge id="edge_D2C" from="node_D" to="node_C"/>
+   <edge id="edge_C2D" from="node_C" to="node_D"/>
+</edges>

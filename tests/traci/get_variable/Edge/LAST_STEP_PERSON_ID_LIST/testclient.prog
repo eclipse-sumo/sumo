@@ -1,0 +1,7 @@
+simstep2 0
+getvariable 0xaa 0x1a 0/0to1/0
+simstep2 5
+getvariable 0xaa 0x1a 0/0to1/0
+simstep2 5
+
+

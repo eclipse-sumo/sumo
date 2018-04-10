@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <instantInductionLoop id="3/1to2/1" lane="3/1to2/1_0" pos="200" file="detector.xml"/>
+   <instantInductionLoop id="4/1to3/1" lane="4/1to3/1_0" pos="200" file=""/>
+
+</additional>

@@ -1,0 +1,7 @@
+<routes>
+    <vType id="type0" sigma="0"/>
+
+    <route id="r0" edges="beg middle end"/>
+
+    <vehicle id="v0" type="type0" route="r0" depart="0"/>
+</routes>

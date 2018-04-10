@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <route id="horizontal1" edges="2fi 2si 1o 1fi"/>
+   <flow id="horizontal1" route="horizontal1" begin="0" end="2020" period="20"/>
+   <route id="horizontal2" edges="1fi 1si 2o 2fi"/>
+   <flow id="horizontal2" route="horizontal2" begin="0" end="2020" period="20"/>
+
+   <route id="vertical1" edges="3fi 3si 4o 4fi"/>
+   <flow id="vertical1" route="vertical1" begin="0" end="2020" period="20"/>
+   <route id="vertical2" edges="4fi 4si 3o 3fi"/>
+   <flow id="vertical2" route="vertical2" begin="0" end="2020" period="20"/>
+</routes>

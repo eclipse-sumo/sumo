@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 27Feb12:47:45]
+search_string:Warning
+trigger_on_absence:1
+search_file:errors
+full_description:should warn about unknown vType
+brief_description:see #1040

@@ -1,0 +1,17 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="long" length="15" sigma="0"/>
+
+    <vehicle id="victim" type="long" depart="0" departSpeed="max">
+        <route edges="middle2 end2"/>
+        <stop lane="end2_0" endPos="1" duration="7"/>
+    </vehicle>
+
+    <vehicle id="unsafe_insertion_after_teleport" depart="0" departSpeed="max">
+        <route edges="beg2 middle2 end2"/>
+    </vehicle>
+
+    <vehicle id="fast_follower" depart="5" departSpeed="max">
+        <route edges="beg1 end1"/>
+    </vehicle>
+</routes>

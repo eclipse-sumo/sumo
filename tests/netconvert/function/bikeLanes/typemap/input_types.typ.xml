@@ -1,0 +1,5 @@
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+	<type id="withBikeLane" bikeLaneWidth="2.0"/>
+	<type id="withBikeLaneDefault"/>
+	<type id="noBikeLane" bikeLaneWidth="-1"/>
+</types>

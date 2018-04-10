@@ -1,0 +1,11 @@
+# Test request for air distance between 2 3D positions
+3DAir
+
+# Test request for driving distance between 2 3D positions
+3DDrive
+
+# Test request for air distance between 3d and road map position
+RoadPosAir
+
+# Test request for driving distance between 3d and road map position
+RoadPosDrive

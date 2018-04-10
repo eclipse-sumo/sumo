@@ -1,0 +1,24 @@
+<routes>
+   <vType id="0" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+   <vType id="1" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+   <vehicle id="0" type="0" depart="0" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="1" type="1" depart="0" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="10" type="0" depart="10" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="11" type="1" depart="10" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+</routes>

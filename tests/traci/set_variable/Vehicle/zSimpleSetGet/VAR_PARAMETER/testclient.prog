@@ -1,0 +1,5 @@
+simstep2 5
+getvariable_plus 0xa4 0x7e 0 <string> foo
+setvalue 0xc4 0x7e 0 <compound> 2 <string> foo <string> bar
+getvariable_plus 0xa4 0x7e 0 <string> foo
+simstep2 0

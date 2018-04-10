@@ -1,0 +1,5 @@
+--node-files input_plain.nod.xml --edge-files input_plain.edg.xml
+--crossings.guess --plain-output-prefix plain --no-turnarounds --output
+net.net.xml --crossings.guess.speed-threshold 10
+
+

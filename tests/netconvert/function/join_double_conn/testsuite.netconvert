@@ -1,0 +1,8 @@
+# joining two edges
+plain
+
+# no join because of differing geometry
+diff_geom
+
+# no join because of differing length
+diff_length

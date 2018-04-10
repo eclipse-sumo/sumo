@@ -1,0 +1,13 @@
+<a>
+   <detectorDefinition id="MQ_1to2"  lane="1to2_0" pos="5"/>
+   <detectorDefinition id="MQ_2to3"  lane="2to3_0" pos="5"/>
+   <detectorDefinition id="MQ_3to4"  lane="3to4_0" pos="5"/>
+   <detectorDefinition id="MQ_4to5"  lane="4to5_0" pos="5"/>
+
+   <detectorDefinition id="MQ_6to7"  lane="6to7_0" pos="5"/>
+   <detectorDefinition id="MQ_7to8"  lane="7to8_0" pos="5"/>
+   <detectorDefinition id="MQ_8to9"  lane="8to9_0" pos="5"/>
+   <detectorDefinition id="MQ_9to10"  lane="9to10_0" pos="5"/>
+
+   <detectorDefinition id="MQ_split" lane="2to9split_0" pos="5"/>
+</a>

@@ -1,0 +1,16 @@
+phem
+omnet
+shawn
+ns2
+gpsdat
+
+# convert fcd traces to gpx
+gpx
+
+# convert fcd traces to pois
+poi
+
+# Whether setting time constaints works
+time
+boundary
+persons

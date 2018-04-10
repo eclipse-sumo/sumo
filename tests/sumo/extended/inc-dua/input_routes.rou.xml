@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0" maxSpeed="70"/>
+
+   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 2o 2fi"/>
+
+   <vehicle id="horizontal01" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal02" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal03" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal04" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal05" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal06" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal07" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal08" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal09" route="horizontal" depart="100" departPos="0"/>
+   <vehicle id="horizontal10" route="horizontal" depart="100" departPos="0"/>
+
+</routes>

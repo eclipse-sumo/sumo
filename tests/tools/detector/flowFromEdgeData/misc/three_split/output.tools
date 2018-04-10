@@ -1,0 +1,10 @@
+Reading flows
+Reading edgeData
+# detNames RouteFlow DetFlow ratio
+beg 875.060768109 1000.0 -0.124939231891
+end 875.060768109 1000.0 -0.124939231891
+# interval 0
+# avgRouteFlow avgDetFlow avgDev RMSE RMSPE
+# 875.060768109 1000.0 124.939231891 124.939231891 0.124939231891
+Reading flows
+Reading edgeData

@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="t0" decel="4" apparentDecel="2" emergencyDecel="3"/>
+    <vType sigma="0" id="t1" apparentDecel="7" emergencyDecel="6"/>
+</routes>

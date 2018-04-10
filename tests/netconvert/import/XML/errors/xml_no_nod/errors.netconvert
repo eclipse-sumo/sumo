@@ -1,0 +1,10 @@
+Error: Edge's '1' from-node 'dl' is not known.
+Error: Edge's '1' to-node 'dr' is not known.
+Error: Edge's '2' from-node 'dr' is not known.
+Error: Edge's '2' to-node 'tr' is not known.
+Error: Edge's '3' from-node 'tr' is not known.
+Error: Edge's '3' to-node 'tl' is not known.
+Error: Edge's '4' from-node 'tl' is not known.
+Error: Edge's '4' to-node 'dl' is not known.
+Error: No nodes loaded.
+Quitting (on error).

@@ -1,0 +1,1 @@
+--device.rerouting.explicit 0,1,2,3,4,5,6,7,8,9 --no-step-log -b 0 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml --vehroute-output=vehroutes.xml

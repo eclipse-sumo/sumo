@@ -1,0 +1,3 @@
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+	<type id="sidewalk" priority="1" numLanes="1" speed="22.22" allow="pedestrian"/>
+</types>

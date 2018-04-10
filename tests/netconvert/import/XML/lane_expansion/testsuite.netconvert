@@ -1,0 +1,10 @@
+#splitting edges with spreadType=right
+right_spread
+
+
+# splitting should preserve edge geometry
+preserve_geometry
+deprecated
+errors
+
+

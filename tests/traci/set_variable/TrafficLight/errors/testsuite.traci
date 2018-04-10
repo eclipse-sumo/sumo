@@ -1,0 +1,6 @@
+# Tests what happens if one asks for an unsupported variable
+UnsupportedVariable
+
+# Tests what happens if one asks for an unknown traffic light
+UnknownTL
+invalid_phase_index

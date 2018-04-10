@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=busnet.net.xml -a=input_additional.add.xml,input_routes.rou.xml --tripinfo-output tripinfos.xml

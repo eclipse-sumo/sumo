@@ -1,0 +1,2 @@
+--no-step-log -b 0 --no-duration-log --net-file=net2.net.xml
+-a=input_trips.trips.xml --tripinfo-output=tripinfos.xml

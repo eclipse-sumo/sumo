@@ -1,0 +1,1 @@
+--rand.bidi-probability 0 --default-junction-type right_before_left -v --rand -o net.net.xml --rand.iterations=10

@@ -1,0 +1,5 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
+Warning: Teleporting vehicle 'horizontal.14'; waited too long (yield), lane='1si_1', time=402.00.
+Warning: Vehicle 'horizontal.14' ends teleporting on edge '2o', time 402.00.
+Warning: Teleporting vehicle 'always_right.14'; waited too long (yield), lane='3si_0', time=405.00.
+Warning: Vehicle 'always_right.14' ends teleporting on edge '2o', time 405.00.

@@ -1,0 +1,5 @@
+[Reported by erdm_ja at 24Feb17:18:35]
+search_string:<connection from="27437972" to="27441289.0" fromLane="0" toLane="1"
+search_file:net
+full_description:connections cross but should not
+brief_description:#1126

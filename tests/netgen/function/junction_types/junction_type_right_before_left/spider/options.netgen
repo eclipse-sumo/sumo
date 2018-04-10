@@ -1,0 +1,1 @@
+--default-junction-type right_before_left --spider --spider.arm-number=4 --spider.circle-number=1 --spider.space-radius=100 --output=net.net.xml -v

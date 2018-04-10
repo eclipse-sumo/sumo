@@ -1,0 +1,19 @@
+Loading net... done.
+Loading detector definitions from 'input_detectors.det.xml'... done.
+Loading flows from 'input_flows.txt'... done.
+Computing detector types... done.
+Computed detector types:
+ 3 source detectors
+ 2 sink detectors
+ 1 in-between detectors
+ 2 invalid detectors
+Computing routes... done.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'LI' on edge '11_21'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'LO' on edge '20_10'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'RO' on edge '51_61'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'RI' on edge '60_50'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'BO' on edge 'a4_a5'.
+Detected PKW speed (27.778) higher than allowed speed (13.900) at 'BI' on edge 'a5_a4'.
+Average speedFactor for PKW is 2.00 maximum speedFactor is 2.00.
+Writing emitters... done.
+Success.

@@ -1,0 +1,8 @@
+east,west,100
+west,east,50
+east,murri3,20
+west,murri3,20
+west,murri2,50
+east,murri2,50
+murri1,east,50
+murri1,west,50

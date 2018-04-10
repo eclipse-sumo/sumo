@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge from="1" id="b" to="2">
+        <lane index="0" speed="9.90"/>
+    </edge>
+    <edge from="2" id="c" to="4">
+        <lane index="0" speed="23.90"/>
+    </edge>
+    <edge from="2" id="d" to="3">
+        <lane index="0" speed="25.90"/>
+    </edge>
+    <edge from="4" id="e" to="5">
+        <lane index="0" speed="13.90"/>
+    </edge>
+    <edge from="5" id="f" to="3">
+        <lane index="0" speed="13.90"/>
+    </edge>
+    <edge from="3" id="g" to="7">
+        <lane index="0" speed="13.90"/>
+    </edge>
+    <edge from="7" id="h" to="6">
+        <lane index="0" speed="13.90"/>
+    </edge>
+</edges>

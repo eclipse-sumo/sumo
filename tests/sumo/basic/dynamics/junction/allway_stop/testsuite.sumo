@@ -1,0 +1,8 @@
+# 4 vehicles approach and depart in their order of arrival
+basic
+
+# two vehicle queus should alternate in driving
+two_queues
+
+# two vehicles arriving at the same time should not cause a deadlock
+arrival_same_time

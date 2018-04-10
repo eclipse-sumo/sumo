@@ -1,0 +1,25 @@
+<additional>
+    <tlLogic id="0/1" programID="0" offset="66.94"/>
+    <tlLogic id="0/2" programID="0" offset="140.92"/>
+    <tlLogic id="0/3" programID="0" offset="306.75"/>
+    <tlLogic id="0/4" programID="0" offset="380.73"/>
+    <tlLogic id="1/0" programID="0" offset="-74.90"/>
+    <tlLogic id="1/1" programID="0" offset="47.96"/>
+    <tlLogic id="1/2" programID="0" offset="119.90"/>
+    <tlLogic id="1/3" programID="0" offset="287.77"/>
+    <tlLogic id="1/4" programID="0" offset="404.71"/>
+    <tlLogic id="2/0" programID="0" offset="-50.92"/>
+    <tlLogic id="2/1" programID="0" offset="23.98"/>
+    <tlLogic id="2/2" programID="0" offset="143.88"/>
+    <tlLogic id="2/3" programID="0" offset="263.79"/>
+    <tlLogic id="2/4" programID="0" offset="428.69"/>
+    <tlLogic id="3/0" programID="0" offset="-26.94"/>
+    <tlLogic id="3/1" programID="0" offset="0.00"/>
+    <tlLogic id="3/2" programID="0" offset="167.87"/>
+    <tlLogic id="3/3" programID="0" offset="239.81"/>
+    <tlLogic id="3/4" programID="0" offset="452.67"/>
+    <tlLogic id="4/0" programID="0" offset="-2.96"/>
+    <tlLogic id="4/1" programID="0" offset="21.02"/>
+    <tlLogic id="4/2" programID="0" offset="186.85"/>
+    <tlLogic id="4/3" programID="0" offset="260.83"/>
+</additional>

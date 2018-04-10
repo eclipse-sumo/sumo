@@ -1,0 +1,6 @@
+repeat 5 simstep2 0
+setvalue 0xc4 0xb4 VTD_EGO <compound> 5 <string> dummy <int> 1 <double> 1994 <double> 728 <double> 0
+getvariable 0xa4 0x54 VTD_EGO
+simstep2 0
+getvariable 0xa4 0x54 VTD_EGO
+repeat 5 simstep2 0

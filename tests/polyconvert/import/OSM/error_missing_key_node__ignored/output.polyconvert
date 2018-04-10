@@ -1,0 +1,5 @@
+Parsing nodes from osm-file 'osm.xml'... 
+done.
+Parsing relations from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
+Success.

@@ -1,0 +1,12 @@
+<routes>'
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="turnLeft" depart="0" departSpeed="max" departPos="0">
+        <route edges="SC CW"/>
+    </vehicle>
+    <vehicle id="straight" depart="0" departSpeed="max" departPos="0">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="oncoming" depart="2" departSpeed="max" departPos="0">
+        <route edges="NC CS"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,19 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+
+    <tlLogic id="0" type="actuated" programID="actuated_additional" offset="0">
+        <phase duration="31" state="GGggrrrrGGggrrrr" minDur="5" maxDur="90"/>
+        <phase duration="4" state="yyggrrrryyggrrrr"/>
+        <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
+        <phase duration="4" state="rryyrrrrrryyrrrr"/>
+        <phase duration="31" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="90"/>
+        <phase duration="4" state="rrrryyggrrrryygg"/>
+        <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
+        <phase duration="4" state="rrrrrryyrrrrrryy"/>
+        <param key="detector-gap" value="1.0"/>
+        <param key="file" value="detector.xml"/>
+        <param key="freq" value="180"/>
+        <param key="splitByType" value="true"/>
+        <param key="show-detectors" value="true"/>
+    </tlLogic>
+</additional>

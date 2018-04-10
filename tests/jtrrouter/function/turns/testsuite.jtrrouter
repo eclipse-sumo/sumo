@@ -1,0 +1,9 @@
+# Tests whether xml-defined turns work
+definite_xml
+
+# Tests whether multiple xml-defined turns work
+multiple_turn_definitions
+
+# Tests whether latter turn definitions override former turn definitions when using multiple turn definition files.
+multiple_turn_definitions_override
+

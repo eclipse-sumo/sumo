@@ -1,0 +1,9 @@
+# a somehow basic example (colormap is changed and no legend is shown)
+paradigm
+
+# a plain call
+plain
+
+# reverting, using percentages directly, changing the starting angle
+pm10effects
+

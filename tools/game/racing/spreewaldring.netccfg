@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="spreewaldring.osm"/>
+        <type-files value="racing.typ.xml"/>
+        <edge-files value="spreewaldring.edg.xml"/>
+        <node-files value="spreewaldring.nod.xml"/>
+    </input>
+
+    <output>
+        <output-file value="spreewaldring.net.xml"/>
+    </output>
+
+    <edge_removal>
+        <keep-edges.by-type value="highway.raceway"/>
+    </edge_removal>
+
+    <processing>
+        <geometry.remove value="false"/>
+        <junctions.scurve-stretch value="0.8"/>
+    </processing>
+
+</configuration>

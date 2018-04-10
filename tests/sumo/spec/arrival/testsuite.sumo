@@ -1,0 +1,54 @@
+# checks using the default position
+pos_default
+pos_default_trip
+
+# checks using the given position (0)
+pos_given0
+
+# checks using the given position (10)
+pos_given10
+
+# checks using the given position (-10)
+pos_given-10
+
+# checks using the given position (10000)
+pos_given10000
+
+# checks using the random position
+pos_random
+
+# checks using the maximum position
+pos_max
+
+# checks using the default speed
+speed_default
+
+# checks using the given speed (0)
+speed_given0
+
+# checks using the given speed (0.2)
+speed_given_near0
+
+# checks using the given speed (10)
+speed_given10
+
+# checks using the current speed
+speed_current
+
+# checks using the given speed with arrivalpos near end
+speed_given0_nearend
+
+# checks using the given speed  with arrivalpos near end
+speed_given10_nearend
+
+# checks using the current speed with arrivalpos near end
+speed_current_nearend
+
+# checks using the given lane (lane 0)
+lane_given0
+
+# checks using the given lane (lane 1)
+lane_given1
+
+# Errors on emission
+errors

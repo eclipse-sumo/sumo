@@ -1,0 +1,2 @@
+--no-step-log --net-file net2.net.xml --route-files routes.rou.xml
+--netstate-dump netstate_dump.xml  

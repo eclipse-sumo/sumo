@@ -1,0 +1,28 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" imgFile="forklift.png"/>
+    <vType id="opposite" imgFile="forklift_right.png"/>
+
+    <route id="r0" edges="VODUGES_beg"/>
+    <route id="r1" edges="-VODUGES_beg"/>
+
+    <vehicle id="stopped"  route="r0" departPos="40" depart="0">
+        <stop lane="VODUGES_beg_0" endPos="50" duration="100"/>
+    </vehicle>
+    <vehicle id="overtaking" route="r0" departPos="0"  depart="1"/>
+
+    <vehicle id="oncoming1" type="opposite" route="r1" departPos="100"  depart="0"/>
+    <vehicle id="oncoming2" type="opposite" route="r1" departPos="0"  depart="0"/>
+
+
+
+    <route id="o0" edges="gneE0"/>
+    <route id="o1" edges="gneE1"/>
+
+    <vehicle id="stopped_1"  route="o0" departPos="40" depart="0">
+        <stop lane="gneE0_0" endPos="50" duration="100"/>
+    </vehicle>
+    <vehicle id="overtaking_1" route="o0" departPos="0" depart="1"/>
+
+    <vehicle id="oncoming1_1" type="opposite" route="o1" departPos="100"  depart="0"/>
+    <vehicle id="oncoming2_1" type="opposite" route="o1" departPos="0"  depart="0"/>
+</routes>

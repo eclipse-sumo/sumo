@@ -1,0 +1,3 @@
+Warning: No connection between edge 'e_m5' and edge 'e_x1' found.
+Warning: No route for vehicle 'veh0' found.
+Error: Answered with error to command 0xc4: Route replacement failed for veh0

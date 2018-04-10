@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="Exists('$(PROJ_GDAL_64)')" Label="UserMacros">
+    <PROJ_LIB>$(PROJ_GDAL_64)\lib\proj_i.lib</PROJ_LIB>
+    <GDAL_LIB>$(PROJ_GDAL_64)\lib\gdal_i.lib</GDAL_LIB>
+    <CONFIG_ENABLED>PROJ GDAL$(CONFIG_ENABLED)</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(PROJ_GDAL_64)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(PROJ_GDAL_64)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_PROJ;HAVE_GDAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(FOX16_64)')" Label="UserMacros">
+    <FOX16_LIB>$(FOX16_64)\lib\FOXDLL-1.6.lib</FOX16_LIB>
+    <FOX16_DEBUG_LIB>$(FOX16_64)\lib\FOXDLLD-1.6.lib</FOX16_DEBUG_LIB>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) GUI</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(FOX16_64)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(FOX16_64)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_FOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(OSG_64)')" Label="UserMacros">
+    <OSG_LIB>$(OSG_64)\lib\osgUtil.lib;$(OSG_64)\lib\osgDB.lib;$(OSG_64)\lib\osgGA.lib;$(OSG_64)\lib\osg.lib;$(OSG_64)\lib\osgViewer.lib</OSG_LIB>
+    <OSG_DEBUG_LIB>$(OSG_64)\lib\osgUtild.lib;$(OSG_64)\lib\osgDBd.lib;$(OSG_64)\lib\osgGAd.lib;$(OSG_64)\lib\osgd.lib;$(OSG_64)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) OSG</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(OSG_64)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(OSG_64)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_OSG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(FFMPEG_64)')" Label="UserMacros">
+    <FFMPEG_LIB>$(FFMPEG_64)\lib\avcodec.lib;$(FFMPEG_64)\lib\avformat.lib;$(FFMPEG_64)\lib\avutil.lib;$(FFMPEG_64)\lib\swscale.lib;</FFMPEG_LIB>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) ffmpeg</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(FFMPEG_64)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(FFMPEG_64)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_FFMPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(PYTHON_64_LIB_DIR)')" Label="UserMacros">
+    <LibraryPath>$(PYTHON_64_LIB_DIR);$(LibraryPath)</LibraryPath>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) Python</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(PYTHON_64_INCLUDE_DIR)') And '$(Configuration)'!='Debug'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(PYTHON_64_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_PYTHON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Label="UserMacros">
+    <XERCES_LIB>$(XERCES_64)\lib\xerces-c_3.lib</XERCES_LIB>
+    <XERCES_DEBUG_LIB>$(XERCES_64)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(XERCES_64)\include;..\..\..\src;..\..\..\src\foreign\msinttypes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_ENABLED="$(Platform) $(Configuration) $(CONFIG_ENABLED)";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(PlatformName)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

@@ -1,0 +1,11 @@
+# tests with a one lane crossing
+cross1l
+
+# tests with a one lane crossing with traffic lights
+cross1ltl
+
+# tests with a three lane crossing
+cross3l
+
+# tests with a three lane crossing with traffic lights
+cross3ltl

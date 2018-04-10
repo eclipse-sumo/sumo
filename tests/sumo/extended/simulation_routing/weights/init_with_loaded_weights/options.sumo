@@ -1,0 +1,1 @@
+--device.rerouting.probability 1 --no-step-log -b 100 --no-duration-log --net-file=three_split.net.xml -a=input_routes.rou.xml --vehroutes=vehroutes.xml --weight-files input_additional.add.xml --device.rerouting.init-with-loaded-weights

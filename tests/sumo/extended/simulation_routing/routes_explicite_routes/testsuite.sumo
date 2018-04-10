@@ -1,0 +1,12 @@
+# initial test
+plain
+
+# the first route the vehicles have is longer than the best
+initial_longer
+
+# keeping the stop after reroute
+stop
+
+# the initial route contains disallowed edges
+vclasses
+period5

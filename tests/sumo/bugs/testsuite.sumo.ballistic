@@ -1,0 +1,30 @@
+# (Copy of overtake_stopped_on_the_left) with subsecond step-length
+ticket2603
+
+# testing route length in tripinfos and vehroute output with rerouting
+ticket676
+
+ticket963
+ticket967
+
+# vehicles stop to help other vehicles to change langes even though they are 500 meters apart
+ticket1044
+
+# testing stopping to the point: vehicle should come to halt exactly at pos=25
+ticket1224
+
+# program crash when overtaking is combined with continuous lanechange
+ticket2316
+
+# If a stop is placed shortly after a vehicle's insertion position and the vehicle is provided a too high departSpeed, it misses the stop.
+ticket2543
+
+# StopSpeed returns a too low value for the euler update in case of insertion
+ticket2574
+
+# Collision due to unexpected foes
+ticket1845
+
+# Trains have emergency stops and missing connectivity
+ticket2670
+

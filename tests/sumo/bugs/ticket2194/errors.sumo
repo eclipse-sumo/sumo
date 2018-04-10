@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'v0'; waited too long (wrong lane), lane='A_0', time=314.00.
+Warning: Vehicle  'v0' is not allowed on from edge 'B'.
+Warning: No route for vehicle 'v0' found.
+Warning: Vehicle 'v0' ends teleporting on edge 'C', time 323.00.

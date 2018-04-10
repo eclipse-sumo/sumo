@@ -1,0 +1,11 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+	<edge spreadType="center" id="1" from="0" to="1" numLanes="2" speed="28.">
+		<split lanes="1" pos="50"/>
+	</edge>
+
+</edges>
+
+
+
+

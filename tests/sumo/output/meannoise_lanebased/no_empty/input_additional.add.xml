@@ -1,0 +1,4 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<laneData id="dump_300" type="harmonoise" freq="300" file="aggregated_300.xml" excludeEmpty="true"/>
+	<laneData id="dump_900" type="harmonoise" freq="900" file="aggregated_900.xml" excludeEmpty="true"/>
+</additional>

@@ -1,0 +1,18 @@
+# Ordered list of tests in test suite. Add as appropriate
+# very high flow on 1 lane
+high_flow1
+
+# very high flow on 2 lanes
+high_flow2
+
+# very high flow on 2 lanes
+high_flow3
+
+# departLane="best" should have a maximum lookAhead
+best_distance
+
+# very high flow on 2-lanes
+high_flow1_extreme
+
+# insertion is blocked on one lane but still working on another
+backlog_lanewise

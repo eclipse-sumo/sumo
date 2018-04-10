@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="trip0" depart="0" from="h" to="j"/>
+    <trip id="trip1" depart="1" from="h" to="j"/>
+    <trip id="trip2" depart="2" from="h" to="j"/>
+    <trip id="trip3" depart="3" from="h" to="j"/>
+    <trip id="trip4" depart="4" from="h" to="j"/>
+    <trip id="trip5" depart="5" from="h" to="j"/>
+    <trip id="trip6" depart="6" from="h" to="j"/>
+
+</routes>

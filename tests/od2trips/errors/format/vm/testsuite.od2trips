@@ -1,0 +1,32 @@
+# The begin time is larger than the end time
+vm_time_begin_larger
+
+# begin time not numeric
+vm_time_begin_false
+
+# end time not numeric
+vm_time_end_false
+
+# one time is missing
+vm_time_one_missing
+
+
+# first amount in first district not numeric
+vm_false11
+
+# second amount in first district not numeric
+vm_false12
+
+
+# first amount in second district not numeric
+vm_false21
+
+# second amount in second district not numeric
+vm_false22
+
+
+# factor not numeric
+vm_factor_false
+
+
+

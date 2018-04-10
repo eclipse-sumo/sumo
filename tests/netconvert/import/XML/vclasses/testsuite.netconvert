@@ -1,0 +1,19 @@
+# Plain conversion (no vehicle classes)
+plain
+
+# Tests for setting one lane's values
+setting_one_lane
+
+# Tests for setting all lanes' values
+setting_all_lanes
+
+# Tests whether dismissing vehicle class information works (one lane set)
+dismissing_one_lane
+
+# Tests whether dismissing vehicle class information works (all lanes set)
+dismissing_all_lanes
+
+# Tests whether vclasses can be set for a complete edge, too
+setting_edges
+
+

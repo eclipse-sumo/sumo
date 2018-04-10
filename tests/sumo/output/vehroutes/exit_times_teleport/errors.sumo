@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle '1'; waited too long (jam), lane='0/1to1/1_0', time=344.00.
+Warning: Vehicle '1' ends teleporting on edge '1/1to2/1', time 344.00.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='0/1to1/1_0', time=648.00.
+Warning: Vehicle '2' teleports beyond arrival edge '1/1to2/1', time 1049.00.

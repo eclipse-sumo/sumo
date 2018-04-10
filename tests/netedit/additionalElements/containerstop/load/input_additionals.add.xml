@@ -1,0 +1,74 @@
+<additionals>
+    <!-- Without errors and without name -->
+    <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" friendlyPos="false"/>
+    
+    <!-- empty definition -->
+    <containerStop name="containerStop" friendlyPos="false"/>
+    
+    <!-- missing ID -->
+    <containerStop lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+	<!-- invalid ID -->
+    <containerStop id="id with spaces" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- Duplicated ID -->
+    <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- missing lane -->
+    <containerStop id="containerStop_01" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- non valid lane -->
+    <containerStop id="containerStop_02" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- missing start position -->
+    <containerStop id="containerStop_03" lane="gneE0_0" endPos="30" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+	<!-- non valid start position (dummy) -->
+    <containerStop id="containerStop_04" lane="gneE0_0" startPos="dummyStartPosition" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+	
+    <!-- non valid start position (negative) -->
+    <containerStop id="containerStop_05" lane="gneE0_0" startPos="-25" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- non valid start position (overpassing endPos) -->
+    <containerStop id="containerStop_06" lane="gneE0_0" startPos="45" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- missing end position -->
+    <containerStop id="containerStop_07" lane="gneE0_0" startPos="35" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+	<!-- non valid end position (dummy) -->
+    <containerStop id="containerStop_08" lane="gneE0_0" startPos="35" endPos="dummyEndPos" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+	
+    <!-- non valid end position (overpassing lane) -->
+    <containerStop id="containerStop_09" lane="gneE0_0" startPos="35" endPos="40000" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- non valid end position (<startPos) -->
+    <containerStop id="containerStop_10" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    
+    <!-- missing lines -->
+    <containerStop id="containerStop_11" lane="gneE0_0" startPos="25" endPos="30" name="containerStop" friendlyPos="false"/>
+    
+    <!-- non valid format lines -->
+    <containerStop id="containerStop_12" lane="gneE0_0" startPos="35" endPos="40" lines="line1, line2" name="containerStop" friendlyPos="false"/>
+	
+	<!-- valid format lines -->
+    <containerStop id="containerStop_13" lane="gneE0_0" startPos="45" endPos="50" lines="lineA lineB" name="containerStop" friendlyPos="false"/>
+	
+	<!-- missing friendlyPos -->
+    <containerStop id="containerStop_14" lane="gneE1_0" startPos="5" endPos="10" lines="lineA lineB" name="containerStop"/>
+	
+	<!-- enabled friendlyPos -->
+    <containerStop id="containerStop_15" lane="gneE1_0" startPos="15" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+	
+	<!-- enabled friendlyPos, invalid positions 1 -->
+    <containerStop id="containerStop_16" lane="gneE1_0" startPos="-20" endPos="-10" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+	
+	<!-- enabled friendlyPos, invalid positions 2 -->
+    <containerStop id="containerStop_17" lane="gneE1_0" startPos="200" endPos="300" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+	
+	<!-- enabled friendlyPos, invalid positions 3 -->
+    <containerStop id="containerStop_18" lane="gneE1_0" startPos="50" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+	
+	<!-- enabled friendlyPos, invalid positions 4 -->
+    <containerStop id="containerStop_19" lane="gneE1_0" startPos="20" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+    
+</additionals>

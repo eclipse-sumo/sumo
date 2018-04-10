@@ -1,0 +1,25 @@
+# Tests what happens if the net is not available
+false_net
+
+# Tests what happens if the detectors output is not given
+no_detectors_output
+
+# Tests what happens if an unknown option is passed
+unknown_option
+
+# Tests what happens if the directory to write emitters to is not existing
+false_output_directory
+
+# Tests for parsing options (not really dfrouter-specific)
+options_parsing
+
+# Tests for errors while processing detector files
+detector_files
+
+# Tests for errors while processing detector flow files
+detector_flow_files
+
+
+
+
+

@@ -1,0 +1,8 @@
+# real weighted maximum matching
+maxmatch
+
+# simple maximal matching
+simple
+
+# verbose output (including matching)
+verbose

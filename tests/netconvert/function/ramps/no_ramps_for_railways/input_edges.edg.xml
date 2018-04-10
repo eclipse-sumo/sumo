@@ -1,0 +1,9 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+	<edge id="s1" from="5" to="4" numLanes="3" speed="30" allow="rail tram"/>
+	<edge id="s2" from="4" to="3" numLanes="3" speed="30" allow="rail rail_urban"/>
+	<edge id="s3" from="3" to="2" numLanes="3" speed="30" allow="rail"/>
+	<edge id="s4" from="2" to="1" numLanes="3" speed="30" allow="rail rail_electric"/>
+	<edge id="on" from="4a" to="4" numLanes="1" speed="30" allow="rail"/>
+
+</edges>

@@ -1,0 +1,4 @@
+simstep2 0
+setvalue 0xc7 0x4f xxx <string> new
+simstep2 0
+

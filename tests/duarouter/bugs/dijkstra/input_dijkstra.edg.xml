@@ -1,0 +1,25 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+   <edge id="beg" from="start" to="b2" speed="1" length="1"/>
+
+   <edge id="b2a1" from="b2" to="a1" speed="1" length="8"/>
+   <edge id="b2b1" from="b2" to="b1" speed="1" length="9"/>
+   <edge id="b2c1" from="b2" to="c1" speed="1" length="10"/>
+   <edge id="b2a2" from="b2" to="a2" speed="1" length="7"/>
+   <edge id="b2c2" from="b2" to="c2" speed="1" length="12"/>
+   <edge id="b2b3" from="b2" to="b3" speed="1" length="1"/>
+   <edge id="b2c3" from="b2" to="c3" speed="1" length="11"/>
+   <edge id="b2a25" from="b2" to="a25" speed="1" length="6"/>
+
+   <edge id="b3c3" from="b3" to="c3" speed="1" length="3"/>
+   <edge id="b3a3" from="b3" to="a3" speed="1" length="4"/>
+   <edge id="a3a25" from="a3" to="a25" speed="1" length="0.5"/>
+
+   <edge id="a1e" from="a1" to="end" speed="1"/>
+   <edge id="a25e" from="a25" to="end" speed="1"/>
+   <edge id="b1e" from="b1" to="end" speed="1"/>
+   <edge id="c1e" from="c1" to="end" speed="1"/>
+   <edge id="a2e" from="a2" to="end" speed="1"/>
+   <edge id="c2e" from="c2" to="end" speed="1"/>
+   <edge id="c3e" from="c3" to="end" speed="1"/>
+</edges>

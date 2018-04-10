@@ -1,0 +1,18 @@
+<routes>
+    <person id="visitor1" depart="0">
+        <walk from="NC" busStop="SC"/>
+		<stop busStop="SC" duration="100"/>
+    </person>
+    <person id="visitor2" depart="0">
+        <walk from="SC" busStop="SC"/>
+		<stop busStop="SC" duration="100"/>
+    </person>
+    <person id="visitor3" depart="0">
+        <walk from="SC" busStop="SC" arrivalPos="7"/>
+		<stop busStop="SC" duration="100"/>
+    </person>
+    <person id="visitor4" depart="0">
+        <walk from="SC" busStop="SC" arrivalPos="15"/>
+		<stop busStop="SC" duration="100"/>
+    </person>
+</routes>

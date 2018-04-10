@@ -1,0 +1,22 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Test for step 1
+step1
+
+# Test for step 2
+step2
+
+# Test for step 5
+step5
+
+# Test for step 8
+step8
+
+# Test for step 10
+step10
+more_digits
+
+# expose bug in previous implementation
+larger_numbers
+numeric_accuracy

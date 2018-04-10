@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t1" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10"/>
+    <vType id="stilts" vClass="pedestrian" height="5"/>
+    <route id="r1" edges="e_m3 e_m4"/>
+    <vehicle id="0" depart="0" departSpeed="10" departPos="100" route="r1" type="t1"/>
+
+    <person id="p0" depart="8">
+        <walk edges="e_m3 e_m4" speed="2"/>
+    </person>
+</routes>

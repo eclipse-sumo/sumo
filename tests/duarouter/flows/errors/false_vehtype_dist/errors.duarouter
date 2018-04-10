@@ -1,0 +1,4 @@
+Error: Unknown vehicle type 'blub' in distribution '0'.
+Error: Vehicle type distribution '0' is empty.
+Error: The vehicle type '0' for flow '0' is not known.
+Quitting (on error).

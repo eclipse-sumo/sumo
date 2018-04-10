@@ -1,0 +1,33 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="1" sigma="0" maxSpeed="20"/>
+
+    <vehicle id="foe1" type="1" depart="0" departPos="0" arrivalPos="70" departSpeed="max">
+        <route edges="SC CN"/>
+        <param key="has.ssm.device" value="true"/>
+        <param key="device.ssm.measures" value="TTC DRAC PET"/>
+        <param key="device.ssm.thresholds" value="10 0 10"/> 
+        <param key="device.ssm.frequency" value="10" /> 
+        <param key="device.ssm.range" value="20" />
+        <param key="device.ssm.file" value="ssm.xml" />
+        <param key="device.ssm.trajectories" value="false" />
+    </vehicle>
+    
+    <vehicle id="foe2" type="1" depart="0" departPos="0" arrivalPos="70" arrivalLane="1" departSpeed="max">
+        <route edges="SC CN"/>
+    </vehicle>
+    
+    <vehicle id="ego" type="1" depart="1" departPos="20" arrivalPos="70" departSpeed="max" color="1,0,0">
+        <route edges="NC CE"/>
+        <param key="has.ssm.device" value="true"/>
+        <param key="device.ssm.measures" value="TTC DRAC PET"/>
+        <param key="device.ssm.thresholds" value="10 0 10"/> 
+        <param key="device.ssm.frequency" value="10" /> 
+        <param key="device.ssm.range" value="20" />
+        <param key="device.ssm.trajectories" value="false" />
+    </vehicle>
+    
+    <vehicle id="foe3" type="1" depart="2" departPos="0" arrivalPos="70" departSpeed="max">
+        <route edges="SC CE"/>
+    </vehicle>
+    
+</routes>

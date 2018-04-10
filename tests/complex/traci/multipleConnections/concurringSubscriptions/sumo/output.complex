@@ -1,0 +1,1951 @@
+ Testing multiclient subscriptions...
+
+###### Run 0 ######
+Loading configuration... done.
+***Starting server on port 39455 ***
+Loading net-file from 'input_net.net.xml'... done (5ms).
+Loading done.
+Simulation started with time: 0.00
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: None
+   1 stepping (step 1)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: None
+   2 stepping (step 1)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 subscribing to speed (ID = 64) of vehicle 'horiz'
+   -> {'horiz': {64: 0.0}}
+   1 stepping (step 2)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 subscribing to acceleration (ID = 70) of vehicle 'horiz'
+   -> {'horiz': {70: 2.6}}
+   2 stepping (step 2)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 1.4416886697057636, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 3)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 1.4416886697057636, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 3)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 3.1154472965048625, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 4)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 3.1154472965048625, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 4)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 5.656324048852548, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 5)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 5.656324048852548, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 5)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 7.617445287271403, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 6)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 7.617445287271403, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 6)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.450504052452743, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 7)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.450504052452743, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 7)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.05330461542122, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 8)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.05330461542122, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 8)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.14376540588215, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 9)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.14376540588215, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 9)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.788249331610277, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 10)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.788249331610277, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 10)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.401142201959155, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 11)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.401142201959155, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 11)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.141344708451069, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 12)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.141344708451069, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 12)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.102154383962041, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 13)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.102154383962041, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 13)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.235094927451573, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 14)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.235094927451573, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 14)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.503985643028281, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 15)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.503985643028281, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 15)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.52225490036886, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 16)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.52225490036886, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 16)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.373841684744693, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 17)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.373841684744693, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 17)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.766129846000112, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 18)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.766129846000112, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 18)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.031665639500133, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 19)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.031665639500133, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 19)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.971740999133326, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 20)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.971740999133326, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 20)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.691446756562218, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 21)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.691446756562218, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 21)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.221311280261725, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 22)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.221311280261725, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 22)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.049943445124663, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 23)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.049943445124663, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 23)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.443143727201967, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 24)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.443143727201967, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 24)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.710817117746918, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 25)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.710817117746918, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 25)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.286480345474555, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 26)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.286480345474555, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 26)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.889249150678515, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 27)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.889249150678515, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 27)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.038400025819428, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 28)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.038400025819428, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 28)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.484487339705227, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 29)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.484487339705227, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 29)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.374448789572345, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 30)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.374448789572345, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 30)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.182392625939102, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 31)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.182392625939102, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 31)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.582267204564996, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 32)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.582267204564996, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 32)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.847857308513486, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 33)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.847857308513486, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 33)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.497709278981201, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 34)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.497709278981201, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 34)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.896147268554197, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 35)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.896147268554197, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 35)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.68316148404032, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 36)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.68316148404032, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 36)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.64643260369543, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 37)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.64643260369543, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 37)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.851230244883336, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 38)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.851230244883336, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 38)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.999407978598029, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 39)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.999407978598029, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 39)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.459300114223733, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 40)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.459300114223733, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 40)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.721811696663499, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 41)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.721811696663499, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 41)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.72700319796335, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 42)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.72700319796335, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 42)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.355251293987967, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 43)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.355251293987967, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 43)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.63609439347405, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 44)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.63609439347405, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 44)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.809079616484537, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 45)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.809079616484537, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 45)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 6.5339504538246755, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 46)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 6.5339504538246755, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 46)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 8.915612964090272, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 47)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 8.915612964090272, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 47)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.36690873709973, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 48)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.36690873709973, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 48)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.796194450315088, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 49)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.796194450315088, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 49)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.054789673457853, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 50)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.054789673457853, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 50)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.994270868077873, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 51)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.994270868077873, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 51)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.241436491059138, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 52)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.241436491059138, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 52)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.179772420218214, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 53)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.179772420218214, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 53)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.334905414250679, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 54)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.334905414250679, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 54)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.210908664311281, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 55)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.210908664311281, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 55)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.89443126224447, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 56)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.89443126224447, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 56)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.86207736683078, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 57)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.86207736683078, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 57)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.709878228805028, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 58)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.709878228805028, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 58)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.46965660882648, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 59)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.46965660882648, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 59)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.355911226631141, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 60)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.355911226631141, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 60)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.891081126770004, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 61)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.891081126770004, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 61)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.868623397327028, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 62)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.868623397327028, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 62)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.871635324149391, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 63)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.871635324149391, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 63)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.275868625277653, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 64)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.275868625277653, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 64)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.912618094743229, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 65)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.912618094743229, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 65)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.073810590491629, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 66)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.073810590491629, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 66)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.747505729240364, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 67)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.747505729240364, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 67)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.399200159697793, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 68)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.399200159697793, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 68)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.903460955750196, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 69)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.903460955750196, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 69)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.022934449757448, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 70)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.022934449757448, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 70)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.877328695557079, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 71)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.877328695557079, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 71)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.820049609537236, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 72)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.820049609537236, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 72)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.701980617213994, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 73)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.701980617213994, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 73)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.66928233449813, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 74)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.66928233449813, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 74)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.998176627201028, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 75)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.998176627201028, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 75)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.372708871252835, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 76)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.372708871252835, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 76)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.840678684823214, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 77)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.840678684823214, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 77)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.875138399833812, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 78)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.875138399833812, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 78)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.049102513669059, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 79)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.049102513669059, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 79)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.006000662469305, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 80)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.006000662469305, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 80)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.17156139182858, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 81)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.17156139182858, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 81)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.652600283003412, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 82)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.652600283003412, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 82)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.732951395926065, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 83)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.732951395926065, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 83)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.833923421138897, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 84)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.833923421138897, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 84)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.227719041160308, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 85)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.227719041160308, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 85)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.559813773902132, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 86)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.559813773902132, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 86)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.310350133539178, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 87)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.310350133539178, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 87)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.603324931478127, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 88)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.603324931478127, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 88)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.44333195017185, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 89)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.44333195017185, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 89)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.036808251929468, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 90)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.036808251929468, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 90)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.349478627825155, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 91)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.349478627825155, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 91)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.567672470551916, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 92)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.567672470551916, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 92)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.63527247769758, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 93)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.63527247769758, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 93)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.840130337295122, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 94)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.840130337295122, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 94)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.079000758184119, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 95)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.079000758184119, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 95)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.716439826125278, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 96)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.716439826125278, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 96)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.973865943276323, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 97)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.973865943276323, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 97)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.97179982132744, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 98)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.97179982132744, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 98)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.29720204560086, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 99)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.29720204560086, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 99)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.907622582851909, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 100)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.907622582851909, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 100)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.469515551850199, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 101)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.469515551850199, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 101)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.557365744179114, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 102)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.557365744179114, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 102)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.1860272127809, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 103)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.1860272127809, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 103)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.517489984226412, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 104)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.517489984226412, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 104)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.97401988863945, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 105)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.97401988863945, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 105)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.364251469345763, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 106)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.364251469345763, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 106)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.847067888095044, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 107)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.847067888095044, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 107)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.724783692825586, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 108)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.724783692825586, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 108)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.575595997590572, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 109)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.575595997590572, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 109)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.664266291251405, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 110)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.664266291251405, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 110)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.200672937850467, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 111)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.200672937850467, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 111)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.978016443867237, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 112)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.978016443867237, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 112)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.503776852963492, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 113)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.503776852963492, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 113)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.249636686234734, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 114)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.249636686234734, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 114)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.094698578971437, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 115)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.094698578971437, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 115)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.744431436168961, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 116)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.744431436168961, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 116)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 117)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 117)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 118)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 118)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 119)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 119)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 120)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 120)...
+Simulation ended at time: 121.00
+Reason: TraCI requested termination.
+Process 1 (order 1) ended at step 120
+Process 2 (order 2) ended at step 120
+
+###### Run 1 ######
+Loading configuration... done.
+***Starting server on port 39455 ***
+Loading net-file from 'input_net.net.xml'... done (9ms).
+Loading done.
+Simulation started with time: 0.00
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: None
+   1 stepping (step 1)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: None
+   2 stepping (step 1)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 subscribing to acceleration (ID = 70) of vehicle 'horiz'
+   -> {'horiz': {70: 2.6}}
+   2 stepping (step 2)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 subscribing to speed (ID = 64) of vehicle 'horiz'
+   -> {'horiz': {64: 0.0}}
+   1 stepping (step 2)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 1.4416886697057636, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 3)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 1.4416886697057636, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 3)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 3.1154472965048625, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 4)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 3.1154472965048625, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 4)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 5.656324048852548, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 5)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 5.656324048852548, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 5)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 7.617445287271403, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 6)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 7.617445287271403, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 6)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.450504052452743, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 7)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.450504052452743, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 7)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.05330461542122, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 8)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.05330461542122, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 8)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.14376540588215, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 9)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.14376540588215, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 9)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.788249331610277, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 10)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.788249331610277, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 10)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.401142201959155, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 11)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.401142201959155, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 11)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.141344708451069, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 12)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.141344708451069, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 12)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.102154383962041, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 13)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.102154383962041, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 13)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.235094927451573, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 14)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.235094927451573, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 14)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.503985643028281, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 15)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.503985643028281, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 15)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.52225490036886, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 16)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.52225490036886, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 16)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.373841684744693, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 17)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.373841684744693, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 17)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.766129846000112, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 18)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.766129846000112, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 18)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.031665639500133, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 19)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.031665639500133, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 19)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.971740999133326, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 20)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.971740999133326, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 20)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.691446756562218, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 21)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.691446756562218, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 21)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.221311280261725, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 22)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.221311280261725, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 22)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.049943445124663, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 23)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.049943445124663, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 23)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.443143727201967, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 24)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.443143727201967, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 24)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.710817117746918, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 25)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.710817117746918, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 25)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.286480345474555, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 26)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.286480345474555, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 26)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.889249150678515, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 27)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.889249150678515, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 27)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.038400025819428, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 28)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.038400025819428, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 28)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.484487339705227, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 29)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.484487339705227, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 29)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.374448789572345, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 30)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.374448789572345, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 30)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.182392625939102, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 31)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.182392625939102, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 31)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.582267204564996, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 32)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.582267204564996, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 32)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.847857308513486, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 33)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.847857308513486, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 33)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.497709278981201, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 34)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.497709278981201, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 34)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.896147268554197, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 35)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.896147268554197, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 35)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.68316148404032, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 36)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.68316148404032, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 36)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.64643260369543, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 37)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.64643260369543, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 37)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.851230244883336, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 38)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.851230244883336, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 38)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.999407978598029, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 39)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.999407978598029, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 39)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.459300114223733, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 40)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.459300114223733, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 40)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.721811696663499, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 41)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.721811696663499, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 41)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.72700319796335, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 42)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.72700319796335, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 42)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 13.355251293987967, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 43)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 13.355251293987967, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 43)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 12.63609439347405, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 44)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 12.63609439347405, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 44)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.809079616484537, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 45)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.809079616484537, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 45)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 6.5339504538246755, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 46)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 6.5339504538246755, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 46)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 8.915612964090272, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 47)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 8.915612964090272, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 47)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.36690873709973, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 48)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.36690873709973, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 48)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.796194450315088, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 49)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.796194450315088, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 49)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.054789673457853, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 50)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.054789673457853, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 50)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.994270868077873, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 51)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.994270868077873, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 51)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.241436491059138, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 52)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.241436491059138, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 52)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.179772420218214, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 53)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.179772420218214, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 53)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.334905414250679, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 54)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.334905414250679, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 54)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.210908664311281, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 55)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.210908664311281, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 55)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.89443126224447, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 56)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.89443126224447, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 56)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.86207736683078, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 57)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.86207736683078, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 57)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.709878228805028, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 58)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.709878228805028, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 58)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.46965660882648, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 59)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.46965660882648, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 59)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.355911226631141, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 60)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.355911226631141, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 60)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.891081126770004, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 61)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.891081126770004, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 61)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.868623397327028, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 62)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.868623397327028, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 62)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.871635324149391, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 63)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.871635324149391, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 63)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.275868625277653, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 64)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.275868625277653, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 64)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.912618094743229, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 65)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.912618094743229, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 65)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.073810590491629, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 66)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.073810590491629, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 66)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.747505729240364, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 67)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.747505729240364, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 67)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.399200159697793, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 68)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.399200159697793, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 68)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.903460955750196, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 69)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.903460955750196, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 69)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.022934449757448, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 70)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.022934449757448, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 70)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.877328695557079, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 71)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.877328695557079, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 71)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.820049609537236, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 72)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.820049609537236, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 72)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.701980617213994, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 73)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.701980617213994, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 73)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.66928233449813, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 74)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.66928233449813, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 74)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.998176627201028, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 75)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.998176627201028, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 75)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.372708871252835, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 76)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.372708871252835, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 76)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.840678684823214, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 77)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.840678684823214, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 77)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.875138399833812, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 78)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.875138399833812, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 78)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.049102513669059, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 79)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.049102513669059, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 79)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.006000662469305, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 80)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.006000662469305, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 80)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.17156139182858, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 81)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.17156139182858, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 81)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.652600283003412, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 82)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.652600283003412, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 82)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.732951395926065, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 83)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.732951395926065, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 83)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.833923421138897, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 84)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.833923421138897, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 84)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.227719041160308, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 85)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.227719041160308, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 85)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.559813773902132, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 86)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.559813773902132, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 86)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.310350133539178, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 87)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.310350133539178, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 87)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.603324931478127, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 88)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.603324931478127, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 88)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.44333195017185, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 89)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.44333195017185, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 89)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.036808251929468, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 90)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.036808251929468, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 90)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.349478627825155, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 91)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.349478627825155, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 91)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.567672470551916, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 92)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.567672470551916, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 92)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.63527247769758, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 93)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.63527247769758, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 93)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.840130337295122, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 94)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.840130337295122, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 94)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 11.079000758184119, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 95)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 11.079000758184119, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 95)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.716439826125278, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 96)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.716439826125278, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 96)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.973865943276323, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 97)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.973865943276323, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 97)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.97179982132744, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 98)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.97179982132744, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 98)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.29720204560086, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 99)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.29720204560086, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 99)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.907622582851909, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 100)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.907622582851909, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 100)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.469515551850199, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 101)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.469515551850199, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 101)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.557365744179114, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 102)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.557365744179114, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 102)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.1860272127809, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 103)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.1860272127809, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 103)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.517489984226412, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 104)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.517489984226412, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 104)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.97401988863945, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 105)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.97401988863945, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 105)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.364251469345763, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 106)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.364251469345763, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 106)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 9.847067888095044, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 107)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 9.847067888095044, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 107)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.724783692825586, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 108)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.724783692825586, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 108)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.575595997590572, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 109)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.575595997590572, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 109)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.664266291251405, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 110)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.664266291251405, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 110)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.200672937850467, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 111)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.200672937850467, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 111)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.978016443867237, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 112)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.978016443867237, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 112)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.503776852963492, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 113)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.503776852963492, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 113)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.249636686234734, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 114)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.249636686234734, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 114)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.094698578971437, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 115)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.094698578971437, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 115)...
+Process 2:
+   2 vehicle subscription results: {'horiz': {64: 10.744431436168961, 70: 2.6}}
+   2 simulation subscription results: [('horiz', 228)]
+   2 stepping (step 116)...
+Process 1:
+   1 vehicle subscription results: {'horiz': {64: 10.744431436168961, 70: 2.6}}
+   1 simulation subscription results: [('horiz', 228)]
+   1 stepping (step 116)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 117)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 117)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 118)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 118)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 119)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 119)...
+Process 2:
+   2 vehicle subscription results: {}
+   2 simulation subscription results: []
+   2 stepping (step 120)...
+Process 1:
+   1 vehicle subscription results: {}
+   1 simulation subscription results: []
+   1 stepping (step 120)...
+Simulation ended at time: 121.00
+Reason: TraCI requested termination.
+Process 1 (order 9) ended at step 120
+Process 2 (order 8) ended at step 120

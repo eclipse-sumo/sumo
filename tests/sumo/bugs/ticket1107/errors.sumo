@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'unsafe_insertion_after_teleport'; waited too long (yield), lane='beg2_0', time=10.00.
+Warning: Vehicle 'unsafe_insertion_after_teleport' ends teleporting on edge 'middle2', time 11.00.

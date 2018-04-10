@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <delete id="27441168"/>
+    <delete id="27441189"/>
+    <delete id="27445003"/>
+    <delete id="6137245"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <edge id="27437972" shape="88.72,78.21 43.13,56.80" to="cluster_301292612_38919945_56231397_59993001"/>
+    <edge id="27441289.0" from="cluster_301292612_38919945_56231397_59993001" shape="36.97,44.55 48.35,0.00"/>
+    <edge id="27441289.95" shape="59.75,2.19 45.80,46.84" to="cluster_301292612_38919945_56231397_59993001"/>
+    <edge id="27445000#0" from="cluster_301292612_38919945_56231397_59993001" shape="35.18,54.83 0.00,51.05"/>
+    <edge id="27445015#0" from="cluster_301292612_38919945_56231397_59993001" shape="45.80,46.84 92.46,68.26"/>
+    <edge id="46039050" shape="1.87,40.76 36.97,44.55" to="cluster_301292612_38919945_56231397_59993001"/>
+</edges>

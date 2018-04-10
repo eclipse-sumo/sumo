@@ -1,0 +1,16 @@
+
+[Reported by leonhard at 04Mai14:17:16]
+search_string:<vehicle id="0" pos="25.00" speed="0.00"/>
+use_regexp:0
+trigger_on_absence:1
+search_file:rawdump
+bug_system:trac
+bug_id:1224
+
+[Reported by leonhard at 04Mai14:32:36]
+search_string:pos="25.00"
+use_regexp:0
+trigger_on_absence:1
+search_file:rawdump
+bug_system:trac
+bug_id:1224

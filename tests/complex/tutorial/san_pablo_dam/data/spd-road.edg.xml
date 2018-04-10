@@ -1,0 +1,4 @@
+<edges>
+    <edge from="obs1" id="1to7" to="obs7" numLanes="1" speed="40.0" />
+    <edge from="obs7" id="7to8" to="obs8" numLanes="1" speed="40.0" />
+</edges>

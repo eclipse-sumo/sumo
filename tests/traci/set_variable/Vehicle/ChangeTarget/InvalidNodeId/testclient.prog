@@ -1,0 +1,3 @@
+simstep2 0
+setvalue 0xc4 0x31 xxx <string> e_vo0
+simstep2 0

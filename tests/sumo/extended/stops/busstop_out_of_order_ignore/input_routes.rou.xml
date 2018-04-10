@@ -1,0 +1,45 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs0" lane="beg_0" startPos="100" endPos="120"/>
+    <busStop id="bs1" lane="beg_0" startPos="300" endPos="320"/>
+    <busStop id="bs2" lane="end_0" startPos="100" endPos="120"/>
+    <busStop id="bs3" lane="end_0" startPos="300" endPos="320"/>
+
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="1" edges="beg end"/>
+
+    <vehicle id="correct" depart="0" route="1">
+        <stop busStop="bs0" duration="10"/>
+        <stop busStop="bs1" duration="10"/>
+        <stop busStop="bs2" duration="10"/>
+        <stop busStop="bs3" duration="10"/>
+    </vehicle>
+
+    <vehicle id="wrong1" depart="100" route="1">
+        <stop busStop="bs1" duration="10"/>
+        <stop busStop="bs0" duration="10"/>
+        <stop busStop="bs2" duration="10"/>
+        <stop busStop="bs3" duration="10"/>
+    </vehicle>
+
+    <vehicle id="wrong2" depart="200" route="1">
+        <stop busStop="bs0" duration="10"/>
+        <stop busStop="bs1" duration="10"/>
+        <stop busStop="bs3" duration="10"/>
+        <stop busStop="bs2" duration="10"/>
+    </vehicle>
+
+    <vehicle id="wrong3" depart="300" route="1">
+        <stop busStop="bs0" duration="10"/>
+        <stop busStop="bs2" duration="10"/>
+        <stop busStop="bs1" duration="10"/>
+        <stop busStop="bs3" duration="10"/>
+    </vehicle>
+
+    <vehicle id="wrong_all" depart="400" route="1">
+        <stop busStop="bs3" duration="10"/>
+        <stop busStop="bs2" duration="10"/>
+        <stop busStop="bs1" duration="10"/>
+        <stop busStop="bs0" duration="10"/>
+    </vehicle>
+
+</additional>

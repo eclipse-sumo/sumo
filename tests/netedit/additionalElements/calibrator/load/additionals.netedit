@@ -1,0 +1,20 @@
+<additionals>
+    <calibrator id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
+    <calibrator id="calibrator02" edge="gneE0" pos="10.00" freq="100.00" output="calibrator02d.txt"/>
+    <calibrator id="calibrator05" edge="gneE1" pos="16.00" freq="100.00" output="calibrator05.txt"/>
+    <calibrator id="calibrator06" edge="gneE0" pos="0.00" freq="100.00" output="calibrator06.txt"/>
+    <calibrator id="calibrator07" edge="gneE0" pos="0.00" freq="100.00" output="calibrator07.txt"/>
+    <calibrator id="calibrator08" edge="gneE0" pos="0.00" freq="100.00" output="calibrator08.txt"/>
+    <calibrator id="calibrator09" edge="gneE0" pos="18.00" freq="100.00" output="calibrator09.txt"/>
+    <calibrator id="calibrator10" edge="gneE0" pos="20.00" freq="100.00" output="calibrator10.txt"/>
+    <calibrator id="calibrator11" edge="gneE0" pos="22.00" freq="100.00" output="calibrator11.txt"/>
+    <calibrator id="calibrator12" edge="gneE0" pos="24.00" freq="100.00" output="calibrator12.txt"/>
+    <calibrator id="calibrator13" edge="gneE0" pos="26.00" freq="120.00" output="calibrator13.txt"/>
+    <calibrator id="calibrator14" edge="gneE0" pos="26.00" freq="120.00" output="calibrator14.txt"/>
+    <calibrator id="calibrator15" edge="gneE0" pos="26.00" freq="120.00" output="calibrator15.txt"/>
+    <calibrator id="calibrator16" edge="gneE0" pos="26.00" freq="120.00" output="calibrator16.txt"/>
+    <calibrator id="calibrator17" edge="gneE0" pos="28.00" freq="100.00" output=""/>
+    <calibrator id="calibrator18" edge="gneE0" pos="30.00" freq="100.00" output=""/>
+    <calibrator id="calibrator19" edge="gneE0" pos="32.00" freq="100.00" output=""/>
+    <calibrator id="calibrator20" edge="gneE0" pos="34.00" freq="100.00" output="ownOutput.txt"/>
+</additionals>

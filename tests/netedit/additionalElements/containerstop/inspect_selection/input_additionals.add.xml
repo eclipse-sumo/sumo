@@ -1,0 +1,7 @@
+<additionals>
+    <!-- container A -->
+    <containerStop id="containerStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="container" friendlyPos="false"/>
+
+	<!-- container B -->
+    <containerStop id="containerStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="container" friendlyPos="true"/>
+</additionals>

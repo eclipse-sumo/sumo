@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="DEFAULT_VEHTYPE" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70"/>
+
+    <route id="r0" edges="2/2to2/1 2/1to3/1 3/1to4/1 4/1to4/2"/>
+    <route id="r1" edges="1/1to2/1 2/1to3/1 3/1to3/0"/>
+    <flow id="flow_detour" begin="0" end="100" vehsPerHour="360" route="r0"/>
+    <flow id="flow_block" begin="0" end="1500" vehsPerHour="2500" route="r1"/>
+
+</routes>

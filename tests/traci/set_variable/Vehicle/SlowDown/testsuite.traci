@@ -1,0 +1,18 @@
+# Test basic functionality of <SlowDown>
+Basic
+
+# Test error in specifying an invalid node id
+InvalidNode
+
+# Test error on specifying an invalid time interval
+InvalidTimeInterval
+
+# Some tests for setting speed adaptation mode 
+Fast_Basic
+Fast_NoAccelCheck
+Fast_NoDecelCheck
+
+# slowdown in 0s
+VeryFast
+
+

@@ -1,0 +1,6 @@
+# restrict flow on turnarounds
+max-turn-flow
+
+# 3 alternative routes to the same destination
+three_split
+source_sink_output

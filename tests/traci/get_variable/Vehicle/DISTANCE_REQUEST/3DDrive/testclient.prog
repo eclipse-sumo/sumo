@@ -1,0 +1,4 @@
+simstep2 0
+getvariable_plus 0xa4 0x83 0 <compound> 2 <position3D> 900 400 0 <drivingDist>
+getvariable_plus 0xa4 0x83 0 <compound> 2 <position3D> 900 401 0 <drivingDist>
+simstep2 0

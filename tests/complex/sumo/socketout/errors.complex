@@ -1,0 +1,4 @@
+Error: send failed: Software caused tcpip::Socket abort
+Quitting (on error).
+Error: Error on closing output devices.
+Error: send failed: Software caused tcpip::Socket abort

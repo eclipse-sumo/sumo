@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 09Dec13:05:46]
+search_string:collision
+search_file:errors
+full_description:collision should not happen
+brief_description:see #1096

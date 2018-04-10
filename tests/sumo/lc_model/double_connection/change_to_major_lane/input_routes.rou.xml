@@ -1,0 +1,5 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg end"/>
+    <vehicle id="v0" type="t0" route="r0" depart="0" departLane="0"/>
+</routes>

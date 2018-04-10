@@ -1,0 +1,1 @@
+--edge-files=input_edges2.edg.xml -s input_net.net.xml --output=net.net.xml --no-internal-links --offset.disable-normalization

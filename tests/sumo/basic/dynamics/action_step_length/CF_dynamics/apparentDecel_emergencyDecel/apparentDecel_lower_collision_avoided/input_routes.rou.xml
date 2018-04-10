@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="leader" apparentDecel="2"/>
+    <vType sigma="0" id="follower" speedFactor="2" decel="2" emergencyDecel="4.5"/>
+
+    <route id="r0" edges="end3"/>
+    <vehicle route="r0" id="leader" depart="0" type="leader" departSpeed="max">
+        <stop lane="end3_0" endPos="-1" duration="3"/>
+    </vehicle>
+    <vehicle route="r0" id="follower" depart="1" type="follower" departSpeed="max"/>
+</routes>

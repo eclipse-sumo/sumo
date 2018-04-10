@@ -1,0 +1,11 @@
+# one vehicle is vaporized at a short edge
+short_edge
+
+# tests for using plain inserted vehicles, all sharing the same base route (should be replaced)
+routes_same_route
+
+# tests for using plain inserted vehicles, each having an own route
+routes_explicite_routes
+
+# if any vehicles are vaporizied they should be counted in 'left' and also in an additional attribute 'vaporized'
+count_in_meanData

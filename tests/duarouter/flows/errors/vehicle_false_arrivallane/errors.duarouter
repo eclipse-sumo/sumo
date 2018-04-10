@@ -1,0 +1,3 @@
+Error: Invalid arrivalLane definition for flow '0';
+ must be one of ("current", or an int>=0)
+Quitting (on error).

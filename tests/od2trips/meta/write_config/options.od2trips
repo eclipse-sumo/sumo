@@ -1,0 +1,1 @@
+--save-configuration config.cfg -n input_taz.taz.xml -d input_od_o.fma -o trips.trips.xml

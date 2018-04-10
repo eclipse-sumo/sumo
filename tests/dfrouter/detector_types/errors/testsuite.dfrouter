@@ -1,0 +1,8 @@
+# Tests what happens when the detectors-output is false
+detectors_output_false
+
+# missing detectors
+no_detectors
+
+# missing source detectors
+no_sources

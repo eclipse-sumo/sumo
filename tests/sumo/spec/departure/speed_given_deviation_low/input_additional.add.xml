@@ -1,0 +1,4 @@
+<routes>
+    <vType id="pkw" speedFactor="0.9" speedDev="0.02"/>
+	<vehicle id="1" depart="0" route="1" type="pkw" departSpeed="30"/>
+</routes>

@@ -1,0 +1,7 @@
+................./home/behr_mi/sumo/tools/projects/vehicles2d/main.py:542: RuntimeWarning: divide by zero encountered in double_scalars
+  inclination = (upper_y - lower_y) / (upper_x - lower_x)
+..............s................s............
+----------------------------------------------------------------------
+Ran 61 tests in 8.304s
+
+OK (skipped=2)

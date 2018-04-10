@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="rail" vClass="rail" minGap="3"/>
+    <vehicle id="rail1" type="rail" depart="0">
+        <route edges="gneE0 gneE1 gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="rail2" type="rail" depart="0">
+        <route edges="gneE6 gneE7 gneE2 gneE3"/>
+    </vehicle>
+    <vehicle id="rail3" type="rail" depart="0">
+        <route edges="gneE8 gneE9 gneE2 gneE3"/>
+    </vehicle>
+</routes>

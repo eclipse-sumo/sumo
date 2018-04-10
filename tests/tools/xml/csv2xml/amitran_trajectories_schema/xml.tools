@@ -1,0 +1,5 @@
+<trajectories timeStepSize="1000">
+    <actorConfig id="123" emissionClass="Euro5" fuel="Diesel" vehicleClass="Passenger" length="12" weight="12" age="5" brand="blub" model="12"/>
+    <vehicle id="12" actorConfig="12" startTime="3000"/>
+    <motionState vehicle="12" speed="12" time="123" acceleration="12" gear="1" engineSpeed="12" worldLocationLong="123" worldLocationLat="123" worldLocationHeight="123" cartesianX="123" cartesianY="123" cartesianZ="123" link="123" laneIndex="5" slope="12" radiusOfCurvature="123" roadType="urban" speedLimitKmh="5" airDragCoefficient="12" timeHeadway="12" timeToCollision="12" vehicleInFrontId="123"/>
+</trajectories>

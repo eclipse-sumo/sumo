@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+    <Import Project="defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="Exists('$(PROJ_GDAL)')" Label="UserMacros">
+    <PROJ_LIB>$(PROJ_GDAL)\lib\proj_i.lib</PROJ_LIB>
+    <GDAL_LIB>$(PROJ_GDAL)\lib\gdal_i.lib</GDAL_LIB>
+    <CONFIG_ENABLED>PROJ GDAL$(CONFIG_ENABLED)</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(PROJ_GDAL)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(PROJ_GDAL)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_PROJ;HAVE_GDAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(FOX16)')" Label="UserMacros">
+    <FOX16_LIB>$(FOX16)\lib\FOXDLL-1.6.lib</FOX16_LIB>
+    <FOX16_DEBUG_LIB>$(FOX16)\lib\FOXDLLD-1.6.lib</FOX16_DEBUG_LIB>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) GUI</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(FOX16)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(FOX16)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_FOX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(OSG)')" Label="UserMacros">
+    <OSG_LIB>$(OSG)\lib\osgUtil.lib;$(OSG)\lib\osgDB.lib;$(OSG)\lib\osgGA.lib;$(OSG)\lib\osg.lib;$(OSG)\lib\osgViewer.lib</OSG_LIB>
+    <OSG_DEBUG_LIB>$(OSG)\lib\osgUtild.lib;$(OSG)\lib\osgDBd.lib;$(OSG)\lib\osgGAd.lib;$(OSG)\lib\osgd.lib;$(OSG)\lib\osgViewerd.lib</OSG_DEBUG_LIB>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) OSG</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(OSG)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(OSG)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_OSG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(FFMPEG)')" Label="UserMacros">
+    <FFMPEG_LIB>$(FFMPEG)\lib\avcodec.lib;$(FFMPEG)\lib\avformat.lib;$(FFMPEG)\lib\avutil.lib;$(FFMPEG)\lib\swscale.lib;</FFMPEG_LIB>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) ffmpeg</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(FFMPEG)')">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(FFMPEG)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_FFMPEG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Condition="Exists('$(PYTHON_LIB_DIR)')" Label="UserMacros">
+    <LibraryPath>$(PYTHON_LIB_DIR);$(LibraryPath)</LibraryPath>
+    <CONFIG_ENABLED>$(CONFIG_ENABLED) Python</CONFIG_ENABLED>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="Exists('$(PYTHON_INCLUDE_DIR)') And '$(Configuration)'!='Debug'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(PYTHON_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_PYTHON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup Label="UserMacros">
+    <XERCES_LIB>$(XERCES)\lib\xerces-c_3.lib</XERCES_LIB>
+    <XERCES_DEBUG_LIB>$(XERCES)\lib\xerces-c_3D.lib</XERCES_DEBUG_LIB>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(XERCES)\include;..\..\..\src;..\..\..\src\foreign\msinttypes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_ENABLED="$(Platform) $(Configuration) $(CONFIG_ENABLED)";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+</Project>

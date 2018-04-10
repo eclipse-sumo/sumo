@@ -1,0 +1,36 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="SUMO_DEFAULT_TYPE" sigma="0"/>
+
+   <!-- color by turn direction: straight:green, right:blue, left:red -->
+    <route id="SN" edges="SC CN" color="green"/>
+    <route id="SE" edges="SC CE" color="blue"/>
+    <route id="SW" edges="SC CW" color="red"/>
+                                              
+    <route id="WE" edges="WC CE" color="green"/>
+    <route id="WS" edges="WC CS" color="blue"/>
+    <route id="WN" edges="WC CN" color="red"/>
+                                              
+    <route id="NS" edges="NC CS" color="green"/>
+    <route id="NW" edges="NC CW" color="blue"/>
+    <route id="NE" edges="NC CE" color="red"/>
+                                              
+    <route id="EW" edges="EC CW" color="green"/>
+    <route id="EN" edges="EC CN" color="blue"/>
+    <route id="ES" edges="EC CS" color="red"/>
+
+   <flow id="SN" route="SN" begin="0" end="600" period="8"/>
+   <flow id="SE" route="SE" begin="1" end="600" period="8"/>
+   <flow id="SW" route="SW" begin="2" end="600" period="8"/>
+                          
+   <flow id="WE" route="WE" begin="2" end="600" period="8"/>
+   <flow id="WS" route="WS" begin="3" end="600" period="8"/>
+   <flow id="WN" route="WN" begin="4" end="600" period="8"/>
+                          
+   <flow id="NS" route="NS" begin="4" end="600" period="8"/>
+   <flow id="NW" route="NW" begin="5" end="600" period="8"/>
+   <flow id="NE" route="NE" begin="6" end="600" period="8"/>
+                          
+   <flow id="EW" route="EW" begin="6" end="600" period="8"/>
+   <flow id="EN" route="EN" begin="7" end="600" period="8"/>
+   <flow id="ES" route="ES" begin="7" end="600" period="8"/>
+</routes>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Thu 25 Aug 2011 08:41:01 AM CEST by Netedit Version dev-SVN-r11146
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/debug/join2/unjoined.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/join2/unjoined.net.xml"/>
+        <plain-output-prefix value="/home/erdm_ja/debug/join2/input_edges"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ2" to="gneJ3" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE10" from="gneJ14" to="gneJ5" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE11" from="gneJ5" to="gneJ3" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE13" from="gneJ3" to="gneJ11" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE2" from="gneJ3" to="gneJ6" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE3" from="gneJ7" to="gneJ5" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE4" from="gneJ5" to="gneJ8" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE5" from="gneJ10" to="gneJ11" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE6" from="gneJ11" to="gneJ12" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE7" from="gneJ13" to="gneJ14" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE8" from="gneJ14" to="gneJ15" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="gneE9" from="gneJ11" to="gneJ14" priority="1" numLanes="1" speed="13.89" spreadType="center"/>
+</edges>

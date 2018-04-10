@@ -1,0 +1,551 @@
+> Executing step 0
+>> Running router with input_flows.flows.xml
+>>> Begin time: 2010-03-10 13:34:40.457000
+>>> End time: 2010-03-10 13:34:40.972000
+>>> Duration: 0:00:00.515000
+<<
+>> Generating weights
+<<
+< Step 0 ended (duration: 0:00:00.547000)
+------------------
+
+> Executing step 1
+>> Running router with input_flows_0.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:41.004000
+>>> End time: 2010-03-10 13:34:41.222000
+>>> Duration: 0:00:00.218000
+<<
+>> Generating weights
+<<
+< Step 1 ended (duration: 0:00:00.265000)
+------------------
+
+> Executing step 2
+>> Running router with input_flows_1.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:41.269000
+>>> End time: 2010-03-10 13:34:41.551000
+>>> Duration: 0:00:00.282000
+<<
+>> Generating weights
+<<
+< Step 2 ended (duration: 0:00:00.328000)
+------------------
+
+> Executing step 3
+>> Running router with input_flows_2.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:41.597000
+>>> End time: 2010-03-10 13:34:41.910000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 3 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 4
+>> Running router with input_flows_3.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:41.941000
+>>> End time: 2010-03-10 13:34:42.254000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 4 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 5
+>> Running router with input_flows_4.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:42.285000
+>>> End time: 2010-03-10 13:34:42.597000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 5 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 6
+>> Running router with input_flows_5.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:42.629000
+>>> End time: 2010-03-10 13:34:42.941000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 6 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 7
+>> Running router with input_flows_6.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:42.988000
+>>> End time: 2010-03-10 13:34:43.285000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 7 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 8
+>> Running router with input_flows_7.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:43.332000
+>>> End time: 2010-03-10 13:34:43.644000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 8 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 9
+>> Running router with input_flows_8.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:43.676000
+>>> End time: 2010-03-10 13:34:43.988000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 9 ended (duration: 0:00:00.343000)
+------------------
+
+> Executing step 10
+>> Running router with input_flows_9.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:44.019000
+>>> End time: 2010-03-10 13:34:44.332000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 10 ended (duration: 0:00:00.360000)
+------------------
+
+> Executing step 11
+>> Running router with input_flows_10.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:44.379000
+>>> End time: 2010-03-10 13:34:44.691000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 11 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 12
+>> Running router with input_flows_11.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:44.723000
+>>> End time: 2010-03-10 13:34:45.035000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 12 ended (duration: 0:00:00.343000)
+------------------
+
+> Executing step 13
+>> Running router with input_flows_12.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:45.066000
+>>> End time: 2010-03-10 13:34:45.379000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 13 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 14
+>> Running router with input_flows_13.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:45.410000
+>>> End time: 2010-03-10 13:34:45.941000
+>>> Duration: 0:00:00.531000
+<<
+>> Generating weights
+<<
+< Step 14 ended (duration: 0:00:00.563000)
+------------------
+
+> Executing step 15
+>> Running router with input_flows_14.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:45.973000
+>>> End time: 2010-03-10 13:34:46.598000
+>>> Duration: 0:00:00.625000
+<<
+>> Generating weights
+<<
+< Step 15 ended (duration: 0:00:00.656000)
+------------------
+
+> Executing step 16
+>> Running router with input_flows_15.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:46.629000
+>>> End time: 2010-03-10 13:34:46.941000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 16 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 17
+>> Running router with input_flows_16.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:46.988000
+>>> End time: 2010-03-10 13:34:47.301000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 17 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 18
+>> Running router with input_flows_17.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:47.332000
+>>> End time: 2010-03-10 13:34:47.645000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 18 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 19
+>> Running router with input_flows_18.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:47.676000
+>>> End time: 2010-03-10 13:34:47.988000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 19 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 20
+>> Running router with input_flows_19.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:48.035000
+>>> End time: 2010-03-10 13:34:48.332000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 20 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 21
+>> Running router with input_flows_20.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:48.379000
+>>> End time: 2010-03-10 13:34:48.691000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 21 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 22
+>> Running router with input_flows_21.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:48.723000
+>>> End time: 2010-03-10 13:34:49.051000
+>>> Duration: 0:00:00.328000
+<<
+>> Generating weights
+<<
+< Step 22 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 23
+>> Running router with input_flows_22.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:49.082000
+>>> End time: 2010-03-10 13:34:49.395000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 23 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 24
+>> Running router with input_flows_23.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:49.441000
+>>> End time: 2010-03-10 13:34:49.754000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 24 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 25
+>> Running router with input_flows_24.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:49.785000
+>>> End time: 2010-03-10 13:34:50.098000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 25 ended (duration: 0:00:00.360000)
+------------------
+
+> Executing step 26
+>> Running router with input_flows_25.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:50.145000
+>>> End time: 2010-03-10 13:34:50.442000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 26 ended (duration: 0:00:00.343000)
+------------------
+
+> Executing step 27
+>> Running router with input_flows_26.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:50.488000
+>>> End time: 2010-03-10 13:34:50.801000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 27 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 28
+>> Running router with input_flows_27.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:50.832000
+>>> End time: 2010-03-10 13:34:51.145000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 28 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 29
+>> Running router with input_flows_28.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:51.176000
+>>> End time: 2010-03-10 13:34:51.488000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 29 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 30
+>> Running router with input_flows_29.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:51.520000
+>>> End time: 2010-03-10 13:34:51.832000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 30 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 31
+>> Running router with input_flows_30.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:51.879000
+>>> End time: 2010-03-10 13:34:52.176000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 31 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 32
+>> Running router with input_flows_31.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:52.223000
+>>> End time: 2010-03-10 13:34:52.520000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 32 ended (duration: 0:00:00.375000)
+------------------
+
+> Executing step 33
+>> Running router with input_flows_32.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:52.598000
+>>> End time: 2010-03-10 13:34:52.910000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 33 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 34
+>> Running router with input_flows_33.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:52.957000
+>>> End time: 2010-03-10 13:34:53.254000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 34 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 35
+>> Running router with input_flows_34.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:53.301000
+>>> End time: 2010-03-10 13:34:53.614000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 35 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 36
+>> Running router with input_flows_35.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:53.645000
+>>> End time: 2010-03-10 13:34:54.239000
+>>> Duration: 0:00:00.594000
+<<
+>> Generating weights
+<<
+< Step 36 ended (duration: 0:00:00.625000)
+------------------
+
+> Executing step 37
+>> Running router with input_flows_36.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:54.270000
+>>> End time: 2010-03-10 13:34:54.582000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 37 ended (duration: 0:00:00.359000)
+------------------
+
+> Executing step 38
+>> Running router with input_flows_37.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:54.629000
+>>> End time: 2010-03-10 13:34:54.926000
+>>> Duration: 0:00:00.297000
+<<
+>> Generating weights
+<<
+< Step 38 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 39
+>> Running router with input_flows_38.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:54.973000
+>>> End time: 2010-03-10 13:34:55.285000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 39 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 40
+>> Running router with input_flows_39.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:55.317000
+>>> End time: 2010-03-10 13:34:55.629000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 40 ended (duration: 0:00:00.343000)
+------------------
+
+> Executing step 41
+>> Running router with input_flows_40.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:55.660000
+>>> End time: 2010-03-10 13:34:55.973000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 41 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 42
+>> Running router with input_flows_41.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:56.004000
+>>> End time: 2010-03-10 13:34:56.379000
+>>> Duration: 0:00:00.375000
+<<
+>> Generating weights
+<<
+< Step 42 ended (duration: 0:00:00.422000)
+------------------
+
+> Executing step 43
+>> Running router with input_flows_42.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:56.426000
+>>> End time: 2010-03-10 13:34:56.739000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 43 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 44
+>> Running router with input_flows_43.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:56.770000
+>>> End time: 2010-03-10 13:34:57.082000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 44 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 45
+>> Running router with input_flows_44.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:57.114000
+>>> End time: 2010-03-10 13:34:57.801000
+>>> Duration: 0:00:00.687000
+<<
+>> Generating weights
+<<
+< Step 45 ended (duration: 0:00:00.734000)
+------------------
+
+> Executing step 46
+>> Running router with input_flows_45.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:57.848000
+>>> End time: 2010-03-10 13:34:58.161000
+>>> Duration: 0:00:00.313000
+<<
+>> Generating weights
+<<
+< Step 46 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 47
+>> Running router with input_flows_46.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:58.192000
+>>> End time: 2010-03-10 13:34:58.504000
+>>> Duration: 0:00:00.312000
+<<
+>> Generating weights
+<<
+< Step 47 ended (duration: 0:00:00.344000)
+------------------
+
+> Executing step 48
+>> Running router with input_flows_47.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:58.536000
+>>> End time: 2010-03-10 13:34:59.504000
+>>> Duration: 0:00:00.968000
+<<
+>> Generating weights
+<<
+< Step 48 ended (duration: 0:00:01)
+------------------
+
+> Executing step 49
+>> Running router with input_flows_48.rou.alt.xml
+>>> Begin time: 2010-03-10 13:34:59.536000
+>>> End time: 2010-03-10 13:34:59.864000
+>>> Duration: 0:00:00.328000
+<<
+>> Generating weights
+<<
+< Step 49 ended (duration: 0:00:00.359000)
+------------------
+
+dua-iterate ended (duration: 0:00:19.438000)

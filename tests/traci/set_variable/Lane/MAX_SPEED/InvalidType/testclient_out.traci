@@ -1,0 +1,25 @@
+TraCITestClient output file. Date: Mon Jul 01 13:29:17 2013
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=65 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=65  ObjectID=2/1to2/0_0 valueDataType=11 Double value: 10.00
+
+-> Command sent: <SetValue>:
+  domID=195 varID=65 objID=2/1to2/0_0
+.. Answered with error to command (195), [description: The speed must be given as a double.]
+
+-> Command sent: <GetVariable>:
+  domID=163 varID=65 objID=2/1to2/0_0
+.. Command acknowledged (163), [description: ]
+  CommandID=179  VariableID=65  ObjectID=2/1to2/0_0 valueDataType=11 Double value: 10.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

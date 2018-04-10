@@ -1,0 +1,9 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <flow id="a" begin="0" departPos="400" arrivalPos="100" departSpeed="max" type="t0" end="10" period="2">
+        <route edges="1fi 2o"/>
+    </flow>
+    <flow id="b" begin="1" departPos="400" arrivalPos="100" departSpeed="max" type="t0" end="10" period="2">
+        <route edges="3fi 2o"/>
+    </flow>
+</routes>

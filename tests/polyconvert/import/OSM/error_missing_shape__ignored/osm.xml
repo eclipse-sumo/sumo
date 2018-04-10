@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.5" generator="p">
+
+  <way id="-974" action="modify" timestamp="2010-07-08T13:25:07Z" visible="true">
+    <nd ref="29274172"/>
+    <nd ref="32266935"/>
+    <nd ref="32266938"/>
+    <nd ref="35215997"/>
+    <nd ref="36268369"/>
+    <tag k="polygon" v="overpass"/>
+    <tag k="name" v="p0045"/>
+    <tag k="class" v="polygon"/>
+  </way>
+
+</osm>

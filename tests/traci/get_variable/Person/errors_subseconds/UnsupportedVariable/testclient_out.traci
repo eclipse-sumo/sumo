@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Thu Jan 28 14:27:25 2016
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=174 varID=255 objID=dummy
+.. Answered with error to command (174), [description: Get Person Variable: unsupported variable 0xff specified]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

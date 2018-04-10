@@ -1,0 +1,8 @@
+# beginning with three lanes, the left and the right are removed (same position)
+three_minus_left_right_samepos
+
+# beginning with four lanes, the left and the right are removed (same position)
+four_minus_left_right_samepos
+
+# beginning with three lanes, the right is removed at invalid position
+three_minus_right_invalidpos

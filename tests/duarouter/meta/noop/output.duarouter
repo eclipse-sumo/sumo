@@ -1,0 +1,5 @@
+SUMO duarouter Version dev-SVN-r26352
+ Build features: x64 Release PROJ GDAL GUI OSG ffmpeg
+ Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
+ License EPLv2: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
+ Use --help to get the list of options.

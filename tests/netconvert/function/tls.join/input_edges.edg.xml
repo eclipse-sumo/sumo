@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on Tue May 24 15:53:53 2011 by SUMO netconvert Version dev-SVN-r10434
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="clusterjunctin.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_edges"/>
+    </output>
+
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+   <edge id="27437972" from="38918157" to="301292612" priority="7" numLanes="2" speed="13.89" spreadType="center"/>
+   <edge id="27441168" from="59993001" to="56231397" priority="6" numLanes="1" speed="13.89" spreadType="center"/>
+   <edge id="27441189" from="301292612" to="38919945" priority="6" numLanes="4" speed="13.89" spreadType="center"/>
+   <edge id="27441289.0" from="59993001" to="gneJ0" priority="7" numLanes="2" speed="13.89"/>
+   <edge id="27441289.95" from="gneJ1" to="56231397" priority="7" numLanes="2" speed="13.89"/>
+   <edge id="27445000#0" from="38919945" to="945141569" priority="6" numLanes="1" speed="13.89" spreadType="center"/>
+   <edge id="27445003" from="56231397" to="301292612" priority="7" numLanes="2" speed="13.89" spreadType="center"/>
+   <edge id="27445015#0" from="56231397" to="567607201" priority="7" numLanes="2" speed="13.89" spreadType="center"/>
+   <edge id="46039050" from="492462300" to="59993001" priority="6" numLanes="1" speed="13.89" spreadType="center"/>
+   <edge id="6137245" from="38919945" to="59993001" priority="5" numLanes="2" speed="13.89" spreadType="center"/>
+</edges>

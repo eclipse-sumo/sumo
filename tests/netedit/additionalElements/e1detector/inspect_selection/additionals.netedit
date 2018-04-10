@@ -1,0 +1,4 @@
+<additionals>
+    <e1Detector id="E1_A" lane="gneE0_0" pos="6.00" freq="20.00" file="e1Detector_01.txt" vTypes="taxi passenger" friendlyPos="1"/>
+    <e1Detector id="E1_B" lane="gneE0_0" pos="10.00" freq="20.00" file="e1Detector_01.txt" vTypes="taxi passenger" friendlyPos="1"/>
+</additionals>

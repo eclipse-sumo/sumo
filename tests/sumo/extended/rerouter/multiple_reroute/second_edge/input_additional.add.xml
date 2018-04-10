@@ -1,0 +1,4 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<rerouter id="rerouter" edges="beg" file="input_definition.def.xml"/>
+	<rerouter id="rerouter" edges="beg" file="input_definition2.def.xml"/>
+</additional>

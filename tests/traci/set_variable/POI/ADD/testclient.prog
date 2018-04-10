@@ -1,0 +1,5 @@
+simstep2 0
+getvariable 0xa7 0x0 xxx
+setvalue 0xc7 0x80 newID <compound> 4 <string> new <color> 1 2 3 4 <int> 10 <position2D> 10 11
+getvariable 0xa7 0x0 xxx
+simstep2 0

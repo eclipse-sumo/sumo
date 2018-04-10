@@ -1,0 +1,53 @@
+<routes>
+   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="79" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="1" type="KRAUSS_DEFAULT" depart="9" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="2" type="KRAUSS_DEFAULT" depart="19" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="3" type="KRAUSS_DEFAULT" depart="88" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="4" type="KRAUSS_DEFAULT" depart="22" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="5" type="KRAUSS_DEFAULT" depart="13" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="6" type="KRAUSS_DEFAULT" depart="38" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="7" type="KRAUSS_DEFAULT" depart="51" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="8" type="KRAUSS_DEFAULT" depart="99" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+   <vehicle id="9" type="KRAUSS_DEFAULT" depart="1" color="0,0,0">
+      <routeDistribution last="0">
+         <route cost="125.126" probability="1" edges="beg middle end rend"/>
+      </routeDistribution>
+   </vehicle>
+</routes>

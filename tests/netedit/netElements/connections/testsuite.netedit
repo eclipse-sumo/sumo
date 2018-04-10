@@ -1,0 +1,19 @@
+# all test check also the undo-redo of modifications and save the additional into a file
+# create additional
+create
+
+# delete additional
+delete
+
+# inspect additional
+inspect
+
+# load additional
+load
+
+# move additional
+move
+
+# lock/unlock additional
+lock_unlock
+

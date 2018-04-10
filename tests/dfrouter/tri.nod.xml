@@ -1,0 +1,18 @@
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+   <node id="beg"    x="0.0" y="0.0"/>
+
+   <node id="1" x="100.0" y="0.0"/>
+
+   <node id="R1" x="100.0" y="-200.0"/>
+   <node id="R2" x="1100.0" y="-200.0"/>
+
+   <node id="L1" x="100.0" y="200.0"/>
+   <node id="L2" x="1100.0" y="200.0"/>
+
+   <node id="2" x="1100.0" y="0.0"/>
+
+   <node id="end" x="1200.0" y="0.0"/>
+   <node id="rend" x="1300.0" y="0.0"/>
+
+</nodes>
+

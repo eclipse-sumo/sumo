@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="r1" edges="beg middle end rend"/>
+    <calibrator id="swallow_jam" lane="middle_0" pos="0" output="detector.xml">
+        <!-- 2500 vehs in 3600s -->
+        <flow begin="0"    end="3600" route="r1" vehsPerHour="2500" speed="27.8"/>
+        <flow begin="3600" end="5400" route="r1" vehsPerHour="2500" speed="27.8"/>
+    </calibrator>
+
+    <variableSpeedSign id="jam" lanes="end_0">
+        <step time="0" speed="1.0"/>
+    </variableSpeedSign>
+
+    <edgeData id="expect_2500_vehs"  begin="0"       end="3600"  file="aggregated_25.xml"/>
+</additional>

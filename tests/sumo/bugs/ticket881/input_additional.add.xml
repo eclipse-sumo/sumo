@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<e3Detector id="e3test" freq="100" file="dummy.xml">
+		<detEntry lane="1si_0" pos="100"/>
+		<detEntry lane="1si_1" pos="100"/>
+		<detEntry lane="1si_2" pos="100"/>
+		<detExit lane="1si_0" pos="200"/>
+		<detExit lane="1si_1" pos="200"/>
+		<detExit lane="1si_2" pos="200"/>
+	</e3Detector>
+
+</additional>

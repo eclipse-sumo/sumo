@@ -1,0 +1,23 @@
+# a ship stopping at a container stop
+ship_at_containerstop
+
+# one bus is stopping at a busstop, such that at least half of a second bus fits into the busstop
+two_busses_at_one_busstop
+
+# one rail is stopping at a containerstop, such that at least half of a second rail fits into the containerstation
+two_rails_at_one_containerstop
+
+# one short bus is stopping at a bus stop, such that a second bus has to wait for stopping
+long_bus_at_busstop2
+
+# one short rail is stopping at a containerstop, such that a second rail has to wait for stopping
+long_rail_at_containerstop2
+
+# a rail stopping at a container stop
+rail_at_containerstop
+
+# a rail stopping at a container stop. the is longer than the container stop
+long_rail_at_containerstop
+
+# a bus stopping at a bus stop. the bus is longer than the bus stop
+long_bus_at_busstop

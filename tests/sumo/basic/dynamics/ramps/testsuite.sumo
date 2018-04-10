@@ -1,0 +1,4 @@
+on_ramp
+
+# tests where the same ramp is used for merging and leaving the motorway
+onoff_ramp

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Thu 25 Aug 2011 08:32:02 AM CEST by Netedit Version dev-SVN-r11146
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/erdm_ja/debug/join2/unjoined.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/join2/unjoined.net.xml"/>
+        <plain-output-prefix value="/home/erdm_ja/debug/join2/input_edges"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="gneJ10" x="100.28" y="57.41" type="unregulated"/>
+    <node id="gneJ11" x="38.61" y="54.03" type="priority"/>
+    <node id="gneJ12" x="35.70" y="106.03" type="unregulated"/>
+    <node id="gneJ13" x="22.66" y="66.46" type="unregulated"/>
+    <node id="gneJ14" x="25.11" y="52.65" type="priority"/>
+    <node id="gneJ15" x="-18.91" y="50.66" type="unregulated"/>
+    <node id="gneJ17" x="2.56" y="100.20" type="unregulated"/>
+    <node id="gneJ18" x="-16.92" y="76.43" type="unregulated"/>
+    <node id="gneJ2" x="43.98" y="5.10" type="unregulated"/>
+    <node id="gneJ3" x="39.27" y="42.13" type="unregulated"/>
+    <node id="gneJ5" x="26.50" y="40.71" type="unregulated"/>
+    <node id="gneJ6" x="91.38" y="40.84" type="unregulated"/>
+    <node id="gneJ7" x="-17.23" y="34.24" type="unregulated"/>
+    <node id="gneJ8" x="30.13" y="4.39" type="unregulated"/>
+
+    <joinExclude nodes="gneJ13"/>
+</nodes>

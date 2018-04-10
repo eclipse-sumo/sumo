@@ -1,0 +1,17 @@
+binary:$GUISIM_BINARY
+use_case_record_mode:GUI
+
+copy_test_path:dlr.gif
+copy_test_path:dlr.png
+copy_test_path:dlr.jpg
+copy_test_path:dlr.tif
+copy_test_path:forklift.png
+copy_test_path:forklift_right.png
+
+[batch_extra_version]
+default:{CLEAR perf}
+meso:{CLEAR perf}
+msvc10mesox64:{CLEAR perf}
+msvc10mesoWin32:{CLEAR perf}
+msvc12mesox64:{CLEAR perf}
+msvc12mesoWin32:{CLEAR perf}

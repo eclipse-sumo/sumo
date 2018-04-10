@@ -1,0 +1,8 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <rerouter id="rerouter" edges="beg">
+        <interval begin="0" end="1000">
+            <closingReroute id="left" disallow="all"/>
+            <destProbReroute id="terminateRoute" probability="1"/>
+        </interval>
+    </rerouter>
+</additional>

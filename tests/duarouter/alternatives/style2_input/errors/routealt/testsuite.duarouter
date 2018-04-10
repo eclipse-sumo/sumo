@@ -1,0 +1,10 @@
+# Route alternative's last route information is empty
+routealt_last_empty
+
+# Route alternative's last route information is not numeric
+routealt_last_false
+
+# Route alternative's last route information is negative
+routealt_last_negative
+
+

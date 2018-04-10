@@ -1,0 +1,3 @@
+<routes>
+    <route id="beg_end.qPKW" edges="beg beg2right right right2end end"/>
+</routes>

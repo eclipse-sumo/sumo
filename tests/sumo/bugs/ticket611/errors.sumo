@@ -1,0 +1,1 @@
+Warning: Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.

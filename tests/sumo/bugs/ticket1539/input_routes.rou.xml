@@ -1,0 +1,5 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="onRamp merge"/>
+    <vehicle id="v" depart="0" departPos="-12" departSpeed="3" type="t0" route="r0"/>
+</routes>

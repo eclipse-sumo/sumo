@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="route1" edges="1fi 1si 1o 1fi 1si 1o"/>
+
+    <rerouter id="rerouter" edges="1o">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="route1"/>
+        </interval>
+    </rerouter>
+
+    <vType id="type1" sigma="0"/>
+    <vehicle depart="0" id="veh1" route="route1" type="type1"/>
+
+</additional>

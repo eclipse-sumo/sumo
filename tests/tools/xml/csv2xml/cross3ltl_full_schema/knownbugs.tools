@@ -1,0 +1,7 @@
+
+[Reported by micha at 10Mär08:16:27]
+search_string:vehicles
+trigger_on_absence:1
+search_file:xml
+bug_system:trac
+bug_id:1190

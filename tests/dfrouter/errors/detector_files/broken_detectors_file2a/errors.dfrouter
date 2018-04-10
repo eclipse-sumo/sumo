@@ -1,0 +1,5 @@
+Error: expected end of tag 'detectorDefinition'
+ In file 'input_messstrecke.det.xml'
+ At line/column 8/3.
+
+Quitting (on error).

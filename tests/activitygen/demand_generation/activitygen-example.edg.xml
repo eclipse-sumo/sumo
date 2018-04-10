@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="e01t11" from="01" to="11" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e11t01" from="11" to="01" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e11t12" from="11" to="12" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e11t21" from="11" to="21" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e12t11" from="12" to="11" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e12t13" from="12" to="13" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e12t22" from="12" to="22" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e13t12" from="13" to="12" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e13t14" from="13" to="14" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e13t23" from="13" to="23" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e14t13" from="14" to="13" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e14t24" from="14" to="24" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e21t11" from="21" to="11" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e21t22" from="21" to="22" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e21t31" from="21" to="31" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e22t12" from="22" to="12" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e22t21" from="22" to="21" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e22t23" from="22" to="23" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e22t32" from="22" to="32" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e23t13" from="23" to="13" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e23t22" from="23" to="22" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e23t24" from="23" to="24" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e23t33" from="23" to="33" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e24t14" from="24" to="14" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e24t23" from="24" to="23" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e24t34" from="24" to="34" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e31t21" from="31" to="21" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e31t32" from="31" to="32" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e31t41" from="31" to="41" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e32t22" from="32" to="22" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e32t31" from="32" to="31" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e32t33" from="32" to="33" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e32t42" from="32" to="42" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e33t23" from="33" to="23" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e33t32" from="33" to="32" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e33t34" from="33" to="34" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e33t43" from="33" to="43" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e34t24" from="34" to="24" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e34t33" from="34" to="33" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e34t44" from="34" to="44" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e41t31" from="41" to="31" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e41t42" from="41" to="42" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e42t32" from="42" to="32" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e42t41" from="42" to="41" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e42t43" from="42" to="43" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e43t33" from="43" to="33" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e43t42" from="43" to="42" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e43t44" from="43" to="44" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e44t34" from="44" to="34" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e44t43" from="44" to="43" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e44t51" from="44" to="51" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="e51t44" from="51" to="44" priority="2" numLanes="2" speed="13.89"/>
+</edges>

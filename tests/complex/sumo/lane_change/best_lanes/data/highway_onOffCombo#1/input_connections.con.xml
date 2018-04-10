@@ -1,0 +1,26 @@
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+
+   <connection from="1" to="2" fromLane="1" toLane="0"/>
+   <connection from="1" to="2" fromLane="2" toLane="1"/>
+
+   <connection from="2" to="3" fromLane="0" toLane="0"/>
+   <connection from="2" to="3" fromLane="0" toLane="1"/>
+   <connection from="2" to="3" fromLane="1" toLane="2"/>
+
+   <connection from="3" to="4o" fromLane="0" toLane="0"/>
+   <connection from="3" to="4" fromLane="1" toLane="0"/>
+   <connection from="3" to="4" fromLane="2" toLane="1"/>
+
+   <connection from="4" to="5" fromLane="0" toLane="0"/>
+   <connection from="4" to="5" fromLane="0" toLane="1"/>
+   <connection from="4" to="5" fromLane="1" toLane="2"/>
+
+   <connection from="5" to="6" fromLane="0" toLane="0"/>
+   <connection from="5" to="6" fromLane="1" toLane="1"/>
+   <connection from="5" to="6" fromLane="2" toLane="2"/>
+
+   <connection from="6" to="7o" fromLane="0" toLane="0"/>
+   <connection from="6" to="7" fromLane="1" toLane="0"/>
+   <connection from="6" to="7" fromLane="2" toLane="1"/>
+
+</connections>

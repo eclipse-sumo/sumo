@@ -1,0 +1,8 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+   <edge id="-1839" from="6454" to="6365" speed="13.9" priority="-1" numLanes="1"/>
+   <edge id="1816" from="6564" to="6365" speed="13.9" priority="-1" spreadType="center" numLanes="1" shape="51523.99,54054.45 51465.12,54078.37 51457.79,54081.0 51455.09,54081.61"/>
+   <edge id="-1841" from="6365" to="6562" speed="13.9" priority="-1" numLanes="1"/>
+   <edge id="-1570" from="6366" to="6365" speed="13.9" priority="-1" spreadType="center" numLanes="1" shape="51304.83,53831.51 51305.31,53838.13 51424.91,54071.81 51445.16,54077.91"/>
+   <edge id="1841" from="6562" to="6365" speed="13.9" priority="-1" numLanes="1"/>
+   <edge id="1839" from="6365" to="6454" speed="13.9" priority="-1" numLanes="1"/>
+</edges>

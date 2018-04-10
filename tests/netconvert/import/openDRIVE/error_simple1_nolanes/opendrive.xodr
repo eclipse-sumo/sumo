@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<OpenDRIVE>
+    <header revMajor="1" revMinor="1" name="Testfile" version="1" date="Thu Feb 8 14:24:06 2007" north="2.0000000000000000e+003" south="-2.0000000000000000e+003" east="2.0000000000000000e+003" west="-2.0000000000000000e+003" />
+    <road name="a1" length="5.0000000000000000e+001" id="1" junction="-1">
+        <link />
+        <planView>
+            <geometry s="0.0000000000000000e+000" x="0.0000000000000000e+000" y="0.0000000000000000e+000" hdg="0.0000000000000000e+000" length="5.0000000000000000e+001">
+                <line />
+            </geometry>
+        </planView>
+        <elevationProfile />
+        <lateralProfile />
+        <lanes />
+        <objects />
+        <signals />
+    </road>
+</OpenDRIVE>

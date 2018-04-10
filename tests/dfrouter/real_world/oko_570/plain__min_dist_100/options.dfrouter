@@ -1,0 +1,1 @@
+--min-route-length 100 --detector-output detectors_def.det.xml -v --measure-files input_flows.txt --net-file=input_net.net.xml --detector-files=input_detectors.det.xml --routes-output routes.rou.xml --emitters-output emitters.add.xml -e 60

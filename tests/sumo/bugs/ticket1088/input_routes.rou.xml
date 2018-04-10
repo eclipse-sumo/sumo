@@ -1,0 +1,10 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="r0" edges="beg end"/>
+    <route id="r2" edges="end"/>
+
+    <vehicle id="fast_follower" route="r0" depart="0" departPos="33" departSpeed="max" arrivalLane="0"/>
+    <vehicle id="change_left" route="r2" depart="0" departPos="10" departLane="1" arrivalLane="0" departSpeed="1">
+        <stop lane="end_0" endPos="13" duration="5"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,24 @@
+# Tests for cases in which roundabouts should be built
+y1
+y2
+y3
+
+# Same as y1, but with no roundabouts
+disabled_y1
+
+# test guessing of roundabouts where the candidate test fails because 
+# incoming and outoing lanes are attached to different junctions (#772)
+divided_attachment
+
+# load a sumo network which already contains a roundabout
+re-import
+ramp-like-attachment
+
+# now with options ramps.guess
+ramp-like-attachment_guessRamps
+
+# load a sumo network and remove the roundabout edges
+remove
+
+# network topologies that should not be classified as a roundabout
+no_roundabout

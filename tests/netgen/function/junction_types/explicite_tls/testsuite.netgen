@@ -1,0 +1,11 @@
+# setting one junction as tls-controlled in a grid network
+grid__one_tls_set
+
+# setting one junction as tls-controlled in a spider network
+spider__one_tls_set
+
+# setting one junction as tls-controlled in a random network
+random__one_tls_set
+
+
+

@@ -1,0 +1,10 @@
+<routes>
+    <route id="r0" edges="beg end2"/>
+    <route id="r1" edges="beg2 end2"/>
+
+    <vType id="t0" sigma="0.5" accel="3" decel="1" impatience="1.0" maxSpeed="7"/>
+    <vType id="t1" sigma="0.5" accel="1" decel="1" impatience="1.0" maxSpeed="20"/>
+
+    <vehicle id="v0" route="r0" type="t0" depart="0" departPos="-10" departSpeed="max"/>
+    <vehicle id="v1" route="r1" type="t1" depart="6" departPos="-30" departSpeed="max"/>
+</routes>

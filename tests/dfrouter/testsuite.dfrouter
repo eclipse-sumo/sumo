@@ -1,0 +1,32 @@
+# Tests whether the detector types are computed properly
+detector_types
+
+# Tests whether the detector positions are saved properly
+detector_pois
+
+# Tests whether the routes are computed properly
+routes
+
+# Tests whether building emitters works
+emitters
+
+# Tests some additional functions
+function
+
+# Some real world examples
+real_world
+
+# testing meta processing
+meta
+
+# testing error input
+errors
+
+# testing flow maximization
+flowmax
+
+# testing things that were buggy before
+bugs
+
+# deprecated element and attribute names
+#_deprecated_

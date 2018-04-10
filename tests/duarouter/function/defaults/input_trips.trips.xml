@@ -1,0 +1,33 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0" from="beg" to="rend"/>
+
+    <trip id="1" depart="10" from="beg" to="rend" color="0,0,0"/>
+    <trip id="2" depart="11" from="beg" to="rend" color="1,0,1"/>
+
+    <trip id="3" depart="20" from="beg" to="rend" departPos="0"/>
+    <trip id="4" depart="21" from="beg" to="rend" departPos="10"/>
+    <trip id="5" depart="22" from="beg" to="rend" departPos="free"/>
+    <trip id="6" depart="23" from="beg" to="rend" departPos="random"/>
+
+    <trip id="7" depart="30" from="beg" to="rend" departLane="0"/>
+    <trip id="8" depart="31" from="beg" to="rend" departLane="1"/>
+    <trip id="9" depart="32" from="beg" to="rend" departLane="random"/>
+    <trip id="10" depart="33" from="beg" to="rend" departLane="free"/>
+    <trip id="11" depart="34" from="beg" to="rend" departLane="0"/>
+
+    <trip id="12" depart="40" from="beg" to="rend" departSpeed="0"/>
+    <trip id="13" depart="41" from="beg" to="rend" departSpeed="1"/>
+    <trip id="14" depart="42" from="beg" to="rend" departSpeed="max"/>
+    <trip id="15" depart="43" from="beg" to="rend" departSpeed="random"/>
+
+    <trip id="16" depart="50" from="beg" to="rend" arrivalLane="42"/>
+    <trip id="17" depart="51" from="beg" to="rend" arrivalLane="current"/>
+
+    <trip id="18" depart="60" from="beg" to="rend" arrivalPos="42"/>
+    <trip id="19" depart="61" from="beg" to="rend" arrivalPos="max"/>
+    <trip id="20" depart="62" from="beg" to="rend" arrivalPos="random"/>
+
+    <trip id="21" depart="70" from="beg" to="rend" arrivalSpeed="42"/>
+    <trip id="22" depart="71" from="beg" to="rend" arrivalSpeed="current"/>
+
+</routes>

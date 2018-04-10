@@ -1,0 +1,7 @@
+
+[Reported by leo at 13Okt16:36:20]
+search_string:collision
+use_regexp:0
+search_file:errors
+bug_system:trac
+bug_id:848

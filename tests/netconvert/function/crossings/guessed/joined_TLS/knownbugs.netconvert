@@ -1,0 +1,7 @@
+
+[Reported by Windows at 25Oct11:14:17]
+search_string:<lane id=":29215077_w3_0" index="0" allow="pedestrian" speed="1.00" length="6.50" width="4.00" shape="87.03,93.96 83.59,91.92 83.31,91.98 82.36,93.74 85.51,100.60 88.41,101.40 89.56,97.56"/>
+use_regexp:0
+search_file:net
+bug_system:trac
+bug_id:1163

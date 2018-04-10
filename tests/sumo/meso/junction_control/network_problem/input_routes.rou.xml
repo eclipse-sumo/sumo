@@ -1,0 +1,10 @@
+<routes>
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="ac" edges="a_in ab bc c_out"/>
+    <route id="ba" edges="b_in bc ca a_out"/>
+    <route id="cb" edges="c_in ca ab b_out b_out2"/>
+
+    <flow id="ac" route="ac" begin="0" period="1" end="100" color="1,0,0"/>
+    <flow id="ba" route="ba" begin="0" period="1" end="100" color="0,1,0"/>
+    <flow id="cb" route="cb" begin="0" period="1" end="100" color="0,0,1"/>
+</routes>

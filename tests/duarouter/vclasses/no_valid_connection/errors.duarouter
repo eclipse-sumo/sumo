@@ -1,0 +1,7 @@
+Error: No connection between edge 'absBeg' and edge 'beg2left' found.
+Error: Mandatory edge 'beg2left' not reachable by vehicle 'invalid1'.
+Error: The vehicle 'invalid1' has no valid route.
+Error: No connection between edge 'absBeg' and edge 'left2end' found.
+Error: Mandatory edge 'left2end' not reachable by vehicle 'invalid2'.
+Error: The vehicle 'invalid2' has no valid route.
+Quitting (on error).

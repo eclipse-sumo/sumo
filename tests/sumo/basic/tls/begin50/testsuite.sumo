@@ -1,0 +1,38 @@
+# The following tests are to determine whether the offset (initial phase and 
+#  time to switch into the next phase) is computed correctly
+
+# Simple output of tls switch states (original tls with original offset)
+orig_off0
+
+# An additional program is loaded (same besides the subkey in fact); The offset is kept at 0
+add_off0
+
+# The additional program's offset is set to 50
+add_off50
+
+# The additional program's offset is set to 31 (half of T)
+add_off_halfT
+
+# The additional program's offset is set to 62 (T)
+add_off_T
+
+# The additional program's offset is set to 93 (1.5*T)
+add_off_1_5T
+
+# The additional program's offset is set to 124 (2*T)
+add_off_2T
+
+# The subitional program's offset is set to -50
+sub_off50
+
+# The subitional program's offset is set to -31 (-0.5*T)
+sub_off_halfT
+
+# The subitional program's offset is set to -62 (-T)
+sub_off_T
+
+# The subitional program's offset is set to -93 (-1.5*T)
+sub_off_1_5T
+
+# The subitional program's offset is set to -124 (-2*T)
+sub_off_2T

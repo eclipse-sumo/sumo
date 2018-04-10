@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="7152615" from="42708272" to="42717128" priority="7" numLanes="2" speed="27.78" spreadType="center"/>
+    <edge id="7152616" from="42717004" to="42709137" priority="7" numLanes="2" speed="27.78" spreadType="center"/>
+    <edge id="7152669" from="42717527" to="42722822" priority="7" numLanes="2" speed="27.78" shape="4826.80,2656.82 4770.38,2797.20 4765.42,2819.29 4764.89,2853.78" spreadType="center"/>
+    <edge id="7152674" from="42722822" to="42717332" priority="7" numLanes="2" speed="27.78" shape="4764.89,2853.78 4760.58,2838.04 4758.40,2821.26 4758.62,2795.67 4770.20,2743.75 4805.55,2649.86" spreadType="center"/>
+    <edge id="7152676" from="42717128" to="42717527" priority="9" numLanes="2" speed="27.78" spreadType="center"/>
+    <edge id="7152677" from="42717527" to="42717332" priority="9" numLanes="2" speed="19.44" spreadType="center"/>
+    <edge id="7152680" from="42717128" to="42719485" priority="9" numLanes="2" speed="19.44" shape="4836.92,2634.79 4938.89,2665.21 4992.99,2680.08 5036.01,2690.65 5120.50,2710.21 5183.78,2727.34 5274.30,2742.82 5355.92,2754.65 5418.26,2761.33" spreadType="center"/>
+    <edge id="7152682" from="42717332" to="42717004" priority="9" numLanes="2" speed="27.78" spreadType="center"/>
+    <edge id="7152683" from="42717004" to="42717128" priority="9" numLanes="2" speed="19.44" spreadType="center"/>
+    <edge id="7152684" from="42717332" to="42716127" priority="13" numLanes="2" speed="33.33" shape="4805.55,2649.86 4679.41,2606.20 4624.91,2584.46" spreadType="center"/>
+    <edge id="7152689" from="42715719" to="42717004" priority="13" numLanes="2" speed="19.44" shape="4632.23,2560.48 4683.38,2580.78 4813.96,2627.43" spreadType="center"/>
+
+    <edge id="7152678" from="42720124" to="42717527" numLanes="2" priority="9" speed="13.89" shape="5398.80,2780.67 5317.10,2771.07 5256.92,2762.24 5116.09,2734.21 4989.39,2704.37 4934.18,2689.00 4826.80,2656.82" spreadType="center">
+        <split lanes="0 1 2 3" pos="-165"/>
+    </edge>
+
+</edges>

@@ -1,0 +1,5 @@
+<nodes>
+    <node id="obs1" x="0.0" y="0.0" />
+    <node id="obs7" x="+5713.17" y="0.0" />
+    <node id="obs8" x="+6039.0" y="0.0" />
+</nodes>

@@ -1,0 +1,13 @@
+<routes>
+    <vType id="slow" sigma="0" maxSpeed="2"/>
+    <vType id="fast" sigma="0"/>
+    <vehicle id="slow" type="slow" depart="0" departPos="30" departLane="1">
+        <route edges="end"/>
+    </vehicle>
+    <vehicle id="false_leader" type="fast" depart="0" departPos="-100" departLane="0" arrivalLane="0" departSpeed="max">
+        <route edges="beg end"/>
+    </vehicle>
+    <vehicle id="collider" type="fast" depart="0" departPos="-101" departLane="1" arrivalLane="1" arrivalPos="-1" departSpeed="40">
+        <route edges="beg end"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,30 @@
+# join traffic lights within the default distance
+basic
+
+# set a lower maxdist and test that nothing is joined
+option_join-dist
+
+# guess the joined tls
+guess
+
+# test that edge lengths are used instead of junction positions for clustering
+# (important for big junction shapes)
+edge_length
+
+# test explit specification of joined tls in plain xml input
+specified
+
+# test explit specification of joined tls in plain xml input with controlledInner
+specified_controlledInner
+
+# test heuristic for interpreting tls-nodes as signal locations
+guess-signals
+
+# exclude nodes from receiving a traffic light via tls.unset
+guess-signals_unset
+
+# close nodes are set as traffic_light but are acutally unregulated
+with_unregulated
+
+# keep inner edges uncontrolled
+legacy_mode

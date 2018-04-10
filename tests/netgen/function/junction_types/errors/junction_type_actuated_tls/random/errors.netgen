@@ -1,0 +1,2 @@
+Error: Only the following junction types are known: traffic_light, traffic_light_unregulated, traffic_light_right_on_red, priority, priority_stop, allway_stop, zipper, unregulated, rail_signal, rail_crossing, right_before_left
+Quitting (on error).

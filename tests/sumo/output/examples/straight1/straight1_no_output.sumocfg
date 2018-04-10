@@ -1,0 +1,17 @@
+<configuration>
+
+   <input>
+      <net-file>straight1.net.xml</net-file>
+      <route-files>straight1.rou.xml</route-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>10000</end>
+   </time>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>

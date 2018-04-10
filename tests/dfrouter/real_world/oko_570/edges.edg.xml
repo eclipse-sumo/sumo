@@ -1,0 +1,60 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+	<!-- main direction edges -->
+	<edge id="10_00" from="10" to="00" numLanes="1"/>
+	<edge id="01_11" from="01" to="11" numLanes="1"/>
+
+	<edge id="20_10" from="20" to="10" numLanes="1"/>
+	<edge id="11_21" from="11" to="21" numLanes="1"/>
+
+	<edge id="30_20" from="30" to="20" numLanes="1"/>
+	<edge id="21_31" from="21" to="31" numLanes="1"/>
+
+
+	<edge id="50_40" from="50" to="40" numLanes="1"/>
+	<edge id="41_51" from="41" to="51" numLanes="1"/>
+
+	<edge id="60_50" from="60" to="50" numLanes="1"/>
+	<edge id="51_61" from="51" to="61" numLanes="1"/>
+
+	<edge id="70_60" from="70" to="60" numLanes="1"/>
+	<edge id="61_71" from="61" to="71" numLanes="1"/>
+
+
+	<!-- additional (disturbing) connections within the main direction -->
+	<edge id="20_21" from="20" to="21" numLanes="1"/>
+	<edge id="21_20" from="21" to="20" numLanes="1"/>
+
+	<edge id="50_51" from="50" to="51" numLanes="1"/>
+	<edge id="51_50" from="51" to="50" numLanes="1"/>
+
+
+	<!-- main junction (inner) edges -->
+	<edge id="40_30" from="40" to="30" numLanes="1"/>
+	<edge id="31_41" from="31" to="41" numLanes="1"/>
+
+	<edge id="30_31" from="30" to="31" numLanes="1"/>
+	<edge id="41_40" from="41" to="40" numLanes="1"/>
+
+
+	<!-- second direction edges -->
+	<edge id="30_a0" from="30" to="a0" numLanes="1"/>
+	<edge id="a1_40" from="a1" to="40" numLanes="1"/>
+
+	<edge id="a0_a2" from="a0" to="a2" numLanes="1"/>
+	<edge id="a2_a1" from="a2" to="a1" numLanes="1"/>
+
+	<edge id="a2_a3" from="a2" to="a3" numLanes="1"/>
+	<edge id="a3_a2" from="a3" to="a2" numLanes="1"/>
+
+	<edge id="a3_a4" from="a3" to="a4" numLanes="1"/>
+	<edge id="a4_a3" from="a4" to="a3" numLanes="1"/>
+
+	<edge id="a4_a5" from="a4" to="a5" numLanes="1"/>
+	<edge id="a5_a4" from="a5" to="a4" numLanes="1"/>
+
+	<!-- additional disturbance -->
+	<edge id="a3_b1" from="a3" to="b1" numLanes="1"/>
+	<edge id="b1_a3" from="b1" to="a3" numLanes="1"/>
+
+</edges>
+

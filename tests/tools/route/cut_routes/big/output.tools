@@ -1,0 +1,11 @@
+Valid area contains 4 edges
+Parsing routes from input_routes.rou.xml
+Could not reconstruct new departure time for vehicle 'straight'. Using old departure time.
+Parsed 2 vehicles and kept 1 routes
+Number of disconnected routes: 1. Most frequent missing edges:
+1 left
+Wrote 1 routes
+Building line offset index for out.rou.xml.unsorted
+Parsing out.rou.xml.unsorted for line indices and departs
+  found 1 items
+Copying elements from out.rou.xml.unsorted to out.rou.xml sorted by departure

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/17/07 12:35:45 by SUMO sumo Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>routes_0.rou.xml</route-files>
+   </input>
+
+   <output>
+      <emissions-output>emissions_0.rou.xml</emissions-output>
+      <tripinfo-output>tripinfo_0.rou.xml</tripinfo-output>
+      <dump-intervals>150 300 900</dump-intervals>
+      <dump-basename>dump_0</dump-basename>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <processing>
+      <route-steps>200</route-steps>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+      <suppress-warnings>true</suppress-warnings>
+   </report>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="151" id="dump_900">
+      <edge id="L1" traveltime="27.80" nSamples="30" density="0.66" occupancy="0.00" noStops="0.00" speed="10.81"/>
+      <edge id="L10" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L11" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L12" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L13" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L14" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L15" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L16" traveltime="49.58" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L17" traveltime="70.59" nSamples="72" density="0.48" occupancy="0.00" noStops="0.00" speed="13.84"/>
+      <edge id="L18" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L19" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L2" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L20" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L21" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L22" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L23" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L24" traveltime="70.36" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L25" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L26" traveltime="74.84" nSamples="1" density="0.01" occupancy="0.00" noStops="0.00" speed="13.27"/>
+      <edge id="L27" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L28" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L29" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L3" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L30" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L31" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L32" traveltime="71.18" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="13.89"/>
+      <edge id="L4" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L5" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L6" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L7" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L8" traveltime="27.00" nSamples="0" density="0.00" occupancy="0.00" noStops="0.00" speed="11.11"/>
+      <edge id="L9" traveltime="49.99" nSamples="51" density="0.49" occupancy="0.00" noStops="0.00" speed="13.78"/>
+   </interval>
+</netstats>

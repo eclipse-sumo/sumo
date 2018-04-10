@@ -1,0 +1,3 @@
+--osm-files osm.xml -v --proj.utm --proj.plain-geo --opendrive-output
+foreign.net --output.original-names
+-o net.net.xml

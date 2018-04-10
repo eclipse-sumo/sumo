@@ -1,0 +1,6 @@
+
+[Reported by Windows at 06Mar10:24:10]
+search_string:"inf|1.#J"
+search_file:detector
+bug_system:trac
+bug_id:1171

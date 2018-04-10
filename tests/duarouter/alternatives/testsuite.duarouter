@@ -1,0 +1,13 @@
+# Tests with routes stored in style1-input
+# style1: <routealt .../><vehicle route="..." .../>
+style1_input
+
+# Tests with routes stored in style1-input
+# style2: <vehicle ...><routealt .../></vehicle>
+style2_input
+
+# Bug that occured during an iteration
+iteration_bug1
+
+# only keep a limited number of alternatives
+max_alternatives

@@ -1,0 +1,11 @@
+1 - sehr hoch;0.4
+2 - hoch;0.6
+2-3;0.3
+2-4;16.1
+3 - mittel;8.4
+3-4;28.7
+3-5;2.9
+4 - gering;37.0
+4-5;5.5
+5 - keine;.1
+0 - kontraproduktiv;0.0

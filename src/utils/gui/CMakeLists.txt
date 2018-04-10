@@ -1,0 +1,6 @@
+add_subdirectory(div)
+add_subdirectory(globjects)
+add_subdirectory(images)
+add_subdirectory(settings)
+add_subdirectory(tracker)
+add_subdirectory(windows)

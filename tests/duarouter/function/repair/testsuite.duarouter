@@ -1,0 +1,35 @@
+# route around intermediate edges which are unreachable
+intermediate_unconnected_ignore
+
+# invalid route if unreachable edges contain stops
+intermediate_unconnected_ignore_stops
+
+# route between A,B,C where A is not connected to B but B is reachable C is not rechable from B. 
+# The result should be a route between A and C skipping B
+route_around_non_mandatory
+
+# an edge somewhere in the middle of the route is a dead end.
+# Routing should resume from the last mandatory edge.
+backtrack_at_deadend
+
+# the (mandatory) destination edge already occurs in the middle of the route.
+# If there are no mandatory edges left besides the destination, the route ends on the first encounter.
+destination_occurs_twice
+
+# after removing unknown edges only one edge is left
+only1valid
+
+# the old route should be preserved even if it is longer, provided that it is not broken.
+preserve_old_route
+
+# test option repair.from
+repair.from
+
+# test option repair.to
+repair.to
+
+# no valid replacement edges are available
+repair.from_to_invalid
+
+# load a route distribution and try to repair it
+distribution

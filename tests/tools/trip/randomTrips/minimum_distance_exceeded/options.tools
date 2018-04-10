@@ -1,0 +1,1 @@
+-n net.net.xml -s 42 --min-distance 2000 --maxtries 10

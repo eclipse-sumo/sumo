@@ -1,0 +1,16 @@
+import_config_file:../config_all
+binary:$JTRROUTER_BINARY
+copy_test_path:input_net.net.xml
+copy_test_path:input_flows.flows.xml
+copy_test_path:input_turns.turns.xml
+copy_test_path:input_turns_1.turns.xml
+copy_test_path:input_turns_2.turns.xml
+
+[collate_file]
+routes:routes.rou.xml
+alts:routes.rou.xml.alt
+cfg:config.cfg
+log:log.txt
+
+[run_dependent_text]
+routes:<!--{[->]}-->

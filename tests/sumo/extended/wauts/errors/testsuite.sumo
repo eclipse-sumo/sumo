@@ -1,0 +1,41 @@
+# Tests are based on extended/wauts/cross3ltl_switch100_off0
+
+# Tests for missing waut parameter
+# Tests what happens if the start program attribute is missing
+cross3ltl_error_missing_startprog
+
+# Tests what happens if the waut id attribute is missing
+cross3ltl_error_missing_wautid
+
+
+# Tests what happens if the complete waut definition is missing
+cross3ltl_error_missing_waut
+
+
+
+# Tests for missing waut switch parameter
+# Tests what happens if the id of the to-program is missing
+cross3ltl_error_missing_to_prog
+
+# Tests what happens if the switch time attribute is missing
+cross3ltl_error_missing_switchtime
+
+
+# Tests for false waut switch parameter
+# Tests what happens if the to-program is not known (wautSwitch)
+cross3ltl_error_unknown_to_prog
+
+# Tests what happens if the waut is not known (wautJunction)
+cross3ltl_error_unknown_wautid
+
+# Tests what happens if the junction is not known (wautJunction)
+cross3ltl_error_unknown_junction
+
+
+
+
+
+
+
+
+

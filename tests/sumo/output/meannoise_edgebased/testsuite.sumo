@@ -1,0 +1,29 @@
+# no traffic, just plain output without empty edges
+no_empty
+
+# no traffic, just plain output with defaults for empty edges
+print_defaults
+
+# no traffic, just plain output
+no_vehicles
+
+# one vehicle is moving
+one_vehicle
+
+# one vehicle is moving in subseconds
+one_vehicle_subsecond
+
+# two vehicles are moving which have same properties
+two_same_vehicles
+
+# Testing begin/end attributes usage
+begin_end
+
+# Testing error cases
+errors
+
+# a jam test (20 vehicles waiting)
+jam1
+
+# a jam test (78 vehicles waiting)
+jam2

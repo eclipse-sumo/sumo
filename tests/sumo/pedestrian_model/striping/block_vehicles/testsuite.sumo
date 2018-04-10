@@ -1,0 +1,33 @@
+walking_forward
+walking_backward
+
+# test junction model parameter jmCrossingGap
+walking_backward_configureGap
+
+# left turning vehicles should be blocked as well
+walking_forward_left_turning_vehicle
+
+# this time the left turning vehicle is blocked from entering lane before an internal junction
+walking_forward_left_turning_vehicle2
+walking_backward_left_turning_vehicle
+
+# person walking across the street without priority-crossing, a vehicle suddenly appears
+walking_forward_unprioritized
+
+# walk despite red light
+jaywalking_forward
+
+# walk despite red light and get run over
+jaywalking_forward_collision
+
+# pedestrians that are stopped on a crossing should not cause deadlock
+ignore_stopped
+
+# pedestrians that are stopped on a crossing and cannot be ignored
+blockage
+
+# when an unprioritized crossing is blocked by pedestrians, vehicles must yield their request
+blockage2
+
+# when an unprioritized crossing is blocked by pedestrians, vehicles must yield their request
+blockage3

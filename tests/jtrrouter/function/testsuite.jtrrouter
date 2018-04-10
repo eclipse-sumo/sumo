@@ -1,0 +1,17 @@
+# Plain tests
+plain
+
+# Turn definitions tests
+turns
+
+# Tests for processing vehicle classes
+vclasses
+
+# Testing setting depart/arrival defaults
+defaults
+
+# Testing allowed loops
+loops
+
+# Testing maximum number of edges
+max_edges

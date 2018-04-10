@@ -1,0 +1,6 @@
+simstep2 0
+getvariable 0xa3 0x35 2/1to2/0_0
+setvalue 0xc3 0x35 2/1to2/0_0 <string*> 1 bus
+getvariable 0xa3 0x35 2/1to2/0_0
+simstep2 0
+

@@ -1,0 +1,7 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType sigma="0" id="thin" width="1"/>
+    <vehicle id="v1" depart="1" type="thin" departPos="-20" departLane="1" departSpeed="max" arrivalLane="0">
+        <route edges="SC CE"/>
+    </vehicle>
+</routes>

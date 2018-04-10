@@ -1,0 +1,12 @@
+# Test what happens if one tries to build grid and spider net
+grid_and_spider
+
+# Test what happens if one tries to build grid and random net
+grid_and_random
+
+# Test what happens if one tries to build spider and random net
+spider_and_random
+
+# Test what happens if one tries to build all three network types
+grid_spider_and_random
+

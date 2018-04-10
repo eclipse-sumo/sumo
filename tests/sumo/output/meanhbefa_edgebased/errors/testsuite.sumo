@@ -1,0 +1,8 @@
+# Tests what happens if mean data dump begin time is negative
+negative_begin
+
+# Tests what happens if mean data dump begin time is not a number
+broken_number
+
+# Tests what happens if mean data dump should end before it starts
+end_before_begin

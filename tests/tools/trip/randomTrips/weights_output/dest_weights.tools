@@ -1,0 +1,16 @@
+<edgedata>
+    <interval begin="0" end="10">
+        <edge id="1fi" value="0.00"/>
+        <edge id="1o" value="63.98"/>
+        <edge id="1si" value="100.00"/>
+        <edge id="2fi" value="0.00"/>
+        <edge id="2o" value="63.98"/>
+        <edge id="2si" value="100.00"/>
+        <edge id="3fi" value="0.00"/>
+        <edge id="3o" value="63.98"/>
+        <edge id="3si" value="100.00"/>
+        <edge id="4fi" value="0.00"/>
+        <edge id="4o" value="63.98"/>
+        <edge id="4si" value="100.00"/>
+    </interval>
+</edgedata>

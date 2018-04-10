@@ -1,0 +1,3 @@
+Error: Invalid departure time for vehicle '1';
+ must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
+Quitting (on error).

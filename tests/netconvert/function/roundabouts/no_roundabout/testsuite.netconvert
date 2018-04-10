@@ -1,0 +1,9 @@
+sharp_angles1
+sharp_angles2
+
+# a roundabout should have at least 3 connections to the outside
+few_attachments
+few_attachments2
+
+# obviously not a roundabout
+divided_road_with_turn_lanes

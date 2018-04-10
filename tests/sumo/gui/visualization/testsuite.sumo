@@ -1,0 +1,20 @@
+# A parade of vehicle classes
+parade
+
+# A parade of vehicle coloring methods
+paradeColor
+
+# show some ships on a river
+ships
+
+# tesselation and rotation of polygons
+polygon_image
+
+# polygons with params
+polygon_param
+
+# coloring and rotation of POIs
+poi_image
+
+# testing png and jpg support
+img_formats

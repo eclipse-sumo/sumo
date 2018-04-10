@@ -1,0 +1,14 @@
+<routes>
+    <!-- A brakes to let B merge but A is much to fast for this to be useful -->
+    <route id="left_to_right" edges="beg_left merge end_right"/>
+    <route id="right_to_left" edges="beg_right merge end_left"/>
+    <route id="stay_left" edges="beg_left merge end_left"/>
+    <route id="stay_right" edges="beg_right merge end_right"/>
+    <vType id="t0" sigma="0"/>
+    <vType id="t1" sigma="0" accel="2"/>
+
+    <flow id="left0" type="t0" route="stay_left"      begin="0" end="20" period="1"  departLane="0" arrivalLane="0" departPos="last" departSpeed="max" color="green"/>
+    <flow id="right1" type="t0" route="stay_right"    begin="0" end="20" period="1"  departLane="1" arrivalLane="1" departPos="last" departSpeed="max" color="yellow"/>
+    <flow id="left1" type="t1" route="left_to_right"  begin="5" end="20" period="20" departLane="1" arrivalLane="1" departPos="280" departSpeed="0" color="red"/>
+    <flow id="right0" type="t1" route="right_to_left" begin="5" end="20" period="20" departLane="0" arrivalLane="0" departPos="280" departSpeed="0" color="blue"/>
+</routes>

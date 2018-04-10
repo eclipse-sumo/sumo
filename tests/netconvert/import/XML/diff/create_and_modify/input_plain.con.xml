@@ -1,0 +1,10 @@
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <connection from="edge_C2L" to="gneE0" fromLane="0" toLane="0" />
+    <connection from="edge_C2U" to="gneE2" fromLane="0" toLane="0" />
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" />
+    <connection from="gneE1" to="edge_U2C" fromLane="0" toLane="0" />
+    <connection from="gneE1" to="gneE2" fromLane="0" toLane="0" />
+    <!-- Changed Elements -->
+</connections>

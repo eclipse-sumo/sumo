@@ -1,0 +1,8 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="main" edges="main_beg main_ramp main_end"/>
+    <route id="ramp" edges="ramp_beg main_ramp main_end"/>
+
+    <vehicle id="veh0" route="ramp" depart="0" color="green" departPos="-5" departSpeed="max"/>
+    <vehicle id="veh1" route="main" depart="0" color="red" departPos="-100" departSpeed="max" arrivalLane="0"/>
+</routes>

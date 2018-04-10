@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- deletion of roundabouts not yet supported. see #2225 <roundabout edges="roundA1 roundA2 roundA3 roundA4" discard="true"/> -->
+    <!-- Created Elements -->
+    <roundabout edges="roundB1 roundB2 roundB3 roundB4" nodes="E gneJ4 gneJ5 gneJ6"/>
+    <!-- Changed Elements -->
+</edges>

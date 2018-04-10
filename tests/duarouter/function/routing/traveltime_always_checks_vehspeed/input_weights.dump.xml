@@ -1,0 +1,10 @@
+<netstats>
+    <interval begin="0" end="1000" >
+          <edge id="beg" traveltime="57.5756" noVehContrib="5096" density="0.442938" noStops="1227" speed="3.3304"/>
+          <edge id="beg2left" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
+          <edge id="end" traveltime="12.2162" noVehContrib="36" density="0.00312907" noStops="0" speed="15.6963"/>
+          <edge id="left" traveltime="10.9306" noVehContrib="0" density="0" noStops="0" speed="36"/>
+          <edge id="left2end" traveltime="1.27778" noVehContrib="0" density="0" noStops="0" speed="36"/>
+          <edge id="middle" traveltime="188.51" noVehContrib="13952" density="0.593955" noStops="7063" speed="2.07681"/>
+    </interval>
+</netstats>

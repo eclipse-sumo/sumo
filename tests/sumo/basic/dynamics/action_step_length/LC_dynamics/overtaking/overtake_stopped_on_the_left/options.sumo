@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=motorway.net.xml --routes=input_routes.rou.xml --tripinfo-output tripinfos.xml

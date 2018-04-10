@@ -1,0 +1,2 @@
+-e input_plain.edg.xml -n input_plain.nod.xml -o discard.net.xml --tls.green.time 31
+

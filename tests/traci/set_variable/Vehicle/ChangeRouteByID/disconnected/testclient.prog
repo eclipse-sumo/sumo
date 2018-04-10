@@ -1,0 +1,3 @@
+repeat 30 simstep2 0
+setvalue 0xc4 0x53 veh0 <string> invalid
+simstep2 100

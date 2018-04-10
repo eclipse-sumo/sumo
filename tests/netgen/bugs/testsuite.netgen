@@ -1,0 +1,3 @@
+# Test for [ 2468327 ] log files together with input errors let sumo crash (should not make problems, was a SUMO issue only)
+2468327
+

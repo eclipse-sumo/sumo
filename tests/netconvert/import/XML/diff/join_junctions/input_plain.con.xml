@@ -1,0 +1,25 @@
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="27437972" to="27441189" fromLane="0" toLane="2"/>
+    <delete from="27437972" to="27441189" fromLane="1" toLane="3"/>
+    <delete from="27441168" to="27445015#0" fromLane="0" toLane="1"/>
+    <delete from="27441168" to="27445003" fromLane="0" toLane="1"/>
+    <delete from="27441189" to="27445000#0" fromLane="0" toLane="0"/>
+    <delete from="27441189" to="6137245" fromLane="1" toLane="0"/>
+    <delete from="27441189" to="6137245" fromLane="2" toLane="1"/>
+    <delete from="27441289.95" to="27445003" fromLane="0" toLane="0"/>
+    <delete from="27441289.95" to="27445003" fromLane="1" toLane="1"/>
+    <delete from="27445003" to="27441189" fromLane="0" toLane="0"/>
+    <delete from="27445003" to="27441189" fromLane="1" toLane="1"/>
+    <delete from="46039050" to="27441168" fromLane="0" toLane="0"/>
+    <delete from="6137245" to="27441289.0" fromLane="0" toLane="0"/>
+    <delete from="6137245" to="27441289.0" fromLane="1" toLane="1"/>
+    <delete from="6137245" to="27441168" fromLane="1" toLane="0"/>
+    <!-- Created Elements -->
+    <connection from="27437972" to="27445000#0" fromLane="0" toLane="0" />
+    <connection from="27437972" to="27441289.0" fromLane="1" toLane="1" />
+    <connection from="27441289.95" to="27445015#0" fromLane="1" toLane="1" />
+    <connection from="27441289.95" to="27445000#0" fromLane="1" toLane="0" />
+    <connection from="46039050" to="27445015#0" fromLane="0" toLane="1" />
+    <!-- Changed Elements -->
+</connections>

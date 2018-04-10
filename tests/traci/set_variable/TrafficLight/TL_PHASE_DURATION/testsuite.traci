@@ -1,0 +1,8 @@
+# Simple test for setting a duration
+basic
+
+# error case: false value type is used
+error_FalseValueType
+
+
+

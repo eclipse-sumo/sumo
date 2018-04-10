@@ -1,0 +1,26 @@
+# Test conversion from 3d to road map position
+3DToRoadPos
+
+# Test conversion from 2d to road map position
+2DToRoadPos
+
+# Test error on specifying 3d position type twice
+SameType3D
+
+# Test error on specifying road map position type twice
+SameTypeRoadPos
+
+# Test conversion from road map to 3d position
+RoadPosTo3D
+
+# Test conversion from road map to 2d position
+RoadPosTo2D
+
+# Test error on specifying an invalid road id
+InvalidRoadId
+
+# Test error on specifying an invalid lane id
+InvalidLaneId
+
+# Test behaviour on specifying an invalid position on given road
+InvalidPosOnRoad

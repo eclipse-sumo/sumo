@@ -1,0 +1,42 @@
+# vehicle behavior on a single edge with 2 lanes (compact alignment)
+ticket2154
+
+# vehicle behavior on a single edge with 2 lanes (compact alignment)
+ticket2259
+
+# vehicle behavior on a single edge with 2 lanes (compact alignment)
+ticket2585
+ticket3028
+
+# ignoring pushing by far-behind followers must not cause collision
+ticket3050
+
+# vehicle behavior of building an rescue lane
+ticket3107
+
+# invalid cyclical sublane change (interaction of strategic stay and sublane changing for compact alignment)
+ticket3184
+
+# insertion must check all sublanes for partial vehicles
+ticket3195
+
+# ignoring pushing by far-behind followers must not cause collision
+ticket3213
+ticket3244
+ticket3333
+
+# invalid sublane change
+ticket3372
+
+# no change for speedGain
+ticket3582
+
+# Copy of ticket3601
+ticket3601
+ticket3613
+
+# collision at lane split
+ticket3618
+
+# collision on parallel internal edges
+ticket3619

@@ -1,0 +1,7 @@
+<routes>
+    <route id="r" edges="beg middle end"/>
+    <!--
+    the vehicle should start moving to the leftmost lane becausee the left lanes are all dead ends
+    -->
+    <vehicle id="veh" type="t0" route="r" depart="0" departLane="0"/>
+</routes>

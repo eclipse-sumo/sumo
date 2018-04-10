@@ -1,0 +1,15 @@
+# One output; sampling at 1s
+interval1s
+
+# One output; sampling at 15s
+interval15s
+
+# One output; sampling at 60s
+interval60s
+
+# Two outputs; one sampling at 15s, one at 60s
+interval15s60s
+
+# One output; sampling at .1s
+interval.1s
+

@@ -1,0 +1,13 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vType id="tBlock" sigma="0" length="200"/>
+
+    <route id="rL" edges="beg endLeft"/>
+    <route id="rM" edges="beg end"/>
+    <route id="rR" edges="beg endRight"/>
+
+    <vehicle id="L"  type="t0"     route="rL" departSpeed="max" departPos="-100"  departLane="0" departPosLat="center" depart="0"/>
+    <vehicle id="M"  type="tBlock" route="rM" departSpeed="max" departPos="-100"  departLane="1" departPosLat="center" depart="0"/>
+    <vehicle id="R"  type="t0"     route="rR" departSpeed="max" departPos="-100"  departLane="2" departPosLat="center" depart="0"/>
+
+</routes>

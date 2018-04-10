@@ -1,0 +1,16 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vType id="t1" sigma="0" decel="2"/>
+    <route id="r0" edges="beg end"/>
+    <vehicle id="v0" type="t0" route="r0" depart="0" departSpeed="max" departPos="170" departLane="0"/>
+    <vehicle id="v1" type="t1" route="r0" depart="0" departSpeed="max" departPos="170" departLane="2" arrivalLane="0"/>
+
+    <vehicle id="v2" type="t0" route="r0" depart="4" departSpeed="max" departPos="160" departLane="0"/>
+    <vehicle id="v3" type="t1" route="r0" depart="4" departSpeed="max" departPos="140" departLane="2" arrivalLane="0"/>
+
+    <vehicle id="v4" type="t0" route="r0" depart="8" departSpeed="max" departPos="90" departLane="0"/>
+    <vehicle id="v5" type="t1" route="r0" depart="8" departSpeed="max" departPos="160" departLane="2" arrivalLane="0"/>
+
+    <vehicle id="v6" type="t0" route="r0" depart="12" departSpeed="max" departPos="90" departLane="0"/>
+    <vehicle id="v7" type="t1" route="r0" depart="12" departSpeed="max" departPos="90" departLane="2" arrivalLane="0"/>
+</routes>

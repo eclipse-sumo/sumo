@@ -1,0 +1,1 @@
+--no-internal-links --remove-edges.by-vclass pedestrian,bicycle --dlr-navteq-prefix=elmar --output=net.net.xml -v

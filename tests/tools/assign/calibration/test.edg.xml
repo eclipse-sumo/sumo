@@ -1,0 +1,6 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge from="91" id="91to1" to="1" type="c"/>
+    <edge from="1" id="1to21" to="2" type="a" shape="300,-50 700,-50"/>
+    <edge from="1" id="1to22" to="2" type="b" shape="300,50 700,50"/>
+    <edge from="2" id="out" to="3" type="c"/>
+</edges>

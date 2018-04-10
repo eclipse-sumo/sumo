@@ -1,0 +1,45 @@
+# 0 as the value for grid-number
+grid_number__zero
+
+# 0 as the value for grid-x-number
+grid_x_number__zero
+
+# 0 as the value for grid-y-number
+grid_y_number__zero
+
+
+# 1 as the value for grid-number (2 is minimum)
+grid_number__1
+
+# 1 as the value for grid-x-number (2 is minimum)
+grid_x_number__1
+
+# 1 as the value for grid-y-number (2 is minimum)
+grid_y_number__1
+
+
+
+
+# 0 as the value for grid-length
+grid_length__zero
+
+# 0 as the value for grid-x-length
+grid_x_length__zero
+
+# 0 as the value for grid-y-length
+grid_y_length__zero
+
+
+# 9.9 as the value for grid-length (10 is minimum)
+grid_length__9_9
+
+# 9.9 as the value for grid-x-length (10 is minimum)
+grid_x_length__9_9
+
+# 9.9 as the value for grid-y-length (10 is minimum)
+grid_y_length__9_9
+
+
+
+
+

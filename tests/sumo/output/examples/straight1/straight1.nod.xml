@@ -1,0 +1,19 @@
+<nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+   <node id="a0" x="-2000.0" y="0.0" type="priority"/>
+   <node id="a1" x="-1500.0" y="0.0" type="priority"/>
+   <node id="a2" x="-1250.0" y="0.0" type="priority"/>
+   <node id="a3" x="-1100.0" y="0.0" type="priority"/>
+   <node id="a4" x="-1050.0" y="0.0" type="priority"/>
+   <node id="a5" x="-1010.0" y="0.0" type="priority"/>
+   <node id="a6" x="-1000.0" y="0.0" type="priority"/>
+
+
+   <node id="b6" x="1000.0" y="0.0" type="priority"/>
+   <node id="b5" x="1010.0" y="0.0" type="priority"/>
+   <node id="b4" x="1050.0" y="0.0" type="priority"/>
+   <node id="b3" x="1100.0" y="0.0" type="priority"/>
+   <node id="b2" x="1250.0" y="0.0" type="priority"/>
+   <node id="b1" x="1500.0" y="0.0" type="priority"/>
+   <node id="b0" x="2000.0" y="0.0" type="priority"/>
+
+</nodes>

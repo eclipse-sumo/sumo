@@ -1,0 +1,7 @@
+Warning: Starting TraCI without using internal lanes!
+Vehicles will jump over junctions.
+Use without option --no-internal-links to avoid unexpected behavior
+Warning: Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Starting TraCI without using internal lanes!
+Vehicles will jump over junctions.
+Use without option --no-internal-links to avoid unexpected behavior

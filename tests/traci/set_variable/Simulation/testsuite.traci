@@ -1,0 +1,5 @@
+# clearing not inserted vehicles
+CMD_CLEAR_PENDING_VEHICLES
+
+# trigger saving simulation state
+CMD_SAVE_SIMSTATE

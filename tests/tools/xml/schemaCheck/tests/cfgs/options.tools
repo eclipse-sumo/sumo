@@ -1,0 +1,1 @@
+$SUMO_HOME/tests *.????cfg tools/xml/schemaCheck.py

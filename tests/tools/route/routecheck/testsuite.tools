@@ -1,0 +1,49 @@
+# Tests for vehicle class usage
+# The network has a shorter, straight path where only "passenger" are allowed
+# and a longer path where "bus" is allowed
+
+
+# One link ("left") is missing in the route
+no_vclass_test_missing
+
+# As no_vclass_test_missing but with --fix set
+no_vclass_fix_missing
+
+# Tests for vehicle class usage
+# The network has a shorter, straight path where only "passenger" are allowed
+# and a longer path where "bus" is allowed
+
+
+# the route does not use the new edges attribute
+missing_edges_attribute
+
+# the route does not use the new edges attribute and gets fixed
+missing_edges_attribute_fix
+
+# Tests for importing passenger-routes (previous was correct)
+passenger_test_routes_correct
+
+# Tests for importing passenger-routes (previous was false)
+# passenger_test_routes_false
+
+
+
+# Tests for importing bus-routes (previous was correct)
+bus_test_routes_correct
+
+# Tests for importing bus-routes (previous was false)
+# bus_test_routes_false
+
+
+
+# Tests for importing routes with no vehicle class given (previous was shorter)
+no_vclass_test_routes_shorter
+
+# Tests for importing routes with no vehicle class given (previous was longer)
+no_vclass_test_routes_longer
+
+# Tests for importing routes with an empty vehicle class (previous was shorter)
+empty_vclass_test_routes_shorter
+
+# Tests for importing routes with an empty vehicle class (previous was longer)
+empty_vclass_test_routes_longer

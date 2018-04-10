@@ -1,0 +1,5 @@
+<routes>
+    <flow id="flow" from="1si" to="2o" number="5" begin="0" end="3600"/>
+    <route id="r0" edges="3o"/>
+    <route id="r1" edges="4o"/>
+</routes>

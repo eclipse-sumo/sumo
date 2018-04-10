@@ -1,0 +1,12 @@
+<a>
+
+   <detectorDefinition id="LI" lane="11_21_0" pos="100"/>
+   <detectorDefinition id="LO" lane="20_10_0" pos="100"/>
+
+   <detectorDefinition id="RI" lane="60_50_0" pos="100"/>
+   <detectorDefinition id="RO" lane="51_61_0" pos="100"/>
+
+   <detectorDefinition id="BI" lane="a5_a4_0" pos="50"/>
+   <detectorDefinition id="BO" lane="a4_a5_0" pos="50"/>
+
+</a>

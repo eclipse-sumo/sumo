@@ -1,0 +1,19 @@
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+
+	<connection from="1si" to="3o" fromLane="0" toLane="0" uncontrolled="true"/>
+	<connection from="1si" to="2o" fromLane="1" toLane="0"/>
+	<connection from="1si" to="4o" fromLane="2" toLane="0"/>
+
+	<connection from="2si" to="4o" fromLane="0" toLane="0" uncontrolled="true"/>
+	<connection from="2si" to="1o" fromLane="1" toLane="0"/>
+	<connection from="2si" to="3o" fromLane="2" toLane="0"/>
+
+	<connection from="3si" to="2o" fromLane="0" toLane="0" uncontrolled="true"/>
+	<connection from="3si" to="4o" fromLane="1" toLane="0"/>
+	<connection from="3si" to="1o" fromLane="2" toLane="0"/>
+
+	<connection from="4si" to="1o" fromLane="0" toLane="0" uncontrolled="true"/>
+	<connection from="4si" to="3o" fromLane="1" toLane="0"/>
+	<connection from="4si" to="2o" fromLane="2" toLane="0"/>
+
+</connections>

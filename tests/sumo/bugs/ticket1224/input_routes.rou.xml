@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" accel="0.8" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="10"/>
+    <route id="r1" edges="3/1to2/1 2/1to1/1"/>
+    <vehicle id="0" depart="0" departSpeed="10" departPos="350" route="r1">
+        <stop lane="2/1to1/1_0" duration="500" endPos="25"/>
+    </vehicle>
+</routes>

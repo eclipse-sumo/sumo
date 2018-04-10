@@ -1,0 +1,20 @@
+# no traffic, just plain output
+no_vehicles
+
+# one vehicle is moving
+one_vehicle
+
+# one vehicle is moving, timestep is subseconds
+one_vehicle_subsecond
+
+# two vehicles are moving; the first runs with 10m/s, the second with 9m/s
+two_vehicles_diff_speed
+
+# same as two_vehicles_diff_speed, but with empty edges (and constrained to 10 steps)
+two_vehicles_diff_speed__empty
+
+# test diffent output precision
+precision
+
+# Testing error cases
+errors

@@ -1,0 +1,15 @@
+# all vehicle classes allowed
+all_allowed
+
+# no pedestrians and cycles
+no_peds_cycles
+
+# link 1 only allows pedestrians
+peds_only_on_1
+
+# link 1 only allows pedestrians and cycles
+peds_cycles_only_on_1
+
+# link 1 only allows cycles
+cycles_only_on_1
+taxi_only

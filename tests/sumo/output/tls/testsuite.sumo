@@ -1,0 +1,9 @@
+
+# Plain test for a basic example with a simple tls state output
+cross3ltl_savetlsstate
+
+# Plain test for a basic example with a simple tls switch output
+cross3ltl_savetlsswitches
+
+# Plain test for a basic example with a simple tls switch state output
+cross3ltl_savetlsswitchstates

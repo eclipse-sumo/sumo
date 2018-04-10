@@ -1,0 +1,16 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="t0" speedDev="0.1" speedFactor="1.2" sigma="0"/>
+    <calibrator id="calibtest" lane="beg_0" pos="0" output="detector.xml">
+        <route id="c1" edges="beg middle end rend"/>
+        <!-- 2500 vehs in 3600s -->
+        <flow begin="0"    end="1800" route="c1" vehsPerHour="2500" speed="27.8" type="t0" departPos="free" departSpeed="max"/>
+        <flow begin="1800" end="3600" route="c1" vehsPerHour="2500" speed="15.0" type="t0" departPos="free" departSpeed="max"/>
+        <flow begin="3600" end="5400" route="c1" vehsPerHour="2500" speed="10.0" type="t0" departPos="free" departSpeed="max"/>
+        <flow begin="5400" end="7200" route="c1" vehsPerHour="2500" speed="5.0"  type="t0" departPos="free" departSpeed="max"/>
+    </calibrator>
+
+    <edgeData id="expect_1250_vehs_0"      begin="0"    end="1800"  file="aggregated_25.xml"/>
+    <edgeData id="expect_1250_vehs_3600"   begin="1800" end="3600"  file="aggregated_25.xml"/>
+    <edgeData id="expect_1250_vehs_7200"   begin="3600" end="5400"  file="aggregated_25.xml"/>
+    <edgeData id="expect_1250_vehs_10800"  begin="5400" end="7200"  file="aggregated_25.xml"/>
+</additional>

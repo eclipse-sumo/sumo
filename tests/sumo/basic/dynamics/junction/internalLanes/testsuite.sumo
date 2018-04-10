@@ -1,0 +1,5 @@
+# test that vehicles do not overlap on internal lanes from the same origin lane
+endOffset
+
+# test dynamics when keepClear is disabled in the network
+keepClear

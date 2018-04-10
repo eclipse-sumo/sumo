@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r1" edges="beg middle"/>
+    <vehicle id="leader"   type="leader"   depart="0" route="r1">
+        <stop lane="middle_0" duration="5" endPos="200"/>
+    </vehicle>
+    <vehicle id="follower" type="follower" depart="2" route="r1"/>
+</routes>

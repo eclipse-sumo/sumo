@@ -1,0 +1,28 @@
+# Tests for the case, the heuristic returns the node to be a right-before-left node
+right_before_left_guess
+
+# Tests for the case, the heuristic returns the node to be a priority node
+priority_guess
+
+# tests for node type "zipper"
+zipper
+rail_crossing
+
+# differing edge priorities should always trigger a priority junction
+edge_priorities
+
+# a junction where all minor links have stop signs
+priority_stop
+
+# an all-way stop junction as found in north america
+allway_stop
+
+# explicitly unregulated
+unregulated
+rail_signal
+
+# explicitly unregulated
+waterway
+
+# explicitly unregulated
+waterway_explicit

@@ -1,0 +1,30 @@
+TraCITestClient output file. Date: Mon Jul 01 13:27:13 2013
+
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=4 RoadMapPositionValue: roadId=e_o0 pos=191.95 laneId=2
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=4 RoadMapPositionValue: roadId=e_x0 pos=0.00 laneId=1
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=4 RoadMapPositionValue: roadId=e_shape0 pos=532.37 laneId=0
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=4 RoadMapPositionValue: roadId=e_shape1 pos=330.73 laneId=0
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=130 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=130  ObjectID=0 valueDataType=4 RoadMapPositionValue: roadId=e_m0 pos=0.00 laneId=0
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

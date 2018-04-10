@@ -1,0 +1,4 @@
+<edges>
+    <edge id="a" from="a" to="b" numLanes="1" speed="36." length="7499.9" shape="1,0 50000,0 50000,50000 0,50000 0,1"/>
+    <edge id="b" from="b" to="a" numLanes="1" speed="36." length=".1"/>
+</edges>

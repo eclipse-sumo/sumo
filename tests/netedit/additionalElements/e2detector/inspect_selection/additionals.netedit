@@ -1,0 +1,4 @@
+<additionals>
+    <e2Detector id="E2_A" lane="gneE0_0" pos="5.00" length="7.00" freq="50.00" file="e2Detector_A.txt" cont="1" timeThreshold="11.30" speedThreshold="4.00" jamThreshold="8.50" friendlyPos="1"/>
+    <e2Detector id="E2_B" lane="gneE0_0" pos="15.00" length="7.00" freq="50.00" file="e2Detector_B.txt" cont="1" timeThreshold="11.30" speedThreshold="4.00" jamThreshold="8.50" friendlyPos="1"/>
+</additionals>

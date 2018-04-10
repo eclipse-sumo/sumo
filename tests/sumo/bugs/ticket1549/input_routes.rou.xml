@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ta" sigma="0" length="10" minGap="2" maxSpeed="10" accel="1.0" decel="0.1"/>
+    <vType id="tb" sigma="0" length="10" minGap="0" maxSpeed="15" accel="5"/>
+    <vType id="tc" sigma="0" length="10" minGap="2" maxSpeed="15" accel="5"/>
+    <route id="r0" edges="end end2"/>
+
+    <vehicle id="a" type="ta" depart="0" route="r0" departSpeed="5" departLane="0" departPos="-5.2"/>
+    <vehicle id="b" type="tb" depart="0" route="r0" departSpeed="0" departLane="1" departPos="-10.2"/>
+    <vehicle id="c" type="tc" depart="2" route="r0" departSpeed="0" departLane="1" departPos="-15.2"/>
+</routes>

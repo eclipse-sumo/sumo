@@ -1,0 +1,5 @@
+simstep2 5
+getvariable 0xa4 0x45 0
+setvalue 0xc4 0x45 0 <color> 0 63 127 255
+getvariable 0xa4 0x45 0
+simstep2 6

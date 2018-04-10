@@ -1,0 +1,14 @@
+# begin = 0
+b0ed
+# begin = 100
+b100ed
+# end = 100
+be100d
+# begin = 50, end = 100
+b50e100d
+# delta = 1
+bed1
+# delta = 2
+bed2
+# begin = 50, end = 100, delta=10
+b50e100d10

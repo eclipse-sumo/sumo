@@ -1,0 +1,1 @@
+-n input_net.net.xml -t input_districts.xml -o out.add.xml --weighted -s

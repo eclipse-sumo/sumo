@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="CE.10" fromLane="0" to="EC.0" toLane="0"/>
+    <delete from="gneE11" fromLane="0" to="gneE10" toLane="0"/>
+    <delete from="gneE13" fromLane="0" to="gneE12" toLane="0"/>
+    <delete from="gneE9" fromLane="0" to="gneE8" toLane="0"/>
+    <!-- Created Elements -->
+    <connection from="EC.0" fromLane="0" to="CE.10" toLane="0" />
+    <connection from="NC.0" fromLane="0" to="CN.12" toLane="0" />
+    <connection from="SC.0" fromLane="0" to="CS.10" toLane="0" />
+    <connection from="WC.0" fromLane="0" to="CW.11" toLane="0" />
+    <!-- Changed Elements -->
+</connections>

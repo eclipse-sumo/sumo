@@ -1,0 +1,3 @@
+simstep2 0
+getvariable_plus 0xa4 0x83 0 <compound> 2 <positionRoadmap> 1/1to0/1 48 0 <drivingDist>
+simstep2 0

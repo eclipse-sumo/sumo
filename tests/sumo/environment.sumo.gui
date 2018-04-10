@@ -1,0 +1,1 @@
+LSAN_OPTIONS:suppressions=$SUMO_HOME/build/clang_memleak_suppressions.txt,print_suppressions=0

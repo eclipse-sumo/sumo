@@ -1,0 +1,8 @@
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0" tl="node_C" linkIndex="9"/>
+    <delete from="edge_R2C" to="edge_C2U" fromLane="0" toLane="0" tl="node_C" linkIndex="4"/>
+    <delete from="edge_U2C" to="edge_C2U" fromLane="0" toLane="0" tl="node_C" linkIndex="3"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+</tlLogics>

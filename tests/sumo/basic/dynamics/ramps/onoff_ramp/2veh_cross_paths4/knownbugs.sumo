@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 01Aug09:23:30]
+search_string:Teleporting
+search_file:errors
+ignore_other_errors:1
+full_description:counter-lane change situation is recognized too late
+brief_description:see #1391

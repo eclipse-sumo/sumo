@@ -1,0 +1,3 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="custom" length="5" minGap="2" carFollowModel="KraussX" sigma="0.8" tmp2="0.8"/>
+</routes>

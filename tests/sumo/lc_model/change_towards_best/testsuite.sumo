@@ -1,0 +1,5 @@
+# vehicle should change left in advance
+towards_left
+
+# vehicle should change right in advance
+towards_right

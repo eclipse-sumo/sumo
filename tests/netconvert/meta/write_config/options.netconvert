@@ -1,0 +1,1 @@
+{CLEAR} --no-internal-links --save-configuration config.cfg --edge-files=input_edges.edg.xml --connection-files input_connections.con.xml --node-files=input_nodes.nod.xml --output=net.net.xml --speed-in-kmh

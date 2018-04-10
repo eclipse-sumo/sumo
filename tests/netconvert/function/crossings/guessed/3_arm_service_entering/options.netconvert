@@ -1,0 +1,3 @@
+--node-files input_plain.nod.xml --edge-files input_plain.edg.xml --crossings.guess --output net.net.xml --no-turnarounds
+
+

@@ -1,0 +1,5 @@
+--no-internal-links --edge-files=input_plain.edg.xml
+--node-files=input_plain.nod.xml --output=net.net.xml --roundabouts.guess
+--ignore-errors.edge-type
+
+

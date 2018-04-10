@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on 07/12/11 14:35:29 by SUMO netconvert Version dev-SVN-r10888
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="activitygen-example.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="activitygen-example"/>
+    </output>
+
+</configuration>
+-->
+
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="01" x="0.00" y="0.00" type="priority"/>
+    <node id="11" x="200.00" y="200.00" type="priority"/>
+    <node id="12" x="200.00" y="400.00" type="priority"/>
+    <node id="13" x="200.00" y="600.00" type="priority"/>
+    <node id="14" x="200.00" y="800.00" type="priority"/>
+    <node id="21" x="400.00" y="200.00" type="priority"/>
+    <node id="22" x="400.00" y="400.00" type="priority"/>
+    <node id="23" x="400.00" y="600.00" type="priority"/>
+    <node id="24" x="400.00" y="800.00" type="priority"/>
+    <node id="31" x="600.00" y="200.00" type="priority"/>
+    <node id="32" x="600.00" y="400.00" type="priority"/>
+    <node id="33" x="600.00" y="600.00" type="priority"/>
+    <node id="34" x="600.00" y="800.00" type="priority"/>
+    <node id="41" x="800.00" y="200.00" type="priority"/>
+    <node id="42" x="800.00" y="400.00" type="priority"/>
+    <node id="43" x="800.00" y="600.00" type="priority"/>
+    <node id="44" x="800.00" y="800.00" type="priority"/>
+    <node id="51" x="1000.00" y="1000.00" type="priority"/>
+</nodes>

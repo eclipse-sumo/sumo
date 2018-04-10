@@ -1,0 +1,1 @@
+$SUMO_HOME/tests/tools/xml/schemaCheck/tests/ticket3917 input_net.net.xml tools/xml/schemaCheck.py

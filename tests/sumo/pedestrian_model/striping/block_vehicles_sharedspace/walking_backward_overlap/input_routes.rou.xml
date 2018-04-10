@@ -1,0 +1,9 @@
+<routes>    
+    <vType id="car" width="2.2" sigma="0"/>
+    <person id="p0" depart="0" departPos="-10">
+        <walk edges="SC" arrivalPos="10"/>
+    </person>
+    <vehicle id="v0" type="car" depart="0" departPos="20">
+        <route edges="SC"/>
+    </vehicle>
+</routes>

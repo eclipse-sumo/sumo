@@ -1,0 +1,17 @@
+# Tests are based on "plain" (two vehicles, diff length, 15s interval)
+plain
+
+# one interval seconds 0-15
+beg0_end15
+
+# one interval seconds 15-30
+beg15_end30
+
+# two intervals; seconds 15-30 and 45-60; defined separately
+b15e30_b45e60_separate
+
+# only begin and end are given, but no interval
+beg15_end30_nointerval
+
+# only begin and end are given, but no interval
+beg0_end30_nointerval

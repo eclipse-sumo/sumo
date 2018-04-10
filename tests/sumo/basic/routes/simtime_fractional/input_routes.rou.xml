@@ -1,0 +1,36 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="63" depart="0.79">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="88" depart="16.72">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="9" depart="49.99">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="5" depart="50.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="19" depart="50.02">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="92" depart="169.75">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="73" depart="186.01">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="65" depart="386.17">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="95" depart="399.95">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="42" depart="400.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+    <vehicle id="33" depart="400.04">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+</routes>

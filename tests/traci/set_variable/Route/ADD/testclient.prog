@@ -1,0 +1,5 @@
+simstep2 0
+getvariable 0xa6 0x0 xxx
+setvalue 0xc6 0x80 newID <string*> 3 e_m5 e_m6 e_shape0
+getvariable 0xa6 0x0 xxx
+simstep2 0

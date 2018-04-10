@@ -1,0 +1,1 @@
+--no-internal-links --opendrive opendrive.xodr -v  --type-files $SUMO_HOME/data/typemap/opendriveNetconvert.typ.xml,input_types.typ.xml

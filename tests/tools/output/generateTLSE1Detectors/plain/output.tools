@@ -1,0 +1,21 @@
+Missing arguments
+Usage: generateTLSE1Detectors.py -n example.net.xml -l 250 -d .1 -f 60
+
+Options:
+  -h, --help            show this help message and exit
+  -n NET_FILE, --net-file=NET_FILE
+                        Network file to work with. Mandatory.
+  -l REQUESTED_DETECTOR_LENGTH, --detector-length=REQUESTED_DETECTOR_LENGTH
+                        Length of the detector in meters (-1 for maximal
+                        length).
+  -d REQUESTED_DISTANCE_TO_TLS, --distance-to-TLS=REQUESTED_DISTANCE_TO_TLS
+                        Distance of the detector to the traffic light in
+                        meters. Defaults to 0.1m.
+  -f FREQUENCY, --frequency=FREQUENCY
+                        Detector's frequency. Defaults to 60.
+  -o OUTPUT, --output=OUTPUT
+                        The name of the file to write the detector definitions
+                        into. Defaults to e1.add.xml.
+  -r RESULTS, --results-file=RESULTS
+                        The name of the file the detectors write their output
+                        into. Defaults to e1output.xml.

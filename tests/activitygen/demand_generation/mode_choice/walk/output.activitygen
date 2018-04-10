@@ -1,0 +1,35 @@
+--> work position: 
+  |-> in city: 2
+  |-> out city: 1
+  |-> in+out city: 3
+--> population: 
+  |-> city households: 1
+  |-> city people: 1
+    |-> city single: 1 / (in) couple: 0
+    |-> city adults: 1
+      |-> estimation: 1
+      |-> retired: 0
+    |-> city children: 0
+      |-> estimation: 0
+  |-> working people: 1
+    |-> working people in city: 1
+    |-> working people from outside: 0
+no problem during bus line trip generation...
+after public transportation: 0
+no problem during households' trips generation...
+after household activities: 0
+no problem during in/out traffic generation...
+after incoming/outgoing traffic: 0
+Before Random traffic generation (days are still entire):
+- Total number of trips: 0
+- Total daily trips: 0
+- Total one-day trips: 0
+added uniform random trips: 0
+no problem during random traffic generation...
+after random traffic: 0
+total trips generated: 0
+total trips finally taken: 0
+...sorted by departure time.
+
+No real trips were generated
+Success.

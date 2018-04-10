@@ -1,0 +1,20 @@
+# Conversion of KP573 from ORINOKO project
+orinoko_kp573
+
+# Conversion of KP577 from ORINOKO project
+orinoko_kp577
+
+# Messstrecke by JR/v1
+messstreckeV1
+
+# Messstrecke by JR/v2
+messstreckeV2
+
+# Messstrecke by JR/v2 with additional traffic lights offset
+messstreckeV2_tlsoffset
+
+# Messstrecke by JR/v2 with discarded traffic lights
+messstreckeV2-discard.tls
+
+# Whether importing speed definitions with km/h appendix works
+messstreckeV2_kmhspeed

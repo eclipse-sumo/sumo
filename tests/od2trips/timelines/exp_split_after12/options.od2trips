@@ -1,0 +1,1 @@
+--timeline 0:0,43200:100,86400:0 -n input_taz.taz.xml -d input_od_o.fma -o trips.trips.xml

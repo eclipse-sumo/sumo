@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <calibrator id="calibtest" lane="beg_0" pos="100">
+        <route id="c1" edges="beg middle end rend"/>
+        <flow begin="0" end="100" route="c1" vehsPerHour="200"/>
+    </calibrator>
+</additional>

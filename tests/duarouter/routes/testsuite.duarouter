@@ -1,0 +1,7 @@
+# Tests with routes stored in style1-input
+# style1: <route .../><vehicle route="..." .../>
+style1_input
+
+# Tests with routes stored in style1-input
+# style2: <vehicle ...><route .../></vehicle>
+style2_input

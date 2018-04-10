@@ -1,0 +1,32 @@
+# variation on depart times and stop positions may induce collisions
+collision
+
+# Whether vehicles driving on a ringway do not brake
+ringNoBrake
+
+# Lane change checks
+lane_change
+
+# detector comparisons
+output
+
+# birthday present
+b50
+
+# testing socket output
+socketout
+
+# testing protobuf conversion and roundtrip
+protobuf
+
+# chaining amitran output and emission calculation
+emission
+
+# testing 'extended' sumo features
+extended
+
+# testing sumo binary xml
+binary
+
+# letting 25 vehicles drive in a circle and plot their speeds
+speedMap

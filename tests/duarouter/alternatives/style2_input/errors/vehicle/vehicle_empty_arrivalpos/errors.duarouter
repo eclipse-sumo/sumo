@@ -1,0 +1,4 @@
+Error: Attribute 'arrivalPos' in definition of vehicle '1' is empty.
+Error: Invalid arrivalPos definition for vehicle '1';
+ must be one of ("random", "max", or a float)
+Quitting (on error).

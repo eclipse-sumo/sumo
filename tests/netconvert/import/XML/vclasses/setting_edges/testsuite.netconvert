@@ -1,0 +1,9 @@
+# sets vclasses on edges only
+set
+
+# dismisses matching edges
+dismiss
+
+# tests whether we can override this lane-wise
+override
+nothing_allowed

@@ -1,0 +1,3 @@
+simstep2 0
+setvalue 0xc4 0x31 veh0 <string> e_bla
+simstep2 0

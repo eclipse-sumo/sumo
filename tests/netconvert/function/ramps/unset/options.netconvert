@@ -1,0 +1,2 @@
+--no-internal-links --ramps.guess --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --output=net.net.xml  --ramps.unset s3
+

@@ -1,0 +1,3 @@
+Error: Attribute 'startTime' is missing in definition of timeSlice '0'.
+Error: Loading failed.
+Quitting (on error).

@@ -1,0 +1,46 @@
+import_config_file:../config_all
+binary:$SUMO_BINARY
+interpreter:$PYTHON $TEXTTEST_HOME/tracirunner.py
+
+copy_test_path:net.net.xml
+copy_test_path:net2.net.xml
+copy_test_path:three_split.net.xml
+copy_test_path:routes.rou.xml
+copy_test_path:additional.xml
+copy_test_path:testclient.prog
+copy_test_path:input_additional.add.xml
+copy_test_path:input_additional2.add.xml
+copy_test_path:input_routes.rou.xml
+
+[collate_file]
+testclient_out:testclient_out.txt
+net_state:netstate_dump.xml
+simstate:simstate.xml
+detector:detector.xml
+tls_state:tls_state.xml
+vehroutes:vehroutes.xml
+tripinfos:tripinfos.xml
+fcd:fcd.xml
+lanechanges:lanechanges.xml
+
+[run_dependent_text]
+testclient_out:Date
+testclient_out:Socket
+testclient_out:send failed: Broken pipe
+tls_state:<!--{[->]}-->
+detector:<!--{[->]}-->
+vehroutes:<!--{[->]}-->
+tripinfos:<!--{[->]}-->
+net_state:<!--{[->]}-->
+fcd:<!--{[->]}-->
+lanechanges:<!--{[->]}-->
+simstate:<!--{[->]}-->
+simstate:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
+output:port
+errors:Socket
+
+[floating_point_tolerance]
+testclient_out:0.0101
+net_state:0.0101
+detector:0.0101
+tripinfos:0.0101

@@ -1,0 +1,1 @@
+--net-file=input_messstrecke.net.xml --detector-files=input_messstrecke.det.xml --measure-files input_flows.txt --routes-output routes.rou.xml --emitters-output emitters.add.xml --begin 25200

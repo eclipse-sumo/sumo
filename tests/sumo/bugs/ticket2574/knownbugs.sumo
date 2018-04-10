@@ -1,0 +1,9 @@
+
+[Reported by leo at 06Okt16:40:37]
+search_string:Vehicle 'ego' will not be able to depart using the given velocity (unpriorised junction too close)!
+use_regexp:0
+search_file:errors
+ignore_other_errors:1
+trigger_on_success:1
+bug_system:trac
+bug_id:2574

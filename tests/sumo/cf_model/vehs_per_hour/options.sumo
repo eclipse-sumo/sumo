@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=motorway.net.xml --routes=input_routes.rou.xml --a input_additional.add.xml,input_additional2.add.xml --max-depart-delay 1 --time-to-teleport 0

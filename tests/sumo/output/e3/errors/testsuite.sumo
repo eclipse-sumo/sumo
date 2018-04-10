@@ -1,0 +1,82 @@
+# detector don't have entry/exit detectors
+entryexit_empty
+
+
+# id is duplicated
+id_duplicated
+
+# id is empty
+id_empty
+
+# id is missing
+id_missing
+
+
+# lane is missing (entry)
+lane_missing__entry
+
+# lane is empty (entry)
+lane_empty__entry
+
+# lane is unknown (entry)
+lane_false__entry
+
+# lane is missing (exit)
+lane_missing__exit
+
+# lane is empty (exit)
+lane_empty__exit
+
+# lane is unknown (exit)
+lane_false__exit
+
+
+# position is missing (entry)
+pos_missing__entry
+
+# position is empty (entry)
+pos_empty__entry
+
+# position is not numeric (entry)
+pos_false__entry
+
+# position is beyond lane's length (entry)
+pos_too_high__entry
+
+# position is missing (exit)
+pos_missing__exit
+
+# position is empty (exit)
+pos_empty__exit
+
+# position is not numeric (exit)
+pos_false__exit
+
+# position is beyond lane's length (exit)
+pos_too_high__exit
+
+
+# freq is missing
+freq_missing
+
+# freq is empty
+freq_empty
+
+# freq is negative
+freq_negative
+
+# freq is not numeric
+freq_false
+
+
+# file is missing
+file_missing
+
+# file is empty
+file_empty
+
+# file can not be built
+file_false
+
+
+

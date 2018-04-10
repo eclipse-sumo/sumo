@@ -1,0 +1,3 @@
+Error: Invalid departPos definition for flow '0';
+ must be one of ("random", "random_free", "free", "base", "last" or a float)
+Quitting (on error).

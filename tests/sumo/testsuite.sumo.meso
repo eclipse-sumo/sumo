@@ -1,0 +1,23 @@
+# whether specification is implemented
+spec
+
+# handling of basic structures
+basic
+
+# output tests
+output
+
+# tests for additional structures
+extended
+
+# testing car-following model properties
+cf_model
+
+# Tests for mesoscopic features
+meso
+
+# error handling tests
+errors
+
+# bug handling tests
+bugs

@@ -1,0 +1,23 @@
+<sumo-detectors>
+
+    <e3Detector file="detector.xml" freq="60" id="e3_0_1si">
+        <detEntry lane="1si_0" pos="-50"/>
+        <detEntry lane="1si_1" pos="-50"/>
+        <detEntry lane="1si_2" pos="-50"/>
+        <detEntry lane="2si_0" pos="-50"/>
+        <detEntry lane="2si_1" pos="-50"/>
+        <detEntry lane="2si_2" pos="-50"/>
+        <detEntry lane="3si_0" pos="-50"/>
+        <detEntry lane="3si_1" pos="-50"/>
+        <detEntry lane="3si_2" pos="-50"/>
+        <detEntry lane="4si_0" pos="-50"/>
+        <detEntry lane="4si_1" pos="-50"/>
+        <detEntry lane="4si_2" pos="-50"/>
+
+        <detExit lane="1o_0" pos="10"/>
+        <detExit lane="2o_0" pos="10"/>
+        <detExit lane="3o_0" pos="10"/>
+        <detExit lane="4o_0" pos="10"/>
+    </e3Detector>
+
+</sumo-detectors>

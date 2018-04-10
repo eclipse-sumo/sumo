@@ -1,0 +1,16 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+
+   <edge id="beg" from="absBeg" to="beg" speed="27.8" numLanes="2"/>
+
+   <edge id="beg2left" from="beg" to="begleft" numLanes="1" speed="27.8"/>
+
+   <edge id="left" from="begleft" to="endleft" allow="passenger" numLanes="1" speed="27.8"/>
+
+   <edge id="middle" from="beg" to="end" allow="bus" numLanes="1" speed="13.9"/>
+
+   <edge id="left2end" from="endleft" to="end" numLanes="1" speed="27.8"/>
+
+   <edge id="end" from="end" to="absEnd" speed="27.8" numLanes="2"/>
+   <edge id="rend" from="absEnd" to="rabsEnd" speed="27.8" numLanes="2"/>
+
+</edges>

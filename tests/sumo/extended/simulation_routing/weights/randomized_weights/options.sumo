@@ -1,0 +1,1 @@
+--no-step-log --net-file=net.net.xml -r=input_routes.rou.xml --vehroutes=vehroutes.xml --weights.random-factor 1.1 --device.rerouting.period 0 --device.rerouting.pre-period 0

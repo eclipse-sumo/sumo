@@ -1,0 +1,12 @@
+<routes>
+    <vType id="short" length="5" sigma="0"/>
+    <vType id="long" length="20" sigma="0"/>
+
+	<vehicle id="1" type="long" depart="0" route="1" departLane="free"/>
+	<vehicle id="2" type="short" depart="0" route="1" departLane="free"/>
+	<vehicle id="3" type="short" depart="0" route="1" departLane="free"/>
+	<vehicle id="4" type="short" depart="0" route="1" departLane="free"/>
+	<vehicle id="5" type="short" depart="0" route="1" departLane="free"/>
+	<vehicle id="6" type="short" depart="0" route="1" departLane="free"/>
+
+</routes>

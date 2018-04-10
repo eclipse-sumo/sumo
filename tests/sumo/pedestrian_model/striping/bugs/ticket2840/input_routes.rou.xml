@@ -1,0 +1,17 @@
+<routes>
+    <person id="p0" depart="0" departPos="-0.1">
+        <walk edges="beg middle end" arrivalPos="10"/>
+    </person>
+    <person id="p1" depart="0" departPos="-0.5">
+        <walk edges="beg middle end" arrivalPos="10"/>
+    </person>
+    <person id="blocker" depart="0" departPos="0.0">
+        <walk edges="end" arrivalPos="10" speed="0.1"/>
+    </person>
+    <person id="blocker2" depart="0" departPos="0.0">
+        <walk edges="end" arrivalPos="10" speed="0.1" departPosLat="0.65"/>
+    </person>
+    <person id="blocker3" depart="0" departPos="0.0">
+        <walk edges="end" arrivalPos="10" speed="0.1" departPosLat="1.30"/>
+    </person>
+</routes>

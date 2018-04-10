@@ -1,0 +1,7 @@
+<routes>
+    <vType sigma="0" id="orig" carFollowModel="KraussOrig1"/>
+    <vType sigma="0" id="krauss" carFollowModel="Krauss"/>
+
+    <route id="r0" edges="beg end"/>
+    <vehicle id="0" type="krauss" route="r0" depart="0" departSpeed="max"/>
+</routes>

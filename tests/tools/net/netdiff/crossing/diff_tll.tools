@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="26" state="gGGgrrrgGGgrrrGG"/>
+        <phase duration="5" state="gGGgrrrgGGgrrrrr"/>
+        <phase duration="4" state="yyygrrryyygrrrrr"/>
+        <phase duration="6" state="rrrGrrrrrrGrrrrr"/>
+        <phase duration="4" state="rrryrrrrrryrrrrr"/>
+        <phase duration="31" state="rrrrGGgrrrrGGgrr"/>
+        <phase duration="4" state="rrrryygrrrryygrr"/>
+        <phase duration="6" state="rrrrrrGrrrrrrGrr"/>
+        <phase duration="4" state="rrrrrryrrrrrryrr"/>
+    </tlLogic>
+</tlLogics>

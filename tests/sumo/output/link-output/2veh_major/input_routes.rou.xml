@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="r0" edges="beg middle"/>
+    <vehicle id="0" depart="0" route="r0"/>
+    <vehicle id="1" depart="10" route="r0"/>
+</routes>

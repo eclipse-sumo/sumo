@@ -1,0 +1,30 @@
+# whether broken networks are handled correctly
+broken_nets
+
+# complex sumo tests
+sumo
+
+# complex traci tests
+traci
+
+# Tests for the SImple PLAtooning TraCI plugin.
+# Uses python unittest.
+simpla
+
+# complex jtrrouter tests
+jtrrouter
+
+# netconvert roundtrips with different formatsnetconvert
+netconvert
+
+# complex traffic lights tests
+traffic_lights
+
+# tutorials
+tutorial
+
+# state saving and loading
+state
+
+# emission tools, especially emissionDrivingCycleemissions
+emissions

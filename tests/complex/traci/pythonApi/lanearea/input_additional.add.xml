@@ -1,0 +1,4 @@
+<additional>
+    <laneAreaDetector id="det0" lane="2fi_0" freq="1" pos="100" length="25" file="detector.xml" />
+
+</additional>

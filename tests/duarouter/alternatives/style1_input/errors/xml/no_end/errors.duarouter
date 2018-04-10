@@ -1,0 +1,5 @@
+Error: input ended before all started tags were ended; last tag started is 'routes'
+ In file 'input_alts.rou.alt.xml'
+ At line/column 14/1.
+
+Quitting (on error).

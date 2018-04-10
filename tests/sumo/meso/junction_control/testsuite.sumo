@@ -1,0 +1,27 @@
+# the basic cross net with junction control
+plain
+
+# the basic cross net with junction control and multique
+multique
+
+# the basic cross net with tls off and junction control
+no_tls
+
+# the basic cross net with tls off, multique and junction control. 
+# This should run longer than test 'no_tls' because without multique the combined capacity of 2 lanes can be used for going straight or turning.
+no_tls_multique
+
+# the cross net without junction control
+no_control
+
+# tests a problematic network:
+# - the network contains a roundabout. This may lead to dead-lock if junction control is switched off
+# - the network contains a faulty traffic light. This leads to bad flow if junction control is switched on
+network_problem
+tls_coordination
+
+# the basic net without tls
+priority
+
+# the basic net without tls
+priority_no_control

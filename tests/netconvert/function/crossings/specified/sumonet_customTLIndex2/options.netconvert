@@ -1,0 +1,4 @@
+--sumo-net-file input_net.net.xml
+-o net.net.xml
+--plain-output-prefix plain
+

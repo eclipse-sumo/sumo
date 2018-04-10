@@ -1,0 +1,7 @@
+<routes>
+    <route id="r0" edges="in out" />
+	<vType latAlignment="compact" id="bus" accel="2.6" decel="4.5" sigma="0.0" length="12" minGap="3" maxSpeed="70" emissionClass="HDV_6_2" vClass="bus" lcCooperative="0.0"/>
+    <vehicle type="bus" id="v0" depart="0" route="r0" departPos="46.95" departPosLat="-0.35" departLane="0">
+        <stop lane="in_0" duration="2" endPos="46.95" /> 
+    </vehicle>
+</routes>

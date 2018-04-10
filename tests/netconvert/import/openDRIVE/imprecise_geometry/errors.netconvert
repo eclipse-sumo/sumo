@@ -1,0 +1,3 @@
+Warning: Given openDrive file 'opendrive.xodr' uses version 1.4;
+ Version 1.2 is supported.
+Warning: Mismatched geometry for edge '190' between geometry segments 1 and 2.

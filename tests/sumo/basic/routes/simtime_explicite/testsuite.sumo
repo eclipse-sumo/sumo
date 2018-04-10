@@ -1,0 +1,16 @@
+# simulation begins at 0, ends at 50
+b0_e50
+
+# simulation begins at 0, ends at 400
+b0_e400
+
+# simulation begins at 50, ends at 100
+b50_e100
+
+# simulation begins at 100, ends at 400
+b100_e400
+
+
+
+
+

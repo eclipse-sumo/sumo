@@ -1,0 +1,4 @@
+Error: No connection between edge 'end' and edge 'beg' found.
+Error: Mandatory edge 'beg' not reachable by vehicle '0'.
+Error: The vehicle '0' has no valid route.
+Quitting (on error).

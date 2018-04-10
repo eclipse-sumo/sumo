@@ -1,0 +1,45 @@
+<viewsettings>
+    <viewport zoom="100" x="0" y="0"/>
+    <scheme name="my real world">
+        <opengl antialiase="0" dither="0"/>
+        <background backgroundColor="0.20,0.50,0.20"
+                    showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
+        <edges laneEdgeMode="0" laneShowBorders="1" showLinkDecals="1" showRails="1"
+               drawEdgeName="0" edgeNameSize="50.00" edgeNameColor="1.00,0.50,0.00"
+               drawInternalEdgeName="1" internalEdgeNameSize="25.00" internalEdgeNameColor="0.50,0.25,0.00" hideConnectors="1">
+        </edges>
+        <vehicles vehicleMode="0" vehicleQuality="2" minVehicleSize="0.00" vehicleExaggeration="1.00" showBlinker="1"
+                  drawVehicleName="0" vehicleNameSize="50.00" vehicleNameColor="0.80,0.60,0.00">
+            <nvcC index="3" value="1.00,0.00,0.00"/>
+            <nvcC index="3" value="0.00,0.00,1.00"/>
+            <nvcC index="4" value="0.00,0.00,1.00"/>
+            <nvcC index="4" value="1.00,0.00,0.00"/>
+            <nvcC index="5" value="1.00,1.00,1.00"/>
+            <nvcC index="5" value="0.50,0.50,0.50"/>
+            <nvcC index="6" value="1.00,0.00,0.00"/>
+            <nvcC index="6" value="0.00,0.00,1.00"/>
+            <nvcC index="7" value="0.00,1.00,0.00"/>
+            <nvcC index="7" value="1.00,0.00,0.00"/>
+            <nvcC index="8" value="0.00,1.00,0.00"/>
+            <nvcC index="8" value="1.00,0.00,0.00"/>
+            <nvcC index="9" value="0.00,1.00,0.00"/>
+            <nvcC index="9" value="1.00,0.00,0.00"/>
+            <nvcC index="10" value="0.00,1.00,0.00"/>
+            <nvcC index="10" value="1.00,0.00,0.00"/>
+            <nvcC index="11" value="0.00,1.00,0.00"/>
+            <nvcC index="11" value="1.00,0.00,0.00"/>
+            <nvcC index="12" value="0.00,1.00,0.00"/>
+            <nvcC index="12" value="1.00,0.00,0.00"/>
+            <nvcC index="13" value="0.00,1.00,0.00"/>
+            <nvcC index="13" value="1.00,0.00,0.00"/>
+            <nvcC index="14" value="1.00,1.00,0.00"/>
+            <nvcC index="14" value="1.00,1.00,1.00"/>
+            <nvcC index="14" value="1.00,0.00,0.00"/>
+        </vehicles>
+        <junctions junctionMode="0" drawLinkTLIndex="0" drawLinkJunctionIndex="0"
+                   drawJunctionName="0" junctionNameSize="50.00" junctionNameColor="0.00,1.00,0.50" showLane2Lane="0"/>
+        <additionals addMode="0" minAddSize="1.00" addExaggeration="1.00" drawAddName="0" addNameSize="50.00"/>
+        <pois poiExaggeration="1.00" minPOISize="0.00" drawPOIName="0" poiNameSize="50.00" poiNameColor="1.00,0.00,0.50"/>
+        <legend showSizeLegend="1"/>
+    </scheme>
+</viewsettings>

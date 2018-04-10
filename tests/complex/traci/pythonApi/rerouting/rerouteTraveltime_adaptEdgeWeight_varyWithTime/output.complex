@@ -1,0 +1,9 @@
+Loading configuration... done.
+Could not connect to TraCI server at localhost:55048 [Errno 111] Connection refused
+ Retrying in 1 seconds
+edge=middle current=7.19942404608 adapted=-1.0
+edge=middle2 current=14.3988480922 adapted=-1.0
+edge=middle3 current=28.7976961843 adapted=-1.0
+edge=middle current=7.19942404608 adapted=-1.0
+edge=middle2 current=14.3988480922 adapted=-1.0
+edge=middle3 current=28.7976961843 adapted=-1.0

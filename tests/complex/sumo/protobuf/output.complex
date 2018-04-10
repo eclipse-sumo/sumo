@@ -1,0 +1,39 @@
+Loading configuration... done.
+Loading configuration... done.
+--- 
++++ 
+@@ -3,33 +3 @@
+-<!-- generated on 04/04/14 12:38:20 by SUMO sumo Version dev-SVN-rUNKNOWN
+-<?xml version="1.0" encoding="UTF-8"?>
+-
+-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+-
+-    <input>
+-        <net-file value="input_net.net.xml"/>
+-        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+-    </input>
+-
+-    <output>
+-        <amitran-output value="direct.xml"/>
+-        <save-state.prefix value="state"/>
+-    </output>
+-
+-    <time>
+-        <begin value="0"/>
+-        <end value="150"/>
+-    </time>
+-
+-    <report>
+-        <no-duration-log value="true"/>
+-        <no-step-log value="true"/>
+-    </report>
+-
+-    <emissions>
+-        <phemlight-path value="./PHEMlight/"/>
+-    </emissions>
+-
+-</configuration>
+--->
+-
+-<trajectories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/trajectories.xsd" timeStepSize="1000">
++<trajectories timeStepSize="1000">

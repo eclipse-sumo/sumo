@@ -1,0 +1,6 @@
+connections from SC_0:
+<connection from="SC" to="CE" fromLane="0" toLane="0" tl="C" linkIndex="9" direction="r">
+<connection from="SC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="10" direction="s">
+outgoing internal lanes of SC_0: [u':C_9_0', u':C_10_0']
+connections from :C_0_0:
+<connection from=":C_0" to="CW" fromLane="0" toLane="0" direction="s">

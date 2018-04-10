@@ -1,0 +1,5 @@
+# Simple test for setting a different program
+basic
+
+# error case: the program to set is not known
+error_UnknownProgram

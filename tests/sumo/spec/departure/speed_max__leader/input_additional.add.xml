@@ -1,0 +1,10 @@
+<routes>
+
+	<vType sigma="0" id="t1" vmax="70"/>
+    <route id="2" edges="beg"/>
+	<vehicle id="blocker" depart="0" route="2" departSpeed="max" arrivalPos="101">
+        <stop lane="beg_0" duration="100" endPos="100"/>
+    </vehicle>
+	<flow id="flow" begin="1" end="10" period="1" route="2" departSpeed="max" arrivalLane="0" arrivalPos="90"/>
+
+</routes>

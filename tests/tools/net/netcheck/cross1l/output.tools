@@ -1,0 +1,8 @@
+Component: #0 Edge Count: 8
+ 1i 1o 2i 2o 3i 3o 4i 4o
+
+Total Edges: 8
+Largest Component: #0 Edge Count: 8 Coverage: 100.0%
+
+Edges	Incidence
+8	1

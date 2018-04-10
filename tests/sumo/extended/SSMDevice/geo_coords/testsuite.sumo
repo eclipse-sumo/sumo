@@ -1,0 +1,5 @@
+# test output positions in geo-coords
+with_geo
+
+# test output positions in sumo-net coords
+without_geo

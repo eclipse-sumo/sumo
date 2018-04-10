@@ -1,0 +1,7 @@
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <node id="gneJ1" y="40.00" x="-40.00" type="priority"/>
+    <!-- Changed Elements -->
+    <node id="node_C" y="10.00" tl="recompute"/>
+</nodes>

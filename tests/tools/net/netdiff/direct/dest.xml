@@ -1,0 +1,21 @@
+<netstats>
+    <interval begin="1" end="2">
+        <edge id="53486709" traveltime="34"/>
+        <edge id="53486708" traveltime="3"/>
+        <edge id="53481578" traveltime="2"/>
+    </interval>
+    <interval begin="2" end="3">
+        <edge id="53486709" traveltime="43"/>
+        <edge id="53486708" traveltime="4"/>
+    </interval>
+    <interval begin="3" end="4">
+        <edge id="53486709" traveltime="43"/>
+        <edge id="53486708" traveltime="4"/>
+        <edge id="53481578" traveltime="2"/>
+        <edge id="added" traveltime="42"/>
+    </interval>
+    <interval begin="4" end="5">
+        <edge id="53486709" traveltime="43"/>
+        <edge id="53486708" traveltime="4"/>
+    </interval>
+</netstats>

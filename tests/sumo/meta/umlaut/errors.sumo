@@ -1,0 +1,4 @@
+Error: invalid byte 't' at position 2 of a 4-byte sequence
+Error:  (At line/column 2/1).
+Error: Could not load configuration 'sumo.sumocfg'.
+Quitting (on error).

@@ -1,0 +1,1 @@
+--default-junction-type agentbased -v --rand -o net.net.xml --rand.iterations=10

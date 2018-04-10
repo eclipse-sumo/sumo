@@ -1,0 +1,25 @@
+TraCITestClient output file. Date: Mon Jul 01 13:28:39 2013
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=65 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=65  ObjectID=0 valueDataType=11 Double value: 10.00
+
+-> Command sent: <SetValue>:
+  domID=196 varID=65 objID=0
+.. Answered with error to command (196), [description: Invalid maximum speed.]
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=65 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=65  ObjectID=0 valueDataType=11 Double value: 10.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+  <vehicle depart="1" id="veh0">
+     <route edges="1to2 out"/>
+     <stop lane="1to2_0" endPos="999990" duration="30000"/>
+  </vehicle>
+  <flow begin="2" id="v" number="5000" period="2">
+     <route edges="1to2 out"/>
+  </flow>
+</routes>

@@ -1,0 +1,22 @@
+# Tests what happens if the output can not be written
+false_output
+
+# Tests what happens if an unknown option is given
+unknown_option
+
+# Test for not buildable plain output
+false_plain_output
+
+# bogus argument for option --keep-edges.by-vclass
+invalid_argument_vclass
+
+# warn about large coordinates
+large_coordinates
+
+# ignore-errors option is set and allowed vClass or disallowed vClass contains unrecognized attributes (#2148)
+# 
+ignore_errors_and_unknown_vclass
+
+# allowed vClass or disallowed vClass contains unrecognized attributes (#2148)
+# 
+unknown_vclass

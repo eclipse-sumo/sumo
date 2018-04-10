@@ -1,0 +1,6 @@
+<vehicles>
+    <vType id="t" sigma="0" decel="4"/>
+    <vehicle id="ego" depart="0" departSpeed="12" type="t" departPos="-15">
+        <route edges="beg end"/>
+    </vehicle>
+</vehicles>

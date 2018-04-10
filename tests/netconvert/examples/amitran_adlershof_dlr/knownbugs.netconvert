@@ -1,0 +1,7 @@
+
+[Reported by Windows at 25Oct11:12:28]
+search_string:link id="548" from="197" to="196" roadClass="4" length="100"
+use_regexp:0
+search_file:foreign
+bug_system:trac
+bug_id:1163

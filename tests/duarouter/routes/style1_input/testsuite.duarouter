@@ -1,0 +1,29 @@
+# Tests whether the import of routes with one departure time works
+one_time
+
+# Tests with routes which departure time increases
+increasing_time
+
+# Test whether routes with unsorted are imported correctly
+unsorted_time
+
+# Tests whether the vehicle type may be omitted
+increasing_time_novehtype
+
+# Tests whether passing colors works
+increasing_time_color
+
+# Checks whether parameter passing works
+withparams
+
+# Checks whether stop passing works
+with_stops
+
+# Tests the import of shared routes
+multiref
+
+# Tests the import of shared routes on a different net
+multiref2
+
+# Tests for false user input
+errors

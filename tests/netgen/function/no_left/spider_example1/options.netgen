@@ -1,0 +1,1 @@
+--no-internal-links --no-left-connections -v --spider --spider.arm-number=10 --spider.circle-number=10 --spider.space-radius=100 --output=net.net.xml

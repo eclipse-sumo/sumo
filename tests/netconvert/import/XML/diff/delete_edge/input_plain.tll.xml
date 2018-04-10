@@ -1,0 +1,24 @@
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="edge_R2C" to="edge_C2L" fromLane="0" toLane="1" tl="node_C" linkIndex="5"/>
+    <delete from="edge_U2C" to="edge_C2L" fromLane="0" toLane="0" tl="node_C" linkIndex="0"/>
+    <delete from="edge_U2C" to="edge_C2D" fromLane="0" toLane="0" tl="node_C" linkIndex="1"/>
+    <delete from="edge_U2C" to="edge_C2R" fromLane="0" toLane="0" tl="node_C" linkIndex="2"/>
+    <delete from="edge_U2C" to="edge_C2U" fromLane="0" toLane="0" tl="node_C" linkIndex="3"/>
+    <!-- Created Elements -->
+    <tlLogic id="node_C_reguessed" programID="0" type="static" offset="0">
+        <phase duration="31" state="GGGgGrrr"/>
+        <phase duration="4" state="yyyyyrrr"/>
+        <phase duration="31" state="rrrrGGGG"/>
+        <phase duration="4" state="rrrryyyy"/>
+    </tlLogic>
+    <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="1"/>
+    <!-- Changed Elements -->
+    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" tl="node_C_reguessed" linkIndex="6"/>
+    <connection from="edge_R2C" to="edge_C2D" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="2"/>
+    <connection from="edge_D2C" to="edge_C2D" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="7"/>
+    <connection from="edge_R2C" to="edge_C2U" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="0"/>
+    <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="4"/>
+    <connection from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="5"/>
+    <connection from="edge_R2C" to="edge_C2R" fromLane="0" toLane="0" tl="node_C_reguessed" linkIndex="3"/>
+</tlLogics>

@@ -1,0 +1,6 @@
+# test option time to teleport
+time-to-teleport
+time-to-teleport.highways
+
+# teleporting over multiple edges
+teleport_multihop

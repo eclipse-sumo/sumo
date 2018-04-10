@@ -1,0 +1,32 @@
+# bug [ 1993928 ] --keep-edges.input-file does not remove empty
+# When importing a large network and trying to reduce it by giving a list of
+# edges to keep, the resulting network only contains the given edges. Ok, but
+# ALL nodes are included, not only those used by the edges. Loading the
+# network into guisim shows nothing...
+bug1993928
+
+# tests whether dividing edges by a ';' yields in a deprecation warning (based on bug1993928/removing_bottom)
+_deprecated_
+connections
+
+# Only keep edges with the given type
+by-type
+
+# keep edge ids from input file
+input-file
+input-file_postload
+
+# Only keep edges with the given vclass
+by-vclass
+
+# Only keep edges with the given vclass. (from plain xml)
+by-vclass2
+
+# Only keep edges with the given type and *all* that are named explicitly
+by-type_and_explicit
+
+# remove isolated components
+components
+
+# keep 2 largest components
+components2

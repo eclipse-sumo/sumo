@@ -1,0 +1,31 @@
+# Tests retrieval of vehicle number in scenario (ID_COUNT)
+ID_COUNT
+ID_COUNT_subseconds
+
+# Tests retrieval of vehicles in scenario (ID_LIST)
+ID_LIST
+ID_LIST_subseconds
+
+# Variables Retrieval
+VAR_ANGLE
+VAR_ANGLE_subseconds
+VAR_COLOR
+VAR_COLOR_subseconds
+VAR_POSITION
+VAR_POSITION_subseconds
+VAR_POSITION3D
+VAR_POSITION3D_subseconds
+VAR_ROAD_ID
+VAR_ROAD_ID_subseconds
+VAR_SPEED
+VAR_SPEED_subseconds
+VAR_TYPE
+VAR_TYPE_subseconds
+VAR_LANEPOSITION
+VAR_LANEPOSITION_subseconds
+VAR_WAITINGTIME
+VAR_NEXT_EDGE
+
+# Testing error cases
+errors
+errors_subseconds

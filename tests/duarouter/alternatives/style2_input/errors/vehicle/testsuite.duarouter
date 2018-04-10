@@ -1,0 +1,58 @@
+# Vehicle's depart is empty
+vehicle_depart_empty
+
+# Vehicle's depart is not numeric
+vehicle_depart_false
+
+# Vehicle's depart is not given
+vehicle_depart_missing
+
+
+
+# Vehicle's id is empty
+vehicle_id_empty
+
+# Vehicle's id is not given
+vehicle_id_missing
+
+
+# Vehicle's departlane is false
+vehicle_false_departlane
+
+# Vehicle's departpos is false
+vehicle_false_departpos
+
+# Vehicle's departspeed is false
+vehicle_false_departspeed
+
+# Vehicle's arrivallane is false
+vehicle_false_arrivallane
+
+# Vehicle's arrivalpos is false
+vehicle_false_arrivalpos
+
+# Vehicle's arrivalspeed is false
+vehicle_false_arrivalspeed
+
+
+# Vehicle's departlane is empty
+vehicle_empty_departlane
+
+# Vehicle's departpos is empty
+vehicle_empty_departpos
+
+# Vehicle's departspeed is empty
+vehicle_empty_departspeed
+
+# Vehicle's arrivallane is empty
+vehicle_empty_arrivallane
+
+# Vehicle's arrivalpos is empty
+vehicle_empty_arrivalpos
+
+# Vehicle's arrivalspeed is empty
+vehicle_empty_arrivalspeed
+
+
+
+

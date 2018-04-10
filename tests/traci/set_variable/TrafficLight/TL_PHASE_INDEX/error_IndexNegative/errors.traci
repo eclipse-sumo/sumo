@@ -1,0 +1,2 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Error: Answered with error to command 0xc2: The phase index -1 is not in the allowed range [0,7].

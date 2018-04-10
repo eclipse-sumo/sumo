@@ -1,0 +1,12 @@
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <type id="driving"  priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyEntry" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="mwyExit"  priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="parking"  priority="1" speed="1.39"  disallow="pedestrian" width="3.65"/>
+    <type id="special1" priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="stop"     priority="1" speed="22.22" disallow="pedestrian" width="3.65"/>
+    <type id="sidewalk"     priority="1" speed="22.22" allow="pedestrian" width="2.5"/>
+    <type id="biking"     priority="1" speed="22.22" allow="bicycle" width="1.5"/>
+    <!-- restricted could mean different things but for this map it means "highway.path" -->
+    <type id="restricted"  priority="1" speed="22.22" allow="bicycle pedestrian" width="1.5"/>
+</types>

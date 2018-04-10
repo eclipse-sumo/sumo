@@ -1,0 +1,25 @@
+# Tests retrieval of polygon number in scenario (ID_COUNT)
+ID_COUNT
+ID_COUNT_subseconds
+
+# Tests retrieval of polygons in scenario (ID_LIST)
+ID_LIST
+ID_LIST_subseconds
+
+# Variables Retrieval
+VAR_COLOR
+VAR_COLOR_subseconds
+VAR_FILL
+VAR_FILL_subseconds
+VAR_SHAPE
+VAR_SHAPE_subseconds
+VAR_TYPE
+VAR_TYPE_subseconds
+
+
+# Testing error cases
+errors
+errors_subseconds
+
+
+

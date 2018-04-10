@@ -1,0 +1,55 @@
+# Tests what happens if an unknown option is passed
+unknown_option
+
+# Tests what happens if an unknown option is passed via config
+unknown_config_option
+
+# Tests what happens the first parameter is missing
+# disabled because the --mesosim param interferes
+# missing_first_param
+
+# the value for --end is not a number
+invalid_time
+
+# the value for --begin is too large
+high_time
+
+# the value for --begin is larger than the one for --end
+begin_after_end
+
+# the value for --begin is negative
+begin_negative
+
+# the value for --end is negative
+end_negative
+
+# the value for --verbose is not a propper bool
+invalid_float
+
+# the value for --device.rerouting.probability is not a float
+invalid_bool
+invalid_step_length
+
+# Tests warning if the given default action step length is no multiple of the simulation step-length.
+action_step_fractional_warning
+
+# Tests warning if the given default action step length is negative.
+action_step_negative_warning
+
+# exit on too many teleports
+too_many_teleports
+
+# Tests for broken routes
+routes
+
+# Tests for duplicate structures (replacing XMLIdAlreadyUsedException)
+duplicates
+
+# Tests with broken traffic lights
+traffic_lights
+
+# error handling for person related input
+person
+
+# warn about multiple connections from one edge to the sam lane
+unsafe_connections

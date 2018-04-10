@@ -1,0 +1,15 @@
+# test setting teh vehicle to a different position
+MoveTo
+
+
+# Test error on specifying an invalid node id
+InvalidNodeId
+
+# Test error on setting to a not passed edge
+InvalidEdge
+
+# Test error on setting on an unknown lane
+InvalidLane
+
+
+

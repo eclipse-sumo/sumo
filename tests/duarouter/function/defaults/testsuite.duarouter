@@ -1,0 +1,40 @@
+# Setting arrivallane to 0, not overriding
+arrivallane
+
+# Setting arrivalpos to 0, not overriding
+arrivalpos
+
+# Setting arrivalspeed to 0, not overriding
+arrivalspeed
+
+# Setting departlane to 0, not overriding
+departlane
+
+# Setting departpos to 0, not overriding
+departpos
+
+# Setting departspeed to 0, not overriding
+departspeed
+
+
+# Setting arrivallane to 0, overriding
+override_arrivallane
+
+# Setting arrivalpos to 0, overriding
+override_arrivalpos
+
+# Setting arrivalspeed to 0, overriding
+override_arrivalspeed
+
+# Setting departlane to 0, overriding
+override_departlane
+
+# Setting departpos to 0, overriding
+override_departpos
+
+# Setting departspeed to 0, overriding
+override_departspeed
+
+
+
+

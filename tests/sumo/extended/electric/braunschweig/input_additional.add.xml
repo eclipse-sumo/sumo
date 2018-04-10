@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<additional>
+   <busStop endPos="20" id="bS_2to19_0a" lane="2to19_0" startPos="5"/>
+   <busStop endPos="20" id="bS_53to70_0a" lane="53to70_0" startPos="5"/>
+   <busStop endPos="20" id="bS_95to96_0a" lane="95to96_0" startPos="5"/>
+   <busStop endPos="15" id="bS_109to174_0a" lane="109to174_0" startPos="0"/>
+
+   <chargingStation chargeDelay="2" chargeInTransit="0" power="200000" efficiency="0.95" endPos="25" id="cS_2to19_0a" lane="2to19_0" startPos="10"/>
+   <chargingStation chargeDelay="2" chargeInTransit="1" power="200000" efficiency="0.95" endPos="55.76" id="cS_17to2_0a" lane="17to2_0" startPos="5"/>
+   <chargingStation chargeDelay="2" chargeInTransit="1" power="200000" efficiency="0.95" endPos="55.76" id="cS_17to2_1a" lane="17to2_1" startPos="5"/>
+
+</additional>

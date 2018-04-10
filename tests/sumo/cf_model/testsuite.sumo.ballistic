@@ -1,0 +1,18 @@
+# show that each model allows vehicles to follow each other around a circular track
+drive_in_circles
+
+# show that each model allows vehicles to stop at an exact position
+stop_at_position
+
+# test model behaviour in jam situations
+jam_resolution
+
+# test model behaviour with slopes
+slope
+
+# decelerate because the next lane has a lower speed limit
+adap_speed_for_new_lane
+
+# tests behavior with different values of the reactionTime/headway parameter tau
+tau
+vehs_per_hour

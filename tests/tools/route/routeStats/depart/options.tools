@@ -1,0 +1,2 @@
+input_routes.rou.xml --binwidth 50 --hist-output histogram.dat
+--full-output fullstats.dat --attribute depart tools/route/routeStats.py

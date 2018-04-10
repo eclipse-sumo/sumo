@@ -1,0 +1,26 @@
+# begin time=0, first change at time=100
+b0_offset_100
+
+# begin time=100, first change at time=0
+b100_offset_0
+
+# begin time=100, first change at time=50
+b100_offset_50
+
+# begin time=100, first change at time=100
+b100_offset_100
+
+# begin time=100, first change at time=200
+b100_offset_200
+
+# begin time=0, first change at time=0
+begin_0
+
+# nested definition
+nested
+
+# as b0_offset_100, but one time is set twice (should be a warning)
+b0_offset_100_doubleTime
+
+# negative speeds should reset to default edge speed
+reset_to_default

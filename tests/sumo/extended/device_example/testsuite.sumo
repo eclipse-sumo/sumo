@@ -1,0 +1,6 @@
+# test custom parameters and the presence of other devices
+custom_parameters
+
+# check whether retrieving another device of the same vehicle is working
+other_device
+assign_by_prob_and_param

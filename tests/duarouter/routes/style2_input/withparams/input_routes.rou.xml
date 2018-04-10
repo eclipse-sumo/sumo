@@ -1,0 +1,84 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vehicle id="0" depart="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="10" depart="10" color="0,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="11" depart="11" color="1,0,1">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="20" depart="20" departPos="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="21" depart="21" departPos="10">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="22" depart="22" departPos="free">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="23" depart="23" departPos="random">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+
+   <vehicle id="30" depart="30" departLane="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="31" depart="31" departLane="1">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="32" depart="32" departLane="random">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="33" depart="33" departLane="free">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="34" depart="34" departLane="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="40" depart="40" departSpeed="0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="41" depart="41" departSpeed="1">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="42" depart="42" departSpeed="max">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="43" depart="43" departSpeed="random">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="50" depart="50" arrivalLane="42">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="51" depart="51" arrivalLane="current">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="60" depart="60" arrivalPos="42">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="61" depart="61" arrivalPos="max">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="62" depart="62" arrivalPos="random">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="70" depart="70" arrivalSpeed="42">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+   <vehicle id="71" depart="71" arrivalSpeed="current">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+
+   <vehicle id="72" depart="72">
+      <route edges="beg middle end rend"/>
+      <param key="blubber" value="zisch"/>
+   </vehicle>
+
+</routes>

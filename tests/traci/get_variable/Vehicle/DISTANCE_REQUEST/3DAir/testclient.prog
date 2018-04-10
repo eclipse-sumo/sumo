@@ -1,0 +1,3 @@
+simstep2 0
+getvariable_plus 0xa4 0x83 0 <compound> 2 <position3D> 2900 495 0 <airDist>
+simstep2 0

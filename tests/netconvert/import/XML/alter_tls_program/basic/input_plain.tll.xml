@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- generated on Wed 09 Nov 2011 09:00:46 AM CET by Netedit Version dev-SVN-r11482
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+
+    <output>
+        <output-file value="/home/erdm_ja/debug/presentation/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<tlLogics version="0.13">
+    <tlLogic id="gneJ3" type="static" programID="0" offset="0">
+        <phase duration="31" state="rrrrrr"/>
+        <phase duration="4" state="rrrrrr"/>
+        <phase duration="6" state="rrrrrr"/>
+        <phase duration="4" state="rrrrrr"/>
+        <phase duration="31" state="rrrrrr"/>
+        <phase duration="4" state="rrrrrr"/>
+    </tlLogic>
+
+    <tlLogic id="gneJ3" type="static" programID="1" offset="0">
+        <phase duration="31" state="GGGGGG"/>
+        <phase duration="4"  state="GGGGGG"/>
+        <phase duration="6"  state="GGGGGG"/>
+        <phase duration="4"  state="GGGGGG"/>
+        <phase duration="31" state="GGGGGG"/>
+        <phase duration="4"  state="GGGGGG"/>
+    </tlLogic>
+</tlLogics>

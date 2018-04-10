@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <routeDistribution id="rDist">
+        <route edges="beg middle end"/>
+        <route edges="beg2 middle end"/>
+    </routeDistribution>
+
+    <calibrator id="cali" edge="middle" pos="0">
+        <flow begin="0" end="20" route="rDist" vehsPerHour="720"/>
+    </calibrator>
+</additional>
