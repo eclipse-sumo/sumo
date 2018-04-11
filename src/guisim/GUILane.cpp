@@ -1123,13 +1123,13 @@ GUILane::getScaleValue(int activeScheme) const {
 
 bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myPermissions) && s.showRails;
+    return isRailway(myPermissions) && s.showRails && !s.drawForSelecting;
 }
 
 
 bool
 GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myPermissions) && s.showRails; // reusing the showRails setting
+    return isWaterway(myPermissions) && s.showRails && !s.drawForSelecting; // reusing the showRails setting
 }
 
 
