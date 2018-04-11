@@ -9,3 +9,6 @@ zero_split
 
 # A "long" street with multiple sinks and sources (flowrouter functionality)
 #long_route
+
+# Tests flows on simple split network
+only_source

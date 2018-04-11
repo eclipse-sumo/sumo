@@ -300,11 +300,10 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
             }
         }
         for (std::vector<RODFRouteDesc>::const_iterator i = routes.begin(); i != routes.end(); ++i) {
-            if ((*i).overallProb > 0 || includeUnusedRoutes) {
-                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, (*i).overallProb).closeTag();
-            }
             if (isEmptyDist) {
-                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, double(1)).closeTag();
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, 1.0).closeTag();
+            } else if ((*i).overallProb > 0 || includeUnusedRoutes) {
+                out.openTag(SUMO_TAG_ROUTE).writeAttr(SUMO_ATTR_REFID, (*i).routename).writeAttr(SUMO_ATTR_PROB, (*i).overallProb).closeTag();
             }
         }
         out.closeTag(); // routeDistribution
@@ -344,7 +343,15 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 // get the vehicle parameter
                 double v = -1;
                 std::string vtype;
-                int destIndex = destDist != 0 && destDist->getOverallProb() > 0 ? (int) destDist->get() : -1;
+                int destIndex = -1;
+                if (destDist != 0) {
+                    if (destDist->getOverallProb() > 0) {
+                        destIndex = destDist->get();
+                    } else if (myRoutes->get().size() > 0) {
+                        // equal probabilities. see writeEmitterDefinition()
+                        destIndex = RandHelper::rand((int)myRoutes->get().size());
+                    }
+                }
                 if (srcFD.isLKW >= 1) {
                     srcFD.isLKW = srcFD.isLKW - 1.;
                     v = srcFD.vLKW;
