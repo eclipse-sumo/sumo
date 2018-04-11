@@ -26,9 +26,8 @@ from collections import defaultdict
 import math
 import optparse
 
-SUMO_HOME = os.environ.get('SUMO_HOME',
-                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
-sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 import route2trips  # noqa
 from sumolib.miscutils import euclidean  # noqa
