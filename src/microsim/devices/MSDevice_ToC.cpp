@@ -134,7 +134,7 @@ MSDevice_ToC::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::s
 
 double
 MSDevice_ToC::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt) {
-    double result;
+    double result = deflt;
     if (v.getParameter().knowsParameter("device.toc."+paramName)) {
         try {
             result = TplConvert::_2double(v.getParameter().getParameter("device.toc."+paramName, "").c_str());

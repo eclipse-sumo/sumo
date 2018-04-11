@@ -1728,7 +1728,7 @@ void
 MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2, int dir, int offset) {
     for (int i = 0; i < (int)into.size(); ++i) {
         int i2 = i + offset;
-        if (i2 >= 0 && i2 < obs2.size()) {
+        if (i2 >= 0 && i2 < (int)obs2.size()) {
             if (dir == FORWARD) {
                 if (obs2[i2].xBack < into[i].xBack) {
                     into[i] = obs2[i2];
