@@ -23,7 +23,7 @@ As the program is still under development and is extended continuously, we advic
 use the latest sources from our GitHub repository. Using a command line client
 the following command should work:
 
-        git clone --recursive https://github.comi/eclipse/sumo
+        git clone --recursive https://github.com/eclipse/sumo
 
 
 Mailing List
