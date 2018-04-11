@@ -23,6 +23,11 @@ import os
 from xml.sax import make_parser, handler
 from optparse import OptionParser
 
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.miscutils import uMin, uMax
+
 import detector
 from detector import relError
 
@@ -59,8 +64,8 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         self._parser.setContentHandler(self)
         self._begin = None
         self._end = None
-        self.minTime = 10e10
-        self.maxTime = 0
+        self.minTime = uMax
+        self.maxTime = uMin
 
     def reset(self, start, end):
         self._routes = {}
@@ -103,7 +108,9 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             return self._detReader.readFlows(flowFile, flow=options.flowcol, time="Time",
                                              timeVal=self._begin / 60, timeMax=self._end / 60)
 
-    def getDataIntervalMinutes(self, fallback=3600):
+    def getDataIntervalMinutes(self, fallback=60):
+        if self.maxTime == uMin:
+            return fallback
         interval = (self.maxTime - self.minTime) / 60
         if interval == 0:
             interval = fallback
@@ -277,7 +284,7 @@ else:
         if options.verbose:
             print("Reading flows")
         reader.readDetFlows(options.flowfile, options.flowcol)
-    fallbackInterval = 3600
+    fallbackInterval = 60
     if options.begin and options.end:
         fallbackInterval = options.end - options.begin
     dataInterval = reader.getDataIntervalMinutes(fallbackInterval)
