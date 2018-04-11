@@ -820,11 +820,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             } else {
                                 myObjectsUnderCursor.netElement->selectNetElement();
                             }
-                            // auto select junction if myMenuCheckExtendToEdgeNodes is enabled
-                            if(myObjectsUnderCursor.edge && (myMenuCheckExtendToEdgeNodes->getCheck() == TRUE)) {
-                                myObjectsUnderCursor.edge->getGNEJunctionSource()->selectNetElement();
-                                myObjectsUnderCursor.edge->getGNEJunctionDestiny()->selectNetElement();
-                            }
                         } else if(myObjectsUnderCursor.additional) {
                             // toogle additional selection
                             if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
