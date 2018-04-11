@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 13:44:33 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
+<!-- generated on Thu Apr 12 00:04:26 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,14 +35,14 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id="1" from="0" to="1.20" priority="-1">
-        <lane id="1_0" index="0" speed="13.90" length="20.00" shape="0.00,-8.25 20.00,-8.25"/>
-        <lane id="1_1" index="1" speed="13.90" length="20.00" shape="0.00,-4.95 20.00,-4.95"/>
-        <lane id="1_2" index="2" speed="13.90" length="20.00" shape="0.00,-1.65 20.00,-1.65"/>
+        <lane id="1_0" index="0" speed="13.90" length="20.00" shape="0.00,-8.00 20.00,-8.00"/>
+        <lane id="1_1" index="1" speed="13.90" length="20.00" shape="0.00,-4.80 20.00,-4.80"/>
+        <lane id="1_2" index="2" speed="13.90" length="20.00" shape="0.00,-1.60 20.00,-1.60"/>
     </edge>
     <edge id="1.20" from="1.20" to="1" priority="-1">
-        <lane id="1.20_0" index="0" speed="13.90" length="80.00" shape="20.00,-8.25 100.00,-8.25"/>
-        <lane id="1.20_1" index="1" speed="13.90" length="80.00" shape="20.00,-4.95 100.00,-4.95"/>
-        <lane id="1.20_2" index="2" speed="13.90" length="80.00" shape="20.00,-1.65 100.00,-1.65"/>
+        <lane id="1.20_0" index="0" speed="13.90" length="80.00" shape="20.00,-8.00 100.00,-8.00"/>
+        <lane id="1.20_1" index="1" speed="13.90" length="80.00" shape="20.00,-4.80 100.00,-4.80"/>
+        <lane id="1.20_2" index="2" speed="13.90" length="80.00" shape="20.00,-1.60 100.00,-1.60"/>
     </edge>
 
     <tlLogic id="foo" type="static" programID="0" offset="0">
@@ -51,9 +51,9 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rrr"/>
     </tlLogic>
 
-    <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-9.85"/>
-    <junction id="1" type="dead_end" x="100.00" y="0.00" incLanes="1.20_0 1.20_1 1.20_2" intLanes="" shape="100.00,-9.85 100.00,-0.05"/>
-    <junction id="1.20" type="traffic_light" x="20.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="20.00,-0.05 20.00,-9.85 20.00,-0.05">
+    <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
+    <junction id="1" type="dead_end" x="100.00" y="0.00" incLanes="1.20_0 1.20_1 1.20_2" intLanes="" shape="100.00,-9.60 100.00,0.00"/>
+    <junction id="1.20" type="traffic_light" x="20.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="20.00,0.00 20.00,-9.60 20.00,0.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 28 15:25:38 2016 by SUMO netconvert Version dev-SVN-r21562
+<!-- generated on Thu Apr 12 00:04:45 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="ignore.net.xml"/>
         <street-sign-output value="pois.add.xml"/>
     </output>
@@ -23,6 +24,8 @@ SPDX-License-Identifier: EPL-2.0
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -34,12 +37,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="gneE1.37.27" type="priority" color="yellow" x="-2.25" y="52.81" angle="0"/>
-    <poi id="gneE10.34.56" type="priority" color="yellow" x="-17.89" y="43.55" angle="0"/>
-    <poi id="gneE11.34.56" type="right before left" color="255,153,0" x="-49.41" y="53.00" angle="0"/>
-    <poi id="gneE12.25.57" type="yield" color="red" x="-14.36" y="56.38" angle="0"/>
-    <poi id="gneE15.22.35" type="yield" color="red" x="-5.39" y="40.44" angle="0"/>
-    <poi id="gneE16.33.69" type="right before left" color="255,153,0" x="-64.96" y="43.74" angle="0"/>
-    <poi id="gneE19.26.61" type="right before left" color="255,153,0" x="-61.94" y="56.12" angle="0"/>
-    <poi id="gneE21.26.83" type="right before left" color="255,153,0" x="-52.60" y="40.55" angle="0"/>
+    <poi id="gneE1.37.33" type="priority" color="yellow" x="-2.30" y="52.76" angle="0"/>
+    <poi id="gneE10.34.66" type="priority" color="yellow" x="-17.84" y="43.60" angle="0"/>
+    <poi id="gneE11.34.66" type="right before left" color="255,153,0" x="-49.46" y="52.95" angle="0"/>
+    <poi id="gneE12.25.62" type="yield" color="red" x="-14.31" y="56.32" angle="0"/>
+    <poi id="gneE15.22.40" type="yield" color="red" x="-5.44" y="40.49" angle="0"/>
+    <poi id="gneE16.33.74" type="right before left" color="255,153,0" x="-64.91" y="43.79" angle="0"/>
+    <poi id="gneE19.26.66" type="right before left" color="255,153,0" x="-61.89" y="56.07" angle="0"/>
+    <poi id="gneE21.26.88" type="right before left" color="255,153,0" x="-52.65" y="40.60" angle="0"/>
 </additional>

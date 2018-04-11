@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:09 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Apr 12 00:04:40 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -33,10 +34,10 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-892836.93,-5344255.62" convBoundary="0.00,0.00,4061.64,3770.84" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="-"/>
 
     <edge id="o" from="0" to="1" priority="-1">
-        <lane id="o_0" index="0" speed="13.90" length="5542.22" shape="-1.12,3769.64 4060.51,-1.21"/>
+        <lane id="o_0" index="0" speed="13.90" length="5542.22" shape="-1.09,3769.67 4060.55,-1.17"/>
     </edge>
 
-    <junction id="0" type="dead_end" x="0.00" y="3770.84" incLanes="" intLanes="" shape="-0.03,3770.81 -2.21,3768.46"/>
-    <junction id="1" type="dead_end" x="4061.64" y="0.00" incLanes="o_0" intLanes="" shape="4059.43,-2.38 4061.60,-0.04"/>
+    <junction id="0" type="dead_end" x="0.00" y="3770.84" incLanes="" intLanes="" shape="0.00,3770.84 -2.18,3768.50"/>
+    <junction id="1" type="dead_end" x="4061.64" y="0.00" incLanes="o_0" intLanes="" shape="4059.46,-2.35 4061.64,-0.00"/>
 
 </net>

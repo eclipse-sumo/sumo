@@ -1273,7 +1273,7 @@ Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: S West
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: S Westkreuz => Wartenberg, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: S Westkreuz => Wartenberg, which consist of one way only. Ignoring!
 Warning: Not joining junctions 1134198786,1134199074,1134199105,1147843154 because the cluster is too complex (6 incoming edges)
-Warning: Not joining junctions 1134198860,1134198951,1134198997,1137737056,1147843150,1147843156,1147843173,2451511170 because the cluster is too complex (8 incoming edges)
+Warning: Not joining junctions 1134198860,1134198997,1147843150,1147843156,1147843173,2451511170 because the cluster is too complex (8 incoming edges)
 Warning: Not joining junctions 1142557545,29192285 because the cluster is too complex (5 incoming edges)
 Warning: Not joining junctions 1166137168,1566942145,1566942204,1752085816,2054664382,3101344339,3101344340,667465427,667465428,967017840 because the cluster is too complex (7 incoming edges)
 Warning: Not joining junctions 1275468908,2054664417,2054664424,2054664430 because the cluster is too complex (parallel incoming -112128423,301241681#0)
@@ -1376,11 +1376,11 @@ Warning: Found sharp turn with radius 2.84 at the end of edge '230015284'.
 Warning: Found sharp turn with radius 2.93 at the start of edge '230015285'.
 Warning: Found sharp turn with radius 2.95 at the end of edge '230015285'.
 Warning: Found sharp turn with radius 6.33 at the start of edge '231716561'.
-Warning: Found sharp turn with radius 3.98 at the start of edge '237522574#0'.
+Warning: Found sharp turn with radius 4.04 at the start of edge '237522574#0'.
 Warning: Found sharp turn with radius 0.35 at the end of edge '237751551#0'.
 Warning: Found sharp turn with radius 8.49 at the start of edge '23852053#1'.
 Warning: Found sharp turn with radius 4.99 at the end of edge '243911464'.
-Warning: Found sharp turn with radius 4.14 at the start of edge '254339598#0'.
+Warning: Found sharp turn with radius 4.21 at the start of edge '254339598#0'.
 Warning: Found sharp turn with radius 1.28 at the end of edge '254523914#0'.
 Warning: Found sharp turn with radius 0.83 at the start of edge '254523914#1'.
 Warning: Found sharp turn with radius 8.53 at the end of edge '270328411'.
@@ -1397,7 +1397,7 @@ Warning: Found sharp turn with radius 7.36 at the start of edge '272795503#0'.
 Warning: Found sharp turn with radius 3.14 at the start of edge '272795506#0'.
 Warning: Found sharp turn with radius 2.81 at the end of edge '272795506#1'.
 Warning: Found sharp turn with radius 5.69 at the start of edge '274513575#1'.
-Warning: Found sharp turn with radius 2.51 at the start of edge '274513577#0'.
+Warning: Found sharp turn with radius 2.58 at the start of edge '274513577#0'.
 Warning: Found sharp turn with radius 4.51 at the end of edge '274513581#1'.
 Warning: Found sharp turn with radius 7.07 at the start of edge '286414597'.
 Warning: Found angle of 142.73 degrees at edge '286653196#1', segment 2
@@ -1499,8 +1499,8 @@ Warning: The traffic light '25662552' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '25662552'
 Warning: The traffic light '29219437' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29219437'
+Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
-Warning: Connection '187103791_2->-19801644#1_1' is only 0.10 short.
 Warning: skipping line '0' because it has too few stops
 Warning: skipping line '1' because it has too few stops
 Warning: skipping line '2' because it has too few stops
@@ -1547,8 +1547,8 @@ Warning: busStop '253845582' for vehicle '44' on lane '70268945_0' is not downst
 Warning: busStop '253846340' for vehicle '44' on lane '70268945_0' is not downstream the current route.
 Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=715.00.
 Warning: Vehicle '30' ends teleporting on edge '153698380', time 715.00.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=1028.00.
-Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 1076.00.
+Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=1027.00.
+Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 1075.00.
 Warning: Teleporting vehicle '39'; waited too long (wrong lane), lane='272795472#1_0', time=1168.00.
 Warning: Vehicle '39' ends teleporting on edge '199847339', time 1168.00.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
@@ -1556,19 +1556,19 @@ Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=717.00.
-Warning: Vehicle 'pt_bus_147:0.0' ends teleporting on edge '153698380', time 717.00.
+Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=715.00.
+Warning: Vehicle 'pt_bus_147:0.0' ends teleporting on edge '153698380', time 715.00.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.1'.
-Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=1036.00.
+Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=1030.00.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.1'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.1'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.1'.
-Warning: Vehicle 'pt_bus_147:0.0' teleports beyond arrival edge '274513583', time 1084.00.
+Warning: Vehicle 'pt_bus_147:0.0' teleports beyond arrival edge '274513583', time 1078.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1172.00.
 Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1172.00.
-Warning: Teleporting vehicle 'pt_bus_147:0.1'; waited too long (wrong lane), lane='153698380_1', time=1345.00.
-Warning: Vehicle 'pt_bus_147:0.1' ends teleporting on edge '153698380', time 1345.00.
-Warning: Teleporting vehicle 'pt_bus_147:0.1'; waited too long (wrong lane), lane='153698380_1', time=1658.00.
-Warning: Vehicle 'pt_bus_147:0.1' teleports beyond arrival edge '274513583', time 1706.00.
+Warning: Teleporting vehicle 'pt_bus_147:0.1'; waited too long (wrong lane), lane='153698380_1', time=1340.00.
+Warning: Vehicle 'pt_bus_147:0.1' ends teleporting on edge '153698380', time 1340.00.
+Warning: Teleporting vehicle 'pt_bus_147:0.1'; waited too long (wrong lane), lane='153698380_1', time=1653.00.
+Warning: Vehicle 'pt_bus_147:0.1' teleports beyond arrival edge '274513583', time 1701.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1772.00.
 Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1772.00.

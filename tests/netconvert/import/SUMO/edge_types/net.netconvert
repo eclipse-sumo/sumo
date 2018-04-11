@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 21 16:44:04 2017 by SUMO netconvert Version dev-SVN-r23047
+<!-- generated on Thu Apr 12 00:04:35 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -24,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
         <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -45,11 +47,11 @@ SPDX-License-Identifier: EPL-2.0
     <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian"/>
 
     <edge id="1fi" from="1" to="0" priority="-1" type="b">
-        <lane id="1fi_0" index="0" speed="11.11" length="500.00" shape="0.00,495.05 500.00,495.05"/>
-        <lane id="1fi_1" index="1" speed="11.11" length="500.00" shape="0.00,498.35 500.00,498.35"/>
+        <lane id="1fi_0" index="0" speed="11.11" length="500.00" shape="0.00,495.20 500.00,495.20"/>
+        <lane id="1fi_1" index="1" speed="11.11" length="500.00" shape="0.00,498.40 500.00,498.40"/>
     </edge>
 
-    <junction id="0" type="dead_end" x="500.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="500.00,493.45 500.00,499.95"/>
-    <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,499.95 0.00,493.45"/>
+    <junction id="0" type="dead_end" x="500.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="500.00,493.60 500.00,500.00"/>
+    <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,500.00 0.00,493.60"/>
 
 </net>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:36 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Thu Apr 12 00:04:40 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <plain-output-prefix value="plain"/>
     </output>
 
@@ -26,6 +27,8 @@ SPDX-License-Identifier: EPL-2.0
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
     </processing>
 
     <report>
@@ -36,5 +39,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="o" from="0" to="1" priority="-1" numLanes="1" speed="13.90" shape="12.014694,48.121459 12.029602,48.095698 12.061386,48.087529"/>
+    <edge id="o" from="0" to="1" priority="-1" numLanes="1" speed="13.90" shape="12.014694,48.121459 12.029602,48.095699 12.061386,48.087529"/>
 </edges>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 13:44:57 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
+<!-- generated on Thu Apr 12 00:04:38 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,35 +34,35 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-16903.00,-20963.00" convBoundary="0.00,0.00,405.00,265.00" origBoundary="16903.00,20963.00,17308.00,21228.00" projParameter="!"/>
 
     <edge id=":15030102_0" function="internal">
-        <lane id=":15030102_0_0" index="0" speed="13.89" length="9.49" shape="233.74,147.26 241.68,152.45"/>
-        <lane id=":15030102_0_1" index="1" speed="13.89" length="9.49" shape="231.93,150.02 239.88,155.22"/>
+        <lane id=":15030102_0_0" index="0" speed="13.89" length="9.39" shape="233.70,147.41 241.56,152.55"/>
+        <lane id=":15030102_0_1" index="1" speed="13.89" length="9.39" shape="231.95,150.09 239.81,155.23"/>
     </edge>
     <edge id=":15030102_2" function="internal">
-        <lane id=":15030102_2_0" index="0" speed="13.20" length="7.86" shape="231.93,150.02 234.16,151.71 235.52,153.30 235.99,154.77 235.59,156.13"/>
+        <lane id=":15030102_2_0" index="0" speed="13.20" length="7.77" shape="231.95,150.09 234.14,151.76 235.47,153.32 235.93,154.79 235.52,156.15"/>
     </edge>
     <edge id=":15030102_3" function="internal">
-        <lane id=":15030102_3_0" index="0" speed="13.20" length="7.87" shape="232.82,154.35 233.89,153.41 235.43,153.25 237.42,153.85 239.88,155.22"/>
+        <lane id=":15030102_3_0" index="0" speed="13.20" length="7.78" shape="232.83,154.42 233.90,153.48 235.42,153.30 237.39,153.89 239.81,155.23"/>
     </edge>
     <edge id=":15030102_4" function="internal">
-        <lane id=":15030102_4_0" index="0" speed="12.50" length="4.82" shape="232.82,154.35 234.18,153.75 235.10,153.85 235.57,154.64 235.59,156.13"/>
+        <lane id=":15030102_4_0" index="0" speed="12.50" length="4.67" shape="232.83,154.42 234.15,153.84 235.04,153.94 235.50,154.70 235.52,156.15"/>
     </edge>
     <edge id=":15034045_0" function="internal">
-        <lane id=":15034045_0_0" index="0" speed="12.50" length="4.82" shape="227.39,168.89 226.02,169.49 225.11,169.39 224.64,168.59 224.61,167.11"/>
+        <lane id=":15034045_0_0" index="0" speed="12.50" length="4.67" shape="227.35,168.87 226.02,169.44 225.13,169.35 224.68,168.58 224.65,167.13"/>
     </edge>
 
     <edge id="-152850000" from="15034045" to="15030102" priority="-1">
-        <lane id="-152850000_0" index="0" speed="12.50" length="15.17" shape="224.61,167.11 232.82,154.35"/>
+        <lane id="-152850000_0" index="0" speed="12.50" length="15.12" shape="224.65,167.13 232.83,154.42"/>
     </edge>
     <edge id="152850000" from="15030102" to="15034045" priority="-1">
-        <lane id="152850000_0" index="0" speed="12.50" length="15.17" shape="235.59,156.13 227.39,168.89"/>
+        <lane id="152850000_0" index="0" speed="12.50" length="15.12" shape="235.52,156.15 227.35,168.87"/>
     </edge>
     <edge id="153120297" from="15031877" to="15030102" priority="-1">
-        <lane id="153120297_0" index="0" speed="13.89" length="276.21" shape="2.71,-4.14 233.74,147.26"/>
-        <lane id="153120297_1" index="1" speed="13.89" length="276.21" shape="0.90,-1.38 231.93,150.02"/>
+        <lane id="153120297_0" index="0" speed="13.89" length="276.26" shape="2.63,-4.01 233.70,147.41"/>
+        <lane id="153120297_1" index="1" speed="13.89" length="276.26" shape="0.88,-1.34 231.95,150.09"/>
     </edge>
     <edge id="153120299" from="15030102" to="15030099" priority="-1">
-        <lane id="153120299_0" index="0" speed="13.89" length="198.28" shape="241.68,152.45 407.71,260.86"/>
-        <lane id="153120299_1" index="1" speed="13.89" length="198.28" shape="239.88,155.22 405.90,263.62"/>
+        <lane id="153120299_0" index="0" speed="13.89" length="198.33" shape="241.56,152.55 407.62,260.98"/>
+        <lane id="153120299_1" index="1" speed="13.89" length="198.33" shape="239.81,155.23 405.87,263.66"/>
     </edge>
 
     <tlLogic id="15030102" type="static" programID="0" offset="0">
@@ -72,16 +72,16 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrryy"/>
     </tlLogic>
 
-    <junction id="15030099" type="dead_end" x="405.00" y="265.00" incLanes="153120299_0 153120299_1" intLanes="" shape="408.58,259.52 405.03,264.96"/>
-    <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_0_1 :15030102_2_0 :15030102_3_0 :15030102_4_0" shape="239.00,156.55 242.56,151.11 234.62,145.92 231.05,151.35 231.47,153.48 236.94,157.00">
+    <junction id="15030099" type="dead_end" x="405.00" y="265.00" incLanes="153120299_0 153120299_1" intLanes="" shape="408.50,259.64 405.00,265.00"/>
+    <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_0_1 :15030102_2_0 :15030102_3_0 :15030102_4_0" shape="238.94,156.57 242.43,151.21 234.58,146.07 231.07,151.42 231.48,153.55 236.87,157.01">
         <request index="0" response="00000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="01000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
         <request index="3" response="00111" foes="00111" cont="0"/>
         <request index="4" response="00100" foes="00100" cont="0"/>
     </junction>
-    <junction id="15031877" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.03,-0.04 3.59,-5.48"/>
-    <junction id="15034045" type="priority" x="226.00" y="168.00" incLanes="152850000_0" intLanes=":15034045_0_0" shape="225.96,167.97 228.73,169.76 226.04,168.03">
+    <junction id="15031877" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 3.51,-5.35"/>
+    <junction id="15034045" type="priority" x="226.00" y="168.00" incLanes="152850000_0" intLanes=":15034045_0_0" shape="226.00,168.00 228.69,169.73 226.00,168.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

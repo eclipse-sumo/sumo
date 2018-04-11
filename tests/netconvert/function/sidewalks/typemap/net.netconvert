@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 15 13:45:04 2018 by SUMO netconvert Version v0_32_0+0739-234bde1
+<!-- generated on Thu Apr 12 00:04:42 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,88 +43,88 @@ SPDX-License-Identifier: EPL-2.0
     <type id="withSidewalkDefault"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" allow="passenger" speed="13.89" length="11.61" shape="95.05,112.15 94.60,109.00 93.25,106.75 91.00,105.40 87.85,104.95"/>
+        <lane id=":C_0_0" index="0" allow="passenger" speed="13.89" length="11.45" shape="95.20,111.90 94.76,108.79 93.43,106.58 91.21,105.24 88.10,104.80"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="24.30" shape="95.05,112.15 95.05,87.85"/>
-        <lane id=":C_1_1" index="1" allow="passenger" speed="13.89" length="24.30" shape="98.35,112.15 98.35,87.85"/>
+        <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="23.80" shape="95.20,111.90 95.20,88.10"/>
+        <lane id=":C_1_1" index="1" allow="passenger" speed="13.89" length="23.80" shape="98.40,111.90 98.40,88.10"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" allow="passenger" speed="13.89" length="22.74" shape="98.35,112.15 99.25,106.11 101.95,101.80 106.45,99.21 112.75,98.35"/>
+        <lane id=":C_3_0" index="0" allow="passenger" speed="13.89" length="22.18" shape="98.40,111.90 99.28,105.99 101.90,101.78 106.28,99.24 112.40,98.40"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="12.10" shape="112.75,104.95 109.34,105.40 106.90,106.75 105.44,109.00 104.95,112.15"/>
+        <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="11.86" shape="112.40,104.80 109.08,105.24 106.70,106.57 105.27,108.79 104.80,111.90"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="24.90" shape="112.75,104.95 87.85,104.95"/>
-        <lane id=":C_5_1" index="1" allow="passenger" speed="13.89" length="24.90" shape="112.75,101.65 87.85,101.65"/>
+        <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="24.30" shape="112.40,104.80 88.10,104.80"/>
+        <lane id=":C_5_1" index="1" allow="passenger" speed="13.89" length="24.30" shape="112.40,101.60 88.10,101.60"/>
     </edge>
     <edge id=":C_7" function="internal">
-        <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="5.98" shape="112.75,101.65 106.83,100.84"/>
+        <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="5.71" shape="112.40,101.60 106.74,100.82"/>
     </edge>
     <edge id=":C_16" function="internal">
-        <lane id=":C_16_0" index="0" speed="13.89" length="16.77" shape="106.83,100.84 106.45,100.79 101.95,98.20 99.25,93.89 98.35,87.85"/>
+        <lane id=":C_16_0" index="0" speed="13.89" length="16.47" shape="106.74,100.82 106.28,100.76 101.90,98.22 99.28,94.01 98.40,88.10"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" allow="passenger" speed="13.89" length="12.10" shape="104.95,87.85 105.44,91.00 106.90,93.25 109.34,94.60 112.75,95.05"/>
+        <lane id=":C_8_0" index="0" allow="passenger" speed="13.89" length="11.86" shape="104.80,88.10 105.28,91.21 106.70,93.42 109.07,94.76 112.40,95.20"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" allow="passenger" speed="13.89" length="24.30" shape="104.95,87.85 104.95,112.15"/>
-        <lane id=":C_9_1" index="1" allow="passenger" speed="13.89" length="24.30" shape="101.65,87.85 101.65,112.15"/>
+        <lane id=":C_9_0" index="0" allow="passenger" speed="13.89" length="23.80" shape="104.80,88.10 104.80,111.90"/>
+        <lane id=":C_9_1" index="1" allow="passenger" speed="13.89" length="23.80" shape="101.60,88.10 101.60,111.90"/>
     </edge>
     <edge id=":C_11" function="internal">
-        <lane id=":C_11_0" index="0" allow="passenger" speed="13.89" length="22.26" shape="101.65,87.85 100.79,93.89 98.20,98.20 93.89,100.79 87.85,101.65"/>
+        <lane id=":C_11_0" index="0" allow="passenger" speed="13.89" length="21.77" shape="101.60,88.10 100.76,94.01 98.22,98.22 94.01,100.76 88.10,101.60"/>
     </edge>
     <edge id=":C_12" function="internal">
-        <lane id=":C_12_0" index="0" allow="passenger" speed="13.89" length="11.61" shape="87.85,95.05 91.00,94.60 93.25,93.25 94.60,91.00 95.05,87.85"/>
+        <lane id=":C_12_0" index="0" allow="passenger" speed="13.89" length="11.45" shape="88.10,95.20 91.21,94.76 93.42,93.43 94.76,91.21 95.20,88.10"/>
     </edge>
     <edge id=":C_13" function="internal">
-        <lane id=":C_13_0" index="0" allow="passenger" speed="13.89" length="24.90" shape="87.85,95.05 112.75,95.05"/>
-        <lane id=":C_13_1" index="1" allow="passenger" speed="13.89" length="24.90" shape="87.85,98.35 112.75,98.35"/>
+        <lane id=":C_13_0" index="0" allow="passenger" speed="13.89" length="24.30" shape="88.10,95.20 112.40,95.20"/>
+        <lane id=":C_13_1" index="1" allow="passenger" speed="13.89" length="24.30" shape="88.10,98.40 112.40,98.40"/>
     </edge>
     <edge id=":C_15" function="internal">
-        <lane id=":C_15_0" index="0" allow="passenger" speed="13.89" length="14.72" shape="87.85,98.35 93.89,99.21 98.20,101.80 100.05,104.88"/>
+        <lane id=":C_15_0" index="0" allow="passenger" speed="13.89" length="14.34" shape="88.10,98.40 94.01,99.24 98.22,101.78 100.00,104.73"/>
     </edge>
     <edge id=":C_17" function="internal">
-        <lane id=":C_17_0" index="0" speed="13.89" length="7.53" shape="100.05,104.88 100.79,106.11 101.65,112.15"/>
+        <lane id=":C_17_0" index="0" speed="13.89" length="7.44" shape="100.00,104.73 100.76,105.99 101.60,111.90"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2" type="withSidewalk">
-        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="87.25" width="4.00" shape="112.75,91.35 200.00,91.35"/>
-        <lane id="CE_1" index="1" allow="passenger" speed="13.89" length="87.25" shape="112.75,95.05 200.00,95.05"/>
-        <lane id="CE_2" index="2" allow="passenger" speed="13.89" length="87.25" shape="112.75,98.35 200.00,98.35"/>
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="87.60" width="4.00" shape="112.40,91.60 200.00,91.60"/>
+        <lane id="CE_1" index="1" allow="passenger" speed="13.89" length="87.60" shape="112.40,95.20 200.00,95.20"/>
+        <lane id="CE_2" index="2" allow="passenger" speed="13.89" length="87.60" shape="112.40,98.40 200.00,98.40"/>
     </edge>
     <edge id="CN" from="C" to="N" priority="2" type="withSidewalk">
-        <lane id="CN_0" index="0" allow="pedestrian" speed="13.89" length="87.85" width="3.00" shape="109.75,112.15 109.75,200.00"/>
-        <lane id="CN_1" index="1" disallow="all" speed="13.89" length="87.85" width="1.50" shape="107.40,112.15 107.40,200.00"/>
-        <lane id="CN_2" index="2" allow="passenger" speed="13.89" length="87.85" shape="104.95,112.15 104.95,200.00"/>
-        <lane id="CN_3" index="3" allow="passenger" speed="13.89" length="87.85" shape="101.65,112.15 101.65,200.00"/>
+        <lane id="CN_0" index="0" allow="pedestrian" speed="13.89" length="88.10" width="3.00" shape="109.40,111.90 109.40,200.00"/>
+        <lane id="CN_1" index="1" disallow="all" speed="13.89" length="88.10" width="1.50" shape="107.15,111.90 107.15,200.00"/>
+        <lane id="CN_2" index="2" allow="passenger" speed="13.89" length="88.10" shape="104.80,111.90 104.80,200.00"/>
+        <lane id="CN_3" index="3" allow="passenger" speed="13.89" length="88.10" shape="101.60,111.90 101.60,200.00"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="2" type="noSidewalk">
-        <lane id="CS_0" index="0" allow="passenger" speed="13.89" length="87.85" shape="95.05,87.85 95.05,0.00"/>
-        <lane id="CS_1" index="1" allow="passenger" speed="13.89" length="87.85" shape="98.35,87.85 98.35,0.00"/>
+        <lane id="CS_0" index="0" allow="passenger" speed="13.89" length="88.10" shape="95.20,88.10 95.20,0.00"/>
+        <lane id="CS_1" index="1" allow="passenger" speed="13.89" length="88.10" shape="98.40,88.10 98.40,0.00"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="2" type="withSidewalkDefault">
-        <lane id="CW_0" index="0" allow="passenger" speed="13.89" length="87.85" shape="87.85,104.95 0.00,104.95"/>
-        <lane id="CW_1" index="1" allow="passenger" speed="13.89" length="87.85" shape="87.85,101.65 0.00,101.65"/>
+        <lane id="CW_0" index="0" allow="passenger" speed="13.89" length="88.10" shape="88.10,104.80 0.00,104.80"/>
+        <lane id="CW_1" index="1" allow="passenger" speed="13.89" length="88.10" shape="88.10,101.60 0.00,101.60"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="2" type="withSidewalk">
-        <lane id="EC_0" index="0" allow="pedestrian" speed="13.89" length="87.25" width="4.00" shape="200.00,108.65 112.75,108.65"/>
-        <lane id="EC_1" index="1" disallow="pedestrian" speed="13.89" length="87.25" shape="200.00,104.95 112.75,104.95"/>
-        <lane id="EC_2" index="2" disallow="pedestrian" speed="13.89" length="87.25" shape="200.00,101.65 112.75,101.65"/>
+        <lane id="EC_0" index="0" allow="pedestrian" speed="13.89" length="87.60" width="4.00" shape="200.00,108.40 112.40,108.40"/>
+        <lane id="EC_1" index="1" disallow="pedestrian" speed="13.89" length="87.60" shape="200.00,104.80 112.40,104.80"/>
+        <lane id="EC_2" index="2" disallow="pedestrian" speed="13.89" length="87.60" shape="200.00,101.60 112.40,101.60"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="2" type="withSidewalk">
-        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" length="87.85" width="4.00" shape="91.35,200.00 91.35,112.15"/>
-        <lane id="NC_1" index="1" allow="passenger" speed="13.89" length="87.85" shape="95.05,200.00 95.05,112.15"/>
-        <lane id="NC_2" index="2" allow="passenger" speed="13.89" length="87.85" shape="98.35,200.00 98.35,112.15"/>
+        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" length="88.10" width="4.00" shape="91.60,200.00 91.60,111.90"/>
+        <lane id="NC_1" index="1" allow="passenger" speed="13.89" length="88.10" shape="95.20,200.00 95.20,111.90"/>
+        <lane id="NC_2" index="2" allow="passenger" speed="13.89" length="88.10" shape="98.40,200.00 98.40,111.90"/>
     </edge>
     <edge id="SC" from="S" to="C" priority="2" type="noSidewalk">
-        <lane id="SC_0" index="0" allow="passenger" speed="13.89" length="87.85" shape="104.95,0.00 104.95,87.85"/>
-        <lane id="SC_1" index="1" allow="passenger" speed="13.89" length="87.85" shape="101.65,0.00 101.65,87.85"/>
+        <lane id="SC_0" index="0" allow="passenger" speed="13.89" length="88.10" shape="104.80,0.00 104.80,88.10"/>
+        <lane id="SC_1" index="1" allow="passenger" speed="13.89" length="88.10" shape="101.60,0.00 101.60,88.10"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="2" type="withSidewalkDefault">
-        <lane id="WC_0" index="0" allow="passenger" speed="13.89" length="87.85" shape="0.00,95.05 87.85,95.05"/>
-        <lane id="WC_1" index="1" allow="passenger" speed="13.89" length="87.85" shape="0.00,98.35 87.85,98.35"/>
+        <lane id="WC_0" index="0" allow="passenger" speed="13.89" length="88.10" shape="0.00,95.20 88.10,95.20"/>
+        <lane id="WC_1" index="1" allow="passenger" speed="13.89" length="88.10" shape="0.00,98.40 88.10,98.40"/>
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
@@ -138,7 +138,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrrrrrrrrryyy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_16_0 :C_8_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0" shape="89.35,112.15 111.25,112.15 112.75,110.65 112.75,89.35 106.55,87.85 93.45,87.85 87.85,93.45 87.85,106.55">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_16_0 :C_8_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0" shape="89.60,111.90 110.90,111.90 112.40,110.40 112.40,89.60 106.40,88.10 93.60,88.10 88.10,93.60 88.10,106.40">
         <request index="0"  response="0000000000000000" foes="0000100001100000" cont="0"/>
         <request index="1"  response="1000000000000000" foes="1111100011100000" cont="0"/>
         <request index="2"  response="1000000000000000" foes="1111100011100000" cont="0"/>
@@ -156,13 +156,13 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000111110001110" foes="0000111110001110" cont="0"/>
         <request index="15" response="0000111001111110" foes="0000111001111110" cont="1"/>
     </junction>
-    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="200.00,100.05 200.00,89.35 200.00,99.95"/>
-    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="99.95,200.00 111.25,200.00 100.05,200.00"/>
-    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="100.05,0.00 93.45,0.00 99.95,0.00"/>
-    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="0.00,99.95 0.00,106.55 0.00,100.05"/>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="200.00,100.00 200.00,89.60 200.00,100.00"/>
+    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2 CN_3" intLanes="" shape="100.00,200.00 110.90,200.00 100.00,200.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="0.00,100.00 0.00,106.40 0.00,100.00"/>
 
-    <junction id=":C_16_0" type="internal" x="106.83" y="100.84" incLanes=":C_7_0 NC_1 NC_2" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1"/>
-    <junction id=":C_17_0" type="internal" x="100.05" y="104.88" incLanes=":C_15_0 SC_0 SC_1" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_9_1 :C_11_0"/>
+    <junction id=":C_16_0" type="internal" x="106.74" y="100.82" incLanes=":C_7_0 NC_1 NC_2" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1"/>
+    <junction id=":C_17_0" type="internal" x="100.00" y="104.73" incLanes=":C_15_0 SC_0 SC_1" intLanes=":C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_9_1 :C_11_0"/>
 
     <connection from="EC" to="CN" fromLane="1" toLane="2" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="O"/>
     <connection from="EC" to="CW" fromLane="1" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="s" state="o"/>

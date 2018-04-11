@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 28 08:27:23 2018 by SUMO netconvert Version v0_32_0+0910-0aebdf1
+<!-- generated on Thu Apr 12 00:04:36 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,11 +58,11 @@ SPDX-License-Identifier: EPL-2.0
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id="-190.0.00" from="146" to="268" priority="1" type="driving" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
-        <lane id="-190.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.95" width="3.20" shape="174.56,4.82 155.02,9.41 67.87,37.49 1.63,60.56"/>
-        <lane id="-190.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.95" width="3.20" shape="173.80,1.61 154.13,6.23 66.82,34.36 0.54,57.44"/>
+        <lane id="-190.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42"/>
+        <lane id="-190.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40"/>
     </edge>
 
-    <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.44,0.05 174.92,6.38"/>
-    <junction id="268" type="dead_end" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.15,62.07 0.02,55.93"/>
+    <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.42,-0.00 174.89,6.23"/>
+    <junction id="268" type="dead_end" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.10,61.93 -0.00,55.89"/>
 
 </net>

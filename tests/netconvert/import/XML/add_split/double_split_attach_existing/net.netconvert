@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 19 08:42:08 2018 by SUMO netconvert Version v0_32_0+0787-c313cb8
+<!-- generated on Thu Apr 12 00:04:26 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,29 +40,29 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="-beg" from="gneJ1" to="A" priority="1">
-        <lane id="-beg_0" index="0" speed="13.89" length="108.39" shape="200.00,4.95 99.55,4.95"/>
-        <lane id="-beg_1" index="1" speed="13.89" length="108.39" shape="200.00,1.65 99.55,1.65"/>
+        <lane id="-beg_0" index="0" speed="13.89" length="108.21" shape="200.00,4.80 99.63,4.80"/>
+        <lane id="-beg_1" index="1" speed="13.89" length="108.21" shape="200.00,1.60 99.63,1.60"/>
     </edge>
     <edge id="-beg.-100" from="A" to="gneJ0" priority="1">
-        <lane id="-beg.-100_0" index="0" speed="13.89" length="93.33" shape="87.35,4.95 0.00,4.95"/>
-        <lane id="-beg.-100_1" index="1" speed="13.89" length="93.33" shape="87.35,1.65 0.00,1.65"/>
+        <lane id="-beg.-100_0" index="0" speed="13.89" length="93.46" shape="87.57,4.80 0.00,4.80"/>
+        <lane id="-beg.-100_1" index="1" speed="13.89" length="93.46" shape="87.57,1.60 0.00,1.60"/>
     </edge>
     <edge id="-gneE0" from="A" to="gneJ2" priority="1">
-        <lane id="-gneE0_0" index="0" speed="13.89" length="134.38" shape="91.26,11.08 1.17,101.17"/>
+        <lane id="-gneE0_0" index="0" speed="13.89" length="134.52" shape="91.41,10.85 1.13,101.13"/>
     </edge>
     <edge id="beg" from="gneJ0" to="A" priority="1">
-        <lane id="beg_0" index="0" speed="13.89" length="93.33" shape="0.00,-4.95 87.35,-4.95"/>
-        <lane id="beg_1" index="1" speed="13.89" length="93.33" shape="0.00,-1.65 87.35,-1.65"/>
+        <lane id="beg_0" index="0" speed="13.89" length="93.46" shape="0.00,-4.80 87.57,-4.80"/>
+        <lane id="beg_1" index="1" speed="13.89" length="93.46" shape="0.00,-1.60 87.57,-1.60"/>
     </edge>
     <edge id="beg.100" from="A" to="gneJ1" priority="1">
-        <lane id="beg.100_0" index="0" speed="13.89" length="108.39" shape="99.55,-4.95 200.00,-4.95"/>
-        <lane id="beg.100_1" index="1" speed="13.89" length="108.39" shape="99.55,-1.65 200.00,-1.65"/>
+        <lane id="beg.100_0" index="0" speed="13.89" length="108.21" shape="99.63,-4.80 200.00,-4.80"/>
+        <lane id="beg.100_1" index="1" speed="13.89" length="108.21" shape="99.63,-1.60 200.00,-1.60"/>
     </edge>
     <edge id="gneE0" from="gneJ2" to="A" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="134.38" shape="-1.17,98.83 88.92,8.74"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="134.52" shape="-1.13,98.87 89.15,8.59"/>
     </edge>
 
-    <junction id="A" type="priority" x="100.00" y="0.00" incLanes="-beg_0 -beg_1 beg_0 beg_1 gneE0_0" intLanes="" shape="99.55,6.55 99.55,-6.55 87.35,-6.55 87.35,6.55 87.79,7.61 92.39,12.21">
+    <junction id="A" type="priority" x="100.00" y="0.00" incLanes="-beg_0 -beg_1 beg_0 beg_1 gneE0_0" intLanes="" shape="99.63,6.40 99.63,-6.40 87.57,-6.40 87.57,6.40 88.01,7.46 92.54,11.99">
         <request index="0" response="00000000" foes="00100000"/>
         <request index="1" response="00000000" foes="11100000"/>
         <request index="2" response="00000000" foes="11100000"/>
@@ -72,9 +72,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6" response="00000110" foes="00000110"/>
         <request index="7" response="00111110" foes="00111110"/>
     </junction>
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="-beg.-100_0 -beg.-100_1" intLanes="" shape="0.00,-0.05 0.00,6.55 0.00,0.05"/>
-    <junction id="gneJ1" type="dead_end" x="200.00" y="0.00" incLanes="beg.100_0 beg.100_1" intLanes="" shape="200.00,0.05 200.00,-6.55 200.00,-0.05"/>
-    <junction id="gneJ2" type="dead_end" x="0.00" y="100.00" incLanes="-gneE0_0" intLanes="" shape="-0.04,99.96 2.30,102.30 0.04,100.04"/>
+    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="-beg.-100_0 -beg.-100_1" intLanes="" shape="0.00,0.00 0.00,6.40 0.00,0.00"/>
+    <junction id="gneJ1" type="dead_end" x="200.00" y="0.00" incLanes="beg.100_0 beg.100_1" intLanes="" shape="200.00,0.00 200.00,-6.40 200.00,0.00"/>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="100.00" incLanes="-gneE0_0" intLanes="" shape="0.00,100.00 2.26,102.26 0.00,100.00"/>
 
     <connection from="-beg" to="-gneE0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-beg" to="-beg.-100" fromLane="0" toLane="0" dir="s" state="M"/>

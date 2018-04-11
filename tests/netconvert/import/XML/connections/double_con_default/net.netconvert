@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 19 08:56:02 2018 by SUMO netconvert Version v0_32_0+0440-df8dc3b
+<!-- generated on Thu Apr 12 00:04:24 2018 by SUMO netconvert Version c8481b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,18 +38,18 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="CE_0" index="0" speed="13.89" length="200.00" shape="201.50,0.00 400.00,0.00"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="1" spreadType="center">
-        <lane id="WC_0" index="0" speed="13.89" length="200.00" shape="0.00,-3.30 198.50,-3.30"/>
+        <lane id="WC_0" index="0" speed="13.89" length="200.00" shape="0.00,-3.20 198.50,-3.20"/>
         <lane id="WC_1" index="1" speed="13.89" length="200.00" shape="0.00,0.00 198.50,0.00"/>
-        <lane id="WC_2" index="2" speed="13.89" length="200.00" shape="0.00,3.30 198.50,3.30"/>
+        <lane id="WC_2" index="2" speed="13.89" length="200.00" shape="0.00,3.20 198.50,3.20"/>
     </edge>
 
-    <junction id="C" type="priority" x="200.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="201.50,1.60 201.50,-1.60 198.50,-4.90 198.50,4.90">
+    <junction id="C" type="priority" x="200.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="201.50,1.60 201.50,-1.60 198.50,-4.80 198.50,4.80">
         <request index="0" response="110" foes="110"/>
         <request index="1" response="100" foes="101"/>
         <request index="2" response="000" foes="011"/>
     </junction>
     <junction id="E" type="dead_end" x="400.00" y="0.00" incLanes="CE_0" intLanes="" shape="400.00,-1.60 400.00,1.60"/>
-    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,4.90 0.00,-4.90"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,4.80 0.00,-4.80"/>
 
     <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="WC" to="CE" fromLane="1" toLane="0" dir="s" state="m"/>

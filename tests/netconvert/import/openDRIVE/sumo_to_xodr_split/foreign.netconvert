@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Jan 22 22:01:37 2018" north="0.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Apr 12 00:04:36 2018" north="0.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="94.00000000" id="30" junction="-1">
         <link>
             <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="0.00000000" y="4.30000000" hdg="0.00000000" length="94.00000000">
+            <geometry s="0.00000000" x="0.00000000" y="4.20000000" hdg="0.00000000" length="94.00000000">
                 <line/>
             </geometry>
         </planView>
@@ -55,7 +55,7 @@
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="106.00000000" y="7.60000000" hdg="0.00000000" length="94.00000000">
+            <geometry s="0.00000000" x="106.00000000" y="7.40000000" hdg="0.00000000" length="94.00000000">
                 <line/>
             </geometry>
         </planView>
@@ -110,15 +110,15 @@
         <userData code="sumoId" value="b"/>
     </road>
 
-    <road name=":gneJ3_0" length="12.55173905" id="32" junction="1">
+    <road name=":gneJ3_0" length="12.58701754" id="32" junction="1">
         <link>
             <predecessor elementType="road" elementId="30" contactPoint="end"/>
             <successor elementType="road" elementId="31" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="94.00000000" y="4.30000000" hdg="0.00000000" length="12.55173905">
-                <paramPoly3 aU="0.00000000" bU="18.59092521" cU="-19.77277562" dU="13.18185041" aV="0.00000000" bV="0.00000000" cV="-9.30000000" dV="6.20000000"/>
+            <geometry s="0.00000000" x="94.00000000" y="4.20000000" hdg="0.00000000" length="12.58701754">
+                <paramPoly3 aU="0.00000000" bU="18.62900964" cU="-19.88702891" dU="13.25801927" aV="0.00000000" bV="0.00000000" cV="-9.60000000" dV="6.40000000"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -167,15 +167,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":gneJ3_0" length="12.00058824" id="33" junction="1">
+    <road name=":gneJ3_0" length="12.00000000" id="33" junction="1">
         <link>
             <predecessor elementType="road" elementId="30" contactPoint="end"/>
             <successor elementType="road" elementId="31" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="94.00000000" y="4.30000000" hdg="0.00000000" length="12.00058824">
-                <paramPoly3 aU="0.00000000" bU="18.00062499" cU="-18.00187497" dU="12.00124998" aV="0.00000000" bV="0.00000000" cV="0.30000000" dV="-0.20000000"/>
+            <geometry s="0.00000000" x="94.00000000" y="4.20000000" hdg="0.00000000" length="12.00000000">
+                <line/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -206,15 +206,15 @@
         <objects/>
         <signals/>
     </road>
-    <road name=":gneJ3_0" length="12.62330807" id="34" junction="1">
+    <road name=":gneJ3_0" length="12.58701754" id="34" junction="1">
         <link>
             <predecessor elementType="road" elementId="30" contactPoint="end"/>
             <successor elementType="road" elementId="31" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="94.00000000" y="4.30000000" hdg="0.00000000" length="12.62330807">
-                <paramPoly3 aU="0.00000000" bU="18.66822166" cU="-20.00466498" dU="13.33644332" aV="0.00000000" bV="0.00000000" cV="9.90000000" dV="-6.60000000"/>
+            <geometry s="0.00000000" x="94.00000000" y="4.20000000" hdg="0.00000000" length="12.58701754">
+                <paramPoly3 aU="0.00000000" bU="18.62900964" cU="-19.88702891" dU="13.25801927" aV="0.00000000" bV="0.00000000" cV="9.60000000" dV="-6.40000000"/>
             </geometry>
         </planView>
         <elevationProfile>
