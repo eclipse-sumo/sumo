@@ -30,25 +30,21 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
-#include <traci-server/TraCIServerAPI_Person.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSRoute;
+class MSPerson;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class Route
+ * @class Person
  * @brief C++ TraCI client API implementation
  */
 namespace libsumo {
 class Person {
-    // processSet calls private member getSingularVType(), which should not be exposed to the public API.
-    friend bool TraCIServerAPI_Person::processSet(TraCIServer&, tcpip::Storage&, tcpip::Storage&);
-
 public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
@@ -85,6 +81,9 @@ public:
     static void setMinGap(const std::string& personID, double minGap);
     static void setColor(const std::string& personID, const TraCIColor& c);
 
+    // This does not only return the person's vType, but makes it singular.
+    static std::string getSingularVType(const std::string& personID);
+
 private:
     /// @brief invalidated standard constructor
     Person();
@@ -96,9 +95,6 @@ private:
     Person& operator=(const Person& src);
 
     static MSPerson* getPerson(const std::string& id);
-
-    // This does not only return the person's vType, but makes it singular.
-    static std::string getSingularVType(const std::string& personID);
 
 };
 }

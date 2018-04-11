@@ -37,6 +37,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NamedRTree;
 class PointOfInterest;
 
 
@@ -71,7 +72,6 @@ public:
      * @return The rtree of PoIs
      */
     static NamedRTree* getTree();
-
 
 private:
     static PointOfInterest* getPoI(const std::string& id);

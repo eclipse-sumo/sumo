@@ -18,17 +18,40 @@
 #ifndef SUMO_Edge_H
 #define SUMO_Edge_H
 
-#include <vector>
+// ===========================================================================
+// included modules
+// ===========================================================================
+#ifdef _MSC_VER
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+
 #include <string>
+#include <vector>
+#include <libsumo/TraCIDefs.h>
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSEdge;
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class Edge
+ * @brief C++ TraCI client API implementation
+ */
 namespace libsumo {
-class Edge {
 
+class Edge {
 public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static double retrieveExistingTravelTime(const std::string& id, double time);
-    static MSEdge* getEdge(const std::string& id);
     static double retrieveExistingEffort(const std::string& id, double time);
     static double getCurrentTravelTime(const std::string& id);
     static double getWaitingSeconds(const std::string& id);
@@ -51,13 +74,15 @@ public:
     static std::string getParameter(const std::string& id, const std::string& paramName);
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
-    static void setAllowedSVCPermissions(const std::string& id, SVCPermissions permissions);
+    static void setAllowedSVCPermissions(const std::string& id, int permissions);
     static void addTravelTime(const std::string& id, double begTime, double endTime, double value);
     static void addEffort(const std::string& id, double begTime, double endTime, double value);
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
-    static void getShape(const std::string& id, PositionVector& shape);
+private:
+    static MSEdge* getEdge(const std::string& id);
 };
+
 }
 
 

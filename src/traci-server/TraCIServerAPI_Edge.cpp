@@ -397,18 +397,4 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
 }
 
 
-bool
-TraCIServerAPI_Edge::getShape(const std::string& id, PositionVector& shape) {
-    try {
-        libsumo::Edge::getShape(id, shape);
-    } catch (libsumo::TraCIException& e) {
-        WRITE_WARNING(e.what());
-        return false;
-    }
-    return true;
-
-}
-
-
 /****************************************************************************/
-

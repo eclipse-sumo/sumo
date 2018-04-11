@@ -35,6 +35,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NamedRTree;
 class SUMOPolygon;
 
 
@@ -68,9 +69,7 @@ public:
      */
     static NamedRTree* getTree();
 
-
 private:
-
     static SUMOPolygon* getPolygon(const std::string& id);
 
     /// @brief invalidated standard constructor

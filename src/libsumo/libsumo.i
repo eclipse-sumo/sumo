@@ -1,8 +1,18 @@
 %module libsumo
 
-// ignore constant conditional expression warnings
+#ifdef SWIGPYTHON
+%rename(edge) Edge;
+%rename(lane) Lane;
+%rename(lanearea) LaneArea;
+%rename(inductionloop) InductionLoop;
+%rename(simulation) Simulation;
+%rename(vehicle) Vehicle;
+%rename(vehicletype) VehicleType;
+#endif
+
 %begin %{
 #ifdef _MSC_VER
+// ignore constant conditional expression warnings
 #pragma warning(disable:4127)
 #endif
 
@@ -37,11 +47,35 @@
 
 // Add necessary symbols to generated header
 %{
+#include <libsumo/Edge.h>
+#include <libsumo/InductionLoop.h>
+#include <libsumo/Junction.h>
+#include <libsumo/LaneArea.h>
+#include <libsumo/Lane.h>
+#include <libsumo/MultiEntryExit.h>
+#include <libsumo/Person.h>
+#include <libsumo/POI.h>
+#include <libsumo/Polygon.h>
+#include <libsumo/Route.h>
 #include <libsumo/Simulation.h>
-#include <utils/common/RGBColor.h>
-#include <utils/geom/PositionVector.h>
+#include <libsumo/TrafficLight.h>
+#include <libsumo/Vehicle.h>
+#include <libsumo/VehicleType.h>
 %}
 
 // Process symbols in header
 %include "TraCIDefs.h"
+%include "Edge.h"
+%include "InductionLoop.h"
+%include "Junction.h"
+%include "LaneArea.h"
+%include "Lane.h"
+%include "MultiEntryExit.h"
+%include "Person.h"
+%include "POI.h"
+%include "Polygon.h"
+%include "Route.h"
 %include "Simulation.h"
+%include "TrafficLight.h"
+%include "Vehicle.h"
+%include "VehicleType.h"

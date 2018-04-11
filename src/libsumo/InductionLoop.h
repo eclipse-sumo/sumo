@@ -33,6 +33,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NamedRTree;
 class MSInductLoop;
 namespace libsumo {
 struct TraCIVehicleData;

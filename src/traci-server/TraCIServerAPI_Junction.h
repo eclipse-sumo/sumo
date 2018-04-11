@@ -57,27 +57,15 @@ public:
     static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 
-
-    /** @brief Returns the named junction's position
-     * @param[in] id The id of the searched junction
-     * @param[out] p The position, if the junction is known
-     * @return Whether the junction is known (and on road)
-     */
-    static bool getPosition(const std::string& id, Position& p);
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Junction(const TraCIServerAPI_Junction& s);
 
     /// @brief invalidated assignment operator
     TraCIServerAPI_Junction& operator=(const TraCIServerAPI_Junction& s);
-
-
 };
 
 
 #endif
 
 /****************************************************************************/
-

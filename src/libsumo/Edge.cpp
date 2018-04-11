@@ -34,10 +34,12 @@ Edge::getIDList() {
     return ids;
 }
 
+
 int
 Edge::getIDCount() {
     return (int)getIDList().size();
 }
+
 
 double Edge::retrieveExistingTravelTime(const std::string& id, double time) {
     const MSEdge* e = getEdge(id);
@@ -47,6 +49,7 @@ double Edge::retrieveExistingTravelTime(const std::string& id, double time) {
     }
     return value;
 }
+
 
 double
 Edge::retrieveExistingEffort(const std::string& id, double time) {
@@ -58,10 +61,12 @@ Edge::retrieveExistingEffort(const std::string& id, double time) {
     return value;
 }
 
+
 double
 Edge::getCurrentTravelTime(const std::string& id) {
     return getEdge(id)->getCurrentTravelTime();
 }
+
 
 MSEdge*
 Edge::getEdge(const std::string& id) {
@@ -72,15 +77,16 @@ Edge::getEdge(const std::string& id) {
     return e;
 }
 
+
 double
 Edge::getWaitingSeconds(const std::string& id) {
     double wtime = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         wtime += lane->getWaitingSeconds();
     }
     return wtime;
 }
+
 
 const std::vector<std::string>
 Edge::getPersonIDs(const std::string& id) {
@@ -93,11 +99,11 @@ Edge::getPersonIDs(const std::string& id) {
     return personIDs;
 }
 
+
 const std::vector<std::string>
 Edge::getVehicleIDs(const std::string& id) {
     std::vector<std::string> vehIDs;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         const MSLane::VehCont& vehs = lane->getVehiclesSecure();
         for (auto veh : vehs) {
             vehIDs.push_back(veh->getID());
@@ -111,68 +117,67 @@ Edge::getVehicleIDs(const std::string& id) {
 double
 Edge::getCO2Emissions(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getCO2Emissions();
     }
     return sum;
 }
 
+
 double
 Edge::getCOEmissions(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getCOEmissions();
     }
     return sum;
 }
 
+
 double
 Edge::getHCEmissions(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getHCEmissions();
     }
     return sum;
 }
 
+
 double
 Edge::getPMxEmissions(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getPMxEmissions();
     }
     return sum;
 }
 
+
 double
 Edge::getNOxEmissions(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getNOxEmissions();
     }
     return sum;
 }
 
+
 double
 Edge::getFuelConsumption(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getFuelConsumption();
     }
     return sum;
 }
 
+
 double
 Edge::getNoiseEmissions(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += pow(10., (lane->getHarmonoise_NoiseEmissions() / 10.));
     }
     if (sum != 0) {
@@ -181,30 +186,32 @@ Edge::getNoiseEmissions(const std::string& id) {
     return sum;
 }
 
+
 double
 Edge::getElectricityConsumption(const std::string& id) {
     double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getElectricityConsumption();
     }
     return sum;
 }
 
+
 int
 Edge::getVehicleNumber(const std::string& id) {
     int sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         sum += lane->getVehicleNumber();
     }
     return sum;
 }
 
+
 double
 Edge::getMeanSpeed(const std::string& id) {
     return getEdge(id)->getMeanSpeed();
 }
+
 
 double
 Edge::getOccupancy(const std::string& id) {
@@ -216,11 +223,11 @@ Edge::getOccupancy(const std::string& id) {
     return sum / (double)lanes.size();
 }
 
+
 int
 Edge::getVehicleHaltingNumber(const std::string& id) {
     int halting = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         const MSLane::VehCont& vehs = lane->getVehiclesSecure();
         for (auto veh : vehs) {
             if (veh->getSpeed() < SUMO_const_haltingSpeed) {
@@ -232,12 +239,12 @@ Edge::getVehicleHaltingNumber(const std::string& id) {
     return halting;
 }
 
+
 double
 Edge::getVehicleAverageLength(const std::string& id) {
     double lengthSum = 0;
     int noVehicles = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         const MSLane::VehCont& vehs = lane->getVehiclesSecure();
         for (auto veh : vehs) {
             lengthSum += veh->getVehicleType().getLength();
@@ -263,11 +270,13 @@ Edge::getParameter(const std::string& id, const std::string& paramName) {
     return getEdge(id)->getParameter(paramName, "");
 }
 
+
 void
 Edge::setAllowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
     SVCPermissions permissions = parseVehicleClasses(classes);
     setAllowedSVCPermissions(id, permissions);
 }
+
 
 void
 Edge::setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
@@ -275,51 +284,44 @@ Edge::setDisallowedVehicleClasses(const std::string& id, std::vector<std::string
     setAllowedSVCPermissions(id, permissions);
 }
 
+
 void
-Edge::setAllowedSVCPermissions(const std::string& id, SVCPermissions permissions) {
+Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
     MSEdge* e = getEdge(id);
-    const std::vector<MSLane*>& lanes = e->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : e->getLanes()) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
     }
     e->rebuildAllowedLanes();
 }
+
 
 void
 Edge::addTravelTime(const std::string& id, double begTime, double endTime, double value) {
     MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(id), begTime, endTime, value);
 }
 
+
 void
 Edge::addEffort(const std::string& id, double begTime, double endTime, double value) {
     MSNet::getInstance()->getWeightsStorage().addEffort(getEdge(id), begTime, endTime, value);
 }
 
+
 void
 Edge::setMaxSpeed(const std::string& id, double value) {
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
+    for (MSLane* lane : getEdge(id)->getLanes()) {
         lane->setMaxSpeed(value);
     }
 }
+
 
 void
 Edge::setParameter(const std::string& id, const std::string& name, const std::string& value) {
     getEdge(id)->setParameter(name, value);
 }
 
-void
-Edge::getShape(const std::string& id, PositionVector& shape) {
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    shape = lanes.front()->getShape();
-    if (lanes.size() > 1) {
-        copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
-    }
-}
+
 }
 
 
 /****************************************************************************/
-
-
-

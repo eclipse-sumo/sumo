@@ -39,6 +39,7 @@
 // ===========================================================================
 class MSLane;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -49,7 +50,6 @@ class MSLane;
 namespace libsumo {
 class Lane {
 public:
-
     // Getter
     static std::vector<std::string> getIDList();
     static int getIDCount();
@@ -95,9 +95,9 @@ public:
     static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
     static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
+private:
     static const MSLane* getLane(const std::string& id);
 
-private:
     /// @brief invalidated standard constructor
     Lane();
 

@@ -48,20 +48,24 @@ Junction::getIDList() {
     return ids;
 }
 
+
 int
 Junction::getIDCount() {
     return (int)getIDList().size();
 }
+
 
 TraCIPosition
 Junction::getPosition(const std::string& junctionID) {
     return Helper::makeTraCIPosition(getJunction(junctionID)->getPosition());
 }
 
+
 TraCIPositionVector
 Junction::getShape(const std::string& junctionID) {
     return Helper::makeTraCIPositionVector(getJunction(junctionID)->getShape());
 }
+
 
 MSJunction*
 Junction::getJunction(const std::string& id) {
@@ -71,6 +75,7 @@ Junction::getJunction(const std::string& id) {
     }
     return j;
 }
+
 
 NamedRTree*
 Junction::getTree() {

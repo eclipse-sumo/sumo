@@ -1106,17 +1106,26 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
                 return true;
             }
             break;
-        case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
-            if (TraCIServerAPI_Junction::getPosition(id, p)) {
-                shape.push_back(p);
+        case CMD_SUBSCRIBE_JUNCTION_CONTEXT: {
+            const MSJunction* const j = MSNet::getInstance()->getJunctionControl().get(id);
+            if (j != nullptr) {
+                shape.push_back(j->getPosition());
                 return true;
             }
             break;
-        case CMD_SUBSCRIBE_EDGE_CONTEXT:
-            if (TraCIServerAPI_Edge::getShape(id, shape)) {
+        }
+        case CMD_SUBSCRIBE_EDGE_CONTEXT: {
+            const MSEdge* const e = MSEdge::dictionary(id);
+            if (e != nullptr) {
+                const std::vector<MSLane*>& lanes = e->getLanes();
+                shape = lanes.front()->getShape();
+                if (lanes.size() > 1) {
+                    copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
+                }
                 return true;
             }
             break;
+        }
         case CMD_SUBSCRIBE_SIM_CONTEXT:
             return false;
         case CMD_SUBSCRIBE_GUI_CONTEXT:

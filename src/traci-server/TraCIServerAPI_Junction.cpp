@@ -84,28 +84,14 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
             }
             default:
                 break;
-
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, tempMsg);
-
-    return true;
-}
-
-
-bool
-TraCIServerAPI_Junction::getPosition(const std::string& id, Position& p) {
-    MSJunction* j = libsumo::Junction::getJunction(id);
-    if (j == 0) {
-        return false;
-    }
-    p = j->getPosition();
     return true;
 }
 
 
 /****************************************************************************/
-

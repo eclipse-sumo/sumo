@@ -36,6 +36,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NamedRTree;
 class MSJunction;
 
 
@@ -49,8 +50,6 @@ class MSJunction;
 namespace libsumo {
 class Junction {
 public:
-
-
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static TraCIPosition getPosition(const std::string& junctionID);
@@ -63,7 +62,6 @@ public:
 
     static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
     static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-    static MSJunction* getJunction(const std::string& id);
 
     /** @brief Returns a tree filled with junction instances
      * @return The rtree of junctions
@@ -71,6 +69,8 @@ public:
     static NamedRTree* getTree();
 
 private:
+    static MSJunction* getJunction(const std::string& id);
+
     /// @brief invalidated standard constructor
     Junction();
 

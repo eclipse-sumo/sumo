@@ -10,7 +10,7 @@
 /// @file    GNELane.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id: GNELane.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-05 18:17:40 +0100 $
+/// @version $Id$
 ///
 // A class for visualizing Lane geometry (adapted from GNELaneWrapper)
 /****************************************************************************/

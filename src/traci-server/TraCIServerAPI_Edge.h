@@ -60,14 +60,6 @@ public:
                            tcpip::Storage& outputStorage);
 
 
-    /** @brief Returns the named edge's shape
-     * @param[in] id The id of the searched edge
-     * @param[out] shape The shape, if the edge is known
-     * @return Whether the edge is known
-     */
-    static bool getShape(const std::string& id, PositionVector& shape);
-
-
 private:
     /// @brief invalidated copy constructor
     TraCIServerAPI_Edge(const TraCIServerAPI_Edge& s);

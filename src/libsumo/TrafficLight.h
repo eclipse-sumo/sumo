@@ -70,7 +70,11 @@ public:
     static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
 
 private:
+#ifndef SWIGJAVA
+#ifndef SWIGPYTHON
     static MSTLLogicControl::TLSLogicVariants& getTLS(const std::string& id);
+#endif
+#endif
 
     /// @brief invalidated standard constructor
     TrafficLight();

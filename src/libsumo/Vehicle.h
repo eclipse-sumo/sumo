@@ -11,7 +11,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
-/// @version $Id: Vehicle.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // C++ Vehicle API
 /****************************************************************************/
@@ -28,6 +28,7 @@
 #include <config.h>
 #endif
 
+#include <limits>
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIConstants.h>
