@@ -830,6 +830,7 @@ TraCITestClient::testAPI() {
     std::pair<std::string, double> leader = vehicle.getLeader("1", 1000);
     answerLog << "    getLeader: " << leader.first << ", " << leader.second << "\n";
     vehicle.rerouteTraveltime("0");
+    vehicle.setSpeedFactor("0", 0.8);
     answerLog << "    remove:\n";
     vehicle.remove("0");
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";

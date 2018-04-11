@@ -744,6 +744,7 @@ public:
         /// @{
         void setShapeClass(const std::string& vehicleID, const std::string& clazz) const;
         void setEmissionClass(const std::string& vehicleID, const std::string& clazz) const;
+        void setSpeedFactor(const std::string& vehicleID, double factor) const;
         void setMaxSpeed(const std::string& vehicleID, double speed) const;
         /// @}
 
