@@ -45,11 +45,12 @@ class RGBColor;
  * some constant defaults used by SUMO
  * ----------------------------------------------------------------------- */
 const double SUMO_const_laneWidth = (double) 3.2;
-const double SUMO_const_halfLaneWidth = (double) 1.6;
-const double SUMO_const_quarterLaneWidth = (double) 0.8;
-const double SUMO_const_laneOffset = (double) .1;
-const double SUMO_const_laneWidthAndOffset = (double) 3.3;
-const double SUMO_const_halfLaneAndOffset = (double)(3.2 / 2. + .1);
+const double SUMO_const_laneOffset = (double) 0;
+const double SUMO_const_halfLaneWidth = SUMO_const_laneWidth / 2;
+const double SUMO_const_quarterLaneWidth = SUMO_const_laneWidth / 4;
+const double SUMO_const_laneWidthAndOffset = SUMO_const_laneWidth + SUMO_const_laneOffset;
+const double SUMO_const_halfLaneAndOffset = SUMO_const_halfLaneWidth + SUMO_const_laneOffset;
+const double SUMO_const_laneMarkWidth = (double) 0.1;
 
 /// @brief the speed threshold at which vehicles are considered as halting
 const double SUMO_const_haltingSpeed = (double) 0.1;

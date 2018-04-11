@@ -232,7 +232,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief draw lane markings
-    void drawMarkings(const bool& selectedEdge, double scale) const;
+    void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s) const;

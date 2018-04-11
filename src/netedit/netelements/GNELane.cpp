@@ -295,6 +295,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
         const double halfWidth = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - (myParentEdge.isNetElementSelected() ? .3 : 0));
+        const double halfWidth2 = exaggeration * myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && !s.drawForSelecting) {
             PositionVector shape = getShape();
@@ -327,13 +328,18 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(current);
             // Draw crossties
             GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
-        } 
-        else {
+        } else {
             if (myShapeColors.size() > 0) {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, myShapeColors, halfWidth);
             } else {
                 GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfWidth);
             }
+        }
+        if (halfWidth != halfWidth2) {
+            // draw again to show the selected edge
+            GLHelper::setColor(GNENet::selectionColor);
+            glTranslated(0, 0, -.1);
+            GLHelper::drawBoxLines(getShape(), myShapeRotations, myShapeLengths, halfWidth2);
         }
         // Pop draw matrix 1
         glPopMatrix();
@@ -341,7 +347,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         if ((s.scale >= 10) && !s.drawForSelecting) {
             // if exaggeration is 1, draw drawMarkings
             if (s.laneShowBorders && exaggeration == 1 && !drawAsRailway(s)) {
-                drawMarkings(myParentEdge.isNetElementSelected(), exaggeration);
+                drawMarkings(s, exaggeration);
             }
             // draw ROWs only if target junction has a valid logic)
             if (s.showLinkDecals && myParentEdge.getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
@@ -402,47 +408,64 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawMarkings(const bool& selectedEdge, double scale) const {
+GNELane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
+    // draw white boundings and white markings
     glPushMatrix();
-    glTranslated(0, 0, GLO_EDGE);
-
-    const double halfWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) * 0.5;
-    // optionally draw inverse markings
-    if (myIndex > 0 && (myParentEdge.getNBEdge()->getPermissions(myIndex - 1) & myParentEdge.getNBEdge()->getPermissions(myIndex)) != 0) {
-        double mw = (halfWidth + SUMO_const_laneOffset + .01) * scale;
-        int e = (int) getShape().size() - 1;
-        for (int i = 0; i < e; ++i) {
-            glPushMatrix();
-            glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
-            glRotated(myShapeRotations[i], 0, 0, 1);
+    glTranslated(0, 0, GLO_LANE);
+    glColor3d(1, 1, 1);
+    const double myHalfLaneWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;
+    // ensure the line is at least 1 pixel wide
+    const double flickerScale = MAX2(1.0, 30 / s.scale);
+    double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth / 2 * flickerScale) * scale;
+    double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2 * flickerScale) * scale;
+    if (OptionsCont::getOptions().getBool("lefthand")) {
+        mw *= -1;
+        mw2 *= -1;
+    }
+    int e = (int) getShape().size() - 1;
+    for (int i = 0; i < e; ++i) {
+        glPushMatrix();
+        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+        glRotated(myShapeRotations[i], 0, 0, 1);
+        if (myIndex > 0 && (myParentEdge.getNBEdge()->getPermissions(myIndex - 1) & myParentEdge.getNBEdge()->getPermissions(myIndex)) != 0) {
             for (double t = 0; t < myShapeLengths[i]; t += 6) {
                 const double length = MIN2((double)3, myShapeLengths[i] - t);
                 glBegin(GL_QUADS);
                 glVertex2d(-mw, -t);
                 glVertex2d(-mw, -t - length);
-                glVertex2d(halfWidth * 0.5 * scale, -t - length);
-                glVertex2d(halfWidth * 0.5 * scale, -t);
+                glVertex2d(-mw2, -t - length);
+                glVertex2d(-mw2, -t);
                 glEnd();
             }
+        } else {
+            // draw solid line for right border and unpassable lanes
+            const double length = myShapeLengths[i];
+            glBegin(GL_QUADS);
+            glVertex2d(-mw, -length);
+            glVertex2d(-mw, 0);
+            glVertex2d(-mw2, 0);
+            glVertex2d(-mw2, -length);
+            glEnd();
+        }
+        glPopMatrix();
+    }
+    // solid road center line
+    if (myIndex == myParentEdge.getNBEdge()->getNumLanes() - 1) {
+        for (int i = 0; i < e; ++i) {
+            glPushMatrix();
+            glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
+            glRotated(myShapeRotations[i], 0, 0, 1);
+            const double length = myShapeLengths[i];
+            glBegin(GL_QUADS);
+            glVertex2d(mw, -length);
+            glVertex2d(mw, 0);
+            glVertex2d(mw2, 0);
+            glVertex2d(mw2, -length);
+            glEnd();
             glPopMatrix();
         }
     }
-
-    // draw white boundings (and white markings) depending on selection
-    if (selectedEdge) {
-        glTranslated(0, 0, 0.2); // draw selection on top of regular markings
-        GLHelper::setColor(GNENet::selectionColor);
-    } else {
-        glColor3d(1, 1, 1);
-    }
-
-    GLHelper::drawBoxLines(
-        getShape(),
-        getShapeRotations(),
-        getShapeLengths(),
-        (halfWidth + SUMO_const_laneOffset) * scale);
     glPopMatrix();
-
 }
 
 
