@@ -456,14 +456,14 @@ private:
     /// @brief modul for TLS attributes
     GNETLSEditorFrame::TLSAttributes* myTLSAttributes;
 
+    /// @brief modul for load/Save TLS Modifications
+    GNETLSEditorFrame::TLSModifications *myTLSModifications;
+
     /// @brief modul for TLS Phases
     GNETLSEditorFrame::TLSPhases* myTLSPhases;
 
     /// @brief modul for load/Save TLS Programs
     GNETLSEditorFrame::TLSFile *myTLSFile;
-
-    /// @brief modul for load/Save TLS Modifications
-    GNETLSEditorFrame::TLSModifications *myTLSModifications;
 
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
     typedef std::map<int, std::vector<GNEInternalLane*> > TLIndexMap;

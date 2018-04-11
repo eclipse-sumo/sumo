@@ -114,11 +114,11 @@ GNETLSEditorFrame::GNETLSEditorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // create TLSAttributes modul
     myTLSAttributes = new GNETLSEditorFrame::TLSAttributes(this);
 
-    // create TLSPhases modul
-    myTLSPhases = new GNETLSEditorFrame::TLSPhases(this);
-
     // create TLSModifications modul
     myTLSModifications = new GNETLSEditorFrame::TLSModifications(this);
+
+    // create TLSPhases modul
+    myTLSPhases = new GNETLSEditorFrame::TLSPhases(this);
 
     // create TLSFile modul
     myTLSFile = new GNETLSEditorFrame::TLSFile(this);
@@ -866,9 +866,11 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXGroupBox(TLSEditorParent->myContentFrame, "Traffic lights definition", GUIDesignGroupBoxFrame),
     myTLSEditorParent(TLSEditorParent) {
     // create create tlDef button
-    myNewTLProgram = new FXButton(this, "Create TLS\t\tCreate a new traffic light program", 0, TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
+    myNewTLProgram = new FXButton(this, "Create TLS\t\tCreate a new traffic light program", 
+                                  GUIIconSubSys::getIcon(ICON_MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
     // create delete tlDef button
-    myDeleteTLProgram = new FXButton(this, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 0, TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
+    myDeleteTLProgram = new FXButton(this, "Delete TLS\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.", 
+                                     GUIIconSubSys::getIcon(ICON_REMOVE), TLSEditorParent, MID_GNE_TLSFRAME_DELETE, GUIDesignButton);
     // show TLS TLSDefinition
     show();
 }
@@ -988,10 +990,12 @@ GNETLSEditorFrame::TLSModifications::TLSModifications(GNETLSEditorFrame* TLSEdit
     FXGroupBox(TLSEditorParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
     myTLSEditorParent(TLSEditorParent),
     myHaveModifications(false) {
-    // create discard modifications buttons
-    myDiscardModificationsButtons = new FXButton(this, "Cancel\t\tDiscard program modifications (Esc)", 0, myTLSEditorParent, MID_CANCEL, GUIDesignButton);
     // create save modifications button
-    mySaveModificationsButtons = new FXButton(this, "Save\t\tSave program modifications (Enter)", 0, myTLSEditorParent, MID_OK, GUIDesignButton);
+    mySaveModificationsButtons = new FXButton(this, "Save\t\tSave program modifications (Enter)", 
+                                              GUIIconSubSys::getIcon(ICON_OK), myTLSEditorParent, MID_OK, GUIDesignButton);
+    // create discard modifications buttons
+    myDiscardModificationsButtons = new FXButton(this, "Cancel\t\tDiscard program modifications (Esc)", 
+                                                 GUIIconSubSys::getIcon(ICON_CANCEL), myTLSEditorParent, MID_CANCEL, GUIDesignButton);
     // show TLSModifications
     show();
 }
