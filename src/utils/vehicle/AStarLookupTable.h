@@ -175,7 +175,7 @@ public:
                     continue;
                 }
                 if (router != 0) {
-                    const std::string missing = filename + ".missing";
+                    const std::string missing = outfile.empty() ? filename + ".missing" : outfile;
                     WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'. Saving missing values to '" + missing + "'.");
                     if (ostrm == 0) {
                         ostrm = new std::ofstream(missing.c_str());
