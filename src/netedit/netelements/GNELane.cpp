@@ -1055,13 +1055,13 @@ GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
 
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails;
+    return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForSelecting;
 }
 
 
 bool
 GNELane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails; // reusing the showRails setting
+    return isWaterway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && !s.drawForSelecting; // reusing the showRails setting
 }
 
 

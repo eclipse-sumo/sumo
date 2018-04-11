@@ -407,23 +407,23 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     */
     // obtain resolution for points
     int circleResolution = 0;
-    if(!s.drawForSelecting) {
-        if (s.scale >= 10) {
-            circleResolution = 32;
-        } else if (s.scale >= 2) {
-            circleResolution = 16;
-        } else if (s.scale >= 1) {
-            circleResolution = 8;
-        } else {
-            circleResolution = 4;
-        }
+    if(s.drawForSelecting) {
+        circleResolution = 8;
+    } else if (s.scale >= 10) {
+        circleResolution = 32;
+    } else if (s.scale >= 2) {
+        circleResolution = 16;
+    } else if (s.scale >= 1) {
+        circleResolution = 8;
+    } else {
+        circleResolution = 4;
     }
     // draw the lanes
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw geometry hints if isn't in selecting mode
-    if (!s.drawForSelecting && (s.scale > 3.0)) { // check whether it is not too small
+    // draw geometry points if isnt's too small
+    if (s.scale > 8.0) {
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
         if (isNetElementSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
@@ -435,7 +435,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         if (color[3] > 0) {
             // push name
             glPushName(getGlID());
-            // draw geometry points
+            // draw geometry points expect initial and final
             for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
                 Position pos = myNBEdge.getGeometry()[i];
                 glPushMatrix();
@@ -444,24 +444,26 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
             }
-            // draw line geometry and start and end points if shapeStart or shape end are edited and isn't in selecting mode
+            // draw line geometry and start and end points if shapeStart or shape end is edited
             if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
-                // draw a "s" over first point
-                glPushMatrix();
-                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
-                GLHelper::drawText("S", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
-                glPopMatrix();
-                // draw line
-                glPushMatrix();
-                glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                glLineWidth(4);
-                GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
-                glPopMatrix();
+                if(!s.drawForSelecting) {
+                    // draw a "s" over first point
+                    glPushMatrix();
+                    glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
+                    GLHelper::drawText("S", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                    glPopMatrix();
+                    // draw line between Junction and point
+                    glPushMatrix();
+                    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                    glLineWidth(4);
+                    GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
+                    glPopMatrix();
+                }
             }
             if(myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
                 glPushMatrix();
@@ -469,17 +471,19 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
                 glPopMatrix();
-                // draw a "e" over last point if polygon isn't closed
                 glPushMatrix();
-                glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION);
-                GLHelper::drawText("E", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
-                glPopMatrix();
-                // draw line
-                glPushMatrix();
-                glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                glLineWidth(4);
-                GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
-                glPopMatrix();
+                if(!s.drawForSelecting) {
+                    // draw a "e" over last point
+                    glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION);
+                    GLHelper::drawText("E", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                    glPopMatrix();
+                    // draw line between Junction and point
+                    glPushMatrix();
+                    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                    glLineWidth(4);
+                    GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                    glPopMatrix();
+                }
             }
             // pop name
             glPopName();

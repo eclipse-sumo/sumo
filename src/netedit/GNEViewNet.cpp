@@ -558,7 +558,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // compute lane width
     double lw = m2p(SUMO_const_laneWidth);
     // draw decals (if not in grabbing mode)
-    if (!myUseToolTips) {
+    if (!myUseToolTips && !myVisualizationSettings->drawForSelecting) {
         drawDecals();
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
@@ -599,7 +599,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
 
     // draw temporal shape of polygon during drawing
-    if (myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
+    if (!myVisualizationSettings->drawForSelecting && myViewParent->getPolygonFrame()->getDrawingMode()->isDrawing()) {
         const PositionVector& temporalDrawingShape = myViewParent->getPolygonFrame()->getDrawingMode()->getTemporalShape();
         // draw blue line with the current drawed shape
         glPushMatrix();
@@ -728,9 +728,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.junction->getPositionInView();
-                } else if (myObjectsUnderCursor.lane) {
+                } else if (myObjectsUnderCursor.edge || myObjectsUnderCursor.lane) {
                         // allways swap lanes to edges in movement mode
-                        myObjectsUnderCursor.swapLane2Edge();
+                        if(myObjectsUnderCursor.lane) {
+                            myObjectsUnderCursor.swapLane2Edge();
+                        }
                     if (myObjectsUnderCursor.edge->isNetElementSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
                     } else if(myObjectsUnderCursor.shiftKeyPressed()) {
