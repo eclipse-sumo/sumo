@@ -367,10 +367,10 @@ protected:
          * @param[in] dynamicArg Whether the signal is dynamic
          * @param[in] sArg The offset from the start, counted from the begin
          */
-        OpenDriveSignal(int idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, double sArg)
+        OpenDriveSignal(const std::string& idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, double sArg)
             : id(idArg), type(typeArg), name(nameArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
 
-        int id;
+        std::string id;
         std::string type;
         std::string name;
         int orientation;
