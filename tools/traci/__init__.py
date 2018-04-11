@@ -54,8 +54,8 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
         try:
             return Connection(host, port, proc)
         except socket.error as e:
-            print("Could not connect to TraCI server at %s:%s" %
-                  (host, port), e)
+            if wait > 1:
+                print("Could not connect to TraCI server at %s:%s" % (host, port), e)
             if wait < numRetries + 1:
                 print(" Retrying in %s seconds" % wait)
                 time.sleep(wait)
