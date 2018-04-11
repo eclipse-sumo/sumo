@@ -958,10 +958,15 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
                         GNEAttributeCarrier *retrievedAC = myNet->retrieveAttributeCarrier(i);
                         // in the case of a Lane, we need to add the edge parent if mySelectEdges is enabled
                         if((retrievedAC->getTag() == SUMO_TAG_LANE) && mySelectEdges) {
-                            ACs.push_back(&dynamic_cast<GNELane*>(retrievedAC)->getParentEdge());
-                        } else {
-                            ACs.push_back(retrievedAC);
+                            retrievedAC = &dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
                         }
+                        // select junctions of selected edges if 
+                        if((retrievedAC->getTag() == SUMO_TAG_EDGE) && (myMenuCheckExtendToEdgeNodes->getCheck() == TRUE)) {
+                            GNEEdge* edge = dynamic_cast<GNEEdge*>(retrievedAC);
+                            ACs.push_back(edge->getGNEJunctionSource());
+                            ACs.push_back(edge->getGNEJunctionDestiny());
+                        }
+                        ACs.push_back(retrievedAC);
                     }
                 }
                 myViewParent->getSelectorFrame()->handleIDs(ACs);
