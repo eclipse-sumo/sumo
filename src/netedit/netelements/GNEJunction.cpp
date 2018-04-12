@@ -217,6 +217,21 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     GLfloat color[4];
     double exaggeration = isNetElementSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
+    double circleWidth = BUBBLE_RADIUS * exaggeration;
+    double circleWidthSquared = circleWidth * circleWidth;
+    double circleResolution = 4;
+    // resolution of drawn circle depending of the zoom and if isn't being drawn for selecting (To improve smothness)
+    if(s.drawForSelecting) {
+        circleResolution = 8;
+    } else if (s.scale >= 10) {
+        circleResolution = 32;
+    } else if (s.scale >= 2) {
+        circleResolution = 16;
+    } else if (s.scale >= 1) {
+        circleResolution = 8;
+    } else {
+        circleResolution = 4;
+    }
     // push name
     glPushName(getGlID());
     if (s.scale * exaggeration * myMaxSize < 1.) {
@@ -251,11 +266,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 setColor(s, true);
                 // recognize full transparency and simply don't draw
                 glGetFloatv(GL_CURRENT_COLOR, color);
-                if (color[3] != 0) {
+                if ((color[3] != 0) && 
+                    (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
-                    Position pos = myNBNode.getPosition();
-                    glTranslated(pos.x(), pos.y(), getType() + 0.05);
-                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 32);
+                    glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
+                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                 }
             }
@@ -264,27 +279,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             setColor(s, true);
             // recognize full transparency and simply don't draw
             glGetFloatv(GL_CURRENT_COLOR, color);
-            if (color[3] != 0) {
+            if ((color[3] != 0) && 
+                (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 Position pos = myNBNode.getPosition();
                 glTranslated(pos.x(), pos.y(), getType() - 0.05);
-                // resolution of drawn circle depending of the zoom and if isn't being drawn for selecting (To improve smothness)
-                if(s.drawForSelecting) {
-                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 8);
-                } else if (s.scale >= 10) {
-                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 32);
-                } else if (s.scale >= 2) {
-                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 16);
-                } else if (s.scale >= 1) {
-                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 8);
-                } else {
-                    GLHelper::drawFilledCircle(BUBBLE_RADIUS * exaggeration, 4);
-                }
+                GLHelper::drawFilledCircle(circleWidth, circleResolution);
                 glPopMatrix();
             }
         }
         // draw TLS icon if isn't being drawn for selecting
-        if ((s.editMode == GNE_MODE_TLS && myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
+        if ((s.editMode == GNE_MODE_TLS) && (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
             glPushMatrix();
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
