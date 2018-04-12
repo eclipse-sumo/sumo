@@ -551,9 +551,10 @@ GLHelper::drawTextAtEnd(const std::string& text, const PositionVector& shape, do
 
 void
 GLHelper::drawCrossTies(const PositionVector& geom,
-                       const std::vector<double>& rots,
-                       const std::vector<double>& lengths,
-                       double length, double spacing, double halfWidth) {
+                        const std::vector<double>& rots,
+                        const std::vector<double>& lengths,
+                        double length, double spacing, 
+                        double halfWidth, bool drawForSelecting ) {
     glPushMatrix();
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
@@ -562,14 +563,26 @@ GLHelper::drawCrossTies(const PositionVector& geom,
         glPushMatrix();
         glTranslated(geom[i].x(), geom[i].y(), 0.0);
         glRotated(rots[i], 0, 0, 1);
-        for (double t = 0; t < lengths[i]; t += spacing) {
+        // draw crossing depending if isn't being drawn for selecting
+        if(!drawForSelecting) {
+            for (double t = 0; t < lengths[i]; t += spacing) {
+                glBegin(GL_QUADS);
+                glVertex2d(-halfWidth, -t);
+                glVertex2d(-halfWidth, -t - length);
+                glVertex2d(halfWidth, -t - length);
+                glVertex2d(halfWidth, -t);
+                glEnd();
+            }
+        } else {
+            // only draw a single rectangle if it's being drawn only for selecting
             glBegin(GL_QUADS);
-            glVertex2d(-halfWidth, -t);
-            glVertex2d(-halfWidth, -t - length);
-            glVertex2d(halfWidth, -t - length);
-            glVertex2d(halfWidth, -t);
+            glVertex2d(-halfWidth, 0);
+            glVertex2d(-halfWidth, -lengths.back());
+            glVertex2d(halfWidth, -lengths.back());
+            glVertex2d(halfWidth, 0);
             glEnd();
-        }
+            }
+        // pop three draw matrix
         glPopMatrix();
     }
     glPopMatrix();

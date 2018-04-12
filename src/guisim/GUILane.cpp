@@ -529,11 +529,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(0, 0, .1);
                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
                 setColor(s);
-                GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth);
+                GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && s.scale > 3.0) {
                     glTranslated(0, 0, .2);
-                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5);
+                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForSelecting);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
