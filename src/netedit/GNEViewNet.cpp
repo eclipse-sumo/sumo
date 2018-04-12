@@ -792,14 +792,43 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
-                    // check if clicked AC is selected
-                    if(GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
-                        myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.attributeCarrier->getTag()));
+                    // if Control key is Pressed, select instead inspect element
+                    if(myObjectsUnderCursor.controltKeyPressed()) {
+                        // Check if this GLobject type is locked
+                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType)) {
+                            if(myObjectsUnderCursor.netElement) {
+                                // toogle netElement selection
+                                if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
+                                    myObjectsUnderCursor.netElement->unselectNetElement();
+                                } else {
+                                    myObjectsUnderCursor.netElement->selectNetElement();
+                                }
+                            } else if(myObjectsUnderCursor.additional) {
+                                // toogle additional selection
+                                if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
+                                    myObjectsUnderCursor.additional->unselectAdditional();
+                                } else {
+                                    myObjectsUnderCursor.additional->selectAdditional();
+                                }
+                            } else if (myObjectsUnderCursor.shape) {
+                                // toogle shape selection
+                                if(myObjectsUnderCursor.shape->isShapeSelected()) {
+                                    myObjectsUnderCursor.shape->unselectShape();
+                                } else {
+                                    myObjectsUnderCursor.shape->selectShape();
+                                }
+                            }
+                        }
                     } else {
-                        myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
+                        // check if clicked AC is selected
+                        if(GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
+                            myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.attributeCarrier->getTag()));
+                        } else {
+                            myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
+                        }
+                        // focus upper element of inspector frame
+                        myViewParent->getInspectorFrame()->focusUpperElement();
                     }
-                    // focus upper element of inspector frame
-                    myViewParent->getInspectorFrame()->focusUpperElement();
                 }
                 // process click
                 processClick(evt, eventData);
