@@ -235,6 +235,8 @@ GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjec
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
+    // (uncomment the next line to check select mode)
+    //myVisualizationSettings->drawForSelecting = true;
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -261,12 +263,12 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
-    //
+    // Draw additional objects
     if (myAdditionallyDrawn.size() > 0) {
         glTranslated(0, 0, -.01);
         GUINet::getGUIInstance()->lock();
-        for (std::map<const GUIGlObject*, int>::iterator i = myAdditionallyDrawn.begin(); i != myAdditionallyDrawn.end(); ++i) {
-            (i->first)->drawGLAdditional(this, *myVisualizationSettings);
+        for (auto i : myAdditionallyDrawn) {
+            i.first->drawGLAdditional(this, *myVisualizationSettings);
         }
         GUINet::getGUIInstance()->unlock();
         glTranslated(0, 0, .01);
