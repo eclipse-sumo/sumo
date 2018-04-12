@@ -2871,7 +2871,7 @@ NBEdge::addLane(int index, bool recomputeShape, bool recomputeConnections, bool 
         // shift incoming connections above the added lane to the left
         for (NBEdge* inc : myFrom->getIncomingEdges()) {
             for (Connection& c : inc->myConnections) {
-                if (c.toLane >= index) {
+                if (c.toEdge == this && c.toLane >= index) {
                     c.toLane += 1;
                 }
             }
@@ -2913,7 +2913,7 @@ NBEdge::deleteLane(int index, bool recompute, bool shiftIndices) {
         // shift incoming connections above the delete lane to the right
         for (NBEdge* inc : myFrom->getIncomingEdges()) {
             for (Connection& c : inc->myConnections) {
-                if (c.toLane > index) {
+                if (c.toEdge == this && c.toLane > index) {
                     c.toLane -= 1;
                 }
             }
