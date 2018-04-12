@@ -259,11 +259,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 setColor(s, true);
                 // recognize full transparency and simply don't draw
                 glGetFloatv(GL_CURRENT_COLOR, color);
-                if ((color[3] != 0) && 
-                    (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2)))) {
+                if (color[3] != 0) {
                     glPushMatrix();
                     glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
-                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                    if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                        GLHelper::drawFilledCircle(circleWidth, circleResolution);                    
+                    } else {
+                        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+                    }
                     glPopMatrix();
                 }
             }
@@ -272,14 +275,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             setColor(s, true);
             // recognize full transparency and simply don't draw
             glGetFloatv(GL_CURRENT_COLOR, color);
-            if ((color[3] != 0) && 
-                (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2)))) {
-                glPushMatrix();
-                Position pos = myNBNode.getPosition();
-                glTranslated(pos.x(), pos.y(), getType() - 0.05);
-                GLHelper::drawFilledCircle(circleWidth, circleResolution);
-                glPopMatrix();
-            }
+                if (color[3] != 0) {
+                    glPushMatrix();
+                    glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
+                    if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                        GLHelper::drawFilledCircle(circleWidth, circleResolution);                    
+                    } else {
+                        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+                    }
+                    glPopMatrix();
+                }
         }
         // draw TLS icon if isn't being drawn for selecting
         if ((s.editMode == GNE_MODE_TLS) && (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {

@@ -997,10 +997,18 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
                             ACs.push_back(edge->getGNEJunctionSource());
                             ACs.push_back(edge->getGNEJunctionDestiny());
                         }
-                        ACs.push_back(retrievedAC);
+                        // make sure that AttributeCarrier can be selected AND isn't selected
+                        if(GNEAttributeCarrier::canBeSelected(retrievedAC->getTag()) && (retrievedAC->getAttribute(GNE_ATTR_SELECTED) == "0")) {
+                            ACs.push_back(retrievedAC);
+                        }
                     }
                 }
-                myViewParent->getSelectorFrame()->handleIDs(ACs);
+                // select attributes allowing undo
+                myUndoList->p_begin("selection using rectangle");
+                for (auto i : ACs) {
+                    i->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
+                }
+                myUndoList->p_end();
                 makeNonCurrent();
             }
         }
