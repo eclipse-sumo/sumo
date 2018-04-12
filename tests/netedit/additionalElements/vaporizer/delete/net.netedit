@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.02.2018 15:13:16 by Netedit Version v0_32_0+0584-8b2ccefebb
+<!-- generated on 12.04.2018 10:27:00 by Netedit Version b46590447d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\net.net.xml"/>
+        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\additionals.xml"/>
+        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\shapes.xml"/>
+        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.28Feb131308.2968/netedit.gui/additionalElements/vaporizer/delete\log.txt"/>
+        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/additionalElements/vaporizer/delete\log.txt"/>
     </report>
 
 </configuration>
@@ -44,10 +44,10 @@
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,1.65 0.00,1.65"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
     </edge>
 
-    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="0.00,3.25 0.00,0.05"/>
-    <junction id="gneJ1" type="dead_end" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,0.05 50.00,3.25"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="gneE1_0" intLanes="" shape="0.00,3.20 0.00,0.00"/>
+    <junction id="gneJ1" type="dead_end" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,0.00 50.00,3.20"/>
 
 </net>

@@ -15,8 +15,8 @@ Warning: Adding poi 'POI_10' into viewNet
 Warning: Adding poi 'POI_11' into viewNet
 Warning: Adding poi 'POI_12' into viewNet
 Warning: Adding poi 'POI_13' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.04Apr153135.2536/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
-Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.63'
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/shapeElements/poi/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.50'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs

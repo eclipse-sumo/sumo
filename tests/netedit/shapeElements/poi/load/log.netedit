@@ -29,10 +29,10 @@ Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
 Warning: Adding poi 'POI_10' into viewNet
 Error: Loading of shapes failed.
-Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/shapeElements/poi/load\paris.ico'.
 Loading failed!
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poi/load\berlin_icon.ico' in GUITexturesHelper::getTextureID
-Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.63'
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/shapeElements/poi/load\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.50'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()

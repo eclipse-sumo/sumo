@@ -48,18 +48,17 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Adding junction 'gneJ3' into net
+Warning: Adding junction 'gneJ4' into net
 Warning: Adding edge 'gneE3' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
 Warning: Created connection 'from3_1to7_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE0_0to6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE0_0to6_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0to7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0to7_1' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -118,7 +117,6 @@ Warning: Deleting unreferenced connection 'fromgneE1_0to7_0' in GNEEdge destruct
 Warning: Deleting unreferenced connection 'fromgneE1_0to7_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE3' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'A' in GNENet destructor
@@ -130,6 +128,7 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ4' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Cleaning textures in GUITexturesHelper::clearTextures

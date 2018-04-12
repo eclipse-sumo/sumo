@@ -5,22 +5,34 @@ Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additio
 Warning: Additionals has to be saved
 Warning: Setting new attribute startPos '23.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Setting new attribute endPos '33.00' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Setting new attribute blockMovement 'true' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Setting new attribute blockMovement 'false' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Setting new attribute startPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Setting new attribute endPos '40.00' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute endPos '33.00' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Setting previous attribute startPos '23.00' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '1' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Setting previous attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startPos '23.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Setting new attribute endPos '33.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'false' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute startPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
+Warning: Setting new attribute endPos '40.00' into chargingStation 'chargingStation_gneE0_0_0'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
