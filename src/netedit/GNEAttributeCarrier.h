@@ -31,6 +31,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
@@ -512,8 +513,10 @@ public:
 
     /// @}
 
-private:
+    /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
+    static int getCircleResolution(const GUIVisualizationSettings& settings);
 
+private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 

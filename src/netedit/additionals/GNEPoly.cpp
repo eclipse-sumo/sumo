@@ -58,6 +58,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 const double GNEPoly::myHintSize = 0.8;
 const double GNEPoly::myHintSizeSquared = 0.64;
 
@@ -270,7 +271,7 @@ void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
-    double circleResolution = s.drawForSelecting? 8 : 32;
+    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // push matrix
     glPushName(getGlID());
     // draw geometry details hints if is not too small and isn't in selecting mode

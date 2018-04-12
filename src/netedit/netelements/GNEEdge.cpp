@@ -408,19 +408,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle width
     double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
     double circleWidthSquared = circleWidth * circleWidth;
-    // obtain resolution for points
-    int circleResolution = 0;
-    if(s.drawForSelecting) {
-        circleResolution = 8;
-    } else if (s.scale >= 10) {
-        circleResolution = 32;
-    } else if (s.scale >= 2) {
-        circleResolution = 16;
-    } else if (s.scale >= 1) {
-        circleResolution = 8;
-    } else {
-        circleResolution = 4;
-    }
+    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // draw the lanes
     for (auto i : myLanes) {
         i->drawGL(s);

@@ -55,6 +55,10 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 
+// ===========================================================================
+// static members
+// ===========================================================================
+
 const double GNEJunction::BUBBLE_RADIUS(4);
 
 // ===========================================================================
@@ -217,21 +221,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     GLfloat color[4];
     double exaggeration = isNetElementSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
+    // declare values for circles
     double circleWidth = BUBBLE_RADIUS * exaggeration;
     double circleWidthSquared = circleWidth * circleWidth;
-    double circleResolution = 4;
-    // resolution of drawn circle depending of the zoom and if isn't being drawn for selecting (To improve smothness)
-    if(s.drawForSelecting) {
-        circleResolution = 8;
-    } else if (s.scale >= 10) {
-        circleResolution = 32;
-    } else if (s.scale >= 2) {
-        circleResolution = 16;
-    } else if (s.scale >= 1) {
-        circleResolution = 8;
-    } else {
-        circleResolution = 4;
-    }
+    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // push name
     glPushName(getGlID());
     if (s.scale * exaggeration * myMaxSize < 1.) {

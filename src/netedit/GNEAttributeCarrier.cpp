@@ -42,6 +42,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > GNEAttributeCarrier::_allowedAttributes;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
@@ -81,6 +82,7 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag, GUIIcon icon) :
     myTag(tag),
     myIcon(icon) {
@@ -294,7 +296,6 @@ GNEAttributeCarrier::isValidFilename(const std::string& value) {
     // to XML sintax
     return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
 }
-
 
 // ===========================================================================
 // static methods
@@ -2009,6 +2010,22 @@ GNEAttributeCarrier::parseGNELanes(const std::vector<GNELane*>& lanes) {
         laneIDs.push_back(i->getID());
     }
     return joinToString(laneIDs, " ");
+}
+
+
+int 
+GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
+    if(settings.drawForSelecting) {
+        return 8;
+    } else if (settings.scale >= 10) {
+        return 32;
+    } else if (settings.scale >= 2) {
+        return 16;
+    } else if (settings.scale >= 1) {
+        return 8;
+    } else {
+        return 4;
+    }
 }
 
 

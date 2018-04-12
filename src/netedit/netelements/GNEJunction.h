@@ -56,7 +56,7 @@ class GNEJunction : public GNENetElement {
     friend class GNEChange_Crossing;
 
 public:
-
+    /// @brief constant values for drawing buubles
     static const double BUBBLE_RADIUS;
 
     /**@brief Constructor
@@ -263,7 +263,6 @@ private:
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
 
-private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
