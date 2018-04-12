@@ -296,11 +296,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // we draw the lanes with reduced width so that the lane markings below are visible
         // (this avoids artifacts at geometry corners without having to
         // compute lane-marking intersection points)
-
-        // ensure the lane markings are at least 1 pixel wide to avoid flicker
-        const double flickerScale = MAX2(1.0, 30 / s.scale);
+        const double halfWidth2 = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-        const double halfWidth2 = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2 * flickerScale);
         const double halfWidth =  myParentEdge.isNetElementSelected() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && !s.drawForSelecting) {
