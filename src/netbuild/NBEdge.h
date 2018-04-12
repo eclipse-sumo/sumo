@@ -1247,6 +1247,9 @@ public:
     /// @brief whether this edge is part of a bidirectional railway
     bool isBidiRail();
 
+    /// @brief debugging helper to print all connections
+    void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
+
 private:
     /** @class ToEdgeConnectionsAdder
      * @brief A class that being a bresenham-callback assigns the incoming lanes to the edges
@@ -1392,9 +1395,6 @@ private:
 
     /// @brief restore a restricted lane
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
-
-    /// @brief debugging helper to print all connections
-    void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 
 private:
     /** @brief The building step
