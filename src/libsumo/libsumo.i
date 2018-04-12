@@ -2,10 +2,17 @@
 
 #ifdef SWIGPYTHON
 %rename(edge) Edge;
+%rename(inductionloop) InductionLoop;
+%rename(junction) Junction;
 %rename(lane) Lane;
 %rename(lanearea) LaneArea;
-%rename(inductionloop) InductionLoop;
+%rename(multientryexit) MultiEntryExit;
+%rename(person) Person;
+%rename(poi) POI;
+%rename(polygon) Polygon;
+%rename(route) Route;
 %rename(simulation) Simulation;
+%rename(trafficlight) TrafficLight;
 %rename(vehicle) Vehicle;
 %rename(vehicletype) VehicleType;
 #endif
