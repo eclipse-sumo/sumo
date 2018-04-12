@@ -36,11 +36,13 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/common/StringBijection.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/options/OptionsCont.h>
 
 
 // ===========================================================================
 // enum
 // ===========================================================================
+
 enum EditMode {
     ///@brief placeholder mode
     GNE_MODE_DUMMY,
@@ -69,6 +71,7 @@ enum EditMode {
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNENet;
 class GNENetElement;
 class GNEJunction;
@@ -506,6 +509,41 @@ private:
         GNEPoly* poly;
     };
 
+    /// @brief struct used to group all variables related with selecting using a square or polygon
+    /// @note in the future the variables used for selecting throught a polygon will be placed here
+    struct selectingArea {
+        /// @brief default constructor
+        selectingArea() :
+            selectinUsingRectangle(false) {}
+
+        /// @brief whether we have started rectangle-selection
+        bool selectinUsingRectangle;
+
+        /// @brief firstcorner of the rectangle-selection
+        Position selectionCorner1;
+
+        /// @brief second corner of the rectangle-selection
+        Position selectionCorner2;
+    };
+
+    /// @brief struct used to group all variables related with testing
+    struct testingMode {
+        /// @brief default constructor
+        testingMode() :
+            testingEnabled(OptionsCont::getOptions().getBool("gui-testing")),
+            testingWidth(0),
+            testingHeight(0) {}
+
+        /// @brief flag to enable or disable testing mode
+        bool testingEnabled;
+
+        /// @brief Width of viewNet in testing mode
+        int testingWidth;
+
+        /// @brief Height of viewNet in testing mode
+        int testingHeight;
+    };
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
@@ -570,6 +608,12 @@ private:
     /// @brief variable used to save variables related with movement of single elements 
     MoveSingleElementValues myMoveSingleElementValues;
 
+    /// @brief variable used to save variables related with selecting areas
+    selectingArea mySelectingArea;
+
+    /// @brief variable used to save variables related with testing mode
+    testingMode myTestingMode;
+
     /// @brief whether a selection is being moved
     bool myMovingSelection;
 
@@ -588,18 +632,6 @@ private:
     };
 
     std::map<GNEEdge*, MovingEdges> myOriginShapesMovedPartialShapes;
-    // @}
-
-    /// @name state-variables of inspect-mode and select-mode
-    // @{
-    /// @brief whether we have started rectangle-selection
-    bool myAmInRectSelect;
-
-    /// @brief firstcorner of the rectangle-selection
-    Position mySelCorner1;
-
-    /// @brief second corner of the rectangle-selection
-    Position mySelCorner2;
     // @}
 
     /// @brief a reference to the toolbar in myParent
@@ -657,18 +689,6 @@ private:
 
     /// @brief the previous edit mode before edit junction's shapes
     EditMode myPreviousEditMode;
-    /// @}
-
-    /// @name variables for testing mode
-    /// @{
-    /// @brief flag to enable or disable testing mode
-    bool myTestingMode;
-
-    /// @brief Width of viewNet in testing mode
-    int myTestingWidth;
-
-    /// @brief Height of viewNet in testing mode
-    int myTestingHeight;
     /// @}
 
     /// @brief set edit mode

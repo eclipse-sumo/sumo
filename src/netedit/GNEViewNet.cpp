@@ -160,7 +160,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectEdges(true),
     myCreateEdgeSource(0),
     myMovingSelection(false),
-    myAmInRectSelect(false),
     myToolbar(toolBar),
     myEditModeCreateEdge(0),
     myEditModeMove(0),
@@ -174,8 +173,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModePolygon(0),
     myEditModeNames(),
     myUndoList(undoList),
-    myEditShapePoly(0),
-    myTestingMode(OptionsCont::getOptions().getBool("gui-testing")) {
+    myEditShapePoly(0) {
     // view must be the final member of actualParent
     reparent(actualParent);
 
@@ -188,11 +186,11 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     // Reset textures
     GUITextureSubSys::resetTextures();
 
-    if (myTestingMode && OptionsCont::getOptions().isSet("window-size")) {
+    if (myTestingMode.testingEnabled && OptionsCont::getOptions().isSet("window-size")) {
         std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
         if (windowSize.size() == 2 && GNEAttributeCarrier::canParse<int>(windowSize[0]) && GNEAttributeCarrier::canParse<int>(windowSize[1])) {
-            myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
-            myTestingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
+            myTestingMode.testingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
+            myTestingMode.testingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
         } else {
             WRITE_ERROR("Invalid windows size-format: " + toString(windowSize) + "for option 'window-size'");
         }
@@ -540,17 +538,17 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_DEPTH_TEST);
 
     // visualize rectangular selection
-    if (myAmInRectSelect) {
+    if (mySelectingArea.selectinUsingRectangle) {
         glPushMatrix();
         glTranslated(0, 0, GLO_MAX - 1);
         GLHelper::setColor(GNENet::selectionColor);
         glLineWidth(2);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2d(mySelCorner1.x(), mySelCorner1.y());
-        glVertex2d(mySelCorner1.x(), mySelCorner2.y());
-        glVertex2d(mySelCorner2.x(), mySelCorner2.y());
-        glVertex2d(mySelCorner2.x(), mySelCorner1.y());
+        glVertex2d(mySelectingArea.selectionCorner1.x(), mySelectingArea.selectionCorner1.y());
+        glVertex2d(mySelectingArea.selectionCorner1.x(), mySelectingArea.selectionCorner2.y());
+        glVertex2d(mySelectingArea.selectionCorner2.x(), mySelectingArea.selectionCorner2.y());
+        glVertex2d(mySelectingArea.selectionCorner2.x(), mySelectingArea.selectionCorner1.y());
         glEnd();
         glPopMatrix();
     }
@@ -568,13 +566,13 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myMenuCheckShowGrid->setCheck(false);
         }
         myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
-        if (myTestingMode) {
-            if (myTestingWidth > 0 && (getWidth() != myTestingWidth || getHeight() != myTestingHeight)) {
+        if (myTestingMode.testingEnabled) {
+            if (myTestingMode.testingWidth > 0 && (getWidth() != myTestingMode.testingWidth || getHeight() != myTestingMode.testingHeight)) {
                 // only resize once to avoid flickering
                 //std::cout << " before resize: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
-                myApp->resize(myTestingWidth + myTestingWidth - getWidth(), myTestingHeight + myTestingHeight - getHeight());
+                myApp->resize(myTestingMode.testingWidth + myTestingMode.testingWidth - getWidth(), myTestingMode.testingHeight + myTestingMode.testingHeight - getHeight());
                 //std::cout << " directly after resize: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
-                myTestingWidth = 0;
+                myTestingMode.testingWidth = 0;
             }
             //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
             // draw pink square in the upper left corner on top of everything
@@ -870,9 +868,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 }
                 // check if a rect for selecting is being created
                 if (myObjectsUnderCursor.shiftKeyPressed()) {
-                    myAmInRectSelect = true;
-                    mySelCorner1 = getPositionInformation();
-                    mySelCorner2 = getPositionInformation();
+                    mySelectingArea.selectinUsingRectangle = true;
+                    mySelectingArea.selectionCorner1 = getPositionInformation();
+                    mySelectingArea.selectionCorner2 = getPositionInformation();
                 } else {
                     // process click
                     processClick(evt, eventData);
@@ -973,14 +971,14 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myMovedItems.additionalToMove) {
         myMovedItems.additionalToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.additionalToMove = 0;
-    } else if (myAmInRectSelect) {
-        myAmInRectSelect = false;
+    } else if (mySelectingArea.selectinUsingRectangle) {
+        mySelectingArea.selectinUsingRectangle = false;
         // shift held down on mouse-down and mouse-up
         if (((FXEvent*)eventData)->state & SHIFTMASK) {
             if (makeCurrent()) {
                 Boundary b;
-                b.add(mySelCorner1);
-                b.add(mySelCorner2);
+                b.add(mySelectingArea.selectionCorner1);
+                b.add(mySelectingArea.selectionCorner2);
                 std::vector<GUIGlID> ids = getObjectsInBoundary(b);
                 std::vector<GNEAttributeCarrier*> ACs;
                 for(auto i : ids) {
@@ -1087,8 +1085,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myMovedItems.additionalToMove  && (myMovedItems.additionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myMovedItems.additionalToMove->moveGeometry(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
-    } else if (myAmInRectSelect) {
-        mySelCorner2 = getPositionInformation();
+    } else if (mySelectingArea.selectinUsingRectangle) {
+        mySelectingArea.selectionCorner2 = getPositionInformation();
     }
     // update view
     update();
@@ -1104,8 +1102,8 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
-    if (myAmInRectSelect && ((((FXEvent*)eventData)->state & SHIFTMASK) == false)) {
-        myAmInRectSelect = false;
+    if (mySelectingArea.selectinUsingRectangle && ((((FXEvent*)eventData)->state & SHIFTMASK) == false)) {
+        mySelectingArea.selectinUsingRectangle = false;
         update();
     }
     return GUISUMOAbstractView::onKeyRelease(o, sel, eventData);
@@ -1121,7 +1119,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         myCreateEdgeSource->unMarkAsCreateEdgeSource();
         myCreateEdgeSource = 0;
     } else if (myEditMode == GNE_MODE_SELECT) {
-        myAmInRectSelect = false;
+        mySelectingArea.selectinUsingRectangle = false;
         // check if current selection has to be cleaned
         if(clearSelection) {
             myViewParent->getSelectorFrame()->clearCurrentSelection();
@@ -2867,6 +2865,5 @@ GNEViewNet::ObjectsUnderCursor::controltKeyPressed() const {
         return false;
     }
 }
-
 
 /****************************************************************************/
