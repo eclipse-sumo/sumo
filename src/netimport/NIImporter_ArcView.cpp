@@ -206,7 +206,7 @@ NIImporter_ArcView::load() {
             WRITE_WARNING("Unknown type '" + type + "' for edge '" + id + "'");
         }
         double width = myTypeCont.getWidth(type);
-        bool oneway = myTypeCont.getIsOneWay(type);
+        bool oneway = myTypeCont.knows(type) ? myTypeCont.getIsOneWay(type) : false;
         double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
