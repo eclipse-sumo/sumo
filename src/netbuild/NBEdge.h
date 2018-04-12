@@ -1393,6 +1393,9 @@ private:
     /// @brief restore a restricted lane
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
+    /// @brief debugging helper to print all connections
+    void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
+
 private:
     /** @brief The building step
      * @see EdgeBuildingStep

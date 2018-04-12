@@ -3410,4 +3410,23 @@ NBEdge::setOrigID(const std::string origID) {
     }
 }
 
+
+void 
+NBEdge::debugPrintConnections(bool outgoing, bool incoming) const {
+    if (outgoing) {
+        for (const Connection& c : myConnections) {
+            std::cout << " " << getID() << "_" << c.fromLane << "->" << c.toEdge->getID() << "_" << c.toLane << "\n";
+        }
+    }
+    if (incoming) {
+        for (NBEdge* inc : myFrom->getIncomingEdges()) {
+            for (Connection& c : inc->myConnections) {
+                if (c.toEdge == this) {
+                    std::cout << " " << inc->getID() << "_" << c.fromLane << "->" << c.toEdge->getID() << "_" << c.toLane << "\n";
+                }
+            }
+        }
+    }
+}
+
 /****************************************************************************/
