@@ -91,8 +91,9 @@ POI::setType(const std::string& poiID, const std::string& type) {
 
 void
 POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
+    // try to retrieve so that the correct error is generated for unknown poiIDs
     PointOfInterest* p = getPoI(poiID);
-    p->set(Helper::makePosition(pos));
+    MSNet::getInstance()->getShapeContainer().movePOI(poiID, Helper::makePosition(pos));
 }
 
 void
