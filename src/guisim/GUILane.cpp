@@ -550,7 +550,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
                 }
             } else {
-                const double halfWidth = isInternal ? myQuarterLaneWidth : myHalfLaneWidth;
+                // we draw the lanes with reduced width so that the lane markings below are visible
+                // (this avoids artifacts at geometry corners without having to
+                // compute lane-marking intersection points)
+                
+                // ensure the lane markings are at least 1 pixel wide to avoid flicker
+                const double flickerScale = MAX2(1.0, 30 / s.scale);
+                const double halfWidth = isInternal ? myQuarterLaneWidth : (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2 * flickerScale);
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
                 const int cornerDetail = drawDetails && !isInternal ? (int)(s.scale * exaggeration) : 0;
                 const double offset = halfWidth * MAX2(0., (exaggeration - 1));
@@ -644,24 +650,22 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
-    // draw white boundings and white markings
     glPushMatrix();
-    glTranslated(0, 0, GLO_LANE);
-    glColor3d(1, 1, 1);
-    // ensure the line is at least 1 pixel wide
-    const double flickerScale = MAX2(1.0, 30 / s.scale);
-    double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth / 2 * flickerScale) * scale;
-    double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2 * flickerScale) * scale;
-    if (MSNet::getInstance()->lefthand()) {
-        mw *= -1;
-        mw2 *= -1;
-    }
-    int e = (int) getShape().size() - 1;
-    for (int i = 0; i < e; ++i) {
-        glPushMatrix();
-        glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
-        glRotated(myShapeRotations[i], 0, 0, 1);
-        if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
+    glTranslated(0, 0, GLO_EDGE);
+    setColor(s);
+    // optionally draw inverse markings
+    if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
+        double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale;
+        double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * scale;
+        if (MSNet::getInstance()->lefthand()) {
+            mw *= -1;
+            mw2 *= -1;
+        }
+        int e = (int) getShape().size() - 1;
+        for (int i = 0; i < e; ++i) {
+            glPushMatrix();
+            glTranslated(getShape()[i].x(), getShape()[i].y(), 2.1);
+            glRotated(myShapeRotations[i], 0, 0, 1);
             for (double t = 0; t < myShapeLengths[i]; t += 6) {
                 const double length = MIN2((double)3, myShapeLengths[i] - t);
                 glBegin(GL_QUADS);
@@ -671,34 +675,16 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
                 glVertex2d(-mw2, -t);
                 glEnd();
             }
-        } else {
-            // draw solid line for right border and unpassable lanes
-            const double length = myShapeLengths[i];
-            glBegin(GL_QUADS);
-            glVertex2d(-mw, -length);
-            glVertex2d(-mw, 0);
-            glVertex2d(-mw2, 0);
-            glVertex2d(-mw2, -length);
-            glEnd();
-        }
-        glPopMatrix();
-    }
-    // solid road center line
-    if (myIndex == myEdge->getLanes().size() - 1) {
-        for (int i = 0; i < e; ++i) {
-            glPushMatrix();
-            glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
-            glRotated(myShapeRotations[i], 0, 0, 1);
-            const double length = myShapeLengths[i];
-            glBegin(GL_QUADS);
-            glVertex2d(mw, -length);
-            glVertex2d(mw, 0);
-            glVertex2d(mw2, 0);
-            glVertex2d(mw2, -length);
-            glEnd();
             glPopMatrix();
         }
     }
+    // draw white boundings and white markings
+    glColor3d(1, 1, 1);
+    GLHelper::drawBoxLines(
+        getShape(),
+        getShapeRotations(),
+        getShapeLengths(),
+        (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
     glPopMatrix();
 }
 
