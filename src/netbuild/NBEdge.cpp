@@ -2904,22 +2904,10 @@ NBEdge::deleteLane(int index, bool recompute, bool shiftIndices) {
         }
         invalidateConnections(true);
     } else if (shiftIndices) {
-        // shift outgoing connections above the delete lane to the right
-        for (Connection& c : myConnections) {
-            if (c.fromLane > index) {
-                c.fromLane -= 1;
-            }
-        }
-        // shift incoming connections above the delete lane to the right
+        removeFromConnections(0, index, -1, false, true);
         for (NBEdge* inc : myFrom->getIncomingEdges()) {
-            for (Connection& c : inc->myConnections) {
-                if (c.toEdge == this && c.toLane > index) {
-                    c.toLane -= 1;
-                }
-            }
+            inc->removeFromConnections(this, -1, index, false, true);
         }
-        myFrom->shiftTLConnectionLaneIndex(this, -1, index);
-        myTo->shiftTLConnectionLaneIndex(this, -1, index);
     }
 }
 
