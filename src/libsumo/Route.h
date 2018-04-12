@@ -57,12 +57,12 @@ public:
     static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
-
-    static const MSRoute* getRoute(const std::string& id);
+    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
 private:
+    static const MSRoute* getRoute(const std::string& id);
+
     /// @brief invalidated standard constructor
     Route();
 

@@ -64,8 +64,8 @@ public:
     static bool add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer);
     static bool remove(const std::string& poiID, int layer = 0);
 
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
     static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
 
     /** @brief Returns a tree filled with PoI instances

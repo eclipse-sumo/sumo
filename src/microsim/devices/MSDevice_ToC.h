@@ -115,24 +115,6 @@ public:
     /// @brief Destructor.
     ~MSDevice_ToC();
 
-    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
-    /// @{
-
-    /** @brief Checks for waiting steps when the vehicle moves
-     *
-     * @param[in] veh Vehicle that asks this reminder.
-     * @param[in] oldPos Position before move.
-     * @param[in] newPos Position after move with newSpeed.
-     * @param[in] newSpeed Moving speed.
-     *
-     * @return True (always).
-     */
-    bool notifyMove(SUMOVehicle& veh, double oldPos,
-                    double newPos, double newSpeed);
-
-    /// @}
-
-
     /// @brief return the name for this type of device
     const std::string deviceName() const {
         return "toc";

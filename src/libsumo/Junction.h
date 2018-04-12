@@ -55,13 +55,11 @@ public:
     static TraCIPosition getPosition(const std::string& junctionID);
     static TraCIPositionVector getShape(const std::string& junctionID);
 
+    //static std::string getType(const std::string& poiID);
+    //static TraCIColor getColor(const std::string& poiID);
 
-    static std::string getType(const std::string& poiID);
-    static TraCIColor getColor(const std::string& poiID);
-
-
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
     /** @brief Returns a tree filled with junction instances
      * @return The rtree of junctions

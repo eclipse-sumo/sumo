@@ -92,8 +92,8 @@ public:
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
     // Subscriptions (TODO?)
-    static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
+    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
 
 private:
     static const MSLane* getLane(const std::string& id);
