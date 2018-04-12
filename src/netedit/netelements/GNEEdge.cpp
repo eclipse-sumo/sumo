@@ -1165,7 +1165,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case GNE_ATTR_SELECTED:
-            if(value == "true") {
+            if(parse<bool>(value)) {
                 selectNetElement();
             } else {
                 unselectNetElement();

@@ -371,7 +371,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_SELECTED:
-            if(value == "true") {
+            if(parse<bool>(value)) {
                 selectNetElement();
             } else {
                 unselectNetElement();

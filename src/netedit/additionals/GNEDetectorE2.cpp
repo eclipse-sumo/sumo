@@ -384,7 +384,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(value == "true") {
+            if(parse<bool>(value)) {
                 selectAdditional();
             } else {
                 unselectAdditional();

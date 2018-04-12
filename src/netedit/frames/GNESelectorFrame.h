@@ -361,7 +361,7 @@ public:
     /// @brief get selected items
     LockGLObjectTypes* getLockGLObjectTypes() const;
 
-    /// @brief clear current selection witout possibility of undo/redo
+    /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
 
     /**@brief apply list of ids to the current selection according to SetOperation,

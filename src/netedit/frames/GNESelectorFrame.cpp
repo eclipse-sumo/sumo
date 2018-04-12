@@ -139,18 +139,17 @@ GNESelectorFrame::getLockGLObjectTypes() const {
 
 void 
 GNESelectorFrame::clearCurrentSelection() const {
-    std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers();
-    for (auto i : selectedACs) {
-        if(std::find(GNEAttributeCarrier::allowedNetElementsTags().begin(), GNEAttributeCarrier::allowedNetElementsTags().end(), i->getTag()) != GNEAttributeCarrier::allowedNetElementsTags().end()) {
-            dynamic_cast<GNENetElement*>(i)->unselectNetElement();
-        } else if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), i->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
-            dynamic_cast<GNEAdditional*>(i)->unselectAdditional();
-        } else if(std::find(GNEAttributeCarrier::allowedShapeTags().begin(), GNEAttributeCarrier::allowedShapeTags().end(), i->getTag()) != GNEAttributeCarrier::allowedShapeTags().end()) {
-            dynamic_cast<GNEShape*>(i)->unselectShape();
-        } else {
-            throw ProcessError("Invalid element set");
-        }
+    // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
+    myViewNet->getUndoList()->p_begin("clear selection");
+    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    // change attribute GNE_ATTR_SELECTED of all selected items to false
+    for (auto i : selectedAC) {
+        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
     }
+    // finish clear selection
+    myViewNet->getUndoList()->p_end();
+    // update view
+    myViewNet->update();
 }
 
 
@@ -871,17 +870,8 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
-    // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
-    mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("clear selection");
-    std::vector<GNEAttributeCarrier*> selectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
-    // change attribute GNE_ATTR_SELECTED of all selected items to false
-    for (auto i : selectedAC) {
-        i->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
-    }
-    // finish clear selection
-    mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
-    // update view
-    mySelectorFrameParent->getViewNet()->update();
+    // clear current selection
+    mySelectorFrameParent->clearCurrentSelection();
     return 1;
 }
 

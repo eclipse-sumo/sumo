@@ -527,7 +527,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->getAdditional(SUMO_TAG_ROUTEPROBE, value));
             break;
         case GNE_ATTR_SELECTED:
-            if(value == "true") {
+            if(parse<bool>(value)) {
                 selectAdditional();
             } else {
                 unselectAdditional();
