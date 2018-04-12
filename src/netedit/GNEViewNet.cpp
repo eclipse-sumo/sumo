@@ -2126,7 +2126,15 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction) {
-        junction->getNBNode()->computeNodeShape(-1);
+        if (!OptionsCont::getOptions().getBool("lefthand")) {
+            // for lefthand networks, the shape is already computed in GNELoadThread::run()
+            // computing it here does not work because the network needs to be
+            // mirrored before and after
+            junction->getNBNode()->computeNodeShape(-1);
+        } else if (junction->getNBNode()->getShape().size() == 0) {
+            // recompute the whole network
+            myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+        }
         PositionVector nodeShape = junction->getNBNode()->getShape();
         nodeShape.closePolygon();
         startEditCustomShape(junction, nodeShape, true);
