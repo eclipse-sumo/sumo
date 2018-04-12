@@ -59,6 +59,7 @@
 // static members
 // ===========================================================================
 const double GNEPoly::myHintSize = 0.8;
+const double GNEPoly::myHintSizeSquared = 0.64;
 
 // ===========================================================================
 // method definitions
@@ -269,19 +270,11 @@ void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
+    double circleResolution = s.drawForSelecting? 8 : 32;
     // push matrix
     glPushName(getGlID());
     // draw geometry details hints if is not too small and isn't in selecting mode
-    if(s.drawForSelecting) {
-        GLHelper::setColor(GLHelper::getColor().changedBrightness(-32));
-        // draw points of shape in low resolution
-        for (auto i : myShape) {
-            glPushMatrix();
-            glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
-            GLHelper:: drawFilledCircle(myHintSize, 8);
-            glPopMatrix();
-        }
-    } else if (s.scale * myHintSize > 1.) {
+    if (s.scale * myHintSize > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
@@ -306,30 +299,32 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
-                glPushMatrix();
-                glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
-                // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
-                    mouseOverVertex = true;
-                    GLHelper::setColor(invertedColor);
-                } else {
-                    GLHelper::setColor(darkerColor);
-                }
-                GLHelper:: drawFilledCircle(myHintSize, 32);
-                glPopMatrix();
-                // draw special symbols (Start, End and Block)
-                if (i == myShape.front()) {
-                    // draw a "s" over first point
+                if(!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (myHintSizeSquared + 2))) {
                     glPushMatrix();
-                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                    GLHelper::drawText("S", Position(), .1, 2 * myHintSize, invertedColor);
+                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
+                    // Change color of vertex and flag mouseOverVertex if mouse is over vertex
+                    if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
+                        mouseOverVertex = true;
+                        GLHelper::setColor(invertedColor);
+                    } else {
+                        GLHelper::setColor(darkerColor);
+                    }
+                    GLHelper::drawFilledCircle(myHintSize, circleResolution);
                     glPopMatrix();
-                } else if ((i == myShape.back()) && (myClosedShape == false)) {
-                    // draw a "e" over last point if polygon isn't closed
-                    glPushMatrix();
-                    glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                    GLHelper::drawText("E", Position(), .1, 2 * myHintSize, invertedColor);
-                    glPopMatrix();
+                    // draw special symbols (Start, End and Block)
+                    if ((i == myShape.front()) && !s.drawForSelecting) {
+                        // draw a "s" over first point
+                        glPushMatrix();
+                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                        GLHelper::drawText("S", Position(), .1, 2 * myHintSize, invertedColor);
+                        glPopMatrix();
+                    } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting) {
+                        // draw a "e" over last point if polygon isn't closed
+                        glPushMatrix();
+                        glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
+                        GLHelper::drawText("E", Position(), .1, 2 * myHintSize, invertedColor);
+                        glPopMatrix();
+                    }
                 }
             }
             // check if draw moving hint has to be drawed
@@ -339,7 +334,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
                 glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(myHintSize, 32);
+                GLHelper:: drawFilledCircle(myHintSize, circleResolution);
                 glPopMatrix();
             }
         }
