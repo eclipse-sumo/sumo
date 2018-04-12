@@ -42,6 +42,7 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNERouteProbe.h>
@@ -52,7 +53,6 @@
 #include "GNEJunction.h"
 #include "GNELane.h"
 #include "GNEEdge.h"
-
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)
@@ -405,6 +405,9 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (myNBEdge.isMacroscopicConnector()) {
     }
     */
+    // obtain circle width
+    double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
+    double circleWidthSquared = circleWidth * circleWidth;
     // obtain resolution for points
     int circleResolution = 0;
     if(s.drawForSelecting) {
@@ -438,24 +441,27 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // draw geometry points expect initial and final
             for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
                 Position pos = myNBEdge.getGeometry()[i];
-                glPushMatrix();
-                glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-                // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
-                glPopMatrix();
+                if(!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(pos) <= (circleWidthSquared + 2))) {
+                    glPushMatrix();
+                    glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
+                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                    glPopMatrix();
+                }
             }
-            // draw line geometry and start and end points if shapeStart or shape end is edited
-            if(myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
+            // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
+            if((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && 
+               (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
+                GLHelper::drawFilledCircle(circleWidth, circleResolution);
                 glPopMatrix();
+                // draw a "s" over last point depending of drawForSelecting
                 if(!s.drawForSelecting) {
-                    // draw a "s" over first point
                     glPushMatrix();
                     glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
-                    GLHelper::drawText("S", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                    GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
                     glPopMatrix();
                     // draw line between Junction and point
                     glPushMatrix();
@@ -465,17 +471,18 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     glPopMatrix();
                 }
             }
-            if(myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
+            if((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && 
+               (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION - 0.01);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), circleResolution);
+                GLHelper::drawFilledCircle(circleWidth, circleResolution);
                 glPopMatrix();
                 glPushMatrix();
+                // draw a "e" over last point depending of drawForSelecting
                 if(!s.drawForSelecting) {
-                    // draw a "e" over last point
                     glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION);
-                    GLHelper::drawText("E", Position(), 0, SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration), RGBColor::WHITE);
+                    GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
                     glPopMatrix();
                     // draw line between Junction and point
                     glPushMatrix();
