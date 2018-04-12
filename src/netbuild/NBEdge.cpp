@@ -1341,12 +1341,15 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
     if (!wasConnected) {
         return;
     }
-    // remove the remapped edge from connections
-    removeFromConnections(which);
     // add new connections
     std::vector<NBEdge::Connection> conns = origConns;
     for (std::vector<NBEdge::Connection>::iterator i = conns.begin(); i != conns.end(); ++i) {
-        if ((*i).toEdge == which) {
+        if ((*i).toEdge == which || (*i).toEdge == this) {
+            continue;
+        }
+        if (which->getStep() == EDGE2EDGES) {
+            // do not set lane-level connections
+            replaceInConnections(which, (*i).toEdge, 0);
             continue;
         }
         int fromLane = (*i).fromLane;
@@ -1367,6 +1370,8 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
                       i->contPos, i->visibility, i->speed, i->customShape, i->uncontrolled);
     }
+    // remove the remapped edge from connections
+    removeFromConnections(which);
 }
 
 
