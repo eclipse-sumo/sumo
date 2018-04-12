@@ -184,93 +184,68 @@ GNEChargingStation::setChargeDelay(double chargeDelay) {
 
 void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
+    // obtain circle resolution
+    int circleResolution = getCircleResolution(s);
+    // Get exaggeration
+    const double exaggeration = s.addSize.getExaggeration(s);
     // Push name
     glPushName(getGlID());
-
     // Push base matrix
     glPushMatrix();
-
     // Traslate matrix
     glTranslated(0, 0, getType());
-
     // Set Color
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_chargingStation);
     }
-
-    // Get exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s);
-
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
-
     // Check if the distance is enought to draw details and if is being drawn for selecting
     if(s.drawForSelecting) {
-
-        // Add a draw matrix for details
-        glPushMatrix();
-
-        // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // scale matrix depending of the exaggeration
-        glScaled(exaggeration, exaggeration, 1);
-
-        // set color
-        GLHelper::setColor(s.SUMO_color_chargingStation);
-
-        // Draw circle
-        GLHelper::drawFilledCircle((double) 1.1, 8);
-
-        // pop draw matrix
-        glPopMatrix();
-
+        // only draw circle depending of distance between sign and mouse cursor
+        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+            // Add a draw matrix for details
+            glPushMatrix();
+            // Start drawing sign traslating matrix to signal position
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // scale matrix depending of the exaggeration
+            glScaled(exaggeration, exaggeration, 1);
+            // set color
+            GLHelper::setColor(s.SUMO_color_chargingStation);
+            // Draw circle
+            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            // pop draw matrix
+            glPopMatrix();
+        }
     } else if (s.scale * exaggeration >= 10) {
         // Push matrix for details
         glPushMatrix();
-
         // push a new matrix for charging power
         glPushMatrix();
-
         // draw line with a color depending of the selection status
         if (isAdditionalSelected()) {
             GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, myViewNet->getNet()->selectionColor, myBlockIconRotation, FONS_ALIGN_LEFT);
         } else {
             GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.SUMO_color_chargingStation, myBlockIconRotation, FONS_ALIGN_LEFT);
         }
-
         // pop matrix for charging power
         glPopMatrix();
-
         // Set position over sign
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // Define number of points (for efficiency)
-        int noPoints = 9;
-
-        // If the scale * exaggeration is more than 25, recalculate number of points
-        if (s.scale * exaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        }
-
         // Scale matrix
         glScaled(exaggeration, exaggeration, 1);
-
         // Set base color
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_chargingStation);
         }
-
         // Draw extern
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-
+        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
         // Move to top
         glTranslated(0, 0, .1);
-
         // Set sign color
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
@@ -278,32 +253,27 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.SUMO_color_chargingStation_sign);
         }
         // Draw internt sign
-        GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
+        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAdditionalSelected()) {
-                GLHelper::drawText("C", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("C", Position(), .1, 1.6, s.SUMO_color_chargingStation, myBlockIconRotation);
+                GLHelper::drawText("C", Position(), .1, myCircleInText, s.SUMO_color_chargingStation, myBlockIconRotation);
             }
         }
         // Pop sign matrix
         glPopMatrix();
-
         // Draw icon
         GNEAdditional::drawLockIcon();
     }
-
     // Pop base matrix
     glPopMatrix();
-
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }    
-    
     // Pop name matrix
     glPopName();
 }

@@ -51,6 +51,14 @@
 #include <netedit/GNEViewNet.h>
 #include "GNEAdditionalHandler.h"
 
+// ===========================================================================
+// static members
+// ===========================================================================
+
+const double GNEStoppingPlace::myCircleWidth = 1.1;
+const double GNEStoppingPlace::myCircleWidthSquared = 1.21;
+const double GNEStoppingPlace::myCircleInWidth = 0.9;
+const double GNEStoppingPlace::myCircleInText = 1.6;
 
 // ===========================================================================
 // member method definitions

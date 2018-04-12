@@ -138,6 +138,10 @@ GNEParkingArea::generateParkingSpaceID() {
 
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
+    // obtain circle resolution
+    int circleResolution = getCircleResolution(s);
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s);
     // Push name
     glPushName(getGlID());
     // Push base matrix
@@ -150,22 +154,30 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(RGBColor(83, 89, 172, 255));
     }
-    // Get exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s);
     // Draw base
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth * exaggeration);
-    // draw details unless zoomed out to far and if isn't being drawn for selecting
-    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
+    // Check if the distance is enought to draw details and if is being drawn for selecting
+    if(s.drawForSelecting) {
+        // only draw circle depending of distance between sign and mouse cursor
+        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+            // Add a draw matrix for details
+            glPushMatrix();
+            // Start drawing sign traslating matrix to signal position
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // scale matrix depending of the exaggeration
+            glScaled(exaggeration, exaggeration, 1);
+            // set color
+            GLHelper::setColor(s.SUMO_color_busStop);
+            // Draw circle
+            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            // pop draw matrix
+            glPopMatrix();
+        }
+    } else if (s.scale * exaggeration >= 10) {
         // Push matrix for details
         glPushMatrix();
         // Set position over sign
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        // Define number of points (for efficiency)
-        int noPoints = 9;
-        // If the scale * exaggeration is more than 25, recalculate number of points
-        if (s.scale * exaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        }
         // Scale matrix
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
@@ -175,11 +187,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(RGBColor(83, 89, 172, 255));
         }
         // Draw extern
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-
+        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
         // Move to top
         glTranslated(0, 0, .1);
-
         // Set sign color
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
@@ -187,32 +197,27 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(RGBColor(177, 184, 186, 171));
         }
         // Draw internt sign
-        GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
+        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
             if (isAdditionalSelected()) {
-                GLHelper::drawText("P", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("P", Position(), .1, 1.6, RGBColor(83, 89, 172, 255), myBlockIconRotation);
+                GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIconRotation);
             }
         }
         // Pop sign matrix
         glPopMatrix();
-
         // Draw icon
         GNEAdditional::drawLockIcon();
     }
-
     // Pop base matrix
     glPopMatrix();
-
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
-
     // Pop name matrix
     glPopName();
 }

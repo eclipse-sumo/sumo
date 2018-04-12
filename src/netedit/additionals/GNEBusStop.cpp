@@ -125,138 +125,102 @@ GNEBusStop::getLines() const {
 
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
+    // obtain circle resolution
+    int circleResolution = getCircleResolution(s);
+    // Obtain exaggeration of the draw
+    const double exaggeration = s.addSize.getExaggeration(s);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
-
     // Add a draw matrix
     glPushMatrix();
-
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
-
     // Set color of the base
     if (isAdditionalSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
     }
-
-    // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
-
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
-
     // Check if the distance is enought to draw details and if is being drawn for selecting
     if(s.drawForSelecting) {
-
-        // Add a draw matrix for details
-        glPushMatrix();
-
-        // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // scale matrix depending of the exaggeration
-        glScaled(exaggeration, exaggeration, 1);
-
-        // set color
-        GLHelper::setColor(s.SUMO_color_busStop);
-
-        // Draw circle
-        GLHelper::drawFilledCircle((double) 1.1, 8);
-
-        // pop draw matrix
-        glPopMatrix();
-
+        // only draw circle depending of distance between sign and mouse cursor
+        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+            // Add a draw matrix for details
+            glPushMatrix();
+            // Start drawing sign traslating matrix to signal position
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // scale matrix depending of the exaggeration
+            glScaled(exaggeration, exaggeration, 1);
+            // set color
+            GLHelper::setColor(s.SUMO_color_busStop);
+            // Draw circle
+            GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
+            // pop draw matrix
+            glPopMatrix();
+        }
     } else if (s.scale * exaggeration >= 10) {
-
         // Add a draw matrix for details
         glPushMatrix();
-
         // Iterate over every line
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
             glPushMatrix();
-
             // Rotate and traslaste
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(-1 * myBlockIconRotation, 0, 0, 1);
-
             // draw line with a color depending of the selection status
             if (isAdditionalSelected()) {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
             }
-
             // pop matrix for every line
             glPopMatrix();
         }
-
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
-
-        // Define number of points (for efficiency)
-        int noPoints = 9;
-
-        // If the scale * exaggeration is more than 25, recalculate number of points
-        if (s.scale * exaggeration > 25) {
-            noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
-        }
-
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
-
         // Set color of the externe circle
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop);
         }
-
         // Draw circle
-        GLHelper::drawFilledCircle((double) 1.1, noPoints);
-
+        GLHelper::drawFilledCircle(myCircleWidth, circleResolution);
         // Traslate to front
         glTranslated(0, 0, .1);
-
         // Set color of the interne circle
         if (isAdditionalSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop_sign);
         }
-
         // draw another circle in the same position, but a little bit more small
-        GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
+        GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
             if (isAdditionalSelected()) {
-                GLHelper::drawText("H", Position(), .1, 1.6, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, s.SUMO_color_busStop, myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIconRotation);
             }
         }
-
         // pop draw matrix
         glPopMatrix();
-
         // Show Lock icon depending of the Edit mode
         drawLockIcon();
     }
-
     // pop draw matrix
     glPopMatrix();
-
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
     }
-
-
-
     // Pop name
     glPopName();
 }

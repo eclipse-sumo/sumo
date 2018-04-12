@@ -153,6 +153,18 @@ protected:
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
+    /// @brief circle width resolution for all stopping places 
+    static const double myCircleWidth;
+
+    /// @brief squared circle width resolution for all stopping places 
+    static const double myCircleWidthSquared;
+
+    /// @brief inner circle width resolution for all stopping places
+    static const double myCircleInWidth;
+
+    /// @brief text inner circle width resolution for all stopping places
+    static const double myCircleInText;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
