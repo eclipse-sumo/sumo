@@ -1017,7 +1017,25 @@ def saveSelection():
     pasteIntoTextField(filename)
     typeEnter()
     
+	
+"""
+@brief save selection
+"""
+
+
+def loadSelection():
+    focusOnFrame()
+    #jump to save
+    for x in range(0, 25):
+        typeTab()
+    typeSpace()
+    # jump to filename TextField
+    typeTwoKeys("f", Key.ALT)
+    filename = os.path.join(textTestSandBox, "selection.txt")
+    pasteIntoTextField(filename)
+    typeEnter()
     
+
 """
 @brief select items
 """
