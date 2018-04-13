@@ -55,7 +55,7 @@
 // ===========================================================================
 
 GNEDetectorExit::GNEDetectorExit(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent->generateExitID(), viewNet, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "", friendlyPos, parent, blockMovement) {
+    GNEDetector(parent->generateExitID(), viewNet, GLO_DET_EXIT, SUMO_TAG_DET_EXIT, ICON_E3EXIT, lane, pos, 0, "", friendlyPos, parent, blockMovement) {
 }
 
 

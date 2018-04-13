@@ -53,9 +53,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane,
+GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane,
                          double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement) :
-    GNEAdditional(id, viewNet, tag, icon, true, blockMovement, additionalParent),
+    GNEAdditional(id, viewNet, type, tag, icon, true, blockMovement, additionalParent),
     myLane(lane),
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFreq(freq),

@@ -78,7 +78,8 @@ public:
      * This is the standard constructor that assures that the object is known
      *  and its id is unique. Use it always :-)
      *
-     * @param[in] fullName The complete name, including a type-prefix
+     * @param[in] type The GUIGlObjectType type
+     * @param[in] microsimID unique ID
      * @see GUIGlObjectStorage
      */
     GUIGlObject(GUIGlObjectType type, const std::string& microsimID);

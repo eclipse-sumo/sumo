@@ -57,7 +57,7 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
+    GNEStoppingPlace(id, viewNet, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myLines(lines) {
 }
 

@@ -42,6 +42,7 @@ public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the detector (Must be unique)
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] icon GUIIcon associated to the detector
      * @param[in] lane Lane of this detector belongs
@@ -52,7 +53,7 @@ public:
      * @param[in] additionalParent additional parent of this detector
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetector();

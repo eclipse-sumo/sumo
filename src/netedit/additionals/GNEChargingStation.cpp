@@ -59,7 +59,7 @@
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name,
                                        double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, viewNet, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name, friendlyPosition, blockMovement),
+    GNEStoppingPlace(id, viewNet, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),

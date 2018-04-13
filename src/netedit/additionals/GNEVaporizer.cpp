@@ -57,7 +57,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false, false),
+    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false, false),
     myEdge(edge),
     myStartTime(startTime),
     myEnd(end),

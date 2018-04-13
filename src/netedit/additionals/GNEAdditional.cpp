@@ -56,8 +56,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement) :
-    GUIGlObject(GLO_ADDITIONAL, id),
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement) :
+    GUIGlObject(type, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myMovable(movable),
@@ -68,8 +68,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, GNEAdditional* additionalParent) :
-    GUIGlObject(GLO_ADDITIONAL, id),
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, GNEAdditional* additionalParent) :
+    GUIGlObject(type, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myMovable(movable),
@@ -80,8 +80,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
-    GUIGlObject(GLO_ADDITIONAL, id),
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
+    GUIGlObject(type, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myMovable(movable),
@@ -93,8 +93,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXML
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNELane*> laneChilds) :
-    GUIGlObject(GLO_ADDITIONAL, id),
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNELane*> laneChilds) :
+    GUIGlObject(type, id),
     GNEAttributeCarrier(tag, icon),
     myViewNet(viewNet),
     myMovable(movable),

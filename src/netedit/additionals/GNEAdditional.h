@@ -59,45 +59,49 @@ public:
     /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] icon GUIIcon associated to the additional
      * @param[in] movable Flag to indicate if this additional is movable
      * @param[in] block movement enable or disable additional movement
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement);
 
     /**@brief Constructor used by Additionals that have another additional sparent
     * @param[in] id Gl-id of the additional element (Must be unique)
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] type GUIGlObjectType of additional
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] icon GUIIcon associated to the additional
     * @param[in] movable Flag to indicate if this additional is movable
     * @param[in] block movement enable or disable additional movement
     * @param[in] additionalParent pointer to additional parent
     */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, GNEAdditional* additionalParent);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, GNEAdditional* additionalParent);
 
     /**@brief Constructor used by Additionals that have Edge childs
     * @param[in] id Gl-id of the additional element (Must be unique)
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] type GUIGlObjectType of additional
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] icon GUIIcon associated to the additional
     * @param[in] movable Flag to indicate if this additional is movable
     * @param[in] block movement enable or disable additional movement
     * @param[in] edgeChilds vector of edge childs
     */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNEEdge*> edgeChilds);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNEEdge*> edgeChilds);
 
     /**@brief Constructor used by Additionals that have lane childs
     * @param[in] id Gl-id of the additional element (Must be unique)
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] type GUIGlObjectType of additional
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] icon GUIIcon associated to the additional
     * @param[in] movable Flag to indicate if this additional is movable
     * @param[in] block movement enable or disable additional movement
     * @param[in] laneChilds vector of lane childs
     */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNELane*> laneChilds);
+    GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, bool movable, bool blockMovement, std::vector<GNELane*> laneChilds);
 
     /// @brief Destructor
     ~GNEAdditional();
