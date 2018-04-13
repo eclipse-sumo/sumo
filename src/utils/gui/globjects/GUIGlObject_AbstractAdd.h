@@ -41,39 +41,36 @@
 /**
  * @class GUIGlObject_AbstractAdd
  */
-class GUIGlObject_AbstractAdd :
-    public GUIGlObject {
-public:
-    GUIGlObject_AbstractAdd(
-        const std::string& prefix,
-        GUIGlObjectType type,
-        const std::string& id);
+class GUIGlObject_AbstractAdd : public GUIGlObject {
 
+public:
+    /// @brief constructor
+    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id);
+
+    /// @brief destructor
     ~GUIGlObject_AbstractAdd();
 
-    /// Clears the dictionary (the objects will not be deleted)
+    /// @brief Clears the dictionary (the objects will not be deleted)
     static void clearDictionary();
 
-    /// Returns a named object
+    /// @brief Returns a named object
     static GUIGlObject_AbstractAdd* get(const std::string& name);
 
-    /// Removes an object
+    /// @brief Removes an object
     static void remove(GUIGlObject_AbstractAdd* o);
 
-    /// Returns the list of all additional objects
+    /// @brief Returns the list of all additional objects
     static const std::vector<GUIGlObject_AbstractAdd*>& getObjectList();
 
-    /// Returns the list of gl-ids of all additional objects that match the given type
+    /// @brief Returns the list of gl-ids of all additional objects that match the given type
     static std::vector<GUIGlID> getIDList(int typeFilter);
 
-
 protected:
-    /// Map from names of loaded additional objects to the objects themselves
+    /// @brief Map from names of loaded additional objects to the objects themselves
     static std::map<std::string, GUIGlObject_AbstractAdd*> myObjects;
 
-    /// The list of all addtional objects currently loaded
+    /// @brief The list of all addtional objects currently loaded
     static std::vector<GUIGlObject_AbstractAdd*> myObjectList;
-
 };
 
 

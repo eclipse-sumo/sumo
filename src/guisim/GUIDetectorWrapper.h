@@ -48,12 +48,10 @@ class GUIDetectorWrapper : public GUIGlObject_AbstractAdd {
 
 public:
     /// Constructor
-    GUIDetectorWrapper(const std::string& prefix, const std::string& id);
+    GUIDetectorWrapper(GUIGlObjectType type, const std::string& id);
 
     /// Destructor
     ~GUIDetectorWrapper();
-
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -65,10 +63,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
-
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
     /// @}
 
 };

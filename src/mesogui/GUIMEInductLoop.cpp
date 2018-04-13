@@ -58,12 +58,12 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, myPosition);
 }
 
+// -----------------------------------------------------------------------
+// GUIMEInductLoop::MyWrapper-methods
+// ----------------------------------------------------------------------- 
 
-/* -------------------------------------------------------------------------
- * GUIMEInductLoop::MyWrapper-methods
- * ----------------------------------------------------------------------- */
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
-    : GUIDetectorWrapper("induct loop", detector.getID()),
+    : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),
       myDetector(detector), myPosition(pos) {
     const MSLane* lane = detector.mySegment->getEdge().getLanes()[0];
     myFGPosition = lane->geometryPositionAtOffset(pos);

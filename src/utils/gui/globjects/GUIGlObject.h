@@ -83,16 +83,6 @@ public:
      */
     GUIGlObject(GUIGlObjectType type, const std::string& microsimID);
 
-    /** @brief Constructor
-     *
-     * This constructor should be used only for compound objects, that share
-     *  visualization. Use it only if you know what you are doing.
-     *
-     * @param[in] fullName The complete name, including a type-prefix
-     * @see GUIGlObjectStorage
-     */
-    GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID);
-
     /// @brief Destructor
     virtual ~GUIGlObject();
 
@@ -238,9 +228,6 @@ protected:
     /// @}
 
 protected:
-    /// @brief usually names are prefixed by a type-specific string. this method can be used to change the default
-    void setPrefix(const std::string& prefix);
-
     /// @brief build basic shape popup options. Used to unify pop-ups menu in netedit and SUMO-GUI
     void buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
@@ -256,9 +243,6 @@ private:
 
     /// @brief ID of GL object
     std::string myMicrosimID;
-
-    /// @brief prefix of GL Object
-    std::string myPrefix;
 
     /// @brief full name of GL Object
     std::string myFullName;

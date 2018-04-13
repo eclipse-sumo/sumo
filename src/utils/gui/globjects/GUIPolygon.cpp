@@ -47,7 +47,7 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        bool fill, double layer, double angle, const std::string& imgFile,
                        bool relativePath):
     SUMOPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath),
-    GUIGlObject_AbstractAdd("poly", GLO_POLYGON, id),
+    GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
     myLineWidth(1) // m
 

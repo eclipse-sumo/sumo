@@ -49,23 +49,35 @@
 // ===========================================================================
 
 StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitializer[] = {
-    {"network",       GLO_NETWORK},
-    {"edge",          GLO_EDGE},
-    {"lane",          GLO_LANE},
-    {"junction",      GLO_JUNCTION},
-    {"crossing",      GLO_CROSSING},
-    {"connection",    GLO_CONNECTION},
-    {"prohibition",   GLO_PROHIBITION},
-    {"tlLogic",       GLO_TLLOGIC},
-    {"detector",      GLO_DETECTOR},
-    {"trigger",       GLO_TRIGGER},
-    {"additional",    GLO_ADDITIONAL},
-    {"polygon",       GLO_POLYGON},
-    {"poi",           GLO_POI},
-    {"vehicle",       GLO_VEHICLE},
-    {"person",        GLO_PERSON},
-    {"container",     GLO_CONTAINER},
-    {"undefined",     GLO_MAX}
+    {"network",             GLO_NETWORK},
+    {"edge",                GLO_EDGE},
+    {"lane",                GLO_LANE},
+    {"junction",            GLO_JUNCTION},
+    {"crossing",            GLO_CROSSING},
+    {"connection",          GLO_CONNECTION},
+    {"prohibition",         GLO_PROHIBITION},
+    {"tlLogic",             GLO_TLLOGIC},
+    {"busStop",             GLO_BUS_STOP},
+    {"containerStop",       GLO_CONTAINER_STOP},
+    {"chargingStation",     GLO_CHARGING_STATION},
+    {"parkingArea",         GLO_PARKING_AREA},
+    {"parkingSpace",        GLO_PARKING_SPACE},
+    {"e1Detector",          GLO_E1DETECTOR},
+    {"e2Detector",          GLO_E2DETECTOR},
+    {"e3Detector",          GLO_E3DETECTOR},
+    {"entryDetector",       GLO_DET_ENTRY},
+    {"exitDetector",        GLO_DET_EXIT},
+    {"rerouter",            GLO_REROUTER},
+    {"variableSpeedSign",   GLO_VSS},
+    {"calibrator",          GLO_CALIBRATOR},
+    {"routeProbe",          GLO_ROUTEPROBE},
+    {"vaporizer",           GLO_VAPORIZER},
+    {"polygon",             GLO_POLYGON},
+    {"poi",                 GLO_POI},
+    {"vehicle",             GLO_VEHICLE},
+    {"person",              GLO_PERSON},
+    {"container",           GLO_CONTAINER},
+    {"undefined",           GLO_MAX}
 };
 
 
@@ -78,25 +90,15 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
     myGLObjectType(type),
-    myMicrosimID(microsimID),
-    myPrefix(TypeNames.getString(type)) {
-    myFullName = createFullName();
-    myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
-}
-
-
-GUIGlObject::GUIGlObject(const std::string& prefix, GUIGlObjectType type, const std::string& microsimID) :
-    myGLObjectType(type),
-    myMicrosimID(microsimID),
-    myPrefix(prefix) {
+    myMicrosimID(microsimID) {
     myFullName = createFullName();
     myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
 
 
 GUIGlObject::~GUIGlObject() {
-    for (std::set<GUIParameterTableWindow*>::iterator i = myParamWindows.begin(); i != myParamWindows.end(); ++i) {
-        (*i)->removeObject(this);
+    for (auto i : myParamWindows) {
+        i->removeObject(this);
     }
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
 }
@@ -265,13 +267,6 @@ GUIGlObject::removeParameterTable(GUIParameterTableWindow* t) {
 
 
 void
-GUIGlObject::setPrefix(const std::string& prefix) {
-    myPrefix = prefix;
-    myFullName = createFullName();
-}
-
-
-void
 GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type) {
     assert(ret);
     // build header (<tag>:<ID>
@@ -319,7 +314,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 
 std::string
 GUIGlObject::createFullName() const {
-    return myPrefix + ":" + getMicrosimID();
+    return TypeNames.getString(myGLObjectType) + ":" + getMicrosimID();
 }
 
 

@@ -263,15 +263,15 @@ GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip(FXObject*,
     return 1;
 }
 
+// -------------------------------------------------------------------------
+// GUILaneSpeedTrigger - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * GUILaneSpeedTrigger - methods
- * ----------------------------------------------------------------------- */
 GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     const std::string& id, const std::vector<MSLane*>& destLanes,
     const std::string& aXMLFilename) :
     MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-    GUIGlObject_AbstractAdd("speedtrigger", GLO_TRIGGER, id),
+    GUIGlObject_AbstractAdd(GLO_VSS, id),
     myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());

@@ -91,13 +91,13 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
     return MSInductLoop::collectVehiclesOnDet(t, leaveTime);
 }
 
+// -------------------------------------------------------------------------
+// GUIInductLoop::MyWrapper-methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * GUIInductLoop::MyWrapper-methods
- * ----------------------------------------------------------------------- */
-GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos)
-    : GUIDetectorWrapper("induct loop", detector.getID()),
-      myDetector(detector), myPosition(pos) {
+GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) : 
+    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
+    myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);

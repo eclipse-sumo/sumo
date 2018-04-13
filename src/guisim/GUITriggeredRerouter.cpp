@@ -214,18 +214,14 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
     return 1;
 }
 
+// -------------------------------------------------------------------------
+// GUITriggeredRerouter - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * GUITriggeredRerouter - methods
- * ----------------------------------------------------------------------- */
-GUITriggeredRerouter::GUITriggeredRerouter(
-    const std::string& id,
-    const MSEdgeVector& edges,
-    double prob, const std::string& aXMLFilename, bool off,
-    SUMOTime timeThreshold,
-    SUMORTree& rtree) :
+GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob, 
+    const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, SUMORTree& rtree) :
     MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold),
-    GUIGlObject_AbstractAdd("rerouter", GLO_TRIGGER, id) {
+    GUIGlObject_AbstractAdd(GLO_REROUTER, id) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, false));
@@ -309,7 +305,7 @@ GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
  * GUITriggeredRerouterEdge - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, bool closed) :
-    GUIGlObject("rerouter_edge", GLO_TRIGGER, parent->getID() + ":" + edge->getID()),
+    GUIGlObject(GLO_REROUTER_EDGE, parent->getID() + ":" + edge->getID()),
     myParent(parent),
     myEdge(edge),
     myAmClosedEdge(closed) {

@@ -69,15 +69,13 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this);
 }
 
+// -------------------------------------------------------------------------
+// GUIE2Collector::MyWrapper-methods
+// -------------------------------------------------------------------------
 
-
-/* -------------------------------------------------------------------------
- * GUIE2Collector::MyWrapper-methods
- * ----------------------------------------------------------------------- */
-GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector)
-    : GUIDetectorWrapper("E2 detector", detector.getID()),
-      myDetector(detector) {
-
+GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) : 
+    GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
+    myDetector(detector) {
     // collect detector shape into one vector (v)
     PositionVector v;
     const std::vector<MSLane*> lanes = detector.getLanes();
@@ -85,7 +83,6 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector)
         const PositionVector& shape = (*li)->getShape();
         v.insert(v.end(), shape.begin(), shape.end());
     }
-
     // build geometry
     myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getStartPos() + detector.getLength());
     //

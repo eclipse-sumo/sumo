@@ -39,18 +39,15 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIDetectorWrapper::GUIDetectorWrapper(
-    const std::string& prefix,
-    const std::string& id) :
-    GUIGlObject_AbstractAdd(prefix, GLO_DETECTOR, id) {}
+GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectType type, const std::string& id) :
+    GUIGlObject_AbstractAdd(type, id) {}
 
 
 GUIDetectorWrapper::~GUIDetectorWrapper() {}
 
 
 GUIGLObjectPopupMenu*
-GUIDetectorWrapper::getPopUpMenu(GUIMainWindow& app,
-                                 GUISUMOAbstractView& parent) {
+GUIDetectorWrapper::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);

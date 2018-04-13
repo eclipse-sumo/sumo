@@ -59,13 +59,13 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
     return new MyWrapper(*this, myPosition);
 }
 
+// -------------------------------------------------------------------------
+// GUIInstantInductLoop::MyWrapper-methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * GUIInstantInductLoop::MyWrapper-methods
- * ----------------------------------------------------------------------- */
-GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos)
-    : GUIDetectorWrapper("instant induct loop", detector.getID()),
-      myDetector(detector), myPosition(pos) {
+GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) : 
+    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
+    myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);
