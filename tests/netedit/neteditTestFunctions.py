@@ -151,7 +151,45 @@ def leftClick(match, positionx, positiony):
     click(clickedPosition)
     print "TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y
 
+    
+"""
+@brief do left click over a position relative to match (pink square) while shift key is pressed
+"""
 
+
+def leftClickShift(match, positionx, positiony):
+    # Leave Shift key pressed (Sikulix function)
+    keyDown(Key.SHIFT)
+    # wait before every operation
+    wait(DELAY)
+    # obtain clicked position
+    clickedPosition = match.getTarget().offset(positionx, positiony)
+    # click respect to offset
+    click(clickedPosition)
+    print "TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y
+    # Release Shift key (Sikulix function)
+    keyUp(Key.SHIFT)
+
+    
+"""
+@brief do left click over a position relative to match (pink square) while control key is pressed
+"""
+
+
+def leftClickControl(match, positionx, positiony):
+    # Leave Shift key pressed (Sikulix function)
+    keyDown(Key.CTRL)
+    # wait before every operation
+    wait(DELAY)
+    # obtain clicked position
+    clickedPosition = match.getTarget().offset(positionx, positiony)
+    # click respect to offset
+    click(clickedPosition)
+    print "TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y
+    # Release Shift key (Sikulix function)
+    keyUp(Key.CTRL)
+    
+    
 """
 @brief drag and drop from position 1 to position 2
 """
@@ -936,6 +974,20 @@ def abortSelection():
     typeEscape()
 
 
+"""
+@brief toogle select edges
+"""
+
+
+def toogleSelectEdges():
+    focusOnFrame()
+    # jump to toogle edge
+    for x in range(0, 3):
+        typeInvertTab()
+    typeSpace()
+    # Focus on frame again
+    focusOnFrame()
+ 
 """
 @brief select elements with default frame values
 """

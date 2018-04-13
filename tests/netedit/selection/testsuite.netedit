@@ -1,6 +1,9 @@
 # default values of selection
 select_default
 
+# select using click
+select_basic
+
 # save selection
 select_save_selection
 
