@@ -85,12 +85,14 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInit
 const GUIGlID GUIGlObject::INVALID_ID = 0;
 
 // ===========================================================================
-// method definitions
+// method definitionsas
 // ===========================================================================
 
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
     myGLObjectType(type),
     myMicrosimID(microsimID) {
+    // make sure that reserved GLO_ADDITIONAL isn't used
+    assert(myGLObjectType != GLO_ADDITIONAL);
     myFullName = createFullName();
     myGlID = GUIGlObjectStorage::gIDStorage.registerObject(this, myFullName);
 }
@@ -171,8 +173,7 @@ GUIGlObject::setNode(osg::Node* node) {
 #endif
 
 void
-GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app,
-                              bool addSeparator) {
+GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     if (addSeparator) {
         new FXMenuSeparator(ret);

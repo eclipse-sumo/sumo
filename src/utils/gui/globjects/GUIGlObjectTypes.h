@@ -58,42 +58,44 @@ enum GUIGlObjectType {
     GLO_PROHIBITION = 6,
     /// @brief a tl-logic
     GLO_TLLOGIC = 7,
+    /// @brief reserved GLO type to pack all additionals
+    GLO_ADDITIONAL = 100,
     /// @brief a busStop
-    GLO_BUS_STOP = 100,
+    GLO_BUS_STOP = 101,
     /// @brief a containerStop
-    GLO_CONTAINER_STOP = 101,
+    GLO_CONTAINER_STOP = 102,
     /// @brief a chargingStation
-    GLO_CHARGING_STATION = 102,
+    GLO_CHARGING_STATION = 103,
     /// @brief a ParkingArea
-    GLO_PARKING_AREA = 103,
+    GLO_PARKING_AREA = 104,
     /// @brief a ParkingSpace
-    GLO_PARKING_SPACE = 104,
+    GLO_PARKING_SPACE = 105,
     /// @brief a E1 detector
-    GLO_E1DETECTOR = 105,
+    GLO_E1DETECTOR = 106,
     /// @brief a E1 detector
-    GLO_E1DETECTOR_ME = 105,
+    GLO_E1DETECTOR_ME = 107,
     /// @brief a E1 detector
-    GLO_E1DETECTOR_INSTANT = 105,
+    GLO_E1DETECTOR_INSTANT = 108,
     /// @brief a E2 detector
-    GLO_E2DETECTOR = 106,
+    GLO_E2DETECTOR = 109,
     /// @brief a E3 detector
-    GLO_E3DETECTOR = 107,
+    GLO_E3DETECTOR = 110,
     /// @brief a DetEntry detector
-    GLO_DET_ENTRY = 108,
+    GLO_DET_ENTRY = 111,
     /// @brief a DetExit detector
-    GLO_DET_EXIT = 109,
+    GLO_DET_EXIT = 112,
     /// @brief a Rerouter
-    GLO_REROUTER = 110,
+    GLO_REROUTER = 113,
     /// @brief a Rerouter
-    GLO_REROUTER_EDGE = 111,
+    GLO_REROUTER_EDGE = 114,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 112,
+    GLO_VSS = 115,
     /// @brief a Calibrator
-    GLO_CALIBRATOR = 113,
+    GLO_CALIBRATOR = 116,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 114,
+    GLO_ROUTEPROBE = 117,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 115,
+    GLO_VAPORIZER = 118,
     /// @brief a polygon
     GLO_POLYGON = 201,
     /// @brief a poi

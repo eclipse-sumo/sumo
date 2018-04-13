@@ -267,10 +267,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor.
-    GUIGlObject(const GUIGlObject&);
+    GUIGlObject(const GUIGlObject&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GUIGlObject& operator=(const GUIGlObject&);
+    GUIGlObject& operator=(const GUIGlObject&) = delete;
 };
 #endif
 

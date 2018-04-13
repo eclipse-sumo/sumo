@@ -63,7 +63,7 @@ public:
     static const std::vector<GUIGlObject_AbstractAdd*>& getObjectList();
 
     /// @brief Returns the list of gl-ids of all additional objects that match the given type
-    static std::vector<GUIGlID> getIDList(int typeFilter);
+    static std::vector<GUIGlID> getIDList(GUIGlObjectType typeFilter);
 
 protected:
     /// @brief Map from names of loaded additional objects to the objects themselves
