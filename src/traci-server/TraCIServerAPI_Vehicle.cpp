@@ -605,8 +605,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description.", outputStorage);
                 }
-                if (inputStorage.readInt() != 3) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description of three items.", outputStorage);
+                int compounds = inputStorage.readInt();
+                if (compounds != 3 && compounds != 2 ) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description of two or three items.", outputStorage);
                 }
                 // Lane ID
                 int laneIndex = 0;
@@ -620,8 +621,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 // relativelanechange
                 int relative = 0;
-                if (!server.readTypeCheckingByte(inputStorage, relative)) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third lane change parameter must be a Byte for defining whether a relative lane change should be applied.", outputStorage);
+                if (compounds == 3) {
+                    if (!server.readTypeCheckingByte(inputStorage, relative)) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third lane change parameter must be a Byte for defining whether a relative lane change should be applied.", outputStorage);
+                    }
                 }
 
                 if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
