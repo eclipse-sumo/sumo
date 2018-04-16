@@ -166,10 +166,6 @@ buildNetwork(NBNetBuilder& nb) {
             hadError = true;
         }
         const bool alphaIDs = oc.getBool("grid.alphanumerical-ids");
-        if (alphaIDs && xNo > 26) {
-            WRITE_ERROR("There must be at most 26 nodes in the x-direction when using alphanumerical ids.");
-            hadError = true;
-        }
 
         if (hadError) {
             throw ProcessError();
