@@ -42,6 +42,8 @@
 class GUIGlChildWindow;
 class GUIGlObjectStorage;
 class GUIGlObject;
+class GNEAttributeCarrier;
+class GNENet;
 
 
 // ===========================================================================
@@ -68,10 +70,17 @@ public:
                            const std::vector<GUIGlID>& ids,
                            GUIGlObjectStorage& glStorage);
 
+    /** @brief Constructor (netedit version=
+     * @param[in] parent The calling view
+     * @param[in] icon The icon to use
+     * @param[in] title The title to use
+     * @param[in] glStorage The storage to retrieve ids from
+     */
+    GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, GNENet *net,
+                           const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief Destructor
     ~GUIDialog_GLObjChooser();
-
 
     /** @brief Returns the chosen (selected) object
      * @return The selected object
@@ -79,8 +88,6 @@ public:
     GUIGlObject* getObject() const {
         return static_cast<GUIGlObject*>(mySelected);
     }
-
-
 
     /// @name FOX-callbacks
     /// @{
@@ -110,6 +117,10 @@ public:
     /// @brief sets the focus after the window is created to work-around bug in libfox
     void show();
 
+ protected:
+    /// FOX needs this
+    GUIDialog_GLObjChooser() {}
+
 private:
     /// @brief The list that holds the ids
     FXList* myList;
@@ -120,21 +131,20 @@ private:
     /// @brief The parent window
     GUIGlChildWindow* myParent;
 
+    /// @brief Pointer to Net
+    GNENet* myNet;
+
     /// @brief The chosen id
     GUIGlObject* mySelected;
 
     /// @brief The text field
     FXTextField* myTextEntry;
 
-    /// myList contains (void) pointers to elements of myIDs instead of the more
-    //volatile pointers to GUIGlObject
+    /// @brief Set contains (void) pointers to elements of myIDs instead of the more volatile pointers to GUIGlObject
     std::set<GUIGlID> myIDs;
-
-
-protected:
-    /// FOX needs this
-    GUIDialog_GLObjChooser() { }
-
+    
+    // @brief vector contains Pointers to Attribute Carriers
+    std::vector<GNEAttributeCarrier*> myAttributeCarriers;
 };
 
 

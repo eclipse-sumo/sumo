@@ -39,12 +39,16 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNENet.h>
+
 #include "GUIDialog_GLObjChooser.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
@@ -61,31 +65,70 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
-    GUIGlChildWindow* parent,
-    FXIcon* icon,
-    const FXString& title,
-    const std::vector<GUIGlID>& ids,
-    GUIGlObjectStorage& glStorage):
+
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title,
+    const std::vector<GUIGlID>& ids, GUIGlObjectStorage& glStorage) :
     FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
-    myParent(parent) {
+    myParent(parent),
+    myNet(NULL) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     // build the list
     FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X | FRAME_THICK | FRAME_SUNKEN);
     FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP | FRAME_THICK | FRAME_SUNKEN, 0, 0, 0, 0, 0, 0, 0, 0);
     myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK);
-    for (std::vector<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
-        GUIGlObject* o = glStorage.getObjectBlocking(*i);
+    for (auto i : ids) {
+        GUIGlObject* o = glStorage.getObjectBlocking(i);
         if (o == 0) {
             continue;
         }
         const std::string& name = o->getMicrosimID();
         bool selected = myParent->isSelected(o);
-        FXIcon* icon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
+        FXIcon* selectIcon = selected ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myIDs.insert(o->getGlID());
-        myList->appendItem(name.c_str(), icon, (void*) & (*myIDs.find(o->getGlID())));
-        glStorage.unblockObject(*i);
+        myList->appendItem(name.c_str(), selectIcon, (void*) & (*myIDs.find(o->getGlID())));
+        glStorage.unblockObject(i);
+    }
+    // build the buttons
+    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
+    myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
+                                  this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                                  0, 0, 0, 0, 4, 4, 4, 4);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
+    new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG),
+                 this, MID_CHOOSER_FILTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 4, 4);
+    new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG),
+                 this, MID_CHOOSEN_INVERT, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 4, 4);
+    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
+    new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
+                 this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
+                 0, 0, 0, 0, 4, 4, 4, 4);
+
+    myParent->getParent()->addChild(this);
+}
+
+
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, GNENet *net, const std::vector<GNEAttributeCarrier*>& ACs) :
+    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
+    myParent(parent),
+    myNet(net),
+    myAttributeCarriers(ACs) {
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
+    // build the list
+    FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
+    myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X | FRAME_THICK | FRAME_SUNKEN);
+    FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP | FRAME_THICK | FRAME_SUNKEN, 0, 0, 0, 0, 0, 0, 0, 0);
+    myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK);
+    
+    // iterate over attribute carriers
+    for (auto i : myAttributeCarriers) {
+        FXIcon* selectIcon = nullptr;
+        if(GNEAttributeCarrier::canBeSelected(i->getTag())) {
+            selectIcon = GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : nullptr;
+        }
+        myList->appendItem(i->getID().c_str(), selectIcon, (void*) & (*dynamic_cast<GUIGlObject*>(i)));
     }
     // build the buttons
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
