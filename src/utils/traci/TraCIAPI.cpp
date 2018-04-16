@@ -2224,6 +2224,11 @@ TraCIAPI::VehicleScope::getDistance(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_DISTANCE, vehicleID);
 }
 
+int
+TraCIAPI::VehicleScope::getSignals(const std::string& vehicleID) const {
+    return myParent.getInt(CMD_GET_VEHICLE_VARIABLE, VAR_SIGNALS, vehicleID);
+}
+
 double
 TraCIAPI::VehicleScope::getLateralLanePosition(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_LANEPOSITION_LAT, vehicleID);
@@ -2742,6 +2747,15 @@ TraCIAPI::VehicleScope::setVia(const std::string& vehicleID, const std::vector<s
     myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
 }
 
+void
+TraCIAPI::VehicleScope::setSignals(const std::string& vehicleID, int signals) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeInt(signals);
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, VAR_SIGNALS, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
 
 void
 TraCIAPI::VehicleScope::setShapeClass(const std::string& vehicleID, const std::string& clazz) const {
