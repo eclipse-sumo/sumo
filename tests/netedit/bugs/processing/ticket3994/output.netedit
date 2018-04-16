@@ -1,0 +1,17 @@
+running SikuliX: -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine
+-jar /home/erdm_ja/programs/sikulix/sikulix.jar -run test.sikuli
+[info] runcmd: lsb_release -i -r -s 
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 144
+TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling is 100% (See #3746)
+[log]  TYPE "#F5."
+[log]  TYPE "s"
+[log] CLICK on L(619,364)@S(0)[0,0 1920x1080] (223 msec)
+TestFunctions: Clicked over position 619 - 364
+[log] CLICK on L(719,364)@S(0)[0,0 1920x1080] (222 msec)
+TestFunctions: Clicked over position 719 - 364
+[log]  TYPE "#F7."
+[log] ( Ctrl )  TYPE "s"
+[log] ( Ctrl )  TYPE "q"
+TestFunctions: Netedit closed successfully
