@@ -1656,6 +1656,22 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
         if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
             mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
             mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].push_back(attributeCarrier);
+            // special case for netElements
+            if((glType > GLO_NETELEMENT) && (glType < GLO_ADDITIONAL)) {
+                mySelectedAttributeCarriers[GLO_NETELEMENT].push_back(attributeCarrier);
+            }
+            // special case for Additionals
+            if((glType > GLO_ADDITIONAL) && (glType < GLO_SHAPE)) {
+                mySelectedAttributeCarriers[GLO_ADDITIONAL].push_back(attributeCarrier);
+            }
+            // special case for Shapes
+            if((glType > GLO_SHAPE) && (glType < GLO_ROUTEElEMENTS)) {
+                mySelectedAttributeCarriers[GLO_SHAPE].push_back(attributeCarrier);
+            }
+            // special case for RouteElements
+            if((glType > GLO_ROUTEElEMENTS) && (glType < GLO_MAX)) {
+                mySelectedAttributeCarriers[GLO_ROUTEElEMENTS].push_back(attributeCarrier);
+            }
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1677,6 +1693,22 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
         if((itGlType != mySelectedAttributeCarriers[glType].end()) && (itTag != mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
             mySelectedAttributeCarriers[glType].erase(itGlType);
             mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].erase(itTag);
+            // special case for netElements
+            if((glType > GLO_NETELEMENT) && (glType < GLO_ADDITIONAL)) {
+                mySelectedAttributeCarriers[GLO_NETELEMENT].erase(std::find(mySelectedAttributeCarriers[GLO_NETELEMENT].begin(), mySelectedAttributeCarriers[GLO_NETELEMENT].end(), attributeCarrier));
+            }
+            // special case for Additionals
+            if((glType > GLO_ADDITIONAL) && (glType < GLO_SHAPE)) {
+                mySelectedAttributeCarriers[GLO_ADDITIONAL].erase(std::find(mySelectedAttributeCarriers[GLO_ADDITIONAL].begin(), mySelectedAttributeCarriers[GLO_ADDITIONAL].end(), attributeCarrier));
+            }
+            // special case for Shapes
+            if((glType > GLO_SHAPE) && (glType < GLO_ROUTEElEMENTS)) {
+                mySelectedAttributeCarriers[GLO_SHAPE].erase(std::find(mySelectedAttributeCarriers[GLO_SHAPE].begin(), mySelectedAttributeCarriers[GLO_SHAPE].end(), attributeCarrier));
+            }
+            // special case for RouteElements
+            if((glType > GLO_ROUTEElEMENTS) && (glType < GLO_MAX)) {
+                mySelectedAttributeCarriers[GLO_ADDITIONAL].erase(std::find(mySelectedAttributeCarriers[GLO_ROUTEElEMENTS].begin(), mySelectedAttributeCarriers[GLO_ROUTEElEMENTS].end(), attributeCarrier));
+            }
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();

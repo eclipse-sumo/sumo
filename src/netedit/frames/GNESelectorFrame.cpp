@@ -316,7 +316,11 @@ GNESelectorFrame::LockGLObjectTypes::updateLockGLObjectTypes() {
 
 bool 
 GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(GUIGlObjectType type) const {
-    return myTypeEntries.at(type).locked->getCheck() != FALSE;
+    if((type >= 100) && (type < 199)) {
+        return myTypeEntries.at(GLO_ADDITIONAL).locked->getCheck() != FALSE;
+    } else {
+        return myTypeEntries.at(type).locked->getCheck() != FALSE;
+    }
 }
 
 

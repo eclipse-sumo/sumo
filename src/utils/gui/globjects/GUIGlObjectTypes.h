@@ -44,20 +44,22 @@
 enum GUIGlObjectType {
     /// @brief The network - empty
     GLO_NETWORK = 0,
+    /// @brief reserved GLO type to pack all netElements
+    GLO_NETELEMENT = 1,
     /// @brief an edge
-    GLO_EDGE = 1,
+    GLO_EDGE = 2,
     /// @brief a lane
-    GLO_LANE = 2,
+    GLO_LANE = 3,
     /// @brief a junction
-    GLO_JUNCTION = 3,
+    GLO_JUNCTION = 4,
     /// @brief a tl-logic
-    GLO_CROSSING = 4,
+    GLO_CROSSING = 5,
     /// @brief a connection
-    GLO_CONNECTION = 5,
+    GLO_CONNECTION = 6,
     /// @brief a prohibition
-    GLO_PROHIBITION = 6,
+    GLO_PROHIBITION = 7,
     /// @brief a tl-logic
-    GLO_TLLOGIC = 7,
+    GLO_TLLOGIC = 8,
     /// @brief reserved GLO type to pack all additionals
     GLO_ADDITIONAL = 100,
     /// @brief a busStop
@@ -96,10 +98,14 @@ enum GUIGlObjectType {
     GLO_ROUTEPROBE = 117,
     /// @brief a Vaporizer
     GLO_VAPORIZER = 118,
+    /// @brief reserved GLO type to pack shapes
+    GLO_SHAPE = 200,
     /// @brief a polygon
     GLO_POLYGON = 201,
     /// @brief a poi
     GLO_POI = 202,
+    /// @brief reserved GLO type to pack all RouteElments
+    GLO_ROUTEElEMENTS = 300,
     /// @brief a vehicles
     GLO_VEHICLE = 301,
     /// @brief a person

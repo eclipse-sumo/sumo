@@ -93,32 +93,35 @@ GUIGlObject_AbstractAdd::getObjectList() {
 std::vector<GUIGlID>
 GUIGlObject_AbstractAdd::getIDList(GUIGlObjectType typeFilter) {
     std::vector<GUIGlID> ret;
-    if(typeFilter == GLO_ADDITIONAL) {
-        // get GUIGlID corresponding only to additionals
+    if(typeFilter == GLO_NETWORK) {
+        return ret;
+    } else if(typeFilter == GLO_NETELEMENT) {
+        // obtain all netElements
         for (auto i : myObjectList) {
-            switch (i->getType()) {
-                case GLO_BUS_STOP:
-                case GLO_CONTAINER_STOP:
-                case GLO_CHARGING_STATION:
-                case GLO_PARKING_AREA:
-                case GLO_PARKING_SPACE:
-                case GLO_E1DETECTOR:
-                case GLO_E1DETECTOR_ME:
-                case GLO_E1DETECTOR_INSTANT:
-                case GLO_E2DETECTOR:
-                case GLO_E3DETECTOR:
-                case GLO_DET_ENTRY:
-                case GLO_DET_EXIT:
-                case GLO_REROUTER:
-                case GLO_REROUTER_EDGE:
-                case GLO_VSS:
-                case GLO_CALIBRATOR:
-                case GLO_ROUTEPROBE:
-                case GLO_VAPORIZER:
-                    ret.push_back(i->getGlID());
-                    break;
-                default:
-                    break;
+            if ((i->getType() > GLO_NETELEMENT) && (i->getType() < GLO_ADDITIONAL)) {
+                ret.push_back(i->getGlID());
+            }
+        }
+    } else
+    if(typeFilter == GLO_ADDITIONAL) {
+        // obtain all additionals
+        for (auto i : myObjectList) {
+            if ((i->getType() > GLO_ADDITIONAL) && (i->getType() < GLO_SHAPE)) {
+                ret.push_back(i->getGlID());
+            }
+        }
+    } else if(typeFilter == GLO_SHAPE) {
+        // obtain all Shapes
+        for (auto i : myObjectList) {
+            if ((i->getType() > GLO_SHAPE) && (i->getType() < GLO_ROUTEElEMENTS)) {
+                ret.push_back(i->getGlID());
+            }
+        }
+    } else if(typeFilter == GLO_ROUTEElEMENTS) {
+        // obtain all Shapes
+        for (auto i : myObjectList) {
+            if ((i->getType() > GLO_ROUTEElEMENTS) && (i->getType() < GLO_MAX)) {
+                ret.push_back(i->getGlID());
             }
         }
     } else {
