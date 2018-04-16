@@ -466,24 +466,23 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
             }
             c.insert(n);
             visited.insert(n);
-            const EdgeVector& edges = n->getEdges();
-            for (EdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
-                NBEdge* e = *j;
-                NBNode* s = 0;
-                if (e->getPermissions() == SVC_PEDESTRIAN) {
-                    continue; // do not join pedestrian stuff
-                }
-                if (n->hasIncoming(e)) {
-                    s = e->getFromNode();
-                } else {
-                    s = e->getToNode();
+            for (NBEdge* e : n->getEdges()) {
+                NBNode* s = n->hasIncoming(e) ? e->getFromNode() : e->getToNode();
+                const double length = e->getLoadedLength();
+                if ( // never join pedestrian stuff
+                        e->getPermissions() == SVC_PEDESTRIAN 
+                        // only join edges for regular passenger traffic or edges that are extremely short
+                        || (length > 3 * POSITION_EPS 
+                            && (e->getPermissions() & SVC_PASSENGER) == 0 
+                            && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth)) {
+                    continue; 
                 }
                 if (visited.find(s) != visited.end()) {
                     continue;
                 }
-                if (e->getLoadedLength() + dist < maxDist) {
+                if (length + dist < maxDist) {
                     if (s->geometryLike()) {
-                        toProc.push_back(std::make_pair(s, dist + e->getLoadedLength()));
+                        toProc.push_back(std::make_pair(s, dist + length));
                     } else {
                         toProc.push_back(std::make_pair(s, 0));
                     }
@@ -571,60 +570,8 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 cluster.erase(check);
             }
         }
-        // iteratively remove the fringe
-        bool pruneFringe = true;
-        while (pruneFringe) {
-            pruneFringe = false;
-            for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
-                std::set<NBNode*>::iterator check = j;
-                NBNode* n = *check;
-                ++j;
-
-                // compute clusterDist for node (length of shortest edge which connects this node to the cluster)
-                double clusterDist = std::numeric_limits<double>::max();
-                for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
-                    NBNode* neighbor = (*it_edge)->getToNode();
-                    if (cluster.count(neighbor) != 0) {
-                        clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
-                    }
-                }
-                for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
-                    NBNode* neighbor = (*it_edge)->getFromNode();
-                    if (cluster.count(neighbor) != 0) {
-                        clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
-                    }
-                }
-                // remove geometry-like nodes at fringe of the cluster
-                // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
-                std::set<NBNode*> neighbors;
-                std::set<NBNode*> clusterNeigbors;
-                const double pedestrianFringeThreshold = 1.0;
-                for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
-                    NBNode* neighbor = (*it_edge)->getToNode();
-                    if (cluster.count(neighbor) == 0) {
-                        if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
-                            neighbors.insert(neighbor);
-                        }
-                    } else {
-                        clusterNeigbors.insert(neighbor);
-                    }
-                }
-                for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
-                    NBNode* neighbor = (*it_edge)->getFromNode();
-                    if (cluster.count(neighbor) == 0) {
-                        if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
-                            neighbors.insert(neighbor);
-                        }
-                    } else {
-                        clusterNeigbors.insert(neighbor);
-                    }
-                }
-                if (neighbors.size() <= 1 && clusterNeigbors.size() == 1) {
-                    cluster.erase(check);
-                    pruneFringe = true; // other nodes could belong to the fringe now
-                }
-            }
-        }
+        // remove nodes that can be eliminated by geometry.remove
+        pruneClusterFringe(cluster);
         // exclude the fromNode of a long edge if the toNode is in the cluster (and they were both added via an alternative path).
         std::set<NBNode*> toRemove;
         for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
@@ -645,74 +592,32 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         if (cluster.size() < 2) {
             continue;
         }
-        // check for clusters which are to complex and probably won't work very well
-        // we count the incoming edges of the final junction
-        std::map<std::string, double> finalIncomingAngles;
-        std::map<std::string, double> finalOutgoingAngles;
-        std::vector<std::string> nodeIDs;
-        for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
-            nodeIDs.push_back((*j)->getID());
-            for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
-                NBEdge* edge = *it_edge;
-                if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
-                    // incoming edge, does not originate in the cluster
-                    finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
+        std::string reason;
+        bool feasible = feasibleCluster(cluster, ec, sc, reason);
+        //if (!feasible) std::cout << "\ntry to reduce cluster " << joinNamedToStringSorting(cluster, ',') << "\n";
+        if (!feasible) {
+            std::string origCluster = joinNamedToStringSorting(cluster, ',');
+            if (reduceToCircle(cluster, 4, cluster)) {
+                pruneClusterFringe(cluster);
+                feasible = feasibleCluster(cluster, ec, sc, reason);
+                if (feasible) {
+                    //WRITE_MESSAGE("Reducing junction cluster " + origCluster + " (" + reason + ")");
                 }
             }
-            for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
-                NBEdge* edge = *it_edge;
-                if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
-                    // outgoing edge, does not end in the cluster
-                    finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
-                }
-            }
-
         }
-        if (finalIncomingAngles.size() > 4) {
-            std::sort(nodeIDs.begin(), nodeIDs.end());
-            WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (" + toString(finalIncomingAngles.size()) + " incoming edges)");
+        if (!feasible) {
+            std::string origCluster = joinNamedToStringSorting(cluster, ',');
+            if (reduceToCircle(cluster, 2, cluster)) {
+                pruneClusterFringe(cluster);
+                feasible = feasibleCluster(cluster, ec, sc, reason);
+                if (feasible) {
+                    //WRITE_MESSAGE("Reducing junction cluster " + origCluster + " (" + reason + ")");
+                }
+            }
+        }
+        if (!feasible) {
+            WRITE_WARNING("Not joining junctions " + joinNamedToStringSorting(cluster, ',') + " (" + reason + ")");
             continue;
-        }
-        // check for incoming parallel edges
-        const double PARALLEL_INCOMING_THRESHOLD = 10.0;
-        bool foundParallel = false;
-        for (std::map<std::string, double>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
-            std::map<std::string, double>::const_iterator k = j;
-            for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
-                if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel incoming "
-                                  + j->first + "," + k->first + ")");
-                    foundParallel = true;
-                }
-            }
-        }
-        // check for outgoing parallel edges
-        for (std::map<std::string, double>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
-            std::map<std::string, double>::const_iterator k = j;
-            for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
-                if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because the cluster is too complex (parallel outgoing "
-                                  + j->first + "," + k->first + ")");
-                    foundParallel = true;
-                }
-            }
-        }
-        if (foundParallel) {
-            continue;
-        }
-        // check for stop edges within the cluster
-        if (OptionsCont::getOptions().isSet("ptstop-output")) {
-            bool foundStop = false;
-            for (auto it = sc.begin(); it != sc.end(); it++) {
-                NBEdge* edge = ec.retrieve(it->second->getEdgeId());
-                if (edge != 0 && cluster.count(edge->getFromNode()) != 0 && cluster.count(edge->getToNode()) != 0) {
-                    foundStop = true;
-                    WRITE_WARNING("Not joining junctions " + joinToStringSorting(nodeIDs, ',') + " because it contains stop '" + it->first + "'");
-                }
-            }
-            if (foundStop) {
-                continue;
-            }
         }
         // compute all connected components of this cluster
         // (may be more than 1 if intermediate nodes were removed)
@@ -755,6 +660,197 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 }
 
 
+void 
+NBNodeCont::pruneClusterFringe(std::set<NBNode*>& cluster) const {
+    // iteratively remove the fringe
+    bool pruneFringe = true;
+    while (pruneFringe) {
+        pruneFringe = false;
+        for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
+            std::set<NBNode*>::iterator check = j;
+            NBNode* n = *check;
+            ++j;
+
+            // compute clusterDist for node (length of shortest edge which connects this node to the cluster)
+            double clusterDist = std::numeric_limits<double>::max();
+            for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
+                NBNode* neighbor = (*it_edge)->getToNode();
+                if (cluster.count(neighbor) != 0) {
+                    clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                }
+            }
+            for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
+                NBNode* neighbor = (*it_edge)->getFromNode();
+                if (cluster.count(neighbor) != 0) {
+                    clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                }
+            }
+            // remove geometry-like nodes at fringe of the cluster
+            // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
+            std::set<NBNode*> neighbors;
+            std::set<NBNode*> clusterNeigbors;
+            const double pedestrianFringeThreshold = 1.0;
+            for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
+                NBNode* neighbor = (*it_edge)->getToNode();
+                if (cluster.count(neighbor) == 0) {
+                    if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
+                        neighbors.insert(neighbor);
+                    }
+                } else {
+                    clusterNeigbors.insert(neighbor);
+                }
+            }
+            for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
+                NBNode* neighbor = (*it_edge)->getFromNode();
+                if (cluster.count(neighbor) == 0) {
+                    if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
+                        neighbors.insert(neighbor);
+                    }
+                } else {
+                    clusterNeigbors.insert(neighbor);
+                }
+            }
+            if (neighbors.size() <= 1 && clusterNeigbors.size() == 1) {
+                cluster.erase(check);
+                pruneFringe = true; // other nodes could belong to the fringe now
+            }
+        }
+    }
+}
+
+
+bool
+NBNodeCont::feasibleCluster(const std::set<NBNode*>& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const {
+    // check for clusters which are to complex and probably won't work very well
+    // we count the incoming edges of the final junction
+    std::map<std::string, double> finalIncomingAngles;
+    std::map<std::string, double> finalOutgoingAngles;
+    for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
+        for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
+            NBEdge* edge = *it_edge;
+            if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+                // incoming edge, does not originate in the cluster
+                finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
+            }
+        }
+        for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
+            NBEdge* edge = *it_edge;
+            if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+                // outgoing edge, does not end in the cluster
+                finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
+            }
+        }
+
+    }
+    if (finalIncomingAngles.size() > 4) {
+        reason = toString(finalIncomingAngles.size()) + " incoming edges";
+        return false;
+    }
+    // check for incoming parallel edges
+    const double PARALLEL_INCOMING_THRESHOLD = 10.0;
+    bool foundParallel = false;
+    for (std::map<std::string, double>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
+        std::map<std::string, double>::const_iterator k = j;
+        for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
+            if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
+                reason = "parallel incoming " + j->first + "," + k->first;
+                return false;
+            }
+        }
+    }
+    // check for outgoing parallel edges
+    for (std::map<std::string, double>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
+        std::map<std::string, double>::const_iterator k = j;
+        for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
+            if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
+                reason = "parallel outgoing " + j->first + "," + k->first;
+                return false;
+            }
+        }
+    }
+    // check for stop edges within the cluster
+    if (OptionsCont::getOptions().isSet("ptstop-output")) {
+        bool foundStop = false;
+        for (auto it = sc.begin(); it != sc.end(); it++) {
+            NBEdge* edge = ec.retrieve(it->second->getEdgeId());
+            if (edge != 0 && cluster.count(edge->getFromNode()) != 0 && cluster.count(edge->getToNode()) != 0) {
+                reason = "it contains stop '" + it->first + "'";
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+bool
+NBNodeCont::reduceToCircle(std::set<NBNode*>& cluster, int circleSize, std::set<NBNode*> startNodes, std::vector<NBNode*> cands) const {
+    //std::cout << " cs=" << circleSize << " cands=" << toString(cands) << " startNodes=" << toString(startNodes) << "\n";
+    assert(circleSize >= 2);
+    if (cands.size() == circleSize) {
+        if (cands.back()->getConnectionTo(cands.front()) != 0) {
+            // cluster found
+            cluster.clear();
+            cluster.insert(cands.begin(), cands.end());
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if ((int)cluster.size() <= circleSize || startNodes.size() == 0) {
+        // no reduction possible
+        return false;
+    }
+    if (cands.size() == 0) {
+        // try to find a circle starting from another start node
+        NBEdge* e = shortestEdge(cluster, startNodes, cands);
+        if (e != 0) {
+            cands.push_back(e->getFromNode());
+            startNodes.erase(e->getFromNode());
+            if (reduceToCircle(cluster, circleSize, startNodes, cands)) {
+                return true;
+            } else {
+                // try another start node
+                return reduceToCircle(cluster, circleSize, startNodes);
+            }
+        }
+    } else {
+        std::set<NBNode*> singleStart;
+        singleStart.insert(cands.back());
+        NBEdge* e = shortestEdge(cluster, singleStart, cands);
+        if (e != 0) {
+            std::vector<NBNode*> cands2(cands);
+            cands2.push_back(e->getToNode());
+            if (reduceToCircle(cluster, circleSize, startNodes, cands2)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+NBEdge*
+NBNodeCont::shortestEdge(const std::set<NBNode*>& cluster, const std::set<NBNode*>& startNodes, const std::vector<NBNode*>& exclude) const {
+    double minDist = std::numeric_limits<double>::max();
+    NBEdge* result = 0;
+    for (NBNode* n : startNodes) {
+        for (NBEdge* e : n->getOutgoingEdges()) {
+            NBNode* neigh = e->getToNode();
+            if (cluster.count(neigh) != 0 && std::find(exclude.begin(), exclude.end(), neigh) == exclude.end()) {
+                const double dist = n->getPosition().distanceTo2D(neigh->getPosition());
+                //std::cout << "    e=" << e->getID() << " dist=" << dist << " minD=" << minDist << "\n";
+                if (dist < minDist) {
+                    minDist = dist;
+                    result = e;
+                }
+            }
+        }
+    }
+    //std::cout << "closestNeighbor startNodes=" << toString(startNodes) << " result=" << Named::getIDSecure(result) << "\n";
+    return result;
+}
+
 void
 NBNodeCont::joinNodeClusters(NodeClusters clusters,
                              NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
@@ -765,13 +861,15 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
         bool setTL;
         std::string id = "cluster";
         TrafficLightType type;
-        analyzeCluster(cluster, id, pos, setTL, type);
+        SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
+        analyzeCluster(cluster, id, pos, setTL, type, nodeType);
         if (!insert(id, pos)) {
             // should not fail
             WRITE_WARNING("Could not join junctions " + id);
             continue;
         }
         NBNode* newNode = retrieve(id);
+        newNode->reinit(pos, nodeType);
         if (setTL) {
             NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, newNode, 0, type);
             if (!tlc.insert(tlDef)) {
@@ -844,12 +942,11 @@ NBNodeCont::registerJoinedCluster(const std::set<NBNode*>& cluster) {
 
 void
 NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos,
-                           bool& hasTLS, TrafficLightType& type) {
+                           bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType) {
+    id += "_" + joinNamedToStringSorting(cluster, '_');
     hasTLS = false;
-    std::vector<std::string> member_ids;
     bool ambiguousType = false;
     for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); j++) {
-        member_ids.push_back((*j)->getID());
         pos.add((*j)->getPosition());
         // add a traffic light if any of the cluster members was controlled
         if ((*j)->isTLControlled()) {
@@ -861,13 +958,21 @@ NBNodeCont::analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position&
             }
             hasTLS = true;
         }
+        SumoXMLNodeType otherType = (*j)->getType();
+        if (nodeType == NODETYPE_UNKNOWN) {
+            nodeType = otherType;
+        } else if (nodeType != otherType) {
+            if (hasTLS) {
+                nodeType = NODETYPE_TRAFFIC_LIGHT;;
+            } else {
+                if (nodeType != NODETYPE_NOJUNCTION && otherType != NODETYPE_NOJUNCTION) {
+                    WRITE_WARNING("Ambiguous node type for node cluster '" + id + "' (" + toString(nodeType) + "," + toString(otherType) + ") set to '" + toString(NODETYPE_PRIORITY) + "'");
+                }
+                nodeType = NODETYPE_PRIORITY;
+            }
+        }
     }
     pos.mul(1.0 / cluster.size());
-    // need to sort the member names to make the output deterministic
-    sort(member_ids.begin(), member_ids.end());
-    for (std::vector<std::string>::iterator j = member_ids.begin(); j != member_ids.end(); j++) {
-        id = id + "_" + (*j);
-    }
     if (ambiguousType) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
         WRITE_WARNING("Ambiguous traffic light type for node cluster '" + id + "' set to '" + toString(type) + "'");
@@ -1091,7 +1196,8 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         bool dummySetTL;
         std::string id = "joined"; // prefix (see #3871)
         TrafficLightType type;
-        analyzeCluster(c, id, dummyPos, dummySetTL, type);
+        SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
+        analyzeCluster(c, id, dummyPos, dummySetTL, type, nodeType);
         for (std::set<NBNode*>::iterator j = c.begin(); j != c.end(); ++j) {
             std::set<NBTrafficLightDefinition*> tls = (*j)->getControllingTLS();
             (*j)->removeTrafficLights();

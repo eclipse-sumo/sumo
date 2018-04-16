@@ -254,6 +254,15 @@ inline std::string joinToStringSorting(const std::vector<T>& v, const T_BETWEEN&
 }
 
 
+template <typename T, typename T_BETWEEN>
+inline std::string joinNamedToStringSorting(const std::set<T*>& ns, const T_BETWEEN& between) {
+    std::vector<std::string> ids;
+    for (T* n : ns) {
+        ids.push_back(Named::getIDSecure(n));
+    }
+    return joinToStringSorting(ids, between);
+}
+
 template <typename V>
 inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);

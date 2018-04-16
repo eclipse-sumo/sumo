@@ -1371,7 +1371,8 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     bool setTL;
     std::string id;
     TrafficLightType type;
-    myNetBuilder->getNodeCont().analyzeCluster(cluster, id, pos, setTL, type);
+    SumoXMLNodeType nodeType = NODETYPE_UNKNOWN;
+    myNetBuilder->getNodeCont().analyzeCluster(cluster, id, pos, setTL, type, nodeType);
     // save position
     oldPos = pos;
 
@@ -1427,6 +1428,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // #3128 this is not undone when calling 'undo'
     myNetBuilder->getNodeCont().registerJoinedCluster(cluster);
     GNEJunction* joined = createJunction(pos, undoList);
+    joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
     if (setTL) {
         joined->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), undoList);
         // XXX ticket831

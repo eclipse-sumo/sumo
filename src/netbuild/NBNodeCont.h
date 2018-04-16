@@ -141,6 +141,18 @@ public:
 
     /// @brief Joins junctions that are very close together
     int joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc);
+
+    /// @brief remove geometry-like fringe nodes from cluster 
+    void pruneClusterFringe(std::set<NBNode*>& cluster) const; 
+
+    /// @brief determine wether the cluster is not too complex for joining
+    bool feasibleCluster(const std::set<NBNode*>& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const; 
+
+    /// @brief try to find a joinable subset (recursively)
+    bool reduceToCircle(std::set<NBNode*>& cluster, int circleSize, std::set<NBNode*> startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
+
+    /// @brief find closest neighbor for building circle
+    NBEdge* shortestEdge(const std::set<NBNode*>& cluster, const std::set<NBNode*>& startNodes, const std::vector<NBNode*>& exclude) const; 
     /// @}
 
     /// @name Adapting the input
@@ -270,7 +282,7 @@ public:
      * @param[out] hasTLS Whether the new node has a traffic light
      * @param[out] tlType The type of traffic light (if any)
      */
-    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS, TrafficLightType& type);
+    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const std::set<NBNode*>& cluster);
