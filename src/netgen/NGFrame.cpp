@@ -82,7 +82,7 @@ NGFrame::fillOptions() {
     oc.addSynonyme("grid.attach-length", "attach-length", true);
     oc.addDescription("grid.attach-length", "Grid Network", "The length of streets attached at the boundary; 0 means no streets are attached");
 
-    oc.doRegister("grid.alphanumerical-ids", new Option_Bool(false));
+    oc.doRegister("grid.alphanumerical-ids", new Option_Bool(true));
     oc.addDescription("grid.alphanumerical-ids", "Grid Network", "The Ids of generated nodes use letters for the X axis");
 
     //  register spider-net options
