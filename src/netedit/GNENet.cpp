@@ -775,43 +775,31 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     moved->setAttribute(SUMO_ATTR_POSITION, target->getAttribute(SUMO_ATTR_POSITION), undoList);
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incoming = moved->getNBNode()->getIncomingEdges();
-    for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); it++) {
-        GNEEdge* oldEdge = myEdges[(*it)->getID()];
-        remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), target, undoList, true, false);
+    for (NBEdge* edge : incoming) {
+        // delete edges between the merged junctions
+        GNEEdge* e = myEdges[edge->getID()];
+        assert(e != 0);
+        if (e->getGNEJunctionSource() == target) {
+            deleteEdge(e, undoList, false);
+        } else {
+            undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, target->getID()));
+        }
     }
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector outgoing = moved->getNBNode()->getOutgoingEdges();
-    for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        GNEEdge* oldEdge = myEdges[(*it)->getID()];
-        remapEdge(oldEdge, target, oldEdge->getGNEJunctionDestiny(), undoList, false, true);
+    for (NBEdge* edge : outgoing) {
+        // delete edges between the merged junctions
+        GNEEdge* e = myEdges[edge->getID()];
+        assert(e != 0);
+        if (e->getGNEJunctionDestiny() == target) {
+            deleteEdge(e, undoList, false);
+        } else {
+            undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, target->getID()));
+        }
     }
     // deleted moved junction
     deleteJunction(moved, undoList);
     undoList->p_end();
-}
-
-
-void
-GNENet::remapEdge(GNEEdge* oldEdge, GNEJunction* from, GNEJunction* to, GNEUndoList* undoList, bool preserveShapeStart, bool preserveShapeEnd) {
-    // remove all crossings asociated to this edge before remap
-    std::vector<GNECrossing*> crossingsOfOldEdge = oldEdge->getGNECrossings();
-    for (auto i : crossingsOfOldEdge) {
-        deleteCrossing(i, undoList);
-    }
-    // delete first so we can reuse the name, reference stays valid
-    deleteEdge(oldEdge, undoList, false);
-    if (from != to) {
-        GNEEdge* newEdge = createEdge(from, to, oldEdge, undoList, oldEdge->getMicrosimID(), false, true);
-        newEdge->setAttribute(SUMO_ATTR_SHAPE, oldEdge->getAttribute(SUMO_ATTR_SHAPE), undoList);
-        // selectively preserve endpoints
-        if (preserveShapeStart) {
-            newEdge->setAttribute(GNE_ATTR_SHAPE_START, toString(oldEdge->getNBEdge()->getGeometry().front()), undoList);
-        }
-        if (preserveShapeEnd) {
-            newEdge->setAttribute(GNE_ATTR_SHAPE_END, toString(oldEdge->getNBEdge()->getGeometry().back()), undoList);
-        }
-    }
-    // @todo remap connectivity as well
 }
 
 
@@ -1434,20 +1422,30 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         // XXX ticket831
         //joined-><getTrafficLight>->setAttribute(SUMO_ATTR_TYPE, toString(type), undoList);
     }
+    // preserve old connections
+    for (auto it : selectedJunctions) {
+        it->setLogicValid(false, undoList);
+    }
     // remap edges
     for (auto it : allIncoming) {
-        GNEEdge* oldEdge = myEdges[it->getID()];
-        remapEdge(oldEdge, oldEdge->getGNEJunctionSource(), joined, undoList, true, true);
+        undoList->p_add(new GNEChange_Attribute(myEdges[it->getID()], SUMO_ATTR_TO, joined->getID()));
     }
     for (auto it : allOutgoing) {
-        GNEEdge* oldEdge = myEdges[it->getID()];
-        remapEdge(oldEdge, joined, oldEdge->getGNEJunctionDestiny(), undoList, true, true);
+        // delete edges within the cluster
+        GNEEdge* e = myEdges[it->getID()];
+        assert(e != 0);
+        if (e->getGNEJunctionDestiny() == joined) {
+            deleteEdge(e, undoList, false);
+        } else {
+            undoList->p_add(new GNEChange_Attribute(myEdges[it->getID()], SUMO_ATTR_FROM, joined->getID()));
+        }
     }
     // delete original junctions
     for (auto it : selectedJunctions) {
         deleteJunction(it, undoList);
     }
     joined->setAttribute(SUMO_ATTR_ID, id, undoList);
+    
 
     // check if joined junction had to change their original position to avoid errors
     if (pos != oldPos) {
