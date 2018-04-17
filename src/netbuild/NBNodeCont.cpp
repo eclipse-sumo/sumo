@@ -770,7 +770,6 @@ NBNodeCont::feasibleCluster(const std::set<NBNode*>& cluster, const NBEdgeCont& 
     }
     // check for stop edges within the cluster
     if (OptionsCont::getOptions().isSet("ptstop-output")) {
-        bool foundStop = false;
         for (auto it = sc.begin(); it != sc.end(); it++) {
             NBEdge* edge = ec.retrieve(it->second->getEdgeId());
             if (edge != 0 && cluster.count(edge->getFromNode()) != 0 && cluster.count(edge->getToNode()) != 0) {

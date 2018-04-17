@@ -285,6 +285,7 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
     }
 }
 
+
 SUMOTime
 MSDevice_ToC::triggerMRM(SUMOTime t) {
     // Start MRM process
@@ -300,8 +301,9 @@ MSDevice_ToC::triggerMRM(SUMOTime t) {
     return 0;
 }
 
+
 SUMOTime
-MSDevice_ToC::triggerUpwardToC(SUMOTime t) {
+MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
     switchHolderType(myAutomatedType);
     setAwareness(0.);
     setState(AUTOMATED);
@@ -314,8 +316,9 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime t) {
     return 0;
 }
 
+
 SUMOTime
-MSDevice_ToC::triggerDownwardToC(SUMOTime t) {
+MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
     switchHolderType(myManualType);
     // @todo: Sample initial awareness
     double initialAwareness = myInitialAwareness;
@@ -359,21 +362,21 @@ MSDevice_ToC::switchHolderType(const std::string& targetTypeID) {
 
 
 SUMOTime
-MSDevice_ToC::ToCPreparationStep(SUMOTime t) {
+MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
     // TODO
     return DELTA_T;
 }
 
 
 SUMOTime
-MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
+MSDevice_ToC::MRMExecutionStep(SUMOTime /* t */) {
     // TODO
     return DELTA_T;
 }
 
 
 SUMOTime
-MSDevice_ToC::awarenessRecoveryStep(SUMOTime t) {
+MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
     // Proceed with awareness recovery
     if (myCurrentAwareness < 1.0) {
         setAwareness(MIN2(1.0, myCurrentAwareness + TS*myRecoveryRate));

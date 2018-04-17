@@ -411,7 +411,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNELane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
+GNELane::drawMarkings(const GUIVisualizationSettings& /* s */, double scale) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     const double myHalfLaneWidth = myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2;

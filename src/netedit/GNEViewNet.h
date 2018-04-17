@@ -464,7 +464,7 @@ private:
         bool shiftKeyPressed() const;
 
         /// @brief check if CONTROL key was pressed during click
-        bool controltKeyPressed() const;
+        bool controlKeyPressed() const;
 
         /// @brief information of event of onLeftBtnPress
         FXEvent* eventInfo;

@@ -2849,8 +2849,8 @@ GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
 
 bool 
 GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
-    if(eventInfo) {
-        return (eventInfo->state & SHIFTMASK);
+    if (eventInfo) {
+        return (eventInfo->state & SHIFTMASK) != 0;
     } else {
         return false;
     }
@@ -2858,9 +2858,9 @@ GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
 
 
 bool
-GNEViewNet::ObjectsUnderCursor::controltKeyPressed() const {
-    if(eventInfo) {
-        return (eventInfo->state & CONTROLMASK);
+GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
+    if (eventInfo) {
+        return (eventInfo->state & CONTROLMASK) != 0;
     } else {
         return false;
     }
