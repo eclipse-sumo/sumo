@@ -1,6 +1,7 @@
-SUMO netconvert Version v0_32_0+0931-c519dbd
+Eclipse SUMO netconvert Version v0_32_0+1070-b46590447d
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
-Road network importer / builder for the road traffic simulation SUMO.
+Network importer / builder for the microscopic, multi-modal traffic simulation
+  SUMO.
 
 Usage: netconvert [OPTION]*
 Configuration Options:
@@ -441,5 +442,5 @@ Examples:
   netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml
     generate net with given nodes, edges, and edge types doing verbose output
 
-Report bugs at <https://github.com/DLR-TS/sumo/issues>.
+Report bugs at <https://github.com/eclipse/sumo/issues>.
 Get in contact via <sumo@dlr.de>.
