@@ -287,7 +287,7 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
 
 
 SUMOTime
-MSDevice_ToC::triggerMRM(SUMOTime t) {
+MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     // Start MRM process
     myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
