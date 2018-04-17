@@ -44,7 +44,6 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNESelectorFrame.h>
@@ -61,6 +60,7 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
+#include <netedit/dialogs/GNEDialogACChooser.h>
 
 #include "GNENet.h"
 #include <netedit/netelements/GNEEdge.h>
@@ -388,10 +388,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
-        this, GUIIconSubSys::getIcon(icon), dialogtitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
-    chooser->create();
-    chooser->show();
+    GNEDialogACChooser* ACChooser = new GNEDialogACChooser( this, GUIIconSubSys::getIcon(icon), dialogtitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
+    ACChooser->create();
+    ACChooser->show();
     return 1;
 }
 
