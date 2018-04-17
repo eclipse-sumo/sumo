@@ -1,8 +1,10 @@
+Written configuration to '/scr2/texttest_tmp/tools.17Apr122105.9479/tools/import/OSM/build_passenger/net.netccfg'
+Loading configuration... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing nodes from osm-file 'osm.xml'... done.
-Parsing edges from osm-file 'osm.xml'... done.
+Parsing nodes from osm-file '/scr2/texttest_tmp/tools.17Apr122105.9479/tools/import/OSM/build_passenger/osm.xml'... done.
+Parsing edges from osm-file '/scr2/texttest_tmp/tools.17Apr122105.9479/tools/import/OSM/build_passenger/osm.xml'... done.
 Removing duplicate edges... done.
-Parsing relations from osm-file 'osm.xml'... 
+Parsing relations from osm-file '/scr2/texttest_tmp/tools.17Apr122105.9479/tools/import/OSM/build_passenger/osm.xml'... 
 done.
  Removed 32 traffic lights before loading plain-XML
  Import done:
@@ -48,6 +50,5 @@ Summary:
   Applied offset     : -398348.81,-5809189.04
   Converted boundary : 0.00,0.00,2640.77,946.75
 -----------------------------------------------------
-Writing network... done (25ms).
+Writing network... done (20ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.28Feb141114.1944/tools/import/OSM/build_passenger/net.netccfg'
