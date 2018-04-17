@@ -880,7 +880,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_CONNECT: {
                 if (myObjectsUnderCursor.lane) {
                     // shift key may pass connections, Control key allow conflicts.
-                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controtKeyPressed(), true);
+                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controlKeyPressed(), true);
                     update();
                 }
                 // process click
