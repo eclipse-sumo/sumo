@@ -23,6 +23,8 @@ set(netedit_dialogs_SRCS
    GNECalibratorRouteDialog.cpp
    GNECalibratorVehicleTypeDialog.h
    GNECalibratorVehicleTypeDialog.cpp
+   GNEDialogACChooser.h
+   GNEDialogACChooser.cpp
    )
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})

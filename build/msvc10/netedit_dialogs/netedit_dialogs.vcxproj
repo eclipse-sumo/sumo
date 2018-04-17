@@ -32,6 +32,7 @@
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNECalibratorFlowDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNECalibratorRouteDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNECalibratorVehicleTypeDialog.h" />
+    <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialogACChooser.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_About.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_AllowDisallow.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_FixAdditionalPositions.h" />
@@ -46,6 +47,7 @@
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNECalibratorFlowDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNECalibratorRouteDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNECalibratorVehicleTypeDialog.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialogACChooser.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_About.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_AllowDisallow.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_FixAdditionalPositions.cpp" />
