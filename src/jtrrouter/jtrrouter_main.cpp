@@ -161,8 +161,8 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("Router for the microscopic road traffic simulation SUMO based on junction turning ratios.");
-    oc.setApplicationName("jtrrouter", "SUMO jtrrouter Version " VERSION_STRING);
+    oc.setApplicationDescription("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios.");
+    oc.setApplicationName("jtrrouter", "Eclipse SUMO jtrrouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = 0;
     try {

@@ -65,7 +65,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("Graphical editor for SUMO networks.");
-    oc.setApplicationName("netedit", "Netedit Version " VERSION_STRING);
+    oc.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG
     try {
@@ -82,7 +82,7 @@ main(int argc, char** argv) {
             return 0;
         }
         // Make application
-        FXApp application("Netedit", "DLR");
+        FXApp application("SUMO netedit", "Eclipse");
         // Open display
         application.init(argc, argv);
         int minor, major;
