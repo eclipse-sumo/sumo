@@ -41,6 +41,7 @@
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GUIDialog_GLObjChooser.h"
 
@@ -113,22 +114,20 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, GNENet *net, const std::vector<GNEAttributeCarrier*>& ACs) :
     FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
     myParent(parent),
-    myNet(net),
-    myAttributeCarriers(ACs) {
+    myNet(net) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     // build the list
     FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X | FRAME_THICK | FRAME_SUNKEN);
     FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP | FRAME_THICK | FRAME_SUNKEN, 0, 0, 0, 0, 0, 0, 0, 0);
     myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK);
-    
     // iterate over attribute carriers
-    for (auto i : myAttributeCarriers) {
+    for (auto i : ACs) {
         FXIcon* selectIcon = nullptr;
         if(GNEAttributeCarrier::canBeSelected(i->getTag())) {
             selectIcon = GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : nullptr;
         }
-        myList->appendItem(i->getID().c_str(), selectIcon, (void*) & (*dynamic_cast<GUIGlObject*>(i)));
+        myAttributeCarriers[myList->appendItem(i->getID().c_str(), selectIcon)] = i;
     }
     // build the buttons
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
@@ -167,7 +166,11 @@ long
 GUIDialog_GLObjChooser::onCmdCenter(FXObject*, FXSelector, void*) {
     int selected = myList->getCurrentItem();
     if (selected >= 0) {
-        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+        if(myAttributeCarriers.size() > 0) {
+            myParent->setView(dynamic_cast<GUIGlObject*>(myAttributeCarriers.at(selected))->getGlID());
+        } else {
+            myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+        }
     }
     return 1;
 }
@@ -251,8 +254,16 @@ GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
     int i = myList->getCurrentItem();
     if (i >= 0) {
-        GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(i));
-        gSelected.toggleSelection(*glID);
+        if(myAttributeCarriers.size() > 0) {
+            if(GNEAttributeCarrier::parse<bool>(myAttributeCarriers.at(i)->getAttribute(GNE_ATTR_SELECTED))) {
+                myAttributeCarriers.at(i)->setAttribute(GNE_ATTR_SELECTED, "false", myNet->getViewNet()->getUndoList());
+            } else {
+                myAttributeCarriers.at(i)->setAttribute(GNE_ATTR_SELECTED, "true", myNet->getViewNet()->getUndoList());
+            }
+        } else {
+            GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(i));
+            gSelected.toggleSelection(*glID);
+        }
         if (myList->getItemIcon(i) == flag) {
             myList->setItemIcon(i, 0);
         } else {

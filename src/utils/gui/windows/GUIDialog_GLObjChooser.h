@@ -144,7 +144,7 @@ private:
     std::set<GUIGlID> myIDs;
     
     // @brief vector contains Pointers to Attribute Carriers
-    std::vector<GNEAttributeCarrier*> myAttributeCarriers;
+    std::map<int, GNEAttributeCarrier*> myAttributeCarriers;
 };
 
 
