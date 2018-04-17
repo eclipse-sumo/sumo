@@ -601,7 +601,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 pruneClusterFringe(cluster);
                 feasible = feasibleCluster(cluster, ec, sc, reason);
                 if (feasible) {
-                    //WRITE_MESSAGE("Reducing junction cluster " + origCluster + " (" + reason + ")");
+                    WRITE_WARNING("Reducing junction cluster " + origCluster + " (" + reason + ")");
                 }
             }
         }
@@ -611,7 +611,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
                 pruneClusterFringe(cluster);
                 feasible = feasibleCluster(cluster, ec, sc, reason);
                 if (feasible) {
-                    //WRITE_MESSAGE("Reducing junction cluster " + origCluster + " (" + reason + ")");
+                    WRITE_WARNING("Reducing junction cluster " + origCluster + " (" + reason + ")");
                 }
             }
         }
