@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 10:48:38 2015 by SUMO Version dev-SVN-r19420I
+<!-- generated on Tue Apr 17 10:24:18 2018 by SUMO Version 8da0b02
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
     </output>
 
@@ -23,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="35294"/>
+        <remote-port value="54418"/>
     </traci_server>
 
 </configuration>
@@ -79,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0"/>
             <lane id="e_m0_1">
-                <vehicle id="veh0" pos="23.00" speed="15.00"/>
+                <vehicle id="veh0" pos="12.00" speed="4.00"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>
@@ -88,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0"/>
             <lane id="e_m0_1">
-                <vehicle id="veh0" pos="38.80" speed="15.80"/>
+                <vehicle id="veh0" pos="13.00" speed="1.00"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>
@@ -97,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0"/>
             <lane id="e_m0_1">
-                <vehicle id="veh0" pos="55.40" speed="16.60"/>
+                <vehicle id="veh0" pos="14.80" speed="1.80"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>
@@ -106,7 +107,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0"/>
             <lane id="e_m0_1">
-                <vehicle id="veh0" pos="72.80" speed="17.40"/>
+                <vehicle id="veh0" pos="17.40" speed="2.60"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>
@@ -115,7 +116,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0"/>
             <lane id="e_m0_1">
-                <vehicle id="veh0" pos="91.00" speed="18.20"/>
+                <vehicle id="veh0" pos="20.80" speed="3.40"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>
@@ -124,7 +125,16 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0"/>
             <lane id="e_m0_1">
-                <vehicle id="veh0" pos="110.00" speed="19.00"/>
+                <vehicle id="veh0" pos="25.00" speed="4.20"/>
+            </lane>
+            <lane id="e_m0_2"/>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="e_m0">
+            <lane id="e_m0_0"/>
+            <lane id="e_m0_1">
+                <vehicle id="veh0" pos="30.00" speed="5.00"/>
             </lane>
             <lane id="e_m0_2"/>
         </edge>

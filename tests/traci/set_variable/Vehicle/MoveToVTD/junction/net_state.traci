@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat May 20 10:00:48 2017 by SUMO Version dev-SVN-r22661
+<!-- generated on Tue Apr 17 10:25:46 2018 by SUMO Version 8da0b02
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
     </output>
 
@@ -23,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="49533"/>
+        <remote-port value="54100"/>
     </traci_server>
 
 </configuration>
@@ -42,38 +43,38 @@ SPDX-License-Identifier: EPL-2.0
         <edge id=":C_10">
             <lane id=":C_10_0"/>
             <lane id=":C_10_1">
-                <vehicle id="veh0" pos="12.05" speed="13.05"/>
+                <vehicle id="veh0" pos="12.05" speed="0.00"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="2.00">
         <edge id=":C_10">
             <lane id=":C_10_0">
-                <vehicle id="veh0" pos="4.05" speed="13.05"/>
+                <vehicle id="veh0" pos="4.05" speed="0.00"/>
             </lane>
             <lane id=":C_10_1"/>
         </edge>
     </timestep>
     <timestep time="3.00">
-        <edge id="CN">
-            <lane id="CN_0">
-                <vehicle id="veh0" pos="1.84" speed="13.89"/>
+        <edge id=":C_10">
+            <lane id=":C_10_0">
+                <vehicle id="veh0" pos="6.65" speed="2.60"/>
             </lane>
-            <lane id="CN_1"/>
+            <lane id=":C_10_1"/>
         </edge>
     </timestep>
     <timestep time="4.00">
-        <edge id="CN">
-            <lane id="CN_0">
-                <vehicle id="veh0" pos="15.73" speed="13.89"/>
+        <edge id=":C_10">
+            <lane id=":C_10_0">
+                <vehicle id="veh0" pos="11.85" speed="5.20"/>
             </lane>
-            <lane id="CN_1"/>
+            <lane id=":C_10_1"/>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="CN">
             <lane id="CN_0">
-                <vehicle id="veh0" pos="29.62" speed="13.89"/>
+                <vehicle id="veh0" pos="3.55" speed="7.80"/>
             </lane>
             <lane id="CN_1"/>
         </edge>
@@ -81,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="6.00">
         <edge id="CN">
             <lane id="CN_0">
-                <vehicle id="veh0" pos="43.51" speed="13.89"/>
+                <vehicle id="veh0" pos="13.95" speed="10.40"/>
             </lane>
             <lane id="CN_1"/>
         </edge>
@@ -89,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="7.00">
         <edge id="CN">
             <lane id="CN_0">
-                <vehicle id="veh0" pos="57.40" speed="13.89"/>
+                <vehicle id="veh0" pos="26.95" speed="13.00"/>
             </lane>
             <lane id="CN_1"/>
         </edge>
@@ -97,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="8.00">
         <edge id="CN">
             <lane id="CN_0">
-                <vehicle id="veh0" pos="0.00" speed="13.89"/>
+                <vehicle id="veh0" pos="0.00" speed="13.00"/>
             </lane>
             <lane id="CN_1"/>
         </edge>
