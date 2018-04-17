@@ -206,6 +206,12 @@ GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationM
 }
 
 
+GNESelectorFrame::ModificationMode* 
+GNESelectorFrame::getModificationModeModul() const {
+    return myModificationMode;
+}
+
+
 std::vector<GNEAttributeCarrier*>
 GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;

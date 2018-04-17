@@ -514,10 +514,13 @@ private:
     struct selectingArea {
         /// @brief default constructor
         selectingArea() :
-            selectinUsingRectangle(false) {}
+            selectingUsingRectangle(false) {}
+
+        /// @brief Process Selection
+        void processSelection(GNEViewNet *viewNet, bool shiftKeyPressed);
 
         /// @brief whether we have started rectangle-selection
-        bool selectinUsingRectangle;
+        bool selectingUsingRectangle;
 
         /// @brief firstcorner of the rectangle-selection
         Position selectionCorner1;
