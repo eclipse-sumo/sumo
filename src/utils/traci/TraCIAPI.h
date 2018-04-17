@@ -638,6 +638,24 @@ public:
         LAST_TRAVEL_TIME_UPDATE(-1) {}
         virtual ~VehicleScope() {}
 
+        enum VehicleSignal {
+            SIGNAL_BLINKER_RIGHT = 1,
+            SIGNAL_BLINKER_LEFT = 2,
+            SIGNAL_BLINKER_EMERGENCY = 4,
+            SIGNAL_BRAKELIGHT = 8,
+            SIGNAL_FRONTLIGHT = 16,
+            SIGNAL_FOGLIGHT = 32,
+            SIGNAL_HIGHBEAM = 64,
+            SIGNAL_BACKDRIVE = 128,
+            SIGNAL_WIPER = 256,
+            SIGNAL_DOOR_OPEN_LEFT = 512,
+            SIGNAL_DOOR_OPEN_RIGHT = 1024,
+            SIGNAL_EMERGENCY_BLUE = 2048,
+            SIGNAL_EMERGENCY_RED = 4096,
+            SIGNAL_EMERGENCY_YELLOW = 8192,
+            SIGNAL_RESET = -1, /*< sending a negative signal resets all signals to their computed values immediately */
+        };
+
         /// @name vehicle value retrieval
         /// @{
         std::vector<std::string> getIDList() const;
@@ -657,7 +675,7 @@ public:
         libsumo::TraCIColor getColor(const std::string& vehicleID) const;
         double getLanePosition(const std::string& vehicleID) const;
         double getDistance(const std::string& vehicleID) const;
-        int getSignalStates(const std::string& vehicleID) const;
+        int getSignals(const std::string& vehicleID) const;
         double getCO2Emission(const std::string& vehicleID) const;
         double getCOEmission(const std::string& vehicleID) const;
         double getHCEmission(const std::string& vehicleID) const;
@@ -738,6 +756,7 @@ public:
         void setColor(const std::string& vehicleID, const libsumo::TraCIColor& c) const;
         void setLine(const std::string& vehicleID, const std::string& line) const;
         void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
+        void setSignals(const std::string& vehicleID, int signals) const;
         /// @}
 
         /// @name vehicle type attribute changing shortcuts

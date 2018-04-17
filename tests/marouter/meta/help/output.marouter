@@ -1,6 +1,6 @@
-SUMO marouter Version v0_32_0+0931-c519dbd
+Eclipse SUMO marouter Version v0_32_0+1070-b46590447d
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
-Import O/D-matrices for macroscopic traffic assignment
+Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
 Usage: marouter [OPTION]*
 Configuration Options:
@@ -153,5 +153,5 @@ Examples:
   marouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <https://github.com/DLR-TS/sumo/issues>.
+Report bugs at <https://github.com/eclipse/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

@@ -523,13 +523,20 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
 
 double
 MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed) {
-    double dist = 0;
-    if (myRemoteLane == 0) {
-        dist = veh->getPosition().distanceTo2D(myRemoteXYPos);
-    } else {
-        dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
+    double dist = veh->getPosition().distanceTo2D(myRemoteXYPos);
+    if (myRemoteLane != 0) {
+        // if the vehicles is frequently placed on a new edge, the route may
+        // consist only of a single edge. In this case the new edge may not be
+        // on the route so distAlongRoute will be double::max.
+        // In this case we still want a sensible speed value
+        const double distAlongRoute = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
+        if (distAlongRoute != std::numeric_limits<double>::max()) {
+            dist = distAlongRoute;
+        }
     }
-    if (DIST2SPEED(dist) > veh->getMaxSpeed()) {
+    if (DIST2SPEED(dist) > veh->getCarFollowModel().maxNextSpeed(oldSpeed, veh) 
+            || DIST2SPEED(dist) < veh->getCarFollowModel().minNextSpeed(oldSpeed, veh)) {
+        // implausible movement, keep old speed
         return oldSpeed;
     } else {
         return DIST2SPEED(dist);
@@ -542,6 +549,11 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
     if (myRemoteLane == 0) {
         dist = veh->getPosition().distanceTo2D(myRemoteXYPos);
     } else {
+        // if the vehicles is frequently placed on a new edge, the route may
+        // consist only of a single edge. In this case the new edge may not be
+        // on the route so getDistanceToPosition will return double::max.
+        // In this case we would rather not move the vehicle in executeMove 
+        // (updateState) as it would result in emergency braking
         dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
     }
     if (DIST2SPEED(dist) > veh->getMaxSpeed()) {

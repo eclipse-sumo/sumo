@@ -62,8 +62,8 @@ main(int argc, char** argv) {
     // get the options
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("GUI version of the simulation SUMO.");
-    oc.setApplicationName("sumo-gui", "SUMO gui Version " VERSION_STRING);
+    oc.setApplicationDescription("GUI version of the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
     int ret = 0;
     try {
         // initialise subsystems
@@ -76,7 +76,7 @@ main(int argc, char** argv) {
             return 0;
         }
         // Make application
-        FXApp application("SUMO GUISimulation", "DLR");
+        FXApp application("SUMO GUI", "Eclipse");
         // Open display
         application.init(argc, argv);
         int minor, major;

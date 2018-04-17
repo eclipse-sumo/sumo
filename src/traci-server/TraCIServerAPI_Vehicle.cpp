@@ -605,8 +605,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description.", outputStorage);
                 }
-                if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description of two items.", outputStorage);
+                int compounds = inputStorage.readInt();
+                if (compounds != 3 && compounds != 2 ) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Lane change needs a compound object description of two or three items.", outputStorage);
                 }
                 // Lane ID
                 int laneIndex = 0;
@@ -618,10 +619,23 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingInt(inputStorage, duration)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second lane change parameter must be the duration given as an integer.", outputStorage);
                 }
+                // relativelanechange
+                int relative = 0;
+                if (compounds == 3) {
+                    if (!server.readTypeCheckingByte(inputStorage, relative)) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third lane change parameter must be a Byte for defining whether a relative lane change should be applied.", outputStorage);
+                    }
+                }
+
                 if ((laneIndex < 0) || (laneIndex >= (int)(v->getEdge()->getLanes().size()))) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "No lane with index '" + toString(laneIndex) + "' on road '" + v->getEdge()->getID() + "'.", outputStorage);
                 }
-                libsumo::Vehicle::changeLane(id, laneIndex, duration);
+                if (relative < 1) {
+                    libsumo::Vehicle::changeLane(id, laneIndex, duration);
+                }
+                else {
+                    libsumo::Vehicle::changeLaneRelative(id, laneIndex, duration);
+                }
             }
             break;
             case CMD_CHANGESUBLANE: {

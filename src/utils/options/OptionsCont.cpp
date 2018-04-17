@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Mon, 17 Dec 2001
-/// @version $Id: OptionsCont.cpp v0_32_0+0171-d73807c18b oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
@@ -739,7 +739,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <https://github.com/DLR-TS/sumo/issues>." << std::endl;
+    os << "Report bugs at <https://github.com/eclipse/sumo/issues>." << std::endl;
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 

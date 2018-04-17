@@ -232,8 +232,17 @@ on("ready", function(){
     toogleCanvas();
 
     // OSM map
+    // avoid cross domain resource sharing issues (#3991)
+    // (https://gis.stackexchange.com/questions/83953/openlayers-maps-issue-with-ssl)
     var map = new OpenLayers.Map("map");
-    map.addLayer(new OpenLayers.Layer.OSM);
+    var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap", 
+    // Official OSM tileset as protocol-independent URLs
+    [
+        'https://a.tile.openstreetmap.org/${z}/${x}/${y}.png',
+        'https://b.tile.openstreetmap.org/${z}/${x}/${y}.png',
+        'https://c.tile.openstreetmap.org/${z}/${x}/${y}.png'
+    ], null);
+    map.addLayer(maplayer);
 
     function setPosition(lon, lat){
         if(!lon || !lat){

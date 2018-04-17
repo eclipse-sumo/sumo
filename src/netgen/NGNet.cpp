@@ -82,12 +82,22 @@ NGNet::findNode(int xID, int yID) {
 
 void
 NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs) {
+    // lazy mans 26th root to determine number of characters for x-label
+    int xn = 1;
+    for (;std::pow(26, xn) < numX; xn++) {};
+
     for (int ix = 0; ix < numX; ix++) {
         for (int iy = 0; iy < numY; iy++) {
             // create Node
             std::string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
             if (alphaIDs) {
-                nodeID = toString(char('A' + ix)) + toString(iy);
+                int ixtmp = ix;
+                std::string xID = "";
+                for (int i = 0; i < xn; i++) {
+                    xID = char('A' + (ixtmp % 26)) + xID;
+                    ixtmp /= 26;
+                }
+                nodeID = xID + toString(iy);
             }
             NGNode* node = new NGNode(nodeID, ix, iy);
             node->setX(ix * spaceX + attachLength);

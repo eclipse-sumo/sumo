@@ -1,8 +1,9 @@
 -- Test: acosta_busStopNeedsChange#1
 Success.
 Loading configuration... done.
+ Retrying in 1 seconds
 lane -1000+0.-500+0_0:
-  length: 1968.0
+  length: 1968.6
   offset: 0
   allowsContinuation: 1
   over: ['-1000+0.-500+0_0', '-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
@@ -12,18 +13,19 @@ lane 0 ok
 -- Test: acosta_busStopNeedsChange#2
 Success.
 Loading configuration... done.
+ Retrying in 1 seconds
 lane -500+0.+0+0_0:
-  length: 483.85
+  length: 484.2
   offset: 1
   allowsContinuation: 0
   over: ['-500+0.+0+0_0']
 lane -500+0.+0+0_1:
-  length: 1469.5
+  length: 1470.1
   offset: 0
   allowsContinuation: 1
   over: ['-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
 lane -500+0.+0+0_2:
-  length: 483.85
+  length: 484.2
   offset: -1
   allowsContinuation: 0
   over: ['-500+0.+0+0_2']
@@ -35,18 +37,19 @@ lane 2 ok
 -- Test: acosta_busStopNeedsChange#3
 Success.
 Loading configuration... done.
+ Retrying in 1 seconds
 lane -500+0.+0+0_0:
-  length: 483.85
+  length: 484.2
   offset: 1
   allowsContinuation: 0
   over: ['-500+0.+0+0_0']
 lane -500+0.+0+0_1:
-  length: 1469.5
+  length: 1470.1
   offset: 0
   allowsContinuation: 1
   over: ['-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
 lane -500+0.+0+0_2:
-  length: 483.85
+  length: 484.2
   offset: -1
   allowsContinuation: 0
   over: ['-500+0.+0+0_2']
@@ -58,18 +61,19 @@ lane 2 ok
 -- Test: acosta_busStopNeedsChange#4
 Success.
 Loading configuration... done.
+ Retrying in 1 seconds
 lane -500+0.+0+0_0:
-  length: 483.85
+  length: 484.2
   offset: 1
   allowsContinuation: 0
   over: ['-500+0.+0+0_0']
 lane -500+0.+0+0_1:
-  length: 1469.5
+  length: 1470.1
   offset: 0
   allowsContinuation: 1
   over: ['-500+0.+0+0_1', '+0+0.+500+0_1', '+500+0.+1000+0_1']
 lane -500+0.+0+0_2:
-  length: 483.85
+  length: 484.2
   offset: -1
   allowsContinuation: 0
   over: ['-500+0.+0+0_2']
@@ -81,13 +85,14 @@ lane 2 ok
 -- Test: highway_onOffCombo#1
 Success.
 Loading configuration... done.
+ Retrying in 1 seconds
 lane 1_0:
   length: 498.5
   offset: 1
   allowsContinuation: 0
   over: ['1_0']
 lane 1_1:
-  length: 3462.59
+  length: 3462.58
   offset: 0
   allowsContinuation: 1
   over: ['1_1', '2_0', '3_1', '4_0', '5_0', '6_0', '7o_0']

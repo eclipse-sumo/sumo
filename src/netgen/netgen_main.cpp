@@ -166,10 +166,6 @@ buildNetwork(NBNetBuilder& nb) {
             hadError = true;
         }
         const bool alphaIDs = oc.getBool("grid.alphanumerical-ids");
-        if (alphaIDs && xNo > 26) {
-            WRITE_ERROR("There must be at most 26 nodes in the x-direction when using alphanumerical ids.");
-            hadError = true;
-        }
 
         if (hadError) {
             throw ProcessError();
@@ -205,8 +201,8 @@ int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("Road network generator for the microscopic road traffic simulation SUMO.");
-    oc.setApplicationName("netgenerate", "SUMO netgenerate Version " VERSION_STRING);
+    oc.setApplicationDescription("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate Version " VERSION_STRING);
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)

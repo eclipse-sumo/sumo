@@ -144,7 +144,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     //  departPosLat
     if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
         std::string val;
-        switch (departPosProcedure) {
+        switch (departPosLatProcedure) {
             case DEPART_POSLAT_GIVEN:
                 val = toString(departPos);
                 break;

@@ -1,8 +1,14 @@
 # default values of selection
 select_default
 
+# select using click
+select_basic
+
 # save selection
 select_save_selection
+
+# load selection (one of the IDs is invalid)
+select_load_selection
 
 # check set operators clear and invert
 select_setoperators

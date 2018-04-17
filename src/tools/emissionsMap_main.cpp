@@ -88,8 +88,8 @@ main(int argc, char** argv) {
     // build options
     OptionsCont& oc = OptionsCont::getOptions();
     //  give some application descriptions
-    oc.setApplicationDescription("Builds and writes an emissions map.");
-    oc.setApplicationName("emissionsMap", "SUMO emissionsMap Version " VERSION_STRING);
+    oc.setApplicationDescription("Builds and writes an emissions map for SUMO's emission models.");
+    oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
     //  add options
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Processing");

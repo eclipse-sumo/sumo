@@ -511,73 +511,73 @@ Quitting (on error).
 ------------------ net/junction[0]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
- At line/column 33/104.
+ At line/column 33/103.
 
 Quitting (on error).
 ------------------ net/junction[1]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
- At line/column 34/129.
+ At line/column 34/127.
 
 Quitting (on error).
 ------------------ net/junction[2]@id:<remove>
 Error: missing required attribute 'id'
  In file 'mod.net.xml'
- At line/column 38/117.
+ At line/column 38/116.
 
 Quitting (on error).
 ------------------ net/junction[0]@type:
 Error: value '' not in enumeration
  In file 'mod.net.xml'
- At line/column 33/103.
+ At line/column 33/102.
 
 Quitting (on error).
 ------------------ net/junction[1]@type:
 Error: value '' not in enumeration
  In file 'mod.net.xml'
- At line/column 34/128.
+ At line/column 34/126.
 
 Quitting (on error).
 ------------------ net/junction[2]@type:
 Error: value '' not in enumeration
  In file 'mod.net.xml'
- At line/column 38/116.
+ At line/column 38/115.
 
 Quitting (on error).
 ------------------ net/junction[0]@type:a
 Error: value 'a' not in enumeration
  In file 'mod.net.xml'
- At line/column 33/104.
+ At line/column 33/103.
 
 Quitting (on error).
 ------------------ net/junction[1]@type:a
 Error: value 'a' not in enumeration
  In file 'mod.net.xml'
- At line/column 34/129.
+ At line/column 34/127.
 
 Quitting (on error).
 ------------------ net/junction[2]@type:a
 Error: value 'a' not in enumeration
  In file 'mod.net.xml'
- At line/column 38/117.
+ At line/column 38/116.
 
 Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
 Error: missing required attribute 'type'
  In file 'mod.net.xml'
- At line/column 33/95.
+ At line/column 33/94.
 
 Quitting (on error).
 ------------------ net/junction[1]@type:<remove>
 Error: missing required attribute 'type'
  In file 'mod.net.xml'
- At line/column 34/120.
+ At line/column 34/118.
 
 Quitting (on error).
 ------------------ net/junction[2]@type:<remove>
 Error: missing required attribute 'type'
  In file 'mod.net.xml'
- At line/column 38/108.
+ At line/column 38/107.
 
 Quitting (on error).
 ------------------ net/junction[1]@incLanes:a_0 1_1
