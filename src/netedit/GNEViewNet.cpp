@@ -2861,9 +2861,9 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                     }
                 }
             }
-            // declare two vectors of attribute carriers, one for select and another for unselect
-            std::vector<GNEAttributeCarrier*> ACToSelect;
-            std::vector<GNEAttributeCarrier*> ACToUnselect;
+            // declare two sets of attribute carriers, one for select and another for unselect
+            std::set<GNEAttributeCarrier*> ACToSelect;
+            std::set<GNEAttributeCarrier*> ACToUnselect;
             // in restrict AND replace mode all current selected attribute carriers will be unselected
             if((viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
                (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE) ) {
@@ -2873,29 +2873,30 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
             for (auto i : ACInRectangles) {
                 switch (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
                     case GNESelectorFrame::ModificationMode::SET_SUB:
-                        if(GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_SELECTED))) {
-                            ACToUnselect.push_back(i);
-                        }
+                        ACToUnselect.insert(i);
                         break;
                     case GNESelectorFrame::ModificationMode::SET_RESTRICT: 
-                        if(std::find(ACToUnselect.begin(), ACToUnselect.end(), i) != ACToUnselect.end()) {
-                            ACToSelect.push_back(i);
+                        if(ACToUnselect.find(i) != ACToUnselect.end()) {
+                            ACToSelect.insert(i);
                         }
                         break;
                     default:
-                        ACToSelect.push_back(i);
+                        ACToSelect.insert(i);
                         break;
                 }
             }
-            // first unselect AC of ACToUnselect and then selects AC of ACToSelect
-            viewNet->myUndoList->p_begin("selection using rectangle");
-            for (auto i : ACToUnselect) {
-                i->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
+            // only continue if there is ACs to select or unselect
+            if((ACToSelect.size() + ACToUnselect.size()) > 0) {
+                // first unselect AC of ACToUnselect and then selects AC of ACToSelect
+                viewNet->myUndoList->p_begin("selection using rectangle");
+                for (auto i : ACToUnselect) {
+                    i->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
+                }
+                for (auto i : ACToSelect) {
+                    i->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
+                }
+                viewNet->myUndoList->p_end();
             }
-            for (auto i : ACToSelect) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
-            }
-            viewNet->myUndoList->p_end();
             viewNet->makeNonCurrent();
         }
     }

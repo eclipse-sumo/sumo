@@ -141,7 +141,7 @@ void
 GNESelectorFrame::clearCurrentSelection() const {
     // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
     myViewNet->getUndoList()->p_begin("clear selection");
-    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    std::set<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
     // change attribute GNE_ATTR_SELECTED of all selected items to false
     for (auto i : selectedAC) {
         i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -156,51 +156,43 @@ GNESelectorFrame::clearCurrentSelection() const {
 void
 GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationMode::SetOperation setop) {
     const ModificationMode::SetOperation setOperation = ((setop == ModificationMode::SET_DEFAULT) ? myModificationMode->getModificationMode() : setop);
-    // first save previous selection
-    std::vector<GNEAttributeCarrier*> previousACSelection = myViewNet->getNet()->getSelectedAttributeCarriers();
-    // start change selection operation
-    myViewNet->getUndoList()->p_begin("change selection");
-    // if we're replacing or restricting, we need to unselect all previous selected attribute carrier
+    // declare two sets of attribute carriers, one for select and another for unselect
+    std::set<GNEAttributeCarrier*> ACToSelect;
+    std::set<GNEAttributeCarrier*> ACToUnselect;
+    // in restrict AND replace mode all current selected attribute carriers will be unselected
     if ((setOperation == ModificationMode::SET_REPLACE) || (setOperation == ModificationMode::SET_RESTRICT)) {
-        // change attribute GNE_ATTR_SELECTED of all selected items to false
-        for (auto i : previousACSelection) {
-            i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-        }
+        ACToUnselect = myViewNet->getNet()->getSelectedAttributeCarriers();
     }
-    // declare set to keep ACs to select and undselect
-    std::vector<GNEAttributeCarrier*> selectACs;
-    std::vector<GNEAttributeCarrier*> unselectACs;
     // handle ids
     for (auto i : ACs) {
-        // doing the switch outside the loop requires functional techniques. this was deemed to ugly
+        // iterate over AtributeCarriers an place it in ACToSelect or ACToUnselect
         switch (setOperation) {
-            case GNESelectorFrame::ModificationMode::SET_ADD:
-            case GNESelectorFrame::ModificationMode::SET_REPLACE:
-                selectACs.push_back(i);
-                break;
             case GNESelectorFrame::ModificationMode::SET_SUB:
-                unselectACs.push_back(i);
+                ACToUnselect.insert(i);
                 break;
-            case GNESelectorFrame::ModificationMode::SET_RESTRICT:
-                if (std::find(previousACSelection.begin(), previousACSelection.end(), i) != previousACSelection.end()) {
-                    selectACs.push_back(i);
-                } else {
-                    unselectACs.push_back(i);
+            case GNESelectorFrame::ModificationMode::SET_RESTRICT: 
+                if(ACToUnselect.find(i) != ACToUnselect.end()) {
+                    ACToSelect.insert(i);
                 }
                 break;
             default:
+                ACToSelect.insert(i);
                 break;
         }
     }
-    // change attribute selection of selectACs and unselectACs
-    for (auto i : selectACs) {
-        i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+    // only continue if there is ACs to select or unselect
+    if((ACToSelect.size() + ACToUnselect.size()) > 0) {
+        // first unselect AC of ACToUnselect and then selects AC of ACToSelect
+        myViewNet->getUndoList()->p_begin("selection using rectangle");
+        for (auto i : ACToUnselect) {
+            i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+        }
+        for (auto i : ACToSelect) {
+            i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+        }
+        // finish operation
+        myViewNet->getUndoList()->p_end();
     }
-    for (auto i : unselectACs) {
-        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-    }
-    // finish operation
-    myViewNet->getUndoList()->p_end();
     // update view
     myViewNet->update();
 }
@@ -885,7 +877,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
-    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
+    std::set<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
     // for invert selection, first clean current selection and next select elements of set "unselectedElements"
     mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings
