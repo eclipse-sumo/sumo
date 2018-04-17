@@ -113,14 +113,14 @@ GUIGlObject_AbstractAdd::getIDList(GUIGlObjectType typeFilter) {
     } else if(typeFilter == GLO_SHAPE) {
         // obtain all Shapes
         for (auto i : myObjectList) {
-            if ((i->getType() > GLO_SHAPE) && (i->getType() < GLO_ROUTEElEMENTS)) {
+            if ((i->getType() > GLO_SHAPE) && (i->getType() < GLO_ROUTEELEMENT)) {
                 ret.push_back(i->getGlID());
             }
         }
-    } else if(typeFilter == GLO_ROUTEElEMENTS) {
+    } else if(typeFilter == GLO_ROUTEELEMENT) {
         // obtain all Shapes
         for (auto i : myObjectList) {
-            if ((i->getType() > GLO_ROUTEElEMENTS) && (i->getType() < GLO_MAX)) {
+            if ((i->getType() > GLO_ROUTEELEMENT) && (i->getType() < GLO_MAX)) {
                 ret.push_back(i->getGlID());
             }
         }

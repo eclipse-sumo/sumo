@@ -105,7 +105,7 @@ enum GUIGlObjectType {
     /// @brief a poi
     GLO_POI = 202,
     /// @brief reserved GLO type to pack all RouteElments
-    GLO_ROUTEElEMENTS = 300,
+    GLO_ROUTEELEMENT = 300,
     /// @brief a vehicles
     GLO_VEHICLE = 301,
     /// @brief a person
