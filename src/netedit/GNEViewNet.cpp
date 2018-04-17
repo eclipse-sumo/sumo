@@ -647,7 +647,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
                 // make sure that Control key isn't pressed
-                if (!myObjectsUnderCursor.controltKeyPressed()) {
+                if (!myObjectsUnderCursor.controlKeyPressed()) {
                     // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
@@ -791,7 +791,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // if Control key is Pressed, select instead inspect element
-                    if(myObjectsUnderCursor.controltKeyPressed()) {
+                    if(myObjectsUnderCursor.controlKeyPressed()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType)) {
                             if(myObjectsUnderCursor.netElement) {
@@ -880,7 +880,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_CONNECT: {
                 if (myObjectsUnderCursor.lane) {
                     // shift key may pass connections, Control key allow conflicts.
-                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controltKeyPressed(), true);
+                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor.lane, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controtKeyPressed(), true);
                     update();
                 }
                 // process click
