@@ -145,7 +145,7 @@ GNEPOI::updateGeometry() {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
-        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), myPosLat));
+        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), -myPosLat));
     }
     // refresh element to avoid grabbings problem
     myNet->refreshElement(this);
