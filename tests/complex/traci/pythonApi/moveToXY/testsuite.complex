@@ -1,5 +1,8 @@
 # tests for mapping vehicles outside the road network
 keepRoute2
 
+# mapping a fast vehicle onto short edges
+short_edges
+
 # Tests the person API
 person
