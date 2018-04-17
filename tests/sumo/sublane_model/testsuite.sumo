@@ -124,5 +124,8 @@ junction_leader_sibling_block
 # ego is blocked before entering the internal edge
 junction_leader_sibling_block2
 
+# a wide lane splits into three turning lanes
+wide_lane_split
+
 # tests for various tickets
 bugs
