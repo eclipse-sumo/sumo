@@ -320,13 +320,13 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     assert(view);
     GUIIcon icon;
     std::string dialogtitle;
-    std::vector<GNEAttributeCarrier*> ACs;
+    std::vector<GUIGlID> ids;
     switch (FXSELID(sel)) {
         case MID_LOCATEJUNCTION: {
             // fill ids with junctions
             std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
             for(auto i : junctions) {
-                ACs.push_back(i);
+                ids.push_back(i->getGlID());
             }
             icon = ICON_LOCATEJUNCTION;
             dialogtitle = "Junction Chooser";
@@ -336,7 +336,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             // fill ids with edges
             std::vector<GNEEdge*> edges = view->getNet()->retrieveEdges();
             for(auto i : edges) {
-                ACs.push_back(i);
+                ids.push_back(i->getGlID());
             }
             icon = ICON_LOCATEEDGE;
             dialogtitle = "Edge Chooser";
@@ -347,7 +347,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
             for(auto i : junctions) {
                 if(i->getNBNode()->getControllingTLS().size() > 0) {
-                    ACs.push_back(i);
+                    ids.push_back(i->getGlID());
                 }
             }
             icon = ICON_LOCATETLS;
@@ -358,7 +358,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             // fill ids with additionals
             std::vector<GNEAdditional*> additionals = view->getNet()->retrieveAdditionals();
             for(auto i : additionals) {
-                ACs.push_back(i);
+                ids.push_back(i->getGlID());
             }
             icon = ICON_LOCATEADD;
             dialogtitle = "Additional Chooser";
@@ -367,7 +367,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         case MID_LOCATEPOI: {
             // fill ids with POIs
             for(auto i : view->getNet()->getPOIs()) {
-                ACs.push_back(dynamic_cast<GNEPOI*>(i.second));
+                ids.push_back(dynamic_cast<GNEPOI*>(i.second)->getGlID());
             }
             icon = ICON_LOCATEPOI;
             dialogtitle = "Junction Chooser";
@@ -376,7 +376,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         case MID_LOCATEPOLY: {
             // fill ids with polys
             for(auto i : view->getNet()->getPolygons()) {
-                ACs.push_back(dynamic_cast<GNEPoly*>(i.second));
+                ids.push_back(dynamic_cast<GNEPoly*>(i.second)->getGlID());
             }
             icon = ICON_LOCATEPOLY;
             dialogtitle = "Poly Chooser";
@@ -389,7 +389,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorButton->killFocus();
     myLocatorPopup->update();
     GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
-        this, GUIIconSubSys::getIcon(icon), dialogtitle.c_str(), view->getNet(), ACs);
+        this, GUIIconSubSys::getIcon(icon), dialogtitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     chooser->create();
     chooser->show();
     return 1;
