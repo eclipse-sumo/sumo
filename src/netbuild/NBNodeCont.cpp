@@ -58,6 +58,9 @@
 #include "NBPTLineCont.h"
 #include "NBParking.h"
 
+//#define DEBUG_JOINJUNCTIONS 
+#define DEBUGNODEID "1560224152"
+#define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
 // ===========================================================================
 // method definitions
@@ -466,9 +469,16 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
             }
             c.insert(n);
             visited.insert(n);
+#ifdef DEBUG_JOINJUNCTIONS
+            if (DEBUGCOND(n)) std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToStringSorting(c, ' ') << "\n";
+#endif
+            
             for (NBEdge* e : n->getEdges()) {
                 NBNode* s = n->hasIncoming(e) ? e->getFromNode() : e->getToNode();
                 const double length = e->getLoadedLength();
+#ifdef DEBUG_JOINJUNCTIONS
+                if (DEBUGCOND(n)) std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
+#endif
                 if ( // never join pedestrian stuff
                         e->getPermissions() == SVC_PEDESTRIAN 
                         // only join edges for regular passenger traffic or edges that are extremely short
@@ -492,6 +502,9 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
         if (c.size() < 2) {
             continue;
         }
+#ifdef DEBUG_JOINJUNCTIONS
+        std::cout << " DEBUG: consider cluster " << joinNamedToStringSorting(c, ' ') << "\n";
+#endif
         into.push_back(c);
     }
 }
@@ -662,8 +675,13 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 
 void 
 NBNodeCont::pruneClusterFringe(std::set<NBNode*>& cluster) const {
+#ifdef DEBUG_JOINJUNCTIONS
+  if (true) std::cout << "pruning cluster=" << joinNamedToStringSorting(cluster, ' ') << "\n";
+#endif
     // iteratively remove the fringe
     bool pruneFringe = true;
+    // collect nodes that shall be joined but due to distance but are actually
+    // not connected for passenger traffic
     while (pruneFringe) {
         pruneFringe = false;
         for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end();) {
@@ -673,46 +691,83 @@ NBNodeCont::pruneClusterFringe(std::set<NBNode*>& cluster) const {
 
             // compute clusterDist for node (length of shortest edge which connects this node to the cluster)
             double clusterDist = std::numeric_limits<double>::max();
+            bool touchingCluster = false;
             for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
                 NBNode* neighbor = (*it_edge)->getToNode();
                 if (cluster.count(neighbor) != 0) {
                     clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                    touchingCluster |= n->getPosition().distanceTo2D(neighbor->getPosition()) <= SUMO_const_laneWidth;
                 }
             }
             for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
                 NBNode* neighbor = (*it_edge)->getFromNode();
                 if (cluster.count(neighbor) != 0) {
                     clusterDist = MIN2(clusterDist, (*it_edge)->getLoadedLength());
+                    touchingCluster |= n->getPosition().distanceTo2D(neighbor->getPosition()) <= SUMO_const_laneWidth;
                 }
             }
             // remove geometry-like nodes at fringe of the cluster
             // (they have 1 neighbor in the cluster and at most 1 neighbor outside the cluster)
-            std::set<NBNode*> neighbors;
-            std::set<NBNode*> clusterNeigbors;
-            const double pedestrianFringeThreshold = 1.0;
-            for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
-                NBNode* neighbor = (*it_edge)->getToNode();
+            std::set<NBNode*> outsideTo;
+            std::set<NBNode*> outsideFrom;
+            std::set<NBNode*> clusterNeighbors;
+            const double pedestrianFringeThreshold = 0.3;
+            for (NBEdge* e : n->getOutgoingEdges()) {
+                NBNode* neighbor = e->getToNode();
                 if (cluster.count(neighbor) == 0) {
-                    if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
-                        neighbors.insert(neighbor);
+                    if ((e->getPermissions() & SVC_PASSENGER) != 0 || clusterDist <= pedestrianFringeThreshold || touchingCluster) {
+                        outsideTo.insert(neighbor);
                     }
                 } else {
-                    clusterNeigbors.insert(neighbor);
+                    clusterNeighbors.insert(neighbor);
                 }
             }
-            for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
-                NBNode* neighbor = (*it_edge)->getFromNode();
+            for (NBEdge* e : n->getIncomingEdges()) {
+                NBNode* neighbor = e->getFromNode();
                 if (cluster.count(neighbor) == 0) {
-                    if ((*it_edge)->getPermissions() != SVC_PEDESTRIAN || clusterDist < pedestrianFringeThreshold) {
-                        neighbors.insert(neighbor);
+                    if ((e->getPermissions() & SVC_PASSENGER) != 0 || clusterDist <= pedestrianFringeThreshold || touchingCluster) {
+                        outsideFrom.insert(neighbor);
                     }
                 } else {
-                    clusterNeigbors.insert(neighbor);
+                    clusterNeighbors.insert(neighbor);
                 }
             }
-            if (neighbors.size() <= 1 && clusterNeigbors.size() == 1) {
+            if (outsideTo.size() <= 1 
+                && outsideFrom.size() <= 1
+                && clusterNeighbors.size() == 1 
+                && !n->isTLControlled()) {
+              bool sameRoad = true;
+              if (outsideFrom.size() == 1 && outsideTo.size() == 1) {
+                  // if there are 2 neighbors outside the cluster, prune only if they belong to the same road (geometry-like)
+                  NBNode* nFrom = *outsideFrom.begin();
+                  NBNode* nTo = *outsideTo.begin();
+                  NBEdge* eFrom = nFrom->getConnectionTo(n);
+                  NBEdge* eTo = n->getConnectionTo(nTo);
+                  assert(eFrom != 0);
+                  assert(eTo != 0);
+                  const double angle = NBHelpers::normRelAngle(eFrom->getAngleAtNode(n), eTo->getAngleAtNode(n));
+#ifdef DEBUG_JOINJUNCTIONS
+                  //if (DEBUGCOND(n)) std::cout << "   isTurn=" << eFrom->isTurningDirectionAt(eTo) << " angle=" << angle << "\n";
+#endif
+                  if (!eFrom->isTurningDirectionAt(eTo) && abs(angle) < 135) {
+                      sameRoad = false;
+                  }
+
+              }
+              if (sameRoad) {
                 cluster.erase(check);
                 pruneFringe = true; // other nodes could belong to the fringe now
+#ifdef DEBUG_JOINJUNCTIONS
+                   if (DEBUGCOND(n)) std::cout << "  prune n=" << n->getID() 
+                   << " clusterDist=" << clusterDist
+                   << " cd<th=" << (clusterDist <= pedestrianFringeThreshold)
+                   << " touching=" << touchingCluster
+                   << " outFrom=" << joinNamedToStringSorting(outsideFrom, ',') 
+                   << " outTo=" << joinNamedToStringSorting(outsideTo, ',') 
+                   << " in=" << joinNamedToStringSorting(clusterNeighbors, ',') 
+                   << "\n";
+#endif
+              }
             }
         }
     }
@@ -728,20 +783,30 @@ NBNodeCont::feasibleCluster(const std::set<NBNode*>& cluster, const NBEdgeCont& 
     for (std::set<NBNode*>::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
         for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
             NBEdge* edge = *it_edge;
-            if (cluster.count(edge->getFromNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+            if (cluster.count(edge->getFromNode()) == 0 && (edge->getPermissions() & SVC_PASSENGER) != 0) {
                 // incoming edge, does not originate in the cluster
                 finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
             }
         }
         for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
             NBEdge* edge = *it_edge;
-            if (cluster.count(edge->getToNode()) == 0 && edge->getPermissions() != SVC_PEDESTRIAN) {
+            if (cluster.count(edge->getToNode()) == 0 && (edge->getPermissions() & SVC_PASSENGER) != 0) {
                 // outgoing edge, does not end in the cluster
                 finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
             }
         }
 
     }
+#ifdef DEBUG_JOINJUNCTIONS
+    for (NBNode* n : cluster) {
+      if (DEBUGCOND(n)) {
+        std::cout << "feasibleCluster c=" << joinNamedToStringSorting(cluster, ',')
+          << "\n inAngles=" << joinToString(finalIncomingAngles, ' ', ':')
+          << "\n outAngles=" << joinToString(finalOutgoingAngles, ' ', ':')
+          << "\n";
+      }
+    }
+#endif
     if (finalIncomingAngles.size() > 4) {
         reason = toString(finalIncomingAngles.size()) + " incoming edges";
         return false;
@@ -778,6 +843,28 @@ NBNodeCont::feasibleCluster(const std::set<NBNode*>& cluster, const NBEdgeCont& 
             }
         }
     }
+    // prevent long chains of side roads along a main axis
+    /*
+    if (cluster.size() > 2) {
+      Boundary box;
+      for (NBNode* n : cluster) {
+        box.add(n->getPosition());
+      }
+      PositionVector extent;
+      extent.push_back(Position(box.xmin(), box.ymin()));
+      extent.push_back(Position(box.xmax(), box.ymax()));
+      const double length = extent.length2D();
+      double width = 0;
+      for (NBNode* n : cluster) {
+        width = MAX2(width, extent.distance2D(n->getPosition()));
+      }
+      if (width / length < 0.1) {
+        reason = "not compact (width=" + toString(width) + " length=" + toString(length) + ")";
+        std::cout << "DEBUG: " << joinNamedToStringSorting(cluster, ',') << " " << reason << "\n";
+        return false;
+      }
+    }
+    */
     return true;
 }
 
