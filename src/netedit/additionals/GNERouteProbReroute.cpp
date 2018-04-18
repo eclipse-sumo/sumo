@@ -77,6 +77,25 @@ GNERouteProbReroute::getRerouterIntervalParent() const {
 }
 
 
+void 
+GNERouteProbReroute::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNERouteProbReroute::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNERouteProbReroute::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {

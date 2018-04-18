@@ -197,6 +197,25 @@ GNECalibratorFlow::setFlowType(GNECalibratorFlow::TypeOfFlow type) {
 }
 
 
+void 
+GNECalibratorFlow::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNECalibratorFlow::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNECalibratorFlow::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {

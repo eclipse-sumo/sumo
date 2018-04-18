@@ -631,4 +631,21 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
 }
 
 
+void 
+GNEAdditional::selectAttributeCarrier() {
+
+}
+
+
+void 
+GNEAdditional::unselectAttributeCarrier() {
+
+}
+
+
+bool 
+GNEAdditional::isAttributeCarrierSelected() const {
+    return mySelected;
+}
+
 /****************************************************************************/

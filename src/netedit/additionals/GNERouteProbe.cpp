@@ -279,6 +279,25 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNERouteProbe::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNERouteProbe::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNERouteProbe::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNERouteProbe::getAttribute(SumoXMLAttr key) const {
     switch (key) {

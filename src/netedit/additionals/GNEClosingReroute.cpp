@@ -83,6 +83,25 @@ GNEClosingReroute::getRerouterIntervalParent() const {
 }
 
 
+void 
+GNEClosingReroute::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNEClosingReroute::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNEClosingReroute::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {

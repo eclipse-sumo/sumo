@@ -174,4 +174,21 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
+void 
+GNENetElement::selectAttributeCarrier() {
+
+}
+
+
+void 
+GNENetElement::unselectAttributeCarrier() {
+
+}
+
+
+bool 
+GNENetElement::isAttributeCarrierSelected() const {
+    return mySelected;
+}
+
 /****************************************************************************/

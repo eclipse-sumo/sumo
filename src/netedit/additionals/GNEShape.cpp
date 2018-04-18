@@ -138,4 +138,22 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
     }
 }
 
+
+void 
+GNEShape::selectAttributeCarrier() {
+
+}
+
+
+void 
+GNEShape::unselectAttributeCarrier() {
+
+}
+
+
+bool 
+GNEShape::isAttributeCarrierSelected() const {
+    return mySelected;
+}
+
 /****************************************************************************/
