@@ -159,7 +159,6 @@ GNEDialogACChooser::onCmdText(FXObject*, FXSelector, void*) {
 }
 
 
-
 long
 GNEDialogACChooser::onListKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
@@ -177,20 +176,18 @@ GNEDialogACChooser::onListKeyPress(FXObject*, FXSelector, void* ptr) {
 long
 GNEDialogACChooser::onCmdFilter(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
-    std::vector<GUIGlID> selectedGlIDs;
-    std::vector<FXString> selectedMicrosimIDs;
-    const int numItems = myList->getNumItems();
-    for (int i = 0; i < numItems; i++) {
-        const GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
-        if (myList->getItemIcon(i) == flag) {
-            selectedGlIDs.push_back(glID);
-            selectedMicrosimIDs.push_back(myList->getItemText(i));
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > selectedACs;
+    // iterate over myACs to check what has the selected flag
+    for (auto i : myACs) {
+        if (myList->getItemIcon(i.first) == flag) {
+            myACsByID.insert(std::pair<std::string, GNEAttributeCarrier*>(i.second->getID(), i.second));
         }
     }
-    // clear list
+    // clear list and myACs
     myList->clearItems();
-    // iterate over ACsByID and fill list again
-    for (auto i : myACsByID) {
+    myACs.clear();
+    // iterate over ACsByID and fill list again only with the selected elements
+    for (auto i : selectedACs) {
         // set icon
         FXIcon* selectIcon = GNEAttributeCarrier::parse<bool>(i.second->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
@@ -204,11 +201,11 @@ GNEDialogACChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
     int i = myList->getCurrentItem();
     if (i >= 0) {
-        GUIGlID* glID = static_cast<GUIGlID*>(myList->getItemData(i));
-        gSelected.toggleSelection(*glID);
-        if (myList->getItemIcon(i) == flag) {
+        if(GNEAttributeCarrier::parse<bool>(myACs[i]->getAttribute(GNE_ATTR_SELECTED))) {
+            myACs[i]->setAttribute(GNE_ATTR_SELECTED, "false", dynamic_cast<GNEViewNet*>(myViewParent->getView())->getUndoList());
             myList->setItemIcon(i, 0);
         } else {
+            myACs[i]->setAttribute(GNE_ATTR_SELECTED, "true", dynamic_cast<GNEViewNet*>(myViewParent->getView())->getUndoList());
             myList->setItemIcon(i, flag);
         }
     }
