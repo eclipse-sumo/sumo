@@ -132,8 +132,8 @@ public:
     /// @note this function is called in GNEFrame::Show();
     void hideFramesArea();
 
-    /// @brief get App (GUIMainWindow)
-    GUIMainWindow* getApp() const;
+    /// @brief get GUIMainWindow App
+    GUIMainWindow* getGUIMainWindow() const;
 
     /// @brief get GNE Application Windows
     GNEApplicationWindow* getGNEAppWindows() const;

@@ -40,9 +40,8 @@
 // class declarations
 // ===========================================================================
 
-class GUIGlChildWindow;
-class GUIGlObjectStorage;
-class GUIGlObject;
+class GNEAttributeCarrier;
+class GNEViewParent;
 
 // ===========================================================================
 // class definition
@@ -59,22 +58,15 @@ class GNEDialogACChooser : public FXMainWindow {
 
 public:
     /** @brief Constructor
-     * @param[in] parent The calling view
+     * @param[in] viewParent GNEViewParent of Netedit
      * @param[in] icon The icon to use
      * @param[in] title The title to use
-     * @param[in] glStorage The storage to retrieve ids from
+     * @param[in] ACs list of choosen ACs
      */
-    GNEDialogACChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title,
-                           const std::vector<GUIGlID>& ids,
-                           GUIGlObjectStorage& glStorage);
+    GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs);
 
     /// @brief Destructor
     ~GNEDialogACChooser();
-
-    /// @brief Returns the chosen (selected) object
-    GUIGlObject* getObject() const {
-        return static_cast<GUIGlObject*>(mySelected);
-    }
 
     /// @name FOX-callbacks
     /// @{
@@ -109,14 +101,14 @@ protected:
     GNEDialogACChooser() {}
 
 private:
+    /// @brief pointer to GNEViewParent
+    GNEViewParent *myViewParent;
+
     /// @brief The list that holds the ids
     FXList* myList;
 
     /// @brief The button that triggers centering on the select object
     FXButton* myCenterButton;
-
-    /// @brief The parent window
-    GUIGlChildWindow* myParent;
 
     /// @brief The chosen id
     GUIGlObject* mySelected;
@@ -124,9 +116,11 @@ private:
     /// @brief The text field
     FXTextField* myTextEntry;
 
-    /// myList contains (void) pointers to elements of myIDs instead of the more
-    //volatile pointers to GUIGlObject
-    std::set<GUIGlID> myIDs;
+    /// @brief map for saving ACs sorted by ID
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > myACsByID;
+
+    /// @brief map for vinculate item list and Attribute carriers
+    std::map<int, GNEAttributeCarrier*> myACs;
 };
 
 
