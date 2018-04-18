@@ -60,10 +60,9 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent,
-        GUISelectedStorage* str)
-    : FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, DECOR_ALL, 20, 20, 300, 300),
-      myParent(parent), myStorage(str) {
+GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) : 
+    FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, GUIDesignChooserDialog),
+    myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
     FXHorizontalFrame* hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0,

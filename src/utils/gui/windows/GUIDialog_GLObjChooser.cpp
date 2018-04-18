@@ -61,13 +61,8 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
-    GUIGlChildWindow* parent,
-    FXIcon* icon,
-    const FXString& title,
-    const std::vector<GUIGlID>& ids,
-    GUIGlObjectStorage& glStorage):
-    FXMainWindow(parent->getApp(), title, icon, NULL, DECOR_ALL, 20, 20, 300, 300),
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& glStorage) :
+    FXMainWindow(parent->getApp(), title, icon, NULL, GUIDesignChooserDialog),
     myParent(parent) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     // build the list
@@ -89,20 +84,12 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(
     }
     // build the buttons
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
-    myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
-                                  this, MID_CHOOSER_CENTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                                  0, 0, 0, 0, 4, 4, 4, 4);
+    myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-    new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG),
-                 this, MID_CHOOSER_FILTER, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 4, 4);
-    new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG),
-                 this, MID_CHOOSEN_INVERT, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 4, 4);
+    new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
+    new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-    new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO),
-                 this, MID_CANCEL, ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 4, 4);
+    new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
 
     myParent->getParent()->addChild(this);
 }

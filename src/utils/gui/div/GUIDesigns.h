@@ -395,7 +395,7 @@
 /// @brief design for standard dialog box with close button (for example, about dialog)
 #define GUIDesignDialogBox                      (DECOR_CLOSE | DECOR_TITLE)
 
-/// @brief design for standard dialog box     (for example, about dialog)
+/// @brief design for standard dialog box (for example, about dialog)
 #define GUIDesignDialogBoxResizable             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
 
 /// @brief design for dialog box with specift width and height     (for example, additional dialogs)
@@ -420,6 +420,17 @@
 /// @brief width of cells that only contains an Icon
 #define GUIDesignTableIconCellWidth             23
 /// @}
+
+
+/// @name design for Chooser (locator) dialogs
+/// @{
+/// @brief design for Chooser dialog specifying size
+#define GUIDesignChooserDialog                  DECOR_ALL, 20, 20, 300, 300
+
+/// @brief design for Chooser buttons
+#define GUIDesignChooserButtons                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 4, 4
+/// @}
+
 
 /// @brief Tree list used in frames to represent childs of elements
 #define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
