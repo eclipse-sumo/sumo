@@ -561,7 +561,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     NBConnection deleted = connection->getNBConnection();
     GNEJunction* junctionDestiny = connection->getEdgeFrom()->getGNEJunctionDestiny();
     junctionDestiny->markAsModified(undoList);
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isNetElementSelected(), false), true);
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
     junctionDestiny->invalidateTLS(undoList, deleted);
     // remove connection requieres always a recompute (due geometry and connections)
     requireRecompute();
@@ -1085,10 +1085,10 @@ GNENet::retrieveShapes(bool onlySelected) {
     std::vector<GNEShape*> result;
     if(onlySelected) {
         // only returns selected polygons and POIs
-        for (auto i : mySelectedAttributeCarriers[GLO_POLYGON]) {
+        for (auto i : mySelectedAttributeCarriersByType[GLO_POLYGON]) {
             result.push_back(dynamic_cast<GNEPoly*>(i));
         }
-        for (auto i : mySelectedAttributeCarriers[GLO_POI]) {
+        for (auto i : mySelectedAttributeCarriersByType[GLO_POI]) {
             result.push_back(dynamic_cast<GNEPOI*>(i));
         }
     } else {
@@ -1625,24 +1625,19 @@ GNENet::getViewNet() const {
 }
 
 
-std::vector<GNEAttributeCarrier*>
+const std::set<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers() const {
-    std::vector<GNEAttributeCarrier*> result;
-    for (auto i : mySelectedAttributeCarriers) {
-        result.reserve(result.size() + i.second.size());
-        std::move(i.second.begin(), i.second.end(), std::back_inserter(result));
-    }
-    return result;
+    return mySelectedAttributeCarriers;
 }
 
 
-const std::vector<GNEAttributeCarrier*> &
+const std::set<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
-    return mySelectedAttributeCarriers[type];
+    return mySelectedAttributeCarriersByType[type];
 }
 
 
-const std::vector<GNEAttributeCarrier*> &
+const std::set<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers(SumoXMLTag tag) {
     return mySelectedAttributeCarriersByTag[tag];
 }
@@ -1653,25 +1648,15 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
     if(attributeCarrier == nullptr) {
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
-        if(std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier) == mySelectedAttributeCarriers[glType].end()) {
-            mySelectedAttributeCarriers[glType].push_back(attributeCarrier);
-            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].push_back(attributeCarrier);
-            // special case for netElements
-            if((glType > GLO_NETELEMENT) && (glType < GLO_ADDITIONAL)) {
-                mySelectedAttributeCarriers[GLO_NETELEMENT].push_back(attributeCarrier);
-            }
-            // special case for Additionals
-            if((glType > GLO_ADDITIONAL) && (glType < GLO_SHAPE)) {
-                mySelectedAttributeCarriers[GLO_ADDITIONAL].push_back(attributeCarrier);
-            }
-            // special case for Shapes
-            if((glType > GLO_SHAPE) && (glType < GLO_ROUTEELEMENT)) {
-                mySelectedAttributeCarriers[GLO_SHAPE].push_back(attributeCarrier);
-            }
-            // special case for RouteElements
-            if((glType > GLO_ROUTEELEMENT) && (glType < GLO_MAX)) {
-                mySelectedAttributeCarriers[GLO_ROUTEELEMENT].push_back(attributeCarrier);
-            }
+        if((mySelectedAttributeCarriersByType[glType].find(attributeCarrier) == mySelectedAttributeCarriersByType[glType].end()) &&
+           (mySelectedAttributeCarriers.find(attributeCarrier) == mySelectedAttributeCarriers.end()) &&
+           (mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].find(attributeCarrier) == mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
+            // select in selected attribute carriers by type
+            mySelectedAttributeCarriersByType[glType].insert(attributeCarrier);
+            // select in all selected attribute carriers
+            mySelectedAttributeCarriers.insert(attributeCarrier);
+            // select in selected attribute carriers by tag
+            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].insert(attributeCarrier);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1688,27 +1673,20 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
     if(attributeCarrier == nullptr) {
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
-        auto itGlType = std::find(mySelectedAttributeCarriers[glType].begin(), mySelectedAttributeCarriers[glType].end(), attributeCarrier);
-        auto itTag = std::find(mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier);
-        if((itGlType != mySelectedAttributeCarriers[glType].end()) && (itTag != mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
-            mySelectedAttributeCarriers[glType].erase(itGlType);
+        // search attribute carrier in all selection containers
+        auto itGlType = mySelectedAttributeCarriersByType[glType].find(attributeCarrier);
+        auto itAll = mySelectedAttributeCarriers.find(attributeCarrier);
+        auto itTag = mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].find(attributeCarrier);
+        // only continue if was found in all containers. In other case throw exception
+        if((itGlType != mySelectedAttributeCarriersByType[glType].end()) && 
+           (itAll != mySelectedAttributeCarriers.end()) && 
+           (itTag != mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
+            // unselect in selected attribute carriers by type
+            mySelectedAttributeCarriersByType[glType].erase(itGlType);
+            // unselect in all selected attribute carriers
+            mySelectedAttributeCarriers.erase(itAll);
+            // unselect in selected attribute carriers by tag
             mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].erase(itTag);
-            // special case for netElements
-            if((glType > GLO_NETELEMENT) && (glType < GLO_ADDITIONAL)) {
-                mySelectedAttributeCarriers[GLO_NETELEMENT].erase(std::find(mySelectedAttributeCarriers[GLO_NETELEMENT].begin(), mySelectedAttributeCarriers[GLO_NETELEMENT].end(), attributeCarrier));
-            }
-            // special case for Additionals
-            if((glType > GLO_ADDITIONAL) && (glType < GLO_SHAPE)) {
-                mySelectedAttributeCarriers[GLO_ADDITIONAL].erase(std::find(mySelectedAttributeCarriers[GLO_ADDITIONAL].begin(), mySelectedAttributeCarriers[GLO_ADDITIONAL].end(), attributeCarrier));
-            }
-            // special case for Shapes
-            if((glType > GLO_SHAPE) && (glType < GLO_ROUTEELEMENT)) {
-                mySelectedAttributeCarriers[GLO_SHAPE].erase(std::find(mySelectedAttributeCarriers[GLO_SHAPE].begin(), mySelectedAttributeCarriers[GLO_SHAPE].end(), attributeCarrier));
-            }
-            // special case for RouteElements
-            if((glType > GLO_ROUTEELEMENT) && (glType < GLO_MAX)) {
-                mySelectedAttributeCarriers[GLO_ADDITIONAL].erase(std::find(mySelectedAttributeCarriers[GLO_ROUTEELEMENT].begin(), mySelectedAttributeCarriers[GLO_ROUTEELEMENT].end(), attributeCarrier));
-            }
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1767,7 +1745,7 @@ GNENet::retrieveAdditionals(bool onlySelected) {
     std::vector<GNEAdditional*> result;
     if(onlySelected) {
         // only returns selected additionals
-        for (auto i : mySelectedAttributeCarriers[GLO_ADDITIONAL]) {
+        for (auto i : mySelectedAttributeCarriersByType[GLO_ADDITIONAL]) {
             result.push_back(dynamic_cast<GNEAdditional*>(i));
         }
     } else {
@@ -2139,7 +2117,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         // check if additional is selected
-        if(additional->isAdditionalSelected()) {
+        if(additional->isAttributeCarrierSelected()) {
             selectAttributeCarrier(GLO_ADDITIONAL, additional);
         }
         // update geometry after insertion of additionals
@@ -2167,7 +2145,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
         // check if additional is selected
-        if(additional->isAdditionalSelected()) {
+        if(additional->isAttributeCarrierSelected()) {
             unselectAttributeCarrier(GLO_ADDITIONAL, additional);
         }
         // update view
@@ -2278,7 +2256,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
     // check if junction is selected
-    if(junction->isNetElementSelected()) {
+    if(junction->isAttributeCarrierSelected()) {
         selectAttributeCarrier(GLO_JUNCTION, junction);
     }
     // @todo let Boundary class track z-coordinate natively
@@ -2301,7 +2279,7 @@ GNENet::registerEdge(GNEEdge* edge) {
     myGrid.add(edge->getBoundary());
     myGrid.addAdditionalGLObject(edge);
     // check if edge is selected
-    if(edge->isNetElementSelected()) {
+    if(edge->isAttributeCarrierSelected()) {
         selectAttributeCarrier(GLO_EDGE, edge);
     }
     // Add references into GNEJunctions
@@ -2320,7 +2298,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
     // check if junction is selected
-    if(junction->isNetElementSelected()) {
+    if(junction->isAttributeCarrierSelected()) {
         unselectAttributeCarrier(GLO_JUNCTION, junction);
     }
     myJunctions.erase(junction->getMicrosimID());
@@ -2338,7 +2316,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     // check if junction is selected
-    if(edge->isNetElementSelected()) {
+    if(edge->isAttributeCarrierSelected()) {
         unselectAttributeCarrier(GLO_EDGE, edge);
     }
     myEdges.erase(edge->getMicrosimID());
@@ -2361,14 +2339,14 @@ GNENet::insertShape(GNEShape* shape) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.addAdditionalGLObject(poly);
         myPolygons.add(shape->getID(), poly);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             selectAttributeCarrier(GLO_POLYGON, shape);
         }
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.addAdditionalGLObject(poi);
         myPOIs.add(shape->getID(), poi);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             selectAttributeCarrier(GLO_POI, shape);
         }
     }
@@ -2391,14 +2369,14 @@ GNENet::removeShape(GNEShape* shape) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);
         myPolygons.remove(shape->getID(), false);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             unselectAttributeCarrier(GLO_POLYGON, shape);
         }
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.removeAdditionalGLObject(poi);
         myPOIs.remove(shape->getID(), false);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             unselectAttributeCarrier(GLO_POI, shape);
         }
     }

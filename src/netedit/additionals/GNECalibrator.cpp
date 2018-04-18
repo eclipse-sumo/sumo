@@ -210,7 +210,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(255, 204, 0));
@@ -228,7 +228,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // draw text if isn't being drawn for selecting
         if ((s.scale * exaggeration >= 1.) && !s.drawForSelecting) {
             // set color depending of selection status
-            RGBColor textColor = isAdditionalSelected() ? myViewNet->getNet()->selectionColor : RGBColor::BLACK;
+            RGBColor textColor = isAttributeCarrierSelected() ? myViewNet->getNet()->selectionColor : RGBColor::BLACK;
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
@@ -409,7 +409,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -528,9 +528,9 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

@@ -218,6 +218,19 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 }
 
 
+void 
+GNEInspectorFrame::inspectMultisection(const std::set<GNEAttributeCarrier*>& ACs) {
+    std::vector<GNEAttributeCarrier*>ACsVector;
+    // resize to improve efficiency
+    ACsVector.reserve(ACs.size());
+    for (auto i : ACs) {
+        ACsVector.push_back(i);
+    }
+    // inspect ACsVector
+    inspectMultisection(ACsVector);
+}
+
+
 void
 GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement) {
     // Show back button if myPreviousElementInspect was defined

@@ -60,11 +60,8 @@ private:
     static const int FWD;
     static const int BWD;
 
-    /// @brief Definition of the map of names to pt lines
-    typedef std::vector<NBPTLine*> PTLinesCont;
-
     /// @brief The map of names to pt lines
-    PTLinesCont myPTLines;
+    std::vector<NBPTLine*> myPTLines;
 
     long long int myIdCnt;
     void reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont);

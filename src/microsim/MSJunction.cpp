@@ -70,7 +70,7 @@ int
 MSJunction::getNrOfIncomingLanes() const {
     int nr = 0;
     for (const MSEdge* e : myIncoming) {
-        nr += e->getLanes().size();
+        nr += (int)e->getLanes().size();
     }
     return nr;
 }

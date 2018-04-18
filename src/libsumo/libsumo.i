@@ -15,6 +15,18 @@
 %rename(trafficlight) TrafficLight;
 %rename(vehicle) Vehicle;
 %rename(vehicletype) VehicleType;
+
+// adding dummy init and close for easier traci -> libsumo transfer
+%pythoncode %{
+def init(port):
+    print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
+
+def close():
+    pass
+
+def start(args):
+    simulation.load(args[1:])
+%}
 #endif
 
 %begin %{
@@ -40,12 +52,10 @@
     try {
         $action
     } catch (libsumo::TraCIException &e) {
-        std::string s("TraCI error: "), s2(e.what());
-        s = s + s2;
+        const std::string s = std::string("TraCI error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
     } catch (ProcessError &e) {
-        std::string s("SUMO error: "), s2(e.what());
-        s = s + s2;
+        const std::string s = std::string("SUMO error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
     } catch (...) {
         SWIG_exception(SWIG_RuntimeError, "unknown exception");

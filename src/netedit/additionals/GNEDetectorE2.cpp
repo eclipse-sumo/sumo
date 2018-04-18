@@ -178,7 +178,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color of the base
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(0, 204, 204));
@@ -204,7 +204,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         //move to logo position
         glTranslated(-0.75, 0, 0);
         // draw E2 logo
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
@@ -254,7 +254,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -385,9 +385,9 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

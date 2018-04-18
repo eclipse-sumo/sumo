@@ -65,7 +65,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEAdditionalFrame::AdditionalSelector) SelectorAdditionalMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEAdditionalFrame::AdditionalSelector::onCmdSelectAdditional),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEAdditionalFrame::AdditionalSelector::onCmdselectAttributeCarrier),
 };
 
 FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeSingle) AdditionalAttributeSingleMap[] = {
@@ -208,7 +208,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
 
 
 long
-GNEAdditionalFrame::AdditionalSelector::onCmdSelectAdditional(FXObject*, FXSelector, void*) {
+GNEAdditionalFrame::AdditionalSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myAdditionalMatchBox correspond of an allowed additional tags 
     for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
         if (toString(i) == myAdditionalMatchBox->getText().text()) {

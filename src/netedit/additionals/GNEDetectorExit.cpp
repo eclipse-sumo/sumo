@@ -127,7 +127,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set initial values
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_E3Exit);
@@ -186,7 +186,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
         if(s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Exit);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (isAdditionalSelected()) {
+        } else if (isAttributeCarrierSelected()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Exit);
@@ -199,7 +199,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
         if(s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Exit);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (isAdditionalSelected()) {
+        } else if (isAttributeCarrierSelected()) {
             GLHelper::drawText("Exit", Position(), .1, 1, myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::drawText("Exit", Position(), .1, 1, s.SUMO_color_E3Exit);
@@ -236,7 +236,7 @@ GNEDetectorExit::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -309,9 +309,9 @@ GNEDetectorExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

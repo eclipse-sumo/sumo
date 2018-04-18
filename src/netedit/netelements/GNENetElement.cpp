@@ -119,34 +119,6 @@ GNENetElement::getAdditionalChilds() const {
 }
 
 
-void 
-GNENetElement::selectNetElement() {
-    if(!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else if (!mySelected) {
-        myNet->selectAttributeCarrier(getType(), this);
-        mySelected = true;
-    } 
-}
-
-
-void 
-GNENetElement::unselectNetElement() {
-    if(!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else if (mySelected) {
-        myNet->unselectAttributeCarrier(getType(), this);
-        mySelected = false;
-    } 
-}
-
-
-bool 
-GNENetElement::isNetElementSelected() const {
-    return mySelected;
-}
-
-
 const std::string&
 GNENetElement::getParentName() const {
     return myNet->getMicrosimID();
@@ -173,5 +145,32 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     return ret;
 }
 
+
+void 
+GNENetElement::selectAttributeCarrier() {
+    if(!myNet) {
+        throw ProcessError("Net cannot be nullptr");
+    } else if (!mySelected) {
+        myNet->selectAttributeCarrier(getType(), this);
+        mySelected = true;
+    } 
+}
+
+
+void 
+GNENetElement::unselectAttributeCarrier() {
+    if(!myNet) {
+        throw ProcessError("Net cannot be nullptr");
+    } else if (mySelected) {
+        myNet->unselectAttributeCarrier(getType(), this);
+        mySelected = false;
+    } 
+}
+
+
+bool 
+GNENetElement::isAttributeCarrierSelected() const {
+    return mySelected;
+}
 
 /****************************************************************************/

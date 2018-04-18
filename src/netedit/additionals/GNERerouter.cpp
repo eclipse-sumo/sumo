@@ -249,7 +249,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), 1);
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
@@ -330,7 +330,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -430,9 +430,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

@@ -142,7 +142,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn small box if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Set Color depending of selection
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
         } else {
             GLHelper::setColor(RGBColor(0, 255, 0, 255));
@@ -152,7 +152,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Traslate matrix and draw blue innen
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255,200,200, 255));
@@ -191,7 +191,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_PARENT:
             return myAdditionalParent->getID();
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -286,9 +286,9 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

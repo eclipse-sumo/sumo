@@ -82,7 +82,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another shape Type
-        long onCmdSelectShape(FXObject*, FXSelector, void*);
+        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
         /// @}
 
     protected:

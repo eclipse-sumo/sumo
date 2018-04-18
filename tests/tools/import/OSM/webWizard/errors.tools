@@ -1278,14 +1278,20 @@ Warning: Not joining junctions 1166137168,1566942204,667465427,967017840 (5 inco
 Warning: Not joining junctions 1375229139,1445622300 (parallel incoming -131330589,123264594)
 Warning: Not joining junctions 1566942145,1752085816,2054664382,3101344339,3101344340,667465428 (5 incoming edges)
 Warning: Not joining junctions 1633112625,2831092402,30731499 (parallel outgoing 195400997#1,22962554#1)
+Warning: Reducing junction cluster 1661927045,258017933,258485791,27411258,2796846632,30731464,30731510,588181258 (8 incoming edges)
 Warning: Not joining junctions 1668717163,1668717165,258485805,588181279 (parallel incoming 101699676#0,4610362#1)
+Warning: Reducing junction cluster 1769589025,2010745295,2010745299,2045862310 (it contains stop '2959830767')
 Warning: Not joining junctions 3253177075,3253177076,3253177078,3253177079 (parallel incoming 168249863#0,35269774#1)
+Warning: Reducing junction cluster 1815335424,1819917465,662338385 (parallel incoming -170855334,51912365#0)
 Warning: Not joining junctions 1988511977,29193494 (parallel incoming -4610527#0,4610527#1)
+Warning: Reducing junction cluster 2003979131,25664779,25664841,746803372 (5 incoming edges)
 Warning: Not joining junctions 2095738490,315140135 (parallel outgoing 199579028#1,272795470#1)
 Warning: Not joining junctions 21432801,3139140896,3178759584,735967920,735967921,961816249,961816257 (5 incoming edges)
 Warning: Not joining junctions 266540986,31154724 (parallel incoming -24509315#0,156364553#1)
 Warning: Not joining junctions 27411228,588181343 (5 incoming edges)
+Warning: Reducing junction cluster 28373970,28373972,2882261426 (5 incoming edges)
 Warning: Not joining junctions 29192958,3378459483 (parallel incoming 122820534#1,330840136)
+Warning: Reducing junction cluster 311264847,735132786,735132792,735132793 (parallel outgoing 143931935,46140376#1)
 Warning: Ambiguous node type for node cluster 'cluster_1668685184_1668685201_2924018417' (rail_crossing,unknown) set to 'priority'
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.

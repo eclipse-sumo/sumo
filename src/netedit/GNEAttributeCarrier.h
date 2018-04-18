@@ -79,6 +79,15 @@ public:
 
     /// @brief This functions has to be implemented in all GNEAttributeCarriers
     /// @{
+    /// @brief select attribute carrier
+    virtual void selectAttributeCarrier() = 0;
+
+    /// @brief unselect attribute carrier
+    virtual void unselectAttributeCarrier() = 0;
+
+    /// @brief check if attribute carrier is selected
+    virtual bool isAttributeCarrierSelected() const = 0;
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -136,9 +145,6 @@ public:
 
     /// @brief get all editable for tag shape elements
     static const std::vector<SumoXMLTag>& allowedShapeTags();
-
-    /// @brief return true if element tag can be selected
-    static bool canBeSelected(SumoXMLTag tag);
 
     /// @brief return true if element tag can block their movement
     static bool canBlockMovement(SumoXMLTag tag);
@@ -537,9 +543,6 @@ private:
 
     /// @brief vector with the allowed tags of shapes
     static std::vector<SumoXMLTag> myAllowedShapeTags;
-
-    /// @brief vector with the allowed tags  that can be selected
-    static std::vector<SumoXMLTag> mySelectTags;
 
     /// @brief vector with the allowed tags  that can block their movement
     static std::vector<SumoXMLTag> myBlockMovementTags;

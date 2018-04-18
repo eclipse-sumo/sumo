@@ -92,24 +92,6 @@ public:
     /// @brief draw lock icon
     void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
 
-    /// @name members and functions relative to select and unselect shapes
-    /// @{
-
-    /**@brief select additional
-     * @throw processError if viewnet in which this shape is inserted is empty
-     **/
-    void selectShape();
-
-    /**@brief unselect additional
-     * @throw processError if viewnet in which this shape is inserted is empty
-     **/
-    void unselectShape();
-
-    /// @brief check if additional is selected
-    bool isShapeSelected() const;
-
-     /// @}
-
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{
     /**@brief Returns the name of the parent object
@@ -147,6 +129,15 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+    /// @brief select attribute carrier
+    void selectAttributeCarrier();
+
+    /// @brief unselect attribute carrier
+    void unselectAttributeCarrier();
+
+    /// @brief check if attribute carrier is selected
+    bool isAttributeCarrierSelected() const;
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

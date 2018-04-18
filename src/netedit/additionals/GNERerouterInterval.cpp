@@ -111,6 +111,25 @@ GNERerouterInterval::getEnd() const {
 }
 
 
+void 
+GNERerouterInterval::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNERerouterInterval::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNERerouterInterval::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {

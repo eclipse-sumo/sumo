@@ -267,6 +267,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRCleanupAll();
     return numFeatures;
 #else
+    UNUSED_PARAMETER(file);
     WRITE_ERROR("Cannot load shape file since SUMO was compiled without GDAL support.");
     return 0;
 #endif
@@ -320,6 +321,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
     GDALClose(poDataset);
     return picSize;
 #else
+    UNUSED_PARAMETER(file);
     WRITE_ERROR("Cannot load GeoTIFF file since SUMO was compiled without GDAL support.");
     return 0;
 #endif

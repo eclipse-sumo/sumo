@@ -471,13 +471,13 @@ public:
     GNEViewNet* getViewNet() const;
 
     /// @brief get all selected attribute carriers
-    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers() const;
+    const std::set<GNEAttributeCarrier*> &getSelectedAttributeCarriers() const;
 
     // @brief get selected attribute carriers by GLType
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
+    const std::set<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
 
     // @brief get selected attribute carriers by Tag
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(SumoXMLTag tag);
+    const std::set<GNEAttributeCarrier*> &getSelectedAttributeCarriers(SumoXMLTag tag);
 
     /// @brief select attribute carrier
     void selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
@@ -705,11 +705,14 @@ protected:
     /// @brief map with the name and pointer to Calibrator Vehicle Types of net
     std::map<std::string, GNECalibratorVehicleType*> myCalibratorVehicleTypes;
 
-    /// @brief set with selected attribute carriers grouped by GUIGlObjectType
-    std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriers;
+    /// @brief set with all selected attribute carriers
+    std::set<GNEAttributeCarrier* > mySelectedAttributeCarriers;
+
+    /// @brief set with selected attribute carriers grouped by GL Type
+    std::map<GUIGlObjectType, std::set<GNEAttributeCarrier*> > mySelectedAttributeCarriersByType;
 
     /// @brief set with selected attribute carriers grouped by Tags
-    std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriersByTag;
+    std::map<SumoXMLTag, std::set<GNEAttributeCarrier*> > mySelectedAttributeCarriersByTag;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{

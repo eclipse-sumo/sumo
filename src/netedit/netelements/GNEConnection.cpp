@@ -280,7 +280,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate matrix
         glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction
         // Set color
-        if (isNetElementSelected() && s.junctionColorer.getActive() != 1) {
+        if (isAttributeCarrierSelected() && s.junctionColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectedConnectionColor);
         } else {
@@ -340,7 +340,7 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         case GNE_ATTR_SELECTED:
-            return toString(isNetElementSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -472,9 +472,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectNetElement();
+                selectAttributeCarrier();
             } else {
-                unselectNetElement();
+                unselectAttributeCarrier();
             }
             break;
         default:

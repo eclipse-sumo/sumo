@@ -144,7 +144,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s);
 
     // set color
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 255, 0));
@@ -170,7 +170,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // outline if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -188,7 +188,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -214,7 +214,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         //move to logo position
         glTranslated(-1, 0, 0);
         // draw E1 logo
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::drawText("E1", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
@@ -253,7 +253,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -347,9 +347,9 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

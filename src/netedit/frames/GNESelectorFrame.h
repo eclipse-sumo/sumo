@@ -369,6 +369,9 @@ public:
      */
     void handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
 
+    /// @brief get modification mode modul
+    ModificationMode* getModificationModeModul() const;
+
 private:
     /// @brief modul for lock selected items
     LockGLObjectTypes* myLockGLObjectTypes;

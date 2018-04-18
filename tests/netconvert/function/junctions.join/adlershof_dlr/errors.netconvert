@@ -1,3 +1,5 @@
+Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (5 incoming edges)
+Warning: Reducing junction cluster 1568241232,1654992651,283018497 (5 incoming edges)
 Warning: Not joining junctions 1789928382,664166124 (parallel outgoing 142575693#0,158236729#1)
 Warning: Ambiguous node type for node cluster 'cluster_1568241251_260702783' (priority,right_before_left) set to 'priority'
 Warning: Ambiguous node type for node cluster 'cluster_1568241274_735390335' (right_before_left,priority) set to 'priority'

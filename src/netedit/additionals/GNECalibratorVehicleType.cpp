@@ -193,6 +193,25 @@ GNECalibratorVehicleType::getCalibratorParent() const {
 }
 
 
+void 
+GNECalibratorVehicleType::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNECalibratorVehicleType::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNECalibratorVehicleType::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {

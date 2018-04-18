@@ -185,21 +185,6 @@ public:
     /// @name members and functions relative to select and unselect additionals
     /// @{
 
-    /**@brief select additional
-     * @throw processError if viewnet in which this additional is inserted is empty
-     **/
-    void selectAdditional();
-
-    /**@brief unselect additional
-     * @throw processError if viewnet in which this additional is inserted is empty
-     **/
-    void unselectAdditional();
-
-    /// @brief check if additional is selected
-    bool isAdditionalSelected() const;
-
-     /// @}
-
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name (ID) of the parent object
@@ -238,6 +223,15 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+    /// @brief select attribute carrier
+    void selectAttributeCarrier();
+
+    /// @brief unselect attribute carrier
+    void unselectAttributeCarrier();
+
+    /// @brief check if attribute carrier is selected
+    bool isAttributeCarrierSelected() const;
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

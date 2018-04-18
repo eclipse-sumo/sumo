@@ -86,6 +86,25 @@ GNEVariableSpeedSignStep::getTime() const {
 }
 
 
+void 
+GNEVariableSpeedSignStep::selectAttributeCarrier() {
+    // this AC cannot be selected
+}
+
+
+void 
+GNEVariableSpeedSignStep::unselectAttributeCarrier() {
+    // this AC cannot be unselected
+}
+
+
+bool 
+GNEVariableSpeedSignStep::isAttributeCarrierSelected() const {
+    // this AC doesn't own a select flag
+    return false;
+}
+
+
 std::string
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {

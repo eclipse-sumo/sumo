@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    01.04.2018
-/// @version $Id$
+/// @version $Id: MSDevice_ToC.cpp v0_32_0+1125-377a9a870b michael.behrisch@dlr.de 2018-04-17 13:09:36 +0200 $
 ///
 // The ToC Device controls transition of control between automated and manual driving.
 //
@@ -270,7 +270,7 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
 
         // Schedule ToC Event
         myTriggerToCCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::triggerDownwardToC);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myTriggerToCCommand, SIMSTEP + responseTime);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myTriggerToCCommand, SIMSTEP + TIME2STEPS(responseTime));
 
         if (responseTime > timeTillMRM) {
             // Schedule MRM Event
@@ -285,8 +285,9 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
     }
 }
 
+
 SUMOTime
-MSDevice_ToC::triggerMRM(SUMOTime t) {
+MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     // Start MRM process
     myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
@@ -300,8 +301,9 @@ MSDevice_ToC::triggerMRM(SUMOTime t) {
     return 0;
 }
 
+
 SUMOTime
-MSDevice_ToC::triggerUpwardToC(SUMOTime t) {
+MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
     switchHolderType(myAutomatedType);
     setAwareness(0.);
     setState(AUTOMATED);
@@ -314,8 +316,9 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime t) {
     return 0;
 }
 
+
 SUMOTime
-MSDevice_ToC::triggerDownwardToC(SUMOTime t) {
+MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
     switchHolderType(myManualType);
     // @todo: Sample initial awareness
     double initialAwareness = myInitialAwareness;
@@ -359,21 +362,21 @@ MSDevice_ToC::switchHolderType(const std::string& targetTypeID) {
 
 
 SUMOTime
-MSDevice_ToC::ToCPreparationStep(SUMOTime t) {
+MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
     // TODO
     return DELTA_T;
 }
 
 
 SUMOTime
-MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
+MSDevice_ToC::MRMExecutionStep(SUMOTime /* t */) {
     // TODO
     return DELTA_T;
 }
 
 
 SUMOTime
-MSDevice_ToC::awarenessRecoveryStep(SUMOTime t) {
+MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
     // Proceed with awareness recovery
     if (myCurrentAwareness < 1.0) {
         setAwareness(MIN2(1.0, myCurrentAwareness + TS*myRecoveryRate));

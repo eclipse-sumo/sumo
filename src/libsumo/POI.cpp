@@ -50,22 +50,24 @@ POI::getIDList() {
     return ids;
 }
 
+
 int
 POI::getIDCount() {
     return (int)getIDList().size();
 }
+
 
 std::string
 POI::getType(const std::string& poiID) {
     return getPoI(poiID)->getShapeType();
 }
 
+
 TraCIColor
 POI::getColor(const std::string& poiID) {
-    PointOfInterest* sumoPoi = getPoI(poiID);
-    RGBColor col = sumoPoi->getShapeColor();
-    return Helper::makeTraCIColor(col);
+    return Helper::makeTraCIColor(getPoI(poiID)->getShapeColor());
 }
+
 
 TraCIPosition
 POI::getPosition(const std::string& poiID) {
@@ -77,30 +79,32 @@ POI::getPosition(const std::string& poiID) {
     return pos;
 }
 
+
 std::string
 POI::getParameter(const std::string& poiID, const std::string& param) {
-    PointOfInterest* p = getPoI(poiID);
-    return p->getParameter(param, "");
+    return getPoI(poiID)->getParameter(param, "");
 }
+
 
 void
 POI::setType(const std::string& poiID, const std::string& type) {
-    PointOfInterest* p = getPoI(poiID);
-    p->setShapeType(type);
+    getPoI(poiID)->setShapeType(type);
 }
+
 
 void
 POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
     // try to retrieve so that the correct error is generated for unknown poiIDs
-    PointOfInterest* p = getPoI(poiID);
+    getPoI(poiID);
     MSNet::getInstance()->getShapeContainer().movePOI(poiID, Helper::makePosition(pos));
 }
 
+
 void
 POI::setColor(const std::string& poiID, const TraCIColor& c) {
-    PointOfInterest* p = getPoI(poiID);
-    p->setShapeColor(Helper::makeRGBColor(c));
+    getPoI(poiID)->setShapeColor(Helper::makeRGBColor(c));
 }
+
 
 bool
 POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
@@ -113,11 +117,13 @@ POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c
                             Shape::DEFAULT_IMG_HEIGHT);
 }
 
+
 bool
 POI::remove(const std::string& poiID, int /* layer */) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     return shapeCont.removePOI(poiID);
 }
+
 
 void
 POI::setParameter(const std::string& poiID, const std::string& param, const std::string& value) {

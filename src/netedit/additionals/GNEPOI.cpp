@@ -145,7 +145,7 @@ GNEPOI::updateGeometry() {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > 1 ? 1 : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
-        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), myPosLat));
+        set(myGNELane->getShape().positionAtOffset(fixedPositionOverLane * myGNELane->getLaneShapeLength(), -myPosLat));
     }
     // refresh element to avoid grabbings problem
     myNet->refreshElement(this);
@@ -249,7 +249,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(isShapeSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
@@ -412,9 +412,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectShape();
+                selectAttributeCarrier();
             } else {
-                unselectShape();
+                unselectAttributeCarrier();
             }
             break;
         default:

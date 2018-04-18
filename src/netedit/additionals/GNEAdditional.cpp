@@ -235,34 +235,6 @@ GNEAdditional::getLaneChilds() const {
 }
 
 
-void 
-GNEAdditional::selectAdditional() {
-    if(!myViewNet) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else if (!mySelected) {
-        myViewNet->getNet()->selectAttributeCarrier(getType(), this);
-        mySelected = true;
-    } 
-}
-
-
-void 
-GNEAdditional::unselectAdditional() {
-    if(!myViewNet) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else if (mySelected) {
-        myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
-        mySelected = false;
-    } 
-}
-
-
-bool 
-GNEAdditional::isAdditionalSelected() const {
-    return mySelected;
-}
-
-
 const std::string&
 GNEAdditional::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
@@ -420,7 +392,7 @@ GNEAdditional::drawLockIcon(double size) const {
         // Traslate depending of the offset
         glTranslated(myBlockIconOffset.x(), myBlockIconOffset.y(), 0);
         // Draw icon depending of the state of additional
-        if (isAdditionalSelected()) {
+        if (mySelected) {
             if (myMovable == false) {
                 // Draw not movable texture if additional isn't movable and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
@@ -630,5 +602,32 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
     }
 }
 
+
+void 
+GNEAdditional::selectAttributeCarrier() {
+    if(!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else if (!mySelected) {
+        myViewNet->getNet()->selectAttributeCarrier(getType(), this);
+        mySelected = true;
+    } 
+}
+
+
+void 
+GNEAdditional::unselectAttributeCarrier() {
+    if(!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else if (mySelected) {
+        myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
+        mySelected = false;
+    } 
+}
+
+
+bool 
+GNEAdditional::isAttributeCarrierSelected() const {
+    return mySelected;
+}
 
 /****************************************************************************/

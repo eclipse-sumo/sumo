@@ -1027,10 +1027,10 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
     const int stripes = numStripes(lane);
     Obstacles vehObs(stripes, Obstacle(dir));
     int current = -1;
-    int minX = 0;
-    int maxX = 0;
-    double pRelY = -1;
-    double pWidth = 0;
+    double minX = 0.;
+    double maxX = 0.;
+    double pRelY = -1.;
+    double pWidth = 0.;
     std::string pID;
     bool debug = DEBUGCOND2(lane);
     if (ped != 0) {

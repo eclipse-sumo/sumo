@@ -76,6 +76,15 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+    /// @brief select attribute carrier
+    void selectAttributeCarrier();
+
+    /// @brief unselect attribute carrier
+    void unselectAttributeCarrier();
+
+    /// @brief check if attribute carrier is selected
+    bool isAttributeCarrierSelected() const;
+
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key
