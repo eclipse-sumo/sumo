@@ -290,6 +290,71 @@ GNEViewParent::getGNEAppWindows() const {
 
 
 void 
+GNEViewParent::updateACChooserDialogs() {
+    GNEViewNet* view = dynamic_cast<GNEViewNet*>(myView);
+    std::vector<GNEAttributeCarrier*> ACsToLocate;
+    if(myACChooserJunction) {
+        // fill ACsToLocate with junctions
+        std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
+        ACsToLocate.reserve(junctions.size());
+        for(auto i : junctions) {
+            ACsToLocate.push_back(i);
+        }
+        myACChooserJunction->refreshACChooser(ACsToLocate);
+        ACsToLocate.clear();
+    }
+    if(myACChooserEdges) {
+        // fill ACsToLocate with edges
+        std::vector<GNEEdge*> edges = view->getNet()->retrieveEdges();
+        ACsToLocate.reserve(edges.size());
+        for(auto i : edges) {
+            ACsToLocate.push_back(i);
+        }
+        myACChooserEdges->refreshACChooser(ACsToLocate);
+        ACsToLocate.clear();
+    }
+    if(myACChooserTLS) {
+        // fill ACsToLocate with junctions that haven TLS
+        std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
+        ACsToLocate.reserve(junctions.size());
+        for(auto i : junctions) {
+            if(i->getNBNode()->getControllingTLS().size() > 0) {
+                ACsToLocate.push_back(i);
+            }
+        }
+        myACChooserTLS->refreshACChooser(ACsToLocate);
+        ACsToLocate.clear();
+    }
+    if(myACChooserAdditional) {
+        // fill ACsToLocate with additionals
+        std::vector<GNEAdditional*> additionals = view->getNet()->retrieveAdditionals();
+        ACsToLocate.reserve(additionals.size());
+        for(auto i : additionals) {
+            ACsToLocate.push_back(i);
+        }
+        myACChooserAdditional->refreshACChooser(ACsToLocate);
+        ACsToLocate.clear();
+    }
+    if(myACChooserPOI) {
+        // fill ACsToLocate with POIs
+        for(auto i : view->getNet()->getPOIs()) {
+            ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
+        }
+        myACChooserPOI->refreshACChooser(ACsToLocate);
+        ACsToLocate.clear();
+    }
+    if(myACChooserPolygon) {
+        // fill ACsToLocate with polys
+        for(auto i : view->getNet()->getPolygons()) {
+            ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
+        }
+        myACChooserPolygon->refreshACChooser(ACsToLocate);
+        ACsToLocate.clear();
+    }
+}
+
+
+void 
 GNEViewParent::eraseACChooserDialog(GNEDialogACChooser *chooserDialog) {
     if(chooserDialog == nullptr) {
         throw ProcessError("ChooserDialog already deleted");
@@ -367,7 +432,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // set focus in the existent chooser dialog
                 myACChooserJunction->setFocus();
             } else {
-                // fill ids with junctions
+                // fill ACsToLocate with junctions
                 std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
                 ACsToLocate.reserve(junctions.size());
                 for(auto i : junctions) {
@@ -382,7 +447,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // set focus in the existent chooser dialog
                 myACChooserEdges->setFocus();
             } else {
-                // fill ids with edges
+                // fill ACsToLocate with edges
                 std::vector<GNEEdge*> edges = view->getNet()->retrieveEdges();
                 ACsToLocate.reserve(edges.size());
                 for(auto i : edges) {
@@ -397,7 +462,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // set focus in the existent chooser dialog
                 myACChooserTLS->setFocus();
             } else {
-                // fill ids with junctions that haven TLS
+                // fill ACsToLocate with junctions that haven TLS
                 std::vector<GNEJunction*> junctions = view->getNet()->retrieveJunctions();
                 ACsToLocate.reserve(junctions.size());
                 for(auto i : junctions) {
@@ -414,7 +479,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // set focus in the existent chooser dialog
                 myACChooserAdditional->setFocus();
             } else {
-                // fill ids with additionals
+                // fill ACsToLocate with additionals
                 std::vector<GNEAdditional*> additionals = view->getNet()->retrieveAdditionals();
                 ACsToLocate.reserve(additionals.size());
                 for(auto i : additionals) {
@@ -429,7 +494,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // set focus in the existent chooser dialog
                 myACChooserPOI->setFocus();
             } else {
-                // fill ids with POIs
+                // fill ACsToLocate with POIs
                 for(auto i : view->getNet()->getPOIs()) {
                     ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                 }
@@ -442,7 +507,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // set focus in the existent chooser dialog
                 myACChooserPolygon->setFocus();
             } else {
-                // fill ids with polys
+                // fill ACsToLocate with polys
                 for(auto i : view->getNet()->getPolygons()) {
                     ACsToLocate.push_back(dynamic_cast<GNEAttributeCarrier*>(i.second));
                 }

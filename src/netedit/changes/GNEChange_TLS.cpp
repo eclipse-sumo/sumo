@@ -33,6 +33,7 @@
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_TLS.h"
 
@@ -94,6 +95,8 @@ GNEChange_TLS::undo() {
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     }
+    // update ACChooser if it's shown
+    myJunction->getNet()->getViewNet()->getViewParent()->updateACChooserDialogs();
 }
 
 
@@ -114,6 +117,8 @@ GNEChange_TLS::redo() {
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     }
+    // update ACChooser if it's shown
+    myJunction->getNet()->getViewNet()->getViewParent()->updateACChooserDialogs();
 }
 
 

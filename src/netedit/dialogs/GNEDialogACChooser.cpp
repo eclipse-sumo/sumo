@@ -82,7 +82,7 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     // iterate over ACsByID and fill list
     for (auto i : myACsByID) {
         // set icon
-        FXIcon* selectIcon = GNEAttributeCarrier::parse<bool>(i.second->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
+        FXIcon* selectIcon = i.second->isAttributeCarrierSelected() ? GUIIconSubSys::getIcon(ICON_FLAG) : nullptr;
         myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
     }
     // build the buttons
@@ -103,6 +103,7 @@ GNEDialogACChooser::~GNEDialogACChooser() {
     myViewParent->eraseACChooserDialog(this);
 }
 
+
 void 
 GNEDialogACChooser::refreshACChooser(const std::vector<GNEAttributeCarrier*>& ACs) {
     // clear myACsByID
@@ -121,6 +122,7 @@ GNEDialogACChooser::refreshACChooser(const std::vector<GNEAttributeCarrier*>& AC
         myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
     }
 }
+
 
 void
 GNEDialogACChooser::show() {

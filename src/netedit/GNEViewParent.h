@@ -140,6 +140,9 @@ public:
     /// @brief get GNE Application Windows
     GNEApplicationWindow* getGNEAppWindows() const;
 
+    /// @brief update Current ACChooserDialogs opened
+    void updateACChooserDialogs();
+
     /// @brief remove created chooser dialog
     void eraseACChooserDialog(GNEDialogACChooser *chooserDialog);
 

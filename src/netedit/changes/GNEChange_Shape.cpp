@@ -96,6 +96,8 @@ GNEChange_Shape::undo() {
         // Add shape in net
         myNet->insertShape(myShape);
     }
+    // update ACChooser if it's shown
+    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
@@ -120,6 +122,8 @@ GNEChange_Shape::redo() {
         // remove shape from net
         myNet->removeShape(myShape);
     }
+    // update ACChooser if it's shown
+    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
