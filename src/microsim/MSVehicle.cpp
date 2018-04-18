@@ -697,7 +697,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     if (type->getCarFollowModel().getModelID() == SUMO_TAG_CF_TCI) {
-        myDriverState = std::make_shared<MSDriverState>(this);
+        createDriverState();
     }
     myNextDriveItem = myLFLinkLanes.begin();
 }
@@ -1732,10 +1732,10 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 void
 MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist) const {
-    // Serving the task difficulty interface
-    if (myDriverState != nullptr) {
-        myDriverState->registerEgoVehicleState();
-    }
+//    // Serving the task difficulty interface, refs #2668
+//    if (myDriverState != nullptr) {
+//        myDriverState->registerEgoVehicleState();
+//    }
     // remove information about approaching links, will be reset later in this step
     removeApproachingInformation(lfLinks);
     lfLinks.clear();
@@ -1835,10 +1835,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
-                // Serving the task difficulty interface
-                if (myDriverState != nullptr) {
-                    myDriverState->registerPedestrian(leader.first, leader.second);
-                }
+//                // Serving the task difficulty interface, refs #2668
+//                if (myDriverState != nullptr) {
+//                    myDriverState->registerPedestrian(leader.first, leader.second);
+//                }
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
@@ -1847,10 +1847,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
 
-        if (myDriverState != nullptr && lane->getSpeedLimit() < myLane->getSpeedLimit()) {
-            // Serving the task difficulty interface
-            myDriverState->registerSpeedLimit(lane, lane->getSpeedLimit(), seen - lane->getLength());
-        }
+//        if (myDriverState != nullptr && lane->getSpeedLimit() < myLane->getSpeedLimit()) {
+//            // Serving the task difficulty interface, refs #2668
+//            myDriverState->registerSpeedLimit(lane, lane->getSpeedLimit(), seen - lane->getLength());
+//        }
 
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached
@@ -1881,10 +1881,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //  get the next link used
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
 
-        if (myDriverState != nullptr) {
-            // Serving the task difficulty interface
-            myDriverState->registerJunction(*link, seen);
-        }
+//        if (myDriverState != nullptr) {
+//            // Serving the task difficulty interface, refs #2668
+//            myDriverState->registerJunction(*link, seen);
+//        }
         //  check whether the vehicle is on its final edge
         if (myCurrEdge + view + 1 == myRoute->end()) {
             const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ?
@@ -2177,10 +2177,10 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             }
 #endif
             adaptToLeader(std::make_pair(pred, gap), seen, lastLink, lane, v, vLinkPass);
-            // task difficulty interface
-            if (myDriverState != nullptr) {
-                myDriverState->registerLeader(pred, gap, getSpeed()-pred->getSpeed());
-            }
+//            // task difficulty interface, refs #2668
+//            if (myDriverState != nullptr) {
+//                myDriverState->registerLeader(pred, gap, getSpeed()-pred->getSpeed());
+//            }
         }
     }
 }
@@ -5050,6 +5050,12 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);
 
     // no need to reset myCachedPosition here since state loading happens directly after creation
+}
+
+void
+MSVehicle::createDriverState() {
+//        myDriverState = std::make_shared<MSDriverState>(this); // refs #2668
+    myDriverState = std::make_shared<MSSimpleDriverState>(this);
 }
 
 /****************************************************************************/

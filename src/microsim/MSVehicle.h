@@ -71,7 +71,8 @@ class MSDevice_Transportable;
 class MSContainer;
 class MSJunction;
 class MSLeaderInfo;
-class MSDriverState;
+//class MSDriverState;
+class MSSimpleDriverState;
 
 // ===========================================================================
 // class definitions
@@ -889,7 +890,8 @@ public:
      *
      * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
      */
-    inline const std::shared_ptr<MSDriverState> getDriverState() const {
+//    inline const std::shared_ptr<MSDriverState> getDriverState() const {
+    inline const std::shared_ptr<MSSimpleDriverState> getDriverState() const {
         return myDriverState;
     }
 
@@ -972,6 +974,9 @@ public:
      */
     bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
 
+    /** @brief Create a DriverState for the vehicle
+     */
+    void createDriverState();
 
     /** @brief get the current parking area stop
      */
@@ -1698,7 +1703,8 @@ protected:
     State myState;
 
     /// @brief This vehicle's driver state @see MSDriverState
-    std::shared_ptr<MSDriverState> myDriverState;
+//    std::shared_ptr<MSDriverState> myDriverState;
+    std::shared_ptr<MSSimpleDriverState> myDriverState;
 
     /// @brief The flag myActionStep indicates whether the current time step is an action point for the vehicle.
     bool myActionStep;
@@ -1723,7 +1729,7 @@ protected:
      */
     std::vector<std::vector<LaneQ> > myBestLanes;
 
-    /* @brief iterator to speed up retrival of the current lane's LaneQ in getBestLaneOffset() and getBestLanesContinuation()
+    /* @brief iterator to speed up retrieval of the current lane's LaneQ in getBestLaneOffset() and getBestLanesContinuation()
      * This is updated in updateOccupancyAndCurrentBestLane()
      */
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;

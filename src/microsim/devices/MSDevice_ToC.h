@@ -89,7 +89,7 @@ private:
         AUTOMATED = 2,
         PREPARING_TOC = 3, // this applies only to the transition AUTOMATED -> MANUAL !
         MRM = 4,
-        RECOVERING
+        RECOVERING = 5
     };
 
 
@@ -102,9 +102,10 @@ private:
     static double getResponseTime(const SUMOVehicle& v, const OptionsCont& oc);
     static double getRecoveryRate(const SUMOVehicle& v, const OptionsCont& oc);
     static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
 
-    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt);
-    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt);
+    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
+    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
 
     static ToCState _2ToCState(const std::string&);
     static std::string _2string(ToCState state);
@@ -125,7 +126,6 @@ public:
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
-
 
     /// @brief Trigger execution of an MRM
     SUMOTime triggerMRM(SUMOTime t);
@@ -153,7 +153,7 @@ private:
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
             std::string manualType, std::string automatedType,
-            double responseTime, double recoveryRate, double initialAwareness);
+            SUMOTime responseTime, double recoveryRate, double initialAwareness, double mrmDecel);
 
 
     /// @brief Set the awareness to the given value
@@ -182,11 +182,14 @@ private:
     std::string myAutomatedType;
 
     // @brief Average response time needed by the driver to take back control
-    double myResponseTime;
+    SUMOTime myResponseTime;
     // @brief Recovery rate for the driver's awareness after a ToC
     double myRecoveryRate;
     // @brief Average awareness the driver has initially after a ToC
     double myInitialAwareness;
+
+    /// @brief Deceleration rate applied during MRM
+    double myMRMDecel;
 
     // @brief Current awareness-level of the driver in [0,1]
     double myCurrentAwareness;
