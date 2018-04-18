@@ -773,7 +773,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // check if we are deleting a selection or an single attribute carrier
-                    if (GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
+                    if (myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     } else {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarrier);
@@ -803,7 +803,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         }
                     } else {
                         // check if clicked AC is selected
-                        if(GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag()) && (myObjectsUnderCursor.attributeCarrier->getAttribute(GNE_ATTR_SELECTED) == "1")) {
+                        if(myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
                             myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.attributeCarrier->getTag()));
                         } else {
                             myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
@@ -819,7 +819,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_SELECT:
                 // first check that under cursor there is an attribute carrier and is selectable
-                if(myObjectsUnderCursor.attributeCarrier && GNEAttributeCarrier::canBeSelected(myObjectsUnderCursor.attributeCarrier->getTag())) {
+                if(myObjectsUnderCursor.attributeCarrier) {
                     // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lane
                     if(mySelectEdges && (myObjectsUnderCursor.attributeCarrier->getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
@@ -2824,7 +2824,8 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                         ACInRectangles.insert(edge->getGNEJunctionDestiny());
                     }
                     // make sure that AttributeCarrier can be selected
-                    if(GNEAttributeCarrier::canBeSelected(retrievedAC->getTag())) {
+                    GUIGlObject *glObject = dynamic_cast<GUIGlObject*>(retrievedAC);
+                    if(glObject && !viewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(glObject->getType())) {
                         ACInRectangles.insert(retrievedAC);
                     }
                 }

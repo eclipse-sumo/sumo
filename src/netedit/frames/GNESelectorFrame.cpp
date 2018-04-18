@@ -814,7 +814,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                     // obtain GNEAttributeCarrier
                     GNEAttributeCarrier *AC = mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
-                    if((AC != nullptr) && GNEAttributeCarrier::canBeSelected(AC->getTag())) {
+                    if(AC != nullptr) {
                         loadedACs.push_back(AC);
                     }
                 }
