@@ -87,7 +87,7 @@ public:
     long onListKeyPress(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Hides unselected items if pressed
-    long onCmdFilter(FXObject*, FXSelector, void*);
+    long onCmdToogleShowOnlySelected(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Toggle selection status of current object
     long onCmdToggleSelection(FXObject*, FXSelector, void*);
@@ -110,6 +110,12 @@ private:
     /// @brief The button that triggers centering on the select object
     FXButton* myCenterButton;
 
+    /// @brief The button that toogle show only selected elements
+    FXButton* myHideUnselectedButton;
+
+    /// @brief The button that toogle selection 
+    FXButton* myToogleSelectionButton;
+
     /// @brief The chosen id
     GUIGlObject* mySelected;
 
@@ -121,6 +127,9 @@ private:
 
     /// @brief map for vinculate item list and Attribute carriers
     std::map<int, GNEAttributeCarrier*> myACs;
+
+    /// @brief show or hidde selected elements
+    bool myShowOnlySelectedElements;
 };
 
 

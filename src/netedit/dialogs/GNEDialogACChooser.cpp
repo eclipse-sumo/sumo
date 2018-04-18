@@ -55,7 +55,7 @@ FXDEFMAP(GNEDialogACChooser) GNEDialogACChooserMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GNEDialogACChooser::onChgText),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GNEDialogACChooser::onCmdText),
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GNEDialogACChooser::onListKeyPress),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GNEDialogACChooser::onCmdFilter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GNEDialogACChooser::onCmdToogleShowOnlySelected),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT, GNEDialogACChooser::onCmdToggleSelection),
 };
 
@@ -67,7 +67,8 @@ FXIMPLEMENT(GNEDialogACChooser, FXMainWindow, GNEDialogACChooserMap, ARRAYNUMBER
 
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
     FXMainWindow(viewParent->getApp(), title.c_str(), icon, NULL, GUIDesignChooserDialog),
-    myViewParent(viewParent) {
+    myViewParent(viewParent),
+    myShowOnlySelectedElements(false) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     // build the list
     FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
@@ -88,8 +89,8 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
     myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-    new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
-    new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
+    myHideUnselectedButton = new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
+    myToogleSelectionButton = new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
 }
@@ -166,20 +167,31 @@ GNEDialogACChooser::onListKeyPress(FXObject*, FXSelector, void* ptr) {
 
 
 long
-GNEDialogACChooser::onCmdFilter(FXObject*, FXSelector, void*) {
-    FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
-    std::set<std::pair<std::string, GNEAttributeCarrier*> > selectedACs;
-    // iterate over myACs to check what has the selected flag
-    for (auto i : myACs) {
-        if (myList->getItemIcon(i.first) == flag) {
-            myACsByID.insert(std::pair<std::string, GNEAttributeCarrier*>(i.second->getID(), i.second));
+GNEDialogACChooser::onCmdToogleShowOnlySelected(FXObject*, FXSelector, void*) {
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsToShow;
+    // iterate over myACsByID to check what has the selected flag
+    if(myShowOnlySelectedElements) {
+        // get all ACs 
+        for (auto i : myACsByID) {
+            ACsToShow.insert(std::pair<std::string, GNEAttributeCarrier*>(i.second->getID(), i.second));
         }
+        myShowOnlySelectedElements = false;
+        myHideUnselectedButton->setText("&Hide unselected\t\t");
+    } else {
+        // get only selected ACs (with flag) 
+        for (auto i : myACsByID) {
+            if (i.second->isAttributeCarrierSelected()) {
+                ACsToShow.insert(std::pair<std::string, GNEAttributeCarrier*>(i.second->getID(), i.second));
+            }
+        }
+        myShowOnlySelectedElements = true;
+        myHideUnselectedButton->setText("S&how all\t\t");
     }
     // clear list and myACs
     myList->clearItems();
     myACs.clear();
     // iterate over ACsByID and fill list again only with the selected elements
-    for (auto i : selectedACs) {
+    for (auto i : ACsToShow) {
         // set icon
         FXIcon* selectIcon = GNEAttributeCarrier::parse<bool>(i.second->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
         myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
@@ -188,16 +200,18 @@ GNEDialogACChooser::onCmdFilter(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
 long
 GNEDialogACChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
     int i = myList->getCurrentItem();
     if (i >= 0) {
-        if(GNEAttributeCarrier::parse<bool>(myACs[i]->getAttribute(GNE_ATTR_SELECTED))) {
-            myACs[i]->setAttribute(GNE_ATTR_SELECTED, "false", dynamic_cast<GNEViewNet*>(myViewParent->getView())->getUndoList());
+        // select or unselect attribute carrier without possibility of undo
+        if(myACs[i]->isAttributeCarrierSelected()) {
+            myACs[i]->unselectAttributeCarrier();
             myList->setItemIcon(i, 0);
         } else {
-            myACs[i]->setAttribute(GNE_ATTR_SELECTED, "true", dynamic_cast<GNEViewNet*>(myViewParent->getView())->getUndoList());
+            myACs[i]->selectAttributeCarrier();
             myList->setItemIcon(i, flag);
         }
     }
