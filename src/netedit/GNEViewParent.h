@@ -42,9 +42,11 @@
 // class declarations
 // ===========================================================================
 class GUISUMOAbstractView;
+class GNEDialogACChooser;
 class GNENet;
 class GNEUndoList;
 class GNEApplicationWindow;
+class GNEDialogACChooser;
 class GNEFrame;
 class GNEInspectorFrame;
 class GNESelectorFrame;
@@ -138,6 +140,9 @@ public:
     /// @brief get GNE Application Windows
     GNEApplicationWindow* getGNEAppWindows() const;
 
+    /// @brief remove created chooser dialog
+    void eraseACChooserDialog(GNEDialogACChooser *chooserDialog);
+
     /// @name FOX-callbacks
     /// @{
     /// @brief Called if the user wants to make a snapshot (screenshot)
@@ -175,6 +180,24 @@ private:
 
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;
+
+    /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserJunction;
+    
+    /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserEdges;
+    
+    /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserTLS;
+    
+    /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserAdditional;
+
+        /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserPOI;
+
+        /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserPolygon;
 
     /// @brief map with the Frames
     std::map<int, GNEFrame*> myGNEFrames;

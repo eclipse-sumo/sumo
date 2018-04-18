@@ -93,11 +93,34 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     myToogleSelectionButton = new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    // create and show dialog
+    create();
+    show();
 }
 
 
-GNEDialogACChooser::~GNEDialogACChooser() {}
+GNEDialogACChooser::~GNEDialogACChooser() {
+    myViewParent->eraseACChooserDialog(this);
+}
 
+void 
+GNEDialogACChooser::refreshACChooser(const std::vector<GNEAttributeCarrier*>& ACs) {
+    // clear myACsByID
+    myACsByID.clear();
+    // first fill myACsByID to sort ACs by tags
+    for (auto i : ACs) {
+        myACsByID.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
+    }
+    // clear list and myACs
+    myList->clearItems();
+    myACs.clear();
+    // iterate over ACsByID and fill list
+    for (auto i : myACsByID) {
+        // set icon
+        FXIcon* selectIcon = GNEAttributeCarrier::parse<bool>(i.second->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
+        myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
+    }
+}
 
 void
 GNEDialogACChooser::show() {
