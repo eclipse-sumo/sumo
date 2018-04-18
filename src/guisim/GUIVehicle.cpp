@@ -548,7 +548,7 @@ GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
     if (furtherIndex < (int)myFurtherLanes.size()) {
         return myFurtherLanes[furtherIndex++];
     } else {
-        int routeIndex = getCurrentRouteEdge() - myRoute->begin();
+        const int routeIndex = (int)(getCurrentRouteEdge() - myRoute->begin());
         int backIndex = furtherIndex + 1;
         for (MSLane* l : myFurtherLanes) {
             if (l->isInternal()) {
