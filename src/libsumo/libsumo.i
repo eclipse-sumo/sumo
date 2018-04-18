@@ -40,12 +40,10 @@
     try {
         $action
     } catch (libsumo::TraCIException &e) {
-        std::string s("TraCI error: "), s2(e.what());
-        s = s + s2;
+        const std::string s = std::string("TraCI error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
     } catch (ProcessError &e) {
-        std::string s("SUMO error: "), s2(e.what());
-        s = s + s2;
+        const std::string s = std::string("SUMO error: ") + e.what();
         SWIG_exception(SWIG_RuntimeError, s.c_str());
     } catch (...) {
         SWIG_exception(SWIG_RuntimeError, "unknown exception");
