@@ -24,9 +24,12 @@ import sys
 import shutil
 import struct
 import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path += [os.path.join(SUMO_HOME, "tools"), os.path.join(SUMO_HOME, "bin")]
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
 def checkVehicleStates():
@@ -53,12 +56,7 @@ def checkVehicleStates():
     print("#teleportEnd", traci.simulation.getEndingTeleportNumber())
     print("teleportEnd", traci.simulation.getEndingTeleportIDList())
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 traci.simulation.subscribe(
     (traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
 print(traci.simulation.getSubscriptionResults())
@@ -127,4 +125,3 @@ for step in range(10):
         checkVehicleStates()
     print(traci.simulation.getSubscriptionResults())
 traci.close()
-sumoProcess.wait()
