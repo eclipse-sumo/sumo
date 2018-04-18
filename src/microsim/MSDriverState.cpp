@@ -128,10 +128,20 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
 
 void
 MSSimpleDriverState::update() {
+#ifdef DEBUG_AWARENESS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", DriverState::update()"<< std::endl;
+    }
+#endif
     // Adapt step duration
     updateStepDuration();
     // Update error
     updateError();
+#ifdef DEBUG_AWARENESS
+    if DEBUG_COND {
+        std::cout << SIMTIME << " stepDuration=" << myStepDuration << ", error="<< myError.getState() << std::endl;
+    }
+#endif
 }
 
 void
