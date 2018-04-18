@@ -26,10 +26,13 @@
 #endif
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
-
-#include "GNENetElement.h"
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNENetElement.h"
+
 
 // ===========================================================================
 // method definitions
@@ -153,6 +156,8 @@ GNENetElement::selectAttributeCarrier() {
     } else if (!mySelected) {
         myNet->selectAttributeCarrier(getType(), this);
         mySelected = true;
+        // Allways update ACChooser dialogs after selecting or unselecting
+        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 
@@ -164,6 +169,8 @@ GNENetElement::unselectAttributeCarrier() {
     } else if (mySelected) {
         myNet->unselectAttributeCarrier(getType(), this);
         mySelected = false;
+        // Allways update ACChooser dialogs after selecting or unselecting
+        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 

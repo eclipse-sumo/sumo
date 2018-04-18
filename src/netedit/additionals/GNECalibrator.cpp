@@ -44,11 +44,12 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNECalibratorDialog.h>
-
-#include "GNECalibrator.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNECalibrator.h"
 #include "GNERouteProbe.h"
 #include "GNECalibratorFlow.h"
 #include "GNECalibratorVehicleType.h"
@@ -536,6 +537,8 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update ACChooser dialogs after setting a new attribute
+    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

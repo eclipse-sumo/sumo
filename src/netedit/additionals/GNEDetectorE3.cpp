@@ -42,16 +42,17 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
-
-#include "GNEDetectorE3.h"
-#include "GNEDetectorEntry.h"
-#include "GNEDetectorExit.h"
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNEDetectorE3.h"
+#include "GNEDetectorEntry.h"
+#include "GNEDetectorExit.h"
 
 
 // ===========================================================================
@@ -335,6 +336,8 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update ACChooser dialogs after setting a new attribute
+    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

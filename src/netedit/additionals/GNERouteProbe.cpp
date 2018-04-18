@@ -41,15 +41,15 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
-
 #include <netedit/GNEViewNet.h>
-#include "GNERouteProbe.h"
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNERouteProbe.h"
 
 
 // ===========================================================================
@@ -392,6 +392,8 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update ACChooser dialogs after setting a new attribute
+    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

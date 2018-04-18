@@ -118,8 +118,10 @@ GNEDialogACChooser::refreshACChooser(const std::vector<GNEAttributeCarrier*>& AC
     // iterate over ACsByID and fill list
     for (auto i : myACsByID) {
         // set icon
-        FXIcon* selectIcon = GNEAttributeCarrier::parse<bool>(i.second->getAttribute(GNE_ATTR_SELECTED)) ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
-        myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
+        if(!myShowOnlySelectedElements || i.second->isAttributeCarrierSelected()) {
+            FXIcon* selectIcon = i.second->isAttributeCarrierSelected() ? GUIIconSubSys::getIcon(ICON_FLAG) : 0;
+            myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
+        }
     }
 }
 

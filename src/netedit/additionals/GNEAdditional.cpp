@@ -48,6 +48,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEVIewParent.h>
 
 #include "GNEAdditional.h"
 
@@ -610,6 +611,8 @@ GNEAdditional::selectAttributeCarrier() {
     } else if (!mySelected) {
         myViewNet->getNet()->selectAttributeCarrier(getType(), this);
         mySelected = true;
+        // Allways update ACChooser dialogs after selecting or unselecting
+        myViewNet->getViewParent()->updateACChooserDialogs();
     } 
 }
 
@@ -621,6 +624,8 @@ GNEAdditional::unselectAttributeCarrier() {
     } else if (mySelected) {
         myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
         mySelected = false;
+        // Allways update ACChooser dialogs after selecting or unselecting
+        myViewNet->getViewParent()->updateACChooserDialogs();
     } 
 }
 

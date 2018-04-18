@@ -46,13 +46,14 @@
 #include <netimport/NIImporter_SUMO.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include "GNEPOI.h"
 #include <netedit/netelements/GNELane.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNEPOI.h"
 
 
 // ===========================================================================
@@ -420,7 +421,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
-    // Update geometry after every change
+    // update ACChooser dialogs after setting a new attribute
+    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
+    // After setting attribute always update Geometry
     updateGeometry();
 }
 

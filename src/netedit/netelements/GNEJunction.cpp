@@ -46,14 +46,16 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_TLS.h>
-
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+
 #include "GNEEdge.h"
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNECrossing.h"
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
+
 
 // ===========================================================================
 // static members
@@ -1036,6 +1038,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update ACChooser dialogs after setting a new attribute
+    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
+    // After setting attribute always update Geometry
+    updateGeometry();
 }
 
 

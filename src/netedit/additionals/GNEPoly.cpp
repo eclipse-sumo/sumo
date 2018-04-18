@@ -46,14 +46,16 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netwrite/NWWriter_SUMO.h>
-
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include "GNEPoly.h"
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNEPoly.h"
+
 
 // ===========================================================================
 // static members
@@ -769,7 +771,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update geometry after every change
+    // update ACChooser dialogs after setting a new attribute
+    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
+    // After setting attribute always update Geometry
     updateGeometry();
 }
 

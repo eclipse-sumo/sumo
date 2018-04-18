@@ -28,10 +28,11 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
-
-#include "GNEShape.h"
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+
+#include "GNEShape.h"
 
 
 // ===========================================================================
@@ -114,6 +115,8 @@ GNEShape::selectAttributeCarrier() {
             myNet->selectAttributeCarrier(GLO_POI, this);
         }
         mySelected = true;
+        // Allways update ACChooser dialogs after selecting or unselecting
+        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 
@@ -129,6 +132,8 @@ GNEShape::unselectAttributeCarrier() {
             myNet->unselectAttributeCarrier(GLO_POI, this);
         }
         mySelected = false;
+        // Allways update ACChooser dialogs after selecting or unselecting
+        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 
