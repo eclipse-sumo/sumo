@@ -51,7 +51,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPolygonFrame::ShapeSelector) ShapeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEPolygonFrame::ShapeSelector::onCmdSelectShape),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_TYPE,   GNEPolygonFrame::ShapeSelector::onCmdselectAttributeCarrier),
 };
 
 FXDEFMAP(GNEPolygonFrame::ShapeAttributeSingle) ShapeAttributeSingleMap[] = {
@@ -159,7 +159,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
 
 
 long
-GNEPolygonFrame::ShapeSelector::onCmdSelectShape(FXObject*, FXSelector, void*) {
+GNEPolygonFrame::ShapeSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myShapeMatchBox correspond of an allowed shape tags 
     for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
         if (toString(i) == myShapeMatchBox->getText().text()) {

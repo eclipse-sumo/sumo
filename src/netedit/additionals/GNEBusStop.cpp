@@ -136,7 +136,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
     // Set color of the base
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
@@ -171,7 +171,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(-1 * myBlockIconRotation, 0, 0, 1);
             // draw line with a color depending of the selection status
-            if (isAdditionalSelected()) {
+            if (isAttributeCarrierSelected()) {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
@@ -184,7 +184,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop);
@@ -194,7 +194,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate to front
         glTranslated(0, 0, .1);
         // Set color of the interne circle
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop_sign);
@@ -203,7 +203,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
-            if (isAdditionalSelected()) {
+            if (isAttributeCarrierSelected()) {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIconRotation);
@@ -246,7 +246,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -349,9 +349,9 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

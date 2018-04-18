@@ -146,7 +146,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         for (auto it : myGNECrossings) {
             it->decRef();
             // check if crossing is selected
-            if(it->isNetElementSelected()) {
+            if(it->isAttributeCarrierSelected()) {
                 myNet->unselectAttributeCarrier(GLO_CROSSING, it);
             }
             if (it->unreferenced()) {
@@ -219,7 +219,7 @@ void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     GLfloat color[4];
-    double exaggeration = isNetElementSelected() ? s.selectionScale : 1;
+    double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s);
     // declare values for circles
     double circleWidth = BUBBLE_RADIUS * exaggeration;
@@ -824,7 +824,7 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
                 return toString(false);
             }
         case GNE_ATTR_SELECTED:
-            return toString(isNetElementSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1028,9 +1028,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectNetElement();
+                selectAttributeCarrier();
             } else {
-                unselectNetElement();
+                unselectAttributeCarrier();
             }
             break;
         default:
@@ -1049,7 +1049,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
                 return 0;
             }
         case 1:
-            return isNetElementSelected();
+            return isAttributeCarrierSelected();
         case 2:
             switch (myNBNode.getType()) {
                 case NODETYPE_TRAFFIC_LIGHT:
@@ -1110,7 +1110,7 @@ void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors (unless the color scheme is based on selection)
-    if (isNetElementSelected() && s.junctionColorer.getActive() != 1) {
+    if (isAttributeCarrierSelected() && s.junctionColorer.getActive() != 1) {
         GLHelper::setColor(GNENet::selectionColor);
     }
     if (myAmCreateEdgeSource) {

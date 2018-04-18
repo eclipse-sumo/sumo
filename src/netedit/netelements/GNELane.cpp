@@ -272,7 +272,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     setLaneColor(s);
     // start drawing lane checking whether it is not too small
-    const double selectionScale = isNetElementSelected() || myParentEdge.isNetElementSelected() ? s.selectionScale : 1;
+    const double selectionScale = isAttributeCarrierSelected() || myParentEdge.isAttributeCarrierSelected() ? s.selectionScale : 1;
     double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
@@ -298,7 +298,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // compute lane-marking intersection points)
         const double halfWidth2 = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-        const double halfWidth =  myParentEdge.isNetElementSelected() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
+        const double halfWidth =  myParentEdge.isAttributeCarrierSelected() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && !s.drawForSelecting) {
             PositionVector shape = getShape();
@@ -487,7 +487,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Smooth " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH);
         new FXMenuCommand(ret, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
         new FXMenuCommand(ret, ("Smooth elevation of " + edgeDescPossibleMulti).c_str(), 0, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
-        if (isNetElementSelected()) {
+        if (isAttributeCarrierSelected()) {
             std::string pluralLanes = myNet->retrieveLanes(true).size() > 1 ? "s" : "";
             new FXMenuCommand(ret, ("Duplicate selected " + toString(SUMO_TAG_LANE) + pluralLanes).c_str(), 0, &parent, MID_GNE_LANE_DUPLICATE);
             // Create panel for lane operations
@@ -786,7 +786,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
         case GNE_ATTR_SELECTED:
-            return toString(isNetElementSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -910,9 +910,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectNetElement();
+                selectAttributeCarrier();
             } else {
-                unselectNetElement();
+                unselectAttributeCarrier();
             }
             break;
         default:
@@ -926,10 +926,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (mySpecialColor != 0) {
         // If special color is enabled, set it
         GLHelper::setColor(*mySpecialColor);
-    } else if (isNetElementSelected() && s.laneColorer.getActive() != 1) {
+    } else if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(GNENet::selectedLaneColor);
-    } else if (myParentEdge.isNetElementSelected() && s.laneColorer.getActive() != 1) {
+    } else if (myParentEdge.isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(GNENet::selectionColor);
     } else {
@@ -1000,7 +1000,7 @@ GNELane::getColorValue(int activeScheme) const {
                 return 5;
             }
         case 1:
-            return isNetElementSelected() ||myParentEdge.isNetElementSelected();
+            return isAttributeCarrierSelected() ||myParentEdge.isAttributeCarrierSelected();
         case 2:
             return (double)myPermissions;
         case 3:

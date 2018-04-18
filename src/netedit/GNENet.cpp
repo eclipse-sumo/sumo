@@ -561,7 +561,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     NBConnection deleted = connection->getNBConnection();
     GNEJunction* junctionDestiny = connection->getEdgeFrom()->getGNEJunctionDestiny();
     junctionDestiny->markAsModified(undoList);
-    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isNetElementSelected(), false), true);
+    undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
     junctionDestiny->invalidateTLS(undoList, deleted);
     // remove connection requieres always a recompute (due geometry and connections)
     requireRecompute();
@@ -2117,7 +2117,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         // check if additional is selected
-        if(additional->isAdditionalSelected()) {
+        if(additional->isAttributeCarrierSelected()) {
             selectAttributeCarrier(GLO_ADDITIONAL, additional);
         }
         // update geometry after insertion of additionals
@@ -2145,7 +2145,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
         // check if additional is selected
-        if(additional->isAdditionalSelected()) {
+        if(additional->isAttributeCarrierSelected()) {
             unselectAttributeCarrier(GLO_ADDITIONAL, additional);
         }
         // update view
@@ -2256,7 +2256,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
     // check if junction is selected
-    if(junction->isNetElementSelected()) {
+    if(junction->isAttributeCarrierSelected()) {
         selectAttributeCarrier(GLO_JUNCTION, junction);
     }
     // @todo let Boundary class track z-coordinate natively
@@ -2279,7 +2279,7 @@ GNENet::registerEdge(GNEEdge* edge) {
     myGrid.add(edge->getBoundary());
     myGrid.addAdditionalGLObject(edge);
     // check if edge is selected
-    if(edge->isNetElementSelected()) {
+    if(edge->isAttributeCarrierSelected()) {
         selectAttributeCarrier(GLO_EDGE, edge);
     }
     // Add references into GNEJunctions
@@ -2298,7 +2298,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
     // check if junction is selected
-    if(junction->isNetElementSelected()) {
+    if(junction->isAttributeCarrierSelected()) {
         unselectAttributeCarrier(GLO_JUNCTION, junction);
     }
     myJunctions.erase(junction->getMicrosimID());
@@ -2316,7 +2316,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     // check if junction is selected
-    if(edge->isNetElementSelected()) {
+    if(edge->isAttributeCarrierSelected()) {
         unselectAttributeCarrier(GLO_EDGE, edge);
     }
     myEdges.erase(edge->getMicrosimID());
@@ -2339,14 +2339,14 @@ GNENet::insertShape(GNEShape* shape) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.addAdditionalGLObject(poly);
         myPolygons.add(shape->getID(), poly);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             selectAttributeCarrier(GLO_POLYGON, shape);
         }
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.addAdditionalGLObject(poi);
         myPOIs.add(shape->getID(), poi);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             selectAttributeCarrier(GLO_POI, shape);
         }
     }
@@ -2369,14 +2369,14 @@ GNENet::removeShape(GNEShape* shape) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);
         myPolygons.remove(shape->getID(), false);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             unselectAttributeCarrier(GLO_POLYGON, shape);
         }
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
         myGrid.removeAdditionalGLObject(poi);
         myPOIs.remove(shape->getID(), false);
-        if(shape->isShapeSelected()) {
+        if(shape->isAttributeCarrierSelected()) {
             unselectAttributeCarrier(GLO_POI, shape);
         }
     }

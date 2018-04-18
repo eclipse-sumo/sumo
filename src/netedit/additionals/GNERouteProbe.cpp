@@ -203,7 +203,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s);
 
     // set color
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 216, 0));
@@ -229,7 +229,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // position indicator (White)
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -257,7 +257,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(RGBColor::YELLOW);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), 1);
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), 1);
@@ -312,7 +312,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_BEGIN:
             return toString(myBegin);
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -384,9 +384,9 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

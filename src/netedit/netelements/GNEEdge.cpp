@@ -416,7 +416,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        if (isNetElementSelected() && s.laneColorer.getActive() != 1) {
+        if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectionColor.changedBrightness(-20));
         }
@@ -634,7 +634,7 @@ GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
     for (auto i : myGNEConnections) {
         // check if connection is selected
-        if(i->isNetElementSelected()) {
+        if(i->isAttributeCarrierSelected()) {
             myNet->unselectAttributeCarrier(GLO_CONNECTION, i);
         }
         // Dec reference of connection
@@ -850,7 +850,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BIDIR:
             return toString(myNBEdge.isBidiRail());
         case GNE_ATTR_SELECTED:
-            return toString(isNetElementSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -1166,9 +1166,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectNetElement();
+                selectAttributeCarrier();
             } else {
-                unselectNetElement();
+                unselectAttributeCarrier();
             }
             break;
         default:
@@ -1214,7 +1214,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     }
     lane->incRef("GNEEdge::addLane");
     // check if lane is selected
-    if(lane->isNetElementSelected()) {
+    if(lane->isAttributeCarrierSelected()) {
         myNet->selectAttributeCarrier(GLO_LANE, lane);
     }
     // we copy all attributes except shape since this is recomputed from edge shape
@@ -1255,7 +1255,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         lane = myLanes.back();
     }
     // check if lane is selected
-    if(lane->isNetElementSelected()) {
+    if(lane->isAttributeCarrierSelected()) {
         myNet->unselectAttributeCarrier(GLO_LANE, lane);
     }
     // Delete lane of edge's container
@@ -1309,7 +1309,7 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         myGNEConnections.back()->incRef("GNEEdge::addConnection");
         // select GNEConnection if needed
         if (selectAfterCreation) {
-            con->selectNetElement();
+            con->selectAttributeCarrier();
         }
         // update geometry
         con->updateGeometry();
@@ -1332,7 +1332,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         // check if connection is selected
-        if(con->isNetElementSelected()) {
+        if(con->isAttributeCarrierSelected()) {
             myNet->unselectAttributeCarrier(GLO_CONNECTION, con);
         }
         if (con->unreferenced()) {

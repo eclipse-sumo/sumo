@@ -81,7 +81,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another additional Type
-        long onCmdSelectAdditional(FXObject*, FXSelector, void*);
+        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
         /// @}
 
     protected:

@@ -149,7 +149,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Traslate matrix
     glTranslated(0, 0, getType());
     // Set Color
-    if (isAdditionalSelected()) {
+    if (isAttributeCarrierSelected()) {
         GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(83, 89, 172, 255));
@@ -181,7 +181,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Scale matrix
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(83, 89, 172, 255));
@@ -191,7 +191,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Move to top
         glTranslated(0, 0, .1);
         // Set sign color
-        if (isAdditionalSelected()) {
+        if (isAttributeCarrierSelected()) {
             GLHelper::setColor(myViewNet->getNet()->selectionColor);
         } else {
             GLHelper::setColor(RGBColor(177, 184, 186, 171));
@@ -200,7 +200,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
-            if (isAdditionalSelected()) {
+            if (isAttributeCarrierSelected()) {
                 GLHelper::drawText("P", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
             } else {
                 GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIconRotation);
@@ -249,7 +249,7 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
-            return toString(isAdditionalSelected());
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -378,9 +378,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_SELECTED:
             if(parse<bool>(value)) {
-                selectAdditional();
+                selectAttributeCarrier();
             } else {
-                unselectAdditional();
+                unselectAttributeCarrier();
             }
             break;
         default:

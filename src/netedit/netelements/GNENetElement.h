@@ -96,24 +96,6 @@ public:
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
 
-    /// @name members and functions relative to select and unselect additionals
-    /// @{
-
-    /**@brief select netElement
-     * @throw processError if net in which this additional is placed is empty
-     **/
-    void selectNetElement();
-
-    /**@brief unselect netelement
-     * @throw processError if net in which this additional is placed is empty
-     **/
-    void unselectNetElement();
-
-    /// @brief check if additional is selected
-    bool isNetElementSelected() const;
-
-     /// @}
-
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns the name of the parent object

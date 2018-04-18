@@ -68,42 +68,6 @@ GNEShape::isShapeBlocked() const {
 }
 
 
-void 
-GNEShape::selectShape() {
-    if(!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else if (!mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->selectAttributeCarrier(GLO_POLYGON, this);
-        } else {
-            myNet->selectAttributeCarrier(GLO_POI, this);
-        }
-        mySelected = true;
-    } 
-}
-
-
-void 
-GNEShape::unselectShape() {
-    if(!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else if (mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->unselectAttributeCarrier(GLO_POLYGON, this);
-        } else {
-            myNet->unselectAttributeCarrier(GLO_POI, this);
-        }
-        mySelected = false;
-    } 
-}
-
-
-bool 
-GNEShape::isShapeSelected() const {
-    return mySelected;
-}
-
-
 void
 GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
     if (myNet->getViewNet()->showLockIcon()) {
@@ -141,13 +105,31 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
 
 void 
 GNEShape::selectAttributeCarrier() {
-
+    if(!myNet) {
+        throw ProcessError("Net cannot be nullptr");
+    } else if (!mySelected) {
+        if(getTag() == SUMO_TAG_POLY) {
+            myNet->selectAttributeCarrier(GLO_POLYGON, this);
+        } else {
+            myNet->selectAttributeCarrier(GLO_POI, this);
+        }
+        mySelected = true;
+    } 
 }
 
 
 void 
 GNEShape::unselectAttributeCarrier() {
-
+    if(!myNet) {
+        throw ProcessError("Net cannot be nullptr");
+    } else if (mySelected) {
+        if(getTag() == SUMO_TAG_POLY) {
+            myNet->unselectAttributeCarrier(GLO_POLYGON, this);
+        } else {
+            myNet->unselectAttributeCarrier(GLO_POI, this);
+        }
+        mySelected = false;
+    } 
 }
 
 

@@ -121,7 +121,7 @@ GNECrossingFrame::edgesSelector::enableEdgeSelector(GNEJunction* currentJunction
     // check if use selected eges must be enabled
     myUseSelectedEdges->disable();
     for (auto i : myCurrentJunction->getGNEEdges()) {
-        if (i->isNetElementSelected()) {
+        if (i->isAttributeCarrierSelected()) {
             myUseSelectedEdges->enable();
         }
     }
@@ -311,7 +311,7 @@ void
 GNECrossingFrame::crossingParameters::useSelectedEdges(GNEJunction* parentJunction) {
     std::vector<std::string> crossingEdges;
     for (auto i : parentJunction->getGNEEdges()) {
-        if (i->isNetElementSelected()) {
+        if (i->isAttributeCarrierSelected()) {
             crossingEdges.push_back(i->getID());
         }
     }

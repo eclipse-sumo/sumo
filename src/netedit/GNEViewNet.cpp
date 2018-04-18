@@ -719,7 +719,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
                 } else if (myObjectsUnderCursor.junction) {
-                    if (myObjectsUnderCursor.junction->isNetElementSelected()) {
+                    if (myObjectsUnderCursor.junction->isAttributeCarrierSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.junction, getPositionInformation());
                     } else {
                         myMovedItems.junctionToMove = myObjectsUnderCursor.junction;
@@ -731,7 +731,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         if(myObjectsUnderCursor.lane) {
                             myObjectsUnderCursor.swapLane2Edge();
                         }
-                    if (myObjectsUnderCursor.edge->isNetElementSelected()) {
+                    if (myObjectsUnderCursor.edge->isAttributeCarrierSelected()) {
                         begingMoveSelection(myObjectsUnderCursor.edge, getPositionInformation());
                     } else if(myObjectsUnderCursor.shiftKeyPressed()) {
                         myObjectsUnderCursor.edge->editEndpoint(getPositionInformation(), myUndoList);
@@ -752,7 +752,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         }
                     }
                 } else if (myObjectsUnderCursor.additional) {
-                    if (myObjectsUnderCursor.additional->isAdditionalSelected()) {
+                    if (myObjectsUnderCursor.additional->isAttributeCarrierSelected()) {
                         myMovingSelection = true;
                     } else {
                         myMovedItems.additionalToMove = myObjectsUnderCursor.additional;
@@ -794,27 +794,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if(myObjectsUnderCursor.controlKeyPressed()) {
                         // Check if this GLobject type is locked
                         if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType)) {
-                            if(myObjectsUnderCursor.netElement) {
-                                // toogle netElement selection
-                                if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
-                                    myObjectsUnderCursor.netElement->unselectNetElement();
-                                } else {
-                                    myObjectsUnderCursor.netElement->selectNetElement();
-                                }
-                            } else if(myObjectsUnderCursor.additional) {
-                                // toogle additional selection
-                                if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
-                                    myObjectsUnderCursor.additional->unselectAdditional();
-                                } else {
-                                    myObjectsUnderCursor.additional->selectAdditional();
-                                }
-                            } else if (myObjectsUnderCursor.shape) {
-                                // toogle shape selection
-                                if(myObjectsUnderCursor.shape->isShapeSelected()) {
-                                    myObjectsUnderCursor.shape->unselectShape();
-                                } else {
-                                    myObjectsUnderCursor.shape->selectShape();
-                                }
+                            // toogle netElement selection
+                            if(myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
+                                myObjectsUnderCursor.attributeCarrier->unselectAttributeCarrier();
+                            } else {
+                                myObjectsUnderCursor.attributeCarrier->selectAttributeCarrier();
                             }
                         }
                     } else {
@@ -842,27 +826,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // Check if this GLobject type is locked
                     if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glType)) {
-                        if(myObjectsUnderCursor.netElement) {
-                            // toogle netElement selection
-                            if(myObjectsUnderCursor.netElement->isNetElementSelected()) {
-                                myObjectsUnderCursor.netElement->unselectNetElement();
-                            } else {
-                                myObjectsUnderCursor.netElement->selectNetElement();
-                            }
-                        } else if(myObjectsUnderCursor.additional) {
-                            // toogle additional selection
-                            if(myObjectsUnderCursor.additional->isAdditionalSelected()) {
-                                myObjectsUnderCursor.additional->unselectAdditional();
-                            } else {
-                                myObjectsUnderCursor.additional->selectAdditional();
-                            }
-                        } else if (myObjectsUnderCursor.shape) {
-                            // toogle shape selection
-                            if(myObjectsUnderCursor.shape->isShapeSelected()) {
-                                myObjectsUnderCursor.shape->unselectShape();
-                            } else {
-                                myObjectsUnderCursor.shape->selectShape();
-                            }
+                        // toogle netElement selection
+                        if(myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
+                            myObjectsUnderCursor.attributeCarrier->unselectAttributeCarrier();
+                        } else {
+                            myObjectsUnderCursor.attributeCarrier->selectAttributeCarrier();
                         }
                     }
                 }
@@ -1544,7 +1512,7 @@ long
 GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isNetElementSelected()) {
+        if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("straighten selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1565,7 +1533,7 @@ long
 GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isNetElementSelected()) {
+        if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1586,7 +1554,7 @@ long
 GNEViewNet::onCmdStraightenEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isNetElementSelected()) {
+        if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("straighten elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1607,7 +1575,7 @@ long
 GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != 0) {
-        if (edge->isNetElementSelected()) {
+        if (edge->isAttributeCarrierSelected()) {
             myUndoList->p_begin("smooth elevation of selected " + toString(SUMO_TAG_EDGE) + "s");
             std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
             for (auto it : edges) {
@@ -1781,7 +1749,7 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
     if (lane != 0) {
         // when duplicating an unselected lane, keep all connections as they
         // are, otherwise recompute them
-        if (lane->isNetElementSelected()) {
+        if (lane->isAttributeCarrierSelected()) {
             myUndoList->p_begin("duplicate selected " + toString(SUMO_TAG_LANE) + "s");
             std::vector<GNELane*> lanes = myNet->retrieveLanes(true);
             for (auto it : lanes) {
@@ -2163,7 +2131,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         // check if we're handling a selection
-        if (junction->isNetElementSelected()) {
+        if (junction->isAttributeCarrierSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
             myUndoList->p_begin("clear connections of selected junctions");
             for (auto i : selectedJunction) {
@@ -2187,7 +2155,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
         // check if we're handling a selection
-        if (junction->isNetElementSelected()) {
+        if (junction->isAttributeCarrierSelected()) {
             std::vector<GNEJunction*> selectedJunction = myNet->retrieveJunctions(true);
             myUndoList->p_begin("reset connections of selected junctions");
             for (auto i : selectedJunction) {
@@ -2576,7 +2544,7 @@ GNEViewNet::deleteSelectedCrossings() {
     std::vector<GNECrossing*> crossings;
     for (auto i : junctions) {
         for (auto j : i->getGNECrossings()) {
-            if (j->isNetElementSelected()) {
+            if (j->isAttributeCarrierSelected()) {
                 crossings.push_back(j);
             }
         }
@@ -2600,7 +2568,7 @@ GNEViewNet::deleteSelectedConnections() {
     std::vector<GNEConnection*> connections;
     for (auto i : edges) {
         for (auto j : i->getGNEConnections()) {
-            if (j->isNetElementSelected()) {
+            if (j->isAttributeCarrierSelected()) {
                 connections.push_back(j);
             }
         }
