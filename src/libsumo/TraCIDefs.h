@@ -131,12 +131,12 @@ public:
 class TraCILink {
 public:
     TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
-        : from(_from), via(_via), to(_to) {}
+        : fromLane(_from), viaLane(_via), toLane(_to) {}
     ~TraCILink() {}
 
-    std::string from;
-    std::string via;
-    std::string to;
+    std::string fromLane;
+    std::string viaLane;
+    std::string toLane;
 };
 
 

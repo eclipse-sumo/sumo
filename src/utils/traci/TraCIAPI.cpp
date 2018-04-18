@@ -638,7 +638,7 @@ TraCIAPI::EdgeScope::getAdaptedTraveltime(const std::string& edgeID, double time
 }
 
 double
-TraCIAPI::EdgeScope::getEffort(const std::string& edgeID, SUMOTime time) const {
+TraCIAPI::EdgeScope::getEffort(const std::string& edgeID, double time) const {
     tcpip::Storage content;
     content.writeByte(TYPE_INTEGER);
     content.writeInt((int)time);

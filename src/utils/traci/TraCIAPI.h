@@ -164,7 +164,7 @@ public:
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
         double getAdaptedTraveltime(const std::string& edgeID, double time) const;
-        double getEffort(const std::string& edgeID, SUMOTime time) const;
+        double getEffort(const std::string& edgeID, double time) const;
         double getCO2Emission(const std::string& edgeID) const;
         double getCOEmission(const std::string& edgeID) const;
         double getHCEmission(const std::string& edgeID) const;

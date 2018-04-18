@@ -929,7 +929,7 @@ TraCITestClient::testAPI() {
     answerLog << "    controlledLinks:\n";
     for (int i = 0; i < (int)links.size(); ++i) {
         for (int j = 0; j < (int)links[i].size(); ++j) {
-            answerLog << "      index=" << i << " link=" << j << " from=" << links[i][j].from << " via=" << links[i][j].via << " to=" << links[i][j].to << "\n";
+            answerLog << "      index=" << i << " link=" << j << " fromLane=" << links[i][j].fromLane << " viaLane=" << links[i][j].viaLane << " toLane=" << links[i][j].toLane << "\n";
         }
     }
     TraCILogic newLogic("custom", 0, 3);

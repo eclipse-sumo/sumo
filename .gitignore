@@ -114,3 +114,4 @@ lib*.a
 *.lib
 *.res
 *.ipch
+/bin/libsumo.py

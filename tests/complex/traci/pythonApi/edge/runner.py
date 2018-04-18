@@ -20,19 +20,16 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path += [os.path.join(SUMO_HOME, "tools"), os.path.join(SUMO_HOME, "bin")]
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c',  'sumo.sumocfg',
-                                '--remote-port', str(PORT),
-                                '--pedestrian.model', 'nonInteracting'], stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
+             '--pedestrian.model', 'nonInteracting'])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -106,4 +103,3 @@ for step in range(10):
         traci.edge.getTraveltime("3si")))
 
 traci.close()
-sumoProcess.wait()
