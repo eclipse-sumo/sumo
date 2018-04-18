@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    01.04.2018
-/// @version $Id$
+/// @version $Id: MSDevice_ToC.cpp v0_32_0+1125-377a9a870b michael.behrisch@dlr.de 2018-04-17 13:09:36 +0200 $
 ///
 // The ToC Device controls transition of control between automated and manual driving.
 //
@@ -270,7 +270,7 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
 
         // Schedule ToC Event
         myTriggerToCCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::triggerDownwardToC);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myTriggerToCCommand, SIMSTEP + responseTime);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myTriggerToCCommand, SIMSTEP + TIME2STEPS(responseTime));
 
         if (responseTime > timeTillMRM) {
             // Schedule MRM Event
