@@ -119,7 +119,7 @@ TraCIServerAPI_Edge::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                     break;
                 case VAR_WAITING_TIME: {
                     tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Edge::getWaitingSeconds(id));
+                    tempMsg.writeDouble(libsumo::Edge::getWaitingTime(id));
                 }
                 break;
                 case LAST_STEP_PERSON_ID_LIST: {

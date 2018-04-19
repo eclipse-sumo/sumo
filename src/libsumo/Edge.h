@@ -54,7 +54,7 @@ public:
     static double getAdaptedTraveltime(const std::string& id, double time);
     static double getEffort(const std::string& id, double time);
     static double getTraveltime(const std::string& id);
-    static double getWaitingSeconds(const std::string& id);
+    static double getWaitingTime(const std::string& id);
     static const std::vector<std::string> getLastStepPersonIDs(const std::string& id);
     static const std::vector<std::string> getLastStepVehicleIDs(const std::string& id);
     static double getCO2Emission(const std::string& id);
@@ -75,8 +75,8 @@ public:
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
     static void setAllowedSVCPermissions(const std::string& id, int permissions);
-    static void adaptTraveltime(const std::string& id, double begTime, double endTime, double value);
-    static void setEffort(const std::string& id, double begTime, double endTime, double value);
+    static void adaptTraveltime(const std::string& id, double value, double begTime=0., double endTime=SUMOTime_MAX);
+    static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = SUMOTime_MAX);
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 private:

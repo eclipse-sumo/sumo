@@ -53,10 +53,6 @@
 // member definitions
 // ===========================================================================
 namespace libsumo {
-/* void
-Simulation::connect(const std::string& host, int port) {
-}*/
-
 void
 Simulation::load(const std::vector<std::string>& args) {
     XMLSubSys::init(); // this may be not good for multiple loads
@@ -66,7 +62,7 @@ Simulation::load(const std::vector<std::string>& args) {
 
 
 void
-Simulation::simulationStep(const SUMOTime time) {
+Simulation::step(const SUMOTime time) {
     if (time == 0) {
         MSNet::getInstance()->simulationStep();
     } else {
@@ -74,11 +70,6 @@ Simulation::simulationStep(const SUMOTime time) {
             MSNet::getInstance()->simulationStep();
         }
     }
-}
-
-
-void
-Simulation::close() {
 }
 
 

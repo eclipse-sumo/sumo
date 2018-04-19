@@ -41,23 +41,11 @@
 namespace libsumo {
 class Simulation {
 public:
-    /** @brief Connects to the specified SUMO server
-    * @param[in] host The name of the host to connect to
-    * @param[in] port The port to connect to
-    * @exception tcpip::SocketException if the connection fails
-    */
-    //void connect(const std::string& host, int port);
-
-
-    /// @brief ends the simulation and closes the connection
-    void close();
-    /// @}
-
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
 
     /// @brief Advances by one step (or up to the given time)
-    static void simulationStep(const SUMOTime time = 0);
+    static void step(const SUMOTime time = 0);
 
     /// @brief {object->{variable->value}}
     typedef std::map<int, TraCIValue> TraCIValues;
