@@ -74,12 +74,6 @@ if (APPLE)
         # "/opt/local" is where MacPorts lives, add `/lib` suffix and link
         link_directories(${MACPORTS_PREFIX}/lib)
         message(STATUS "Macports detected: ${MACPORTS_PREFIX}/lib")
-        # SET(CMAKE_SYSTEM_NAME Darwin)
-        # # Add MacPorts
-        # INCLUDE_DIRECTORIES(/opt/local/include)
-
-        # LINK_DIRECTORIES(/opt/local/lib)
-
     else ()
         # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
         execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -90,19 +84,54 @@ if (APPLE)
     endif ()
 endif (APPLE)
 
+# Check if libraries have to be found, depending on SUMO_LIBRARIES
+set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+if (SUMO_LIBRARIES)
+    if(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
+        message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+        set(LIB_VERSION "_64")
+    else()
+        message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+    endif()
+    # TODO: Use file(GLOB ...) to avoid explicit versions
+    # set Xerces
+    if(${MSVC_VERSION} STREQUAL "1800")
+        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/msvc12/xerces-c-3.2.0${LIB_VERSION}")
+    else()
+        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/xerces-c-3.2.0${LIB_VERSION}")
+    endif()
+    # set Proj
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/proj_gdal-1911${LIB_VERSION}")
+    # set FOX
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/fox-1.6.55${LIB_VERSION}")
+    # set GoogleTest
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/googletest-1.8.0${LIB_VERSION}")
+    # set FFMPEG
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/FFMPEG-3.4.1${LIB_VERSION}")
+    # set OSG
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/OSG-3.4.0${LIB_VERSION}")
+    # set GL2PS
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}")
+    # set SWIG
+    set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
+    # set GRPC (still to be tested, probably needs a protobuf installation)
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}")
+endif (SUMO_LIBRARIES)
+
+
 find_package(XercesC REQUIRED)
 if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIRS})
 endif (XercesC_FOUND)
 
-find_package(Proj REQUIRED)
+find_package(Proj)
 if (PROJ_FOUND)
     include_directories(${PROJ_INCLUDE_DIR})
     set(HAVE_PROJ 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Proj")
 endif (PROJ_FOUND)
 
-find_package(FOX REQUIRED)
+find_package(FOX)
 if (FOX_FOUND)
     include_directories(${FOX_INCLUDE_DIR})
     add_definitions(${FOX_CXX_FLAGS})
@@ -187,7 +216,7 @@ if (BUILD_GTEST_FROM_GIT)
 
     include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
     set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-    set(GTEST_FOUND "true")
+    set(GTEST_FOUND true)
 else ()
     find_package(GTest)
 endif ()
