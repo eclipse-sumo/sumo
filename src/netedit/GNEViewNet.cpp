@@ -2808,7 +2808,8 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
             b.add(selectionCorner1);
             b.add(selectionCorner2);
             std::vector<GUIGlID> ids = viewNet->getObjectsInBoundary(b);
-            std::set<GNEAttributeCarrier*> ACInRectangles;
+            // use a set of pairs to obtain attribute carriers in rectangle sorted by ID (note: a map cannot be used because there is different ACs with the same ID
+            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACInRectangles;
             for(auto i : ids) {
                 // avoid to select Net (i = 0)
                 if (i != 0) {
@@ -2820,13 +2821,13 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                     // select junctions of selected edges if 
                     if((retrievedAC->getTag() == SUMO_TAG_EDGE) && (viewNet->myMenuCheckExtendToEdgeNodes->getCheck() == TRUE)) {
                         GNEEdge* edge = dynamic_cast<GNEEdge*>(retrievedAC);
-                        ACInRectangles.insert(edge->getGNEJunctionSource());
-                        ACInRectangles.insert(edge->getGNEJunctionDestiny());
+                        ACInRectangles.insert(std::pair<std::string, GNEAttributeCarrier*>(edge->getGNEJunctionSource()->getID(), edge->getGNEJunctionSource()));
+                        ACInRectangles.insert(std::pair<std::string, GNEAttributeCarrier*>(edge->getGNEJunctionSource()->getID(), edge->getGNEJunctionDestiny()));
                     }
                     // make sure that AttributeCarrier can be selected
                     GUIGlObject *glObject = dynamic_cast<GUIGlObject*>(retrievedAC);
                     if(glObject && !viewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(glObject->getType())) {
-                        ACInRectangles.insert(retrievedAC);
+                        ACInRectangles.insert(std::pair<std::string, GNEAttributeCarrier*>(retrievedAC->getID(), retrievedAC));
                     }
                 }
             }
@@ -2842,15 +2843,15 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
             for (auto i : ACInRectangles) {
                 switch (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
                     case GNESelectorFrame::ModificationMode::SET_SUB:
-                        ACToUnselect.insert(i);
+                        ACToUnselect.insert(i.second);
                         break;
                     case GNESelectorFrame::ModificationMode::SET_RESTRICT: 
-                        if(ACToUnselect.find(i) != ACToUnselect.end()) {
-                            ACToSelect.insert(i);
+                        if(ACToUnselect.find(i.second) != ACToUnselect.end()) {
+                            ACToSelect.insert(i.second);
                         }
                         break;
                     default:
-                        ACToSelect.insert(i);
+                        ACToSelect.insert(i.second);
                         break;
                 }
             }
