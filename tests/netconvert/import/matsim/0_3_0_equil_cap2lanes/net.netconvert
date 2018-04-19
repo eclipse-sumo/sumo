@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:35 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Apr 19 10:57:27 2018 by Eclipse SUMO netconvert Version 3aa404f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,8 +57,8 @@ SPDX-License-Identifier: EPL-2.0
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="10" from="2" to="11" priority="-1">
-        <lane id="10_0" index="0" speed="27.78" length="15326.57" shape="5051.56,9973.18 19131.76,4071.15"/>
-        <lane id="10_1" index="1" speed="27.78" length="15326.57" shape="5052.45,9976.28 19133.00,4074.10"/>
+        <lane id="10_0" index="0" speed="27.78" length="15326.57" shape="5050.64,9973.57 19131.76,4071.15"/>
+        <lane id="10_1" index="1" speed="27.78" length="15326.57" shape="5051.79,9976.56 19133.00,4074.10"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="11" from="3" to="12" priority="-1">
@@ -98,8 +98,8 @@ SPDX-License-Identifier: EPL-2.0
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="2" from="2" to="3" priority="-1">
-        <lane id="2_0" index="0" speed="27.78" length="15326.00" shape="5028.18,10006.61 19130.91,15918.08"/>
-        <lane id="2_1" index="1" speed="27.78" length="15326.00" shape="5026.95,10009.56 19129.67,15921.03"/>
+        <lane id="2_0" index="0" speed="27.78" length="15326.00" shape="5053.66,10017.29 19130.91,15918.08"/>
+        <lane id="2_1" index="1" speed="27.78" length="15326.00" shape="5052.69,10020.35 19129.67,15921.03"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="20" from="12" to="13" priority="-1">
@@ -195,18 +195,18 @@ SPDX-License-Identifier: EPL-2.0
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="3" from="2" to="4" priority="-1">
-        <lane id="3_0" index="0" speed="27.78" length="13233.04" shape="5028.89,10004.93 17500.24,14325.31"/>
-        <lane id="3_1" index="1" speed="27.78" length="13233.04" shape="5027.65,10007.89 17499.19,14328.33"/>
+        <lane id="3_0" index="0" speed="27.78" length="13233.04" shape="5054.75,10013.89 17500.24,14325.31"/>
+        <lane id="3_1" index="1" speed="27.78" length="13233.04" shape="5053.78,10016.94 17499.19,14328.33"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="4" from="2" to="5" priority="-1">
-        <lane id="4_0" index="0" speed="27.78" length="11628.68" shape="5029.49,10003.49 16171.32,13210.10"/>
-        <lane id="4_1" index="1" speed="27.78" length="11628.68" shape="5028.25,10006.46 16170.43,13213.17"/>
+        <lane id="4_0" index="0" speed="27.78" length="11628.68" shape="5055.67,10011.03 16171.32,13210.10"/>
+        <lane id="4_1" index="1" speed="27.78" length="11628.68" shape="5054.69,10014.08 16170.43,13213.17"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="5" from="2" to="6" priority="-1">
-        <lane id="5_0" index="0" speed="27.78" length="10451.27" shape="5040.28,10001.82 15306.07,11706.81"/>
-        <lane id="5_1" index="1" speed="27.78" length="10451.27" shape="5039.76,10004.98 15305.55,11709.97"/>
+        <lane id="5_0" index="0" speed="27.78" length="10451.27" shape="5056.98,10004.60 15306.07,11706.81"/>
+        <lane id="5_1" index="1" speed="27.78" length="10451.27" shape="5056.46,10007.75 15305.55,11709.97"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="6" from="2" to="7" priority="-1">
@@ -220,13 +220,13 @@ SPDX-License-Identifier: EPL-2.0
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="8" from="2" to="9" priority="-1">
-        <lane id="8_0" index="0" speed="27.78" length="11624.43" shape="5053.42,9979.63 16168.23,6780.80"/>
-        <lane id="8_1" index="1" speed="27.78" length="11624.43" shape="5054.30,9982.71 16169.12,6783.88"/>
+        <lane id="8_0" index="0" speed="27.78" length="11624.43" shape="5053.01,9979.75 16168.23,6780.80"/>
+        <lane id="8_1" index="1" speed="27.78" length="11624.43" shape="5054.17,9982.75 16169.12,6783.88"/>
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="9" from="2" to="10" priority="-1">
-        <lane id="9_0" index="0" speed="27.78" length="13230.93" shape="5052.57,9976.71 17499.01,5664.96"/>
-        <lane id="9_1" index="1" speed="27.78" length="13230.93" shape="5053.46,9979.79 17500.06,5667.98"/>
+        <lane id="9_0" index="0" speed="27.78" length="13230.93" shape="5051.93,9976.93 17499.01,5664.96"/>
+        <lane id="9_1" index="1" speed="27.78" length="13230.93" shape="5053.08,9979.92 17500.06,5667.98"/>
         <param key="capacity" value="3600.00"/>
     </edge>
 
@@ -348,7 +348,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="18" response="00000000000000000000" foes="00000000000000000000"/>
         <request index="19" response="00000000000000000000" foes="00000000000000000000"/>
     </junction>
-    <junction id="2" type="priority" x="5000.00" y="10000.00" incLanes="1_0 1_1 1_2 1_3 1_4 1_5 1_6 1_7 1_8 1_9 1_10 1_11 1_12 1_13 1_14 1_15 1_16 1_17 1_18 1_19" intLanes="" shape="5026.33,10011.04 5028.80,10005.13 5039.49,10006.56 5040.54,10000.25 5040.56,10000.00 5040.56,9993.60 5055.83,9990.73 5054.78,9984.41 5054.74,9984.24 5052.97,9978.09 4998.50,9936.00 4998.50,10000.00">
+    <junction id="2" type="priority" x="5000.00" y="10000.00" incLanes="1_0 1_1 1_2 1_3 1_4 1_5 1_6 1_7 1_8 1_9 1_10 1_11 1_12 1_13 1_14 1_15 1_16 1_17 1_18 1_19" intLanes="" shape="5052.20,10021.88 5056.16,10009.50 5056.20,10009.33 5057.24,10003.02 5040.56,10000.00 5040.56,9993.60 5055.83,9990.73 5054.78,9984.41 5054.74,9984.24 5050.06,9972.08 4998.50,9936.00 4998.50,10000.00">
         <request index="0"  response="000000000000000000" foes="000000000000000000"/>
         <request index="1"  response="000000000000000000" foes="000000000000000000"/>
         <request index="2"  response="000000000000000000" foes="000000000000000000"/>

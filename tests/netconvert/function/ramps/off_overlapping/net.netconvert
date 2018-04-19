@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:39 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Apr 19 11:04:10 2018 by Eclipse SUMO netconvert Version 3aa404f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,44 +55,44 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="131892063#4_5" index="5" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="26.63" shape="145.41,704.75 151.45,704.51"/>
     </edge>
     <edge id="131892063#5" from="cluster_2697471162_2697471163" to="3073748915" name="南二环路" priority="11" type="highway.trunk" spreadType="center" shape="151.29,696.52 180.00,695.38">
-        <lane id="131892063#5_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="29.45" shape="151.12,688.52 151.51,688.50"/>
-        <lane id="131892063#5_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="29.45" shape="151.25,691.71 151.64,691.70"/>
-        <lane id="131892063#5_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="29.45" shape="151.37,694.91 151.76,694.89"/>
-        <lane id="131892063#5_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="29.45" shape="151.50,698.11 151.89,698.09"/>
-        <lane id="131892063#5_4" index="4" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="29.45" shape="151.63,701.31 152.02,701.29"/>
-        <lane id="131892063#5_5" index="5" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="29.45" shape="151.76,704.50 152.15,704.49"/>
+        <lane id="131892063#5_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="34.01" shape="151.12,688.52 178.44,687.43"/>
+        <lane id="131892063#5_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="34.01" shape="151.25,691.71 178.57,690.63"/>
+        <lane id="131892063#5_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="34.01" shape="151.37,694.91 178.70,693.83"/>
+        <lane id="131892063#5_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="34.01" shape="151.50,698.11 178.82,697.02"/>
+        <lane id="131892063#5_4" index="4" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="34.01" shape="151.63,701.31 178.95,700.22"/>
+        <lane id="131892063#5_5" index="5" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="34.01" shape="151.76,704.50 179.08,703.42"/>
     </edge>
     <edge id="131892063#6" from="3073748915" to="3073709104" name="南二环路" priority="11" type="highway.trunk" spreadType="center" shape="180.13,698.57 184.99,698.39 211.23,697.41">
-        <lane id="131892063#6_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="17.73" shape="179.95,693.78 184.50,693.61"/>
-        <lane id="131892063#6_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="17.73" shape="180.07,696.97 184.62,696.80"/>
-        <lane id="131892063#6_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="17.73" shape="180.19,700.17 184.74,700.00"/>
-        <lane id="131892063#6_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="17.73" shape="180.31,703.37 184.86,703.20"/>
+        <lane id="131892063#6_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="35.09" shape="181.54,693.72 184.81,693.60 209.73,692.66"/>
+        <lane id="131892063#6_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="35.09" shape="181.86,696.91 184.93,696.79 209.85,695.86"/>
+        <lane id="131892063#6_2" index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="35.09" shape="182.17,700.10 185.05,699.99 209.97,699.06"/>
+        <lane id="131892063#6_3" index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="35.09" shape="182.49,703.29 185.17,703.19 210.09,702.26"/>
     </edge>
     <edge id="131892063#7" from="3073709104" to="1450908491" name="南二环路" priority="11" type="highway.trunk" spreadType="center" shape="211.35,700.61 629.40,685.13 690.42,682.87 713.47,681.96 795.20,679.68 1304.37,665.51">
-        <lane id="131892063#7_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="1124.45" shape="188.06,699.87 629.34,683.53 690.36,681.27 713.42,680.36 795.16,678.08 1304.33,663.91"/>
-        <lane id="131892063#7_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="1124.45" shape="188.18,703.07 629.46,686.73 690.48,684.47 713.52,683.56 795.24,681.28 1304.41,667.11"/>
+        <lane id="131892063#7_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="1093.60" shape="213.00,698.95 629.34,683.53 690.36,681.27 713.42,680.36 795.16,678.08 1304.33,663.91"/>
+        <lane id="131892063#7_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="1093.60" shape="213.32,702.14 629.46,686.73 690.48,684.47 713.52,683.56 795.24,681.28 1304.41,667.11"/>
     </edge>
     <edge id="303069067" from="3073709104" to="3073709117" priority="11" type="highway.trunk" spreadType="center" shape="211.05,692.62 287.23,684.87 337.09,682.88">
-        <lane id="303069067_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="143.61" shape="210.89,691.02 287.12,683.27 337.03,681.28"/>
-        <lane id="303069067_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="143.61" shape="211.21,694.21 287.34,686.47 337.15,684.48"/>
+        <lane id="303069067_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="133.36" shape="212.18,690.89 287.12,683.27 337.03,681.28"/>
+        <lane id="303069067_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="133.36" shape="212.50,694.08 287.34,686.47 337.15,684.48"/>
     </edge>
     <edge id="303075085#0" from="3073748915" to="3290374726" priority="11" type="highway.trunk" spreadType="center" shape="179.68,687.38 281.78,677.16 507.75,667.11 585.91,676.41 678.53,670.14">
-        <lane id="303075085#0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="514.75" shape="179.52,685.79 281.66,675.56 507.81,665.51 585.95,674.80 678.42,668.54"/>
-        <lane id="303075085#0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="514.75" shape="179.84,688.97 281.90,678.76 507.69,668.71 585.87,678.02 678.64,671.74"/>
+        <lane id="303075085#0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="513.65" shape="180.73,685.67 281.66,675.56 507.81,665.51 585.95,674.80 678.42,668.54"/>
+        <lane id="303075085#0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="27.78" length="513.65" shape="181.05,688.85 281.90,678.76 507.69,668.71 585.87,678.02 678.64,671.74"/>
     </edge>
     <edge id="319975948" from="3264787534" to="3264787538" priority="2" type="highway.service" shape="497.90,0.00 440.44,233.30 429.24,244.90 376.85,328.90 206.46,602.06 125.96,703.91">
         <lane id="319975948_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="807.16" shape="499.45,0.38 441.89,234.10 430.51,245.89 378.21,329.75 207.77,602.98 142.90,685.05"/>
     </edge>
 
     <junction id="1450908491" type="dead_end" x="1304.37" y="665.51" incLanes="131892063#7_0 131892063#7_1" intLanes="" shape="1304.28,662.31 1304.46,668.71"/>
-    <junction id="3073709104" type="priority" x="211.35" y="700.61" incLanes="131892063#6_0 131892063#6_1 131892063#6_2 131892063#6_3" intLanes="" shape="188.24,704.67 188.01,698.27 211.38,695.80 210.73,689.43 184.44,692.01 184.92,704.80">
+    <junction id="3073709104" type="priority" x="211.35" y="700.61" incLanes="131892063#6_0 131892063#6_1 131892063#6_2 131892063#6_3" intLanes="" shape="213.48,703.73 212.02,689.30 209.67,691.07 210.15,703.86">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="3073709117" type="dead_end" x="337.09" y="682.88" incLanes="303069067_0 303069067_1" intLanes="" shape="336.96,679.68 337.22,686.08"/>
-    <junction id="3073748915" type="priority" x="180.25" y="701.77" incLanes="131892063#5_0 131892063#5_1 131892063#5_2 131892063#5_3 131892063#5_4 131892063#5_5" intLanes="" shape="180.37,704.97 179.89,692.18 180.00,690.57 179.36,684.20 151.45,686.90 152.21,706.09">
+    <junction id="3073748915" type="priority" x="180.25" y="701.77" incLanes="131892063#5_0 131892063#5_1 131892063#5_2 131892063#5_3 131892063#5_4 131892063#5_5" intLanes="" shape="182.65,704.88 180.57,684.08 178.38,685.83 179.14,705.02">
         <request index="0" response="000000" foes="000000"/>
         <request index="1" response="000000" foes="000000"/>
         <request index="2" response="000000" foes="000000"/>
