@@ -37,6 +37,9 @@
 #include "NBEdge.h"
 #include "NBAlgorithms_Ramps.h"
 
+//#define DEBUG_RAMPS
+#define DEBUGNODEID  "260479469"
+#define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
 // ===========================================================================
 // static members
@@ -163,6 +166,9 @@ void
 NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit) {
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) std::cout << "buildOnRamp cur=" << cur->getID() << " hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " cont=" << cont->getID() << "\n";
+#endif
     // compute the number of lanes to append
     const int firstLaneNumber = cont->getNumLanes();
     int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
@@ -266,6 +272,9 @@ void
 NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit) {
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(cur)) std::cout << "buildOffRamp cur=" << cur->getID() << " hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << "\n";
+#endif
     // compute the number of lanes to append
     const int firstLaneNumber = prev->getNumLanes();
     int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
@@ -436,6 +445,9 @@ NBRampsComputer::getOffRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRam
     */
     // heuristic: ramp goes to right
     const std::vector<NBEdge*>& edges2 = n->getEdges();
+#ifdef DEBUG_RAMPS
+    if (DEBUGCOND(n)) std::cout << "  edges=" << toString(edges) << " edges2=" << toString(edges2) << "\n";
+#endif
     std::vector<NBEdge*>::const_iterator i = std::find(edges2.begin(), edges2.end(), *other);
     NBContHelper::nextCW(edges2, i);
     if ((*i) == *potRamp) {
