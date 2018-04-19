@@ -28,18 +28,18 @@ neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# try to select node gneJ0 and delete it (Error in type of element)
+# try to select node gneJ0 and delete it (Error in element set)
 netedit.focusOnFrame()
-for x in range(0, 5):
+for x in range(0, 13):
     netedit.typeTab()
 # paste the new elementClass
 netedit.pasteIntoTextField("dummyElement")
 # set elementClass
 netedit.typeEnter()
 
-# try to select node gneJ0 and delete it (Error in type of element)
+# try to select node gneJ0 and delete it (Error in element type)
 netedit.focusOnFrame()
-for x in range(0, 5):
+for x in range(0, 13):
     netedit.typeTab()
 # paste the new elementClass
 netedit.pasteIntoTextField("Net Element")
@@ -51,9 +51,9 @@ netedit.pasteIntoTextField("dummyType")
 # type tab to set elementType
 netedit.typeEnter()
 
-# try to select node gneJ0 and delete it (Error in type of element)
+# try to select node gneJ0 and delete it (Error in set)
 netedit.focusOnFrame()
-for x in range(0, 5):
+for x in range(0, 13):
     netedit.typeTab()
 # paste the new elementClass
 netedit.pasteIntoTextField("Net Element")
