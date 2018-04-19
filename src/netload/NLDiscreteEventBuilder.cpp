@@ -28,7 +28,6 @@
 #include <config.h>
 #endif
 
-#include "NLDiscreteEventBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
@@ -40,6 +39,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
+#include "NLDiscreteEventBuilder.h"
 
 
 // ===========================================================================

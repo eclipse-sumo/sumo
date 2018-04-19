@@ -34,25 +34,27 @@
 #include <version.h>
 #endif
 
-#include <xercesc/sax/SAXException.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <utils/common/TplConvert.h>
 #include <iostream>
 #include <string>
 #include <limits.h>
 #include <ctime>
-#include <router/ROLoader.h>
-#include <router/RONet.h>
-#include "RODFEdgeBuilder.h"
-#include <router/ROFrame.h>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/options/Option.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsIO.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/options/Option.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/XMLSubSys.h>
+#include <router/ROLoader.h>
+#include <router/RONet.h>
+#include <router/ROFrame.h>
+#include "RODFEdgeBuilder.h"
 #include "RODFFrame.h"
 #include "RODFNet.h"
 #include "RODFEdge.h"
@@ -61,8 +63,6 @@
 #include "RODFRouteCont.h"
 #include "RODFDetectorFlow.h"
 #include "RODFDetFlowLoader.h"
-#include <utils/common/FileHelpers.h>
-#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
