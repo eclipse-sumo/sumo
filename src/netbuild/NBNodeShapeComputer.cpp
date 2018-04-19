@@ -41,7 +41,7 @@
 #include "NBNodeShapeComputer.h"
 
 //#define DEBUG_NODE_SHAPE
-#define DEBUGCOND (myNode.getID() == "disabled")
+#define DEBUGCOND (myNode.getID() == "cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812")
 
 // ===========================================================================
 // method definitions
@@ -67,6 +67,16 @@ NBNodeShapeComputer::compute() {
             singleDirection = true;
         }
     }
+#ifdef DEBUG_NODE_SHAPE
+    if (DEBUGCOND) {
+        // annotate edges edges to make their ordering visible
+        int i = 0;
+        for (NBEdge* e : myNode.myAllEdges) {
+            e->setStreetName(toString(i));
+            i++;
+        }
+    }
+#endif
     if (singleDirection) {
         return computeNodeShapeSmall();
     }
@@ -631,20 +641,26 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     bool changed = true;
     while (changed) {
         changed = false;
-        for (EdgeVector::iterator i2 = newAll.begin(); i2 != newAll.end(); ++i2) {
-            std::set<NBEdge*> other = same[*i2];
-            for (std::set<NBEdge*>::const_iterator j = other.begin(); j != other.end(); ++j) {
-                EdgeVector::iterator k = find(newAll.begin(), newAll.end(), *j);
+        for (NBEdge* e1 : newAll) {
+            for (NBEdge* e2 : same[e1]) {
+                EdgeVector::iterator k = find(newAll.begin(), newAll.end(), e2);
                 if (k != newAll.end()) {
-                    if (myNode.hasIncoming(*i2)) {
-                        if (!myNode.hasIncoming(*j)) {
-                            geomsCW[*i2] = geomsCW[*j];
-                            computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
+                    // determine which of the edges marks the outer boundary
+                    // outgoing edges mark the cw-boundary
+                    // incoming edges mark the ccw-boundary
+                    const bool e1in = myNode.hasIncoming(e1);
+                    const bool e2in = myNode.hasIncoming(e2);
+                    if (e1in) {
+                        if (!e2in) {
+                            // replace incoming with outgoing edge
+                            geomsCW[e1] = geomsCW[e2];
+                            computeSameEnd(geomsCW[e1], geomsCCW[e1]);
                         }
                     } else {
-                        if (myNode.hasIncoming(*j)) {
-                            geomsCCW[*i2] = geomsCCW[*j];
-                            computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
+                        if (e2in) {
+                            // replace outgoing with incoming edge
+                            geomsCCW[e1] = geomsCCW[e2];
+                            computeSameEnd(geomsCW[e1], geomsCCW[e1]);
                         }
                     }
                     newAll.erase(k);
