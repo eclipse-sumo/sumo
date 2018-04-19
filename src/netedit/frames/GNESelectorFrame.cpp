@@ -154,29 +154,31 @@ GNESelectorFrame::clearCurrentSelection() const {
 
 
 void
-GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationMode::SetOperation setop) {
+GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, ModificationMode::SetOperation setop) {
     const ModificationMode::SetOperation setOperation = ((setop == ModificationMode::SET_DEFAULT) ? myModificationMode->getModificationMode() : setop);
     // declare two sets of attribute carriers, one for select and another for unselect
-    std::set<GNEAttributeCarrier*> ACToSelect;
-    std::set<GNEAttributeCarrier*> ACToUnselect;
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToSelect;
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToUnselect;
     // in restrict AND replace mode all current selected attribute carriers will be unselected
     if ((setOperation == ModificationMode::SET_REPLACE) || (setOperation == ModificationMode::SET_RESTRICT)) {
-        ACToUnselect = myViewNet->getNet()->getSelectedAttributeCarriers();
+        for(auto i : myViewNet->getNet()->getSelectedAttributeCarriers()) {
+            ACToUnselect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
+        }
     }
     // handle ids
     for (auto i : ACs) {
         // iterate over AtributeCarriers an place it in ACToSelect or ACToUnselect
         switch (setOperation) {
             case GNESelectorFrame::ModificationMode::SET_SUB:
-                ACToUnselect.insert(i);
+                ACToUnselect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
                 break;
             case GNESelectorFrame::ModificationMode::SET_RESTRICT: 
-                if(ACToUnselect.find(i) != ACToUnselect.end()) {
-                    ACToSelect.insert(i);
+                if(ACToUnselect.find(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i)) != ACToUnselect.end()) {
+                    ACToSelect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
                 }
                 break;
             default:
-                ACToSelect.insert(i);
+                ACToSelect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
                 break;
         }
     }
@@ -185,10 +187,10 @@ GNESelectorFrame::handleIDs(std::vector<GNEAttributeCarrier*> ACs, ModificationM
         // first unselect AC of ACToUnselect and then selects AC of ACToSelect
         myViewNet->getUndoList()->p_begin("selection using rectangle");
         for (auto i : ACToUnselect) {
-            i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+            i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
         }
         for (auto i : ACToSelect) {
-            i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            i.second->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
         }
         // finish operation
         myViewNet->getUndoList()->p_end();
