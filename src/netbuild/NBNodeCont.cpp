@@ -484,7 +484,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                         e->getPermissions() == SVC_PEDESTRIAN 
                         // only join edges for regular passenger traffic or edges that are extremely short
                         || (length > 3 * POSITION_EPS 
-                            && (e->getPermissions() & SVC_PASSENGER) == 0 
+                            && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
                             && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth)) {
                     continue; 
                 }
