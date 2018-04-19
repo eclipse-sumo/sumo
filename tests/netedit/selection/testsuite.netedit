@@ -13,6 +13,9 @@ select_load_selection
 # check set operators clear and invert
 select_setoperators
 
+# check the rectangle selection
+select_rectangle
+
 # select differents busstops
 selectadditional_basic
 
