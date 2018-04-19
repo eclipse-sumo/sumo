@@ -927,6 +927,15 @@ def deleteMode():
 
 
 """
+@brief delete using SUPR key
+"""
+
+
+def deleteUsingSuprKey():
+    typeKey(Key.DELETE)
+
+
+"""
 @brief Enable or disable 'automatically delete Additionals'
 """
 
@@ -1017,7 +1026,7 @@ def saveSelection():
     pasteIntoTextField(filename)
     typeEnter()
     
-	
+    
 """
 @brief save selection
 """
@@ -1189,6 +1198,8 @@ def selectionInvert():
 
 
 def selectionToogleEdges():
+    # focus current frame
+    focusOnFrame()
     # go to check box "select edges"
     for x in range(0, 3):
         typeInvertTab()
