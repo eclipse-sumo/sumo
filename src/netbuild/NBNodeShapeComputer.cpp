@@ -41,7 +41,7 @@
 #include "NBNodeShapeComputer.h"
 
 //#define DEBUG_NODE_SHAPE
-#define DEBUGCOND (myNode.getID() == "cluster_2293276823_2293276824_2293276825_2293276826_2293276827_2697454316_30618470_36268429_493585805_493585807_493585811_493585812")
+//#define DEBUGCOND (myNode.getID() == "C")
 
 // ===========================================================================
 // method definitions
@@ -562,6 +562,18 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
         //    WRITE_WARNING("Ambigous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
         //}
+#ifdef DEBUG_NODE_SHAPE
+        if (DEBUGCOND) {
+            std::cout << "   checkSameDirection " << (*i)->getID() << " " << (*j)->getID() 
+                << " diffDirs=" << differentDirs
+                << " isOpposite=" << (differentDirs && foundOpposite.count(*i) == 0)
+                << " angleDiff=" << angleDiff 
+                << " ambiguousGeometry=" << ambiguousGeometry 
+                << " badIntersect=" << badIntersection(*i, *j, geomsCW[*i], geomsCCW[*j], 100)
+                << "\n";
+
+        }
+#endif
         if (fabs(angleDiff) < DEG2RAD(20)) {
             const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
             if (isOpposite) {
@@ -620,13 +632,24 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2,
     }
     geom1 = geom1.getSubpart2D(0, commonLength);
     geom2 = geom2.getSubpart2D(0, commonLength);
-    std::vector<double> distances = geom1.distances(geom2, true);
     const double minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
+    std::vector<double> distances = geom1.distances(geom2, true);
     const double minDist = VectorHelper<double>::minValue(distances);
     const double maxDist = VectorHelper<double>::maxValue(distances);
-    const bool onTop = maxDist - POSITION_EPS < minDistanceThreshold;
     const bool curvingTowards = geom1[0].distanceTo2D(geom2[0]) > minDistanceThreshold && minDist < minDistanceThreshold;
-    const bool intersects = e1cw.intersects(e2ccw);
+    const bool onTop = maxDist - POSITION_EPS < minDistanceThreshold;
+    geom1.extrapolate2D(100);
+    geom2.extrapolate2D(100);
+    Position intersect = geom1.intersectionPosition2D(geom2);
+    const bool intersects = intersect != Position::INVALID && geom1.distance2D(intersect) < POSITION_EPS;
+#ifdef DEBUG_NODE_SHAPE
+    if (DEBUGCOND) {
+        std::cout << "    badIntersect: onTop=" << onTop << " curveTo=" << curvingTowards << " intersects=" << intersects 
+            << "  geom1=" << geom1 << " geom2=" << geom2 
+            << " intersectPos=" << intersect
+            << "\n";
+    }
+#endif
     return onTop || curvingTowards || !intersects;
 }
 
@@ -637,41 +660,70 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     GeomsMap& geomsCCW,
     GeomsMap& geomsCW) {
     // store relationships
+    const EdgeVector& all = myNode.myAllEdges;;
     EdgeVector newAll = myNode.myAllEdges;
-    bool changed = true;
-    while (changed) {
-        changed = false;
-        for (NBEdge* e1 : newAll) {
-            for (NBEdge* e2 : same[e1]) {
-                EdgeVector::iterator k = find(newAll.begin(), newAll.end(), e2);
-                if (k != newAll.end()) {
-                    // determine which of the edges marks the outer boundary
-                    // outgoing edges mark the cw-boundary
-                    // incoming edges mark the ccw-boundary
-                    const bool e1in = myNode.hasIncoming(e1);
-                    const bool e2in = myNode.hasIncoming(e2);
-                    if (e1in) {
-                        if (!e2in) {
-                            // replace incoming with outgoing edge
-                            geomsCW[e1] = geomsCW[e2];
-                            computeSameEnd(geomsCW[e1], geomsCCW[e1]);
-                        }
-                    } else {
-                        if (e2in) {
-                            // replace outgoing with incoming edge
-                            geomsCCW[e1] = geomsCCW[e2];
-                            computeSameEnd(geomsCW[e1], geomsCCW[e1]);
-                        }
+        for (NBEdge* e1 : all) {
+            // determine which of the edges marks the outer boundary
+            auto e2NewAll = find(newAll.begin(), newAll.end(), e1);
+#ifdef DEBUG_NODE_SHAPE
+            if (DEBUGCOND) std::cout << "computeUniqueDirectionList e1=" << e1->getID() 
+                << " deleted=" << (e2NewAll == newAll.end()) 
+                    << " same=" << joinNamedToStringSorting(same[e1], ',') << "\n";
+#endif
+            if (e2NewAll == newAll.end()) {
+                continue;
+            }
+            auto e1It = find(all.begin(), all.end(), e1);
+            auto bestCCW = e1It;
+            auto bestCW = e1It;
+            bool changed = true;
+            while (changed) {
+                changed = false;
+                for (NBEdge* e2 : same[e1]) {
+                    auto e2NewAll = find(newAll.begin(), newAll.end(), e2);
+#ifdef DEBUG_NODE_SHAPE
+                    if (DEBUGCOND) std::cout << "  e2=" << e2->getID() << "\n";
+#endif
+                    auto e2It = find(all.begin(), all.end(), e2);
+                    if (e2It + 1 == bestCCW || (e2It == (all.end() - 1) && bestCCW == all.begin())) {
+                        bestCCW = e2It;
+                        changed = true;
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) std::cout << "    bestCCW=" << e2->getID() << "\n";
+#endif
+                    } else if (bestCW + 1 == e2It || (bestCW == (all.end() - 1) && e2It == all.begin())) {
+                        bestCW = e2It;
+                        changed = true;
+#ifdef DEBUG_NODE_SHAPE
+                        if (DEBUGCOND) std::cout << "    bestCW=" << e2->getID() << "\n";
+#endif
                     }
-                    newAll.erase(k);
-                    changed = true;
                 }
             }
-            if (changed) {
-                break;
+            if (bestCW != e1It) {
+                geomsCW[e1] = geomsCW[*bestCW];
+                computeSameEnd(geomsCW[e1], geomsCCW[e1]);
+            }
+            if (bestCCW != e1It) {
+                geomsCCW[e1] = geomsCCW[*bestCCW];
+                computeSameEnd(geomsCW[e1], geomsCCW[e1]);
+            }
+            // clean up
+            for (NBEdge* e2 : same[e1]) {
+                auto e2NewAll = find(newAll.begin(), newAll.end(), e2);
+                if (e2NewAll != newAll.end()) {
+                    newAll.erase(e2NewAll);
+                }
+            }
+    }
+#ifdef DEBUG_NODE_SHAPE
+        if (DEBUGCOND) { 
+            std::cout << "  newAll:\n";
+            for (NBEdge* e : newAll) {
+                std::cout << "    " << e->getID() << " geomCCW=" << geomsCCW[e] << " geomsCW=" << geomsCW[e] << "\n";
             }
         }
-    }
+#endif
     return newAll;
 }
 
