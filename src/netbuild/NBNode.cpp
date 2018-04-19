@@ -2854,6 +2854,7 @@ NBNode::sortEdges(bool useNodeShape) {
     if (myAllEdges.size() == 0) {
         return;
     }
+    EdgeVector allEdgesOriginal = myAllEdges;
     EdgeVector& allEdges = myAllEdges;
     EdgeVector& incoming = myIncomingEdges;
     EdgeVector& outgoing = myOutgoingEdges;
@@ -2922,6 +2923,14 @@ NBNode::sortEdges(bool useNodeShape) {
     //        std::cout << "  " << toString((*it)->edges) << "\n";
     //    }
     //}
+    
+    if (useNodeShape && myAllEdges != allEdgesOriginal) {
+        // sorting order changed after node shape was computed.
+        computeNodeShape(-1);
+        for (NBEdge* e : myAllEdges) {
+            e->computeEdgeShape();
+        }
+    }
 }
 
 /****************************************************************************/
