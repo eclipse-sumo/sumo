@@ -48,7 +48,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEVIewParent.h>
+#include <netedit/GNEViewParent.h>
 
 #include "GNEAdditional.h"
 
