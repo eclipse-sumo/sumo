@@ -571,6 +571,9 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
 
 int
 NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc) {
+#ifdef DEBUG_JOINJUNCTIONS
+    std::cout << "joinJunctions...\n";
+#endif
     NodeClusters cands;
     NodeClusters clusters;
     generateNodeClusters(maxDist, cands);
@@ -586,15 +589,17 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         }
         // remove nodes that can be eliminated by geometry.remove
         pruneClusterFringe(cluster);
-        // exclude the fromNode of a long edge if the toNode is in the cluster (and they were both added via an alternative path).
+        // avoid removal of long edges (must have been added via an alternative path).
         std::set<NBNode*> toRemove;
         for (std::set<NBNode*>::iterator j = cluster.begin(); j != cluster.end(); ++j) {
             NBNode* n = *j;
-            const EdgeVector& edges = n->getOutgoingEdges();
-            for (EdgeVector::const_iterator it_edge = edges.begin(); it_edge != edges.end(); ++it_edge) {
-                NBEdge* edge = *it_edge;
-                if (cluster.count(edge->getToNode()) != 0 && edge->getLoadedLength() > maxDist) {
-                    //std::cout << "long edge " << edge->getID() << " (" << edge->getLoadedLength() << ", max=" << maxDist << ")\n";
+            for (NBEdge* edge : n->getOutgoingEdges()) {
+                if (cluster.count(edge->getToNode()) != 0 && edge->getLoadedLength() > maxDist /*&& (edge->getPermissions() & SVC_PASSENGER) != 0*/) {
+#ifdef DEBUG_JOINJUNCTIONS
+                    if (DEBUGCOND(n) || DEBUGCOND(edge->getToNode())) {
+                            std::cout << "long edge " << edge->getID() << " (" << edge->getLoadedLength() << ", max=" << maxDist << ")\n";
+                    }
+#endif
                     toRemove.insert(n);
                     toRemove.insert(edge->getToNode());
                 }
