@@ -425,10 +425,26 @@
 /// @name design for Chooser (locator) dialogs
 /// @{
 /// @brief design for Chooser dialog specifying size
-#define GUIDesignChooserDialog                  DECOR_ALL, 20, 20, 300, 300
+#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 300
 
 /// @brief design for Chooser buttons
-#define GUIDesignChooserButtons                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED, 0, 0, 0, 0, 4, 4, 4, 4
+#define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, 23, 2, 2, 2, 2  
+
+/// @brief design for Chooser TextField
+#define GUIDesignChooserTextField               (ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 23, 2, 2, 2, 2  
+
+/// @brief design for Chooser List 
+#define GUIDesignChooserList                    (LIST_SINGLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
+
+/// @brief design for Chooser Layout left
+#define GUIDesignChooserLayoutLeft              (LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP), 0, 0, 0, 0, 4, 4, 4, 4
+
+/// @brief design for Chooser Layout right
+#define GUIDesignChooserLayoutRight             (LAYOUT_TOP), 0, 0, 0, 0, 4, 4, 4, 4
+
+/// @brief design for Chooser  Layout list
+#define GUIDesignChooserLayoutList              (LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 0, 0, 0, 0, 0
+
 /// @}
 
 

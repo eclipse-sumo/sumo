@@ -64,9 +64,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISel
     FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, GUIDesignChooserDialog),
     myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
-    FXHorizontalFrame* hbox =
-        new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0,
-                              0, 0, 0, 0);
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     myList = new FXList(hbox, 0, 0,
                         LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_MULTIPLESELECT);

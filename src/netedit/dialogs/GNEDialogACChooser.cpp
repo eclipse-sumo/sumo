@@ -69,12 +69,12 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     FXMainWindow(viewParent->getApp(), title.c_str(), icon, NULL, GUIDesignChooserDialog),
     myViewParent(viewParent),
     myShowOnlySelectedElements(false) {
-    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
-    FXVerticalFrame* layout1 = new FXVerticalFrame(hbox, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
-    myTextEntry = new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT, LAYOUT_FILL_X | FRAME_THICK | FRAME_SUNKEN);
-    FXVerticalFrame* style1 = new FXVerticalFrame(layout1, LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP | FRAME_THICK | FRAME_SUNKEN, 0, 0, 0, 0, 0, 0, 0, 0);
-    myList = new FXList(style1, this, MID_CHOOSER_LIST, LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK);
+    FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
+    myTextEntry = new FXTextField(layoutLeft, 0, this, MID_CHOOSER_TEXT, GUIDesignChooserTextField);
+    FXVerticalFrame* layoutList = new FXVerticalFrame(layoutLeft, GUIDesignChooserLayoutList);
+    myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserList);
     // first fill myACsByID to sort ACs by tags
     for (auto i : ACs) {
         myACsByID.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
@@ -86,13 +86,13 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
         myACs[myList->appendItem(i.first.c_str(), selectIcon)] = i.second;
     }
     // build the buttons
-    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
-    myCenterButton = new FXButton(layout, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
-    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-    myHideUnselectedButton = new FXButton(layout, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
-    myToogleSelectionButton = new FXButton(layout, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-    new FXButton(layout, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
+    myCenterButton = new FXButton(layoutRight, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
+    new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
+    myHideUnselectedButton = new FXButton(layoutRight, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
+    myToogleSelectionButton = new FXButton(layoutRight, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
+    new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
+    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
     // create and show dialog
     create();
     show();
