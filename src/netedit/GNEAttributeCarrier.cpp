@@ -285,7 +285,11 @@ GNEAttributeCarrier::getAttributeType(SumoXMLTag tag, SumoXMLAttr attr) {
 
 bool
 GNEAttributeCarrier::isValidID(const std::string& value) {
-    return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+    if(value.size() == 0) {
+        return false;
+    } else {
+        return value.find_first_of(" \t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+    }
 }
 
 

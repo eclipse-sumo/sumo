@@ -138,7 +138,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     ++cnt;
                     for (const libsumo::TraCILink& link : sublinks) {
                         tempContent.writeUnsignedByte(TYPE_STRINGLIST);
-                        tempContent.writeStringList(std::vector<std::string>({ link.from, link.to, link.via }));
+                        tempContent.writeStringList(std::vector<std::string>({ link.fromLane, link.toLane, link.viaLane }));
                         ++cnt;
                     }
                 }

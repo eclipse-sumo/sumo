@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  7 16:32:38 2017 by SUMO netconvert Version v0_31_0-936-gf6919fe
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Wed Apr 18 13:09:47 2018 by Eclipse SUMO netconvert Version 49ae6a9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="osm_bbox.osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/dynamic_gui.07Nov163234.2198/tools/import/OSM/webWizard/2017-11-07-16-32-36/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="osm_stops.add.xml"/>
-        <ptline-output value="osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -165,7 +160,7 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="474366009" name="S Friedrichstraße"/>
     </ptLine>
     <ptLine id="28" name="Buslinie N6 Alt-Tegel =&gt; Alt-Mariendorf" line="N6" type="bus" completeness="0.09">
-        <route edges="6227654#3 42103020 30720544#0 30720544#1 6228081 -222328410 -4402228 190447768#0 190447768#1 195411602#0 195411602#1 195411604#0 195411604#1 195411604#2 195411604#3 -158023913#2 -158023913#1 -158023913#0 -292429062#2 -292429062#1 -292429062#0 -153698380 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056 42102542 196850608#0 196850608#1 196850608#2 196850606#0 196850606#1 196850606#2"/>
+        <route edges="6227654#3 42103020 30720544#0 30720544#1 6228081 -222328410 -4402228 190447768#0 190447768#1 195411602#0 195411602#1 195411604#0 195411604#1 195411604#2 195411604#3 -158023913#2 -158023913#1 -158023913#0 -292429062#3 -292429062#2 -292429062#1 -292429062#0 -153698380 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056 42102542 196850608#0 196850608#1 196850608#2 196850606#0 196850606#1 196850606#2"/>
         <busStop id="2959830772" name="U Oranienburger Tor"/>
         <busStop id="2959830767" name="S + U Friedrichstr."/>
         <busStop id="2959830765" name="Neustädtische Kirchstr."/>
@@ -176,7 +171,7 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="2959830765" name="Neustädtische Kirchstr."/>
     </ptLine>
     <ptLine id="30" name="Buslinie 147: S+U Hauptbahnhof =&gt; U Märkisches Museum (=&gt; S Ostbahnhof)" line="147" type="bus" completeness="0.67">
-        <route edges="153698380 292429062#0 292429062#1 292429062#2 158023913#0 158023913#1 158023913#2 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056"/>
+        <route edges="153698380 292429062#0 292429062#1 292429062#2 292429062#3 158023913#0 158023913#1 158023913#2 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056"/>
         <busStop id="2959830765" name="Neustädtische Kirchstr."/>
         <busStop id="2792364395" name="U Friedrichstraße"/>
     </ptLine>

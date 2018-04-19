@@ -2855,21 +2855,28 @@ NBNode::sortEdges(bool useNodeShape) {
     EdgeVector& allEdges = myAllEdges;
     EdgeVector& incoming = myIncomingEdges;
     EdgeVector& outgoing = myOutgoingEdges;
-    if (!useNodeShape || getShape().area() < 1) {
-        // if the area is too small (i.e. for simple-continuation nodes) we better not use it
-        // sort by the angle of the adjoining line segment of the edge geometry
-        // sort the edges
-        std::sort(allEdges.begin(), allEdges.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
-        std::sort(incoming.begin(), incoming.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
-        std::sort(outgoing.begin(), outgoing.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
-        std::vector<NBEdge*>::iterator j;
-        for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
-            NBNodesEdgesSorter::swapWhenReversed(this, j, j + 1);
+        
+    // sort the edges by angle (this is the canonical sorting)
+    std::sort(allEdges.begin(), allEdges.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
+    std::sort(incoming.begin(), incoming.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
+    std::sort(outgoing.begin(), outgoing.end(), NBNodesEdgesSorter::edge_by_junction_angle_sorter(this));
+    std::vector<NBEdge*>::iterator j;
+    for (j = allEdges.begin(); j != allEdges.end() - 1 && j != allEdges.end(); ++j) {
+        NBNodesEdgesSorter::swapWhenReversed(this, j, j + 1);
+    }
+    if (allEdges.size() > 1 && j != allEdges.end()) {
+        NBNodesEdgesSorter::swapWhenReversed(this, allEdges.end() - 1, allEdges.begin());
+    }
+
+    bool useCustomEndPoints = true;
+    for (NBEdge* e : allEdges) {
+        if (e->hasDefaultGeometryEndpointAtNode(this)) {
+            useCustomEndPoints = false;
+            break;
         }
-        if (allEdges.size() > 1 && j != allEdges.end()) {
-            NBNodesEdgesSorter::swapWhenReversed(this, allEdges.end() - 1, allEdges.begin());
-        }
-    } else {
+    }
+    // sort again using additional geometry information
+    if ((useNodeShape && getShape().area() >= 1) || useCustomEndPoints) {
         NBEdge* firstOfAll = allEdges.front();
         NBEdge* firstOfIncoming = incoming.size() > 0 ? incoming.front() : 0;
         NBEdge* firstOfOutgoing = outgoing.size() > 0 ? outgoing.front() : 0;

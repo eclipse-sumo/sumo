@@ -26,6 +26,9 @@ def close():
 
 def start(args):
     simulation.load(args[1:])
+
+def simulationStep(step=0):
+    pass
 %}
 #endif
 
