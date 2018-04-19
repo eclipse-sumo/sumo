@@ -60,45 +60,35 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) : 
-    FXMainWindow(parent->getApp(), "List of Selected Items", NULL, NULL, GUIDesignChooserDialog),
+    FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(ICON_APP_SELECTOR), NULL, GUIDesignChooserDialog),
     myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
-    // build the list
-    myList = new FXList(hbox, 0, 0,
-                        LAYOUT_FILL_X | LAYOUT_FILL_Y | LIST_MULTIPLESELECT);
+    // create layout left
+    FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
+    // create frame for list
+    FXVerticalFrame* layoutList = new FXVerticalFrame(layoutLeft, GUIDesignChooserLayoutList);
+    // build the list and rebuild it
+    myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserListMultiple);
     rebuildList();
     // build the layout
-    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0,
-            4, 4, 4, 4);
+    FXVerticalFrame* layout = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // "Load"
-    new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Load selection\t\t", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layout, "Save\t\t", 0, this, MID_CHOOSEN_SAVE,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-
+    new FXButton(layout, "&Save selection\t\t", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    // extra separator
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-
     // "Deselect Chosen"
-    new FXButton(layout, "Deselect Chosen\t\t", 0, this, MID_CHOOSEN_DESELECT,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
+    new FXButton(layout, "&Deselect chosen\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_DESELECT, GUIDesignChooserButtons);
     // "Clear List"
-    new FXButton(layout, "Clear\t\t", 0, this, MID_CHOOSEN_CLEAR,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-
+    new FXButton(layout, "&Clear selection\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    // extra separator
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
-
     // "Close"
-    new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
-                 ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED,
-                 0, 0, 0, 0, 4, 4, 3, 3);
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_SELECTOR));
+    new FXButton(layout, "Cl&ose\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myParent->addChild(this);
 }
 
@@ -113,13 +103,13 @@ void
 GUIDialog_GLChosenEditor::rebuildList() {
     myList->clearItems();
     const std::set<GUIGlID>& chosen = gSelected.getSelected();
-    for (std::set<GUIGlID>::const_iterator i = chosen.begin(); i != chosen.end(); ++i) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
+    for (auto i : chosen) {
+        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
         if (object != 0) {
             std::string name = object->getFullName();
             FXListItem* item = myList->getItem(myList->appendItem(name.c_str()));
             item->setData(object);
-            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(i);
         }
     }
 }
@@ -191,7 +181,6 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*, FXSelector, void*) {
 }
 
 
-
 long
 GUIDialog_GLChosenEditor::onCmdClear(FXObject*, FXSelector, void*) {
     myList->clearItems();
@@ -201,13 +190,11 @@ GUIDialog_GLChosenEditor::onCmdClear(FXObject*, FXSelector, void*) {
 }
 
 
-
 long
 GUIDialog_GLChosenEditor::onCmdClose(FXObject*, FXSelector, void*) {
     close(true);
     return 1;
 }
-
 
 
 /****************************************************************************/

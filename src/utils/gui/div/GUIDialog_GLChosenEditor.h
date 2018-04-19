@@ -56,28 +56,20 @@ class GUIDialog_GLChosenEditor : public FXMainWindow, public GUISelectedStorage:
     FXDECLARE(GUIDialog_GLChosenEditor)
 
 public:
-    /** @brief Constructor
-     *
-     * Notifies both the parent and the storage about being initialised.
-     *
+    /** @brief Constructor (Notifies both the parent and the storage about being initialised)
      * @param[in] parent The parent window
      * @param[in] str The storage of object selections to use
      */
-    GUIDialog_GLChosenEditor(GUIMainWindow* parent,
-                             GUISelectedStorage* str);
+    GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str);
 
-
-    /** @brief Destructor
-     *
-     * Notifies both the parent and the storage about being destroyed.
-     */
+    /// @brief Destructor (Notifies both the parent and the storage about being destroyed)
     ~GUIDialog_GLChosenEditor();
 
-
-    /** @brief Rebuilds the entire list
-     */
+    /// @brief Rebuilds the entire list
     void rebuildList();
 
+    // @brief called if the global selection changes
+    void selectionUpdated();
 
     /// @name FOX-callbacks
     /// @{
@@ -91,7 +83,6 @@ public:
      * @todo Recheck loading/saving of selections
      */
     long onCmdLoad(FXObject*, FXSelector, void*);
-
 
     /** @brief Called when the user presses the Save-button
      *
@@ -118,7 +109,6 @@ public:
      */
     long onCmdClear(FXObject*, FXSelector, void*);
 
-
     /** @brief Called when the user presses the Close-button
      *
      * Closes itself.
@@ -126,9 +116,9 @@ public:
     long onCmdClose(FXObject*, FXSelector, void*);
     /// @}
 
-
-    // called if the global selection changes
-    void selectionUpdated();
+protected:
+    /// FOX needs this
+    GUIDialog_GLChosenEditor() {}
 
 private:
     /// @brief The list that holds the ids
@@ -139,11 +129,6 @@ private:
 
     /// @brief The storage
     GUISelectedStorage* myStorage;
-
-protected:
-    /// FOX needs this
-    GUIDialog_GLChosenEditor() { }
-
 };
 
 

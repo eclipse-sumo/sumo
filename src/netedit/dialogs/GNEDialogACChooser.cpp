@@ -74,7 +74,7 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
     myTextEntry = new FXTextField(layoutLeft, 0, this, MID_CHOOSER_TEXT, GUIDesignChooserTextField);
     FXVerticalFrame* layoutList = new FXVerticalFrame(layoutLeft, GUIDesignChooserLayoutList);
-    myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserList);
+    myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserListSingle);
     // first fill myACsByID to sort ACs by tags
     for (auto i : ACs) {
         myACsByID.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));

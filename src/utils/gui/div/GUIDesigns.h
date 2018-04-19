@@ -434,7 +434,10 @@
 #define GUIDesignChooserTextField               (ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 23, 2, 2, 2, 2  
 
 /// @brief design for Chooser List 
-#define GUIDesignChooserList                    (LIST_SINGLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
+#define GUIDesignChooserListSingle              (LIST_SINGLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
+
+/// @brief design for Chooser List 
+#define GUIDesignChooserListMultiple            (LIST_MULTIPLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
 
 /// @brief design for Chooser Layout left
 #define GUIDesignChooserLayoutLeft              (LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP), 0, 0, 0, 0, 4, 4, 4, 4
