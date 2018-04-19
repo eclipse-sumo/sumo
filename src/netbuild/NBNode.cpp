@@ -74,7 +74,9 @@
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUG_PED_STRUCTURES
-#define DEBUGCOND true
+//#define DEBUG_EDGE_SORTING
+//#define DEBUGCOND true
+//#define DEBUGCOND (getID() == "260479469")
 
 // ===========================================================================
 // static members
@@ -2884,6 +2886,16 @@ NBNode::sortEdges(bool useNodeShape) {
     if (firstOfOutgoing != 0) {
         rotate(outgoing.begin(), std::find(outgoing.begin(), outgoing.end(), firstOfOutgoing), outgoing.end());
     }
+#ifdef DEBUG_EDGE_SORTING
+    if (DEBUGCOND) {
+        std::cout << "sortedEdges:\n";
+        for (NBEdge* e : allEdges) {
+            std::cout << "  " << e->getID() 
+                << " angleToCenter=" << e->getAngleAtNodeToCenter(this)
+                << " junctionAngle=" << e->getAngleAtNode(this) << "\n";
+        }
+    }
+#endif
 
     // fixing some pathological all edges orderings
     // if every of the edges a,b,c has a turning edge a',b',c' the all edges ordering should be a,a',b,b',c,c'
