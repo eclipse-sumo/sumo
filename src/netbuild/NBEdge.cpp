@@ -55,8 +55,9 @@
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
-#define DEBUGCOND (getID() == "disabled")
-#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
+//#define DEBUGCOND (getID() == "disabled")
+//#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
+//#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 
 // ===========================================================================
 // static members
@@ -1743,11 +1744,18 @@ NBEdge::computeAngle() {
     const bool hasToShape = myTo->getShape().size() > 0;
     Position fromCenter = (hasFromShape ? myFrom->getShape().getCentroid() : myFrom->getPosition());
     Position toCenter = (hasToShape ? myTo->getShape().getCentroid() : myTo->getPosition());
-    PositionVector shape = ((hasFromShape || hasToShape) && getNumLanes() > 0 ?
-                            (myLaneSpreadFunction == LANESPREAD_RIGHT ?
-                             myLanes[getNumLanes() - 1].shape
-                             : myLanes[getNumLanes() / 2].shape)
-                            : myGeom);
+    PositionVector shape = myGeom;
+    if ((hasFromShape || hasToShape) && getNumLanes() > 0) {
+        if (myLaneSpreadFunction == LANESPREAD_RIGHT) {
+            shape = myLanes[getNumLanes() - 1].shape ;
+        } else {
+            shape = myLanes[getNumLanes() / 2].shape;
+            if (getNumLanes() % 2 == 0) {
+                // there is no center lane. shift to get the center
+                shape.move2side(getLaneWidth(getNumLanes() / 2) * 0.5);
+            }
+        }
+    }
 
     // if the junction shape is suspicious we cannot trust the angle to the centroid
     if (hasFromShape && (myFrom->getShape().distance2D(shape[0]) > 2 * POSITION_EPS
