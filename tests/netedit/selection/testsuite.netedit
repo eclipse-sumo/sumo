@@ -4,6 +4,9 @@ select_default
 # select using click
 select_basic
 
+# check toogle edges selection
+select_toogle_edges
+
 # save selection
 select_save_selection
 
