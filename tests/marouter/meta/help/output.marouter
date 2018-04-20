@@ -1,11 +1,11 @@
-Eclipse SUMO marouter Version v0_32_0+1070-b46590447d
+Eclipse SUMO marouter Version 27b98ce
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
 Usage: marouter [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE     Loads the named config on startup
-  --save-configuration FILE         Saves current configuration into FILE
+  -C, --save-configuration FILE     Saves current configuration into FILE
   --save-template FILE              Saves a configuration template (empty) into
                                       FILE
   --save-schema FILE                Saves the configuration schema into FILE

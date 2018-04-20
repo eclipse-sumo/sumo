@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 28 13:49:09 2018 by SUMO Version v0_32_0+0931-c519dbd
+<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO Version 27b98ce
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
-        <save-configuration value="" synonymes="save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-configuration value="" synonymes="C save-config" type="FILE" help="Saves current configuration into FILE"/>
         <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
         <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
         <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
@@ -234,7 +234,7 @@
     </random_number>
 
     <gui_only>
-        <gui-settings-file value="" type="FILE" help="Load visualisation settings from FILE"/>
+        <gui-settings-file value="" synonymes="g" type="FILE" help="Load visualisation settings from FILE"/>
         <quit-on-end value="false" synonymes="Q" type="BOOL" help="Quits the GUI when the simulation stops"/>
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
