@@ -511,9 +511,9 @@ private:
 
     /// @brief struct used to group all variables related with selecting using a square or polygon
     /// @note in the future the variables used for selecting throught a polygon will be placed here
-    struct selectingArea {
+    struct SelectingArea {
         /// @brief default constructor
-        selectingArea() :
+        SelectingArea() :
             selectingUsingRectangle(false) {}
 
         /// @brief Process Selection
@@ -612,7 +612,7 @@ private:
     MoveSingleElementValues myMoveSingleElementValues;
 
     /// @brief variable used to save variables related with selecting areas
-    selectingArea mySelectingArea;
+    SelectingArea mySelectingArea;
 
     /// @brief variable used to save variables related with testing mode
     testingMode myTestingMode;

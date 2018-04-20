@@ -2799,7 +2799,7 @@ GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
 
 
 void 
-GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPressed) {
+GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPressed) {
     selectingUsingRectangle = false;
     // shift held down on mouse-down and mouse-up
     if (shiftKeyPressed) {

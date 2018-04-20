@@ -681,6 +681,33 @@ public:
     /// @}
 
 protected:
+    /// @brief struct used for saving all attribute carriers of net, in different formats
+    struct AttributeCarriers {
+        /// @brief map with the name and pointer to junctions of net
+        std::map<std::string, GNEJunction*> junctions;
+
+        /// @brief map with the name and pointer to edges of net
+        std::map<std::string, GNEEdge*> edges;
+
+        /// @brief map with the name and pointer to additional elements of net
+        std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> additionals;
+
+        /// @brief map with the name and pointer to Calibrator Routes of net
+        std::map<std::string, GNECalibratorRoute*> calibratorRoutes;
+
+        /// @brief map with the name and pointer to Calibrator Vehicle Types of net
+        std::map<std::string, GNECalibratorVehicleType*> calibratorVehicleTypes;
+
+        /// @brief set with all selected attribute carriers
+        std::vector<GNEAttributeCarrier* > selectedAttributeCarriers;
+
+        /// @brief set with selected attribute carriers grouped by GL Type
+        std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > selectedAttributeCarriersByType;
+
+        /// @brief set with selected attribute carriers grouped by Tags
+        std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > selectedAttributeCarriersByTag;
+    };
+
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
@@ -690,29 +717,8 @@ protected:
     /// @brief The internal netbuilder
     NBNetBuilder* myNetBuilder;
 
-    /// @brief map with the name and pointer to junctions of net
-    std::map<std::string, GNEJunction*> myJunctions;
-
-    /// @brief map with the name and pointer to edges of net
-    std::map<std::string, GNEEdge*> myEdges;
-
-    /// @brief map with the name and pointer to additional elements of net
-    std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> myAdditionals;
-
-    /// @brief map with the name and pointer to Calibrator Routes of net
-    std::map<std::string, GNECalibratorRoute*> myCalibratorRoutes;
-
-    /// @brief map with the name and pointer to Calibrator Vehicle Types of net
-    std::map<std::string, GNECalibratorVehicleType*> myCalibratorVehicleTypes;
-
-    /// @brief set with all selected attribute carriers
-    std::vector<GNEAttributeCarrier* > mySelectedAttributeCarriers;
-
-    /// @brief set with selected attribute carriers grouped by GL Type
-    std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriersByType;
-
-    /// @brief set with selected attribute carriers grouped by Tags
-    std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > mySelectedAttributeCarriersByTag;
+    /// @brief AttributeCarriers of net
+    AttributeCarriers myAttributeCarriers;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{
