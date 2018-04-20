@@ -27,3 +27,6 @@ undo_redo
 
 # try to select elements with wrong parameters
 wrong_parameters
+
+# lock selection
+select_lockselection
