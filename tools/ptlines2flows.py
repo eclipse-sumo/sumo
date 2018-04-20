@@ -162,7 +162,7 @@ def createTrips(options):
                     '    <trip id="%s" type="%s%s" depart="%s" departLane="%s" from="%s" to="%s">\n' % (
                         tripID, options.vtypeprefix, line.type, begin, 'best', fr, to))
 
-            trpMap[tripID] = (lineRefOrig, line.attr_name, line.completeness)
+            trpMap[tripID] = (lineRef, line.attr_name, line.completeness)
             for stop in stop_ids:
                 fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
             fouttrips.write('    </trip>\n')
@@ -206,9 +206,7 @@ def createRoutes(options, trpMap, stopNames):
         lineCount = collections.defaultdict(int)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
-            line, name, completeness = trpMap[id]
-            lineRef = "%s:%s" % (line, lineCount[line])
-            lineCount[line] += 1
+            lineRef, name, completeness = trpMap[id]
             flowID = "%s_%s" % (vehicle.type, lineRef)
             try:
                 if vehicle.route is not None:
