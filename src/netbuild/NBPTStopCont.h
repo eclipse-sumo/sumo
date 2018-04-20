@@ -88,9 +88,9 @@ private:
 
 
     void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);
-    NBPTPlatform* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
+    const NBPTPlatform* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
     NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
-    double computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const;
+    double computeCrossProductEdgePosition(const NBEdge* edge, const Position& closestPlatform) const;
 
 public:
     static NBEdge* getReverseEdge(NBEdge* edge);

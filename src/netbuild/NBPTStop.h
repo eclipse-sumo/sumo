@@ -65,9 +65,9 @@ public:
     SVCPermissions getPermissions();
     void computExtent(double center, double d);
     void write(OutputDevice& device);
-    void reshiftPostion(const double offsetX, const double offsetY);
+    void reshiftPosition(const double offsetX, const double offsetY);
 
-    std::vector<NBPTPlatform>& getPlatformCands();
+    const std::vector<NBPTPlatform>& getPlatformCands();
     bool getIsMultipleStopPositions();
     void setIsMultipleStopPositions(bool multipleStopPositions);
     double getLength();

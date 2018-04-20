@@ -16,11 +16,22 @@
 /****************************************************************************/
 #include "NBPTPlatform.h"
 NBPTPlatform::NBPTPlatform(Position position, double d): myPos(position), myLength(d) {
+}
 
+
+const Position&
+NBPTPlatform::getPos() const {
+    return myPos;
 }
-Position* NBPTPlatform::getMyPos()  {
-    return &myPos;
+
+
+void 
+NBPTPlatform::reshiftPosition(const double offsetX, const double offsetY) {
+    myPos.add(offsetX, offsetY, 0);
 }
-double NBPTPlatform::getMyLength() const {
+
+
+double
+NBPTPlatform::getLength() const {
     return myLength;
 }

@@ -129,35 +129,30 @@ NBPTStop*
 NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
-
-
     bool rightOfEdge = false;
     bool leftOfEdge = false;
-    NBPTPlatform* left = nullptr;
-    for (auto it = pStop->getPlatformCands().begin(); it != pStop->getPlatformCands().end(); it++) {
-        NBPTPlatform* platform = &(*it);
-        double crossProd = computeCrossProductEdgePosition(edge, platform->getMyPos());
-
+    const NBPTPlatform* left = nullptr;
+    for (const NBPTPlatform& platform : pStop->getPlatformCands()) {
+        double crossProd = computeCrossProductEdgePosition(edge, platform.getPos());
         //TODO consider driving on the left!!! [GL May '17]
         if (crossProd > 0) {
             leftOfEdge = true;
-            left = platform;
+            left = &platform;
         } else {
             rightOfEdge = true;
-            pStop->setMyPTStopLength(platform->getMyLength());
+            pStop->setMyPTStopLength(platform.getLength());
         }
-
     }
 
     if (leftOfEdge && rightOfEdge) {
         NBPTStop* leftStop = getReverseStop(pStop, cont);
-        leftStop->setMyPTStopLength(left->getMyLength());
+        leftStop->setMyPTStopLength(left->getLength());
         return leftStop;
     } else if (leftOfEdge) {
         NBEdge* reverse = getReverseEdge(edge);
         if (reverse != nullptr) {
             pStop->setEdgeId(reverse->getID(), cont);
-            pStop->setMyPTStopLength(left->getMyLength());
+            pStop->setMyPTStopLength(left->getLength());
         }
     }
 
@@ -170,15 +165,15 @@ NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& c
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
-    NBPTPlatform* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
-    pStop->setMyPTStopLength(closestPlatform->getMyLength());
+    const NBPTPlatform* closestPlatform = getClosestPlatformToPTStopPosition(pStop);
+    pStop->setMyPTStopLength(closestPlatform->getLength());
     if (reverse != nullptr) {
 
         //TODO make isLeft in PositionVector static [GL May '17]
 //        if (PositionVector::isLeft(edge->getFromNode()->getPosition(),edge->getToNode()->getPosition(),closestPlatform)){
 //
 //        }
-        double crossProd = computeCrossProductEdgePosition(edge, closestPlatform->getMyPos());
+        double crossProd = computeCrossProductEdgePosition(edge, closestPlatform->getPos());
 
         //TODO consider driving on the left!!! [GL May '17]
         if (crossProd > 0) { //pt stop is on the left of the orig edge
@@ -189,10 +184,10 @@ NBPTStopCont::assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& c
 
 
 double
-NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position* closestPlatform) const {
+NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position& closestPlatform) const {
     PositionVector geom = edge->getGeometry();
-    int idxTmp = geom.indexOfClosest(*closestPlatform);
-    double offset = geom.nearest_offset_to_point2D(*closestPlatform, true);
+    int idxTmp = geom.indexOfClosest(closestPlatform);
+    double offset = geom.nearest_offset_to_point2D(closestPlatform, true);
     double offset2 = geom.offsetAtIndex2D(idxTmp);
     int idx1, idx2;
     if (offset2 < offset) {
@@ -213,27 +208,23 @@ NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position
     double y0 = p1.y();
     double x1 = p2.x();
     double y1 = p2.y();
-    double x2 = closestPlatform->x();
-    double y2 = closestPlatform->y();
+    double x2 = closestPlatform.x();
+    double y2 = closestPlatform.y();
     double crossProd = (x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0);
     return crossProd;
 }
 
 
-NBPTPlatform*
+const NBPTPlatform*
 NBPTStopCont::getClosestPlatformToPTStopPosition(NBPTStop* pStop) {
     Position stopPosition = pStop->getPosition();
-    NBPTPlatform* closest = nullptr;
+    const NBPTPlatform* closest = nullptr;
     double minSqrDist = std::numeric_limits<double>::max();
-
-    for (auto it = pStop->getPlatformCands().begin();
-            it != pStop->getPlatformCands().end();
-            it++) {
-        NBPTPlatform platform = *it;
-        double sqrDist = stopPosition.distanceSquaredTo2D(*platform.getMyPos());
+    for (const NBPTPlatform& platform : pStop->getPlatformCands()) {
+        double sqrDist = stopPosition.distanceSquaredTo2D(platform.getPos());
         if (sqrDist < minSqrDist) {
             minSqrDist = sqrDist;
-            closest = &(*it);
+            closest = &platform;
         }
     }
     return closest;

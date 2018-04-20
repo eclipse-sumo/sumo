@@ -21,15 +21,14 @@
 
 #include <utils/geom/Position.h>
 class NBPTPlatform {
-
 public:
     NBPTPlatform(Position position, double d);
+public:
+    const Position& getPos() const;
+    void reshiftPosition(const double offsetX, const double offsetY);
+    double getLength() const;
 private:
     Position myPos;
-public:
-    Position* getMyPos();
-    double getMyLength() const;
-private:
     double myLength;
 };
 

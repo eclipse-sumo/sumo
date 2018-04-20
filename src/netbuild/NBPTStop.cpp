@@ -58,23 +58,31 @@ NBPTStop::getOrigEdgeId() {
     return myOrigEdgeId;
 }
 
+
 const std::string
 NBPTStop::getEdgeId() {
     return myEdgeId;
 }
 
+
 const std::string
 NBPTStop::getName() {
     return myName;
 }
-const Position& NBPTStop::getPosition() {
+
+
+const Position& 
+NBPTStop::getPosition() {
     return myPosition;
 }
 
-void NBPTStop::computExtent(double center, double edgeLength) {
+
+void 
+NBPTStop::computExtent(double center, double edgeLength) {
     myStartPos = MAX2(0.0, center - myPTStopLength / 2.);
     myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
 }
+
 
 void
 NBPTStop::addLine(const std::string& line) {
@@ -84,7 +92,9 @@ NBPTStop::addLine(const std::string& line) {
     }
 }
 
-void NBPTStop::write(OutputDevice& device) {
+
+void 
+NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
     if (!myName.empty()) {
@@ -98,7 +108,6 @@ void NBPTStop::write(OutputDevice& device) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
     if (!myAccesses.empty()) {
-
         for (auto tuple : myAccesses) {
             device.openTag(SUMO_TAG_ACCESS);
             device.writeAttr(SUMO_ATTR_LANE, std::get<0>(tuple));
@@ -108,36 +117,53 @@ void NBPTStop::write(OutputDevice& device) {
         }
     }
     device.closeTag();
-
 }
-void NBPTStop::reshiftPostion(const double offsetX, const double offsetY) {
+
+
+void
+NBPTStop::reshiftPosition(const double offsetX, const double offsetY) {
     myPosition.add(offsetX, offsetY, 0);
-    for (auto& myPlatformCand : myPlatformCands) {
-        Position* pos = (&myPlatformCand)->getMyPos();
-        pos->add(offsetX, offsetY, 0);
+    for (NBPTPlatform& platformCand : myPlatformCands) {
+        platformCand.reshiftPosition(offsetX, offsetY);
     }
-
-
 }
-SVCPermissions NBPTStop::getPermissions() {
+
+
+SVCPermissions 
+NBPTStop::getPermissions() {
     return myPermissions;
 }
-void NBPTStop::addPlatformCand(NBPTPlatform platform) {
+
+
+void 
+NBPTStop::addPlatformCand(NBPTPlatform platform) {
     myPlatformCands.push_back(platform);
 }
-std::vector<NBPTPlatform>& NBPTStop::getPlatformCands() {
+
+
+const std::vector<NBPTPlatform>& 
+NBPTStop::getPlatformCands() {
     return myPlatformCands;
 }
-bool NBPTStop::getIsMultipleStopPositions() {
+
+
+bool 
+NBPTStop::getIsMultipleStopPositions() {
     return myIsMultipleStopPositions;
 }
 
-void NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
+
+void 
+NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
     myIsMultipleStopPositions = multipleStopPositions;
 }
-double NBPTStop::getLength() {
+
+
+double 
+NBPTStop::getLength() {
     return myPTStopLength;
 }
+
 
 bool
 NBPTStop::setEdgeId(std::string edgeId, NBEdgeCont& ec) {
@@ -145,17 +171,27 @@ NBPTStop::setEdgeId(std::string edgeId, NBEdgeCont& ec) {
     return findLaneAndComputeBusStopExtend(ec);
 }
 
-void NBPTStop::registerAdditionalEdge(std::string wayId, std::string edgeId) {
+
+void
+NBPTStop::registerAdditionalEdge(std::string wayId, std::string edgeId) {
     myAdditionalEdgeCandidates[wayId] = edgeId;
 }
-const std::map<std::string, std::string>& NBPTStop::getMyAdditionalEdgeCandidates() const {
+
+
+const std::map<std::string, std::string>& 
+NBPTStop::getMyAdditionalEdgeCandidates() const {
     return myAdditionalEdgeCandidates;
 }
-void NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
+
+
+void 
+NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
     NBPTStop::myOrigEdgeId = myOrigEdgeId;
 }
 
-void NBPTStop::setMyPTStopLength(double myPTStopLength) {
+
+void 
+NBPTStop::setMyPTStopLength(double myPTStopLength) {
     NBPTStop::myPTStopLength = myPTStopLength;
 }
 
@@ -182,11 +218,18 @@ NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
     }
     return false;
 }
-void NBPTStop::setMyPTStopId(std::string id) {
+
+
+void 
+NBPTStop::setMyPTStopId(std::string id) {
     myPTStopId = id;
 }
-void NBPTStop::addAccess(std::string laneID, double offset) {
+
+
+void 
+NBPTStop::addAccess(std::string laneID, double offset) {
     myAccesses.push_back(std::make_tuple(laneID, offset));
 }
 
 
+/****************************************************************************/

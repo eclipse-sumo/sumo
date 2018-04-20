@@ -579,7 +579,7 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
         (*i).second->reshiftPosition(x, y);
     }
     for (std::map<std::string, NBPTStop*>::const_iterator i = myPTStopCont.begin(); i != myPTStopCont.end(); ++i) {
-        (*i).second->reshiftPostion(x, y);
+        (*i).second->reshiftPosition(x, y);
     }
     geoConvHelper.moveConvertedBy(x, y);
     PROGRESS_TIME_MESSAGE(before);
@@ -654,10 +654,12 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
     return ok;
 }
 
+
 bool 
 NBNetBuilder::runningNetedit() {
     // see GNELoadThread::fillOptions
     return OptionsCont::getOptions().exists("new");
 }
+
 
 /****************************************************************************/
