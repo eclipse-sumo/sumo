@@ -14,7 +14,7 @@
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
 /// @date    Mon, 14.04.2008
-/// @version $Id: NIImporter_OpenStreetMap.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
@@ -731,7 +731,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->tlsControlled = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myToFill[myLastNodeID]->railwayCrossing = true;
-            } else if (key == "public_transport" && value.find("stop_position") != std::string::npos) {
+            } else if ((key == "public_transport" && value == "stop_position") ||
+                       (key == "highway" && value == "bus_stop")) {
                 myToFill[myLastNodeID]->ptStopPosition = true;
                 if (myToFill[myLastNodeID]->ptStopLength == 0) {
                     // default length
@@ -1332,7 +1333,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
 
                 NIOSMNode* n = myOSMNodes.find(ref)->second;
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
-                if (ptStop == 0) {
+                if (ptStop == nullptr) {
                     WRITE_WARNING("Relation '" + toString(myCurrentRelation)
                                   + "' refers to a non existing pt stop at node: '" + toString(n->id)
                                   + "'. Probably OSM file is incomplete.");
@@ -1348,7 +1349,6 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 if (myRef != "") {
                     ptLine->setRef(myRef);
                 }
-
             }
             for (long long& myWay : myWays) {
                 auto entr = myOSMEdges.find(myWay);
