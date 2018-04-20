@@ -603,6 +603,10 @@ public:
         return myVersion;
     }
 
+    /// @brief return whether a warning regarding the given object shall be issued
+    bool warnOnce(const std::string& typeAndID); 
+
+
 protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
@@ -717,6 +721,8 @@ protected:
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
 
+    /// @brief container to record warnings that shall only be issued once
+    std::map<std::string, bool> myWarnedOnce;
 
     /* @brief The router instance for routing by trigger and by traci
      * @note MSDevice_Routing has its own instance since it uses a different weight function

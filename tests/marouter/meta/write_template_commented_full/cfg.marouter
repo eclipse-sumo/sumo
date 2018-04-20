@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 28 13:49:45 2018 by SUMO marouter Version v0_32_0+0931-c519dbd
+<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO marouter Version 27b98ce
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -10,7 +10,7 @@
         <configuration-file value="" synonymes="c configuration" type="FILE"/>
 
         <!-- Saves current configuration into FILE -->
-        <save-configuration value="" synonymes="save-config" type="FILE"/>
+        <save-configuration value="" synonymes="C save-config" type="FILE"/>
 
         <!-- Saves a configuration template (empty) into FILE -->
         <save-template value="" type="FILE"/>

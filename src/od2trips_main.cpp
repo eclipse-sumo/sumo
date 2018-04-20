@@ -38,8 +38,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <string>
-#include <xercesc/parsers/SAXParser.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>

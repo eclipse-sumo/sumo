@@ -39,24 +39,24 @@ import argparse
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
-parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
-parser.add_argument('TLS_CSV', help='tls definition')
-parser.add_argument('NET', help='sumo net file')
-parser.add_argument(
-    '-d', '--debug', action='store_true', help='print additional debug info')
+class Logic:
+    def __init__ (self, key):
+        self.minTimes = []
+        self.maxTimes = []
+        self.normTimes = []
+        self.defs = []
+        self.links = []
+        self.params = []
+        self.key = key
+        self.subkey = ""
+        self.offset = 0
+        self.links2index = {}
+        self.links2sigGrpPhase = {}
 
-args = parser.parse_args()
-
-
-def computeLinkPhasesAndTimes(links2sigGrpPhase):
-    global normTimes
-    global defs
-    global links2index
+def computeLinkPhasesAndTimes(logic):
     phases = {}
-
     # compute all boundaries between phases
-    for myKey in links2sigGrpPhase:
-        phaseDef = links2sigGrpPhase[myKey]
+    for phaseDef in logic.links2sigGrpPhase.values():
         for i in range(0, len(phaseDef), 2):
             phases[int(phaseDef[i])] = True
     lastTime = 0
@@ -70,13 +70,12 @@ def computeLinkPhasesAndTimes(links2sigGrpPhase):
         if int(time) > lastTime:
             newTimes.append(str(int(time) - lastTime))
         lastTime = int(time)
-    normTimes = newTimes
+    logic.normTimes = newTimes
     if args.debug:
         print ('normTimes', newTimes, file=sys.stderr)
 
     # create the phase string
-    for myKey in links2sigGrpPhase:
-        phaseDef = links2sigGrpPhase[myKey]
+    for myKey, phaseDef in logic.links2sigGrpPhase.items():
         currentPhaseIndex = 0
         newPhases = []
         sigGrpPhaseIndex = 1
@@ -91,129 +90,75 @@ def computeLinkPhasesAndTimes(links2sigGrpPhase):
                 sigGrpPhaseIndex += 2
         if args.debug:
             print(myKey, newPhases, file=sys.stderr)
-        links2index[myKey] = len(defs)
-        defs.append(newPhases)
+        logic.links2index[myKey] = len(logic.defs)
+        logic.defs.append(newPhases)
 
+parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
+parser.add_argument('TLS_CSV', help='tls definition')
+parser.add_argument('NET', help='sumo net file')
+parser.add_argument('-d', '--debug', action='store_true', help='print additional debug info')
+args = parser.parse_args()
 
-allTLS = args.TLS_CSV.split(",")
-allMinTimes = []
-allMaxTimes = []
-allNormTimes = []
-allDefs = []
-allLinks = []
-allParams = []
-allKeys = []
-allSubkeys = []
-allOffsets = []
-allLink2Indices = []
+allLogics = []
 
-
-for tlsFile in allTLS:
+for tlsFile in args.TLS_CSV.split(","):
     fd = open(tlsFile)
-    key = None
+    logic = Logic(None)
     hasSigGrpPhase = False
     for l in fd:
         l = l.strip()
-        if len(l) > 0 and l[0] == '#':
+        if len(l) == 0 or l[0] == '#':
             continue
         v = l.split(";")
         if v[0] == "key":
-            if key is not None:
-                allMinTimes.append(minTimes)
-                allMaxTimes.append(maxTimes)
-                allNormTimes.append(normTimes)
-                allDefs.append(defs)
-                allLinks.append(links)
-                allParams.append(params)
-                allKeys.append(key)
-                allSubkeys.append(subkey)
-                allOffsets.append(offset)
-                allLink2Indices.append(links2index)
-
-            minTimes = []
-            maxTimes = []
-            normTimes = []
-            defs = []
-            links = []
-            params = []
-            # key = ""
-            subkey = ""
-            offset = 0
-            links2index = {}
-            links2sigGrpPhase = {}
-
-            key = v[1]
+            if logic.key is not None:
+                allLogics.append(logic)
+            logic = Logic(v[1])
         elif v[0] == "subkey":
-            subkey = v[1]
+            logic.subkey = v[1]
         elif v[0] == "offset":
-            offset = v[1]
+            logic.offset = v[1]
         elif v[0] == "link":
-            # linkNo = int(v[1])
-            linkNo = v[1]
-            fromDef = v[2]
-            toDef = v[3]
-            minor = v[4] == "1"
-            links.append([fromDef, toDef, linkNo, minor])
+            logic.links.append([v[2], v[3], v[1], v[4] == "1"])
         elif v[0] == "param":
-            params.append([v[1], v[2]])
+            logic.params.append([v[1], v[2]])
         elif v[0] == "min":
-            minTimes = v[1:]
+            logic.minTimes = v[1:]
         elif v[0] == "max":
-            maxTimes = v[1:]
+            logic.maxTimes = v[1:]
         elif v[0] == "time":
-            normTimes = v[1:]
+            logic.normTimes = v[1:]
         elif v[0] == "siggrpphase":
-            links2sigGrpPhase[v[1]] = v[2:]
+            logic.links2sigGrpPhase[v[1]] = v[2:]
             hasSigGrpPhase = True
         else:
             if len(v) > 1:
-                links2index[v[0]] = len(defs)
-                defs.append(v[1:])
+                logic.links2index[v[0]] = len(logic.defs)
+                logic.defs.append(v[1:])
 
-        pass
-
-    if hasSigGrpPhase:
-        computeLinkPhasesAndTimes(links2sigGrpPhase)
-
-    if len(defs) > 0:
-        links2index[-1] = len(defs)
-        defs.append(['g'] * len(defs[0]))
-
-    if key is not None:
-        allMinTimes.append(minTimes)
-        allMaxTimes.append(maxTimes)
-        allNormTimes.append(normTimes)
-        allDefs.append(defs)
-        allLinks.append(links)
-        allParams.append(params)
-        allKeys.append(key)
-        allSubkeys.append(subkey)
-        allOffsets.append(offset)
-        allLink2Indices.append(links2index)
+    if logic.key is None:
+        print("Warning: No logic definition in", tlsFile, file=sys.stderr)
+    else:
+        if hasSigGrpPhase:
+            computeLinkPhasesAndTimes(logic)
+        if len(logic.defs) > 0:
+            logic.links2index[-1] = len(logic.defs)
+            logic.defs.append(['g'] * len(logic.defs[0]))
+        allLogics.append(logic)
     fd.close()
 
 net1 = sumolib.net.readNet(args.NET)
 
 print('<?xml version="1.0" encoding="UTF-8"?>\n<add>')
-for keyIndex, key in enumerate(allKeys):
-    minTimes = allMinTimes[keyIndex]
-    maxTimes = allMaxTimes[keyIndex]
-    normTimes = allNormTimes[keyIndex]
-    defs = allDefs[keyIndex]
-    links = allLinks[keyIndex]
-    params = allParams[keyIndex]
-    subkey = allSubkeys[keyIndex]
-    offset = allOffsets[keyIndex]
-    links2index = allLink2Indices[keyIndex]
-
-    tls = net1._id2tls[key]
+for logic in allLogics:
+    tls = net1._id2tls[logic.key]
     noConnections = tls._maxConnectionNo + 1
     linkMap = [0] * noConnections
     laneMap = [None] * noConnections
     for tl_c in tls._connections:
         li = tl_c[0]  # incoming lane in our net
         lo = tl_c[1]  # outgoing lane in our net
-        for l in links:
+        for l in logic.links:
             valid = True
             if l[0].find('_') < 0:
                 # edge only given
@@ -262,21 +207,21 @@ for keyIndex, key in enumerate(allKeys):
                 index = index + 1
 
     for l in range(0, len(linkMap)):
-        if linkMap[l] not in links2index:
+        if linkMap[l] not in logic.links2index:
             print("Error: Link %s is not described (%s)!" % (
                 l, linkMap[l]), file=sys.stderr)
             sys.exit()
 
-    print('    <tlLogic id="' + key + '" type="static" programID="' +
-          subkey + '" offset="' + offset + '">')
-    for p in params:
+    print('    <tlLogic id="' + logic.key + '" type="static" programID="' +
+          logic.subkey + '" offset="' + logic.offset + '">')
+    for p in logic.params:
         print('        <param key="' + p[0] + '" value="' + p[1] + '"/>')
 
-    for i in range(0, len(normTimes)):
+    for i in range(0, len(logic.normTimes)):
         state = ""
         for l in range(0, len(linkMap)):
-            index = links2index[linkMap[l]]
-            d = defs[index]
+            index = logic.links2index[linkMap[l]]
+            d = logic.defs[index]
             if d[i] == 'r':
                 state = state + "r"
             elif d[i] == 'y' or d[i] == 'a':
@@ -311,12 +256,12 @@ for keyIndex, key in enumerate(allKeys):
                 if not wait:
                     state = state[:l1] + 'G' + state[l1 + 1:]
 
-        pd = '        <phase duration="' + normTimes[i] + '" '
+        pd = '        <phase duration="' + logic.normTimes[i] + '" '
         pd = pd + 'state="' + state + '"'
-        if len(minTimes) == len(normTimes):
-            pd = pd + ' minDur="' + minTimes[i] + '"'
-        if len(maxTimes) == len(normTimes):
-            pd = pd + ' maxDur="' + maxTimes[i] + '"'
+        if len(logic.minTimes) == len(logic.normTimes):
+            pd = pd + ' minDur="' + logic.minTimes[i] + '"'
+        if len(logic.maxTimes) == len(logic.normTimes):
+            pd = pd + ' maxDur="' + logic.maxTimes[i] + '"'
         pd = pd + '/>'
         print(pd)
     print("    </tlLogic>")

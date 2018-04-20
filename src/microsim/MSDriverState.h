@@ -99,7 +99,7 @@ protected:
 
     struct SpeedLimitCharacteristics : MSTrafficItemCharacteristics {
         SpeedLimitCharacteristics(const MSLane* lane, double dist, double limit) :
-            dist(dist), limit(limit), lane(lane) {};
+            lane(lane), dist(dist), limit(limit) {};
         const MSLane* lane;
         double dist;
         double limit;
@@ -107,7 +107,7 @@ protected:
 
     struct VehicleCharacteristics : MSTrafficItemCharacteristics {
         VehicleCharacteristics(const MSVehicle* foe, double longitudinalDist, double lateralDist, double relativeSpeed) :
-            longitudinalDist(longitudinalDist), lateralDist(lateralDist), foe(foe), relativeSpeed(relativeSpeed) {};
+            foe(foe), longitudinalDist(longitudinalDist), lateralDist(lateralDist), relativeSpeed(relativeSpeed) {};
         const MSVehicle* foe;
         double longitudinalDist;
         double lateralDist;

@@ -34,5 +34,8 @@ netedit.selectItems("Net Element", "edge", "allow", "passenger")
 # save selection
 netedit.saveSelection()
 
+# save shapes
+netedit.saveShapes()
+
 # quit netedit
 netedit.quit(neteditProcess, True)

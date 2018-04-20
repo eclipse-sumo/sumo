@@ -35,5 +35,8 @@ netedit.loadSelection()
 netedit.undo(match, 1)
 netedit.redo(match, 1)
 
+# save shapes
+netedit.saveShapes()
+
 # quit netedit
 netedit.quit(neteditProcess, True)

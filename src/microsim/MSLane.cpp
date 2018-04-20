@@ -2128,12 +2128,16 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
     if (myPartialVehicles.size() > 0) {
         // XXX
         MSVehicle* pred = myPartialVehicles.front();
+        const double gap = seen - (getLength() - pred->getBackPositionOnLane(this)) - veh.getVehicleType().getMinGap();
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND2(&veh)) {
-            std::cout << "    partials=" << toString(myPartialVehicles) << "\n";
+            std::cout << "    predGap=" << gap << " partials=" << toString(myPartialVehicles) << "\n";
         }
 #endif
-        return std::pair<MSVehicle* const, double>(pred, seen - (getLength() - pred->getBackPositionOnLane(this)) - veh.getVehicleType().getMinGap());
+        // make sure pred is really a leader and doing continous lane-changing behind ego
+        if (gap > 0) {
+            return std::pair<MSVehicle* const, double>(pred, gap);
+        }
     }
     const MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, NUMERICAL_EPS));

@@ -74,12 +74,6 @@ if (APPLE)
         # "/opt/local" is where MacPorts lives, add `/lib` suffix and link
         link_directories(${MACPORTS_PREFIX}/lib)
         message(STATUS "Macports detected: ${MACPORTS_PREFIX}/lib")
-        # SET(CMAKE_SYSTEM_NAME Darwin)
-        # # Add MacPorts
-        # INCLUDE_DIRECTORIES(/opt/local/include)
-
-        # LINK_DIRECTORIES(/opt/local/lib)
-
     else ()
         # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
         execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -90,19 +84,63 @@ if (APPLE)
     endif ()
 endif (APPLE)
 
+# Check if libraries have to be found, depending on SUMO_LIBRARIES
+set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+if (SUMO_LIBRARIES)
+    if(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
+        message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+        set(LIB_VERSION "_64")
+    else()
+        message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+    endif()
+    # TODO: Use file(GLOB ...) to avoid explicit versions
+    # set Xerces
+    if(${MSVC_VERSION} STREQUAL "1800")
+        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/msvc12/xerces-c-3.2.0${LIB_VERSION}")
+    else()
+        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/xerces-c-3.2.0${LIB_VERSION}")
+    endif()
+    # set Proj
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/proj_gdal-1911${LIB_VERSION}")
+    # set FOX
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/fox-1.6.55${LIB_VERSION}")
+    # set GoogleTest
+    # Prevent GoogleTest from overriding our compiler/linker options
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0${LIB_VERSION}/googletest"
+                     "${CMAKE_BINARY_DIR}/googletest-build")
+    include_directories("${SUMO_LIBRARIES}/googletest-1.8.0${LIB_VERSION}/googletest/include")
+    set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+    set(GTEST_FOUND true)
+    # set FFMPEG
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/FFMPEG-3.4.1${LIB_VERSION}")
+    # set OSG
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/OSG-3.4.0${LIB_VERSION}")
+    # set GL2PS
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}/Release")
+    # set SWIG
+    set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
+    # set GRPC (still to be tested, probably needs a protobuf installation)
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}")
+else (SUMO_LIBRARIES)
+    # for Linux and Mac only
+    find_package(GTest)
+endif (SUMO_LIBRARIES)
+
 find_package(XercesC REQUIRED)
 if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIRS})
 endif (XercesC_FOUND)
 
-find_package(Proj REQUIRED)
+find_package(Proj)
 if (PROJ_FOUND)
     include_directories(${PROJ_INCLUDE_DIR})
     set(HAVE_PROJ 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Proj")
 endif (PROJ_FOUND)
 
-find_package(FOX REQUIRED)
+find_package(FOX)
 if (FOX_FOUND)
     include_directories(${FOX_INCLUDE_DIR})
     add_definitions(${FOX_CXX_FLAGS})
@@ -164,44 +202,6 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
     endif (GRPC_FOUND)
 endif (CHECK_OPTIONAL_LIBS)
-
-if (BUILD_GTEST_FROM_GIT)
-    message("Download and unpack googletest")
-
-    # Download and unpack googletest at configure time
-    configure_file(build/CMakeLists.txt.gtest googletest-download/CMakeLists.txt)
-    execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
-    execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
-
-    # Prevent GoogleTest from overriding our compiler/linker options
-    # when building with Visual Studio
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
-    # Add googletest directly to our build. This adds
-    # the following targets: gtest, gtest_main, gmock
-    # and gmock_main
-    add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
-            "${CMAKE_BINARY_DIR}/googletest-build")
-
-    include_directories("${CMAKE_BINARY_DIR}/googletest-src/googletest/include")
-    set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-    set(GTEST_FOUND "true")
-else ()
-    find_package(GTest)
-endif ()
-# Now simply link your own targets against gtest, gmock,
-# etc. as appropriate
-
-if (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    message(STATUS "configuring for OSX compiler flags")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -std=gnu++11")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
-    SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -stdlib=libc++")
-endif (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
 include_directories(${CMAKE_BINARY_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src)

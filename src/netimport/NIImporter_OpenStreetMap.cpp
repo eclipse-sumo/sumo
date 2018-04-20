@@ -419,6 +419,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                         maxSpeed = MAX2(maxSpeed, tc.getSpeed(type2));
                         prio = MAX2(prio, tc.getPriority(type2));
                         defaultIsOneWay &= tc.getIsOneWay(type2);
+                        //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << "\n";
                         permissions |= tc.getPermissions(type2);
                         width = MAX2(width, tc.getWidth(type2));
                         sidewalkWidth = MAX2(sidewalkWidth, tc.getSidewalkWidth(type2));
@@ -429,6 +430,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 if (width != NBEdge::UNSPECIFIED_WIDTH) {
                     width = MAX2(width, SUMO_const_laneWidth);
                 }
+                // ensure pedestrians don't run into trains
+                if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH 
+                        && (permissions & SVC_PEDESTRIAN) != 0
+                        && (permissions & SVC_RAIL_CLASSES) != 0) {
+                    //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
+                    sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
+                }
+
                 if (discard) {
                     WRITE_WARNING(
                         "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");

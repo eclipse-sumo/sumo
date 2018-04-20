@@ -28,7 +28,6 @@
 #include <config.h>
 #endif
 
-#include <xercesc/sax2/Attributes.hpp>
 #include <string>
 #include <map>
 #include <utils/xml/GenericSAXHandler.h>

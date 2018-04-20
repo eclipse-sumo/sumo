@@ -80,7 +80,7 @@ Edge::getEdge(const std::string& id) {
 
 
 double
-Edge::getWaitingSeconds(const std::string& id) {
+Edge::getWaitingTime(const std::string& id) {
     double wtime = 0;
     for (MSLane* lane : getEdge(id)->getLanes()) {
         wtime += lane->getWaitingSeconds();

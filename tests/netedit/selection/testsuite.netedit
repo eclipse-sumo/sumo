@@ -4,6 +4,9 @@ select_default
 # select using click
 select_basic
 
+# check toogle edges selection
+select_toogle_edges
+
 # save selection
 select_save_selection
 
@@ -13,11 +16,17 @@ select_load_selection
 # check set operators clear and invert
 select_setoperators
 
+# check the rectangle selection
+select_rectangle
+
 # select differents busstops
-selectadditional_basic
+select_additional_basic
 
 # check that undo-redo of elements works correctly
-undo_redo
+select_undo_redo
 
 # try to select elements with wrong parameters
-wrong_parameters
+select_wrong_parameters
+
+# lock selection
+select_lockselection

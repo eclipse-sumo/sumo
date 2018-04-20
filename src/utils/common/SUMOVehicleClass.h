@@ -200,7 +200,8 @@ enum SUMOVehicleClass {
     //@}
 
     /// @brief classes which (normally) do not drive on normal roads
-    SVC_NON_ROAD = SVC_TRAM | SVC_RAIL | SVC_RAIL_URBAN | SVC_RAIL_ELECTRIC | SVC_SHIP
+    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
 
 extern const int SUMOVehicleClass_MAX;

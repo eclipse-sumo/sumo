@@ -49,7 +49,7 @@ SystemFrame::addConfigurationOptions(OptionsCont& oc) {
     oc.addDescription("configuration-file", "Configuration", "Loads the named config on startup");
     oc.addXMLDefault("configuration-file");
 
-    oc.doRegister("save-configuration", new Option_FileName());
+    oc.doRegister("save-configuration", 'C', new Option_FileName());
     oc.addSynonyme("save-config", "save-configuration");
     oc.addDescription("save-configuration", "Configuration", "Saves current configuration into FILE");
 

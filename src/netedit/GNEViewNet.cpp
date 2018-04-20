@@ -2799,7 +2799,7 @@ GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
 
 
 void 
-GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPressed) {
+GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPressed) {
     selectingUsingRectangle = false;
     // shift held down on mouse-down and mouse-up
     if (shiftKeyPressed) {
@@ -2808,7 +2808,8 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
             b.add(selectionCorner1);
             b.add(selectionCorner2);
             std::vector<GUIGlID> ids = viewNet->getObjectsInBoundary(b);
-            std::set<GNEAttributeCarrier*> ACInRectangles;
+            // use a set of pairs to obtain attribute carriers in rectangle sorted by ID (note: a map cannot be used because there is different ACs with the same ID
+            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACInRectangles;
             for(auto i : ids) {
                 // avoid to select Net (i = 0)
                 if (i != 0) {
@@ -2820,23 +2821,25 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                     // select junctions of selected edges if 
                     if((retrievedAC->getTag() == SUMO_TAG_EDGE) && (viewNet->myMenuCheckExtendToEdgeNodes->getCheck() == TRUE)) {
                         GNEEdge* edge = dynamic_cast<GNEEdge*>(retrievedAC);
-                        ACInRectangles.insert(edge->getGNEJunctionSource());
-                        ACInRectangles.insert(edge->getGNEJunctionDestiny());
+                        ACInRectangles.insert(std::pair<std::string, GNEAttributeCarrier*>(edge->getGNEJunctionSource()->getID(), edge->getGNEJunctionSource()));
+                        ACInRectangles.insert(std::pair<std::string, GNEAttributeCarrier*>(edge->getGNEJunctionSource()->getID(), edge->getGNEJunctionDestiny()));
                     }
                     // make sure that AttributeCarrier can be selected
                     GUIGlObject *glObject = dynamic_cast<GUIGlObject*>(retrievedAC);
                     if(glObject && !viewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(glObject->getType())) {
-                        ACInRectangles.insert(retrievedAC);
+                        ACInRectangles.insert(std::pair<std::string, GNEAttributeCarrier*>(retrievedAC->getID(), retrievedAC));
                     }
                 }
             }
             // declare two sets of attribute carriers, one for select and another for unselect
-            std::set<GNEAttributeCarrier*> ACToSelect;
-            std::set<GNEAttributeCarrier*> ACToUnselect;
+            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToSelect;
+            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToUnselect;
             // in restrict AND replace mode all current selected attribute carriers will be unselected
             if((viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
                (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE) ) {
-                ACToUnselect = viewNet->myNet->getSelectedAttributeCarriers();
+                for(auto i : viewNet->myNet->getSelectedAttributeCarriers()) {
+                    ACToUnselect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
+                }
             }
             // iterate over AtributeCarriers obtained of rectangle an place it in ACToSelect or ACToUnselect
             for (auto i : ACInRectangles) {
@@ -2859,10 +2862,10 @@ GNEViewNet::selectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                 // first unselect AC of ACToUnselect and then selects AC of ACToSelect
                 viewNet->myUndoList->p_begin("selection using rectangle");
                 for (auto i : ACToUnselect) {
-                    i->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "false", viewNet->myUndoList);
                 }
                 for (auto i : ACToSelect) {
-                    i->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", viewNet->myUndoList);
                 }
                 viewNet->myUndoList->p_end();
             }

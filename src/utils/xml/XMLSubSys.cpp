@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#include <cstdint>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>

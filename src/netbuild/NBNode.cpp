@@ -74,7 +74,9 @@
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUG_PED_STRUCTURES
-#define DEBUGCOND true
+//#define DEBUG_EDGE_SORTING
+//#define DEBUGCOND true
+//#define DEBUGCOND (getID() == "260479469")
 
 // ===========================================================================
 // static members
@@ -2852,6 +2854,7 @@ NBNode::sortEdges(bool useNodeShape) {
     if (myAllEdges.size() == 0) {
         return;
     }
+    EdgeVector allEdgesOriginal = myAllEdges;
     EdgeVector& allEdges = myAllEdges;
     EdgeVector& incoming = myIncomingEdges;
     EdgeVector& outgoing = myOutgoingEdges;
@@ -2868,31 +2871,33 @@ NBNode::sortEdges(bool useNodeShape) {
         NBNodesEdgesSorter::swapWhenReversed(this, allEdges.end() - 1, allEdges.begin());
     }
 
-    bool useCustomEndPoints = true;
-    for (NBEdge* e : allEdges) {
-        if (e->hasDefaultGeometryEndpointAtNode(this)) {
-            useCustomEndPoints = false;
-            break;
-        }
-    }
     // sort again using additional geometry information
-    if ((useNodeShape && getShape().area() >= 1) || useCustomEndPoints) {
-        NBEdge* firstOfAll = allEdges.front();
-        NBEdge* firstOfIncoming = incoming.size() > 0 ? incoming.front() : 0;
-        NBEdge* firstOfOutgoing = outgoing.size() > 0 ? outgoing.front() : 0;
-        // sort by the angle between the node shape center and the point where the edge meets the node shape
-        sort(allEdges.begin(), allEdges.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
-        sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
-        sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
-        // let the first edge remain the first
-        rotate(allEdges.begin(), std::find(allEdges.begin(), allEdges.end(), firstOfAll), allEdges.end());
-        if (firstOfIncoming != 0) {
-            rotate(incoming.begin(), std::find(incoming.begin(), incoming.end(), firstOfIncoming), incoming.end());
-        }
-        if (firstOfOutgoing != 0) {
-            rotate(outgoing.begin(), std::find(outgoing.begin(), outgoing.end(), firstOfOutgoing), outgoing.end());
+    NBEdge* firstOfAll = allEdges.front();
+    NBEdge* firstOfIncoming = incoming.size() > 0 ? incoming.front() : 0;
+    NBEdge* firstOfOutgoing = outgoing.size() > 0 ? outgoing.front() : 0;
+    // sort by the angle between the node shape center and the point where the edge meets the node shape
+    sort(allEdges.begin(), allEdges.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
+    sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
+    sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
+    // let the first edge remain the first
+    rotate(allEdges.begin(), std::find(allEdges.begin(), allEdges.end(), firstOfAll), allEdges.end());
+    if (firstOfIncoming != 0) {
+        rotate(incoming.begin(), std::find(incoming.begin(), incoming.end(), firstOfIncoming), incoming.end());
+    }
+    if (firstOfOutgoing != 0) {
+        rotate(outgoing.begin(), std::find(outgoing.begin(), outgoing.end(), firstOfOutgoing), outgoing.end());
+    }
+#ifdef DEBUG_EDGE_SORTING
+    if (DEBUGCOND) {
+        std::cout << "sortedEdges:\n";
+        for (NBEdge* e : allEdges) {
+            std::cout << "  " << e->getID() 
+                << " angleToCenter=" << e->getAngleAtNodeToCenter(this)
+                << " junctionAngle=" << e->getAngleAtNode(this) << "\n";
         }
     }
+#endif
+
     // fixing some pathological all edges orderings
     // if every of the edges a,b,c has a turning edge a',b',c' the all edges ordering should be a,a',b,b',c,c'
     if (incoming.size() == outgoing.size() && incoming.front() == allEdges.front()) {
@@ -2918,6 +2923,14 @@ NBNode::sortEdges(bool useNodeShape) {
     //        std::cout << "  " << toString((*it)->edges) << "\n";
     //    }
     //}
+    
+    if (useNodeShape && myAllEdges != allEdgesOriginal) {
+        // sorting order changed after node shape was computed.
+        computeNodeShape(-1);
+        for (NBEdge* e : myAllEdges) {
+            e->computeEdgeShape();
+        }
+    }
 }
 
 /****************************************************************************/

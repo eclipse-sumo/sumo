@@ -788,7 +788,7 @@ def changeAdditional(additional):
     pasteIntoTextField(additional)
     # type enter to save change
     typeEnter()
-
+    
 
 """
 @brief modify default int/double/string value of an additional
@@ -927,6 +927,15 @@ def deleteMode():
 
 
 """
+@brief delete using SUPR key
+"""
+
+
+def deleteUsingSuprKey():
+    typeKey(Key.DELETE)
+
+
+"""
 @brief Enable or disable 'automatically delete Additionals'
 """
 
@@ -987,7 +996,36 @@ def toogleSelectEdges():
     typeSpace()
     # Focus on frame again
     focusOnFrame()
- 
+
+
+"""
+@brief toogle select edges
+"""
+
+
+def toogleShowConnections():
+    focusOnFrame()
+    # jump to toogle edge
+    for x in range(0, 2):
+        typeInvertTab()
+    typeSpace()
+    # Focus on frame again
+    focusOnFrame()
+
+
+"""
+@brief lock selection by glType
+"""
+
+
+def lockSelection(glType):
+    # focus current frame
+    focusOnFrame()
+    # go to selected glType
+    for x in range(0, glType):
+        typeTab()
+    # type enter to save change
+    typeSpace()
 """
 @brief select elements with default frame values
 """
@@ -1017,7 +1055,7 @@ def saveSelection():
     pasteIntoTextField(filename)
     typeEnter()
     
-	
+    
 """
 @brief save selection
 """
@@ -1189,6 +1227,8 @@ def selectionInvert():
 
 
 def selectionToogleEdges():
+    # focus current frame
+    focusOnFrame()
     # go to check box "select edges"
     for x in range(0, 3):
         typeInvertTab()

@@ -15,3 +15,6 @@ multiple_definitions
 
 # Test new format with the cross3ltl network
 cross3ltl_siggrpphase
+
+# Test error with the cross3ltl network
+cross3ltl_no_key

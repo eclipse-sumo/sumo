@@ -115,10 +115,8 @@ const double GNENet::Z_INITIALIZED = 1;
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, ""),
     ShapeContainer(),
-    myViewNet(0),
+    myViewNet(nullptr),
     myNetBuilder(netBuilder),
-    myJunctions(),
-    myEdges(),
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
@@ -140,7 +138,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 GNENet::~GNENet() {
     // Drop Edges
-    for (auto it : myEdges) {
+    for (auto it : myAttributeCarriers.edges) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -149,7 +147,7 @@ GNENet::~GNENet() {
         delete it.second;
     }
     // Drop junctions
-    for (auto it : myJunctions) {
+    for (auto it : myAttributeCarriers.junctions) {
         it.second->decRef("GNENet::~GNENet");
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -158,7 +156,7 @@ GNENet::~GNENet() {
         delete it.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
-    for (auto it : myAdditionals) {
+    for (auto it : myAttributeCarriers.additionals) {
         // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
         it.second->decRef();
         // show extra information for tests
@@ -168,7 +166,7 @@ GNENet::~GNENet() {
         delete it.second;
     }
     // Drop calibrator routes (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myCalibratorRoutes) {
+    for (auto it : myAttributeCarriers.calibratorRoutes) {
         // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
         it.second->decRef();
         // show extra information for tests
@@ -178,7 +176,7 @@ GNENet::~GNENet() {
         delete it.second;
     }
     // Drop calibrator vehicle types (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myCalibratorVehicleTypes) {
+    for (auto it : myAttributeCarriers.calibratorVehicleTypes) {
         // decrease reference manually (because it was increases manually in GNEAdditionalHandler)
         it.second->decRef();
         // show extra information for tests
@@ -311,7 +309,7 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
     NBNode* nbn = new NBNode(id, pos);
     GNEJunction* junction = new GNEJunction(*nbn, this);
     undoList->add(new GNEChange_Junction(junction, true), true);
-    assert(myJunctions[id]);
+    assert(myAttributeCarriers.junctions[id]);
     return junction;
 }
 
@@ -369,7 +367,7 @@ GNENet::createEdge(
     }
     requireRecompute();
     undoList->p_end();
-    assert(myEdges[id]);
+    assert(myAttributeCarriers.edges[id]);
     return edge;
 }
 
@@ -407,7 +405,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incident = junction->getNBNode()->getEdges();
     for (auto it : incident) {
-        deleteEdge(myEdges[it->getID()], undoList, true);
+        deleteEdge(myAttributeCarriers.edges[it->getID()], undoList, true);
     }
 
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
@@ -777,7 +775,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     const EdgeVector incoming = moved->getNBNode()->getIncomingEdges();
     for (NBEdge* edge : incoming) {
         // delete edges between the merged junctions
-        GNEEdge* e = myEdges[edge->getID()];
+        GNEEdge* e = myAttributeCarriers.edges[edge->getID()];
         assert(e != 0);
         if (e->getGNEJunctionSource() == target) {
             deleteEdge(e, undoList, false);
@@ -789,7 +787,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     const EdgeVector outgoing = moved->getNBNode()->getOutgoingEdges();
     for (NBEdge* edge : outgoing) {
         // delete edges between the merged junctions
-        GNEEdge* e = myEdges[edge->getID()];
+        GNEEdge* e = myAttributeCarriers.edges[edge->getID()];
         assert(e != 0);
         if (e->getGNEJunctionDestiny() == target) {
             deleteEdge(e, undoList, false);
@@ -806,7 +804,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
 bool
 GNENet::checkJunctionPosition(const Position& pos) {
     // Check that there isn't another junction in the same position as Pos
-    for (auto i : myJunctions) {
+    for (auto i : myAttributeCarriers.junctions) {
         if (i.second->getPositionInView() == pos) {
             return false;
         }
@@ -848,8 +846,8 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
 
 GNEJunction*
 GNENet::retrieveJunction(const std::string& id, bool failHard) {
-    if (myJunctions.count(id)) {
-        return myJunctions[id];
+    if (myAttributeCarriers.junctions.count(id)) {
+        return myAttributeCarriers.junctions[id];
     } else if (failHard) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Junction " + id);
@@ -861,9 +859,9 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) {
 
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) {
-    auto i = myEdges.find(id);
+    auto i = myAttributeCarriers.edges.find(id);
     // If edge was found
-    if (i != myEdges.end()) {
+    if (i != myAttributeCarriers.edges.end()) {
         return i->second;
     } else if (failHard) {
         // If edge wasn't found, throw exception
@@ -878,7 +876,7 @@ GNEEdge*
 GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) {
     assert((from != nullptr) && (to != nullptr));
     // iterate over Junctions of net
-    for (auto i : myEdges) {
+    for (auto i : myAttributeCarriers.edges) {
         if ((i.second->getGNEJunctionSource() == from) && (i.second->getGNEJunctionDestiny() == to)) {
             return i.second;
         }
@@ -921,7 +919,7 @@ GNENet::retrievePOI(const std::string& id, bool failHard) const {
 GNEConnection* 
 GNENet::retrieveConnection(const std::string& id, bool failHard) const {
     // iterate over junctions
-    for (auto i : myJunctions) {
+    for (auto i : myAttributeCarriers.junctions) {
         // iterate over connections
         for (auto j : i.second->getGNEConnections()) {
             if(j->getID() == id) {
@@ -941,7 +939,7 @@ GNENet::retrieveConnection(const std::string& id, bool failHard) const {
 GNECrossing* 
 GNENet::retrieveCrossing(const std::string& id, bool failHard) const {
     // iterate over junctions
-    for (auto i : myJunctions) {
+    for (auto i : myAttributeCarriers.junctions) {
         // iterate over crossings
         for (auto j : i.second->getGNECrossings()) {
             if (j->getID() == id) {
@@ -963,12 +961,12 @@ GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
     if(onlySelected) {
         // only returns selected edges
-        for (auto i : mySelectedAttributeCarriersByTag[SUMO_TAG_EDGE]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByTag[SUMO_TAG_EDGE]) {
             result.push_back(dynamic_cast<GNEEdge*>(i));
         }
     } else {
         // returns all edges
-        for (auto i : myEdges) {
+        for (auto i : myAttributeCarriers.edges) {
             result.push_back(i.second);
         }
     }
@@ -981,12 +979,12 @@ GNENet::retrieveLanes(bool onlySelected) {
     std::vector<GNELane*> result;
     if(onlySelected) {
         // only returns selected edges
-        for (auto i : mySelectedAttributeCarriersByTag[SUMO_TAG_LANE]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByTag[SUMO_TAG_LANE]) {
             result.push_back(dynamic_cast<GNELane*>(i));
         }
     } else {
         // returns all edges
-        for (auto it : myEdges) {
+        for (auto it : myAttributeCarriers.edges) {
             for (auto it_lane : it.second->getLanes()) {
                 result.push_back(it_lane);
             }
@@ -1034,12 +1032,12 @@ GNENet::retrieveJunctions(bool onlySelected) {
     std::vector<GNEJunction*> result;
     if(onlySelected) {
         // only returns selected junctions
-        for (auto i : mySelectedAttributeCarriersByTag[SUMO_TAG_JUNCTION]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByTag[SUMO_TAG_JUNCTION]) {
             result.push_back(dynamic_cast<GNEJunction*>(i));
         }
     } else {
         // returns all edges
-        for (auto i : myJunctions) {
+        for (auto i : myAttributeCarriers.junctions) {
             result.push_back(i.second);
         }
     }
@@ -1052,7 +1050,7 @@ GNENet::retrieveShapes(SumoXMLTag shapeTag, bool onlySelected) {
     std::vector<GNEShape*> result;
     if(onlySelected) {
         // only returns selected polygons
-        for (auto i : mySelectedAttributeCarriersByTag[shapeTag]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByTag[shapeTag]) {
             GNEShape* shape = dynamic_cast<GNEShape*>(i);
             // null shapes aren't allowed
             if(shape) {
@@ -1085,10 +1083,10 @@ GNENet::retrieveShapes(bool onlySelected) {
     std::vector<GNEShape*> result;
     if(onlySelected) {
         // only returns selected polygons and POIs
-        for (auto i : mySelectedAttributeCarriersByType[GLO_POLYGON]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByType[GLO_POLYGON]) {
             result.push_back(dynamic_cast<GNEPoly*>(i));
         }
-        for (auto i : mySelectedAttributeCarriersByType[GLO_POI]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByType[GLO_POI]) {
             result.push_back(dynamic_cast<GNEPOI*>(i));
         }
     } else {
@@ -1115,7 +1113,7 @@ GNENet::refreshElement(GUIGlObject* o) {
 std::string
 GNENet::generateVaporizerID() const {
     int counter = 0;
-    while (myAdditionals.find(std::pair<std::string, SumoXMLTag>("vaporizer_" + toString(counter), SUMO_TAG_VAPORIZER)) != myAdditionals.end()) {
+    while (myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>("vaporizer_" + toString(counter), SUMO_TAG_VAPORIZER)) != myAttributeCarriers.additionals.end()) {
         counter++;
     }
     return "vaporizer_" + toString(counter);
@@ -1150,13 +1148,13 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     std::vector<GNEAttributeCarrier*> result;
     if(type == SUMO_TAG_NOTHING) {
         // return all elements
-        for (auto i : myJunctions) {
+        for (auto i : myAttributeCarriers.junctions) {
             result.push_back(i.second);
             for(auto j : i.second->getGNECrossings()) {
                 result.push_back(j);
             }
         }
-        for (auto i : myEdges) {
+        for (auto i : myAttributeCarriers.edges) {
             result.push_back(i.second);
             for(auto j : i.second->getLanes()) {
                 result.push_back(j);
@@ -1165,7 +1163,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 result.push_back(j);
             }
         }
-        for (auto i : myAdditionals) {
+        for (auto i : myAttributeCarriers.additionals) {
             result.push_back(i.second);
         }
         for (auto i : myPolygons) {
@@ -1176,7 +1174,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         }
     } else if (std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), type) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
         // only returns additionals of a certain type.
-        for (auto i : myAdditionals) {
+        for (auto i : myAttributeCarriers.additionals) {
             if(i.first.second == type) {
                 result.push_back(i.second);
             }
@@ -1185,31 +1183,31 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         // return only a part of elements, depending of type
         switch (type) {
             case SUMO_TAG_JUNCTION:
-                for (auto i : myJunctions) {
+                for (auto i : myAttributeCarriers.junctions) {
                     result.push_back(i.second);
                 }
                 break;
             case SUMO_TAG_EDGE:
-                for (auto i : myEdges) {
+                for (auto i : myAttributeCarriers.edges) {
                     result.push_back(i.second);
                 }
                 break;
             case SUMO_TAG_LANE:
-                for (auto i : myEdges) {
+                for (auto i : myAttributeCarriers.edges) {
                     for(auto j : i.second->getLanes()) {
                         result.push_back(j);
                     }
                 }
                 break;
             case SUMO_TAG_CONNECTION:
-                for (auto i : myEdges) {
+                for (auto i : myAttributeCarriers.edges) {
                     for(auto j : i.second->getGNEConnections()) {
                         result.push_back(j);
                     }
                 }
                 break;
             case SUMO_TAG_CROSSING:
-                for (auto i : myJunctions) {
+                for (auto i : myAttributeCarriers.junctions) {
                     for(auto j : i.second->getGNECrossings()) {
                        result.push_back(j);
                     }
@@ -1256,7 +1254,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     }
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
-        for (auto it : myEdges) {
+        for (auto it : myAttributeCarriers.edges) {
             myEdgesAndNumberOfLanes[it.second->getID()] = (int)it.second->getLanes().size();
         }
     }
@@ -1316,7 +1314,7 @@ GNENet::requireRecompute() {
 
 bool
 GNENet::netHasGNECrossings() const {
-    for (auto n : myJunctions) {
+    for (auto n : myAttributeCarriers.junctions) {
         if (n.second->getGNECrossings().size() > 0) {
             return true;
         }
@@ -1365,7 +1363,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     oldPos = pos;
 
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
-    for (auto i : myJunctions) {
+    for (auto i : myAttributeCarriers.junctions) {
         if ((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1428,16 +1426,16 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
     // remap edges
     for (auto it : allIncoming) {
-        undoList->p_add(new GNEChange_Attribute(myEdges[it->getID()], SUMO_ATTR_TO, joined->getID()));
+        undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], SUMO_ATTR_TO, joined->getID()));
     }
     for (auto it : allOutgoing) {
         // delete edges within the cluster
-        GNEEdge* e = myEdges[it->getID()];
+        GNEEdge* e = myAttributeCarriers.edges[it->getID()];
         assert(e != 0);
         if (e->getGNEJunctionDestiny() == joined) {
             deleteEdge(e, undoList, false);
         } else {
-            undoList->p_add(new GNEChange_Attribute(myEdges[it->getID()], SUMO_ATTR_FROM, joined->getID()));
+            undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], SUMO_ATTR_FROM, joined->getID()));
         }
     }
     // delete original junctions
@@ -1460,7 +1458,7 @@ bool
 GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // obtain current net's crossings
     std::vector<GNECrossing*> myNetCrossings;
-    for (auto it : myJunctions) {
+    for (auto it : myAttributeCarriers.junctions) {
         myNetCrossings.reserve(myNetCrossings.size() + it.second->getGNECrossings().size());
         myNetCrossings.insert(myNetCrossings.end(), it.second->getGNECrossings().begin(), it.second->getGNECrossings().end());
     }
@@ -1516,7 +1514,7 @@ void
 GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
     undoList->p_begin("Clean " + toString(SUMO_TAG_JUNCTION) + "s");
     std::vector<GNEJunction*> toRemove;
-    for (auto it : myJunctions) {
+    for (auto it : myAttributeCarriers.junctions) {
         GNEJunction* junction = it.second;
         if (junction->getNBNode()->getEdges().size() == 0) {
             toRemove.push_back(junction);
@@ -1541,8 +1539,8 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
     // iterate over NBEdges to join
     for (auto j : toJoin) {
         // obtain GNEEdges
-        GNEEdge* begin = myEdges[j.first->getID()];
-        GNEEdge* continuation = myEdges[j.second->getID()];
+        GNEEdge* begin = myAttributeCarriers.edges[j.first->getID()];
+        GNEEdge* continuation = myAttributeCarriers.edges[j.second->getID()];
         // remove connections between the edges
         std::vector<NBEdge::Connection> connections = begin->getNBEdge()->getConnections();
         for (auto con : connections) {
@@ -1598,10 +1596,10 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
 
 void
 GNENet::renameEdge(GNEEdge* edge, const std::string& newID) {
-    myEdges.erase(edge->getNBEdge()->getID());
+    myAttributeCarriers.edges.erase(edge->getNBEdge()->getID());
     myNetBuilder->getEdgeCont().rename(edge->getNBEdge(), newID);
     edge->setMicrosimID(newID);
-    myEdges[newID] = edge;
+    myAttributeCarriers.edges[newID] = edge;
     // rename all connections related to this edge
     for (auto i : edge->getLanes()) {
         i->updateConnectionIDs();
@@ -1625,21 +1623,21 @@ GNENet::getViewNet() const {
 }
 
 
-const std::set<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers() const {
-    return mySelectedAttributeCarriers;
+    return myAttributeCarriers.selectedAttributeCarriers;
 }
 
 
-const std::set<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
-    return mySelectedAttributeCarriersByType[type];
+    return myAttributeCarriers.selectedAttributeCarriersByType[type];
 }
 
 
-const std::set<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers(SumoXMLTag tag) {
-    return mySelectedAttributeCarriersByTag[tag];
+    return myAttributeCarriers.selectedAttributeCarriersByTag[tag];
 }
 
 
@@ -1648,15 +1646,15 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
     if(attributeCarrier == nullptr) {
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
-        if((mySelectedAttributeCarriersByType[glType].find(attributeCarrier) == mySelectedAttributeCarriersByType[glType].end()) &&
-           (mySelectedAttributeCarriers.find(attributeCarrier) == mySelectedAttributeCarriers.end()) &&
-           (mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].find(attributeCarrier) == mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
+        if((std::find(myAttributeCarriers.selectedAttributeCarriersByType[glType].begin(), myAttributeCarriers.selectedAttributeCarriersByType[glType].end(), attributeCarrier) == myAttributeCarriers.selectedAttributeCarriersByType[glType].end()) &&
+           (std::find(myAttributeCarriers.selectedAttributeCarriers.begin(), myAttributeCarriers.selectedAttributeCarriers.end(), attributeCarrier) == myAttributeCarriers.selectedAttributeCarriers.end()) &&
+           (std::find(myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier) == myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
             // select in selected attribute carriers by type
-            mySelectedAttributeCarriersByType[glType].insert(attributeCarrier);
+            myAttributeCarriers.selectedAttributeCarriersByType[glType].push_back(attributeCarrier);
             // select in all selected attribute carriers
-            mySelectedAttributeCarriers.insert(attributeCarrier);
+            myAttributeCarriers.selectedAttributeCarriers.push_back(attributeCarrier);
             // select in selected attribute carriers by tag
-            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].insert(attributeCarrier);
+            myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].push_back(attributeCarrier);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1674,19 +1672,19 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
         // search attribute carrier in all selection containers
-        auto itGlType = mySelectedAttributeCarriersByType[glType].find(attributeCarrier);
-        auto itAll = mySelectedAttributeCarriers.find(attributeCarrier);
-        auto itTag = mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].find(attributeCarrier);
+        auto itGlType = std::find(myAttributeCarriers.selectedAttributeCarriersByType[glType].begin(), myAttributeCarriers.selectedAttributeCarriersByType[glType].end(), attributeCarrier);
+        auto itAll = std::find(myAttributeCarriers.selectedAttributeCarriers.begin(), myAttributeCarriers.selectedAttributeCarriers.end(), attributeCarrier);
+        auto itTag = std::find(myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier);
         // only continue if was found in all containers. In other case throw exception
-        if((itGlType != mySelectedAttributeCarriersByType[glType].end()) && 
-           (itAll != mySelectedAttributeCarriers.end()) && 
-           (itTag != mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
+        if((itGlType != myAttributeCarriers.selectedAttributeCarriersByType[glType].end()) && 
+           (itAll != myAttributeCarriers.selectedAttributeCarriers.end()) && 
+           (itTag != myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
             // unselect in selected attribute carriers by type
-            mySelectedAttributeCarriersByType[glType].erase(itGlType);
+            myAttributeCarriers.selectedAttributeCarriersByType[glType].erase(itGlType);
             // unselect in all selected attribute carriers
-            mySelectedAttributeCarriers.erase(itAll);
+            myAttributeCarriers.selectedAttributeCarriers.erase(itAll);
             // unselect in selected attribute carriers by tag
-            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].erase(itTag);
+            myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].erase(itTag);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1706,10 +1704,10 @@ GNENet::getTLLogicCont() {
 
 void
 GNENet::renameJunction(GNEJunction* junction, const std::string& newID) {
-    myJunctions.erase(junction->getNBNode()->getID());
+    myAttributeCarriers.junctions.erase(junction->getNBNode()->getID());
     myNetBuilder->getNodeCont().rename(junction->getNBNode(), newID);
     junction->setMicrosimID(newID);
-    myJunctions[newID] = junction;
+    myAttributeCarriers.junctions[newID] = junction;
 }
 
 
@@ -1727,7 +1725,7 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 GNEAdditional*
 GNENet::retrieveAdditional(const std::string& id, bool hardFail) const {
-    for (auto i : myAdditionals) {
+    for (auto i : myAttributeCarriers.additionals) {
         if (i.second->getID() == id) {
             return i.second;
         }
@@ -1745,12 +1743,12 @@ GNENet::retrieveAdditionals(bool onlySelected) {
     std::vector<GNEAdditional*> result;
     if(onlySelected) {
         // only returns selected additionals
-        for (auto i : mySelectedAttributeCarriersByType[GLO_ADDITIONAL]) {
+        for (auto i : myAttributeCarriers.selectedAttributeCarriersByType[GLO_ADDITIONAL]) {
             result.push_back(dynamic_cast<GNEAdditional*>(i));
         }
     } else {
         // returns all additionals
-        for (auto i : myAdditionals) {
+        for (auto i : myAttributeCarriers.additionals) {
             result.push_back(i.second);
         }
     }
@@ -1760,10 +1758,10 @@ GNENet::retrieveAdditionals(bool onlySelected) {
 
 GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
-    if (myAdditionals.empty()) {
+    if (myAttributeCarriers.additionals.empty()) {
         return nullptr;
-    } else if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(id, type)) != myAdditionals.end())  {
-        return myAdditionals.at(std::pair<std::string, SumoXMLTag>(id, type));
+    } else if (myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(id, type)) != myAttributeCarriers.additionals.end())  {
+        return myAttributeCarriers.additionals.at(std::pair<std::string, SumoXMLTag>(id, type));
     } else {
         return nullptr;
     }
@@ -1773,7 +1771,7 @@ GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
 std::vector<GNEAdditional*>
 GNENet::getAdditionals(SumoXMLTag type) const {
     std::vector<GNEAdditional*> vectorOfAdditionals;
-    for (auto i : myAdditionals) {
+    for (auto i : myAttributeCarriers.additionals) {
         if ((type == SUMO_TAG_NOTHING) || (type == i.second->getTag())) {
             vectorOfAdditionals.push_back(i.second);
         }
@@ -1785,7 +1783,7 @@ GNENet::getAdditionals(SumoXMLTag type) const {
 GNERerouterInterval*
 GNENet::getRerouterInterval(const std::string& rerouterIntervalID) const {
     // iterate over additionals and obtain Rerouters
-    for (auto i : myAdditionals) {
+    for (auto i : myAttributeCarriers.additionals) {
         if (i.second->getTag() == SUMO_TAG_REROUTER) {
             GNERerouter* rerouter = dynamic_cast<GNERerouter*>(i.second);
             // iterate over intervals of rerouter.
@@ -1803,7 +1801,7 @@ GNENet::getRerouterInterval(const std::string& rerouterIntervalID) const {
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
-    for (auto i : myAdditionals) {
+    for (auto i : myAttributeCarriers.additionals) {
         if ((type == SUMO_TAG_NOTHING) || (type == i.second->getTag())) {
             counter++;
         }
@@ -1814,13 +1812,13 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 
 void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
-    auto additionalToUpdate = myAdditionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
-    if (additionalToUpdate == myAdditionals.end()) {
+    auto additionalToUpdate = myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
+    if (additionalToUpdate == myAttributeCarriers.additionals.end()) {
         throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
-        myAdditionals.erase(additionalToUpdate);
-        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+        myAttributeCarriers.additionals.erase(additionalToUpdate);
+        myAttributeCarriers.additionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         // additionals has to be saved
         requiereSaveAdditionals();
     }
@@ -1842,7 +1840,7 @@ GNENet::saveAdditionals(const std::string& filename) {
     // obtain invalid stopping places and detectors
     std::vector<GNEStoppingPlace*> invalidStoppingPlaces;
     std::vector<GNEDetector*> invalidDetectors;
-    for (auto i : myAdditionals) {
+    for (auto i : myAttributeCarriers.additionals) {
         GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(i.second);
         GNEDetector* detector = dynamic_cast<GNEDetector*>(i.second);
         // check if has to be fixed
@@ -1864,7 +1862,7 @@ GNENet::saveAdditionals(const std::string& filename) {
             // save additionals
             OutputDevice& device = OutputDevice::getDevice(filename);
             device.openTag("additionals");
-            for (auto i : myAdditionals) {
+            for (auto i : myAttributeCarriers.additionals) {
                 i.second->writeAdditional(device);
             }
             device.close();
@@ -1874,7 +1872,7 @@ GNENet::saveAdditionals(const std::string& filename) {
     } else {
         OutputDevice& device = OutputDevice::getDevice(filename);
         device.openTag("additionals");
-        for (auto i : myAdditionals) {
+        for (auto i : myAttributeCarriers.additionals) {
             // only save additionals that doesn't have Additional parents
             if (i.second->getAdditionalParent() == nullptr) {
                 i.second->writeAdditional(device);
@@ -1894,7 +1892,7 @@ GNENet::saveAdditionals(const std::string& filename) {
 GNECalibratorRoute*
 GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
     // iterate over calibrator routes
-    for (auto i : myCalibratorRoutes) {
+    for (auto i : myAttributeCarriers.calibratorRoutes) {
         if (i.second->getID() == id) {
             return i.second;
         }
@@ -1910,7 +1908,7 @@ GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
 GNECalibratorVehicleType*
 GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) const {
     // iterate over vehicle types
-    for (auto i : myCalibratorVehicleTypes) {
+    for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
         if (i.second->getID() == id) {
             return i.second;
         }
@@ -1925,7 +1923,7 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
 std::string
 GNENet::generateCalibratorRouteID() const {
     int counter = 0;
-    while (myCalibratorRoutes.count(toString(SUMO_TAG_ROUTE) + toString(counter)) != 0) {
+    while (myAttributeCarriers.calibratorRoutes.count(toString(SUMO_TAG_ROUTE) + toString(counter)) != 0) {
         counter++;
     }
     return toString(SUMO_TAG_ROUTE) + toString(counter);
@@ -1935,7 +1933,7 @@ GNENet::generateCalibratorRouteID() const {
 std::string
 GNENet::generateCalibratorVehicleTypeID() const {
     int counter = 0;
-    while (myCalibratorVehicleTypes.count(toString(SUMO_TAG_VTYPE) + toString(counter)) != 0) {
+    while (myAttributeCarriers.calibratorVehicleTypes.count(toString(SUMO_TAG_VTYPE) + toString(counter)) != 0) {
         counter++;
     }
     return toString(SUMO_TAG_VTYPE) + toString(counter);
@@ -1944,9 +1942,9 @@ GNENet::generateCalibratorVehicleTypeID() const {
 
 void
 GNENet::changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID) {
-    if (myCalibratorRoutes.count(oldID) > 0) {
-        myCalibratorRoutes.erase(oldID);
-        myCalibratorRoutes[route->getID()] = route;
+    if (myAttributeCarriers.calibratorRoutes.count(oldID) > 0) {
+        myAttributeCarriers.calibratorRoutes.erase(oldID);
+        myAttributeCarriers.calibratorRoutes[route->getID()] = route;
     } else {
         throw ProcessError("Route wasn't inserted");
     }
@@ -1955,9 +1953,9 @@ GNENet::changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& ol
 
 void
 GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID) {
-    if (myCalibratorVehicleTypes.count(oldID) > 0) {
-        myCalibratorVehicleTypes.erase(oldID);
-        myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
+    if (myAttributeCarriers.calibratorVehicleTypes.count(oldID) > 0) {
+        myAttributeCarriers.calibratorVehicleTypes.erase(oldID);
+        myAttributeCarriers.calibratorVehicleTypes[vehicleType->getID()] = vehicleType;
     } else {
         throw ProcessError("VehicleType wasn't inserted");
     }
@@ -2113,8 +2111,8 @@ GNENet::getNumberOfTLSPrograms() const {
 void
 GNENet::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
-    if (myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) == myAdditionals.end()) {
-        myAdditionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
+    if (myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())) == myAttributeCarriers.additionals.end()) {
+        myAttributeCarriers.additionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         myGrid.addAdditionalGLObject(additional);
         // check if additional is selected
         if(additional->isAttributeCarrierSelected()) {
@@ -2133,15 +2131,15 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 void
 GNENet::deleteAdditional(GNEAdditional* additional) {
     // obtain iterator to additional to remove
-    auto additionalToRemove = myAdditionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
+    auto additionalToRemove = myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
-    if (additionalToRemove == myAdditionals.end()) {
+    if (additionalToRemove == myAttributeCarriers.additionals.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
         // Remove from container
-        myAdditionals.erase(additionalToRemove);
+        myAttributeCarriers.additionals.erase(additionalToRemove);
         // Remove from grid
         myGrid.removeAdditionalGLObject(additional);
         // check if additional is selected
@@ -2158,8 +2156,8 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
 
 void
 GNENet::insertCalibratorRoute(GNECalibratorRoute* route) {
-    if (myCalibratorRoutes.find(route->getID()) == myCalibratorRoutes.end()) {
-        myCalibratorRoutes[route->getID()] = route;
+    if (myAttributeCarriers.calibratorRoutes.find(route->getID()) == myAttributeCarriers.calibratorRoutes.end()) {
+        myAttributeCarriers.calibratorRoutes[route->getID()] = route;
     } else {
         throw ProcessError("Route already inserted");
     }
@@ -2168,9 +2166,9 @@ GNENet::insertCalibratorRoute(GNECalibratorRoute* route) {
 
 void
 GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
-    auto it = myCalibratorRoutes.find(route->getID());
-    if (it != myCalibratorRoutes.end()) {
-        myCalibratorRoutes.erase(it);
+    auto it = myAttributeCarriers.calibratorRoutes.find(route->getID());
+    if (it != myAttributeCarriers.calibratorRoutes.end()) {
+        myAttributeCarriers.calibratorRoutes.erase(it);
     } else {
         throw ProcessError("Route wasn't inserted");
     }
@@ -2179,8 +2177,8 @@ GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
 
 void
 GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if (myCalibratorVehicleTypes.find(vehicleType->getID()) == myCalibratorVehicleTypes.end()) {
-        myCalibratorVehicleTypes[vehicleType->getID()] = vehicleType;
+    if (myAttributeCarriers.calibratorVehicleTypes.find(vehicleType->getID()) == myAttributeCarriers.calibratorVehicleTypes.end()) {
+        myAttributeCarriers.calibratorVehicleTypes[vehicleType->getID()] = vehicleType;
     } else {
         throw ProcessError("Vehicle Type already inserted");
     }
@@ -2189,9 +2187,9 @@ GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
 
 void
 GNENet::deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    auto it = myCalibratorVehicleTypes.find(vehicleType->getID());
-    if (it != myCalibratorVehicleTypes.end()) {
-        myCalibratorVehicleTypes.erase(it);
+    auto it = myAttributeCarriers.calibratorVehicleTypes.find(vehicleType->getID());
+    if (it != myAttributeCarriers.calibratorVehicleTypes.end()) {
+        myAttributeCarriers.calibratorVehicleTypes.erase(it);
     } else {
         throw ProcessError("Vehicle Type wasn't inserted");
     }
@@ -2221,7 +2219,7 @@ GNENet::initJunctionsAndEdges() {
     }
 
     // make sure myGrid is initialized even for an empty net
-    if (myEdges.size() == 0) {
+    if (myAttributeCarriers.edges.size() == 0) {
         myGrid.add(Boundary(0, 0, 100, 100));
     }
 
@@ -2252,7 +2250,7 @@ GNEJunction*
 GNENet::registerJunction(GNEJunction* junction) {
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
-    myJunctions[junction->getMicrosimID()] = junction;
+    myAttributeCarriers.junctions[junction->getMicrosimID()] = junction;
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
     // check if junction is selected
@@ -2274,7 +2272,7 @@ GNENet::registerEdge(GNEEdge* edge) {
     edge->incRef("GNENet::registerEdge");
     edge->setResponsible(false);
     // add edge to internal container of GNENet
-    myEdges[edge->getMicrosimID()] = edge;
+    myAttributeCarriers.edges[edge->getMicrosimID()] = edge;
     // add edge to grid
     myGrid.add(edge->getBoundary());
     myGrid.addAdditionalGLObject(edge);
@@ -2301,7 +2299,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     if(junction->isAttributeCarrierSelected()) {
         unselectAttributeCarrier(GLO_JUNCTION, junction);
     }
-    myJunctions.erase(junction->getMicrosimID());
+    myAttributeCarriers.junctions.erase(junction->getMicrosimID());
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
@@ -2319,7 +2317,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     if(edge->isAttributeCarrierSelected()) {
         unselectAttributeCarrier(GLO_EDGE, edge);
     }
-    myEdges.erase(edge->getMicrosimID());
+    myAttributeCarriers.edges.erase(edge->getMicrosimID());
     // extract edge of district container
     myNetBuilder->getEdgeCont().extract(myNetBuilder->getDistrictCont(), edge->getNBEdge());
     edge->decRef("GNENet::deleteSingleEdge");
@@ -2413,10 +2411,10 @@ GNENet::reserveJunctionID(const std::string& id) {
 
 void
 GNENet::initGNEConnections() {
-    for (auto it : myEdges) {
+    for (auto it : myAttributeCarriers.edges) {
         it.second->remakeGNEConnections();
     }
-    for (auto it : myEdges) {
+    for (auto it : myAttributeCarriers.edges) {
         it.second->updateGeometry();
     }
 }
@@ -2427,7 +2425,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
     for (auto it : myExplicitTurnarounds) {
-        if (myEdges.count(it) > 0) {
+        if (myAttributeCarriers.edges.count(it) > 0) {
             liveExplicitTurnarounds.insert(it);
         }
     }
@@ -2438,20 +2436,20 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         std::map<std::string, GNEEdge*> newEdgeMap;
         std::map<std::string, GNEJunction*> newJunctionMap;
         // fill newEdgeMap
-        for (auto it : myEdges) {
+        for (auto it : myAttributeCarriers.edges) {
             it.second->setMicrosimID(it.second->getNBEdge()->getID());
             newEdgeMap[it.second->getNBEdge()->getID()] = it.second;
         }
-        for (auto it : myJunctions) {
+        for (auto it : myAttributeCarriers.junctions) {
             newJunctionMap[it.second->getNBNode()->getID()] = it.second;
             it.second->setMicrosimID(it.second->getNBNode()->getID());
         }
-        myEdges = newEdgeMap;
-        myJunctions = newJunctionMap;
+        myAttributeCarriers.edges = newEdgeMap;
+        myAttributeCarriers.junctions = newJunctionMap;
     }
     // update rtree if necessary
     if (!oc.getBool("offset.disable-normalization")) {
-        for (auto it : myEdges) {
+        for (auto it : myAttributeCarriers.edges) {
             refreshElement(it.second);
         }
     }
@@ -2476,30 +2474,30 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
 
         // clear all additionals of grid
-        auto copyOfAdditionals = myAdditionals;
+        auto copyOfAdditionals = myAttributeCarriers.additionals;
         for (const auto& it : copyOfAdditionals) {
             myGrid.removeAdditionalGLObject(it.second);
         }
 
         // remove all edges of grid and net
-        auto copyOfEdges = myEdges;
+        auto copyOfEdges = myAttributeCarriers.edges;
         for (auto it : copyOfEdges) {
             myGrid.removeAdditionalGLObject(it.second);
-            myEdges.erase(it.second->getMicrosimID());
+            myAttributeCarriers.edges.erase(it.second->getMicrosimID());
         }
 
         // removes all junctions of grid and net
-        auto copyOfJunctions = myJunctions;
+        auto copyOfJunctions = myAttributeCarriers.junctions;
         for (auto it : copyOfJunctions) {
             myGrid.removeAdditionalGLObject(it.second);
-            myJunctions.erase(it.second->getMicrosimID());
+            myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
         }
 
         // clear undo list
         myViewNet->getUndoList()->clear();
 
         // clear additionals (must be do it separated)
-        myAdditionals.clear();
+        myAttributeCarriers.additionals.clear();
 
         // init again junction an edges
         initJunctionsAndEdges();
@@ -2508,7 +2506,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     // update precomputed geometries
     initGNEConnections();
 
-    for (const auto& it : myJunctions) {
+    for (const auto& it : myAttributeCarriers.junctions) {
         // undolist may not yet exist but is also not needed when just marking junctions as valid
         it.second->setLogicValid(true, 0);
         // updated shape

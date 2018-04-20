@@ -28,7 +28,7 @@ def start(args):
     simulation.load(args[1:])
 
 def simulationStep(step=0):
-    pass
+    simulation.step(step)
 %}
 #endif
 
