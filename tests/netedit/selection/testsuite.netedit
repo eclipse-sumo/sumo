@@ -23,10 +23,10 @@ select_rectangle
 selectadditional_basic
 
 # check that undo-redo of elements works correctly
-selecto_undo_redo
+select_undo_redo
 
 # try to select elements with wrong parameters
-wrong_parameters
+select_wrong_parameters
 
 # lock selection
 select_lockselection
