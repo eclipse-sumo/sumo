@@ -621,7 +621,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     if (DEBUG_COND) {
         MSVehicle* partialBehind = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(candi));
         if (partialBehind != 0 && partialBehind != neighFollow) {
-            std::cout << "'Partial behind'-vehicle '" << target->lane->getPartialBehind(candi)->getID() << "' at position " << target->hoppedVeh->getPositionOnLane() << " is closer." <<  std::endl;
+            std::cout << "'Partial behind'-vehicle '" << target->lane->getPartialBehind(candi)->getID() << "' at position " << partialBehind->getPositionOnLane() << " is closer." <<  std::endl;
         }
     }
 #endif
