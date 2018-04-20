@@ -141,7 +141,7 @@ void
 GNESelectorFrame::clearCurrentSelection() const {
     // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
     myViewNet->getUndoList()->p_begin("clear selection");
-    std::set<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
     // change attribute GNE_ATTR_SELECTED of all selected items to false
     for (auto i : selectedAC) {
         i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -879,7 +879,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
-    std::set<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
+    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
     // for invert selection, first clean current selection and next select elements of set "unselectedElements"
     mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings

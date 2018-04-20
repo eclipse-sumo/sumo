@@ -1625,19 +1625,19 @@ GNENet::getViewNet() const {
 }
 
 
-const std::set<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers() const {
     return mySelectedAttributeCarriers;
 }
 
 
-const std::set<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers(GUIGlObjectType type) {
     return mySelectedAttributeCarriersByType[type];
 }
 
 
-const std::set<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*> &
 GNENet::getSelectedAttributeCarriers(SumoXMLTag tag) {
     return mySelectedAttributeCarriersByTag[tag];
 }
@@ -1648,15 +1648,15 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
     if(attributeCarrier == nullptr) {
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
-        if((mySelectedAttributeCarriersByType[glType].find(attributeCarrier) == mySelectedAttributeCarriersByType[glType].end()) &&
-           (mySelectedAttributeCarriers.find(attributeCarrier) == mySelectedAttributeCarriers.end()) &&
-           (mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].find(attributeCarrier) == mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
+        if((std::find(mySelectedAttributeCarriersByType[glType].begin(), mySelectedAttributeCarriersByType[glType].end(), attributeCarrier) == mySelectedAttributeCarriersByType[glType].end()) &&
+           (std::find(mySelectedAttributeCarriers.begin(), mySelectedAttributeCarriers.end(), attributeCarrier) == mySelectedAttributeCarriers.end()) &&
+           (std::find(mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier) == mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
             // select in selected attribute carriers by type
-            mySelectedAttributeCarriersByType[glType].insert(attributeCarrier);
+            mySelectedAttributeCarriersByType[glType].push_back(attributeCarrier);
             // select in all selected attribute carriers
-            mySelectedAttributeCarriers.insert(attributeCarrier);
+            mySelectedAttributeCarriers.push_back(attributeCarrier);
             // select in selected attribute carriers by tag
-            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].insert(attributeCarrier);
+            mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].push_back(attributeCarrier);
             // check if selector frame has to be updated
             if(updateSelectorFrame) {
                 myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
@@ -1674,9 +1674,9 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
         throw ProcessError("AttributeCarrier cannot be nullptr");
     } else {
         // search attribute carrier in all selection containers
-        auto itGlType = mySelectedAttributeCarriersByType[glType].find(attributeCarrier);
-        auto itAll = mySelectedAttributeCarriers.find(attributeCarrier);
-        auto itTag = mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].find(attributeCarrier);
+        auto itGlType = std::find(mySelectedAttributeCarriersByType[glType].begin(), mySelectedAttributeCarriersByType[glType].end(), attributeCarrier);
+        auto itAll = std::find(mySelectedAttributeCarriers.begin(), mySelectedAttributeCarriers.end(), attributeCarrier);
+        auto itTag = std::find(mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), mySelectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier);
         // only continue if was found in all containers. In other case throw exception
         if((itGlType != mySelectedAttributeCarriersByType[glType].end()) && 
            (itAll != mySelectedAttributeCarriers.end()) && 
