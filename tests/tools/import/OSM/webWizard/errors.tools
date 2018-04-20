@@ -1495,29 +1495,29 @@ Warning: skipping line '41' because it has too few stops
 Warning: skipping line '42' because it has too few stops
 Warning: skipping line '45' because it has too few stops
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
-Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28'.
-Warning: Vehicle '30' is not allowed to stop on lane '274513583_0'.
-Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39'.
-Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39'.
-Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39'.
-Warning: Vehicle '40' is not allowed to depart on any lane of its first edge.
-Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28'.
-Warning: Vehicle '30' is not allowed on destination edge '274513583'.
-Warning: No route for vehicle '30' found.
-Warning: busStop '2915579613' for vehicle '37' on lane '275177453_1' is not downstream the current route.
+Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28_bus_N6:0'.
+Warning: Vehicle '30_bus_147:0' is not allowed to stop on lane '274513583_0'.
+Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39_subway_U2:0'.
+Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39_subway_U2:0'.
+Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39_subway_U2:0'.
+Warning: Vehicle '40_train_U2:1' is not allowed to depart on any lane of its first edge.
+Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28_bus_N6:0'.
+Warning: Vehicle '30_bus_147:0' is not allowed on destination edge '274513583'.
+Warning: No route for vehicle '30_bus_147:0' found.
+Warning: busStop '2915579613' for vehicle '37_bus_N8:0' on lane '275177453_1' is not downstream the current route.
 Warning: No connection between edge '272795472#1' and edge '199847339' found.
-Warning: Vehicle '39' has no valid route from edge '272795472#1' to stop edge '199847339'.
-Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39'.
-Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39'.
-Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39'.
-Warning: busStop '253845582' for vehicle '44' on lane '70268945_0' is not downstream the current route.
-Warning: busStop '253846340' for vehicle '44' on lane '70268945_0' is not downstream the current route.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=715.00.
-Warning: Vehicle '30' ends teleporting on edge '153698380', time 715.00.
-Warning: Teleporting vehicle '30'; waited too long (wrong lane), lane='153698380_1', time=1029.00.
-Warning: Vehicle '30' teleports beyond arrival edge '274513583', time 1077.00.
-Warning: Teleporting vehicle '39'; waited too long (wrong lane), lane='272795472#1_0', time=1168.00.
-Warning: Vehicle '39' ends teleporting on edge '199847339', time 1168.00.
+Warning: Vehicle '39_subway_U2:0' has no valid route from edge '272795472#1' to stop edge '199847339'.
+Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39_subway_U2:0'.
+Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39_subway_U2:0'.
+Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39_subway_U2:0'.
+Warning: busStop '253845582' for vehicle '44_subway_U55:1' on lane '70268945_0' is not downstream the current route.
+Warning: busStop '253846340' for vehicle '44_subway_U55:1' on lane '70268945_0' is not downstream the current route.
+Warning: Teleporting vehicle '30_bus_147:0'; waited too long (wrong lane), lane='153698380_1', time=715.00.
+Warning: Vehicle '30_bus_147:0' ends teleporting on edge '153698380', time 715.00.
+Warning: Teleporting vehicle '30_bus_147:0'; waited too long (wrong lane), lane='153698380_1', time=1029.00.
+Warning: Vehicle '30_bus_147:0' teleports beyond arrival edge '274513583', time 1077.00.
+Warning: Teleporting vehicle '39_subway_U2:0'; waited too long (wrong lane), lane='272795472#1_0', time=1168.00.
+Warning: Vehicle '39_subway_U2:0' ends teleporting on edge '199847339', time 1168.00.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
