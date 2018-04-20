@@ -20,7 +20,7 @@ select_setoperators
 select_rectangle
 
 # select differents busstops
-selectadditional_basic
+select_additional_basic
 
 # check that undo-redo of elements works correctly
 select_undo_redo
