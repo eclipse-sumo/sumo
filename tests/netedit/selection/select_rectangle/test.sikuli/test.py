@@ -74,6 +74,9 @@ netedit.redo(match, 8)
 # save additionals
 netedit.saveAdditionals()
 
+# save shapes
+netedit.saveShapes()
+
 # save network
 netedit.saveNetwork()
 

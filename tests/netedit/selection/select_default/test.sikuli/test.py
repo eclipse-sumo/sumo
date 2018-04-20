@@ -35,5 +35,8 @@ netedit.deleteSelectedItems()
 # save network
 netedit.saveNetwork()
 
+# save shapes
+netedit.saveShapes()
+
 # quit netedit
 netedit.quit(neteditProcess)

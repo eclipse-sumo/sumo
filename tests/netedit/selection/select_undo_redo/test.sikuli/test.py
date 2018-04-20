@@ -47,6 +47,10 @@ netedit.undo(match, 1)
 # save additionals
 netedit.saveAdditionals()
 
+# save shapes
+netedit.saveShapes()
+
+
 # save network
 netedit.saveNetwork()
 

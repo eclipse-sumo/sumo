@@ -61,5 +61,8 @@ netedit.leftClickControl(match, 210, 210)
 # save network
 netedit.saveNetwork()
 
+# save shapes
+netedit.saveShapes()
+
 # quit netedit
 netedit.quit(neteditProcess)

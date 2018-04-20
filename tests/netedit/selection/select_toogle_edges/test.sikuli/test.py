@@ -53,6 +53,9 @@ netedit.redo(match, 1)
 # save network
 netedit.saveNetwork()
 
+# save shapes
+netedit.saveShapes()
+
 # quit netedit
 netedit.quit(neteditProcess)
 
