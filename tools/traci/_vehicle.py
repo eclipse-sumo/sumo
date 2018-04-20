@@ -16,7 +16,7 @@
 # @author  Laura Bieker
 # @author  Daniel Krajzewicz
 # @date    2011-03-09
-# @version $Id: _vehicle.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-10 12:59:17 +0100 $
+# @version $Id$
 
 from __future__ import absolute_import
 import struct

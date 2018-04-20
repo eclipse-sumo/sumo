@@ -31,6 +31,7 @@
 #endif
 
 #include <vector>
+#include <limits>
 #include <map>
 #include <string>
 #include <stdexcept>
