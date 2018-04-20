@@ -65,8 +65,6 @@
 /// @brief button only with icon     (46x23)
 #define GUIDesignButtonIconRectangular      (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, 23, 2, 2, 2, 2
 
-/// @brief button used in breakpoint editor
-#define GUIDesignButtonBreakpoint           (ICON_BEFORE_TEXT | LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED), 0, 0, 0, 0, 4, 4, 3, 3
 /// @}
 
 
@@ -422,7 +420,7 @@
 /// @}
 
 
-/// @name design for Chooser (locator) dialogs
+/// @name design for Chooser (locator) and breakpoint dialogs
 /// @{
 /// @brief design for Chooser dialog specifying size
 #define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 300
@@ -438,6 +436,12 @@
 
 /// @brief design for Chooser List 
 #define GUIDesignChooserListMultiple            (LIST_MULTIPLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
+
+/// @brief design for Breakpoint table 
+#define GUIDesignBreakpointTable                (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
+
+/// @brief Height of breakpoint Table header
+#define GUIDesignBreakpointTableHeaderHeight    23
 
 /// @brief design for Chooser Layout left
 #define GUIDesignChooserLayoutLeft              (LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_TOP), 0, 0, 0, 0, 4, 4, 4, 4

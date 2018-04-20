@@ -54,14 +54,11 @@ public:
      */
     GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock);
 
-
     /// @brief Destructor
     ~GUIDialog_Breakpoints();
 
     /// @brief sets the focus after the window is created
     void show();
-
-
 
     /// @name FOX-callbacks
     /// @{
@@ -82,6 +79,9 @@ public:
     long onCmdEditTable(FXObject*, FXSelector, void*);
     /// @}
 
+protected:
+    /// FOX needs this
+    GUIDialog_Breakpoints() {}
 
 private:
     /// @brief Rebuilds the entire list
@@ -92,8 +92,6 @@ private:
      */
     std::string encode2TXT();
 
-
-private:
     /// @brief The list that holds the ids
     FXTable* myTable;
 
@@ -105,12 +103,6 @@ private:
 
     /// @brief Lock for modifying the list of breakpoints
     FXMutex* myBreakpointLock;
-
-
-protected:
-    /// FOX needs this
-    GUIDialog_Breakpoints() { }
-
 };
 
 

@@ -54,6 +54,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,  GUIDialog_Breakpoints::onCmdLoad),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,  GUIDialog_Breakpoints::onCmdSave),
@@ -65,17 +66,18 @@ FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
 
 FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAYNUMBER(GUIDialog_BreakpointsMap))
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
-    FXMainWindow(parent->getApp(), "Breakpoints Editor", NULL, NULL, DECOR_ALL, 20, 20, 170, 300),
-    myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
-    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
 
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
+    FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS), NULL, GUIDesignChooserDialog),
+    myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
+    // build main Frame
+    FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the table
-    myTable = new FXTable(hbox, this, MID_TABLE, GUIDesignTable);
+    FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
+    myTable = new FXTable(layoutLeft, this, MID_TABLE, GUIDesignBreakpointTable);
     myTable->setVisibleRows(20);
     myTable->setVisibleColumns(1);
     myTable->setTableSize(20, 1);
@@ -85,27 +87,25 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
     rebuildList();
     myBreakpointLock->unlock();
     // build the layout
-    FXVerticalFrame* layout = new FXVerticalFrame(hbox, LAYOUT_TOP, 0, 0, 0, 0, 4, 4, 4, 4);
-
+    FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layout, "&Load\t\t", 0, this, MID_CHOOSEN_LOAD, GUIDesignButtonBreakpoint);
+    new FXButton(layoutRight, "&Load\t\t", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layout, "&Save\t\t", 0, this, MID_CHOOSEN_SAVE, GUIDesignButtonBreakpoint);
-    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
+    new FXButton(layoutRight, "&Save\t\t", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Clear List"
-    new FXButton(layout, "Clea&r\t\t", 0, this, MID_CHOOSEN_CLEAR, GUIDesignButtonBreakpoint);
-    new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
+    new FXButton(layoutRight, "Clea&r\t\t", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layout, "&Close\t\t", 0, this, MID_CANCEL, GUIDesignButtonBreakpoint);
-
-    //
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS));
+    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    // add this dialog as child of GUIMainWindow parent
     myParent->addChild(this);
 }
 
 
 GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
+    // remove this dialog as child of GUIMainWindow parent
     myParent->removeChild(this);
 }
 
@@ -125,7 +125,7 @@ GUIDialog_Breakpoints::rebuildList() {
     myTable->setTableSize((FXint)myBreakpoints->size() + 1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader* header = myTable->getColumnHeader();
-    header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
+    header->setHeight(GUIDesignBreakpointTableHeaderHeight);
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     // insert into table
     for (int row = 0; row < (int)myBreakpoints->size(); row++) {
