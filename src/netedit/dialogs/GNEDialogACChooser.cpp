@@ -232,7 +232,7 @@ long
 GNEDialogACChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     FXIcon* flag = GUIIconSubSys::getIcon(ICON_FLAG);
     int i = myList->getCurrentItem();
-    if (i >= 0) {
+    if (i >= 0 && myList->getItem(i)->isSelected()) {
         // select or unselect attribute carrier without possibility of undo
         if(myACs[i]->isAttributeCarrierSelected()) {
             myACs[i]->unselectAttributeCarrier();
