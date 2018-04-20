@@ -416,9 +416,8 @@ GUIApplicationWindow::fillMenuBar() {
     // build edit menu
     mySelectByPermissions = new FXMenuPane(this);
     std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
-    for (std::vector<std::string>::iterator it = vehicleClasses.begin(); it != vehicleClasses.end(); ++it) {
-        new FXMenuCommand(mySelectByPermissions,
-                          (*it).c_str(), NULL, this, MID_EDITCHOSEN);
+    for (auto i : vehicleClasses) {
+        new FXMenuCommand(mySelectByPermissions, i.c_str(), NULL, this, MID_EDITCHOSEN);
     }
 
     myEditMenu = new FXMenuPane(this);
@@ -426,7 +425,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "Edit Selected...\tCtrl+E\tOpens a dialog for editing the list of selected items.",
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
-    new FXMenuCascade(myEditMenu,
+    mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
                       "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
                       GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
@@ -1048,11 +1047,15 @@ GUIApplicationWindow::onUpdStep(FXObject* sender, FXSelector, void* ptr) {
 
 
 long
-GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* ptr) {
-    sender->handle(this,
-                   !myRunThread->simulationAvailable() || myAmLoading
-                   ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
-                   ptr);
+GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector s, void* ptr) {
+    bool disable = !myRunThread->simulationAvailable() || myAmLoading;
+    sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
+    // mySelectLanesMenuCascade has to be disabled manually
+    if(disable) {
+        mySelectLanesMenuCascade->disable();
+    } else {
+        mySelectLanesMenuCascade->enable();
+    }
     return 1;
 }
 

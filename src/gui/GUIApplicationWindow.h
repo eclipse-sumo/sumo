@@ -316,79 +316,82 @@ protected:
     virtual void buildToolBars();
 
 protected:
-    /** the name of the simulation */
+    /// @brief  the name of the simulation
     std::string myName;
 
-    /** the thread that loads simulations */
+    /// @brief  the thread that loads simulations
     GUILoadThread* myLoadThread;
 
-    /** the thread that runs simulations */
+    /// @brief  the thread that runs simulations
     GUIRunThread* myRunThread;
 
-    /** the information whether the simulation was started before */
+    /// @brief  the information whether the simulation was started before
     bool myWasStarted;
 
-    /// The current view number
+    /// @brief The current view number
     int myViewNumber;
 
-    /// information whether the gui is currently loading and the load-options shall be greyed out
+    /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;
 
-    /// the submenus
+    /// @brief the submenus
     FXMenuPane* myFileMenu, *myEditMenu, *mySelectByPermissions, *mySettingsMenu,
                 *myLocatorMenu, *myControlMenu,
                 *myWindowsMenu, *myHelpMenu;
 
-    /// Buttons showing and running values and triggering statistic windows
+    /// @brief the menu cascades
+    FXMenuCascade* mySelectLanesMenuCascade; 
+
+    /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;
 
-    /// A window to display messages, warnings and error in
+    /// @brief A window to display messages, warnings and error in
     GUIMessageWindow* myMessageWindow;
 
-    /// The splitter that divides the main window into vies and the log window
+    /// @brief The splitter that divides the main window into vies and the log window
     FXSplitter* myMainSplitter;
 
-    /// for some menu detaching fun
+    /// @brief for some menu detaching fun
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
                     *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
 
-    /// the simulation delay in milliseconds
+    /// @brief the simulation delay in milliseconds
     double mySimDelay;
     FXDataTarget* mySimDelayTarget;
     FXRealSpinner* mySimDelaySpinner;
     FXSlider* mySimDelaySlider;
 
-    /// The alternate simulation delay in milliseconds for toggling
+    /// @brief The alternate simulation delay in milliseconds for toggling
     double myAlternateSimDelay;
 
-    /// List of got requests
+    /// @brief List of got requests
     MFXEventQue<GUIEvent*> myEvents;
 
-    /// The menu used for the MDI-windows
+    /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;
 
-    /// The application menu bar
+    /// @brief The application menu bar
     FXMenuBar* myMenuBar;
 
-    /// The application tool bar
+    /// @brief The application tool bar
     FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
 
-    /// the simulation step display
+    /// @brief the simulation step display
     FXEX::FXLCDLabel* myLCDLabel;
 
-    /// io-event with the load-thread
+    /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
 
-    /// io-event with the run-thread
+    /// @brief io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
-    /// List of recent config files
+    /// @brief List of recent config files
     FXRecentFiles myRecentConfigs;
 
-    /// List of recent nets
+    /// @brief List of recent nets
     FXRecentFiles myRecentNets;
 
-    /// Input file pattern
+    /// @brief Input file pattern
     std::string myConfigPattern;
 
     bool hadDependentBuild;
@@ -415,7 +418,7 @@ protected:
     static std::mt19937 myGamingRNG;
     int myPreviousCollisionNumber;
 
-    /// performance indicators
+    /// @brief performance indicators
     FXEX::FXLCDLabel* myWaitingTimeLabel;
     FXEX::FXLCDLabel* myTimeLossLabel;
     SUMOTime myWaitingTime;
