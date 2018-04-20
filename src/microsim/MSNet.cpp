@@ -978,4 +978,14 @@ MSNet::checkElevation() {
     return false;
 }
 
+
+bool 
+MSNet::warnOnce(const std::string& typeAndID) {
+    if (myWarnedOnce.find(typeAndID) == myWarnedOnce.end()) {
+        myWarnedOnce[typeAndID] = true;
+        return true;
+    }
+    return false;
+}
+
 /****************************************************************************/
