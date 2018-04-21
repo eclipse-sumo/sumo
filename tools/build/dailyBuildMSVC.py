@@ -36,7 +36,6 @@ import sys
 import status
 import version
 import wix
-import buildCMakeProject
 
 
 def repositoryUpdate(options, repoLogFile):
@@ -99,6 +98,18 @@ def runTests(options, env, gitrev, debugSuffix=""):
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
+
+def generateCMake(generator, log, checkOptionalLibs=False):
+    buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
+    cmakeOpt = ["-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    # Create directory or clear it if already exists
+    if os.path.exists(buildDir):
+        print("Cleaning directory of", generator, file=log)
+        shutil.rmtree(buildDir)
+    os.makedirs(buildDir)
+    print("Creating solution for", generator, file=log)
+    subprocess.call(["cmake", "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+    return buildDir
 
 
 optParser = optparse.OptionParser()
@@ -173,8 +184,9 @@ for platform, dllDir in platformDlls:
             generator = "Visual Studio 12 2013"
             if platform == "x64":
                 generator += " Win64"
-            buildDir = buildCMakeProject.generate(generator, log)
-            buildCMakeProject.build(buildDir, "Release", log)
+            buildDir = generateCMake(generator, log, options.suffix == "extra")
+            subprocess.call(["cmake", "--build", ".", "--config", "Release"],
+                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     else:
         subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.project, makeLog))
@@ -230,7 +242,8 @@ for platform, dllDir in platformDlls:
     log.close()
     if options.cmake:
         with open(makeAllLog, 'a') as log:
-            buildCMakeProject.build(buildDir, "Debug", log)
+            subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
+                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     else:
         subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
                         (platform, options.rootDir, options.project, makeAllLog))
