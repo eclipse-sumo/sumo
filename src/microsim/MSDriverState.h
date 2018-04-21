@@ -324,15 +324,15 @@ private:
     /** @brief Task capability (combines static and dynamic factors specific to the driver and the situation,
      *         total capability, attention, etc.). Follows myTaskDemand with some inertia (task-difficulty-homeostasis).
      */
-    double myTaskCapability;
     double myMinTaskCapability, myMaxTaskCapability;
+    double myTaskCapability;
 
     /** @brief Task Demand (dynamic variable representing the total demand imposed on the driver by the driving situation and environment.
      *         For instance, number, novelty and type of traffic participants in neighborhood, speed differences, road curvature,
      *         headway to leader, number of lanes, traffic density, street signs, traffic lights)
      */
-    double myTaskDemand;
     double myMaxTaskDemand;
+    double myTaskDemand;
 
     /** @brief Cached current value of the difficulty resulting from the combination of task capability and demand.
      *  @see calculateDrivingDifficulty()
