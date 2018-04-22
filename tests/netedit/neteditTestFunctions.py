@@ -1032,6 +1032,8 @@ def lockSelection(glType):
 
 
 def selectDefault():
+    # focus current frame
+    focusOnFrame()
     for x in range(0, 19):
         typeTab()
     # type enter to select it

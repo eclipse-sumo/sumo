@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect POILanes
-netedit.leftClick(match, 140, 215)
+netedit.leftClick(match, 155, 170)
 
 # Change parameter 0 with a non valid value (dummy)
 netedit.modifyAttribute(0, "dummyLatPosition")

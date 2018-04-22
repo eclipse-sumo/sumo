@@ -6,7 +6,7 @@ Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Adding poly 'poly_2' into viewNet
 Warning: Adding poly 'poly_3' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.22Apr105610.3420/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poly 'poly_4' into viewNet
 Warning: Adding poly 'poly_5' into viewNet
 Warning: Adding poly 'poly_6' into viewNet
@@ -214,29 +214,29 @@ Warning: Setting new attribute closedShape 'true' into poly 'poly_7'
 Warning: Setting new attribute closedShape 'true' into poly 'poly_8'
 Warning: Setting new attribute closedShape 'true' into poly 'poly_9'
 Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE3'
-Warning: Current selection: 4 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE4'
-Warning: Current selection: 4 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE0'
-Warning: Current selection: 4 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE8'
-Warning: Current selection: 4 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE1'
-Warning: Current selection: 4 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE7'
-Warning: Current selection: 4 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE2'
-Warning: Current selection: 4 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE6'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ0'
-Warning: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE3'
+Warning: Current selection: 3 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE4'
+Warning: Current selection: 3 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ1'
-Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Current selection: 2 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE8'
+Warning: Current selection: 2 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ2'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE7'
+Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ3'
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE2'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE6'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_0'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
@@ -262,28 +262,51 @@ Warning: Setting new attribute selected 'false' into poly 'poly_9'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '1' into poly 'poly_9'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_8'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_7'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_6'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_5'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_4'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_3'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_2'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_12'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_1'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into poly 'poly_0'
-Warning: Setting previous attribute selected '1' into junction 'gneJ3'
-Warning: Setting previous attribute selected '1' into junction 'gneJ2'
-Warning: Setting previous attribute selected '1' into junction 'gneJ1'
-Warning: Setting previous attribute selected '1' into junction 'gneJ0'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE6'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE2'
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting previous attribute selected '1' into junction 'gneJ3'
+Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE7'
+Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting previous attribute selected '1' into junction 'gneJ2'
+Warning: Current selection: 2 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE8'
+Warning: Current selection: 2 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting previous attribute selected '1' into junction 'gneJ1'
+Warning: Current selection: 3 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE4'
+Warning: Current selection: 3 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE3'
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting previous attribute selected '1' into junction 'gneJ0'
+Warning: Current selection: 4 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute closedShape '1' into poly 'poly_9'
 Warning: Setting previous attribute closedShape '1' into poly 'poly_8'
@@ -401,29 +424,52 @@ Warning: Setting new attribute closedShape 'true' into poly 'poly_7'
 Warning: Setting new attribute closedShape 'true' into poly 'poly_8'
 Warning: Setting new attribute closedShape 'true' into poly 'poly_9'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute selected 'false' into edge 'gneE3'
-Warning: Setting new attribute selected 'false' into edge 'gneE4'
-Warning: Setting new attribute selected 'false' into edge 'gneE0'
-Warning: Setting new attribute selected 'false' into edge 'gneE8'
-Warning: Setting new attribute selected 'false' into edge 'gneE1'
-Warning: Setting new attribute selected 'false' into edge 'gneE7'
-Warning: Setting new attribute selected 'false' into edge 'gneE2'
-Warning: Setting new attribute selected 'false' into edge 'gneE6'
 Warning: Setting new attribute selected 'false' into junction 'gneJ0'
+Warning: Current selection: 3 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE3'
+Warning: Current selection: 3 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE4'
+Warning: Current selection: 3 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ1'
+Warning: Current selection: 2 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE0'
+Warning: Current selection: 2 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE8'
+Warning: Current selection: 2 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ2'
+Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE1'
+Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE7'
+Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ3'
+Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE2'
+Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE6'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 11 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_0'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 10 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_1'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 9 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_12'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 8 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_2'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 7 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_3'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 6 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_4'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 5 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_5'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 4 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_6'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 3 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_7'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 2 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_8'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into poly 'poly_9'
+Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
