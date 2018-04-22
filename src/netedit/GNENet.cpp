@@ -1651,6 +1651,16 @@ GNENet::selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attr
            (std::find(myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].begin(), myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end(), attributeCarrier) == myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
             // select in selected attribute carriers by type
             myAttributeCarriers.selectedAttributeCarriersByType[glType].push_back(attributeCarrier);
+            // special case for set
+            if((glType >= GLO_NETELEMENT) && (glType < GLO_ADDITIONAL)) {
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_NETELEMENT].push_back(attributeCarrier);
+            } else if((glType >= GLO_ADDITIONAL) && (glType < GLO_SHAPE)) {
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_ADDITIONAL].push_back(attributeCarrier);
+            } else if((glType >= GLO_SHAPE) && (glType < GLO_ROUTEELEMENT)) {
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_SHAPE].push_back(attributeCarrier);
+            } else if((glType >= GLO_ROUTEELEMENT) && (glType < GLO_MAX)) {
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_ROUTEELEMENT].push_back(attributeCarrier);
+            }
             // select in all selected attribute carriers
             myAttributeCarriers.selectedAttributeCarriers.push_back(attributeCarrier);
             // select in selected attribute carriers by tag
@@ -1681,6 +1691,20 @@ GNENet::unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* at
            (itTag != myAttributeCarriers.selectedAttributeCarriersByTag[attributeCarrier->getTag()].end())) {
             // unselect in selected attribute carriers by type
             myAttributeCarriers.selectedAttributeCarriersByType[glType].erase(itGlType);
+            // special case for set
+            if((glType >= GLO_NETELEMENT) && (glType < GLO_ADDITIONAL)) {
+                auto itSet = std::find(myAttributeCarriers.selectedAttributeCarriersByType[GLO_NETELEMENT].begin(), myAttributeCarriers.selectedAttributeCarriersByType[GLO_NETELEMENT].end(), attributeCarrier);
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_NETELEMENT].erase(itSet);
+            } else if((glType >= GLO_ADDITIONAL) && (glType < GLO_SHAPE)) {
+                auto itSet = std::find(myAttributeCarriers.selectedAttributeCarriersByType[GLO_ADDITIONAL].begin(), myAttributeCarriers.selectedAttributeCarriersByType[GLO_ADDITIONAL].end(), attributeCarrier);
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_ADDITIONAL].erase(itSet);
+            } else if((glType >= GLO_SHAPE) && (glType < GLO_ROUTEELEMENT)) {
+                auto itSet = std::find(myAttributeCarriers.selectedAttributeCarriersByType[GLO_SHAPE].begin(), myAttributeCarriers.selectedAttributeCarriersByType[GLO_SHAPE].end(), attributeCarrier);
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_SHAPE].erase(itSet);
+            } else if((glType >= GLO_ROUTEELEMENT) && (glType < GLO_MAX)) {
+                auto itSet = std::find(myAttributeCarriers.selectedAttributeCarriersByType[GLO_ROUTEELEMENT].begin(), myAttributeCarriers.selectedAttributeCarriersByType[GLO_ROUTEELEMENT].end(), attributeCarrier);
+                myAttributeCarriers.selectedAttributeCarriersByType[GLO_ROUTEELEMENT].erase(itSet);
+            }
             // unselect in all selected attribute carriers
             myAttributeCarriers.selectedAttributeCarriers.erase(itAll);
             // unselect in selected attribute carriers by tag
@@ -2116,7 +2140,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         myGrid.addAdditionalGLObject(additional);
         // check if additional is selected
         if(additional->isAttributeCarrierSelected()) {
-            selectAttributeCarrier(GLO_ADDITIONAL, additional);
+            selectAttributeCarrier(additional->getType(), additional);
         }
         // update geometry after insertion of additionals
         additional->updateGeometry();
@@ -2144,7 +2168,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         myGrid.removeAdditionalGLObject(additional);
         // check if additional is selected
         if(additional->isAttributeCarrierSelected()) {
-            unselectAttributeCarrier(GLO_ADDITIONAL, additional);
+            unselectAttributeCarrier(additional->getType(), additional);
         }
         // update view
         update();
