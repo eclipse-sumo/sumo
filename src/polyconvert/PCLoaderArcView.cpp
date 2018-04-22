@@ -277,6 +277,9 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
 #endif
     PROGRESS_DONE_MESSAGE();
 #else
+    UNUSED_PARAMETER(file);
+    UNUSED_PARAMETER(oc);
+    UNUSED_PARAMETER(toFill);
     WRITE_ERROR("SUMO was compiled without GDAL support.");
 #endif
 }

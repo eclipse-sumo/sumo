@@ -569,7 +569,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 << " isOpposite=" << (differentDirs && foundOpposite.count(*i) == 0)
                 << " angleDiff=" << angleDiff 
                 << " ambiguousGeometry=" << ambiguousGeometry 
-                << " badIntersect=" << badIntersection(*i, *j, geomsCW[*i], geomsCCW[*j], 100)
+                << " badIntersect=" << badIntersection(*i, *j, 100)
                 << "\n";
 
         }
@@ -580,7 +580,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
                 foundOpposite.insert(*i);
                 foundOpposite.insert(*j);
             }
-            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, geomsCW[*i], geomsCCW[*j], 100)) {
+            if (isOpposite || ambiguousGeometry || badIntersection(*i, *j, 100)) {
                 // maintain equivalence relation for all members of the equivalence class
                 for (std::set<NBEdge*>::iterator k = same[*i].begin(); k != same[*i].end(); ++k) {
                     if (*j != *k) {
@@ -608,9 +608,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
 
 
 bool
-NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2,
-                                     const PositionVector& e1cw, const PositionVector& e2ccw,
-                                     double distance) {
+NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double distance) {
     // check whether the two edges are on top of each other. In that case they should be joined
     // also, if they never touch along their common length
     const double commonLength = MIN3(distance, e1->getGeometry().length(), e2->getGeometry().length());
@@ -680,7 +678,6 @@ NBNodeShapeComputer::computeUniqueDirectionList(
             while (changed) {
                 changed = false;
                 for (NBEdge* e2 : same[e1]) {
-                    auto e2NewAll = find(newAll.begin(), newAll.end(), e2);
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) std::cout << "  e2=" << e2->getID() << "\n";
 #endif

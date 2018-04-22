@@ -884,7 +884,7 @@ bool
 NBNodeCont::reduceToCircle(std::set<NBNode*>& cluster, int circleSize, std::set<NBNode*> startNodes, std::vector<NBNode*> cands) const {
     //std::cout << " cs=" << circleSize << " cands=" << toString(cands) << " startNodes=" << toString(startNodes) << "\n";
     assert(circleSize >= 2);
-    if (cands.size() == circleSize) {
+    if ((int)cands.size() == circleSize) {
         if (cands.back()->getConnectionTo(cands.front()) != 0) {
             // cluster found
             cluster.clear();

@@ -11,24 +11,28 @@ cmake_policy(SET CMP0054 NEW)
 
 set(CMAKE_COLOR_MAKEFILE ON)
 
+if (NOT CMAKE_BUILD_TYPE)
+    set (CMAKE_BUILD_TYPE Release)
+endif (NOT CMAKE_BUILD_TYPE)
+message(STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE})
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(warnings "-Wall -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    #  set(warnings "/W4 /WX /EHsc")
-    # enabling /WX is not possible due to warnings in external headers
-    # /Wall brings MSVC to complete halt
-    set(warnings "/W4 /EHsc")
+elseif (MSVC)
+    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+        set(warnings "/W3")
+    else ()
+        #  set(warnings "/W4 /WX /EHsc")
+        # enabling /WX is not possible due to warnings in external headers
+        # /Wall brings MSVC to complete halt
+        set(warnings "/W4 /EHsc")
+    endif ()
 endif ()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${warnings}")
-
-if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE Release)
-endif (NOT CMAKE_BUILD_TYPE)
-message(STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
@@ -54,9 +58,6 @@ if (MSVC)
 endif ()
 if (CMAKE_GENERATOR MATCHES Xcode)
     message(STATUS "    Xcode: " ${XCODE_VERSION})
-endif ()
-if (NOT CMAKE_GENERATOR MATCHES "Xcode|Visual Studio")
-    message(STATUS "    Configuration: " ${CMAKE_BUILD_TYPE})
 endif ()
 message(STATUS "")
 

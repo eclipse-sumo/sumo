@@ -136,8 +136,7 @@ private:
                               double& ccad);
 
     /// @return whether trying to intersect these edges would probably fail
-    bool badIntersection(const NBEdge* e1, const NBEdge* e2,
-                         const PositionVector& e1cw, const PositionVector& e2ccw, double distance);
+    bool badIntersection(const NBEdge* e1, const NBEdge* e2, double distance);
 
     /// @brief return the intersection point closest to the given offset
     double closestIntersection(const PositionVector& geom1, const PositionVector& geom2, double offset);

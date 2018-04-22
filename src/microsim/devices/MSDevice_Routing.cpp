@@ -269,7 +269,7 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     }
     try {
         reroute(currentTime, true);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         myRerouteCommand = nullptr;
         throw;
     }

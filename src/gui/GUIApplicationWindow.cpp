@@ -1047,7 +1047,7 @@ GUIApplicationWindow::onUpdStep(FXObject* sender, FXSelector, void* ptr) {
 
 
 long
-GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector s, void* ptr) {
+GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* ptr) {
     bool disable = !myRunThread->simulationAvailable() || myAmLoading;
     sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
     // mySelectLanesMenuCascade has to be disabled manually
