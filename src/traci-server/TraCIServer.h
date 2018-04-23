@@ -51,6 +51,7 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Lane.h"
@@ -384,50 +385,8 @@ private:
 
     std::vector<std::string> myLoadArgs;
 
-    /** @class Subscription
-     * @brief Representation of a subscription
-     */
-    class Subscription {
-    public:
-        /** @brief Constructor
-         * @param[in] commandIdArg The command id of the subscription
-         * @param[in] idArg The id of the object that is subscribed
-         * @param[in] variablesArg The subscribed variables
-         * @param[in] beginTimeArg The begin time of the subscription
-         * @param[in] endTimeArg The end time of the subscription
-         * @param[in] contextVarsArg Whether the subscription is a context subscription (variable subscription otherwise)
-         * @param[in] contextDomainArg The domain ID of the context
-         * @param[in] rangeArg The range of the context
-         */
-        Subscription(int commandIdArg, const std::string& idArg,
-                     const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
-                     SUMOTime beginTimeArg, SUMOTime endTimeArg, bool contextVarsArg, int contextDomainArg, double rangeArg)
-            : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
-              contextVars(contextVarsArg), contextDomain(contextDomainArg), range(rangeArg) {}
-
-        /// @brief commandIdArg The command id of the subscription
-        int commandId;
-        /// @brief The id of the object that is subscribed
-        std::string id;
-        /// @brief The subscribed variables
-        std::vector<int> variables;
-        /// @brief The parameters for the subscribed variables
-        std::vector<std::vector<unsigned char> > parameters;
-        /// @brief The begin time of the subscription
-        SUMOTime beginTime;
-        /// @brief The end time of the subscription
-        SUMOTime endTime;
-        /// @brief Whether the subscription is a context subscription (variable subscription otherwise)
-        bool contextVars;
-        /// @brief The domain ID of the context
-        int contextDomain;
-        /// @brief The range of the context
-        double range;
-
-    };
-
     /// @brief The list of known, still valid subscriptions
-    std::vector<Subscription> mySubscriptions;
+    std::vector<libsumo::Subscription> mySubscriptions;
 
     /// @brief Changes in the states of simulated vehicles
     /// @note
@@ -440,9 +399,9 @@ private:
 
 private:
     bool addObjectVariableSubscription(const int commandId, const bool hasContext);
-    void initialiseSubscription(const Subscription& s);
+    void initialiseSubscription(const libsumo::Subscription& s);
     void removeSubscription(int commandId, const std::string& identity, int domain);
-    bool processSingleSubscription(const TraCIServer::Subscription& s, tcpip::Storage& writeInto,
+    bool processSingleSubscription(const libsumo::Subscription& s, tcpip::Storage& writeInto,
                                    std::string& errors);
 
 

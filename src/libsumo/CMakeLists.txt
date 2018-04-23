@@ -62,7 +62,8 @@ set(libsumostatic_STAT_SRCS
         Route.cpp
         Simulation.cpp
         Simulation.h
-		TraCIDefs.h
+        Subscription.h
+        TraCIDefs.h
         TrafficLight.cpp
         TrafficLight.h
         Vehicle.h

@@ -24,6 +24,7 @@ Route.h \
 Route.cpp \
 Simulation.h \
 Simulation.cpp \
+Subscription.h \
 TraCIDefs.h \
 TrafficLight.h \
 TrafficLight.cpp \

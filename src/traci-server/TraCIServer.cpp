@@ -891,8 +891,8 @@ TraCIServer::postProcessSimulationStep() {
 #endif
     writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
     int noActive = 0;
-    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
-        const Subscription& s = *i;
+    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
+        const libsumo::Subscription& s = *i;
         bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
                                 && (find(myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].begin(), myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end(), s.id) != myVehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED].end());
         bool isArrivedPerson = (s.commandId == CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == CMD_SUBSCRIBE_PERSON_CONTEXT) && MSNet::getInstance()->getPersonControl().get(s.id) == 0;
@@ -915,8 +915,8 @@ TraCIServer::postProcessSimulationStep() {
 #ifdef DEBUG_SUBSCRIPTIONS
     std::cout << "   Size after writing an int is " << mySubscriptionCache.size() << std::endl;
 #endif
-    for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
-        const Subscription& s = *i;
+    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
+        const libsumo::Subscription& s = *i;
         if (s.beginTime > t) {
             ++i;
             continue;
@@ -991,7 +991,7 @@ TraCIServer::writeErrorStatusCmd(int commandId, const std::string& description, 
 
 
 void
-TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
+TraCIServer::initialiseSubscription(const libsumo::Subscription& s) {
     tcpip::Storage writeInto;
     std::string errors;
     if (processSingleSubscription(s, writeInto, errors)) {
@@ -999,16 +999,16 @@ TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
             writeStatusCmd(s.commandId, RTYPE_ERR, "Subscription has ended.");
         } else {
             bool needNewSubscription = true;
-            for (std::vector<Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end(); ++i) {
-                if (s.commandId == i->commandId && s.id == i->id &&
-                        s.beginTime == i->beginTime && s.endTime == i->endTime &&
-                        s.contextVars == i->contextVars && s.contextDomain == i->contextDomain && s.range == i->range) {
+            for (libsumo::Subscription& o : mySubscriptions) {
+                if (s.commandId == o.commandId && s.id == o.id &&
+                        s.beginTime == o.beginTime && s.endTime == o.endTime &&
+                        s.contextDomain == o.contextDomain && s.range == o.range) {
                     std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
                     for (std::vector<int>::const_iterator j = s.variables.begin(); j != s.variables.end(); ++j, ++k) {
-                        const int offset = (int)(std::find(i->variables.begin(), i->variables.end(), *j) - i->variables.begin());
-                        if (offset == (int)i->variables.size() || i->parameters[offset] != *k) {
-                            i->variables.push_back(*j);
-                            i->parameters.push_back(*k);
+                        const int offset = (int)(std::find(o.variables.begin(), o.variables.end(), *j) - o.variables.begin());
+                        if (offset == (int)o.variables.size() || o.parameters[offset] != *k) {
+                            o.variables.push_back(*j);
+                            o.parameters.push_back(*k);
                         }
                     }
                     needNewSubscription = false;
@@ -1043,7 +1043,7 @@ TraCIServer::initialiseSubscription(const TraCIServer::Subscription& s) {
 void
 TraCIServer::removeSubscription(int commandId, const std::string& id, int domain) {
     bool found = false;
-    for (std::vector<Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
+    for (std::vector<libsumo::Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
         if ((*j).id == id && (*j).commandId == commandId && (domain < 0 || (*j).contextDomain == domain)) {
             j = mySubscriptions.erase(j);
             found = true;
@@ -1137,13 +1137,13 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
 }
 
 bool
-TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& writeInto,
+TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::Storage& writeInto,
                                        std::string& errors) {
     bool ok = true;
     tcpip::Storage outputStorage;
-    const int getCommandId = s.contextVars ? s.contextDomain : s.commandId - 0x30;
+    const int getCommandId = s.contextDomain > 0 ? s.contextDomain : s.commandId - 0x30;
     std::set<std::string> objIDs;
-    if (s.contextVars) {
+    if (s.contextDomain > 0) {
         PositionVector shape;
         if (!findObjectShape(s.commandId, s.id, shape)) {
             return false;
@@ -1152,9 +1152,9 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
     } else {
         objIDs.insert(s.id);
     }
-    const int numVars = s.contextVars && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
     for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
-        if (s.contextVars) {
+        if (s.contextDomain > 0) {
             outputStorage.writeString(*j);
         }
         if (numVars > 0) {
@@ -1211,21 +1211,21 @@ TraCIServer::processSingleSubscription(const Subscription& s, tcpip::Storage& wr
         }
     }
     int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
-    if (s.contextVars) {
+    if (s.contextDomain > 0) {
         length += 4;
     }
     writeInto.writeUnsignedByte(0); // command length -> extended
     writeInto.writeInt(length);
     writeInto.writeUnsignedByte(s.commandId + 0x10);
     writeInto.writeString(s.id);
-    if (s.contextVars) {
+    if (s.contextDomain > 0) {
         writeInto.writeUnsignedByte(s.contextDomain);
     }
     writeInto.writeUnsignedByte(numVars);
-    if (s.contextVars) {
+    if (s.contextDomain > 0) {
         writeInto.writeInt((int)objIDs.size());
     }
-    if (!s.contextVars || objIDs.size() != 0) {
+    if (s.contextDomain == 0 || objIDs.size() != 0) {
         writeInto.writeStorage(outputStorage);
     }
     return ok;
@@ -1256,8 +1256,8 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         return true;
     }
     // process subscription
-    Subscription s(commandId, id, variables, parameters, beginTime, endTime, hasContext, domain, range);
-    initialiseSubscription(s);
+    libsumo::Subscription::add(commandId, id, variables, parameters, beginTime, endTime, domain, range, mySubscriptions);
+    initialiseSubscription(mySubscriptions.back());
     return true;
 }
 
