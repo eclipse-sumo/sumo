@@ -64,6 +64,9 @@ target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs
         ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)
     set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+    if (FFMPEG_FOUND)
+        set_target_properties(sumo-gui PROPERTIES LINK_FLAGS "/SAFESEH:NO")
+    endif ()
     target_link_libraries(sumo-gui opengl32 glu32)
 endif ()
 
