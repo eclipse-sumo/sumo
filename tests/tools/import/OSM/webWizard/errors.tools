@@ -21,10 +21,6 @@ Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '235499474').
 Warning: Removing pt stop:1257007152 on non existing edge: 71326270
 Warning: Removing pt stop:587624704 on non existing edge: 71326270
-Warning: Relation '17818' refers to a non existing pt stop at node: '258485601'. Probably OSM file is incomplete.
-Warning: Relation '17818' refers to a non existing pt stop at node: '270727260'. Probably OSM file is incomplete.
-Warning: Relation '17818' refers to a non existing pt stop at node: '271430924'. Probably OSM file is incomplete.
-Warning: PT line in relation 17818 with no stops ignored. Probably OSM file is incomplete.
 Warning: Referenced node: '376999465' in relation: '114255' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '773291885' in relation: '114255' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '476235973' in relation: '114255' does not exist. Probably OSM file is incomplete.
@@ -337,27 +333,13 @@ Warning: Referenced node: '3059639307' in relation: '1801790' does not exist. Pr
 Warning: Referenced node: '539318419' in relation: '1801790' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '412193168' in relation: '1801790' does not exist. Probably OSM file is incomplete.
 Warning: PT line in relation 1801790 with no stops ignored. Probably OSM file is incomplete.
-Warning: Relation '1887937' refers to a non existing pt stop at node: '271388393'. Probably OSM file is incomplete.
-Warning: Relation '1887937' refers to a non existing pt stop at node: '270718978'. Probably OSM file is incomplete.
-Warning: Done reading first coherent junk of pt stops. Further stops in relation 1887937 are ignored
-Warning: Relation '1887938' refers to a non existing pt stop at node: '270719334'. Probably OSM file is incomplete.
-Warning: Relation '1887938' refers to a non existing pt stop at node: '270727248'. Probably OSM file is incomplete.
-Warning: Relation '1887938' refers to a non existing pt stop at node: '271296293'. Probably OSM file is incomplete.
-Warning: Relation '1887938' refers to a non existing pt stop at node: '272408975'. Probably OSM file is incomplete.
-Warning: Relation '1887938' refers to a non existing pt stop at node: '271373068'. Probably OSM file is incomplete.
-Warning: PT line in relation 1887938 with no stops ignored. Probably OSM file is incomplete.
-Warning: Relation '1900690' refers to a non existing pt stop at node: '270719334'. Probably OSM file is incomplete.
-Warning: Relation '1900690' refers to a non existing pt stop at node: '270727248'. Probably OSM file is incomplete.
-Warning: Relation '1900690' refers to a non existing pt stop at node: '271296293'. Probably OSM file is incomplete.
+Warning: Referenced node: '272367044' in relation: '1900690' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 1900690 are ignored
 Warning: Referenced node: '272386377' in relation: '1900691' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '272379337' in relation: '1900691' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '272375714' in relation: '1900691' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '27011265' in relation: '1900691' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '272367516' in relation: '1900691' does not exist. Probably OSM file is incomplete.
-Warning: Relation '1900691' refers to a non existing pt stop at node: '271388393'. Probably OSM file is incomplete.
-Warning: Relation '1900691' refers to a non existing pt stop at node: '270718978'. Probably OSM file is incomplete.
-Warning: Done reading first coherent junk of pt stops. Further stops in relation 1900691 are ignored
 Warning: Referenced node: '610830379' in relation: '1929070' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1920652025' in relation: '1929070' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1920652023' in relation: '1929070' does not exist. Probably OSM file is incomplete.
@@ -426,7 +408,7 @@ Warning: Referenced node: '29268036' in relation: '1986097' does not exist. Prob
 Warning: Referenced node: '1222060456' in relation: '1986097' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '271788599' in relation: '1986097' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '271327606' in relation: '1986097' does not exist. Probably OSM file is incomplete.
-Warning: Relation '1986097' refers to a non existing pt stop at node: '270719334'. Probably OSM file is incomplete.
+Warning: Referenced node: '1877848279' in relation: '1986097' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 1986097 are ignored
 Warning: Referenced node: '272386377' in relation: '1986098' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '272417763' in relation: '1986098' does not exist. Probably OSM file is incomplete.
@@ -435,9 +417,7 @@ Warning: Referenced node: '272421409' in relation: '1986098' does not exist. Pro
 Warning: Referenced node: '272425680' in relation: '1986098' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1877576992' in relation: '1986098' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1877848283' in relation: '1986098' does not exist. Probably OSM file is incomplete.
-Warning: Relation '1986098' refers to a non existing pt stop at node: '272441719'. Probably OSM file is incomplete.
-Warning: Relation '1986098' refers to a non existing pt stop at node: '272441720'. Probably OSM file is incomplete.
-Warning: Relation '1986098' refers to a non existing pt stop at node: '270718978'. Probably OSM file is incomplete.
+Warning: Referenced node: '271327644' in relation: '1986098' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 1986098 are ignored
 Warning: Referenced node: '30691227' in relation: '2012421' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1679005921' in relation: '2012421' does not exist. Probably OSM file is incomplete.
@@ -764,20 +744,8 @@ Warning: Referenced node: '412404942' in relation: '2084828' does not exist. Pro
 Warning: Referenced node: '1885312769' in relation: '2084828' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1877576992' in relation: '2084828' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1877848283' in relation: '2084828' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2084828' refers to a non existing pt stop at node: '271430924'. Probably OSM file is incomplete.
-Warning: Relation '2084828' refers to a non existing pt stop at node: '270718978'. Probably OSM file is incomplete.
-Warning: Done reading first coherent junk of pt stops. Further stops in relation 2084828 are ignored
-Warning: Relation '2084829' refers to a non existing pt stop at node: '270727260'. Probably OSM file is incomplete.
-Warning: Relation '2084829' refers to a non existing pt stop at node: '270727248'. Probably OSM file is incomplete.
-Warning: Relation '2084829' refers to a non existing pt stop at node: '258485601'. Probably OSM file is incomplete.
 Warning: Referenced node: '1877576997' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479107796' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479102598' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479102604' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479102685' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479102691' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479102653' in relation: '2084829' does not exist. Probably OSM file is incomplete.
-Warning: PT line in relation 2084829 with no stops ignored. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2084829 are ignored
 Warning: Referenced node: '47786602' in relation: '2174797' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1920671950' in relation: '2174797' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '610324733' in relation: '2174797' does not exist. Probably OSM file is incomplete.
@@ -823,30 +791,8 @@ Warning: Referenced node: '360837678' in relation: '2194813' does not exist. Pro
 Warning: Referenced node: '3261486257' in relation: '2194813' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '376999492' in relation: '2194813' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '376999483' in relation: '2194813' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2194813' refers to a non existing pt stop at node: '271644163'. Probably OSM file is incomplete.
-Warning: Relation '2194813' refers to a non existing pt stop at node: '271884565'. Probably OSM file is incomplete.
-Warning: PT line in relation 2194813 with no stops ignored. Probably OSM file is incomplete.
-Warning: Relation '2194814' refers to a non existing pt stop at node: '1686199552'. Probably OSM file is incomplete.
 Warning: Referenced node: '376999465' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '773291885' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '476235973' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '476243465' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '476243467' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '360837660' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '360837664' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3261486251' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '361159850' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '361159844' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '3261486259' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '361159823' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '1906421953' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '766875150' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '1383533640' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '1383533572' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '361152203' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '296956856' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '361152201' in relation: '2194814' does not exist. Probably OSM file is incomplete.
-Warning: PT line in relation 2194814 with no stops ignored. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2194814 are ignored
 Warning: Referenced node: '316623850' in relation: '2202086' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '472666716' in relation: '2202086' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '2924309563' in relation: '2202086' does not exist. Probably OSM file is incomplete.
@@ -877,7 +823,7 @@ Warning: Done reading first coherent junk of pt stops. Further stops in relation
 Warning: Referenced node: '3487685' in relation: '2202597' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '271327644' in relation: '2202597' does not exist. Probably OSM file is incomplete.
 Warning: PT line in relation 2202597 with no stops ignored. Probably OSM file is incomplete.
-Warning: Relation '2203525' refers to a non existing pt stop at node: '365714332'. Probably OSM file is incomplete.
+Warning: Referenced node: '2913048879' in relation: '2203525' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 2203525 are ignored
 Warning: Referenced node: '2653160210' in relation: '2203526' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 2203526 are ignored
@@ -886,23 +832,10 @@ Warning: Referenced node: '73725219' in relation: '2211984' does not exist. Prob
 Warning: Referenced node: '352778878' in relation: '2211984' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '483415825' in relation: '2211984' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '151012797' in relation: '2211984' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2211984' refers to a non existing pt stop at node: '271644163'. Probably OSM file is incomplete.
-Warning: Relation '2211984' refers to a non existing pt stop at node: '270727260'. Probably OSM file is incomplete.
-Warning: PT line in relation 2211984 with no stops ignored. Probably OSM file is incomplete.
-Warning: Relation '2211985' refers to a non existing pt stop at node: '271670135'. Probably OSM file is incomplete.
 Warning: Referenced node: '151012783' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '1734264925' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '483415822' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '306374447' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '306374448' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '52645636' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '52645643' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '483481179' in relation: '2211985' does not exist. Probably OSM file is incomplete.
-Warning: PT line in relation 2211985 with no stops ignored. Probably OSM file is incomplete.
-Warning: Relation '2227016' refers to a non existing pt stop at node: '258485601'. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2211985 are ignored
 Warning: Referenced node: '479145888' in relation: '2227016' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '479145917' in relation: '2227016' does not exist. Probably OSM file is incomplete.
-Warning: PT line in relation 2227016 with no stops ignored. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2227016 are ignored
 Warning: Referenced node: '479146060' in relation: '2227017' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '479146143' in relation: '2227017' does not exist. Probably OSM file is incomplete.
 Warning: PT line in relation 2227017 with no stops ignored. Probably OSM file is incomplete.
@@ -982,15 +915,11 @@ Warning: Referenced node: '322633851' in relation: '2422951' does not exist. Pro
 Warning: Referenced node: '322796203' in relation: '2422951' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '322799089' in relation: '2422951' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 2422951 are ignored
-Warning: Relation '2441959' refers to a non existing pt stop at node: '1686199552'. Probably OSM file is incomplete.
+Warning: Referenced node: '573607785' in relation: '2441959' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 2441959 are ignored
 Warning: Referenced node: '573607807' in relation: '2441960' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2441960' refers to a non existing pt stop at node: '270719334'. Probably OSM file is incomplete.
-Warning: Relation '2441960' refers to a non existing pt stop at node: '270727248'. Probably OSM file is incomplete.
-Warning: Relation '2441960' refers to a non existing pt stop at node: '271644163'. Probably OSM file is incomplete.
 Warning: Referenced node: '2914927130' in relation: '2441960' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2441960' refers to a non existing pt stop at node: '1686199552'. Probably OSM file is incomplete.
-Warning: PT line in relation 2441960 with no stops ignored. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2441960 are ignored
 Warning: Referenced node: '412193168' in relation: '2466742' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '539318419' in relation: '2466742' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '32881713' in relation: '2466742' does not exist. Probably OSM file is incomplete.
@@ -1011,15 +940,8 @@ Warning: Referenced node: '285260971' in relation: '2466742' does not exist. Pro
 Warning: PT line in relation 2466742 with no stops ignored. Probably OSM file is incomplete.
 Warning: Referenced node: '1423996589' in relation: '2512806' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '2915699919' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2512806' refers to a non existing pt stop at node: '271430924'. Probably OSM file is incomplete.
 Warning: Referenced node: '2914927130' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '2914606225' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '534384053' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '2913360621' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '2913048879' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '2653160212' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: Referenced node: '2081222265' in relation: '2512806' does not exist. Probably OSM file is incomplete.
-Warning: PT line in relation 2512806 with no stops ignored. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2512806 are ignored
 Warning: Referenced node: '1928721780' in relation: '2512807' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '2081222226' in relation: '2512807' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '2653160211' in relation: '2512807' does not exist. Probably OSM file is incomplete.
@@ -1028,7 +950,7 @@ Warning: Referenced node: '2866993676' in relation: '2512807' does not exist. Pr
 Warning: Referenced node: '2913360621' in relation: '2512807' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '2914606228' in relation: '2512807' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '588159284' in relation: '2512807' does not exist. Probably OSM file is incomplete.
-Warning: Relation '2512807' refers to a non existing pt stop at node: '1686199552'. Probably OSM file is incomplete.
+Warning: Referenced node: '2915699919' in relation: '2512807' does not exist. Probably OSM file is incomplete.
 Warning: Done reading first coherent junk of pt stops. Further stops in relation 2512807 are ignored
 Warning: Referenced node: '1198542409' in relation: '2522653' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '1629835981' in relation: '2522653' does not exist. Probably OSM file is incomplete.
@@ -1184,10 +1106,21 @@ Warning: Referenced node: '3352479217' in relation: '4593874' does not exist. Pr
 Warning: Referenced node: '3352479218' in relation: '4593874' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '3352479219' in relation: '4593874' does not exist. Probably OSM file is incomplete.
 Warning: Referenced node: '3352479219' in relation: '4593874' does not exist. Probably OSM file is incomplete.
-Warning: Incomplete route for ptline '0' (Buslinie TXL: Flughafen Tegel => S+U Alexanderplatz)
-Warning: Incomplete route for ptline '0' (Buslinie TXL: Flughafen Tegel => S+U Alexanderplatz)
-Warning: Incomplete route for ptline '2' (Buslinie 100: S+U Zoologischer Garten => S+U Alexanderplatz)
-Warning: Incomplete route for ptline '2' (Buslinie 100: S+U Zoologischer Garten => S+U Alexanderplatz)
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42. Ignoring!
+Warning: Incomplete route for ptline '0' (Buslinie N42)
+Warning: Incomplete route for ptline '0' (Buslinie N42)
+Warning: Incomplete route for ptline '0' (Buslinie N42)
+Warning: Incomplete route for ptline '0' (Buslinie N42)
+Warning: Incomplete route for ptline '1' (Buslinie TXL: Flughafen Tegel => S+U Alexanderplatz)
+Warning: Incomplete route for ptline '1' (Buslinie TXL: Flughafen Tegel => S+U Alexanderplatz)
+Warning: Cannot revise pt stop localization for pt line: Buslinie TXL: S+U Alexanderplatz => Flughafen Tegel, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie TXL: S+U Alexanderplatz => Flughafen Tegel, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie TXL: S+U Alexanderplatz => Flughafen Tegel, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie TXL: S+U Alexanderplatz => Flughafen Tegel, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie TXL: S+U Alexanderplatz => Flughafen Tegel, which consist of one way only. Ignoring!
+Warning: Incomplete route for ptline '4' (Buslinie 100: S+U Zoologischer Garten => S+U Alexanderplatz)
+Warning: Incomplete route for ptline '4' (Buslinie 100: S+U Zoologischer Garten => S+U Alexanderplatz)
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S1: S Oranienburg => S Wannsee, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S1: S Oranienburg => S Wannsee, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S1: S Oranienburg => S Wannsee, which consist of one way only. Ignoring!
@@ -1195,49 +1128,66 @@ Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S1: S Wanns
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S1: S Wannsee => S Oranienburg, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S1: S Wannsee => S Oranienburg, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 200: Michelangelostr => S+U Zoologischer Garten. Ignoring!
-Warning: Incomplete route for ptline '5' (Buslinie 200: Michelangelostr => S+U Zoologischer Garten)
-Warning: Incomplete route for ptline '6' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
-Warning: Incomplete route for ptline '6' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
-Warning: Incomplete route for ptline '6' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
-Warning: Incomplete route for ptline '6' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
-Warning: Incomplete route for ptline '6' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 200: Michelangelostr => S+U Zoologischer Garten. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 200: Michelangelostr => S+U Zoologischer Garten. Ignoring!
+Warning: Incomplete route for ptline '7' (Buslinie 200: Michelangelostr => S+U Zoologischer Garten)
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 200: S+U Zoologischer Garten => Michelangelostraße. Ignoring!
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 200: S+U Zoologischer Garten => Michelangelostraße. Ignoring!
+Warning: Incomplete route for ptline '8' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
+Warning: Incomplete route for ptline '8' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
+Warning: Incomplete route for ptline '8' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
+Warning: Incomplete route for ptline '8' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
+Warning: Incomplete route for ptline '8' (Buslinie 200: S+U Zoologischer Garten => Michelangelostraße)
 Warning: Cannot revise pt stop localization for incomplete pt line: Straßenbahnlinie M4: Hohenschönhausen, Zingster Straße => S Hackescher Markt. Ignoring!
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Incomplete route for ptline '13' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '13' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '15' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '15' (Straßenbahnlinie 12: Weißensee, Pasedagplatz => Mitte, Am Kupfergraben)
 Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
-Warning: Incomplete route for ptline '14' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
-Warning: Incomplete route for ptline '14' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
-Warning: Incomplete route for ptline '14' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
-Warning: Incomplete route for ptline '14' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
+Warning: Incomplete route for ptline '16' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
+Warning: Incomplete route for ptline '16' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
+Warning: Incomplete route for ptline '16' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
+Warning: Incomplete route for ptline '16' (Straßenbahnlinie 12: Mitte, Am Kupfergraben => Weißensee, Pasedagplatz)
 Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
-Warning: Incomplete route for ptline '19' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
-Warning: Incomplete route for ptline '19' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
-Warning: Incomplete route for ptline '19' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
-Warning: Incomplete route for ptline '19' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
+Warning: Incomplete route for ptline '21' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
+Warning: Incomplete route for ptline '21' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
+Warning: Incomplete route for ptline '21' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
+Warning: Incomplete route for ptline '21' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Niederschönhausen, Schillerstraße)
 Warning: Could not re-assign PT stop: 1823298700 probably broken osm file
-Warning: Incomplete route for ptline '20' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Incomplete route for ptline '20' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Incomplete route for ptline '20' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
-Warning: Incomplete route for ptline '20' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
+Warning: Incomplete route for ptline '22' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
+Warning: Incomplete route for ptline '22' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
+Warning: Incomplete route for ptline '22' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
+Warning: Incomplete route for ptline '22' (Straßenbahnlinie M1: Mitte, Am Kupfergraben => Rosenthal Nord)
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Incomplete route for ptline '21' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '21' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '23' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '23' (Straßenbahnlinie M1: Niederschönhausen, Schillerstraße => Mitte, Am Kupfergraben)
 Warning: Could not re-assign PT stop: 247600965 probably broken osm file
-Warning: Incomplete route for ptline '22' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
-Warning: Incomplete route for ptline '22' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '24' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
+Warning: Incomplete route for ptline '24' (Straßenbahnlinie M1: Rosenthal Nord => Mitte, Am Kupfergraben)
 Warning: Cannot revise pt stop localization for pt line: Buslinie M48: Busseallee => S+U Alexanderplatz/Memhardstraße, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie M48: Busseallee => S+U Alexanderplatz/Memhardstraße, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie M48: Busseallee => S+U Alexanderplatz/Memhardstraße, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie M48: S+U Alexanderplatz/Memhardstraße => Busseallee, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie M48: S+U Alexanderplatz/Memhardstraße => Busseallee, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie M48: S+U Alexanderplatz/Memhardstraße => Busseallee, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: S Westkreuz => S Wartenberg, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: S Westkreuz => S Wartenberg, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: S Westkreuz => S Wartenberg, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: Wartenberg => Westkreuz, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S75: Wartenberg => Westkreuz, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N65: Köpenick, Müggelschlößchenweg => S Hackescher Markt, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N65: Köpenick, Müggelschlößchenweg => S Hackescher Markt, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N65: S Hackescher Markt => Köpenick, Müggelschlößchenweg, which consist of one way only. Ignoring!
 Warning: PT stop: 2959830765 has been moved to edge: -153698380
 Warning: PT stop: 2959830765 has been moved to edge: 153698380
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 147: (S Ostbahnhof =>) U Märkisches Museum => S+U Hauptbahnhof. Ignoring!
 Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof). Ignoring!
-Warning: Incomplete route for ptline '30' (Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof))
-Warning: Incomplete route for ptline '30' (Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof))
-Warning: Incomplete route for ptline '30' (Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof))
+Warning: Incomplete route for ptline '35' (Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof))
+Warning: Incomplete route for ptline '35' (Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof))
+Warning: Incomplete route for ptline '35' (Buslinie 147: S+U Hauptbahnhof => U Märkisches Museum (=> S Ostbahnhof))
+Warning: Cannot revise pt stop localization for pt line: Buslinie N5: Hellersdorf, Riesaer Straße => S Hackescher Markt, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N5: Hellersdorf, Riesaer Straße => S Hackescher Markt, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N5: S Hackescher Markt => Hellersdorf, Riesaer Straße, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie 248: Warschauer Str. => U Breitenbachplatz, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U5: Alexanderplatz => Hönow, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U5: Hönow => Alexanderplatz, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S2: S Bernau => S Blankenfelde, which consist of one way only. Ignoring!
@@ -1248,17 +1198,23 @@ Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S2: S Blank
 Warning: Cannot revise pt stop localization for pt line: S-Bahnlinie S2: S Blankenfelde => S Bernau, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: Buslinie N8: Märkisches Viertel, Wilhelmsruher Damm => S+U Hermannstraße, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: Buslinie N8: Märkisches Viertel, Wilhelmsruher Damm => S+U Hermannstraße, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N8: Märkisches Viertel, Wilhelmsruher Damm => S+U Hermannstraße, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N8: S+U Hermannstraße => Märkisches Viertel, Wilhelmsruher Damm, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N8: S+U Hermannstraße => Märkisches Viertel, Wilhelmsruher Damm, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N8: S+U Hermannstraße => Märkisches Viertel, Wilhelmsruher Damm, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N40: Friedrichshain Wühlischplatz => U-Bhf Turmstraße, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: Buslinie N40: U-Bhf Turmstraße => Friedrichshain Wühlischplatz, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: Buslinie N40: U-Bhf Turmstraße => Friedrichshain Wühlischplatz, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: Buslinie N40: U-Bhf Turmstraße => Friedrichshain Wühlischplatz, which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line: Buslinie N40: U-Bhf Turmstraße => Friedrichshain Wühlischplatz, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U2: Pankow => Ruhleben, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U2: Pankow => Ruhleben, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U2: Pankow => Ruhleben, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U2: Pankow => Ruhleben, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U2: Pankow => Ruhleben, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U2: Pankow => Ruhleben, which consist of one way only. Ignoring!
-Warning: Incomplete route for ptline '41' (U-Bahnlinie U8: Hermannstraße => Wittenau)
-Warning: Incomplete route for ptline '42' (U-Bahnlinie U8: Wittenau => Hermannstraße)
+Warning: Incomplete route for ptline '51' (U-Bahnlinie U8: Hermannstraße => Wittenau)
+Warning: Incomplete route for ptline '52' (U-Bahnlinie U8: Wittenau => Hermannstraße)
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U55: Brandenburger Tor => Hauptbahnhof, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U55: Brandenburger Tor => Hauptbahnhof, which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line: U-Bahnlinie U55: Brandenburger Tor => Hauptbahnhof, which consist of one way only. Ignoring!
@@ -1468,66 +1424,71 @@ Warning: The traffic light '29219437' does not control any links; it will not be
 Warning: Could not build program '0' for traffic light '29219437'
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
-Warning: skipping line '0' because it has too few stops
-Warning: skipping line '1' because it has too few stops
-Warning: skipping line '2' because it has too few stops
-Warning: skipping line '5' because it has too few stops
-Warning: skipping line '6' because it has too few stops
-Warning: skipping line '7' because it has too few stops
-Warning: skipping line '8' because it has too few stops
 Warning: skipping line '9' because it has too few stops
 Warning: skipping line '10' because it has too few stops
 Warning: skipping line '11' because it has too few stops
 Warning: skipping line '12' because it has too few stops
 Warning: skipping line '13' because it has too few stops
 Warning: skipping line '14' because it has too few stops
-Warning: skipping line '19' because it has too few stops
-Warning: skipping line '20' because it has too few stops
+Warning: skipping line '15' because it has too few stops
+Warning: skipping line '16' because it has too few stops
 Warning: skipping line '21' because it has too few stops
 Warning: skipping line '22' because it has too few stops
 Warning: skipping line '23' because it has too few stops
 Warning: skipping line '24' because it has too few stops
 Warning: skipping line '25' because it has too few stops
-Warning: skipping line '29' because it has too few stops
-Warning: skipping line '31' because it has too few stops
+Warning: skipping line '26' because it has too few stops
 Warning: skipping line '32' because it has too few stops
-Warning: skipping line '41' because it has too few stops
-Warning: skipping line '42' because it has too few stops
-Warning: skipping line '45' because it has too few stops
+Warning: skipping line '37' because it has too few stops
+Warning: skipping line '38' because it has too few stops
+Warning: skipping line '39' because it has too few stops
+Warning: skipping line '40' because it has too few stops
+Warning: skipping line '47' because it has too few stops
+Warning: skipping line '51' because it has too few stops
+Warning: skipping line '52' because it has too few stops
+Warning: skipping line '55' because it has too few stops
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
-Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '28_bus_N6:0'.
-Warning: Vehicle '30_bus_147:0' is not allowed to stop on lane '274513583_0'.
-Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '39_subway_U2:0'.
-Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '39_subway_U2:0'.
-Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '39_subway_U2:0'.
-Warning: Vehicle '40_train_U2:1' is not allowed to depart on any lane of its first edge.
-Warning: Vehicle '30_bus_147:0' is not allowed on destination edge '274513583'.
-Warning: No route for vehicle '30_bus_147:0' found.
-Warning: busStop '2915579613' for vehicle '37_bus_N8:0' on lane '275177453_1' is not downstream the current route.
+Warning: busStop '270719334' for vehicle '2_bus_TXL:1' on lane '139877309_1' is not downstream the current route.
+Warning: busStop '270719334' for vehicle '3_bus_100:0' on lane '139877309_1' is not downstream the current route.
+Warning: busStop '272441719' for vehicle '7_bus_200:0' on lane '85255869#1_2' is not downstream the current route.
+Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '33_bus_N6:0'.
+Warning: Vehicle '35_bus_147:1' is not allowed to stop on lane '274513583_0'.
+Warning: Vehicle '35_bus_147:1' is not allowed on destination edge '274513583'.
+Warning: No route for vehicle '35_bus_147:1' found.
+Warning: busStop '2915579613' for vehicle '45_bus_N8:0' on lane '275177453_1' is not downstream the current route.
+Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '49_subway_U2:0'.
+Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '49_subway_U2:0'.
+Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '49_subway_U2:0'.
+Warning: Vehicle '50_train_U2:1' is not allowed to depart on any lane of its first edge.
+Warning: busStop '270719334' for vehicle '46_bus_N8:1' on lane '139877309_1' is not downstream the current route.
 Warning: No connection between edge '272795472#1' and edge '199847339' found.
-Warning: Vehicle '39_subway_U2:0' has no valid route from edge '272795472#1' to stop edge '199847339'.
-Warning: busStop '253845582' for vehicle '44_subway_U55:1' on lane '70268945_0' is not downstream the current route.
-Warning: busStop '253846340' for vehicle '44_subway_U55:1' on lane '70268945_0' is not downstream the current route.
-Warning: Teleporting vehicle '30_bus_147:0'; waited too long (wrong lane), lane='153698380_1', time=715.00.
-Warning: Vehicle '30_bus_147:0' ends teleporting on edge '153698380', time 715.00.
-Warning: Teleporting vehicle '30_bus_147:0'; waited too long (wrong lane), lane='153698380_1', time=1029.00.
-Warning: Vehicle '30_bus_147:0' teleports beyond arrival edge '274513583', time 1077.00.
-Warning: Teleporting vehicle '39_subway_U2:0'; waited too long (wrong lane), lane='272795472#1_0', time=1168.00.
-Warning: Vehicle '39_subway_U2:0' ends teleporting on edge '199847339', time 1168.00.
+Warning: Vehicle '49_subway_U2:0' has no valid route from edge '272795472#1' to stop edge '199847339'.
+Warning: busStop '253845582' for vehicle '54_subway_U55:1' on lane '70268945_0' is not downstream the current route.
+Warning: busStop '253846340' for vehicle '54_subway_U55:1' on lane '70268945_0' is not downstream the current route.
+Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=702.00.
+Warning: Vehicle '35_bus_147:1' ends teleporting on edge '153698380', time 702.00.
+Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=1016.00.
+Warning: Vehicle '35_bus_147:1' teleports beyond arrival edge '274513583', time 1064.00.
+Warning: Teleporting vehicle '49_subway_U2:0'; waited too long (wrong lane), lane='272795472#1_0', time=1210.00.
+Warning: Vehicle '49_subway_U2:0' ends teleporting on edge '199847339', time 1210.00.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=716.00.
-Warning: Vehicle 'pt_bus_147:0.0' ends teleporting on edge '153698380', time 716.00.
-Warning: Teleporting vehicle 'pt_bus_147:0.0'; waited too long (wrong lane), lane='153698380_1', time=1031.00.
-Warning: Vehicle 'pt_bus_147:0.0' teleports beyond arrival edge '274513583', time 1079.00.
-Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1172.00.
-Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1172.00.
-Warning: Teleporting vehicle 'pt_bus_147:0.1'; waited too long (wrong lane), lane='153698380_1', time=1338.00.
-Warning: Vehicle 'pt_bus_147:0.1' ends teleporting on edge '153698380', time 1338.00.
-Warning: Teleporting vehicle 'pt_bus_147:0.1'; waited too long (wrong lane), lane='153698380_1', time=1651.00.
-Warning: Vehicle 'pt_bus_147:0.1' teleports beyond arrival edge '274513583', time 1699.00.
-Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1772.00.
-Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1772.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=704.00.
+Warning: Vehicle 'pt_bus_147:1.0' ends teleporting on edge '153698380', time 704.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1020.00.
+Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1068.00.
+Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1214.00.
+Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1214.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1332.00.
+Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1332.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1645.00.
+Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1693.00.
+Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1814.00.
+Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1814.00.
+Warning: Person 'ped2' aborted waiting for TXL:1 at busStop '271296293'.
+Warning: Person 'ped44' aborted waiting for 100:1 at busStop '270718978'.
+Warning: Person 'ped111' aborted waiting for 100:1 at busStop '270718978'.
+Warning: Person 'ped73' aborted waiting for 100:1 at busStop '270718978'.

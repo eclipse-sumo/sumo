@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 18 13:09:47 2018 by Eclipse SUMO netconvert Version 49ae6a9
+<!-- generated on Tue Apr 24 08:18:07 2018 by Eclipse SUMO netconvert Version 5e8f9bb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm_bbox.osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/tools.18Apr130943.15890/tools/import/OSM/webWizard/2018-04-18-13-09-45/osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -47,172 +47,236 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <ptLine id="0" name="Buslinie TXL: Flughafen Tegel =&gt; S+U Alexanderplatz" line="TXL" type="bus" completeness="0.33">
-        <route edges="72157174#1"/>
-        <busStop id="1827996414" name="Spandauer Straße/Marienkirche"/>
+    <ptLine id="0" name="Buslinie N42" line="N42" type="bus" completeness="1.00">
+        <busStop id="258485601" name="Nikolaiviertel"/>
+        <busStop id="270727260" name="S+U Alexanderplatz/Memhardstraße"/>
+        <busStop id="271430924" name="Berliner Rathaus"/>
     </ptLine>
-    <ptLine id="1" name="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten" line="100" type="bus" completeness="0.08">
-        <route edges="24914992"/>
+    <ptLine id="1" name="Buslinie TXL: Flughafen Tegel =&gt; S+U Alexanderplatz" line="TXL" type="bus" completeness="1.00">
+        <route edges="24240246#0 24240246#1 236092221#0 236092221#1 236092221#2 236092221#3 189792572#0 189792572#1 330840126#0 330840126#1 171423004#0 171423004#1 171423004#2 171423004#3 171423004#4 171423004#6 251884680 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 23013165 4611698#0 4611698#1 4611698#2 202156994 72157174#0 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 24913524#0 24913524#1 195401006 195401017#0 195401017#2"/>
+        <busStop id="271388393" name="S+U Brandenburger Tor"/>
+        <busStop id="1827996414" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße"/>
+    </ptLine>
+    <ptLine id="2" name="Buslinie TXL: S+U Alexanderplatz =&gt; Flughafen Tegel" line="TXL" type="bus" completeness="1.00">
+        <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
+        <busStop id="270727248" name="S+U Alexanderplatz"/>
+        <busStop id="271296293" name="Staatsoper"/>
+        <busStop id="272408975" name="Unter den Linden/Friedrichstraße"/>
+        <busStop id="271373068" name="S+U Brandenburger Tor"/>
+    </ptLine>
+    <ptLine id="3" name="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten" line="100" type="bus" completeness="0.50">
+        <route edges="139877309 24990031#1 195401010 195401013#0 195401013#1 195401013#2 24914992 171826985#0 171826985#1 171826985#2 171826985#3 24913519#0 24913519#1 24913519#2 202156995#0 202156995#1 15972319 4067932 61584187#0 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#4 169195795#5 169195795#6 169195795#7 169195795#8 169195795#9 169195795#10 188386313#0 188386313#1 24913304#0 24913304#1 24913304#2"/>
+        <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
+        <busStop id="270727248" name="S+U Alexanderplatz"/>
         <busStop id="1827996417" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="271296293" name="Staatsoper"/>
+        <busStop id="272408975" name="Unter den Linden/Friedrichstraße"/>
+        <busStop id="271373068" name="S+U Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="2" name="Buslinie 100: S+U Zoologischer Garten =&gt; S+U Alexanderplatz" line="100" type="bus" completeness="0.12">
-        <route edges="72157174#1"/>
+    <ptLine id="4" name="Buslinie 100: S+U Zoologischer Garten =&gt; S+U Alexanderplatz" line="100" type="bus" completeness="0.38">
+        <route edges="24240246#0 24240246#1 236092221#0 236092221#1 236092221#2 236092221#3 189792572#0 189792572#1 330840126#0 330840126#1 171423004#0 171423004#1 171423004#2 171423004#3 171423004#4 171423004#6 251884680 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 23013165 4611698#0 4611698#1 4611698#2 202156994 72157174#0 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 24913524#0 24913524#1 195401006 195401017#0 195401017#2"/>
+        <busStop id="271388393" name="S+U Brandenburger Tor"/>
         <busStop id="1827996414" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße"/>
     </ptLine>
-    <ptLine id="3" name="S-Bahnlinie S1: S Oranienburg =&gt; S Wannsee" line="S1" type="light_rail" completeness="0.07">
+    <ptLine id="5" name="S-Bahnlinie S1: S Oranienburg =&gt; S Wannsee" line="S1" type="light_rail" completeness="0.07">
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
         <busStop id="30353086" name="S Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="4" name="S-Bahnlinie S1: S Wannsee =&gt; S Oranienburg" line="S1" type="light_rail" completeness="0.07">
+    <ptLine id="6" name="S-Bahnlinie S1: S Wannsee =&gt; S Oranienburg" line="S1" type="light_rail" completeness="0.07">
         <busStop id="322796388" name="S Brandenburger Tor"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
-    <ptLine id="5" name="Buslinie 200: Michelangelostr =&gt; S+U Zoologischer Garten" line="200" type="bus" completeness="0.05">
+    <ptLine id="7" name="Buslinie 200: Michelangelostr =&gt; S+U Zoologischer Garten" line="200" type="bus" completeness="0.35">
         <busStop id="270720402" name="Mollstraße/Prenzlauer Allee"/>
+        <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
+        <busStop id="270727248" name="S+U Alexanderplatz"/>
+        <busStop id="271296293" name="Staatsoper"/>
+        <busStop id="272408975" name="Unter den Linden/Friedrichstraße"/>
+        <busStop id="272441720" name="U Mohrenstraße"/>
+        <busStop id="272441719" name="U Mohrenstraße"/>
     </ptLine>
-    <ptLine id="6" name="Buslinie 200: S+U Zoologischer Garten =&gt; Michelangelostraße" line="200" type="bus" completeness="0.06">
-        <route edges="72157174#1"/>
+    <ptLine id="8" name="Buslinie 200: S+U Zoologischer Garten =&gt; Michelangelostraße" line="200" type="bus" completeness="0.22">
+        <busStop id="272441719" name="U Mohrenstraße"/>
+        <busStop id="272441720" name="U Mohrenstraße"/>
         <busStop id="1827996414" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße"/>
     </ptLine>
-    <ptLine id="7" name="Straßenbahnlinie M4: Falkenberg =&gt; S Hackescher Markt" line="M4" type="tram" completeness="0.04">
+    <ptLine id="9" name="Straßenbahnlinie M4: Falkenberg =&gt; S Hackescher Markt" line="M4" type="tram" completeness="0.04">
         <route edges="30721657"/>
         <busStop id="1633759766" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="8" name="Straßenbahnlinie M4: Hohenschönhausen, Zingster Straße =&gt; S Hackescher Markt" line="M4" type="tram" completeness="0.04">
+    <ptLine id="10" name="Straßenbahnlinie M4: Hohenschönhausen, Zingster Straße =&gt; S Hackescher Markt" line="M4" type="tram" completeness="0.04">
         <busStop id="1633759766" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="9" name="Straßenbahnlinie M4: S Hackescher Markt =&gt; Falkenberg" line="M4" type="tram" completeness="0.04">
+    <ptLine id="11" name="Straßenbahnlinie M4: S Hackescher Markt =&gt; Falkenberg" line="M4" type="tram" completeness="0.04">
         <route edges="23960874"/>
         <busStop id="1633759760" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="10" name="Straßenbahnlinie M4: S Hackescher Markt =&gt; Hohenschönhausen, Zingster Straße" line="M4" type="tram" completeness="0.04">
+    <ptLine id="12" name="Straßenbahnlinie M4: S Hackescher Markt =&gt; Hohenschönhausen, Zingster Straße" line="M4" type="tram" completeness="0.04">
         <route edges="23960874"/>
         <busStop id="1633759760" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="11" name="Straßenbahnlinie M5: Hohenschönhausen, Zingster Straße =&gt; Hauptbahnhof" line="M5" type="tram" completeness="0.03">
+    <ptLine id="13" name="Straßenbahnlinie M5: Hohenschönhausen, Zingster Straße =&gt; Hauptbahnhof" line="M5" type="tram" completeness="0.03">
         <route edges="30721657"/>
         <busStop id="1633759766" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="12" name="Straßenbahnlinie M5: Hauptbahnhof =&gt; Hohenschönhausen, Zingster Straße" line="M5" type="tram" completeness="0.03">
+    <ptLine id="14" name="Straßenbahnlinie M5: Hauptbahnhof =&gt; Hohenschönhausen, Zingster Straße" line="M5" type="tram" completeness="0.03">
         <route edges="23960874"/>
         <busStop id="1633759760" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="13" name="Straßenbahnlinie 12: Weißensee, Pasedagplatz =&gt; Mitte, Am Kupfergraben" line="12" type="tram" completeness="0.04">
+    <ptLine id="15" name="Straßenbahnlinie 12: Weißensee, Pasedagplatz =&gt; Mitte, Am Kupfergraben" line="12" type="tram" completeness="0.04">
         <busStop id="247600965" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="14" name="Straßenbahnlinie 12: Mitte, Am Kupfergraben =&gt; Weißensee, Pasedagplatz" line="12" type="tram" completeness="0.04">
+    <ptLine id="16" name="Straßenbahnlinie 12: Mitte, Am Kupfergraben =&gt; Weißensee, Pasedagplatz" line="12" type="tram" completeness="0.04">
         <busStop id="1823298700" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="15" name="S-Bahnlinie S5: Strausberg Nord =&gt; Spandau" line="S5" type="light_rail" completeness="0.06">
+    <ptLine id="17" name="S-Bahnlinie S5: Strausberg Nord =&gt; Spandau" line="S5" type="light_rail" completeness="0.06">
         <route edges="32590640 32590652 32590653 32590895 32590896 32590903 32590904 29384710 25946685#0 25946685#1 25946685#2 25946677 25946678 25946662 25946663"/>
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="474366009" name="S Friedrichstraße"/>
     </ptLine>
-    <ptLine id="16" name="S-Bahnlinie S5: Spandau =&gt; Strausberg Nord" line="S5" type="light_rail" completeness="0.08">
+    <ptLine id="18" name="S-Bahnlinie S5: Spandau =&gt; Strausberg Nord" line="S5" type="light_rail" completeness="0.08">
         <route edges="4471821 4471820 4471819 4471818#0 4471818#1 23809672 25946681 25946682 32590901 32590902 32590893 32590894 23809673 4471817 25086879 32590638 32590645 32590647 32590493 32590494 32590495 32590496 72984377"/>
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
-    <ptLine id="17" name="S-Bahnlinie S7: Ahrensfelde =&gt; Potsdam Hauptbahnhof" line="S7" type="light_rail" completeness="0.07">
+    <ptLine id="19" name="S-Bahnlinie S7: Ahrensfelde =&gt; Potsdam Hauptbahnhof" line="S7" type="light_rail" completeness="0.07">
         <route edges="32590640 32590652 32590653 32590895 32590896 32590903 32590904 29384710 25946685#0 25946685#1 25946685#2 25946677 25946678 25946662 25946663"/>
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="474366009" name="S Friedrichstraße"/>
     </ptLine>
-    <ptLine id="18" name="S-Bahnlinie S7: Potsdam Hauptbahnhof =&gt; Ahrensfelde" line="S7" type="light_rail" completeness="0.10">
+    <ptLine id="20" name="S-Bahnlinie S7: Potsdam Hauptbahnhof =&gt; Ahrensfelde" line="S7" type="light_rail" completeness="0.10">
         <route edges="4471821 4471820 4471819 4471818#0 4471818#1 23809672 25946681 25946682 32590901 32590902 32590893 32590894 23809673 4471817 25086879 32590638 32590645 32590647 32590493 32590494 32590495 32590496 72984377"/>
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
-    <ptLine id="19" name="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße" line="M1" type="tram" completeness="0.04">
+    <ptLine id="21" name="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße" line="M1" type="tram" completeness="0.04">
         <busStop id="1823298700" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="20" name="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Rosenthal Nord" line="M1" type="tram" completeness="0.03">
+    <ptLine id="22" name="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Rosenthal Nord" line="M1" type="tram" completeness="0.03">
         <busStop id="1823298700" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="21" name="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben" line="M1" type="tram" completeness="0.04">
+    <ptLine id="23" name="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben" line="M1" type="tram" completeness="0.04">
         <busStop id="247600965" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="22" name="Straßenbahnlinie M1: Rosenthal Nord =&gt; Mitte, Am Kupfergraben" line="M1" type="tram" completeness="0.03">
+    <ptLine id="24" name="Straßenbahnlinie M1: Rosenthal Nord =&gt; Mitte, Am Kupfergraben" line="M1" type="tram" completeness="0.03">
         <busStop id="247600965" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="23" name="Straßenbahnlinie M6: Hellersdorf, Riesaer Straße =&gt; Hackescher Markt" line="M6" type="tram" completeness="0.03">
+    <ptLine id="25" name="Straßenbahnlinie M6: Hellersdorf, Riesaer Straße =&gt; Hackescher Markt" line="M6" type="tram" completeness="0.03">
         <route edges="30721657"/>
         <busStop id="1633759766" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="24" name="Straßenbahnlinie M6: Hackescher Markt =&gt; Hellersdorf, Riesaer Straße" line="M6" type="tram" completeness="0.03">
+    <ptLine id="26" name="Straßenbahnlinie M6: Hackescher Markt =&gt; Hellersdorf, Riesaer Straße" line="M6" type="tram" completeness="0.03">
         <route edges="23960874"/>
         <busStop id="1633759760" name="Hackescher Markt"/>
     </ptLine>
-    <ptLine id="25" name="Buslinie M48: Busseallee =&gt; S+U Alexanderplatz/Memhardstraße" line="M48" type="bus" completeness="0.07">
+    <ptLine id="27" name="Buslinie M48: Busseallee =&gt; S+U Alexanderplatz/Memhardstraße" line="M48" type="bus" completeness="0.20">
+        <busStop id="271430924" name="Berliner Rathaus"/>
         <busStop id="1827996414" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße"/>
     </ptLine>
-    <ptLine id="26" name="S-Bahnlinie S75: S Westkreuz =&gt; S Wartenberg" line="S75" type="light_rail" completeness="0.14">
+    <ptLine id="28" name="Buslinie M48: S+U Alexanderplatz/Memhardstraße =&gt; Busseallee" line="M48" type="bus" completeness="0.30">
+        <busStop id="270727260" name="S+U Alexanderplatz/Memhardstraße"/>
+        <busStop id="270727248" name="S+U Alexanderplatz"/>
+        <busStop id="258485601" name="Nikolaiviertel"/>
+    </ptLine>
+    <ptLine id="29" name="S-Bahnlinie S75: S Westkreuz =&gt; S Wartenberg" line="S75" type="light_rail" completeness="0.14">
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
-    <ptLine id="27" name="S-Bahnlinie S75: Wartenberg =&gt; Westkreuz" line="S75" type="light_rail" completeness="0.10">
+    <ptLine id="30" name="S-Bahnlinie S75: Wartenberg =&gt; Westkreuz" line="S75" type="light_rail" completeness="0.10">
         <busStop id="1745157971" name="S Hackescher Markt"/>
         <busStop id="474366009" name="S Friedrichstraße"/>
     </ptLine>
-    <ptLine id="28" name="Buslinie N6 Alt-Tegel =&gt; Alt-Mariendorf" line="N6" type="bus" completeness="0.09">
+    <ptLine id="31" name="Buslinie N65: Köpenick, Müggelschlößchenweg =&gt; S Hackescher Markt" line="N65" type="bus" completeness="0.08">
+        <busStop id="271644163" name="U Alexanderplatz"/>
+        <busStop id="271884565" name="Memhardstraße"/>
+    </ptLine>
+    <ptLine id="32" name="Buslinie N65: S Hackescher Markt =&gt; Köpenick, Müggelschlößchenweg" line="N65" type="bus" completeness="0.05">
+        <busStop id="1686199552" name="Berliner Rathaus"/>
+    </ptLine>
+    <ptLine id="33" name="Buslinie N6 Alt-Tegel =&gt; Alt-Mariendorf" line="N6" type="bus" completeness="0.09">
         <route edges="6227654#3 42103020 30720544#0 30720544#1 6228081 -222328410 -4402228 190447768#0 190447768#1 195411602#0 195411602#1 195411604#0 195411604#1 195411604#2 195411604#3 -158023913#2 -158023913#1 -158023913#0 -292429062#3 -292429062#2 -292429062#1 -292429062#0 -153698380 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056 42102542 196850608#0 196850608#1 196850608#2 196850606#0 196850606#1 196850606#2"/>
         <busStop id="2959830772" name="U Oranienburger Tor"/>
         <busStop id="2959830767" name="S + U Friedrichstr."/>
         <busStop id="2959830765" name="Neustädtische Kirchstr."/>
         <busStop id="2959830774" name="U Stadtmitte"/>
     </ptLine>
-    <ptLine id="29" name="Buslinie 147: (S Ostbahnhof =&gt;) U Märkisches Museum =&gt; S+U Hauptbahnhof" line="147" type="bus" completeness="0.33">
-        <route edges="153698380"/>
+    <ptLine id="34" name="Buslinie 147: (S Ostbahnhof =&gt;) U Märkisches Museum =&gt; S+U Hauptbahnhof" line="147" type="bus" completeness="0.67">
+        <route edges="153698380 292429062#0 292429062#1 292429062#2 292429062#3 158023913#0 158023913#1 158023913#2 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056"/>
         <busStop id="2959830765" name="Neustädtische Kirchstr."/>
+        <busStop id="365714332" name="S+U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="30" name="Buslinie 147: S+U Hauptbahnhof =&gt; U Märkisches Museum (=&gt; S Ostbahnhof)" line="147" type="bus" completeness="0.67">
+    <ptLine id="35" name="Buslinie 147: S+U Hauptbahnhof =&gt; U Märkisches Museum (=&gt; S Ostbahnhof)" line="147" type="bus" completeness="0.67">
         <route edges="153698380 292429062#0 292429062#1 292429062#2 292429062#3 158023913#0 158023913#1 158023913#2 155186522#0 155186522#1 24913267#0 24913267#1 326116286 4588220 292429056"/>
         <busStop id="2959830765" name="Neustädtische Kirchstr."/>
         <busStop id="2792364395" name="U Friedrichstraße"/>
     </ptLine>
-    <ptLine id="31" name="U-Bahnlinie U5: Alexanderplatz =&gt; Hönow" line="U5" type="subway" completeness="0.05">
+    <ptLine id="36" name="Buslinie N5: Hellersdorf, Riesaer Straße =&gt; S Hackescher Markt" line="N5" type="bus" completeness="0.29">
+        <busStop id="271644163" name="U Alexanderplatz"/>
+        <busStop id="270727260" name="S+U Alexanderplatz/Memhardstraße"/>
+    </ptLine>
+    <ptLine id="37" name="Buslinie N5: S Hackescher Markt =&gt; Hellersdorf, Riesaer Straße" line="N5" type="bus" completeness="0.11">
+        <busStop id="271670135" name="U Alexanderplatz"/>
+    </ptLine>
+    <ptLine id="38" name="Buslinie 248: Warschauer Str. =&gt; U Breitenbachplatz" line="248" type="bus" completeness="0.33">
+        <busStop id="258485601" name="Nikolaiviertel"/>
+    </ptLine>
+    <ptLine id="39" name="U-Bahnlinie U5: Alexanderplatz =&gt; Hönow" line="U5" type="subway" completeness="0.05">
         <busStop id="2094266776" name="U Alexanderplatz"/>
     </ptLine>
-    <ptLine id="32" name="U-Bahnlinie U5: Hönow =&gt; Alexanderplatz" line="U5" type="subway" completeness="0.05">
+    <ptLine id="40" name="U-Bahnlinie U5: Hönow =&gt; Alexanderplatz" line="U5" type="subway" completeness="0.05">
         <busStop id="2094266776" name="U Alexanderplatz"/>
     </ptLine>
-    <ptLine id="33" name="S-Bahnlinie S2: S Bernau =&gt; S Blankenfelde" line="S2" type="light_rail" completeness="0.11">
+    <ptLine id="41" name="S-Bahnlinie S2: S Bernau =&gt; S Blankenfelde" line="S2" type="light_rail" completeness="0.11">
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
         <busStop id="30353086" name="S Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="34" name="S-Bahnlinie S2: S Blankenfelde =&gt; S Bernau" line="S2" type="light_rail" completeness="0.11">
+    <ptLine id="42" name="S-Bahnlinie S2: S Blankenfelde =&gt; S Bernau" line="S2" type="light_rail" completeness="0.11">
         <busStop id="322796388" name="S Brandenburger Tor"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
-    <ptLine id="35" name="S-Bahnlinie S25: Henningsdorf =&gt; Teltow" line="S25" type="light_rail" completeness="0.12">
+    <ptLine id="43" name="S-Bahnlinie S25: Henningsdorf =&gt; Teltow" line="S25" type="light_rail" completeness="0.12">
         <route edges="230976793 230976796"/>
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
         <busStop id="30353086" name="S Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="36" name="S-Bahnlinie S25: Teltow =&gt; Hennigsdorf" line="S25" type="light_rail" completeness="0.11">
+    <ptLine id="44" name="S-Bahnlinie S25: Teltow =&gt; Hennigsdorf" line="S25" type="light_rail" completeness="0.11">
         <route edges="237751551#0 237751551#1 230976795"/>
         <busStop id="322796388" name="S Brandenburger Tor"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
-    <ptLine id="37" name="Buslinie N8: Märkisches Viertel, Wilhelmsruher Damm =&gt; S+U Hermannstraße" line="N8" type="bus" completeness="0.50">
+    <ptLine id="45" name="Buslinie N8: Märkisches Viertel, Wilhelmsruher Damm =&gt; S+U Hermannstraße" line="N8" type="bus" completeness="0.75">
         <busStop id="2915579613" name="S Hackescher Markt"/>
         <busStop id="2915590925" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="1686199552" name="Berliner Rathaus"/>
     </ptLine>
-    <ptLine id="38" name="Buslinie N40: U-Bhf Turmstraße =&gt; Friedrichshain Wühlischplatz" line="N40" type="bus" completeness="0.23">
+    <ptLine id="46" name="Buslinie N8: S+U Hermannstraße =&gt; Märkisches Viertel, Wilhelmsruher Damm" line="N8" type="bus" completeness="0.50">
+        <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
+        <busStop id="270727248" name="S+U Alexanderplatz"/>
+        <busStop id="271644163" name="U Alexanderplatz"/>
+    </ptLine>
+    <ptLine id="47" name="Buslinie N40: Friedrichshain Wühlischplatz =&gt; U-Bhf Turmstraße" line="N40" type="bus" completeness="0.10">
+        <busStop id="271430924" name="Berliner Rathaus"/>
+    </ptLine>
+    <ptLine id="48" name="Buslinie N40: U-Bhf Turmstraße =&gt; Friedrichshain Wühlischplatz" line="N40" type="bus" completeness="0.31">
         <busStop id="2915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße"/>
         <busStop id="2915579613" name="S Hackescher Markt"/>
         <busStop id="2915590925" name="Spandauer Straße/Marienkirche"/>
+        <busStop id="1686199552" name="Berliner Rathaus"/>
     </ptLine>
-    <ptLine id="39" name="U-Bahnlinie U2: Pankow =&gt; Ruhleben" line="U2" type="subway" completeness="0.21">
+    <ptLine id="49" name="U-Bahnlinie U2: Pankow =&gt; Ruhleben" line="U2" type="subway" completeness="0.21">
         <busStop id="2094266784" name="U Senefelderplatz"/>
         <busStop id="2094266782" name="U Rosa-Luxemburg-Platz"/>
         <busStop id="2094266778" name="U Alexanderplatz"/>
@@ -220,44 +284,44 @@
         <busStop id="2098267288" name="U Märkisches Museum"/>
         <busStop id="323203892" name="U Spittelmarkt"/>
     </ptLine>
-    <ptLine id="40" name="U-Bahnlinie U2: Ruhleben =&gt; Pankow" line="U2" type="train" completeness="0.07">
+    <ptLine id="50" name="U-Bahnlinie U2: Ruhleben =&gt; Pankow" line="U2" type="train" completeness="0.07">
         <route edges="199847339"/>
         <busStop id="323203892" name="U Spittelmarkt"/>
         <busStop id="29495034" name="U Märkisches Museum"/>
     </ptLine>
-    <ptLine id="41" name="U-Bahnlinie U8: Hermannstraße =&gt; Wittenau" line="U8" type="subway" completeness="0.04">
+    <ptLine id="51" name="U-Bahnlinie U8: Hermannstraße =&gt; Wittenau" line="U8" type="subway" completeness="0.04">
         <route edges="272760866"/>
         <busStop id="2094266775" name="U Alexanderplatz"/>
     </ptLine>
-    <ptLine id="42" name="U-Bahnlinie U8: Wittenau =&gt; Hermannstraße" line="U8" type="subway" completeness="0.04">
+    <ptLine id="52" name="U-Bahnlinie U8: Wittenau =&gt; Hermannstraße" line="U8" type="subway" completeness="0.04">
         <route edges="272760866"/>
         <busStop id="2094266775" name="U Alexanderplatz"/>
     </ptLine>
-    <ptLine id="43" name="U-Bahnlinie U55: Brandenburger Tor =&gt; Hauptbahnhof" line="U55" type="subway" completeness="1.00">
+    <ptLine id="53" name="U-Bahnlinie U55: Brandenburger Tor =&gt; Hauptbahnhof" line="U55" type="subway" completeness="1.00">
         <busStop id="253846340" name="U Brandenburger Tor"/>
         <busStop id="253845582" name="U-Bahnhof Bundestag"/>
         <busStop id="446289301" name="U Hauptbahnhof"/>
     </ptLine>
-    <ptLine id="44" name="U-Bahnlinie U55: Hauptbahnhof =&gt; Brandenburger Tor" line="U55" type="subway" completeness="1.00">
+    <ptLine id="54" name="U-Bahnlinie U55: Hauptbahnhof =&gt; Brandenburger Tor" line="U55" type="subway" completeness="1.00">
         <busStop id="446289301" name="U Hauptbahnhof"/>
         <busStop id="253845582" name="U-Bahnhof Bundestag"/>
         <busStop id="253846340" name="U Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="45" name="U-Bahnlinie U6: Alt-Tegel =&gt; Alt-Mariendorf" line="U6" type="subway" completeness="0.05">
+    <ptLine id="55" name="U-Bahnlinie U6: Alt-Tegel =&gt; Alt-Mariendorf" line="U6" type="subway" completeness="0.05">
         <busStop id="2924245391" name="U Wedding"/>
     </ptLine>
-    <ptLine id="46" name="S-Bahnlinie S2: S Buch =&gt; S Lichtenrade" line="S2" type="light_rail" completeness="0.14">
+    <ptLine id="56" name="S-Bahnlinie S2: S Buch =&gt; S Lichtenrade" line="S2" type="light_rail" completeness="0.14">
         <busStop id="30353449" name="S Oranienburger Straße"/>
         <busStop id="474368351" name="S Friedrichstraße"/>
         <busStop id="30353086" name="S Brandenburger Tor"/>
     </ptLine>
-    <ptLine id="47" name="S-Bahnlinie S2: Lichtenrade =&gt; Bernau" line="S2" type="light_rail" completeness="0.12">
+    <ptLine id="57" name="S-Bahnlinie S2: Lichtenrade =&gt; Bernau" line="S2" type="light_rail" completeness="0.12">
         <route edges="237751551#0 237751551#1 230976795"/>
         <busStop id="322796388" name="S Brandenburger Tor"/>
         <busStop id="1930939368" name="S Friedrichstraße"/>
         <busStop id="1769645503" name="S Oranienburger Straße"/>
     </ptLine>
-    <ptLine id="48" name="S-Bahnlinie S75: S Westkreuz =&gt; Wartenberg" line="S75" type="light_rail" completeness="0.14">
+    <ptLine id="58" name="S-Bahnlinie S75: S Westkreuz =&gt; Wartenberg" line="S75" type="light_rail" completeness="0.14">
         <busStop id="27412232" name="S Friedrichstraße"/>
         <busStop id="27411240" name="S Hackescher Markt"/>
         <busStop id="27411231" name="S Alexanderplatz"/>
