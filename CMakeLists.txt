@@ -225,4 +225,8 @@ if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
 
+# set custom name and folder for ALL_BUILD and ZERO_CHECK in visual studio solutions
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
+
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
