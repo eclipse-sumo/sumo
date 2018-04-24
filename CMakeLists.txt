@@ -205,7 +205,7 @@ if (CHECK_OPTIONAL_LIBS)
         link_directories(${PC_GRPC_LIBRARY_DIRS})
         set(GRPC_LIBS grpc++ grpc protobuf dl)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
-    endif (GRPC_FOUND)
+    endif (GRPC_FOUND AND Protobuf_FOUND)
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_BINARY_DIR}/src)
