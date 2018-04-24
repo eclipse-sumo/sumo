@@ -21,6 +21,7 @@
 #include "microsim/MSLane.h"
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSEventControl.h"
+#include "microsim/MSGlobals.h"
 #include "hybridsim.grpc.pb.h"
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
