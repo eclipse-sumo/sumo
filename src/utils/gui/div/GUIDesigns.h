@@ -429,7 +429,7 @@
 #define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, 23, 2, 2, 2, 2  
 
 /// @brief design for Chooser TextField
-#define GUIDesignChooserTextField               (ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 23, 2, 2, 2, 2  
+#define GUIDesignChooserTextField               (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_SUNKEN), 0, 0, 0, 23, 2, 2, 2, 2  
 
 /// @brief design for Chooser List 
 #define GUIDesignChooserListSingle              (LIST_SINGLESELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK), 0, 0, 0, 0
