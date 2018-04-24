@@ -475,12 +475,6 @@ public:
 
 
 
-    /// @brief {object->{variable->value}}
-    typedef std::map<int, libsumo::TraCIValue> TraCIValues;
-    typedef std::map<std::string, TraCIValues> SubscribedValues;
-    typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
-
-
     /** @class SimulationScope
      * @brief Scope for interaction with the simulation
      */
@@ -507,11 +501,11 @@ public:
         void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
         void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
 
-        const SubscribedValues getSubscriptionResults() const;
-        const TraCIValues getSubscriptionResults(const std::string& objID) const;
+        const libsumo::SubscribedValues getSubscriptionResults() const;
+        const libsumo::TraCIValues getSubscriptionResults(const std::string& objID) const;
 
-        const SubscribedContextValues getContextSubscriptionResults() const;
-        const SubscribedValues getContextSubscriptionResults(const std::string& objID) const;
+        const libsumo::SubscribedContextValues getContextSubscriptionResults() const;
+        const libsumo::SubscribedValues getContextSubscriptionResults(const std::string& objID) const;
 
     private:
         /// @brief invalidated copy constructor
@@ -947,7 +941,7 @@ protected:
 
     void readVariableSubscription(tcpip::Storage& inMsg);
     void readContextSubscription(tcpip::Storage& inMsg);
-    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, SubscribedValues& into);
+    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscribedValues& into);
 
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = PRECISION) {
@@ -965,8 +959,8 @@ protected:
     /// @brief The socket
     tcpip::Socket* mySocket;
 
-    SubscribedValues mySubscribedValues;
-    SubscribedContextValues mySubscribedContextValues;
+    libsumo::SubscribedValues mySubscribedValues;
+    libsumo::SubscribedContextValues mySubscribedContextValues;
 };
 
 

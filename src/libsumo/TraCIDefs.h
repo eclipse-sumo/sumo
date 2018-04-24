@@ -103,6 +103,13 @@ struct TraCIValue {
 };
 
 
+/// @brief {variable->value}
+typedef std::map<int, libsumo::TraCIValue> TraCIValues;
+/// @brief {object->{variable->value}}
+typedef std::map<std::string, TraCIValues> SubscribedValues;
+typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
+
+
 class TraCIPhase {
 public:
     TraCIPhase(const SUMOTime _duration, const SUMOTime _duration1, const SUMOTime _duration2, const std::string& _phase)

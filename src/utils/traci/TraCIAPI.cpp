@@ -496,7 +496,7 @@ TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add)
 }
 
 void
-TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, SubscribedValues& into) {
+TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscribedValues& into) {
     while (variableCount > 0) {
 
         const int variableID = inMsg.readUnsignedByte();
@@ -1585,13 +1585,13 @@ TraCIAPI::SimulationScope::subscribeContext(int domID, const std::string& objID,
     myParent.readContextSubscription(inMsg);
 }
 
-const TraCIAPI::SubscribedValues
+const libsumo::SubscribedValues
 TraCIAPI::SimulationScope::getSubscriptionResults() const {
     return myParent.mySubscribedValues;
 }
 
 
-const TraCIAPI::TraCIValues
+const libsumo::TraCIValues
 TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedValues.find(objID) != myParent.mySubscribedValues.end()) {
         return myParent.mySubscribedValues[objID];
@@ -1601,18 +1601,18 @@ TraCIAPI::SimulationScope::getSubscriptionResults(const std::string& objID) cons
 }
 
 
-const TraCIAPI::SubscribedContextValues
+const libsumo::SubscribedContextValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults() const {
     return myParent.mySubscribedContextValues;
 }
 
 
-const TraCIAPI::SubscribedValues
+const libsumo::SubscribedValues
 TraCIAPI::SimulationScope::getContextSubscriptionResults(const std::string& objID) const {
     if (myParent.mySubscribedContextValues.find(objID) != myParent.mySubscribedContextValues.end()) {
         return myParent.mySubscribedContextValues[objID];
     } else {
-        return SubscribedValues();
+        return libsumo::SubscribedValues();
     }
 }
 

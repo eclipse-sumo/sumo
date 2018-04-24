@@ -34,21 +34,20 @@ namespace libsumo {
      */
     class Subscription {
     public:
-        /** @brief Calls the Constructor and adds the result to the list.
-         * @param[in] commandIdArg The command id of the subscription
-         * @param[in] idArg The id of the object that is subscribed
-         * @param[in] variablesArg The subscribed variables
-         * @param[in] beginTimeArg The begin time of the subscription
-         * @param[in] endTimeArg The end time of the subscription
-         * @param[in] contextDomainArg The domain ID of the context
-         * @param[in] rangeArg The range of the context
-         */
-        static void add(int commandId, const std::string& id,
-						const std::vector<int>& variables, const std::vector<std::vector<unsigned char> >& params,
-						SUMOTime beginTime, SUMOTime endTime, int contextDomain, double range,
-                        std::vector<Subscription>& into) {
-            into.push_back(Subscription(commandId, id, variables, params, beginTime, endTime, contextDomain, range));
-		}
+        /** @brief Constructor
+        * @param[in] commandIdArg The command id of the subscription
+        * @param[in] idArg The id of the object that is subscribed
+        * @param[in] variablesArg The subscribed variables
+        * @param[in] beginTimeArg The begin time of the subscription
+        * @param[in] endTimeArg The end time of the subscription
+        * @param[in] contextDomainArg The domain ID of the context
+        * @param[in] rangeArg The range of the context
+        */
+        Subscription(int commandIdArg, const std::string& idArg,
+            const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
+            SUMOTime beginTimeArg, SUMOTime endTimeArg, int contextDomainArg, double rangeArg)
+            : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
+            contextDomain(contextDomainArg), range(rangeArg) {}
 
         /// @brief commandIdArg The command id of the subscription
         int commandId;
@@ -66,22 +65,6 @@ namespace libsumo {
         int contextDomain;
         /// @brief The range of the context
         double range;
-
-	private:
-        /** @brief Constructor
-         * @param[in] commandIdArg The command id of the subscription
-         * @param[in] idArg The id of the object that is subscribed
-         * @param[in] variablesArg The subscribed variables
-         * @param[in] beginTimeArg The begin time of the subscription
-         * @param[in] endTimeArg The end time of the subscription
-         * @param[in] contextDomainArg The domain ID of the context
-         * @param[in] rangeArg The range of the context
-         */
-        Subscription(int commandIdArg, const std::string& idArg,
-                     const std::vector<int>& variablesArg, const std::vector<std::vector<unsigned char> >& paramsArg,
-                     SUMOTime beginTimeArg, SUMOTime endTimeArg, int contextDomainArg, double rangeArg)
-            : commandId(commandIdArg), id(idArg), variables(variablesArg), parameters(paramsArg), beginTime(beginTimeArg), endTime(endTimeArg),
-              contextDomain(contextDomainArg), range(rangeArg) {}
     };
 }
 

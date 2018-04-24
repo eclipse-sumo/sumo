@@ -322,6 +322,43 @@ Edge::setParameter(const std::string& id, const std::string& name, const std::st
 }
 
 
+void
+Edge::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+
+}
+
+
+void
+Edge::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
+
+}
+
+
+const SubscribedValues
+Edge::getSubscriptionResults() {
+    return SubscribedValues();
+}
+
+
+const TraCIValues
+Edge::getSubscriptionResults(const std::string& objID) {
+    return TraCIValues();
+}
+
+
+const SubscribedContextValues
+Edge::getContextSubscriptionResults() {
+    return SubscribedContextValues();
+}
+
+
+const SubscribedValues
+Edge::getContextSubscriptionResults(const std::string& objID) {
+    return SubscribedValues();
+}
+
+
+
 }
 
 

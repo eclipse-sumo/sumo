@@ -1127,7 +1127,7 @@ TraCIServer::findObjectShape(int domain, const std::string& id, PositionVector& 
             break;
         }
         case CMD_SUBSCRIBE_SIM_CONTEXT:
-            return false;
+            break;
         case CMD_SUBSCRIBE_GUI_CONTEXT:
             break;
         default:
@@ -1256,8 +1256,8 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         return true;
     }
     // process subscription
-    libsumo::Subscription::add(commandId, id, variables, parameters, beginTime, endTime, domain, range, mySubscriptions);
-    initialiseSubscription(mySubscriptions.back());
+    libsumo::Subscription s(commandId, id, variables, parameters, beginTime, endTime, domain, range);
+    initialiseSubscription(s);
     return true;
 }
 

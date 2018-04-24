@@ -79,6 +79,14 @@ public:
     static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = SUMOTime_MAX);
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
+
+    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
+    static const SubscribedValues getSubscriptionResults();
+    static const TraCIValues getSubscriptionResults(const std::string& objID);
+    static const SubscribedContextValues getContextSubscriptionResults();
+    static const SubscribedValues getContextSubscriptionResults(const std::string& objID);
+
 private:
     static MSEdge* getEdge(const std::string& id);
 };
