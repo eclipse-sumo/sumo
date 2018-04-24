@@ -58,6 +58,7 @@
 //#define DEBUG_E2_JAMS
 //#define DEBUG_E2_XML_OUT
 //#define DEBUG_COND (true)
+//#define DEBUG_COND (getID()=="e2Detector_e5.601A_1_SAa")
 //#define DEBUG_COND (getID()=="702057")
 //#define DEBUG_COND (getID()=="det0")
 
@@ -726,8 +727,8 @@ bool
 MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* reason */, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
-        std::cout << "\n" << SIMTIME << " notifyEnter() (detID = " << myID << "on lane '" << myLane->getID() << "')"
-                << "called by vehicle '" << veh.getID()
+        std::cout << std::endl << SIMTIME << " notifyEnter() (detID = " << myID << " on lane '" << myLane->getID() << "')"
+                << " called by vehicle '" << veh.getID()
                 << "' entering lane '" << (enteredLane != 0 ? enteredLane->getID() : "NULL") << "'" << std::endl;
     }
 #endif
@@ -741,6 +742,23 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
         // That's not my type...
         return false;
     }
+
+	// determine whether the vehicle entered the lane behind the detector end
+	// e.g. due to lane change manoeuver
+	const double vehBackPos = veh.getBackPositionOnLane(enteredLane);
+	bool vehEnteredBehindDetectorEnd = myEndPos <= vehBackPos;
+	if (vehEnteredBehindDetectorEnd) {
+		// this vehicle cannot influence detector readings, do not subscribe
+		// to move notifications
+#ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
+		if DEBUG_COND{
+			std::cout << "Vehicle entered the lane behind the detector, ignoring it." << std::endl;
+			std::cout << "(myEndPos = " << this->myEndPos << ", veh.getBackPositionOnLane() = " << vehBackPos << ")" << std::endl;
+		}
+#endif
+		return false;
+	}
+
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
         if (!veh.isOnRoad()) {
