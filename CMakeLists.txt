@@ -128,6 +128,9 @@ if (SUMO_LIBRARIES)
     set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Release")
     # set protobuf
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1${LIB_VERSION}")
+    set(Protobuf_PROTOC_EXECUTABLE "${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1${LIB_VERSION}/cmake/Release/protoc.exe")
+    set(Protobuf_LIBRARY_DEBUG "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.5.1${LIB_VERSION}/cmake/Debug/libprotobufd.lib")
+    set(Protobuf_LIBRARY "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/protobuf-3.5.1${LIB_VERSION}/cmake/Release/libprotobuf.lib")
 else (SUMO_LIBRARIES)
     # for Linux and Mac only
     find_package(GTest)
