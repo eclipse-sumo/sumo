@@ -123,11 +123,11 @@ if (SUMO_LIBRARIES)
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Debug")
-	set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Release")
-	set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/include")
-	# set protobuf
-	set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1${LIB_VERSION}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Debug")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/grpc-1.10.0${LIB_VERSION}/Release")
+    # set protobuf
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/3rdPartyLibs/protobuf-3.5.1${LIB_VERSION}")
 else (SUMO_LIBRARIES)
     # for Linux and Mac only
     find_package(GTest)
@@ -198,8 +198,8 @@ if (CHECK_OPTIONAL_LIBS)
     endif ()
 
     find_package(GRPC)
-    if (GRPC_FOUND)
-        find_package(Protobuf REQUIRED)
+    find_package(Protobuf)
+    if (GRPC_FOUND AND Protobuf_FOUND)
         add_definitions(-DBUILD_GRPC)
         add_definitions(${GRPC_DEFINITONS})
         link_directories(${PC_GRPC_LIBRARY_DIRS})
