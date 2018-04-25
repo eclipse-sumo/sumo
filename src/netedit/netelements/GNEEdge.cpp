@@ -635,7 +635,7 @@ GNEEdge::clearGNEConnections() {
     for (auto i : myGNEConnections) {
         // check if connection is selected
         if(i->isAttributeCarrierSelected()) {
-            myNet->unselectAttributeCarrier(GLO_CONNECTION, i);
+            i->unselectAttributeCarrier();
         }
         // Dec reference of connection
         i->decRef("GNEEdge::clearGNEConnections");
@@ -1217,7 +1217,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     lane->incRef("GNEEdge::addLane");
     // check if lane is selected
     if(lane->isAttributeCarrierSelected()) {
-        myNet->selectAttributeCarrier(GLO_LANE, lane);
+        lane->selectAttributeCarrier();
     }
     // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge.setSpeed(lane->getIndex(), laneAttrs.speed);
@@ -1258,7 +1258,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     }
     // check if lane is selected
     if(lane->isAttributeCarrierSelected()) {
-        myNet->unselectAttributeCarrier(GLO_LANE, lane);
+        lane->unselectAttributeCarrier();
     }
     // Delete lane of edge's container
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -1335,7 +1335,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         // check if connection is selected
         if(con->isAttributeCarrierSelected()) {
-            myNet->unselectAttributeCarrier(GLO_CONNECTION, con);
+            con->unselectAttributeCarrier();
         }
         if (con->unreferenced()) {
             // show extra information for tests

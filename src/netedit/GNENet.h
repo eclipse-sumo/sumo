@@ -381,12 +381,22 @@ public:
     */
     GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
 
+    /**@brief return all connections
+    * @param[in] onlySelected Whether to return only selected connections
+    */
+    std::vector<GNEConnection*> retrieveConnections(bool onlySelected = false) const;
+
     /**@brief get Crossing by id
     * @param[in] id The id of the desired Crossing
     * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
     * @throws UnknownElement
     */
     GNECrossing* retrieveCrossing(const std::string& id, bool failHard = true) const;
+
+    /**@brief return all crossings
+    * @param[in] onlySelected Whether to return only selected crossings
+    */
+    std::vector<GNECrossing*> retrieveCrossings(bool onlySelected = false) const;
 
     /**@brief get a single attribute carrier based on a GLID
     * @param[in] ids the GL IDs for which to retrive the AC
@@ -471,19 +481,7 @@ public:
     GNEViewNet* getViewNet() const;
 
     /// @brief get all selected attribute carriers
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers() const;
-
-    // @brief get selected attribute carriers by GLType
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
-
-    // @brief get selected attribute carriers by Tag
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(SumoXMLTag tag);
-
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
-
-     /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
+    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers();
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
@@ -697,15 +695,6 @@ protected:
 
         /// @brief map with the name and pointer to Calibrator Vehicle Types of net
         std::map<std::string, GNECalibratorVehicleType*> calibratorVehicleTypes;
-
-        /// @brief set with all selected attribute carriers
-        std::vector<GNEAttributeCarrier* > selectedAttributeCarriers;
-
-        /// @brief set with selected attribute carriers grouped by GL Type
-        std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > selectedAttributeCarriersByType;
-
-        /// @brief set with selected attribute carriers grouped by Tags
-        std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > selectedAttributeCarriersByTag;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)

@@ -28,6 +28,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -109,11 +110,7 @@ GNEShape::selectAttributeCarrier() {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else if (!mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->selectAttributeCarrier(GLO_POLYGON, this);
-        } else {
-            myNet->selectAttributeCarrier(GLO_POI, this);
-        }
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
         mySelected = true;
     } 
 }
@@ -124,11 +121,7 @@ GNEShape::unselectAttributeCarrier() {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else if (mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->unselectAttributeCarrier(GLO_POLYGON, this);
-        } else {
-            myNet->unselectAttributeCarrier(GLO_POI, this);
-        }
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
         mySelected = false;
     } 
 }

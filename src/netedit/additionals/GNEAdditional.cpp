@@ -37,6 +37,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -609,7 +610,7 @@ GNEAdditional::selectAttributeCarrier() {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else if (!mySelected) {
-        myViewNet->getNet()->selectAttributeCarrier(getType(), this);
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
         mySelected = true;
     } 
 }
@@ -620,7 +621,7 @@ GNEAdditional::unselectAttributeCarrier() {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else if (mySelected) {
-        myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
         mySelected = false;
     } 
 }

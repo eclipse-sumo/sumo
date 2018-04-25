@@ -26,6 +26,7 @@
 #endif
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -153,7 +154,7 @@ GNENetElement::selectAttributeCarrier() {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else if (!mySelected) {
-        myNet->selectAttributeCarrier(getType(), this);
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
         mySelected = true;
     } 
 }
@@ -164,7 +165,7 @@ GNENetElement::unselectAttributeCarrier() {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else if (mySelected) {
-        myNet->unselectAttributeCarrier(getType(), this);
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
         mySelected = false;
     } 
 }

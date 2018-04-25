@@ -405,9 +405,6 @@ public:
     /// @brief Inspect the given multi-selection
     void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);
 
-    /// @brief Inspect the given multi-selection
-    void inspectMultisection(const std::set<GNEAttributeCarrier*>& ACs);
-
     /// @brief inspect child of already inspected element
     void inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement);
 

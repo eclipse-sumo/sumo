@@ -802,12 +802,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             }
                         }
                     } else {
-                        // check if clicked AC is selected
-                        if(myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
-                            myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.attributeCarrier->getTag()));
-                        } else {
-                            myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
-                        }
+                        // inspect attribute carrier, or multiseletion if AC is selected
+                        myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
                         // focus upper element of inspector frame
                         myViewParent->getInspectorFrame()->focusUpperElement();
                     }
@@ -831,6 +827,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             myObjectsUnderCursor.attributeCarrier->unselectAttributeCarrier();
                         } else {
                             myObjectsUnderCursor.attributeCarrier->selectAttributeCarrier();
+                        }
+                        // update selector frame
+                        if(myViewParent->getSelectorFrame()->shown()) {
+                            myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
                         }
                     }
                 }
@@ -940,7 +940,12 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.additionalToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.additionalToMove = 0;
     } else if (mySelectingArea.selectingUsingRectangle) {
-        mySelectingArea.processSelection(this, ((FXEvent*)eventData)->state & SHIFTMASK);
+        bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
+        mySelectingArea.processSelection(this, shiftKeyPressed);
+        // update selector frame
+        if(myViewParent->getSelectorFrame()->shown()) {
+            myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
+        }
     }
     update();
     return 1;

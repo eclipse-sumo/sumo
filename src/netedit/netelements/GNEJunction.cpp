@@ -149,7 +149,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             it->decRef();
             // check if crossing is selected
             if(it->isAttributeCarrierSelected()) {
-                myNet->unselectAttributeCarrier(GLO_CROSSING, it);
+                it->unselectAttributeCarrier();
             }
             if (it->unreferenced()) {
                 // show extra information for tests
