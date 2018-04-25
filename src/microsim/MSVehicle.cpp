@@ -3545,6 +3545,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     // Adjust MoveReminder offset to the next lane
     adaptLaneEntering2MoveReminder(*enteredLane);
     // set the entered lane as the current lane
+    MSLane* oldLane = myLane;
     myLane = enteredLane;
     myLastBestLanesEdge = 0;
 
@@ -3554,6 +3555,15 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     }
     if (!onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION, enteredLane);
+        if (MSGlobals::gLateralResolution > 0) {
+            // transform lateral position when the lane width changes
+            assert(oldLane != 0);
+            MSLink* link = oldLane->getLinkTo(myLane);
+            if (link) {
+                myState.myPosLat += link->getLateralShift();
+            }
+        }
+
     } else {
         // normal move() isn't called so reset position here. must be done
         // before calling reminders

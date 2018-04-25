@@ -86,6 +86,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myInternalLaneBefore(0),
     myMesoTLSPenalty(0),
     myGreenFraction(1),
+    myLateralShift(0),
     myWalkingAreaFoe(0),
     myParallelRight(0),
     myParallelLeft(0),
@@ -273,6 +274,22 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     mySublaneFoeLanes.push_back((*it)->getViaLane());
                 }
             }
+        }
+
+        // detect lateral shift from lane geometries
+        //std::cout << "DEBUG link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " hasInternal=" << MSNet::getInstance()->hasInternalLinks() << " shapeBefore=" << myLaneBefore->getShape().back() << " shapeFront=" << getViaLaneOrLane()->getShape().front() << "\n";
+        if ((myInternalLane != 0 || myInternalLaneBefore != 0)
+                && myLaneBefore->getShape().back() != getViaLaneOrLane()->getShape().front()) {
+            PositionVector from = myLaneBefore->getShape();
+            const PositionVector& to = getViaLaneOrLane()->getShape();
+            const double dist = from.back().distanceTo2D(to.front());
+            // figure out direction of shift
+            try {
+                from.move2side(dist);
+            } catch (InvalidArgument&) {
+            }
+            myLateralShift = (from.back().distanceTo2D(to.front()) < dist) ? dist : -dist;
+            //std::cout << " lateral shift link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " dist=" << dist << " shift=" << myLateralShift << "\n";
         }
     }
 }
