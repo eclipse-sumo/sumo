@@ -14,5 +14,11 @@ join-turns
 cross_more_detail
 internal_junctions_for_multiple_tls_programs
 
+# merge 2 lanes into a single lane while keeping total width
+changeWidth_merge2
+
+# split 1 lane into 2 lanes while keeping total width
+changeWidth_split2
+
 # networks that have dedicated bicycle lanes
 bicycle_lanes
