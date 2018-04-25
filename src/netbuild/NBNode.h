@@ -734,6 +734,9 @@ private:
     /// @brief remove all traffic light definitions that are part of a joined tls
     void removeJoinedTrafficLights();
 
+    /// @brief displace lane shapes to account for change in lane width at this node
+    void displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
+
 private:
     /// @brief The position the node lies at
     Position myPosition;

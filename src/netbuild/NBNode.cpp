@@ -636,7 +636,10 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     }
     PositionVector ret;
     if (con.customShape.size() == 0) {
-        ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
+        PositionVector fromShape = fromE->getLaneShape(con.fromLane);
+        PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
+        displaceShapeAtWidthChange(fromE, con, fromShape, toShape);
+        ret = computeSmoothShape(fromShape, toShape,
                 numPoints, fromE->getTurnDestination() == con.toEdge,
                 (double) 5. * (double) fromE->getNumLanes(),
                 (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
@@ -652,6 +655,37 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     return ret;
 }
 
+
+void
+NBNode::displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
+    if (myIncomingEdges.size() == 1 
+            && myOutgoingEdges.size() == 1
+            && myIncomingEdges[0]->getNumLanes() != myOutgoingEdges[0]->getNumLanes()
+            && myIncomingEdges[0]->getTotalWidth() == myOutgoingEdges[0]->getTotalWidth()) {
+        // displace shapes
+        NBEdge* in = myIncomingEdges[0];
+        NBEdge* out = myOutgoingEdges[0];
+        double outCenter = out->getLaneWidth(con.toLane) / 2;
+        for (int i = 0; i < con.toLane; ++i) {
+            outCenter += out->getLaneWidth(i);
+        }
+        double inCenter = in->getLaneWidth(con.fromLane) / 2;
+        for (int i = 0; i < con.fromLane; ++i) {
+            inCenter += in->getLaneWidth(i);
+        }
+        //std::cout << "displaceShapeAtWidthChange inCenter=" << inCenter << " outCenter=" << outCenter << "\n";
+        try {
+            if (in->getNumLanes() > out->getNumLanes()) {
+                // shift toShape so the internal lane ends straight at the displaced entry point
+                toShape.move2side(outCenter - inCenter);
+            } else {
+                // shift fromShape so the internal lane starts straight at the displaced exit point
+                fromShape.move2side(inCenter - outCenter);
+
+            }
+        } catch (InvalidArgument&) { }
+    }
+}
 
 bool
 NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
