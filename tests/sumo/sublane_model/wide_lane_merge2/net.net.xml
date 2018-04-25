@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 25 Apr 2018 03:36:38 PM CEST by Eclipse SUMO netedit Version c8786d2
+<!-- generated on Wed 25 Apr 2018 06:00:44 PM CEST by Eclipse SUMO netedit Version 26f4280
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -28,8 +28,8 @@
     <location netOffset="100.00,100.00" convBoundary="0.00,100.00,100.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="3.26" width="4.00" shape="44.50,96.50 45.44,96.73 46.00,97.25 46.56,97.77 47.50,98.00"/>
-        <lane id=":gneJ0_0_1" index="1" speed="13.89" length="3.26" width="4.00" shape="44.50,98.50 45.40,98.42 46.00,98.25 46.60,98.08 47.50,98.00"/>
+        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="3.00" width="4.00" shape="44.50,96.50 47.50,96.50"/>
+        <lane id=":gneJ0_0_1" index="1" speed="13.89" length="3.00" width="4.00" shape="44.50,98.50 47.50,98.50"/>
     </edge>
 
     <edge id="beg" from="W" to="gneJ0" priority="2">

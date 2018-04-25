@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 25 15:42:10 2018 by Eclipse SUMO Version c8786d2
+<!-- generated on Wed Apr 25 18:23:39 2018 by Eclipse SUMO Version 26f4280
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,52 +66,52 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="8.00">
         <vehicle id="0" x="44.40" y="96.50" angle="90.00" type="bicycle" speed="1.53" pos="44.40" lane="beg_0" slope="0.00"/>
-        <vehicle id="1" x="49.22" y="98.40" angle="87.83" type="passenger" speed="5.56" pos="1.72" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="49.48" y="98.50" angle="95.71" type="passenger" speed="5.56" pos="1.98" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
         <vehicle id="0" x="44.40" y="96.50" angle="90.00" type="bicycle" speed="0.00" pos="44.40" lane="beg_0" slope="0.00"/>
-        <vehicle id="1" x="54.78" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="7.28" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="55.04" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="7.54" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="0" x="45.59" y="96.87" angle="77.01" type="bicycle" speed="1.20" pos="1.10" lane=":gneJ0_0_0" slope="0.00"/>
-        <vehicle id="1" x="60.34" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="12.84" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="45.60" y="96.50" angle="90.00" type="bicycle" speed="1.20" pos="1.10" lane=":gneJ0_0_0" slope="0.00"/>
+        <vehicle id="1" x="60.60" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="13.10" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="0" x="47.74" y="98.00" angle="70.04" type="bicycle" speed="2.40" pos="0.24" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="65.90" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="18.40" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="48.00" y="96.50" angle="46.85" type="bicycle" speed="2.40" pos="0.50" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="66.16" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="18.66" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="0" x="51.34" y="98.00" angle="90.00" type="bicycle" speed="3.60" pos="3.84" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="71.46" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="23.96" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="51.60" y="96.50" angle="90.00" type="bicycle" speed="3.60" pos="4.10" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="71.72" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="24.22" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="0" x="56.14" y="98.00" angle="90.00" type="bicycle" speed="4.80" pos="8.64" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="77.02" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="29.52" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="56.40" y="96.50" angle="90.00" type="bicycle" speed="4.80" pos="8.90" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="77.28" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="29.78" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="0" x="61.69" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="14.19" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="82.58" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="35.08" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="61.95" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="14.45" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="82.84" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="35.34" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="0" x="67.25" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="19.75" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="88.14" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="40.64" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="67.51" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="20.01" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="88.40" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="40.90" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="0" x="72.81" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="25.31" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="93.70" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="46.20" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="73.07" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="25.57" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="93.96" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="46.46" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="0" x="78.36" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="30.86" lane="end_0" slope="0.00"/>
-        <vehicle id="1" x="99.26" y="98.40" angle="90.00" type="passenger" speed="5.56" pos="51.76" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="78.62" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="31.12" lane="end_0" slope="0.00"/>
+        <vehicle id="1" x="99.52" y="98.50" angle="90.00" type="passenger" speed="5.56" pos="52.02" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="0" x="83.92" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="36.42" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="84.18" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="36.68" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="0" x="89.47" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="41.97" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="89.73" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="42.23" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="0" x="95.03" y="98.00" angle="90.00" type="bicycle" speed="5.56" pos="47.53" lane="end_0" slope="0.00"/>
+        <vehicle id="0" x="95.29" y="96.50" angle="90.00" type="bicycle" speed="5.56" pos="47.79" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="21.00"/>
 </fcd-export>
