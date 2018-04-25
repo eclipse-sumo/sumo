@@ -1,7 +1,6 @@
 #Options:
 # -DCMAKE_BUILD_TYPE:STRING=Debug (default Release)
 
-option(BUILD_GTEST_FROM_GIT "Build gtest directly from git" false)
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
 
 project(SUMO)
@@ -93,6 +92,7 @@ if (SUMO_LIBRARIES)
         set(LIB_VERSION "_64")
     else()
         message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+        set(CHECK_OPTIONAL_LIBS false)
     endif()
     # TODO: Use file(GLOB ...) to avoid explicit versions
     # set Xerces
