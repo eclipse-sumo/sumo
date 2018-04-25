@@ -65,9 +65,6 @@ public:
     /// @brief Destructor
     ~GNEDialogACChooser();
 
-    /// @brief refresh GNEDialogACChooser
-    void refreshACChooser(const std::vector<GNEAttributeCarrier*>& ACs);
-
 protected:
     /// FOX needs this
     GNEDialogACChooser() {}

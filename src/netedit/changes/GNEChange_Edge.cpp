@@ -84,8 +84,6 @@ GNEChange_Edge::undo() {
         // insert edge into net
         myNet->insertEdge(myEdge);
     }
-    // update ACChooser if it's shown
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
@@ -110,8 +108,6 @@ GNEChange_Edge::redo() {
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);
     }
-    // update ACChooser if it's shown
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();

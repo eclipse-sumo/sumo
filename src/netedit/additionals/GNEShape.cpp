@@ -115,8 +115,6 @@ GNEShape::selectAttributeCarrier() {
             myNet->selectAttributeCarrier(GLO_POI, this);
         }
         mySelected = true;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 
@@ -132,8 +130,6 @@ GNEShape::unselectAttributeCarrier() {
             myNet->unselectAttributeCarrier(GLO_POI, this);
         }
         mySelected = false;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 

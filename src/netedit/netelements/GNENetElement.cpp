@@ -155,8 +155,6 @@ GNENetElement::selectAttributeCarrier() {
     } else if (!mySelected) {
         myNet->selectAttributeCarrier(getType(), this);
         mySelected = true;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 
@@ -168,8 +166,6 @@ GNENetElement::unselectAttributeCarrier() {
     } else if (mySelected) {
         myNet->unselectAttributeCarrier(getType(), this);
         mySelected = false;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 

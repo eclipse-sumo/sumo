@@ -53,8 +53,7 @@
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
     GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), getGLIds(ACs), GUIGlObjectStorage::gIDStorage), 
     myACs(ACs),
-    myViewParent(viewParent)
-{
+    myViewParent(viewParent) {
 }
 
 
@@ -71,13 +70,6 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
     } else {
         ac->selectAttributeCarrier();
     }
-}
-
-
-void 
-GNEDialogACChooser::refreshACChooser(const std::vector<GNEAttributeCarrier*>& ACs) {
-    // refreshing the list is wasteful
-    // (currently called after every attribute change including toggling of selecting)
 }
 
 
