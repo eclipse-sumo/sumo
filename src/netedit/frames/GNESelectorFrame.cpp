@@ -148,6 +148,8 @@ GNESelectorFrame::clearCurrentSelection() const {
     }
     // finish clear selection
     myViewNet->getUndoList()->p_end();
+        // update current selected items
+    myLockGLObjectTypes->updateLockGLObjectTypes();
     // update view
     myViewNet->update();
 }
@@ -195,6 +197,8 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, Modifi
         // finish operation
         myViewNet->getUndoList()->p_end();
     }
+    // update current selected items
+    myLockGLObjectTypes->updateLockGLObjectTypes();
     // update view
     myViewNet->update();
 }
@@ -929,6 +933,8 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     }
     // finish selection operation
     mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
+    // update current selected items
+    mySelectorFrameParent->myLockGLObjectTypes->updateLockGLObjectTypes();
     // update view
     mySelectorFrameParent->getViewNet()->update();
     return 1;
