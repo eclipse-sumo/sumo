@@ -81,6 +81,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
 
     myParent->getParent()->addChild(this);
+    // create and show dialog
+    create();
+    show();
 }
 
 

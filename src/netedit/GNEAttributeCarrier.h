@@ -128,11 +128,6 @@ public:
     /// @brief function to support debugging
     const std::string getID() const;
 
-    /// @brief return whether this object is selected
-    inline bool isSelected() const {
-        return mySelected;
-    }
-
     /// @brief get type of attribute
     static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
 

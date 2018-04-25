@@ -32,8 +32,7 @@
 #include <string>
 #include <vector>
 #include <set>
-#include <fx.h>
-#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/windows/GUIDialog_GLObjChooser.h>
 
 
 // ===========================================================================
@@ -52,9 +51,7 @@ class GNEViewParent;
  * from a given artifact like vehicles, edges or junctions and allow
  * one of their items
  */
-class GNEDialogACChooser : public FXMainWindow {
-    // FOX-declarations
-    FXDECLARE(GNEDialogACChooser)
+class GNEDialogACChooser : public GUIDialog_GLObjChooser {
 
 public:
     /** @brief Constructor
@@ -71,68 +68,19 @@ public:
     /// @brief refresh GNEDialogACChooser
     void refreshACChooser(const std::vector<GNEAttributeCarrier*>& ACs);
 
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief Callback: The selected item shall be centered within the calling view
-    long onCmdCenter(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: The dialog shall be closed
-    long onCmdClose(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: Something has been typed into the the field
-    long onChgText(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: Selects to current item if enter is pressed
-    long onCmdText(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: Selects to current item if enter is pressed
-    long onListKeyPress(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: Hides unselected items if pressed
-    long onCmdToogleShowOnlySelected(FXObject*, FXSelector, void*);
-
-    /// @brief Callback: Toggle selection status of current object
-    long onCmdToggleSelection(FXObject*, FXSelector, void*);
-    /// @}
-
-    /// @brief sets the focus after the window is created to work-around bug in libfox
-    void show();
-
 protected:
     /// FOX needs this
     GNEDialogACChooser() {}
 
+    void toggleSelection(int listIndex); 
+
 private:
-    /// @brief pointer to GNEViewParent
-    GNEViewParent *myViewParent;
+    /// brief get glID for every AC
+    std::vector<GUIGlID> getGLIds(const std::vector<GNEAttributeCarrier*>& ACs);
 
-    /// @brief The list that holds the ids
-    FXList* myList;
-
-    /// @brief The button that triggers centering on the select object
-    FXButton* myCenterButton;
-
-    /// @brief The button that toogle show only selected elements
-    FXButton* myHideUnselectedButton;
-
-    /// @brief The button that toogle selection 
-    FXButton* myToogleSelectionButton;
-
-    /// @brief The chosen id
-    GUIGlObject* mySelected;
-
-    /// @brief The text field
-    FXTextField* myTextEntry;
-
-    /// @brief map for saving ACs sorted by ID
-    std::set<std::pair<std::string, GNEAttributeCarrier*> > myACsByID;
-
-    /// @brief map for vinculate item list and Attribute carriers
-    std::map<int, GNEAttributeCarrier*> myACs;
-
-    /// @brief show or hidde selected elements
-    bool myShowOnlySelectedElements;
+    /// @brief list of displayed ACs
+    std::vector<GNEAttributeCarrier*> myACs;
+    GNEViewParent* myViewParent;
 };
 
 
