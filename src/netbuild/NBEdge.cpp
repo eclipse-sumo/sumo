@@ -1566,9 +1566,6 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             con.vmax = con.speed;
         }
         //
-        Position end = con.toEdge->getLaneShape(con.toLane).front();
-        Position beg = getLaneShape(con.fromLane).back();
-
         assert(shape.size() >= 2);
         // get internal splits if any
         con.id = innerID + "_" + toString(edgeIndex);
