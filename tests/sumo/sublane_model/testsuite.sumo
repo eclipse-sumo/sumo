@@ -127,5 +127,14 @@ junction_leader_sibling_block2
 # a wide lane splits into three turning lanes
 wide_lane_split
 
+# a wide lane splits into two lanes
+wide_lane_split2
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2_zipper
+
 # tests for various tickets
 bugs
