@@ -110,6 +110,14 @@ public:
     /// @brief sets the focus after the window is created to work-around bug in libfox
     void show();
 
+protected:
+
+    /// @brief toggle selection (handled differently in NETEDIT)
+    virtual void toggleSelection(int listIndex); 
+
+    /// update the list with the given ids
+    void refreshList(const std::vector<GUIGlID>& ids); 
+
 private:
     /// @brief The list that holds the ids
     FXList* myList;
