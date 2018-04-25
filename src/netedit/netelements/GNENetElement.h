@@ -178,9 +178,6 @@ private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief boolean to check if netElement is selected
-    bool mySelected;
-
     /// @brief Invalidated copy constructor.
     GNENetElement(const GNENetElement&) = delete;
 

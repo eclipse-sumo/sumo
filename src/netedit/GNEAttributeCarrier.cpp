@@ -84,7 +84,9 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
 GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag, GUIIcon icon) :
     myTag(tag),
-    myIcon(icon) {
+    myIcon(icon),
+    mySelected(false)
+{
 }
 
 

@@ -367,9 +367,6 @@ private:
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
 
-    /// @brief boolean to check if additional element is selected
-    bool mySelected;
-
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;
 

@@ -128,6 +128,11 @@ public:
     /// @brief function to support debugging
     const std::string getID() const;
 
+    /// @brief return whether this object is selected
+    inline bool isSelected() const {
+        return mySelected;
+    }
+
     /// @brief get type of attribute
     static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
 
@@ -522,6 +527,10 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
+protected:
+    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    bool mySelected;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
@@ -531,6 +540,7 @@ private:
 
     /// @brief icon associated to this AC
     GUIIcon myIcon;
+
 
     /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;

@@ -64,8 +64,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -76,8 +76,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(additionalParent),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -89,8 +89,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myEdgeChilds(edgeChilds),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -102,8 +102,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myLaneChilds(laneChilds),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
