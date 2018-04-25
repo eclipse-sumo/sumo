@@ -112,13 +112,13 @@ GNERerouterInterval::getEnd() const {
 
 
 void 
-GNERerouterInterval::selectAttributeCarrier() {
+GNERerouterInterval::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNERerouterInterval::unselectAttributeCarrier() {
+GNERerouterInterval::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

@@ -106,23 +106,27 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
 
 
 void 
-GNEShape::selectAttributeCarrier() {
+GNEShape::selectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (!mySelected) {
+    } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        mySelected = true;
+        if(changeFlag) {
+            mySelected = true;
+        }
     } 
 }
 
 
 void 
-GNEShape::unselectAttributeCarrier() {
+GNEShape::unselectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (mySelected) {
+    } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        mySelected = false;
+        if(changeFlag) {
+            mySelected = false;
+        }
     } 
 }
 

@@ -79,13 +79,13 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEDestProbReroute::selectAttributeCarrier() {
+GNEDestProbReroute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNEDestProbReroute::unselectAttributeCarrier() {
+GNEDestProbReroute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

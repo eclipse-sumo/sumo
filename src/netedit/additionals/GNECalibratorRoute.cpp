@@ -112,13 +112,13 @@ GNECalibratorRoute::getGNEEdges() const {
 
 
 void 
-GNECalibratorRoute::selectAttributeCarrier() {
+GNECalibratorRoute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNECalibratorRoute::unselectAttributeCarrier() {
+GNECalibratorRoute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

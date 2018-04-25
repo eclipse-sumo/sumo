@@ -85,13 +85,13 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEClosingLaneReroute::selectAttributeCarrier() {
+GNEClosingLaneReroute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNEClosingLaneReroute::unselectAttributeCarrier() {
+GNEClosingLaneReroute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

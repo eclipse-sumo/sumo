@@ -150,23 +150,27 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 void 
-GNENetElement::selectAttributeCarrier() {
+GNENetElement::selectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (!mySelected) {
+    } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        mySelected = true;
+        if(changeFlag) {
+            mySelected = true;
+        }
     } 
 }
 
 
 void 
-GNENetElement::unselectAttributeCarrier() {
+GNENetElement::unselectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (mySelected) {
+    } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        mySelected = false;
+        if(changeFlag) {
+            mySelected = false;
+        }
     } 
 }
 

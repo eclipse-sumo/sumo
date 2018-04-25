@@ -194,13 +194,13 @@ GNECalibratorVehicleType::getCalibratorParent() const {
 
 
 void 
-GNECalibratorVehicleType::selectAttributeCarrier() {
+GNECalibratorVehicleType::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNECalibratorVehicleType::unselectAttributeCarrier() {
+GNECalibratorVehicleType::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

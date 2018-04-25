@@ -87,13 +87,13 @@ GNEVariableSpeedSignStep::getTime() const {
 
 
 void 
-GNEVariableSpeedSignStep::selectAttributeCarrier() {
+GNEVariableSpeedSignStep::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNEVariableSpeedSignStep::unselectAttributeCarrier() {
+GNEVariableSpeedSignStep::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

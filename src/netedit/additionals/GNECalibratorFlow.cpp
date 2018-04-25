@@ -198,13 +198,13 @@ GNECalibratorFlow::setFlowType(GNECalibratorFlow::TypeOfFlow type) {
 
 
 void 
-GNECalibratorFlow::selectAttributeCarrier() {
+GNECalibratorFlow::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNECalibratorFlow::unselectAttributeCarrier() {
+GNECalibratorFlow::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

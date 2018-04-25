@@ -79,11 +79,11 @@ public:
 
     /// @brief This functions has to be implemented in all GNEAttributeCarriers
     /// @{
-    /// @brief select attribute carrier
-    virtual void selectAttributeCarrier() = 0;
+    /// @brief select attribute carrier using GUIGlobalSelection
+    virtual void selectAttributeCarrier(bool changeFlag = true) = 0;
 
-    /// @brief unselect attribute carrier
-    virtual void unselectAttributeCarrier() = 0;
+    /// @brief unselect attribute carrier using GUIGlobalSelection
+    virtual void unselectAttributeCarrier(bool changeFlag = true) = 0;
 
     /// @brief check if attribute carrier is selected
     virtual bool isAttributeCarrierSelected() const = 0;

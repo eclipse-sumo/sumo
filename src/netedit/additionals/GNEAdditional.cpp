@@ -606,23 +606,27 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
 
 
 void 
-GNEAdditional::selectAttributeCarrier() {
+GNEAdditional::selectAttributeCarrier(bool changeFlag) {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
-    } else if (!mySelected) {
+    } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        mySelected = true;
+        if(changeFlag) {
+            mySelected = true;
+        }
     } 
 }
 
 
 void 
-GNEAdditional::unselectAttributeCarrier() {
+GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
-    } else if (mySelected) {
+    } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        mySelected = false;
+        if(changeFlag) {
+            mySelected = false;
+        }
     } 
 }
 

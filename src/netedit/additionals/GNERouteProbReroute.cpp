@@ -78,13 +78,13 @@ GNERouteProbReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNERouteProbReroute::selectAttributeCarrier() {
+GNERouteProbReroute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNERouteProbReroute::unselectAttributeCarrier() {
+GNERouteProbReroute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 
