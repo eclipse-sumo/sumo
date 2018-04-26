@@ -94,6 +94,7 @@
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
 //#define DEBUG_ACTIONSTEPS
+//#define DEBUG_NEXT_TURN
 //#define DEBUG_COND (getID() == "blocker")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -666,6 +667,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myPersonDevice(0),
     myContainerDevice(0),
     myAcceleration(0),
+    myNextTurn(0., LINKDIR_NODIR),
     mySignals(0),
     myAmOnNet(false),
     myAmRegisteredAsWaitingForPerson(false),
@@ -1693,7 +1695,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 #endif
 
 
-        planMoveInternal(t, ahead, myLFLinkLanes, myStopDist);
+        planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             DriveItemVector::iterator i;
@@ -1731,7 +1733,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 
 void
-MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist) const {
+MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const {
 //    // Serving the task difficulty interface, refs #2668
 //    if (myDriverState != nullptr) {
 //        myDriverState->registerEgoVehicleState();
@@ -1774,6 +1776,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     bool hadNonInternal = false;
     // the distance already "seen"; in the following always up to the end of the current "lane"
     double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos;
+    myNextTurn.first = seen;
+    myNextTurn.second = LINKDIR_NODIR;
+    bool encounteredTurn = false;
     double seenNonInternal = 0;
     double vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(seen, v, cfModel.getMaxAccel()), laneMaxV); // upper bound
     int view = 0;
@@ -1880,6 +1885,28 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // move to next lane
         //  get the next link used
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+
+        // Check whether this is a turn (to save info about the next upcoming turn)
+        if (!encounteredTurn) {
+            if (!lane->isLinkEnd(link)) {
+                LinkDirection linkDir = (*link)->getDirection();
+                switch (linkDir) {
+                case LINKDIR_STRAIGHT:
+                case LINKDIR_NODIR:
+                    break;
+                default:
+                    myNextTurn.first = seen;
+                    myNextTurn.second = linkDir;
+                    encounteredTurn = true;
+#ifdef DEBUG_NEXT_TURN
+                    if DEBUG_COND {
+                        std::cout << SIMTIME << " veh '" << getID() << "' nextTurn: " << toString(myNextTurn.second)
+                                << " at " << myNextTurn.first << "m." << std::endl;
+                    }
+#endif
+                }
+            }
+        }
 
 //        if (myDriverState != nullptr) {
 //            // Serving the task difficulty interface, refs #2668
@@ -3094,6 +3121,7 @@ MSVehicle::updateState(double vNext) {
     }
     myState.myPos += deltaPos;
     myState.myLastCoveredDist = deltaPos;
+    myNextTurn.first -= deltaPos;
 
     myCachedPosition = Position::INVALID;
 }
