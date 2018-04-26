@@ -737,6 +737,9 @@ private:
     /// @brief displace lane shapes to account for change in lane width at this node
     void displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
+    /// @brief detects whether a given junction splits or merges lanes while keeping constant road width
+    bool isConstantWidthTransition() const;
+
 private:
     /// @brief The position the node lies at
     Position myPosition;

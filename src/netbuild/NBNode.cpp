@@ -656,12 +656,17 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
 }
 
 
-void
-NBNode::displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
-    if (myIncomingEdges.size() == 1 
+bool 
+NBNode::isConstantWidthTransition() const {
+    return (myIncomingEdges.size() == 1 
             && myOutgoingEdges.size() == 1
             && myIncomingEdges[0]->getNumLanes() != myOutgoingEdges[0]->getNumLanes()
-            && myIncomingEdges[0]->getTotalWidth() == myOutgoingEdges[0]->getTotalWidth()) {
+            && myIncomingEdges[0]->getTotalWidth() == myOutgoingEdges[0]->getTotalWidth());
+}
+
+void
+NBNode::displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
+    if (isConstantWidthTransition()) {
         // displace shapes
         NBEdge* in = myIncomingEdges[0];
         NBEdge* out = myOutgoingEdges[0];
