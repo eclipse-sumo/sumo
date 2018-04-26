@@ -213,6 +213,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 const double minDist = 0.5 * (lane->getWidth() + sibling->getWidth());
                 const PositionVector& l = lane->getShape();
                 const PositionVector& s = sibling->getShape();
+                if (l.front().distanceTo2D(s.front()) >= minDist) {
+                    // account for lateral shift by the entry links
+                    continue;
+                }
                 double lbcSibling = 0;
                 if (l.back().distanceTo2D(s.back()) > minDist) {
                     // compute the final divergence point
