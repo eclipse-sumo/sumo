@@ -113,6 +113,16 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myBlockMovement) {
         device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
     }
+
+    if (!myAccess.empty()) {
+        for (auto a : myAccess) {
+            device.openTag(SUMO_TAG_ACCESS);
+            device.writeAttr(SUMO_ATTR_LANE, a.lane->getID());
+            device.writeAttr(SUMO_ATTR_POSITION, a.pos);
+            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, a.friendlyPos);
+            device.closeTag();
+        }
+    }
     // Close tag
     device.closeTag();
 }
@@ -362,5 +372,9 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     updateGeometry();
 }
 
+void 
+GNEBusStop::addAccess(GNELane* lane, double pos, bool friendlyPos) {
+    myAccess.push_back(Access(lane, pos, friendlyPos));
+}
 
 /****************************************************************************/

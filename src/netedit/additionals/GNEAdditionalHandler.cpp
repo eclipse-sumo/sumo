@@ -81,6 +81,7 @@ void
 GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    myParentElements.push_back(std::make_pair(tag, ""));
     // Call parse and build depending of tag
     switch (element) {
         case SUMO_TAG_BUS_STOP:
@@ -88,6 +89,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             break;
         case SUMO_TAG_TRAIN_STOP:
             parseAndBuildBusStop(attrs, SUMO_TAG_BUS_STOP);
+            break;
+        case SUMO_TAG_ACCESS:
+            parseAndBuildAccess(attrs, tag);
             break;
         case SUMO_TAG_CONTAINER_STOP:
             parseAndBuildContainerStop(attrs, tag);
@@ -164,6 +168,12 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         default:
             break;
     }
+}
+
+
+void
+GNEAdditionalHandler::myEndElement(int element) {
+    myParentElements.pop_back();
 }
 
 
@@ -575,6 +585,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
             buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, blockMovement);
+            myParentElements.back().second = id;
         }
     }
 }
@@ -609,6 +620,37 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
             buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, blockMovement);
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    const std::string parentID = myParentElements.size() >= 2 ? myParentElements[myParentElements.size() - 2].second : "";
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, parentID, tag, SUMO_ATTR_LANE, abort);
+    double pos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, parentID, tag, SUMO_ATTR_POSITION, abort);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, parentID, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    if (!abort) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
+        // check that all elements are valid
+        if (lane == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+        //} else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        //    // write error if position isn't valid
+        //    WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+        } else {
+            // obtain rerouter
+            GNEBusStop* bs = dynamic_cast<GNEBusStop*>(myViewNet->getNet()->retrieveAdditional(parentID, false));
+            if (bs == nullptr) {
+                std::cout << "access fail, parentID='" << parentID << "' parentN=" << myParentElements.size() << " parent0=" << myParentElements[0].first << "\n";
+                WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
+            } else {
+                bs->addAccess(lane, pos, friendlyPosition);
+            }
         }
     }
 }

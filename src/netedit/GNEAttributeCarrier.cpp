@@ -424,6 +424,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LINES, ""));
                 break;
+            case SUMO_TAG_ACCESS:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                break;
             case SUMO_TAG_CONTAINER_STOP:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
@@ -671,6 +676,7 @@ GNEAttributeCarrier::allowedAdditionalTags() {
     if (myAllowedAdditionalTags.empty()) {
         // Stopping Places
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_ACCESS);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_AREA);
@@ -710,6 +716,7 @@ GNEAttributeCarrier::canBlockMovement(SumoXMLTag tag) {
     // define on first access
     if (myBlockMovementTags.empty()) {
         myBlockMovementTags.push_back(SUMO_TAG_BUS_STOP);
+        myBlockMovementTags.push_back(SUMO_TAG_ACCESS);
         myBlockMovementTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myBlockMovementTags.push_back(SUMO_TAG_CHARGING_STATION);
         myBlockMovementTags.push_back(SUMO_TAG_E1DETECTOR);
@@ -843,6 +850,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // bus stop
         myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
         myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
+        // stop access
+        myNumericalFloatAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_POSITION);
         // charging station
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
@@ -984,6 +993,8 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_EDGE].insert(GNE_ATTR_BIDIR);
         // bus stop
         myBoolAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_FRIENDLY_POS);
+        // access
+        myBoolAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_FRIENDLY_POS);
         // container stop
         myBoolAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_FRIENDLY_POS);
         // charging station
@@ -1102,6 +1113,9 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LANE);
+            // access
+            myUniqueAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_LANE);
+            myUniqueAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_POSITION);
             // container stop
             myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
             myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
@@ -1550,6 +1564,10 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_NAME] = setAttrDefinition("Name of bus stop");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LINES] = setAttrDefinition("Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
+        // stop access
+        myAttrDefinitions[SUMO_TAG_ACCESS][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the stop access shall be located at");
+        myAttrDefinitions[SUMO_TAG_ACCESS][SUMO_ATTR_POSITION] = setAttrDefinition("The position on the lane (the lower position on the lane) in meters");
+        myAttrDefinitions[SUMO_TAG_ACCESS][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
         // container Stop
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ID] = setAttrDefinition("The id of container stop", "Unique");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the container stop shall be located at");
