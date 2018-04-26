@@ -665,6 +665,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             && con.toEdge == prohibitorCon.toEdge
             && con.toLane == prohibitorCon.toLane
             && con.fromLane != prohibitorCon.fromLane
+            && !myJunction->isConstantWidthTransition()
             // if the edge has lower priority, this connection yields
             && (foes ||
                 // if the prohibitor has pass, this connection yields
