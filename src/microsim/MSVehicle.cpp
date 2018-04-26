@@ -1888,7 +1888,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         // Check whether this is a turn (to save info about the next upcoming turn)
         if (!encounteredTurn) {
-            if (!lane->isLinkEnd(link)) {
+            if (!lane->isLinkEnd(link) && lane->getLinkCont().size() > 1) {
                 LinkDirection linkDir = (*link)->getDirection();
                 switch (linkDir) {
                 case LINKDIR_STRAIGHT:
