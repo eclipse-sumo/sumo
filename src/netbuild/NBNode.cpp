@@ -2708,13 +2708,15 @@ NBNode::setRoundabout() {
 }
 
 
-void
+NBNode::Crossing*
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,
                     const PositionVector& customShape, bool fromSumoNet) {
-    myCrossings.push_back(new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape));
+    Crossing *c = new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape);
+    myCrossings.push_back(c);
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
     }
+    return c;
 }
 
 

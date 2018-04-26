@@ -62,7 +62,7 @@ public:
      * @param[in] forward Whether to create/delete (true/false)
      */
     GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width,
-                       bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool forward);
+                       bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Crossing();
@@ -103,6 +103,9 @@ private:
 
     /// @brief priority of GNECrossing
     PositionVector myCustomShape;
+
+    /// @brief flag to check if crossing is selected
+    bool mySelected;
 };
 
 #endif

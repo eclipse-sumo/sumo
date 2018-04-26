@@ -605,8 +605,8 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
-                     const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
+    NBNode::Crossing* addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
+                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
     /// @brief add custom shape for walkingArea
     void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape);

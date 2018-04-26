@@ -143,6 +143,10 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
             }
+            // check if crossing is selected
+            if(retrievedGNECrossing->isAttributeCarrierSelected()) {
+                retrievedGNECrossing->selectAttributeCarrier();
+            }
         }
         // delete non retrieved GNECrossings
         for (auto it : myGNECrossings) {
