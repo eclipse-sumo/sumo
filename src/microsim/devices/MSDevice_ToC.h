@@ -14,7 +14,7 @@
 /// @date    01.04.2018
 /// @version $Id$
 ///
-// The ToC Device controls transition of control between automated and manual driving.
+// The ToC Device controls the transition of control between automated and manual driving.
 //
 /****************************************************************************/
 #ifndef MSDevice_ToC_h
@@ -93,8 +93,6 @@ private:
     };
 
 
-    void setState(ToCState state);
-
     /// @name Helpers for parameter parsing
     /// @{
     static std::string getManualType(const SUMOVehicle& v, const OptionsCont& oc);
@@ -127,6 +125,10 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+
+    /// @brief Ensure existence of DriverState for equipped vehicles
+    SUMOTime ensureDriverStateExistence(SUMOTime);
+
     /// @brief Trigger execution of an MRM
     SUMOTime triggerMRM(SUMOTime t);
 
@@ -157,8 +159,10 @@ private:
 
 
     /// @brief Set the awareness to the given value
-    /// @todo  Affect the driver state of the device holding vehicle accordingly.
     void setAwareness(double value);
+
+    /// @brief Set the ToC device's state
+    void setState(ToCState state);
 
     /// @brief Request a ToC.
     ///        If the device is in AUTOMATED or MRM state, a driver response time is sampled

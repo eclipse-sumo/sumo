@@ -15,7 +15,7 @@
 /// @date    01.04.2018
 /// @version $Id: MSDevice_ToC.cpp v0_32_0+1125-377a9a870b michael.behrisch@dlr.de 2018-04-17 13:09:36 +0200 $
 ///
-// The ToC Device controls transition of control between automated and manual driving.
+// The ToC Device controls the transition of control between automated and manual driving.
 //
 /****************************************************************************/
 
@@ -227,6 +227,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
+    // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::ensureDriverStateExistence), SIMSTEP);
 
     if (holder.getVehicleType().getID() == manualType) {
         myState = ToCState::MANUAL;
@@ -254,6 +256,19 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     assert(myInitialAwareness <= 1.0 && myInitialAwareness >= 0.0);
 }
 
+
+SUMOTime
+MSDevice_ToC::ensureDriverStateExistence(SUMOTime /* t */) {
+#ifdef DEBUG_TOC
+    std::cout << SIMTIME << " ensureDriverStateExistence() for vehicle '" << myHolder.getID() << "'" << std::endl;
+#endif
+    // Ensure that the holder has a driver state
+    if (myHolderMS->getDriverState() == nullptr) {
+        // create an MSDriverState for the vehicle
+        myHolderMS->createDriverState();
+    }
+    return 0;
+}
 
 MSDevice_ToC::~MSDevice_ToC() {
     // deschedule commands associated to this device
@@ -364,6 +379,10 @@ MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
     double initialAwareness = myInitialAwareness;
     setAwareness(initialAwareness);
 
+#ifdef DEBUG_TOC
+    std::cout << SIMTIME << " Initial awareness after ToC: " << myCurrentAwareness << std::endl;
+#endif
+
     // Start awareness recovery process
     myRecoverAwarenessCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::awarenessRecoveryStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRecoverAwarenessCommand, SIMSTEP + DELTA_T);
@@ -399,10 +418,6 @@ MSDevice_ToC::switchHolderType(const std::string& targetTypeID) {
     if (targetType == 0) {
         WRITE_ERROR("vType '" + targetType->getID() + "' for vehicle '" + myHolder.getID() + "' is not known.");
         return;
-    }
-    if (myHolderMS->getDriverState() == nullptr && targetType->getCarFollowModel().getModelID() == SUMO_TAG_CF_TCI) {
-        // create an MSDriverState for the vehicle
-        myHolderMS->createDriverState();
     }
     myHolderMS->replaceVehicleType(targetType);
 }
@@ -458,6 +473,11 @@ MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
     if (myCurrentAwareness < 1.0) {
         setAwareness(MIN2(1.0, myCurrentAwareness + TS*myRecoveryRate));
     }
+
+#ifdef DEBUG_TOC
+     std::cout << SIMTIME << " currentAwareness = " << myCurrentAwareness << std::endl;
+#endif
+
     const bool awarenessRecoveryCompleted = myCurrentAwareness == 1.0;
     if (awarenessRecoveryCompleted) {
 #ifdef DEBUG_TOC
@@ -484,10 +504,14 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return toString(myRecoveryRate);
     } else if (key == "initialAwareness") {
         return toString(myInitialAwareness);
+    } else if (key == "mrmDecel") {
+        return toString(myMRMDecel);
     } else if (key == "currentAwareness") {
         return toString(myCurrentAwareness);
     } else if (key == "state") {
         return _2string(myState);
+    } else if (key == "holder") {
+        return myHolder.getID();
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -516,6 +540,8 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         myInitialAwareness = TplConvert::_2double(value.c_str());
     } else if (key == "currentAwareness") {
         myCurrentAwareness = TplConvert::_2double(value.c_str());
+    } else if (key == "mrmDecel") {
+        myMRMDecel = TplConvert::_2double(value.c_str());
     } else if (key == "requestToC") {
         // setting this magic parameter gives the interface for inducing a ToC
         const SUMOTime timeTillMRM = TIME2STEPS(TplConvert::_2double(value.c_str()));
@@ -538,6 +564,8 @@ MSDevice_ToC::_2ToCState(const std::string& str) {
         return PREPARING_TOC;
     } else if (str == "MRM") {
         return MRM;
+    } else if (str == "RECOVERING") {
+        return RECOVERING;
     } else {
         WRITE_WARNING("Unknown ToCState '"+str+"'");
         return UNDEFINED;
@@ -557,6 +585,8 @@ MSDevice_ToC::_2string(ToCState state) {
         return "PREPARING_TOC";
     } else if (state == MRM) {
         return "MRM";
+    } else if (state == RECOVERING) {
+        return "RECOVERING";
     } else {
         WRITE_WARNING("Unknown ToCState '"+toString(state)+"'");
         return toString(state);
