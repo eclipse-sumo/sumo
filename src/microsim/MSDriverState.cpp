@@ -103,7 +103,7 @@ OUProcess::step(double dt) {
 #endif
     myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1);
 #ifdef DEBUG_OUPROCESS
-    std::cout << "  step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
+    std::cout << "  OU-step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
 #endif
 }
 
