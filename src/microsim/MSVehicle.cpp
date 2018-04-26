@@ -84,8 +84,8 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-//#define DEBUG_PLAN_MOVE
-//#define DEBUG_PLAN_MOVE_LEADERINFO
+#define DEBUG_PLAN_MOVE
+#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
@@ -3126,6 +3126,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
     std::vector<MSLane*> newFurther;
     std::vector<double> newFurtherPosLat;
     double backPosOnPreviousLane = myState.myPos - getLength();
+    bool widthShift = myFurtherLanesPosLat.size() > myFurtherLanes.size();
     if (passedLanes.size() > 1) {
         // There are candidates for further lanes. (passedLanes[-1] is the current lane, or current shadow lane in context of updateShadowLanes())
         std::vector<MSLane*>::const_iterator fi = furtherLanes.begin();
@@ -3145,7 +3146,11 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
                 // If it is a new lane upstream (can appear as shadow further in case of LC-maneuvering, e.g.)
                 // we assign the last known lateral position.
                 if (newFurtherPosLat.size() == 0) {
-                    newFurtherPosLat.push_back(myState.myPosLat);
+                    if (widthShift) {
+                        newFurtherPosLat.push_back(myFurtherLanesPosLat.back());
+                    } else {
+                        newFurtherPosLat.push_back(myState.myPosLat);
+                    }
                 } else {
                     newFurtherPosLat.push_back(newFurtherPosLat.back());
                 }
@@ -3560,6 +3565,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
             assert(oldLane != 0);
             MSLink* link = oldLane->getLinkTo(myLane);
             if (link) {
+                myFurtherLanesPosLat.push_back(myState.myPosLat);
                 myState.myPosLat += link->getLateralShift();
             }
         }
