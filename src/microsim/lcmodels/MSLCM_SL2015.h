@@ -399,6 +399,8 @@ protected:
     double myTimeToImpatience;
     // @brief lateral acceleration
     double myAccelLat;
+    // @brief distance to turn at which alignment should be adjusted to the turn direction
+    double myTurnAlignmentDist;
     // @brief the factor by which the lookahead distance to the left differs from the lookahead to the right
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right

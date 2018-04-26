@@ -143,6 +143,7 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myMinImpatience(myImpatience),
     myTimeToImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TIME_TO_IMPATIENCE, std::numeric_limits<double>::max())),
     myAccelLat(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ACCEL_LAT, 1.0)),
+    myTurnAlignmentDist(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE, 0.0)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1))
 {
@@ -1653,7 +1654,32 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
 
         } else {
-            switch (myVehicle.getVehicleType().getPreferredLateralAlignment()) {
+
+            LateralAlignment align = myVehicle.getVehicleType().getPreferredLateralAlignment();
+            // Check whether the vehicle should adapt its alignment to an upcoming turn
+            if (myTurnAlignmentDist > 0) {
+                const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
+                if (turnInfo.first < myTurnAlignmentDist) {
+                    // Vehicle is close enough to the link to change its default alignment
+                    switch (turnInfo.second) {
+                    case LINKDIR_TURN:
+                    case LINKDIR_LEFT:
+                    case LINKDIR_PARTLEFT:
+                        align = LATALIGN_LEFT;
+                        break;
+                    case LINKDIR_TURN_LEFTHAND:
+                    case LINKDIR_RIGHT:
+                    case LINKDIR_PARTRIGHT:
+                        align = LATALIGN_RIGHT;
+                        break;
+                    case LINKDIR_STRAIGHT:
+                    case LINKDIR_NODIR:
+                    default:
+                        break;
+                    }
+                }
+            }
+            switch (align) {
                 case LATALIGN_RIGHT:
                     latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
@@ -3233,6 +3259,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myTimeToImpatience = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_ACCEL_LAT)) {
         myAccelLat = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE)) {
+        myTurnAlignmentDist = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_LOOKAHEADLEFT)) {
         myLookaheadLeft = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SPEEDGAINRIGHT)) {
