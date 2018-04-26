@@ -134,6 +134,9 @@ wide_lane_split2
 wide_lane_merge2
 
 # 2 lanes merge into a wide lane
+wide_lane_merge2_unregulated
+
+# 2 lanes merge into a wide lane
 wide_lane_merge2_zipper
 
 # tests for various tickets
