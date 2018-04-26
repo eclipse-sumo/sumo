@@ -74,14 +74,13 @@ public:
               const EdgeVector& outgoing,
               const NBConnectionProhibits& loadedProhibits);
 
-    /** destructor */
+    /// @brief destructor
     ~NBRequest();
 
-    /** builds the bitset-representation of the logic */
+    /// @brief builds the bitset-representation of the logic
     void buildBitfieldLogic();
 
-    /** @brief returns the number of the junction's lanes and the number
-        of the junction's links in respect. @note: only connected lanes are counted */
+    /// @brief @brief returns the number of the junction's lanes and the number of the junction's links in respect. @note: only connected lanes are counted
     std::pair<int, int> getSizes() const;
 
     /** @brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
@@ -136,14 +135,13 @@ public:
                  const NBEdge* const possProhibitedFrom, const NBEdge* const possProhibitedTo,
                  bool regardNonSignalisedLowerPriority) const;
 
-    /** writes the XML-representation of the logic as a bitset-logic
-        XML representation */
+    /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     void writeLogic(std::string key, OutputDevice& into, const bool checkLaneFoes) const;
 
-    /// prints the request
+    /// @brief prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
 
-    /// reports warnings if any occured
+    /// @brief reports warnings if any occured
     static void reportWarnings();
 
     /// @brief whether multple connections from the same edge target the same lane
@@ -203,21 +201,17 @@ private:
     int getIndex(const NBEdge* const from, const NBEdge* const to) const;
 
 
-    /** returns the distance between the incoming (from) and the outgoing (to)
-        edge clockwise in edges */
+    /// @brief returns the distance between the incoming (from) and the outgoing (to) edge clockwise in edges
     int distanceCounterClockwise(NBEdge* from, NBEdge* to);
 
-    /** computes the relationships between links outgoing right of the given
-        link */
+    /// @brief computes the relationships between links outgoing right of the given link */
     void computeRightOutgoingLinkCrossings(NBEdge* from, NBEdge* to);
 
-    /** computes the relationships between links outgoing left of the given
-        link */
+    /// @brief computes the relationships between links outgoing left of the given link
     void computeLeftOutgoingLinkCrossings(NBEdge* from, NBEdge* to);
 
 
     void resetSignalised();
-
 
     /// @brief reset foes it the number of lanes matches (or exceeds) the number of incoming connections for an edge
     void resetCooperating();
@@ -230,46 +224,39 @@ private:
     /// @brief return to total number of edge-to-edge connections of this request-logic
     inline int numLinks() const;
 
-
 private:
-    /// the node the request is assigned to
+    /// @brief the node the request is assigned to
     NBNode* myJunction;
 
-    /** all (icoming and outgoing) of the junctions edges */
+    /// @brief all (icoming and outgoing) of the junctions edges
     const EdgeVector& myAll;
 
-    /** edges incoming to the junction */
+    /// @brief edges incoming to the junction
     const EdgeVector& myIncoming;
 
-    /** edges outgoing from the junction */
+    /// @brief edges outgoing from the junction 
     const EdgeVector& myOutgoing;
 
-    /** edges outgoing from the junction */
-    std::vector<NBNode::Crossing*> myCrossings;
-
-    /** definition of a container to store boolean informations about a link
-        into */
+    /// @brief definition of a container to store boolean informations about a link into
     typedef std::vector<bool> LinkInfoCont;
 
-    /** definition of a container for link(edge->edge) X link(edge->edge)
-        combinations (size = |myIncoming|*|myOutgoing|) */
+    /// @brief definition of a container for link(edge->edge) X link(edge->edge) combinations (size = |myIncoming|*|myOutgoing|)
     typedef std::vector<LinkInfoCont> CombinationsCont;
 
-    /** a container for approached lanes of a certain edge */
+    /// @brief a container for approached lanes of a certain edge
     typedef std::map<NBEdge*, LaneVector> OccupiedLanes;
 
-    /** the link X link blockings */
+    /// @brief the link X link blockings
     CombinationsCont  myForbids;
 
-    /** the link X link is done-checks */
+    /// @brief the link X link is done-checks
     CombinationsCont  myDone;
 
 private:
     static int myGoodBuilds, myNotBuild;
 
-private:
     /// @brief Invalidated assignment operator
-    NBRequest& operator=(const NBRequest& s);
+    NBRequest& operator=(const NBRequest& s) = delete;
 };
 
 #endif
