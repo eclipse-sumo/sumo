@@ -13,7 +13,7 @@
 /// @author  Jakob Erdmann
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id: RONet.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The router's network representation
 /****************************************************************************/
@@ -477,11 +477,14 @@ private:
     /// @brief A distribution of vehicle types (probability->vehicle type)
     VTypeDistDictType myVTypeDistDict;
 
-    /// @brief Whether no vehicle type has been loaded yet
+    /// @brief Whether the default vehicle type was already used or can still be replaced
     bool myDefaultVTypeMayBeDeleted;
 
-    /// @brief Whether no pedestrian type has been loaded yet
+    /// @brief Whether the default pedestrian type was already used or can still be replaced
     bool myDefaultPedTypeMayBeDeleted;
+
+    /// @brief Whether the default bicycle type was already used or can still be replaced
+    bool myDefaultBikeTypeMayBeDeleted;
 
     /// @brief Known routes
     NamedObjectCont<RORouteDef*> myRoutes;

@@ -1098,6 +1098,11 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->id = myVehicleParameter->id + "_0";
             pars.back()->departProcedure = DEPART_TRIGGERED;
+        } else if ((modeSet & SVC_BICYCLE) != 0) {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
+            pars.back()->id = myVehicleParameter->id + "_b0";
+            pars.back()->departProcedure = DEPART_TRIGGERED;
         } else if ((modeSet & SVC_BUS) != 0 || bs != nullptr) {
             pars.push_back(nullptr);
         }

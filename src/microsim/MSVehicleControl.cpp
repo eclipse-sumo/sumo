@@ -60,6 +60,7 @@ MSVehicleControl::MSVehicleControl() :
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
     myDefaultPedTypeMayBeDeleted(true),
+    myDefaultBikeTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
@@ -69,6 +70,9 @@ MSVehicleControl::MSVehicleControl() :
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     defPedType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_PEDTYPE_ID] = MSVehicleType::build(defPedType);
+    SUMOVTypeParameter defBikeType(DEFAULT_BIKETYPE_ID, SVC_PEDESTRIAN);
+    defBikeType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
     OptionsCont& oc = OptionsCont::getOptions();
     myScale = oc.getFloat("scale");
     myMaxRandomDepartOffset = string2time(oc.getString("random-depart-offset"));
@@ -246,6 +250,14 @@ MSVehicleControl::checkVType(const std::string& id) {
             delete myVTypeDict[id];
             myVTypeDict.erase(myVTypeDict.find(id));
             myDefaultPedTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else if (id == DEFAULT_BIKETYPE_ID) {
+        if (myDefaultBikeTypeMayBeDeleted) {
+            delete myVTypeDict[id];
+            myVTypeDict.erase(myVTypeDict.find(id));
+            myDefaultBikeTypeMayBeDeleted = false;
         } else {
             return false;
         }

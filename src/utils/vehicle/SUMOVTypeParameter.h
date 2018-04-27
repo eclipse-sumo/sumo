@@ -228,7 +228,7 @@ public:
     mutable bool saved;
 
     /// @brief Information whether this is a type-stub, being only referenced but not defined (needed by routers)
-    mutable bool onlyReferenced;
+    bool onlyReferenced;
 
     /** @brief Returns the default acceleration for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model

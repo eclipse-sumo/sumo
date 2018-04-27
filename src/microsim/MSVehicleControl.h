@@ -573,11 +573,14 @@ private:
     /// @brief A distribution of vehicle types (probability->vehicle type)
     VTypeDistDictType myVTypeDistDict;
 
-    /// @brief Whether no vehicle type was loaded
+    /// @brief Whether the default vehicle type was already used or can still be replaced
     bool myDefaultVTypeMayBeDeleted;
 
-    /// @brief Whether no pedestrian type was loaded
+    /// @brief Whether the default pedestrian type was already used or can still be replaced
     bool myDefaultPedTypeMayBeDeleted;
+
+    /// @brief Whether the default bicycle type was already used or can still be replaced
+    bool myDefaultBikeTypeMayBeDeleted;
 
     /// the lists of waiting vehicles to a given edge
     std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
