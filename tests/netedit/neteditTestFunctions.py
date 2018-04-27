@@ -1251,15 +1251,16 @@ def selectTLSMode():
 
 
 """
-@brief Create TLS
+@brief Create TLS in the current selected Junction
 """
 
 
 def createTLS():
     # focus current frame
     focusOnFrame()
-    # type tab to jump to create TLS button
-    typeTab()
+    # type tab 3 times to jump to create TLS button
+    for x in range(0, 3):
+        typeTab()
     # create TLS
     typeSpace()
 
