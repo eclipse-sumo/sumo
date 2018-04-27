@@ -7,9 +7,9 @@ Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
 Warning: Adding busStop 'busStop5' in GNEChange_Additional
 Warning: Adding busStop 'busStop6' in GNEChange_Additional
-Warning: Setting new attribute id '' into edge 'gneE2'
+Warning: Value '' for attribute id of edge isn't valid
 Warning: Value 'gneE3' for attribute id of edge isn't valid
-Warning: Setting new attribute id 'correct_ID' into edge ''
+Warning: Setting new attribute id 'correct_ID' into edge 'gneE2'
 Warning: Value 'dummy_Junction' for attribute from of edge isn't valid
 Warning: Value '' for attribute from of edge isn't valid
 Warning: Value 'gneJ2' for attribute from of edge isn't valid
@@ -82,9 +82,7 @@ Warning: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE3_1->correct_ID_1' into edge 'gneE3'
 Warning: Created connection 'fromgneE3_1tocorrect_ID_1' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id '' into edge 'correct_ID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'gneE2' into edge ''
+Warning: Setting previous attribute id 'gneE2' into edge 'correct_ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing busStop 'busStop6' in GNEChange_Additional
 Warning: Removing busStop 'busStop5' in GNEChange_Additional
@@ -92,6 +90,7 @@ Warning: Removing busStop 'busStop4' in GNEChange_Additional
 Warning: Removing busStop 'busStop3' in GNEChange_Additional
 Warning: Removing busStop 'busStop2' in GNEChange_Additional
 Warning: Removing busStop 'busStop1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -109,9 +108,7 @@ Warning: Adding busStop 'busStop4' in GNEChange_Additional
 Warning: Adding busStop 'busStop5' in GNEChange_Additional
 Warning: Adding busStop 'busStop6' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id '' into edge 'gneE2'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'correct_ID' into edge ''
+Warning: Setting new attribute id 'correct_ID' into edge 'gneE2'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
 Warning: Deleting unreferenced connection 'gneE3_1 -> correct_ID_1' in removeConnection()
@@ -138,6 +135,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute shapeStart '0.00,0.00' into edge 'correct_ID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed

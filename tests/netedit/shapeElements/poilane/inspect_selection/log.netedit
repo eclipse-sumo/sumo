@@ -19,52 +19,31 @@ Warning: Adding poiLane 'POI_6' into viewNet
 Warning: Adding poiLane 'POI_7' into viewNet
 Warning: Adding poiLane 'POI_8' into viewNet
 Warning: Adding poiLane 'POI_9' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
-Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_0'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 1 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_1'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 2 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_10'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 3 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_11'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_12'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 5 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_13'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 6 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_14'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 7 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_15'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 8 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_16'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 9 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_17'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 10 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_2'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 11 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_3'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 12 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_4'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 13 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_5'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 14 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_6'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 15 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_7'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 16 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_8'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 17 POIs
 Warning: Setting new attribute selected 'true' into poiLane 'POI_9'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute posLat '0' into poiLane 'POI_0'
 Warning: Setting new attribute posLat '0' into poiLane 'POI_1'
 Warning: Setting new attribute posLat '0' into poiLane 'POI_10'
@@ -506,96 +485,53 @@ Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_6'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_7'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_8'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_9'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
+Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ0'
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ1'
-Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Setting new attribute selected 'false' into edge 'gneE0'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE1'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_0'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 17 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_1'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 16 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_10'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 15 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_11'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 14 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_12'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 13 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_13'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 12 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_14'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 11 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_15'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 10 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_16'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 9 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_17'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 8 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_2'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 7 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_3'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 6 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_4'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 5 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_5'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_6'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 3 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_7'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 2 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_8'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 1 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_9'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '1' into poiLane 'POI_9'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 1 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_8'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 2 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_7'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 3 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_6'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_5'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 5 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_4'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 6 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_3'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 7 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_2'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 8 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_17'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 9 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_16'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 10 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_15'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 11 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_14'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 12 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_13'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 13 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_12'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 14 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_11'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 15 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_10'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 16 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_1'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 17 POIs
 Warning: Setting previous attribute selected '1' into poiLane 'POI_0'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
-Warning: Setting previous attribute selected '1' into edge 'gneE0'
-Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
-Warning: Setting previous attribute selected '1' into junction 'gneJ1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Setting previous attribute selected '1' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
+Warning: Setting previous attribute selected '1' into edge 'gneE0'
+Warning: Setting previous attribute selected '1' into junction 'gneJ1'
 Warning: Setting previous attribute selected '1' into junction 'gneJ0'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poiLane 'POI_9'
 Warning: Setting previous attribute blockMovement '0' into poiLane 'POI_8'
@@ -727,17 +663,17 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
@@ -747,7 +683,7 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_0'
 Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.2_from_22Apr105610.524/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
+Warning: Adding texture 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_9'
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_8'
@@ -1130,49 +1066,27 @@ Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_8'
 Warning: Setting new attribute blockMovement 'true' into poiLane 'POI_9'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute selected 'false' into junction 'gneJ0'
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
-Warning: Setting new attribute selected 'false' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Setting new attribute selected 'false' into junction 'gneJ1'
-Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
 Warning: Setting new attribute selected 'false' into edge 'gneE0'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 18 POIs
+Warning: Setting new attribute selected 'false' into edge 'gneE1'
 Warning: Setting new attribute selected 'false' into poiLane 'POI_0'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 17 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_1'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 16 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_10'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 15 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_11'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 14 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_12'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 13 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_13'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 12 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_14'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 11 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_15'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 10 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_16'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 9 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_17'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 8 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_2'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 7 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_3'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 6 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_4'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 5 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_5'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_6'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 3 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_7'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 2 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_8'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 1 POIs
 Warning: Setting new attribute selected 'false' into poiLane 'POI_9'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

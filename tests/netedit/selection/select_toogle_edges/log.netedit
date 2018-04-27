@@ -27,7 +27,6 @@ Warning: Setting new attribute type 'priority' into junction 'gneJ0'
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Setting new attribute type 'priority' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 2 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Removing poiLane 'POI_1' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
@@ -42,7 +41,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Adding edge 'gneE0' from net
-Warning: Current selection: 0 Junctions, 1 Edges, 2 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
 Warning: Adding TLS into junction 'gneJ1'
 Warning: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
@@ -77,7 +75,6 @@ Warning: Setting new attribute type 'priority' into junction 'gneJ0'
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Setting new attribute type 'priority' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 2 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Removing poiLane 'POI_1' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'

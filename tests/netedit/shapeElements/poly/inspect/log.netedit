@@ -9,9 +9,9 @@ Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Value 'poly_1' for attribute id of poly isn't valid
-Warning: Setting new attribute id '' into poly 'poly_0'
+Warning: Value '' for attribute id of poly isn't valid
 Warning: Value 'ID with spaces' for attribute id of poly isn't valid
-Warning: Setting new attribute id 'newID' into poly ''
+Warning: Setting new attribute id 'newID' into poly 'poly_0'
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value 'dummyShape' for attribute shape of poly isn't valid
 Warning: Value '' for attribute shape of poly isn't valid
@@ -90,22 +90,19 @@ Warning: Setting previous attribute shape '12.00,8.00' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute shape '12.00,8.00 12.00,18.00 2.00,18.00 2.00,8.00 12.00,8.00' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id '' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'poly_0' into poly ''
+Warning: Setting previous attribute id 'poly_0' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_1' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_0' from viewNet
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id '' into poly 'poly_0'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'newID' into poly ''
+Warning: Setting new attribute id 'newID' into poly 'poly_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute shape '12.00,8.00' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -150,6 +147,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'false' into poly 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

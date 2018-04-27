@@ -158,7 +158,6 @@ Warning: Found sharp turn with radius 1.08 at the end of edge '88462837'.
 Warning: Found sharp turn with radius 5.62 at the end of edge '88462843'.
 Warning: Found sharp turn with radius 0.83 at the start of edge '88462848'.
 Warning: Found sharp turn with radius 2.54 at the start of edge '88462862'.
-Warning: Shape for junction '27410947' has distance 49.59 to its given position
 Warning: Lane '-24992424#0_8' is not connected from any incoming edge at junction '2882261426'.
 Warning: Lane '-24992424#1_8' is not connected from any incoming edge at junction 'cluster_2086246926_28373974'.
 Warning: Lane '-24992424#2_8' is not connected from any incoming edge at junction '29219447'.
@@ -309,9 +308,9 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
-Warning: Invalid pedestrian topology: crossing ':2091651012_c0' has no target.
-Warning: Discarding invalid crossing ':2091651012_c1' at junction '2091651012' with edges '-24243101#1' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':588181259_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':98976234_c2' has no target.
+Warning: Discarding invalid crossing ':98976234_c0' at junction '98976234' with edges '153537606#1 84960597#0' (no walkingarea found).
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -342,6 +341,7 @@ Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -502,7 +502,6 @@ Warning: Found sharp turn with radius 1.08 at the end of edge '88462837'.
 Warning: Found sharp turn with radius 5.62 at the end of edge '88462843'.
 Warning: Found sharp turn with radius 0.83 at the start of edge '88462848'.
 Warning: Found sharp turn with radius 2.54 at the start of edge '88462862'.
-Warning: Shape for junction '27410947' has distance 49.59 to its given position
 Warning: Lane '-24992424#0_8' is not connected from any incoming edge at junction '2882261426'.
 Warning: Lane '-24992424#1_8' is not connected from any incoming edge at junction 'cluster_2086246926_28373974'.
 Warning: Lane '-24992424#2_8' is not connected from any incoming edge at junction '29219447'.
@@ -653,9 +652,8 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
-Warning: Invalid pedestrian topology: crossing ':2091651012_c0' has no target.
-Warning: Discarding invalid crossing ':2091651012_c1' at junction '2091651012' with edges '-24243101#1' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':31154724_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':98976234_c2' has no target.
+Warning: Discarding invalid crossing ':98976234_c0' at junction '98976234' with edges '153537606#1 84960597#0' (no walkingarea found).
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.
@@ -686,3 +684,4 @@ Warning: The rail crossing '506357655' does not have any roads.
 Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
+Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.

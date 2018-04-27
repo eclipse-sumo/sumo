@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.04.2018 10:39:07 by Netedit Version b46590447d
+<!-- generated on 27.04.2018 13:20:52 by Eclipse SUMO netedit Version 45435feb69
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/grid/ticket3278\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/bugs/grid/ticket3278\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/grid/ticket3278\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/grid/ticket3278\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/grid/ticket3278\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/bugs/grid/ticket3278\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/bugs/grid/ticket3278\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/bugs/grid/ticket3278\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/grid/ticket3278\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/bugs/grid/ticket3278\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/grid/ticket3278\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/bugs/grid/ticket3278\log.txt"/>
     </report>
 
 </configuration>
@@ -84,13 +84,13 @@
         <lane id=":Center_22_0" index="0" speed="13.90" length="2.34" shape="50.00,56.30 50.80,56.70 51.60,57.90"/>
     </edge>
     <edge id=":Center_5" function="internal">
-        <lane id=":Center_5_0" index="0" speed="13.90" length="5.00" shape="57.90,54.80 56.54,54.99 55.58,55.57 54.99,56.54 54.80,57.90"/>
+        <lane id=":Center_5_0" index="0" speed="13.90" length="5.00" shape="57.90,54.80 56.54,54.99 55.57,55.57 54.99,56.54 54.80,57.90"/>
     </edge>
     <edge id=":Center_6" function="internal">
         <lane id=":Center_6_0" index="0" speed="13.90" length="27.45" shape="57.90,54.80 52.74,53.96 47.14,51.45 41.10,47.27 34.62,41.41"/>
     </edge>
     <edge id=":Center_7" function="internal">
-        <lane id=":Center_7_0" index="0" speed="13.90" length="25.26" shape="57.90,51.60 51.39,50.65 46.29,48.02 41.74,44.07 36.88,39.15"/>
+        <lane id=":Center_7_0" index="0" speed="13.90" length="24.95" shape="57.90,51.60 53.38,50.82 48.36,48.49 42.87,44.59 36.88,39.15"/>
     </edge>
     <edge id=":Center_8" function="internal">
         <lane id=":Center_8_0" index="0" speed="13.90" length="23.09" shape="57.90,51.60 53.74,50.44 50.78,46.96 48.99,41.17 48.40,33.05"/>
@@ -127,7 +127,7 @@
         <lane id=":Center_17_0" index="0" speed="13.90" length="22.45" shape="39.15,36.88 44.64,41.92 49.59,45.52 54.01,47.68 57.90,48.40"/>
     </edge>
     <edge id=":Center_18" function="internal">
-        <lane id=":Center_18_0" index="0" speed="13.90" length="24.95" shape="39.15,36.88 44.59,42.87 48.49,48.36 50.82,53.38 51.60,57.90"/>
+        <lane id=":Center_18_0" index="0" speed="13.90" length="25.26" shape="39.15,36.88 44.07,41.74 48.02,46.29 50.65,51.39 51.60,57.90"/>
     </edge>
     <edge id=":Center_19" function="internal">
         <lane id=":Center_19_0" index="0" speed="13.90" length="4.67" shape="39.15,36.88 39.43,38.30 39.15,39.15 38.30,39.43 36.88,39.15"/>

@@ -5,9 +5,9 @@ Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Value 'POI_1' for attribute id of poi isn't valid
-Warning: Setting new attribute id '' into poi 'POI_0'
+Warning: Value '' for attribute id of poi isn't valid
 Warning: Value 'ID with spaces' for attribute id of poi isn't valid
-Warning: Setting new attribute id 'newID' into poi ''
+Warning: Setting new attribute id 'newID' into poi 'POI_0'
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value 'dummyPosition' for attribute pos of poi isn't valid
 Warning: Setting new attribute pos '20.40,7.50' into poi 'newID'
@@ -96,17 +96,18 @@ Warning: Setting previous attribute color 'red' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '2.00,18.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id '' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'POI_0' into poi ''
+Warning: Setting previous attribute id 'POI_0' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poi 'POI_1' from viewNet
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id '' into poi 'POI_0'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'newID' into poi ''
+Warning: Setting new attribute id 'newID' into poi 'POI_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '20.40,7.50' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
