@@ -2591,13 +2591,13 @@ GNEViewNet::deleteSelectedConnections() {
 
 
 void
-GNEViewNet::deleteSelectedShapes(SumoXMLTag shapeTag) {
+GNEViewNet::deleteSelectedShapes() {
     // obtain selected shapes
-    std::vector<GNEShape*> selectedShapes = myNet->retrieveShapes(shapeTag, true);
+    std::vector<GNEShape*> selectedShapes = myNet->retrieveShapes(true);
     // remove it
     if (selectedShapes.size() > 0) {
         std::string plural = selectedShapes.size() == 1 ? ("") : ("s");
-        myUndoList->p_begin("delete selected " + toString(shapeTag) + plural);
+        myUndoList->p_begin("delete selected shape" + plural);
         for (auto i : selectedShapes) {
             myNet->deleteShape(i, myUndoList);
         }

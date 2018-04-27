@@ -722,7 +722,7 @@ private:
     void deleteSelectedConnections();
 
     /// @brief delete all currently selected shapes
-    void deleteSelectedShapes(SumoXMLTag shapeTag = SUMO_TAG_NOTHING);
+    void deleteSelectedShapes();
 
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved, const Position& oldPos);
