@@ -12,7 +12,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Mon, 8 Nov 2010
-/// @version $Id: MSBaseVehicle.cpp v0_32_0+0554-8006ddce48 oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // A base class for vehicle implementations
 /****************************************************************************/
@@ -44,6 +44,7 @@
 #include "MSNet.h"
 #include "devices/MSDevice.h"
 #include "devices/MSDevice_Routing.h"
+#include <microsim/devices/MSDevice_Transportable.h>
 #include "MSInsertionControl.h"
 
 // ===========================================================================
@@ -72,6 +73,8 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myCurrEdge(route->begin()),
     myChosenSpeedFactor(speedFactor),
     myMoveReminders(0),
+    myPersonDevice(0),
+    myContainerDevice(0),
     myDeparture(NOT_YET_DEPARTED),
     myDepartPos(-1),
     myArrivalPos(-1),
@@ -307,12 +310,20 @@ MSBaseVehicle::hasArrived() const {
 
 void
 MSBaseVehicle::addPerson(MSTransportable* person) {
-    throw ProcessError("Person '" + person->getID() + "' cannot ride in vehicle '" + getID() + "' in the mesoscopic simulation.");
+    if (myPersonDevice == 0) {
+        myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
+        myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
+    }
+    myPersonDevice->addTransportable(person);
 }
 
 void
 MSBaseVehicle::addContainer(MSTransportable* container) {
-    throw ProcessError("Container '" + container->getID() + "' cannot ride in vehicle '" + getID() + "' in the mesoscopic simulation.");
+    if (myContainerDevice == 0) {
+        myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
+        myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
+    }
+    myContainerDevice->addTransportable(container);
 }
 
 bool

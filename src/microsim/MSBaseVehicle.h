@@ -42,6 +42,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MSDevice_Transportable;
 
 // ===========================================================================
 // class definitions
@@ -471,6 +472,12 @@ protected:
 
     /// @brief The devices this vehicle has
     std::vector<MSDevice*> myDevices;
+
+    /// @brief The passengers this vehicle may have
+    MSDevice_Transportable* myPersonDevice;
+
+    /// @brief The containers this vehicle may have
+    MSDevice_Transportable* myContainerDevice;
 
     /// @brief The real departure time
     SUMOTime myDeparture;

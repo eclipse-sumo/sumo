@@ -465,6 +465,9 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
         lc->setEventTime(MAX2(lc->getEventTime(), myBlockTimes[veh->getQueIndex()]));
         MSGlobals::gMesoNet->addLeaderCar(lc, getLink(lc));
     }
+    if (veh->isStopped()) {
+        MSNet::getInstance()->getVehicleControl().removeWaiting(&myEdge, veh);
+    }
 }
 
 bool
@@ -519,6 +522,9 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     std::vector<MEVehicle*>& cars = myCarQues[nextQueIndex];
     MEVehicle* newLeader = 0; // first vehicle in the current queue
     SUMOTime tleave = MAX2(time + TIME2STEPS(myLength / uspeed) + veh->getStoptime(this) + getLinkPenalty(veh), myBlockTimes[nextQueIndex]);
+    if (veh->isStopped()) {
+        MSNet::getInstance()->getVehicleControl().addWaiting(&myEdge, veh);
+    }
     myEdge.lock();
     if (cars.empty()) {
         cars.push_back(veh);

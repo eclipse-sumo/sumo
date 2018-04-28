@@ -19,7 +19,7 @@
 /// @author  Axel Wegener
 /// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: MSVehicle.h v0_32_0+0153-b898c05d6a oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
@@ -67,7 +67,6 @@ class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
-class MSDevice_Transportable;
 class MSContainer;
 class MSJunction;
 class MSLeaderInfo;
@@ -1747,12 +1746,6 @@ protected:
 
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
-
-    /// @brief The passengers this vehicle may have
-    MSDevice_Transportable* myPersonDevice;
-
-    /// @brief The containers this vehicle may have
-    MSDevice_Transportable* myContainerDevice;
 
     /// @brief The current acceleration after dawdling in m/s
     double myAcceleration;

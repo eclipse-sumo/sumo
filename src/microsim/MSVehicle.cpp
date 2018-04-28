@@ -21,7 +21,7 @@
 /// @author  Christoph Sommer
 /// @author  Leonhard Luecken
 /// @date    Mon, 05 Mar 2001
-/// @version $Id: MSVehicle.cpp v0_32_0+0181-9ada00fd24 luecken@math.hu-berlin.de 2018-01-16 16:12:30 +0100 $
+/// @version $Id$
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
@@ -664,8 +664,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myLane(0),
     myLastBestLanesEdge(0),
     myLastBestLanesInternalLane(0),
-    myPersonDevice(0),
-    myContainerDevice(0),
     myAcceleration(0),
     myNextTurn(0., LINKDIR_NODIR),
     mySignals(0),
@@ -4287,11 +4285,7 @@ MSVehicle::getHarmonoise_NoiseEmissions() const {
 
 void
 MSVehicle::addPerson(MSTransportable* person) {
-    if (myPersonDevice == 0) {
-        myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
-        myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
-    }
-    myPersonDevice->addTransportable(person);
+    MSBaseVehicle::addPerson(person);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered && myStops.front().numExpectedPerson > 0) {
         myStops.front().numExpectedPerson -= (int)myStops.front().pars.awaitedPersons.count(person->getID());
         if (myStops.front().numExpectedPerson == 0) {
@@ -4302,11 +4296,7 @@ MSVehicle::addPerson(MSTransportable* person) {
 
 void
 MSVehicle::addContainer(MSTransportable* container) {
-    if (myContainerDevice == 0) {
-        myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
-        myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
-    }
-    myContainerDevice->addTransportable(container);
+    MSBaseVehicle::addContainer(container);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().pars.containerTriggered && myStops.front().numExpectedContainer > 0) {
         myStops.front().numExpectedContainer -= (int)myStops.front().pars.awaitedContainers.count(container->getID());
         if (myStops.front().numExpectedContainer == 0) {

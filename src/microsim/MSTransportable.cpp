@@ -267,7 +267,7 @@ MSTransportable::Stage_Driving::~Stage_Driving() {}
 const MSEdge*
 MSTransportable::Stage_Driving::getEdge() const {
     if (myVehicle != 0) {
-        return &myVehicle->getLane()->getEdge();
+        return myVehicle->getEdge();
     }
     return myWaitingEdge;
 }
