@@ -70,7 +70,7 @@ MSVehicleControl::MSVehicleControl() :
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     defPedType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_PEDTYPE_ID] = MSVehicleType::build(defPedType);
-    SUMOVTypeParameter defBikeType(DEFAULT_BIKETYPE_ID, SVC_PEDESTRIAN);
+    SUMOVTypeParameter defBikeType(DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     defBikeType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
     OptionsCont& oc = OptionsCont::getOptions();
