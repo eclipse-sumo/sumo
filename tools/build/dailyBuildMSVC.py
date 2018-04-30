@@ -174,7 +174,10 @@ for platform, dllDir in platformDlls:
     statusLog = prefix + "status.log"
     binDir = "sumo-git/bin/"
 
-    for f in [makeLog, makeAllLog] + glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")):
+    toClean = [makeLog, makeAllLog]
+    for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd"):
+        toClean += glob.glob(os.path.join(options.rootDir, options.binDir, ext))
+    for f in toClean:
         try:
             os.remove(f)
         except WindowsError:
@@ -220,12 +223,9 @@ for platform, dllDir in platformDlls:
             dllPath = os.path.join(options.rootDir, dllDir)
             for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
                 zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-            files_to_zip = (
-                glob.glob(os.path.join(options.rootDir, options.binDir, "*.exe")) +
-                glob.glob(os.path.join(options.rootDir, options.binDir, "*.jar")) +
-                glob.glob(os.path.join(options.rootDir, options.binDir, "*.bat")))
-            for f in files_to_zip:
-                zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+            for ext in ("*.exe", "*.jar", "*.bat", "*.py", "*.pyd"):
+                for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
+                    zipf.write(f, os.path.join(binDir, os.path.basename(f)))
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
