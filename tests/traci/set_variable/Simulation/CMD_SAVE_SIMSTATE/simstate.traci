@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/15/18 11:32:30 by SUMO Version v0_32_0+0698-6bd02a3c08
+<!-- generated on 05/01/18 21:00:55 by Eclipse SUMO Version v0_32_0+1246-dd15d61b19
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,15 +29,16 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="49845"/>
+        <remote-port value="51075"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v0_32_0+0698-6bd02a3c08" time="1.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v0_32_0+1246-dd15d61b19" time="1.00">
     <route id="r" state="1" edges="e_m0"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vehicle id="h" type="DEFAULT_VEHTYPE" depart="0.00" route="r" speedFactor="1.00" state="0 0 5.10 0 1000" pos="5.10" speed="0.00" posLat="0.00"/>
