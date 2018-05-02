@@ -139,6 +139,8 @@ private:
 
     // @brief Driver's 'awareness' \in [0,1]
     double myAwareness;
+    // @brief Minimal value for 'awareness' \in [0,1]
+    double myMinAwareness;
     // @brief Driver's 'error', @see TCI_Model
     OUProcess myError;
     /// @brief Coefficient controlling the impact of awareness on the time scale of the error process
@@ -522,6 +524,7 @@ struct TCIDefaults {
 //    static double myOppositeDirectionDrivingFactor;
 
     // for MSSimpleDriverState
+    static double myMinAwareness;
     static double myErrorTimeScaleCoefficient;
     static double myErrorNoiseIntensityCoefficient;
 };

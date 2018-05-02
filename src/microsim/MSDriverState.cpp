@@ -43,11 +43,11 @@
 // ===========================================================================
 // DEBUG constants
 // ===========================================================================
-#define DEBUG_OUPROCESS
-#define DEBUG_TRAFFIC_ITEMS
+//#define DEBUG_OUPROCESS
+//#define DEBUG_TRAFFIC_ITEMS
+//#define DEBUG_AWARENESS
 //#define DEBUG_COND (true)
 #define DEBUG_COND (myVehicle->isSelected())
-#define DEBUG_AWARENESS
 
 
 /* -------------------------------------------------------------------------
@@ -79,6 +79,7 @@
 //double TCIDefaults::myHeadwayPerceptionErrorTimeScaleCoefficient = 1.0;
 //double TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient = 1.0;
 
+double TCIDefaults::myMinAwareness = 0.1;
 double TCIDefaults::myErrorTimeScaleCoefficient = 1.0;
 double TCIDefaults::myErrorNoiseIntensityCoefficient = 1.0;
 
@@ -117,13 +118,16 @@ OUProcess::getState() const {
 MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
             myVehicle(veh),
             myAwareness(1.),
+            myMinAwareness(TCIDefaults::myMinAwareness),
             myError(0., 1.,1.),
             myErrorTimeScaleCoefficient(TCIDefaults::myErrorTimeScaleCoefficient),
             myErrorNoiseIntensityCoefficient(TCIDefaults::myErrorNoiseIntensityCoefficient),
             myActionStepLength(TS),
             myStepDuration(TS),
             myLastUpdateTime(SIMTIME-TS)
-{}
+{
+    updateError();
+}
 
 
 void
@@ -152,7 +156,8 @@ MSSimpleDriverState::updateStepDuration() {
 
 void
 MSSimpleDriverState::updateError() {
-    if (myAwareness == 1.0) {
+    if (myAwareness == 1.0 || myAwareness == 0.0) {
+        // myAwareness == 0.0 corresponds to automated driving
         myError.setState(0.);
     } else {
         myError.setTimeScale(myErrorTimeScaleCoefficient*myAwareness);
@@ -166,10 +171,10 @@ void MSSimpleDriverState::setAwareness(double value) {
     assert(value <= 1.);
 #ifdef DEBUG_AWARENESS
     if DEBUG_COND {
-        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness("<<value<<")"<< std::endl;
+        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness("<<MAX2(value,myMinAwareness)<<")"<< std::endl;
     }
 #endif
-    myAwareness = value;
+    myAwareness = MAX2(value,myMinAwareness);
 }
 
 //MSDriverState::MSTrafficItem::MSTrafficItem(MSTrafficItemType type, const std::string& id, std::shared_ptr<MSTrafficItemCharacteristics> data) :
