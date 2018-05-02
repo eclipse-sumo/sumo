@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO netconvert Version 27b98ce
+<!-- generated on Wed May  2 11:24:18 2018 by Eclipse SUMO netconvert Version 970b197
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -62,6 +62,7 @@
     <projection>
         <simple-projection value="false" synonymes="proj.simple" type="BOOL" help="Uses a simple method for projection"/>
         <proj.scale value="1" type="FLOAT" help="Scaling factor for input coordinates"/>
+        <proj.rotate value="0" type="FLOAT" help="Rotation (clockwise degrees) for input coordinates"/>
         <proj.utm value="false" type="BOOL" help="Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)"/>
         <proj.dhdn value="false" type="BOOL" help="Determine the DHDN zone (for a transversal mercator projection based on the bessel ellipsoid, &quot;Gauss-Krueger&quot;)"/>
         <proj value="!" type="STR" help="Uses STR as proj.4 definition for projection"/>

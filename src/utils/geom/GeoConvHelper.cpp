@@ -53,7 +53,7 @@ int GeoConvHelper::myNumLoaded = 0;
 // ===========================================================================
 
 GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
-                             const Boundary& orig, const Boundary& conv, double scale, bool inverse):
+                             const Boundary& orig, const Boundary& conv, double scale, double rot, bool inverse):
     myProjString(proj),
 #ifdef HAVE_PROJ
     myProjection(0),
@@ -62,6 +62,8 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #endif
     myOffset(offset),
     myGeoScale(scale),
+    mySin(sin(DEG2RAD(-rot))), // rotate clockwise
+    myCos(cos(DEG2RAD(-rot))),
     myProjectionMethod(NONE),
     myUseInverseProjection(inverse),
     myOrigBoundary(orig),
@@ -112,6 +114,8 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myOrigBoundary = orig.myOrigBoundary;
     myConvBoundary = orig.myConvBoundary;
     myGeoScale = orig.myGeoScale;
+    myCos = orig.myCos;
+    mySin = orig.mySin;
     myUseInverseProjection = orig.myUseInverseProjection;
 #ifdef HAVE_PROJ
     if (myProjection != 0) {
@@ -144,6 +148,7 @@ bool
 GeoConvHelper::init(OptionsCont& oc) {
     std::string proj = "!"; // the default
     double scale = oc.getFloat("proj.scale");
+    double rot = oc.getFloat("proj.rotate");
     Position offset = Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));
     bool inverse = oc.exists("proj.inverse") && oc.getBool("proj.inverse");
 
@@ -172,7 +177,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = oc.getString("proj");
     }
 #endif
-    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), scale, inverse);
+    myProcessing = GeoConvHelper(proj, offset, Boundary(), Boundary(), scale, rot, inverse);
     myFinal = myProcessing;
     return true;
 }
@@ -196,6 +201,9 @@ GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
 
     oc.doRegister("proj.scale", new Option_Float(1.0));
     oc.addDescription("proj.scale", "Projection", "Scaling factor for input coordinates");
+
+    oc.doRegister("proj.rotate", new Option_Float(0.0));
+    oc.addDescription("proj.rotate", "Projection", "Rotation (clockwise degrees) for input coordinates");
 
 #ifdef HAVE_PROJ
     oc.doRegister("proj.utm", new Option_Bool(false));
@@ -324,8 +332,10 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
 
 bool
 GeoConvHelper::x2cartesian_const(Position& from) const {
-    double x = from.x() * myGeoScale;
-    double y = from.y() * myGeoScale;
+    double x2 = from.x() * myGeoScale;
+    double y2 = from.y() * myGeoScale;
+    double x = x2 * myCos - y2 * mySin;
+    double y = x2 * mySin + y2 * myCos;
     if (myProjectionMethod == NONE) {
         from.add(myOffset);
     } else if (myUseInverseProjection) {
