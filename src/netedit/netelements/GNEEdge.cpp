@@ -347,6 +347,10 @@ GNEEdge::getBoundary() const {
     for (auto i : myLanes) {
         ret.add(i->getBoundary());
     }
+    // ensure that geometry points are selectable even if the lane geometry is strange
+    for (const Position& pos : myNBEdge.getGeometry()) {
+        ret.add(pos);
+    }
     ret.grow(10); // !!! magic value
     return ret;
 }
