@@ -18,6 +18,10 @@ copy_test_path_merge:selection.txt
 
 [collate_file]
 net:net.net.xml
+netcon:net.con.xml
+netedg:net.edg.xml
+netnod:net.nod.xml
+nettll:net.tll.xml
 additionals:additionals.xml
 shapes:shapes.xml
 cfg:config.cfg
@@ -26,6 +30,10 @@ selection:selection.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
+netcon:<!--{[->]}-->
+netedg:<!--{[->]}-->
+netnod:<!--{[->]}-->
+nettll:<!--{[->]}-->
 output:\[log\]
 output:\[info\]
 output:SIKULIX_HOME in environment specified as

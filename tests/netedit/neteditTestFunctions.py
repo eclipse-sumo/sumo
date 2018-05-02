@@ -577,6 +577,23 @@ def openConfigurationShortcut(waitTime = 2):
     # wait for loading
     wait(waitTime)
 
+
+"""
+@brief save configuration using shortcut
+"""
+
+
+def savePlainXML(waitTime = 2):
+    # open configuration dialog
+    typeTwoKeys("l", Key.CTRL)
+    # jump to filename TextField
+    typeTwoKeys("f", Key.ALT)
+    filename = os.path.join(textTestSandBox, "net")
+    pasteIntoTextField(filename)
+    typeEnter()
+    # wait for loading
+    wait(waitTime)
+
 #################################################
 # Create nodes and edges
 #################################################

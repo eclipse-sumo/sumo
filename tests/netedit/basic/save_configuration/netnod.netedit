@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02.05.2018 11:21:09 by Eclipse SUMO netedit Version UNKNOWN
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May112056.6756/netedit.gui/basic/save_configuration\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May112056.6756/netedit.gui/basic/save_configuration\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May112056.6756/netedit.gui/basic/save_configuration\shapes.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May112056.6756/netedit.gui/basic/save_configuration\net.net.xml"/>
+        <plain-output-prefix value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02May112056.6756\netedit.gui\basic\save_configuration\net"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May112056.6756/netedit.gui/basic/save_configuration\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May112056.6756/netedit.gui/basic/save_configuration\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
+
+    <node id="A" x="50.00" y="0.00" type="priority"/>
+    <node id="B" x="50.00" y="100.00" type="priority"/>
+    <node id="C" x="0.00" y="50.00" type="priority"/>
+    <node id="Center" x="50.00" y="50.00" type="traffic_light" tl="Center"/>
+    <node id="D" x="100.00" y="50.00" type="priority"/>
+</nodes>
