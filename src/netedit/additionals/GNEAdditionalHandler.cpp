@@ -601,7 +601,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort, false);
     std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort, false);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
@@ -631,7 +631,7 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
     const std::string parentID = myParentElements.size() >= 2 ? myParentElements[myParentElements.size() - 2].second : "";
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, parentID, tag, SUMO_ATTR_LANE, abort);
     double pos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, parentID, tag, SUMO_ATTR_POSITION, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, parentID, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, parentID, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
@@ -669,7 +669,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     double efficiency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_EFFICIENCY, abort);
     bool chargeInTransit = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
     double chargeDelay = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_CHARGEDELAY, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     bool blockMovement = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
     myLastInsertedAdditionalParent = "";
@@ -702,7 +702,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
     double startPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
     double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort, false);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, GNE_ATTR_BLOCK_MOVEMENT, abort, false);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort, false);
     int roadSideCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, tag, SUMO_ATTR_ROADSIDE_CAPACITY, abort);
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_WIDTH, abort);
     double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_LENGTH, abort);

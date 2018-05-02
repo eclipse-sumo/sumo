@@ -121,12 +121,14 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @brief add acces to this busStop
     void addAccess(GNELane* lane, double pos, bool friendlyPos);
 
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
 
+    /// @brief vector with the access to this busStop
     std::vector<Access> myAccess;
 
 private:
@@ -134,10 +136,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEBusStop(const GNEBusStop&);
+    GNEBusStop(const GNEBusStop&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEBusStop& operator=(const GNEBusStop&);
+    GNEBusStop& operator=(const GNEBusStop&) = delete;
 };
 
 
