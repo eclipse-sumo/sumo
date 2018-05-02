@@ -1,0 +1,41 @@
+# Test whether parameter values specified in xml are parsed correctly
+spec
+
+# Test failure for missing required device parameters
+incomplete_spec1
+
+# Test failure for missing required device parameters
+incomplete_spec2
+
+# Tests default assignment of values for non-required parameters
+default_spec
+
+# The equipped vehicle's vType must initially either be the specified manual or automated type.
+invalid_vType
+
+# Starting in manual mode and repeatedly requesting ToCs.
+start_manual
+
+# Starting in automated mode and repeatedly requesting ToCs.
+start_automated
+
+# Test multiple request in subsequent steps oand within one simulation step.
+ToC_overflow
+
+# Let automated vehicle perform a complete minimum risk maneuver (come to halt) before resuming.
+complete_MRM
+
+# Schedule ToC to happen during slow-down phase of the MRM
+incomplete_MRM
+
+# Schedule ToC before initialization of MRM
+successful_ToC
+
+# Schedule ToCs during car-following situations
+CF_situation1
+
+# Schedule ToC during car-following situation when leader stops. ToC vehicle should not change lanes during the ToC-Preparation/MRM.
+CF_situation2
+
+# Schedule ToC during car-following situation when leader stops and vehicle is overtaking. ToC vehicle should not change lanes during the ToC-Preparation/MRM.
+CF_situation3

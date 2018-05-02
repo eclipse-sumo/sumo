@@ -30,3 +30,6 @@ binary
 
 # letting 25 vehicles drive in a circle and plot their speeds
 speedMap
+
+# Tests scheduling of Takeover-of-Control events via the ToC-Device (MSDevice_ToC).
+ToCDevice
