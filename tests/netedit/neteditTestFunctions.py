@@ -323,7 +323,9 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
         # print debug information
         print("TestFunctions: 'searchReference' option disabled. Reference isn't searched")
         # Wait 1 second for Netedit process
-        wait(1)
+        wait(2)
+        # focus netedit windows clicking over it
+        click(Region(200, 200, 10, 10))
         return NeteditProcess
 
 """
@@ -509,6 +511,23 @@ def saveNetwork():
 
 
 """
+@brief save network as
+"""
+
+
+def saveNetworkAs(waitTime = 2):
+    # open save network as dialog
+    typeTwoKeys("s", Key.CTRL + Key.SHIFT)
+    # jump to filename TextField
+    typeTwoKeys("f", Key.ALT)
+    filename = os.path.join(textTestSandBox, "net.net.xml")
+    pasteIntoTextField(filename)
+    typeEnter()
+    # wait for saving
+    wait(waitTime)
+
+
+"""
 @brief save additionals
 """
 
@@ -540,6 +559,23 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     wait(waitingTime)
     # press enter to close dialog (Ok must be focused)
     typeSpace()
+
+
+"""
+@brief open configuration using shortcut
+"""
+
+
+def openConfigurationShortcut(waitTime = 2):
+    # open configuration dialog
+    typeTwoKeys("o", Key.CTRL + Key.SHIFT)
+    # jump to filename TextField
+    typeTwoKeys("f", Key.ALT)
+    filename = os.path.join(textTestSandBox, "input_net.netccfg")
+    pasteIntoTextField(filename)
+    typeEnter()
+    # wait for loading
+    wait(waitTime)
 
 #################################################
 # Create nodes and edges
