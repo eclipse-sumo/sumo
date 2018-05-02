@@ -156,7 +156,7 @@ public:
         /// the distance covered in the last timestep
         /// NOTE: In case of ballistic positional update, this is not necessarily given by
         ///       myPos - SPEED2DIST(mySpeed + myPreviousSpeed)/2,
-        /// because a stop may have occured within the last step.
+        /// because a stop may have occurred within the last step.
         double myLastCoveredDist;
 
     };

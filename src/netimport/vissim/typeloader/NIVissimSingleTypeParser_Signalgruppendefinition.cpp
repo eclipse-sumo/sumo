@@ -66,7 +66,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream& from) {
     from >> lsaid;
     NIVissimTL* tl = NIVissimTL::dictionary(lsaid);
     if (tl == 0) {
-        WRITE_ERROR("A traffic light group with an unknown traffic light occured.\n  Group-ID: " + toString<int>(id)
+        WRITE_ERROR("A traffic light group with an unknown traffic light occurred.\n  Group-ID: " + toString<int>(id)
                     + "\n  TrafficLight-ID: " + toString<int>(lsaid));
         return false;
     }
@@ -96,7 +96,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream& from) {
     if (type == "pos") {
         return parsePOS(id, name, lsaid, from);
     }
-    WRITE_WARNING("Unsupported LSA-Type '" + type + "' occured.");
+    WRITE_WARNING("Unsupported LSA-Type '" + type + "' occurred.");
     return true;
 }
 

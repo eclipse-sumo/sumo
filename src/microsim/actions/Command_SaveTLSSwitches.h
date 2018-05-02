@@ -68,7 +68,7 @@ public:
     /// @name Derived from Command
     /// @{
 
-    /** @brief Writes the output if a change occured
+    /** @brief Writes the output if a change occurred
      *
      * Called in each tme step, this class computes which link have red
      *  since the last tls switch and writes the information about their

@@ -141,7 +141,7 @@ public:
     /// @brief prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
 
-    /// @brief reports warnings if any occured
+    /// @brief reports warnings if any occurred
     static void reportWarnings();
 
     /// @brief whether multple connections from the same edge target the same lane

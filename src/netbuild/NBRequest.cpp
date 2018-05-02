@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NBRequest.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
@@ -828,7 +828,7 @@ NBRequest::mustBrake(const NBEdge* const possProhibitorFrom, const NBEdge* const
 
 void
 NBRequest::reportWarnings() {
-    // check if any errors occured on build the link prohibitions
+    // check if any errors occurred on build the link prohibitions
     if (myNotBuild != 0) {
         WRITE_WARNING(toString(myNotBuild) + " of " + toString(myNotBuild + myGoodBuilds) + " prohibitions were not build.");
     }

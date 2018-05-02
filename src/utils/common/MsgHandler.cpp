@@ -93,7 +93,7 @@ MsgHandler::inform(std::string msg, bool addType) {
     for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
         (*i)->inform(msg);
     }
-    // set the information that something occured
+    // set the information that something occurred
     myWasInformed = true;
     if (myLock != 0) {
         myLock->unlock();
@@ -112,7 +112,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
         (*i)->inform(msg, ' ');
         myAmProcessingProcess = true;
     }
-    // set the information that something occured
+    // set the information that something occurred
     myWasInformed = true;
     if (myLock != 0) {
         myLock->unlock();
@@ -129,7 +129,7 @@ MsgHandler::endProcessMsg(std::string msg) {
     for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
         (*i)->inform(msg);
     }
-    // set the information that something occured
+    // set the information that something occurred
     myWasInformed = true;
     myAmProcessingProcess = false;
     if (myLock != 0) {

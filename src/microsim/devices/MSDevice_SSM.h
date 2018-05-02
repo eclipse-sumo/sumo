@@ -611,7 +611,7 @@ private:
     /// @name Device parameters
     /// @{
     /// @brief thresholds for the ssms, i.e., critical values above or below which a value indicates that a conflict
-    ///        has occured. These are used in qualifiesAsConflict() and decide whether an encounter is saved.
+    ///        has occurred. These are used in qualifiesAsConflict() and decide whether an encounter is saved.
     std::map<std::string, double> myThresholds;
     /// @brief This determines whether the whole trajectories of the vehicles (position, speed, ssms) shall be saved in the ssm-output
     ///        or only the most critical value shall be reported.

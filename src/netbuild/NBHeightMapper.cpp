@@ -252,7 +252,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
                 break;
             }
             default:
-                WRITE_WARNING("Unsupported shape type occured");
+                WRITE_WARNING("Unsupported shape type occurred");
             break;
         }
         */

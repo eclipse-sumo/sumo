@@ -71,7 +71,7 @@ public:
     virtual ~MSTransportableControl();
 
 
-    /** @brief Adds a single transportable, returns false if an id clash occured
+    /** @brief Adds a single transportable, returns false if an id clash occurred
      * @param[in] transportable The transportable to add
      * @return Whether the transportable could be added (none with the same id existed before)
      */

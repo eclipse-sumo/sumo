@@ -101,7 +101,7 @@ public:
         SIMSTATE_NO_FURTHER_VEHICLES,
         /// @brief The connection to a client was closed by the client
         SIMSTATE_CONNECTION_CLOSED,
-        /// @brief An error occured during the simulation step
+        /// @brief An error occurred during the simulation step
         SIMSTATE_ERROR_IN_SIM,
         /// @brief The simulation had too many teleports
         SIMSTATE_TOO_MANY_TELEPORTS

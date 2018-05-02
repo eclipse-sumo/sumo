@@ -14,7 +14,7 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @date    Wed, 19.11.2008
-/// @version $Id: PCLoaderOSM.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A reader of pois and polygons stored in OSM-format
 /****************************************************************************/
@@ -320,7 +320,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "", false);
         if (key == "") {
-            myErrorHandler.inform("Empty key in a a tag while parsing node '" + toString(myLastNodeID) + "' occured.");
+            myErrorHandler.inform("Empty key in a a tag while parsing node '" + toString(myLastNodeID) + "' occurred.");
             ok = false;
         }
         if (!ok) {
@@ -399,7 +399,7 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentRelation).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, "", false);
         if (key == "") {
-            myErrorHandler.inform("Empty key in a a tag while parsing way '" + toString(myCurrentRelation) + "' occured.");
+            myErrorHandler.inform("Empty key in a a tag while parsing way '" + toString(myCurrentRelation) + "' occurred.");
             ok = false;
         }
         if (!ok) {
@@ -483,7 +483,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, "", false);
         if (key == "") {
-            myErrorHandler.inform("Empty key in a a tag while parsing way '" + toString(myCurrentEdge->id) + "' occured.");
+            myErrorHandler.inform("Empty key in a a tag while parsing way '" + toString(myCurrentEdge->id) + "' occurred.");
             ok = false;
         }
         if (!ok) {

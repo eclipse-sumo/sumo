@@ -186,7 +186,7 @@ NIImporter_VISUM::load() {
                     myCurrentID = "<unknown>";
                     (this->*(*i).function)();
                 } catch (OutOfBoundsException&) {
-                    WRITE_ERROR("Too short value line in " + (*i).name + " occured.");
+                    WRITE_ERROR("Too short value line in " + (*i).name + " occurred.");
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
                 } catch (UnknownElement& e) {
@@ -261,7 +261,7 @@ NIImporter_VISUM::parse_Nodes() {
     }
     // add to the list
     if (!myNetBuilder.getNodeCont().insert(myCurrentID, pos)) {
-        WRITE_ERROR("Duplicate node occured ('" + myCurrentID + "').");
+        WRITE_ERROR("Duplicate node occurred ('" + myCurrentID + "').");
     }
 }
 
@@ -285,7 +285,7 @@ NIImporter_VISUM::parse_Districts() {
     // build the district
     NBDistrict* district = new NBDistrict(myCurrentID, pos);
     if (!myNetBuilder.getDistrictCont().insert(district)) {
-        WRITE_ERROR("Duplicate district occured ('" + myCurrentID + "').");
+        WRITE_ERROR("Duplicate district occurred ('" + myCurrentID + "').");
         delete district;
         return;
     }
@@ -394,7 +394,7 @@ NIImporter_VISUM::parse_Edges() {
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
+            WRITE_ERROR("Duplicate edge occurred ('" + myCurrentID + "').");
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -412,7 +412,7 @@ NIImporter_VISUM::parse_Edges() {
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            WRITE_ERROR("Duplicate edge occured ('" + myCurrentID + "').");
+            WRITE_ERROR("Duplicate edge occurred ('" + myCurrentID + "').");
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -499,7 +499,7 @@ NIImporter_VISUM::parse_Connectors() {
                                       "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                WRITE_ERROR("A duplicate edge id occured (ID='" + id + "').");
+                WRITE_ERROR("A duplicate edge id occurred (ID='" + id + "').");
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
@@ -534,7 +534,7 @@ NIImporter_VISUM::parse_Connectors() {
                                       "", LANESPREAD_RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                WRITE_ERROR("A duplicate edge id occured (ID='" + id + "').");
+                WRITE_ERROR("A duplicate edge id occurred (ID='" + id + "').");
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);

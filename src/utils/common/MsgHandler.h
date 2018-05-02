@@ -92,7 +92,7 @@ public:
     /// Ends a process information
     void endProcessMsg(std::string msg);
 
-    /// Clears information whether an error occured previously
+    /// Clears information whether an error occurred previously
     void clear();
 
     /// Adds a further retriever to the instance responsible for a certain msg type
@@ -172,7 +172,7 @@ private:
     /// The type of the instance
     MsgType myType;
 
-    /// information wehther an error occured at all
+    /// information wehther an error occurred at all
     bool myWasInformed;
 
     /// Definition of the list of retrievers to inform

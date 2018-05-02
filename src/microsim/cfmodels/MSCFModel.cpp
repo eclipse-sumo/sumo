@@ -657,13 +657,13 @@ MSCFModel::speedAfterTime(const double t, const double v0, const double dist) {
         // We reconstruct acceleration at time t=0. Note that the covered distance in case
         // of a stop exactly at t=TS is TS*v0/2.
         if (dist <  TS * v0 / 2) {
-            // stop must have occured within [0,TS], use dist = -v0^2/(2a) (stopping dist),
+            // stop must have occurred within [0,TS], use dist = -v0^2/(2a) (stopping dist),
             // i.e., a = -v0^2/(2*dist)
             const double accel = - v0 * v0 / (2 * dist);
             // The speed at time t is then
             return v0 + accel * t;
         } else {
-            // no stop occured within [0,TS], thus (from dist = v0*TS + accel*TS^2/2)
+            // no stop occurred within [0,TS], thus (from dist = v0*TS + accel*TS^2/2)
             const double accel = 2 * (dist / TS - v0) / TS;
             // The speed at time t is then
             return v0 + accel * t;

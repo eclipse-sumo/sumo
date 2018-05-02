@@ -144,7 +144,7 @@ private:
      *
      * @param[in] fieldName Name of the column to extract the float from
      * @param[in] defaultValue The default to return in the case of an error
-     * @return The parsed real or the default value if an error while parsing occured
+     * @return The parsed real or the default value if an error while parsing occurred
      */
     double getNamedFloat(const std::string& fieldName, double defaultValue);
 
@@ -153,7 +153,7 @@ private:
      * @param[in] fieldName1 Name of the first column to extract the float from
      * @param[in] fieldName2 Name of the second column to extract the efloat from
      * @param[in] defaultValue The default to return in the case of an error
-     * @return The parsed real or the default value if an error while parsing occured
+     * @return The parsed real or the default value if an error while parsing occurred
      */
     double getNamedFloat(const std::string& fieldName1, const std::string& fieldName2,
                          double defaultValue);
@@ -335,7 +335,7 @@ private:
      * @param[in] id Name of the district
      * @param[in] dest Name of the according network node
      * @param[in] isSource Information whether this node will be used as a source
-     * @return The built node, zero if an error occured
+     * @return The built node, zero if an error occurred
      */
     NBNode* buildDistrictNode(const std::string& id, NBNode* dest, bool isSource);
 

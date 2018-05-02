@@ -1,4 +1,5 @@
 add_subdirectory(div)
+add_subdirectory(events)
 add_subdirectory(globjects)
 add_subdirectory(images)
 add_subdirectory(settings)

@@ -143,8 +143,8 @@ public:
 
     /// @name Inter-thread event handling
     /// @{
-    /// @brief called when an event occured
-    virtual void eventOccured();
+    /// @brief called when an event occurred
+    virtual void eventOccurred();
 
     /// @brief handle event of type Network loaded
     void handleEvent_NetworkLoaded(GUIEvent* e);

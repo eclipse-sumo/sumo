@@ -65,7 +65,7 @@ NINavTeqHelper::getSpeed(const std::string& id, const std::string& speedClassS) 
                 throw ProcessError("Invalid speed code (edge '" + id + "').");
         }
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's speed type occured (edge '" + id + "').");
+        throw ProcessError("Non-numerical value for an edge's speed type occurred (edge '" + id + "').");
     }
 }
 
@@ -95,7 +95,7 @@ NINavTeqHelper::getLaneNumber(const std::string& id, const std::string& laneNoS,
             }
         }
     } catch (NumberFormatException&) {
-        throw ProcessError("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
+        throw ProcessError("Non-numerical value for an edge's lane number occurred (edge '" + id + "'.");
     }
 }
 

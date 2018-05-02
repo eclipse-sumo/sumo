@@ -153,7 +153,7 @@ OptionsLoader::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& excepti
 
 
 bool
-OptionsLoader::errorOccured() const {
+OptionsLoader::errorOccurred() const {
     return myError;
 }
 

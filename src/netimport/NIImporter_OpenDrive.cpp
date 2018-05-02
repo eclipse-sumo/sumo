@@ -1065,7 +1065,7 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             bool simlarToLast = fabs((*j).s - lastS) < POSITION_EPS;
             lastS = (*j).s;
             if (simlarToLast) {
-                WRITE_WARNING("Almost duplicate s-value '" + toString(lastS) + "' for lane sections occured at edge '" + e.id + "'; second entry was removed.");
+                WRITE_WARNING("Almost duplicate s-value '" + toString(lastS) + "' for lane sections occurred at edge '" + e.id + "'; second entry was removed.");
                 j = laneSections.erase(j);
             } else {
                 ++j;

@@ -44,16 +44,16 @@ enum GUIEventType {
     EVENT_SIMULATION_STEP,
 
     /// send when a message occured
-    EVENT_MESSAGE_OCCURED,
+    EVENT_MESSAGE_OCCURRED,
 
     /// send when a warning occured
-    EVENT_WARNING_OCCURED,
+    EVENT_WARNING_OCCURRED,
 
     /// send when a error occured
-    EVENT_ERROR_OCCURED,
+    EVENT_ERROR_OCCURRED,
 
     /// send when a status change occured
-    EVENT_STATUS_OCCURED,
+    EVENT_STATUS_OCCURRED,
 
     /** @brief Send when the simulation is over;
         The reason and the time step are stored within the event */

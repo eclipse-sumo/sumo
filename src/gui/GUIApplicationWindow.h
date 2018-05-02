@@ -115,7 +115,7 @@ public:
     /// @name Inter-thread event handling
     /// @{
 
-    virtual void eventOccured();
+    virtual void eventOccurred();
     void handleEvent_SimulationLoaded(GUIEvent* e);
     void handleEvent_SimulationStep(GUIEvent* e);
     void handleEvent_Message(GUIEvent* e);

@@ -160,15 +160,15 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     // build the styled message
     FXint style = 1;
     switch (eType) {
-        case EVENT_ERROR_OCCURED:
+        case EVENT_ERROR_OCCURRED:
             // color: red
             style = 2;
             break;
-        case EVENT_WARNING_OCCURED:
+        case EVENT_WARNING_OCCURRED:
             // color: yellow
             style = 3;
             break;
-        case EVENT_MESSAGE_OCCURED:
+        case EVENT_MESSAGE_OCCURRED:
             // color: green
             style = 1;
             break;
@@ -234,9 +234,9 @@ void
 GUIMessageWindow::registerMsgHandlers() {
     if (myMessageRetriever == 0) {
         // initialize only if registration is requested
-        myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURED);
-        myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURED);
-        myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURED);
+        myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURRED);
+        myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURRED);
+        myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);

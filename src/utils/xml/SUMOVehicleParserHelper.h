@@ -61,7 +61,7 @@ public:
      *
      * @see SUMOVehicleParameter
      * @param[in] attr The SAX-attributes to get vehicle parameter from
-     * @return The parsed attribute structure if no error occured, 0 otherwise
+     * @return The parsed attribute structure if no error occurred, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
@@ -77,7 +77,7 @@ public:
      * @param[in] optionalID Whether the id shall be skipped
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
      * @param[in] isPerson   Whether a person is parsed
-     * @return The parsed attribute structure if no error occured, 0 otherwise
+     * @return The parsed attribute structure if no error occurred, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */

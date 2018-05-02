@@ -183,7 +183,7 @@ public:
      *
      * @param[in] filename The name of the file to load the list of selected objects from
      * @param[in] type The type of the objects to load if changed from default
-     * @return error messages if errors occured or the empty string
+     * @return error messages if errors occurred or the empty string
      */
     std::string load(const std::string& filename, GUIGlObjectType type = GLO_MAX);
 

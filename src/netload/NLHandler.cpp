@@ -483,7 +483,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
     bool typeOK = true;
     SumoXMLNodeType type = attrs.getNodeType(typeOK);
     if (!typeOK) {
-        WRITE_ERROR("An unknown or invalid junction type occured in junction '" + id + "'.");
+        WRITE_ERROR("An unknown or invalid junction type occurred in junction '" + id + "'.");
         ok = false;
     }
     std::string key = attrs.getOpt<std::string>(SUMO_ATTR_KEY, id.c_str(), ok, "");

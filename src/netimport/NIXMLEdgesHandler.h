@@ -113,7 +113,7 @@ private:
     /** @brief Tries to parse the shape definition
      *
      * Returns the edge's geometry (may be empty if no one was defined).
-     * Writes an error message if an error occured.
+     * Writes an error message if an error occurred.
      * @param[in] attrs The attributes to read the shape from
      * @return The edge's shape
      */

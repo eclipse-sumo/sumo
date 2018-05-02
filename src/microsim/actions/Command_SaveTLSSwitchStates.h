@@ -68,7 +68,7 @@ public:
     /// @name Derived from Command
     /// @{
 
-    /** @brief Writes the state of the tls if a change occured
+    /** @brief Writes the state of the tls if a change occurred
      *
      * If the state or the active program has changed, the state is written
      *  to the output device.

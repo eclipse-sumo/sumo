@@ -1231,20 +1231,20 @@ long GUIApplicationWindow::onClipboardRequest(FXObject* /* sender */, FXSelector
 
 long
 GUIApplicationWindow::onLoadThreadEvent(FXObject*, FXSelector, void*) {
-    eventOccured();
+    eventOccurred();
     return 1;
 }
 
 
 long
 GUIApplicationWindow::onRunThreadEvent(FXObject*, FXSelector, void*) {
-    eventOccured();
+    eventOccurred();
     return 1;
 }
 
 
 void
-GUIApplicationWindow::eventOccured() {
+GUIApplicationWindow::eventOccurred() {
     while (!myEvents.empty()) {
         // get the next event
         GUIEvent* e = myEvents.top();
@@ -1259,10 +1259,10 @@ GUIApplicationWindow::eventOccured() {
                     handleEvent_SimulationStep(e);
                 }
                 break;
-            case EVENT_MESSAGE_OCCURED:
-            case EVENT_WARNING_OCCURED:
-            case EVENT_ERROR_OCCURED:
-            case EVENT_STATUS_OCCURED:
+            case EVENT_MESSAGE_OCCURRED:
+            case EVENT_WARNING_OCCURRED:
+            case EVENT_ERROR_OCCURRED:
+            case EVENT_STATUS_OCCURRED:
                 handleEvent_Message(e);
                 break;
             case EVENT_SIMULATION_ENDED:
@@ -1412,7 +1412,7 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
 void
 GUIApplicationWindow::handleEvent_Message(GUIEvent* e) {
     GUIEvent_Message* ec = static_cast<GUIEvent_Message*>(e);
-    if (ec->getOwnType() == EVENT_STATUS_OCCURED) {
+    if (ec->getOwnType() == EVENT_STATUS_OCCURRED) {
         setStatusBarText(ec->getMsg());
     } else {
         myMessageWindow->appendMsg(ec->getOwnType(), ec->getMsg());

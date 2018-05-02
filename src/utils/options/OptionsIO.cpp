@@ -124,7 +124,7 @@ OptionsIO::loadConfiguration() {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(path.c_str());
-        if (handler.errorOccured()) {
+        if (handler.errorOccurred()) {
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
@@ -149,7 +149,7 @@ OptionsIO::getRoot(const std::string& filename) {
             throw ProcessError("Can not read XML-file '" + filename + "'.");
         }
         while (parser.parseNext(token) && handler.getItem() == "");
-        if (handler.errorOccured()) {
+        if (handler.errorOccurred()) {
             throw ProcessError("Could not load '" + filename + "'.");
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {

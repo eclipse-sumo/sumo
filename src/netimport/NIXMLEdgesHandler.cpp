@@ -582,7 +582,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
-                    WRITE_ERROR("Duplicate edge occured. ID='" + myCurrentID + "'");
+                    WRITE_ERROR("Duplicate edge occurred. ID='" + myCurrentID + "'");
                     delete myCurrentEdge;
                 }
             } catch (InvalidArgument& e) {

@@ -590,7 +590,7 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
         case MSNet::SIMSTATE_CONNECTION_CLOSED:
             return "TraCI requested termination.";
         case MSNet::SIMSTATE_ERROR_IN_SIM:
-            return "An error occured (see log).";
+            return "An error occurred (see log).";
         case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
             return "Too many teleports.";
         case MSNet::SIMSTATE_LOADING:

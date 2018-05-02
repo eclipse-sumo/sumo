@@ -517,7 +517,7 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
         // error handling has to take place here since joinExclusions could be
         // loaded from multiple files / command line
         if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occured in a list of nodes to be joined");
+            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occurred in a list of nodes to be joined");
         } else if (check && retrieve(*it) == 0) {
             WRITE_WARNING("Ignoring join exclusion for unknown junction '" + *it + "'");
         } else {
@@ -535,7 +535,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
             WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' was already excluded from joining");
             return;
         } else if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occured in another join-cluster");
+            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occurred in another join-cluster");
             return;
         } else {
             myJoined.insert(*it);

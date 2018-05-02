@@ -955,13 +955,13 @@ long GNEApplicationWindow::onClipboardRequest(FXObject*, FXSelector, void* ptr) 
 
 long
 GNEApplicationWindow::onLoadThreadEvent(FXObject*, FXSelector, void*) {
-    eventOccured();
+    eventOccurred();
     return 1;
 }
 
 
 void
-GNEApplicationWindow::eventOccured() {
+GNEApplicationWindow::eventOccurred() {
     while (!myEvents.empty()) {
         // get the next event
         GUIEvent* e = myEvents.top();
@@ -971,9 +971,9 @@ GNEApplicationWindow::eventOccured() {
             case EVENT_SIMULATION_LOADED:
                 handleEvent_NetworkLoaded(e);
                 break;
-            case EVENT_MESSAGE_OCCURED:
-            case EVENT_WARNING_OCCURED:
-            case EVENT_ERROR_OCCURED:
+            case EVENT_MESSAGE_OCCURRED:
+            case EVENT_WARNING_OCCURRED:
+            case EVENT_ERROR_OCCURRED:
                 handleEvent_Message(e);
                 break;
             default:
@@ -1614,7 +1614,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
     }
-    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Plain XML saved with prefix '" + prefix + "'.\n");
+    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
     myMessageWindow->addSeparator();
     if (wasSet) {
         oc.resetWritable();
@@ -1657,7 +1657,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
     }
-    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Joined junctions saved to '" + filename + "'.\n");
+    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Joined junctions saved to '" + filename + "'.\n");
     myMessageWindow->addSeparator();
     if (wasSet) {
         oc.resetWritable();
@@ -1690,7 +1690,7 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveShapes(myShapesFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Shapes saved in " + myShapesFile + ".\n");
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Shapes saved in " + myShapesFile + ".\n");
             mySaveShapesMenuCommand->disable();
             mySaveShapesMenuCommandAs->disable();
         } catch (IOError& e) {
@@ -1769,7 +1769,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
                 WRITE_WARNING("Closed FXMessageBox 'error saving network' with 'OK'");
             }
         }
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Network saved in " + oc.getString("output-file") + ".\n");
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
         // After saveing a net sucesfully, add it into Recent Nets list.
         myRecentNets.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
@@ -1800,7 +1800,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveAdditionals(myAdditionalsFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "Additionals saved in " + myAdditionalsFile + ".\n");
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + myAdditionalsFile + ".\n");
             mySaveAdditionalsMenuCommand->disable();
             mySaveAdditionalsMenuCommandAs->disable();
         } catch (IOError& e) {
@@ -1863,7 +1863,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveTLSPrograms(myTLSProgramsFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURED, "TLS Programs saved in " + myTLSProgramsFile + ".\n");
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + myTLSProgramsFile + ".\n");
             mySaveTLSProgramsMenuCommand->disable();
             mySaveTLSProgramsMenuCommandAs->disable();
         } catch (IOError& e) {

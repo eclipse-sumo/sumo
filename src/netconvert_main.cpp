@@ -127,12 +127,12 @@ main(int argc, char** argv) {
         if (oc.getBool("ignore-errors")) {
             MsgHandler::getErrorInstance()->clear();
         }
-        // check whether any errors occured
+        // check whether any errors occurred
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
         nb.compute(oc);
-        // check whether any errors occured
+        // check whether any errors occurred
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
