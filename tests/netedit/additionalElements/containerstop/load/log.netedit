@@ -30,7 +30,6 @@ Warning: Adding containerStop 'containerStop_16' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_17' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_18' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_19' in GNEChange_Additional
-Warning: Loaded texture empty in GUITextureSubSys::getTexture
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
