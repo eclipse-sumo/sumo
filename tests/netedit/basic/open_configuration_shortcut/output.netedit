@@ -1,0 +1,13 @@
++++ running this Java
++++ trying to run SikuliX
++++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\sikulix\sikulix.jar -run test.sikuli
+TestFunctions: Netedit opened successfully
+TestFunctions: 'searchReference' option disabled. Reference isn't searched
+[log] CLICK on L(205,205)@S(0)[0,0 1920x1200] (222 msec)
+[log] ( Strg+Umschalt )  TYPE "o"
+[log] ( Alt )  TYPE "f"
+[log] ( Strg )  TYPE "a"
+[log]  TYPE "#ENTER."
+[log] ( Strg )  TYPE "s"
+[log] ( Strg )  TYPE "q"
+TestFunctions: Netedit closed successfully

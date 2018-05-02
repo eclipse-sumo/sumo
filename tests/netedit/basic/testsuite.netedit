@@ -4,6 +4,12 @@ about-dialog
 # load and save a basic net
 load_and_save
 
+# load configuration
+#open_configuration
+
+# load configuration using shortcut
+open_configuration_shortcut
+
 # create net with two nodes and an edge
 new_net_1edge
 
