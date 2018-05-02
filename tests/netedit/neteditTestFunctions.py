@@ -501,6 +501,23 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 
 """
+@brief load network as
+"""
+
+
+def openNetworkAs(waitTime = 2):
+    # open save network as dialog
+    typeTwoKeys("o", Key.CTRL)
+    # jump to filename TextField
+    typeTwoKeys("f", Key.ALT)
+    filename = os.path.join(textTestSandBox, "input_net_loadedmanually.net.xml")
+    pasteIntoTextField(filename)
+    typeEnter()
+    # wait for saving
+    wait(waitTime)
+
+
+"""
 @brief save network
 """
 
