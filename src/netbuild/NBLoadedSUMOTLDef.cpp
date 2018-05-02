@@ -334,12 +334,9 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
 
             // rebuild the logic (see NBOwnTLDef.cpp::myCompute)
             NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-            SUMOTime brakingTime = TIME2STEPS(3);
+            SUMOTime brakingTime = TIME2STEPS(computeBrakingTime(OptionsCont::getOptions().getFloat("tls.yellow.min-decel")));
             //std::cout << "patchIfCrossingsAdded for " << getID() << " numPhases=" << phases.size() << "\n";
             for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                if ((*it).state.find_first_of("yY") != std::string::npos) {
-                    brakingTime = MAX2(brakingTime, it->duration);
-                }
                 const std::string state = it->state.substr(0, numNormalLinks) + crossingDefaultState;
                 NBOwnTLDef::addPedestrianPhases(newLogic, it->duration, it->minDur, it->maxDur, state, crossings, fromEdges, toEdges);
             }
