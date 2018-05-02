@@ -2746,16 +2746,19 @@ NBNode::getCrossing(const std::string& id) const {
 }
 
 
-void
+bool
 NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
+    bool usedCustom = false;
     for (auto c : getCrossings()) {
         c->tlLinkIndex = startIndex++;
         c->tlID = tlID;
         if (c->customTLIndex != -1) {
+            usedCustom |= (c->tlLinkIndex != c->customTLIndex);
             c->tlLinkIndex = c->customTLIndex;
         }
         c->tlLinkIndex2 = c->customTLIndex2;
     }
+    return usedCustom;
 }
 
 

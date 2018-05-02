@@ -636,8 +636,10 @@ public:
     /// @brief return the crossing with the given id
     Crossing* getCrossing(const std::string& id) const;
 
-    /// @brief set tl indices of this nodes crossing starting at the given index
-    void setCrossingTLIndices(const std::string& tlID, int startIndex);
+    /* @brief set tl indices of this nodes crossing starting at the given index
+     * @return Whether a custom index was used
+     */
+    bool setCrossingTLIndices(const std::string& tlID, int startIndex);
 
     /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
     int numNormalConnections() const;

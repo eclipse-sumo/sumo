@@ -313,18 +313,22 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
     const int numNormalLinks = noLinksAll;
     int oldCrossings = 0;
     // collect crossings
+    bool customIndex = false;
     std::vector<NBNode::Crossing*> crossings;
     for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
         // set tl indices for crossings
-        (*i)->setCrossingTLIndices(getID(), noLinksAll);
+        customIndex |= (*i)->setCrossingTLIndices(getID(), noLinksAll);
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (int)c.size();
         oldCrossings += (*i)->numCrossingsFromSumoNet();
     }
     if ((int)crossings.size() != oldCrossings) {
         std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
-        if (phases.size() > 0 && (int)(phases.front().state.size()) != noLinksAll) {
+        // do not rebuilt crossing states there are custom indices and the state string is long enough
+        if (phases.size() > 0 && (
+                    (int)(phases.front().state.size()) < noLinksAll || 
+                    ((int)(phases.front().state.size()) > noLinksAll && !customIndex))) {
             // collect edges
             EdgeVector fromEdges(size, (NBEdge*)0);
             EdgeVector toEdges(size, (NBEdge*)0);
