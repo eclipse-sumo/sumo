@@ -1,4 +1,3 @@
 Error: No nodes loaded.
 Error: Failed to build network.
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

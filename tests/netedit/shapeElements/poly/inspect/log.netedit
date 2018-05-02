@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -32,10 +31,7 @@ Warning: Value '%$$%%%%%' for attribute imgFile of poly isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poly isn't valid
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute relativePath 'true' into poly 'newID'
 Warning: Setting new attribute angle '0' into poly 'newID'
 Warning: Setting new attribute angle '-5' into poly 'newID'
@@ -68,7 +64,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute relativePath '0' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poly 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type '' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -125,8 +120,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute relativePath 'true' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -165,4 +158,3 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

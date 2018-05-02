@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'fromCE_4toEC_4' in retrieveGNEConnection()
 Warning: Created connection 'fromCN_4toNC_4' in retrieveGNEConnection()
@@ -120,4 +119,3 @@ Warning: Deleting unreferenced junction 'S' in GNENet destructor
 Warning: Deleting unreferenced junction 'W' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

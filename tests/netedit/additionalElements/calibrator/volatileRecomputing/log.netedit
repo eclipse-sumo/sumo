@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding calibrator 'calibrator_gneE0_3' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
@@ -44,4 +43,3 @@ Warning: Deleting unreferenced calibrator 'calibrator_gneE2_0' in GNENet destruc
 Warning: Deleting unreferenced calibrator 'calibrator_gneE4_1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

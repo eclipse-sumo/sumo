@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding containerStop 'containerStop_gneE1_0_1' in GNEChange_Additional
@@ -56,4 +55,3 @@ Warning: Deleting unreferenced containerStop 'containerStop_gneE2_4_3' in GNENet
 Warning: Deleting unreferenced containerStop 'containerStop_gneE4_0_2' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

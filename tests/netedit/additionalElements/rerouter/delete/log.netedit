@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
@@ -72,4 +71,3 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poiLane 'POI_1' into viewNet
@@ -19,7 +18,6 @@ Warning: Adding poiLane 'POI_6' into viewNet
 Warning: Adding poiLane 'POI_7' into viewNet
 Warning: Adding poiLane 'POI_8' into viewNet
 Warning: Adding poiLane 'POI_9' into viewNet
-Warning: Adding texture 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
@@ -339,44 +337,24 @@ Warning: Value '%$$%%%%%' for attribute imgFile of poiLane isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poiLane isn't valid
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_0'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_1'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_10'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_11'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_12'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_13'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_14'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_15'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_16'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_17'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_2'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_3'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_4'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_5'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_6'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_7'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_8'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_9'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute relativePath 'true' into poiLane 'POI_0'
 Warning: Setting new attribute relativePath 'true' into poiLane 'POI_1'
 Warning: Setting new attribute relativePath 'true' into poiLane 'POI_10'
@@ -648,42 +626,23 @@ Warning: Setting previous attribute relativePath '0' into poiLane 'POI_1'
 Warning: Setting previous attribute relativePath '0' into poiLane 'POI_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_9'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_8'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_7'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_6'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_5'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_4'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_10'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_0'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_9'
 Warning: Setting previous attribute height '-3.00' into poiLane 'POI_8'
@@ -914,42 +873,23 @@ Warning: Setting new attribute height '5' into poiLane 'POI_8'
 Warning: Setting new attribute height '5' into poiLane 'POI_9'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_0'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_1'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_10'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_11'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_12'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_13'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_14'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_15'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_16'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_17'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_2'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_3'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_4'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_5'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_6'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_7'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_8'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'POI_9'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute relativePath 'true' into poiLane 'POI_0'
 Warning: Setting new attribute relativePath 'true' into poiLane 'POI_1'
@@ -1136,4 +1076,3 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_4_2_2' in GNEChange_Additional
@@ -335,4 +334,3 @@ Warning: Deleting unreferenced junction 'Center' in GNENet destructor
 Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

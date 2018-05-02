@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected shape 'poiLane' in ShapeSelector
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
@@ -24,7 +23,6 @@ Warning: Invalid input parameter of poiLane: input contains invalid characters f
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Invalid input parameter of poiLane: doesn't exist image 'paris.ico'
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poiLane 'POI_12' into viewNet
 Warning: Adding poiLane 'POI_13' into viewNet
 Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
@@ -154,4 +152,3 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

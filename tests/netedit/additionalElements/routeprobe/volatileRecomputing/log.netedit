@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
@@ -80,4 +79,3 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_16' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_17' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

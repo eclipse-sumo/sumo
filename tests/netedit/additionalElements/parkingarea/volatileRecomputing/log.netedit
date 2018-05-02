@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding parkingArea 'parkingArea_gneE0_0_7' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding space 'parkingArea_gneE0_0_7space0' in GNEChange_Additional
@@ -83,4 +82,3 @@ Warning: Deleting unreferenced space 'parkingArea_gneE4_0_0space0' in GNENet des
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_8' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

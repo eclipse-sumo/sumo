@@ -1,12 +1,10 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Adding poly 'poly_2' into viewNet
 Warning: Adding poly 'poly_3' into viewNet
-Warning: Adding texture 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Apr103112.1420/netedit.gui/shapeElements/poly/inspect_selection\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Adding poly 'poly_4' into viewNet
 Warning: Adding poly 'poly_5' into viewNet
 Warning: Adding poly 'poly_6' into viewNet
@@ -89,31 +87,17 @@ Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poly isn't valid
 Warning: Setting new attribute imgFile '' into poly 'poly_4'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_0'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_1'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_12'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_2'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_3'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_4'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_5'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_6'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_7'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_8'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_9'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute relativePath 'true' into poly 'poly_0'
 Warning: Setting new attribute relativePath 'true' into poly 'poly_1'
 Warning: Setting new attribute relativePath 'true' into poly 'poly_12'
@@ -441,4 +425,3 @@ Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

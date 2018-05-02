@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
@@ -338,4 +337,3 @@ Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destru
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

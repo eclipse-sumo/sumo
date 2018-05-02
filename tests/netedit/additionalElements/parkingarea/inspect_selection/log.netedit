@@ -1,5 +1,4 @@
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
@@ -81,7 +80,7 @@ Warning: Setting previous attribute name 'parkingArea2' into parkingArea 'parkin
 Warning: Setting previous attribute name 'parkingArea1' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into parkingArea 'parkingAreaB'
-Warning: Setting previous attribute friendlyPos '0' into parkingArea 'parkingAreaA'
+Warning: Setting previous attribute friendlyPos '1' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaA'
@@ -169,4 +168,3 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
 Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -8,7 +8,7 @@
         <detEntry lane="gneE0_1" pos="5.45" friendlyPos="0" blockMovement="1"/>
         <detExit lane="gneE0_1" pos="12.65" friendlyPos="0"/>
     </e3Detector>
-    <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_1" startPos="11.84" endPos="21.84" friendlyPos="1" roadsideCapacity="0" width="3.20" length="5.00" angle="0.00" blockMovement="1">
+    <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_1" startPos="11.84" endPos="21.84" friendlyPos="0" roadsideCapacity="0" width="3.20" length="5.00" angle="0.00" blockMovement="1">
         <space x="29.09" y="10.92" z="0.00" width="3.20" length="5.00" angle="0.00"/>
         <space x="32.71" y="10.95" z="0.00" width="3.20" length="5.00" angle="0.00"/>
         <space x="36.82" y="10.96" z="0.00" width="3.20" length="5.00" angle="0.00"/>
