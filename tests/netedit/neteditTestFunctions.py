@@ -23,7 +23,7 @@ from sikuli import *
 # define delay before every operation
 DELAY = 0.2
 DELAY_QUESTION = 1
-DELAY_REFERENCE = 50
+DELAY_REFERENCE = 30
 DELAY_QUIT = 3
 
 Settings.MoveMouseDelay = 0.2

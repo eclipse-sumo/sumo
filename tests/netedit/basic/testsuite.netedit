@@ -19,14 +19,14 @@ save_configuration
 # create net with two nodes and an edge
 new_net_1edge
 
-# Open netEdit
+# Open Netedit
 open_netedit
 
-# Check that all save dialogs of netedit works saving none elements
+# Check that all save dialogs of Netedit works saving none elements
 quit_noSave
 
-# Check that all save dialogs of netedit works saving all elements
+# Check that all save dialogs of Netedit works saving all elements
 quit_saveAll
 
-# provoke a error with sikulix
+# provoke an error with sikulix
 sikulix_error
