@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    01.04.2018
-/// @version $Id: MSDevice_ToC.cpp v0_32_0+1125-377a9a870b michael.behrisch@dlr.de 2018-04-17 13:09:36 +0200 $
+/// @version $Id$
 ///
 // The ToC Device controls the transition of control between automated and manual driving.
 //
@@ -436,7 +436,7 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
         std::cout << SIMTIME << " Aborting ToC preparation for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-        return 0.;
+        return 0;
     }
 }
 
@@ -459,7 +459,7 @@ MSDevice_ToC::MRMExecutionStep(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
         std::cout << SIMTIME << " Aborting MRM for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-        return 0.;
+        return 0;
     }
 }
 
