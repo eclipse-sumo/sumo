@@ -5,7 +5,7 @@ about-dialog
 load_and_save
 
 # load configuration
-#open_configuration
+open_configuration
 
 # load configuration using shortcut
 open_configuration_shortcut
