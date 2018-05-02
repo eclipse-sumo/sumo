@@ -43,7 +43,7 @@
 // ===========================================================================
 // debug constants
 // ===========================================================================
-#define DEBUG_TOC
+//#define DEBUG_TOC
 
 
 // ===========================================================================
@@ -299,10 +299,8 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " requestToC() for vehicle '" << myHolder.getID() << "' , timeTillMRM=" << timeTillMRM << std::endl;
 #endif
-    if (myState == MANUAL || myState == RECOVERING || myState == UNDEFINED) {
-        // Switch to automated mode is performed immediately
-        triggerUpwardToC(SIMSTEP + DELTA_T);
-    } else if (myState == AUTOMATED || myState == MRM) {
+    if (myState == AUTOMATED) {
+        // Initialize preparation phase
 
         // @todo: Sample response time from distribution
         SUMOTime responseTime = myResponseTime;
@@ -311,8 +309,12 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
         myTriggerToCCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::triggerDownwardToC);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myTriggerToCCommand, SIMSTEP + responseTime);
 
+        // Clear eventually prior scheduled MRM
+//        descheduleMRM();
+        assert(myExecuteMRMCommand==nullptr);
+        assert(myTriggerMRMCommand==nullptr);
         if (responseTime > timeTillMRM) {
-            // Schedule MRM Event
+            // Schedule new MRM if driver response time is higher than permitted
             myTriggerMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::triggerMRM);
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myTriggerMRMCommand, SIMSTEP + timeTillMRM);
         }
@@ -322,11 +324,14 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myPrepareToCCommand, SIMSTEP + DELTA_T);
         setState(PREPARING_TOC);
     } else {
-        assert(myState == PREPARING_TOC);
-        if(myTriggerToCCommand != nullptr) {
-            WRITE_WARNING("Ignoring ToC request for vehicle '" + myHolder.getID() + "', which is already performing a ToC.");
-            return;
+        // Switch to automated mode is performed immediately
+        // Note that the transition MRM/PREPARING_TOC->AUTOMATED, where a downward ToC is aborted, is handled here as well.
+        if (timeTillMRM > 0.) {
+            std::stringstream ss;
+            ss << "[t=" << SIMTIME << "] Positive transition time (" << timeTillMRM/1000. << "s.) for upward ToC of vehicle '" << myHolder.getID() << "' is ignored.";
+            WRITE_WARNING(ss.str());
         }
+        triggerUpwardToC(SIMSTEP + DELTA_T);
     }
 }
 
@@ -336,15 +341,13 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " triggerMRM() for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
+    // Clear ongoing MRM
+    descheduleMRM();
+
     // Start MRM process
     myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
     setState(MRM);
-
-    if(myTriggerMRMCommand != nullptr) {
-        myTriggerMRMCommand->deschedule();
-        myTriggerMRMCommand = nullptr;
-    }
 
     return 0;
 }
@@ -359,10 +362,13 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
     setAwareness(0.);
     setState(AUTOMATED);
 
-    if(myTriggerToCCommand != nullptr) {
-        myTriggerToCCommand->deschedule();
-        myTriggerToCCommand = nullptr;
-    }
+    descheduleToC();
+    // Eventually stop ToC preparation process
+    descheduleToCPreparation();
+    // Eventually abort MRM
+    descheduleMRM();
+    // Eventually abort awareness recovery process
+    descheduleRecovery();
 
     return 0;
 }
@@ -388,24 +394,54 @@ MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRecoverAwarenessCommand, SIMSTEP + DELTA_T);
     setState(RECOVERING);
 
+    descheduleToC();
+    // Eventually stop ToC preparation process
+    descheduleToCPreparation();
+    // Eventually abort MRM
+    descheduleMRM();
+
+    return 0;
+}
+
+void
+MSDevice_ToC::descheduleMRM() {
+    // Eventually abort scheduled MRM
+    if(myTriggerMRMCommand != nullptr) {
+        myTriggerMRMCommand->deschedule();
+        myTriggerMRMCommand = nullptr;
+    }
+    // Eventually abort ongoing MRM
+    if(myExecuteMRMCommand != nullptr) {
+        myExecuteMRMCommand->deschedule();
+        myExecuteMRMCommand = nullptr;
+    }
+}
+
+
+void
+MSDevice_ToC::descheduleToC() {
     if(myTriggerToCCommand != nullptr) {
         myTriggerToCCommand->deschedule();
         myTriggerToCCommand = nullptr;
     }
+}
 
+void
+MSDevice_ToC::descheduleToCPreparation() {
     // Eventually stop ToC preparation process
     if(myPrepareToCCommand != nullptr) {
         myPrepareToCCommand->deschedule();
         myPrepareToCCommand = nullptr;
     }
+}
 
-    // Eventually abort MRM
-    if(myExecuteMRMCommand != nullptr) {
-        myExecuteMRMCommand->deschedule();
-        myExecuteMRMCommand = nullptr;
+void
+MSDevice_ToC::descheduleRecovery() {
+    // Eventually stop ToC preparation process
+    if(myRecoverAwarenessCommand != nullptr) {
+        myRecoverAwarenessCommand->deschedule();
+        myRecoverAwarenessCommand = nullptr;
     }
-
-    return 0;
 }
 
 
@@ -428,7 +464,7 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " ToC preparation step for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-    // TODO
+    // TODO: Devise preparation of ToC (still needs discussion). At least: do not overtake. Perhaps, increase gap to leader.
 
     if (myState == PREPARING_TOC) {
         return DELTA_T;
@@ -442,16 +478,26 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 
 
 SUMOTime
-MSDevice_ToC::MRMExecutionStep(SUMOTime /* t */) {
+MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
     const double currentSpeed = myHolderMS->getSpeed();
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " MRM step for vehicle '" << myHolder.getID() << "', currentSpeed=" << currentSpeed << std::endl;
 #endif
+
+    // Induce slowdown with MRMDecel
     std::vector<std::pair<SUMOTime, double> > speedTimeLine;
     const double nextSpeed = MAX2(0., currentSpeed - ACCEL2SPEED(myMRMDecel));
-    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), currentSpeed));
-    speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T, nextSpeed));
+    speedTimeLine.push_back(std::make_pair(t - DELTA_T, currentSpeed));
+    speedTimeLine.push_back(std::make_pair(t, nextSpeed));
     myHolderMS->getInfluencer().setSpeedTimeLine(speedTimeLine);
+
+    // Prevent lane changes during MRM
+    // TODO: seems not to function
+    std::vector<std::pair<SUMOTime, int> > laneTimeLine;
+    const int currentLane = myHolderMS->getLaneIndex();
+    laneTimeLine.push_back(std::make_pair(t - DELTA_T, currentLane));
+    laneTimeLine.push_back(std::make_pair(t, currentLane));
+    myHolderMS->getInfluencer().setLaneTimeLine(laneTimeLine);
 
     if (myState == MRM) {
         return DELTA_T;

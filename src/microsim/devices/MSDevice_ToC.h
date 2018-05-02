@@ -175,6 +175,16 @@ private:
     /// @brief Switch the device holder's vehicle type
     void switchHolderType(const std::string& targetTypeID);
 
+    /// @brief Break MRM Process or remove MRM-Trigger command from the event-queue.
+    void descheduleMRM();
+    /// @brief Remove scheduled ToC-Trigger command from the event-queue.
+    void descheduleToC();
+    /// @brief Remove ongoing ToC-Preparation process from the event-queue.
+    void descheduleToCPreparation();
+    /// @brief Remove ongoing awareness recovery process from the event-queue.
+    void descheduleRecovery();
+
+
 
 private:
     /// @name private state members of the ToC device
