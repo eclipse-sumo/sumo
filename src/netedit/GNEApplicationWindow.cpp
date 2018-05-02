@@ -395,7 +395,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "&Open Network...\tCtrl+O\tOpen a SUMO network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "Open Configura&tion...\tCtrl+T\tOpen a NETCONVERT configuration file.",
+                      "Open Configura&tion...\tCtrl+Shift+O\tOpen a NETCONVERT configuration file.",
                       GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
                       "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
@@ -413,7 +413,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEPLAINXML);
     new FXMenuCommand(myFileMenu,
-                      "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
+                      "Save &joined junctions...\t\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEJOINED);
     // create Shapes menu options
     myFileMenuShapes = new FXMenuPane(this);
@@ -446,10 +446,10 @@ GNEApplicationWindow::fillMenuBar() {
     // create TLS menu options
     myFileMenuTLS = new FXMenuPane(this);
     new FXMenuCommand(myFileMenuTLS,
-                    "load TLS Programs...\t\tload TLS Programs in all Traffic Lights of the net.",
-                    GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_OPEN_TLSPROGRAMS);
+                      "load TLS Programs...\tCtrl+J\tload TLS Programs in all Traffic Lights of the net.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_OPEN_TLSPROGRAMS);
     mySaveTLSProgramsMenuCommand = new FXMenuCommand(myFileMenuTLS,
-                      "Save TLS Programs \t\tSave TLS Programs of all Traffic Lights of the current net.",
+                      "Save TLS Programs \tCtrl+Shift+J\tSave TLS Programs of all Traffic Lights of the current net.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
     mySaveTLSProgramsMenuCommand->disable();
     mySaveTLSProgramsMenuCommandAs = new FXMenuCommand(myFileMenuTLS,
