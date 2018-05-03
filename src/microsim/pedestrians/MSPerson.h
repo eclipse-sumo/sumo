@@ -53,6 +53,7 @@ class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
 class PedestrianState;
+class DummyState;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -368,6 +369,8 @@ private:
     Influencer* myInfluencer;
 
     const double myChosenSpeedFactor;
+
+    static DummyState myDummyState;
 
 private:
     /// @brief Invalidated copy constructor.

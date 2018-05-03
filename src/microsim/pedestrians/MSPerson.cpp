@@ -49,8 +49,10 @@
 #include "MSPModel.h"
 
 // ===========================================================================
-// method definitions
+// static value definitions
 // ===========================================================================
+DummyState MSPerson::myDummyState;
+
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
@@ -69,7 +71,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
     myDepartPos(departPos),
     myDepartPosLat(departPosLat),
     mySpeed(speed),
-    myPedestrianState(0) {
+    myPedestrianState(&myDummyState) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                   "person '" + personID + "' walking from " + route.front()->getID());
     if (walkingTime > 0) {
@@ -79,7 +81,9 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
-    delete myPedestrianState;
+    if (myPedestrianState != &myDummyState) {
+        delete myPedestrianState;
+    }
 }
 
 
