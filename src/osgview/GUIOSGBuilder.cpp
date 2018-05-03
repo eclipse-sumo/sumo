@@ -108,6 +108,9 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
         const MSLane* lastLane = 0;
         int idx = 0;
         for (MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin(); j != lanes.end(); ++j, ++idx) {
+            if ((*j).size() == 0) {
+                continue;
+            }
             const MSLane* const lane = (*j)[0];
             const Position pos = lane->getShape().back();
             const double angle =  osg::DegreesToRadians(lane->getShape().rotationDegreeAtOffset(-1.) + 90.);
