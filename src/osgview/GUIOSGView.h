@@ -121,6 +121,7 @@ public:
         osg::ref_ptr<osg::PositionAttitudeTransform> pos;
         osg::ref_ptr<osg::ShapeDrawable> geom;
         osg::ref_ptr<osg::Switch> lights;
+        bool active;
     };
 
 
@@ -177,7 +178,8 @@ public:
     /// @brief get the current simulation time
     SUMOTime getCurrentTimeStep() const;
 
-    void remove(GUIVehicle* veh);
+    void removeVeh(MSVehicle* veh);
+    void removeTransportable(MSTransportable* t);
 
     // callback
     long onConfigure(FXObject*, FXSelector, void*);

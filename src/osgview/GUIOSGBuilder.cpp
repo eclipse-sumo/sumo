@@ -413,6 +413,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     ellipse->setPosition(center);
     ellipse->setScale(osg::Vec3d(type.getWidth() + enlarge, type.getLength() + enlarge, type.getHeight() + enlarge));
     m.pos->addChild(ellipse);
+    m.active = true;
     return m;
 }
 
