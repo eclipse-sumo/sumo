@@ -414,7 +414,11 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportabl
 
 void
 MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
-    os.openTag("ride").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
+    os.openTag("ride");
+    if (getFromEdge() != nullptr) {
+        os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
+    }
+    os.writeAttr(SUMO_ATTR_TO, getDestination().getID());
     std::string comment = "";
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());

@@ -1129,8 +1129,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         } else {
             for (SUMOVehicleParameter* vehPar : pars) {
-                SUMOVehicle* vehicle = 0;
-                if (vehPar != 0) {
+                SUMOVehicle* vehicle = nullptr;
+                if (vehPar != nullptr) {
                     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
                     if (type->getVehicleClass() != SVC_IGNORING && (from->getPermissions() & type->getVehicleClass()) == 0) {
                         WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + myVehicleParameter->id + "' because it is not allowed on the start edge.");

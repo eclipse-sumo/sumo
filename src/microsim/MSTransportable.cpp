@@ -253,9 +253,10 @@ MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
         const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING),
     myLines(lines.begin(), lines.end()),
-    myVehicle(0),
+    myVehicle(nullptr),
     myVehicleID("NULL"),
     myVehicleDistance(-1.),
+    myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
     myIntendedVehicleID(intendedVeh),
     myIntendedDepart(intendedDepart)
