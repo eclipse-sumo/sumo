@@ -177,13 +177,13 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         geom->setVertexArray(osg_coords);
         if (!edge.isWalkingArea()) {
             PositionVector rshape = shape;
-            rshape.move2side(SUMO_const_halfLaneWidth);
+            rshape.move2side(l->getWidth() / 2);
             int index = 0;
             for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
                 (*osg_coords)[index].set(rshape[k].x(), rshape[k].y(), rshape[k].z() + zOffset);
             }
             PositionVector lshape = shape;
-            lshape.move2side(-SUMO_const_halfLaneWidth);
+            lshape.move2side(-l->getWidth() / 2);
             for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
                 (*osg_coords)[index].set(lshape[k].x(), lshape[k].y(), lshape[k].z() + zOffset);
             }
