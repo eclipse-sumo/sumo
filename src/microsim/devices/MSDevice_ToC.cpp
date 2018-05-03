@@ -294,6 +294,23 @@ MSDevice_ToC::setState(ToCState state) {
 }
 
 
+
+
+void
+MSDevice_ToC::requestMRM() {
+    // Clean up previous MRM Commands
+    descheduleMRM();
+    // Remove any preparatory process
+    descheduleToCPreparation();
+    // .. and any recovery process
+    descheduleRecovery();
+    // ... and any pending ToC to manual
+    descheduleToC();
+    // Immediately trigger the MRM process
+    triggerMRM(0);
+}
+
+
 void
 MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
 #ifdef DEBUG_TOC
@@ -348,6 +365,8 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
     setState(MRM);
+    switchHolderType(myAutomatedType);
+    setAwareness(0.);
 
     return 0;
 }
@@ -592,6 +611,9 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         // setting this magic parameter gives the interface for inducing a ToC
         const SUMOTime timeTillMRM = TIME2STEPS(TplConvert::_2double(value.c_str()));
         requestToC(timeTillMRM);
+    } else if (key == "requestMRM") {
+        // setting this magic parameter gives the interface for inducing an MRM
+        requestMRM();
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

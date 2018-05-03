@@ -172,6 +172,10 @@ private:
     ///        The request is ignored if the state is already PREPARING_TOC.
     void requestToC(SUMOTime timeTillMRM);
 
+    /// @brief Request an MRM to be initiated immediately. No downward ToC will be scheduled.
+    /// @note  The initiated MRM process will run forever until a new ToC is requested.
+    void requestMRM();
+
     /// @brief Switch the device holder's vehicle type
     void switchHolderType(const std::string& targetTypeID);
 
