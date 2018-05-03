@@ -571,5 +571,9 @@ MSTransportable::getStageSummary(int stageIndex) const {
     return (*myPlan)[stageIndex]->getStageSummary();
 }
 
+bool 
+MSTransportable::hasArrived() const {
+    return myStep == myPlan->end();
+}
 
 /****************************************************************************/

@@ -522,7 +522,7 @@ void
 MSPerson::routeOutput(OutputDevice& os) const {
     const std::string typeID = getVehicleType().getID() != DEFAULT_PEDTYPE_ID ? getVehicleType().getID() : "";
     myParameter->write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON, typeID);
-    if (myStep == myPlan->end()) {
+    if (hasArrived()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
