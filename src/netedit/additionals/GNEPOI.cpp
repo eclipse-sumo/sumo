@@ -209,6 +209,18 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     if(!s.drawForSelecting) {
         drawLockIcon(*this, GLO_POI, 0.2);
     }
+    // draw an orange square mode if there is an image(see #4036)
+    if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
+        glPushName(getGlID());
+        // Add a draw matrix for drawing logo
+        glPushMatrix();
+        glTranslated(x(), y(), getType() + 0.01);
+        GLHelper::setColor(RGBColor::ORANGE);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        glPopMatrix();
+        // Pop name
+        glPopName();
+    }
 }
 
 
