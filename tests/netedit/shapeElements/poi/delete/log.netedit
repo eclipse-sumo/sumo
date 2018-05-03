@@ -1,9 +1,6 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding poi 'POI_img' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poi 'POI_nonDeleted' into viewNet
-Warning: Adding texture 'C:/Users/Palcraft/.texttest/tmp/netedit.gui.03Apr133654.2804/netedit.gui/shapeElements/poi/delete\berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Removing poi 'POI_0' from viewNet
@@ -32,5 +29,3 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

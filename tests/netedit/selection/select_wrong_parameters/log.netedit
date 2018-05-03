@@ -1,4 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poly 'poly_1' into viewNet
@@ -43,4 +42,3 @@ Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures

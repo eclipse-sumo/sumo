@@ -1,5 +1,4 @@
 java version "1.8.0_171"
 Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.

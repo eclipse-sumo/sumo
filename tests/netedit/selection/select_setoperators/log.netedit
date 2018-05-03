@@ -1,5 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
@@ -514,7 +512,15 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '4' from net
 Warning: Setting new attribute type 'priority' into junction 'D'
 Warning: Removing junction 'D' from net
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Removing poi 'POI_1' from viewNet
+Warning: Removing poi 'POI_2' from viewNet
+Warning: Removing poi 'POI_3' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding poi 'POI_3' into viewNet
+Warning: Adding poi 'POI_2' into viewNet
+Warning: Adding poi 'POI_1' into viewNet
+Warning: Adding poi 'POI_0' into viewNet
 Warning: Adding junction 'D' into net
 Warning: Setting previous attribute type 'dead_end' into junction 'D'
 Warning: Adding edge '4' from net
@@ -840,6 +846,10 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '4' from net
 Warning: Setting new attribute type 'priority' into junction 'D'
 Warning: Removing junction 'D' from net
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Removing poi 'POI_1' from viewNet
+Warning: Removing poi 'POI_2' from viewNet
+Warning: Removing poi 'POI_3' from viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_1' cannot be writed in additional file because doesn't have childs.
@@ -905,13 +915,9 @@ Warning: Deleting unreferenced junction 'A' in GNEChange_Attribute
 Warning: Deleting NBNode of 'A' in GNEJunction destructor
 Warning: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Warning: delete poiLane 'POI_4' in ~GNEChange_Shape()
-Warning: Removing poi 'POI_3' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_3' in ~GNEChange_Shape()
-Warning: Removing poi 'POI_2' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_2' in ~GNEChange_Shape()
-Warning: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_1' in ~GNEChange_Shape()
-Warning: Removing poi 'POI_0' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_0' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_0' in ~GNEChange_Shape()
@@ -930,5 +936,3 @@ Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

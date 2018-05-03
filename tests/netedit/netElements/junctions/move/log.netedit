@@ -1,14 +1,12 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Key F5 (Compute) pressed
-Warning: Edge '-gneE16' has a grade of 13.33%.
-Warning: Edge '-gneE17' has a grade of 13.33%.
-Warning: Edge '-gneE18' has a grade of 13.33%.
-Warning: Edge '-gneE19' has a grade of 13.33%.
-Warning: Edge 'gneE16' has a grade of 13.33%.
-Warning: Edge 'gneE17' has a grade of 13.33%.
-Warning: Edge 'gneE18' has a grade of 13.33%.
-Warning: Edge 'gneE19' has a grade of 13.33%.
+Warning: Edge '-gneE16' has a grade of 13.21%.
+Warning: Edge '-gneE17' has a grade of 13.21%.
+Warning: Edge '-gneE18' has a grade of 13.21%.
+Warning: Edge '-gneE19' has a grade of 13.21%.
+Warning: Edge 'gneE16' has a grade of 13.21%.
+Warning: Edge 'gneE17' has a grade of 13.21%.
+Warning: Edge 'gneE18' has a grade of 13.21%.
+Warning: Edge 'gneE19' has a grade of 13.21%.
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_0to-gneE10_0' in retrieveGNEConnection()
@@ -218,5 +216,3 @@ Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

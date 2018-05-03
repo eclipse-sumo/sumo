@@ -1,4 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into lane 'gneE13_1'
 Warning: Current selection: 0 Junctions, 0 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -456,4 +455,3 @@ Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures

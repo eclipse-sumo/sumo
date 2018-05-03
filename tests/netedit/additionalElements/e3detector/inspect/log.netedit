@@ -1,4 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'e3Detector' in AdditionalSelector
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
@@ -128,4 +127,3 @@ Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures

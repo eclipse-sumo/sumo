@@ -1,4 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Adding e1Detector 'e1Detector_gneE0_0_7' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding e1Detector 'e1Detector_gneE1_0_6' in GNEChange_Additional
@@ -54,4 +53,3 @@ Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_3_3' in GNENet destr
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE2_4_4' in GNENet destructor
 Warning: Deleting unreferenced e1Detector 'e1Detector_gneE4_0_5' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures

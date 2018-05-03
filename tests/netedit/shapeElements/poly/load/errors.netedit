@@ -1,7 +1,6 @@
 java version "1.8.0_171"
 Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
 Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Error: Attribute 'id' is missing in definition of a poly.
 Error: Polygon 'poly_0' already exists.
 Error: Attribute 'color' in definition of poly 'poly_3' is empty.
@@ -12,7 +11,7 @@ Error: Polygon's shape cannot be empty.
 Error: Attribute 'shape' in definition of poly 'poly_12' is not of type PositionVector.
 Error: Polygon's shape cannot be empty.
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02May203935.2220/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03May130751.1080/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
 Error: Attribute 'angle' in definition of poly 'poly_23' is not of type float.

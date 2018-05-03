@@ -1,4 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding chargingStation 'chargingStation_gneE1_0_0' in GNEChange_Additional
@@ -61,4 +60,3 @@ Warning: Deleting unreferenced space 'parkingArea_gneE1_0_0space2' in GNENet des
 Warning: Deleting unreferenced rerouter 'rerouter_0' in GNENet destructor
 Warning: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures

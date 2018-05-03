@@ -1,4 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
@@ -57,4 +56,3 @@ Warning: Deleting unreferenced detExit 'e3Detector_0detExit5' in GNENet destruct
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit6' in GNENet destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit7' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
