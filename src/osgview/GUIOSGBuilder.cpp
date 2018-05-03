@@ -90,7 +90,7 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
     // build edges
     for (const MSEdge* e : net->getEdgeControl().getEdges()) {
-        if (e->getFunction() == EDGEFUNC_NORMAL || e->isCrossing()) {
+        if (!e->isInternal()) {
             buildOSGEdgeGeometry(*e, *root, tesselator);
         }
     }
@@ -175,7 +175,12 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         const double zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01 : 0;
         osg::Vec3dArray* osg_coords = new osg::Vec3dArray(shapeSize);
         geom->setVertexArray(osg_coords);
-        if (!edge.isWalkingArea()) {
+        if (edge.isWalkingArea()) {
+            int index = 0;
+            for (int k = 0; k < (int)shape.size(); ++k, ++index) {
+                (*osg_coords)[index].set(shape[k].x(), shape[k].y(), shape[k].z() + zOffset);
+            }
+        } else {
             PositionVector rshape = shape;
             rshape.move2side(l->getWidth() / 2);
             int index = 0;
@@ -186,11 +191,6 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             lshape.move2side(-l->getWidth() / 2);
             for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
                 (*osg_coords)[index].set(lshape[k].x(), lshape[k].y(), lshape[k].z() + zOffset);
-            }
-        } else {
-            int index = 0;
-            for (int k = 0; k < (int)shape.size(); ++k, ++index) {
-                (*osg_coords)[index].set(shape[k].x(), shape[k].y(), shape[k].z() + zOffset);
             }
         }
         osg::Vec3Array* osg_normals = new osg::Vec3Array(1);

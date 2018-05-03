@@ -892,38 +892,44 @@ GUILane::getLoadedEdgeWeight() const {
 }
 
 
-void
+RGBColor
 GUILane::setColor(const GUIVisualizationSettings& s) const {
+    // setting and retrieving the color does not work in OSGView so we return it explicitliy
+    RGBColor col;
     if (MSGlobals::gUseMesoSim) {
-        GLHelper::setColor(static_cast<const GUIEdge*>(myEdge)->getMesoColor());
+        col = static_cast<const GUIEdge*>(myEdge)->getMesoColor();
     } else {
         const GUIColorer& c = s.laneColorer;
-        if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
-            GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        if (!setFunctionalColor(c.getActive(), col) && !setMultiColor(c, col)) {
+            col = c.getScheme().getColor(getColorValue(c.getActive()));
         }
     }
+    GLHelper::setColor(col);
+    return col;
 }
 
 
 bool
-GUILane::setFunctionalColor(int activeScheme) const {
+GUILane::setFunctionalColor(int activeScheme, RGBColor& col) const {
     switch (activeScheme) {
         case 0:
             if (myEdge->isCrossing()) {
                 // determine priority to decide color
                 MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
                 if (link->havePriority() || link->getTLLogic() != 0) {
-                    GLHelper::setColor(RGBColor(230, 230, 230));
+                    col = RGBColor(230, 230, 230);
                 } else {
-                    GLHelper::setColor(RGBColor(26, 26, 26));
+                    col = RGBColor(26, 26, 26);
                 }
+                GLHelper::setColor(col);
                 return true;
             } else {
                 return false;
             }
         case 18: {
             double hue = GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            col = RGBColor::fromHSV(hue, 1., 1.);
+            GLHelper::setColor(col);
             return true;
         }
         default:
@@ -933,7 +939,7 @@ GUILane::setFunctionalColor(int activeScheme) const {
 
 
 bool
-GUILane::setMultiColor(const GUIColorer& c) const {
+GUILane::setMultiColor(const GUIColorer& c, RGBColor& col) const {
     const int activeScheme = c.getActive();
     myShapeColors.clear();
     switch (activeScheme) {
@@ -941,12 +947,15 @@ GUILane::setMultiColor(const GUIColorer& c) const {
             for (PositionVector::const_iterator ii = myShape.begin(); ii != myShape.end() - 1; ++ii) {
                 myShapeColors.push_back(c.getScheme().getColor(ii->z()));
             }
+            // osg fallback (edge height at start)
+            col = c.getScheme().getColor(getColorValue(21));
             return true;
         case 24: // color by inclination  at segment start
             for (int ii = 1; ii < (int)myShape.size(); ++ii) {
                 const double inc = (myShape[ii].z() - myShape[ii - 1].z()) / MAX2(POSITION_EPS, myShape[ii].distanceTo2D(myShape[ii - 1]));
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
+            col = c.getScheme().getColor(getColorValue(23));
             return true;
         default:
             return false;
@@ -1148,7 +1157,7 @@ GUILane::updateColor(const GUIVisualizationSettings& s) {
         // not drawn
         return;
     }
-    const RGBColor& col = s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive()));
+    const RGBColor col = setColor(s);
     osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
     (*colors)[0].set(col.red(), col.green(), col.blue(), col.alpha());
     myGeom->setColorArray(colors);
