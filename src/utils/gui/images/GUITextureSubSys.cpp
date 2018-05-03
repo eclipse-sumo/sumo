@@ -179,10 +179,6 @@ GUITextureSubSys::getTexture(GUITexture which) {
 
 void
 GUITextureSubSys::resetTextures() {
-    // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Cleaning textures in GUITextureSubSys::resetTextures");
-    }
     // Reset all textures
     GUITexturesHelper::clearTextures();
     for (auto &i : myInstance->myTextures) {
