@@ -88,6 +88,6 @@ elmar_connected_lanes:# <!--{[->]}-->
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
-foreign:0.0001
+foreign:0.0101
 ptlines:0.0101
 cfg:0.000000001
