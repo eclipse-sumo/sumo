@@ -1144,6 +1144,10 @@ GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
 #ifdef HAVE_OSG
 void
 GUILane::updateColor(const GUIVisualizationSettings& s) {
+    if (myGeom == 0) {
+        // not drawn
+        return;
+    }
     const RGBColor& col = s.laneColorer.getScheme().getColor(getColorValue(s.laneColorer.getActive()));
     osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(myGeom->getColorArray());
     (*colors)[0].set(col.red(), col.green(), col.blue(), col.alpha());

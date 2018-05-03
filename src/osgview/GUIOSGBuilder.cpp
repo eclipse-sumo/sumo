@@ -89,10 +89,9 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
     // build edges
-    const MSEdgeVector& edges = net->getEdgeControl().getEdges();
-    for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-        if (!(*i)->isInternal()) {
-            buildOSGEdgeGeometry(**i, *root, tesselator);
+    for (const MSEdge* e : net->getEdgeControl().getEdges()) {
+        if (e->getFunction() == EDGEFUNC_NORMAL || e->isCrossing()) {
+            buildOSGEdgeGeometry(*e, *root, tesselator);
         }
     }
     // build junctions
@@ -172,18 +171,27 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         osg::Geometry* geom = new osg::Geometry();
         geode->addDrawable(geom);
         addTo.addChild(geode);
-        osg::Vec3dArray* osg_coords = new osg::Vec3dArray((int)shape.size() * 2);
+        const int shapeSize = (int)(edge.isWalkingArea() ? shape.size() : shape.size() * 2);
+        const double zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01 : 0;
+        osg::Vec3dArray* osg_coords = new osg::Vec3dArray(shapeSize);
         geom->setVertexArray(osg_coords);
-        PositionVector rshape = shape;
-        rshape.move2side(SUMO_const_halfLaneWidth);
-        int index = 0;
-        for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
-            (*osg_coords)[index].set(rshape[k].x(), rshape[k].y(), rshape[k].z());
-        }
-        PositionVector lshape = shape;
-        lshape.move2side(-SUMO_const_halfLaneWidth);
-        for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
-            (*osg_coords)[index].set(lshape[k].x(), lshape[k].y(), lshape[k].z());
+        if (!edge.isWalkingArea()) {
+            PositionVector rshape = shape;
+            rshape.move2side(SUMO_const_halfLaneWidth);
+            int index = 0;
+            for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
+                (*osg_coords)[index].set(rshape[k].x(), rshape[k].y(), rshape[k].z() + zOffset);
+            }
+            PositionVector lshape = shape;
+            lshape.move2side(-SUMO_const_halfLaneWidth);
+            for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
+                (*osg_coords)[index].set(lshape[k].x(), lshape[k].y(), lshape[k].z() + zOffset);
+            }
+        } else {
+            int index = 0;
+            for (int k = 0; k < (int)shape.size(); ++k, ++index) {
+                (*osg_coords)[index].set(shape[k].x(), shape[k].y(), shape[k].z() + zOffset);
+            }
         }
         osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
         (*osg_normals)[0] = osg::Vec3(0, 0, 1);
@@ -201,7 +209,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         geom->setColorArray(osg_colors);
         geom->setColorBinding(osg::Geometry::BIND_OVERALL);
 #endif
-        geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, (int)shape.size() * 2));
+        geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, shapeSize));
 
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
