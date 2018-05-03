@@ -181,6 +181,7 @@ def runSimulation(options):
                      "--ignore-route-errors",
                      "--error-log", options.trips + ".errorlog",
                      "-a", options.ptstops,
+                     "--device.rerouting.adaptation-interval", "0", # ignore tls and traffic effects
                      "--vehroute-output", options.routes,
                      "--stop-output", options.stopinfos, ])
     print("done.")

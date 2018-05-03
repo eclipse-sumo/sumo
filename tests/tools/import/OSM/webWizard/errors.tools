@@ -1453,6 +1453,7 @@ Warning: busStop '270719334' for vehicle '3_bus_100:0' on lane '139877309_1' is 
 Warning: busStop '272441719' for vehicle '7_bus_200:0' on lane '85255869#1_2' is not downstream the current route.
 Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '33_bus_N6:0'.
 Warning: Vehicle '35_bus_147:1' is not allowed to stop on lane '274513583_0'.
+Warning: busStop '270719334' for vehicle '46_bus_N8:1' on lane '139877309_1' is not downstream the current route.
 Warning: Vehicle '35_bus_147:1' is not allowed on destination edge '274513583'.
 Warning: No route for vehicle '35_bus_147:1' found.
 Warning: busStop '2915579613' for vehicle '45_bus_N8:0' on lane '275177453_1' is not downstream the current route.
@@ -1460,15 +1461,14 @@ Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle '
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '49_subway_U2:0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle '49_subway_U2:0'.
 Warning: Vehicle '50_train_U2:1' is not allowed to depart on any lane of its first edge.
-Warning: busStop '270719334' for vehicle '46_bus_N8:1' on lane '139877309_1' is not downstream the current route.
 Warning: No connection between edge '272795472#1' and edge '199847339' found.
 Warning: Vehicle '49_subway_U2:0' has no valid route from edge '272795472#1' to stop edge '199847339'.
 Warning: busStop '253845582' for vehicle '54_subway_U55:1' on lane '70268945_0' is not downstream the current route.
 Warning: busStop '253846340' for vehicle '54_subway_U55:1' on lane '70268945_0' is not downstream the current route.
 Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=702.00.
 Warning: Vehicle '35_bus_147:1' ends teleporting on edge '153698380', time 702.00.
-Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=1016.00.
-Warning: Vehicle '35_bus_147:1' teleports beyond arrival edge '274513583', time 1064.00.
+Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=1014.00.
+Warning: Vehicle '35_bus_147:1' teleports beyond arrival edge '274513583', time 1062.00.
 Warning: Teleporting vehicle '49_subway_U2:0'; waited too long (wrong lane), lane='272795472#1_0', time=1210.00.
 Warning: Vehicle '49_subway_U2:0' ends teleporting on edge '199847339', time 1210.00.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
@@ -1482,13 +1482,10 @@ Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lan
 Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1068.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1214.00.
 Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1214.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1332.00.
-Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1332.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1645.00.
-Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1693.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1338.00.
+Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1338.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1650.00.
+Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1698.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1814.00.
 Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1814.00.
 Warning: Person 'ped2' aborted waiting for TXL:1 at busStop '271296293'.
-Warning: Person 'ped44' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped111' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped73' aborted waiting for 100:1 at busStop '270718978'.
