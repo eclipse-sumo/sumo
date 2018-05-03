@@ -411,6 +411,10 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
         MSTransportable* person = (*it).second;
         // XXX if not departed: continue
+        if (person->hasArrived()) {
+            //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
+            continue;
+        }
         auto itPers = myPersons.find(person);
         if (itPers == myPersons.end()) {
             myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
