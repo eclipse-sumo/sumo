@@ -26,6 +26,9 @@ if(SWIG_FOUND)
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${swig_extra_generated_files} ${CMAKE_SOURCE_DIR}/bin
             DEPENDS $<TARGET_FILE:_libsumo>)
+        if (MSVC)
+            set_property(TARGET copy_python PROPERTY EXCLUDE_FROM_ALL_DEBUG TRUE)
+        endif()
     endif()
 
     find_package(Java)
