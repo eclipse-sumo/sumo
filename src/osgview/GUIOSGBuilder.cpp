@@ -173,7 +173,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         addTo.addChild(geode);
         const int shapeSize = (int)(edge.isWalkingArea() ? shape.size() : shape.size() * 2);
         const double zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01 : 0;
-        osg::Vec3dArray* osg_coords = new osg::Vec3dArray(shapeSize);
+        osg::Vec3Array* osg_coords = new osg::Vec3Array(shapeSize);
         geom->setVertexArray(osg_coords);
         if (edge.isWalkingArea()) {
             int index = 0;
@@ -232,12 +232,12 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     osg::Geometry* geom = new osg::Geometry();
     geode->addDrawable(geom);
     addTo.addChild(geode);
-    osg::Vec3dArray* osg_coords = new osg::Vec3dArray((int)shape.size());
+    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
         (*osg_coords)[k].set(shape[k].x(), shape[k].y(), shape[k].z());
     }
-    osg::Vec3dArray* osg_normals = new osg::Vec3dArray(1);
+    osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
     (*osg_normals)[0] = osg::Vec3(0, 0, 1);
 #if OSG_MIN_VERSION_REQUIRED(3,2,0)
     geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
