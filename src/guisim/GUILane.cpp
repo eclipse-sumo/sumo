@@ -75,6 +75,9 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
                  SVCPermissions permissions, int index, bool isRampAccel) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index, isRampAccel),
     GUIGlObject(GLO_LANE, id),
+#ifdef HAVE_OSG
+    myGeom(0),
+#endif
     myAmClosed(false)
 {
     if (MSGlobals::gUseMesoSim) {
