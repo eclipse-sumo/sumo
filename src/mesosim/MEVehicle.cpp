@@ -218,12 +218,14 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
 
 
 bool
-MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*errorMsg*/, SUMOTime /* untilOffset */, bool /*collision*/,
+MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*errorMsg*/, SUMOTime untilOffset, bool /*collision*/,
                    MSRouteIterator* /* searchStart */) {
     const MSEdge* const edge = MSEdge::dictionary(stopPar.lane.substr(0, stopPar.lane.rfind('_')));
     assert(edge != 0);
     MESegment* stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(*edge, stopPar.endPos);
-    myStops[stopSeg] += stopPar.duration;
+    myStops[stopSeg].push_back(stopPar);
+    myStops[stopSeg].back().until += untilOffset;
+    myStopEdges.push_back(edge);
     return true;
 }
 
@@ -248,21 +250,23 @@ MEVehicle::isStoppedInRange(double pos) const {
 
 
 SUMOTime
-MEVehicle::getStoptime(const MESegment* const seg) const {
+MEVehicle::getStoptime(const MESegment* const seg, SUMOTime time) const {
     if (myStops.find(seg) != myStops.end()) {
-        return myStops.find(seg)->second;
+        for (const SUMOVehicleParameter::Stop& stop : myStops.find(seg)->second) {
+            time += stop.duration;
+            if (stop.until > time) {
+                time = stop.until;
+            }
+        }
     }
-    return 0;
+    return time;
 }
 
 
 const ConstMSEdgeVector
 MEVehicle::getStopEdges() const {
-    ConstMSEdgeVector result;
-    for (std::map<const MESegment* const, SUMOTime>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
-        result.push_back(&iter->first->getEdge());
-    }
-    return result;
+// TODO: myStopEdges still needs to be updated when leaving a stop
+    return myStopEdges;
 }
 
 
@@ -348,12 +352,10 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myBlockTime);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save stops and parameters
-    for (std::map<const MESegment* const, SUMOTime>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
-        out.openTag(SUMO_TAG_STOP);
-        out.writeAttr(SUMO_ATTR_LANE, it->first->getEdge().getLanes()[0]->getID());
-        out.writeAttr(SUMO_ATTR_ENDPOS, it->first->getIndex() * it->first->getLength());
-        out.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(it->second));
-        out.closeTag();
+    for (const auto& it : myStops) {
+        for (const SUMOVehicleParameter::Stop& stop : it.second) {
+            stop.write(out);
+        }
     }
     myParameter->writeParams(out);
     for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {

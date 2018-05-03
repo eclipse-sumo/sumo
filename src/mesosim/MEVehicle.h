@@ -168,11 +168,12 @@ public:
      */
     bool isStoppedInRange(double pos) const;
 
-    /** @brief Returns how long to stop at the given segment
+    /** @brief Returns until when to stop at the given segment
      * @param[in] seg The segment in question
+     * @param[in] time the current time
      * @return stop time for the segment
      */
-    SUMOTime getStoptime(const MESegment* const seg) const;
+    SUMOTime getStoptime(const MESegment* const seg, SUMOTime time) const;
 
 
     /** @brief Returns the list of still pending stop edges
@@ -357,7 +358,10 @@ protected:
     SUMOTime myBlockTime;
 
     /// @brief where to stop
-    std::map<const MESegment* const, SUMOTime> myStops;
+    std::map<const MESegment* const, std::vector<SUMOVehicleParameter::Stop> > myStops;
+
+    /// @brief edges to stop
+    ConstMSEdgeVector myStopEdges;
 
 };
 
