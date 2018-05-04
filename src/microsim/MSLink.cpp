@@ -543,7 +543,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << "       imp=" << impatience << " atb=" << avi.arrivalTimeBraking << " at2=" << foeArrivalTime << " lA=" << lookAhead << " egoLT=" << leaveTime << "\n";
+        std::cout << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
     }
 #endif
     if (avi.leavingTime < arrivalTime) {
