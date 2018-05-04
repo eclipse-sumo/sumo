@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect POIs
-netedit.leftClick(match, 400, 400)
+netedit.leftClick(match, 385, 410)
 
 # Set invalid color
 netedit.modifyAttribute(0, "Jren")

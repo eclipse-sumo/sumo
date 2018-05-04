@@ -41,8 +41,8 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 [log]  TYPE "#TAB."
 [log]  TYPE " "
 [log]  TYPE "i"
-[log] CLICK on L(704,540)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 704 - 540
+[log] CLICK on L(689,550)@S(0)[0,0 1600x900] (235 msec)
+TestFunctions: Clicked over position 689 - 550
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
@@ -124,6 +124,16 @@ TestFunctions: Clicked over position 704 - 540
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log]  TYPE " "
+[log]  TYPE "#F12."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F12."
@@ -134,9 +144,11 @@ TestFunctions: Clicked over position 704 - 540
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
+[log]  TYPE "#TAB."
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F12."
+[log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -148,6 +160,7 @@ TestFunctions: Clicked over position 704 - 540
 [log]  TYPE "#TAB."
 [log]  TYPE " "
 [log]  TYPE "#F12."
+[log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -186,8 +199,9 @@ TestFunctions: Clicked over position 704 - 540
 [log]  TYPE "#TAB."
 [log]  TYPE " "
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
+[log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
@@ -202,8 +216,9 @@ TestFunctions: Clicked over position 304 - 140
 [log] ( Ctrl )  TYPE "z"
 [log] ( Ctrl )  TYPE "z"
 [log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
 TestFunctions: Clicked over position 304 - 140
+[log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"
 [log] ( Ctrl )  TYPE "y"

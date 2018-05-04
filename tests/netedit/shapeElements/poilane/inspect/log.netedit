@@ -1,13 +1,11 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected shape 'poiLane' in ShapeSelector
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Value 'POI_1' for attribute id of poiLane isn't valid
-Warning: Setting new attribute id '' into poiLane 'POI_0'
+Warning: Value '' for attribute id of poiLane isn't valid
 Warning: Value 'ID with spaces' for attribute id of poiLane isn't valid
-Warning: Setting new attribute id 'newID' into poiLane ''
+Warning: Setting new attribute id 'newID' into poiLane 'POI_0'
 Warning: Value 'dummyLane' for attribute lane of poiLane isn't valid
 Warning: Value '' for attribute lane of poiLane isn't valid
 Warning: Setting new attribute lane 'gneE0_0' into poiLane 'newID'
@@ -27,14 +25,14 @@ Warning: Setting new attribute color '255,255,500' into poiLane 'newID'
 Warning: Setting new attribute color 'blue' into poiLane 'newID'
 Warning: Setting new attribute color '125,60,200' into poiLane 'newID'
 Warning: Setting new attribute type 'myOwnType' into poiLane 'newID'
-Warning: Setting new attribute layer '3' into poiLane 'newID'
+Warning: Setting new attribute layer '4' into poiLane 'newID'
 Warning: Setting new attribute layer '-2' into poiLane 'newID'
 Warning: Setting new attribute layer '2' into poiLane 'newID'
 Warning: Setting new attribute width '0' into poiLane 'newID'
-Warning: Setting new attribute width '-2' into poiLane 'newID'
+Warning: Value '-2' for attribute width of poiLane isn't valid
 Warning: Setting new attribute width '5' into poiLane 'newID'
 Warning: Setting new attribute height '0' into poiLane 'newID'
-Warning: Setting new attribute height '-3' into poiLane 'newID'
+Warning: Value '-3' for attribute height of poiLane isn't valid
 Warning: Setting new attribute height '5' into poiLane 'newID'
 Error: Could not load '%$$%%%%%'.
 Unknown file extension '' for image '%$$%%%%%'!
@@ -42,10 +40,7 @@ Warning: Value '%$$%%%%%' for attribute imgFile of poiLane isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poiLane isn't valid
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute relativePath 'true' into poiLane 'newID'
 Warning: Setting new attribute angle '0' into poiLane 'newID'
 Warning: Setting new attribute angle '-12' into poiLane 'newID'
@@ -66,15 +61,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute relativePath '0' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poiLane 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute height '-3.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '0.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '0.00' into poiLane 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute width '-2.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '0.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -82,9 +72,9 @@ Warning: Setting previous attribute width '0.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute layer '-2.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '3.00' into poiLane 'newID'
+Warning: Setting previous attribute layer '4.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '3.00' into poiLane 'newID'
+Warning: Setting previous attribute layer '4.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type '' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -102,22 +92,21 @@ Warning: Setting previous attribute posLat '0.00' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE1_0' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id '' into poiLane 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'POI_0' into poiLane ''
+Warning: Setting previous attribute id 'POI_0' into poiLane 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poiLane 'POI_1' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id '' into poiLane 'POI_0'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'newID' into poiLane ''
+Warning: Setting new attribute id 'newID' into poiLane 'POI_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE0_0' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -135,7 +124,7 @@ Warning: Setting new attribute color '125,60,200' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute layer '3' into poiLane 'newID'
+Warning: Setting new attribute layer '4' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '-2' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -143,19 +132,13 @@ Warning: Setting new attribute layer '2' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '0' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute width '-2' into poiLane 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '5' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute height '0' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute height '-3' into poiLane 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute height '5' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute relativePath 'true' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -168,6 +151,9 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '30' into poiLane 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poiLane 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -184,5 +170,3 @@ Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge dest
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
