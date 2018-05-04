@@ -1718,7 +1718,13 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
         if (gDebugFlag1) {
             std::cout << "     i=" << i << " intoDist=" << distanceTo(into[i]) << " obs2Dist=" << distanceTo(obs2[i]) << "\n";
         }
-        if (distanceTo(obs2[i]) < distanceTo(into[i])) {
+        const double dO = distanceTo(obs2[i]);
+        const double dI = distanceTo(into[i]);
+        if (dO < dI) {
+            into[i] = obs2[i];
+        } else if (dO == dI && (
+                    obs2[i].type == OBSTACLE_PED ||
+                    obs2[i].type == OBSTACLE_VEHICLE)) {
             into[i] = obs2[i];
         }
     }
