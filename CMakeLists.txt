@@ -2,6 +2,7 @@
 # -DCMAKE_BUILD_TYPE:STRING=Debug (default Release)
 
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
+option(MULTITHREADED_BUILD "Use all available cores for building" true)
 
 project(SUMO)
 cmake_minimum_required(VERSION 3.1)
@@ -28,6 +29,9 @@ elseif (MSVC)
         # enabling /WX is not possible due to warnings in external headers
         # /Wall brings MSVC to complete halt
         set(warnings "/W4 /EHsc")
+    endif ()
+    if (MULTITHREADED_BUILD)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
     endif ()
 endif ()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${warnings}")
