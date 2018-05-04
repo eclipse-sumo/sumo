@@ -188,6 +188,9 @@ for platform, dllDir in platformDlls:
             if platform == "x64":
                 generator += " Win64"
             buildDir = generateCMake(generator, log, options.suffix == "extra")
+            if options.suffix == "extra":
+                subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "_libsumo"],
+                                cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
             subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     else:
