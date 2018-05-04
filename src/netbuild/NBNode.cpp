@@ -2579,7 +2579,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         }
         if (prev.nextWalkingArea == "") {
             if (next.prevWalkingArea != "" || &prev == &next) {
-                WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' has no target.");
+                WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' across '" + toString(prev.edges) + "' has no target.");
                 prev.valid = false;
                 continue;
             }

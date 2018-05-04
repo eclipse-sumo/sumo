@@ -568,7 +568,7 @@ public:
      * */
     int checkCrossing(EdgeVector candidates);
 
-    /// @brief return true if already exist a crossing with the same edges as the input
+    /// @brief return true if there already exist a crossing with the same edges as the input
     bool checkCrossingDuplicated(EdgeVector edges);
 
     /// @brief build internal lanes, pedestrian crossings and walking areas
