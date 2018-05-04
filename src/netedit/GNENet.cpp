@@ -139,6 +139,16 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
 
 
 GNENet::~GNENet() {
+    // Decrease reference of Polys (needed after volatile recomputing)
+    for (auto i : myPolygons) {
+        dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
+    }
+
+    // Decrease reference of POIs (needed after volatile recomputing)
+    for (auto i : myPOIs) {
+        dynamic_cast<GNEAttributeCarrier*>(i.second)->decRef("GNENet::~GNENet");
+    }
+
     // Drop Edges
     for (auto it : myAttributeCarriers.edges) {
         it.second->decRef("GNENet::~GNENet");

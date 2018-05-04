@@ -88,7 +88,6 @@ class GNEFrame;
 class GNENetElement;
 class GNECrossing;
 class GNEAttributeCarrier;
-class GNEPOILane;
 
 // ===========================================================================
 // class definitions
