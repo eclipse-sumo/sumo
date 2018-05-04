@@ -701,27 +701,27 @@ Error: Attribute 'id' is missing in definition of a junction.
 Error: Unknown to-node '3' for edge '2'.
 Quitting (on error).
 ------------------ net/junction[0]@type:
-Error: An unknown or invalid junction type occured in junction '1'.
+Error: An unknown or invalid junction type occurred in junction '1'.
 Error: Unknown from-node '1' for edge '1'.
 Quitting (on error).
 ------------------ net/junction[1]@type:
-Error: An unknown or invalid junction type occured in junction '2'.
+Error: An unknown or invalid junction type occurred in junction '2'.
 Error: Unknown to-node '2' for edge '1'.
 Quitting (on error).
 ------------------ net/junction[2]@type:
-Error: An unknown or invalid junction type occured in junction '3'.
+Error: An unknown or invalid junction type occurred in junction '3'.
 Error: Unknown to-node '3' for edge '2'.
 Quitting (on error).
 ------------------ net/junction[0]@type:a
-Error: An unknown or invalid junction type occured in junction '1'.
+Error: An unknown or invalid junction type occurred in junction '1'.
 Error: Unknown from-node '1' for edge '1'.
 Quitting (on error).
 ------------------ net/junction[1]@type:a
-Error: An unknown or invalid junction type occured in junction '2'.
+Error: An unknown or invalid junction type occurred in junction '2'.
 Error: Unknown to-node '2' for edge '1'.
 Quitting (on error).
 ------------------ net/junction[2]@type:a
-Error: An unknown or invalid junction type occured in junction '3'.
+Error: An unknown or invalid junction type occurred in junction '3'.
 Error: Unknown to-node '3' for edge '2'.
 Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
