@@ -140,6 +140,10 @@ NBTrafficLightDefinition::amInvalid() const {
 
 int
 NBTrafficLightDefinition::computeBrakingTime(double minDecel) const {
+    if (myIncomingEdges.size() == 0) {
+        // don't crash
+        return 3;
+    }
     double vmax = NBContHelper::maxSpeed(myIncomingEdges);
     if (vmax < 71 / 3.6) {
         // up to 50kmh: 3 seconds , 60km/h: 4, 70kmh: 5

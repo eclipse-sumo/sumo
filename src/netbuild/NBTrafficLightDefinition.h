@@ -362,6 +362,14 @@ public:
         return getMaxIndex();
     }
 
+    /** @brief Computes the time vehicles may need to brake
+     *
+     * This time depends on the maximum speed allowed on incoming junctions.
+     * It is computed as max_speed_allowed / minimum_vehicle_decleration
+     */
+    int computeBrakingTime(double minDecel) const;
+
+
 protected:
     /// @brief id for temporary definitions
     static const std::string DummyID;
@@ -382,14 +390,6 @@ protected:
     /** @brief Build the list of participating edges
      */
     virtual void collectEdges();
-
-
-    /** @brief Computes the time vehicles may need to brake
-     *
-     * This time depends on the maximum speed allowed on incoming junctions.
-     * It is computed as max_speed_allowed / minimum_vehicle_decleration
-     */
-    int computeBrakingTime(double minDecel) const;
 
 
     // @return whether this traffic light is invalid and should be computed
