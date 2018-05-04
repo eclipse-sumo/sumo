@@ -1309,13 +1309,13 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     }
     // load shapes if was recomputed with volatile options
     if (shapePath != "") {
-........// new shapes has to be inserted without possibility of undo/redo
+        // new shapes has to be inserted without possibility of undo/redo
         myAllowUndoShapes = false;
         GNEApplicationWindow::GNEShapeHandler handler(shapePath, this);
         if (!XMLSubSys::runParser(handler, shapePath, false)) {
             WRITE_MESSAGE("Loading of " + shapePath + " failed.");
         }
-........// restore flag
+        // restore flag
         myAllowUndoShapes = true;
     }
     window->getApp()->endWaitCursor();
