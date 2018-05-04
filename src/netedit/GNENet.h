@@ -71,7 +71,6 @@ class GNEJunction;
 class GNELane;
 class GNENetElement;
 class GNEPOI;
-class GNEPOILane;
 class GNEPoly;
 class GNERerouterInterval;
 class GNEShape;
@@ -820,6 +819,9 @@ private:
 
     /// @brief map with the Edges and their number of lanes
     std::map<std::string, int> myEdgesAndNumberOfLanes;
+
+    /// @brief flag used to indicate if shaped created can be undo
+    bool myAllowUndoShapes;
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS
     class GNEChange_ReplaceEdgeInTLS : public GNEChange {

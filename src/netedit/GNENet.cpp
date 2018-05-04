@@ -123,7 +123,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myNeedRecompute(true),
     myAdditionalsSaved(true),
     myShapesSaved(true),
-    myTLSProgramsSaved(true) {
+    myTLSProgramsSaved(true), 
+    myAllowUndoShapes(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -232,10 +233,16 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
     // check if ID is duplicated
     if (myPolygons.get(id) == nullptr) {
         // create poly
-        myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
         GNEPoly* poly = new GNEPoly(this, id, type, shape, geo, fill, color, layer, angle, imgFile, relativePath, false, false);
-        myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
-        myViewNet->getUndoList()->p_end();
+        if(myAllowUndoShapes) {
+            myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
+            myViewNet->getUndoList()->add(new GNEChange_Shape(poly, true), true);
+            myViewNet->getUndoList()->p_end();
+        } else {
+            // insert shape without allowing undo/redo
+            insertShape(poly);
+            poly->incRef("addPolygon");
+        }
         return true;
     } else {
         return false;
@@ -254,9 +261,15 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             // create POI
             GNEPOI* poi = new GNEPOI(this, id, type, color, pos, geo, layer, angle, imgFile, relativePath, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
-                myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-                myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
-                myViewNet->getUndoList()->p_end();
+                if(myAllowUndoShapes) {
+                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+                    myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
+                    myViewNet->getUndoList()->p_end();
+                } else {
+                    // insert shape without allowing undo/redo
+                    insertShape(poi);
+                    poi->incRef("addPOI");
+                }
                 return true;
             } else {
                 throw ProcessError("Error adding GNEPOI into shapeContainer");
@@ -266,9 +279,15 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
             GNELane* retrievedLane = retrieveLane(lane);
             GNEPOI* poi = new GNEPOI(this, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
             if (myPOIs.add(poi->getID(), poi)) {
-                myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
-                myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
-                myViewNet->getUndoList()->p_end();
+                if(myAllowUndoShapes) {
+                    myViewNet->getUndoList()->p_begin("add " + toString(poi->getTag()));
+                    myViewNet->getUndoList()->add(new GNEChange_Shape(poi, true), true);
+                    myViewNet->getUndoList()->p_end();
+                } else {
+                    // insert shape without allowing undo/redo
+                    insertShape(poi);
+                    poi->incRef("addPOI");
+                }
                 return true;
             } else {
                 throw ProcessError("Error adding GNEPOI over lane into shapeContainer");
@@ -1290,10 +1309,14 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     }
     // load shapes if was recomputed with volatile options
     if (shapePath != "") {
+........// new shapes has to be inserted without possibility of undo/redo
+        myAllowUndoShapes = false;
         GNEApplicationWindow::GNEShapeHandler handler(shapePath, this);
         if (!XMLSubSys::runParser(handler, shapePath, false)) {
             WRITE_MESSAGE("Loading of " + shapePath + " failed.");
         }
+........// restore flag
+        myAllowUndoShapes = true;
     }
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
@@ -2442,6 +2465,10 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
 
         // clear additionals (must be do it separated)
         myAttributeCarriers.additionals.clear();
+
+        // clear shape containers
+        myPolygons.clear();
+        myPOIs.clear();
 
         // init again junction an edges
         initJunctionsAndEdges();
