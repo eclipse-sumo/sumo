@@ -897,7 +897,13 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             DEBUG_PRINT(currentObs);
         }
         // check link state
-        gDebugFlag1 = DEBUGCOND(p); // see MSLink_DEBUG_OPENED
+        if DEBUGCOND(p) {
+            gDebugFlag1 = true;
+            std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID()) 
+                << " dist=" << dist << " d2=" << dist -p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR * speed 
+                << " opened=" << link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link)) << "\n";
+            gDebugFlag1 = false;
+        }
         if (link != 0
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
@@ -915,7 +921,6 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
             }
         }
-        gDebugFlag1 = false;
         if (&lane->getEdge() == &p.myStage->getDestination() && p.myStage->getDestinationStop() != 0) {
             Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival", 0));
             p.mergeObstacles(currentObs, arrival);
