@@ -169,12 +169,12 @@ public:
 class DummyState : public PedestrianState {
 
 public:
-    double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const { return 0; }
-    Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const { return Position::INVALID; }
-    double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const { return 0; }
-    SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const { return 0; }
-    double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const { return 0; }
-    const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const { return 0; }
+    double getEdgePos(const MSPerson::MSPersonStage_Walking&, SUMOTime) const { return 0.; }
+    Position getPosition(const MSPerson::MSPersonStage_Walking&, SUMOTime) const { return Position::INVALID; }
+    double getAngle(const MSPerson::MSPersonStage_Walking&, SUMOTime) const { return 0.; }
+    SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking&, SUMOTime) const { return 0; }
+    double getSpeed(const MSPerson::MSPersonStage_Walking&) const { return 0.; }
+    const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking&) const { return nullptr; }
 };
 
 

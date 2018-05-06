@@ -13,7 +13,7 @@
 /// @author  Yun-Pang Floetteroed
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NBNode.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -740,7 +740,7 @@ private:
     void removeJoinedTrafficLights();
 
     /// @brief displace lane shapes to account for change in lane width at this node
-    void displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
+    void displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
 private:
     /// @brief The position the node lies at

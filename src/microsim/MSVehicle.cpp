@@ -659,6 +659,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myWaitingTimeCollector(),
     myTimeLoss(0),
     myState(0, 0, 0, 0),
+    myDriverState(nullptr),
     myActionStep(true),
     myLastActionTime(0),
     myLane(0),
@@ -676,8 +677,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myCollisionImmunity(-1),
     myCachedPosition(Position::INVALID),
     myEdgeWeights(0),
-    myInfluencer(0),
-    myDriverState(nullptr)
+    myInfluencer(nullptr)
 {
     if (!(*myCurrEdge)->isTazConnector()) {
         if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {

@@ -638,7 +638,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     if (con.customShape.size() == 0) {
         PositionVector fromShape = fromE->getLaneShape(con.fromLane);
         PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
-        displaceShapeAtWidthChange(fromE, con, fromShape, toShape);
+        displaceShapeAtWidthChange(con, fromShape, toShape);
         ret = computeSmoothShape(fromShape, toShape,
                 numPoints, fromE->getTurnDestination() == con.toEdge,
                 (double) 5. * (double) fromE->getNumLanes(),
@@ -665,7 +665,7 @@ NBNode::isConstantWidthTransition() const {
 }
 
 void
-NBNode::displaceShapeAtWidthChange(NBEdge* fromE, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
+NBNode::displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
     if (isConstantWidthTransition()) {
         // displace shapes
         NBEdge* in = myIncomingEdges[0];
