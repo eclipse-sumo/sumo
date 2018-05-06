@@ -308,8 +308,8 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
-Warning: Invalid pedestrian topology: crossing ':588181259_c0' has no target.
-Warning: Invalid pedestrian topology: crossing ':98976234_c2' has no target.
+Warning: Invalid pedestrian topology: crossing ':588181259_c0' across '236523981#0' has no target.
+Warning: Invalid pedestrian topology: crossing ':98976234_c2' across '-84960597#0' has no target.
 Warning: Discarding invalid crossing ':98976234_c0' at junction '98976234' with edges '153537606#1 84960597#0' (no walkingarea found).
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
@@ -652,7 +652,7 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
-Warning: Invalid pedestrian topology: crossing ':98976234_c2' has no target.
+Warning: Invalid pedestrian topology: crossing ':98976234_c2' across '-84960597#0' has no target.
 Warning: Discarding invalid crossing ':98976234_c0' at junction '98976234' with edges '153537606#1 84960597#0' (no walkingarea found).
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
