@@ -30,7 +30,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 18
+#define TRACI_VERSION 19
 
 // ****************************************
 // COMMANDS
@@ -915,6 +915,9 @@
 
 // track vehicle
 #define VAR_TRACK_VEHICLE 0xa6
+
+// presence of view
+#define VAR_HAS_VIEW 0xa7
 
 
 #endif

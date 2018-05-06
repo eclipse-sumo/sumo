@@ -22,7 +22,8 @@ from . import constants as tc
 _RETURN_VALUE_FUNC = {tc.VAR_VIEW_ZOOM: Storage.readDouble,
                       tc.VAR_VIEW_OFFSET: lambda result: result.read("!dd"),
                       tc.VAR_VIEW_SCHEMA: Storage.readString,
-                      tc.VAR_VIEW_BOUNDARY: lambda result: (result.read("!dd"), result.read("!dd"))}
+                      tc.VAR_VIEW_BOUNDARY: lambda result: (result.read("!dd"), result.read("!dd")),
+                      tc.VAR_HAS_VIEW: lambda result: result.read("!B") != 0}
 
 
 class GuiDomain(Domain):
@@ -122,6 +123,13 @@ class GuiDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_GUI_VARIABLE, tc.VAR_TRACK_VEHICLE, viewID, vehID)
+
+    def hasView(self, viewID=DEFAULT_VIEW):
+        """hasView(string): -> bool
+
+        Check whether the given view exists.
+        """
+        return self._getUniversal(tc.VAR_HAS_VIEW, viewID)
 
 
 GuiDomain()
