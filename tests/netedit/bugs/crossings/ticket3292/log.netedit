@@ -21,10 +21,10 @@ Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
 Warning: Adding crossing into junction 'Center'
-Warning: Invalid pedestrian topology: crossing ':Center_c1' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c1' across '4 8' has no target.
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across '4 8' has no target.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
@@ -38,9 +38,9 @@ Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding crossing into junction 'Center'
-Warning: Invalid pedestrian topology: crossing ':Center_c1' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c1' across '4 8' has no target.
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across '4 8' has no target.
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor

@@ -1,5 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE3_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE4_0to-gneE3_0' in retrieveGNEConnection()
@@ -86,9 +84,7 @@ Warning: Setting new attribute from 'gneJ16' into edge 'gneE5'
 Warning: Removing edge '-gneE4' from net
 Warning: Setting new attribute from 'gneJ16' into edge 'gneE10'
 Warning: Removing junction 'B' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Removing junction 'C' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute id '_B_C' into junction 'gneJ16'
 Warning: Created connection 'from-gneE5_0togneE10_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE5_0to-gneE3_0' in retrieveGNEConnection()
@@ -181,5 +177,3 @@ Warning: Deleting unreferenced junction 'gneJ15' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
