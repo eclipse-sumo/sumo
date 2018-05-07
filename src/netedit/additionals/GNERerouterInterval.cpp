@@ -69,9 +69,9 @@ GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
     // openTag
     device.openTag(getTag());
     // write begin
-    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    writeAttribute(device, SUMO_ATTR_BEGIN);
     //write end
-    device.writeAttr(SUMO_ATTR_END, myEnd);
+    writeAttribute(device, SUMO_ATTR_END);
     // write closing reroutes
     for (auto i : myClosingReroutes) {
         i->writeClosingReroute(device);

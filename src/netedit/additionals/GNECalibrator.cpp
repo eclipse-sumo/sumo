@@ -102,18 +102,18 @@ void
 GNECalibrator::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(SUMO_TAG_CALIBRATOR);
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    writeAttribute(device, SUMO_ATTR_ID);
     if (myLane) {
-        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
+        writeAttribute(device, SUMO_ATTR_LANE);
+        writeAttribute(device, SUMO_ATTR_POSITION);
     } else if (myEdge) {
-        device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
+        writeAttribute(device, SUMO_ATTR_EDGE);
+        writeAttribute(device, SUMO_ATTR_POSITION);
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
-    device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
+    writeAttribute(device, SUMO_ATTR_FREQUENCY);
+    writeAttribute(device, SUMO_ATTR_OUTPUT);
     // write all routes of this calibrator
     for (auto i : myCalibratorRoutes) {
         i->writeRoute(device);

@@ -63,9 +63,9 @@ GNERouteProbReroute::writeRouteProbReroute(OutputDevice& device) const {
     // open Tag
     device.openTag(getTag());
     // write Route ID
-    device.writeAttr(SUMO_ATTR_ID, myNewRouteId);
+    writeAttribute(device, SUMO_ATTR_ID);
     // write Probability
-    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    writeAttribute(device, SUMO_ATTR_PROB);
     // close tag
     device.closeTag();
 }

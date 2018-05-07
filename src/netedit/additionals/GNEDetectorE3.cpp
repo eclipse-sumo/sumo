@@ -126,17 +126,17 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
     if (myAdditionalChilds.size() > 0) {
         // Write parameters
         device.openTag(getTag());
-        device.writeAttr(SUMO_ATTR_ID, getID());
-        device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
+        writeAttribute(device, SUMO_ATTR_ID);
+        writeAttribute(device, SUMO_ATTR_FREQUENCY);
         if (!myFilename.empty()) {
-            device.writeAttr(SUMO_ATTR_FILE, myFilename);
+            writeAttribute(device, SUMO_ATTR_FILE);
         }
-        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
-        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
-        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
+        writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
+        writeAttribute(device, SUMO_ATTR_POSITION);
         // write block movement attribute only if it's enabled
         if (myBlockMovement) {
-            device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+            writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
         }
         // Write entrys and exits
         for (auto i : myAdditionalChilds) {

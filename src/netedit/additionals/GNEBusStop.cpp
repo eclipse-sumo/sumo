@@ -98,20 +98,20 @@ void
 GNEBusStop::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_STARTPOS, getAbsoluteStartPosition());
-    device.writeAttr(SUMO_ATTR_ENDPOS, getAbsoluteEndPosition());
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_LANE);
+    writeAttribute(device, SUMO_ATTR_STARTPOS);
+    writeAttribute(device, SUMO_ATTR_ENDPOS);
     if (myName.empty() == false) {
-        device.writeAttr(SUMO_ATTR_NAME, myName);
+        writeAttribute(device, SUMO_ATTR_NAME);
     }
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
     if (myLines.size() > 0) {
-        device.writeAttr(SUMO_ATTR_LINES, getAttribute(SUMO_ATTR_LINES));
+        writeAttribute(device, SUMO_ATTR_LINES);
     }
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
 
     if (!myAccess.empty()) {

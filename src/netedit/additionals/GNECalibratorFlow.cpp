@@ -128,51 +128,51 @@ GNECalibratorFlow::writeFlow(OutputDevice& device) {
     // Open flow tag
     device.openTag(getTag());
     // Write begin
-    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    writeAttribute(device, SUMO_ATTR_BEGIN);
     // Write end
-    device.writeAttr(SUMO_ATTR_END, myEnd);
+    writeAttribute(device, SUMO_ATTR_END);
     // Write type
-    device.writeAttr(SUMO_ATTR_TYPE, myVehicleType->getID());
+    writeAttribute(device, SUMO_ATTR_TYPE);
     // Write route
-    device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    writeAttribute(device, SUMO_ATTR_ROUTE);
     // Write color
-    device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    writeAttribute(device, SUMO_ATTR_COLOR);
     // Write depart lane
-    device.writeAttr(SUMO_ATTR_DEPARTLANE, myDepartLane);
+    writeAttribute(device, SUMO_ATTR_DEPARTLANE);
     // Write depart pos
-    device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
+    writeAttribute(device, SUMO_ATTR_DEPARTPOS);
     // Write depart speed
-    device.writeAttr(SUMO_ATTR_DEPARTSPEED, myDepartSpeed);
+    writeAttribute(device, SUMO_ATTR_DEPARTSPEED);
     // Write arrival lane
-    device.writeAttr(SUMO_ATTR_ARRIVALLANE, myArrivalLane);
+    writeAttribute(device, SUMO_ATTR_ARRIVALLANE);
     // Write arrival pos
-    device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
+    writeAttribute(device, SUMO_ATTR_ARRIVALPOS);
     // Write arrival speed
-    device.writeAttr(SUMO_ATTR_ARRIVALSPEED, myArrivalSpeed);
+    writeAttribute(device, SUMO_ATTR_ARRIVALSPEED);
     // Write line
-    device.writeAttr(SUMO_ATTR_LINE, myLine);
+    writeAttribute(device, SUMO_ATTR_LINE);
     // Write person number
-    device.writeAttr(SUMO_ATTR_PERSON_NUMBER, myPersonNumber);
+    writeAttribute(device, SUMO_ATTR_PERSON_NUMBER);
     // Write container number
-    device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, myContainerNumber);
+    writeAttribute(device, SUMO_ATTR_CONTAINER_NUMBER);
     // Write reroute
-    device.writeAttr(SUMO_ATTR_REROUTE, myReroute);
+    writeAttribute(device, SUMO_ATTR_REROUTE);
     // Write departPosLat
-    device.writeAttr(SUMO_ATTR_DEPARTPOS_LAT, myDepartPosLat);
+    writeAttribute(device, SUMO_ATTR_DEPARTPOS_LAT);
     // Write arrivalPosLat
-    device.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, myArrivalPosLat);
+    writeAttribute(device, SUMO_ATTR_ARRIVALPOS_LAT);
     // Write number
-    device.writeAttr(SUMO_ATTR_NUMBER, myNumber);
+    writeAttribute(device, SUMO_ATTR_NUMBER);
     // Write type of flow
     if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
         // write period
-        device.writeAttr(SUMO_ATTR_PERIOD, myPeriod);
+        writeAttribute(device, SUMO_ATTR_PERIOD);
     } else if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
         // write vehs per hour
-        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, myVehsPerHour);
+        writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
     } else if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
         // write probability
-        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+        writeAttribute(device, SUMO_ATTR_PROB);
     }
     // Close flow tag
     device.closeTag();

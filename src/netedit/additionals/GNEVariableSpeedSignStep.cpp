@@ -72,9 +72,9 @@ GNEVariableSpeedSignStep::writeStep(OutputDevice& device) {
     // Open VSS tag
     device.openTag(SUMO_TAG_STEP);
     // Write TimeSTep
-    device.writeAttr(SUMO_ATTR_TIME, myTime);
+    writeAttribute(device, SUMO_ATTR_TIME);
     // Write speed
-    device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    writeAttribute(device, SUMO_ATTR_SPEED);
     // Close VSS tag
     device.closeTag();
 }

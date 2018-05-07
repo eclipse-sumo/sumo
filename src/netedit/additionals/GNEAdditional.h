@@ -258,7 +258,6 @@ public:
      * @param[in] report enable or disable writting warnings if route isn't valid
      */
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
-
 protected:
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
@@ -277,11 +276,6 @@ protected:
     std::vector<double> myShapeLengths;
     /// @}
 
-private:
-    /// @brief flag to check if this additional is movable
-    bool myMovable;
-
-protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
@@ -364,6 +358,9 @@ protected:
     /// @}
 
 private:
+    /// @brief flag to check if this additional is movable
+    bool myMovable;
+
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
 

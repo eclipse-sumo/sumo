@@ -77,15 +77,15 @@ void
 GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_X, myX);
-    device.writeAttr(SUMO_ATTR_Y, myY);
-    device.writeAttr(SUMO_ATTR_Z, myZ);
-    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    writeAttribute(device, SUMO_ATTR_X);
+    writeAttribute(device, SUMO_ATTR_Y);
+    writeAttribute(device, SUMO_ATTR_Z);
+    writeAttribute(device, SUMO_ATTR_WIDTH);
+    writeAttribute(device, SUMO_ATTR_LENGTH);
+    writeAttribute(device, SUMO_ATTR_ANGLE);
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Close tag
     device.closeTag();

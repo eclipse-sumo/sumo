@@ -502,6 +502,11 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
+    /**@brief write attribute if is essential or if is optional AND is different of default value 
+     * (Note: This solution is temporal, see #4049)
+     */
+    void writeAttribute(OutputDevice& device, SumoXMLAttr key) const;
+
 protected:
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;

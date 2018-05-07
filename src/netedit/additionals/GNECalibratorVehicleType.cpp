@@ -131,57 +131,57 @@ GNECalibratorVehicleType::writeVehicleType(OutputDevice& device) {
     // Open vehicle type tag
     device.openTag(getTag());
     // write id
-    device.writeAttr(SUMO_ATTR_ID, myVehicleTypeID);
+    writeAttribute(device, SUMO_ATTR_ID);
     //write accel
-    device.writeAttr(SUMO_ATTR_ACCEL, myAccel);
+    writeAttribute(device, SUMO_ATTR_ACCEL);
     // write decel
-    device.writeAttr(SUMO_ATTR_DECEL, myDecel);
+    writeAttribute(device, SUMO_ATTR_DECEL);
     // write sigma
-    device.writeAttr(SUMO_ATTR_SIGMA, mySigma);
+    writeAttribute(device, SUMO_ATTR_SIGMA);
     // write tau
-    device.writeAttr(SUMO_ATTR_TAU, myTau);
+    writeAttribute(device, SUMO_ATTR_TAU);
     // write lenght
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    writeAttribute(device, SUMO_ATTR_LENGTH);
     // write min gap
-    device.writeAttr(SUMO_ATTR_MINGAP, myMinGap);
+    writeAttribute(device, SUMO_ATTR_MINGAP);
     // write max speed
-    device.writeAttr(SUMO_ATTR_MAXSPEED, myMaxSpeed);
+    writeAttribute(device, SUMO_ATTR_MAXSPEED);
     // write speed factor
-    device.writeAttr(SUMO_ATTR_SPEEDFACTOR, mySpeedFactor);
+    writeAttribute(device, SUMO_ATTR_SPEEDFACTOR);
     // write speed dev
-    device.writeAttr(SUMO_ATTR_SPEEDDEV, mySpeedDev);
+    writeAttribute(device, SUMO_ATTR_SPEEDDEV);
     // write color
-    device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    writeAttribute(device, SUMO_ATTR_COLOR);
     // write vehicle class
-    device.writeAttr(SUMO_ATTR_VCLASS, myVClass);
+    writeAttribute(device, SUMO_ATTR_VCLASS);
     // write emission class
-    device.writeAttr(SUMO_ATTR_EMISSIONCLASS, myEmissionClass);
+    writeAttribute(device, SUMO_ATTR_EMISSIONCLASS);
     // write shape
-    device.writeAttr(SUMO_ATTR_GUISHAPE, myShape);
+    writeAttribute(device, SUMO_ATTR_GUISHAPE);
     // write width
-    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    writeAttribute(device, SUMO_ATTR_WIDTH);
     // write filename
-    device.writeAttr(SUMO_ATTR_IMGFILE, myFilename);
+    writeAttribute(device, SUMO_ATTR_IMGFILE);
     // write impatience
-    device.writeAttr(SUMO_ATTR_IMPATIENCE, myImpatience);
+    writeAttribute(device, SUMO_ATTR_IMPATIENCE);
     // write lane change model
-    device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, myLaneChangeModel);
+    writeAttribute(device, SUMO_ATTR_LANE_CHANGE_MODEL);
     // write car follow model
-    device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, myCarFollowModel);
+    writeAttribute(device, SUMO_ATTR_CAR_FOLLOW_MODEL);
     // write person capacity
-    device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
+    writeAttribute(device, SUMO_ATTR_PERSON_CAPACITY);
     // write container capacity
-    device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, myContainerCapacity);
+    writeAttribute(device, SUMO_ATTR_CONTAINER_CAPACITY);
     // write boarding duration
-    device.writeAttr(SUMO_ATTR_BOARDING_DURATION, myBoardingDuration);
+    writeAttribute(device, SUMO_ATTR_BOARDING_DURATION);
     // write loading duration
-    device.writeAttr(SUMO_ATTR_LOADING_DURATION, myLoadingDuration);
+    writeAttribute(device, SUMO_ATTR_LOADING_DURATION);
     // write get lat alignment
-    device.writeAttr(SUMO_ATTR_LATALIGNMENT, myLatAlignment);
+    writeAttribute(device, SUMO_ATTR_LATALIGNMENT);
     // write min gap lat
-    device.writeAttr(SUMO_ATTR_MINGAP_LAT, myMinGapLat);
+    writeAttribute(device, SUMO_ATTR_MINGAP_LAT);
     // write max speed lat
-    device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, myMaxSpeedLat);
+    writeAttribute(device, SUMO_ATTR_MAXSPEED_LAT);
     // Close vehicle type tag
     device.closeTag();
 }

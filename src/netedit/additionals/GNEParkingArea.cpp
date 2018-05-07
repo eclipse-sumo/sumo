@@ -103,21 +103,21 @@ void
 GNEParkingArea::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_STARTPOS, getAbsoluteStartPosition());
-    device.writeAttr(SUMO_ATTR_ENDPOS, getAbsoluteEndPosition());
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_LANE);
+    writeAttribute(device, SUMO_ATTR_STARTPOS);
+    writeAttribute(device, SUMO_ATTR_ENDPOS);
     if (myName.empty() == false) {
-        device.writeAttr(SUMO_ATTR_NAME, myName);
+        writeAttribute(device, SUMO_ATTR_NAME);
     }
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, myRoadSideCapacity);
-    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
+    writeAttribute(device, SUMO_ATTR_ROADSIDE_CAPACITY);
+    writeAttribute(device, SUMO_ATTR_WIDTH);
+    writeAttribute(device, SUMO_ATTR_LENGTH);
+    writeAttribute(device, SUMO_ATTR_ANGLE);
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Write ParkingSpace
     for (auto i : myAdditionalChilds) {
