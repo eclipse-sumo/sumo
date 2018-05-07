@@ -292,7 +292,7 @@ public:
 
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
         // set additionalOfWarningMessage
@@ -431,18 +431,8 @@ public:
                 if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                     // by default elements aren't blocked
                     parsedAttribute = "false";
-                    // report warning of default value
-                    if (report) {
-                        WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                            additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value 'false' will be used.");
-                    }
                 } else if (hasDefaultValue(tag, attribute)) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-                    // report warning of default value
-                    if (report) {
-                        WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                      additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
-                    }
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
@@ -457,18 +447,8 @@ public:
              if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                  // by default elements aren't blocked
                  parsedAttribute = "false";
-                 // report warning of default value
-                 if (report) {
-                     WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                         additionalOfWarningMessage + " is missing; Default value 'false' will be used.");
-                 }
              } else if (hasDefaultValue(tag, attribute)) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-                // report warning of default value
-                if (report) {
-                    WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
-                }
             } else {
                 WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
