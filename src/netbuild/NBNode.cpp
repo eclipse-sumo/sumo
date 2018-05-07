@@ -2977,5 +2977,25 @@ NBNode::sortEdges(bool useNodeShape) {
     }
 }
 
+std::vector<Position> 
+NBNode::getEndPoints() const {
+    // using a set would be nicer but we want to have some slack in position identification
+    std::vector<Position> result;
+    for (NBEdge* e : myAllEdges) {
+        Position pos = this == e->getFromNode() ? e->getGeometry().front() : e->getGeometry().back();
+        bool unique = true;
+        for (Position p2 : result) {
+            if (pos.almostSame(p2)) {
+                unique = false;
+                break;
+            }
+        }
+        if (unique) {
+            result.push_back(pos);
+        }
+    }
+    return result;
+}
+
 /****************************************************************************/
 

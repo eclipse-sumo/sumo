@@ -701,6 +701,8 @@ enum {
     MID_GNE_JUNCTION_RESET_CONNECTIONS,
     /// @brief turn junction into geometry node
     MID_GNE_JUNCTION_REPLACE,
+    /// @brief turn junction into multiple junctions
+    MID_GNE_JUNCTION_SPLIT,
     /// @brief edit junction shape
     MID_GNE_JUNCTION_EDIT_SHAPE,
     /// @}

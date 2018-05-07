@@ -1616,6 +1616,38 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
 
 
 void
+GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
+    std::vector<Position> endpoints = junction->getNBNode()->getEndPoints();
+    if (endpoints.size() < 2) {
+        return;
+    }
+    // start operation
+    undoList->p_begin("Split junction");
+    //std::cout << "split junction at endpoints: " << toString(endpoints) << "\n";
+    junction->setLogicValid(false, undoList);
+    for (Position pos : endpoints) {
+        GNEJunction* newJunction = createJunction(pos, undoList);
+        for (GNEEdge* e : junction->getGNEIncomingEdges()) {
+            if (e->getNBEdge()->getGeometry().back().almostSame(pos)) {
+                //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
+                undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, newJunction->getID()));
+            }
+        }
+        for (GNEEdge* e : junction->getGNEOutgoingEdges()) {
+            if (e->getNBEdge()->getGeometry().front().almostSame(pos)) {
+                //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
+                undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, newJunction->getID()));
+            }
+        }
+    }
+    deleteJunction(junction, undoList);
+    // finish operation
+    undoList->p_end();
+}
+
+
+
+void
 GNENet::clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_begin("clear junction connections");
     std::vector<GNEConnection*> connections = junction->getGNEConnections();

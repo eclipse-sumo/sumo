@@ -714,6 +714,9 @@ public:
     /// @brief detects whether a given junction splits or merges lanes while keeping constant road width
     bool isConstantWidthTransition() const;
 
+    /// @brief return list of unique endpoint coordinates of all edges at this node
+    std::vector<Position> getEndPoints() const;
+
 private:
     /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();

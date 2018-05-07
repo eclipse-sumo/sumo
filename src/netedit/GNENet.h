@@ -517,6 +517,9 @@ public:
     /// @brief replace the selected junction by geometry node(s) and merge the edges
     void replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList);
 
+    /// @brief replace the selected junction by a list of junctions for each unique edge endpoint
+    void splitJunction(GNEJunction* junction, GNEUndoList* undoList);
+
     /// @brief clear junction's connections
     void clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList);
 
