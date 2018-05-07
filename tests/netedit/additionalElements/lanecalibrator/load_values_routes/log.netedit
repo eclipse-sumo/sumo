@@ -5,7 +5,6 @@ Warning: Essential string attribute 'id' of route is missing; route cannot be cr
 Warning: Format of essential string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
 Warning: There is another route with the same ID='route01'.
 Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Optional string attribute 'edges' of route with ID 'route03' is missing; Default value '' will be used.
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
 Warning: Adding calibrator route into calibrator 'calibratorRoutes'
@@ -16,8 +15,6 @@ Warning: Adding calibrator route into calibrator 'calibratorRoutes'
 Warning: Adding calibrator route into calibrator 'calibratorRoutes'
 Warning: Adding calibrator route into calibrator 'calibratorRoutes'
 Warning: Adding calibrator vehicle type into calibrator 'calibratorRoutes'
-Warning: Optional float attribute 'period' of flow is missing; Default value '10.00' will be used.
-Warning: Optional float attribute 'probability' of flow is missing; Default value '1.00' will be used.
 Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

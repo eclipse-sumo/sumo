@@ -4,10 +4,6 @@ Warning: Essential string attribute 'id' of chargingStation is missing; charging
 Warning: Essential string attribute 'lane' of chargingStation is missing; chargingStation cannot be created
 Warning: Essential float attribute 'startPos' of chargingStation is missing; chargingStation cannot be created
 Warning: Essential float attribute 'endPos' of chargingStation is missing; chargingStation cannot be created
-Warning: Optional float attribute 'power' of chargingStation is missing; Default value '22000.00' will be used.
-Warning: Optional float attribute 'efficiency' of chargingStation is missing; Default value '0.95' will be used.
-Warning: Optional bool attribute 'chargeInTransit' of chargingStation is missing; Default value '0' will be used.
-Warning: Optional time attribute 'chargeDelay' of chargingStation is missing; Default value '0.00' will be used.
 Warning: Essential string attribute 'id' of chargingStation is missing; chargingStation cannot be created
 Warning: Format of essential string attribute 'id' of chargingStation is invalid; 'id with spaces' contains invalid characters; chargingStation cannot be created
 Warning: There is another chargingStation with the same ID='chargingStation_0'.
@@ -21,29 +17,17 @@ Warning: Essential float attribute 'endPos' of chargingStation with ID 'charging
 Warning: Format of essential float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; chargingStation cannot be created
 Warning: Invalid position for chargingStation with ID = 'chargingStation_9'.
 Warning: Invalid position for chargingStation with ID = 'chargingStation_10'.
-Warning: Optional float attribute 'power' of chargingStation with ID 'chargingStation_11' is missing; Default value '22000.00' will be used.
 Warning: Adding chargingStation 'chargingStation_11' in GNEChange_Additional
-Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_12' is invalid; Default value '22000.00' will be used.
 Warning: Adding chargingStation 'chargingStation_12' in GNEChange_Additional
-Warning: Format of optional float attribute 'power' of chargingStation with ID 'chargingStation_13' is invalid; Cannot be negative; Default value '22000.00' will be used.
 Warning: Adding chargingStation 'chargingStation_13' in GNEChange_Additional
-Warning: Optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_14' is missing; Default value '0.95' will be used.
 Warning: Adding chargingStation 'chargingStation_14' in GNEChange_Additional
-Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_15' is invalid; Default value '0.95' will be used.
 Warning: Adding chargingStation 'chargingStation_15' in GNEChange_Additional
-Warning: Format of optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_16' is invalid; Probability cannot be greather than 1; Default value '0.95' will be used.
 Warning: Adding chargingStation 'chargingStation_16' in GNEChange_Additional
-Warning: Optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_17' is missing; Default value '0' will be used.
 Warning: Adding chargingStation 'chargingStation_17' in GNEChange_Additional
-Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_18' is invalid; Default value '0' will be used.
 Warning: Adding chargingStation 'chargingStation_18' in GNEChange_Additional
-Warning: Format of optional bool attribute 'chargeInTransit' of chargingStation with ID 'chargingStation_19' is invalid; Default value '0' will be used.
 Warning: Adding chargingStation 'chargingStation_19' in GNEChange_Additional
-Warning: Optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_20' is missing; Default value '0.00' will be used.
 Warning: Adding chargingStation 'chargingStation_20' in GNEChange_Additional
-Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_21' is invalid; Default value '0.00' will be used.
 Warning: Adding chargingStation 'chargingStation_21' in GNEChange_Additional
-Warning: Format of optional time attribute 'chargeDelay' of chargingStation with ID 'chargingStation_22' is invalid; Time cannot be negative; Default value '0.00' will be used.
 Warning: Adding chargingStation 'chargingStation_22' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_23' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_24' in GNEChange_Additional

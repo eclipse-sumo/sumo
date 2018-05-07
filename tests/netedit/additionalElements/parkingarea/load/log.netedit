@@ -4,10 +4,6 @@ Warning: Essential string attribute 'id' of parkingArea is missing; parkingArea 
 Warning: Essential string attribute 'lane' of parkingArea is missing; parkingArea cannot be created
 Warning: Essential float attribute 'startPos' of parkingArea is missing; parkingArea cannot be created
 Warning: Essential float attribute 'endPos' of parkingArea is missing; parkingArea cannot be created
-Warning: Optional int attribute 'roadsideCapacity' of parkingArea is missing; Default value '0' will be used.
-Warning: Optional float attribute 'width' of parkingArea is missing; Default value '3.20' will be used.
-Warning: Optional float attribute 'length' of parkingArea is missing; Default value '5.00' will be used.
-Warning: Optional float attribute 'angle' of parkingArea is missing; Default value '0.00' will be used.
 Warning: Essential string attribute 'id' of parkingArea is missing; parkingArea cannot be created
 Warning: Format of essential string attribute 'id' of parkingArea is invalid; 'ID with spaces' contains invalid characters; parkingArea cannot be created
 Warning: There is another parkingArea with the same ID='parkingArea_00'.
@@ -25,32 +21,20 @@ Warning: Adding parkingArea 'parkingArea_11' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_12' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_13' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_14' in GNEChange_Additional
-Warning: Optional int attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_15' is missing; Default value '0' will be used.
 Warning: Adding parkingArea 'parkingArea_15' in GNEChange_Additional
-Warning: Format of optional int attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_16' is invalid; Default value '0' will be used.
 Warning: Adding parkingArea 'parkingArea_16' in GNEChange_Additional
-Warning: Format of optional int attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_17' is invalid; Cannot be negative; Default value '0' will be used.
 Warning: Adding parkingArea 'parkingArea_17' in GNEChange_Additional
-Warning: Format of optional int attribute 'roadsideCapacity' of parkingArea with ID 'parkingArea_18' is invalid; Default value '0' will be used.
 Warning: Adding parkingArea 'parkingArea_18' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_19' in GNEChange_Additional
-Warning: Optional float attribute 'width' of parkingArea with ID 'parkingArea_20' is missing; Default value '3.20' will be used.
 Warning: Adding parkingArea 'parkingArea_20' in GNEChange_Additional
-Warning: Format of optional float attribute 'width' of parkingArea with ID 'parkingArea_21' is invalid; Default value '3.20' will be used.
 Warning: Adding parkingArea 'parkingArea_21' in GNEChange_Additional
-Warning: Format of optional float attribute 'width' of parkingArea with ID 'parkingArea_22' is invalid; Cannot be negative; Default value '3.20' will be used.
 Warning: Adding parkingArea 'parkingArea_22' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_23' in GNEChange_Additional
-Warning: Optional float attribute 'length' of parkingArea with ID 'parkingArea_24' is missing; Default value '5.00' will be used.
 Warning: Adding parkingArea 'parkingArea_24' in GNEChange_Additional
-Warning: Format of optional float attribute 'length' of parkingArea with ID 'parkingArea_25' is invalid; Default value '5.00' will be used.
 Warning: Adding parkingArea 'parkingArea_25' in GNEChange_Additional
-Warning: Format of optional float attribute 'length' of parkingArea with ID 'parkingArea_26' is invalid; Cannot be negative; Default value '5.00' will be used.
 Warning: Adding parkingArea 'parkingArea_26' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_27' in GNEChange_Additional
-Warning: Optional float attribute 'angle' of parkingArea with ID 'parkingArea_28' is missing; Default value '0.00' will be used.
 Warning: Adding parkingArea 'parkingArea_28' in GNEChange_Additional
-Warning: Format of optional float attribute 'angle' of parkingArea with ID 'parkingArea_29' is invalid; Default value '0.00' will be used.
 Warning: Adding parkingArea 'parkingArea_29' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_30' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_31' in GNEChange_Additional

@@ -12,7 +12,6 @@ Warning: Setting new attribute lane 'gneE2_0' into e1Detector 'correctID'
 Warning: Setting new attribute pos '-5' into e1Detector 'correctID'
 Warning: Setting new attribute pos '400' into e1Detector 'correctID'
 Warning: Setting new attribute pos '20' into e1Detector 'correctID'
-Warning: Setting new attribute freq '100' into e1Detector 'correctID'
 Warning: Value '-100' for attribute freq of e1Detector isn't valid
 Warning: Setting new attribute freq '120' into e1Detector 'correctID'
 Warning: Setting new attribute file '' into e1Detector 'correctID'
@@ -34,8 +33,6 @@ Warning: Setting previous attribute file 'e1Detector_gneE2_1_0.txt' into e1Detec
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '100.00' into e1Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '400.00' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '-5.00' into e1Detector 'correctID'
@@ -45,6 +42,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute lane 'gneE0_0' into e1Detector 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute lane 'gneE2_1' into e1Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute lane 'gneE0_0' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute lane 'gneE2_1' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -55,8 +56,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '400' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '20' into e1Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute freq '100' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '120' into e1Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

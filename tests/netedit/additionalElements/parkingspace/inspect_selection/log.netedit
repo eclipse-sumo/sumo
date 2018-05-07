@@ -28,8 +28,6 @@ Warning: Setting new attribute width '0' into space 'parkingArea_gneE0_0_0space0
 Warning: Setting new attribute width '0' into space 'parkingArea_gneE0_0_1space0'
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE0_0_1space0'
-Warning: Setting new attribute length '5' into space 'parkingArea_gneE0_0_0space0'
-Warning: Setting new attribute length '5' into space 'parkingArea_gneE0_0_1space0'
 Warning: Value '-6' for attribute length of space isn't valid
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE0_0_1space0'
@@ -58,9 +56,6 @@ Warning: Setting previous attribute angle '45.00' into space 'parkingArea_gneE0_
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '0.00' into space 'parkingArea_gneE0_0_1space0'
 Warning: Setting previous attribute length '0.00' into space 'parkingArea_gneE0_0_0space0'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE0_0_1space0'
-Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE0_0_0space0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE0_0_1space0'
 Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE0_0_0space0'
@@ -101,6 +96,7 @@ Warning: Removing parkingArea 'parkingArea_gneE0_0_1' in GNEChange_Additional
 Warning: Removing space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
@@ -137,9 +133,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE0_0_1space0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute length '5' into space 'parkingArea_gneE0_0_0space0'
-Warning: Setting new attribute length '5' into space 'parkingArea_gneE0_0_1space0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE0_0_1space0'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -157,6 +150,7 @@ Warning: Setting new attribute angle '500' into space 'parkingArea_gneE0_0_1spac
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '32.5' into space 'parkingArea_gneE0_0_0space0'
 Warning: Setting new attribute angle '32.5' into space 'parkingArea_gneE0_0_1space0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

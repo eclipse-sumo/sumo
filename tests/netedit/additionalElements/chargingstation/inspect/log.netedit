@@ -17,26 +17,20 @@ Warning: Value '10' for attribute endPos of chargingStation isn't valid
 Warning: Setting new attribute endPos '30' into chargingStation 'correctID'
 Warning: Setting new attribute name 'chargingStation' into chargingStation 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into chargingStation 'correctID'
-Warning: Setting new attribute power '22000' into chargingStation 'correctID'
 Warning: Value '-100' for attribute power of chargingStation isn't valid
 Warning: Setting new attribute power '10000' into chargingStation 'correctID'
 Warning: Value '-1' for attribute efficiency of chargingStation isn't valid
 Warning: Value '2' for attribute efficiency of chargingStation isn't valid
 Warning: Setting new attribute efficiency '0.90' into chargingStation 'correctID'
 Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'correctID'
-Warning: Setting new attribute chargeDelay '0' into chargingStation 'correctID'
 Warning: Value '-10' for attribute chargeDelay of chargingStation isn't valid
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute chargeDelay '0.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute chargeDelay '0.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute chargeInTransit '0' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute efficiency '0.95' into chargingStation 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute power '22000.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute power '22000.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -64,6 +58,8 @@ Warning: Removing chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Addit
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -89,17 +85,15 @@ Warning: Setting new attribute name 'chargingStation' into chargingStation 'corr
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into chargingStation 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute power '22000' into chargingStation 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute power '10000' into chargingStation 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute efficiency '0.90' into chargingStation 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeInTransit 'true' into chargingStation 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute chargeDelay '0' into chargingStation 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute chargeDelay '3' into chargingStation 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
