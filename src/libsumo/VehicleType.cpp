@@ -245,27 +245,27 @@ void VehicleType::setMinGap(const std::string& typeID, double minGap)  {
 
 void VehicleType::setAccel(const std::string& typeID, double accel)  {
     MSVehicleType* v = getVType(typeID);
-    v->getCarFollowModel().setMaxAccel(accel);
+    v->setAccel(accel);
 }
 
 
 void VehicleType::setDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
-    v->getCarFollowModel().setMaxDecel(decel);
+    v->setDecel(decel);
     // automatically raise emergencyDecel to ensure it is at least as high as decel
     if (decel > v->getCarFollowModel().getEmergencyDecel()) {
         if (v->getParameter().cfParameter.count(SUMO_ATTR_EMERGENCYDECEL) > 0) {
             // notify user only if emergencyDecel was previously specified
             WRITE_WARNING("Automatically setting emergencyDecel to " + toString(decel) + " for vType '" + typeID + "' to match decel.");
         }
-        v->getCarFollowModel().setEmergencyDecel(decel);
+        v->setEmergencyDecel(decel);
     }
 }
 
 
 void VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
-    v->getCarFollowModel().setEmergencyDecel(decel);
+    v->setEmergencyDecel(decel);
     if (decel < v->getCarFollowModel().getMaxDecel()) {
         WRITE_WARNING("New value of emergencyDecel (" + toString(decel) + ") is lower than decel (" + toString(v->getCarFollowModel().getMaxDecel()) + ")");
     }
@@ -274,19 +274,19 @@ void VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
 
 void VehicleType::setApparentDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
-    v->getCarFollowModel().setApparentDecel(decel);
+    v->setApparentDecel(decel);
 }
 
 
 void VehicleType::setImperfection(const std::string& typeID, double imperfection)  {
     MSVehicleType* v = getVType(typeID);
-    v->getCarFollowModel().setImperfection(imperfection);
+    v->setImperfection(imperfection);
 }
 
 
 void VehicleType::setTau(const std::string& typeID, double tau)  {
     MSVehicleType* v = getVType(typeID);
-    v->getCarFollowModel().setHeadwayTime(tau);
+    v->setTau(tau);
 }
 
 
