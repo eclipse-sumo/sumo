@@ -67,7 +67,9 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) { /** change this in the future **/
+    myRouteProbe(nullptr)  /** change this in the future **/
+{
+    myCalibratorVehicleTypes.push_back(new GNECalibratorVehicleType(this, DEFAULT_VTYPE_ID));
 }
 
 
@@ -78,7 +80,9 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) { /** change this in the future **/
+    myRouteProbe(nullptr) /** change this in the future **/
+{ 
+    myCalibratorVehicleTypes.push_back(new GNECalibratorVehicleType(this, DEFAULT_VTYPE_ID));
 }
 
 
@@ -116,7 +120,9 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     }
     // write all vehicle types of this calibrator
     for (auto i : myCalibratorVehicleTypes) {
-        i->writeVehicleType(device);
+        if (i->getID() != DEFAULT_VTYPE_ID) {
+            i->writeVehicleType(device);
+        }
     }
     // Write all flows of this calibrator
     for (auto i : myCalibratorFlows) {

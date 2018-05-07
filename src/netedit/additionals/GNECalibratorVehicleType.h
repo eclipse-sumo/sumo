@@ -52,7 +52,7 @@ class GNECalibratorVehicleType : public GNEAttributeCarrier {
 
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
-    GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog);
+    GNECalibratorVehicleType(GNECalibrator* calibratorParent, const std::string& id="");
 
     /// @brief parameter constructor
     GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,

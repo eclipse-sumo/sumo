@@ -279,7 +279,7 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
-    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(this), false);
+    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(myEditedCalibrator), false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;
@@ -472,17 +472,11 @@ GNECalibratorDialog::updateVehicleTypeTable() {
 
 void
 GNECalibratorDialog::updateFlowAndLabelButton() {
-    // Enable or disable AddFlow button and flow list depending of currently there are routes and vehicle types defined
-    std::string errorMsg;
-    if (myEditedCalibrator->getCalibratorRoutes().empty() && myEditedCalibrator->getCalibratorVehicleTypes().empty()) {
-        errorMsg = " and ";
-    }
-    if (myEditedCalibrator->getCalibratorRoutes().size() == 0 || myEditedCalibrator->getCalibratorVehicleTypes().size() == 0) {
+    // disable AddFlow button if no route is defined
+    if (myEditedCalibrator->getCalibratorRoutes().size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
-        std::string errorMessage = "No " + (myEditedCalibrator->getCalibratorRoutes().empty() ? (toString(SUMO_TAG_ROUTE) + "s") : ("")) + errorMsg +
-                                   (myEditedCalibrator->getCalibratorVehicleTypes().empty() ? (toString(SUMO_TAG_VTYPE) + "s") : ("")) + " defined";
-        myLabelFlow->setText(errorMessage.c_str());
+        myLabelFlow->setText("No routes defined");
     } else {
         myAddFlow->enable();
         myFlowList->enable();

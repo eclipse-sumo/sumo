@@ -54,10 +54,10 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, const std::string& id) :
     GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myVehicleTypeID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorVehicleTypeID()),
+    myCalibratorParent(calibratorParent),
+    myVehicleTypeID(id == "" ? calibratorParent->getViewNet()->getNet()->generateCalibratorVehicleTypeID() : id),
     myAccel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_ACCEL)),
     myDecel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_DECEL)),
     mySigma(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SIGMA)),
