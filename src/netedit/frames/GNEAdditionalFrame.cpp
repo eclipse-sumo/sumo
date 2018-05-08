@@ -364,6 +364,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             if (GNEAttributeCarrier::isPositive(additionalTag, myAdditionalAttr) && (intValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             }
+            // special case for optional attributes (#4047)
+            if ((intValue == -1) && GNEAttributeCarrier::hasDefaultValue(additionalTag, myAdditionalAttr) &&
+                GNEAttributeCarrier::getDefaultValue<std::string>(additionalTag, myAdditionalAttr) == "-1"){
+                myInvalidValue.clear();
+            }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
         }
@@ -375,6 +380,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             // Check if parsed value is negative
             if (doubleValue < 0) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
+            } 
+            // special case for optional attributes (#4047)
+            if ((doubleValue == -1) && GNEAttributeCarrier::hasDefaultValue(additionalTag, myAdditionalAttr) &&
+                GNEAttributeCarrier::getDefaultValue<std::string>(additionalTag, myAdditionalAttr) == "-1"){
+                myInvalidValue.clear();
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";

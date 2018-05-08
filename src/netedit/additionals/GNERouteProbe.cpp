@@ -142,7 +142,9 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     writeAttribute(device, SUMO_ATTR_ID);
     writeAttribute(device, SUMO_ATTR_EDGE);
-    writeAttribute(device, SUMO_ATTR_FREQUENCY);
+    if(myFrequency != -1) {
+        writeAttribute(device, SUMO_ATTR_FREQUENCY);
+    }
     if (!myFilename.empty()) {
         writeAttribute(device, SUMO_ATTR_FILE);
     }
@@ -334,7 +336,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_SELECTED:
