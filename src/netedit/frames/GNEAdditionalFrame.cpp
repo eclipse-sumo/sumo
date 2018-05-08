@@ -1591,10 +1591,6 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
         while(calibrator->getCalibratorFlows().size() > 0) {
             myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorFlows().front(), false), true);
         }
-        // Clear VTypes
-        while(calibrator->getCalibratorVehicleTypes().size() > 0) {
-            myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorVehicleTypes().front(), false), true);
-        }
         // Clear Routes
         while(calibrator->getCalibratorRoutes().size() > 0) {
             myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorRoutes().front(), false), true);

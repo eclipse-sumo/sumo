@@ -35,7 +35,6 @@
 
 class GNERouteProbe;
 class GNECalibratorFlow;
-class GNECalibratorVehicleType;
 class GNECalibratorRoute;
 
 // ===========================================================================
@@ -58,7 +57,6 @@ public:
     * @param[in] output The output file for writing calibrator information
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
-    * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
     */
     GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output);
 
@@ -71,7 +69,6 @@ public:
     * @param[in] output The output file for writing calibrator information
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
-    * @param[in] calibratorVehicleTypes vector with the CalibratorVehicleType of calibrator
     */
     GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& output);
 
@@ -106,15 +103,6 @@ public:
 
     /// @brief get calibrator flows
     const std::vector<GNECalibratorFlow*>& getCalibratorFlows() const;
-
-    /// @brief add calibrator vehicleType
-    void addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @brief remove calibrator vehicleType
-    void removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @brief get calibrator vehicleTypes
-    const std::vector<GNECalibratorVehicleType*>& getCalibratorVehicleTypes() const;
 
     /// @brief check if calibrator flow exists
     bool calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const;
@@ -203,9 +191,6 @@ protected:
 
     /// @brief calibrator route values
     std::vector<GNECalibratorRoute*> myCalibratorRoutes;
-
-    /// @brief calibrator vehicleType values
-    std::vector<GNECalibratorVehicleType*> myCalibratorVehicleTypes;
 
     /// @brief calibrator flow values
     std::vector<GNECalibratorFlow*> myCalibratorFlows;

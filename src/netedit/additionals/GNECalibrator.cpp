@@ -69,7 +69,6 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myOutput(output),
     myRouteProbe(nullptr)  /** change this in the future **/
 {
-    myCalibratorVehicleTypes.push_back(new GNECalibratorVehicleType(this, DEFAULT_VTYPE_ID));
 }
 
 
@@ -82,7 +81,6 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     myOutput(output),
     myRouteProbe(nullptr) /** change this in the future **/
 { 
-    myCalibratorVehicleTypes.push_back(new GNECalibratorVehicleType(this, DEFAULT_VTYPE_ID));
 }
 
 
@@ -117,12 +115,6 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     // write all routes of this calibrator
     for (auto i : myCalibratorRoutes) {
         i->writeRoute(device);
-    }
-    // write all vehicle types of this calibrator
-    for (auto i : myCalibratorVehicleTypes) {
-        if (i->getID() != DEFAULT_VTYPE_ID) {
-            i->writeVehicleType(device);
-        }
     }
     // Write all flows of this calibrator
     for (auto i : myCalibratorFlows) {
@@ -317,36 +309,6 @@ GNECalibrator::removeCalibratorFlow(GNECalibratorFlow* flow) {
 const std::vector<GNECalibratorFlow*>&
 GNECalibrator::getCalibratorFlows() const {
     return myCalibratorFlows;
-}
-
-
-void
-GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if(vehicleType == nullptr) {
-        throw ProcessError("VehicleType cannot be nullptr");
-    } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) != myCalibratorVehicleTypes.end()) {
-        throw ProcessError("VehicleType was already inserted");
-    } else {
-        myCalibratorVehicleTypes.push_back(vehicleType);
-    }
-}
-
-
-void
-GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if(vehicleType == nullptr) {
-        throw ProcessError("VehicleType cannot be nullptr");
-    } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) == myCalibratorVehicleTypes.end()) {
-        throw ProcessError("VehicleType wasn't inserted");
-    } else {
-        myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
-    }
-}
-
-
-const std::vector<GNECalibratorVehicleType*>&
-GNECalibrator::getCalibratorVehicleTypes() const {
-    return myCalibratorVehicleTypes;
 }
 
 

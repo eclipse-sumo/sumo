@@ -136,6 +136,9 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
+    // default vehicle type is always available
+    insertCalibratorVehicleType(new GNECalibratorVehicleType(this, DEFAULT_VTYPE_ID)); 
+    myAttributeCarriers.calibratorVehicleTypes.begin()->second->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
 
@@ -1885,6 +1888,13 @@ GNENet::saveAdditionals(const std::string& filename) {
             // save additionals
             OutputDevice& device = OutputDevice::getDevice(filename);
             device.openTag("additionals");
+
+            // write all vehicle types
+            for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
+                if (i.first != DEFAULT_VTYPE_ID) {
+                    i.second->writeVehicleType(device);
+                }
+            }
             for (auto i : myAttributeCarriers.additionals) {
                 i.second->writeAdditional(device);
             }
@@ -1895,6 +1905,12 @@ GNENet::saveAdditionals(const std::string& filename) {
     } else {
         OutputDevice& device = OutputDevice::getDevice(filename);
         device.openTag("additionals");
+        // write all vehicle types
+        for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
+            if (i.first != DEFAULT_VTYPE_ID) {
+                i.second->writeVehicleType(device);
+            }
+        }
         for (auto i : myAttributeCarriers.additionals) {
             // only save additionals that doesn't have Additional parents
             if (i.second->getAdditionalParent() == nullptr) {
@@ -1943,6 +1959,16 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
     }
 }
 
+std::vector<GNECalibratorVehicleType*> 
+GNENet::getCalibratorVehicleTypes() const {
+    std::vector<GNECalibratorVehicleType*> result;
+    for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
+        result.push_back(i.second);
+    }
+    return result;
+}
+
+
 std::string
 GNENet::generateCalibratorRouteID() const {
     int counter = 0;
@@ -1976,6 +2002,10 @@ GNENet::changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& ol
 
 void
 GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID) {
+    if (oldID == DEFAULT_VTYPE_ID) {
+        // default type cannot be changed
+        return;
+    }
     if (myAttributeCarriers.calibratorVehicleTypes.count(oldID) > 0) {
         myAttributeCarriers.calibratorVehicleTypes.erase(oldID);
         myAttributeCarriers.calibratorVehicleTypes[vehicleType->getID()] = vehicleType;
@@ -2210,6 +2240,10 @@ GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
 
 void
 GNENet::deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
+    if (vehicleType->getID() == DEFAULT_VTYPE_ID) {
+        // default type cannot be deleted
+        return;
+    }
     auto it = myAttributeCarriers.calibratorVehicleTypes.find(vehicleType->getID());
     if (it != myAttributeCarriers.calibratorVehicleTypes.end()) {
         myAttributeCarriers.calibratorVehicleTypes.erase(it);

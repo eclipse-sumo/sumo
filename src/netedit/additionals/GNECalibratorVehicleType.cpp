@@ -54,10 +54,10 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, const std::string& id) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNENet* net, const std::string& id) :
     GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
-    myCalibratorParent(calibratorParent),
-    myVehicleTypeID(id == "" ? calibratorParent->getViewNet()->getNet()->generateCalibratorVehicleTypeID() : id),
+    myNet(net),
+    myVehicleTypeID(id == "" ? net->generateCalibratorVehicleTypeID() : id),
     myAccel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_ACCEL)),
     myDecel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_DECEL)),
     mySigma(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SIGMA)),
@@ -86,14 +86,14 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorPare
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNENet* net, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
     GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
-    myCalibratorParent(calibratorParent),
+    myNet(net),
     myVehicleTypeID(vehicleTypeID),
     myAccel(accel),
     myDecel(decel),
@@ -187,9 +187,9 @@ GNECalibratorVehicleType::writeVehicleType(OutputDevice& device) {
 }
 
 
-GNECalibrator*
-GNECalibratorVehicleType::getCalibratorParent() const {
-    return myCalibratorParent;
+GNENet*
+GNECalibratorVehicleType::getNet() const {
+    return myNet;
 }
 
 
@@ -317,7 +317,7 @@ bool
 GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) == nullptr);
+            return isValidID(value) && (myNet->retrieveCalibratorVehicleType(value, false) == nullptr);
         case SUMO_ATTR_ACCEL:
             return canParse<double>(value);
         case SUMO_ATTR_DECEL:
@@ -386,7 +386,7 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_ID: {
             std::string oldID = myVehicleTypeID;
             myVehicleTypeID = value;
-            myCalibratorParent->getViewNet()->getNet()->changeCalibratorVehicleTypeID(this, oldID);
+            myNet->changeCalibratorVehicleTypeID(this, oldID);
             break;
         }
         case SUMO_ATTR_ACCEL:

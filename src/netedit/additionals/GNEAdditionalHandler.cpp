@@ -1521,7 +1521,7 @@ GNEAdditionalHandler::buildCalibratorVehicleType(GNEViewNet* viewNet, bool allow
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
     if (viewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) == nullptr) {
         // create vehicle type and add it to calibrator parent
-        GNECalibratorVehicleType* vType = new GNECalibratorVehicleType(calibratorParent, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
+        GNECalibratorVehicleType* vType = new GNECalibratorVehicleType(viewNet->getNet(), vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
                 speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
                 laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
                 loadingDuration, latAlignment, minGapLat, maxSpeedLat);
@@ -1531,7 +1531,6 @@ GNEAdditionalHandler::buildCalibratorVehicleType(GNEViewNet* viewNet, bool allow
             viewNet->getUndoList()->p_end();
         } else {
             viewNet->getNet()->insertCalibratorVehicleType(vType);
-            calibratorParent->addCalibratorVehicleType(vType);
             vType->incRef("buildCalibratorVehicleType");
         }
         return true;

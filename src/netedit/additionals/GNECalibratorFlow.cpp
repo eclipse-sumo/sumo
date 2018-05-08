@@ -57,10 +57,10 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
+GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()),
+    myVehicleType(net->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)),
     myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)),

@@ -52,10 +52,10 @@ class GNECalibratorVehicleType : public GNEAttributeCarrier {
 
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
-    GNECalibratorVehicleType(GNECalibrator* calibratorParent, const std::string& id="");
+    GNECalibratorVehicleType(GNENet* net, const std::string& id="");
 
     /// @brief parameter constructor
-    GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
+    GNECalibratorVehicleType(GNENet* net, std::string vehicleTypeID,
                              double accel, double decel, double sigma, double tau, double length, double minGap,
                              double maxSpeed, double speedFactor, double speedDev, const RGBColor& color,
                              SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
@@ -70,7 +70,7 @@ public:
     void writeVehicleType(OutputDevice& device);
 
     /// @brief get pointer to calibrator parent
-    GNECalibrator* getCalibratorParent() const;
+    GNENet* getNet() const;
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
@@ -106,8 +106,8 @@ public:
     /// @}
 
 private:
-    /// @brief pointer to calibrator parent
-    GNECalibrator* myCalibratorParent;
+    /// @brief pointer to the network
+    GNENet* myNet;
 
     /// @brief vehicleType ID
     std::string myVehicleTypeID;

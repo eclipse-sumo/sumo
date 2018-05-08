@@ -50,7 +50,7 @@ class GNECalibratorVehicleTypeDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, bool updatingElement);
+    GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, GNEAdditional* parent, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorVehicleTypeDialog();

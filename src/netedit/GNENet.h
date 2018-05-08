@@ -622,6 +622,9 @@ public:
     */
     GNECalibratorVehicleType* retrieveCalibratorVehicleType(const std::string& id, bool hardFail = true) const;
 
+    /// @brief get calibrator vehicleTypes
+    std::vector<GNECalibratorVehicleType*> getCalibratorVehicleTypes() const;
+
     /// @brief generate a new Calibrator Route ID
     std::string generateCalibratorRouteID() const;
 

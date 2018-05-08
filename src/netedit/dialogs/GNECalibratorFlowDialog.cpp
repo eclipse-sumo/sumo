@@ -133,10 +133,10 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), 0, GUIDesignLabelThick);
     myTextFieldVehsPerHour = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
     // fill comboBox of VTypes
-    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes()) {
+    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->getCalibratorVehicleTypes()) {
         myComboBoxVehicleType->appendItem(i->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes().size());
+    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->getCalibratorVehicleTypes().size());
 
     // fill comboBox of Routes
     for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorRoutes()) {

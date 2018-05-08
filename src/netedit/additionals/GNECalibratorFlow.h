@@ -53,7 +53,7 @@ class GNECalibratorFlow : public GNEAttributeCarrier {
 
 public:
     /// @brief constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNECalibratorDialog* calibratorDialog);
+    GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net);
 
     /// @brief parameter constructor
     GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
