@@ -55,6 +55,9 @@ netedit.modifyAttribute(1, "gneJ0")
 # recompute
 netedit.rebuildNetwork()
 
+# inspect edge again after recomputing
+netedit.leftClick(match, 350, 260)
+
 # Change parameter 2 with a non valid value (dummy Junction)
 netedit.modifyAttribute(2, "dummy_Junction")
 
@@ -73,11 +76,17 @@ netedit.modifyAttribute(1, "gneJ2")
 # recompute
 netedit.rebuildNetwork()
 
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 180)
+
 # Change parameter 2 with a valid value
 netedit.modifyAttribute(2, "gneJ1")
 
 # recompute
 netedit.rebuildNetwork()
+
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 220)
 
 # Change parameter 2 with a non valid value (two edges pararell)
 netedit.modifyAttribute(2, "gneJ0")
@@ -87,6 +96,9 @@ netedit.modifyAttribute(2, "gneJ3")
 
 # recompute
 netedit.rebuildNetwork()
+
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 180)
 
 # Change parameter 3 with a non valid value (empty speed)
 netedit.modifyAttribute(3, "")
@@ -150,3 +162,4 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
+

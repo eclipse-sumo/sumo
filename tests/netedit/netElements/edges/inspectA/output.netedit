@@ -40,6 +40,8 @@ TestFunctions: Clicked over position 554 - 320
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
+[log] CLICK on L(654,400)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 654 - 400
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -70,6 +72,8 @@ TestFunctions: Clicked over position 554 - 320
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
+[log] CLICK on L(554,320)@S(0)[0,0 1600x900] (234 msec)
+TestFunctions: Clicked over position 554 - 320
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -77,6 +81,8 @@ TestFunctions: Clicked over position 554 - 320
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
+[log] CLICK on L(554,360)@S(0)[0,0 1600x900] (235 msec)
+TestFunctions: Clicked over position 554 - 360
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
@@ -90,6 +96,8 @@ TestFunctions: Clicked over position 554 - 320
 [log] ( Ctrl )  TYPE "a"
 [log]  TYPE "#ENTER."
 [log]  TYPE "#F5."
+[log] CLICK on L(554,320)@S(0)[0,0 1600x900] (235 msec)
+TestFunctions: Clicked over position 554 - 320
 [log]  TYPE "#F12."
 [log]  TYPE "#TAB."
 [log]  TYPE "#TAB."
