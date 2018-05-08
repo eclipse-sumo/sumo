@@ -48,7 +48,7 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include "MSCalibrator.h"
 
-//#define MSCalibrator_DEBUG
+#define MSCalibrator_DEBUG
 
 // ===========================================================================
 // static members
