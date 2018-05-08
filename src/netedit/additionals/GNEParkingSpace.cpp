@@ -80,9 +80,15 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     writeAttribute(device, SUMO_ATTR_X);
     writeAttribute(device, SUMO_ATTR_Y);
     writeAttribute(device, SUMO_ATTR_Z);
-    writeAttribute(device, SUMO_ATTR_WIDTH);
-    writeAttribute(device, SUMO_ATTR_LENGTH);
-    writeAttribute(device, SUMO_ATTR_ANGLE);
+    if(myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH) != getAttribute(SUMO_ATTR_WIDTH)) {
+        writeAttribute(device, SUMO_ATTR_WIDTH);
+    }
+    if(myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH) != getAttribute(SUMO_ATTR_LENGTH)) {
+        writeAttribute(device, SUMO_ATTR_LENGTH);
+    }
+    if(myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE) != getAttribute(SUMO_ATTR_ANGLE)) {
+        writeAttribute(device, SUMO_ATTR_ANGLE);
+    }
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
         writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
