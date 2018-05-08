@@ -2022,7 +2022,12 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
 void 
 GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const {
     std::string attribute = getAttribute(key);
-    if(hasDefaultValue(getTag(), key)) {
+    if(key == GNE_ATTR_BLOCK_MOVEMENT) {
+        // only write Block Movement if is enabled
+        if(attribute == "1") {
+            device.writeAttr(key, attribute);
+        }
+    } else if(hasDefaultValue(getTag(), key)) {
         // only write optional attributes (i.e attributes with default value) if are differents
         if(getDefaultValue<std::string>(getTag(), key) != attribute) {
             device.writeAttr(key, attribute);
