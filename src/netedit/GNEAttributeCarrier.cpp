@@ -561,9 +561,6 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "100.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VEHSPERHOUR, "10.00"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PERIOD, "10.00"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NUMBER, "100"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTLANE, "first"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTPOS, "base"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTSPEED, "0"));
@@ -826,7 +823,6 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         // flow
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_CONTAINER_NUMBER);
-        myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_NUMBER);
         // vehicle type
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_PERSON_CAPACITY);
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_CONTAINER_CAPACITY);
@@ -911,8 +907,6 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_IMPATIENCE);
         // flow
         myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_VEHSPERHOUR);
-        myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERIOD);
-        myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
         // step
         myNumericalFloatAttrs[SUMO_TAG_STEP].insert(SUMO_ATTR_SPEED);
         // POLY
@@ -1238,8 +1232,6 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_CONTAINER_NUMBER);
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_VEHSPERHOUR);
-        myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERIOD);
-        myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_NUMBER);
         // vehicle type
         myPositiveAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_ACCEL);
         myPositiveAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_DECEL);
@@ -1282,8 +1274,6 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
         myProbabilityAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_EFFICIENCY);
         // rerouter
         myProbabilityAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_PROB);
-        // flow
-        myProbabilityAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
         // destiny probability reroute
         myProbabilityAttrs[SUMO_TAG_DEST_PROB_REROUTE].insert(SUMO_ATTR_PROB);
         // route prob reroute
@@ -1678,9 +1668,6 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_BEGIN] = setAttrDefinition("First vehicle departure time");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_END] = setAttrDefinition("End of departure interval");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_VEHSPERHOUR] = setAttrDefinition("Number of vehicles per hour, equally spaced (not together with period or probability)");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_PERIOD] = setAttrDefinition("Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_PROB] = setAttrDefinition("Probability for emitting a vehicle each second (not together with vehsPerHour or period)");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_NUMBER] = setAttrDefinition("Total number of vehicles, equally spaced");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTLANE] = setAttrDefinition("The lane on which the vehicle shall be inserted");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTPOS] = setAttrDefinition("The position at which the vehicle shall enter the net");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTSPEED] = setAttrDefinition("The speed with which the vehicle shall enter the network");

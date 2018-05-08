@@ -330,16 +330,12 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
     double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
     double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
     double vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_VEHSPERHOUR, abort);
-    double period = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PERIOD, abort);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
-    int number = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", tag, SUMO_ATTR_NUMBER, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
         GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         GNECalibratorRoute* route = myViewNet->getNet()->retrieveCalibratorRoute(routeID, false);
         GNECalibratorVehicleType* vtype = myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false);
-        int flowType = 1 /**getTypeOfFlowDistribution(flowID, vehsPerHour, period, probability) **/;
         // check that all elements are valid
         if (calibrator == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
@@ -351,7 +347,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
             abort = true;
         } else {
             buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
-                                line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, flowType);
+                                line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end, vehsPerHour);
         }
     }
 }
@@ -1550,13 +1546,12 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
         GNECalibratorRoute* route, GNECalibratorVehicleType* vtype, const RGBColor& color,
         const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
         const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-        const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period,
-        double probability, int number, int flowType) {
+        const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour) {
 
     // create Flow and add it to calibrator parent
     GNECalibratorFlow* flow = new GNECalibratorFlow(calibratorParent, vtype, route, color, departLane, departPos, departSpeed,
             arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
-            departPosLat, arrivalPosLat, begin, end, vehsPerHour, period, probability, number, static_cast<GNECalibratorFlow::TypeOfFlow>(flowType));
+            departPosLat, arrivalPosLat, begin, end, vehsPerHour);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(flow->getTag()));
         viewNet->getUndoList()->add(new GNEChange_CalibratorItem(flow, true), true);
@@ -1849,34 +1844,6 @@ bool GNEAdditionalHandler::checkAndFixDetectorPositionPosition(double& pos, cons
         }
     }
     return true;
-}
-
-
-int
-GNEAdditionalHandler::getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability) {
-    if ((vehsPerHour == -1) && (period == -1) && (probability == -1)) {
-        WRITE_WARNING("A type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " +
-                      toString(SUMO_ATTR_PROB) + ") must be defined in " + toString(SUMO_TAG_FLOW) +  " '" + flowID + "'");
-        return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
-    } else {
-        int vehsPerHourDefined = (vehsPerHour != -1) ? 1 : 0;
-        int periodDefined = (period != -1) ? 1 : 0;
-        int probabilityDefined = (probability != -1) ? 1 : 0;
-
-        if ((vehsPerHourDefined + periodDefined + probabilityDefined) != 1) {
-            WRITE_WARNING("Only a type of distribution (" + toString(SUMO_ATTR_VEHSPERHOUR) + ", " +  toString(SUMO_ATTR_PERIOD) + " or " +
-                          toString(SUMO_ATTR_PROB) + ") can be defined at the same time in " + toString(SUMO_TAG_FLOW) + " '" + flowID + "'");
-            return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
-        } else if (vehsPerHourDefined == 1) {
-            return GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR;
-        } else if (periodDefined == 1) {
-            return GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD;
-        } else if (probabilityDefined == 1) {
-            return GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY;
-        } else {
-            return GNECalibratorFlow::GNE_CALIBRATORFLOW_INVALID;
-        }
-    }
 }
 
 

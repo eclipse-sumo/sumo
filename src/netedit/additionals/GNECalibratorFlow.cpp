@@ -77,18 +77,13 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     myArrivalPosLat(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_ARRIVALPOS_LAT)),
     myBegin(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_BEGIN)),
     myEnd(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_END)),
-    myVehsPerHour(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)),
-    myPeriod(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_PERIOD)),
-    myProbability(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_PROB)),
-    myNumber(getDefaultValue<int>(SUMO_TAG_FLOW, SUMO_ATTR_NUMBER)),
-    myFlowType(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
+    myVehsPerHour(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)) {}
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                                     const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability,
-                                     int number, GNECalibratorFlow::TypeOfFlow flowType) :
+                                     const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorParent),
     myVehicleType(vehicleType),
@@ -108,11 +103,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
     myArrivalPosLat(arrivalPosLat),
     myBegin(begin),
     myEnd(end),
-    myVehsPerHour(vehsPerHour),
-    myPeriod(period),
-    myProbability(probability),
-    myNumber(number),
-    myFlowType(flowType) {
+    myVehsPerHour(vehsPerHour) {
 }
 
 
@@ -161,19 +152,8 @@ GNECalibratorFlow::writeFlow(OutputDevice& device) {
     writeAttribute(device, SUMO_ATTR_DEPARTPOS_LAT);
     // Write arrivalPosLat
     writeAttribute(device, SUMO_ATTR_ARRIVALPOS_LAT);
-    // Write number
-    writeAttribute(device, SUMO_ATTR_NUMBER);
-    // Write type of flow
-    if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
-        // write period
-        writeAttribute(device, SUMO_ATTR_PERIOD);
-    } else if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-        // write vehs per hour
-        writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
-    } else if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
-        // write probability
-        writeAttribute(device, SUMO_ATTR_PROB);
-    }
+    // write vehs per hour
+    writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
     // Close flow tag
     device.closeTag();
 }
@@ -182,18 +162,6 @@ GNECalibratorFlow::writeFlow(OutputDevice& device) {
 GNECalibrator*
 GNECalibratorFlow::getCalibratorParent() const {
     return myCalibratorParent;
-}
-
-
-GNECalibratorFlow::TypeOfFlow
-GNECalibratorFlow::getFlowType() const {
-    return myFlowType;
-}
-
-
-void
-GNECalibratorFlow::setFlowType(GNECalibratorFlow::TypeOfFlow type) {
-    myFlowType = type;
 }
 
 
@@ -233,12 +201,6 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             return toString(myEnd);
         case SUMO_ATTR_VEHSPERHOUR:
             return toString(myVehsPerHour);
-        case SUMO_ATTR_PERIOD:
-            return toString(myPeriod);
-        case SUMO_ATTR_PROB:
-            return toString(myProbability);
-        case SUMO_ATTR_NUMBER:
-            return toString(myNumber);
         case SUMO_ATTR_DEPARTLANE:
             return myDepartLane;
         case SUMO_ATTR_DEPARTPOS:
@@ -281,9 +243,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
-        case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_DEPARTLANE:
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_DEPARTSPEED:
@@ -319,12 +278,6 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_VEHSPERHOUR:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_PERIOD:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_PROB:
-            return canParse<double>(value)  && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
-        case SUMO_ATTR_NUMBER:
-            return canParse<int>(value) && parse<int>(value) >= 0;
         case SUMO_ATTR_DEPARTLANE:
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
@@ -410,15 +363,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             myVehsPerHour = parse<double>(value);
-            break;
-        case SUMO_ATTR_PERIOD:
-            myPeriod = parse<double>(value);
-            break;
-        case SUMO_ATTR_PROB:
-            myProbability = parse<double>(value);
-            break;
-        case SUMO_ATTR_NUMBER:
-            myNumber = parse<int>(value);
             break;
         case SUMO_ATTR_DEPARTLANE:
             myDepartLane = value;

@@ -52,15 +52,6 @@ class GNECalibratorRoute;
 class GNECalibratorFlow : public GNEAttributeCarrier {
 
 public:
-
-    /// @brief type of flow
-    enum TypeOfFlow {
-        GNE_CALIBRATORFLOW_INVALID,
-        GNE_CALIBRATORFLOW_VEHSPERHOUR,
-        GNE_CALIBRATORFLOW_PERIOD,
-        GNE_CALIBRATORFLOW_PROBABILITY
-    };
-
     /// @brief constructor (used only in GNECalibratorDialog)
     GNECalibratorFlow(GNECalibratorDialog* calibratorDialog);
 
@@ -68,8 +59,7 @@ public:
     GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
                       const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                       const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period,
-                      double probability, int number, GNECalibratorFlow::TypeOfFlow flowType);
+                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour);
 
     /// @brief destructor
     ~GNECalibratorFlow();
@@ -79,12 +69,6 @@ public:
 
     /// @brief get pointer to calibrator parent
     GNECalibrator* getCalibratorParent() const;
-
-    /// @brief get type of flow
-    GNECalibratorFlow::TypeOfFlow getFlowType() const;
-
-    /// @brief set type of flow
-    void setFlowType(GNECalibratorFlow::TypeOfFlow type);
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
@@ -178,19 +162,7 @@ protected:
 
     /// @brief flows per hour
     double myVehsPerHour;
-
-    /// @brief period
-    double myPeriod;
-
-    /// @brief probability
-    double myProbability;
-
-    /// @brief number of flow
-    int myNumber;
     /// @}
-
-    /// @brief type of flow
-    TypeOfFlow myFlowType;
 
 private:
     /// @brief method for setting the attribute and nothing else

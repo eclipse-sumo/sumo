@@ -839,8 +839,6 @@ enum {
     MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE,
     /// @brief set new variable
     MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,
-    /// @brief set flow type
-    MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE,
     /// @}
 
     /// @name allowDisallow Dialog messages

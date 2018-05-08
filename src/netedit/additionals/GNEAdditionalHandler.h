@@ -478,7 +478,7 @@ public:
                                     GNECalibratorVehicleType* vtype, const RGBColor& color, const std::string& departLane, const std::string& departPos,
                                     const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
                                     const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
-                                    const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number, int flowType);
+                                    const std::string& arrivalPosLat, double begin, double end, double vehsPerHour);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -627,10 +627,6 @@ protected:
 
     /// @brief The element stack
     std::vector<std::pair<SumoXMLTag, std::string> > myParentElements;
-
-private:
-    /// @brief get a error message, if configuration of flow distribution is invalid
-    int getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
 };
 
 
