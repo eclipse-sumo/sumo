@@ -316,6 +316,9 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     MSRouteProbe* probe = 0;
     if (routeProbe != "") {
         probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
+        if (probe == 0) {
+            throw InvalidArgument("The routeProbe '" + routeProbe + "' to use within the calibrator '" + id + "' is not known.");
+        }
     }
     if (MSGlobals::gUseMesoSim) {
         if (lane != 0 && edge->getLanes().size() > 1) {
