@@ -1495,14 +1495,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
 
-    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt
+    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
     if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
-        valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
+        valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
     }
 
-    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.txt
+    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.xml
     if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
-        valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
+        valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
     }
 
     // Save block value if additional can be blocked
