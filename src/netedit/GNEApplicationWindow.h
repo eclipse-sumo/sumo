@@ -132,6 +132,9 @@ public:
     /// @brief set TLS Programs file
     void setTLSProgramsFile(const std::string& TLSProgramsFile);
 
+    /// @brief enable save Net
+    void enableSaveNetMenu();
+
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
@@ -415,23 +418,17 @@ protected:
     std::string myTLSProgramsFile;
 
 private:
+    /// @brief FXMenuCommand for enable or disable save net
+    FXMenuCommand* mySaveNetMenuCommand;
+
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
-
-    /// @brief FXMenuCommand for enable or disable save additionals as
-    FXMenuCommand* mySaveAdditionalsMenuCommandAs;
 
     /// @brief FXMenuCommand for enable or disable save shapes
     FXMenuCommand* mySaveShapesMenuCommand;
 
-    /// @brief FXMenuCommand for enable or disable save shapes as
-    FXMenuCommand* mySaveShapesMenuCommandAs;
-
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveTLSProgramsMenuCommand;
-
-    /// @brief FXMenuCommand for enable or disable save additionals as
-    FXMenuCommand* mySaveTLSProgramsMenuCommandAs;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

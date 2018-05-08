@@ -95,6 +95,8 @@ GNEChange_TLS::undo() {
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 
@@ -115,6 +117,8 @@ GNEChange_TLS::redo() {
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 

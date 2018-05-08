@@ -88,6 +88,8 @@ GNEChange_Edge::undo() {
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 
@@ -112,6 +114,8 @@ GNEChange_Edge::redo() {
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 

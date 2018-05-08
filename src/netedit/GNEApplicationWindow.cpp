@@ -104,7 +104,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                                     GNEApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                                     GNEApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK,                GNEApplicationWindow::onCmdSaveNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK,                GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,             GNEApplicationWindow::onCmdSaveAsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEPLAINXML,               GNEApplicationWindow::onCmdSaveAsPlainXML),
@@ -113,8 +112,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEJOINED,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES,                 GNEApplicationWindow::onCmdSaveShapes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onCmdSaveShapesAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onCmdSaveAdditionalsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onCmdSaveTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,         GNEApplicationWindow::onCmdSaveTLSProgramsAs),
@@ -403,9 +404,10 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myFileMenu,
                       "&Reload\tCtrl+R\tReloads the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
-    new FXMenuCommand(myFileMenu,
+    mySaveNetMenuCommand = new FXMenuCommand(myFileMenu,
                       "&Save Network...\tCtrl+S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVENETWORK);
+    mySaveNetMenuCommand->disable();
     new FXMenuCommand(myFileMenu,
                       "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
@@ -424,10 +426,9 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
-    mySaveShapesMenuCommandAs = new FXMenuCommand(myFileMenuShapes,
+    new FXMenuCommand(myFileMenuShapes,
                       "Save Shapes As...\t\tSave shapes elements in another files.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
-    mySaveShapesMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
     // create Additionals menu options
     myFileMenuAdditionals = new FXMenuPane(this);
@@ -438,10 +439,9 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
-    mySaveAdditionalsMenuCommandAs = new FXMenuCommand(myFileMenuAdditionals,
+    new FXMenuCommand(myFileMenuAdditionals,
                       "Save Additionals As...\t\tSave additional elements in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
-    mySaveAdditionalsMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
     // create TLS menu options
     myFileMenuTLS = new FXMenuPane(this);
@@ -452,10 +452,9 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
     mySaveTLSProgramsMenuCommand->disable();
-    mySaveTLSProgramsMenuCommandAs = new FXMenuCommand(myFileMenuTLS,
+    new FXMenuCommand(myFileMenuTLS,
                       "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
-    mySaveTLSProgramsMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myFileMenuTLS);
     // close network
     new FXMenuSeparator(myFileMenu);
@@ -690,6 +689,8 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
     GNELoadThread::fillOptions(oc);
     GNELoadThread::setDefaultOptions(oc);
     loadConfigOrNet("", true, false, true, true);
+    // due it's a new network, save button has to be enabled
+    mySaveNetMenuCommand->enable();
     return 1;
 }
 
@@ -731,11 +732,8 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         myRecentNets.appendFile(file.c_str());
         // when a net is loaded, save additional, shapes an TLSPrograms are disabled
         mySaveAdditionalsMenuCommand->disable();
-        mySaveAdditionalsMenuCommandAs->disable();
         mySaveShapesMenuCommand->disable();
-        mySaveShapesMenuCommandAs->disable();
         mySaveTLSProgramsMenuCommand->disable();
-        mySaveTLSProgramsMenuCommandAs->disable();
     }
     return 1;
 }
@@ -892,11 +890,8 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         closeAllWindows();
         // disable save additionals, shapes and TLS menu
         mySaveAdditionalsMenuCommand->disable();
-        mySaveAdditionalsMenuCommandAs->disable();
         mySaveShapesMenuCommand->disable();
-        mySaveShapesMenuCommandAs->disable();
         mySaveTLSProgramsMenuCommand->disable();
-        mySaveTLSProgramsMenuCommandAs->disable();
     }
     return 1;
 }
@@ -1214,24 +1209,27 @@ GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
 }
 
 
+void 
+GNEApplicationWindow::enableSaveNetMenu() {
+    mySaveNetMenuCommand->enable();
+}
+
+
 void
 GNEApplicationWindow::enableSaveAdditionalsMenu() {
     mySaveAdditionalsMenuCommand->enable();
-    mySaveAdditionalsMenuCommandAs->enable();
 }
 
 
 void
 GNEApplicationWindow::enableSaveShapesMenu() {
     mySaveShapesMenuCommand->enable();
-    mySaveShapesMenuCommandAs->enable();
 }
 
 
 void
 GNEApplicationWindow::enableSaveTLSProgramsMenu() {
     mySaveTLSProgramsMenuCommand->enable();
-    mySaveTLSProgramsMenuCommandAs->enable();
 }
 
 
@@ -1692,7 +1690,6 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
             myNet->saveShapes(myShapesFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Shapes saved in " + myShapesFile + ".\n");
             mySaveShapesMenuCommand->disable();
-            mySaveShapesMenuCommandAs->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1757,6 +1754,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             myNet->save(oc);
             myUndoList->unmark();
             myUndoList->mark();
+            // disable save net (because is already saved)
+            mySaveNetMenuCommand->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1802,7 +1801,6 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             myNet->saveAdditionals(myAdditionalsFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + myAdditionalsFile + ".\n");
             mySaveAdditionalsMenuCommand->disable();
-            mySaveAdditionalsMenuCommandAs->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1865,7 +1863,6 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             myNet->saveTLSPrograms(myTLSProgramsFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + myTLSProgramsFile + ".\n");
             mySaveTLSProgramsMenuCommand->disable();
-            mySaveTLSProgramsMenuCommandAs->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1931,7 +1928,7 @@ GNEApplicationWindow::getView() {
 bool
 GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
-    if (myUndoList->canUndo() && !myUndoList->marked()) {
+    if (mySaveNetMenuCommand->isEnabled()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox 'Confirm closing network'");

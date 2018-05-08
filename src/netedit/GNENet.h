@@ -443,6 +443,9 @@ public:
     */
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
+    /// @brief inform that net has to be saved
+    void requiereSaveNet();
+
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
      */
@@ -722,6 +725,9 @@ protected:
 
     /// @brief whether the net needs recomputation
     bool myNeedRecompute;
+
+    /// @brief Flag to check if net has to be saved
+    bool myNetSaved;
 
     /// @brief Flag to check if additionals has to be saved
     bool myAdditionalsSaved;

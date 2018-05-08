@@ -114,6 +114,8 @@ void GNEChange_Crossing::undo() {
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 
@@ -166,6 +168,8 @@ void GNEChange_Crossing::redo() {
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 

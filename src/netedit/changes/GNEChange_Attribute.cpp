@@ -30,6 +30,7 @@
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/netelements/GNENetElement.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEShape.h>
 
@@ -55,7 +56,8 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
     myAdditional(nullptr),
     myShape(nullptr) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
-    // try to cast AC as additional and Shape
+    // try to cast AC as netElement, additional or Shape
+    myNetElement = dynamic_cast<GNENetElement*>(myAC);
     myAdditional = dynamic_cast<GNEAdditional*>(myAC);
     myShape = dynamic_cast<GNEShape*>(myAC);
 }
@@ -92,8 +94,10 @@ GNEChange_Attribute::undo() {
     }
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
-    // check if additional or shapes has to be saved
-    if (myAdditional) {
+    // check if netElements, additional or shapes has to be saved
+    if (myNetElement) {
+        myNetElement->getNet()->requiereSaveNet();
+    } else if (myAdditional) {
         myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
     } else if (myShape) {
         myShape->getNet()->requiereSaveShapes();
@@ -109,8 +113,10 @@ GNEChange_Attribute::redo() {
     }
     // set new value
     myAC->setAttribute(myKey, myNewValue);
-    // check if additional or shapes has to be saved
-    if (myAdditional) {
+    // check if netElements, additional or shapes has to be saved
+    if (myNetElement) {
+        myNetElement->getNet()->requiereSaveNet();
+    } else if (myAdditional) {
         myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
     } else if (myShape) {
         myShape->getNet()->requiereSaveShapes();

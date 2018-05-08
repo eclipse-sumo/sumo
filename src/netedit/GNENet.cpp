@@ -121,6 +121,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myEdgeIDSupplier("gneE", netBuilder->getEdgeCont().getAllNames()),
     myJunctionIDSupplier("gneJ", netBuilder->getNodeCont().getAllNames()),
     myNeedRecompute(true),
+    myNetSaved(true),
     myAdditionalsSaved(true),
     myShapesSaved(true),
     myTLSProgramsSaved(true), 
@@ -842,6 +843,16 @@ GNENet::checkJunctionPosition(const Position& pos) {
         }
     }
     return true;
+}
+
+
+void 
+GNENet::requiereSaveNet() {
+    if ((myNetSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        WRITE_WARNING("net has to be saved");
+    }
+    myNetSaved = false;
+    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveNetMenu();
 }
 
 
