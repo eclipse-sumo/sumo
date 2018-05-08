@@ -31,8 +31,7 @@ Warning: Setting new attribute length '0' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute length '0' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaB'
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaA'
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaB'
+Warning: Setting new attribute angle '0.00' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute angle '500' into parkingArea 'parkingAreaA'
@@ -55,7 +54,6 @@ Warning: Setting previous attribute angle '0.00' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute angle '0.00' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '30.00' into parkingArea 'parkingAreaB'
-Warning: Setting previous attribute angle '0.00' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '0.00' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute length '0.00' into parkingArea 'parkingAreaA'
@@ -137,8 +135,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaA'
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaB'
+Warning: Setting new attribute angle '0.00' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaB'
