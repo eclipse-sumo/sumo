@@ -1885,39 +1885,12 @@ GNENet::saveAdditionals(const std::string& filename) {
             // Here a console message
             ;
         } else {
-            // save additionals
-            OutputDevice& device = OutputDevice::getDevice(filename);
-            device.openTag("additionals");
-
-            // write all vehicle types
-            for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
-                if (i.first != DEFAULT_VTYPE_ID) {
-                    i.second->writeVehicleType(device);
-                }
-            }
-            for (auto i : myAttributeCarriers.additionals) {
-                i.second->writeAdditional(device);
-            }
-            device.close();
+            saveAdditionalsConfirmed(filename, true);
         }
         // set focus again in viewNet
         myViewNet->setFocus();
     } else {
-        OutputDevice& device = OutputDevice::getDevice(filename);
-        device.openTag("additionals");
-        // write all vehicle types
-        for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
-            if (i.first != DEFAULT_VTYPE_ID) {
-                i.second->writeVehicleType(device);
-            }
-        }
-        for (auto i : myAttributeCarriers.additionals) {
-            // only save additionals that doesn't have Additional parents
-            if (i.second->getAdditionalParent() == nullptr) {
-                i.second->writeAdditional(device);
-            }
-        }
-        device.close();
+        saveAdditionalsConfirmed(filename, false);
     }
     // change value of flag
     myAdditionalsSaved = true;
@@ -1927,6 +1900,25 @@ GNENet::saveAdditionals(const std::string& filename) {
     }
 }
 
+
+void
+GNENet::saveAdditionalsConfirmed(const std::string& filename, bool writeAll) {
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    device.openTag("additionals");
+    // write all vehicle types
+    for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
+        if (i.first != DEFAULT_VTYPE_ID) {
+            i.second->writeVehicleType(device);
+        }
+    }
+    for (auto i : myAttributeCarriers.additionals) {
+        // if not writeAll, only save additionals that doesn't have Additional parents
+        if (i.second->getAdditionalParent() == nullptr || writeAll) {
+            i.second->writeAdditional(device);
+        }
+    }
+    device.close();
+}
 
 GNECalibratorRoute*
 GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {

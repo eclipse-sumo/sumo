@@ -821,6 +821,9 @@ private:
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);
 
+    /// @brief save additionals after confirming invalid objects
+    void saveAdditionalsConfirmed(const std::string& filename, bool writeAll); 
+
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
