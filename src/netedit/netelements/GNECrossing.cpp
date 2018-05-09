@@ -283,7 +283,36 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_EDGES:
-            return checkGNEEdgesValid(myNet, value, false);
+            if (checkGNEEdgesValid(myNet, value, false)) {
+                // parse edges and save their IDs in a set
+                std::vector<GNEEdge*> parsedEdges = parseGNEEdges(myNet, value);
+                std::set<std::string> pasedEdgeIDs;
+                for (auto i : parsedEdges) {
+                    pasedEdgeIDs.insert(i->getID());
+                }
+                // obtain neighbours junctions of parent junction (Including it)
+                std::vector<GNEJunction*> junctions = myParentJunction->getJunctionNeighbours();
+                junctions.push_back(myParentJunction);
+                // iterate over all crossing of junctions heighbours and check if there is another crossing with the same edges
+                for (auto i : junctions) {
+                    // iterate over crossings
+                    for(auto j : i->getGNECrossings()) {
+                        // obtain sorted IDs of edges and compare it with edgeIDs
+                        std::set<std::string> edgesCrossing;
+                        for (auto k : j->getNBCrossing()->edges) {
+                            edgesCrossing.insert(k->getID());
+                        }
+                        // if edgesCrossing has the same IDs of pasedEdgeIDs, value is invalid because there is another crossing with the same edges
+                        if(pasedEdgeIDs == edgesCrossing) {
+                            return false;
+                        }
+                    }
+                }
+                // there isnt' another crossing with the same edges, then return true
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:
