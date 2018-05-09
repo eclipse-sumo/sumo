@@ -1,5 +1,6 @@
 Warning: Adding busStop 'busStop1' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding busStop 'busStop2' in GNEChange_Additional
 Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
@@ -20,6 +21,8 @@ Warning: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Value 'DummyAllowed' for attribute allow of edge isn't valid
 Warning: Setting new attribute allow '' into lane 'gneE2_0'
 Warning: Setting new attribute allow '' into lane 'gneE2_1'
@@ -198,6 +201,7 @@ Warning: Found angle of 107.00 degrees at edge 'gneE2', segment 1
 Warning: Found sharp turn with radius 0.47 at the end of edge 'gneE2'.
 Warning: Deleting unreferenced busStop 'busStop6'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced busStop 'busStop5'
 Warning: Deleting unreferenced busStop 'busStop4'
 Warning: Deleting unreferenced busStop 'busStop3'
@@ -239,4 +243,5 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

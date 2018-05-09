@@ -1,5 +1,6 @@
 Warning: Adding calibrator 'calibratorFlows' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding calibrator route into calibrator 'calibratorFlows'
 Warning: Adding calibrator vehicle type 'CalibratorFlowType'
 Warning: Adding calibrator flow into calibrator 'calibratorFlows'
@@ -206,6 +207,8 @@ Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route 
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting calibrator route
 Warning: Deleting calibrator flow
 Warning: Deleting calibrator flow
@@ -408,6 +411,7 @@ Warning: Deleting calibrator flow
 Warning: Deleting calibrator route
 Warning: Deleting unreferenced calibrator 'calibratorFlows'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -1,5 +1,6 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -69,6 +70,8 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Value 'gneJ1' for attribute id of junction isn't valid
 Warning: Value '' for attribute id of junction isn't valid
 Warning: Setting new attribute id 'OwnID' into junction 'gneJ0'
@@ -231,6 +234,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
@@ -392,4 +396,5 @@ Warning: Deleting unreferenced junction 'gneJ6' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

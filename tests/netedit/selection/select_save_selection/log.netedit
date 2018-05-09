@@ -1,5 +1,6 @@
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Adding poiLane 'POI_1' into viewNet
@@ -7,6 +8,8 @@ Warning: Adding poi 'POI_2' into viewNet
 Warning: Adding poi 'POI_3' into viewNet
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
 Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Shapes saved
@@ -30,4 +33,5 @@ Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

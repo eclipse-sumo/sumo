@@ -11,6 +11,8 @@ Warning: Created connection 'fromgneE3_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE5_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE5_0to-gneE3_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE5_0togneE4_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 0.00, 0.00, 50.00. Zoom = '240.00'
 Warning: Setting new attribute pos '25.00,50.00' into junction 'gneJ6'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -51,4 +53,5 @@ Warning: Deleting unreferenced junction 'gneJ6' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

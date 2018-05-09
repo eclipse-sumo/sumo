@@ -1,5 +1,6 @@
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
@@ -20,6 +21,8 @@ Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_4detExit0' in GNEChange_Additional
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting TLS from junction 'gneJ0'
 Warning: Adding TLS into junction 'gneJ0'
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
@@ -92,6 +95,7 @@ Warning: Deleting unreferenced detExit 'e3Detector_5detExit0'
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_5'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
 Warning: Deleting unreferenced detExit 'e3Detector_4detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_4'
@@ -103,4 +107,5 @@ Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

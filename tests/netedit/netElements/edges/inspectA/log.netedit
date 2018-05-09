@@ -1,5 +1,6 @@
 Warning: Adding busStop 'busStop1' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding busStop 'busStop2' in GNEChange_Additional
 Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
@@ -8,6 +9,8 @@ Warning: Adding busStop 'busStop6' in GNEChange_Additional
 Warning: Value '' for attribute id of edge isn't valid
 Warning: Value 'gneE3' for attribute id of edge isn't valid
 Warning: Setting new attribute id 'correct_ID' into edge 'gneE2'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Value 'dummy_Junction' for attribute from of edge isn't valid
 Warning: Value '' for attribute from of edge isn't valid
 Warning: Value 'gneJ2' for attribute from of edge isn't valid
@@ -551,6 +554,7 @@ Warning: Created connection 'fromgneE9_0tocorrect_ID_3' in retrieveGNEConnection
 Warning: Deleting unreferenced lane 'correct_ID_1' in GNEChange_Attribute
 Warning: Deleting unreferenced busStop 'busStop6'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced busStop 'busStop5'
 Warning: Deleting unreferenced busStop 'busStop4'
 Warning: Deleting unreferenced busStop 'busStop3'
@@ -592,4 +596,5 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

@@ -1,6 +1,7 @@
 Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Value 'POI_1' for attribute id of poi isn't valid
 Warning: Value '' for attribute id of poi isn't valid
@@ -149,6 +150,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_1' in ~GNEChange_Shape()
 Warning: Removing poi 'newID' from net in ~GNEChange_Shape()
@@ -161,4 +164,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

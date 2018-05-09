@@ -1,6 +1,7 @@
 Warning: Selected shape 'poiLane' in ShapeSelector
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Invalid input parameter of poiLane: 'posLat' doesn't have a valid 'float' format
 Warning: Invalid input parameter of poiLane: 'posLat' doesn't have a valid 'float' format
 Warning: Adding poiLane 'POI_1' into viewNet
@@ -105,6 +106,8 @@ Warning: Setting new attribute blockMovement '1' into poiLane 'POI_17'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poiLane 'POI_17' from net in ~GNEChange_Shape()
 Warning: delete poiLane 'POI_17' in ~GNEChange_Shape()
 Warning: Removing poiLane 'POI_16' from net in ~GNEChange_Shape()
@@ -149,4 +152,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

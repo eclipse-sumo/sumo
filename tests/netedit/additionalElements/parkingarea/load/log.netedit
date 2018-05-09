@@ -1,5 +1,6 @@
 Warning: Adding parkingArea 'parkingArea_00' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential string attribute 'id' of parkingArea is missing; parkingArea cannot be created
 Warning: Essential string attribute 'lane' of parkingArea is missing; parkingArea cannot be created
 Warning: Essential float attribute 'startPos' of parkingArea is missing; parkingArea cannot be created
@@ -42,8 +43,11 @@ Warning: Adding parkingArea 'parkingArea_32' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced parkingArea 'parkingArea_32'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced parkingArea 'parkingArea_31'
 Warning: Deleting unreferenced parkingArea 'parkingArea_30'
 Warning: Deleting unreferenced parkingArea 'parkingArea_29'
@@ -74,4 +78,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

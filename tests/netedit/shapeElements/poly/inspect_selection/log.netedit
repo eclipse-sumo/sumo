@@ -1,5 +1,6 @@
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poly 'poly_1' into viewNet
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Adding poly 'poly_2' into viewNet
@@ -13,6 +14,8 @@ Warning: Adding poly 'poly_9' into viewNet
 Warning: Current Viewport values: 0.00, 0.00, 100.00. Zoom = '53.20'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Setting new attribute selected 'true' into edge 'gneE3'
 Warning: Setting new attribute selected 'true' into edge 'gneE4'
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -422,4 +425,5 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

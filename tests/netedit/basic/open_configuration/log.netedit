@@ -25,6 +25,8 @@ Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -80,4 +82,5 @@ Warning: Deleting unreferenced junction 'Center' in GNENet destructor
 Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

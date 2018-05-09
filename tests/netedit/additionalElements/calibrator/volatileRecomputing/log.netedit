@@ -1,5 +1,6 @@
 Warning: Adding calibrator 'calibrator_gneE0_3' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE4_1' in GNEChange_Additional
@@ -9,11 +10,14 @@ Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Additionals saved
 Warning: Deleting unreferenced calibrator 'calibrator_gneE4_1'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced calibrator 'calibrator_gneE2_0'
 Warning: Deleting unreferenced calibrator 'calibrator_gneE1_2'
 Warning: Deleting unreferenced calibrator 'calibrator_gneE0_3'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -40,4 +44,5 @@ Warning: Deleting unreferenced calibrator 'calibrator_gneE0_3' in GNENet destruc
 Warning: Deleting unreferenced calibrator 'calibrator_gneE1_2' in GNENet destructor
 Warning: Deleting unreferenced calibrator 'calibrator_gneE2_0' in GNENet destructor
 Warning: Deleting unreferenced calibrator 'calibrator_gneE4_1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

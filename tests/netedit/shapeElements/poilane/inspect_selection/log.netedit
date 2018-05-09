@@ -1,5 +1,6 @@
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Adding poiLane 'POI_10' into viewNet
 Warning: Adding poiLane 'POI_11' into viewNet
@@ -19,6 +20,8 @@ Warning: Adding poiLane 'POI_8' into viewNet
 Warning: Adding poiLane 'POI_9' into viewNet
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
@@ -598,12 +601,12 @@ Warning: Setting previous attribute imgFile '' into poiLane 'POI_5'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_4'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_3'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_2'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04May165115.1984/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04May165115.1984/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04May165115.1984/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04May165115.1984/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04May165115.1984/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
-Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04May165115.1984/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_17'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_16'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_15'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_14'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_13'
+Warning: Setting previous attribute imgFile 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poilane/inspect_selection\berlin_icon.ico' into poiLane 'POI_12'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_11'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_10'
 Warning: Setting previous attribute imgFile '' into poiLane 'POI_1'
@@ -1039,4 +1042,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

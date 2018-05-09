@@ -1,5 +1,6 @@
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -13,6 +14,7 @@ Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes unsaved
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Adding poi 'POI_2' into viewNet
@@ -40,6 +42,8 @@ Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c2' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c3' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '1'
 Warning: Setting new attribute selected 'true' into edge '2'
@@ -1819,6 +1823,7 @@ Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
 Warning: Deleting unreferenced detExit 'e3Detector_2detExit0'
@@ -1887,4 +1892,5 @@ Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c2' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c3' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

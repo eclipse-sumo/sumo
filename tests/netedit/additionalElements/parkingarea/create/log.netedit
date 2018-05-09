@@ -1,6 +1,7 @@
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Invalid input parameter of parkingArea: 'roadsideCapacity' doesn't have a valid 'int' format
 Warning: Invalid input parameter of parkingArea: 'roadsideCapacity' doesn't have a valid 'int' format
 Warning: Invalid input parameter of parkingArea: 'roadsideCapacity' cannot be negative
@@ -92,8 +93,11 @@ Warning: Setting new attribute startPos '7.90' into parkingArea 'parkingArea_gne
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_14'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_13'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_12'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_11'
@@ -116,4 +120,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

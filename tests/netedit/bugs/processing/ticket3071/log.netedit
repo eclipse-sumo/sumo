@@ -10,6 +10,7 @@ Warning: The lane 'gneE6_0' to use within the busStop 'busStop_gneE6_0_9' is not
 Warning: The lane 'gneE7_0' to use within the busStop 'busStop_gneE7_0_6' is not known.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Key F5 (Compute) pressed
@@ -77,6 +78,8 @@ Warning: Created crossing ':gneJ19_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ19_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ19_c2' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -812,6 +815,7 @@ Warning: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
 Warning: Deleting NBNode of 'gneJ19' in GNEJunction destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
@@ -941,4 +945,5 @@ Warning: Deleting unreferenced junction 'gneJ16' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ16_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ18' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ18_c0' in GNEJunction destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

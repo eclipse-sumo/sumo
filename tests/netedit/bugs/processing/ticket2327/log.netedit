@@ -1,5 +1,6 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -93,6 +94,8 @@ Warning: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
@@ -1117,6 +1120,7 @@ Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'
 Warning: Deleting unreferenced busStop 'busStop_gneE5_0_8'
@@ -1169,4 +1173,5 @@ Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Warning: Deleting unreferenced crossing ':gneJ9_c0' in GNEJunction destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

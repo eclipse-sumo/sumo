@@ -1,5 +1,6 @@
 Warning: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -69,6 +70,8 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
@@ -894,6 +897,7 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNEChange_Attribute
 Warning: Deleting NBNode of 'gneJ0' in GNEJunction destructor
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'
 Warning: Deleting unreferenced busStop 'busStop_gneE5_0_8'
@@ -965,4 +969,5 @@ Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

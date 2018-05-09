@@ -1,5 +1,6 @@
 Warning: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_00detExit0' in GNEChange_Additional
 Warning: Format of essential string attribute 'id' of e3Detector is invalid; 'id with spaces' contains invalid characters; e3Detector cannot be created
@@ -77,8 +78,11 @@ Warning: e3Detector with ID 'e3Detector_22' cannot be writed in additional file 
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_22'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_21'
 Warning: Deleting unreferenced detExit 'e3Detector_20detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_20detEntry0'
@@ -148,4 +152,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

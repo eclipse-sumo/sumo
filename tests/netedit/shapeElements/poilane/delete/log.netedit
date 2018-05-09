@@ -1,5 +1,6 @@
 Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poiLane 'POI_nonDeleted' into viewNet
 Warning: Selected shape 'poiLane' in ShapeSelector
 Warning: Adding poiLane 'POI_1' into viewNet
@@ -7,6 +8,8 @@ Warning: Removing poiLane 'POI_1' from viewNet
 Warning: Removing poiLane 'POI_0' from viewNet
 Warning: Removing poiLane 'POI_nonDeleted' from viewNet
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Adding TLS into junction 'gneJ1'
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
@@ -63,4 +66,5 @@ Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

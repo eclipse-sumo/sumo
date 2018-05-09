@@ -1,6 +1,7 @@
 Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poi '%%%%%···$' into viewNet
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Adding poi 'POI_12' into viewNet
@@ -27,7 +28,7 @@ Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
 Warning: Adding poi 'POI_10' into viewNet
 Error: Loading of shapes failed.
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03May130751.1080/netedit.gui/shapeElements/poi/load\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poi/load\paris.ico'.
 Loading failed!
 Warning: Current Viewport values: 0.00, 0.00, 80.00. Zoom = '66.50'
 Warning: Shapes saved
@@ -39,6 +40,8 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poi 'POI_10' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_10' in ~GNEChange_Shape()
 Warning: Removing poi 'POI_9' from net in ~GNEChange_Shape()
@@ -103,4 +106,5 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

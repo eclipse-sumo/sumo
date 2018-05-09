@@ -1,5 +1,6 @@
 Warning: Adding containerStop 'containerStop_00' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential string attribute 'id' of containerStop is missing; containerStop cannot be created
 Warning: Essential string attribute 'lane' of containerStop is missing; containerStop cannot be created
 Warning: Essential float attribute 'startPos' of containerStop is missing; containerStop cannot be created
@@ -31,8 +32,11 @@ Warning: Adding containerStop 'containerStop_19' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced containerStop 'containerStop_19'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced containerStop 'containerStop_18'
 Warning: Deleting unreferenced containerStop 'containerStop_17'
 Warning: Deleting unreferenced containerStop 'containerStop_16'
@@ -50,4 +54,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

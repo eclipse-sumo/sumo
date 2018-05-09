@@ -1,6 +1,7 @@
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding parkingArea 'parkingArea_gneE2_0_1' in GNEChange_Additional
 Warning: Selected additional 'space' in AdditionalSelector
 Warning: Adding space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
@@ -134,8 +135,11 @@ Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE2_0_0space1'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE2_0_0space0'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_1'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_0'
@@ -161,4 +165,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

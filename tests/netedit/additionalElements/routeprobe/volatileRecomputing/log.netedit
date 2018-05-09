@@ -1,5 +1,6 @@
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
@@ -21,6 +22,7 @@ Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Additionals saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_17'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
 Warning: Deleting unreferenced routeProbe 'routeProbe_14'
@@ -38,6 +40,8 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_02'
 Warning: Deleting unreferenced routeProbe 'routeProbe_01'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -76,4 +80,5 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_14' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_15' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_16' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_17' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

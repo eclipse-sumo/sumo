@@ -3,6 +3,8 @@ Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from7_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
 Warning: Removing connection '8_1->3_1' from edge '8'
 Warning: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
@@ -114,4 +116,5 @@ Warning: Deleting unreferenced junction 'B' in GNENet destructor
 Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

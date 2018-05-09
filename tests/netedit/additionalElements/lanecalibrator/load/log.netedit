@@ -1,5 +1,6 @@
 Warning: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
 Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; 'ID with spaces' contains invalid characters; laneCalibrator cannot be created
 Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; ID cannot be empty; laneCalibrator cannot be created
@@ -26,8 +27,11 @@ Warning: Adding laneCalibrator 'calibrator20' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced laneCalibrator 'calibrator20'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced laneCalibrator 'calibrator19'
 Warning: Deleting unreferenced laneCalibrator 'calibrator18'
 Warning: Deleting unreferenced laneCalibrator 'calibrator17'
@@ -53,4 +57,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
