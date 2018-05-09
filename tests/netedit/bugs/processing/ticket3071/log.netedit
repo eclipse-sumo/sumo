@@ -815,7 +815,7 @@ Warning: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
 Warning: Deleting NBNode of 'gneJ19' in GNEJunction destructor
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor

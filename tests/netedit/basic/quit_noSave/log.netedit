@@ -8,8 +8,6 @@ Warning: Key ENTER pressed
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes unsaved
-Warning: Opening FXMessageBox 'Confirm closing network'
-Warning: Closed FXMessageBox 'Confirm closing network' with 'Quit'
 Warning: Opening FXMessageBox 'Save additionals before exit'
 Warning: Closed FXMessageBox 'Save additionals before exit' with 'Quit'
 Warning: Opening FXMessageBox 'Save shapes before exit'

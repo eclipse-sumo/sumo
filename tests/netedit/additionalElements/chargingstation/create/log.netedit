@@ -50,7 +50,7 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_6'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_5'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_4'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_3'

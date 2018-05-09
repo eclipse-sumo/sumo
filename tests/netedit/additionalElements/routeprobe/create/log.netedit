@@ -30,7 +30,7 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_3'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_2'
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_1'
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'

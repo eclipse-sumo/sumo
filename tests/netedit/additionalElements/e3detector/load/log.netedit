@@ -82,7 +82,7 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_22'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_21'
 Warning: Deleting unreferenced detExit 'e3Detector_20detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_20detEntry0'

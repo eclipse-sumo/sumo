@@ -75,7 +75,7 @@ Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_gneE7_0_6'
 Warning: Deleting unreferenced busStop 'busStop_gneE6_0_9'

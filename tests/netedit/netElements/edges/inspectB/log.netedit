@@ -201,7 +201,7 @@ Warning: Found angle of 107.00 degrees at edge 'gneE2', segment 1
 Warning: Found sharp turn with radius 0.47 at the end of edge 'gneE2'.
 Warning: Deleting unreferenced busStop 'busStop6'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced busStop 'busStop5'
 Warning: Deleting unreferenced busStop 'busStop4'
 Warning: Deleting unreferenced busStop 'busStop3'

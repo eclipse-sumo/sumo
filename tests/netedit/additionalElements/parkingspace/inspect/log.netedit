@@ -139,7 +139,7 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE2_0_0space1'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE2_0_0space0'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_1'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_0'

@@ -550,7 +550,7 @@ Warning: Created connection 'from8_2to6_2' in retrieveGNEConnection()
 Warning: Additionals saved
 Warning: Deleting unreferenced busStop 'busStop_8_2_1'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced busStop 'busStop_7_1_3'
 Warning: Deleting unreferenced busStop 'busStop_4_2_2'
 Warning: Deleting unreferenced busStop 'busStop_3_2_0'

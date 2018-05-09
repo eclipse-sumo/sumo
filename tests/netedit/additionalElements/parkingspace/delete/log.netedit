@@ -38,7 +38,7 @@ Warning: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_2'
 Warning: Deleting unreferenced space 'parkingAreaLoaded_Bspace0'
 Warning: Deleting unreferenced parkingArea 'parkingAreaLoaded_B'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced space 'parkingAreaLoaded_Aspace0'
 Warning: Deleting unreferenced parkingArea 'parkingAreaLoaded_A'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

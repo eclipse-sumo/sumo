@@ -455,7 +455,7 @@ Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'

@@ -42,7 +42,7 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE1_0_4'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE1_0_3'
 Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE1_0_2'
 Warning: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE0_0_1'

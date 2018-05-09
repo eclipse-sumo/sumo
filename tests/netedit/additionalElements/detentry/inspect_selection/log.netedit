@@ -29,7 +29,7 @@ Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced detEntry 'E3_1detEntry0'
 Warning: Additionals has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'E3_1'
 Warning: Deleting unreferenced detEntry 'E3_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'E3_0'

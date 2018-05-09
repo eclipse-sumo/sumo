@@ -1,1 +1,2 @@
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
