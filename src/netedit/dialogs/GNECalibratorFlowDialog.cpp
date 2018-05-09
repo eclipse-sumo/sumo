@@ -263,6 +263,10 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         if (myEditedCalibratorFlow->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
             myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
             myEditedCalibratorFlow->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
+            if(myInvalidAttr == SUMO_ATTR_VEHSPERHOUR) {
+                myCalibratorFlowValid = true;
+                myInvalidAttr = SUMO_ATTR_NOTHING;
+            }
         }   
     } else {
         myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
