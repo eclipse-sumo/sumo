@@ -290,7 +290,16 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                 for (auto i : parsedEdges) {
                     nbEdges.push_back(i->getNBEdge());
                 }
-                return !myParentJunction->getNBNode()->checkCrossingDuplicated(nbEdges);
+                std::sort(nbEdges.begin(), nbEdges.end());
+                // 
+                EdgeVector originalEdges = myCrossing->edges;
+                std::sort(originalEdges.begin(), originalEdges.end());
+                // return true if we're setting the same edges
+                if(toString(nbEdges) == toString(originalEdges)) {
+                    return true;
+                } else {
+                    return !myParentJunction->getNBNode()->checkCrossingDuplicated(nbEdges);
+                }
             } else {
                 return false;
             }
@@ -355,6 +364,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (auto i : edges) {
                 myCrossing->edges.push_back(i->getNBEdge());
             }
+            // sort new edges
+            std::sort(myCrossing->edges.begin(), myCrossing->edges.end());
             // update geometry of parent junction
             myParentJunction->updateGeometry();
             break;
