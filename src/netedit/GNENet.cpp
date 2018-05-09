@@ -853,6 +853,9 @@ void
 GNENet::requiereSaveNet() {
     if ((myNetSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("net has to be saved");
+        std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
+        std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
+        WRITE_WARNING("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
     }
     myNetSaved = false;
     myViewNet->getViewParent()->getGNEAppWindows()->enableSaveNetMenu();
@@ -1855,6 +1858,9 @@ void
 GNENet::requiereSaveAdditionals() {
     if ((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Additionals has to be saved");
+        std::string netSaved = (myNetSaved?"saved":"unsaved");
+        std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
+        WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
     }
     myAdditionalsSaved = false;
     myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
@@ -2085,6 +2091,9 @@ void
 GNENet::requiereSaveShapes() {
     if ((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Shapes has to be saved");
+        std::string netSaved = (myNetSaved?"saved":"unsaved");
+        std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
+        WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", shapes unsaved");
     }
     myShapesSaved = false;
     myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
@@ -2565,6 +2574,9 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
 
     myNeedRecompute = false;
+
+    // After a recomputing net has to be always saved
+    requiereSaveNet();
 }
 
 
