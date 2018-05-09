@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue May 01 21:00:59 2018
+TraCITestClient output file. Date: Wed May  9 07:54:46 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -133,6 +133,9 @@ testAPI:
          phase=ggggggg dur=10 minDur=5 maxDur=15
          phase=GGGGGGG dur=3 minDur=3 maxDur=3
          phase=yyyyyyy dur=3 minDur=3 maxDur=3
+    state=ggggggg
+    stateSet=gGyruoO
+    program: online
   load:
     getCurrentTime: 1000
   gui:
