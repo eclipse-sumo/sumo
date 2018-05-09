@@ -33,6 +33,7 @@
 #include <netedit/dialogs/GNERerouterDialog.h>
 
 #include "GNEClosingLaneReroute.h"
+#include "GNEParkingAreaReroute.h"
 #include "GNEClosingReroute.h"
 #include "GNEDestProbReroute.h"
 #include "GNERouteProbReroute.h"
@@ -83,6 +84,10 @@ GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
     // write dest prob reroutes
     for (auto i : myDestProbReroutes) {
         i->writeDestProbReroute(device);
+    }
+    // write parkingAreaReroutes
+    for (auto i : myParkingAreaReroutes) {
+        i->writeParkingAreaReroute(device);
     }
     // write route prob reroutes
     for (auto i : myRouteProbReroutes) {
@@ -197,6 +202,11 @@ GNERerouterInterval::getRouteProbReroutes() const {
     return myRouteProbReroutes;
 }
 
+const std::vector<GNEParkingAreaReroute*>&
+GNERerouterInterval::getParkingAreaReroutes() const {
+    return myParkingAreaReroutes;
+}
+
 
 void
 GNERerouterInterval::addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
@@ -284,6 +294,30 @@ GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilit
         throw ProcessError("Route Probability Reroute doesn't exist");
     }
 }
+
+
+void
+GNERerouterInterval::addParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute) {
+    auto it = std::find(myParkingAreaReroutes.begin(), myParkingAreaReroutes.end(), parkingAreaReroute);
+    if (it == myParkingAreaReroutes.end()) {
+        myParkingAreaReroutes.push_back(parkingAreaReroute);
+    } else {
+        throw ProcessError("parkingAreaReroute already exist");
+    }
+}
+
+
+void
+GNERerouterInterval::removeParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute) {
+    auto it = std::find(myParkingAreaReroutes.begin(), myParkingAreaReroutes.end(), parkingAreaReroute);
+    if (it != myParkingAreaReroutes.end()) {
+        myParkingAreaReroutes.erase(it);
+    } else {
+        throw ProcessError("parkingAreaReroute doesn't exist");
+    }
+}
+
+
 
 // ===========================================================================
 // private

@@ -39,6 +39,7 @@ class GNEClosingLaneReroute;
 class GNEClosingReroute;
 class GNEDestProbReroute;
 class GNERouteProbReroute;
+class GNEParkingAreaReroute;
 
 // ===========================================================================
 // class definitions
@@ -118,6 +119,9 @@ public:
     /// @brief get reoute probability reroutes
     const std::vector<GNERouteProbReroute*>& getRouteProbReroutes() const;
 
+    /// @brief get parkingAreaReroutes
+    const std::vector<GNEParkingAreaReroute*>& getParkingAreaReroutes() const;
+
 protected:
     /// @brief pointer to rerouter parent
     GNERerouter* myRerouterParent;
@@ -139,6 +143,9 @@ protected:
 
     /// @brief vector with the routeProbReroutes
     std::vector<GNERouteProbReroute*> myRouteProbReroutes;
+
+    /// @brief vector with the parkingAreaReroutes
+    std::vector<GNEParkingAreaReroute*> myParkingAreaReroutes;
 
     /// @brief add closing reroute
     void addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
@@ -163,6 +170,13 @@ protected:
 
     /// @brief add reoute probability reroute
     void removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
+
+    /// @brief add destiny probability reroute
+    void addParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute);
+
+    /// @brief add destiny probability reroute
+    void removeParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute);
+
 
 private:
     /// @brief set attribute after validation

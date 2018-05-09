@@ -27,6 +27,7 @@ GNECalibratorRoute.cpp GNECalibratorRoute.h \
 GNEVariableSpeedSign.cpp GNEVariableSpeedSign.h \
 GNEVariableSpeedSignStep.cpp GNEVariableSpeedSignStep.h \
 GNEClosingLaneReroute.cpp GNEClosingLaneReroute.h \
+GNEParkingAreaReroute.cpp GNEParkingAreaReroute.h \
 GNEClosingReroute.cpp GNEClosingReroute.h \
 GNEDestProbReroute.cpp GNEDestProbReroute.h \
 GNERouteProbReroute.cpp GNERouteProbReroute.h \

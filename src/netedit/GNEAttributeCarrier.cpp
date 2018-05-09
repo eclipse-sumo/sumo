@@ -629,11 +629,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "0.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
+                break;
+            case SUMO_TAG_PARKING_ZONE_REROUTE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "0.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
                 break;
             default:
                 // Throw exception if tag isn't defined
@@ -1280,6 +1284,8 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
         myProbabilityAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_PROB);
         // destiny probability reroute
         myProbabilityAttrs[SUMO_TAG_DEST_PROB_REROUTE].insert(SUMO_ATTR_PROB);
+        // destiny probability reroute
+        myProbabilityAttrs[SUMO_TAG_PARKING_ZONE_REROUTE].insert(SUMO_ATTR_PROB);
         // route prob reroute
         myProbabilityAttrs[SUMO_TAG_ROUTE_PROB_REROUTE].insert(SUMO_ATTR_PROB);
     }
@@ -1733,6 +1739,9 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         // destiny probability reroute
         myAttrDefinitions[SUMO_TAG_DEST_PROB_REROUTE][SUMO_ATTR_ID] = setAttrDefinition("Edge ID");
         myAttrDefinitions[SUMO_TAG_DEST_PROB_REROUTE][SUMO_ATTR_PROB] = setAttrDefinition("probability");
+        // parkingAreaReroute
+        myAttrDefinitions[SUMO_TAG_PARKING_ZONE_REROUTE][SUMO_ATTR_ID] = setAttrDefinition("ParkingArea ID");
+        myAttrDefinitions[SUMO_TAG_PARKING_ZONE_REROUTE][SUMO_ATTR_PROB] = setAttrDefinition("probability");
         // route probability reroute
         myAttrDefinitions[SUMO_TAG_ROUTE_PROB_REROUTE][SUMO_ATTR_ID] = setAttrDefinition("Route");
         myAttrDefinitions[SUMO_TAG_ROUTE_PROB_REROUTE][SUMO_ATTR_PROB] = setAttrDefinition("probability");

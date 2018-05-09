@@ -53,6 +53,8 @@ set(netedit_additionals_SRCS
    GNEVariableSpeedSignStep.cpp
    GNEClosingLaneReroute.h
    GNEClosingLaneReroute.cpp
+   GNEParkingAreaReroute.h
+   GNEParkingAreaReroute.cpp
    GNEClosingReroute.h
    GNEClosingReroute.cpp
    GNEDestProbReroute.h
