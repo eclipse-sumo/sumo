@@ -66,7 +66,8 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 280),
     myEditedCalibratorFlow(editedCalibratorFlow),
     myUpdatingElement(updatingElement),
-    myCalibratorFlowValid(true) {
+    myCalibratorFlowValid(false),
+    myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " : "Create " + toString(myEditedCalibratorFlow->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorFlow->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorFlow->getCalibratorParent()->getID() + "'");
@@ -87,9 +88,11 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     // 3 create textfield for vehs per hour
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), 0, GUIDesignLabelThick);
     myTextFieldVehsPerHour = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
     // 4 create textfield for vehs per hour
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_SPEED).c_str(), 0, GUIDesignLabelThick);
     myTextFieldSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
     // 5 create textfield for color
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_COLOR).c_str(), 0, GUIDesignLabelThick);
     myTextFieldColor = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
@@ -256,6 +259,11 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     if (myEditedCalibratorFlow->isValid(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text())) {
         myTextFieldSpeed->setTextColor(FXRGB(0, 0, 0));
         myEditedCalibratorFlow->setAttribute(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text(), undoList);
+        // Check VehsPerHour again
+        if (myEditedCalibratorFlow->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
+            myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
+            myEditedCalibratorFlow->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
+        }   
     } else {
         myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;

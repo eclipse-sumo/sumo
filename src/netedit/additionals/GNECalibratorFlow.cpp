@@ -282,9 +282,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
-            return canParse<double>(value) && (parse<double>(value) >= -1);
+            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (mySpeed != -1)));
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) >= -1);
+            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (myVehsPerHour != -1)));
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
