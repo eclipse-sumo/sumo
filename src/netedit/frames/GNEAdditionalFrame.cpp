@@ -1340,6 +1340,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 GNEAdditionalFrame::AddAdditionalResult
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
+    const SumoXMLTag tag = myAdditionalSelector->getCurrentAdditionalType();
     // check if current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
@@ -1506,14 +1507,18 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
-        valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
+    if (GNEAttributeCarrier::hasAttribute(tag, SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
+        if (tag != SUMO_TAG_CALIBRATOR && tag != SUMO_TAG_REROUTER) {
+            // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
+            valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
+        }
     }
 
     // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.xml
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
-        valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
-    }
+    // output is optional
+    //if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
+    //    valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
+    //}
 
     // Save block value if additional can be blocked
     if (GNEAttributeCarrier::canBlockMovement(myAdditionalSelector->getCurrentAdditionalType())) {
