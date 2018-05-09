@@ -1885,12 +1885,12 @@ GNENet::saveAdditionals(const std::string& filename) {
             // Here a console message
             ;
         } else {
-            saveAdditionalsConfirmed(filename, true);
+            saveAdditionalsConfirmed(filename);
         }
         // set focus again in viewNet
         myViewNet->setFocus();
     } else {
-        saveAdditionalsConfirmed(filename, false);
+        saveAdditionalsConfirmed(filename);
     }
     // change value of flag
     myAdditionalsSaved = true;
@@ -1902,7 +1902,7 @@ GNENet::saveAdditionals(const std::string& filename) {
 
 
 void
-GNENet::saveAdditionalsConfirmed(const std::string& filename, bool writeAll) {
+GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
     // write all vehicle types
@@ -1913,7 +1913,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename, bool writeAll) {
     }
     for (auto i : myAttributeCarriers.additionals) {
         // if not writeAll, only save additionals that doesn't have Additional parents
-        if (i.second->getAdditionalParent() == nullptr || writeAll) {
+        if (i.second->getAdditionalParent() == nullptr) {
             i.second->writeAdditional(device);
         }
     }
