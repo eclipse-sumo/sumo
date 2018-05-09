@@ -1182,7 +1182,9 @@ GNEApplicationWindow::loadOptionOnStartup() {
     const OptionsCont& oc = OptionsCont::getOptions();
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
     // If a net was loaded at startup, enable manually save command
-    mySaveNetMenuCommand->enable();
+    if (myNet != 0) {
+        mySaveNetMenuCommand->enable();
+    }
 }
 
 
