@@ -56,6 +56,7 @@
 #include "GNERerouter.h"
 #include "GNERerouterInterval.h"
 #include "GNERouteProbReroute.h"
+#include "GNEParkingAreaReroute.h"
 #include "GNERouteProbe.h"
 #include <netedit/GNEUndoList.h>
 #include "GNEVaporizer.h"
@@ -161,6 +162,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             break;
         case SUMO_TAG_DEST_PROB_REROUTE:
             parseAndBuildRerouterDestProbReroute(attrs, tag);
+            break;
+        case SUMO_TAG_PARKING_ZONE_REROUTE:
+            parseAndBuildRerouterParkingAreaReroute(attrs, tag);
             break;
         case SUMO_TAG_ROUTE_PROB_REROUTE:
             parseAndBuildRerouterRouteProbReroute(attrs, tag);
@@ -531,6 +535,29 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
         } else {
             builDestProbReroute(myViewNet, true, rerouterInterval, edge, probability);
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    // parse attributes of Rerouter
+    std::string parkingAreaID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // obtain edge and rerouter interval
+        GNEParkingArea* parkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(parkingAreaID, false));
+        GNERerouterInterval* rerouterInterval = myViewNet->getNet()->getRerouterInterval(myLastInsertedAdditionalParent);
+        // check that all elements are valid
+        if (parkingArea == nullptr) {
+            WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(tag) + " is not known.");
+        } else if (rerouterInterval == nullptr) {
+            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
+        } else {
+            builParkingAreaReroute(myViewNet, true, rerouterInterval, parkingArea, probability);
         }
     }
 }
@@ -1662,6 +1689,23 @@ GNEAdditionalHandler::builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRed
     } else {
         rerouterIntervalParent->addDestProbReroute(destProbReroute);
         destProbReroute->incRef("builDestProbReroute");
+    }
+    return true;
+}
+
+
+bool
+GNEAdditionalHandler::builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkingArea, double probability) {
+    // create dest probability reroute
+    GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(rerouterIntervalParent, newParkingArea, probability);
+    // add it to interval parent depending of allowUndoRedo
+    if (allowUndoRedo) {
+        viewNet->getUndoList()->p_begin("add " + toString(parkingAreaReroute->getTag()));
+        viewNet->getUndoList()->add(new GNEChange_RerouterItem(parkingAreaReroute, true), true);
+        viewNet->getUndoList()->p_end();
+    } else {
+        rerouterIntervalParent->addParkingAreaReroute(parkingAreaReroute);
+        parkingAreaReroute->incRef("builParkingAreaReroute");
     }
     return true;
 }

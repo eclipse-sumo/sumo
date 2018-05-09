@@ -143,6 +143,12 @@ public:
     */
     void parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses his values and builds a parkingAreaReroute
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds a Route Prob Reroute
     * @param[in] attrs SAX-attributes which define the trigger
     * @param[in] tag of the additional
@@ -518,6 +524,7 @@ public:
     */
     static bool builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
 
+    static bool builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkignArea, double probability);
     /**
     DOCUMENTAR
     */
