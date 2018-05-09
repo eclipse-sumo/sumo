@@ -92,6 +92,12 @@ protected:
     /// @brief TextField for Route
     FXComboBox* myComboBoxRoute;
 
+    /// @brief TextField for VehsPerHour
+    FXTextField* myTextFieldVehsPerHour;
+
+    /// @brief TextField for Speed
+    FXTextField* myTextFieldSpeed;
+
     /// @brief TextField for Color
     FXTextField* myTextFieldColor;
 
@@ -136,9 +142,6 @@ protected:
 
     /// @brief TextField for End
     FXTextField* myTextFieldEnd;
-
-    /// @brief TextField for VehsPerHour
-    FXTextField* myTextFieldVehsPerHour;
 
     /// @brief update data fields
     void updateCalibratorFlowValues();
