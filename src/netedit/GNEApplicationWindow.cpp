@@ -112,10 +112,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEJOINED,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES,                 GNEApplicationWindow::onCmdSaveShapes),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onCmdSaveShapesAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onCmdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onCmdSaveTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,         GNEApplicationWindow::onCmdSaveTLSProgramsAs),
@@ -426,9 +424,10 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
-    new FXMenuCommand(myFileMenuShapes,
+    mySaveShapesMenuCommandAs = new FXMenuCommand(myFileMenuShapes,
                       "Save Shapes As...\t\tSave shapes elements in another files.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
+    mySaveShapesMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
     // create Additionals menu options
     myFileMenuAdditionals = new FXMenuPane(this);
@@ -439,9 +438,10 @@ GNEApplicationWindow::fillMenuBar() {
                       "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
-    new FXMenuCommand(myFileMenuAdditionals,
+    mySaveAdditionalsMenuCommandAs = new FXMenuCommand(myFileMenuAdditionals,
                       "Save Additionals As...\t\tSave additional elements in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+    mySaveAdditionalsMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
     // create TLS menu options
     myFileMenuTLS = new FXMenuPane(this);
@@ -689,8 +689,6 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
     GNELoadThread::fillOptions(oc);
     GNELoadThread::setDefaultOptions(oc);
     loadConfigOrNet("", true, false, true, true);
-    // due it's a new network, save button has to be enabled
-    mySaveNetMenuCommand->enable();
     return 1;
 }
 
@@ -732,7 +730,9 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         myRecentNets.appendFile(file.c_str());
         // when a net is loaded, save additional, shapes an TLSPrograms are disabled
         mySaveAdditionalsMenuCommand->disable();
+        mySaveAdditionalsMenuCommandAs->disable();
         mySaveShapesMenuCommand->disable();
+        mySaveShapesMenuCommandAs->disable();
         mySaveTLSProgramsMenuCommand->disable();
     }
     return 1;
@@ -1168,6 +1168,12 @@ GNEApplicationWindow::closeAllWindows() {
     GUITextureSubSys::resetTextures();
     // reset fonts
     GLHelper::resetFont();
+    // disable saving commmand
+    mySaveNetMenuCommand->disable();
+    mySaveAdditionalsMenuCommand->disable();
+    mySaveAdditionalsMenuCommandAs->disable();
+    mySaveShapesMenuCommand->disable();
+    mySaveShapesMenuCommandAs->disable();
 }
 
 
@@ -1222,12 +1228,14 @@ GNEApplicationWindow::enableSaveNetMenu() {
 void
 GNEApplicationWindow::enableSaveAdditionalsMenu() {
     mySaveAdditionalsMenuCommand->enable();
+    mySaveAdditionalsMenuCommandAs->enable();
 }
 
 
 void
 GNEApplicationWindow::enableSaveShapesMenu() {
     mySaveShapesMenuCommand->enable();
+    mySaveShapesMenuCommandAs->enable();
 }
 
 

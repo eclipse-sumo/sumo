@@ -424,8 +424,14 @@ private:
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
 
+    /// @brief FXMenuCommand for enable or disable save additionals As
+    FXMenuCommand* mySaveAdditionalsMenuCommandAs;
+
     /// @brief FXMenuCommand for enable or disable save shapes
     FXMenuCommand* mySaveShapesMenuCommand;
+
+    /// @brief FXMenuCommand for enable or disable save shapes
+    FXMenuCommand* mySaveShapesMenuCommandAs;
 
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveTLSProgramsMenuCommand;
