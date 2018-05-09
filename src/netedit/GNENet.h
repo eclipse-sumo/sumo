@@ -446,6 +446,9 @@ public:
     /// @brief inform that net has to be saved
     void requiereSaveNet();
 
+    /// @brief return if net has to be saved
+    bool isNetSaved() const;
+
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
      */

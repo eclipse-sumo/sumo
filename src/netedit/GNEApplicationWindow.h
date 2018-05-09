@@ -132,9 +132,6 @@ public:
     /// @brief set TLS Programs file
     void setTLSProgramsFile(const std::string& TLSProgramsFile);
 
-    /// @brief enable save Net
-    void enableSaveNetMenu();
-
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
@@ -418,9 +415,6 @@ protected:
     std::string myTLSProgramsFile;
 
 private:
-    /// @brief FXMenuCommand for enable or disable save net
-    FXMenuCommand* mySaveNetMenuCommand;
-
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
 

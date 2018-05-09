@@ -858,7 +858,12 @@ GNENet::requiereSaveNet() {
         WRITE_WARNING("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
     }
     myNetSaved = false;
-    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveNetMenu();
+}
+
+
+bool 
+GNENet::isNetSaved() const {
+    return myNetSaved;
 }
 
 
@@ -868,6 +873,7 @@ GNENet::save(OptionsCont& oc) {
     computeAndUpdate(oc, false);
     // write network
     NWFrame::writeNetwork(oc, *myNetBuilder);
+    myNetSaved = true;
 }
 
 

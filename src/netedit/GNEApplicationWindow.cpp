@@ -104,6 +104,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                                     GNEApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                                     GNEApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK,                GNEApplicationWindow::onCmdSaveNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK,                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,             GNEApplicationWindow::onCmdSaveAsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEPLAINXML,               GNEApplicationWindow::onCmdSaveAsPlainXML),
@@ -402,10 +403,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myFileMenu,
                       "&Reload\tCtrl+R\tReloads the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
-    mySaveNetMenuCommand = new FXMenuCommand(myFileMenu,
+    new FXMenuCommand(myFileMenu,
                       "&Save Network...\tCtrl+S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVENETWORK);
-    mySaveNetMenuCommand->disable();
     new FXMenuCommand(myFileMenu,
                       "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
@@ -1169,7 +1169,6 @@ GNEApplicationWindow::closeAllWindows() {
     // reset fonts
     GLHelper::resetFont();
     // disable saving commmand
-    mySaveNetMenuCommand->disable();
     mySaveAdditionalsMenuCommand->disable();
     mySaveAdditionalsMenuCommandAs->disable();
     mySaveShapesMenuCommand->disable();
@@ -1187,10 +1186,6 @@ void
 GNEApplicationWindow::loadOptionOnStartup() {
     const OptionsCont& oc = OptionsCont::getOptions();
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
-    // If a net was loaded at startup, enable manually save command
-    if (myNet != 0) {
-        mySaveNetMenuCommand->enable();
-    }
 }
 
 
@@ -1216,12 +1211,6 @@ GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
 void 
 GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
     myTLSProgramsFile = TLSProgramsFile;
-}
-
-
-void 
-GNEApplicationWindow::enableSaveNetMenu() {
-    mySaveNetMenuCommand->enable();
 }
 
 
@@ -1766,8 +1755,6 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             myNet->save(oc);
             myUndoList->unmark();
             myUndoList->mark();
-            // disable save net (because is already saved)
-            mySaveNetMenuCommand->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1940,7 +1927,7 @@ GNEApplicationWindow::getView() {
 bool
 GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
-    if (mySaveNetMenuCommand->isEnabled()) {
+    if (myNet && !myNet->isNetSaved()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox 'Confirm closing network'");
