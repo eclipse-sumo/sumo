@@ -512,6 +512,37 @@ protected:
     bool mySelected;
 
 private:
+
+    enum ACProperty {
+        ACPROPERTY_INT = 1,
+        ACPROPERTY_FLOAT = 2,
+        ACPROPERTY_BOOL = 4,
+        ACPROPERTY_STRING = 8,
+        ACPROPERTY_SVCPERMISSION = 16,
+        ACPROPERTY_POSITIVE = 32,
+        ACPROPERTY_UNIQUE = 64,
+        ACPROPERTY_FILENAME = 128,
+        ACPROPERTY_NONEDITABLE = 256,
+        ACPROPERTY_DISCRETE = 512,
+        ACPROPERTY_PROBABILITY = 1024,
+        ACPROPERTY_ANGLE = 2048,
+        ACPROPERTY_OPTIONAL = 4096,
+        ACPROPERTY_DEFAULTVALUE = 8192,
+    };
+
+    /// @brief struct with the attribute Properties
+    struct AttributeValues {
+        /// @brief Property of attribute
+        int property;
+
+        /// @brief text with a definition of attribute
+        std::string helpTest;
+
+        /// @brief default value 
+        std::string defaultValue;
+    };
+
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
