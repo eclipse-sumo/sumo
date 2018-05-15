@@ -314,330 +314,1089 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
         std::vector<std::pair <SumoXMLAttr, AttributeValues> >& attrs = myAllowedAttributes[tag];
         switch (tag) {
             case SUMO_TAG_EDGE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(ACPROPERTY_INT, "", "13.89")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PRIORITY, AttributeValues(ACPROPERTY_INT, "", "1")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NUMLANES, AttributeValues(ACPROPERTY_INT, "", "1")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(ACPROPERTY_INT, "", "all")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "13.89")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PRIORITY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NUMLANES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "all")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 //attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PREFER, )));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPREADTYPE, AttributeValues(ACPROPERTY_INT, "", "right")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "default")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDOFFSET, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_SHAPE_START, AttributeValues(ACPROPERTY_INT, "", ""))); // virtual attribute used to define an endPoint
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_SHAPE_END, AttributeValues(ACPROPERTY_INT, "", "")));   // virtual attribute from to define an endPoint
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_BIDIR, AttributeValues(ACPROPERTY_INT, "", "")));       // virtual attribute to check of this edge is part of a bidirectional railway
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPREADTYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "right")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "default")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDOFFSET, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_SHAPE_START, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    ""))); // virtual attribute used to define an endPoint
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_SHAPE_END, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));   // virtual attribute from to define an endPoint
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_BIDIR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));       // virtual attribute to check of this edge is part of a bidirectional railway
                 break;
             case SUMO_TAG_JUNCTION:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RADIUS, AttributeValues(ACPROPERTY_INT, "", "1.5")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_KEEP_CLEAR, AttributeValues(ACPROPERTY_INT, "", "1")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLTYPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLID, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RADIUS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.5")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_KEEP_CLEAR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLTYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_LANE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(ACPROPERTY_INT, "", "13.89")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(ACPROPERTY_INT, "", "all")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "13.89")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "all")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 //attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PREFER, )));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "default")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDOFFSET, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ACCELERATION, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_INDEX, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "default")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDOFFSET, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ACCELERATION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_INDEX, AttributeValues(
+                    ACPROPERTY_INT,
+                    "", 
+                    NODEFAULTVALUE)));
                 break;
             case SUMO_TAG_POI:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(ACPROPERTY_INT, "", "red")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LAYER, AttributeValues(ACPROPERTY_INT, "", "4"))); // needed to draw it over lane
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HEIGHT, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RELATIVEPATH, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "red")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LAYER, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "4"))); // needed to draw it over lane
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HEIGHT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RELATIVEPATH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_POILANE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION_LAT, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(ACPROPERTY_INT, "", "red")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LAYER, AttributeValues(ACPROPERTY_INT, "", "4"))); // needed to draw it over lane
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HEIGHT, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RELATIVEPATH, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION_LAT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "red")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LAYER, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "4"))); // needed to draw it over lane
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HEIGHT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RELATIVEPATH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_POLY:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(ACPROPERTY_INT, "", "green")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILL, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LAYER, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RELATIVEPATH, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "green")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILL, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LAYER, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RELATIVEPATH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_CROSSING:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PRIORITY, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", toString(OptionsCont::getOptions().getFloat("default.crossing-width")))));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX, AttributeValues(ACPROPERTY_INT, "", "-1")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX2, AttributeValues(ACPROPERTY_INT, "", "-1")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PRIORITY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    toString(OptionsCont::getOptions().getFloat("default.crossing-width")))));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "-1")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX2, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "-1")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_CONNECTION:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PASS, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_KEEP_CLEAR, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTPOS, AttributeValues(ACPROPERTY_INT, "", toString(NBEdge::UNSPECIFIED_CONTPOS))));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_UNCONTROLLED, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VISIBILITY_DISTANCE, AttributeValues(ACPROPERTY_INT, "", toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE))));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX, AttributeValues(ACPROPERTY_INT, "", "-1")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(ACPROPERTY_INT, "", toString(NBEdge::UNSPECIFIED_SPEED))));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PASS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_KEEP_CLEAR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    toString(NBEdge::UNSPECIFIED_CONTPOS))));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_UNCONTROLLED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VISIBILITY_DISTANCE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE))));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "-1")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    toString(NBEdge::UNSPECIFIED_SPEED))));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_BUS_STOP:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINES, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_ACCESS:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_CONTAINER_STOP:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINES, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_CHARGING_STATION:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGINGPOWER, AttributeValues(ACPROPERTY_INT, "", "22000.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EFFICIENCY, AttributeValues(ACPROPERTY_INT, "", "0.95")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGEINTRANSIT, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGEDELAY, AttributeValues(ACPROPERTY_INT, "", "0.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGINGPOWER, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", "22000.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EFFICIENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", "0.95")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGEINTRANSIT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGEDELAY, AttributeValues(
+                    ACPROPERTY_INT,
+                    "", 
+                    "0.00")));
                 break;
             case SUMO_TAG_E1DETECTOR:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(ACPROPERTY_INT, "", "100.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VTYPES, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "100.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VTYPES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_E2DETECTOR:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(ACPROPERTY_INT, "", "10.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(ACPROPERTY_INT, "", "100.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONT, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(ACPROPERTY_INT, "", "1.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, AttributeValues(ACPROPERTY_INT, "", "1.39")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_JAM_DIST_THRESHOLD, AttributeValues(ACPROPERTY_INT, "", "10.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "10.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "100.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.39")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_JAM_DIST_THRESHOLD, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "10.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_E3DETECTOR:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(ACPROPERTY_INT, "", "100.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(ACPROPERTY_INT, "", "1.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, AttributeValues(ACPROPERTY_INT, "", "1.39")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "100.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.39")));
                 break;
             case SUMO_TAG_DET_ENTRY:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_DET_EXIT:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_VSS:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANES, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_CALIBRATOR:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(ACPROPERTY_INT, "", "1.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTEPROBE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OUTPUT, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTEPROBE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OUTPUT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_LANECALIBRATOR:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(ACPROPERTY_INT, "", "100.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTEPROBE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OUTPUT, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "100.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTEPROBE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OUTPUT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_REROUTER:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(ACPROPERTY_INT, "", "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(ACPROPERTY_INT, "", "1.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OFF, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OFF, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_ROUTEPROBE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(ACPROPERTY_INT, "", OPTIONALATTRIBUTE)));                
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    OPTIONALATTRIBUTE)));                
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_VAPORIZER:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTTIME, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(ACPROPERTY_INT, "", "10.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTTIME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "10.00")));
                 break;
             case SUMO_TAG_PARKING_AREA:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROADSIDE_CAPACITY, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "3.2")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(ACPROPERTY_INT, "", "5.0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(ACPROPERTY_INT, "", "0.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROADSIDE_CAPACITY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "3.2")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "5.0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0.00")));
                 break;
             case SUMO_TAG_PARKING_SPACE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_X, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_Y, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_Z, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "3.2")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(ACPROPERTY_INT, "", "5.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(ACPROPERTY_INT, "", "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_X, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_Y, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_Z, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "3.2")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "5.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
                 break;
             case SUMO_TAG_FLOW:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(ACPROPERTY_INT, "", DEFAULT_VTYPE_ID)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTE, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VEHSPERHOUR, AttributeValues(ACPROPERTY_INT, "", OPTIONALATTRIBUTE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(ACPROPERTY_INT, "", OPTIONALATTRIBUTE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(ACPROPERTY_INT, "", "yellow")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(ACPROPERTY_INT, "",  "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(ACPROPERTY_INT, "", "100.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTLANE, AttributeValues(ACPROPERTY_INT, "", "first")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTPOS, AttributeValues(ACPROPERTY_INT, "", "base")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTSPEED, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALLANE, AttributeValues(ACPROPERTY_INT, "", "current")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALPOS, AttributeValues(ACPROPERTY_INT, "", "max")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALSPEED, AttributeValues(ACPROPERTY_INT, "", "current")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PERSON_NUMBER, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTAINER_NUMBER,AttributeValues(ACPROPERTY_INT, "",  "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_REROUTE, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTPOS_LAT, AttributeValues(ACPROPERTY_INT, "", "center")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALPOS_LAT, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    DEFAULT_VTYPE_ID)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VEHSPERHOUR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    OPTIONALATTRIBUTE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    OPTIONALATTRIBUTE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "yellow")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "",  
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "100.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTLANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "first")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "base")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTSPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALLANE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "current")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALPOS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "max")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALSPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "current")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PERSON_NUMBER, AttributeValues(
+                    ACPROPERTY_INT,
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTAINER_NUMBER,AttributeValues(
+                    ACPROPERTY_INT, 
+                    "",  
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_REROUTE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTPOS_LAT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "center")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALPOS_LAT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_ROUTE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(ACPROPERTY_INT, "", "yellow")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "yellow")));
                 break;
             case SUMO_TAG_VTYPE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ACCEL, AttributeValues(ACPROPERTY_INT, "", "2.60")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DECEL, AttributeValues(ACPROPERTY_INT, "", "4.50")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SIGMA, AttributeValues(ACPROPERTY_INT, "", "0.50")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TAU, AttributeValues(ACPROPERTY_INT, "", "1.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(ACPROPERTY_INT, "", "5.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MINGAP, AttributeValues(ACPROPERTY_INT, "", "2.50")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MAXSPEED, AttributeValues(ACPROPERTY_INT, "", "70.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEEDFACTOR, AttributeValues(ACPROPERTY_INT, "", "1.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEEDDEV, AttributeValues(ACPROPERTY_INT, "", "0.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(ACPROPERTY_INT, "", "1,1,0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VCLASS, AttributeValues(ACPROPERTY_INT, "", "passenger")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EMISSIONCLASS, AttributeValues(ACPROPERTY_INT, "", "P_7_7")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_GUISHAPE, AttributeValues(ACPROPERTY_INT, "", "passenger")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(ACPROPERTY_INT, "", "2.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(ACPROPERTY_INT, "", "")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMPATIENCE, AttributeValues(ACPROPERTY_INT, "", "0.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE_CHANGE_MODEL, AttributeValues(ACPROPERTY_INT, "", "LC2013")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CAR_FOLLOW_MODEL, AttributeValues(ACPROPERTY_INT, "", "Krauss")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PERSON_CAPACITY, AttributeValues(ACPROPERTY_INT, "", "4")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTAINER_CAPACITY, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BOARDING_DURATION, AttributeValues(ACPROPERTY_INT, "", "0.50")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LOADING_DURATION, AttributeValues(ACPROPERTY_INT, "", "90.00")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LATALIGNMENT, AttributeValues(ACPROPERTY_INT, "", "center")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MINGAP_LAT, AttributeValues(ACPROPERTY_INT, "", "0.12")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MAXSPEED_LAT, AttributeValues(ACPROPERTY_INT, "", "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ACCEL, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "2.60")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DECEL, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "4.50")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SIGMA, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0.50")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TAU, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "5.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MINGAP, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "2.50")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MAXSPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "70.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEEDFACTOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEEDDEV, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1,1,0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VCLASS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "passenger")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EMISSIONCLASS, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "P_7_7")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_GUISHAPE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "passenger")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "2.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMPATIENCE, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE_CHANGE_MODEL, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "LC2013")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CAR_FOLLOW_MODEL, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "Krauss")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PERSON_CAPACITY, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "4")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTAINER_CAPACITY, AttributeValues(
+                    ACPROPERTY_INT,
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BOARDING_DURATION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0.50")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LOADING_DURATION, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "90.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LATALIGNMENT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "center")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MINGAP_LAT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0.12")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MAXSPEED_LAT, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
                 break;
             case SUMO_TAG_STEP:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TIME, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(ACPROPERTY_INT, "", "50.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TIME, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "50.00")));
                 break;
             case SUMO_TAG_INTERVAL:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(ACPROPERTY_INT, "", "0")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(ACPROPERTY_INT, "", "100.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "0")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "100.00")));
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(ACPROPERTY_INT, "", "all")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "all")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_CLOSING_LANE_REROUTE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(ACPROPERTY_INT, "", "all")));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(ACPROPERTY_INT, "", "")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "all")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "")));
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(ACPROPERTY_INT, "", "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
                 break;
             case SUMO_TAG_PARKING_ZONE_REROUTE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(ACPROPERTY_INT, "", "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(ACPROPERTY_INT, "", NODEFAULTVALUE)));
-                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(ACPROPERTY_INT, "", "1.00")));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    NODEFAULTVALUE)));
+                attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
+                    ACPROPERTY_INT, 
+                    "", 
+                    "1.00")));
                 break;
             default:
                 // Throw exception if tag isn't defined
