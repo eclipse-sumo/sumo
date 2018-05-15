@@ -95,20 +95,25 @@ public:
         /// @brief default constructor
         AttributeValues() :
             ACProp(ACPROPERTY_INT),
-            helpText(""),
+            definition(""),
             defaultValue("") {}
 
         /// @brief parameter constructor
-        AttributeValues(int _ACProp, const std::string &_helpText, const std::string &_defaultValue) :
+        AttributeValues(int _ACProp, const std::string &_definition, const std::string &_defaultValue) :
             ACProp(_ACProp),
-            helpText(_helpText),
+            definition(_definition),
             defaultValue(_defaultValue) {}
+
+        /// get restriction
+        std::string getRestriction() const {
+            return "";
+        }
 
         /// @brief Property of attribute
         int ACProp;
 
         /// @brief text with a definition of attribute
-        std::string helpText;
+        std::string definition;
 
         /// @brief default value 
         std::string defaultValue;
@@ -272,12 +277,6 @@ public:
 
     /// @brief return whether the given attribute allows for a combination of discrete values
     static bool discreteCombinableChoices(SumoXMLAttr attr);
-
-    /// @brief return definition of a certain SumoXMLAttr
-    static const std::string &getDefinition(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief return restriction of a certain SumoXMLAttr
-    static const std::string &getRestriction(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();

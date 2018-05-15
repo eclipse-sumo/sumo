@@ -637,15 +637,15 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 1, type);
         // Set restriction
-        FXTableItem* restriction = new FXTableItem(GNEAttributeCarrier::getRestriction(elementTag, attrs.at(i).first).c_str());
+        FXTableItem* restriction = new FXTableItem(attrs.at(i).second.getRestriction().c_str());
         restriction->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(i, 2, restriction);
         // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(elementTag, attrs.at(i).first).c_str());
+        FXTableItem* definition = new FXTableItem(attrs.at(i).second.definition.c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(i, 3, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(elementTag, attrs.at(i).first).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(elementTag, attrs.at(i).first).size());
+        if ((int)(attrs.at(i).second.definition.size()) > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = (int)(attrs.at(i).second.definition.size());
         }
     }
 
