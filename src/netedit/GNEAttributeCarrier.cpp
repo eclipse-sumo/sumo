@@ -316,27 +316,27 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
             case SUMO_TAG_EDGE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The id of the edge.", 
+                    "The id of the edge", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FROM, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The name of a node within the nodes-file the edge shall start at.", 
+                    "The name of a node within the nodes-file the edge shall start at", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TO, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The name of a node within the nodes-file the edge shall end at.", 
+                    "The name of a node within the nodes-file the edge shall end at", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The maximum speed allowed on the edge in m/s.", 
+                    "The maximum speed allowed on the edge in m/s", 
                     "13.89")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PRIORITY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The priority of the edge.", 
+                    "The priority of the edge", 
                     "1")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NUMLANES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The number of lanes of the edge.", 
+                    "The number of lanes of the edge", 
                     "1")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
                     ACPROPERTY_INT, 
@@ -344,16 +344,16 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Explicitly allows the given vehicle classes (not given will be not allowed).", 
+                    "Explicitly allows the given vehicle classes (not given will be not allowed)", 
                     "all")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Explicitly disallows the given vehicle classes (not given will be allowed).", 
+                    "Explicitly disallows the given vehicle classes (not given will be allowed)", 
                     "")));
                 //attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PREFER, )));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "If the shape is given it should start and end with the positions of the from-node and to-node.", 
+                    "If the shape is given it should start and end with the positions of the from-node and to-node", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
                     ACPROPERTY_INT, 
@@ -361,19 +361,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPREADTYPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Lane width for all lanes of this edge in meters (used for visualization).", 
+                    "Lane width for all lanes of this edge in meters (used for visualization)", 
                     "right")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "street name (need not be unique, used for visualization).", 
+                    "street name (need not be unique, used for visualization)", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Lane width for all lanes of this edge in meters (used for visualization).", 
+                    "Lane width for all lanes of this edge in meters (used for visualization)", 
                     "default")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDOFFSET, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Move the stop line back from the intersection by the given amount.", 
+                    "Move the stop line back from the intersection by the given amount", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(GNE_ATTR_SHAPE_START, AttributeValues(
                     ACPROPERTY_INT, 
@@ -395,31 +395,31 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The x-y-z position of the node on the plane in meters.", 
+                    "The x-y-z position of the node on the plane in meters", 
                     NODEFAULTVALUE))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "An optional type for the node.", 
+                    "An optional type for the node", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SHAPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "A custom shape for that node.", 
+                    "A custom shape for that node", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_RADIUS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Optional turning radius (for all corners) for that node in meters.", 
+                    "Optional turning radius (for all corners) for that node in meters", 
                     "1.5")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_KEEP_CLEAR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Whether the junction-blocking-heuristic should be activated at this node.", 
+                    "Whether the junction-blocking-heuristic should be activated at this node", 
                     "1")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLTYPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "An optional type for the traffic light algorithm.", 
+                    "An optional type for the traffic light algorithm", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "An optional id for the traffic light program.", 
+                    "An optional id for the traffic light program", 
                     "")));
                 break;
             case SUMO_TAG_LANE:
@@ -433,20 +433,20 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "13.89")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Explicitly allows the given vehicle classes (not given will be not allowed).", 
+                    "Explicitly allows the given vehicle classes (not given will be not allowed)", 
                     "all")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Explicitly disallows the given vehicle classes (not given will be allowed).", 
+                    "Explicitly disallows the given vehicle classes (not given will be allowed)", 
                     "")));
                 //attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PREFER, )));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Width in meters (used for visualization).", 
+                    "Width in meters (used for visualization)", 
                     "default")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDOFFSET, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Move the stop line back from the intersection by the given amount.", 
+                    "Move the stop line back from the intersection by the given amount", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ACCELERATION, AttributeValues(
                     ACPROPERTY_INT, 
@@ -454,11 +454,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "If the shape is given it overrides the computation based on edge shape.", 
+                    "If the shape is given it overrides the computation based on edge shape", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_INDEX, AttributeValues(
                     ACPROPERTY_INT,
-                    "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one).", 
+                    "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)", 
                     NODEFAULTVALUE)));
                 break;
             case SUMO_TAG_POI:
@@ -598,27 +598,27 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The (road) edges which are crossed.", 
+                    "The (road) edges which are crossed", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PRIORITY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Whether the pedestrians have priority over the vehicles (automatically set to true at tls-controlled intersections).", 
+                    "Whether the pedestrians have priority over the vehicles (automatically set to true at tls-controlled intersections)", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "The width of the crossings.", 
+                    "The width of the crossings", 
                     toString(OptionsCont::getOptions().getFloat("default.crossing-width")))));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX, AttributeValues(
                     ACPROPERTY_INT, 
-                    "sets the tls-index for this crossing.", 
+                    "sets the tls-index for this crossing", 
                     "-1")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX2, AttributeValues(
                     ACPROPERTY_INT, 
-                    "sets the opposite-direction tls-index for this crossing.", 
+                    "sets the opposite-direction tls-index for this crossing", 
                     "-1")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "Overrids default shape of pedestrian crossing.", 
+                    "Overrids default shape of pedestrian crossing", 
                     "")));
                 break;
             case SUMO_TAG_CONNECTION:
@@ -644,15 +644,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_KEEP_CLEAR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection.", 
+                    "if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "If set to a more than 0 value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection.", 
+                    "If set to a more than 0 value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection", 
                     toString(NBEdge::UNSPECIFIED_CONTPOS))));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_UNCONTROLLED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "If set to true, This connection will not be TLS-controlled despite its node being controlled.", 
+                    "If set to true, This connection will not be TLS-controlled despite its node being controlled", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VISIBILITY_DISTANCE, AttributeValues(
                     ACPROPERTY_INT, 
@@ -660,742 +660,745 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE))));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TLLINKINDEX, AttributeValues(
                     ACPROPERTY_INT, 
-                    "sets the distance to the connection at which all relevant foes are visible.", 
+                    "sets the distance to the connection at which all relevant foes are visible", 
                     "-1")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "sets custom speed limit for the connection.", 
+                    "sets custom speed limit for the connection", 
                     toString(NBEdge::UNSPECIFIED_SPEED))));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CUSTOMSHAPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "sets custom shape for the connection.", 
+                    "sets custom shape for the connection", 
                     "")));
                 break;
             case SUMO_TAG_BUS_STOP:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of bus stop", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The name of the lane the bus stop shall be located at", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The begin position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Name of bus stop", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes", 
                     "")));
                 break;
             case SUMO_TAG_ACCESS:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The name of the lane the stop access shall be located at", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 break;
             case SUMO_TAG_CONTAINER_STOP:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of container stop", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The name of the lane the container stop shall be located at", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The begin position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Name of Container Stop", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes", 
                     "")));
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of charging station", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Lane of the charging station location", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Begin position in the specified lane", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "End position in the specified lane", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Name of Charging Station", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGINGPOWER, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", "22000.00")));
+                    "Charging power in W", 
+                    "22000.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EFFICIENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", "0.95")));
+                    "Charging efficiency [0,1]", 
+                    "0.95")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGEINTRANSIT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", "0")));
+                    "Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging", 
+                    "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CHARGEDELAY, AttributeValues(
                     ACPROPERTY_INT,
-                    "", 
+                    "Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins", 
                     "0.00")));
                 break;
             case SUMO_TAG_E1DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of E1", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The aggregation period the values the detector collects shall be summed up", 
                     "100.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The path to the output file", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VTYPES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Space separated list of vehicle type ids to consider", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 break;
             case SUMO_TAG_E2DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of E2", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position on the lane the detector shall be laid on in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The length of the detector in meters", 
                     "10.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The aggregation period the values the detector collects shall be summed up", 
                     "100.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The path to the output file", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Holds the information whether detectors longer than a lane shall be cut off or continued (set it to true for the second case))", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)", 
                     "1.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s", 
                     "1.39")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_JAM_DIST_THRESHOLD, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam) in m", 
                     "10.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 break;
             case SUMO_TAG_E3DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of E3", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "X-Y position of detector in editor (Only used in NETEDIT)", 
                     "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The aggregation period the values the detector collects shall be summed up", 
                     "100.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The path to the output file", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s", 
                     "1.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s", 
                     "1.39")));
                 break;
             case SUMO_TAG_DET_ENTRY:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position on the lane the detector shall be laid on in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 break;
             case SUMO_TAG_DET_EXIT:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position on the lane the detector shall be laid on in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 break;
             case SUMO_TAG_VSS:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of Variable Speed Signal", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "X-Y position of detector in editor (Only used in NETEDIT)", 
                     "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "list of lanes of Variable Speed Sign", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The path to the output file", 
                     "")));
                 break;
             case SUMO_TAG_CALIBRATOR:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of Calibrator", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of edge in the simulation network", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position of the calibrator on the specified lane", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The aggregation interval in which to calibrate the flows. default is step-length", 
                     "1.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTEPROBE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the routeProbe element from which to determine the route distribution for generated vehicles", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OUTPUT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The output file for writing calibrator information or NULL", 
                     "")));
                 break;
             case SUMO_TAG_LANECALIBRATOR:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of Calibrator", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of lane in the simulation network", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position of the calibrator on the specified lane", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The aggregation interval in which to calibrate the flows. default is step-length", 
                     "100.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTEPROBE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the routeProbe element from which to determine the route distribution for generated vehicles", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OUTPUT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The output file for writing calibrator information or NULL", 
                     "")));
                 break;
             case SUMO_TAG_REROUTER:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of Rerouter", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "An edge id or a list of edge ids where vehicles shall be rerouted", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_POSITION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "X,Y position in editor (Only used in NETEDIT)", 
                     "0,0"))); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The path to the definition file (alternatively, the intervals may defined as children of the rerouter)", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The probability for vehicle rerouting (0-1)", 
                     "1.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_HALTING_TIME_THRESHOLD, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_OFF, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Whether the router should be inactive initially (and switched on in the gui)", 
                     "0")));
                 break;
             case SUMO_TAG_ROUTEPROBE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of RouteProbe", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of an edge in the simulation network", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FREQUENCY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The frequency in which to report the distribution", 
                     OPTIONALATTRIBUTE)));                
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The file for generated output", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The time at which to start generating output", 
                     "0")));
                 break;
             case SUMO_TAG_VAPORIZER:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Edge in which vaporizer is placed", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTTIME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Start Time", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "End Time", 
                     "10.00")));
                 break;
             case SUMO_TAG_PARKING_AREA:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of ParkingArea", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The name of the lane the Parking Area shall be located at", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_STARTPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The begin position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ENDPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROADSIDE_CAPACITY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    " The number of parking spaces for road-side parking ", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_FRIENDLY_POS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_NAME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Name of Parking Area", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The width of the road-side parking spaces", 
                     "3.2")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The length of the road-side parking spaces", 
                     "5.0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
                     "0.00")));
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_X, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The X position in meters of the parking vehicle", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_Y, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The Y position in meters of the parking vehicle", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_Z, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The Z position in meters of the parking vehicle", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The width of the road-side parking spaces", 
                     "3.2")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The length of the road-side parking spaces", 
                     "5.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ANGLE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
                     "0")));
                 break;
             case SUMO_TAG_FLOW:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the vehicle type to use for this vehicle", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TYPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the vehicle type to use for this vehicle", 
                     DEFAULT_VTYPE_ID)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ROUTE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of the route the vehicle shall drive along", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VEHSPERHOUR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Number of vehicles per hour, equally spaced", 
                     OPTIONALATTRIBUTE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Speed of vehicles", 
                     OPTIONALATTRIBUTE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "This vehicle's color", 
                     "yellow")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(
                     ACPROPERTY_INT, 
-                    "",  
+                    "First vehicle departure time",  
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "End of departure interval", 
                     "100.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTLANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The lane on which the vehicle shall be inserted", 
                     "first")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position at which the vehicle shall enter the net", 
                     "base")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTSPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The speed with which the vehicle shall enter the network", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALLANE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The lane at which the vehicle shall leave the network", 
                     "current")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALPOS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The position at which the vehicle shall leave the network", 
                     "max")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALSPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The speed with which the vehicle shall leave the network", 
                     "current")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LINE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "A string specifying the id of a public transport line which can be used when specifying person rides", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PERSON_NUMBER, AttributeValues(
                     ACPROPERTY_INT,
-                    "", 
+                    "The number of occupied seats when the vehicle is inserted", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTAINER_NUMBER,AttributeValues(
                     ACPROPERTY_INT, 
-                    "",  
+                    "The number of occupied container places when the vehicle is inserted",  
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_REROUTE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Whether the vehicle should be equipped with a rerouting device", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DEPARTPOS_LAT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The lateral position on the departure lane at which the vehicle shall enter the net", 
                     "center")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ARRIVALPOS_LAT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The lateral position on the arrival lane at which the vehicle shall arrive", 
                     "")));
                 break;
             case SUMO_TAG_ROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of Route", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EDGES, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The edges the vehicle shall drive along, given as their ids, separated using spaces", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "This route's color", 
                     "yellow")));
                 break;
             case SUMO_TAG_VTYPE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The id of VehicleType", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ACCEL, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The acceleration ability of vehicles of this type [m/s^2]", 
                     "2.60")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DECEL, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The deceleration ability of vehicles of this type [m/s^2]", 
                     "4.50")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SIGMA, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Car-following model parameter", 
                     "0.50")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TAU, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Car-following model parameter", 
                     "1.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LENGTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The vehicle's netto-length (length) [m]", 
                     "5.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MINGAP, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Empty space after leader [m]", 
                     "2.50")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MAXSPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The vehicle's maximum velocity [m/s]", 
                     "70.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEEDFACTOR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The vehicles expected multiplicator for lane speed limits", 
                     "1.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEEDDEV, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The deviation of the speedFactor", 
                     "0.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_COLOR, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "This vehicle type's color", 
                     "1,1,0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_VCLASS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "An abstract vehicle class", 
                     "passenger")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_EMISSIONCLASS, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "An abstract emission class", 
                     "P_7_7")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_GUISHAPE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "How this vehicle is rendered", 
                     "passenger")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_WIDTH, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The vehicle's width [m] (only used for drawing)", 
                     "2.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMGFILE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)", 
                     "")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_IMPATIENCE, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Willingess of drivers to impede vehicles with higher priority", 
                     "0.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LANE_CHANGE_MODEL, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The model used for changing lanes", 
                     "LC2013")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CAR_FOLLOW_MODEL, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The model used for car following", 
                     "Krauss")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PERSON_CAPACITY, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The number of persons (excluding an autonomous driver) the vehicle can transport", 
                     "4")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_CONTAINER_CAPACITY, AttributeValues(
                     ACPROPERTY_INT,
-                    "", 
+                    "The number of containers the vehicle can transport", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BOARDING_DURATION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The time required by a person to board the vehicle", 
                     "0.50")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LOADING_DURATION, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The time required to load a container onto the vehicle", 
                     "90.00")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_LATALIGNMENT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The preferred lateral alignment when using the sublane-model", 
                     "center")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MINGAP_LAT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The minimum lateral gap at a speed difference of 50km/h when using the sublane-model", 
                     "0.12")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_MAXSPEED_LAT, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "The maximum lateral speed when using the sublane-model", 
                     "1.00")));
                 break;
             case SUMO_TAG_STEP:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_TIME, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Time", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_SPEED, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Speed", 
                     "50.00")));
                 break;
             case SUMO_TAG_INTERVAL:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_BEGIN, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Begin", 
                     "0")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_END, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "End", 
                     "100.00")));
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Edge ID", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "allowed vehicles", 
                     "all")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "disallowed vehicles", 
                     "")));
                 break;
             case SUMO_TAG_CLOSING_LANE_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Lane ID", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "allowed vehicles", 
                     "all")));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_DISALLOW, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "disallowed vehicles", 
                     "")));
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Edge ID", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "probability", 
                     "1.00")));
                 break;
             case SUMO_TAG_PARKING_ZONE_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "ParkingArea ID", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "probability", 
                     "1.00")));
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_ID, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "Route", 
                     NODEFAULTVALUE)));
                 attrs.push_back(std::pair<SumoXMLAttr, AttributeValues>(SUMO_ATTR_PROB, AttributeValues(
                     ACPROPERTY_INT, 
-                    "", 
+                    "probability", 
                     "1.00")));
                 break;
             default:
