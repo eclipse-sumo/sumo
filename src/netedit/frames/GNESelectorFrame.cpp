@@ -596,22 +596,26 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain all item attributes vinculated with current tag
-    std::vector<std::pair <SumoXMLAttr, std::string> > itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+    std::vector<std::pair <SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+    // Provisional
+    GNEAttributeCarrier::AttributeValues defaultBoolTrue(GNEAttributeCarrier::ACProperty::ACPROPERTY_BOOL, "", "true");
+    GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::ACProperty::ACPROPERTY_BOOL, "", "false");
+    GNEAttributeCarrier::AttributeValues defaultEmpty(GNEAttributeCarrier::ACProperty::ACPROPERTY_STRING, "", "");
     // add extra attribute if item can block movement
     if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BLOCK_MOVEMENT, "false"));
+        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_BLOCK_MOVEMENT, defaultBoolFalse));
     }
     // add extra attribute if item can block shape
     if(GNEAttributeCarrier::canBlockShape(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_BLOCK_SHAPE, "false"));
+        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_BLOCK_SHAPE, defaultBoolFalse));
     }
     // add extra attribute if item can close shape
     if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_CLOSE_SHAPE, "true"));
+        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_CLOSE_SHAPE, defaultBoolTrue));
     }
     // add extra attribute if item can have parent
     if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, std::string>(GNE_ATTR_PARENT, ""));
+        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_PARENT, defaultEmpty));
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;

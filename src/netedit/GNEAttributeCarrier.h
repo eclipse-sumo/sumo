@@ -68,6 +68,52 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
 
 public:
+
+    enum ACProperty {
+        ACPROPERTY_INT = 1,
+        ACPROPERTY_FLOAT = 2,
+        ACPROPERTY_BOOL = 4,
+        ACPROPERTY_STRING = 8,
+        ACPROPERTY_SVCPERMISSION = 16,
+
+        ACPROPERTY_POSITIVE = 32,
+        ACPROPERTY_UNIQUE = 64,
+        ACPROPERTY_FILENAME = 128,
+        ACPROPERTY_NONEDITABLE = 256,
+        ACPROPERTY_DISCRETE = 512,
+        ACPROPERTY_PROBABILITY = 1024,
+        ACPROPERTY_ANGLE = 2048,
+        ACPROPERTY_LIST = 4096,
+
+        ACPROPERTY_OPTIONAL = 8192,
+        ACPROPERTY_DEFAULTVALUE = 16384,
+    };
+
+    /// @brief struct with the attribute Properties
+    struct AttributeValues {
+
+        /// @brief default constructor
+        AttributeValues() :
+            ACProp(ACPROPERTY_INT),
+            helpText(""),
+            defaultValue("") {}
+
+        /// @brief parameter constructor
+        AttributeValues(int _ACProp, const std::string &_helpText, const std::string &_defaultValue) :
+            ACProp(_ACProp),
+            helpText(_helpText),
+            defaultValue(_defaultValue) {}
+
+        /// @brief Property of attribute
+        int ACProp;
+
+        /// @brief text with a definition of attribute
+        std::string helpText;
+
+        /// @brief default value 
+        std::string defaultValue;
+    };
+
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
@@ -132,7 +178,7 @@ public:
     static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief get all editable attributes for tag and their default values.
-    static const std::vector<std::pair<SumoXMLAttr, std::string> >& allowedAttributes(SumoXMLTag tag);
+    static const std::vector<std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> >& allowedAttributes(SumoXMLTag tag);
 
     /// @brief get all editable for tag elements of all types
     static std::vector<SumoXMLTag> allowedTags();
@@ -513,36 +559,6 @@ protected:
 
 private:
 
-    enum ACProperty {
-        ACPROPERTY_INT = 1,
-        ACPROPERTY_FLOAT = 2,
-        ACPROPERTY_BOOL = 4,
-        ACPROPERTY_STRING = 8,
-        ACPROPERTY_SVCPERMISSION = 16,
-        ACPROPERTY_POSITIVE = 32,
-        ACPROPERTY_UNIQUE = 64,
-        ACPROPERTY_FILENAME = 128,
-        ACPROPERTY_NONEDITABLE = 256,
-        ACPROPERTY_DISCRETE = 512,
-        ACPROPERTY_PROBABILITY = 1024,
-        ACPROPERTY_ANGLE = 2048,
-        ACPROPERTY_OPTIONAL = 4096,
-        ACPROPERTY_DEFAULTVALUE = 8192,
-    };
-
-    /// @brief struct with the attribute Properties
-    struct AttributeValues {
-        /// @brief Property of attribute
-        int property;
-
-        /// @brief text with a definition of attribute
-        std::string helpTest;
-
-        /// @brief default value 
-        std::string defaultValue;
-    };
-
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
@@ -554,7 +570,7 @@ private:
 
 
     /// @brief map with the allowed attributes and their default values
-    static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;
+    static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
 
     /// @brief vector with the allowed tags of netElements
     static std::vector<SumoXMLTag> myAllowedNetElementTags;
