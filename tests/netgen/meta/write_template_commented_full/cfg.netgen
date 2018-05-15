@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 15 08:48:47 2018 by Eclipse SUMO netgenerate Version 042135c
+<!-- generated on Tue May 15 23:42:59 2018 by Eclipse SUMO netgenerate Version 6ca354f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -119,6 +119,9 @@
 
         <!-- Draw edge priority randomly from [1,default.priority] -->
         <rand.random-priority value="false" type="BOOL"/>
+
+        <!-- Place nodes on a regular grid with spacing rand.min-distance -->
+        <rand.grid value="false" type="BOOL"/>
 
     </random_network>
 

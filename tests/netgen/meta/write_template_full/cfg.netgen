@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 15 08:48:47 2018 by Eclipse SUMO netgenerate Version 042135c
+<!-- generated on Tue May 15 23:42:59 2018 by Eclipse SUMO netgenerate Version 6ca354f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -50,6 +50,7 @@
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
         <rand.random-lanenumber value="false" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
         <rand.random-priority value="false" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <rand.grid value="false" type="BOOL" help="Place nodes on a regular grid with spacing rand.min-distance"/>
     </random_network>
 
     <output>

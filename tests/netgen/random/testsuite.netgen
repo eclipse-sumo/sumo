@@ -30,3 +30,7 @@ random_lanenumber
 
 # Copy of random_lanenumber
 random_priority
+random_grid
+
+# different min-distance and max-distance
+random_grid2

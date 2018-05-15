@@ -65,7 +65,7 @@ public:
      * @param[in] numNodes Number of iterations (node insertions) to perform
      * @todo Describe the algorithm
      */
-    void createNet(int numNodes);
+    void createNet(int numNodes, bool gridMode);
 
 
 private:
@@ -105,7 +105,7 @@ private:
      * @param[in] baseNode ?
      * @todo Describe better
      */
-    bool createNewNode(NGNode* baseNode);
+    bool createNewNode(NGNode* baseNode, bool gridMode);
 
 
     /** @brief finds possible connections between Node and OuterNodes complying with restrictions

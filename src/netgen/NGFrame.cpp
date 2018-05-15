@@ -187,8 +187,8 @@ NGFrame::fillOptions() {
     oc.doRegister("rand.random-priority", new Option_Bool(false));
     oc.addDescription("rand.random-priority", "Random Network", "Draw edge priority randomly from [1,default.priority]");
 
-    //oc.doRegister("rand.grid", new Option_Bool(false));
-    //oc.addDescription("rand.grid", "Random Network", "Place nodes on a regular grid with spacing rand.min-distance");
+    oc.doRegister("rand.grid", new Option_Bool(false));
+    oc.addDescription("rand.grid", "Random Network", "Place nodes on a regular grid with spacing rand.min-distance");
 }
 
 

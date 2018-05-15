@@ -191,7 +191,7 @@ buildNetwork(NBNetBuilder& nb) {
                                  oc.getFloat("rand.connectivity"),
                                  oc.getInt("rand.num-tries"),
                                  neighborDist);
-    randomNet.createNet(oc.getInt("rand.iterations"));
+    randomNet.createNet(oc.getInt("rand.iterations"), oc.getBool("rand.grid"));
     return net;
 }
 
