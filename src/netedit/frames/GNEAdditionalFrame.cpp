@@ -330,11 +330,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
 
 std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
-    if (GNEAttributeCarrier::isBool(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr)) {
+    if (GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).second.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if (GNEAttributeCarrier::isInt(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr)) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).second.isInt()) {
         return myTextFieldInt->getText().text();
-    } else if (GNEAttributeCarrier::isFloat(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr) || 
+    } else if (GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).second.isFloat() || 
                GNEAttributeCarrier::isTime(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr)) {
         return myTextFieldReal->getText().text();
     } else {
@@ -356,7 +356,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
     // obtain current additional tag
     SumoXMLTag additionalTag = myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType();
     // Check if format of current value of myTextField is correct
-    if (GNEAttributeCarrier::isInt(additionalTag, myAdditionalAttr)) {
+    if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).second.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
             // convert string to int
             int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
@@ -389,7 +389,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
         }
-    } else if (GNEAttributeCarrier::isFloat(additionalTag, myAdditionalAttr)) {
+    } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).second.isFloat()) {
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
@@ -397,7 +397,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             if (GNEAttributeCarrier::isPositive(additionalTag, myAdditionalAttr) && (doubleValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
                 // check if double value is a probability
-            } else if (GNEAttributeCarrier::isProbability(additionalTag, myAdditionalAttr) && ((doubleValue < 0) || doubleValue > 1)) {
+            } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).second.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' takes only values between 0 and 1";
             }
         } else {
@@ -615,11 +615,11 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
         }
     } else {
         if (myIndexParameter < myMaxNumberOfParameters) {
-            if (GNEAttributeCarrier::isBool(currentType, AdditionalAttributeSingle)) {
+            if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).second.isBool()) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentType, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::isInt(currentType, AdditionalAttributeSingle)) {
+            } else if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).second.isInt()) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentType, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::isFloat(currentType, AdditionalAttributeSingle) || GNEAttributeCarrier::isTime(currentType, AdditionalAttributeSingle)) {
+            } else if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).second.isFloat() || GNEAttributeCarrier::isTime(currentType, AdditionalAttributeSingle)) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentType, AdditionalAttributeSingle));
             } else {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentType, AdditionalAttributeSingle));

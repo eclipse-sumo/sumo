@@ -75,6 +75,9 @@ public:
         ACPROPERTY_BOOL = 4,
         ACPROPERTY_STRING = 8,
         ACPROPERTY_SVCPERMISSION = 16,
+        ACPROPERTY_POSITION = 16,
+        ACPROPERTY_SHAPE = 16,
+        ACPROPERTY_COLOR = 16,
 
         ACPROPERTY_POSITIVE = 32,
         ACPROPERTY_UNIQUE = 64,
@@ -107,6 +110,30 @@ public:
         /// get restriction
         std::string getRestriction() const {
             return "";
+        }
+
+        bool isInt() const {
+            return (ACProp & ACPROPERTY_INT) != 0;
+        }
+
+        bool isFloat() const {
+            return (ACProp & ACPROPERTY_FLOAT) != 0;
+        }
+
+        bool isBool() const {
+            return (ACProp & ACPROPERTY_BOOL) != 0;
+        }
+
+        bool isString() const {
+            return (ACProp & ACPROPERTY_STRING) != 0;
+        }
+
+        bool isProbability() const {
+            return (ACProp & ACPROPERTY_PROBABILITY) != 0;
+        }
+
+        bool isNumerical() const {
+            return (ACProp & (ACPROPERTY_INT | ACPROPERTY_FLOAT)) != 0;
         }
 
         /// @brief Property of attribute
@@ -218,26 +245,11 @@ public:
     /// @brief return true if element tag can open a values editor
     static bool canOpenDialog(SumoXMLTag tag);
 
-    /// @brief whether an attribute is numerical (int or float)
-    static bool isNumerical(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is numerical or type int
-    static bool isInt(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is numerical of type float
-    static bool isFloat(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief whether an attribute is time
     static bool isTime(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief whether an attribute is of type bool for a certain tag
-    static bool isBool(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief whether an attribute is of type color for a certain tag
     static bool isColor(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is of type string
-    static bool isString(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is of type bool
     static bool isList(SumoXMLTag tag, SumoXMLAttr attr);
@@ -250,9 +262,6 @@ public:
 
     /// @brief whether an attribute is only Positive (i.e. cannot take negative values)
     static bool isPositive(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is a probability (i.e. oly can values between [0, 1])
-    static bool isProbability(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether a string attribute is a filename
     static bool isFilename(SumoXMLTag tag, SumoXMLAttr attr);
@@ -348,7 +357,7 @@ public:
             additionalOfWarningMessage = toString(tag);
         }
         // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
-        if (isInt(tag, attribute) || isFloat(tag, attribute) || isTime(tag, attribute)) {
+        if (allowedAttributes(tag).at(attribute).second.isNumerical() || isTime(tag, attribute)) {
             defaultValue = "0";
         } else if (isColor(tag, attribute)) {
             defaultValue = "BLACK";
@@ -378,7 +387,7 @@ public:
                 }
             }
             // Set extra checks for int values
-            if (isInt(tag, attribute)) {
+            if (allowedAttributes(tag).at(attribute).second.isInt()) {
                 if (canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = parse<int>(parsedAttribute);
@@ -395,7 +404,7 @@ public:
                 }
             }
             // Set extra checks for float(double) values
-            if (isFloat(tag, attribute)) {
+            if (allowedAttributes(tag).at(attribute).second.isFloat()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to double and check if can be negative
                     if (isPositive(tag, attribute) && parse<double>(parsedAttribute) < 0) {
@@ -421,7 +430,7 @@ public:
                 }
             }
             // set extra check for probability values
-            if (isProbability(tag, attribute)) {
+            if (allowedAttributes(tag).at(attribute).second.isProbability()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {

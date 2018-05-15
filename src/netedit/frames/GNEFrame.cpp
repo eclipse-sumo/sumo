@@ -611,22 +611,22 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
         if (attrs.at(i).first == SUMO_ATTR_SHAPE) {
             type->setText("list of positions");
         }
-        else if (GNEAttributeCarrier::isInt(elementTag, attrs.at(i).first)) {
+        else if (attrs.at(i).second.isInt()) {
             type->setText("int");
         }
-        else if (GNEAttributeCarrier::isFloat(elementTag, attrs.at(i).first)) {
+        else if (attrs.at(i).second.isFloat()) {
             type->setText("float");
         }
         else if (GNEAttributeCarrier::isTime(elementTag, attrs.at(i).first)) {
             type->setText("time");
         }
-        else if (GNEAttributeCarrier::isBool(elementTag, attrs.at(i).first)) {
+        else if (attrs.at(i).second.isBool()) {
             type->setText("bool");
         }
         else if (GNEAttributeCarrier::isColor(elementTag, attrs.at(i).first)) {
             type->setText("color");
         }
-        else if (GNEAttributeCarrier::isString(elementTag, attrs.at(i).first)) {
+        else if (attrs.at(i).second.isString()) {
             if (attrs.at(i).first == SUMO_ATTR_POSITION) {
                 type->setText("position");
             }

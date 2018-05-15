@@ -214,11 +214,10 @@ std::vector<GNEAttributeCarrier*>
 GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
     std::vector<GNEAttributeCarrier*> allACbyTag = myViewNet->getNet()->retrieveAttributeCarriers(ACTag);
-    const bool numerical = GNEAttributeCarrier::isNumerical(ACTag, ACAttr);
     for (auto it : allACbyTag) {
         if (expr == "") {
             result.push_back(it);
-        } else if (numerical) {
+        } else if (GNEAttributeCarrier::allowedAttributes(ACTag).at(ACAttr).second.isNumerical()) {
             double acVal;
             std::istringstream buf(it->getAttribute(ACAttr));
             buf >> acVal;
@@ -644,7 +643,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
     if (expr == "") {
         // the empty expression matches all objects
         mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (GNEAttributeCarrier::isNumerical(myCurrentTag, myCurrentAttribute)) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myCurrentTag).at(myCurrentAttribute).second.isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
