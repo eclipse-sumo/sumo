@@ -230,12 +230,12 @@ NGNet::toNB() const {
     double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
     for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         NBNode* node = *i;
-        EdgeVector incoming = node->getIncomingEdges();
-        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            if (node->getConnectionTo((*j)->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
-                NBEdge* back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""), myNetBuilder.getTypeCont().getNumLanes(""),
-                                          myNetBuilder.getTypeCont().getPriority(""),
+        for (NBEdge* e : node->getIncomingEdges()) {
+            if (node->getConnectionTo(e->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
+                NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
+                                          "", myNetBuilder.getTypeCont().getSpeed(""), 
+                                          e->getNumLanes(),
+                                          e->getPriority(),
                                           myNetBuilder.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET);
                 myNetBuilder.getEdgeCont().insert(back);
             }

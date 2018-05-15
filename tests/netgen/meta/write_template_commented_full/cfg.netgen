@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:20 2018 by Eclipse SUMO netgenerate Version 27b98ce
+<!-- generated on Tue May 15 08:48:47 2018 by Eclipse SUMO netgenerate Version 042135c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -113,6 +113,12 @@
 
         <!-- Probability for a node having exactly 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
+
+        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
+        <rand.random-lanenumber value="false" type="BOOL"/>
+
+        <!-- Draw edge priority randomly from [1,default.priority] -->
+        <rand.random-priority value="false" type="BOOL"/>
 
     </random_network>
 

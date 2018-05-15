@@ -1,0 +1,3 @@
+--rand -o net.net.xml --rand.iterations=200
+--default.priority 10
+--rand.random-priority
