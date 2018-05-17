@@ -407,6 +407,9 @@ private:
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
+    /// @brief check whether a found objID refers to the central object of a context subscription
+    bool centralObject(const libsumo::Subscription& s, const std::string& objID);
+
 
 private:
     /// @brief Invalidated assignment operator
