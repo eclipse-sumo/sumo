@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 17 08:31:58 2018 by Eclipse SUMO netgenerate Version 4ab3f27
+<!-- generated on Thu May 17 09:06:50 2018 by Eclipse SUMO netgenerate Version a076040
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -47,9 +47,6 @@
 
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT"/>
-
-        <!-- The Ids of generated nodes use letters for the X axis -->
-        <grid.alphanumerical-ids value="true" type="BOOL"/>
 
     </grid_network>
 
@@ -143,6 +140,9 @@
 
         <!-- Defines the prefix for edge and junction names -->
         <prefix value="" type="STR"/>
+
+        <!-- The Ids of generated nodes use an alphanumerical code for easier readability when possible -->
+        <alphanumerical-ids value="true" type="BOOL"/>
 
         <!-- The generated net will be written to FILE -->
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>

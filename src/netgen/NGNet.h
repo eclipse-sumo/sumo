@@ -137,7 +137,7 @@ public:
      * @see NGNet::connect
      * @todo consolidate the name of the center node
      */
-    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter);
+    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter, bool alphaIDs);
 
 
     /** @brief Converts the stored network into its netbuilder-representation

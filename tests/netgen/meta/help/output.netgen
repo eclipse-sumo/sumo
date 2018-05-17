@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version 4ab3f27
+Eclipse SUMO netgenerate Version a076040
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -32,8 +32,6 @@ Grid Network Options:
   --grid.attach-length FLOAT           The length of streets attached at the
                                          boundary;
                                          0 means no streets are attached
-  --grid.alphanumerical-ids            The Ids of generated nodes use letters
-                                         for the X axis
 
 Spider Network Options:
   -s, --spider                         Forces NETGEN to build a spider-net-like
@@ -91,6 +89,9 @@ Output Options:
                                          seconds
   --prefix STR                         Defines the prefix for edge and junction
                                          names
+  --alphanumerical-ids                 The Ids of generated nodes use an
+                                         alphanumerical code for easier
+                                         readability when possible
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml

@@ -106,6 +106,8 @@ checkOptions() {
 NGNet*
 buildNetwork(NBNetBuilder& nb) {
     OptionsCont& oc = OptionsCont::getOptions();
+    const bool alphaIDs = oc.getBool("alphanumerical-ids");
+
     // spider-net
     if (oc.getBool("spider")) {
         // check values
@@ -128,7 +130,7 @@ buildNetwork(NBNetBuilder& nb) {
         // build if everything's ok
         NGNet* net = new NGNet(nb);
         net->createSpiderWeb(oc.getInt("spider.arm-number"), oc.getInt("spider.circle-number"),
-                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
+                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"), alphaIDs);
         return net;
     }
     // grid-net
@@ -165,8 +167,6 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The length of attached streets must be at least 10m.");
             hadError = true;
         }
-        const bool alphaIDs = oc.getBool("grid.alphanumerical-ids");
-
         if (hadError) {
             throw ProcessError();
         }

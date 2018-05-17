@@ -160,7 +160,7 @@ NGNet::radialToY(double radius, double phi) {
 
 
 void
-NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter) {
+NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter, bool alphaIDs) {
     if (numRadDiv < 3) {
         numRadDiv = 3;
     }
@@ -171,11 +171,14 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
     int ir, ic;
     double angle = (double)(2 * M_PI / numRadDiv); // angle between radial divisions
     NGNode* Node;
-    for (ir = 1; ir < numRadDiv + 1; ir++) {
-        for (ic = 1; ic < numCircles + 1; ic++) {
+    for (ic = 1; ic < numCircles + 1; ic++) {
+        const std::string nodeIDStart = myIDPrefix + alphabeticalCode(ic, numCircles);
+        for (ir = 1; ir < numRadDiv + 1; ir++) {
             // create Node
-            Node = new NGNode(
-                myIDPrefix + toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
+            const std::string nodeID = (alphaIDs ? 
+                    nodeIDStart + toString<int>(ir) :
+                    toString<int>(ir) + "/" + toString<int>(ic));
+            Node = new NGNode(nodeID, ir, ic);
             Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
             Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
             myNodeList.push_back(Node);
@@ -193,7 +196,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
     }
     if (hasCenter) {
         // node
-        Node = new NGNode(getNextFreeID(), 0, 0, true);
+        Node = new NGNode(alphaIDs ? "A1" : "1", 0, 0, true);
         Node->setX(0);
         Node->setY(0);
         myNodeList.push_back(Node);

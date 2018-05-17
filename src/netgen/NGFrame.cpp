@@ -47,6 +47,10 @@ NGFrame::fillOptions() {
     oc.doRegister("prefix", new Option_String(""));
     oc.addDescription("prefix", "Output", "Defines the prefix for edge and junction names");
 
+    oc.doRegister("alphanumerical-ids", new Option_Bool(true));
+    oc.addDescription("alphanumerical-ids", "Output", "The Ids of generated nodes use an alphanumerical code for easier readability when possible");
+
+
     //  register grid-net options
     oc.doRegister("grid", 'g', new Option_Bool(false));
     oc.addSynonyme("grid", "grid-net", true);
@@ -85,9 +89,6 @@ NGFrame::fillOptions() {
     oc.doRegister("grid.attach-length", new Option_Float(0));
     oc.addSynonyme("grid.attach-length", "attach-length", true);
     oc.addDescription("grid.attach-length", "Grid Network", "The length of streets attached at the boundary; 0 means no streets are attached");
-
-    oc.doRegister("grid.alphanumerical-ids", new Option_Bool(true));
-    oc.addDescription("grid.alphanumerical-ids", "Grid Network", "The Ids of generated nodes use letters for the X axis");
 
     //  register spider-net options
     oc.doRegister("spider", 's', new Option_Bool(false));
