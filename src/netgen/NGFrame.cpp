@@ -43,6 +43,10 @@
 void
 NGFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
+    //  register output options
+    oc.doRegister("prefix", new Option_String(""));
+    oc.addDescription("prefix", "Output", "Defines the prefix for edge and junction names");
+
     //  register grid-net options
     oc.doRegister("grid", 'g', new Option_Bool(false));
     oc.addSynonyme("grid", "grid-net", true);

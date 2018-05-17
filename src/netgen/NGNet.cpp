@@ -47,9 +47,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NGNet::NGNet(NBNetBuilder& nb)
-    : myNetBuilder(nb) {
-    myLastID = 0;
+NGNet::NGNet(NBNetBuilder& nb) : 
+    myLastID(0),
+    myIDPrefix(OptionsCont::getOptions().getString("prefix")),
+    myNetBuilder(nb)
+{
 }
 
 
@@ -65,7 +67,7 @@ NGNet::~NGNet() {
 
 std::string
 NGNet::getNextFreeID() {
-    return toString<int>(++myLastID);
+    return myIDPrefix + toString<int>(++myLastID);
 }
 
 
@@ -97,7 +99,7 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
                     xID = char('A' + (ixtmp % 26)) + xID;
                     ixtmp /= 26;
                 }
-                nodeID = xID + toString(iy);
+                nodeID = myIDPrefix + xID + toString(iy);
             }
             NGNode* node = new NGNode(nodeID, ix, iy);
             node->setX(ix * spaceX + attachLength);
@@ -115,8 +117,8 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
     if (attachLength > 0.0) {
         for (int ix = 0; ix < numX; ix++) {
             // create nodes
-            NGNode* topNode = new NGNode("top" + toString<int>(ix), ix, numY);
-            NGNode* bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY + 1);
+            NGNode* topNode = new NGNode(myIDPrefix + "top" + toString<int>(ix), ix, numY);
+            NGNode* bottomNode = new NGNode(myIDPrefix + "bottom" + toString<int>(ix), ix, numY + 1);
             topNode->setX(ix * spaceX + attachLength);
             bottomNode->setX(ix * spaceX + attachLength);
             topNode->setY((numY - 1) * spaceY + 2 * attachLength);
@@ -129,8 +131,8 @@ NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, doub
         }
         for (int iy = 0; iy < numY; iy++) {
             // create nodes
-            NGNode* leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
-            NGNode* rightNode = new NGNode("right" + toString<int>(iy), numX + 1, iy);
+            NGNode* leftNode = new NGNode(myIDPrefix + "left" + toString<int>(iy), numX, iy);
+            NGNode* rightNode = new NGNode(myIDPrefix + "right" + toString<int>(iy), numX + 1, iy);
             leftNode->setX(0);
             rightNode->setX((numX - 1) * spaceX + 2 * attachLength);
             leftNode->setY(iy * spaceY + attachLength);
@@ -173,7 +175,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
         for (ic = 1; ic < numCircles + 1; ic++) {
             // create Node
             Node = new NGNode(
-                toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
+                myIDPrefix + toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
             Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
             Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
             myNodeList.push_back(Node);

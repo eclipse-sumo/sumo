@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 15 23:42:59 2018 by Eclipse SUMO netgenerate Version 6ca354f
+<!-- generated on Thu May 17 08:31:58 2018 by Eclipse SUMO netgenerate Version 4ab3f27
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -140,6 +140,9 @@
 
         <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
+
+        <!-- Defines the prefix for edge and junction names -->
+        <prefix value="" type="STR"/>
 
         <!-- The generated net will be written to FILE -->
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>

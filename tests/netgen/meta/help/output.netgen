@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version 6ca354f
+Eclipse SUMO netgenerate Version 4ab3f27
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -89,6 +89,8 @@ Output Options:
   -H, --human-readable-time            Write time values as hour:minute:second
                                          or day:hour:minute:second rathern than
                                          seconds
+  --prefix STR                         Defines the prefix for edge and junction
+                                         names
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml

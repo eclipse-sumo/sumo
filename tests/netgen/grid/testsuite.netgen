@@ -29,5 +29,8 @@ numerical_ids
 # set alternative defaults
 defaults
 
+# add id prefix
+prefix
+
 # Tests processing of errors in input
 errors
