@@ -50,6 +50,7 @@
 NGNet::NGNet(NBNetBuilder& nb) : 
     myLastID(0),
     myIDPrefix(OptionsCont::getOptions().getString("prefix")),
+    myAlphaIDs(OptionsCont::getOptions().getBool("alphanumerical-ids")),
     myNetBuilder(nb)
 {
 }
@@ -95,10 +96,10 @@ NGNet::alphabeticalCode(int i, int iMax) {
 }
 
 void
-NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs) {
+NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength) {
 
     for (int ix = 0; ix < numX; ix++) {
-        const std::string nodeIDStart = myIDPrefix + (alphaIDs ? alphabeticalCode(ix, numX) : toString<int>(ix) + "/");
+        const std::string nodeIDStart = myIDPrefix + (myAlphaIDs ? alphabeticalCode(ix, numX) : toString<int>(ix) + "/");
         for (int iy = 0; iy < numY; iy++) {
             // create Node
             NGNode* node = new NGNode(nodeIDStart + toString(iy), ix, iy);
@@ -160,7 +161,7 @@ NGNet::radialToY(double radius, double phi) {
 
 
 void
-NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter, bool alphaIDs) {
+NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter) {
     if (numRadDiv < 3) {
         numRadDiv = 3;
     }
@@ -175,7 +176,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
         const std::string nodeIDStart = myIDPrefix + alphabeticalCode(ic, numCircles);
         for (ir = 1; ir < numRadDiv + 1; ir++) {
             // create Node
-            const std::string nodeID = (alphaIDs ? 
+            const std::string nodeID = (myAlphaIDs ? 
                     nodeIDStart + toString<int>(ir) :
                     toString<int>(ir) + "/" + toString<int>(ic));
             Node = new NGNode(nodeID, ir, ic);
@@ -196,7 +197,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
     }
     if (hasCenter) {
         // node
-        Node = new NGNode(alphaIDs ? "A1" : "1", 0, 0, true);
+        Node = new NGNode(myAlphaIDs ? "A1" : "1", 0, 0, true);
         Node->setX(0);
         Node->setY(0);
         myNodeList.push_back(Node);

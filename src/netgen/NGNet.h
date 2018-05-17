@@ -114,10 +114,9 @@ public:
      * @param[in] spaceX The space between nodes in x-direction
      * @param[in] spaceY The space between nodes in y-direction
      * @param[in] attachLength The length of streets attached at the border
-     * @param[in] alphaIDs Whether to use alphanumerial node ids
      * @see NGNet::connect
      */
-    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs);
+    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength);
 
 
     /** @brief Creates a spider network
@@ -137,7 +136,7 @@ public:
      * @see NGNet::connect
      * @todo consolidate the name of the center node
      */
-    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter, bool alphaIDs);
+    void createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasCenter);
 
 
     /** @brief Converts the stored network into its netbuilder-representation
@@ -206,6 +205,9 @@ private:
 
     /// @brief The ID prefix
     const std::string myIDPrefix;
+
+    /// @brief Whether to use alphanumericalIDs
+    const bool myAlphaIDs;
 
     /// @brief The builder used to build NB*-structures
     NBNetBuilder& myNetBuilder;

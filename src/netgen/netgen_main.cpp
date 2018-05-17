@@ -106,7 +106,6 @@ checkOptions() {
 NGNet*
 buildNetwork(NBNetBuilder& nb) {
     OptionsCont& oc = OptionsCont::getOptions();
-    const bool alphaIDs = oc.getBool("alphanumerical-ids");
 
     // spider-net
     if (oc.getBool("spider")) {
@@ -130,7 +129,7 @@ buildNetwork(NBNetBuilder& nb) {
         // build if everything's ok
         NGNet* net = new NGNet(nb);
         net->createSpiderWeb(oc.getInt("spider.arm-number"), oc.getInt("spider.circle-number"),
-                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"), alphaIDs);
+                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
         return net;
     }
     // grid-net
@@ -172,7 +171,7 @@ buildNetwork(NBNetBuilder& nb) {
         }
         // build if everything's ok
         NGNet* net = new NGNet(nb);
-        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength, alphaIDs);
+        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
         return net;
     }
     // random net
