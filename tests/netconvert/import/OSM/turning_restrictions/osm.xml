@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- hand written -->
+<osm-derived>
+
+<node id="0" lat="52.00" lon="13.00"/>
+<node id="1" lat="52.00" lon="13.01"/>
+<node id="2" lat="52.00" lon="13.02"/>
+<node id="3" lat="52.00" lon="13.03"/>
+<node id="4" lat="52.00" lon="13.04"/>
+<node id="5" lat="52.00" lon="13.05"/>
+<node id="10" lat="52.00" lon="13.06"/>
+
+<node id="6" lat="51.99" lon="13.01"/>
+<node id="7" lat="51.99" lon="13.02"/>
+<node id="8" lat="51.99" lon="13.03"/>
+<node id="9" lat="51.99" lon="13.04"/>
+<node id="11" lat="51.99" lon="13.05"/>
+<node id="12" lat="52.01" lon="13.05"/>
+
+
+<way id="200">
+  <nd ref="0"/>
+  <nd ref="1"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+</way>
+<way id="201">
+  <nd ref="1"/>
+  <nd ref="2"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+</way>
+<way id="202">
+  <nd ref="2"/>
+  <nd ref="3"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+</way>
+<way id="203">
+  <nd ref="3"/>
+  <nd ref="4"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="3"/>
+</way>
+<way id="204">
+  <nd ref="4"/>
+  <nd ref="5"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="7"/>
+</way>
+<way id="205">
+  <nd ref="5"/>
+  <nd ref="10"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="5"/>
+</way>
+
+<way id="101">
+  <nd ref="1"/>
+  <nd ref="6"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+</way>
+
+<way id="102">
+  <nd ref="2"/>
+  <nd ref="7"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+</way>
+
+<way id="103">
+  <nd ref="3"/>
+  <nd ref="8"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+</way>
+
+<way id="104">
+  <nd ref="4"/>
+  <nd ref="9"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="2"/>
+</way>
+
+<way id="105">
+  <nd ref="5"/>
+  <nd ref="11"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="6"/>
+</way>
+
+<way id="106">
+  <nd ref="5"/>
+  <nd ref="12"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="lanes" v="6"/>
+</way>
+
+<relation id="0">
+    <member type="way" ref="200" role="from"/>
+    <member type="way" ref="101" role="to"/>
+    <member type="node" ref="1" role="via"/>
+    <tag k="restriction" v="no_right_turn"/>
+    <tag k="type" v="restriction"/>
+</relation>
+
+<relation id="1">
+    <member type="way" ref="201" role="from"/>
+    <member type="way" ref="102" role="to"/>
+    <member type="node" ref="2" role="via"/>
+    <tag k="restriction" v="only_right_turn"/>
+    <tag k="type" v="restriction"/>
+</relation>
+
+<relation id="2">
+    <member type="way" ref="203" role="from"/>
+    <member type="way" ref="103" role="to"/>
+    <member type="node" ref="3" role="via"/>
+    <tag k="restriction" v="no_right_turn"/>
+    <tag k="type" v="restriction"/>
+</relation>
+
+<relation id="3">
+    <member type="way" ref="204" role="from"/>
+    <member type="way" ref="104" role="to"/>
+    <member type="node" ref="4" role="via"/>
+    <tag k="restriction" v="only_right_turn"/>
+    <tag k="type" v="restriction"/>
+</relation>
+
+<relation id="4">
+    <member type="way" ref="204" role="from"/>
+    <member type="way" ref="205" role="to"/>
+    <member type="node" ref="5" role="via"/>
+    <tag k="restriction" v="no_straight_on"/>
+    <tag k="type" v="restriction"/>
+</relation>
+
+</osm-derived>

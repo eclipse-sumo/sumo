@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-1' timestamp='2009-04-08T20:36:40Z' visible='true' version='1' lat='48.8607456' lon='11.2267893' />
+  <node id='-2' timestamp='2009-07-13T00:10:28Z' visible='true' version='1' lat='48.8740549' lon='11.2182715' />
+  <node id='-3' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736252' lon='11.2242027' />
+  <node id='-4' timestamp='2009-04-08T20:37:00Z' visible='true' version='31' lon='11.2139685'>
+      <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-5' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736619' lon='11.2234758'>
+      <tag k='barrier' v='bollard'>
+          <tag k='barrier' v='bollard' />
+   	  </tag>   
+  </node>
+  <node id='-6' timestamp='2009-04-08T20:36:39Z' visible='true' version='1' lat='48.8607851' lon='11.2265919' />
+  <tag k='highway' v='traffic_signals' />
+  <node id='-7' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8735825' lon='11.2261575' />
+  <node id='-8' timestamp='2009-06-11T15:27:30Z' visible='true' version='1' lat='48.8751626' lon='11.2357725' />
+  <node id='-9' timestamp='2009-04-08T20:37:11Z' visible='true' version='31' lat='48.858675' lon='11.237141' />
+  <node id='-10' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736069' lon='11.225009' />
+  <node id='-11' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8738329' lon='11.2213072' />
+  <node id='-12' timestamp='2009-04-08T20:37:11Z' visible='true' version='29' lat='48.8586735' lon='11.2367375' />
+  <node id='-13' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8739123' lon='11.2206964' />
+  <node id='-14' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8743381' lon='11.2186101' />
+  <node id='-15' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736863' lon='11.2227122' />
+  <node id='-16' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8737623' lon='11.2218287' />
+  <node id='-17' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8742985' lon='11.2188247' />
+  <node id='-18' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8742828' lon='11.2180687' />
+  <node id='-19' timestamp='2009-04-08T20:37:09Z' visible='true' version='29' lat='48.8595936' lon='11.2256735' />
+  <node id='-20' timestamp='2009-06-06T09:44:48Z' visible='true' version='31' lat='48.8743381' lon='11.2186101' />
+  <node id='-21' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8740223' lon='11.2201466' />
+  <node id='-22' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8744325' lon='11.2182384' />
+  <node id='-23' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8741567' lon='11.2193586' />
+  <node timestamp='2008-10-28T17:38:39Z' visible='true' version='31' lat='48.8759558' lon='11.2194716'/>
+  <node id='-25' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8749477' lon='11.2189362' />
+  <node id='-26' timestamp='2009-04-08T20:37:11Z' visible='true' version='29' lat='48.8590224' lon='11.2285255' />
+  <node id='-27' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8746542' lon='11.2187646' />
+  <node id='-28' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8747309' lon='11.2341108' />
+  <node id='-29' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8734371' lon='11.2257674' />
+  <node id='-30' timestamp='2009-04-08T20:37:14Z' visible='true' version='29' lat='48.8599609' lon='11.2457068' />
+  <node id='-31' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8733538' lon='11.2269507' />
+  <node id='-32' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8733705' lon='11.227834' />
+  <node id='-33' timestamp='2008-10-28T17:38:39Z' visible='true' version='6' lat='48.8755856' lon='11.2193173' />
+  <node id='-34' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8733705' lon='11.2286174' />
+  <node id='-35' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8735371' lon='11.2307007' />
+  <node id='-36' timestamp='2009-04-08T20:37:02Z' visible='true' version='30' lat='48.8729163' lon='11.2196792' />
+  <node id='-37' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8733705' lon='11.2293674' />
+  <node id='-38' timestamp='2009-04-08T20:37:01Z' visible='true' version='30' lat='48.8738065' lon='11.2185356' />
+  <node id='-39' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8734371' lon='11.2300007' />
+  <node id='-40' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8744987' lon='11.2333411' />
+  <node id='-41' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8741414' lon='11.2186057' />
+  <node id='-42' timestamp='2009-04-08T20:37:12Z' visible='true' version='29' lat='48.8586791' lon='11.2382396' />
+  <node id='-43' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8737352' lon='11.2305801' />
+  <node id='-44' timestamp='2009-06-06T09:44:49Z' visible='true' version='2' lat='48.8739986' lon='11.2180539' />
+  <node id='-45' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8738251' lon='11.2312208' />
+  <node id='-46' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8741445' lon='11.2324493' />
+  <node id='-47' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8735205' lon='11.220334' />
+  <node id='-48' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8739368' lon='11.2316735' />
+  <node id='-49' timestamp='2009-04-08T20:37:01Z' visible='true' version='29' lat='48.8742564' lon='11.2174077' />
+  <node id='-50' timestamp='2009-06-11T15:27:31Z' visible='true' version='15' lat='48.8751802' lon='11.2357748' />
+  <node id='-51' timestamp='2009-04-08T20:37:00Z' visible='true' version='29' lat='48.8748098' lon='11.2157631' />
+  <node id='-52' timestamp='2009-04-08T20:37:12Z' visible='true' version='19' lat='48.8588146' lon='11.2393897' />
+  <node id='-53' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8737705' lon='11.2193007' />
+  <node id='-54' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8735947' lon='11.2270799' />
+  <node id='-55' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8733371' lon='11.2220007' />
+  <node id='-56' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736374' lon='11.2281916' />
+  <node id='-57' timestamp='2009-04-08T20:37:13Z' visible='true' version='29' lat='48.8591083' lon='11.2412437' />
+  <node id='-58' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8733538' lon='11.2227507' />
+  <node id='-59' action='modify' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8687089' lon='11.2207833'>
+    <tag k='barrier' v='bollard' />
+    <tag k='amenity' v='emergency_phone' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-60' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8734038' lon='11.2211674' />
+  <node id='-61' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736435' lon='11.2292117' />
+  <node id='-62' timestamp='2009-05-20T18:16:12Z' visible='true' version='1' lat='48.8734371' lon='11.2241007' />
+  <node id='-63' timestamp='2008-10-28T17:38:39Z' visible='true' version='27' lat='48.8736558' lon='11.2299387' />
+  <node id='-64' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8704445' lon='11.2208605' />
+  <node id='-65' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8676337' lon='11.2211823' />
+  <node id='-66' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8682348' lon='11.2207833' />
+  <node id='-67' timestamp='2009-04-08T20:36:40Z' visible='true' version='8' lat='48.860695' lon='11.2268842' />
+  <node id='-68' timestamp='2009-04-08T20:37:09Z' visible='true' version='1' lat='48.8598195' lon='11.2251671' />
+  <node id='-69' timestamp='2009-05-20T18:16:10Z' visible='true' version='1' lat='48.8745038' lon='11.2344174' />
+  <node id='-70' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8679893' lon='11.2209249' />
+  <node id='-71' timestamp='2009-05-20T18:16:10Z' visible='true' version='1' lat='48.8748538' lon='11.2357007' />
+  <node id='-72' timestamp='2009-05-20T18:16:10Z' visible='true' version='1' lat='48.8742871' lon='11.2337174' />
+  <node id='-73' timestamp='2009-04-08T20:37:10Z' visible='true' version='14' lat='48.8591128' lon='11.227753' />
+  <node id='-74' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8740038' lon='11.2331674' />
+  <node id='-75' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.874199' lon='11.218086' />
+  <node id='-76' timestamp='2009-04-08T20:37:10Z' visible='true' version='13' lat='48.8592484' lon='11.2269182' />
+  <node id='-77' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8739133' lon='11.218454' />
+  <node id='-78' timestamp='2009-05-20T18:16:10Z' visible='true' version='1' lat='48.8747205' lon='11.235184' />
+  <node id='-79' timestamp='2009-04-08T20:37:10Z' visible='true' version='38' lat='48.8591749' lon='11.2273496' />
+  <node id='-80' timestamp='2008-10-26T12:16:28Z' visible='true' version='14' lat='48.8589117' lon='11.2400028' />
+  <node id='-81' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.871926' lon='11.2208862' />
+  <node id='-82' timestamp='2008-10-29T17:26:10Z' visible='true' version='49' lat='48.8751707' lon='11.2357235' />
+  <node id='-83' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8727641' lon='11.2200368' />
+  <node id='-84' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8737538' lon='11.2328507' />
+  <node id='-85' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8737538' lon='11.2323507' />
+  <node id='-86' timestamp='2009-04-08T20:37:03Z' visible='true' version='30' lat='48.8713182' lon='11.2205255' />
+  <node id='-87' timestamp='2009-07-12T23:48:10Z' visible='true' version='1' lat='48.8634172' lon='11.2221605' />
+  <node id='-88' timestamp='2009-04-08T20:37:02Z' visible='true' version='29' lat='48.8722267' lon='11.2202935' />
+  <node id='-89' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8736538' lon='11.2317674' />
+  <node id='-90' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8736445' lon='11.2190972' />
+  <node id='-91' timestamp='2009-05-20T18:16:11Z' visible='true' version='1' lat='48.8735705' lon='11.2312007' />
+  <node id='-92' timestamp='2009-04-08T20:37:09Z' visible='true' version='38' lat='48.8593624' lon='11.226249' />
+  <node id='-93' timestamp='2009-04-08T20:36:36Z' visible='true' version='1' lat='48.8613611' lon='11.2244461' />
+  <node id='-94' timestamp='2009-04-08T20:37:08Z' visible='true' version='29' lat='48.860135' lon='11.2246186' />
+  <node id='-95' timestamp='2009-07-12T23:48:10Z' visible='true' version='1' lat='48.8627821' lon='11.2229713' />
+  <node id='-96' timestamp='2009-04-08T20:37:06Z' visible='true' version='29' lat='48.8660176' lon='11.2202067' />
+  <node id='-97' timestamp='2009-04-08T20:37:06Z' visible='true' version='29' lat='48.8670929' lon='11.2203174' />
+  <node id='-98' timestamp='2009-04-08T20:37:05Z' visible='true' version='29' lat='48.8678203' lon='11.220349' />
+  <node id='-99' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8659319' lon='11.2206932' />
+  <node id='-100' timestamp='2009-04-08T20:37:08Z' visible='true' version='29' lat='48.860904' lon='11.2235711' />
+  <node id='-101' timestamp='2009-07-12T23:48:10Z' visible='true' version='1' lat='48.8647211' lon='11.2211565' />
+  <node id='-102' timestamp='2009-04-08T20:37:07Z' visible='true' version='29' lat='48.8646576' lon='11.2205546' />
+  <node id='-103' timestamp='2009-04-08T20:37:08Z' visible='true' version='29' lat='48.8629064' lon='11.2219511' />
+  <node id='-104' timestamp='2009-07-12T23:48:10Z' visible='true' version='1' lat='48.8627433' lon='11.2233425' />
+  <node id='-105' timestamp='2009-04-08T20:36:36Z' visible='true' version='1' lat='48.8621798' lon='11.2238196' />
+  <node id='-106' timestamp='2009-04-08T20:37:07Z' visible='true' version='29' lat='48.8654641' lon='11.2202225' />
+  <node id='-107' timestamp='2009-04-08T20:37:10Z' visible='true' version='13' lat='48.8592364' lon='11.2269888' />
+  <node id='-108' timestamp='2009-04-08T20:37:04Z' visible='true' version='29' lat='48.8694965' lon='11.2202067' />
+  <node id='-109' timestamp='2009-04-08T20:36:37Z' visible='true' version='1' lat='48.8609545' lon='11.2247294' />
+  <node id='-110' timestamp='2009-07-12T23:48:11Z' visible='true' version='1' lat='48.8664483' lon='11.221015' />
+  <node id='-111' timestamp='2008-10-28T17:18:43Z' visible='true' version='8' lat='48.875476' lon='11.2139785' />
+  <node id='-112' timestamp='2009-04-08T20:37:05Z' visible='true' version='29' lat='48.8687059' lon='11.220175' />
+  <node id='-113' timestamp='2009-04-08T20:36:39Z' visible='true' version='1' lat='48.8608529' lon='11.2257336' />
+  <node id='-114' timestamp='2008-10-26T17:04:12Z' visible='true' version='4' lat='48.875126' lon='11.2155063' />
+  <node id='-115' timestamp='2009-04-08T20:37:04Z' visible='true' version='29' lat='48.8703663' lon='11.2203648' />
+  <node id='-116' timestamp='2009-07-12T23:48:10Z' visible='true' version='1' lat='48.8651529' lon='11.2207447' />
+  <node id='-117' timestamp='2009-04-08T20:36:38Z' visible='true' version='1' lat='48.8608867' lon='11.2255447' />
+  <node id='-118' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.8598845' lon='11.2453071' />
+  <node id='-119' visible='true' lat='48.86926496459531' lon='11.22378129482755' />
+  <node id='-122' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.85988' />
+  <node id='-123' visible='true' lat='48.869' lon='11.223' />
+  <way id='-120' action='modify' timestamp='2008-10-28T17:38:39Z' visible='true' version='15'>
+    <nd ref='-82' />
+    <nd ref='-28' />
+    <nd ref='-40' />
+    <nd ref='-46' />
+    <nd ref='-48' />
+    <nd ref='-45' />
+    <nd ref='-43' />
+    <nd ref='-63' />
+    <nd ref='-61' />
+    <nd ref='-56' />
+    <nd ref='-54' />
+    <nd ref='-7' />
+    <nd ref='-10' />
+    <nd ref='-3' />
+    <nd ref='-5' />
+    <nd ref='-15' />
+    <nd ref='-16' />
+    <nd ref='-11' />
+    <nd ref='-13' />
+    <nd ref='-21' />
+    <nd ref='-23' />
+    <nd ref='-17' />
+    <nd ref='-20' />
+    <tag k='highway' v='traffic_signals' />
+    <tag k='surface' v='paved' />
+    <tag k='highway' v='cycleway' />
+    <tag k='width' v='3' />
+    <node id='1' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.8598845' lon='11.2453071' />
+  </way>
+  <way id='-121' action='modify' timestamp='2009-07-13T00:10:29Z' visible='true' version='3'>
+    <nd ref='-22' />
+    <nd ref='-18' />
+    <nd ref='-75' />
+    <nd ref='-2' />
+    <nd ref='-77' />
+    <nd ref='-90' />
+    <nd ref='-83' />
+    <nd ref='-81' />
+    <tag k='highway' v='cycleway' />
+    <tag k='source' v='Yahoo' />
+  </way>
+  <way id='-122' action='modify' timestamp='2009-09-22T08:28:35Z' visible='true' version='0'>
+    <nd ref='-81' />
+    <nd ref='-64' />
+    <nd ref='-59' />
+    <nd ref='-66' />
+    <nd ref='-70' />
+    <nd ref='-65' />
+    <nd ref='-110' />
+    <nd ref='-99' />
+    <nd ref='-116' />
+    <nd ref='-101' />
+    <nd ref='-87' />
+    <nd ref='-95' />
+    <nd ref='-104' />
+    <nd ref='-105' />
+    <nd ref='-93' />
+    <nd ref='-109' />
+    <nd ref='-117' />
+    <nd ref='-113' />
+    <nd ref='-6' />
+    <nd ref='-1' />
+    <nd ref='-67' />
+    <tag k='highway' v='track' />
+    <tag k='source' v='Yahoo' />
+  </way>
+  <way id='-123' action='modify' timestamp='2009-07-13T00:10:29Z' visible='true' version='5'>
+    <nd ref='-50' />
+    <nd ref='-8' />
+    <nd ref='-71' />
+    <nd ref='-78' />
+    <nd ref='-69' />
+    <nd ref='-72' />
+    <nd ref='-74' />
+    <nd ref='-84' />
+    <nd ref='-85' />
+    <nd ref='-89' />
+    <nd ref='-91' />
+    <nd ref='-35' />
+    <nd ref='-39' />
+    <nd ref='-37' />
+    <nd ref='-34' />
+    <nd ref='-32' />
+    <nd ref='-31' />
+    <nd ref='-29' />
+    <nd ref='-62' />
+    <nd ref='-58' />
+    <nd ref='-55' />
+    <nd ref='-60' />
+    <nd ref='-47' />
+    <nd ref='-53' />
+    <nd ref='-41' />
+    <tag k='surface' v='gravel' />
+    <tag k='highway' v='track' />
+    <tag k='tracktype' v='grade2' />
+    <tag k='width' v='3' />
+  </way>
+  <way id='-124' action='modify' timestamp='2009-06-06T09:44:49Z' visible='true' version='3'>
+    <nd ref='-41' />
+    <nd ref='-14' />
+    <tag k='highway' v='unclassified' />
+  </way>
+  <way id='-125' action='modify' timestamp='2009-07-02T15:20:42Z' visible='true' version='15'>
+    <nd ref='-4' />
+    <nd ref='-51' />
+    <nd ref='-49' />
+    <nd ref='-44' />
+    <nd ref='-38' />
+    <nd ref='-36' />
+    <nd ref='-88' />
+    <nd ref='-86' />
+    <nd ref='-115' />
+    <nd ref='-108' />
+    <nd ref='-112' />
+    <nd ref='-98' />
+    <nd ref='-97' />
+    <nd ref='-96' />
+    <nd ref='-106' />
+    <nd ref='-102' />
+    <nd ref='-103' />
+    <nd ref='-100' />
+    <nd ref='-94' />
+    <nd ref='-68' />
+    <nd ref='-19' />
+    <nd ref='-92' />
+    <nd ref='-76' />
+    <nd ref='-107' />
+    <nd ref='-79' />
+    <nd ref='-73' />
+    <nd ref='-26' />
+    <nd ref='-12' />
+    <nd ref='-9' />
+    <nd ref='-42' />
+    <nd ref='-52' />
+    <nd ref='-80' />
+    <nd ref='-57' />
+    <nd ref='-118' />
+    <nd ref='-30' />
+    <tag k='ref' v='B 13' />
+    <tag k='highway' v='primary' />
+    <tag k='name' v='Ingolstädter Straße' />
+  </way>
+  <way id='-126' timestamp='2009-07-12T23:48:12Z' visible='true' version='6'>
+    <nd ref='-111' />
+    <nd ref='-114' />
+    <nd ref='-22' />
+    <nd ref='-14' />
+    <nd ref='-20' />
+    <tag k='surface' v='unpaved' />
+    <tag k='highway' v='cycleway' />
+    <tag k='tracktype' v='grade2' />
+  </way>
+  <way id='-127' action='modify' visible='true'>
+    <nd ref='-41' />
+    <nd ref='-2' />
+    <nd ref='-44' />
+    <tag k='highway' v='unclassified' />
+  </way>
+  <way id='-128' action='modify' visible='true'>
+    <nd ref='-20' />
+    <nd ref='-27' />
+    <nd ref='-25' />
+    <nd ref='-33' />
+    <nd ref='-24' />
+    <tag k='highway' v='unclassified' />
+  </way>
+  <way id='-129' action='modify' visible='true'>
+    <nd ref='-112' />
+    <nd ref='-59' />
+    <nd ref='-119' />
+    <tag k='highway' v='cycleway' />
+  </way>
+</osm>

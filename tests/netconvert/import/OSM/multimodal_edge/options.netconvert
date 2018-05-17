@@ -1,0 +1,1 @@
+ --osm-files osm.xml -o net.net.xml --plain-output-prefix plain --output.street-names -v

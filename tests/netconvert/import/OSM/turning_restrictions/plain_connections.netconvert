@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jun  9 13:49:43 2016 by SUMO netconvert Version dev-SVN-r20938
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-101" to="201" fromLane="0" toLane="0"/>
+    <connection from="-101" to="-200" fromLane="0" toLane="0"/>
+    <connection from="-101" to="101" fromLane="0" toLane="0"/>
+
+    <connection from="-102" to="202" fromLane="0" toLane="0"/>
+    <connection from="-102" to="202" fromLane="0" toLane="1"/>
+    <connection from="-102" to="-201" fromLane="0" toLane="0"/>
+    <connection from="-102" to="102" fromLane="0" toLane="0"/>
+
+    <connection from="-103" to="203" fromLane="0" toLane="0"/>
+    <connection from="-103" to="-202" fromLane="0" toLane="0"/>
+    <connection from="-103" to="103" fromLane="0" toLane="0"/>
+
+    <connection from="-104" to="204" fromLane="0" toLane="0"/>
+    <connection from="-104" to="204" fromLane="0" toLane="1"/>
+    <connection from="-104" to="-203" fromLane="0" toLane="0"/>
+    <connection from="-104" to="104" fromLane="0" toLane="0"/>
+
+    <connection from="-105" to="205" fromLane="0" toLane="0"/>
+    <connection from="-105" to="205" fromLane="1" toLane="1"/>
+    <connection from="-105" to="106" fromLane="1" toLane="1"/>
+    <connection from="-105" to="106" fromLane="2" toLane="2"/>
+    <connection from="-105" to="-204" fromLane="2" toLane="2"/>
+    <connection from="-105" to="105" fromLane="2" toLane="2"/>
+
+    <connection from="-106" to="-204" fromLane="0" toLane="0"/>
+    <connection from="-106" to="105" fromLane="0" toLane="1"/>
+    <connection from="-106" to="105" fromLane="1" toLane="2"/>
+    <connection from="-106" to="205" fromLane="1" toLane="1"/>
+    <connection from="-106" to="205" fromLane="2" toLane="2"/>
+    <connection from="-106" to="106" fromLane="2" toLane="2"/>
+
+    <connection from="-200" to="200" fromLane="0" toLane="1"/>
+
+    <connection from="-201" to="-200" fromLane="0" toLane="0"/>
+    <connection from="-201" to="101" fromLane="0" toLane="0"/>
+    <connection from="-201" to="201" fromLane="0" toLane="1"/>
+
+    <connection from="-202" to="-201" fromLane="0" toLane="0"/>
+    <connection from="-202" to="102" fromLane="0" toLane="0"/>
+    <connection from="-202" to="202" fromLane="0" toLane="1"/>
+
+    <connection from="-203" to="-202" fromLane="0" toLane="0"/>
+    <connection from="-203" to="203" fromLane="0" toLane="1"/>
+
+    <connection from="-204" to="104" fromLane="0" toLane="0"/>
+
+    <connection from="-205" to="106" fromLane="0" toLane="0"/>
+    <connection from="-205" to="-204" fromLane="0" toLane="1"/>
+    <connection from="-205" to="-204" fromLane="1" toLane="2"/>
+    <connection from="-205" to="105" fromLane="1" toLane="2"/>
+    <connection from="-205" to="205" fromLane="1" toLane="2"/>
+
+    <connection from="101" to="-101" fromLane="0" toLane="0"/>
+
+    <connection from="102" to="-102" fromLane="0" toLane="0"/>
+
+    <connection from="103" to="-103" fromLane="0" toLane="0"/>
+
+    <connection from="104" to="-104" fromLane="0" toLane="0"/>
+
+    <connection from="105" to="-105" fromLane="2" toLane="2"/>
+
+    <connection from="106" to="-106" fromLane="2" toLane="2"/>
+
+    <connection from="200" to="201" fromLane="0" toLane="0"/>
+    <connection from="200" to="201" fromLane="1" toLane="1"/>
+    <connection from="200" to="-200" fromLane="1" toLane="0"/>
+
+    <connection from="201" to="102" fromLane="0" toLane="0"/>
+
+    <connection from="202" to="103" fromLane="0" toLane="0"/>
+    <connection from="202" to="203" fromLane="0" toLane="0"/>
+    <connection from="202" to="203" fromLane="1" toLane="1"/>
+    <connection from="202" to="-202" fromLane="1" toLane="0"/>
+
+    <connection from="203" to="104" fromLane="0" toLane="0"/>
+    <connection from="203" to="204" fromLane="0" toLane="2"/>
+    <connection from="203" to="204" fromLane="1" toLane="3"/>
+    <connection from="203" to="-203" fromLane="1" toLane="0"/>
+
+    <connection from="204" to="105" fromLane="0" toLane="0"/>
+    <connection from="204" to="105" fromLane="1" toLane="1"/>
+    <connection from="204" to="105" fromLane="2" toLane="2"/>
+    <connection from="204" to="106" fromLane="3" toLane="2"/>
+    <connection from="204" to="-204" fromLane="3" toLane="2"/>
+
+    <connection from="205" to="-205" fromLane="2" toLane="1"/>
+
+</connections>

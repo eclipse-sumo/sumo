@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2015-09-09T14:44:02Z"/>
+
+  <node id="268304364" lat="28.1277023" lon="-15.4377601"/>
+  <node id="332418815" lat="28.1288581" lon="-15.4321046"/>
+  <node id="335683855" lat="28.1294721" lon="-15.4302054"/>
+  <node id="335683856" lat="28.1293606" lon="-15.4305572"/>
+  <node id="335683857" lat="28.1290537" lon="-15.4315168"/>
+  <node id="335683858" lat="28.1285458" lon="-15.4329420"/>
+  <node id="344140561" lat="28.1294532" lon="-15.4347638"/>
+  <node id="344140562" lat="28.1294685" lon="-15.4329835"/>
+  <node id="344140564" lat="28.1284703" lon="-15.4350757"/>
+  <node id="374116543" lat="28.1290608" lon="-15.4312181"/>
+  <node id="374116548" lat="28.1289738" lon="-15.4311711"/>
+  <node id="375749326" lat="28.1269399" lon="-15.4408140"/>
+  <node id="375749338" lat="28.1267121" lon="-15.4410177"/>
+  <node id="432683812" lat="28.1295147" lon="-15.4301608"/>
+  <node id="447602290" lat="28.1290681" lon="-15.4329578"/>
+  <node id="1200229982" lat="28.1286989" lon="-15.4329433">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="1553017417" lat="28.1289074" lon="-15.4349252"/>
+  <node id="1553017449" lat="28.1292190" lon="-15.4348211"/>
+  <node id="1553050775" lat="28.1284759" lon="-15.4329880"/>
+  <node id="1801901985" lat="28.1284623" lon="-15.4349005"/>
+  <node id="1801901989" lat="28.1282163" lon="-15.4348898"/>
+  <node id="1801901993" lat="28.1282317" lon="-15.4340597"/>
+  <node id="1801901994" lat="28.1284339" lon="-15.4329962"/>
+  <node id="1801901999" lat="28.1280661" lon="-15.4330190"/>
+  <node id="1802244930" lat="28.1282883" lon="-15.4334087"/>
+  <node id="1802244960" lat="28.1284098" lon="-15.4333106"/>
+  <node id="1802244977" lat="28.1274076" lon="-15.4375501"/>
+  <node id="1802245009" lat="28.1284276" lon="-15.4329421">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1802245018" lat="28.1283708" lon="-15.4341662"/>
+  <node id="1802245036" lat="28.1275015" lon="-15.4384939"/>
+  <node id="1802245059" lat="28.1283805" lon="-15.4334111"/>
+  <node id="1802245067" lat="28.1285009" lon="-15.4328240"/>
+  <node id="1802245068" lat="28.1284308" lon="-15.4327820"/>
+  <node id="1802245085" lat="28.1282864" lon="-15.4349269"/>
+  <node id="1802245088" lat="28.1283550" lon="-15.4330911"/>
+  <node id="1873943422" lat="28.1283793" lon="-15.4348907"/>
+  <node id="1877604354" lat="28.1296411" lon="-15.4299785">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="1877604607" lat="28.1295506" lon="-15.4300617"/>
+  <node id="1877604780" lat="28.1280797" lon="-15.4329614"/>
+  <node id="1877607901" lat="28.1278920" lon="-15.4370161"/>
+  <node id="1877607903" lat="28.1275916" lon="-15.4371161"/>
+  <node id="1905678120" lat="28.1282106" lon="-15.4362417"/>
+  <node id="1905678126" lat="28.1270942" lon="-15.4388523"/>
+  <node id="1905678127" lat="28.1281328" lon="-15.4359381"/>
+  <node id="1924964176" lat="28.1270638" lon="-15.4402916"/>
+  <node id="1924964179" lat="28.1282633" lon="-15.4351330"/>
+  <node id="1946105191" lat="28.1272898" lon="-15.4393255"/>
+  <node id="1968631302" lat="28.1279975" lon="-15.4363965"/>
+  <way id="30951804">
+    <nd ref="344140561"/>
+    <nd ref="344140562"/>
+    <nd ref="1553050775"/>
+    <nd ref="344140564"/>
+    <nd ref="1553017417"/>
+    <nd ref="1553017449"/>
+    <nd ref="344140561"/>
+    <tag k="leisure" v="park"/>
+  </way>
+  <way id="169015050">
+    <nd ref="1801901985"/>
+    <nd ref="1801901994"/>
+    <nd ref="1801901999"/>
+    <nd ref="1801901993"/>
+    <nd ref="1801901989"/>
+    <nd ref="1801901985"/>
+    <tag k="leisure" v="park"/>
+  </way>
+  <way id="177308057">
+    <nd ref="1877604354"/>
+    <nd ref="1877604607"/>
+    <nd ref="432683812"/>
+    <nd ref="335683855"/>
+    <nd ref="335683856"/>
+    <nd ref="335683857"/>
+    <nd ref="332418815"/>
+    <nd ref="335683858"/>
+    <tag k="access" v="yes"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="cycleway" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="40"/>
+    <tag k="motor_vehicle" v="yes"/>
+    <tag k="name" v="Calle Leopoldo Matos"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="177308083">
+    <nd ref="1802245009"/>
+    <nd ref="1802244960"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="324752521">
+    <nd ref="1802245009"/>
+    <nd ref="335683858"/>
+    <tag k="access" v="yes"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="cycleway" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="maxspeed" v="40"/>
+    <tag k="motor_vehicle" v="yes"/>
+    <tag k="name" v="Calle Pío XII"/>
+    <tag k="oneway" v="no"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="324752522">
+    <nd ref="1877604780"/>
+    <nd ref="1802245009"/>
+    <tag k="access" v="yes"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="cycleway" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="maxspeed" v="40"/>
+    <tag k="motor_vehicle" v="yes"/>
+    <tag k="name" v="Calle Pío XII"/>
+    <tag k="oneway" v="no"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="324752524">
+    <nd ref="335683858"/>
+    <nd ref="1200229982"/>
+    <nd ref="447602290"/>
+    <tag k="access" v="yes"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="cycleway" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="maxspeed" v="40"/>
+    <tag k="motor_vehicle" v="yes"/>
+    <tag k="name" v="Calle Pío XII"/>
+    <tag k="oneway" v="no"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <relation id="4523691">
+    <member type="way" ref="324752523" role="from"/>
+    <member type="node" ref="432653975" role="via"/>
+    <member type="way" ref="324752521" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="4523694">
+    <member type="way" ref="324752524" role="from"/>
+    <member type="node" ref="447602290" role="via"/>
+    <member type="way" ref="324752521" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="4523695">
+    <member type="way" ref="324752524" role="from"/>
+    <member type="node" ref="335683858" role="via"/>
+    <member type="way" ref="324752524" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="4523696">
+    <member type="way" ref="324752521" role="from"/>
+    <member type="node" ref="335683858" role="via"/>
+    <member type="way" ref="324752521" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="4523697">
+    <member type="way" ref="324752522" role="from"/>
+    <member type="node" ref="1802245009" role="via"/>
+    <member type="way" ref="324752522" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="4523698">
+    <member type="way" ref="324752521" role="from"/>
+    <member type="node" ref="1802245009" role="via"/>
+    <member type="way" ref="324752521" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="4523700">
+    <member type="way" ref="324752522" role="from"/>
+    <member type="node" ref="1877604780" role="via"/>
+    <member type="way" ref="324752522" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+
+</osm>

@@ -1,0 +1,77 @@
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <!-- generated on Wed Apr 18 16:45:45 2018 by Eclipse SUMO netconvert Version 4b5eff6
+# This data file and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
+# SPDX-License-Identifier: EPL-2.0
+# -->
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <osm-files value="osm.xml"/>
+#     </input>
+# 
+#     <output>
+#         <write-license value="true"/>
+#         <output-file value="net.net.xml"/>
+#         <dlr-navteq-output value="elmar_output"/>
+#         <dlr-navteq.precision value="2"/>
+#         <output.original-names value="true"/>
+#     </output>
+# 
+#     <projection>
+#         <proj.utm value="true"/>
+#     </projection>
+# 
+#     <tls_building>
+#         <tls.discard-simple value="true"/>
+#         <tls.join value="true"/>
+#         <tls.guess-signals value="true"/>
+#     </tls_building>
+# 
+#     <ramp_guessing>
+#         <ramps.guess value="true"/>
+#     </ramp_guessing>
+# 
+#     <processing>
+#         <osm.all-attributes value="true"/>
+#         <numerical-ids value="true"/>
+#         <reserved-ids value="edge_ids.txt"/>
+#         <geometry.remove value="true"/>
+#         <roundabouts.guess value="true"/>
+#         <junctions.join value="true"/>
+#     </processing>
+# 
+#     <report>
+#         <verbose value="true"/>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+#Traffic signal related to LINK_ID and NODE_ID with location relative to driving direction.
+#column format like pointcollection.
+#DESCRIPTION->LOCATION: 1-rechts von LINK; 2-links von LINK; 3-oberhalb LINK -1-keineAngabe
+#RELATREC_ID	POICOL_TYPE	DESCRIPTION	LONGITUDE	LATITUDE	LINK_ID
+415852922	12	LSA;NODEIDS#4167993265#;LOCATION#-1#;	1352666.63	5242643.18	415852922
+415852957	12	LSA;NODEIDS#4167993265#;LOCATION#-1#;	1352666.63	5242643.18	415852957
+318210395	12	LSA;NODEIDS#4167993265#;LOCATION#-1#;	1352666.63	5242643.18	318210395
+224769565	12	LSA;NODEIDS#4167993265#;LOCATION#-1#;	1352666.63	5242643.18	224769565
+415852955	12	LSA;NODEIDS#4167993265#;LOCATION#-1#;	1352666.63	5242643.18	415852955
+415852919	12	LSA;NODEIDS#4167993266#;LOCATION#-1#;	1352005.38	5242679.99	415852919
+415852943	12	LSA;NODEIDS#4167993266#;LOCATION#-1#;	1352005.38	5242679.99	415852943
+16942869	12	LSA;NODEIDS#4167993266#;LOCATION#-1#;	1352005.38	5242679.99	16942869
+415852944	12	LSA;NODEIDS#4167993266#;LOCATION#-1#;	1352005.38	5242679.99	415852944
+415852857	12	LSA;NODEIDS#4167993266#;LOCATION#-1#;	1352005.38	5242679.99	415852857
+415852904	12	LSA;NODEIDS#4167993270#;LOCATION#-1#;	1352677.55	5242885.23	415852904
+415852909	12	LSA;NODEIDS#4167993270#;LOCATION#-1#;	1352677.55	5242885.23	415852909
+415852965	12	LSA;NODEIDS#4167993270#;LOCATION#-1#;	1352677.55	5242885.23	415852965
+415852901	12	LSA;NODEIDS#4167993273#;LOCATION#-1#;	1351959.56	5242829.46	415852901
+415852929	12	LSA;NODEIDS#4167993273#;LOCATION#-1#;	1351959.56	5242829.46	415852929
+206579057	12	LSA;NODEIDS#4167993273#;LOCATION#-1#;	1351959.56	5242829.46	206579057
+415852931	12	LSA;NODEIDS#4167993273#;LOCATION#-1#;	1351959.56	5242829.46	415852931

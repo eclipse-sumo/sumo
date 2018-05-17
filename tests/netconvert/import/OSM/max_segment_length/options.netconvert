@@ -1,0 +1,1 @@
+ --osm-files osm.xml --geometry.max-segment-length 5 --no-internal-links

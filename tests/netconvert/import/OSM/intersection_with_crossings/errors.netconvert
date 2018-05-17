@@ -1,0 +1,8 @@
+Warning: No way found for reference '324752523' in relation '4523691'
+Warning: No node found for reference '432653975' in relation '4523691'
+Warning: Ignoring restriction relation '4523691' with unknown from-way.
+Warning: Ignoring restriction relation '4523691' with unknown via.
+Warning: to-edge of restriction relation could not be determined
+Warning: Ignoring restriction relation '4523694'.
+Warning: The traffic light '1877604354' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1877604354'
