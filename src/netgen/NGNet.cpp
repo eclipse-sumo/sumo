@@ -211,8 +211,8 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
 
 void
 NGNet::connect(NGNode* node1, NGNode* node2) {
-    std::string id1 = node1->getID() + "to" + node2->getID();
-    std::string id2 = node2->getID() + "to" + node1->getID();
+    std::string id1 = node1->getID() + (myAlphaIDs ? "" : "to") + node2->getID();
+    std::string id2 = node2->getID() + (myAlphaIDs ? "" : "to") + node1->getID();
     NGEdge* link1 = new NGEdge(id1, node1, node2);
     NGEdge* link2 = new NGEdge(id2, node2, node1);
     myEdgeList.push_back(link1);
