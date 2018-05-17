@@ -402,7 +402,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::isTime(myTag, myAttr)) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isTime()) {
         // show TextField for real/time values
         myTextFieldReal->setText(value.c_str());
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
@@ -524,7 +524,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             // Get value of ComboBox
             newVal = myChoicesCombo->getText().text();
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::isTime(myTag, myAttr)) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isTime()) {
         // Check if default value of attribute must be set
         if (myTextFieldReal->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
             newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
@@ -583,7 +583,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->killFocus();
-        } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::isTime(myTag, myAttr))) {
+        } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isTime())) {
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myTextFieldReal->killFocus();
         } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isInt() && myTextFieldStrings != 0) {
@@ -606,7 +606,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
             myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
             myChoicesCombo->killFocus();
-        } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::isTime(myTag, myAttr))) {
+        } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isTime())) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
         } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).second.isInt() && myTextFieldStrings != 0) {
             myTextFieldInt->setTextColor(FXRGB(255, 0, 0));

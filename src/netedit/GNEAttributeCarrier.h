@@ -74,22 +74,23 @@ public:
         ACPROPERTY_FLOAT = 2,
         ACPROPERTY_BOOL = 4,
         ACPROPERTY_STRING = 8,
-        ACPROPERTY_SVCPERMISSION = 16,
         ACPROPERTY_POSITION = 16,
-        ACPROPERTY_SHAPE = 16,
-        ACPROPERTY_COLOR = 16,
+        ACPROPERTY_SHAPE = 32,
 
-        ACPROPERTY_POSITIVE = 32,
-        ACPROPERTY_UNIQUE = 64,
-        ACPROPERTY_FILENAME = 128,
-        ACPROPERTY_NONEDITABLE = 256,
-        ACPROPERTY_DISCRETE = 512,
-        ACPROPERTY_PROBABILITY = 1024,
-        ACPROPERTY_ANGLE = 2048,
-        ACPROPERTY_LIST = 4096,
+        ACPROPERTY_COLOR = 64,
+        ACPROPERTY_SVCPERMISSION = 128,
+        ACPROPERTY_POSITIVE = 256,
+        ACPROPERTY_UNIQUE = 512,
+        ACPROPERTY_FILENAME = 1024,
+        ACPROPERTY_NONEDITABLE = 2048,
+        ACPROPERTY_DISCRETE = 4096,
+        ACPROPERTY_PROBABILITY = 8192,
+        ACPROPERTY_TIME = 1024,
+        ACPROPERTY_ANGLE = 16384,
+        ACPROPERTY_LIST = 32768,
 
-        ACPROPERTY_OPTIONAL = 8192,
-        ACPROPERTY_DEFAULTVALUE = 16384,
+        ACPROPERTY_OPTIONAL = 65536,
+        ACPROPERTY_DEFAULTVALUE = 131072,
     };
 
     /// @brief struct with the attribute Properties
@@ -129,11 +130,31 @@ public:
         }
 
         bool isProbability() const {
-            return (ACProp & ACPROPERTY_PROBABILITY) != 0;
+            return (ACProp & (ACPROPERTY_PROBABILITY |  ACPROPERTY_POSITIVE)) != 0;
         }
 
         bool isNumerical() const {
             return (ACProp & (ACPROPERTY_INT | ACPROPERTY_FLOAT)) != 0;
+        }
+
+        bool isTime() const {
+            return (ACProp & (ACPROPERTY_TIME | ACPROPERTY_FLOAT | ACPROPERTY_POSITIVE)) != 0;
+        }
+
+        bool isPositive() const {
+            return (ACProp & ACPROPERTY_POSITIVE) != 0;
+        }
+
+        bool isColor() const {
+            return (ACProp & (ACPROPERTY_STRING | ACPROPERTY_COLOR)) != 0;
+        }
+
+        bool isFilename() const {
+            return (ACProp & (ACPROPERTY_STRING | ACPROPERTY_FILENAME)) != 0;
+        }
+
+        bool isSVC() const {
+            return (ACProp & (ACPROPERTY_STRING | ACPROPERTY_SVCPERMISSION)) != 0;
         }
 
         /// @brief Property of attribute
@@ -245,12 +266,6 @@ public:
     /// @brief return true if element tag can open a values editor
     static bool canOpenDialog(SumoXMLTag tag);
 
-    /// @brief whether an attribute is time
-    static bool isTime(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is of type color for a certain tag
-    static bool isColor(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief whether an attribute is of type bool
     static bool isList(SumoXMLTag tag, SumoXMLAttr attr);
 
@@ -259,15 +274,6 @@ public:
 
     /// @brief whether an attribute is Discrete
     static bool isDiscrete(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is only Positive (i.e. cannot take negative values)
-    static bool isPositive(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether a string attribute is a filename
-    static bool isFilename(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether a string attribute is a list of Vehicle Classes (SVCPermissions)
-    static bool isSVCPermissions(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is non editable
     static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
@@ -357,9 +363,9 @@ public:
             additionalOfWarningMessage = toString(tag);
         }
         // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
-        if (allowedAttributes(tag).at(attribute).second.isNumerical() || isTime(tag, attribute)) {
+        if (allowedAttributes(tag).at(attribute).second.isNumerical()) {
             defaultValue = "0";
-        } else if (isColor(tag, attribute)) {
+        } else if (allowedAttributes(tag).at(attribute).second.isColor()) {
             defaultValue = "BLACK";
         }
         // first check that attribute exists in XML
@@ -370,7 +376,7 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
                 // only set default value if this isn't a SVCPermission
-                if(!isSVCPermissions(tag, attribute)) {
+                if(!allowedAttributes(tag).at(attribute).second.isSVC()) {
                     parsedAttribute = defaultValue;
                 }
             }
@@ -391,7 +397,7 @@ public:
                 if (canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = parse<int>(parsedAttribute);
-                    if (isPositive(tag, attribute) && parsedIntAttribute < 0) {
+                    if (allowedAttributes(tag).at(attribute).second.isPositive() && parsedIntAttribute < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -407,7 +413,7 @@ public:
             if (allowedAttributes(tag).at(attribute).second.isFloat()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to double and check if can be negative
-                    if (isPositive(tag, attribute) && parse<double>(parsedAttribute) < 0) {
+                    if (allowedAttributes(tag).at(attribute).second.isPositive() && parse<double>(parsedAttribute) < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -417,7 +423,7 @@ public:
                 }
             }
             // set extra check for time(double) values
-            if (isTime(tag, attribute)) {
+            if (allowedAttributes(tag).at(attribute).second.isTime()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -446,17 +452,17 @@ public:
                 }
             }
             // set extra check for color values
-            if (isColor(tag, attribute) && !canParse<RGBColor>(parsedAttribute)) {
+            if (allowedAttributes(tag).at(attribute).second.isColor() && !canParse<RGBColor>(parsedAttribute)) {
                 errorFormat = "Invalid RGB format or named color; ";
                 parsedOk = false;
             }
             // set extra check for filename values
-            if (isFilename(tag, attribute) && (isValidFilename(parsedAttribute) == false)) {
+            if (allowedAttributes(tag).at(attribute).second.isFilename() && (isValidFilename(parsedAttribute) == false)) {
                 errorFormat = "Filename contains invalid characters; ";
                 parsedOk = false;
             }
             // set extra check for SVCPermissions values
-            if (isSVCPermissions(tag, attribute)) {
+            if (allowedAttributes(tag).at(attribute).second.isSVC()) {
                 if (canParseVehicleClasses(parsedAttribute)) {
                     parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
                     parsedOk = true;
@@ -607,21 +613,6 @@ private:
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;
 
-    /// @brief map with the numerical attributes of type Int
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalIntAttrs;
-
-    /// @brief map with the numerical attributes of type Float
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNumericalFloatAttrs;
-
-    /// @brief map with the attributes of type time
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myTimeAttrs;
-
-    /// @brief map with the boolean attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myBoolAttrs;
-
-    /// @brief map with the color attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myColorAttrs;
-
     /// @brief map with the attributes of type list
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myListAttrs;
 
@@ -630,18 +621,6 @@ private:
 
     /// @brief map with the non-editable attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNonEditableAttrs;
-
-    /// @brief map with the positive attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myPositiveAttrs;
-
-    /// @brief map with the probability attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myProbabilityAttrs;
-
-    /// @brief map with the file attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myFileAttrs;
-
-    /// @brief map with the SVCPermissions attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > mySVCPermissionsAttrs;
 
     /// @brief map with the allowed tags of additionals with parent
     static std::map<SumoXMLTag, SumoXMLTag> myAdditionalsWithParent;

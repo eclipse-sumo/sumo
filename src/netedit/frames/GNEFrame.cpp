@@ -617,13 +617,13 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
         else if (attrs.at(i).second.isFloat()) {
             type->setText("float");
         }
-        else if (GNEAttributeCarrier::isTime(elementTag, attrs.at(i).first)) {
+        else if (attrs.at(i).second.isTime()) {
             type->setText("time");
         }
         else if (attrs.at(i).second.isBool()) {
             type->setText("bool");
         }
-        else if (GNEAttributeCarrier::isColor(elementTag, attrs.at(i).first)) {
+        else if (attrs.at(i).second.isColor()) {
             type->setText("color");
         }
         else if (attrs.at(i).second.isString()) {
