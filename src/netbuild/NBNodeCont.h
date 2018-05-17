@@ -303,7 +303,7 @@ public:
     }
 
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs);
+    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
 
 private:
     /// @brief Definition of a node cluster container

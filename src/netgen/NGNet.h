@@ -203,9 +203,6 @@ private:
     /// @brief The last ID given to node or link
     int myLastID;
 
-    /// @brief The ID prefix
-    const std::string myIDPrefix;
-
     /// @brief Whether to use alphanumericalIDs
     const bool myAlphaIDs;
 

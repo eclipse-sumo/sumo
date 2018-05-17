@@ -40,6 +40,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/IDSupplier.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -1157,7 +1158,7 @@ NBEdgeCont::guessSidewalks(double width, double minSpeed, double maxSpeed, bool 
 
 
 int
-NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
     std::vector<std::string> avoid = getAllNames();
     std::set<std::string> reserve;
     if (reservedIDs) {
@@ -1188,7 +1189,20 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
     }
-    return (int)toChange.size();
+    if (prefix.empty()) {
+        return (int)toChange.size();
+    } else {
+        int renamed = 0;
+        // make a copy because we will modify the map
+        auto oldEdges = myEdges;
+        for (auto item : oldEdges) {
+            if (!StringUtils::startsWith(item.first, prefix)) {
+                rename(item.second, prefix + item.first);
+                renamed++;
+            }
+        }
+        return renamed;
+    }
 }
 
 

@@ -43,10 +43,6 @@
 void
 NGFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    //  register output options
-    oc.doRegister("prefix", new Option_String(""));
-    oc.addDescription("prefix", "Output", "Defines the prefix for edge and junction names");
-
     oc.doRegister("alphanumerical-ids", new Option_Bool(true));
     oc.addDescription("alphanumerical-ids", "Output", "The Ids of generated nodes use an alphanumerical code for easier readability when possible");
 

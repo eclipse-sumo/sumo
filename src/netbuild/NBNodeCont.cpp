@@ -41,6 +41,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
@@ -1499,7 +1500,7 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
 
 
 int
-NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
+NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
     std::vector<std::string> avoid = getAllNames();
     std::set<std::string> reserve;
     if (reservedIDs) {
@@ -1530,7 +1531,20 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
         node->setID(idSupplier.getNext());
         myNodes[node->getID()] = node;
     }
-    return (int)toChange.size();
+    if (prefix.empty()) {
+        return (int)toChange.size();
+    } else {
+        int renamed = 0;
+        // make a copy because we will modify the map
+        auto oldNodes = myNodes;
+        for (auto item : oldNodes) {
+            if (!StringUtils::startsWith(item.first, prefix)) {
+                rename(item.second, prefix + item.first);
+                renamed++;
+            }
+        }
+        return renamed;
+    }
 }
 
 /****************************************************************************/
