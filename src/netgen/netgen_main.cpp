@@ -154,7 +154,7 @@ buildNetwork(NBNetBuilder& nb) {
         }
         // check values
         bool hadError = false;
-        if (xNo < 2 || yNo < 2) {
+        if (attachLength == 0 && (xNo < 2 || yNo < 2)) {
             WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
             hadError = true;
         }
