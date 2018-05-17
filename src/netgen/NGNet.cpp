@@ -81,27 +81,27 @@ NGNet::findNode(int xID, int yID) {
     return 0;
 }
 
+std::string 
+NGNet::alphabeticalCode(int i, int iMax) {
+    // lazy mans 26th root to determine number of characters for x-label
+    int xn = 1;
+    for (;std::pow(26, xn) < iMax; xn++) {};
+    std::string result = "";
+    for (int j = 0; j < xn; j++) {
+        result = char('A' + (i % 26)) + result;
+        i /= 26;
+    }
+    return result;
+}
 
 void
 NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs) {
-    // lazy mans 26th root to determine number of characters for x-label
-    int xn = 1;
-    for (;std::pow(26, xn) < numX; xn++) {};
 
     for (int ix = 0; ix < numX; ix++) {
+        const std::string nodeIDStart = myIDPrefix + (alphaIDs ? alphabeticalCode(ix, numX) : toString<int>(ix) + "/");
         for (int iy = 0; iy < numY; iy++) {
             // create Node
-            std::string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
-            if (alphaIDs) {
-                int ixtmp = ix;
-                std::string xID = "";
-                for (int i = 0; i < xn; i++) {
-                    xID = char('A' + (ixtmp % 26)) + xID;
-                    ixtmp /= 26;
-                }
-                nodeID = myIDPrefix + xID + toString(iy);
-            }
-            NGNode* node = new NGNode(nodeID, ix, iy);
+            NGNode* node = new NGNode(nodeIDStart + toString(iy), ix, iy);
             node->setX(ix * spaceX + attachLength);
             node->setY(iy * spaceY + attachLength);
             myNodeList.push_back(node);

@@ -196,6 +196,9 @@ private:
      */
     void connect(NGNode* node1, NGNode* node2);
 
+    /// @brief return a letter code for the given integer index
+    std::string alphabeticalCode(int i, int iMax);
+
 
 private:
     /// @brief The last ID given to node or link
