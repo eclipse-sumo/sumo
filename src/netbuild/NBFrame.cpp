@@ -338,6 +338,15 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.left-green.time", new Option_Integer(6));
     oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases");
 
+    oc.doRegister("tls.crossing-min.time", new Option_Integer(4));
+    oc.addDescription("tls.crossing-min.time", "TLS Building", "Use INT as minimum green duration for pedestrian crossings (s).");
+
+    oc.doRegister("tls.crossing-clearance.time", new Option_Integer(5));
+    oc.addDescription("tls.crossing-clearance.time", "TLS Building", "Use INT as clearance time for pedestrian crossings (s).");
+
+    oc.doRegister("tls.scramble.time", new Option_Integer(5));
+    oc.addDescription("tls.scramble.time", "TLS Building", "Use INT as green phase duration for pedestrian scramble phase (s).");
+
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_String());
     oc.addSynonyme("tls.half-offset", "tl-logics.half-offset", true);

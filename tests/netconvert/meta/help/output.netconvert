@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version 20a9fc9
+Eclipse SUMO netconvert Version 3b25f51
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -145,6 +145,12 @@ TLS Building Options:
   --tls.left-green.time INT            Use INT as green phase duration for left
                                          turns (s). Setting this value to 0
                                          disables additional left-turning phases
+  --tls.crossing-min.time INT          Use INT as minimum green duration for
+                                         pedestrian crossings (s).
+  --tls.crossing-clearance.time INT    Use INT as clearance time for pedestrian
+                                         crossings (s).
+  --tls.scramble.time INT              Use INT as green phase duration for
+                                         pedestrian scramble phase (s).
   --tls.half-offset STR                TLSs in STR will be shifted by
                                          half-phase
   --tls.quarter-offset STR             TLSs in STR will be shifted by

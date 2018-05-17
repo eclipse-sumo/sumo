@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 17 12:16:40 2018 by Eclipse SUMO netgenerate Version 20a9fc9
+<!-- generated on Thu May 17 13:49:18 2018 by Eclipse SUMO netgenerate Version 3b25f51
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -227,6 +227,15 @@
 
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
+
+        <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
+        <tls.crossing-min.time value="4" type="INT"/>
+
+        <!-- Use INT as clearance time for pedestrian crossings (s). -->
+        <tls.crossing-clearance.time value="5" type="INT"/>
+
+        <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
+        <tls.scramble.time value="5" type="INT"/>
 
         <!-- TLSs in STR will be shifted by half-phase -->
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>

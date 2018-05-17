@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May  4 11:29:20 2018 by Eclipse SUMO netconvert Version 9c7bd2c
+<!-- generated on Thu May 17 13:50:41 2018 by Eclipse SUMO netconvert Version 3b25f51
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
+
+    <tls_building>
+        <tls.scramble.time value="12"/>
+    </tls_building>
 
     <processing>
         <no-turnarounds value="true"/>
@@ -191,17 +195,17 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="23" state="gGGgrrrrgGGgrrrrrrGrrG"/>
+        <phase duration="19" state="gGGgrrrrgGGgrrrrrrGrrG"/>
         <phase duration="5"  state="gGGgrrrrgGGgrrrrrrrrrr"/>
         <phase duration="3"  state="yyygrrrryyygrrrrrrrrrr"/>
         <phase duration="6"  state="rrrGrrrrrrrGrrrrrrrrrr"/>
         <phase duration="3"  state="rrryrrrrrrryrrrrrrrrrr"/>
-        <phase duration="23" state="rrrrgGGgrrrrgGGgrGrrGr"/>
+        <phase duration="20" state="rrrrgGGgrrrrgGGgrGrrGr"/>
         <phase duration="5"  state="rrrrgGGgrrrrgGGgrrrrrr"/>
         <phase duration="3"  state="rrrryyygrrrryyygrrrrrr"/>
         <phase duration="6"  state="rrrrrrrGrrrrrrrGrrrrrr"/>
         <phase duration="3"  state="rrrrrrryrrrrrrryrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrrrrGGGGGG"/>
+        <phase duration="12" state="rrrrrrrrrrrrrrrrGGGGGG"/>
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
