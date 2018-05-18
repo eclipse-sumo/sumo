@@ -80,13 +80,12 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 // GNEAttributeCarrier::AttributeValues - methods
 // ---------------------------------------------------------------------------
 
-/// @brief default constructor
 GNEAttributeCarrier::AttributeValues::AttributeValues() :
     myAttributeProperty(ATTRPROPERTY_STRING),
     myDefinition(""),
     myDefaultValue("") {}
 
-/// @brief parameter constructor
+
 GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue) :
     myAttributeProperty(attributeProperty),
     myDefinition(definition),
@@ -461,6 +460,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
     if (!myAllowedAttributes.count(tag)) {
         switch (tag) {
             case SUMO_TAG_EDGE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_UNIQUE, 
                     "The id of the edge", 
@@ -536,6 +538,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_JUNCTION:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the node", 
@@ -570,6 +575,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_LANE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "ID of lane (Automatic)", 
@@ -609,6 +617,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     NODEFAULTVALUE);
                 break;
             case SUMO_TAG_POI:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the POI", 
@@ -651,6 +662,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_POILANE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the POI", 
@@ -701,6 +715,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_POLY:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the polygon", 
@@ -739,6 +756,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_CROSSING:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The ID of Crossing", 
@@ -769,6 +789,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_CONNECTION:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_FROM] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The name of the edge the vehicles leave", 
@@ -819,6 +842,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_BUS_STOP:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of bus stop", 
@@ -849,6 +875,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_ACCESS:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The name of the lane the stop access shall be located at", 
@@ -863,6 +892,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_CONTAINER_STOP:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of container stop", 
@@ -893,6 +925,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_CHARGING_STATION:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of charging station", 
@@ -935,6 +970,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0.00");
                 break;
             case SUMO_TAG_E1DETECTOR:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of E1", 
@@ -965,6 +1003,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_E2DETECTOR:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of E2", 
@@ -1011,6 +1052,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_E3DETECTOR:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of E3", 
@@ -1037,6 +1081,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "1.39");
                 break;
             case SUMO_TAG_DET_ENTRY:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
@@ -1051,6 +1098,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_DET_EXIT:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
@@ -1065,6 +1115,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_VSS:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                     "The id of Variable Speed Signal", 
@@ -1083,6 +1136,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_CALIBRATOR:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of Calibrator", 
@@ -1109,6 +1165,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_LANECALIBRATOR:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of Calibrator", 
@@ -1135,6 +1194,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_REROUTER:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of Rerouter", 
@@ -1165,6 +1227,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_ROUTEPROBE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of RouteProbe", 
@@ -1187,6 +1252,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_VAPORIZER:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_EDGE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "Edge in which vaporizer is placed", 
@@ -1201,6 +1269,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "10.00");
                 break;
             case SUMO_TAG_PARKING_AREA:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of ParkingArea", 
@@ -1243,6 +1314,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0.00");
                 break;
             case SUMO_TAG_PARKING_SPACE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_X] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 
                     "The X position in meters of the parking vehicle", 
@@ -1269,6 +1343,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "0");
                 break;
             case SUMO_TAG_FLOW:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of the vehicle type to use for this vehicle", 
@@ -1351,6 +1428,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_ROUTE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of Route", 
@@ -1365,6 +1445,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "yellow");
                 break;
             case SUMO_TAG_VTYPE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "The id of VehicleType", 
@@ -1471,6 +1554,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "1.00");
                 break;
             case SUMO_TAG_STEP:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_TIME] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME, 
                     "Time", 
@@ -1481,6 +1567,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "50.00");
                 break;
             case SUMO_TAG_INTERVAL:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_BEGIN] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME, 
                     "Begin", 
@@ -1491,6 +1580,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "100.00");
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "Edge ID", 
@@ -1505,6 +1597,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_CLOSING_LANE_REROUTE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "Lane ID", 
@@ -1519,6 +1614,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "Edge ID", 
@@ -1529,6 +1627,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "1.00");
                 break;
             case SUMO_TAG_PARKING_ZONE_REROUTE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "ParkingArea ID", 
@@ -1539,6 +1640,9 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "1.00");
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
+                // set values of tag
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+                // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "Route", 

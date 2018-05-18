@@ -74,8 +74,9 @@ public:
         TAGPROPERTY_SHAPE = 4,
         TAGPROPERTY_ROUTEELEMENT = 8,
 
-        TAGPROPERTY_BLOCKMOVEMENT = 16,
+        TAGPROPERTY_INTERNAL = 16,
 
+        TAGPROPERTY_BLOCKMOVEMENT = 32,
         TAGPROPERTY_BLOCKSHAPE = 64,
         TAGPROPERTY_CLOSESHAPE = 128,
         TAGPROPERTY_GEOPOSITION = 256,
@@ -94,6 +95,8 @@ public:
         /// @brief parameter constructor
         TagValues(int tagProperty) :
             myTagProperty(tagProperty) {}
+
+
     private:
         /// @brief Property of attribute
         int myTagProperty;
