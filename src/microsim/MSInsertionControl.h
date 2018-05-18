@@ -72,7 +72,7 @@ public:
      * @param[in] checkEdgesOnce Whether an edge on which a vehicle could not depart should be ignored in the same step
      * @param[in] maxVehicleNumber The maximum number of vehicles that should not be exceeded
      */
-    MSInsertionControl(MSVehicleControl& vc, SUMOTime maxDepartDelay, bool checkEdgesOnce, int maxVehicleNumber);
+    MSInsertionControl(MSVehicleControl& vc, SUMOTime maxDepartDelay, bool checkEdgesOnce, int maxVehicleNumber, SUMOTime randomDepartOffset);
 
 
     /// @brief Destructor.
@@ -154,6 +154,9 @@ public:
 
     void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
 
+    /// @brief compute (optional) random offset to the departure time
+    SUMOTime computeRandomDepartOffset() const;
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
@@ -183,6 +186,7 @@ private:
      * @todo recheck
      */
     void checkCandidates(SUMOTime time, const bool preCheck);
+
 
 
 private:
@@ -232,6 +236,8 @@ private:
     /// @brief the number of pending emits for each edge in the current time step
     std::map<const MSLane*, int> myPendingEmitsForLane;
 
+    /// @brief The maximum random offset to be added to vehicles departure times (non-negative)
+    SUMOTime myMaxRandomDepartOffset;
 
 private:
     /// @brief Invalidated copy constructor.

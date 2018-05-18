@@ -478,9 +478,6 @@ public:
      */
     void abortWaiting();
 
-    /// @brief compute (optional) random offset to the departure time
-    SUMOTime computeRandomDepartOffset() const;
-
     /// @brief return the maximum speed factor for all vehicles that ever entered the network
     double getMaxSpeedFactor() const {
         return myMaxSpeedFactor;
@@ -593,9 +590,6 @@ private:
 
     /// @brief The scaling factor (especially for inc-dua)
     double myScale;
-
-    /// @brief The maximum random offset to be added to vehicles departure times (non-negative)
-    SUMOTime myMaxRandomDepartOffset;
 
     /// @brief The maximum speed factor for all vehicles in the network
     double myMaxSpeedFactor;
