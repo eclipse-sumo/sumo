@@ -1,0 +1,1 @@
+--osm-files osm.xml -o discard.net.xml --geometry.remove --junctions.join --junctions.join-dist 5 --no-internal-links --junctions.join-output joined.nod.xml --keep-edges.by-vclass passenger

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm-derived>
+<note>The data included in this document is from www.openstreetmap.org. It has there been collected by a large group of contributors. For individual attribution of each item please refer to http://www.openstreetmap.org/api/0.6/[node|way|relation]/#id/history </note>
+<meta data_included_until="2010-09-06T14\:46\:03Z" last_rule_applied="10"/>
+
+<node id="1" lat="52.3739673" lon="13.6076206"/>
+<node id="2" lat="52.3772315" lon="13.6170273"/>
+<node id="3" lat="52.3772315" lon="13.7170273"/>
+<node id="4" lat="52.3772315" lon="13.8170273"/>
+
+<way id="10860201">
+  <nd ref="1"/>
+  <nd ref="2"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="tram"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
+
+<way id="10860202">
+  <nd ref="2"/>
+  <nd ref="3"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="tram"/>
+  <tag k="railway" v="platform"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
+
+<way id="10860203">
+  <nd ref="2"/>
+  <nd ref="4"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="tram"/>
+  <tag k="railway" v="platform"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
+
+<way id="10860204">
+  <nd ref="3"/>
+  <nd ref="4"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="abandoned"/>
+  <tag k="railway" v="platform"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
+
+<way id="10860205">
+  <nd ref="3"/>
+  <nd ref="1"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="railway" v="abandoned"/>
+  <tag k="railway" v="platform"/>
+  <tag k="note" v="Übergeordnete Straße, Stufe II"/>
+  <tag k="postal_code" v="12487"/>
+  <tag k="name" v="Sterndamm"/>
+</way>
+
+</osm-derived>

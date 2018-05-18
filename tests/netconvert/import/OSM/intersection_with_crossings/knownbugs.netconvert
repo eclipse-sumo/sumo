@@ -1,0 +1,13 @@
+
+[Reported by erdm_ja at 09Sep16:55:45]
+search_string:<phase duration="26" state="rrrGGgGGGrrr"/>
+search_file:net
+full_description:always-red crossing
+brief_description:see #1363
+
+[Reported by Windows at 25Oct11:13:11]
+search_string:<lane id=":cluster_1802245009_335683858_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.10" width="4.00" shape="42.78,56.66 42.87,60.66 44.87,60.67 46.26,59.75 47.03,57.90 47.07,57.81 43.37,56.27"/>
+use_regexp:0
+search_file:net
+bug_system:trac
+bug_id:1163

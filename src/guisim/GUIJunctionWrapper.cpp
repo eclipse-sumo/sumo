@@ -122,11 +122,11 @@ GUIJunctionWrapper::getCenteringBoundary() const {
 
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    // check whether it is not too small
-    if (s.scale * myMaxSize < 1.) {
-        return;
-    }
     if (!myIsInternal && s.drawJunctionShape) {
+        // check whether it is not too small
+        if (s.scale * myMaxSize < 1.) {
+            return;
+        }
         glPushMatrix();
         glPushName(getGlID());
         const double colorValue = getColorValue(s);

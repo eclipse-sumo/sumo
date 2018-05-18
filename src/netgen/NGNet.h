@@ -114,10 +114,9 @@ public:
      * @param[in] spaceX The space between nodes in x-direction
      * @param[in] spaceY The space between nodes in y-direction
      * @param[in] attachLength The length of streets attached at the border
-     * @param[in] alphaIDs Whether to use alphanumerial node ids
      * @see NGNet::connect
      */
-    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs);
+    void createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength);
 
 
     /** @brief Creates a spider network
@@ -196,10 +195,16 @@ private:
      */
     void connect(NGNode* node1, NGNode* node2);
 
+    /// @brief return a letter code for the given integer index
+    std::string alphabeticalCode(int i, int iMax);
+
 
 private:
     /// @brief The last ID given to node or link
     int myLastID;
+
+    /// @brief Whether to use alphanumericalIDs
+    const bool myAlphaIDs;
 
     /// @brief The builder used to build NB*-structures
     NBNetBuilder& myNetBuilder;

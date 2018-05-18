@@ -94,6 +94,10 @@ public:
         return myLoaded;
     }
 
+    static int getNumLoaded() {
+        return myNumLoaded;
+    }
+
     /**@brief compute the location attributes which will be used for output
      * based on the loaded location data, the given options and the transformations applied during processing
      */
@@ -152,6 +156,12 @@ public:
 
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);
+
+    bool operator==(const GeoConvHelper& o) const;
+
+    bool operator!=(const GeoConvHelper& o) const {
+        return !(*this == o);
+    }
 
 private:
     /// @brief projection method

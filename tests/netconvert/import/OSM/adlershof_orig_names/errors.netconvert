@@ -1,0 +1,7 @@
+Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435#0').
+Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '5363708').
+Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurence for edge '7216737#0').
+Warning: Discarding unusable type 'railway.construction' (first occurence for edge '11390634#0').
+Warning: Discarding unusable type 'highway.construction' (first occurence for edge '24154002').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '24214693#0').
+Warning: Found angle of 126.52 degrees at edge '27445000', segment 4

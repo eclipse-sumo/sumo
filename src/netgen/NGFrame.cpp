@@ -43,6 +43,10 @@
 void
 NGFrame::fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
+    oc.doRegister("alphanumerical-ids", new Option_Bool(true));
+    oc.addDescription("alphanumerical-ids", "Output", "The Ids of generated nodes use an alphanumerical code for easier readability when possible");
+
+
     //  register grid-net options
     oc.doRegister("grid", 'g', new Option_Bool(false));
     oc.addSynonyme("grid", "grid-net", true);
@@ -81,9 +85,6 @@ NGFrame::fillOptions() {
     oc.doRegister("grid.attach-length", new Option_Float(0));
     oc.addSynonyme("grid.attach-length", "attach-length", true);
     oc.addDescription("grid.attach-length", "Grid Network", "The length of streets attached at the boundary; 0 means no streets are attached");
-
-    oc.doRegister("grid.alphanumerical-ids", new Option_Bool(true));
-    oc.addDescription("grid.alphanumerical-ids", "Grid Network", "The Ids of generated nodes use letters for the X axis");
 
     //  register spider-net options
     oc.doRegister("spider", 's', new Option_Bool(false));
@@ -180,6 +181,15 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand.neighbor-dist6", "rand-neighbor-dist6", true);
     oc.addSynonyme("rand.neighbor-dist6", "dist6");
     oc.addDescription("rand.neighbor-dist6", "Random Network", "Probability for a node having exactly 6 neighbors");
+
+    oc.doRegister("rand.random-lanenumber", new Option_Bool(false));
+    oc.addDescription("rand.random-lanenumber", "Random Network", "Draw lane numbers randomly from [1,default.lanenumber]");
+
+    oc.doRegister("rand.random-priority", new Option_Bool(false));
+    oc.addDescription("rand.random-priority", "Random Network", "Draw edge priority randomly from [1,default.priority]");
+
+    oc.doRegister("rand.grid", new Option_Bool(false));
+    oc.addDescription("rand.grid", "Random Network", "Place nodes on a regular grid with spacing rand.min-distance");
 }
 
 

@@ -76,7 +76,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
-    myAmLoadingState(false) {
+    myAmLoadingState(false) 
+{
     myActiveRoute.reserve(100);
     // check for valid value has been performed in MSFrame
     myDefaultCFModel = SUMOXMLDefinitions::CarFollowModels.get(OptionsCont::getOptions().getString("carfollow.model"));
@@ -676,18 +677,21 @@ MSRouteHandler::closeVehicle() {
                 throw e;
             }
         }
+        const SUMOTime origDepart = myVehicleParameter->depart;
         // maybe we do not want this vehicle to be inserted due to scaling
         int quota = myAmLoadingState ? 1 : vehControl.getQuota();
         if (quota > 0) {
+            registerLastDepart();
+            myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             for (int i = 1; i < quota; i++) {
                 MSNet::getInstance()->getInsertionControl().add(vehicle);
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
                 newPars->id = myVehicleParameter->id + "." + toString(i);
+                newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
                 vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                 vehControl.addVehicle(newPars->id, vehicle);
             }
-            registerLastDepart();
             myVehicleParameter = 0;
         } else {
             vehControl.deleteVehicle(vehicle, true);

@@ -1,0 +1,1 @@
+--osm-files osm.xml -o net.net.xml --geometry.remove --ramps.guess --geometry.min-radius.fix --remove-edges.by-vclass hov,taxi,bus,delivery,truck,tram,rail_urban,rail,rail_electric,motorcycle,bicycle,pedestrian --remove-edges.by-type highway.track --remove-edges.isolated --no-internal-links --roundabouts.guess -v

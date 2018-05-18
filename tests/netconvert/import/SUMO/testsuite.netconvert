@@ -77,3 +77,9 @@ remove_lane
 edge_types
 params
 short_edge
+
+# merge 2 networks without geo-referencing that are shifted appropriately
+merge
+
+# merge 2 geo-referenced networks
+merge_geo

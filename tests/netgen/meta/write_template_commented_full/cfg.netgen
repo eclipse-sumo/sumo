@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:20 2018 by Eclipse SUMO netgenerate Version 27b98ce
+<!-- generated on Thu May 17 13:49:18 2018 by Eclipse SUMO netgenerate Version 3b25f51
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -47,9 +47,6 @@
 
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT"/>
-
-        <!-- The Ids of generated nodes use letters for the X axis -->
-        <grid.alphanumerical-ids value="true" type="BOOL"/>
 
     </grid_network>
 
@@ -114,6 +111,15 @@
         <!-- Probability for a node having exactly 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
 
+        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
+        <rand.random-lanenumber value="false" type="BOOL"/>
+
+        <!-- Draw edge priority randomly from [1,default.priority] -->
+        <rand.random-priority value="false" type="BOOL"/>
+
+        <!-- Place nodes on a regular grid with spacing rand.min-distance -->
+        <rand.grid value="false" type="BOOL"/>
+
     </random_network>
 
     <output>
@@ -132,6 +138,9 @@
         <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
+        <!-- The Ids of generated nodes use an alphanumerical code for easier readability when possible -->
+        <alphanumerical-ids value="true" type="BOOL"/>
+
         <!-- The generated net will be written to FILE -->
         <output-file value="" synonymes="o output sumo-output" type="FILE"/>
 
@@ -140,6 +149,9 @@
 
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
+
+        <!-- Defines a prefix for edge and junction names -->
+        <prefix value="" type="STR"/>
 
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
@@ -215,6 +227,15 @@
 
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
+
+        <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
+        <tls.crossing-min.time value="4" type="INT"/>
+
+        <!-- Use INT as clearance time for pedestrian crossings (s). -->
+        <tls.crossing-clearance.time value="5" type="INT"/>
+
+        <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
+        <tls.scramble.time value="5" type="INT"/>
 
         <!-- TLSs in STR will be shifted by half-phase -->
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>

@@ -70,6 +70,9 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.join-output", "Output",
                       "Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins");
 
+    oc.doRegister("prefix", new Option_String(""));
+    oc.addDescription("prefix", "Output", "Defines a prefix for edge and junction names");
+
 #ifdef HAVE_PROJ
     if (!forNetgen) {
         oc.doRegister("proj.plain-geo", new Option_Bool(false));

@@ -64,7 +64,8 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) 
+{
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -75,7 +76,6 @@ MSVehicleControl::MSVehicleControl() :
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
     OptionsCont& oc = OptionsCont::getOptions();
     myScale = oc.getFloat("scale");
-    myMaxRandomDepartOffset = string2time(oc.getString("random-depart-offset"));
 }
 
 
@@ -97,25 +97,11 @@ MSVehicleControl::~MSVehicleControl() {
     myVTypeDict.clear();
 }
 
-SUMOTime
-MSVehicleControl::computeRandomDepartOffset() const {
-    if (myMaxRandomDepartOffset > 0) {
-        // round to the closest usable simulation step
-        return DELTA_T * int((RandHelper::rand((int)myMaxRandomDepartOffset, MSRouteHandler::getParsingRNG()) + 0.5 * DELTA_T) / DELTA_T);
-    } else {
-        return 0;
-    }
-}
-
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                               const MSRoute* route,
-                               MSVehicleType* type,
+                               const MSRoute* route, MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
-    if (fromRouteFile) {
-        defs->depart += computeRandomDepartOffset();
-    }
     MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
     built->addStops(ignoreStopErrors);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);

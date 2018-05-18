@@ -7,7 +7,6 @@ user_example1_v
 # no internal lanes
 nointernal
 
-
 # Tests with no reverse direction
 # the random network example from the user documentation (and rand-bidi-probability=0)
 unidir_user_example1
@@ -18,7 +17,6 @@ unidir_user_example1_v
 # no internal lanes (and rand-bidi-probability=0)
 unidir_nointernal
 
-
 # Tests with for reverse direction probability
 # the random network example from the user documentation (and rand-bidi-probability=0.5)
 halfbidi_user_example1
@@ -28,4 +26,12 @@ halfbidi_user_example1_v
 
 # no internal lanes (and rand-bidi-probability=0.5)
 halfbidi_nointernal
+random_lanenumber
 
+# Copy of random_lanenumber
+random_priority
+random_grid
+
+# different min-distance and max-distance
+random_grid2
+prefix

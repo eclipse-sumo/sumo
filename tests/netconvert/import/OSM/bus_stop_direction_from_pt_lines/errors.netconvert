@@ -1,0 +1,78 @@
+Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.secondary' (first occurence for edge '338412128').
+Warning: Referenced node: '2959911354' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2959911358' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2959911355' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1641989545' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3953205631' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3953205615' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3963780386' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3963780391' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2029039101' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629812' in relation: '2000799' does not exist. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2000799 are ignored
+Warning: Referenced node: '3908956269' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479210' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479227' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3875882012' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3875882010' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3875881991' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3875882008' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3880652778' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3880652819' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3875881996' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3880652798' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3888652895' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629829' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '672945406' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629805' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629826' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3949521960' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3957828285' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629813' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3963780390' in relation: '2000803' does not exist. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 2000803 are ignored
+Warning: No way found for reference '475519856' in relation '2008468'
+Warning: Ignoring restriction relation '2008468' with unknown to-way.
+Warning: No way found for reference '13863062' in relation '2873596'
+Warning: No way found for reference '475519856' in relation '2873596'
+Warning: Ignoring restriction relation '2873596' with unknown from-way.
+Warning: Ignoring restriction relation '2873596' with unknown to-way.
+Warning: Referenced node: '2029039101' in relation: '5899301' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4032629812' in relation: '6015036' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '4163212867' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3867910441' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3867910427' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2915590925' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3867910424' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3352479219' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1361328318' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3870475225' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3870475223' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3870475221' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '1224397418' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '681321290' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '3949514556' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2959897160' in relation: '6187328' does not exist. Probably OSM file is incomplete.
+Warning: Referenced node: '2959897161' in relation: '6187329' does not exist. Probably OSM file is incomplete.
+Warning: Done reading first coherent junk of pt stops. Further stops in relation 6187329 are ignored
+Warning: PT stop: 3959807201 has been moved to edge: -391493954#3
+Warning: PT stop: 3959807220 has been moved to edge: -110450334#1
+Warning: PT stop: 4032629820 has been moved to edge: -53356539#0
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz. Ignoring!
+Warning: Incomplete route for ptline '4' (Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz)
+Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz. Ignoring!
+Warning: Incomplete route for ptline '5' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz)
+Warning: Found sharp turn with radius 3.48 at the start of edge '-338392750'.
+Warning: Found sharp turn with radius 6.74 at the start of edge '-41292662#2'.
+Warning: Found sharp turn with radius 1.76 at the start of edge '165358541'.
+Warning: Found sharp turn with radius 4.75 at the start of edge '187160639'.
+Warning: Found sharp turn with radius 6.62 at the end of edge '22495188#1'.
+Warning: Found sharp turn with radius 8.42 at the start of edge '22495189'.
+Warning: Found sharp turn with radius 5.22 at the end of edge '22495189'.
+Warning: Found sharp turn with radius 6.71 at the start of edge '332385846#0'.
+Warning: Found sharp turn with radius 6.06 at the end of edge '332385846#0'.
+Warning: Found sharp turn with radius 6.45 at the start of edge '338392750'.
+Warning: The traffic light '29325954' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29325954'
+Warning: The traffic light '29325955' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29325955'

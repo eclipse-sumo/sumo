@@ -1,0 +1,3 @@
+--osm-files osm.xml -o net.net.xml --junctions.join --geometry.remove
+--crossings.guess
+--type-files input_types.typ.xml

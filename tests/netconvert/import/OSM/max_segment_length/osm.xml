@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2015-08-03T08:07:05Z"/>
+
+  <node id="35215997" lat="52.4260427" lon="13.5298330"/>
+  <node id="35215998" lat="52.4255602" lon="13.5395738"/>
+  <node id="158707332" lat="52.4259247" lon="13.5333480"/>
+  <node id="261018499" lat="52.4258407" lon="13.5347673"/>
+  <node id="261667704" lat="52.4256356" lon="13.5363315"/>
+  <node id="261667705" lat="52.4256798" lon="13.5365341"/>
+  <node id="261667706" lat="52.4254666" lon="13.5401363"/>
+  <node id="445825357" lat="52.4260785" lon="13.5305264"/>
+  <node id="613636434" lat="52.4255283" lon="13.5447269"/>
+  <node id="613636435" lat="52.4254715" lon="13.5442948"/>
+  <node id="613636436" lat="52.4254459" lon="13.5438150"/>
+  <node id="962966195" lat="52.4262038" lon="13.5267753"/>
+  <node id="962966204" lat="52.4263137" lon="13.5268361"/>
+  <node id="1311777490" lat="52.4263952" lon="13.5320813"/>
+  <node id="1560223237" lat="52.4254511" lon="13.5432299"/>
+  <node id="1560223238" lat="52.4255124" lon="13.5420888"/>
+  <node id="1560223244" lat="52.4255920" lon="13.5451555"/>
+  <node id="1560223273" lat="52.4258088" lon="13.5361136"/>
+  <node id="1560223301" lat="52.4259758" lon="13.5347738"/>
+  <node id="1560223354" lat="52.4262135" lon="13.5305100"/>
+  <node id="1560223369" lat="52.4262477" lon="13.5287750"/>
+  <node id="1560223376" lat="52.4263381" lon="13.5293575">
+    <tag k="man_made" v="surveillance"/>
+    <tag k="surveillance" v="traffic"/>
+  </node>
+  <node id="1560223378" lat="52.4263725" lon="13.5287904"/>
+  <node id="1560223382" lat="52.4263617" lon="13.5290214">
+    <tag k="ele" v="35.2"/>
+    <tag k="source:ele" v="Geoportal Berlin / K5"/>
+  </node>
+  <node id="1677246190" lat="52.4253124" lon="13.5433871"/>
+  <node id="1677246191" lat="52.4253751" lon="13.5416365"/>
+  <node id="1677246192" lat="52.4254048" lon="13.5417374"/>
+  <node id="1677246193" lat="52.4255789" lon="13.5395091"/>
+  <node id="1677246195" lat="52.4256186" lon="13.5387853"/>
+  <node id="1677246199" lat="52.4256927" lon="13.5371435"/>
+  <node id="2007005039" lat="52.4262272" lon="13.5291578"/>
+  <node id="2007005042" lat="52.4262989" lon="13.5267836"/>
+  <node id="2078471190" lat="52.4252865" lon="13.5452215"/>
+  <node id="2078471192" lat="52.4253102" lon="13.5446835"/>
+  <node id="2078471194" lat="52.4254283" lon="13.5453268"/>
+  <node id="2078471196" lat="52.4252940" lon="13.5451111"/>
+  <node id="2078471197" lat="52.4252803" lon="13.5452780"/>
+  <node id="2078471199" lat="52.4255793" lon="13.5452226"/>
+  <node id="2078471200" lat="52.4252669" lon="13.5446198"/>
+  <node id="2078471202" lat="52.4254801" lon="13.5452830"/>
+  <node id="2078471206" lat="52.4252530" lon="13.5449770"/>
+  <node id="2078471208" lat="52.4253168" lon="13.5435784"/>
+  <node id="2078471209" lat="52.4252956" lon="13.5450368"/>
+  <node id="2078471211" lat="52.4253846" lon="13.5420977"/>
+  <node id="2078471214" lat="52.4253577" lon="13.5453298"/>
+  <node id="2493715957" lat="52.4255869" lon="13.5396074"/>
+  <node id="2627346833" lat="52.4257781" lon="13.5373189"/>
+  <node id="2627346839" lat="52.4260063" lon="13.5342260"/>
+  <node id="2627346840" lat="52.4260783" lon="13.5287780"/>
+  <node id="2627346842" lat="52.4260850" lon="13.5286502"/>
+  <node id="2627346843" lat="52.4260981" lon="13.5287810"/>
+  <node id="2627346844" lat="52.4261049" lon="13.5286516"/>
+  <node id="2627346845" lat="52.4261280" lon="13.5320429"/>
+  <node id="2627350045" lat="52.4253701" lon="13.5420975"/>
+  <node id="2627350048" lat="52.4253797" lon="13.5418964"/>
+  <node id="2627350050" lat="52.4253960" lon="13.5418976"/>
+  <node id="3337392824" lat="52.4262723" lon="13.5280513"/>
+  <way id="190083608">
+    <nd ref="1560223378"/>
+    <nd ref="1560223382"/>
+    <nd ref="1560223376"/>
+    <nd ref="1560223354"/>
+    <nd ref="2627346845"/>
+    <nd ref="2627346839"/>
+    <nd ref="1560223301"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="cycleway:bicycle" v="yes"/>
+    <tag k="cycleway:smoothness" v="intermediate"/>
+    <tag k="cycleway:surface" v="paving_stones"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="4"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Ernst-Ruska-Ufer"/>
+    <tag k="note" v="Radweg ohne Benutzungspflicht"/>
+    <tag k="postal_code" v="12489"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="sidewalk:surface" v="paving_stones"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="surveillance" v="public"/>
+  </way>
+  <way id="197643002">
+    <nd ref="2078471211"/>
+    <nd ref="2627350045"/>
+    <nd ref="2627350048"/>
+    <nd ref="2627350050"/>
+    <nd ref="1677246192"/>
+    <nd ref="1677246191"/>
+    <nd ref="261667706"/>
+    <nd ref="2493715957"/>
+    <nd ref="35215998"/>
+    <nd ref="1677246193"/>
+    <nd ref="1677246195"/>
+    <nd ref="1677246199"/>
+    <nd ref="261667705"/>
+    <nd ref="261667704"/>
+    <nd ref="35215997"/>
+    <nd ref="2627346843"/>
+    <nd ref="2627346840"/>
+    <nd ref="2627346842"/>
+    <nd ref="2627346844"/>
+    <nd ref="962966195"/>
+    <nd ref="2007005042"/>
+    <nd ref="962966204"/>
+    <nd ref="3337392824"/>
+    <nd ref="1560223369"/>
+    <nd ref="2007005039"/>
+    <nd ref="445825357"/>
+    <nd ref="158707332"/>
+    <nd ref="261018499"/>
+    <nd ref="1560223273"/>
+    <nd ref="2627346833"/>
+    <nd ref="1560223238"/>
+    <nd ref="1560223237"/>
+    <nd ref="613636436"/>
+    <nd ref="613636435"/>
+    <nd ref="613636434"/>
+    <nd ref="1560223244"/>
+    <nd ref="2078471199"/>
+    <nd ref="2078471202"/>
+    <nd ref="2078471194"/>
+    <nd ref="2078471214"/>
+    <nd ref="2078471197"/>
+    <nd ref="2078471190"/>
+    <nd ref="2078471196"/>
+    <nd ref="2078471206"/>
+    <nd ref="2078471209"/>
+    <nd ref="2078471192"/>
+    <nd ref="2078471200"/>
+    <nd ref="2078471208"/>
+    <nd ref="1677246190"/>
+    <nd ref="2078471211"/>
+    <tag k="landuse" v="grass"/>
+  </way>
+  <way id="257131025">
+    <nd ref="1311777490"/>
+    <nd ref="2627346845"/>
+    <tag k="highway" v="cycleway"/>
+  </way>
+
+</osm>

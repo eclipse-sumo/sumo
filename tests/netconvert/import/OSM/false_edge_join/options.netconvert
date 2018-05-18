@@ -1,0 +1,1 @@
+--osm-files osm.xml -t=$SUMO_HOME/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml --proj.utm --remove-edges.by-vclass=rail,rail_electric,bicycle,pedestrian --no-turnarounds --output.street-names

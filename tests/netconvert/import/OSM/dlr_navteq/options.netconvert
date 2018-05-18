@@ -1,0 +1,10 @@
+--dlr-navteq-output=elmar_output 
+--numerical-ids
+--osm-files osm.xml --geometry.remove
+--roundabouts.guess --ramps.guess --junctions.join --tls.guess-signals
+--tls.discard-simple --tls.join
+--reserved-ids edge_ids.txt
+--output.original-names
+--dlr-navteq.precision 2
+-o net.net.xml
+-v

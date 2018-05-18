@@ -294,8 +294,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myEdgeCont.recheckPostProcessConnections();
 
     // remap ids if wished
-    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
-    int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"));
+    int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix"));
+    int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix"));
     if (numChangedEdges + numChangedNodes > 0) {
         WRITE_MESSAGE("Remapped " + toString(numChangedEdges) + " edge IDs and " + toString(numChangedNodes) + " node IDs.");
     }
@@ -604,7 +604,15 @@ NBNetBuilder::mirrorX() {
 bool
 NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoConvHelper* from_srs) {
     Position orig(from);
-    bool ok = GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
+    bool ok = true;
+    if (GeoConvHelper::getNumLoaded() > 1 
+            && GeoConvHelper::getLoaded().usingGeoProjection() 
+            && from_srs->usingGeoProjection()
+            && *from_srs != GeoConvHelper::getLoaded()) {
+        from_srs->cartesian2geo(from);
+        ok &= GeoConvHelper::getLoaded().x2cartesian(from, false);
+    }
+    ok &= GeoConvHelper::getProcessing().x2cartesian(from, includeInBoundary);
     if (ok) {
         const NBHeightMapper& hm = NBHeightMapper::get();
         if (hm.ready()) {

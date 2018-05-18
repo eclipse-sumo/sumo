@@ -105,6 +105,20 @@ GeoConvHelper::~GeoConvHelper() {
 #endif
 }
 
+bool
+GeoConvHelper::operator==(const GeoConvHelper& o) const {
+    return (
+            myProjString == o.myProjString &&
+            myOffset == o.myOffset &&
+            myProjectionMethod == o.myProjectionMethod &&
+            myOrigBoundary == o.myOrigBoundary &&
+            myConvBoundary == o.myConvBoundary &&
+            myGeoScale == o.myGeoScale &&
+            myCos == o.myCos &&
+            mySin == o.mySin &&
+            myUseInverseProjection == o.myUseInverseProjection 
+           );
+}
 
 GeoConvHelper&
 GeoConvHelper::operator=(const GeoConvHelper& orig) {

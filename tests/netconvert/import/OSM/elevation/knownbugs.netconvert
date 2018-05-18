@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 09Jan17:28:18]
+search_string:Warning: Junction shape
+search_file:errors
+full_description:wrong junction shape
+brief_description:see #1123

@@ -1,0 +1,4 @@
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+	<type id="highway.secondary" discard="true"/>
+    <type id="railway.tram" discard="true"/>
+</types>

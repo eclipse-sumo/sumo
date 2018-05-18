@@ -461,8 +461,10 @@ std::string
 NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
                                 SUMOTime minDur, SUMOTime maxDur,
                                 std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
-    const SUMOTime pedClearingTime = TIME2STEPS(5); // compute based on length of the crossing
-    const SUMOTime minPedTime = TIME2STEPS(4); // compute: must be able to reach the middle of the second "Richtungsfahrbahn"
+    // compute based on length of the crossing if not set by the user
+    const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time")); 
+    // compute if not set by user: must be able to reach the middle of the second "Richtungsfahrbahn"
+    const SUMOTime minPedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-min.time")); 
     const std::string orig = state;
     state = patchStateForCrossings(state, crossings, fromEdges, toEdges);
     if (orig == state) {
@@ -713,7 +715,9 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
                     logic->addStep(brakingTime, state);
                 }
             }
-            addPedestrianPhases(logic, TIME2STEPS(10), UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
+            const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time")); 
+            const SUMOTime scrambleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.scramble.time")); 
+            addPedestrianPhases(logic, scrambleTime + pedClearingTime, UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
             break;
         }
     }
