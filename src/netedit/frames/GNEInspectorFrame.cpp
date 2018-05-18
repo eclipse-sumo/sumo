@@ -683,7 +683,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
             // disable editing for unique attributes in case of multi-selection
-            if (myInspectorFrameParent->getInspectedACs().size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::allowedAttributes(ACFrontTag).at(it).isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
@@ -747,7 +747,7 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
             // disable editing for unique attributes in case of multi-selection
-            if (myInspectorFrameParent->getInspectedACs().size() > 1 && GNEAttributeCarrier::isUnique(ACFrontTag, it)) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::allowedAttributes(ACFrontTag).at(it).isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item

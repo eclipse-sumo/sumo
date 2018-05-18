@@ -166,7 +166,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         // iterate over attributes of myCurrentAdditionalType
         for (auto i : GNEAttributeCarrier::allowedAttributes(myCurrentAdditionalType)) {
             // only show attributes that aren't uniques
-            if (!GNEAttributeCarrier::isUnique(myCurrentAdditionalType, i.first)) {
+            if (!GNEAttributeCarrier::allowedAttributes(myCurrentAdditionalType).at(i.first).isUnique()) {
                 myAdditionalFrameParent->getAdditionalParameters()->addAttribute(i.first);
             } else if (i.first == SUMO_ATTR_ENDPOS) {
                 myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(true);
@@ -604,7 +604,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
     // obtain parameter type
     SumoXMLTag currentType = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
     // If  parameter is of type list
-    if (GNEAttributeCarrier::isList(currentType, AdditionalAttributeSingle)) {
+    if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).isList()) {
         // If parameter can be show
         if (myIndexParameterList < myMaxNumberOfListParameters) {
             myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle));

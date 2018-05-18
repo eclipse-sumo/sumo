@@ -75,7 +75,6 @@ public:
         ACPROPERTY_BOOL = 4,
         ACPROPERTY_STRING = 8,
         ACPROPERTY_POSITION = 16,
-        ACPROPERTY_SHAPE = 32,
 
         ACPROPERTY_COLOR = 64,
         ACPROPERTY_SVCPERMISSION = 128,
@@ -111,6 +110,67 @@ public:
         /// get restriction
         std::string getRestriction() const {
             return "";
+        }
+
+        std::string getType() const {
+            std::string pre;
+            std::string type;
+            std::string plural;
+            // pre type
+            if((ACProp & ACPROPERTY_LIST) != 0) {
+                pre += "list of ";
+                plural = "s";
+            }
+            if((ACProp & ACPROPERTY_POSITIVE) != 0) {
+                pre += "positive ";
+            }
+            if((ACProp & ACPROPERTY_NONEDITABLE) != 0) {
+                pre += "non editable ";
+            }
+            if((ACProp & ACPROPERTY_DISCRETE) != 0) {
+                pre += "discrete ";
+            }
+            if((ACProp & ACPROPERTY_OPTIONAL) != 0) {
+                pre += "optional ";
+            }
+            // type
+            if((ACProp & ACPROPERTY_INT) != 0) {
+                type += "integer";
+            }
+            if((ACProp & ACPROPERTY_FLOAT) != 0) {
+                type += "float";
+            }
+            if((ACProp & ACPROPERTY_BOOL) != 0) {
+                type += "boolean";
+            }
+            if((ACProp & ACPROPERTY_STRING) != 0) {
+                type += "string";
+            }
+            if((ACProp & ACPROPERTY_POSITION) != 0) {
+                type += "position";
+            }
+            if((ACProp & ACPROPERTY_COLOR) != 0) {
+                type += "color";
+            }
+            if((ACProp & ACPROPERTY_SVCPERMISSION) != 0) {
+                type += "VClasses";
+            }
+            if((ACProp & ACPROPERTY_UNIQUE) != 0) {
+                type += "unique";
+            }
+            if((ACProp & ACPROPERTY_FILENAME) != 0) {
+                type += "filename";
+            }
+            if((ACProp & ACPROPERTY_PROBABILITY) != 0) {
+                type += "probability";
+            }
+            if((ACProp & ACPROPERTY_TIME) != 0) {
+                type += "time";
+            }
+            if((ACProp & ACPROPERTY_ANGLE) != 0) {
+                type += "angle";
+            }
+            return pre + type + plural;
         }
 
         bool isInt() const {
@@ -155,6 +215,14 @@ public:
 
         bool isSVC() const {
             return (ACProp & ACPROPERTY_SVCPERMISSION) != 0;
+        }
+
+        bool isList() const {
+            return (ACProp & ACPROPERTY_LIST) != 0;
+        }
+
+        bool isUnique() const {
+            return (ACProp & ACPROPERTY_UNIQUE) != 0;
         }
 
         /// @brief Property of attribute
@@ -227,9 +295,6 @@ public:
     /// @brief function to support debugging
     const std::string getID() const;
 
-    /// @brief get type of attribute
-    static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief get all editable attributes for tag and their default values.
     static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& allowedAttributes(SumoXMLTag tag);
 
@@ -265,12 +330,6 @@ public:
 
     /// @brief return true if element tag can open a values editor
     static bool canOpenDialog(SumoXMLTag tag);
-
-    /// @brief whether an attribute is of type bool
-    static bool isList(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is unique (may not be edited for a multi-selection and don't have a default value)
-    static bool isUnique(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief whether an attribute is Discrete
     static bool isDiscrete(SumoXMLTag tag, SumoXMLAttr attr);
@@ -494,7 +553,7 @@ public:
                 } else if (hasDefaultValue(tag, attribute)) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                 } else {
-                    WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                    WRITE_WARNING("Format of essential " + allowedAttributes(tag).at(attribute).getType() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
@@ -510,7 +569,7 @@ public:
              } else if (hasDefaultValue(tag, attribute)) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
             } else {
-                WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
+                WRITE_WARNING("Essential " + allowedAttributes(tag).at(attribute).getType() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;
@@ -612,12 +671,6 @@ private:
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;
 
-    /// @brief map with the attributes of type list
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myListAttrs;
-
-    /// @brief map with the unique attributes (i.e. attributes without default values)
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myUniqueAttrs;
-
     /// @brief map with the non-editable attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNonEditableAttrs;
 
@@ -626,9 +679,6 @@ private:
 
     /// @brief map with the values of discrete choices
     static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > myDiscreteChoices;
-
-    /// @brief map with the definition of attributes
-    static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::pair<std::string, std::string> > > myAttrDefinitions;
 
     /// @brief maximum number of attributes of all tags
     static int myMaxNumAttribute;

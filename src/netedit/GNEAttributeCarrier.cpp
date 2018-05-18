@@ -53,12 +53,9 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoPositionTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > GNEAttributeCarrier::myAllowedAttributes;
-std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myListAttrs;
-std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myUniqueAttrs;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
 std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAdditionalsWithParent;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
-std::map<SumoXMLTag, std::map<SumoXMLAttr, std::pair<std::string, std::string> > > GNEAttributeCarrier::myAttrDefinitions;
 int GNEAttributeCarrier::myMaxNumAttribute = 0;
 
 const std::string GNEAttributeCarrier::LOADED = "loaded";
@@ -255,16 +252,6 @@ GNEAttributeCarrier::getID() const {
 }
 
 
-std::string
-GNEAttributeCarrier::getAttributeType(SumoXMLTag tag, SumoXMLAttr attr) {
-    if (isList(tag, attr)) {
-        return "list";
-    } else {
-        throw ProcessError("Undeterminted type for '" + toString(tag) + "' '" + toString(attr) + "'");
-    }
-}
-
-
 bool
 GNEAttributeCarrier::isValidID(const std::string& value) {
     if(value.size() == 0) {
@@ -293,15 +280,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
         switch (tag) {
             case SUMO_TAG_EDGE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING | ACPROPERTY_POSITIVE, 
+                    ACPROPERTY_STRING | ACPROPERTY_POSITIVE | ACPROPERTY_UNIQUE, 
                     "The id of the edge", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FROM] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of a node within the nodes-file the edge shall start at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_TO] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of a node within the nodes-file the edge shall end at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_SPEED] = AttributeValues(
@@ -330,7 +317,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "");
                 //myAllowedAttributes[tag][SUMO_ATTR_PREFER, );
                 myAllowedAttributes[tag][SUMO_ATTR_SHAPE] = AttributeValues(
-                    ACPROPERTY_SHAPE, 
+                    ACPROPERTY_POSITION | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "If the shape is given it should start and end with the positions of the from-node and to-node", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_LENGTH] = AttributeValues(
@@ -368,7 +355,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_JUNCTION:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the node", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
@@ -380,7 +367,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "An optional type for the node", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_SHAPE] = AttributeValues(
-                    ACPROPERTY_SHAPE, 
+                    ACPROPERTY_POSITION | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "A custom shape for that node", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_RADIUS] = AttributeValues(
@@ -396,13 +383,13 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "An optional type for the traffic light algorithm", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_TLID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "An optional id for the traffic light program", 
                     "");
                 break;
             case SUMO_TAG_LANE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "ID of lane (Automatic)", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_SPEED] = AttributeValues(
@@ -431,7 +418,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "Enable or disable lane as acceleration lane", 
                     "0");
                 myAllowedAttributes[tag][SUMO_ATTR_CUSTOMSHAPE] = AttributeValues(
-                    ACPROPERTY_SHAPE, 
+                    ACPROPERTY_POSITION | ACPROPERTY_LIST, 
                     "If the shape is given it overrides the computation based on edge shape", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_INDEX] = AttributeValues(
@@ -441,11 +428,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POI:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the POI", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+                    ACPROPERTY_POSITION | ACPROPERTY_UNIQUE, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                     "The position in view", 
                     NODEFAULTVALUE); 
                 myAllowedAttributes[tag][SUMO_ATTR_COLOR] = AttributeValues(
@@ -483,15 +470,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POILANE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the POI", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the lane the poi is located at); the lane must be a part of the loaded network", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The position on the named lane or in the net in meters at which the poi is located at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION_LAT] = AttributeValues(
@@ -533,11 +520,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POLY:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the polygon", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_SHAPE] = AttributeValues(
-                    ACPROPERTY_SHAPE, 
+                    ACPROPERTY_POSITION | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "The shape of the polygon", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_COLOR] = AttributeValues(
@@ -571,11 +558,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CROSSING:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The ID of Crossing", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_EDGES] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "The (road) edges which are crossed", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_PRIORITY] = AttributeValues(
@@ -595,25 +582,25 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "sets the opposite-direction tls-index for this crossing", 
                     "-1");
                 myAllowedAttributes[tag][SUMO_ATTR_CUSTOMSHAPE] = AttributeValues(
-                    ACPROPERTY_SHAPE, 
+                    ACPROPERTY_POSITION | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "Overrids default shape of pedestrian crossing", 
                     "");
                 break;
             case SUMO_TAG_CONNECTION:
                 myAllowedAttributes[tag][SUMO_ATTR_FROM] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the edge the vehicles leave", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_TO] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the edge the vehicles may reach when leaving 'from'", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FROM_LANE] = AttributeValues(
-                    ACPROPERTY_INT, 
+                    ACPROPERTY_INT | ACPROPERTY_UNIQUE, 
                     "the lane index of the incoming lane (numbers starting with 0)", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_TO_LANE] = AttributeValues(
-                    ACPROPERTY_INT, 
+                    ACPROPERTY_INT | ACPROPERTY_UNIQUE, 
                     "the lane index of the outgoing lane (numbers starting with 0)", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_PASS] = AttributeValues(
@@ -645,25 +632,25 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "sets custom speed limit for the connection", 
                     toString(NBEdge::UNSPECIFIED_SPEED));
                 myAllowedAttributes[tag][SUMO_ATTR_CUSTOMSHAPE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_POSITION | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "sets custom shape for the connection", 
                     "");
                 break;
             case SUMO_TAG_BUS_STOP:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of bus stop", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the lane the bus stop shall be located at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_STARTPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The begin position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ENDPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_NAME] = AttributeValues(
@@ -675,17 +662,17 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0");
                 myAllowedAttributes[tag][SUMO_ATTR_LINES] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_LIST, 
                     "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes", 
                     "");
                 break;
             case SUMO_TAG_ACCESS:
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the lane the stop access shall be located at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
@@ -695,19 +682,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CONTAINER_STOP:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of container stop", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the lane the container stop shall be located at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_STARTPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The begin position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ENDPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_NAME] = AttributeValues(
@@ -719,25 +706,25 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
                     "0");
                 myAllowedAttributes[tag][SUMO_ATTR_LINES] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_LIST, 
                     "meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes", 
                     "");
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of charging station", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "Lane of the charging station location", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_STARTPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "Begin position in the specified lane", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ENDPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "End position in the specified lane", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_NAME] = AttributeValues(
@@ -767,15 +754,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E1DETECTOR:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of E1", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FREQUENCY] = AttributeValues(
@@ -797,15 +784,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E2DETECTOR:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of E2", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The position on the lane the detector shall be laid on in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LENGTH] = AttributeValues(
@@ -843,11 +830,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E3DETECTOR:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of E3", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_POSITION, 
+                    ACPROPERTY_POSITION | ACPROPERTY_UNIQUE, 
                     "X-Y position of detector in editor (Only used in NETEDIT)", 
                     "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 myAllowedAttributes[tag][SUMO_ATTR_FREQUENCY] = AttributeValues(
@@ -869,11 +856,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DET_ENTRY:
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The position on the lane the detector shall be laid on in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
@@ -883,11 +870,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DET_EXIT:
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The position on the lane the detector shall be laid on in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
@@ -897,29 +884,29 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_VSS:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE,
                     "The id of Variable Speed Signal", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_POSITION, 
+                    ACPROPERTY_POSITION | ACPROPERTY_UNIQUE, 
                     "X-Y position of detector in editor (Only used in NETEDIT)", 
                     "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 myAllowedAttributes[tag][SUMO_ATTR_LANES] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_LIST, 
                     "list of lanes of Variable Speed Sign", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_FILE] = AttributeValues(
-                    ACPROPERTY_STRING | ACPROPERTY_FILENAME, 
+                    ACPROPERTY_STRING | ACPROPERTY_FILENAME | ACPROPERTY_UNIQUE, 
                     "The path to the output file", 
                     "");
                 break;
             case SUMO_TAG_CALIBRATOR:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of Calibrator", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_EDGE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of edge in the simulation network", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
@@ -941,11 +928,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_LANECALIBRATOR:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of Calibrator", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of lane in the simulation network", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
@@ -967,15 +954,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_REROUTER:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of Rerouter", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_EDGES] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_LIST | ACPROPERTY_UNIQUE, 
                     "An edge id or a list of edge ids where vehicles shall be rerouted", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_POSITION] = AttributeValues(
-                    ACPROPERTY_POSITION, 
+                    ACPROPERTY_POSITION | ACPROPERTY_UNIQUE, 
                     "X,Y position in editor (Only used in NETEDIT)", 
                     "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 myAllowedAttributes[tag][SUMO_ATTR_FILE] = AttributeValues(
@@ -997,11 +984,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_ROUTEPROBE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of RouteProbe", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_EDGE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of an edge in the simulation network", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_FREQUENCY] = AttributeValues(
@@ -1019,7 +1006,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_VAPORIZER:
                 myAllowedAttributes[tag][SUMO_ATTR_EDGE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "Edge in which vaporizer is placed", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_STARTTIME] = AttributeValues(
@@ -1033,19 +1020,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_PARKING_AREA:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of ParkingArea", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_LANE] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The name of the lane the Parking Area shall be located at", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_STARTPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The begin position on the lane (the lower position on the lane) in meters", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ENDPOS] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(
@@ -1075,11 +1062,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 myAllowedAttributes[tag][SUMO_ATTR_X] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The X position in meters of the parking vehicle", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_Y] = AttributeValues(
-                    ACPROPERTY_FLOAT, 
+                    ACPROPERTY_FLOAT | ACPROPERTY_UNIQUE, 
                     "The Y position in meters of the parking vehicle", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_Z] = AttributeValues(
@@ -1101,7 +1088,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_FLOW:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of the vehicle type to use for this vehicle", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_TYPE] = AttributeValues(
@@ -1183,11 +1170,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_ROUTE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of Route", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_EDGES] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_LIST, 
                     "The edges the vehicle shall drive along, given as their ids, separated using spaces", 
                     "");
                 myAllowedAttributes[tag][SUMO_ATTR_COLOR] = AttributeValues(
@@ -1197,7 +1184,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_VTYPE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "The id of VehicleType", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ACCEL] = AttributeValues(
@@ -1323,7 +1310,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "Edge ID", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ALLOW] = AttributeValues(
@@ -1337,7 +1324,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CLOSING_LANE_REROUTE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "Lane ID", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_ALLOW] = AttributeValues(
@@ -1351,7 +1338,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "Edge ID", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_PROB] = AttributeValues(
@@ -1361,7 +1348,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_PARKING_ZONE_REROUTE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "ParkingArea ID", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_PROB] = AttributeValues(
@@ -1371,7 +1358,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
                 myAllowedAttributes[tag][SUMO_ATTR_ID] = AttributeValues(
-                    ACPROPERTY_STRING, 
+                    ACPROPERTY_STRING | ACPROPERTY_UNIQUE, 
                     "Route", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag][SUMO_ATTR_PROB] = AttributeValues(
@@ -1541,130 +1528,6 @@ GNEAttributeCarrier::canOpenDialog(SumoXMLTag tag) {
         myDialogTags.push_back(SUMO_TAG_VSS);
     }
     return std::find(myDialogTags.begin(), myDialogTags.end(), tag) != myDialogTags.end();
-}
-
-
-bool
-GNEAttributeCarrier::isList(SumoXMLTag tag, SumoXMLAttr attr) {
-    // define on first access
-    if (myListAttrs.empty()) {
-        // bus stop
-        myListAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LINES);
-        // container stop
-        myListAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_LINES);
-        // crossing
-        myListAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_EDGES);
-        // rerouter
-        myListAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_EDGES);
-        // variable speed signal
-        myListAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_LANES);
-        // route
-        myListAttrs[SUMO_TAG_ROUTE].insert(SUMO_ATTR_EDGES);
-        // POLY
-        myListAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
-        // vClasses
-        myListAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_VCLASSES);
-        // Exception vClasses
-        myListAttrs[SUMO_TAG_STOPOFFSET].insert(SUMO_ATTR_EXCEPTIONS);
-    }
-    return myListAttrs[tag].count(attr) == 1;
-}
-
-
-bool
-GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
-    // ID is an atribute that always is unique
-    if (attr == SUMO_ATTR_ID) {
-        return true;
-    } else {
-        // define on first access
-        if (myUniqueAttrs.empty()) {
-            // connection
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM);
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM_LANE);
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO);
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO_LANE);
-            myUniqueAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_CUSTOMSHAPE);
-            // edge
-            myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_FROM);
-            myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_TO);
-            // busstop
-            myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
-            myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
-            myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LANE);
-            // access
-            myUniqueAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_POSITION);
-            // container stop
-            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
-            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
-            myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_LANE);
-            // charging station
-            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
-            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
-            myUniqueAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_LANE);
-            // calibrator (edge)
-            myUniqueAttrs[SUMO_TAG_CALIBRATOR].insert(SUMO_ATTR_EDGE);
-            // calibrator (lane)
-            myUniqueAttrs[SUMO_TAG_LANECALIBRATOR].insert(SUMO_ATTR_LANE);
-            // crossing
-            myUniqueAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_EDGES);
-            myUniqueAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_CUSTOMSHAPE);
-            // det entry
-            myUniqueAttrs[SUMO_TAG_DET_ENTRY].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_DET_ENTRY].insert(SUMO_ATTR_POSITION);
-            // det exit
-            myUniqueAttrs[SUMO_TAG_DET_EXIT].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_DET_EXIT].insert(SUMO_ATTR_POSITION);
-            // E1
-            myUniqueAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_FILE);
-            myUniqueAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_E1DETECTOR].insert(SUMO_ATTR_POSITION);
-            // E2
-            myUniqueAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_FILE);
-            myUniqueAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_E2DETECTOR].insert(SUMO_ATTR_POSITION);
-            // E3
-            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_FILE);
-            myUniqueAttrs[SUMO_TAG_E3DETECTOR].insert(SUMO_ATTR_POSITION);
-            // Edge
-            myUniqueAttrs[SUMO_TAG_EDGE].insert(SUMO_ATTR_SHAPE);
-            // Junction
-            myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_POSITION);
-            myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_SHAPE);
-            myUniqueAttrs[SUMO_TAG_JUNCTION].insert(SUMO_ATTR_TLID);
-            // Rerouter
-            myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_EDGES);
-            myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_FILE);
-            myUniqueAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_POSITION);
-            // Routeprobe
-            myUniqueAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_EDGE);
-            myUniqueAttrs[SUMO_TAG_ROUTEPROBE].insert(SUMO_ATTR_FILE);
-            // Vaporizer
-            myUniqueAttrs[SUMO_TAG_VAPORIZER].insert(SUMO_ATTR_EDGE);
-            myUniqueAttrs[SUMO_TAG_VAPORIZER].insert(SUMO_ATTR_FILE);
-            // VSS
-            myUniqueAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_POSITION);
-            myUniqueAttrs[SUMO_TAG_VSS].insert(SUMO_ATTR_FILE);
-            // POI
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_POSITION);
-            myUniqueAttrs[SUMO_TAG_POI].insert(SUMO_ATTR_GEOPOSITION);
-            // POILane
-            myUniqueAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_LANE);
-            myUniqueAttrs[SUMO_TAG_POILANE].insert(SUMO_ATTR_POSITION);
-            // POLY
-            myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_SHAPE);
-            myUniqueAttrs[SUMO_TAG_POLY].insert(SUMO_ATTR_GEOSHAPE);
-            // Parking Area
-            myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_STARTPOS);
-            myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_ENDPOS);
-            myUniqueAttrs[SUMO_TAG_PARKING_AREA].insert(SUMO_ATTR_LANE);
-            // Parking Space
-            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_X);
-            myUniqueAttrs[SUMO_TAG_PARKING_SPACE].insert(SUMO_ATTR_Y);
-        }
-        return myUniqueAttrs[tag].count(attr) == 1;
-    }
 }
 
 

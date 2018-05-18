@@ -127,7 +127,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
         myShapeFrameParent->getShapeAttributes()->clearAttributes();
         // Iterate over attributes of myActualShapeType
         for (auto i : GNEAttributeCarrier::allowedAttributes(myCurrentShapeType)) {
-            if (!GNEAttributeCarrier::isUnique(myCurrentShapeType, i.first)) {
+            if (!GNEAttributeCarrier::allowedAttributes(myCurrentShapeType).at(i.first).isUnique()) {
                 myShapeFrameParent->getShapeAttributes()->addAttribute(i.first);
             }
         }

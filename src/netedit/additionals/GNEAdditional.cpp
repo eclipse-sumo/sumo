@@ -302,7 +302,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Iterate over attributes
     for (auto i : attributes) {
         // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
+        if (GNEAttributeCarrier::allowedAttributes(getTag()).at(i).isUnique()) {
             ret->mkItem(toString(i).c_str(), false, getAttribute(i));
         } else {
             ret->mkItem(toString(i).c_str(), true, getAttribute(i));
