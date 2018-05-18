@@ -296,12 +296,12 @@ GNEPolygonFrame::ShapeAttributeSingle::getAttr() const {
 
 std::string
 GNEPolygonFrame::ShapeAttributeSingle::getValue() const {
-    if (GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).second.isBool()) {
+    if (GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if (GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).second.isInt()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).isInt()) {
         return myTextFieldInt->getText().text();
-    } else if (GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).second.isFloat() || 
-               GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).second.isTime()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).isFloat() || 
+               GNEAttributeCarrier::allowedAttributes(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).at(myShapeAttr).isTime()) {
         return myTextFieldReal->getText().text();
     } else {
         return myTextFieldStrings->getText().text();
@@ -328,18 +328,18 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
     // get current shape
     SumoXMLTag shapeTag = myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType();
     // Check if format of current value of myTextField is correct
-    if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isInt()) {
+    if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
             // convert string to int
             int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
             // Check if int value must be positive
-            if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isPositive() && (intValue < 0)) {
+            if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isPositive() && (intValue < 0)) {
                 myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
             }
         } else {
             myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'int' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isTime()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isTime()) {
         // time attributes work as positive doubles
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
@@ -351,26 +351,26 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
         } else {
             myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'time' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isFloat()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isFloat()) {
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if double value must be positive
-            if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isPositive() && (doubleValue < 0)) {
+            if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isPositive() && (doubleValue < 0)) {
                 myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
                 // check if double value is a probability
-            } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
+            } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
                 myInvalidValue = "'" + toString(myShapeAttr) + "' takes only values between 0 and 1";
             }
         } else {
             myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'float' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isColor()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isColor()) {
         // check if filename format is valid
         if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'RBGColor' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).second.isFilename()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(shapeTag).at(myShapeAttr).isFilename()) {
         std::string file = myTextFieldStrings->getText().text();
         // check if filename format is valid
         if (GNEAttributeCarrier::isValidFilename(file) == false) {
@@ -472,15 +472,15 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle)
     // add attribute depending of type
     if (myIndexParameter < myMaxNumberOfParameters) {
         // Check type of attribute list
-        if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).second.isInt()) {
+        if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).isInt()) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).second.isFloat() || GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).second.isTime()) {
+        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).isFloat() || GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).isTime()) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).second.isBool()) {
+        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).isBool()) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).second.isColor()) {
+        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).isColor()) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<RGBColor>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).second.isString()) {
+        } else if (GNEAttributeCarrier::allowedAttributes(currentTag).at(ShapeAttributeSingle).isString()) {
             myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentTag, ShapeAttributeSingle));
         } else {
             WRITE_WARNING("Attribute '" + toString(ShapeAttributeSingle) + "' doesn't have a defined type. Check definition in GNEAttributeCarrier");

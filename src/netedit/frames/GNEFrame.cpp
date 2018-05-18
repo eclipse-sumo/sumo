@@ -601,33 +601,34 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     header->setItemSize(2, 80);
     int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
-    for (int i = 0; i < (int)attrs.size(); i++) {
+    int itemIndex = 0;
+    for (auto i : attrs) {
         // Set attribute 
-        FXTableItem* attribute = new FXTableItem(toString(attrs.at(i).first).c_str());
+        FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 0, attribute);
+        myTable->setItem(itemIndex, 0, attribute);
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (attrs.at(i).first == SUMO_ATTR_SHAPE) {
+        if (i.first == SUMO_ATTR_SHAPE) {
             type->setText("list of positions");
         }
-        else if (attrs.at(i).second.isInt()) {
+        else if (i.second.isInt()) {
             type->setText("int");
         }
-        else if (attrs.at(i).second.isFloat()) {
+        else if (i.second.isFloat()) {
             type->setText("float");
         }
-        else if (attrs.at(i).second.isTime()) {
+        else if (i.second.isTime()) {
             type->setText("time");
         }
-        else if (attrs.at(i).second.isBool()) {
+        else if (i.second.isBool()) {
             type->setText("bool");
         }
-        else if (attrs.at(i).second.isColor()) {
+        else if (i.second.isColor()) {
             type->setText("color");
         }
-        else if (attrs.at(i).second.isString()) {
-            if (attrs.at(i).first == SUMO_ATTR_POSITION) {
+        else if (i.second.isString()) {
+            if (i.first == SUMO_ATTR_POSITION) {
                 type->setText("position");
             }
             else {
@@ -635,18 +636,19 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
             }
         }
         type->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 1, type);
+        myTable->setItem(itemIndex, 1, type);
         // Set restriction
-        FXTableItem* restriction = new FXTableItem(attrs.at(i).second.getRestriction().c_str());
+        FXTableItem* restriction = new FXTableItem(i.second.getRestriction().c_str());
         restriction->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 2, restriction);
+        myTable->setItem(itemIndex, 2, restriction);
         // Set definition
-        FXTableItem* definition = new FXTableItem(attrs.at(i).second.definition.c_str());
+        FXTableItem* definition = new FXTableItem(i.second.definition.c_str());
         definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(i, 3, definition);
-        if ((int)(attrs.at(i).second.definition.size()) > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = (int)(attrs.at(i).second.definition.size());
+        myTable->setItem(itemIndex, 3, definition);
+        if ((int)(i.second.definition.size()) > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = (int)(i.second.definition.size());
         }
+        itemIndex++;
     }
 
     // Set size of column

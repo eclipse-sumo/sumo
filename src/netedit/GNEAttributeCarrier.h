@@ -85,12 +85,12 @@ public:
         ACPROPERTY_NONEDITABLE = 2048,
         ACPROPERTY_DISCRETE = 4096,
         ACPROPERTY_PROBABILITY = 8192,
-        ACPROPERTY_TIME = 1024,
-        ACPROPERTY_ANGLE = 16384,
-        ACPROPERTY_LIST = 32768,
+        ACPROPERTY_TIME = 16384,
+        ACPROPERTY_ANGLE = 32768,
+        ACPROPERTY_LIST = 65536,
 
-        ACPROPERTY_OPTIONAL = 65536,
-        ACPROPERTY_DEFAULTVALUE = 131072,
+        ACPROPERTY_OPTIONAL = 131072,
+        ACPROPERTY_DEFAULTVALUE = 262144,
     };
 
     /// @brief struct with the attribute Properties
@@ -130,7 +130,7 @@ public:
         }
 
         bool isProbability() const {
-            return (ACProp & (ACPROPERTY_PROBABILITY |  ACPROPERTY_POSITIVE)) != 0;
+            return (ACProp & ACPROPERTY_PROBABILITY) != 0;
         }
 
         bool isNumerical() const {
@@ -138,7 +138,7 @@ public:
         }
 
         bool isTime() const {
-            return (ACProp & (ACPROPERTY_TIME | ACPROPERTY_FLOAT | ACPROPERTY_POSITIVE)) != 0;
+            return (ACProp & ACPROPERTY_TIME) != 0;
         }
 
         bool isPositive() const {
@@ -146,15 +146,15 @@ public:
         }
 
         bool isColor() const {
-            return (ACProp & (ACPROPERTY_STRING | ACPROPERTY_COLOR)) != 0;
+            return (ACProp & ACPROPERTY_COLOR) != 0;
         }
 
         bool isFilename() const {
-            return (ACProp & (ACPROPERTY_STRING | ACPROPERTY_FILENAME)) != 0;
+            return (ACProp & ACPROPERTY_FILENAME) != 0;
         }
 
         bool isSVC() const {
-            return (ACProp & (ACPROPERTY_STRING | ACPROPERTY_SVCPERMISSION)) != 0;
+            return (ACProp & ACPROPERTY_SVCPERMISSION) != 0;
         }
 
         /// @brief Property of attribute
@@ -231,7 +231,7 @@ public:
     static std::string getAttributeType(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief get all editable attributes for tag and their default values.
-    static const std::vector<std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> >& allowedAttributes(SumoXMLTag tag);
+    static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& allowedAttributes(SumoXMLTag tag);
 
     /// @brief get all editable for tag elements of all types
     static std::vector<SumoXMLTag> allowedTags();
@@ -363,9 +363,9 @@ public:
             additionalOfWarningMessage = toString(tag);
         }
         // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
-        if (allowedAttributes(tag).at(attribute).second.isNumerical()) {
+        if (allowedAttributes(tag).at(attribute).isNumerical()) {
             defaultValue = "0";
-        } else if (allowedAttributes(tag).at(attribute).second.isColor()) {
+        } else if (allowedAttributes(tag).at(attribute).isColor()) {
             defaultValue = "BLACK";
         }
         // first check that attribute exists in XML
@@ -376,7 +376,7 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
                 // only set default value if this isn't a SVCPermission
-                if(!allowedAttributes(tag).at(attribute).second.isSVC()) {
+                if(!allowedAttributes(tag).at(attribute).isSVC()) {
                     parsedAttribute = defaultValue;
                 }
             }
@@ -393,11 +393,11 @@ public:
                 }
             }
             // Set extra checks for int values
-            if (allowedAttributes(tag).at(attribute).second.isInt()) {
+            if (allowedAttributes(tag).at(attribute).isInt()) {
                 if (canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = parse<int>(parsedAttribute);
-                    if (allowedAttributes(tag).at(attribute).second.isPositive() && parsedIntAttribute < 0) {
+                    if (allowedAttributes(tag).at(attribute).isPositive() && parsedIntAttribute < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -410,10 +410,10 @@ public:
                 }
             }
             // Set extra checks for float(double) values
-            if (allowedAttributes(tag).at(attribute).second.isFloat()) {
+            if (allowedAttributes(tag).at(attribute).isFloat()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to double and check if can be negative
-                    if (allowedAttributes(tag).at(attribute).second.isPositive() && parse<double>(parsedAttribute) < 0) {
+                    if (allowedAttributes(tag).at(attribute).isPositive() && parse<double>(parsedAttribute) < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -423,7 +423,7 @@ public:
                 }
             }
             // set extra check for time(double) values
-            if (allowedAttributes(tag).at(attribute).second.isTime()) {
+            if (allowedAttributes(tag).at(attribute).isTime()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -436,7 +436,7 @@ public:
                 }
             }
             // set extra check for probability values
-            if (allowedAttributes(tag).at(attribute).second.isProbability()) {
+            if (allowedAttributes(tag).at(attribute).isProbability()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -452,17 +452,17 @@ public:
                 }
             }
             // set extra check for color values
-            if (allowedAttributes(tag).at(attribute).second.isColor() && !canParse<RGBColor>(parsedAttribute)) {
+            if (allowedAttributes(tag).at(attribute).isColor() && !canParse<RGBColor>(parsedAttribute)) {
                 errorFormat = "Invalid RGB format or named color; ";
                 parsedOk = false;
             }
             // set extra check for filename values
-            if (allowedAttributes(tag).at(attribute).second.isFilename() && (isValidFilename(parsedAttribute) == false)) {
+            if (allowedAttributes(tag).at(attribute).isFilename() && (isValidFilename(parsedAttribute) == false)) {
                 errorFormat = "Filename contains invalid characters; ";
                 parsedOk = false;
             }
             // set extra check for SVCPermissions values
-            if (allowedAttributes(tag).at(attribute).second.isSVC()) {
+            if (allowedAttributes(tag).at(attribute).isSVC()) {
                 if (canParseVehicleClasses(parsedAttribute)) {
                     parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
                     parsedOk = true;
@@ -582,9 +582,8 @@ private:
     /// @brief icon associated to this AC
     GUIIcon myIcon;
 
-
     /// @brief map with the allowed attributes and their default values
-    static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
+    static std::map<SumoXMLTag, std::map<SumoXMLAttr, AttributeValues> > myAllowedAttributes;
 
     /// @brief vector with the allowed tags of netElements
     static std::vector<SumoXMLTag> myAllowedNetElementTags;

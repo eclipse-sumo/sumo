@@ -217,7 +217,7 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
     for (auto it : allACbyTag) {
         if (expr == "") {
             result.push_back(it);
-        } else if (GNEAttributeCarrier::allowedAttributes(ACTag).at(ACAttr).second.isNumerical()) {
+        } else if (GNEAttributeCarrier::allowedAttributes(ACTag).at(ACAttr).isNumerical()) {
             double acVal;
             std::istringstream buf(it->getAttribute(ACAttr));
             buf >> acVal;
@@ -595,26 +595,26 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain all item attributes vinculated with current tag
-    std::vector<std::pair <SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+    auto itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
     // Provisional
     GNEAttributeCarrier::AttributeValues defaultBoolTrue(GNEAttributeCarrier::ACProperty::ACPROPERTY_BOOL, "", "true");
     GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::ACProperty::ACPROPERTY_BOOL, "", "false");
     GNEAttributeCarrier::AttributeValues defaultEmpty(GNEAttributeCarrier::ACProperty::ACPROPERTY_STRING, "", "");
     // add extra attribute if item can block movement
     if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_BLOCK_MOVEMENT, defaultBoolFalse));
+        itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);
     }
     // add extra attribute if item can block shape
     if(GNEAttributeCarrier::canBlockShape(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_BLOCK_SHAPE, defaultBoolFalse));
+        itemAttrs[GNE_ATTR_BLOCK_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);
     }
     // add extra attribute if item can close shape
     if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_CLOSE_SHAPE, defaultBoolTrue));
+        itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolTrue);
     }
     // add extra attribute if item can have parent
     if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
-        itemAttrs.push_back(std::pair<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>(GNE_ATTR_PARENT, defaultEmpty));
+        itemAttrs[GNE_ATTR_PARENT] = GNEAttributeCarrier::AttributeValues(defaultEmpty);
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
@@ -643,7 +643,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
     if (expr == "") {
         // the empty expression matches all objects
         mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (GNEAttributeCarrier::allowedAttributes(myCurrentTag).at(myCurrentAttribute).second.isNumerical()) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myCurrentTag).at(myCurrentAttribute).isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val
