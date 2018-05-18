@@ -642,11 +642,11 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
         restriction->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 2, restriction);
         // Set definition
-        FXTableItem* definition = new FXTableItem(i.second.definition.c_str());
+        FXTableItem* definition = new FXTableItem(i.second.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 3, definition);
-        if ((int)(i.second.definition.size()) > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = (int)(i.second.definition.size());
+        if ((int)(i.second.getDefinition().size()) > maxSizeColumnDefinitions) {
+            maxSizeColumnDefinitions = (int)(i.second.getDefinition().size());
         }
         itemIndex++;
     }

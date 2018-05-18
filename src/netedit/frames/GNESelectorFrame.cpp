@@ -597,9 +597,9 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     // first obtain all item attributes vinculated with current tag
     auto itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
     // Provisional
-    GNEAttributeCarrier::AttributeValues defaultBoolTrue(GNEAttributeCarrier::ACProperty::ACPROPERTY_BOOL, "", "true");
-    GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::ACProperty::ACPROPERTY_BOOL, "", "false");
-    GNEAttributeCarrier::AttributeValues defaultEmpty(GNEAttributeCarrier::ACProperty::ACPROPERTY_STRING, "", "");
+    GNEAttributeCarrier::AttributeValues defaultBoolTrue(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");
+    GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
+    GNEAttributeCarrier::AttributeValues defaultEmpty(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
     // add extra attribute if item can block movement
     if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
         itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);

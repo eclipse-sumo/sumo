@@ -68,171 +68,118 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
 
 public:
+    enum TAGProperty {
+        TAGPROPERTY_NETELEMENT = 1,
+        TAGPROPERTY_ADDITIONAL = 2,
+        TAGPROPERTY_SHAPE = 4,
+        TAGPROPERTY_ROUTEELEMENT = 8,
 
-    enum ACProperty {
-        ACPROPERTY_INT = 1,
-        ACPROPERTY_FLOAT = 2,
-        ACPROPERTY_BOOL = 4,
-        ACPROPERTY_STRING = 8,
-        ACPROPERTY_POSITION = 16,
+        TAGPROPERTY_BLOCKMOVEMENT = 16,
 
-        ACPROPERTY_COLOR = 64,
-        ACPROPERTY_SVCPERMISSION = 128,
-        ACPROPERTY_POSITIVE = 256,
-        ACPROPERTY_UNIQUE = 512,
-        ACPROPERTY_FILENAME = 1024,
-        ACPROPERTY_NONEDITABLE = 2048,
-        ACPROPERTY_DISCRETE = 4096,
-        ACPROPERTY_PROBABILITY = 8192,
-        ACPROPERTY_TIME = 16384,
-        ACPROPERTY_ANGLE = 32768,
-        ACPROPERTY_LIST = 65536,
-
-        ACPROPERTY_OPTIONAL = 131072,
-        ACPROPERTY_DEFAULTVALUE = 262144,
+        TAGPROPERTY_BLOCKSHAPE = 64,
+        TAGPROPERTY_CLOSESHAPE = 128,
+        TAGPROPERTY_GEOPOSITION = 256,
+        TAGPROPERTY_GEOSHAPE = 512,
+        TAGPROPERTY_DIALOG = 1024,
+        TAGPROPERTY_PARENT = 2048,
     };
 
     /// @brief struct with the attribute Properties
-    struct AttributeValues {
-
+    class TagValues {
+    public:
         /// @brief default constructor
-        AttributeValues() :
-            ACProp(ACPROPERTY_INT),
-            definition(""),
-            defaultValue("") {}
+        TagValues() :
+            myTagProperty(TAGPROPERTY_NETELEMENT) {}
 
         /// @brief parameter constructor
-        AttributeValues(int _ACProp, const std::string &_definition, const std::string &_defaultValue) :
-            ACProp(_ACProp),
-            definition(_definition),
-            defaultValue(_defaultValue) {}
-
-        /// get restriction
-        std::string getRestriction() const {
-            return "";
-        }
-
-        std::string getType() const {
-            std::string pre;
-            std::string type;
-            std::string plural;
-            // pre type
-            if((ACProp & ACPROPERTY_LIST) != 0) {
-                pre += "list of ";
-                plural = "s";
-            }
-            if((ACProp & ACPROPERTY_POSITIVE) != 0) {
-                pre += "positive ";
-            }
-            if((ACProp & ACPROPERTY_NONEDITABLE) != 0) {
-                pre += "non editable ";
-            }
-            if((ACProp & ACPROPERTY_DISCRETE) != 0) {
-                pre += "discrete ";
-            }
-            if((ACProp & ACPROPERTY_OPTIONAL) != 0) {
-                pre += "optional ";
-            }
-            // type
-            if((ACProp & ACPROPERTY_INT) != 0) {
-                type += "integer";
-            }
-            if((ACProp & ACPROPERTY_FLOAT) != 0) {
-                type += "float";
-            }
-            if((ACProp & ACPROPERTY_BOOL) != 0) {
-                type += "boolean";
-            }
-            if((ACProp & ACPROPERTY_STRING) != 0) {
-                type += "string";
-            }
-            if((ACProp & ACPROPERTY_POSITION) != 0) {
-                type += "position";
-            }
-            if((ACProp & ACPROPERTY_COLOR) != 0) {
-                type += "color";
-            }
-            if((ACProp & ACPROPERTY_SVCPERMISSION) != 0) {
-                type += "VClasses";
-            }
-            if((ACProp & ACPROPERTY_UNIQUE) != 0) {
-                type += "unique";
-            }
-            if((ACProp & ACPROPERTY_FILENAME) != 0) {
-                type += "filename";
-            }
-            if((ACProp & ACPROPERTY_PROBABILITY) != 0) {
-                type += "probability";
-            }
-            if((ACProp & ACPROPERTY_TIME) != 0) {
-                type += "time";
-            }
-            if((ACProp & ACPROPERTY_ANGLE) != 0) {
-                type += "angle";
-            }
-            return pre + type + plural;
-        }
-
-        bool isInt() const {
-            return (ACProp & ACPROPERTY_INT) != 0;
-        }
-
-        bool isFloat() const {
-            return (ACProp & ACPROPERTY_FLOAT) != 0;
-        }
-
-        bool isBool() const {
-            return (ACProp & ACPROPERTY_BOOL) != 0;
-        }
-
-        bool isString() const {
-            return (ACProp & ACPROPERTY_STRING) != 0;
-        }
-
-        bool isProbability() const {
-            return (ACProp & ACPROPERTY_PROBABILITY) != 0;
-        }
-
-        bool isNumerical() const {
-            return (ACProp & (ACPROPERTY_INT | ACPROPERTY_FLOAT)) != 0;
-        }
-
-        bool isTime() const {
-            return (ACProp & ACPROPERTY_TIME) != 0;
-        }
-
-        bool isPositive() const {
-            return (ACProp & ACPROPERTY_POSITIVE) != 0;
-        }
-
-        bool isColor() const {
-            return (ACProp & ACPROPERTY_COLOR) != 0;
-        }
-
-        bool isFilename() const {
-            return (ACProp & ACPROPERTY_FILENAME) != 0;
-        }
-
-        bool isSVC() const {
-            return (ACProp & ACPROPERTY_SVCPERMISSION) != 0;
-        }
-
-        bool isList() const {
-            return (ACProp & ACPROPERTY_LIST) != 0;
-        }
-
-        bool isUnique() const {
-            return (ACProp & ACPROPERTY_UNIQUE) != 0;
-        }
-
+        TagValues(int tagProperty) :
+            myTagProperty(tagProperty) {}
+    private:
         /// @brief Property of attribute
-        int ACProp;
+        int myTagProperty;
+    };
+
+
+    enum AttrProperty {
+        ATTRPROPERTY_INT = 1,
+        ATTRPROPERTY_FLOAT = 2,
+        ATTRPROPERTY_BOOL = 4,
+        ATTRPROPERTY_STRING = 8,
+        ATTRPROPERTY_POSITION = 16,
+
+        ATTRPROPERTY_COLOR = 64,
+        ATTRPROPERTY_SVCPERMISSION = 128,
+        ATTRPROPERTY_POSITIVE = 256,
+        ATTRPROPERTY_UNIQUE = 512,
+        ATTRPROPERTY_FILENAME = 1024,
+        ATTRPROPERTY_NONEDITABLE = 2048,
+        ATTRPROPERTY_DISCRETE = 4096,
+        ATTRPROPERTY_PROBABILITY = 8192,
+        ATTRPROPERTY_TIME = 16384,
+        ATTRPROPERTY_ANGLE = 32768,
+        ATTRPROPERTY_LIST = 65536,
+
+        ATTRPROPERTY_OPTIONAL = 131072,
+        ATTRPROPERTY_DEFAULTVALUE = 262144,
+    };
+
+    /// @brief struct with the attribute Properties
+    class AttributeValues {
+    public:
+        /// @brief default constructor
+        AttributeValues();
+
+        /// @brief parameter constructor
+        AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue);
+
+        /// @brief get restriction
+        std::string getRestriction() const;
+
+        /// brief get default value
+        const std::string &getDefinition() const;
+
+        /// brief get default value
+        const std::string &getDefaultValue() const;
+
+        std::string getType() const;
+
+        bool isInt() const;
+
+        bool isFloat() const;
+
+        bool isBool() const;
+
+        bool isString() const;
+
+        bool isProbability() const;
+
+        bool isNumerical() const;
+
+        bool isTime() const;
+
+        bool isPositive() const;
+
+        bool isColor() const;
+
+        bool isFilename() const;
+
+        bool isSVC() const;
+
+        bool isList() const;
+
+        bool isUnique() const;
+
+        bool isOptional() const;
+
+    private:
+        /// @brief Property of attribute
+        int myAttributeProperty;
 
         /// @brief text with a definition of attribute
-        std::string definition;
+        std::string myDefinition;
 
         /// @brief default value 
-        std::string defaultValue;
+        std::string myDefaultValue;
     };
 
     /**@brief Constructor
@@ -642,7 +589,7 @@ private:
     GUIIcon myIcon;
 
     /// @brief map with the allowed attributes and their default values
-    static std::map<SumoXMLTag, std::map<SumoXMLAttr, AttributeValues> > myAllowedAttributes;
+    static std::map<SumoXMLTag, std::pair<TagValues, std::map<SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
 
     /// @brief vector with the allowed tags of netElements
     static std::vector<SumoXMLTag> myAllowedNetElementTags;
@@ -682,9 +629,6 @@ private:
 
     /// @brief maximum number of attributes of all tags
     static int myMaxNumAttribute;
-
-    /// @brief set Attr definition
-    static std::pair<std::string, std::string> setAttrDefinition(const std::string &definition, const std::string &restriction = "");
 
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;
