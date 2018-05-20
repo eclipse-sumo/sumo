@@ -67,6 +67,7 @@ dist-hook:
 	    find data -regex ".*\.\(xsd\|xml\|csv\|veh\|obj\|mtl\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find tools -regex ".*\.\(py\|pl\|xml\|sumocfg\|gif\|html\|png\|js\|css\)" -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
 	    find . -name CMakeLists.txt -print0 | xargs -0 cp --parents --target-directory $(abs_distdir) ; \
+	    cp --parents src/*.cmake $(abs_distdir) ; \
 	fi;
 
 dist-doc: doc
