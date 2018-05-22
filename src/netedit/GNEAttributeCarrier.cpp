@@ -46,10 +46,7 @@
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::pair<GNEAttributeCarrier::TagValues, std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > > GNEAttributeCarrier::myAllowedAttributes;
-std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
-std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 int GNEAttributeCarrier::myMaxNumAttribute = 0;
 
 const std::string GNEAttributeCarrier::LOADED = "loaded";
@@ -155,10 +152,11 @@ GNEAttributeCarrier::AttributeValues::AttributeValues() :
     myDefaultValue("") {}
 
 
-GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue) :
+GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues) :
     myAttributeProperty(attributeProperty),
     myDefinition(definition),
-    myDefaultValue(defaultValue) {}
+    myDefaultValue(defaultValue),
+    myDiscreteValues(discreteValues) {}
 
 
 std::string 
@@ -316,6 +314,18 @@ GNEAttributeCarrier::AttributeValues::isUnique() const {
 bool 
 GNEAttributeCarrier::AttributeValues::isOptional() const {
     return (myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::AttributeValues::isDiscrete() const {
+    return (myAttributeProperty & ATTRPROPERTY_DISCRETE) != 0;
+}
+
+
+const std::vector<std::string> &
+GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
+    return myDiscreteValues;
 }
 
 // ---------------------------------------------------------------------------
@@ -527,6 +537,9 @@ const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>&
 GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
     // define on first access
     if (!myAllowedAttributes.count(tag)) {
+        // obtain Node Types except NODETYPE_DEAD_END_DEPRECATED
+        std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
+        nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(NODETYPE_DEAD_END_DEPRECATED)));
         switch (tag) {
             case SUMO_TAG_EDGE:
                 // set values of tag
@@ -561,13 +574,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "The name of a type within the SUMO edge type file", 
                     "");
                 myAllowedAttributes[tag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE, 
                     "Explicitly allows the given vehicle classes (not given will be not allowed)", 
-                    "all");
+                    "all",
+                    SumoVehicleClassStrings.getStrings());
                 myAllowedAttributes[tag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE, 
                     "Explicitly disallows the given vehicle classes (not given will be allowed)", 
-                    "");
+                    "",
+                    SumoVehicleClassStrings.getStrings());
                 //myAllowedAttributes[tag].second[SUMO_ATTR_PREFER, );
                 myAllowedAttributes[tag].second[SUMO_ATTR_SHAPE] = AttributeValues(
                     ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 
@@ -578,9 +593,10 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "The length of the edge in meter", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag].second[SUMO_ATTR_SPREADTYPE] = AttributeValues(
-                    ATTRPROPERTY_STRING, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE, 
                     "Lane width for all lanes of this edge in meters (used for visualization)", 
-                    "right");
+                    "right",
+                    SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
                 myAllowedAttributes[tag].second[SUMO_ATTR_NAME] = AttributeValues(
                     ATTRPROPERTY_STRING, 
                     "street name (need not be unique, used for visualization)", 
@@ -619,9 +635,10 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "The x-y-z position of the node on the plane in meters", 
                     NODEFAULTVALUE); 
                 myAllowedAttributes[tag].second[SUMO_ATTR_TYPE] = AttributeValues(
-                    ATTRPROPERTY_STRING, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE, 
                     "An optional type for the node", 
-                    "");
+                    "",
+                    nodeTypes);
                 myAllowedAttributes[tag].second[SUMO_ATTR_SHAPE] = AttributeValues(
                     ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 
                     "A custom shape for that node", 
@@ -635,9 +652,10 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "Whether the junction-blocking-heuristic should be activated at this node", 
                     "1");
                 myAllowedAttributes[tag].second[SUMO_ATTR_TLTYPE] = AttributeValues(
-                    ATTRPROPERTY_STRING, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE, 
                     "An optional type for the traffic light algorithm", 
-                    "");
+                    "",
+                    SUMOXMLDefinitions::TrafficLightTypes.getStrings());
                 myAllowedAttributes[tag].second[SUMO_ATTR_TLID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
                     "An optional id for the traffic light program", 
@@ -656,13 +674,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "Speed in meters per second", 
                     "13.89");
                 myAllowedAttributes[tag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE, 
                     "Explicitly allows the given vehicle classes (not given will be not allowed)", 
-                    "all");
+                    "all",
+                    SumoVehicleClassStrings.getStrings());
                 myAllowedAttributes[tag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE, 
                     "Explicitly disallows the given vehicle classes (not given will be allowed)", 
-                    "");
+                    "",
+                    SumoVehicleClassStrings.getStrings());
                 //myAllowedAttributes[tag].second[SUMO_ATTR_PREFER, );
                 myAllowedAttributes[tag].second[SUMO_ATTR_WIDTH] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 
@@ -681,7 +701,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "If the shape is given it overrides the computation based on edge shape", 
                     "");
                 myAllowedAttributes[tag].second[SUMO_ATTR_INDEX] = AttributeValues(
-                    ATTRPROPERTY_INT,
+                    ATTRPROPERTY_INT | ATTRPROPERTY_NONEDITABLE,
                     "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)", 
                     NODEFAULTVALUE);
                 break;
@@ -829,7 +849,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 
                     "The ID of Crossing", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag].second[SUMO_ATTR_EDGES] = AttributeValues(
@@ -862,19 +882,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_NETELEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_FROM] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 
                     "The name of the edge the vehicles leave", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag].second[SUMO_ATTR_TO] = AttributeValues(
-                    ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 
                     "The name of the edge the vehicles may reach when leaving 'from'", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag].second[SUMO_ATTR_FROM_LANE] = AttributeValues(
-                    ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE, 
+                    ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 
                     "the lane index of the incoming lane (numbers starting with 0)", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag].second[SUMO_ATTR_TO_LANE] = AttributeValues(
-                    ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE, 
+                    ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 
                     "the lane index of the outgoing lane (numbers starting with 0)", 
                     NODEFAULTVALUE);
                 myAllowedAttributes[tag].second[SUMO_ATTR_PASS] = AttributeValues(
@@ -1185,7 +1205,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_VSS:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1206,7 +1226,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CALIBRATOR:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1235,7 +1255,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_LANECALIBRATOR:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1264,7 +1284,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_REROUTER:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1562,17 +1582,19 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                     "This vehicle type's color", 
                     "1,1,0");
                 myAllowedAttributes[tag].second[SUMO_ATTR_VCLASS] = AttributeValues(
-                    ATTRPROPERTY_STRING, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE, 
                     "An abstract vehicle class", 
-                    "passenger");
+                    "passenger",
+                    SumoVehicleShapeStrings.getStrings());
                 myAllowedAttributes[tag].second[SUMO_ATTR_EMISSIONCLASS] = AttributeValues(
                     ATTRPROPERTY_STRING, 
                     "An abstract emission class", 
                     "P_7_7");
                 myAllowedAttributes[tag].second[SUMO_ATTR_GUISHAPE] = AttributeValues(
-                    ATTRPROPERTY_STRING, 
+                    ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE, 
                     "How this vehicle is rendered", 
-                    "passenger");
+                    "passenger",
+                    SumoVehicleShapeStrings.getStrings());
                 myAllowedAttributes[tag].second[SUMO_ATTR_WIDTH] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 
                     "The vehicle's width [m] (only used for drawing)", 
@@ -1806,47 +1828,6 @@ GNEAttributeCarrier::allowedShapeTags() {
 
 
 bool
-GNEAttributeCarrier::canOpenDialog(SumoXMLTag tag) {
-    // define on first access
-    if (myDialogTags.empty()) {
-        myDialogTags.push_back(SUMO_TAG_CALIBRATOR);
-        myDialogTags.push_back(SUMO_TAG_LANECALIBRATOR);
-        myDialogTags.push_back(SUMO_TAG_REROUTER);
-        myDialogTags.push_back(SUMO_TAG_VSS);
-    }
-    return std::find(myDialogTags.begin(), myDialogTags.end(), tag) != myDialogTags.end();
-}
-
-
-bool
-GNEAttributeCarrier::isDiscrete(SumoXMLTag tag, SumoXMLAttr attr) {
-    if (discreteChoices(tag, attr).size() > 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEAttributeCarrier::isNonEditable(SumoXMLTag tag, SumoXMLAttr attr) {
-    // define on first access
-    if (myNonEditableAttrs.empty()) {
-        // connection
-        myNonEditableAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM);
-        myNonEditableAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_FROM_LANE);
-        myNonEditableAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO);
-        myNonEditableAttrs[SUMO_TAG_CONNECTION].insert(SUMO_ATTR_TO_LANE);
-        // crossing
-        myNonEditableAttrs[SUMO_TAG_CROSSING].insert(SUMO_ATTR_ID);
-        // lane
-        myNonEditableAttrs[SUMO_TAG_LANE].insert(SUMO_ATTR_INDEX);
-    }
-    return myNonEditableAttrs[tag].count(attr) == 1;
-}
-
-
-bool
 GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
     for (auto i : allowedAttributes(tag)) {
         if (i.first == attr) {
@@ -1866,64 +1847,6 @@ GNEAttributeCarrier::hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
     }
     throw ProcessError("Attribute '" + toString(attr) + "' for tag '" + toString(tag) + "' not defined");
 }
-
-
-const std::vector<std::string>&
-GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
-    // define on first access
-    if (myDiscreteChoices.empty()) {
-        std::vector<std::string> choices;
-        // Get type of nodes
-        choices = SUMOXMLDefinitions::NodeTypes.getStrings();
-        for (auto it : choices) {
-            if (it != toString(NODETYPE_DEAD_END_DEPRECATED)) {
-                // junction
-                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TYPE].push_back(it);
-            }
-        }
-        // Get types of traffic lights
-        choices = SUMOXMLDefinitions::TrafficLightTypes.getStrings();
-        for (auto it : choices) {
-            if (it != toString(TLTYPE_INVALID)) {
-                // junction
-                myDiscreteChoices[SUMO_TAG_JUNCTION][SUMO_ATTR_TLTYPE].push_back(it);
-            }
-        }
-        // get type of lane spread functions
-        choices = SUMOXMLDefinitions::LaneSpreadFunctions.getStrings();
-        for (auto it : choices) {
-            // edge
-            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_SPREADTYPE].push_back(it);
-        }
-        // get vehicle types
-        choices = SumoVehicleClassStrings.getStrings();
-        for (auto it : choices) {
-            // edge
-            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_ALLOW].push_back(it);
-            myDiscreteChoices[SUMO_TAG_EDGE][SUMO_ATTR_DISALLOW].push_back(it);
-            // lane
-            myDiscreteChoices[SUMO_TAG_LANE][SUMO_ATTR_ALLOW].push_back(it);
-            myDiscreteChoices[SUMO_TAG_LANE][SUMO_ATTR_DISALLOW].push_back(it);
-            // vehicle type
-            myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_VCLASS].push_back(it);
-        }
-        // get vehicle shapes
-        choices = SumoVehicleShapeStrings.getStrings();
-        for (auto it : choices) {
-            // vehicle type
-            myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_GUISHAPE].push_back(it);
-        }
-        // lat alignments of vehicle types
-        myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("left");
-        myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("right");
-        myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("center");
-        myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("compact");
-        myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("nice");
-        myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("arbitrary");
-    }
-    return myDiscreteChoices[tag][attr];
-}
-
 
 bool
 GNEAttributeCarrier::discreteCombinableChoices(SumoXMLAttr attr) {

@@ -259,7 +259,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildSelectionPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
-    if (canOpenDialog(getTag())) {
+    if (getTagProperties(getTag()).hasDialog()) {
         new FXMenuCommand(ret, ("Open " + toString(getTag()) + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }

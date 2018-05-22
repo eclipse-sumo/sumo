@@ -376,11 +376,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         }
         // show check button
         myBoolCheckButton->show();
-    } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
-        // Obtain choices
-        const std::vector<std::string> choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
-        // Check if are combinable coices
-        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
+        // Check if are combinable choices
+        if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // hide label
             myLabel->hide();
             // Show button combinable choices
@@ -393,11 +391,11 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         } else {
             // fill comboBox
             myChoicesCombo->clearItems();
-            for (auto it : choices) {
+            for (auto it : GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues()) {
                 myChoicesCombo->appendItem(it.c_str());
             }
             // show combo box with values
-            myChoicesCombo->setNumVisible((int)choices.size());
+            myChoicesCombo->setNumVisible((int)GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues().size());
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
@@ -513,11 +511,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myBoolCheckButton->setText("false");
             newVal = "false";
         }
-    } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
-        // Obtain choices
-        const std::vector<std::string>& choices = GNEAttributeCarrier::discreteChoices(myTag, myAttr);
+    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
         // Check if are combinable choices (for example, Vehicle Types)
-        if (choices.size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // Get value obtained using AttributesEditor
             newVal = myTextFieldStrings->getText().text();
         } else {
@@ -580,7 +576,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
             myAttributesEditorParent->refreshAttributeEditor(false, false);
-        } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+        } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->killFocus();
         } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isTime())) {
@@ -603,7 +599,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
             myTextFieldStrings->killFocus();
-        } else if (GNEAttributeCarrier::isDiscrete(myTag, myAttr)) {
+        } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
             myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
             myChoicesCombo->killFocus();
         } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isTime())) {

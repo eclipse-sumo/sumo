@@ -1831,7 +1831,7 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     // retrieve additional under cursor
     GNEAdditional* addtional = getAdditionalAtPopupPosition();
     // check if additional can open dialog
-    if (addtional && GNEAttributeCarrier::canOpenDialog(addtional->getTag())) {
+    if (addtional && GNEAttributeCarrier::getTagProperties(addtional->getTag()).hasDialog()) {
         addtional->openAdditionalDialog();
     }
     return 1;

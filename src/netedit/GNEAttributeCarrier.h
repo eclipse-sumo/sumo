@@ -155,7 +155,7 @@ public:
         AttributeValues();
 
         /// @brief parameter constructor
-        AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue);
+        AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
 
         /// @brief get restriction
         std::string getRestriction() const;
@@ -196,6 +196,10 @@ public:
 
         bool isOptional() const;
 
+        bool isDiscrete() const;
+
+        const std::vector<std::string> &getDiscreteValues() const;
+
     private:
         /// @brief Property of attribute
         int myAttributeProperty;
@@ -205,6 +209,9 @@ public:
 
         /// @brief default value 
         std::string myDefaultValue;
+
+        /// @brief discrete values
+        std::vector<std::string> myDiscreteValues;
     };
 
     /**@brief Constructor
@@ -285,23 +292,11 @@ public:
     /// @brief get all editable for tag shape elements
     static const std::vector<SumoXMLTag>& allowedShapeTags();
 
-    /// @brief return true if element tag can open a values editor
-    static bool canOpenDialog(SumoXMLTag tag);
-
-    /// @brief whether an attribute is Discrete
-    static bool isDiscrete(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief whether an attribute is non editable
-    static bool isNonEditable(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief check if an element with certain tag has a certain attribute
     static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief check if attribute of an element has a default avlue
     static bool hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief return a list of discrete choices for this attribute or an empty vector
-    static const std::vector<std::string>& discreteChoices(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief return whether the given attribute allows for a combination of discrete values
     static bool discreteCombinableChoices(SumoXMLAttr attr);
@@ -606,15 +601,6 @@ private:
 
     /// @brief vector with the allowed tags of shapes
     static std::vector<SumoXMLTag> myAllowedShapeTags;
-
-    /// @brief vector with the allowed tags that has a editor values
-    static std::vector<SumoXMLTag> myDialogTags;
-
-    /// @brief map with the non-editable attributes
-    static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNonEditableAttrs;
-
-    /// @brief map with the values of discrete choices
-    static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > myDiscreteChoices;
 
     /// @brief maximum number of attributes of all tags
     static int myMaxNumAttribute;
