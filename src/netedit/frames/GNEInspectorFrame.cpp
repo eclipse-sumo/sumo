@@ -365,7 +365,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     myLabel->setText(toString(myAttr).c_str());
     myLabel->show();
     // Set field depending of the type of value
-    if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isBool()) {
+    if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isBool()) {
         // set check button
         if (GNEAttributeCarrier::parseStringToANDBool(value)) {
             myBoolCheckButton->setCheck(true);
@@ -376,9 +376,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         }
         // show check button
         myBoolCheckButton->show();
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
         // Check if are combinable choices
-        if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // hide label
             myLabel->hide();
             // Show button combinable choices
@@ -391,21 +391,21 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         } else {
             // fill comboBox
             myChoicesCombo->clearItems();
-            for (auto it : GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues()) {
+            for (auto it : GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues()) {
                 myChoicesCombo->appendItem(it.c_str());
             }
             // show combo box with values
-            myChoicesCombo->setNumVisible((int)GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues().size());
+            myChoicesCombo->setNumVisible((int)GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size());
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isTime()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isFloat() || GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isTime()) {
         // show TextField for real/time values
         myTextFieldReal->setText(value.c_str());
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myTextFieldReal->show();
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isInt()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isInt()) {
         // Show textField for int attributes
         myTextFieldInt->setText(value.c_str());
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
@@ -502,7 +502,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     std::string newVal;
     bool refreshGEOAndNeteditEditors = false;
     // First, obtain the string value of the new attribute depending of their type
-    if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isBool()) {
+    if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isBool()) {
         // Set true o false depending of the checkBox
         if (myBoolCheckButton->getCheck()) {
             myBoolCheckButton->setText("true");
@@ -511,36 +511,36 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myBoolCheckButton->setText("false");
             newVal = "false";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
         // Check if are combinable choices (for example, Vehicle Types)
-        if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             // Get value obtained using AttributesEditor
             newVal = myTextFieldStrings->getText().text();
         } else {
             // Get value of ComboBox
             newVal = myChoicesCombo->getText().text();
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isTime()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isFloat() || GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isTime()) {
         // Check if default value of attribute must be set
-        if (myTextFieldReal->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+        if (myTextFieldReal->getText().empty() && GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).hasDefaultValue()) {
             newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
             myTextFieldReal->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldReal
             newVal = myTextFieldReal->getText().text();
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isInt()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isInt()) {
         // Check if default value of attribute must be set
-        if (myTextFieldInt->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+        if (myTextFieldInt->getText().empty() && GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).hasDefaultValue()) {
             newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
             myTextFieldInt->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldInt
             newVal = myTextFieldInt->getText().text();
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isString()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isString()) {
         // Check if default value of attribute must be set
-        if (myTextFieldStrings->getText().empty() && GNEAttributeCarrier::hasDefaultValue(myTag, myAttr)) {
+        if (myTextFieldStrings->getText().empty() && GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).hasDefaultValue()) {
             newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
             myTextFieldStrings->setText(newVal.c_str());
         } else {
@@ -576,13 +576,13 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
             myAttributesEditorParent->refreshAttributeEditor(false, false);
-        } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
+        } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->killFocus();
-        } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isTime())) {
+        } else if ((GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isFloat() || GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isTime())) {
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myTextFieldReal->killFocus();
-        } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isInt() && myTextFieldStrings != 0) {
+        } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isInt() && myTextFieldStrings != 0) {
             myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
             myTextFieldInt->killFocus();
         } else if (myTextFieldStrings != 0) {
@@ -599,12 +599,12 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
             myTextFieldStrings->killFocus();
-        } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isDiscrete()) {
+        } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
             myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
             myChoicesCombo->killFocus();
-        } else if ((GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isFloat() || GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isTime())) {
+        } else if ((GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isFloat() || GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isTime())) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
-        } else if (GNEAttributeCarrier::allowedAttributes(myTag).at(myAttr).isInt() && myTextFieldStrings != 0) {
+        } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isInt() && myTextFieldStrings != 0) {
             myTextFieldInt->setTextColor(FXRGB(255, 0, 0));
         } else if (myTextFieldStrings != 0) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
@@ -679,7 +679,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::allowedAttributes(ACFrontTag).at(it).isUnique()) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::getAttributeProperties(ACFrontTag, it).isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
@@ -743,7 +743,7 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         // Iterate over attributes
         for (auto it : ACFrontAttrs) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::allowedAttributes(ACFrontTag).at(it).isUnique()) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::getAttributeProperties(ACFrontTag, it).isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item

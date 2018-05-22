@@ -167,9 +167,9 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         // Clear internal attributes
         myAdditionalFrameParent->getAdditionalParameters()->clearAttributes();
         // iterate over attributes of myCurrentAdditionalType
-        for (auto i : GNEAttributeCarrier::allowedAttributes(myCurrentAdditionalType)) {
+        for (auto i : GNEAttributeCarrier::getAttributes(myCurrentAdditionalType)) {
             // only show attributes that aren't uniques
-            if (!GNEAttributeCarrier::allowedAttributes(myCurrentAdditionalType).at(i.first).isUnique()) {
+            if (!GNEAttributeCarrier::getAttributeProperties(myCurrentAdditionalType, i.first).isUnique()) {
                 myAdditionalFrameParent->getAdditionalParameters()->addAttribute(i.first);
             } else if (i.first == SUMO_ATTR_ENDPOS) {
                 myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(true);
@@ -333,12 +333,12 @@ GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
 
 std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
-    if (GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).isBool()) {
+    if (GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if (GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).isInt()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isInt()) {
         return myTextFieldInt->getText().text();
-    } else if (GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).isFloat() || 
-               GNEAttributeCarrier::allowedAttributes(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).at(myAdditionalAttr).isTime()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isFloat() || 
+               GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isTime()) {
         return myTextFieldReal->getText().text();
     } else {
         return myTextFieldStrings->getText().text();
@@ -359,23 +359,23 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
     // obtain current additional tag
     SumoXMLTag additionalTag = myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType();
     // Check if format of current value of myTextField is correct
-    if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isInt()) {
+    if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
             // convert string to int
             int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
             // Check if int value must be positive
-            if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isPositive() && (intValue < 0)) {
+            if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isPositive() && (intValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             }
             // special case for optional attributes (#4047)
-            if ((intValue == -1) && GNEAttributeCarrier::hasDefaultValue(additionalTag, myAdditionalAttr) &&
+            if ((intValue == -1) && GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).hasDefaultValue() &&
                 GNEAttributeCarrier::getDefaultValue<std::string>(additionalTag, myAdditionalAttr) == "-1"){
                 myInvalidValue.clear();
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isTime()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isTime()) {
         // time attributes work as positive doubles
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
@@ -385,33 +385,33 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             } 
             // special case for optional attributes (#4047)
-            if ((doubleValue == -1) && GNEAttributeCarrier::hasDefaultValue(additionalTag, myAdditionalAttr) &&
+            if ((doubleValue == -1) && GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).hasDefaultValue() &&
                 GNEAttributeCarrier::getDefaultValue<std::string>(additionalTag, myAdditionalAttr) == "-1"){
                 myInvalidValue.clear();
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isFloat()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isFloat()) {
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if double value must be positive
-            if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isPositive() && (doubleValue < 0)) {
+            if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isPositive() && (doubleValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
                 // check if double value is a probability
-            } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
+            } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' takes only values between 0 and 1";
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'float' format";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isFilename()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isFilename()) {
         // check if filename format is valid
         if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
-    } else if (GNEAttributeCarrier::allowedAttributes(additionalTag).at(myAdditionalAttr).isSVC()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isSVC()) {
         // check if lists of Vclass are valid
         if (canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "list of VClass isn't valid";
@@ -607,7 +607,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
     // obtain parameter type
     SumoXMLTag currentType = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
     // If  parameter is of type list
-    if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).isList()) {
+    if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isList()) {
         // If parameter can be show
         if (myIndexParameterList < myMaxNumberOfListParameters) {
             myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle));
@@ -618,11 +618,11 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
         }
     } else {
         if (myIndexParameter < myMaxNumberOfParameters) {
-            if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).isBool()) {
+            if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isBool()) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentType, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).isInt()) {
+            } else if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isInt()) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentType, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).isFloat() || GNEAttributeCarrier::allowedAttributes(currentType).at(AdditionalAttributeSingle).isTime()) {
+            } else if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isFloat() || GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isTime()) {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentType, AdditionalAttributeSingle));
             } else {
                 myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentType, AdditionalAttributeSingle));

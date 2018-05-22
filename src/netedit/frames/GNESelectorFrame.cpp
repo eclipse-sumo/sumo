@@ -217,7 +217,7 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
     for (auto it : allACbyTag) {
         if (expr == "") {
             result.push_back(it);
-        } else if (GNEAttributeCarrier::allowedAttributes(ACTag).at(ACAttr).isNumerical()) {
+        } else if (GNEAttributeCarrier::getAttributeProperties(ACTag, ACAttr).isNumerical()) {
             double acVal;
             std::istringstream buf(it->getAttribute(ACAttr));
             buf >> acVal;
@@ -559,7 +559,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchString->enable();
         myMatchAttrComboBox->clearItems();
         // fill attribute combo box
-        for (auto it : GNEAttributeCarrier::allowedAttributes(myCurrentTag)) {
+        for (auto it : GNEAttributeCarrier::getAttributes(myCurrentTag)) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
         // check if item can block movement
@@ -595,7 +595,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain all item attributes vinculated with current tag
-    auto itemAttrs = GNEAttributeCarrier::allowedAttributes(myCurrentTag);
+    auto itemAttrs = GNEAttributeCarrier::getAttributes(myCurrentTag);
     // Provisional
     GNEAttributeCarrier::AttributeValues defaultBoolTrue(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");
     GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
@@ -643,7 +643,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
     if (expr == "") {
         // the empty expression matches all objects
         mySelectorFrameParent->handleIDs(mySelectorFrameParent->getMatches(myCurrentTag, myCurrentAttribute, '@', 0, expr));
-    } else if (GNEAttributeCarrier::allowedAttributes(myCurrentTag).at(myCurrentAttribute).isNumerical()) {
+    } else if (GNEAttributeCarrier::getAttributeProperties(myCurrentTag, myCurrentAttribute).isNumerical()) {
         // The expression must have the form
         //  <val matches if attr < val
         //  >val matches if attr > val

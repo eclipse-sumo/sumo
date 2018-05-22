@@ -94,28 +94,40 @@ public:
         /// @brief parameter constructor
         TagValues(int tagProperty, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
 
+        /// @brief return true if tag correspond to a netElement
         bool isNetElement() const;
 
+        /// @brief return true if tag correspond to an additional
         bool isAdditional() const;
 
+        /// @brief return true if tag correspond to a shape
         bool isShape() const;
 
+        /// @brief return true if tag correspond to an internal element (i.e. Cannot be created using frames)
         bool isInternal() const;
 
+        /// @brief return true if tag correspond to an element that can block their movement
         bool canBlockMovement() const;
 
+        /// @brief return true if tag correspond to an element that can block their shape
         bool canBlockShape() const;
 
+        /// @brief return true if tag correspond to an element that can close their shape
         bool canCloseShape() const;
 
+        /// @brief return true if tag correspond to an element that can use a geo position
         bool hasGEOPosition() const;
 
+        /// @brief return true if tag correspond to an element that can use a geo shape
         bool hasGEOShape() const;
 
+        /// @brief return true if tag correspond to an element that can had another parent
         bool hasParent() const;
 
+        /// @brief return true if tag correspond to an element that can be edited using a dialog
         bool hasDialog() const;
 
+        /// @brief if has a parent, return parent tag
         SumoXMLTag getParentTag() const;
 
     private:
@@ -162,13 +174,15 @@ public:
         /// @brief get restriction
         std::string getRestriction() const;
 
-        /// brief get default value
+        /// @brief get default value
         const std::string &getDefinition() const;
 
-        /// brief get default value
+        /// @brief get default value
         const std::string &getDefaultValue() const;
 
         std::string getType() const;
+
+        bool hasDefaultValue() const;
 
         bool isInt() const;
 
@@ -276,11 +290,14 @@ public:
     /// @brief function to support debugging
     const std::string getID() const;
 
-    /// @brief get all editable attributes for tag and their default values.
-    static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& allowedAttributes(SumoXMLTag tag);
+    /// @brief get all editable attributes for.
+    static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& getAttributes(SumoXMLTag tag);
 
     /// @brief get Tag Properties
-    static const TagValues & getTagProperties(SumoXMLTag tag);
+    static const TagValues &getTagProperties(SumoXMLTag tag);
+
+    /// @brief get Tag Properties
+    static const AttributeValues &getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief get all editable for tag elements of all types
     static std::vector<SumoXMLTag> allowedTags(bool includingInternals);
@@ -296,9 +313,6 @@ public:
 
     /// @brief check if an element with certain tag has a certain attribute
     static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief check if attribute of an element has a default avlue
-    static bool hasDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief return whether the given attribute allows for a combination of discrete values
     static bool discreteCombinableChoices(SumoXMLAttr attr);
@@ -373,9 +387,9 @@ public:
             additionalOfWarningMessage = toString(tag);
         }
         // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
-        if (allowedAttributes(tag).at(attribute).isNumerical()) {
+        if (getAttributeProperties(tag, attribute).isNumerical()) {
             defaultValue = "0";
-        } else if (allowedAttributes(tag).at(attribute).isColor()) {
+        } else if (getAttributeProperties(tag, attribute).isColor()) {
             defaultValue = "BLACK";
         }
         // first check that attribute exists in XML
@@ -386,7 +400,7 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
                 // only set default value if this isn't a SVCPermission
-                if(!allowedAttributes(tag).at(attribute).isSVC()) {
+                if(!getAttributeProperties(tag, attribute).isSVC()) {
                     parsedAttribute = defaultValue;
                 }
             }
@@ -403,11 +417,11 @@ public:
                 }
             }
             // Set extra checks for int values
-            if (allowedAttributes(tag).at(attribute).isInt()) {
+            if (getAttributeProperties(tag, attribute).isInt()) {
                 if (canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = parse<int>(parsedAttribute);
-                    if (allowedAttributes(tag).at(attribute).isPositive() && parsedIntAttribute < 0) {
+                    if (getAttributeProperties(tag, attribute).isPositive() && parsedIntAttribute < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -420,10 +434,10 @@ public:
                 }
             }
             // Set extra checks for float(double) values
-            if (allowedAttributes(tag).at(attribute).isFloat()) {
+            if (getAttributeProperties(tag, attribute).isFloat()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to double and check if can be negative
-                    if (allowedAttributes(tag).at(attribute).isPositive() && parse<double>(parsedAttribute) < 0) {
+                    if (getAttributeProperties(tag, attribute).isPositive() && parse<double>(parsedAttribute) < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -433,7 +447,7 @@ public:
                 }
             }
             // set extra check for time(double) values
-            if (allowedAttributes(tag).at(attribute).isTime()) {
+            if (getAttributeProperties(tag, attribute).isTime()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -446,7 +460,7 @@ public:
                 }
             }
             // set extra check for probability values
-            if (allowedAttributes(tag).at(attribute).isProbability()) {
+            if (getAttributeProperties(tag, attribute).isProbability()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -462,17 +476,17 @@ public:
                 }
             }
             // set extra check for color values
-            if (allowedAttributes(tag).at(attribute).isColor() && !canParse<RGBColor>(parsedAttribute)) {
+            if (getAttributeProperties(tag, attribute).isColor() && !canParse<RGBColor>(parsedAttribute)) {
                 errorFormat = "Invalid RGB format or named color; ";
                 parsedOk = false;
             }
             // set extra check for filename values
-            if (allowedAttributes(tag).at(attribute).isFilename() && (isValidFilename(parsedAttribute) == false)) {
+            if (getAttributeProperties(tag, attribute).isFilename() && (isValidFilename(parsedAttribute) == false)) {
                 errorFormat = "Filename contains invalid characters; ";
                 parsedOk = false;
             }
             // set extra check for SVCPermissions values
-            if (allowedAttributes(tag).at(attribute).isSVC()) {
+            if (getAttributeProperties(tag, attribute).isSVC()) {
                 if (canParseVehicleClasses(parsedAttribute)) {
                     parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
                     parsedOk = true;
@@ -501,10 +515,10 @@ public:
                 if (getTagProperties(tag).canBlockMovement() && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                     // by default elements aren't blocked
                     parsedAttribute = "false";
-                } else if (hasDefaultValue(tag, attribute)) {
+                } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                 } else {
-                    WRITE_WARNING("Format of essential " + allowedAttributes(tag).at(attribute).getType() + " attribute '" + toString(attribute) + "' of " +
+                    WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getType() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
@@ -517,10 +531,10 @@ public:
              if (getTagProperties(tag).canBlockMovement() && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                  // by default elements aren't blocked
                  parsedAttribute = "false";
-             } else if (hasDefaultValue(tag, attribute)) {
+             } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
             } else {
-                WRITE_WARNING("Essential " + allowedAttributes(tag).at(attribute).getType() + " attribute '" + toString(attribute) + "' of " +
+                WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getType() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;
@@ -586,6 +600,9 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
+    /// @brief fill Attribute Carriers
+    static void fillAttributeCarriers();
+
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
 
@@ -594,9 +611,6 @@ private:
 
     /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::pair<TagValues, std::map<SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
-
-    /// @brief fill Attribute Carriers
-    static void fillAttributeCarriers();
 
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;

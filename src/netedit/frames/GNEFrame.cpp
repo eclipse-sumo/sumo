@@ -582,7 +582,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     FXDialogBox *attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
-    auto attrs = GNEAttributeCarrier::allowedAttributes(elementTag);
+    auto attrs = GNEAttributeCarrier::getAttributes(elementTag);
     myTable->setVisibleRows((FXint)(attrs.size()));
     myTable->setVisibleColumns(3);
     myTable->setTableSize((FXint)(attrs.size()), 4);
