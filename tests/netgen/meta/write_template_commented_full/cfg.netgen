@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 17 13:49:18 2018 by Eclipse SUMO netgenerate Version 3b25f51
+<!-- generated on Tue May 22 15:12:47 2018 by Eclipse SUMO netgenerate Version a355048
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -224,6 +224,9 @@
 
         <!-- Set INT as fixed time for intermediate red phase after every switch -->
         <tls.allred.time value="0" type="INT"/>
+
+        <!-- Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles -->
+        <tls.minor-left.max-speed value="19.44" type="FLOAT"/>
 
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
