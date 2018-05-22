@@ -98,3 +98,9 @@ looped_route2
 # - used within a flow
 # 
 flow_until
+
+# Tests for flexible assignment of stopping positions (#3937)
+busstop_stopping_position_assignment
+
+# Tests for flexible assignment of stopping positions (#3937)
+busstop_stopping_position_assignment_parking

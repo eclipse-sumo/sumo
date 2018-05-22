@@ -903,9 +903,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
             // junction is already controlled, remove from previous tls
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
-            for (auto it : copyOfTls) {
-                undoList->add(new GNEChange_TLS(this, it, false), true);
-            }
+            assert(copyOfTls.size() > 0);
+            NBTrafficLightDefinition* currentTLS = *copyOfTls.begin();
             NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
             const std::map<std::string, NBTrafficLightDefinition*> programs = tlCont.getPrograms(value);
             if (programs.size() > 0) {
@@ -916,16 +915,24 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                         undoList->add(new GNEChange_TLS(this, oldTLS, true), true);
                     } else {
                         // delete and re-create the definition because the loaded phases are now invalid
+                        if (dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS) != 0 && 
+                                dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->usingSignalGroups()) {
+                            // keep the old program and add all-red state for the added links
+                            NBLoadedSUMOTLDef* newTLSJoined = new NBLoadedSUMOTLDef(oldTLS, dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->getLogic());
+                            newTLSJoined->joinLogic(currentTLS);
+                            undoList->add(new GNEChange_TLS(this, newTLSJoined, true, true), true);
+                        } else {
+                            undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                        }
+                        NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
+                        // switch from old to new definition
+                        for (auto it : copyOfTls) {
+                            undoList->add(new GNEChange_TLS(this, it, false), true);
+                        }
                         const std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
                         for (auto it_node : copyOfNodes) {
                             GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
-                        }
-                        undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
-                        NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
-                        // re-add existing nodes
-                        for (auto it_node : copyOfNodes) {
-                            GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                         }
                     }

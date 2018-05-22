@@ -369,6 +369,10 @@ public:
      */
     int computeBrakingTime(double minDecel) const;
 
+    /// @brief whether this definition uses signal group (multiple connections with the same link index)
+    virtual bool usingSignalGroups() const {
+        return false;
+    };
 
 protected:
     /// @brief id for temporary definitions

@@ -31,6 +31,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSNet.h>
 #include "MSLane.h"
 #include "MSTransportable.h"
 #include "MSStoppingPlace.h"
@@ -80,11 +81,42 @@ MSStoppingPlace::enter(SUMOVehicle* what, double beg, double end) {
 double
 MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     if (myLastFreePos != myEndPos) {
-        return myLastFreePos - forVehicle.getVehicleType().getMinGap();
+        const double vehGap = forVehicle.getVehicleType().getMinGap();
+        double pos = myLastFreePos - vehGap;
+        if (!fits(pos, forVehicle)) {
+            // try to find a place ahead of the waiting vehicles
+            const double vehLength = forVehicle.getVehicleType().getLength();
+            std::vector<std::pair<double, std::pair<double, const SUMOVehicle*> > > spaces;
+            for (auto it : myEndPositions) {
+                spaces.push_back(std::make_pair(it.second.first, std::make_pair(it.second.second, it.first)));
+            }
+            // sorted from myEndPos towars myBegPos
+            std::sort(spaces.begin(), spaces.end());
+            std::reverse(spaces.begin(), spaces.end());
+            double prev = myEndPos;
+            for (auto it : spaces) {
+                //if (forVehicle.isSelected()) {
+                //    std::cout << SIMTIME << " fitPosFor " << forVehicle.getID() << " l=" << vehLength << " prev=" << prev << " vehBeg=" << it.first << " vehEnd=" << it.second.first << " found=" << (prev - it.first >= vehLength) << "\n";
+                //}
+                if (prev - it.first >= vehLength && (
+                            it.second.second->isParking() 
+                            || it.second.second->remainingStopDuration() > TIME2STEPS(10))) {
+                    return prev;
+                }
+                prev = it.second.first - vehGap;
+            }
+        }
+        return pos;
     }
     return myLastFreePos;
 }
 
+bool 
+MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
+    // always fit at the default position or if at least half the vehicle length
+    // is within the stop range (debatable)
+    return pos == myEndPos || (pos - myBegPos >= veh.getVehicleType().getLength() / 2);
+}
 
 Position
 MSStoppingPlace::getWaitPosition() const {

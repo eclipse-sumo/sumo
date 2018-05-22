@@ -91,11 +91,14 @@ GUIChargingStation::~GUIChargingStation() {
 GUIParameterTableWindow*
 GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table items
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 6);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 9);
 
     // add items
+    ret->mkItem("name", false, getMyName());
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
+    ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIChargingStation, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
+    ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIChargingStation, double>(this, &MSStoppingPlace::getLastFreePos));
     ret->mkItem("charging power [W]", false, myChargingPower);
     ret->mkItem("charging myEfficiency []", false, myEfficiency);
     ret->mkItem("charge in transit [true/false]", false, myChargeInTransit);

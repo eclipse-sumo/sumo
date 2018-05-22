@@ -158,6 +158,10 @@ public:
      */
     bool isStopped() const;
 
+    /// @brief Returns the remaining stop duration for a stopped vehicle or 0
+    SUMOTime remainingStopDuration() const {
+        return 0;
+    }
 
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop

@@ -146,6 +146,12 @@ public:
     */
     bool cleanupStates();
 
+    /// @brief whether this definition uses signal group (multiple connections with the same link index)
+    bool usingSignalGroups() const;
+
+    /// @brief join nodes and states from the given logic (append red state)
+    void joinLogic(NBTrafficLightDefinition* def);
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)
