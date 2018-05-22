@@ -149,6 +149,7 @@ protected:
             id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
+            mySidewalkType(WAY_UNKNOWN), // building of extra lanes depends on sidewalkWidth of loaded typemap
             myParkingType(PARKING_NONE), // parking areas exported optionally
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
@@ -173,6 +174,8 @@ protected:
         WayType myCyclewayType;
         /// @brief Information about the kind of busway along this road
         WayType myBuswayType;
+        /// @brief Information about the kind of sidwalk along this road
+        WayType mySidewalkType;
         /// @brief Information about road-side parking
         int myParkingType;
         /// @brief Information about the relative z-ordering of ways
