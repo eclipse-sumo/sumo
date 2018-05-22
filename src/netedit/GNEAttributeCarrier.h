@@ -69,20 +69,18 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
 public:
     enum TAGProperty {
-        TAGPROPERTY_NETELEMENT = 1,
-        TAGPROPERTY_ADDITIONAL = 2,
-        TAGPROPERTY_SHAPE = 4,
-        TAGPROPERTY_ROUTEELEMENT = 8,
-
-        TAGPROPERTY_INTERNAL = 16,
-
-        TAGPROPERTY_BLOCKMOVEMENT = 32,
-        TAGPROPERTY_BLOCKSHAPE = 64,
-        TAGPROPERTY_CLOSESHAPE = 128,
-        TAGPROPERTY_GEOPOSITION = 256,
-        TAGPROPERTY_GEOSHAPE = 512,
-        TAGPROPERTY_DIALOG = 1024,
-        TAGPROPERTY_PARENT = 2048,
+        TAGPROPERTY_NETELEMENT = 1,     // Edges, Junctions, Lanes...
+        TAGPROPERTY_ADDITIONAL = 2,     // Bus Stops, Charging Stations, Detectors...
+        TAGPROPERTY_SHAPE = 4,          // POIs, Polygons
+        TAGPROPERTY_ROUTEELEMENT = 8,   // VTypes, Vehicles, Flows...
+        TAGPROPERTY_INTERNAL = 16,      // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
+        TAGPROPERTY_BLOCKMOVEMENT = 32, // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE = 64,    // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE = 128,   // Element can close their shape
+        TAGPROPERTY_GEOPOSITION = 256,  // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE = 512,     // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG = 1024,      // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT = 2048,      // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
     };
 
     /// @brief struct with the attribute Properties
@@ -140,26 +138,24 @@ public:
 
 
     enum AttrProperty {
-        ATTRPROPERTY_INT = 1,
-        ATTRPROPERTY_FLOAT = 2,
-        ATTRPROPERTY_BOOL = 4,
-        ATTRPROPERTY_STRING = 8,
-        ATTRPROPERTY_POSITION = 16,
-
-        ATTRPROPERTY_COLOR = 64,
-        ATTRPROPERTY_SVCPERMISSION = 128,
-        ATTRPROPERTY_POSITIVE = 256,
-        ATTRPROPERTY_UNIQUE = 512,
-        ATTRPROPERTY_FILENAME = 1024,
-        ATTRPROPERTY_NONEDITABLE = 2048,
-        ATTRPROPERTY_DISCRETE = 4096,
-        ATTRPROPERTY_PROBABILITY = 8192,
-        ATTRPROPERTY_TIME = 16384,
-        ATTRPROPERTY_ANGLE = 32768,
-        ATTRPROPERTY_LIST = 65536,
-
-        ATTRPROPERTY_OPTIONAL = 131072,
-        ATTRPROPERTY_DEFAULTVALUE = 262144,
+        ATTRPROPERTY_INT = 1,               // Element is an integer (Including Zero)
+        ATTRPROPERTY_FLOAT = 2,             // Element is a float
+        ATTRPROPERTY_BOOL = 4,              // Element is boolean (0/1, true/false)
+        ATTRPROPERTY_STRING = 8,            // Element is a string
+        ATTRPROPERTY_POSITION = 16,         // Element is a position defined by doubles (x,y or x,y,z)
+        ATTRPROPERTY_COLOR = 64,            // Element is a color defined by a specifically word (Red, green) or by a speicial format (XXX,YYY,ZZZ)
+        ATTRPROPERTY_VCLASS = 128,          // Element is a VClass (passenger, bus, motorcicle...)
+        ATTRPROPERTY_POSITIVE = 256,        // Element is positive (Including Zero)
+        ATTRPROPERTY_UNIQUE = 512,          // Element is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME = 1024,       // Element is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_NONEDITABLE = 2048,    // Element is non editable (index of a lane)
+        ATTRPROPERTY_DISCRETE = 4096,       // Element is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY = 8192,    // Element is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_TIME = 16384,          // Element is a Time (float positive)
+        ATTRPROPERTY_ANGLE = 32768,         // Element is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST = 65536,          // Element is a list of other elements separated by spaces
+        ATTRPROPERTY_OPTIONAL = 131072,     // Element is optional
+        ATTRPROPERTY_DEFAULTVALUE = 262144, // Element owns a default value
     };
 
     /// @brief struct with the attribute Properties
@@ -180,40 +176,58 @@ public:
         /// @brief get default value
         const std::string &getDefaultValue() const;
 
-        std::string getType() const;
+        /// @brief return a description of attribute
+        std::string getDescription() const;
 
+        /// @brief return true if attribute owns a default value
         bool hasDefaultValue() const;
 
+        /// @brief return true if atribute is an integer
         bool isInt() const;
 
+        /// @brief return true if atribute is a float
         bool isFloat() const;
 
+        /// @brief return true if atribute is boolean
         bool isBool() const;
 
+        /// @brief return true if atribute is a string
         bool isString() const;
 
+        /// @brief return true if atribute is a probability
         bool isProbability() const;
 
+        /// @brief return true if atribute is numerical (int or float)
         bool isNumerical() const;
 
+        /// @brief return true if atribute is time
         bool isTime() const;
 
+        /// @brief return true if atribute is positive
         bool isPositive() const;
 
+        /// @brief return true if atribute is a color
         bool isColor() const;
 
+        /// @brief return true if atribute is a filename
         bool isFilename() const;
 
+        /// @brief return true if atribute is a VehicleClass
         bool isSVC() const;
 
+        /// @brief return true if atribute is a list
         bool isList() const;
 
+        /// @brief return true if atribute is unique
         bool isUnique() const;
 
+        /// @brief return true if atribute is optional
         bool isOptional() const;
 
+        /// @brief return true if atribute is discrete
         bool isDiscrete() const;
 
+        /// @brief get discrete values
         const std::vector<std::string> &getDiscreteValues() const;
 
     private:
@@ -223,10 +237,10 @@ public:
         /// @brief text with a definition of attribute
         std::string myDefinition;
 
-        /// @brief default value 
+        /// @brief default value (by default empty)
         std::string myDefaultValue;
 
-        /// @brief discrete values
+        /// @brief discrete values that can take this Attribute (by default empty)
         std::vector<std::string> myDiscreteValues;
     };
 
@@ -518,7 +532,7 @@ public:
                 } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                 } else {
-                    WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getType() + " attribute '" + toString(attribute) + "' of " +
+                    WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDefinition() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
@@ -534,7 +548,7 @@ public:
              } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
             } else {
-                WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getType() + " attribute '" + toString(attribute) + "' of " +
+                WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDefinition() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;

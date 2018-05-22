@@ -180,14 +180,19 @@ GNEAttributeCarrier::AttributeValues::getDefaultValue() const {
 
 
 std::string 
-GNEAttributeCarrier::AttributeValues::getType() const {
+GNEAttributeCarrier::AttributeValues::getDescription() const {
     std::string pre;
     std::string type;
     std::string plural;
+    std::string last;
     // pre type
     if((myAttributeProperty & ATTRPROPERTY_LIST) != 0) {
         pre += "list of ";
-        plural = "s";
+        if((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
+            plural = "es";
+        } else {
+            plural = "s";
+        }
     }
     if((myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0) {
         pre += "positive ";
@@ -201,50 +206,52 @@ GNEAttributeCarrier::AttributeValues::getType() const {
     if((myAttributeProperty & ATTRPROPERTY_OPTIONAL) != 0) {
         pre += "optional ";
     }
+    if((myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0) {
+        pre += "unique ";
+    }
     // type
     if((myAttributeProperty & ATTRPROPERTY_INT) != 0) {
-        type += "integer";
+        type = "integer";
     }
     if((myAttributeProperty & ATTRPROPERTY_FLOAT) != 0) {
-        type += "float";
+        type = "float";
     }
     if((myAttributeProperty & ATTRPROPERTY_BOOL) != 0) {
-        type += "boolean";
+        type = "boolean";
     }
     if((myAttributeProperty & ATTRPROPERTY_STRING) != 0) {
-        type += "string";
+        type = "string";
     }
     if((myAttributeProperty & ATTRPROPERTY_POSITION) != 0) {
-        type += "position";
+        type = "position";
     }
     if((myAttributeProperty & ATTRPROPERTY_COLOR) != 0) {
-        type += "color";
+        type = "color";
     }
-    if((myAttributeProperty & ATTRPROPERTY_SVCPERMISSION) != 0) {
-        type += "VClasses";
-    }
-    if((myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0) {
-        type += "unique";
+    if((myAttributeProperty & ATTRPROPERTY_VCLASS) != 0) {
+        type = "VClass";
     }
     if((myAttributeProperty & ATTRPROPERTY_FILENAME) != 0) {
-        type += "filename";
+        type = "filename";
     }
     if((myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0) {
-        type += "probability";
+        type = "probability";
+        last = "[0, 1]";
     }
     if((myAttributeProperty & ATTRPROPERTY_TIME) != 0) {
-        type += "time";
+        type = "time";
     }
     if((myAttributeProperty & ATTRPROPERTY_ANGLE) != 0) {
-        type += "angle";
+        type = "angle";
+        last = "[0, 360]";
     }
-    return pre + type + plural;
+    return pre + type + plural + last;
 }
 
 
 bool 
 GNEAttributeCarrier::AttributeValues::hasDefaultValue() const {
-        return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
+    return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
 }
 
 
@@ -307,7 +314,7 @@ GNEAttributeCarrier::AttributeValues::isFilename() const {
 
 bool 
 GNEAttributeCarrier::AttributeValues::isSVC() const {
-    return (myAttributeProperty & ATTRPROPERTY_SVCPERMISSION) != 0;
+    return (myAttributeProperty & ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST) != 0;
 }
 
 bool 
@@ -989,12 +996,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The name of a type within the SUMO edge type file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
             "Explicitly allows the given vehicle classes (not given will be not allowed)", 
             "all",
             SumoVehicleClassStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
             "Explicitly disallows the given vehicle classes (not given will be allowed)", 
             "",
             SumoVehicleClassStrings.getStrings());
@@ -1091,12 +1098,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Speed in meters per second", 
             "13.89");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
             "Explicitly allows the given vehicle classes (not given will be not allowed)", 
             "all",
             SumoVehicleClassStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
             "Explicitly disallows the given vehicle classes (not given will be allowed)", 
             "",
             SumoVehicleClassStrings.getStrings());
@@ -2024,7 +2031,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "This vehicle type's color", 
             "1,1,0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_VCLASS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
             "An abstract vehicle class", 
             "passenger",
             SumoVehicleShapeStrings.getStrings());
@@ -2124,11 +2131,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Edge ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
             "allowed vehicles", 
             "all");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
             "disallowed vehicles", 
             "");
     }
@@ -2142,11 +2149,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Lane ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
             "allowed vehicles", 
             "all");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_SVCPERMISSION | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
             "disallowed vehicles", 
             "");
     }
