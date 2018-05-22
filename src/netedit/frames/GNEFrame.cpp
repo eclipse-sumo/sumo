@@ -312,7 +312,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
         default: {
             // check if is an additional, and in other case return nullptr
-            if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), myAC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+            if(GNEAttributeCarrier::getTagProperties(myAC->getTag()).isAdditional()) {
                 // Obtain Additional
                 GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID(), false);
                 if(additional) {
@@ -455,7 +455,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         }
         default: {
             // check if is an additional
-            if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), AC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+            if(GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional()) {
                 // retrieve additional
                 GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID(), false);
                 if(additional) {

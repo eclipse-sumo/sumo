@@ -1235,7 +1235,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         for (auto i : myPOIs) {
             result.push_back(dynamic_cast<GNEPOI*>(i.second));
         }
-    } else if (std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), type) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditional()) {
         // only returns additionals of a certain type.
         for (auto i : myAttributeCarriers.additionals) {
             if(i.first.second == type) {

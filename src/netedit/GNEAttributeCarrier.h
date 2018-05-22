@@ -100,6 +100,8 @@ public:
 
         bool isShape() const;
 
+        bool isInternal() const;
+
         bool canBlockMovement() const;
 
         bool canBlockShape() const;
@@ -281,16 +283,16 @@ public:
     static const TagValues & getTagProperties(SumoXMLTag tag);
 
     /// @brief get all editable for tag elements of all types
-    static std::vector<SumoXMLTag> allowedTags();
+    static std::vector<SumoXMLTag> allowedTags(bool includingInternals);
 
     /// @brief get all editable for tag net elements
-    static const std::vector<SumoXMLTag>& allowedNetElementsTags();
+    static std::vector<SumoXMLTag> allowedNetElementsTags(bool includingInternals);
 
     /// @brief get all editable for tag additional elements
-    static const std::vector<SumoXMLTag>& allowedAdditionalTags();
+    static std::vector<SumoXMLTag> allowedAdditionalTags(bool includingInternals);
 
     /// @brief get all editable for tag shape elements
-    static const std::vector<SumoXMLTag>& allowedShapeTags();
+    static std::vector<SumoXMLTag> allowedShapeTags(bool includingInternals);
 
     /// @brief check if an element with certain tag has a certain attribute
     static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);
@@ -592,18 +594,6 @@ private:
 
     /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::pair<TagValues, std::map<SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
-
-    /// @brief vector with the allowed tags of netElements
-    static std::vector<SumoXMLTag> myAllowedNetElementTags;
-
-    /// @brief vector with the allowed tags of additionals
-    static std::vector<SumoXMLTag> myAllowedAdditionalTags;
-
-    /// @brief vector with the allowed tags of shapes
-    static std::vector<SumoXMLTag> myAllowedShapeTags;
-
-    /// @brief maximum number of attributes of all tags
-    static int myMaxNumAttribute;
 
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();

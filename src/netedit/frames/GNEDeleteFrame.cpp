@@ -284,9 +284,9 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                 break;
             }
             default: {
-                if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), ac->getTag()) !=  GNEAttributeCarrier::allowedAdditionalTags().end()) {
+                if(GNEAttributeCarrier::getTagProperties(ac->getTag()).isAdditional()) {
                     myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
-                } else if(std::find(GNEAttributeCarrier::allowedShapeTags().begin(), GNEAttributeCarrier::allowedShapeTags().end(), ac->getTag()) !=  GNEAttributeCarrier::allowedShapeTags().end()) {
+                } else if(GNEAttributeCarrier::getTagProperties(ac->getTag()).isShape()) {
                     myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
                 }
                 break;

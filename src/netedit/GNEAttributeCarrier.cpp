@@ -32,22 +32,19 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <netbuild/NBEdge.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 
 #include "GNEAttributeCarrier.h"
 #include "GNEUndoList.h"
 #include "GNENet.h"
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
+
 
 // ===========================================================================
 // static members
 // ===========================================================================
 
-std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
 std::map<SumoXMLTag, std::pair<GNEAttributeCarrier::TagValues, std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > > GNEAttributeCarrier::myAllowedAttributes;
-int GNEAttributeCarrier::myMaxNumAttribute = 0;
 
 const std::string GNEAttributeCarrier::LOADED = "loaded";
 const std::string GNEAttributeCarrier::GUESSED = "guessed";
@@ -93,6 +90,12 @@ GNEAttributeCarrier::TagValues::isNetElement() const {
 bool 
 GNEAttributeCarrier::TagValues::isAdditional() const {
     return (myTagProperty & TAGPROPERTY_ADDITIONAL) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::isInternal() const {
+    return (myTagProperty & TAGPROPERTY_INTERNAL) != 0;
 }
 
 
@@ -559,68 +562,64 @@ GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
 
 
 std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedTags() {
+GNEAttributeCarrier::allowedTags(bool includingInternals) {
     std::vector<SumoXMLTag> tags;
     // append all net elements to tags
-    tags.insert(std::end(tags), std::begin(allowedNetElementsTags()), std::end(allowedNetElementsTags()));
-    tags.insert(std::end(tags), std::begin(allowedAdditionalTags()), std::end(allowedAdditionalTags()));
-    tags.insert(std::end(tags), std::begin(allowedShapeTags()), std::end(allowedShapeTags()));
+    tags.insert(std::end(tags), std::begin(allowedNetElementsTags(includingInternals)), std::end(allowedNetElementsTags(includingInternals)));
+    tags.insert(std::end(tags), std::begin(allowedAdditionalTags(includingInternals)), std::end(allowedAdditionalTags(includingInternals)));
+    tags.insert(std::end(tags), std::begin(allowedShapeTags(includingInternals)), std::end(allowedShapeTags(includingInternals)));
     return tags;
 }
 
 
-const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedNetElementsTags() {
+std::vector<SumoXMLTag>
+GNEAttributeCarrier::allowedNetElementsTags(bool includingInternals) {
+    std::vector<SumoXMLTag> netElementTags;
     // define on first access
-    if (myAllowedNetElementTags.empty()) {
-        myAllowedNetElementTags.push_back(SUMO_TAG_EDGE);
-        myAllowedNetElementTags.push_back(SUMO_TAG_JUNCTION);
-        myAllowedNetElementTags.push_back(SUMO_TAG_LANE);
-        myAllowedNetElementTags.push_back(SUMO_TAG_CONNECTION);
-        myAllowedNetElementTags.push_back(SUMO_TAG_CROSSING);
+    if (myAllowedAttributes.size() == 0) {
+        fillAttributeCarriers();
     }
-    return myAllowedNetElementTags;
+    // fill additional tags
+    for (auto i : myAllowedAttributes) {
+        if (i.second.first.isNetElement()) {
+            netElementTags.push_back(i.first);
+        }
+    }
+    return netElementTags;
 }
 
 
-const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedAdditionalTags() {
+std::vector<SumoXMLTag>
+GNEAttributeCarrier::allowedAdditionalTags(bool includingInternals) {
+    std::vector<SumoXMLTag> additionalTags;
     // define on first access
-    if (myAllowedAdditionalTags.empty()) {
-        // Stopping Places
-        myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_ACCESS);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_AREA);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_SPACE);
-        // Detectors
-        myAllowedAdditionalTags.push_back(SUMO_TAG_E1DETECTOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_E2DETECTOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_E3DETECTOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_ENTRY);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_DET_EXIT);
-        // Related with GNERoute Elements
-        myAllowedAdditionalTags.push_back(SUMO_TAG_REROUTER);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_VSS);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_CALIBRATOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_LANECALIBRATOR);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_ROUTEPROBE);
-        myAllowedAdditionalTags.push_back(SUMO_TAG_VAPORIZER);
+    if (myAllowedAttributes.size() == 0) {
+        fillAttributeCarriers();
     }
-    return myAllowedAdditionalTags;
+    // fill additional tags
+    for (auto i : myAllowedAttributes) {
+        if (i.second.first.isAdditional() && (includingInternals || !i.second.first.isInternal())) {
+            additionalTags.push_back(i.first);
+        }
+    }
+    return additionalTags;
 }
 
 
-const std::vector<SumoXMLTag>&
-GNEAttributeCarrier::allowedShapeTags() {
+std::vector<SumoXMLTag>
+GNEAttributeCarrier::allowedShapeTags(bool includingInternal) {
+    std::vector<SumoXMLTag> shapeTags;
     // define on first access
-    if (myAllowedShapeTags.empty()) {
-        myAllowedShapeTags.push_back(SUMO_TAG_POLY);
-        myAllowedShapeTags.push_back(SUMO_TAG_POI);
-        myAllowedShapeTags.push_back(SUMO_TAG_POILANE);
+    if (myAllowedAttributes.size() == 0) {
+        fillAttributeCarriers();
     }
-    return myAllowedShapeTags;
+    // fill shape tags
+    for (auto i : myAllowedAttributes) {
+        if (i.second.first.isShape()) {
+            shapeTags.push_back(i.first);
+        }
+    }
+    return shapeTags;
 }
 
 
@@ -653,18 +652,16 @@ GNEAttributeCarrier::discreteCombinableChoices(SumoXMLAttr attr) {
 
 int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
-    if (myMaxNumAttribute == 0) {
-        for (auto i : allowedNetElementsTags()) {
-            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(i).size());
-        }
-        for (auto i : allowedAdditionalTags()) {
-            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(i).size());
-        }
-        for (auto i : allowedShapeTags()) {
-            myMaxNumAttribute = MAX2(myMaxNumAttribute, (int)allowedAttributes(i).size());
-        }
+    int maxNumAttribute = 0;
+    // define on first access
+    if (myAllowedAttributes.size() == 0) {
+        fillAttributeCarriers();
     }
-    return myMaxNumAttribute;
+    // get max num attributes
+    for (auto i : myAllowedAttributes) {
+        maxNumAttribute = MAX2(maxNumAttribute, (int)i.second.second.size());
+    }
+    return maxNumAttribute;
 }
 
 

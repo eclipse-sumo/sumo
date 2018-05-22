@@ -96,12 +96,15 @@ GNEPolygonFrame::ShapeSelector::ShapeSelector(GNEPolygonFrame *shapeFrameParent)
     myShapeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
 
     // Add options to myShapeMatchBox
-    for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+    for (auto i : GNEAttributeCarrier::allowedShapeTags(false)) {
         myShapeMatchBox->appendItem(toString(i).c_str());
     }
 
     // Set visible items
     myShapeMatchBox->setNumVisible((int)myShapeMatchBox->getNumItems());
+
+    // set busstop as default additional
+    myShapeMatchBox->setCurrentItem(2);
 
     // ShapeSelector is always shown
     show();
@@ -161,7 +164,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
 long
 GNEPolygonFrame::ShapeSelector::onCmdselectAttributeCarrier(FXObject*, FXSelector, void*) {
     // Check if value of myShapeMatchBox correspond of an allowed shape tags 
-    for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+    for (auto i : GNEAttributeCarrier::allowedShapeTags(false)) {
         if (toString(i) == myShapeMatchBox->getText().text()) {
             myShapeMatchBox->setTextColor(FXRGB(0, 0, 0));
             setCurrentShape(i);

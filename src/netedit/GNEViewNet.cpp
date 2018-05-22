@@ -2744,13 +2744,13 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
         }
     } else {
         // check if attributeCarrier can be casted into netElement, additional or shape
-        if(std::find(GNEAttributeCarrier::allowedNetElementsTags().begin(), GNEAttributeCarrier::allowedNetElementsTags().end(), attributeCarrier->getTag()) != GNEAttributeCarrier::allowedNetElementsTags().end()) {
+        if(GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag()).isNetElement()) {
             // cast netElement from attribute carrier
             netElement = dynamic_cast<GNENetElement*>(attributeCarrier);
-        } else if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), attributeCarrier->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+        } else if(GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag()).isAdditional()) {
             // cast additional element from attribute carrier
             additional = dynamic_cast<GNEAdditional*>(attributeCarrier);
-        } else if(std::find(GNEAttributeCarrier::allowedShapeTags().begin(), GNEAttributeCarrier::allowedShapeTags().end(), attributeCarrier->getTag()) != GNEAttributeCarrier::allowedShapeTags().end()) {
+        } else if(GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag()).isShape()) {
             // cast shape element from attribute carrier
             shape = dynamic_cast<GNEShape*>(attributeCarrier);
         } else {

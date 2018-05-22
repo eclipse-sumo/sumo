@@ -490,15 +490,15 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
-        for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
+        for (auto i : GNEAttributeCarrier::allowedNetElementsTags(false)) {
             myMatchTagComboBox->appendItem(toString(i).c_str());
         }
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
-        for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+        for (auto i : GNEAttributeCarrier::allowedAdditionalTags(false)) {
             myMatchTagComboBox->appendItem(toString(i).c_str());
         }
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
-        for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+        for (auto i : GNEAttributeCarrier::allowedShapeTags(false)) {
             myMatchTagComboBox->appendItem(toString(i).c_str());
         }
     } else {
@@ -531,19 +531,19 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_NETELEMENT) {
-        for (auto i : GNEAttributeCarrier::allowedNetElementsTags()) {
+        for (auto i : GNEAttributeCarrier::allowedNetElementsTags(false)) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
         }
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_ADDITIONAL) {
-        for (auto i : GNEAttributeCarrier::allowedAdditionalTags()) {
+        for (auto i : GNEAttributeCarrier::allowedAdditionalTags(false)) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
         }
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
-        for (auto i : GNEAttributeCarrier::allowedShapeTags()) {
+        for (auto i : GNEAttributeCarrier::allowedShapeTags(false)) {
             if (toString(i) == myMatchTagComboBox->getText().text()) {
                 myCurrentTag = i;
             }
