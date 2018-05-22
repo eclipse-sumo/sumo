@@ -246,6 +246,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     EdgeVector toProc = getConnectedOuterEdges(incoming);
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     const SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
+    const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
     std::vector<bool> hadGreenMajor(noLinksAll, false);
@@ -317,6 +318,24 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
         }
         //std::cout << " state after correcting left movers=" << state << "\n";
+        
+        std::vector<bool> leftGreen(pos, false);
+        const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0;
+        // find indices for exclusive left green phase and apply option minor-left.max-speed
+        for (int i1 = 0; i1 < pos; ++i1) {
+            if (state[i1] == 'g' && !rightTurnConflicts[i1]) {
+                leftGreen[i1] = true;
+                if (fromEdges[i1]->getSpeed() > minorLeftSpeedThreshold) {
+                    if (buildLeftGreenPhase) {
+                        state[i1] = 'r'; 
+                    } else if (!isTurnaround[i1]) {
+                        WRITE_WARNING("Minor green from edge '" + fromEdges[i1]->getID() + "' to edge '" + toEdges[i1]->getID() + "' exceeds " 
+                                + toString(minorLeftSpeedThreshold) + "m/s. Maybe a left-turn lane is missing.");
+                    }
+                }
+            }
+        }
+
         const std::string vehicleState = state; // backup state before pedestrian modifications
         greenPhases.push_back((int)logic->getPhases().size());
         state = addPedestrianPhases(logic, greenTime, minDur, maxDur, state, crossings, fromEdges, toEdges);
@@ -324,7 +343,6 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         for (int i1 = pos; i1 < pos + (int)crossings.size(); ++i1) {
             state[i1] = 'r';
         }
-        const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0;
         if (brakingTime > 0) {
             // build yellow (straight)
             for (int i1 = 0; i1 < pos; ++i1) {
@@ -350,7 +368,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     state[i1] = 'r';
                     continue;
                 }
-                if (state[i1] == 'g') {
+                if (state[i1] == 'g' || leftGreen[i1]) {
                     state[i1] = 'G';
                 }
             }
