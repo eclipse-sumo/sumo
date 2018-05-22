@@ -182,6 +182,7 @@ NBLoadedSUMOTLDef::amInvalid() const {
     }
     // make sure that myControlledNodes are the original nodes
     if (myControlledNodes.size() != myOriginalNodes.size()) {
+        //std::cout << " myControlledNodes=" << myControlledNodes.size() << " myOriginalNodes=" << myOriginalNodes.size() << "\n";
         return true;
     }
     if (myIncomingEdges.size() == 0) {
@@ -189,6 +190,7 @@ NBLoadedSUMOTLDef::amInvalid() const {
     }
     for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         if (myOriginalNodes.count(*i) != 1) {
+            //std::cout << " node " << (*i)->getID() << " missing from myOriginalNodes\n";
             return true;
         }
     }
@@ -598,6 +600,37 @@ NBLoadedSUMOTLDef::cleanupStates() {
     if (maxIndex >= 0 && maxIndex + 1 < myTLLogic->getNumLinks()) {
         myTLLogic->setStateLength(maxIndex + 1);
         return true;
+    }
+    return false;
+}
+
+void 
+NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
+    def->setParticipantsInformation();
+    NBTrafficLightLogic* logic2 = def->compute(OptionsCont::getOptions());
+    const int maxIndex = MAX2(getMaxIndex(), def->getMaxIndex());
+    myTLLogic->setStateLength(maxIndex + 1);
+    myControlledLinks.insert(myControlledLinks.end(), def->getControlledLinks().begin(), def->getControlledLinks().end());
+    myOriginalNodes.insert(def->getNodes().begin(), def->getNodes().end());
+}
+
+bool 
+NBLoadedSUMOTLDef::usingSignalGroups() const {
+    // count how often each index is used
+    std::map<int, int> indexUsage;
+    for (const NBConnection& c : myControlledLinks) {
+        indexUsage[c.getTLIndex()]++;
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            indexUsage[c->tlLinkIndex]++;
+            indexUsage[c->tlLinkIndex2]++;
+        }
+    }
+    for (auto it : indexUsage) {
+        if (it.first >= 0 && it.second > 1) {
+            return true;
+        }
     }
     return false;
 }
