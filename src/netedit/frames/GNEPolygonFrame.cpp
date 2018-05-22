@@ -136,7 +136,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
             myShapeFrameParent->getShapeAttributes()->showShapeParameters();
         }
         // show netedit attributes
-        if (GNEAttributeCarrier::canBlockMovement(myCurrentShapeType)) {
+        if (GNEAttributeCarrier::getTagProperties(myCurrentShapeType).canBlockMovement()) {
             myShapeFrameParent->getNeteditAttributes()->showNeteditAttributes(myCurrentShapeType == SUMO_TAG_POLY);
         }
         else {

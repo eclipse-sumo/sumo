@@ -563,15 +563,15 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
         // check if item can block movement
-        if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
+        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockMovement()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
         }
         // check if item can block shape
-        if(GNEAttributeCarrier::canBlockShape(myCurrentTag)) {
+        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockShape()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_SHAPE).c_str());
         }
         // check if item can close shape
-        if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
+        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canCloseShape()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
         }
         // check if item can have parent
@@ -601,15 +601,15 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
     GNEAttributeCarrier::AttributeValues defaultEmpty(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
     // add extra attribute if item can block movement
-    if(GNEAttributeCarrier::canBlockMovement(myCurrentTag)) {
+    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockMovement()) {
         itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);
     }
     // add extra attribute if item can block shape
-    if(GNEAttributeCarrier::canBlockShape(myCurrentTag)) {
+    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockShape()) {
         itemAttrs[GNE_ATTR_BLOCK_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);
     }
     // add extra attribute if item can close shape
-    if(GNEAttributeCarrier::canCloseShape(myCurrentTag)) {
+    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canCloseShape()) {
         itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolTrue);
     }
     // add extra attribute if item can have parent

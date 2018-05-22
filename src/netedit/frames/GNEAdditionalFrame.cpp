@@ -156,7 +156,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
     // Check that current additional type is valid
     if(myCurrentAdditionalType != SUMO_TAG_NOTHING) {
         // first check if additional can block movement, then show neteditParameters
-        if (GNEAttributeCarrier::canBlockMovement(myCurrentAdditionalType)) {
+        if (GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).canBlockMovement()) {
             myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(false);
         } else {
             myAdditionalFrameParent->getNeteditAttributes()->hideNeteditAttributes();
@@ -1521,7 +1521,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     //}
 
     // Save block value if additional can be blocked
-    if (GNEAttributeCarrier::canBlockMovement(myAdditionalSelector->getCurrentAdditionalType())) {
+    if (GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).canBlockMovement()) {
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditParameters->isBlockEnabled());
     }
 

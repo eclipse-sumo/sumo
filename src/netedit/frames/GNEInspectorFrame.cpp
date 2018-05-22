@@ -866,7 +866,7 @@ void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
     if(myInspectorFrameParent->getInspectedACs().size() > 0) {
         // Check if item can be moved
-        if (GNEAttributeCarrier::canBlockMovement(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).canBlockMovement()) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
@@ -886,7 +886,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // check if item can block their shape
-        if (GNEAttributeCarrier::canBlockShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).canBlockMovement()) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
@@ -907,7 +907,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // check if item can block their shape
-        if (GNEAttributeCarrier::canCloseShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).canCloseShape()) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
@@ -1123,7 +1123,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
     // make sure that ACs has elements
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // check if item can use a geo position
-        if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag()) || GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOPosition() || GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOShape()) {
             // show GEOAttributesEditor
             show();
             // Iterate over AC to obtain values
@@ -1142,12 +1142,12 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
                 myUseGEOCheckButton->setText("false");
             }
             // now specify if a single position or an entire shape must be shown (note: cannot be shown both at the same time, and GEO Shape/Position only works for single selections)
-            if(GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag()) && myInspectorFrameParent->getInspectedACs().size() == 1) {
+            if(GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOPosition() && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOPOSITION).c_str());
                 myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
                 myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
-            } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag()) && myInspectorFrameParent->getInspectedACs().size() == 1) {
+            } else if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOShape() && myInspectorFrameParent->getInspectedACs().size() == 1) {
                 myGEOAttributeFrame->show();
                 myGEOAttributeLabel->setText(toString(SUMO_ATTR_GEOSHAPE).c_str());
                 myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
@@ -1172,9 +1172,9 @@ void
 GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRefresh) {
     // Check that myGEOAttributeFrame is shown
     if(myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
-        if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOPosition()) {
             myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOPOSITION).c_str());
-        } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        } else if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOShape()) {
             myGEOAttributeTextField->setText(myInspectorFrameParent->getInspectedACs().front()->getAttribute(SUMO_ATTR_GEOSHAPE).c_str());
         }
         myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1188,7 +1188,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         if (obj == myGEOAttributeTextField) {
             // Change GEO Attribute depending of type (Position or shape)
-            if (GNEAttributeCarrier::canUseGeoPosition(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+            if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOPosition()) {
                 if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->getInspectedACs().front()->setAttribute(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1196,7 +1196,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
                     myGEOAttributeTextField->killFocus();
                 }
-            } else if (GNEAttributeCarrier::canUseGeoShape(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+            } else if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasGEOShape()) {
                 if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text())) {
                     myInspectorFrameParent->getInspectedACs().front()->setAttribute(SUMO_ATTR_GEOSHAPE, myGEOAttributeTextField->getText().text(), myInspectorFrameParent->getViewNet()->getUndoList());
                     myGEOAttributeTextField->setTextColor(FXRGB(0, 0, 0));

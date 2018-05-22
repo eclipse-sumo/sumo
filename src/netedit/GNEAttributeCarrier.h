@@ -285,21 +285,6 @@ public:
     /// @brief get all editable for tag shape elements
     static const std::vector<SumoXMLTag>& allowedShapeTags();
 
-    /// @brief return true if element tag can block their movement
-    static bool canBlockMovement(SumoXMLTag tag);
-
-    /// @brief return true if element tag can block their shape
-    static bool canBlockShape(SumoXMLTag tag);
-
-    /// @brief return true if element tag can block their shape
-    static bool canCloseShape(SumoXMLTag tag);
-
-    /// @brief return true if element tag can use a GEO position (For example, POIs)
-    static bool canUseGeoPosition(SumoXMLTag tag);
-
-    /// @brief return true if element tag can use a GEO Shape (For example, Polygons)
-    static bool canUseGeoShape(SumoXMLTag tag);
-
     /// @brief return true if element tag can open a values editor
     static bool canOpenDialog(SumoXMLTag tag);
 
@@ -516,7 +501,7 @@ public:
             // If attribute has an invalid format
             if (!parsedOk) {
                 // if attribute has a default value, obtain it as string. In other case, abort.
-                if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
+                if (getTagProperties(tag).canBlockMovement() && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                     // by default elements aren't blocked
                     parsedAttribute = "false";
                 } else if (hasDefaultValue(tag, attribute)) {
@@ -532,7 +517,7 @@ public:
             }
         } else {
             // if attribute has a default value, obtain it. In other case, abort.
-             if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
+             if (getTagProperties(tag).canBlockMovement() && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                  // by default elements aren't blocked
                  parsedAttribute = "false";
              } else if (hasDefaultValue(tag, attribute)) {
@@ -621,21 +606,6 @@ private:
 
     /// @brief vector with the allowed tags of shapes
     static std::vector<SumoXMLTag> myAllowedShapeTags;
-
-    /// @brief vector with the allowed tags  that can block their movement
-    static std::vector<SumoXMLTag> myBlockMovementTags;
-
-    /// @brief vector with the allowed tags that can block their shapes
-    static std::vector<SumoXMLTag> myBlockShapeTags;
-
-    /// @brief vector with the allowed tags that can block their shapes
-    static std::vector<SumoXMLTag> myCloseShapeTags;
-
-    /// @brief vector with the allowed tags that can block their shapes
-    static std::vector<SumoXMLTag> myGeoPositionTags;
-
-    /// @brief vector with the allowed tags that can block their shapes
-    static std::vector<SumoXMLTag> myGeoShapeTags;
 
     /// @brief vector with the allowed tags that has a editor values
     static std::vector<SumoXMLTag> myDialogTags;

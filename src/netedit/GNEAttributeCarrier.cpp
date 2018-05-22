@@ -46,11 +46,6 @@
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedNetElementTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedAdditionalTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myAllowedShapeTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockMovementTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myBlockShapeTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myCloseShapeTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoPositionTags;
-std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::pair<GNEAttributeCarrier::TagValues, std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > > GNEAttributeCarrier::myAllowedAttributes;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
@@ -692,7 +687,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POI:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_GEOPOSITION);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -737,7 +732,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POILANE:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -790,7 +785,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_POLY:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_CLOSESHAPE | TAGPROPERTY_GEOSHAPE);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -917,7 +912,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_BUS_STOP:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -950,7 +945,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_ACCESS:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -967,7 +962,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CONTAINER_STOP:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1000,7 +995,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1045,7 +1040,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E1DETECTOR:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1078,7 +1073,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E2DETECTOR:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1127,7 +1122,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_E3DETECTOR:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1156,7 +1151,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DET_ENTRY:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, SUMO_TAG_E3DETECTOR);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, SUMO_TAG_E3DETECTOR);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1173,7 +1168,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DET_EXIT:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, SUMO_TAG_E3DETECTOR);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, SUMO_TAG_E3DETECTOR);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1190,7 +1185,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_VSS:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1269,7 +1264,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_REROUTER:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1344,7 +1339,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_PARKING_AREA:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_ID] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1389,7 +1384,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, SUMO_TAG_PARKING_AREA);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, SUMO_TAG_PARKING_AREA);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_X] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 
@@ -1807,71 +1802,6 @@ GNEAttributeCarrier::allowedShapeTags() {
         myAllowedShapeTags.push_back(SUMO_TAG_POILANE);
     }
     return myAllowedShapeTags;
-}
-
-
-bool
-GNEAttributeCarrier::canBlockMovement(SumoXMLTag tag) {
-    // define on first access
-    if (myBlockMovementTags.empty()) {
-        myBlockMovementTags.push_back(SUMO_TAG_BUS_STOP);
-        myBlockMovementTags.push_back(SUMO_TAG_ACCESS);
-        myBlockMovementTags.push_back(SUMO_TAG_CONTAINER_STOP);
-        myBlockMovementTags.push_back(SUMO_TAG_CHARGING_STATION);
-        myBlockMovementTags.push_back(SUMO_TAG_E1DETECTOR);
-        myBlockMovementTags.push_back(SUMO_TAG_E2DETECTOR);
-        myBlockMovementTags.push_back(SUMO_TAG_E3DETECTOR);
-        myBlockMovementTags.push_back(SUMO_TAG_DET_ENTRY);
-        myBlockMovementTags.push_back(SUMO_TAG_DET_EXIT);
-        myBlockMovementTags.push_back(SUMO_TAG_REROUTER);
-        myBlockMovementTags.push_back(SUMO_TAG_VSS);
-        myBlockMovementTags.push_back(SUMO_TAG_POI);
-        myBlockMovementTags.push_back(SUMO_TAG_POILANE);
-        myBlockMovementTags.push_back(SUMO_TAG_POLY);
-        myBlockMovementTags.push_back(SUMO_TAG_PARKING_AREA);
-        myBlockMovementTags.push_back(SUMO_TAG_PARKING_SPACE);
-    }
-    return std::find(myBlockMovementTags.begin(), myBlockMovementTags.end(), tag) != myBlockMovementTags.end();
-}
-
-
-bool
-GNEAttributeCarrier::canBlockShape(SumoXMLTag tag) {
-    // define on first access
-    if (myBlockShapeTags.empty()) {
-        myBlockShapeTags.push_back(SUMO_TAG_POLY);
-    }
-    return std::find(myBlockShapeTags.begin(), myBlockShapeTags.end(), tag) != myBlockShapeTags.end();
-}
-
-
-bool 
-GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
-    // define on first access
-    if (myCloseShapeTags.empty()) {
-        myCloseShapeTags.push_back(SUMO_TAG_POLY);
-    }
-    return std::find(myCloseShapeTags.begin(), myCloseShapeTags.end(), tag) != myCloseShapeTags.end();
-}
-
-
-bool 
-GNEAttributeCarrier::canUseGeoPosition(SumoXMLTag tag) {
-    // define on first access
-    if (myGeoPositionTags.empty()) {
-        myGeoPositionTags.push_back(SUMO_TAG_POI);
-    }
-    return std::find(myGeoPositionTags.begin(), myGeoPositionTags.end(), tag) != myGeoPositionTags.end();
-}
-
-
-bool 
-GNEAttributeCarrier::canUseGeoShape(SumoXMLTag tag) {
-    // define on first access
-    if (myGeoShapeTags.empty()) {
-        myGeoShapeTags.push_back(SUMO_TAG_POLY);
-    }
-    return std::find(myGeoShapeTags.begin(), myGeoShapeTags.end(), tag) != myGeoShapeTags.end();
 }
 
 
