@@ -1541,14 +1541,14 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // on bus stops, we have to wait for free place if they are in use...
                 endPos = stop.busstop->getLastFreePos(*this);
                 // at least half the bus has to fit on non-empty bus stops
-                fitsOnStoppingPlace = stop.busstop->fits(endPos, *this);
+                fitsOnStoppingPlace &= stop.busstop->fits(endPos, *this);
             }
             // if the stop is a container stop we check if the vehicle fits into the last free position of the stop
             if (stop.containerstop != 0) {
                 useStoppingPlace = true;
                 // on container stops, we have to wait for free place if they are in use...
                 endPos = stop.containerstop->getLastFreePos(*this);
-                fitsOnStoppingPlace = stop.containerstop->fits(endPos, *this);
+                fitsOnStoppingPlace &= stop.containerstop->fits(endPos, *this);
             }
             // if the stop is a parking area we check if there is a free position on the area
             if (stop.parkingarea != 0) {
@@ -1575,6 +1575,11 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
 
             const double reachedThreshold = (useStoppingPlace ? endPos - STOPPING_PLACE_OFFSET : stop.pars.startPos) - NUMERICAL_EPS;
+#ifdef DEBUG_STOPS
+            if (DEBUG_COND) {
+                std::cout <<  "   pos=" << myState.pos() << " speed=" << currentVelocity << " endPos=" << endPos << " fits=" << fitsOnStoppingPlace << " reachedThresh=" << reachedThreshold << "\n";
+            }
+#endif
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
                 // ok, we may stop (have reached the stop)
                 stop.reached = true;

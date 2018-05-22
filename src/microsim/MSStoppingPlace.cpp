@@ -95,8 +95,12 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
             std::reverse(spaces.begin(), spaces.end());
             double prev = myEndPos;
             for (auto it : spaces) {
-                //std::cout << SIMTIME << " fitPosFor " << forVehicle.getID() << " l=" << vehLength << " prev=" << prev << " first=" << it.first << " second=" << it.second << " found=" << (prev - it.first >= vehLength) << "\n";
-                if (prev - it.first >= vehLength && it.second.second->remainingStopDuration() > TIME2STEPS(10)) {
+                //if (forVehicle.isSelected()) {
+                //    std::cout << SIMTIME << " fitPosFor " << forVehicle.getID() << " l=" << vehLength << " prev=" << prev << " vehBeg=" << it.first << " vehEnd=" << it.second.first << " found=" << (prev - it.first >= vehLength) << "\n";
+                //}
+                if (prev - it.first >= vehLength && (
+                            it.second.second->isParking() 
+                            || it.second.second->remainingStopDuration() > TIME2STEPS(10))) {
                     return prev;
                 }
                 prev = it.second.first - vehGap;
