@@ -80,11 +80,18 @@ MSStoppingPlace::enter(SUMOVehicle* what, double beg, double end) {
 double
 MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     if (myLastFreePos != myEndPos) {
-        return myLastFreePos - forVehicle.getVehicleType().getMinGap();
+        double pos = myLastFreePos - forVehicle.getVehicleType().getMinGap();
+        return pos;
     }
     return myLastFreePos;
 }
 
+bool 
+MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
+    // always fit at the default position or if at least half the vehicle length
+    // is within the stop range (debatable)
+    return pos == myEndPos || (pos - myBegPos >= veh.getVehicleType().getLength() / 2);
+}
 
 Position
 MSStoppingPlace::getWaitPosition() const {

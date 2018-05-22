@@ -1375,6 +1375,16 @@ MSVehicle::keepStopping(bool afterProcessing) const {
     }
 }
 
+
+SUMOTime 
+MSVehicle::remainingStopDuration() const {
+    if (isStopped()) {
+        return myStops.front().duration;
+    }
+    return 0;
+}
+
+
 SUMOTime
 MSVehicle::collisionStopTime() const {
     return (myStops.empty() || !myStops.front().collision) ? myCollisionImmunity : MAX2((SUMOTime)0, myStops.front().duration);
@@ -1531,18 +1541,14 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // on bus stops, we have to wait for free place if they are in use...
                 endPos = stop.busstop->getLastFreePos(*this);
                 // at least half the bus has to fit on non-empty bus stops
-                if (endPos != stop.busstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.busstop->getBeginLanePosition()) {
-                    fitsOnStoppingPlace = false;
-                }
+                fitsOnStoppingPlace = stop.busstop->fits(endPos, *this);
             }
             // if the stop is a container stop we check if the vehicle fits into the last free position of the stop
             if (stop.containerstop != 0) {
                 useStoppingPlace = true;
                 // on container stops, we have to wait for free place if they are in use...
                 endPos = stop.containerstop->getLastFreePos(*this);
-                if (endPos != stop.containerstop->getEndLanePosition() && endPos - myType->getLength() / 2. < stop.containerstop->getBeginLanePosition()) {
-                    fitsOnStoppingPlace = false;
-                }
+                fitsOnStoppingPlace = stop.containerstop->fits(endPos, *this);
             }
             // if the stop is a parking area we check if there is a free position on the area
             if (stop.parkingarea != 0) {

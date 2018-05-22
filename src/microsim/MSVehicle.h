@@ -1001,6 +1001,9 @@ public:
      */
     bool isStopped() const;
 
+    /// @brief Returns the remaining stop duration for a stopped vehicle or 0
+    SUMOTime remainingStopDuration() const; 
+
     /** @brief Returns whether the vehicle will stop on the current edge
      */
     bool willStop() const;

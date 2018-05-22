@@ -133,6 +133,8 @@ public:
      */
     double getLastFreePos(const SUMOVehicle& forVehicle) const;
 
+    /// @brief return whether the given vehicle fits at the given position
+    bool fits(double pos, const SUMOVehicle& veh) const;
 
     /** @brief Returns the next free waiting place for pedestrians / containers
      *
