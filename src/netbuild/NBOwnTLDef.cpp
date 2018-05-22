@@ -202,6 +202,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const EdgeVector& incoming = getIncomingEdges();
     EdgeVector fromEdges, toEdges;
     std::vector<bool> isTurnaround;
+    std::vector<bool> hasTurnLane;
     std::vector<int> fromLanes;
     int noLanesAll = 0;
     int noLinksAll = 0;
@@ -212,6 +213,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             NBEdge* fromEdge = incoming[i1];
             std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (int) approached.size();
+            bool hasStraight = false;
             for (int i3 = 0; i3 < (int)approached.size(); i3++) {
                 if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                     --noLinksAll;
@@ -227,6 +229,12 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 } else {
                     isTurnaround.push_back(true);
                 }
+                if (fromEdge->getToNode()->getDirection(fromEdge, toEdge) == LINKDIR_STRAIGHT) {
+                    hasStraight = true;
+                }
+            }
+            for (int i3 = 0; i3 < (int)approached.size(); i3++) {
+                hasTurnLane.push_back(!hasStraight);
             }
         }
     }
@@ -320,7 +328,15 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         //std::cout << " state after correcting left movers=" << state << "\n";
         
         std::vector<bool> leftGreen(pos, false);
-        const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0;
+        // check whether at least one left-turn lane exist
+        bool foundLeftTurnLane = false;
+        for (int i1 = 0; i1 < pos; ++i1) {
+            if (state[i1] == 'g' && !rightTurnConflicts[i1] && hasTurnLane[i1]) {
+                foundLeftTurnLane = true;
+            }
+        }
+        const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0; // && foundLeftTurnLane;
+
         // find indices for exclusive left green phase and apply option minor-left.max-speed
         for (int i1 = 0; i1 < pos; ++i1) {
             if (state[i1] == 'g' && !rightTurnConflicts[i1]) {
