@@ -317,14 +317,14 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID(), false);
                 if(additional) {
                     // first check if additional has another additional as parent (to add it into root)
-                     if (GNEAttributeCarrier::canHaveParent(additional->getTag())) {
-                         GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
-                         // create additional parent item
-                         FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
-                         additionalParentItem->setExpanded(true);
-                         // Save it in myTreeItemToACMap
-                         myTreeItemToACMap[additionalParentItem] = additionalParent;
-                     }
+                    if (GNEAttributeCarrier::getTagProperties(additional->getTag()).hasParent()) {
+                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
+                        // create additional parent item
+                        FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
+                        additionalParentItem->setExpanded(true);
+                        // Save it in myTreeItemToACMap
+                        myTreeItemToACMap[additionalParentItem] = additionalParent;
+                    }
                     if(additional->hasAttribute(additional->getTag(), SUMO_ATTR_EDGE)) {
                         // obtain edge parent
                         GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));

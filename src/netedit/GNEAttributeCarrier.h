@@ -89,17 +89,39 @@ public:
     class TagValues {
     public:
         /// @brief default constructor
-        TagValues() :
-            myTagProperty(TAGPROPERTY_NETELEMENT) {}
+        TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty) :
-            myTagProperty(tagProperty) {}
+        TagValues(int tagProperty, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
 
+        bool isNetElement() const;
+
+        bool isAdditional() const;
+
+        bool isShape() const;
+
+        bool canBlockMovement() const;
+
+        bool canBlockShape() const;
+
+        bool canCloseShape() const;
+
+        bool hasGEOPosition() const;
+
+        bool hasGEOShape() const;
+
+        bool hasParent() const;
+
+        bool hasDialog() const;
+
+        SumoXMLTag getParentTag() const;
 
     private:
         /// @brief Property of attribute
         int myTagProperty;
+
+        /// @brief parent tag
+        SumoXMLTag myParentTag;
     };
 
 
@@ -248,6 +270,9 @@ public:
     /// @brief get all editable attributes for tag and their default values.
     static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& allowedAttributes(SumoXMLTag tag);
 
+    /// @brief get Tag Properties
+    static const TagValues & getTagProperties(SumoXMLTag tag);
+
     /// @brief get all editable for tag elements of all types
     static std::vector<SumoXMLTag> allowedTags();
 
@@ -268,9 +293,6 @@ public:
 
     /// @brief return true if element tag can block their shape
     static bool canCloseShape(SumoXMLTag tag);
-
-    /// @brief return true if element tag can block their shape
-    static bool canHaveParent(SumoXMLTag tag);
 
     /// @brief return true if element tag can use a GEO position (For example, POIs)
     static bool canUseGeoPosition(SumoXMLTag tag);
@@ -295,9 +317,6 @@ public:
 
     /// @brief return a list of discrete choices for this attribute or an empty vector
     static const std::vector<std::string>& discreteChoices(SumoXMLTag tag, SumoXMLAttr attr);
-
-    /// @brief get tag of additional parent (return SUMO_TAG_NOTHING if element doesn't have parent)
-    static SumoXMLTag getAdditionalParentTag(SumoXMLTag tag);
 
     /// @brief return whether the given attribute allows for a combination of discrete values
     static bool discreteCombinableChoices(SumoXMLAttr attr);
@@ -623,9 +642,6 @@ private:
 
     /// @brief map with the non-editable attributes
     static std::map<SumoXMLTag, std::set<SumoXMLAttr> > myNonEditableAttrs;
-
-    /// @brief map with the allowed tags of additionals with parent
-    static std::map<SumoXMLTag, SumoXMLTag> myAdditionalsWithParent;
 
     /// @brief map with the values of discrete choices
     static std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > myDiscreteChoices;

@@ -928,7 +928,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // Check if item has another item as parent
-        if (GNEAttributeCarrier::canHaveParent(myInspectorFrameParent->getInspectedACs().front()->getTag())) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).hasParent()) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent

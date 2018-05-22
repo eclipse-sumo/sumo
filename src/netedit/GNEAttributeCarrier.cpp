@@ -54,7 +54,6 @@ std::vector<SumoXMLTag> GNEAttributeCarrier::myGeoShapeTags;
 std::vector<SumoXMLTag> GNEAttributeCarrier::myDialogTags;
 std::map<SumoXMLTag, std::pair<GNEAttributeCarrier::TagValues, std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > > GNEAttributeCarrier::myAllowedAttributes;
 std::map<SumoXMLTag, std::set<SumoXMLAttr> > GNEAttributeCarrier::myNonEditableAttrs;
-std::map<SumoXMLTag, SumoXMLTag> GNEAttributeCarrier::myAdditionalsWithParent;
 std::map<SumoXMLTag, std::map<SumoXMLAttr, std::vector<std::string> > > GNEAttributeCarrier::myDiscreteChoices;
 int GNEAttributeCarrier::myMaxNumAttribute = 0;
 
@@ -71,10 +70,85 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 // method definitions
 // ===========================================================================
 
-
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrier::TagValues - methods
 // ---------------------------------------------------------------------------
+
+GNEAttributeCarrier::TagValues::TagValues() :
+    myTagProperty(TAGPROPERTY_NETELEMENT),
+    myParentTag(SUMO_TAG_NOTHING) {
+}
+
+
+GNEAttributeCarrier::TagValues::TagValues(int tagProperty, SumoXMLTag parentTag) :
+    myTagProperty(tagProperty),
+    myParentTag(parentTag) {
+}
+
+
+SumoXMLTag 
+GNEAttributeCarrier::TagValues::getParentTag() const {
+    return myParentTag;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::isNetElement() const {
+    return (myTagProperty & TAGPROPERTY_NETELEMENT) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::isAdditional() const {
+    return (myTagProperty & TAGPROPERTY_ADDITIONAL) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::isShape() const {
+    return (myTagProperty & TAGPROPERTY_SHAPE) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::canBlockMovement() const {
+    return (myTagProperty & TAGPROPERTY_BLOCKMOVEMENT) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::canBlockShape() const {
+    return (myTagProperty & TAGPROPERTY_BLOCKSHAPE) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::canCloseShape() const {
+    return (myTagProperty & TAGPROPERTY_CLOSESHAPE) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::hasGEOPosition() const {
+    return (myTagProperty & TAGPROPERTY_GEOPOSITION) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::hasGEOShape() const {
+    return (myTagProperty & TAGPROPERTY_GEOSHAPE) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::hasParent() const {
+    return (myTagProperty & TAGPROPERTY_PARENT) != 0;
+}
+
+bool 
+GNEAttributeCarrier::TagValues::hasDialog() const {
+    return (myTagProperty & TAGPROPERTY_DIALOG) != 0;
+}
 
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrier::AttributeValues - methods
@@ -1082,7 +1156,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DET_ENTRY:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, SUMO_TAG_E3DETECTOR);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1099,7 +1173,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DET_EXIT:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, SUMO_TAG_E3DETECTOR);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_LANE] = AttributeValues(
                     ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
@@ -1315,7 +1389,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 // set values of tag
-                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL);
+                myAllowedAttributes[tag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, SUMO_TAG_PARKING_AREA);
                 // set values of attributes
                 myAllowedAttributes[tag].second[SUMO_ATTR_X] = AttributeValues(
                     ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 
@@ -1661,6 +1735,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
 }
 
 
+const GNEAttributeCarrier::TagValues & 
+GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
+    if(myAllowedAttributes.size() == 0) {
+        allowedAttributes(tag);
+    }
+    return myAllowedAttributes.at(tag).first;
+}
+
+
 std::vector<SumoXMLTag>
 GNEAttributeCarrier::allowedTags() {
     std::vector<SumoXMLTag> tags;
@@ -1769,18 +1852,6 @@ GNEAttributeCarrier::canCloseShape(SumoXMLTag tag) {
         myCloseShapeTags.push_back(SUMO_TAG_POLY);
     }
     return std::find(myCloseShapeTags.begin(), myCloseShapeTags.end(), tag) != myCloseShapeTags.end();
-}
-
-
-bool 
-GNEAttributeCarrier::canHaveParent(SumoXMLTag tag) {
-    // define on first access
-    if (myAdditionalsWithParent.empty()) {
-        myAdditionalsWithParent[SUMO_TAG_DET_ENTRY] = SUMO_TAG_E3DETECTOR;
-        myAdditionalsWithParent[SUMO_TAG_DET_EXIT] = SUMO_TAG_E3DETECTOR;
-        myAdditionalsWithParent[SUMO_TAG_PARKING_SPACE] = SUMO_TAG_PARKING_AREA;
-    }
-    return myAdditionalsWithParent.count(tag) == 1;
 }
 
 
@@ -1921,16 +1992,6 @@ GNEAttributeCarrier::discreteChoices(SumoXMLTag tag, SumoXMLAttr attr) {
         myDiscreteChoices[SUMO_TAG_VTYPE][SUMO_ATTR_LATALIGNMENT].push_back("arbitrary");
     }
     return myDiscreteChoices[tag][attr];
-}
-
-
-SumoXMLTag 
-GNEAttributeCarrier::getAdditionalParentTag(SumoXMLTag tag) {
-    if(canHaveParent(tag)) {
-        return myAdditionalsWithParent[tag];
-    } else {
-        return SUMO_TAG_NOTHING;
-    }
 }
 
 

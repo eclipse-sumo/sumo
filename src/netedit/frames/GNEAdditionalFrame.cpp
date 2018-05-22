@@ -179,8 +179,8 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
             myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
         }
         // Show myAdditionalParentSelector if we're adding a additional with parent
-        if (GNEAttributeCarrier::canHaveParent(myCurrentAdditionalType)) {
-            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getAdditionalParentTag(myCurrentAdditionalType));
+        if (GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).hasParent()) {
+            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).getParentTag());
         } else {
             myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
         }
@@ -1526,14 +1526,14 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
-    if (GNEAttributeCarrier::canHaveParent(myAdditionalSelector->getCurrentAdditionalType())) {
+    if (GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).hasParent()) {
         if (myAdditionalParentSelector->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
-        } else if (additionalElement && (additionalElement->getTag() == GNEAttributeCarrier::getAdditionalParentTag(myAdditionalSelector->getCurrentAdditionalType()))) {
+        } else if (additionalElement && (additionalElement->getTag() == GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).getParentTag())) {
             valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
             myAdditionalParentSelector->setIDSelected(additionalElement->getID());
         } else {
-            myAdditionalParameters->showWarningMessage("A " + toString(GNEAttributeCarrier::getAdditionalParentTag(myAdditionalSelector->getCurrentAdditionalType())) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
+            myAdditionalParameters->showWarningMessage("A " + toString(GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }

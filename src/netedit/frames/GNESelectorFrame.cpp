@@ -575,7 +575,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
         }
         // check if item can have parent
-        if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
+        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).hasParent()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
         }
         // @ToDo: Here can be placed a button to set the default value
@@ -613,7 +613,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
         itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolTrue);
     }
     // add extra attribute if item can have parent
-    if(GNEAttributeCarrier::canHaveParent(myCurrentTag)) {
+    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).hasParent()) {
         itemAttrs[GNE_ATTR_PARENT] = GNEAttributeCarrier::AttributeValues(defaultEmpty);
     }
     // set current selected attribute
