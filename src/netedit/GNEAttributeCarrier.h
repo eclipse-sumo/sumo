@@ -605,6 +605,9 @@ private:
     /// @brief maximum number of attributes of all tags
     static int myMaxNumAttribute;
 
+    /// @brief fill Attribute Carriers
+    static void fillAttributeCarriers();
+
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;
 };
