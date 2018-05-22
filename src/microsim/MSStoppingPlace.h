@@ -163,6 +163,16 @@ public:
         return (int)myWaitingTransportables.size();
     }
 
+    /** @brief Returns the number of stopped vehicles waiting on this stop
+    */
+    int getStoppedVehicleNumber() const {
+        return (int)myEndPositions.size();
+    }
+
+    double getLastFreePos() const {
+        return myLastFreePos;
+    }
+
     /// @brief adds a transportable to this stop
     void addTransportable(MSTransportable* p);
 
