@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 18 13:09:56 2018 by Eclipse SUMO netconvert Version 49ae6a9
+<!-- generated on Tue May 22 16:06:05 2018 by Eclipse SUMO netconvert Version 6fb88ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -71,11 +71,11 @@ SPDX-License-Identifier: EPL-2.0
     <parkingArea id="142575657#1" lane="142575657#1_1" startPos="5" endPos="-5" roadsideCapacity="40"/>
     <parkingArea id="-142575657#1" lane="-142575657#1_1" startPos="5" endPos="-5" roadsideCapacity="40"/>
     <parkingArea id="142575659#0" lane="142575659#0_1" startPos="5" endPos="-5" roadsideCapacity="3"/>
-    <parkingArea id="-142575659#0" lane="-142575659#0_1" startPos="5" endPos="-5" roadsideCapacity="3"/>
+    <parkingArea id="-142575659#0" lane="-142575659#0_0" startPos="5" endPos="-5" roadsideCapacity="3"/>
     <parkingArea id="142575659#1" lane="142575659#1_1" startPos="5" endPos="-5" roadsideCapacity="11"/>
-    <parkingArea id="-142575659#1" lane="-142575659#1_1" startPos="5" endPos="-5" roadsideCapacity="11"/>
+    <parkingArea id="-142575659#1" lane="-142575659#1_0" startPos="5" endPos="-5" roadsideCapacity="11"/>
     <parkingArea id="142575659#2" lane="142575659#2_1" startPos="5" endPos="-5" roadsideCapacity="8"/>
-    <parkingArea id="-142575659#2" lane="-142575659#2_1" startPos="5" endPos="-5" roadsideCapacity="8"/>
+    <parkingArea id="-142575659#2" lane="-142575659#2_0" startPos="5" endPos="-5" roadsideCapacity="8"/>
     <parkingArea id="142575690#0" lane="142575690#0_1" startPos="5" endPos="-5" roadsideCapacity="4"/>
     <parkingArea id="142575690#1" lane="142575690#1_1" startPos="5" endPos="-5" roadsideCapacity="1"/>
     <parkingArea id="142575690#2" lane="142575690#2_1" startPos="5" endPos="-5" roadsideCapacity="6"/>

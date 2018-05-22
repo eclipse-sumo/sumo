@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 24 08:18:07 2018 by Eclipse SUMO netconvert Version 5e8f9bb
+<!-- generated on Tue May 22 16:05:59 2018 by Eclipse SUMO netconvert Version 6fb88ac
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_bbox.osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -66,7 +66,7 @@
         <busStop id="271373068" name="S+U Brandenburger Tor"/>
     </ptLine>
     <ptLine id="3" name="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten" line="100" type="bus" completeness="0.50">
-        <route edges="139877309 24990031#1 195401010 195401013#0 195401013#1 195401013#2 24914992 171826985#0 171826985#1 171826985#2 171826985#3 24913519#0 24913519#1 24913519#2 202156995#0 202156995#1 15972319 4067932 61584187#0 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#4 169195795#5 169195795#6 169195795#7 169195795#8 169195795#9 169195795#10 188386313#0 188386313#1 24913304#0 24913304#1 24913304#2"/>
+        <route edges="139877309 24990031#1 195401010 195401013#0 195401013#1 195401013#2 24914992 171826985#0 171826985#1 171826985#2 171826985#3 24913519#0 24913519#1 24913519#2 202156995#0 202156995#1 15972319 4067932 61584187#0 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#4 169195795#5 169195795#6 169195795#7 169195795#9 169195795#10 188386313#0 188386313#1 24913304#0 24913304#1 24913304#2"/>
         <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße"/>
         <busStop id="270727248" name="S+U Alexanderplatz"/>
         <busStop id="1827996417" name="Spandauer Straße/Marienkirche"/>
