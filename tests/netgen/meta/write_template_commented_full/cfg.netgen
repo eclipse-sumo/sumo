@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 17 13:49:18 2018 by Eclipse SUMO netgenerate Version 3b25f51
+<!-- generated on Wed May 23 11:24:31 2018 by Eclipse SUMO netgenerate Version 4bf903e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -225,6 +225,9 @@
         <!-- Set INT as fixed time for intermediate red phase after every switch -->
         <tls.allred.time value="0" type="INT"/>
 
+        <!-- Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles -->
+        <tls.minor-left.max-speed value="19.44" type="FLOAT"/>
+
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
 
@@ -291,6 +294,12 @@
     </unregulated_nodes>
 
     <processing>
+        <!-- Generate INT left-turn lanes -->
+        <turn-lanes value="0" type="INT"/>
+
+        <!-- Set the length of generated turning lanes to FLOAT -->
+        <turn-lanes.length value="20" type="FLOAT"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
@@ -397,7 +406,7 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <default.speed value="13.9" synonymes="S speed" type="FLOAT"/>
+        <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>

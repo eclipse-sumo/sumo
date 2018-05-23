@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  2 11:25:42 2018 by Eclipse SUMO netconvert Version 970b197
+<!-- generated on Wed May 23 10:09:35 2018 by Eclipse SUMO netconvert Version cc0b5f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -72,14 +72,10 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGGggrrrrrGGGggrrrrr"/>
-        <phase duration="3"  state="yyyggrrrrryyyggrrrrr"/>
-        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrr"/>
-        <phase duration="3"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="33" state="rrrrrGGGggrrrrrGGGgg"/>
-        <phase duration="3"  state="rrrrryyyggrrrrryyygg"/>
-        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGG"/>
-        <phase duration="3"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="42" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="70.71" y="70.71" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes="" shape="71.77,80.82 80.82,71.77 80.82,69.65 71.77,60.60 69.65,60.60 60.60,69.65 60.60,71.77 69.65,80.82">

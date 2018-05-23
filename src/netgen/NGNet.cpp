@@ -246,6 +246,53 @@ NGNet::toNB() const {
             }
         }
     }
+    // add splits depending on turn-lane options
+    const int turnLanes = OptionsCont::getOptions().getInt("turn-lanes");
+    if (turnLanes > 0) {
+        const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
+        NBEdgeCont& ec = myNetBuilder.getEdgeCont();
+        EdgeVector allEdges;
+        for (auto it = ec.begin(); it != ec.end(); ++it) {
+            allEdges.push_back(it->second);
+        }
+        for (NBEdge* e : allEdges) {
+            if (e->getToNode()->geometryLike()) {
+                continue;
+            }
+            std::vector<NBEdgeCont::Split> splits;
+            NBEdgeCont::Split split;
+            for (int i = 0; i < e->getNumLanes() + turnLanes; ++i) {
+                split.lanes.push_back(i);
+            }
+            split.pos = MAX2(0.0, e->getLength() - turnLaneLength);
+            split.speed = e->getSpeed();
+            split.node = new NBNode(e->getID() + "." + toString(split.pos), e->getGeometry().positionAtOffset(split.pos));
+            split.idBefore = e->getID();
+            split.idAfter = split.node->getID();
+            if (turnLaneLength <= e->getLength() / 2) {
+                split.offset = -0.5 * turnLanes * e->getLaneWidth(0);
+                if (e->getFromNode()->geometryLike()) {
+                    // shift the reverse direction explicitly as it will not get a turn lane
+                    NBEdge* reverse = 0;
+                    for (NBEdge* reverseCand : e->getFromNode()->getIncomingEdges()) {
+                        if (reverseCand->getFromNode() == e->getToNode()) {
+                            reverse = reverseCand;
+                        }
+                    }
+                    if (reverse != 0) {
+                        PositionVector g = reverse->getGeometry();
+                        g.move2side(-split.offset);
+                        reverse->setGeometry(g);
+                    }
+                }
+            }
+            splits.push_back(split);
+            ec.processSplits(e, splits, 
+                    myNetBuilder.getNodeCont(),
+                    myNetBuilder.getDistrictCont(),
+                    myNetBuilder.getTLLogicCont());
+        }
+    }
 }
 
 

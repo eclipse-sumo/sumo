@@ -410,6 +410,151 @@ NBEdgeCont::rename(NBEdge* edge, const std::string& newID) {
 
 
 // ----- explicit edge manipulation methods
+
+void 
+NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits, 
+        NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc) {
+    if (splits.size() == 0) {
+        return;
+    }
+    const std::string origID = e->getID();
+    std::vector<Split>::iterator i;
+    sort(splits.begin(), splits.end(), split_sorter());
+    int noLanesMax = e->getNumLanes();
+    // compute the node positions and sort the lanes
+    for (i = splits.begin(); i != splits.end(); ++i) {
+        sort((*i).lanes.begin(), (*i).lanes.end());
+        noLanesMax = MAX2(noLanesMax, (int)(*i).lanes.size());
+    }
+    // split the edge
+    std::vector<int> currLanes;
+    for (int l = 0; l < e->getNumLanes(); ++l) {
+        currLanes.push_back(l);
+    }
+    if (e->getNumLanes() != (int)splits.back().lanes.size()) {
+        // invalidate traffic light definitions loaded from a SUMO network
+        e->getToNode()->invalidateTLS(tlc, true, true);
+        // if the number of lanes changes the connections should be
+        // recomputed
+        e->invalidateConnections(true);
+    }
+
+    std::string firstID = "";
+    double seen = 0;
+    for (i = splits.begin(); i != splits.end(); ++i) {
+        const Split& exp = *i;
+        assert(exp.lanes.size() != 0);
+        if (exp.pos > 0 && e->getGeometry().length() + seen > exp.pos && exp.pos > seen) {
+            nc.insert(exp.node);
+            nc.markAsSplit(exp.node);
+            //  split the edge
+            std::string idBefore = exp.idBefore == "" ? e->getID() : exp.idBefore;
+            std::string idAfter = exp.idAfter == "" ? exp.nameID : exp.idAfter;
+            if (firstID == "") {
+                firstID = idBefore;
+            }
+            const bool ok = splitAt(dc, e, exp.pos - seen, exp.node,
+                    idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
+            if (!ok) {
+                WRITE_WARNING("Error on parsing a split (edge '" + origID + "').");
+            }
+            seen = exp.pos;
+            std::vector<int> newLanes = exp.lanes;
+            NBEdge* pe = retrieve(idBefore);
+            NBEdge* ne = retrieve(idAfter);
+            // reconnect lanes
+            pe->invalidateConnections(true);
+            //  new on right
+            int rightMostP = currLanes[0];
+            int rightMostN = newLanes[0];
+            for (int l = 0; l < (int) rightMostP - (int) rightMostN; ++l) {
+                pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
+            }
+            //  new on left
+            int leftMostP = currLanes.back();
+            int leftMostN = newLanes.back();
+            for (int l = 0; l < (int) leftMostN - (int) leftMostP; ++l) {
+                pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::L2L_VALIDATED, true);
+            }
+            //  all other connected
+            for (int l = 0; l < noLanesMax; ++l) {
+                if (find(currLanes.begin(), currLanes.end(), l) == currLanes.end()) {
+                    continue;
+                }
+                if (find(newLanes.begin(), newLanes.end(), l) == newLanes.end()) {
+                    continue;
+                }
+                pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
+            }
+            //  if there are edges at this node which are not connected
+            //  we can assume that this split was attached to an
+            //  existing node. Reset all connections to let the default
+            //  algorithm recompute them
+            if (exp.node->getIncomingEdges().size() > 1 || exp.node->getOutgoingEdges().size() > 1) {
+                for (NBEdge* in : exp.node->getIncomingEdges()) {
+                    in->invalidateConnections(true);
+                }
+            }
+            // move to next
+            e = ne;
+            currLanes = newLanes;
+        }  else if (exp.pos == 0) {
+            const int laneCountDiff = e->getNumLanes() - (int)exp.lanes.size();
+            if (laneCountDiff < 0) {
+                e->incLaneNo(-laneCountDiff);
+            } else {
+                e->decLaneNo(laneCountDiff);
+            }
+            currLanes = exp.lanes;
+            // invalidate traffic light definition loaded from a SUMO network
+            // XXX it would be preferable to reconstruct the phase definitions heuristically
+            e->getFromNode()->invalidateTLS(tlc, true, true);
+        } else {
+            WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + origID + "').");
+        }
+    }
+    // patch lane offsets
+    e = retrieve(firstID);
+    if (splits.front().pos != 0) {
+        // add a dummy split at the beginning to ensure correct offset
+        Split start;
+        start.pos = 0;
+        for (int lane = 0; lane < (int)e->getNumLanes(); ++lane) {
+            start.lanes.push_back(lane);
+        }
+        start.offset = splits.front().offset;
+        splits.insert(splits.begin(), start);
+    }
+    i = splits.begin();
+    if (e != 0) {
+        for (; i != splits.end(); ++i) {
+            int maxLeft = (*i).lanes.back();
+            double offset = (*i).offset;
+            if (maxLeft < noLanesMax) {
+                if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+                    offset += SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
+                } else {
+                    offset += SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
+                }
+            }
+            int maxRight = (*i).lanes.front();
+            if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+                offset -= SUMO_const_halfLaneAndOffset * maxRight;
+            }
+            //std::cout << " processSplits " << origID << " splitOffset=" << (*i).offset << " offset=" << offset << "\n";
+            if (offset != 0) {
+                PositionVector g = e->getGeometry();
+                g.move2side(offset);
+                e->setGeometry(g);
+            }
+            if (e->getToNode()->getOutgoingEdges().size() != 0) {
+                e = e->getToNode()->getOutgoingEdges()[0];
+            }
+        }
+    }
+}
+
+
 bool
 NBEdgeCont::splitAt(NBDistrictCont& dc, NBEdge* edge, NBNode* node) {
     return splitAt(dc, edge, node, edge->getID() + "[0]", edge->getID() + "[1]",

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 11:57:02 2018 by Eclipse SUMO netconvert Version e9d22a3
+<!-- generated on Wed May 23 10:09:29 2018 by Eclipse SUMO netconvert Version cc0b5f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -330,27 +330,21 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="28095228" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGGgrrrrrrrrrGggg"/>
-        <phase duration="3"  state="yyygrrrrrrrrryggg"/>
-        <phase duration="6"  state="rrrGrrrrrrrrrrGGG"/>
-        <phase duration="3"  state="rrryrrrrrrrrrryyy"/>
-        <phase duration="33" state="rrrrgggGGGGGGrrrr"/>
-        <phase duration="3"  state="rrrrgggyyyyyyrrrr"/>
-        <phase duration="6"  state="rrrrGGGrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrryyyrrrrrrrrrr"/>
+        <phase duration="42" state="GGGgrrrrrrrrrGggg"/>
+        <phase duration="3"  state="yyyyrrrrrrrrryyyy"/>
+        <phase duration="42" state="rrrrgggGGGGGGrrrr"/>
+        <phase duration="3"  state="rrrryyyyyyyyyrrrr"/>
     </tlLogic>
     <tlLogic id="28095233" type="static" programID="0" offset="0">
-        <phase duration="38" state="GgGGGGrrrrgggg"/>
-        <phase duration="3"  state="yyyyyyrrrrgggg"/>
-        <phase duration="6"  state="rrrrrrrrrrGGGG"/>
-        <phase duration="3"  state="rrrrrrrrrryyyy"/>
-        <phase duration="37" state="rrrrrrGGGGrrrr"/>
+        <phase duration="42" state="GgGGGGrrrrgggg"/>
+        <phase duration="3"  state="yyyyyyrrrryyyy"/>
+        <phase duration="42" state="rrrrrrGGGGrrrr"/>
         <phase duration="3"  state="rrrrrryyyyrrrr"/>
     </tlLogic>
     <tlLogic id="821551878" type="static" programID="0" offset="0">
-        <phase duration="78" state="GgGGGG"/>
+        <phase duration="82" state="GgGGGG"/>
         <phase duration="3"  state="yyyyyy"/>
-        <phase duration="9"  state="rrrrrr"/>
+        <phase duration="5"  state="rrrrrr"/>
     </tlLogic>
 
     <junction id="1918390886" type="priority" x="1436.04" y="168.48" incLanes="10996053_0 10996053_1 10996053_2 10996053_3 181407587_0 181407587_1" intLanes=":1918390886_0_0 :1918390886_0_1 :1918390886_0_2 :1918390886_0_3 :1918390886_4_0 :1918390886_5_0 :1918390886_6_0" shape="1439.67,173.93 1441.44,162.97 1431.84,161.48 1430.37,172.49 1431.53,174.19 1437.78,175.55">

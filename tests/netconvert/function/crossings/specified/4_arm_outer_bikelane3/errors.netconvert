@@ -23,5 +23,3 @@ Warning: Lane 'SCb_0' is not connected from any incoming edge at junction 'S'.
 Warning: Lane 'WC_1' is not connected from any incoming edge at junction 'W'.
 Warning: Lane 'WC_2' is not connected from any incoming edge at junction 'W'.
 Warning: Lane 'WCb_0' is not connected from any incoming edge at junction 'W'.
-Warning: The traffic light 'C' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'C' has a high cycle time of 172.00.

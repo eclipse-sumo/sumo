@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:43 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed May 23 10:09:33 2018 by Eclipse SUMO netconvert Version cc0b5f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -167,15 +167,11 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGGgrrrrGGGgrrrrr"/>
-        <phase duration="3"  state="yyygrrrryyygrrrrr"/>
-        <phase duration="6"  state="rrrGrrrrrrrGrrrrr"/>
-        <phase duration="3"  state="rrryrrrrrrryrrrrr"/>
-        <phase duration="28" state="rrrrGGGgrrrrgGGgG"/>
+        <phase duration="42" state="GGGgrrrrGGGgrrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrrr"/>
+        <phase duration="37" state="rrrrGGGgrrrrgGGgG"/>
         <phase duration="5"  state="rrrrGGGgrrrrgGGgr"/>
-        <phase duration="3"  state="rrrryyygrrrryyygr"/>
-        <phase duration="6"  state="rrrrrrrGrrrrrrrGr"/>
-        <phase duration="3"  state="rrrrrrryrrrrrrryr"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyyr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w3_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_19_0 :C_13_0 :C_13_1 :C_20_0 :C_c0_0" shape="89.10,112.40 110.90,112.40 112.40,110.90 112.40,89.10 110.90,87.60 89.10,87.60 87.60,89.10 87.60,110.90">

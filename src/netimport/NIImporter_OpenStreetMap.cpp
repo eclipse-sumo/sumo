@@ -523,22 +523,43 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         ok = false;
     }
     // deal with cycleways that run in the opposite direction of a one-way street
+    WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {
-        if (!addForward && (e->myCyclewayType & WAY_FORWARD) != 0) {
+        if (!addForward && (cyclewayType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_BICYCLE;
             forwardWidth = tc.getBikeLaneWidth(type);
             numLanesForward = 1;
             // do not add an additional cycle lane
-            e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
+            cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
         }
-        if (!addBackward && (e->myCyclewayType & WAY_BACKWARD) != 0) {
+        if (!addBackward && (cyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
             backwardPermissions = SVC_BICYCLE;
             backwardWidth = tc.getBikeLaneWidth(type);
             numLanesBackward = 1;
             // do not add an additional cycle lane
-            e->myCyclewayType = (WayType)(e->myCyclewayType & !WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
+            cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
+        }
+    }
+    // deal with sidewalks that run in the opposite direction of a one-way street
+    WayType sidewalkType = e->mySidewalkType; // make a copy because we do some temporary modifications
+    if (addSidewalk) {
+        if (!addForward && (sidewalkType & WAY_FORWARD) != 0) {
+            addForward = true;
+            forwardPermissions = SVC_PEDESTRIAN;
+            forwardWidth = tc.getSidewalkWidth(type);
+            numLanesForward = 1;
+            // do not add an additional sidewalk
+            sidewalkType = (WayType)(sidewalkType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
+        }
+        if (!addBackward && (sidewalkType & WAY_BACKWARD) != 0) {
+            addBackward = true;
+            backwardPermissions = SVC_PEDESTRIAN;
+            backwardWidth = tc.getSidewalkWidth(type);
+            numLanesBackward = 1;
+            // do not add an additional cycle lane
+            sidewalkType = (WayType)(sidewalkType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
         }
     }
     // deal with busways that run in the opposite direction of a one-way street
@@ -570,13 +591,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
             }
-            if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_FORWARD) != 0)) {
+            if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
-            if (addSidewalk) {
+            if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
             nbe->updateParameter(e->getMap());
@@ -594,13 +615,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
             }
-            if (addBikeLane && (e->myCyclewayType == WAY_UNKNOWN || (e->myCyclewayType & WAY_BACKWARD) != 0)) {
+            if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getBikeLaneWidth(type));
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
-            if (addSidewalk) {
+            if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
             nbe->updateParameter(e->getMap());
@@ -840,7 +861,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
         if (key.size() > 8 && StringUtils::startsWith(key, "cycleway:")) {
-            // handle special busway keys
+            // handle special cycleway keys
             const std::string cyclewaySpec = key.substr(9);
             key = "cycleway";
             if (cyclewaySpec == "right") {
@@ -877,6 +898,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
+                && key != "sidewalk"
                 && !StringUtils::startsWith(key, "parking")
                 && key != "postal_code" && key != "railway:preferred_direction" && key != "public_transport") {
             return;
@@ -884,7 +906,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
-                || key == "busway" || key == "route") {
+                || key == "busway" || key == "route" || key == "sidewalk") {
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff
             if (key == "cycleway") {
@@ -896,6 +918,21 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 } else if (value == "opposite_lane") {
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 }
+            }
+            // special sidewalk stuff
+            if (key == "sidewalk") {
+                if (value == "no" || value == "none") {
+                    return;
+                }
+                if (value == "both") {
+                    myCurrentEdge->mySidewalkType = WAY_BOTH;
+                } else if (value == "right") {
+                    myCurrentEdge->mySidewalkType = WAY_FORWARD;
+                } else if (value == "left") {
+                    myCurrentEdge->mySidewalkType = WAY_BACKWARD;
+                }
+                // no need to extend the type id
+                return;
             }
             // special busway stuff
             if (key == "busway") {

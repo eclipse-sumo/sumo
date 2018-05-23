@@ -32,5 +32,8 @@ defaults
 # add id prefix
 prefix
 
+# build turning lanes
+turnlanes
+
 # Tests processing of errors in input
 errors

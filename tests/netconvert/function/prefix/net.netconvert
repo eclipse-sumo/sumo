@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 17 12:25:52 2018 by Eclipse SUMO netconvert Version 20a9fc9
+<!-- generated on Wed May 23 10:09:35 2018 by Eclipse SUMO netconvert Version cc0b5f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -69,14 +69,10 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGGggrrrrrGGGggrrrrr"/>
-        <phase duration="3"  state="yyyggrrrrryyyggrrrrr"/>
-        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrr"/>
-        <phase duration="3"  state="rrryyrrrrrrrryyrrrrr"/>
-        <phase duration="33" state="rrrrrGGGggrrrrrGGGgg"/>
-        <phase duration="3"  state="rrrrryyyggrrrrryyygg"/>
-        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGG"/>
-        <phase duration="3"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="42" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
     </tlLogic>
 
     <junction id="fooC" type="traffic_light" x="100.00" y="100.00" incLanes="fooNC_0 fooNC_1 fooEC_0 fooEC_1 fooSC_0 fooSC_1 fooWC_0 fooWC_1" intLanes="" shape="93.60,107.90 106.40,107.90 107.90,106.40 107.90,93.60 106.40,92.10 93.60,92.10 92.10,93.60 92.10,106.40">

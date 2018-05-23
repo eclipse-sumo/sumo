@@ -10,7 +10,7 @@ Parsing relations from osm-file 'osm.xml'... done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
 Joining junction clusters... 
-done (0ms).
+done (1ms).
  Joined 6 junction cluster(s).
 Removing empty nodes... done (0ms).
    7 nodes removed.
@@ -19,7 +19,7 @@ Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Guessing and setting on-/off-ramps... done (0ms).
 Remapped 152 edge IDs and 7 node IDs.
-Sorting nodes' edges... done (1ms).
+Sorting nodes' edges... done (0ms).
 Computing node shapes... done (4ms).
 Computing edge shapes... done (1ms).
 Computing node types... done (0ms).
@@ -30,10 +30,11 @@ Dividing of lanes on approached lanes... done (1ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (8ms).
-Computing traffic light logics... done (0ms).
+Computing node logics... done (2ms).
+Computing traffic light logics... 
+done (0ms).
  3 traffic light(s) computed.
-Building inner edges... done (7ms).
+Building inner edges... done (5ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -46,5 +47,5 @@ Summary:
   Applied offset     : -399345.66,-5809365.64
   Converted boundary : 0.00,0.00,1737.68,767.39
 -----------------------------------------------------
-Writing network... done (71ms).
+Writing network... done (63ms).
 Success.

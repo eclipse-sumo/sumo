@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr 24 08:18:07 2018 by Eclipse SUMO netconvert Version 5e8f9bb
+<!-- generated on Wed May 23 09:11:25 2018 by Eclipse SUMO netconvert Version 9db4879
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_bbox.osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/tools.24Apr081804.14095/tools/import/OSM/webWizard/2018-04-24-08-18-05/osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -63,8 +63,8 @@
     </busStop>
     <busStop id="1686199552" name="Berliner Rathaus" lane="156364566#1_2" startPos="7.29" endPos="32.29" friendlyPos="true"/>
     <busStop id="1745157971" name="S Hackescher Markt" lane="32590640_0" startPos="3.07" endPos="203.07" friendlyPos="true" lines="S5 S7">
-        <access lane="182814027#6_0" pos="26.83" friendlyPos="1"/>
         <access lane="123074181#2_0" pos="26.83" friendlyPos="1"/>
+        <access lane="182814027#6_0" pos="26.83" friendlyPos="1"/>
         <access lane="275008387_0" pos="39.11" friendlyPos="1"/>
         <access lane="280007139#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="280007139#1_0" pos="0.00" friendlyPos="1"/>
@@ -93,8 +93,8 @@
         <access lane="254523895#0_0" pos="4.65" friendlyPos="1"/>
     </busStop>
     <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="42.31" endPos="67.31" friendlyPos="true">
+        <access lane="196850605_0" pos="10.93" friendlyPos="1"/>
         <access lane="-196850605_0" pos="0.39" friendlyPos="1"/>
-        <access lane="196850605_0" pos="13.10" friendlyPos="1"/>
         <access lane="292429056_0" pos="187.66" friendlyPos="1"/>
         <access lane="-292429056_0" pos="0.00" friendlyPos="1"/>
         <access lane="42102542_0" pos="0.00" friendlyPos="1"/>
@@ -138,8 +138,8 @@
         <access lane="313323170#1_0" pos="112.98" friendlyPos="1"/>
         <access lane="-4612970#1_0" pos="0.49" friendlyPos="1"/>
         <access lane="4612970#1_0" pos="0.00" friendlyPos="1"/>
-        <access lane="-4612970#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="4612970#0_0" pos="116.64" friendlyPos="1"/>
+        <access lane="-4612970#0_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="1138.06" endPos="1163.06" friendlyPos="true">
         <access lane="-109819106#0_0" pos="65.06" friendlyPos="1"/>
@@ -190,8 +190,8 @@
         <access lane="274524373_0" pos="2.18" friendlyPos="1"/>
         <access lane="194073677_0" pos="59.71" friendlyPos="1"/>
         <access lane="-194073677_0" pos="56.99" friendlyPos="1"/>
-        <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
         <access lane="274524385#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
     </busStop>
     <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße" lane="195401017#2_2" startPos="0.00" endPos="11.50" friendlyPos="true" lines="TXL 100 200"/>
     <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße" lane="139877309_1" startPos="0.00" endPos="11.50" friendlyPos="true" lines="100 200"/>
@@ -217,8 +217,8 @@
     </busStop>
     <busStop id="27411240" name="S Hackescher Markt" lane="4471817_0" startPos="27.65" endPos="214.84" friendlyPos="true" lines="S5 S7">
         <access lane="304514893#0_0" pos="108.59" friendlyPos="1"/>
-        <access lane="123074181#2_0" pos="41.68" friendlyPos="1"/>
         <access lane="182814027#6_0" pos="41.68" friendlyPos="1"/>
+        <access lane="123074181#2_0" pos="41.68" friendlyPos="1"/>
         <access lane="275008387_0" pos="54.07" friendlyPos="1"/>
         <access lane="304514893#1_0" pos="88.18" friendlyPos="1"/>
     </busStop>
@@ -232,8 +232,8 @@
     <busStop id="2792364395" name="U Friedrichstraße" lane="274513583_0" startPos="108.72" endPos="133.72" friendlyPos="true">
         <access lane="195411602#1_0" pos="11.86" friendlyPos="1"/>
         <access lane="274513566#1_0" pos="1.13" friendlyPos="1"/>
-        <access lane="274513566#0_0" pos="0.10" friendlyPos="1"/>
         <access lane="274513547_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274513566#0_0" pos="0.10" friendlyPos="1"/>
         <access lane="190447766#0_0" pos="17.28" friendlyPos="1"/>
     </busStop>
     <busStop id="29058100" name="U Oranienburger Tor" lane="176339603_0" startPos="3421.80" endPos="3446.80" friendlyPos="true">
@@ -241,7 +241,7 @@
         <access lane="35269774#1_0" pos="109.97" friendlyPos="1"/>
         <access lane="318915602#1_0" pos="0.00" friendlyPos="1"/>
         <access lane="6227654#0_0" pos="88.39" friendlyPos="1"/>
-        <access lane="35269774#3_0" pos="0.00" friendlyPos="1"/>
+        <access lane="-204032443#0_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2915545317" name="U-Bhf Weinmeisterstraße/Gipsstraße" lane="36892597#0_1" startPos="63.30" endPos="78.30" friendlyPos="true"/>
     <busStop id="2915579613" name="S Hackescher Markt" lane="275177453_1" startPos="0.00" endPos="6.50" friendlyPos="true"/>
@@ -261,8 +261,8 @@
     <busStop id="29805120" name="Friedrichstraße" lane="25946657_0" startPos="0.00" endPos="153.87" friendlyPos="true">
         <access lane="237526578#0_0" pos="32.55" friendlyPos="1"/>
         <access lane="274524364_0" pos="2.53" friendlyPos="1"/>
-        <access lane="274524384#0_0" pos="2.77" friendlyPos="1"/>
         <access lane="274524384#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274524384#0_0" pos="2.77" friendlyPos="1"/>
         <access lane="274524379#0_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2990822797" name="U Schwartzkopffstraße" lane="278240007_0" startPos="1291.07" endPos="1316.07" friendlyPos="true"/>
@@ -305,8 +305,8 @@
     <busStop id="365714332" name="S+U Friedrichstraße" lane="190447766#0_1" startPos="6.27" endPos="31.27" friendlyPos="true"/>
     <busStop id="366500581" name="Friedrichstraße" lane="29384662_0" startPos="0.00" endPos="146.35" friendlyPos="true">
         <access lane="274524384#0_0" pos="0.00" friendlyPos="1"/>
-        <access lane="274524364_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524384#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274524364_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524381#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524361_0" pos="1.62" friendlyPos="1"/>
     </busStop>
@@ -322,8 +322,8 @@
         <access lane="274524373_0" pos="2.18" friendlyPos="1"/>
         <access lane="274524385#1_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
-        <access lane="-194073677_0" pos="54.68" friendlyPos="1"/>
         <access lane="194073677_0" pos="62.02" friendlyPos="1"/>
+        <access lane="-194073677_0" pos="54.68" friendlyPos="1"/>
     </busStop>
     <busStop id="474368351" name="S Friedrichstraße" lane="230976796_0" startPos="656.94" endPos="856.94" friendlyPos="true" lines="S25">
         <access lane="237519485_0" pos="19.27" friendlyPos="1"/>

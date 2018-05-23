@@ -99,4 +99,7 @@ geo_from_osm
 
 # a complex example where bypass edges should not be joined
 bypass
+
+# creating opposite-direction edge due to sidewalk information
+sidewalks
 bugs
