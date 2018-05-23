@@ -1720,6 +1720,10 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
         reason = "TLS";
         return false;
     }
+    if (myType == NODETYPE_RAIL_SIGNAL) {
+        reason = "rail_signal";
+        return false;
+    }
     if (myCrossings.size() != 0) {
         reason = "crossing";
         return false;

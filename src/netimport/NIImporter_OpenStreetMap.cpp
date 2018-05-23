@@ -200,7 +200,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<long long int, NIOSMNode*>::const_iterator nodesIt = myOSMNodes.begin();
             nodesIt != myOSMNodes.end();
             ++nodesIt) {
-        if (nodesIt->second->tlsControlled /* || nodesIt->second->railwayCrossing*/) {
+        if (nodesIt->second->tlsControlled || nodesIt->second->railwaySignal /* || nodesIt->second->railwayCrossing*/) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
             nodeUsage[nodesIt->first] += 1;
@@ -285,6 +285,8 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         n->node = node;
         if (n->railwayCrossing) {
             node->reinit(pos, NODETYPE_RAIL_CROSSING);
+        } else if (n->railwaySignal) {
+            node->reinit(pos, NODETYPE_RAIL_SIGNAL);
         } else if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
@@ -744,7 +746,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport"
-                || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station") {
+                || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station"
+                || StringUtils::startsWith(key, "railway:signal")) {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
@@ -752,6 +755,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->tlsControlled = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myToFill[myLastNodeID]->railwayCrossing = true;
+            } else if (StringUtils::startsWith(key, "railway:signal") && (
+                            value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
+                myToFill[myLastNodeID]->railwaySignal = true;
             } else if ((key == "public_transport" && value == "stop_position") ||
                        (key == "highway" && value == "bus_stop")) {
                 myToFill[myLastNodeID]->ptStopPosition = true;

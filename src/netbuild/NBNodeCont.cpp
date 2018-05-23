@@ -1478,7 +1478,7 @@ void
 NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
-        if (!geometryLike || node->geometryLike()) {
+        if (node->isTLControlled() && (!geometryLike || node->geometryLike())) {
             // make a copy of tldefs
             const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
             if (guessSignals && node->isTLControlled() && node->geometryLike()) {
