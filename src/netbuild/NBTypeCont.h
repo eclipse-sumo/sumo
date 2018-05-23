@@ -234,7 +234,7 @@ private:
     struct TypeDefinition {
         /// @brief Constructor
         TypeDefinition() :
-            numLanes(1), speed((double) 13.9), priority(-1),
+            numLanes(1), speed((double) 13.89), priority(-1),
             permissions(SVC_UNSPECIFIED),
             oneWay(true), discard(false),
             width(NBEdge::UNSPECIFIED_WIDTH),
