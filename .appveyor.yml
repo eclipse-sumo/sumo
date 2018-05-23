@@ -1,17 +1,21 @@
 version: git.{build}
 
+image:
+- Visual Studio 2013
+- Visual Studio 2015
+- Visual Studio 2017
+
 environment:
-    R_ARCH: x64
     matrix:
-        - target: msvc
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
           ver: 2013
           generator: "Visual Studio 12 2013 Win64"
           configuration: Release
-        - target: msvc
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           ver: 2015
           generator: "Visual Studio 14 2015 Win64"
           configuration: Release
-        - target: msvc
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
           ver: 2017
           generator: "Visual Studio 15 2017 Win64"
           configuration: Release
@@ -26,3 +30,7 @@ build_script:
       cd build_msvc%ver% &&
       cmake .. -G"%generator%" &&
       cmake --build . --config %configuration%
+
+# maybe enable later but for now it probably exceeds the cache limit of 1GB
+#cache:
+#    - SUMOLibraries
