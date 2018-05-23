@@ -1,10 +1,5 @@
 version: git.{build}
 
-image:
-- Visual Studio 2013
-- Visual Studio 2015
-- Visual Studio 2017
-
 environment:
     matrix:
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
