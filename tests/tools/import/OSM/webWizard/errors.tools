@@ -1484,20 +1484,17 @@ Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=707.00.
-Warning: Vehicle 'pt_bus_147:1.0' ends teleporting on edge '153698380', time 707.00.
-Warning: Teleporting vehicle 'bus30'; waited too long (jam), lane=':cluster_2003979131_25664841_5_0', time=938.00.
-Warning: Vehicle 'bus30' ends teleporting on edge '330840126#0', time 938.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1020.00.
-Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1068.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=705.00.
+Warning: Vehicle 'pt_bus_147:1.0' ends teleporting on edge '153698380', time 705.00.
+Warning: Teleporting vehicle 'bus30'; waited too long (jam), lane=':cluster_2003979131_25664841_5_0', time=937.00.
+Warning: Vehicle 'bus30' ends teleporting on edge '330840126#0', time 937.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1018.00.
+Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1066.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1214.00.
 Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1214.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1345.00.
-Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1345.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1659.00.
-Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1707.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1335.00.
+Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1335.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1648.00.
+Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1696.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1814.00.
 Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1814.00.
-Warning: Person 'ped13' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped111' aborted waiting for 100:1 at busStop '270718978'.
-Warning: Person 'ped164' aborted waiting for 100:1 at busStop '270718978'.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 22 15:12:47 2018 by Eclipse SUMO netgenerate Version a355048
+<!-- generated on Wed May 23 09:35:33 2018 by Eclipse SUMO netgenerate Version ba01b12
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -400,7 +400,7 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <default.speed value="13.9" synonymes="S speed" type="FLOAT"/>
+        <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
