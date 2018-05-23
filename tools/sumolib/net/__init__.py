@@ -191,11 +191,15 @@ class Net:
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
         if viaLaneID:
-            viaLane = self.getLane(viaLaneID)
-            viaEdge = viaLane.getEdge()
-            viaEdge._addIncoming(connection.Connection(
-                fromEdge, viaEdge, fromlane, viaLane, direction, tls,
-                tllink, state, ''))
+            try:
+                # internal lanes are only available when building with option withInternal=True
+                viaLane = self.getLane(viaLaneID)
+                viaEdge = viaLane.getEdge()
+                viaEdge._addIncoming(connection.Connection(
+                    fromEdge, viaEdge, fromlane, viaLane, direction, tls,
+                    tllink, state, ''))
+            except:
+                pass
 
     def getEdges(self):
         return self._edges
