@@ -194,11 +194,13 @@ public:
      * so that the previous state can be restored
      * also calls invalidateTLS
      * @param[in] valid The new validity of the junction
-     * @note: this should always be called with an active command group */
-    void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = GUESSED);
+     * @note: this should always be called with an active command group 
+     */
+    void setLogicValid(bool valid, GNEUndoList* undoList, const std::string& status = FEATURE_GUESSED);
 
     /// @brief remove all connections from the given edge
     void removeConnectionsFrom(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane=-1);
+
     /// @brief remove all connections to the given edge
     void removeConnectionsTo(GNEEdge* edge, GNEUndoList* undoList, bool updateTLS, int lane=-1);
 
@@ -208,7 +210,8 @@ public:
     /* @brief invalidates loaded or edited TLS
      * @param[in] deletedConnection If a valid connection is given a replacement def with this connection removed
      *   but all other information intact will be computed instead of guessing a new tlDef
-     * @note: this should always be called with an active command group */
+     * @note: this should always be called with an active command group 
+     */
     void invalidateTLS(GNEUndoList* undoList, 
             const NBConnection& deletedConnection = NBConnection::InvalidConnection,
             const NBConnection& addedConnection = NBConnection::InvalidConnection);

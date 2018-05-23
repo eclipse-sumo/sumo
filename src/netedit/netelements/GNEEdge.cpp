@@ -74,7 +74,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     myLanes(0),
     myAmResponsible(false),
     myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? LOADED : GUESSED) {
+    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED) {
     // Create lanes
     int numLanes = myNBEdge.getNumLanes();
     myLanes.reserve(numLanes);
@@ -1137,10 +1137,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break; // no edge value
         case GNE_ATTR_MODIFICATION_STATUS:
             myConnectionStatus = value;
-            if (value == GUESSED) {
+            if (value == FEATURE_GUESSED) {
                 myNBEdge.invalidateConnections(true);
                 clearGNEConnections();
-            } else if (value != GUESSED) {
+            } else if (value != FEATURE_GUESSED) {
                 myNBEdge.declareConnectionsAsLoaded();
             }
             break;

@@ -46,10 +46,10 @@
 
 std::map<SumoXMLTag, std::pair<GNEAttributeCarrier::TagValues, std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> > > GNEAttributeCarrier::myAllowedAttributes;
 
-const std::string GNEAttributeCarrier::LOADED = "loaded";
-const std::string GNEAttributeCarrier::GUESSED = "guessed";
-const std::string GNEAttributeCarrier::MODIFIED = "modified";
-const std::string GNEAttributeCarrier::APPROVED = "approved";
+const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
+const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
+const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
+const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
 #define OPTIONALATTRIBUTE "-1"
@@ -209,6 +209,9 @@ GNEAttributeCarrier::AttributeValues::getDescription() const {
     if((myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0) {
         pre += "unique ";
     }
+    if((myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0) {
+        pre += "combinable ";
+    }
     // type
     if((myAttributeProperty & ATTRPROPERTY_INT) != 0) {
         type = "integer";
@@ -246,6 +249,12 @@ GNEAttributeCarrier::AttributeValues::getDescription() const {
         last = "[0, 360]";
     }
     return pre + type + plural + last;
+}
+
+
+const std::vector<std::string> &
+GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
+    return myDiscreteValues;
 }
 
 
@@ -339,9 +348,9 @@ GNEAttributeCarrier::AttributeValues::isDiscrete() const {
 }
 
 
-const std::vector<std::string> &
-GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
-    return myDiscreteValues;
+bool 
+GNEAttributeCarrier::AttributeValues::isCombinable() const {
+    return (myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -672,12 +681,6 @@ GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool
-GNEAttributeCarrier::discreteCombinableChoices(SumoXMLAttr attr) {
-    return (attr == SUMO_ATTR_ALLOW || attr == SUMO_ATTR_DISALLOW);
-}
-
-
 int
 GNEAttributeCarrier::getHigherNumberOfAttributes() {
     int maxNumAttribute = 0;
@@ -996,12 +999,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The name of a type within the SUMO edge type file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "Explicitly allows the given vehicle classes (not given will be not allowed)", 
             "all",
             SumoVehicleClassStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "Explicitly disallows the given vehicle classes (not given will be allowed)", 
             "",
             SumoVehicleClassStrings.getStrings());
@@ -1098,12 +1101,12 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Speed in meters per second", 
             "13.89");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "Explicitly allows the given vehicle classes (not given will be not allowed)", 
             "all",
             SumoVehicleClassStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "Explicitly disallows the given vehicle classes (not given will be allowed)", 
             "",
             SumoVehicleClassStrings.getStrings());
@@ -1771,7 +1774,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of an edge in the simulation network", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The frequency in which to report the distribution", 
             OPTIONALATTRIBUTE);                
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
@@ -2131,11 +2134,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Edge ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "allowed vehicles", 
             "all");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "disallowed vehicles", 
             "");
     }
@@ -2149,11 +2152,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Lane ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "allowed vehicles", 
             "all");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
             "disallowed vehicles", 
             "");
     }

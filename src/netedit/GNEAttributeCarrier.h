@@ -138,24 +138,25 @@ public:
 
 
     enum AttrProperty {
-        ATTRPROPERTY_INT = 1,               // Element is an integer (Including Zero)
-        ATTRPROPERTY_FLOAT = 2,             // Element is a float
-        ATTRPROPERTY_BOOL = 4,              // Element is boolean (0/1, true/false)
-        ATTRPROPERTY_STRING = 8,            // Element is a string
-        ATTRPROPERTY_POSITION = 16,         // Element is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR = 64,            // Element is a color defined by a specifically word (Red, green) or by a speicial format (XXX,YYY,ZZZ)
-        ATTRPROPERTY_VCLASS = 128,          // Element is a VClass (passenger, bus, motorcicle...)
-        ATTRPROPERTY_POSITIVE = 256,        // Element is positive (Including Zero)
-        ATTRPROPERTY_UNIQUE = 512,          // Element is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME = 1024,       // Element is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_NONEDITABLE = 2048,    // Element is non editable (index of a lane)
-        ATTRPROPERTY_DISCRETE = 4096,       // Element is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY = 8192,    // Element is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_TIME = 16384,          // Element is a Time (float positive)
-        ATTRPROPERTY_ANGLE = 32768,         // Element is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST = 65536,          // Element is a list of other elements separated by spaces
-        ATTRPROPERTY_OPTIONAL = 131072,     // Element is optional
-        ATTRPROPERTY_DEFAULTVALUE = 262144, // Element owns a default value
+        ATTRPROPERTY_INT = 1,               // Attribute is an integer (Including Zero)
+        ATTRPROPERTY_FLOAT = 2,             // Attribute is a float
+        ATTRPROPERTY_BOOL = 4,              // Attribute is boolean (0/1, true/false)
+        ATTRPROPERTY_STRING = 8,            // Attribute is a string
+        ATTRPROPERTY_POSITION = 16,         // Attribute is a position defined by doubles (x,y or x,y,z)
+        ATTRPROPERTY_COLOR = 64,            // Attribute is a color defined by a specifically word (Red, green) or by a speicial format (XXX,YYY,ZZZ)
+        ATTRPROPERTY_VCLASS = 128,          // Attribute is a VClass (passenger, bus, motorcicle...)
+        ATTRPROPERTY_POSITIVE = 256,        // Attribute is positive (Including Zero)
+        ATTRPROPERTY_UNIQUE = 512,          // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME = 1024,       // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_NONEDITABLE = 2048,    // Attribute is non editable (index of a lane)
+        ATTRPROPERTY_DISCRETE = 4096,       // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY = 8192,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_TIME = 16384,          // Attribute is a Time (float positive)
+        ATTRPROPERTY_ANGLE = 32768,         // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST = 65536,          // Attribute is a list of other elements separated by spaces
+        ATTRPROPERTY_OPTIONAL = 131072,     // Attribute is optional
+        ATTRPROPERTY_DEFAULTVALUE = 262144, // Attribute owns a default value
+        ATTRPROPERTY_COMBINABLE = 524288,   // Attribute is combinable with other Attribute
     };
 
     /// @brief struct with the attribute Properties
@@ -178,6 +179,9 @@ public:
 
         /// @brief return a description of attribute
         std::string getDescription() const;
+
+        /// @brief get discrete values
+        const std::vector<std::string> &getDiscreteValues() const;
 
         /// @brief return true if attribute owns a default value
         bool hasDefaultValue() const;
@@ -227,8 +231,8 @@ public:
         /// @brief return true if atribute is discrete
         bool isDiscrete() const;
 
-        /// @brief get discrete values
-        const std::vector<std::string> &getDiscreteValues() const;
+        /// @brief return true if atribute is combinable with other Attribute
+        bool isCombinable() const;
 
     private:
         /// @brief Property of attribute
@@ -253,7 +257,7 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier() {};
 
-    /// @brief This functions has to be implemented in all GNEAttributeCarriers
+    /// @name This functions has to be implemented in all GNEAttributeCarriers
     /// @{
     /// @brief select attribute carrier using GUIGlobalSelection
     virtual void selectAttributeCarrier(bool changeFlag = true) = 0;
@@ -284,6 +288,21 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+    /// @}
+
+    /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
+    /// @{
+    /// @brief feature is still unchanged after being loaded (implies approval)
+    static const std::string FEATURE_LOADED;
+
+    /// @brief feature has been reguessed (may still be unchanged be we can't tell (yet)
+    static const std::string FEATURE_GUESSED;
+
+    /// @brief feature has been manually modified (implies approval)
+    static const std::string FEATURE_MODIFIED;
+
+    /// @brief feature has been approved but not changed (i.e. after being reguessed)
+    static const std::string FEATURE_APPROVED;
     /// @}
 
     /// @brief method for getting the attribute in the context of object selection
@@ -328,9 +347,6 @@ public:
     /// @brief check if an element with certain tag has a certain attribute
     static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief return whether the given attribute allows for a combination of discrete values
-    static bool discreteCombinableChoices(SumoXMLAttr attr);
-
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();
 
@@ -372,18 +388,6 @@ public:
 
     /// @brief true if value is a valid file value
     static bool isValidFilename(const std::string& value);
-
-    /// @brief feature is still unchanged after being loaded (implies approval)
-    static const std::string LOADED;
-
-    /// @brief feature has been reguessed (may still be unchanged be we can't tell (yet)
-    static const std::string GUESSED;
-
-    /// @brief feature has been manually modified (implies approval)
-    static const std::string MODIFIED;
-
-    /// @brief feature has been approved but not changed (i.e. after being reguessed)
-    static const std::string APPROVED;
 
     /// @brief default value for invalid positions (used by POIs and Polygons)
     static const double INVALID_POSITION;

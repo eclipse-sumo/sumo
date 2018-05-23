@@ -350,7 +350,7 @@ GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     auto junctions = myViewNet->getNet()->retrieveJunctions(true);
     for (auto i : junctions) {
         i->setLogicValid(false, myViewNet->getUndoList()); // clear connections
-        i->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::MODIFIED); // prevent re-guessing
+        i->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::FEATURE_MODIFIED); // prevent re-guessing
     }
     // clear edge's connection
     auto edges = myViewNet->getNet()->retrieveEdges(true);

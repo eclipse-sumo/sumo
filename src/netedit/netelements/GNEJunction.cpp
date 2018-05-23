@@ -70,7 +70,7 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     GNENetElement(net, nbn.getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION, ICON_JUNCTION),
     myNBNode(nbn),
     myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? LOADED : GUESSED),
+    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myAmResponsible(false),
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
@@ -693,7 +693,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
         NBEdge* srcNBE = *it;
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, MODIFIED), true);
+        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
     }
 }
 
@@ -1011,7 +1011,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_MODIFICATION_STATUS:
-            if (myLogicStatus == GUESSED && value != GUESSED) {
+            if (myLogicStatus == FEATURE_GUESSED && value != FEATURE_GUESSED) {
                 // clear guessed connections. previous connections will be restored
                 myNBNode.invalidateIncomingConnections();
                 // Clear GNEConnections of incoming edges

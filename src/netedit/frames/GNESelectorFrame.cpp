@@ -596,25 +596,25 @@ long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain all item attributes vinculated with current tag
     auto itemAttrs = GNEAttributeCarrier::getAttributes(myCurrentTag);
-    // Provisional
-    GNEAttributeCarrier::AttributeValues defaultBoolTrue(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");
-    GNEAttributeCarrier::AttributeValues defaultBoolFalse(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
-    GNEAttributeCarrier::AttributeValues defaultEmpty(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
     // add extra attribute if item can block movement
     if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockMovement()) {
-        itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);
+        // add an extra AttributeValues to allow select ACs using as criterium "block movement"
+        itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
     }
     // add extra attribute if item can block shape
     if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockShape()) {
-        itemAttrs[GNE_ATTR_BLOCK_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolFalse);
+        // add an extra AttributeValues to allow select ACs using as criterium "block shape"
+        itemAttrs[GNE_ATTR_BLOCK_SHAPE] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
     }
     // add extra attribute if item can close shape
     if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canCloseShape()) {
-        itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(defaultBoolTrue);
+        // add an extra AttributeValues to allow select ACs using as criterium "close shape"
+        itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");
     }
     // add extra attribute if item can have parent
     if(GNEAttributeCarrier::getTagProperties(myCurrentTag).hasParent()) {
-        itemAttrs[GNE_ATTR_PARENT] = GNEAttributeCarrier::AttributeValues(defaultEmpty);
+        // add an extra AttributeValues to allow select ACs using as criterium "parent"
+        itemAttrs[GNE_ATTR_PARENT] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
