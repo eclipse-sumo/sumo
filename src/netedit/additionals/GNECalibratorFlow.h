@@ -56,7 +56,7 @@ public:
     GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, double vehsPerHour, double speed,
+    GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, const std::string &vehsPerHour, const std::string &speed,
                       const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                       const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                       const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end);
@@ -113,11 +113,11 @@ protected:
     /// @brief route in which this flow is used
     GNECalibratorRoute* myRoute;
 
-    /// @brief flows per hour
-    double myVehsPerHour;
+    /// @brief flows per hour (String instead float because can be empty)
+    std::string myVehsPerHour;
 
-    /// @brief flow speed
-    double mySpeed;
+    /// @brief flow speed (String instead float because can be empty)
+    std::string mySpeed; 
 
     /// @brief color of flow
     RGBColor myColor;

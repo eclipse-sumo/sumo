@@ -111,8 +111,12 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
     writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    writeAttribute(device, SUMO_ATTR_OUTPUT);
-    writeAttribute(device, SUMO_ATTR_ROUTEPROBE);
+    if(!myOutput.empty()) {
+        writeAttribute(device, SUMO_ATTR_OUTPUT);
+    }
+    if(myRouteProbe != nullptr) {
+        writeAttribute(device, SUMO_ATTR_ROUTEPROBE);
+    }
     // write all routes of this calibrator
     for (auto i : myCalibratorRoutes) {
         i->writeRoute(device);

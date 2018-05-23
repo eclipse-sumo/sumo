@@ -56,7 +56,7 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double frequency, const std::string& filename, double begin) :
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string &frequency, const std::string& filename, double begin) :
     GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE, false, false),
     myEdge(edge),
     myFrequency(frequency),
@@ -142,7 +142,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
     writeAttribute(device, SUMO_ATTR_ID);
     writeAttribute(device, SUMO_ATTR_EDGE);
-    if(myFrequency != -1) {
+    if(!myFrequency.empty()) {
         writeAttribute(device, SUMO_ATTR_FREQUENCY);
     }
     if (!myFilename.empty()) {
@@ -151,42 +151,6 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     writeAttribute(device, SUMO_ATTR_BEGIN);
     // Close tag
     device.closeTag();
-}
-
-
-const std::string&
-GNERouteProbe::getFilename() const {
-    return myFilename;
-}
-
-
-double
-GNERouteProbe::getFrequency() const {
-    return myFrequency;
-}
-
-
-double
-GNERouteProbe::getBegin() const {
-    return myBegin;
-}
-
-
-void
-GNERouteProbe::setFilename(const std::string& filename) {
-    myFilename = filename;
-}
-
-
-void
-GNERouteProbe::setFrequency(double frequency) {
-    myFrequency = frequency;
-}
-
-
-void
-GNERouteProbe::setBegin(double begin) {
-    myBegin = begin;
 }
 
 
@@ -336,7 +300,11 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            return canParse<double>(value) && (parse<double>(value) >= -1);
+            if(value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) >= 0);
+            }
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_SELECTED:
@@ -360,7 +328,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFilename = value;
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = parse<double>(value);
+            myFrequency = value;
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<double>(value);

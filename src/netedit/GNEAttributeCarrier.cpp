@@ -52,7 +52,6 @@ const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
-#define OPTIONALATTRIBUTE "-1"
 
 // ===========================================================================
 // method definitions
@@ -323,7 +322,7 @@ GNEAttributeCarrier::AttributeValues::isFilename() const {
 
 bool 
 GNEAttributeCarrier::AttributeValues::isSVC() const {
-    return (myAttributeProperty & ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST) != 0;
+    return (myAttributeProperty & (ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST)) != 0;
 }
 
 bool 
@@ -937,9 +936,9 @@ GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const
         if(attribute == "1") {
             device.writeAttr(key, attribute);
         }
-    } else if(getAttributeProperties(getTag(), key).hasDefaultValue()) {
+    } else if(getAttributeProperties(getTag(), key).isOptional()) {
         // only write optional attributes (i.e attributes with default value) if are differents
-        if(getDefaultValue<std::string>(getTag(), key) != attribute) {
+        if(getAttributeProperties(getTag(), key).getDefaultValue() != attribute) {
             device.writeAttr(key, attribute);
         }
     } else {
@@ -1503,7 +1502,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "The aggregation period the values the detector collects shall be summed up", 
-            "100.00");
+            "900.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
             "The path to the output file", 
@@ -1541,7 +1540,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "The aggregation period the values the detector collects shall be summed up", 
-            "100.00");
+            "900.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
             "The path to the output file", 
@@ -1583,7 +1582,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "The aggregation period the values the detector collects shall be summed up", 
-            "100.00");
+            "900.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
             "The path to the output file", 
@@ -1763,9 +1762,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of an edge in the simulation network", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The frequency in which to report the distribution", 
-            OPTIONALATTRIBUTE);                
+            "");                
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
             "The file for generated output", 
@@ -1887,13 +1886,13 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of the route the vehicle shall drive along", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_VEHSPERHOUR] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE, 
             "Number of vehicles per hour, equally spaced", 
-            OPTIONALATTRIBUTE);
+            "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE, 
             "Speed of vehicles", 
-            OPTIONALATTRIBUTE);
+            "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 
             "This vehicle's color", 

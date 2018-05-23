@@ -62,8 +62,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNEN
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
     myVehicleType(net->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
-    myVehsPerHour(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)),
-    mySpeed(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_SPEED)),
+    myVehsPerHour(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)),
+    mySpeed(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_SPEED)),
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)),
     myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)),
     myDepartPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS)),
@@ -81,7 +81,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNEN
     myEnd(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_END)) {}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, double vehsPerHour, double speed,
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, const std::string &vehsPerHour, const std::string &speed,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
@@ -128,12 +128,12 @@ GNECalibratorFlow::writeFlow(OutputDevice& device) {
     writeAttribute(device, SUMO_ATTR_TYPE);
     // Write route
     writeAttribute(device, SUMO_ATTR_ROUTE);
-    // write vehs per hour only if is different of -1
-    if(myVehsPerHour > 0) {
+    // write vehs per hour only if isn't empty
+    if(!myVehsPerHour.empty()) {
         writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
     }
-    // write speed only if is different of -1
-    if(mySpeed > 0) {
+    // write speed only if isn't empty
+    if(!mySpeed.empty()) {
         writeAttribute(device, SUMO_ATTR_SPEED);
     }
     // Write color
@@ -282,10 +282,31 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
-            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (mySpeed != -1)));
+            if(value.empty()) {
+                // speed and vehsPerHour cannot be empty at the same time
+                if(mySpeed.empty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (myVehsPerHour != -1)));
-        case SUMO_ATTR_COLOR:
+            if(value.empty()) {
+                // speed and vehsPerHour cannot be empty at the same time
+                if(myVehsPerHour.empty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }        case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
@@ -366,10 +387,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             myRoute = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            myVehsPerHour = parse<double>(value);
+            myVehsPerHour = value;
             break;
         case SUMO_ATTR_SPEED:
-            mySpeed = parse<double>(value);
+            mySpeed = value;
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);

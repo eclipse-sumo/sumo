@@ -481,7 +481,7 @@ public:
     DOCUMENTAR
     */
     static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, GNECalibratorRoute* route, GNECalibratorVehicleType* vtype, 
-                                    double vehsPerHour, double speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
+                                    const std::string &vehsPerHour, const std::string &speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
                                     const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
                                     const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
                                     const std::string& arrivalPosLat, double begin, double end);
@@ -541,7 +541,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the Route Probe can not be added to the net (is duplicate)
      */
-    static bool buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double freq, const std::string& file, double begin);
+    static bool buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string &freq, const std::string& file, double begin);
 
     /**@brief Builds a VariableSpeedSign (lane speed trigger)
      * @param[in] viewNet viewNet in which element will be inserted
