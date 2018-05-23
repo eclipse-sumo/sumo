@@ -208,7 +208,7 @@ class Builder(object):
                 ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
 
-        if self.data["vehicles"]:
+        if self.data["vehicles"] or ptOptions:
             # routenames stores all routefiles and will join the items later, will
             # be used by sumo-gui
             randomTripsCalls = []
