@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version a355048
+Eclipse SUMO netgenerate Version 4bf903e
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -202,6 +202,9 @@ Unregulated Nodes Options:
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
 Processing Options:
+  --turn-lanes INT                     Generate INT left-turn lanes
+  --turn-lanes.length FLOAT            Set the length of generated turning
+                                         lanes to FLOAT
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are

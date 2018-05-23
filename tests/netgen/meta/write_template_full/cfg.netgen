@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 09:35:33 2018 by Eclipse SUMO netgenerate Version ba01b12
+<!-- generated on Wed May 23 11:24:31 2018 by Eclipse SUMO netgenerate Version 4bf903e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -118,6 +118,8 @@
     </unregulated_nodes>
 
     <processing>
+        <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
+        <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>

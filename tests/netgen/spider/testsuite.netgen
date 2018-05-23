@@ -23,5 +23,8 @@ min_version
 nointernal
 prefix
 
+# build turning lanes
+turnlanes
+
 # Tests processing of errors in input
 errors
