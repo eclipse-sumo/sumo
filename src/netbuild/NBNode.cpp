@@ -76,7 +76,7 @@
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
-//#define DEBUGCOND (getID() == "260479469")
+#define DEBUGCOND (getID() == "C")
 
 // ===========================================================================
 // static members
@@ -1986,9 +1986,9 @@ NBNode::checkCrossing(EdgeVector candidates) {
             NBEdge* edge = candidates[i];
             double angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately
-            if (i > 0 && fabs(angle - prevAngle) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
+            if (i > 0 && fabs(NBHelpers::relAngle(angle, prevAngle)) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
                 if (gDebugFlag1) {
-                    std::cout << "no crossing added (found angle difference of " << fabs(angle - prevAngle) << " at i=" << i << "\n";
+                    std::cout << "no crossing added (found angle difference of " << fabs(NBHelpers::relAngle(angle, prevAngle)) << " at i=" << i << "\n";
                 }
                 return 0;
             }
@@ -2042,7 +2042,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                                 << " intermediateWidth=" << intermediateWidth
                                 << "\n";
                     }
-                    if (fabs(prevAngle - angle) > SPLIT_CROSSING_ANGLE_THRESHOLD
+                    if (fabs(NBHelpers::relAngle(prevAngle, angle)) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
                         return checkCrossing(EdgeVector(candidates.begin(), it))
                                + checkCrossing(EdgeVector(it, candidates.end()));
