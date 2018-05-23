@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 13:32:47 2018 by Eclipse SUMO netconvert Version 2346afe
+<!-- generated on Wed May 23 10:09:18 2018 by Eclipse SUMO netconvert Version cc0b5f1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="/scr2/texttest_tmp/tools.19Apr133245.23857/tools/import/OSM/build_passenger/osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/dynamic_gui.23May100915.3953/tools/import/OSM/build_passenger/osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.19Apr133245.23857/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.23May100915.3953/tools/import/OSM/build_passenger/net.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>
@@ -1734,11 +1734,9 @@
         <phase duration="3"  state="rry"/>
     </tlLogic>
     <tlLogic id="GS_cluster_1560223510_1906766907" type="static" programID="0" offset="0">
-        <phase duration="38" state="GGGgGGggrrr"/>
-        <phase duration="3"  state="yyygyyggrrr"/>
-        <phase duration="6"  state="rrrGrrGGrrr"/>
-        <phase duration="3"  state="rrryrryyrrr"/>
-        <phase duration="37" state="GrrrrrrrGGg"/>
+        <phase duration="42" state="GGGgGGggrrr"/>
+        <phase duration="3"  state="yyyyyyyyrrr"/>
+        <phase duration="42" state="GrrrrrrrGGg"/>
         <phase duration="3"  state="yrrrrrrryyy"/>
     </tlLogic>
     <tlLogic id="GS_cluster_1560223815_1560223847_301292612_56231397" type="static" programID="0" offset="0">

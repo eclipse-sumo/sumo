@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:43 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed May 23 10:09:33 2018 by Eclipse SUMO netconvert Version cc0b5f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -166,16 +166,12 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="28" state="GGGgrrrrgGGgrrrrGr"/>
+        <phase duration="37" state="GGGgrrrrgGGgrrrrGr"/>
         <phase duration="5"  state="GGGgrrrrgGGgrrrrrr"/>
-        <phase duration="3"  state="yyygrrrryyygrrrrrr"/>
-        <phase duration="6"  state="rrrGrrrrrrrGrrrrrr"/>
-        <phase duration="3"  state="rrryrrrrrrryrrrrrr"/>
-        <phase duration="28" state="rrrrGGGgrrrrgGGgrG"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrrrr"/>
+        <phase duration="37" state="rrrrGGGgrrrrgGGgrG"/>
         <phase duration="5"  state="rrrrGGGgrrrrgGGgrr"/>
-        <phase duration="3"  state="rrrryyygrrrryyygrr"/>
-        <phase duration="6"  state="rrrrrrrGrrrrrrrGrr"/>
-        <phase duration="3"  state="rrrrrrryrrrrrrryrr"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyyrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2 :C_w2_0 :C_w3_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_18_0 :C_9_0 :C_9_1 :C_19_0 :C_20_0 :C_13_0 :C_13_1 :C_21_0 :C_c0_0 :C_c1_0" shape="90.60,114.40 109.40,114.40 109.71,112.21 110.10,111.35 110.65,110.65 111.35,110.10 112.21,109.71 113.23,109.48 114.40,109.40 114.40,90.60 112.21,90.29 111.35,89.90 110.65,89.35 110.10,88.65 109.71,87.79 109.48,86.77 109.40,85.60 90.60,85.60 90.29,87.79 89.90,88.65 89.35,89.35 88.65,89.90 87.79,90.29 86.77,90.52 85.60,90.60 85.60,109.40 87.79,109.71 88.65,110.10 89.35,110.65 89.90,111.35 90.29,112.21 90.52,113.23" radius="5.00">
