@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 22 16:05:59 2018 by Eclipse SUMO netconvert Version 6fb88ac
+<!-- generated on Wed May 23 09:11:25 2018 by Eclipse SUMO netconvert Version 9db4879
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm_bbox.osm.xml"/>
+        <osm-files value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm.net.xml"/>
+        <output-file value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/dynamic_gui.22May160553.10159/tools/import/OSM/webWizard/2018-05-22-16-05-56/osm_ptlines.xml"/>
+        <ptstop-output value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm_stops.add.xml"/>
+        <ptline-output value="/scr2/texttest_tmp/dynamic_gui.23May091118.16582/tools/import/OSM/webWizard/2018-05-23-09-11-22/osm_ptlines.xml"/>
     </output>
 
     <projection>
@@ -93,7 +93,7 @@
         <access lane="254523895#0_0" pos="4.65" friendlyPos="1"/>
     </busStop>
     <busStop id="2071423334" name="U Französische Straße" lane="295255789_0" startPos="42.31" endPos="67.31" friendlyPos="true">
-        <access lane="196850605_0" pos="24.93" friendlyPos="1"/>
+        <access lane="196850605_0" pos="10.93" friendlyPos="1"/>
         <access lane="-196850605_0" pos="0.39" friendlyPos="1"/>
         <access lane="292429056_0" pos="187.66" friendlyPos="1"/>
         <access lane="-292429056_0" pos="0.00" friendlyPos="1"/>
@@ -138,8 +138,8 @@
         <access lane="313323170#1_0" pos="112.98" friendlyPos="1"/>
         <access lane="-4612970#1_0" pos="0.49" friendlyPos="1"/>
         <access lane="4612970#1_0" pos="0.00" friendlyPos="1"/>
-        <access lane="-4612970#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="4612970#0_0" pos="116.64" friendlyPos="1"/>
+        <access lane="-4612970#0_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="1138.06" endPos="1163.06" friendlyPos="true">
         <access lane="-109819106#0_0" pos="65.06" friendlyPos="1"/>
@@ -183,15 +183,15 @@
         <access lane="254523901_0" pos="18.65" friendlyPos="1"/>
         <access lane="254339572#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524365_0" pos="2.72" friendlyPos="1"/>
-        <access lane="274524361_0" pos="0.00" friendlyPos="1"/>
         <access lane="254339572#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274524361_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2603331695" lane="25946663_0" startPos="0.00" endPos="129.89" friendlyPos="true">
         <access lane="274524373_0" pos="2.18" friendlyPos="1"/>
         <access lane="194073677_0" pos="59.71" friendlyPos="1"/>
         <access lane="-194073677_0" pos="56.99" friendlyPos="1"/>
-        <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
         <access lane="274524385#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274524385#0_0" pos="3.81" friendlyPos="1"/>
     </busStop>
     <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße" lane="195401017#2_2" startPos="0.00" endPos="11.50" friendlyPos="true" lines="TXL 100 200"/>
     <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße" lane="139877309_1" startPos="0.00" endPos="11.50" friendlyPos="true" lines="100 200"/>
@@ -261,8 +261,8 @@
     <busStop id="29805120" name="Friedrichstraße" lane="25946657_0" startPos="0.00" endPos="153.87" friendlyPos="true">
         <access lane="237526578#0_0" pos="32.55" friendlyPos="1"/>
         <access lane="274524364_0" pos="2.53" friendlyPos="1"/>
-        <access lane="274524384#0_0" pos="2.77" friendlyPos="1"/>
         <access lane="274524384#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="274524384#0_0" pos="2.77" friendlyPos="1"/>
         <access lane="274524379#0_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="2990822797" name="U Schwartzkopffstraße" lane="278240007_0" startPos="1291.07" endPos="1316.07" friendlyPos="true"/>
@@ -314,8 +314,8 @@
         <access lane="274524381#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524384#0_0" pos="0.00" friendlyPos="1"/>
         <access lane="274524361_0" pos="1.62" friendlyPos="1"/>
-        <access lane="254339572#1_0" pos="0.00" friendlyPos="1"/>
         <access lane="254339572#0_0" pos="2.60" friendlyPos="1"/>
+        <access lane="254339572#1_0" pos="0.00" friendlyPos="1"/>
     </busStop>
     <busStop id="446289301" name="U Hauptbahnhof" lane="70268945_0" startPos="1348.77" endPos="1448.77" friendlyPos="true"/>
     <busStop id="474366009" name="S Friedrichstraße" lane="25946663_0" startPos="0.00" endPos="129.89" friendlyPos="true" lines="S5 S7">

@@ -1232,6 +1232,8 @@ Warning: Reducing junction cluster 2003979131,25664779,25664841,746803372 (5 inc
 Warning: Not joining junctions 21432801,295705005,3139140896,3178759584,735967920,735967921,961816249,961816257 (6 incoming edges)
 Warning: Reducing junction cluster 28373970,28373972,2882261426 (5 incoming edges)
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
+Warning: Ambiguity in turnarounds computation at junction '1206481791'.
+Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '1349696695'.
 Warning: Ambiguity in turnarounds computation at junction '1350637319'.
 Warning: Ambiguity in turnarounds computation at junction '1365292207'.
@@ -1239,17 +1241,24 @@ Warning: Ambiguity in turnarounds computation at junction '1635318761'.
 Warning: Ambiguity in turnarounds computation at junction '1635318763'.
 Warning: Ambiguity in turnarounds computation at junction '1635318765'.
 Warning: Ambiguity in turnarounds computation at junction '1635318767'.
+Warning: Ambiguity in turnarounds computation at junction '1661927045'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
 Warning: Ambiguity in turnarounds computation at junction '247616302'.
+Warning: Ambiguity in turnarounds computation at junction '258017933'.
 Warning: Ambiguity in turnarounds computation at junction '2739143296'.
 Warning: Ambiguity in turnarounds computation at junction '2739143307'.
 Warning: Ambiguity in turnarounds computation at junction '2739143323'.
 Warning: Ambiguity in turnarounds computation at junction '27411229'.
+Warning: Ambiguity in turnarounds computation at junction '27411257'.
 Warning: Ambiguity in turnarounds computation at junction '29192127'.
+Warning: Ambiguity in turnarounds computation at junction '30731464'.
 Warning: Ambiguity in turnarounds computation at junction '30731510'.
 Warning: Ambiguity in turnarounds computation at junction '348454857'.
 Warning: Ambiguity in turnarounds computation at junction '540971896'.
+Warning: Ambiguity in turnarounds computation at junction '588181255'.
+Warning: Ambiguity in turnarounds computation at junction '588181256'.
 Warning: Ambiguity in turnarounds computation at junction '588181258'.
+Warning: Ambiguity in turnarounds computation at junction '588181279'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
 Warning: Ambiguity in turnarounds computation at junction '98976234'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_1147843150_2451511170'.
@@ -1464,10 +1473,10 @@ Warning: No connection between edge '272795472#1' and edge '199847339' found.
 Warning: Vehicle '49_subway_U2:0' has no valid route from edge '272795472#1' to stop edge '199847339'.
 Warning: busStop '253845582' for vehicle '54_subway_U55:1' on lane '70268945_0' is not downstream the current route.
 Warning: busStop '253846340' for vehicle '54_subway_U55:1' on lane '70268945_0' is not downstream the current route.
-Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=702.00.
-Warning: Vehicle '35_bus_147:1' ends teleporting on edge '153698380', time 702.00.
-Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=1015.00.
-Warning: Vehicle '35_bus_147:1' teleports beyond arrival edge '274513583', time 1063.00.
+Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=704.00.
+Warning: Vehicle '35_bus_147:1' ends teleporting on edge '153698380', time 704.00.
+Warning: Teleporting vehicle '35_bus_147:1'; waited too long (wrong lane), lane='153698380_1', time=1017.00.
+Warning: Vehicle '35_bus_147:1' teleports beyond arrival edge '274513583', time 1065.00.
 Warning: Teleporting vehicle '49_subway_U2:0'; waited too long (wrong lane), lane='272795472#1_0', time=1210.00.
 Warning: Vehicle '49_subway_U2:0' ends teleporting on edge '199847339', time 1210.00.
 Warning: At actuated tlLogic 'GS_2071374815', minDur 5.00 is too short to short for detector gap of 166.66m.
@@ -1475,19 +1484,20 @@ Warning: busStop '2959830767' on lane '190447768#0_1' is too short for vehicle '
 Warning: busStop '2094266784' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
-Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=705.00.
-Warning: Vehicle 'pt_bus_147:1.0' ends teleporting on edge '153698380', time 705.00.
-Warning: Teleporting vehicle 'bus26'; waited too long (jam), lane=':cluster_2003979131_25664841_6_0', time=868.00.
-Warning: Vehicle 'bus26' ends teleporting on edge '330840126#0', time 868.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1018.00.
-Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1066.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=707.00.
+Warning: Vehicle 'pt_bus_147:1.0' ends teleporting on edge '153698380', time 707.00.
+Warning: Teleporting vehicle 'bus30'; waited too long (jam), lane=':cluster_2003979131_25664841_5_0', time=938.00.
+Warning: Vehicle 'bus30' ends teleporting on edge '330840126#0', time 938.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1020.00.
+Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1068.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1214.00.
 Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1214.00.
-Warning: Teleporting vehicle 'bike76'; waited too long (wrong lane), lane='29383966_2', time=1271.00.
-Warning: Vehicle 'bike76' ends teleporting on edge '51784728', time 1271.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1329.00.
-Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1329.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1641.00.
-Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1689.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1345.00.
+Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1345.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1659.00.
+Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1707.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1814.00.
 Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1814.00.
+Warning: Person 'ped13' aborted waiting for 100:1 at busStop '270718978'.
+Warning: Person 'ped111' aborted waiting for 100:1 at busStop '270718978'.
+Warning: Person 'ped164' aborted waiting for 100:1 at busStop '270718978'.
