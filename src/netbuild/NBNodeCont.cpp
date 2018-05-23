@@ -489,6 +489,11 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                             && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth)) {
                     continue; 
                 }
+                // never join rail_crossings with other node types
+                if ((n->getType() == NODETYPE_RAIL_CROSSING && s->getType() != NODETYPE_RAIL_CROSSING)
+                        || (n->getType() != NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING)) {
+                    continue;
+                }
                 if (visited.find(s) != visited.end()) {
                     continue;
                 }

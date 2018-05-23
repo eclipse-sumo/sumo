@@ -152,6 +152,7 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
 // ---------------------------------------------------------------------------
 void
 NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
+    validateRailCrossings(nc);
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         // the type may already be set from the data
@@ -208,53 +209,40 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc) {
 
 
 void
-NBNodeTypeComputer::computeSingleNodeType(NBNode* node) {
-    // the type may already be set from the data
-    if (node->myType != NODETYPE_UNKNOWN && node->myType != NODETYPE_DEAD_END) {
-    }
-    // check whether the node is a waterway node. Set to unregulated by default
-    bool waterway = true;
-    for (EdgeVector::const_iterator i = node->getEdges().begin(); i != node->getEdges().end(); ++i) {
-        if (!isWaterway((*i)->getPermissions())) {
-            waterway = false;
-            break;
-        }
-    }
-    if (waterway && (node->myType == NODETYPE_UNKNOWN || node->myType == NODETYPE_DEAD_END)) {
-        node->myType = NODETYPE_NOJUNCTION;
-    }
-
-    // check whether the junction is not a real junction
-    if (node->myIncomingEdges.size() == 1) {
-        node->myType = NODETYPE_PRIORITY;
-    }
-    // @todo "isSimpleContinuation" should be revalidated
-    if (node->isSimpleContinuation()) {
-        node->myType = NODETYPE_PRIORITY;
-    }
-    // determine the type
-    SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
-    for (EdgeVector::const_iterator i = node->myIncomingEdges.begin(); i != node->myIncomingEdges.end(); i++) {
-        for (EdgeVector::const_iterator j = i + 1; j != node->myIncomingEdges.end(); j++) {
-            // @todo "getOppositeIncoming" should probably be refactored into something the edge knows
-            if (node->getOppositeIncoming(*j) == *i && node->myIncomingEdges.size() > 2) {
-                continue;
+NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc) {
+    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
+        NBNode* n = (*i).second;
+        if (n->myType == NODETYPE_RAIL_CROSSING) {
+            // check if it really is a rail crossing
+            int numRailway = 0;
+            int numNonRailway = 0;
+            int numNonRailwayNonPed = 0;
+            for (NBEdge* e : n->getIncomingEdges()) {
+                if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
+                    numNonRailway++;
+                    if (e->getPermissions() != SVC_PEDESTRIAN) {
+                        numNonRailwayNonPed++;
+                    }
+                } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+                    numRailway++;
+                }
             }
-            // @todo check against a legal document
-            // @todo figure out when NODETYPE_PRIORITY_STOP is appropriate
-            const double s1 = (*i)->getSpeed() * (double) 3.6;
-            const double s2 = (*j)->getSpeed() * (double) 3.6;
-            const int p1 = (*i)->getPriority();
-            const int p2 = (*j)->getPriority();
-            if (fabs(s1 - s2) > (double) 9.5 || MAX2(s1, s2) >= (double) 49. || p1 != p2) {
-                type = NODETYPE_PRIORITY;
-                break;
+            for (NBEdge* e : n->getOutgoingEdges()) {
+                if (e->getPermissions() == SVC_PEDESTRIAN) {
+                    numNonRailway++;
+                }
+            }
+            if (numNonRailway == 0 || numRailway == 0) {
+                // not a crossing (maybe unregulated or rail_signal)
+                n->myType = NODETYPE_PRIORITY;
+            } else if (numNonRailwayNonPed > 2) {
+                // does not look like a rail crossing (roads in conflict). maybe a traffic light?
+                n->myType = NODETYPE_PRIORITY;
             }
         }
     }
-    // save type
-    node->myType = type;
 }
+
 
 // ---------------------------------------------------------------------------
 // NBEdgePriorityComputer
