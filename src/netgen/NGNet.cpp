@@ -248,8 +248,8 @@ NGNet::toNB() const {
     }
     // add splits depending on turn-lane options
     const int turnLanes = OptionsCont::getOptions().getInt("turn-lanes");
-    const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
     if (turnLanes > 0) {
+        const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
         NBEdgeCont& ec = myNetBuilder.getEdgeCont();
         EdgeVector allEdges;
         for (auto it = ec.begin(); it != ec.end(); ++it) {
@@ -269,6 +269,9 @@ NGNet::toNB() const {
             split.node = new NBNode(e->getID() + "." + toString(split.pos), e->getGeometry().positionAtOffset(split.pos));
             split.idBefore = e->getID();
             split.idAfter = split.node->getID();
+            if (turnLaneLength <= e->getLength() / 2 && !e->getFromNode()->geometryLike()) {
+                split.offset = -0.5 * turnLanes * e->getLaneWidth(0);
+            }
             splits.push_back(split);
             ec.processSplits(e, splits, 
                     myNetBuilder.getNodeCont(),
