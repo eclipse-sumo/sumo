@@ -299,7 +299,7 @@ class Builder(object):
                 "--device.rerouting.adaptation-steps", "180",
                 "-v", "--no-step-log", "--save-configuration", self.files["config"], "--ignore-route-errors"]
 
-        if self.data["vehicles"]:
+        if self.routenames:
             opts += ["-r", ",".join(self.routenames)]
 
         if len(self.additionalFiles) > 0:
