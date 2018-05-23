@@ -256,6 +256,9 @@ NGNet::toNB() const {
             allEdges.push_back(it->second);
         }
         for (NBEdge* e : allEdges) {
+            if (e->getToNode()->geometryLike()) {
+                continue;
+            }
             std::vector<NBEdgeCont::Split> splits;
             NBEdgeCont::Split split;
             for (int i = 0; i < e->getNumLanes() + turnLanes; ++i) {

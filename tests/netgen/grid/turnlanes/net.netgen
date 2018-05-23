@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 12:16:20 2018 by Eclipse SUMO netgenerate Version 4bf903e
+<!-- generated on Wed May 23 12:23:26 2018 by Eclipse SUMO netgenerate Version 6aff410
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,32 +36,24 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="3.20,3.20" convBoundary="0.00,0.00,206.40,206.40" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
     <edge id="A0A1" from="A0" to="A0A1.80.00" priority="-1" shape="6.40,3.20 6.40,83.20">
-        <lane id="A0A1_0" index="0" speed="13.89" length="76.32" shape="8.00,11.10 8.00,81.70"/>
+        <lane id="A0A1_0" index="0" speed="13.89" length="81.53" shape="8.00,6.40 8.00,81.70"/>
     </edge>
     <edge id="A0A1.80.00" from="A0A1.80.00" to="A1" priority="-1">
         <lane id="A0A1.80.00_0" index="0" speed="13.89" length="22.77" shape="8.00,84.70 8.00,95.30"/>
         <lane id="A0A1.80.00_1" index="1" speed="13.89" length="22.77" shape="4.80,84.70 4.80,95.30"/>
     </edge>
     <edge id="A0B0" from="A0" to="A0B0.80.00" priority="-1" shape="3.20,0.00 83.20,0.00">
-        <lane id="A0B0_0" index="0" speed="13.89" length="80.47" shape="11.10,-1.60 81.70,-1.60"/>
+        <lane id="A0B0_0" index="0" speed="13.89" length="80.96" shape="9.60,-1.60 81.70,-1.60"/>
     </edge>
     <edge id="A0B0.80.00" from="A0B0.80.00" to="B0" priority="-1">
         <lane id="A0B0.80.00_0" index="0" speed="13.89" length="22.77" shape="84.70,-1.60 95.30,-1.60"/>
         <lane id="A0B0.80.00_1" index="1" speed="13.89" length="22.77" shape="84.70,1.60 95.30,1.60"/>
     </edge>
-    <edge id="A1A0" from="A1" to="A1A0.80.00" priority="-1" shape="0.00,103.20 0.00,23.20">
-        <lane id="A1A0_0" index="0" speed="13.89" length="80.82" shape="-1.60,95.30 -1.60,24.70"/>
+    <edge id="A1A0" from="A1" to="A0" priority="-1">
+        <lane id="A1A0_0" index="0" speed="13.89" length="100.00" shape="1.60,95.30 1.60,6.40"/>
     </edge>
-    <edge id="A1A0.80.00" from="A1A0.80.00" to="A0" priority="-1">
-        <lane id="A1A0.80.00_0" index="0" speed="13.89" length="20.46" shape="-1.60,21.70 -1.60,11.10"/>
-        <lane id="A1A0.80.00_1" index="1" speed="13.89" length="20.46" shape="1.60,21.70 1.60,11.10"/>
-    </edge>
-    <edge id="A1A2" from="A1" to="A1A2.80.00" priority="-1" shape="6.40,103.20 6.40,183.20">
-        <lane id="A1A2_0" index="0" speed="13.89" length="80.82" shape="8.00,111.10 8.00,181.70"/>
-    </edge>
-    <edge id="A1A2.80.00" from="A1A2.80.00" to="A2" priority="-1">
-        <lane id="A1A2.80.00_0" index="0" speed="13.89" length="20.46" shape="8.00,184.70 8.00,195.30"/>
-        <lane id="A1A2.80.00_1" index="1" speed="13.89" length="20.46" shape="4.80,184.70 4.80,195.30"/>
+    <edge id="A1A2" from="A1" to="A2" priority="-1">
+        <lane id="A1A2_0" index="0" speed="13.89" length="100.00" shape="4.80,111.10 4.80,196.80"/>
     </edge>
     <edge id="A1B1" from="A1" to="A1B1.80.00" priority="-1" shape="3.20,100.00 83.20,100.00">
         <lane id="A1B1_0" index="0" speed="13.89" length="80.82" shape="11.10,98.40 81.70,98.40"/>
@@ -71,25 +63,21 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="A1B1.80.00_1" index="1" speed="13.89" length="22.77" shape="84.70,101.60 95.30,101.60"/>
     </edge>
     <edge id="A2A1" from="A2" to="A2A1.80.00" priority="-1" shape="0.00,203.20 0.00,123.20">
-        <lane id="A2A1_0" index="0" speed="13.89" length="80.47" shape="-1.60,195.30 -1.60,124.70"/>
+        <lane id="A2A1_0" index="0" speed="13.89" length="80.96" shape="-1.60,196.80 -1.60,124.70"/>
     </edge>
     <edge id="A2A1.80.00" from="A2A1.80.00" to="A1" priority="-1">
         <lane id="A2A1.80.00_0" index="0" speed="13.89" length="22.77" shape="-1.60,121.70 -1.60,111.10"/>
         <lane id="A2A1.80.00_1" index="1" speed="13.89" length="22.77" shape="1.60,121.70 1.60,111.10"/>
     </edge>
     <edge id="A2B2" from="A2" to="A2B2.80.00" priority="-1" shape="3.20,200.00 83.20,200.00">
-        <lane id="A2B2_0" index="0" speed="13.89" length="76.32" shape="11.10,198.40 81.70,198.40"/>
+        <lane id="A2B2_0" index="0" speed="13.89" length="81.53" shape="6.40,198.40 81.70,198.40"/>
     </edge>
     <edge id="A2B2.80.00" from="A2B2.80.00" to="B2" priority="-1">
         <lane id="A2B2.80.00_0" index="0" speed="13.89" length="22.77" shape="84.70,198.40 95.30,198.40"/>
         <lane id="A2B2.80.00_1" index="1" speed="13.89" length="22.77" shape="84.70,201.60 95.30,201.60"/>
     </edge>
-    <edge id="B0A0" from="B0" to="B0A0.80.00" priority="-1" shape="103.20,6.40 23.20,6.40">
-        <lane id="B0A0_0" index="0" speed="13.89" length="80.82" shape="95.30,8.00 24.70,8.00"/>
-    </edge>
-    <edge id="B0A0.80.00" from="B0A0.80.00" to="A0" priority="-1">
-        <lane id="B0A0.80.00_0" index="0" speed="13.89" length="20.46" shape="21.70,8.00 11.10,8.00"/>
-        <lane id="B0A0.80.00_1" index="1" speed="13.89" length="20.46" shape="21.70,4.80 11.10,4.80"/>
+    <edge id="B0A0" from="B0" to="A0" priority="-1">
+        <lane id="B0A0_0" index="0" speed="13.89" length="100.00" shape="95.30,4.80 9.60,4.80"/>
     </edge>
     <edge id="B0B1" from="B0" to="B0B1.80.00" priority="-1" shape="106.40,3.20 106.40,83.20">
         <lane id="B0B1_0" index="0" speed="13.89" length="80.82" shape="108.00,11.10 108.00,81.70"/>
@@ -98,12 +86,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="B0B1.80.00_0" index="0" speed="13.89" length="22.77" shape="108.00,84.70 108.00,95.30"/>
         <lane id="B0B1.80.00_1" index="1" speed="13.89" length="22.77" shape="104.80,84.70 104.80,95.30"/>
     </edge>
-    <edge id="B0C0" from="B0" to="B0C0.80.00" priority="-1" shape="103.20,0.00 183.20,0.00">
-        <lane id="B0C0_0" index="0" speed="13.89" length="80.82" shape="111.10,-1.60 181.70,-1.60"/>
-    </edge>
-    <edge id="B0C0.80.00" from="B0C0.80.00" to="C0" priority="-1">
-        <lane id="B0C0.80.00_0" index="0" speed="13.89" length="20.46" shape="184.70,-1.60 195.30,-1.60"/>
-        <lane id="B0C0.80.00_1" index="1" speed="13.89" length="20.46" shape="184.70,1.60 195.30,1.60"/>
+    <edge id="B0C0" from="B0" to="C0" priority="-1">
+        <lane id="B0C0_0" index="0" speed="13.89" length="100.00" shape="111.10,1.60 200.00,1.60"/>
     </edge>
     <edge id="B1A1" from="B1" to="B1A1.80.00" priority="-1" shape="103.20,106.40 23.20,106.40">
         <lane id="B1A1_0" index="0" speed="13.89" length="80.82" shape="95.30,108.00 24.70,108.00"/>
@@ -133,12 +117,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="B1C1.80.00_0" index="0" speed="13.89" length="22.77" shape="184.70,98.40 195.30,98.40"/>
         <lane id="B1C1.80.00_1" index="1" speed="13.89" length="22.77" shape="184.70,101.60 195.30,101.60"/>
     </edge>
-    <edge id="B2A2" from="B2" to="B2A2.80.00" priority="-1" shape="103.20,206.40 23.20,206.40">
-        <lane id="B2A2_0" index="0" speed="13.89" length="80.82" shape="95.30,208.00 24.70,208.00"/>
-    </edge>
-    <edge id="B2A2.80.00" from="B2A2.80.00" to="A2" priority="-1">
-        <lane id="B2A2.80.00_0" index="0" speed="13.89" length="20.46" shape="21.70,208.00 11.10,208.00"/>
-        <lane id="B2A2.80.00_1" index="1" speed="13.89" length="20.46" shape="21.70,204.80 11.10,204.80"/>
+    <edge id="B2A2" from="B2" to="A2" priority="-1">
+        <lane id="B2A2_0" index="0" speed="13.89" length="100.00" shape="95.30,204.80 6.40,204.80"/>
     </edge>
     <edge id="B2B1" from="B2" to="B2B1.80.00" priority="-1" shape="100.00,203.20 100.00,123.20">
         <lane id="B2B1_0" index="0" speed="13.89" length="80.82" shape="98.40,195.30 98.40,124.70"/>
@@ -147,22 +127,18 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="B2B1.80.00_0" index="0" speed="13.89" length="22.77" shape="98.40,121.70 98.40,111.10"/>
         <lane id="B2B1.80.00_1" index="1" speed="13.89" length="22.77" shape="101.60,121.70 101.60,111.10"/>
     </edge>
-    <edge id="B2C2" from="B2" to="B2C2.80.00" priority="-1" shape="103.20,200.00 183.20,200.00">
-        <lane id="B2C2_0" index="0" speed="13.89" length="80.82" shape="111.10,198.40 181.70,198.40"/>
-    </edge>
-    <edge id="B2C2.80.00" from="B2C2.80.00" to="C2" priority="-1">
-        <lane id="B2C2.80.00_0" index="0" speed="13.89" length="20.46" shape="184.70,198.40 195.30,198.40"/>
-        <lane id="B2C2.80.00_1" index="1" speed="13.89" length="20.46" shape="184.70,201.60 195.30,201.60"/>
+    <edge id="B2C2" from="B2" to="C2" priority="-1">
+        <lane id="B2C2_0" index="0" speed="13.89" length="100.00" shape="111.10,201.60 196.80,201.60"/>
     </edge>
     <edge id="C0B0" from="C0" to="C0B0.80.00" priority="-1" shape="203.20,6.40 123.20,6.40">
-        <lane id="C0B0_0" index="0" speed="13.89" length="76.32" shape="195.30,8.00 124.70,8.00"/>
+        <lane id="C0B0_0" index="0" speed="13.89" length="81.53" shape="200.00,8.00 124.70,8.00"/>
     </edge>
     <edge id="C0B0.80.00" from="C0B0.80.00" to="B0" priority="-1">
         <lane id="C0B0.80.00_0" index="0" speed="13.89" length="22.77" shape="121.70,8.00 111.10,8.00"/>
         <lane id="C0B0.80.00_1" index="1" speed="13.89" length="22.77" shape="121.70,4.80 111.10,4.80"/>
     </edge>
     <edge id="C0C1" from="C0" to="C0C1.80.00" priority="-1" shape="206.40,3.20 206.40,83.20">
-        <lane id="C0C1_0" index="0" speed="13.89" length="80.47" shape="208.00,11.10 208.00,81.70"/>
+        <lane id="C0C1_0" index="0" speed="13.89" length="80.96" shape="208.00,9.60 208.00,81.70"/>
     </edge>
     <edge id="C0C1.80.00" from="C0C1.80.00" to="C1" priority="-1">
         <lane id="C0C1.80.00_0" index="0" speed="13.89" length="22.77" shape="208.00,84.70 208.00,95.30"/>
@@ -175,36 +151,28 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="C1B1.80.00_0" index="0" speed="13.89" length="22.77" shape="121.70,108.00 111.10,108.00"/>
         <lane id="C1B1.80.00_1" index="1" speed="13.89" length="22.77" shape="121.70,104.80 111.10,104.80"/>
     </edge>
-    <edge id="C1C0" from="C1" to="C1C0.80.00" priority="-1" shape="200.00,103.20 200.00,23.20">
-        <lane id="C1C0_0" index="0" speed="13.89" length="80.82" shape="198.40,95.30 198.40,24.70"/>
+    <edge id="C1C0" from="C1" to="C0" priority="-1">
+        <lane id="C1C0_0" index="0" speed="13.89" length="100.00" shape="201.60,95.30 201.60,9.60"/>
     </edge>
-    <edge id="C1C0.80.00" from="C1C0.80.00" to="C0" priority="-1">
-        <lane id="C1C0.80.00_0" index="0" speed="13.89" length="20.46" shape="198.40,21.70 198.40,11.10"/>
-        <lane id="C1C0.80.00_1" index="1" speed="13.89" length="20.46" shape="201.60,21.70 201.60,11.10"/>
-    </edge>
-    <edge id="C1C2" from="C1" to="C1C2.80.00" priority="-1" shape="206.40,103.20 206.40,183.20">
-        <lane id="C1C2_0" index="0" speed="13.89" length="80.82" shape="208.00,111.10 208.00,181.70"/>
-    </edge>
-    <edge id="C1C2.80.00" from="C1C2.80.00" to="C2" priority="-1">
-        <lane id="C1C2.80.00_0" index="0" speed="13.89" length="20.46" shape="208.00,184.70 208.00,195.30"/>
-        <lane id="C1C2.80.00_1" index="1" speed="13.89" length="20.46" shape="204.80,184.70 204.80,195.30"/>
+    <edge id="C1C2" from="C1" to="C2" priority="-1">
+        <lane id="C1C2_0" index="0" speed="13.89" length="100.00" shape="204.80,111.10 204.80,200.00"/>
     </edge>
     <edge id="C2B2" from="C2" to="C2B2.80.00" priority="-1" shape="203.20,206.40 123.20,206.40">
-        <lane id="C2B2_0" index="0" speed="13.89" length="80.47" shape="195.30,208.00 124.70,208.00"/>
+        <lane id="C2B2_0" index="0" speed="13.89" length="80.96" shape="196.80,208.00 124.70,208.00"/>
     </edge>
     <edge id="C2B2.80.00" from="C2B2.80.00" to="B2" priority="-1">
         <lane id="C2B2.80.00_0" index="0" speed="13.89" length="22.77" shape="121.70,208.00 111.10,208.00"/>
         <lane id="C2B2.80.00_1" index="1" speed="13.89" length="22.77" shape="121.70,204.80 111.10,204.80"/>
     </edge>
     <edge id="C2C1" from="C2" to="C2C1.80.00" priority="-1" shape="200.00,203.20 200.00,123.20">
-        <lane id="C2C1_0" index="0" speed="13.89" length="76.32" shape="198.40,195.30 198.40,124.70"/>
+        <lane id="C2C1_0" index="0" speed="13.89" length="81.53" shape="198.40,200.00 198.40,124.70"/>
     </edge>
     <edge id="C2C1.80.00" from="C2C1.80.00" to="C1" priority="-1">
         <lane id="C2C1.80.00_0" index="0" speed="13.89" length="22.77" shape="198.40,121.70 198.40,111.10"/>
         <lane id="C2C1.80.00_1" index="1" speed="13.89" length="22.77" shape="201.60,121.70 201.60,111.10"/>
     </edge>
 
-    <junction id="A0" type="priority" x="3.20" y="3.20" incLanes="A1A0.80.00_0 A1A0.80.00_1 B0A0.80.00_0 B0A0.80.00_1" intLanes="" shape="-3.20,11.10 9.60,11.10 11.10,9.60 11.10,-3.20">
+    <junction id="A0" type="priority" x="3.20" y="3.20" incLanes="A1A0_0 B0A0_0" intLanes="" shape="0.00,6.40 9.60,6.40 9.60,-3.20">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -218,7 +186,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="A1" type="priority" x="3.20" y="103.20" incLanes="A2A1.80.00_0 A2A1.80.00_1 B1A1.80.00_0 B1A1.80.00_1 A0A1.80.00_0 A0A1.80.00_1" intLanes="" shape="-3.20,111.10 9.60,111.10 11.10,109.60 11.10,96.80 9.60,95.30 -3.20,95.30">
+    <junction id="A1" type="priority" x="3.20" y="103.20" incLanes="A2A1.80.00_0 A2A1.80.00_1 B1A1.80.00_0 B1A1.80.00_1 A0A1.80.00_0 A0A1.80.00_1" intLanes="" shape="-3.20,111.10 6.40,111.10 11.10,109.60 11.10,96.80 9.60,95.30 0.00,95.30">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -229,19 +197,11 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="A1A0.80.00" type="priority" x="3.20" y="23.20" incLanes="A1A0_0" intLanes="" shape="-3.20,24.70 0.00,24.70 3.20,21.70 -3.20,21.70">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
-    <junction id="A1A2.80.00" type="priority" x="3.20" y="183.20" incLanes="A1A2_0" intLanes="" shape="3.20,184.70 9.60,184.70 9.60,181.70 6.40,181.70">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
     <junction id="A1B1.80.00" type="priority" x="83.20" y="103.20" incLanes="A1B1_0" intLanes="" shape="84.70,103.20 84.70,96.80 81.70,96.80 81.70,100.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="A2" type="priority" x="3.20" y="203.20" incLanes="B2A2.80.00_0 B2A2.80.00_1 A1A2.80.00_0 A1A2.80.00_1" intLanes="" shape="11.10,209.60 11.10,196.80 9.60,195.30 -3.20,195.30">
+    <junction id="A2" type="priority" x="3.20" y="203.20" incLanes="B2A2_0 A1A2_0" intLanes="" shape="6.40,206.40 6.40,196.80 -3.20,196.80">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -255,7 +215,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="B0" type="priority" x="103.20" y="3.20" incLanes="B1B0.80.00_0 B1B0.80.00_1 C0B0.80.00_0 C0B0.80.00_1 A0B0.80.00_0 A0B0.80.00_1" intLanes="" shape="96.80,11.10 109.60,11.10 111.10,9.60 111.10,-3.20 95.30,-3.20 95.30,9.60">
+    <junction id="B0" type="priority" x="103.20" y="3.20" incLanes="B1B0.80.00_0 B1B0.80.00_1 C0B0.80.00_0 C0B0.80.00_1 A0B0.80.00_0 A0B0.80.00_1" intLanes="" shape="96.80,11.10 109.60,11.10 111.10,9.60 111.10,0.00 95.30,-3.20 95.30,6.40">
         <request index="0" response="000010000" foes="100010000"/>
         <request index="1" response="011010000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -266,15 +226,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="B0A0.80.00" type="priority" x="23.20" y="3.20" incLanes="B0A0_0" intLanes="" shape="24.70,9.60 24.70,6.40 21.70,3.20 21.70,9.60">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
     <junction id="B0B1.80.00" type="priority" x="103.20" y="83.20" incLanes="B0B1_0" intLanes="" shape="103.20,84.70 109.60,84.70 109.60,81.70 106.40,81.70">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
-    <junction id="B0C0.80.00" type="priority" x="183.20" y="3.20" incLanes="B0C0_0" intLanes="" shape="184.70,3.20 184.70,-3.20 181.70,-3.20 181.70,0.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -312,7 +264,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="B2" type="priority" x="103.20" y="203.20" incLanes="C2B2.80.00_0 C2B2.80.00_1 B1B2.80.00_0 B1B2.80.00_1 A2B2.80.00_0 A2B2.80.00_1" intLanes="" shape="111.10,209.60 111.10,196.80 109.60,195.30 96.80,195.30 95.30,196.80 95.30,209.60">
+    <junction id="B2" type="priority" x="103.20" y="203.20" incLanes="C2B2.80.00_0 C2B2.80.00_1 B1B2.80.00_0 B1B2.80.00_1 A2B2.80.00_0 A2B2.80.00_1" intLanes="" shape="111.10,209.60 111.10,200.00 109.60,195.30 96.80,195.30 95.30,196.80 95.30,206.40">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -323,19 +275,11 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="B2A2.80.00" type="priority" x="23.20" y="203.20" incLanes="B2A2_0" intLanes="" shape="24.70,209.60 24.70,206.40 21.70,203.20 21.70,209.60">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
     <junction id="B2B1.80.00" type="priority" x="103.20" y="123.20" incLanes="B2B1_0" intLanes="" shape="96.80,124.70 100.00,124.70 103.20,121.70 96.80,121.70">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="B2C2.80.00" type="priority" x="183.20" y="203.20" incLanes="B2C2_0" intLanes="" shape="184.70,203.20 184.70,196.80 181.70,196.80 181.70,200.00">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
-    <junction id="C0" type="priority" x="203.20" y="3.20" incLanes="C1C0.80.00_0 C1C0.80.00_1 B0C0.80.00_0 B0C0.80.00_1" intLanes="" shape="196.80,11.10 209.60,11.10 195.30,-3.20 195.30,9.60">
+    <junction id="C0" type="priority" x="203.20" y="3.20" incLanes="C1C0_0 B0C0_0" intLanes="" shape="200.00,9.60 209.60,9.60 200.00,0.00">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -349,7 +293,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="C1" type="priority" x="203.20" y="103.20" incLanes="C2C1.80.00_0 C2C1.80.00_1 C0C1.80.00_0 C0C1.80.00_1 B1C1.80.00_0 B1C1.80.00_1" intLanes="" shape="196.80,111.10 209.60,111.10 209.60,95.30 196.80,95.30 195.30,96.80 195.30,109.60">
+    <junction id="C1" type="priority" x="203.20" y="103.20" incLanes="C2C1.80.00_0 C2C1.80.00_1 C0C1.80.00_0 C0C1.80.00_1 B1C1.80.00_0 B1C1.80.00_1" intLanes="" shape="196.80,111.10 206.40,111.10 209.60,95.30 200.00,95.30 195.30,96.80 195.30,109.60">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="000000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -364,15 +308,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="C1C0.80.00" type="priority" x="203.20" y="23.20" incLanes="C1C0_0" intLanes="" shape="196.80,24.70 200.00,24.70 203.20,21.70 196.80,21.70">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
-    <junction id="C1C2.80.00" type="priority" x="203.20" y="183.20" incLanes="C1C2_0" intLanes="" shape="203.20,184.70 209.60,184.70 209.60,181.70 206.40,181.70">
-        <request index="0" response="00" foes="00"/>
-        <request index="1" response="00" foes="00"/>
-    </junction>
-    <junction id="C2" type="priority" x="203.20" y="203.20" incLanes="C1C2.80.00_0 C1C2.80.00_1 B2C2.80.00_0 B2C2.80.00_1" intLanes="" shape="209.60,195.30 196.80,195.30 195.30,196.80 195.30,209.60">
+    <junction id="C2" type="priority" x="203.20" y="203.20" incLanes="C1C2_0 B2C2_0" intLanes="" shape="206.40,200.00 196.80,200.00 196.80,209.60">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
@@ -397,14 +333,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="A0B0.80.00" to="B0C0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="A0B0.80.00" to="B0B1" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="A0B0.80.00" to="B0A0" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="A1A0" to="A1A0.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="A1A0" to="A1A0.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="A1A0.80.00" to="A0B0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="A1A0.80.00" to="A0A1" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="A1A2" to="A1A2.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="A1A2" to="A1A2.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="A1A2.80.00" to="A2B2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="A1A2.80.00" to="A2A1" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="A1A0" to="A0B0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="A1A0" to="A0A1" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="A1A2" to="A2B2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="A1A2" to="A2A1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="A1B1" to="A1B1.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="A1B1" to="A1B1.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="A1B1.80.00" to="B1B0" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -421,20 +353,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="A2B2.80.00" to="B2B1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="A2B2.80.00" to="B2C2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="A2B2.80.00" to="B2A2" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="B0A0" to="B0A0.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="B0A0" to="B0A0.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="B0A0.80.00" to="A0A1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B0A0.80.00" to="A0B0" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="B0A0" to="A0A1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="B0A0" to="A0B0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B0B1" to="B0B1.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B0B1" to="B0B1.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="B0B1.80.00" to="B1C1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B0B1.80.00" to="B1B2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B0B1.80.00" to="B1A1" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="B0B1.80.00" to="B1B0" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="B0C0" to="B0C0.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="B0C0" to="B0C0.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="B0C0.80.00" to="C0C1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="B0C0.80.00" to="C0B0" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="B0C0" to="C0C1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="B0C0" to="C0B0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B1A1" to="B1A1.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B1A1" to="B1A1.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="B1A1.80.00" to="A1A2" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -455,20 +383,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B1C1.80.00" to="C1C0" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="B1C1.80.00" to="C1C2" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="B1C1.80.00" to="C1B1" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="B2A2" to="B2A2.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="B2A2" to="B2A2.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="B2A2.80.00" to="A2A1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="B2A2.80.00" to="A2B2" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="B2A2" to="A2A1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="B2A2" to="A2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B2B1" to="B2B1.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B2B1" to="B2B1.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="B2B1.80.00" to="B1A1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B2B1.80.00" to="B1B0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B2B1.80.00" to="B1C1" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="B2B1.80.00" to="B1B2" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="B2C2" to="B2C2.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="B2C2" to="B2C2.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="B2C2.80.00" to="C2C1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B2C2.80.00" to="C2B2" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="B2C2" to="C2C1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="B2C2" to="C2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="C0B0" to="C0B0.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="C0B0" to="C0B0.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="C0B0.80.00" to="B0B1" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -485,14 +409,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="C1B1.80.00" to="B1A1" fromLane="1" toLane="0" dir="s" state="m"/>
     <connection from="C1B1.80.00" to="B1B0" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="C1B1.80.00" to="B1C1" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="C1C0" to="C1C0.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="C1C0" to="C1C0.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="C1C0.80.00" to="C0B0" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="C1C0.80.00" to="C0C1" fromLane="1" toLane="0" dir="t" state="m"/>
-    <connection from="C1C2" to="C1C2.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="C1C2" to="C1C2.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="C1C2.80.00" to="C2B2" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="C1C2.80.00" to="C2C1" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="C1C0" to="C0B0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="C1C0" to="C0C1" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="C1C2" to="C2B2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="C1C2" to="C2C1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="C2B2" to="C2B2.80.00" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="C2B2" to="C2B2.80.00" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="C2B2.80.00" to="B2A2" fromLane="0" toLane="0" dir="s" state="M"/>
