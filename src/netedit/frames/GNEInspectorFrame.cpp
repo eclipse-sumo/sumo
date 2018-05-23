@@ -878,7 +878,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // check if item can block their shape
-        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).canBlockMovement()) {
+        if (GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag()).canBlockShape()) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
