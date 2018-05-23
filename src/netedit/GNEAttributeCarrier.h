@@ -69,18 +69,18 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
 public:
     enum TAGProperty {
-        TAGPROPERTY_NETELEMENT = 1,     // Edges, Junctions, Lanes...
-        TAGPROPERTY_ADDITIONAL = 2,     // Bus Stops, Charging Stations, Detectors...
-        TAGPROPERTY_SHAPE = 4,          // POIs, Polygons
-        TAGPROPERTY_ROUTEELEMENT = 8,   // VTypes, Vehicles, Flows...
-        TAGPROPERTY_INTERNAL = 16,      // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
-        TAGPROPERTY_BLOCKMOVEMENT = 32, // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE = 64,    // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE = 128,   // Element can close their shape
-        TAGPROPERTY_GEOPOSITION = 256,  // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE = 512,     // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG = 1024,      // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT = 2048,      // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_NETELEMENT =    1 << 0,     // Edges, Junctions, Lanes...
+        TAGPROPERTY_ADDITIONAL =    1 << 1,     // Bus Stops, Charging Stations, Detectors...
+        TAGPROPERTY_SHAPE =         1 << 2,     // POIs, Polygons
+        TAGPROPERTY_ROUTEELEMENT =  1 << 3,     // VTypes, Vehicles, Flows...
+        TAGPROPERTY_INTERNAL =      1 << 4,     // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
+        TAGPROPERTY_BLOCKMOVEMENT = 1 << 5,     // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =    1 << 6,     // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =    1 << 7,     // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =   1 << 8,     // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =      1 << 9,     // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =        1 << 10,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =        1 << 11,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
     };
 
     /// @brief struct with the attribute Properties
@@ -138,25 +138,25 @@ public:
 
 
     enum AttrProperty {
-        ATTRPROPERTY_INT = 1,               // Attribute is an integer (Including Zero)
-        ATTRPROPERTY_FLOAT = 2,             // Attribute is a float
-        ATTRPROPERTY_BOOL = 4,              // Attribute is boolean (0/1, true/false)
-        ATTRPROPERTY_STRING = 8,            // Attribute is a string
-        ATTRPROPERTY_POSITION = 16,         // Attribute is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR = 64,            // Attribute is a color defined by a specifically word (Red, green) or by a speicial format (XXX,YYY,ZZZ)
-        ATTRPROPERTY_VCLASS = 128,          // Attribute is a VClass (passenger, bus, motorcicle...)
-        ATTRPROPERTY_POSITIVE = 256,        // Attribute is positive (Including Zero)
-        ATTRPROPERTY_UNIQUE = 512,          // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME = 1024,       // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_NONEDITABLE = 2048,    // Attribute is non editable (index of a lane)
-        ATTRPROPERTY_DISCRETE = 4096,       // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY = 8192,    // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_TIME = 16384,          // Attribute is a Time (float positive)
-        ATTRPROPERTY_ANGLE = 32768,         // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST = 65536,          // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_OPTIONAL = 131072,     // Attribute is optional
-        ATTRPROPERTY_DEFAULTVALUE = 262144, // Attribute owns a default value
-        ATTRPROPERTY_COMBINABLE = 524288,   // Attribute is combinable with other Attribute
+        ATTRPROPERTY_INT =          1 << 0,     // Attribute is an integer (Including Zero)
+        ATTRPROPERTY_FLOAT =        1 << 1,     // Attribute is a float
+        ATTRPROPERTY_BOOL =         1 << 2,     // Attribute is boolean (0/1, true/false)
+        ATTRPROPERTY_STRING =       1 << 3,     // Attribute is a string
+        ATTRPROPERTY_POSITION =     1 << 4,     // Attribute is a position defined by doubles (x,y or x,y,z)
+        ATTRPROPERTY_COLOR =        1 << 5,     // Attribute is a color defined by a specifically word (Red, green) or by a speicial format (XXX,YYY,ZZZ)
+        ATTRPROPERTY_VCLASS =       1 << 6,     // Attribute is a VClass (passenger, bus, motorcicle...)
+        ATTRPROPERTY_POSITIVE =     1 << 7,     // Attribute is positive (Including Zero)
+        ATTRPROPERTY_UNIQUE =       1 << 8,     // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME =     1 << 9,     // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_NONEDITABLE =  1 << 10,    // Attribute is non editable (index of a lane)
+        ATTRPROPERTY_DISCRETE =     1 << 11,    // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY =  1 << 12,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_TIME =         1 << 13,    // Attribute is a Time (float positive)
+        ATTRPROPERTY_ANGLE =        1 << 14,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST =         1 << 15,    // Attribute is a list of other elements separated by spaces
+        ATTRPROPERTY_OPTIONAL =     1 << 16,    // Attribute is optional
+        ATTRPROPERTY_DEFAULTVALUE = 1 << 17,    // Attribute owns a default value
+        ATTRPROPERTY_COMBINABLE =   1 << 18,    // Attribute is combinable with other Attribute
     };
 
     /// @brief struct with the attribute Properties

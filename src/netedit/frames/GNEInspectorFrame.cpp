@@ -378,7 +378,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         myBoolCheckButton->show();
     } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
         // Check if are combinable choices
-        if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if ((GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size() > 0) && 
+             GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isCombinable()) {
             // hide label
             myLabel->hide();
             // Show button combinable choices
@@ -513,7 +514,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         }
     } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
         // Check if are combinable choices (for example, Vehicle Types)
-        if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size() > 0 && GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if ((GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).getDiscreteValues().size() > 0) && 
+             GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isCombinable()) {
             // Get value obtained using AttributesEditor
             newVal = myTextFieldStrings->getText().text();
         } else {
@@ -571,7 +573,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black
-        if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isCombinable()) {
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
@@ -596,7 +598,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
-        if (GNEAttributeCarrier::discreteCombinableChoices(myAttr)) {
+        if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isCombinable()) {
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
             myTextFieldStrings->killFocus();
         } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isDiscrete()) {
@@ -669,23 +671,20 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
     if(myInspectorFrameParent->getInspectedACs().size() > 0) {
         // reset myCurrentIndex;
         myCurrentIndex = 0;
-        // Gets tag and attributes of element
+        // Gets tag (only for simplify code)
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
-        const std::vector<SumoXMLAttr> &ACFrontAttrs = myInspectorFrameParent->getInspectedACs().front()->getAttrs();
-
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
-
         // Iterate over attributes
-        for (auto it : ACFrontAttrs) {
+        for (auto it : GNEAttributeCarrier::getAttributes(ACFrontTag)) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::getAttributeProperties(ACFrontTag, it).isUnique()) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
             for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
-                occuringValues.insert(it_ac->getAttribute(it));
+                occuringValues.insert(it_ac->getAttribute(it.first));
             }
             // get current value
             std::ostringstream oss;
@@ -696,12 +695,12 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it.first == SUMO_ATTR_TLTYPE) || (it.first == SUMO_ATTR_TLID))) == false) {
                 if (myCurrentIndex < (int)myVectorOfAttributeInputs.size()) {
                     // first show AttributesEditor
                     show();
                     // show attribute
-                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it, oss.str());
+                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it.first, oss.str());
                     // update current index
                     myCurrentIndex++;
                 }
@@ -733,23 +732,20 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         // Declare pointer for allow/Disallow vehicles
         std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myAllowAttribute(nullptr, "");
         std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myDisallowAttribute(nullptr,"");
-        // Gets tag and attributes of element
+        // Gets tag (only for simplify code)
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
-        const std::vector<SumoXMLAttr> &ACFrontAttrs = myInspectorFrameParent->getInspectedACs().front()->getAttrs();
-
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
-
         // Iterate over attributes
-        for (auto it : ACFrontAttrs) {
+        for (auto it : GNEAttributeCarrier::getAttributes(ACFrontTag)) {
             // disable editing for unique attributes in case of multi-selection
-            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && GNEAttributeCarrier::getAttributeProperties(ACFrontTag, it).isUnique()) {
+            if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;
             }
             // Declare a set of occuring values and insert attribute's values of item
             std::set<std::string> occuringValues;
             for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
-                occuringValues.insert(it_ac->getAttribute(it));
+                occuringValues.insert(it_ac->getAttribute(it.first));
             }
             // get current value
             std::ostringstream oss;
@@ -760,20 +756,20 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it == SUMO_ATTR_TLTYPE) || (it == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it.first == SUMO_ATTR_TLTYPE) || (it.first == SUMO_ATTR_TLID))) == false) {
                 if (myCurrentIndex < (int)myVectorOfAttributeInputs.size()) {
                     // refresh attribute, with a special case for allow/disallow vehicles
-                    if(it == SUMO_ATTR_ALLOW) {
+                    if(it.first  == SUMO_ATTR_ALLOW) {
                         myAllowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
                         myAllowAttribute.second = oss.str();
-                    } else if (it == SUMO_ATTR_DISALLOW) {
+                    } else if (it.first  == SUMO_ATTR_DISALLOW) {
                         myDisallowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
                         myDisallowAttribute.second = oss.str();
                     } else {
                         // Check if refresh of Position or Shape has to be forced
-                        if((it == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                        if((it.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                             myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
-                        } else if ((it == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                        } else if ((it.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                             // Refresh attributes maintain invalid values
                             myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
                         } else {
