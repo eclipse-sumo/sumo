@@ -521,21 +521,6 @@ GNEAttributeCarrier::getGUIIcon() const {
 }
 
 
-std::vector<SumoXMLAttr>
-GNEAttributeCarrier::getAttrs() const {
-    std::vector<SumoXMLAttr> attr;
-    // define on first access
-    if (myAllowedAttributes.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // iterate over attributes and save it in attr vector
-    for (auto i : myAllowedAttributes.at(myTag).second) {
-        attr.push_back(i.first);
-    }
-    return attr;
-}
-
-
 const std::string
 GNEAttributeCarrier::getID() const {
     return getAttribute(SUMO_ATTR_ID);
@@ -677,7 +662,11 @@ GNEAttributeCarrier::hasAttribute(SumoXMLTag tag, SumoXMLAttr attr) {
     if (myAllowedAttributes.size() == 0) {
         fillAttributeCarriers();
     }
-    return (myAllowedAttributes.count(tag) != 0) && (myAllowedAttributes.at(tag).second.count(attr) != 0);
+    if(myAllowedAttributes.count(tag) == 0) {
+        throw ProcessError("Attributes for tag '" + toString(tag) + "' not defined");
+    } else {
+        return (myAllowedAttributes.at(tag).second.count(attr) != 0);
+    }
 }
 
 

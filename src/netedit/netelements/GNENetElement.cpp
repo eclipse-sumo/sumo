@@ -130,17 +130,15 @@ GNENetElement::getParentName() const {
 
 GUIParameterTableWindow*
 GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
     // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)getAttributes(getTag()).size());
     // Iterate over attributes
-    for (auto i : attributes) {
+    for (auto i : getAttributes(getTag())) {
         // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::getAttributeProperties(getTag(), i).isUnique()) {
-            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
+        if (i.second.isUnique()) {
+            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
         } else {
-            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
+            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
         }
     }
     // close building

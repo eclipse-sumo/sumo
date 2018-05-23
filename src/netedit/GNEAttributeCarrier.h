@@ -92,6 +92,9 @@ public:
         /// @brief parameter constructor
         TagValues(int tagProperty, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
 
+        /// @brief if has a parent, return parent tag
+        SumoXMLTag getParentTag() const;
+
         /// @brief return true if tag correspond to a netElement
         bool isNetElement() const;
 
@@ -119,14 +122,11 @@ public:
         /// @brief return true if tag correspond to an element that can use a geo shape
         bool hasGEOShape() const;
 
-        /// @brief return true if tag correspond to an element that can had another parent
+        /// @brief return true if tag correspond to an element that can had another element as parent
         bool hasParent() const;
 
         /// @brief return true if tag correspond to an element that can be edited using a dialog
         bool hasDialog() const;
-
-        /// @brief if has a parent, return parent tag
-        SumoXMLTag getParentTag() const;
 
     private:
         /// @brief Property of attribute
@@ -317,19 +317,16 @@ public:
     /// @brief get GUI icon assigned to this object
     GUIIcon getGUIIcon() const;
 
-    /// @brief get vector of attributes
-    std::vector<SumoXMLAttr> getAttrs() const;
-
     /// @brief function to support debugging
     const std::string getID() const;
 
-    /// @brief get all editable attributes for.
+    /// @brief get all editable attributes for the given tag
     static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& getAttributes(SumoXMLTag tag);
 
     /// @brief get Tag Properties
     static const TagValues &getTagProperties(SumoXMLTag tag);
 
-    /// @brief get Tag Properties
+    /// @brief get Attribute Properties (Used for simplify code)
     static const AttributeValues &getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief get all editable for tag elements of all types

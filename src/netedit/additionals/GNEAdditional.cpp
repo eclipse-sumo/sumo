@@ -263,8 +263,6 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuCommand(ret, ("Open " + toString(getTag()) + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
     // Show position parameters
     if (hasAttribute(getTag(), SUMO_ATTR_LANE)) {
         GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
@@ -295,17 +293,15 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
     // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)getAttributes(getTag()).size());
     // Iterate over attributes
-    for (auto i : attributes) {
+    for (auto i : getAttributes(getTag())) {
         // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::getAttributeProperties(getTag(), i).isUnique()) {
-            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
+        if (i.second.isUnique()) {
+            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
         } else {
-            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
+            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
         }
     }
     // close building
