@@ -106,11 +106,14 @@ GUIParameterTableWindow*
 GUIContainerStop::getParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 4);
+        new GUIParameterTableWindow(app, *this, 7);
     // add items
+    ret->mkItem("name", false, getMyName());
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
     ret->mkItem("container number [#]", true, new FunctionBinding<GUIContainerStop, int>(this, &MSStoppingPlace::getTransportableNumber));
+    ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIContainerStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
+    ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIContainerStop, double>(this, &MSStoppingPlace::getLastFreePos));
     // close building
     ret->closeBuilding();
     return ret;

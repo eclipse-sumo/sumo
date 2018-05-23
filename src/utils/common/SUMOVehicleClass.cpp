@@ -363,6 +363,7 @@ std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs,
 
 const std::string DEFAULT_VTYPE_ID("DEFAULT_VEHTYPE");
 const std::string DEFAULT_PEDTYPE_ID("DEFAULT_PEDTYPE");
+const std::string DEFAULT_BIKETYPE_ID("DEFAULT_BIKETYPE");
 
 const double DEFAULT_VEH_PROB(1.);
 

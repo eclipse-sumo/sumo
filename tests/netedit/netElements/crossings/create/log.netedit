@@ -1,5 +1,3 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from5_0to4_0' in retrieveGNEConnection()
 Warning: Created connection 'from5_0to2_0' in retrieveGNEConnection()
@@ -17,12 +15,14 @@ Warning: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3 7' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3 7' has no target.
 Warning: Adding crossing into junction 'Center'
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
 Warning: Key F5 (Compute) pressed
@@ -49,7 +49,7 @@ Warning: removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c2' in rebuildGNECrossings()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: removing crossing from junction 'Center'
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3 7' has no target.
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: removing crossing from junction 'Center'
@@ -58,7 +58,7 @@ Warning: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
-Warning: Invalid pedestrian topology: crossing ':Center_c0' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3 7' has no target.
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding crossing into junction 'Center'
@@ -122,6 +122,5 @@ Warning: Deleting unreferenced crossing ':Center_c2' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

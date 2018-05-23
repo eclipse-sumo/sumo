@@ -952,6 +952,12 @@ TraCITestClient::testAPI() {
                       << "\n";
         }
     }
+    simulationStep();
+    answerLog << "    state=" << trafficlights.getRedYellowGreenState("n_m4") << "\n";
+    trafficlights.setRedYellowGreenState("n_m4", "gGyruoO");
+    answerLog << "    stateSet=" << trafficlights.getRedYellowGreenState("n_m4") << "\n";
+    answerLog << "    program: " << trafficlights.getProgram("n_m4") << "\n";
+
     answerLog << "  load:\n";
     std::vector<std::string> args;
     args.push_back("-n");

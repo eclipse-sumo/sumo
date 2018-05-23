@@ -76,7 +76,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file,
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(0),
     myCurrentRouteDistribution(0),
-    myAmLoadingState(false) {
+    myAmLoadingState(false) 
+{
     myActiveRoute.reserve(100);
     // check for valid value has been performed in MSFrame
     myDefaultCFModel = SUMOXMLDefinitions::CarFollowModels.get(OptionsCont::getOptions().getString("carfollow.model"));
@@ -676,18 +677,21 @@ MSRouteHandler::closeVehicle() {
                 throw e;
             }
         }
+        const SUMOTime origDepart = myVehicleParameter->depart;
         // maybe we do not want this vehicle to be inserted due to scaling
         int quota = myAmLoadingState ? 1 : vehControl.getQuota();
         if (quota > 0) {
+            registerLastDepart();
+            myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             for (int i = 1; i < quota; i++) {
                 MSNet::getInstance()->getInsertionControl().add(vehicle);
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
                 newPars->id = myVehicleParameter->id + "." + toString(i);
+                newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
                 vehicle = vehControl.buildVehicle(newPars, route, vtype, !MSGlobals::gCheckRoutes);
                 vehControl.addVehicle(newPars->id, vehicle);
             }
-            registerLastDepart();
             myVehicleParameter = 0;
         } else {
             vehControl.deleteVehicle(vehicle, true);
@@ -1098,6 +1102,11 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->id = myVehicleParameter->id + "_0";
             pars.back()->departProcedure = DEPART_TRIGGERED;
+        } else if ((modeSet & SVC_BICYCLE) != 0) {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
+            pars.back()->id = myVehicleParameter->id + "_b0";
+            pars.back()->departProcedure = DEPART_TRIGGERED;
         } else if ((modeSet & SVC_BUS) != 0 || bs != nullptr) {
             pars.push_back(nullptr);
         }
@@ -1124,8 +1133,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
         } else {
             for (SUMOVehicleParameter* vehPar : pars) {
-                SUMOVehicle* vehicle = 0;
-                if (vehPar != 0) {
+                SUMOVehicle* vehicle = nullptr;
+                if (vehPar != nullptr) {
                     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
                     if (type->getVehicleClass() != SVC_IGNORING && (from->getPermissions() & type->getVehicleClass()) == 0) {
                         WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + myVehicleParameter->id + "' because it is not allowed on the start edge.");

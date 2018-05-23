@@ -133,6 +133,8 @@ public:
      */
     double getLastFreePos(const SUMOVehicle& forVehicle) const;
 
+    /// @brief return whether the given vehicle fits at the given position
+    bool fits(double pos, const SUMOVehicle& veh) const;
 
     /** @brief Returns the next free waiting place for pedestrians / containers
      *
@@ -159,6 +161,16 @@ public:
     */
     int getTransportableNumber() const {
         return (int)myWaitingTransportables.size();
+    }
+
+    /** @brief Returns the number of stopped vehicles waiting on this stop
+    */
+    int getStoppedVehicleNumber() const {
+        return (int)myEndPositions.size();
+    }
+
+    double getLastFreePos() const {
+        return myLastFreePos;
     }
 
     /// @brief adds a transportable to this stop

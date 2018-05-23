@@ -143,8 +143,8 @@ public:
 
     /// @name Inter-thread event handling
     /// @{
-    /// @brief called when an event occured
-    virtual void eventOccured();
+    /// @brief called when an event occurred
+    virtual void eventOccurred();
 
     /// @brief handle event of type Network loaded
     void handleEvent_NetworkLoaded(GUIEvent* e);
@@ -418,20 +418,17 @@ private:
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
 
-    /// @brief FXMenuCommand for enable or disable save additionals as
+    /// @brief FXMenuCommand for enable or disable save additionals As
     FXMenuCommand* mySaveAdditionalsMenuCommandAs;
 
     /// @brief FXMenuCommand for enable or disable save shapes
     FXMenuCommand* mySaveShapesMenuCommand;
 
-    /// @brief FXMenuCommand for enable or disable save shapes as
+    /// @brief FXMenuCommand for enable or disable save shapes
     FXMenuCommand* mySaveShapesMenuCommandAs;
 
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveTLSProgramsMenuCommand;
-
-    /// @brief FXMenuCommand for enable or disable save additionals as
-    FXMenuCommand* mySaveTLSProgramsMenuCommandAs;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

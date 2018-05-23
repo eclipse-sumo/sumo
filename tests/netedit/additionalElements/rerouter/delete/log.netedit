@@ -1,7 +1,6 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'rerouter' in AdditionalSelector
@@ -10,6 +9,8 @@ Warning: Removing rerouter 'rerouter_3' in GNEChange_Additional
 Warning: Removing rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Removing rerouter 'rerouter_2' in GNEChange_Additional
 Warning: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Adding TLS into junction 'gneJ1'
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
@@ -70,6 +71,5 @@ Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

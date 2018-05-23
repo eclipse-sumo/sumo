@@ -34,6 +34,7 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBEdge.h>
+#include <netbuild/NBEdgeCont.h>
 
 
 // ===========================================================================
@@ -43,7 +44,6 @@ class OptionsCont;
 class NBNode;
 class NBEdge;
 class NBNodeCont;
-class NBEdgeCont;
 class NBTypeCont;
 class NBDistrictCont;
 class NBTrafficLightLogicCont;
@@ -113,7 +113,7 @@ private:
     /** @brief Tries to parse the shape definition
      *
      * Returns the edge's geometry (may be empty if no one was defined).
-     * Writes an error message if an error occured.
+     * Writes an error message if an error occurred.
      * @param[in] attrs The attributes to read the shape from
      * @return The edge's shape
      */
@@ -225,44 +225,8 @@ private:
     /// @brief The currently processed lane index
     int myCurrentLaneIndex;
 
-    /** @struct Split
-     * @brief A structure which describes changes of lane number or speed along the road
-     */
-    struct Split {
-        /// @brief The lanes after this change
-        std::vector<int> lanes;
-        /// @brief The position of this change
-        double pos;
-        /// @brief The speed after this change
-        double speed;
-        /// @brief The new node that is created for this split
-        NBNode* node;
-        /// @brief The id for the edge before the split
-        std::string idBefore;
-        /// @brief The id for the edge after the split
-        std::string idAfter;
-        /// @brief the default node id
-        std::string nameID;
-    };
-
     /// @brief The list of this edge's splits
-    std::vector<Split> mySplits;
-
-
-    /** @class split_sorter
-     * @brief Sorts splits by their position (increasing)
-     */
-    class split_sorter {
-    public:
-        /// @brief Constructor
-        explicit split_sorter() { }
-
-        /// @brief Comparing operator
-        int operator()(const Split& e1, const Split& e2) const {
-            return e1.pos < e2.pos;
-        }
-    };
-
+    std::vector<NBEdgeCont::Split> mySplits;
 
     /** @class split_by_pos_finder
      * @brief Finds a split at the given position
@@ -274,7 +238,7 @@ private:
             : myPosition(pos) { }
 
         /// @brief Comparing operator
-        bool operator()(const Split& e) {
+        bool operator()(const NBEdgeCont::Split& e) {
             return e.pos == myPosition;
         }
 

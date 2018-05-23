@@ -29,9 +29,6 @@ lanechange_cross
 # lanechanging in front of crossing with enabled vehicle swap
 lanechange_cross_swap
 
-# Deadlocking at junctions
-right_before_left_deadlock
-
 # Test for ticket#218 (using the given order of bus stops)
 ticket218
 
@@ -266,3 +263,10 @@ ticket3791
 
 # E2 detector registers downstream vehicles as passing over it after their lane change
 ticket4015
+
+ticket4071
+ticket4100
+
+# Deadlocking at junctions
+right_before_left_deadlock
+

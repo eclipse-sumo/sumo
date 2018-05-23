@@ -82,12 +82,12 @@ GNEChange_Junction::undo() {
         // delete junction from net
         myNet->insertJunction(myJunction);
     }
-    // update ACChooser if it's shown
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 
@@ -108,12 +108,12 @@ GNEChange_Junction::redo() {
         // delete junction from net
         myNet->deleteSingleJunction(myJunction);
     }
-    // update ACChooser if it's shown
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 

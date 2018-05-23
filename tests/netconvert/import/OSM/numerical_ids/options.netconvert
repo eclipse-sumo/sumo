@@ -1,0 +1,3 @@
+--osm-files osm.xml -v --plain-output-prefix plain --output net.net.xml
+--junctions.join --ramps.guess --numerical-ids --dlr-navteq-output elmar_output
+--output.street-names

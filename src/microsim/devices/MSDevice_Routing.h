@@ -339,7 +339,7 @@ private:
     /// @brief At which time interval the edge weights get updated
     static SUMOTime myAdaptationInterval;
 
-    /// @brief Information when the last edge weight adaptation occured
+    /// @brief Information when the last edge weight adaptation occurred
     static SUMOTime myLastAdaptation;
 
     /// @brief The number of steps for averaging edge speeds (ring-buffer)

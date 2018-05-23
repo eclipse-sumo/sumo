@@ -33,6 +33,7 @@
 #include <netedit/dialogs/GNERerouterDialog.h>
 
 #include "GNEClosingLaneReroute.h"
+#include "GNEParkingAreaReroute.h"
 #include "GNEClosingReroute.h"
 #include "GNEDestProbReroute.h"
 #include "GNERouteProbReroute.h"
@@ -69,9 +70,9 @@ GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
     // openTag
     device.openTag(getTag());
     // write begin
-    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    writeAttribute(device, SUMO_ATTR_BEGIN);
     //write end
-    device.writeAttr(SUMO_ATTR_END, myEnd);
+    writeAttribute(device, SUMO_ATTR_END);
     // write closing reroutes
     for (auto i : myClosingReroutes) {
         i->writeClosingReroute(device);
@@ -83,6 +84,10 @@ GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
     // write dest prob reroutes
     for (auto i : myDestProbReroutes) {
         i->writeDestProbReroute(device);
+    }
+    // write parkingAreaReroutes
+    for (auto i : myParkingAreaReroutes) {
+        i->writeParkingAreaReroute(device);
     }
     // write route prob reroutes
     for (auto i : myRouteProbReroutes) {
@@ -112,13 +117,13 @@ GNERerouterInterval::getEnd() const {
 
 
 void 
-GNERerouterInterval::selectAttributeCarrier() {
+GNERerouterInterval::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNERerouterInterval::unselectAttributeCarrier() {
+GNERerouterInterval::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 
@@ -195,6 +200,11 @@ GNERerouterInterval::getDestProbReroutes() const {
 const std::vector<GNERouteProbReroute*>&
 GNERerouterInterval::getRouteProbReroutes() const {
     return myRouteProbReroutes;
+}
+
+const std::vector<GNEParkingAreaReroute*>&
+GNERerouterInterval::getParkingAreaReroutes() const {
+    return myParkingAreaReroutes;
 }
 
 
@@ -284,6 +294,30 @@ GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilit
         throw ProcessError("Route Probability Reroute doesn't exist");
     }
 }
+
+
+void
+GNERerouterInterval::addParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute) {
+    auto it = std::find(myParkingAreaReroutes.begin(), myParkingAreaReroutes.end(), parkingAreaReroute);
+    if (it == myParkingAreaReroutes.end()) {
+        myParkingAreaReroutes.push_back(parkingAreaReroute);
+    } else {
+        throw ProcessError("parkingAreaReroute already exist");
+    }
+}
+
+
+void
+GNERerouterInterval::removeParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute) {
+    auto it = std::find(myParkingAreaReroutes.begin(), myParkingAreaReroutes.end(), parkingAreaReroute);
+    if (it != myParkingAreaReroutes.end()) {
+        myParkingAreaReroutes.erase(it);
+    } else {
+        throw ProcessError("parkingAreaReroute doesn't exist");
+    }
+}
+
+
 
 // ===========================================================================
 // private

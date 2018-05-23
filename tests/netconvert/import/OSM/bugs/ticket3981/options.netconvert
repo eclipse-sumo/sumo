@@ -1,0 +1,3 @@
+--osm-files osm.xml -R --junctions.join
+--keep-edges.by-vclass passenger
+--remove-edges.by-type highway.track,highway.services

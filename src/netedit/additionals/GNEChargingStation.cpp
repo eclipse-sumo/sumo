@@ -102,21 +102,21 @@ void
 GNEChargingStation::writeAdditional(OutputDevice& device) const {
     // Write additional
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_STARTPOS, getAbsoluteStartPosition());
-    device.writeAttr(SUMO_ATTR_ENDPOS, getAbsoluteEndPosition());
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_LANE);
+    writeAttribute(device, SUMO_ATTR_STARTPOS);
+    writeAttribute(device, SUMO_ATTR_ENDPOS);
     if (myName.empty() == false) {
-        device.writeAttr(SUMO_ATTR_NAME, myName);
+        writeAttribute(device, SUMO_ATTR_NAME);
     }
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
-    device.writeAttr(SUMO_ATTR_CHARGINGPOWER, myChargingPower);
-    device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
-    device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
-    device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
+    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
+    writeAttribute(device, SUMO_ATTR_CHARGINGPOWER);
+    writeAttribute(device, SUMO_ATTR_EFFICIENCY);
+    writeAttribute(device, SUMO_ATTR_CHARGEINTRANSIT);
+    writeAttribute(device, SUMO_ATTR_CHARGEDELAY);
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Close tag
     device.closeTag();
@@ -434,8 +434,6 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + "attribute '" + toString(key) + "' not allowed");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

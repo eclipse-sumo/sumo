@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version 27b98ce
+Eclipse SUMO netgenerate Version 4bf903e
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -32,8 +32,6 @@ Grid Network Options:
   --grid.attach-length FLOAT           The length of streets attached at the
                                          boundary;
                                          0 means no streets are attached
-  --grid.alphanumerical-ids            The Ids of generated nodes use letters
-                                         for the X axis
 
 Spider Network Options:
   -s, --spider                         Forces NETGEN to build a spider-net-like
@@ -69,6 +67,12 @@ Random Network Options:
                                          neighbors
   --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
                                          neighbors
+  --rand.random-lanenumber             Draw lane numbers randomly from
+                                         [1,default.lanenumber]
+  --rand.random-priority               Draw edge priority randomly from
+                                         [1,default.priority]
+  --rand.grid                          Place nodes on a regular grid with
+                                         spacing rand.min-distance
 
 Output Options:
   --write-license                      Include license info into every output
@@ -83,6 +87,9 @@ Output Options:
   -H, --human-readable-time            Write time values as hour:minute:second
                                          or day:hour:minute:second rathern than
                                          seconds
+  --alphanumerical-ids                 The Ids of generated nodes use an
+                                         alphanumerical code for easier
+                                         readability when possible
   -o, --output-file FILE               The generated net will be written to
                                          FILE
   --plain-output-prefix FILE           Prefix of files to write plain xml
@@ -90,6 +97,8 @@ Output Options:
   --junctions.join-output FILE         Writes information about joined
                                          junctions to FILE (can be loaded as
                                          additional node-file to reproduce joins
+  --prefix STR                         Defines a prefix for edge and junction
+                                         names
   --amitran-output FILE                The generated net will be written to
                                          FILE using Amitran format
   --matsim-output FILE                 The generated net will be written to
@@ -135,9 +144,19 @@ TLS Building Options:
                                          have a conflicting flow
   --tls.allred.time INT                Set INT as fixed time for intermediate
                                          red phase after every switch
+  --tls.minor-left.max-speed FLOAT     Use FLOAT as threshold for allowing
+                                         left-turning vehicles to move in the
+                                         same phase as oncoming straight-going
+                                         vehicles
   --tls.left-green.time INT            Use INT as green phase duration for left
                                          turns (s). Setting this value to 0
                                          disables additional left-turning phases
+  --tls.crossing-min.time INT          Use INT as minimum green duration for
+                                         pedestrian crossings (s).
+  --tls.crossing-clearance.time INT    Use INT as clearance time for pedestrian
+                                         crossings (s).
+  --tls.scramble.time INT              Use INT as green phase duration for
+                                         pedestrian scramble phase (s).
   --tls.half-offset STR                TLSs in STR will be shifted by
                                          half-phase
   --tls.quarter-offset STR             TLSs in STR will be shifted by
@@ -183,6 +202,9 @@ Unregulated Nodes Options:
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
 Processing Options:
+  --turn-lanes INT                     Generate INT left-turn lanes
+  --turn-lanes.length FLOAT            Set the length of generated turning
+                                         lanes to FLOAT
   --no-internal-links                  Omits internal links
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are

@@ -1153,8 +1153,13 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
         objIDs.insert(s.id);
     }
     const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    int skipped = 0;
     for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
         if (s.contextDomain > 0) {
+            if (centralObject(s, *j)) {
+                skipped++;
+                continue;
+            }
             outputStorage.writeString(*j);
         }
         if (numVars > 0) {
@@ -1223,7 +1228,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     }
     writeInto.writeUnsignedByte(numVars);
     if (s.contextDomain > 0) {
-        writeInto.writeInt((int)objIDs.size());
+        writeInto.writeInt((int)objIDs.size() - skipped);
     }
     if (s.contextDomain == 0 || objIDs.size() != 0) {
         writeInto.writeStorage(outputStorage);
@@ -1398,5 +1403,9 @@ TraCIServer::setTargetTime(SUMOTime targetTime) {
     }
 }
 
+bool 
+TraCIServer::centralObject(const libsumo::Subscription& s, const std::string& objID) {
+    return (s.id == objID && s.commandId + 32 == s.contextDomain);
+}
 
 /****************************************************************************/

@@ -1,0 +1,16 @@
+Warning: In lane '-209812787_0': Could not build shape (no line intersection).
+Warning: Ambiguity in turnarounds computation at junction '1123455766'.
+Warning: Ambiguity in turnarounds computation at junction '2027445712'.
+Warning: Found angle of 128.20 degrees at edge '-209812787', segment 18
+Warning: Found angle of 178.67 degrees at edge '-209812787', segment 19
+Warning: Found angle of 103.29 degrees at edge '-221896851', segment 7
+Warning: Found sharp turn with radius 7.36 at the end of edge '-221896851'.
+Warning: Found angle of 178.67 degrees at edge '209812787', segment 9
+Warning: Found angle of 128.20 degrees at edge '209812787', segment 10
+Warning: Found angle of 103.29 degrees at edge '221896851', segment 0
+Warning: Found sharp turn with radius 7.36 at the start of edge '221896851'.
+Warning: Found sharp turn with radius 8.15 at the start of edge '293506780'.
+Warning: Found sharp turn with radius 8.15 at the end of edge '293506788'.
+Warning: In lane '-209812787_0': Could not build shape (no line intersection).
+Warning: For junction '2199832187': could not compute shape.
+Warning: For junction '2199832209': could not compute shape.

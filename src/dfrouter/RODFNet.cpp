@@ -277,7 +277,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
         // check for missing end connections
         if (!addNextNoFurther) {
             // ... if this one would be processed, but already too many edge
-            //  without a detector occured
+            //  without a detector occurred
             if (current.passedNo > maxFollowingLength) {
                 // mark not to process any further
                 WRITE_WARNING("Could not close route for '" + det.getID() + "'");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 14:42:56 2018 by Eclipse SUMO netconvert Version d7544a1
+<!-- generated on Wed May 23 10:09:34 2018 by Eclipse SUMO netconvert Version cc0b5f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -305,26 +305,18 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="26" state="gGGgrrrrrrrrrrgGGgrrrrrrrrrrrGGGGGrGGGGG"/>
+        <phase duration="13" state="gGGgrrrrrrrrrrgGGgrrrrrrrrrrrGGGGGrGGGGG"/>
         <phase duration="5"  state="gGGgrrrrrrrrrrgGGgrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="yyygrrrrrrrrrryyygrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrGrrrrrrrrrrrrrGrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrryrrrrrrrrrrrrryrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="26" state="rrrrrrrrrrrgGgrrrrrrrrrrrgGgGrGGGrGrGGGr"/>
+        <phase duration="3"  state="yyyyrrrrrrrrrryyyyrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrrrrrrrrgGgrrrrrrrrrrrgGgGrGGGrGrGGGr"/>
         <phase duration="5"  state="rrrrrrrrrrrgGgrrrrrrrrrrrgGgrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrrryygrrrrrrrrrrryygrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrrrrrrrrrGrrrrrrrrrrrrrGrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrrrrryrrrrrrrrrrrrryrrrrrrrrrrrr"/>
-        <phase duration="26" state="rrrrrrrgGGgrrrrrrrrrrgGGgrrrGGGrGGGGGrGG"/>
+        <phase duration="3"  state="rrrrrrrrrrryyyrrrrrrrrrrryyyrrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrrrrgGGgrrrrrrrrrrgGGgrrrGGGrGGGGGrGG"/>
         <phase duration="5"  state="rrrrrrrgGGgrrrrrrrrrrgGGgrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrrryyygrrrrrrrrrryyygrrrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrrrrrrGrrrrrrrrrrrrrGrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrryrrrrrrrrrrrrryrrrrrrrrrrrrrrr"/>
-        <phase duration="26" state="rrrrgGgrrrrrrrrrrrgGgrrrrrrrGGrGrGGGrGrG"/>
+        <phase duration="3"  state="rrrrrrryyyyrrrrrrrrrryyyyrrrrrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrgGgrrrrrrrrrrrgGgrrrrrrrGGrGrGGGrGrG"/>
         <phase duration="5"  state="rrrrgGgrrrrrrrrrrrgGgrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrryygrrrrrrrrrrryygrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrrGrrrrrrrrrrrrrGrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrryrrrrrrrrrrrrryrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrryyyrrrrrrrrrrryyyrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 ECb_0 ECb_1 EC_0 EC_1 EC_2 SCb_0 SCb_1 SC_0 SC_1 SC_2 WCb_0 WCb_1 WC_0 WC_1 WC_2 NCb_0 NCb_1 :C_w1_0 :C_w8_0 :C_w2_0 :C_w3_0 :C_w9_0 :C_w4_0 :C_w5_0 :C_w10_0 :C_w6_0 :C_w7_0 :C_w11_0 :C_w0_0" intLanes=":C_28_0 :C_1_0 :C_1_1 :C_29_0 :C_30_0 :C_5_0 :C_31_0 :C_32_0 :C_8_0 :C_8_1 :C_33_0 :C_34_0 :C_12_0 :C_35_0 :C_36_0 :C_15_0 :C_15_1 :C_37_0 :C_38_0 :C_19_0 :C_39_0 :C_40_0 :C_22_0 :C_22_1 :C_41_0 :C_42_0 :C_26_0 :C_43_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0 :C_c6_0 :C_c7_0 :C_c8_0 :C_c9_0 :C_c10_0 :C_c11_0" shape="90.80,113.20 109.20,113.20 113.20,109.20 113.20,90.80 109.20,86.80 90.80,86.80 86.80,90.80 86.80,109.20" radius="4.00">

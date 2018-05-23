@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:28 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed May 23 09:35:10 2018 by Eclipse SUMO netconvert Version ba01b12
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <plain-output-prefix value="plain"/>
     </output>
@@ -30,12 +31,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.90"/>
-    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.90"/>
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89"/>
 </edges>

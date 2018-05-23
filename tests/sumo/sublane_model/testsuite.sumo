@@ -127,5 +127,20 @@ junction_leader_sibling_block2
 # a wide lane splits into three turning lanes
 wide_lane_split
 
+# a wide lane splits into two lanes
+wide_lane_split2
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2_unregulated
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2_zipper
+
+# This tests the effect of the attribute lcTurnAlignmentDistance. Left- and right-turning vehicles should align at the corresponding side of the turn lane from the given distance on.
+turnAlignment
+
 # tests for various tickets
 bugs

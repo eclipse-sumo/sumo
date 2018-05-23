@@ -148,6 +148,8 @@ GNESelectorFrame::clearCurrentSelection() const {
     }
     // finish clear selection
     myViewNet->getUndoList()->p_end();
+        // update current selected items
+    myLockGLObjectTypes->updateLockGLObjectTypes();
     // update view
     myViewNet->update();
 }
@@ -195,6 +197,8 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, Modifi
         // finish operation
         myViewNet->getUndoList()->p_end();
     }
+    // update current selected items
+    myLockGLObjectTypes->updateLockGLObjectTypes();
     // update view
     myViewNet->update();
 }
@@ -291,25 +295,25 @@ GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {}
 
 void 
 GNESelectorFrame::LockGLObjectTypes::updateLockGLObjectTypes() {
-    myTypeEntries[GLO_JUNCTION].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()).c_str());
-    myTypeEntries[GLO_EDGE].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()).c_str());
-    myTypeEntries[GLO_LANE].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()).c_str());
-    myTypeEntries[GLO_CONNECTION].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CONNECTION).size()).c_str());
-    myTypeEntries[GLO_ADDITIONAL].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_ADDITIONAL).size()).c_str());
-    myTypeEntries[GLO_CROSSING].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()).c_str());
-    myTypeEntries[GLO_POLYGON].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()).c_str());
-    myTypeEntries[GLO_POI].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POI).size()).c_str());
+    myTypeEntries[GLO_JUNCTION].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true).size()).c_str());
+    myTypeEntries[GLO_EDGE].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveEdges(true).size()).c_str());
+    myTypeEntries[GLO_LANE].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveLanes(true).size()).c_str());
+    myTypeEntries[GLO_CONNECTION].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveConnections(true).size()).c_str());
+    myTypeEntries[GLO_ADDITIONAL].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals(true).size()).c_str());
+    myTypeEntries[GLO_CROSSING].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveCrossings(true).size()).c_str());
+    myTypeEntries[GLO_POLYGON].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true).size()).c_str());
+    myTypeEntries[GLO_POI].count->setText(toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true).size()).c_str());
     // show information in debug mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
     WRITE_WARNING("Current selection: " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION).size()) + " Junctions, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_EDGE).size()) + " Edges, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_LANE).size()) + " Lanes, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CONNECTION).size()) + " connections, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_ADDITIONAL).size()) + " Additionals, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_CROSSING).size()) + " Crossings, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POLYGON).size()) + " Polygons, " +
-        toString(mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(GLO_POI).size()) + " POIs");
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveJunctions(true).size()) + " Junctions, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveEdges(true).size()) + " Edges, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveLanes(true).size()) + " Lanes, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveConnections(true).size()) + " connections, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals(true).size()) + " Additionals, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveCrossings(true).size()) + " Crossings, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POLY, true).size()) + " Polygons, " +
+        toString(mySelectorFrameParent->getViewNet()->getNet()->retrieveShapes(SUMO_TAG_POI, true).size()) + " POIs");
     }
 }
 
@@ -929,6 +933,8 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     }
     // finish selection operation
     mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
+    // update current selected items
+    mySelectorFrameParent->myLockGLObjectTypes->updateLockGLObjectTypes();
     // update view
     mySelectorFrameParent->getViewNet()->update();
     return 1;

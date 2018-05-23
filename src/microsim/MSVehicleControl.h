@@ -478,9 +478,6 @@ public:
      */
     void abortWaiting();
 
-    /// @brief compute (optional) random offset to the departure time
-    SUMOTime computeRandomDepartOffset() const;
-
     /// @brief return the maximum speed factor for all vehicles that ever entered the network
     double getMaxSpeedFactor() const {
         return myMaxSpeedFactor;
@@ -573,11 +570,14 @@ private:
     /// @brief A distribution of vehicle types (probability->vehicle type)
     VTypeDistDictType myVTypeDistDict;
 
-    /// @brief Whether no vehicle type was loaded
+    /// @brief Whether the default vehicle type was already used or can still be replaced
     bool myDefaultVTypeMayBeDeleted;
 
-    /// @brief Whether no pedestrian type was loaded
+    /// @brief Whether the default pedestrian type was already used or can still be replaced
     bool myDefaultPedTypeMayBeDeleted;
+
+    /// @brief Whether the default bicycle type was already used or can still be replaced
+    bool myDefaultBikeTypeMayBeDeleted;
 
     /// the lists of waiting vehicles to a given edge
     std::map<const MSEdge* const, std::vector<SUMOVehicle*> > myWaiting;
@@ -590,9 +590,6 @@ private:
 
     /// @brief The scaling factor (especially for inc-dua)
     double myScale;
-
-    /// @brief The maximum random offset to be added to vehicles departure times (non-negative)
-    SUMOTime myMaxRandomDepartOffset;
 
     /// @brief The maximum speed factor for all vehicles in the network
     double myMaxSpeedFactor;

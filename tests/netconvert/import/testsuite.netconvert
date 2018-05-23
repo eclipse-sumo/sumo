@@ -21,3 +21,6 @@ matsim
 
 # Tests for openDRIVE networks 
 openDRIVE
+
+# import OpenStreetMap networks
+OSM

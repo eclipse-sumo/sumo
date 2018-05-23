@@ -29,6 +29,7 @@
 #endif
 
 #include <algorithm>
+#include <utils/common/RandHelper.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
@@ -66,12 +67,20 @@ NGEdge::~NGEdge() {
 
 NBEdge*
 NGEdge::buildNBEdge(NBNetBuilder& nb) const {
+    int priority = nb.getTypeCont().getPriority("");
+    if (priority > 1 && OptionsCont::getOptions().getBool("rand.random-priority")) {
+        priority = RandHelper::rand(priority) + 1;
+    }
+    int lanenumber = nb.getTypeCont().getNumLanes("");
+    if (lanenumber > 1 && OptionsCont::getOptions().getBool("rand.random-lanenumber")) {
+        lanenumber = RandHelper::rand(lanenumber) + 1;
+    }
     return new NBEdge(
                myID,
                nb.getNodeCont().retrieve(myStartNode->getID()), // from
                nb.getNodeCont().retrieve(myEndNode->getID()), // to
-               "", nb.getTypeCont().getSpeed(""), nb.getTypeCont().getNumLanes(""),
-               nb.getTypeCont().getPriority(""), nb.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET
+               "", nb.getTypeCont().getSpeed(""), lanenumber,
+               priority, nb.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET
            );
 }
 

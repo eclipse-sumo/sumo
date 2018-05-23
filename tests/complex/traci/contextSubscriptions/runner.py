@@ -68,14 +68,17 @@ def runSingle(traciEndTime, viewRange, module, objID):
         near1 = set()
         if objID in module.getContextSubscriptionResults():
             for v in module.getContextSubscriptionResults()[objID]:
+                #print(objID, "context:", v)
                 near1.add(v)
         vehs = traci.vehicle.getIDList()
         persons = traci.person.getIDList()
         pos = {}
         for v in vehs:
-            pos[v] = traci.vehicle.getPosition(v)
+            if v != objID:
+                pos[v] = traci.vehicle.getPosition(v)
         for p in persons:
-            pos[p] = traci.person.getPosition(p)
+            if p != objID:
+                pos[p] = traci.person.getPosition(p)
         shape = None
         egoPos = None
         if hasattr(module, "getPosition"):

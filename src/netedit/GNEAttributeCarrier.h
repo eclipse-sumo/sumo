@@ -79,11 +79,11 @@ public:
 
     /// @brief This functions has to be implemented in all GNEAttributeCarriers
     /// @{
-    /// @brief select attribute carrier
-    virtual void selectAttributeCarrier() = 0;
+    /// @brief select attribute carrier using GUIGlobalSelection
+    virtual void selectAttributeCarrier(bool changeFlag = true) = 0;
 
-    /// @brief unselect attribute carrier
-    virtual void unselectAttributeCarrier() = 0;
+    /// @brief unselect attribute carrier using GUIGlobalSelection
+    virtual void unselectAttributeCarrier(bool changeFlag = true) = 0;
 
     /// @brief check if attribute carrier is selected
     virtual bool isAttributeCarrierSelected() const = 0;
@@ -292,7 +292,7 @@ public:
 
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort, bool report = true) {
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
         // set additionalOfWarningMessage
@@ -431,18 +431,8 @@ public:
                 if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                     // by default elements aren't blocked
                     parsedAttribute = "false";
-                    // report warning of default value
-                    if (report) {
-                        WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                            additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value 'false' will be used.");
-                    }
                 } else if (hasDefaultValue(tag, attribute)) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-                    // report warning of default value
-                    if (report) {
-                        WRITE_WARNING("Format of optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                      additionalOfWarningMessage + " is invalid; " + errorFormat + "Default value '" + toString(parsedAttribute) + "' will be used.");
-                    }
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
@@ -457,18 +447,8 @@ public:
              if (canBlockMovement(tag) && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
                  // by default elements aren't blocked
                  parsedAttribute = "false";
-                 // report warning of default value
-                 if (report) {
-                     WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                         additionalOfWarningMessage + " is missing; Default value 'false' will be used.");
-                 }
              } else if (hasDefaultValue(tag, attribute)) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-                // report warning of default value
-                if (report) {
-                    WRITE_WARNING("Optional " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage + " is missing; Default value '" + toString(parsedAttribute) + "' will be used.");
-                }
             } else {
                 WRITE_WARNING("Essential " + getAttributeType(tag, attribute) + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
@@ -522,6 +502,15 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
+    /**@brief write attribute if is essential or if is optional AND is different of default value 
+     * (Note: This solution is temporal, see #4049)
+     */
+    void writeAttribute(OutputDevice& device, SumoXMLAttr key) const;
+
+protected:
+    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    bool mySelected;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
@@ -531,6 +520,7 @@ private:
 
     /// @brief icon associated to this AC
     GUIIcon myIcon;
+
 
     /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;

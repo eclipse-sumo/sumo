@@ -33,6 +33,7 @@
 #include <netedit/additionals/GNEClosingReroute.h>
 #include <netedit/additionals/GNEClosingLaneReroute.h>
 #include <netedit/additionals/GNEDestProbReroute.h>
+#include <netedit/additionals/GNEParkingAreaReroute.h>
 #include <netedit/additionals/GNERouteProbReroute.h>
 
 #include "GNEChange_RerouterItem.h"
@@ -53,6 +54,7 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNERerouterInterval* rerouterInte
     myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(nullptr),
+    myParkingAreaReroute(nullptr),
     myRouteProbReroute(nullptr) {
     myRerouterInterval->incRef("GNEChange_RerouterItem");
 }
@@ -64,6 +66,7 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingReroute* closingReroute
     myClosingReroute(closingReroute),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(nullptr),
+    myParkingAreaReroute(nullptr),
     myRouteProbReroute(nullptr) {
     myClosingReroute->incRef("GNEChange_RerouterItem");
 }
@@ -75,6 +78,7 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingLaneReroute* closingLan
     myClosingReroute(nullptr),
     myClosingLaneReroute(closingLaneReroute),
     myDestProbReroute(nullptr),
+    myParkingAreaReroute(nullptr),
     myRouteProbReroute(nullptr) {
     myClosingLaneReroute->incRef("GNEChange_RerouterItem");
 }
@@ -86,6 +90,7 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNEDestProbReroute* destProbRerou
     myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(destProbReroute),
+    myParkingAreaReroute(nullptr),
     myRouteProbReroute(nullptr) {
     myDestProbReroute->incRef("GNEChange_RerouterItem");
 }
@@ -97,9 +102,23 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNERouteProbReroute* routeProbRer
     myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(nullptr),
+    myParkingAreaReroute(nullptr),
     myRouteProbReroute(routeProbReroute) {
     myRouteProbReroute->incRef("GNEChange_RerouterItem");
 }
+
+GNEChange_RerouterItem::GNEChange_RerouterItem(GNEParkingAreaReroute* parkingAreaReroute, bool forward) :
+    GNEChange(parkingAreaReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
+    myRerouterInterval(nullptr),
+    myClosingReroute(nullptr),
+    myClosingLaneReroute(nullptr),
+    myDestProbReroute(nullptr),
+    myParkingAreaReroute(parkingAreaReroute),
+    myRouteProbReroute(nullptr) {
+    myParkingAreaReroute->incRef("GNEChange_RerouterItem");
+}
+
+
 
 
 GNEChange_RerouterItem::~GNEChange_RerouterItem() {
@@ -138,6 +157,15 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
                 WRITE_WARNING("Deleting Destiny Probability Reroute");
             }
             delete myDestProbReroute;
+        }
+    } else if (myParkingAreaReroute) {
+        myParkingAreaReroute->decRef("GNEChange_RerouterItem");
+        if (myParkingAreaReroute->unreferenced()) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Deleting parkingAreaReroute");
+            }
+            delete myParkingAreaReroute;
         }
     } else if (myRouteProbReroute) {
         myRouteProbReroute->decRef("GNEChange_RerouterItem");
@@ -183,6 +211,13 @@ GNEChange_RerouterItem::undo() {
             }
             // remove Destiny Probability Reroute from Interval
             myDestProbReroute->getRerouterIntervalParent()->removeDestProbReroute(myDestProbReroute);
+        } else if (myParkingAreaReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing parkingAreaReroute from Interval '" + myParkingAreaReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // remove Destiny Probability Reroute from Interval
+            myParkingAreaReroute->getRerouterIntervalParent()->removeParkingAreaReroute(myParkingAreaReroute);
         } else if (myRouteProbReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -222,6 +257,13 @@ GNEChange_RerouterItem::undo() {
             }
             // add Destiny Probability Reroute to Interval
             myDestProbReroute->getRerouterIntervalParent()->addDestProbReroute(myDestProbReroute);
+        } else if (myParkingAreaReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding parkingAreaReroute to Interval '" + myParkingAreaReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // add Destiny Probability Reroute to Interval
+            myParkingAreaReroute->getRerouterIntervalParent()->addParkingAreaReroute(myParkingAreaReroute);
         } else if (myRouteProbReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -269,6 +311,13 @@ GNEChange_RerouterItem::redo() {
             }
             // add Destiny Probability Reroute to Interval
             myDestProbReroute->getRerouterIntervalParent()->addDestProbReroute(myDestProbReroute);
+        } else if (myParkingAreaReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Adding parkingAreaReroute to Interval '" + myParkingAreaReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // add Destiny Probability Reroute to Interval
+            myParkingAreaReroute->getRerouterIntervalParent()->addParkingAreaReroute(myParkingAreaReroute);
         } else if (myRouteProbReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -308,6 +357,13 @@ GNEChange_RerouterItem::redo() {
             }
             // remove Destiny Probability Reroute from Interval
             myDestProbReroute->getRerouterIntervalParent()->removeDestProbReroute(myDestProbReroute);
+        } else if (myParkingAreaReroute) {
+            // show extra information for tests
+            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+                WRITE_WARNING("Removing parkingAreaReroute from Interval '" + myParkingAreaReroute->getRerouterIntervalParent()->getID() + "'");
+            }
+            // remove Destiny Probability Reroute from Interval
+            myParkingAreaReroute->getRerouterIntervalParent()->removeParkingAreaReroute(myParkingAreaReroute);
         } else if (myRouteProbReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -334,6 +390,8 @@ GNEChange_RerouterItem::undoName() const {
         return ("Undo change " + toString(myClosingLaneReroute->getTag()) + " values").c_str();
     } else if (myDestProbReroute) {
         return ("Undo change " + toString(myDestProbReroute->getTag()) + " values").c_str();
+    } else if (myParkingAreaReroute) {
+        return ("Undo change " + toString(myParkingAreaReroute->getTag()) + " values").c_str();
     } else if (myRouteProbReroute) {
         return ("Undo change " + toString(myRouteProbReroute->getTag()) + " values").c_str();
     } else {
@@ -352,6 +410,8 @@ GNEChange_RerouterItem::redoName() const {
         return ("Redo change " + toString(myClosingLaneReroute->getTag()) + " values").c_str();
     } else if (myDestProbReroute) {
         return ("Redo change " + toString(myDestProbReroute->getTag()) + " values").c_str();
+    } else if (myParkingAreaReroute) {
+        return ("Redo change " + toString(myParkingAreaReroute->getTag()) + " values").c_str();
     } else if (myRouteProbReroute) {
         return ("Redo change " + toString(myRouteProbReroute->getTag()) + " values").c_str();
     } else {

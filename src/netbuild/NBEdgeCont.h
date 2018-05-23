@@ -203,6 +203,33 @@ public:
     /// @name explicit edge manipulation methods
     /// @{
 
+    /** @struct Split
+     * @brief A structure which describes changes of lane number or speed along the road
+     */
+    struct Split {
+        Split() : offset(0) {}
+        /// @brief The lanes after this change
+        std::vector<int> lanes;
+        /// @brief The position of this change
+        double pos;
+        /// @brief The speed after this change
+        double speed;
+        /// @brief The new node that is created for this split
+        NBNode* node;
+        /// @brief The id for the edge before the split
+        std::string idBefore;
+        /// @brief The id for the edge after the split
+        std::string idAfter;
+        /// @brief the default node id
+        std::string nameID;
+        /// @brief lateral offset to edge geometry
+        double offset;
+    };
+
+    void processSplits(NBEdge* e, std::vector<Split> splits, 
+            NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
+
+
     /** @brief Splits the edge at the position nearest to the given node
      *
      * Uses "splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, int , int)"
@@ -542,7 +569,7 @@ public:
     bool ignoreFilterMatch(NBEdge* edge);
 
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs);
+    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
 
     /// @brief check whether edges overlap
     void checkOverlap(double threshold, double zThreshold) const;
@@ -670,6 +697,21 @@ private:
     std::set<EdgeSet> myRoundabouts;
     /// @brief Edges marked as belonging to a roundabout after guessing
     std::set<EdgeSet> myGuessedRoundabouts;
+
+    /** @class split_sorter
+     * @brief Sorts splits by their position (increasing)
+     */
+    class split_sorter {
+    public:
+        /// @brief Constructor
+        explicit split_sorter() { }
+
+        /// @brief Comparing operator
+        int operator()(const Split& e1, const Split& e2) const {
+            return e1.pos < e2.pos;
+        }
+    };
+
 
 private:
     /// @brief invalidated copy constructor

@@ -67,7 +67,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
     myPositionOverLane(pos / edge->getLanes().at(0)->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) { /** change this in the future **/
+    myRouteProbe(nullptr)  /** change this in the future **/
+{
 }
 
 
@@ -78,7 +79,8 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
     myPositionOverLane(pos / lane->getLaneParametricLength()),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) { /** change this in the future **/
+    myRouteProbe(nullptr) /** change this in the future **/
+{ 
 }
 
 
@@ -98,25 +100,22 @@ void
 GNECalibrator::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(SUMO_TAG_CALIBRATOR);
-    device.writeAttr(SUMO_ATTR_ID, getID());
+    writeAttribute(device, SUMO_ATTR_ID);
     if (myLane) {
-        device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myLane->getLaneParametricLength());
+        writeAttribute(device, SUMO_ATTR_LANE);
+        writeAttribute(device, SUMO_ATTR_POSITION);
     } else if (myEdge) {
-        device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
-        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane * myEdge->getLanes().at(0)->getLaneParametricLength());
+        writeAttribute(device, SUMO_ATTR_EDGE);
+        writeAttribute(device, SUMO_ATTR_POSITION);
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
-    device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
+    writeAttribute(device, SUMO_ATTR_FREQUENCY);
+    writeAttribute(device, SUMO_ATTR_OUTPUT);
+    writeAttribute(device, SUMO_ATTR_ROUTEPROBE);
     // write all routes of this calibrator
     for (auto i : myCalibratorRoutes) {
         i->writeRoute(device);
-    }
-    // write all vehicle types of this calibrator
-    for (auto i : myCalibratorVehicleTypes) {
-        i->writeVehicleType(device);
     }
     // Write all flows of this calibrator
     for (auto i : myCalibratorFlows) {
@@ -314,36 +313,6 @@ GNECalibrator::getCalibratorFlows() const {
 }
 
 
-void
-GNECalibrator::addCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if(vehicleType == nullptr) {
-        throw ProcessError("VehicleType cannot be nullptr");
-    } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) != myCalibratorVehicleTypes.end()) {
-        throw ProcessError("VehicleType was already inserted");
-    } else {
-        myCalibratorVehicleTypes.push_back(vehicleType);
-    }
-}
-
-
-void
-GNECalibrator::removeCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if(vehicleType == nullptr) {
-        throw ProcessError("VehicleType cannot be nullptr");
-    } else if (std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType) == myCalibratorVehicleTypes.end()) {
-        throw ProcessError("VehicleType wasn't inserted");
-    } else {
-        myCalibratorVehicleTypes.erase(std::find(myCalibratorVehicleTypes.begin(), myCalibratorVehicleTypes.end(), vehicleType));
-    }
-}
-
-
-const std::vector<GNECalibratorVehicleType*>&
-GNECalibrator::getCalibratorVehicleTypes() const {
-    return myCalibratorVehicleTypes;
-}
-
-
 bool 
 GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const {
     // Check that calibrator flow ins't nullptr
@@ -537,8 +506,6 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

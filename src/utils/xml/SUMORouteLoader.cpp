@@ -51,7 +51,7 @@ SUMORouteLoader::~SUMORouteLoader() {
 
 SUMOTime
 SUMORouteLoader::loadUntil(SUMOTime time) {
-    // read only when further data is available, no error occured
+    // read only when further data is available, no error occurred
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
     if (!myMoreAvailable) {

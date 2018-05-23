@@ -61,7 +61,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("default.lanewidth", "lanewidth", true);
     oc.addDescription("default.lanewidth", "Building Defaults", "The default width of lanes");
 
-    oc.doRegister("default.speed", 'S', new Option_Float((double) 13.9));
+    oc.doRegister("default.speed", 'S', new Option_Float((double) 13.89));
     oc.addSynonyme("default.speed", "speed", true);
     oc.addDescription("default.speed", "Building Defaults", "The default speed on an edge (in m/s)");
 
@@ -335,8 +335,20 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.allred.time", new Option_Integer(0));
     oc.addDescription("tls.allred.time", "TLS Building", "Set INT as fixed time for intermediate red phase after every switch");
 
+    oc.doRegister("tls.minor-left.max-speed", new Option_Float(19.44)); // 70km/h
+    oc.addDescription("tls.minor-left.max-speed", "TLS Building", "Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles");
+
     oc.doRegister("tls.left-green.time", new Option_Integer(6));
     oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases");
+
+    oc.doRegister("tls.crossing-min.time", new Option_Integer(4));
+    oc.addDescription("tls.crossing-min.time", "TLS Building", "Use INT as minimum green duration for pedestrian crossings (s).");
+
+    oc.doRegister("tls.crossing-clearance.time", new Option_Integer(5));
+    oc.addDescription("tls.crossing-clearance.time", "TLS Building", "Use INT as clearance time for pedestrian crossings (s).");
+
+    oc.doRegister("tls.scramble.time", new Option_Integer(5));
+    oc.addDescription("tls.scramble.time", "TLS Building", "Use INT as green phase duration for pedestrian scramble phase (s).");
 
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_String());

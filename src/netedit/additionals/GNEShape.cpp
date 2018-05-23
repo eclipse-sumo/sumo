@@ -28,6 +28,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -105,35 +106,27 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
 
 
 void 
-GNEShape::selectAttributeCarrier() {
+GNEShape::selectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (!mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->selectAttributeCarrier(GLO_POLYGON, this);
-        } else {
-            myNet->selectAttributeCarrier(GLO_POI, this);
+    } else {
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        if(changeFlag) {
+            mySelected = true;
         }
-        mySelected = true;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 
 
 void 
-GNEShape::unselectAttributeCarrier() {
+GNEShape::unselectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (mySelected) {
-        if(getTag() == SUMO_TAG_POLY) {
-            myNet->unselectAttributeCarrier(GLO_POLYGON, this);
-        } else {
-            myNet->unselectAttributeCarrier(GLO_POI, this);
+    } else {
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        if(changeFlag) {
+            mySelected = false;
         }
-        mySelected = false;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     } 
 }
 

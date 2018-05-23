@@ -29,5 +29,11 @@ numerical_ids
 # set alternative defaults
 defaults
 
+# add id prefix
+prefix
+
+# build turning lanes
+turnlanes
+
 # Tests processing of errors in input
 errors

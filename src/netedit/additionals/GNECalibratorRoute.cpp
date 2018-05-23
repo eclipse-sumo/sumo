@@ -61,7 +61,7 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
     GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
     myRouteID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID()),
-    myColor(RGBColor::BLACK) {
+    myColor(RGBColor::YELLOW) {
     // add the Edge in which Calibrator is placed as default Edge
     if (GNEAttributeCarrier::hasAttribute(myCalibratorParent->getTag(), SUMO_ATTR_EDGE)) {
         myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(myCalibratorParent->getAttribute(SUMO_ATTR_EDGE)));
@@ -89,11 +89,11 @@ GNECalibratorRoute::writeRoute(OutputDevice& device) {
     // Open route tag
     device.openTag(getTag());
     // Write route ID
-    device.writeAttr(SUMO_ATTR_ID, myRouteID);
+    writeAttribute(device, SUMO_ATTR_ID);
     // Write edge IDs
-    device.writeAttr(SUMO_ATTR_EDGES, parseGNEEdges(myEdges));
+    writeAttribute(device, SUMO_ATTR_EDGES);
     // Write Color
-    device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    writeAttribute(device, SUMO_ATTR_COLOR);
     // Close flow tag
     device.closeTag();
 }
@@ -112,13 +112,13 @@ GNECalibratorRoute::getGNEEdges() const {
 
 
 void 
-GNECalibratorRoute::selectAttributeCarrier() {
+GNECalibratorRoute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNECalibratorRoute::unselectAttributeCarrier() {
+GNECalibratorRoute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

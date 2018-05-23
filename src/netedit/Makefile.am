@@ -30,13 +30,11 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netbuild/libnetbuild.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \
-../utils/gui/windows/libguiutilsWindows.a \
 ../utils/gui/globjects/libguiutilsglobjects.a \
 ../utils/gui/div/libguiutilsdiv.a \
 ../utils/gui/settings/libguiutilssettings.a \
 ../utils/gui/images/libguiutilsimages.a \
 ../utils/gui/tracker/libguiutilstracker.a \
-../utils/foxtools/libfoxtools.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \
 ../utils/geom/libgeom.a \
@@ -51,6 +49,8 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netedit/additionals/libneteditadditionals.a \
 ../netedit/frames/libneteditframes.a \
 ../netedit/dialogs/libneteditdialogs.a \
+../utils/gui/windows/libguiutilsWindows.a \
+../utils/foxtools/libfoxtools.a \
 ../netedit/changes/libneteditchanges.a \
 ../netedit/netelements/libneteditnetelements.a \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \

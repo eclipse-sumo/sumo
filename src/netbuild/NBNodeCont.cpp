@@ -41,6 +41,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
@@ -517,7 +518,7 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
         // error handling has to take place here since joinExclusions could be
         // loaded from multiple files / command line
         if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occured in a list of nodes to be joined");
+            WRITE_WARNING("Ignoring join exclusion for junction '" + *it +  "' since it already occurred in a list of nodes to be joined");
         } else if (check && retrieve(*it) == 0) {
             WRITE_WARNING("Ignoring join exclusion for unknown junction '" + *it + "'");
         } else {
@@ -535,7 +536,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
             WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' was already excluded from joining");
             return;
         } else if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occured in another join-cluster");
+            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occurred in another join-cluster");
             return;
         } else {
             myJoined.insert(*it);
@@ -1499,7 +1500,7 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
 
 
 int
-NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
+NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix) {
     std::vector<std::string> avoid = getAllNames();
     std::set<std::string> reserve;
     if (reservedIDs) {
@@ -1530,7 +1531,20 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs) {
         node->setID(idSupplier.getNext());
         myNodes[node->getID()] = node;
     }
-    return (int)toChange.size();
+    if (prefix.empty()) {
+        return (int)toChange.size();
+    } else {
+        int renamed = 0;
+        // make a copy because we will modify the map
+        auto oldNodes = myNodes;
+        for (auto item : oldNodes) {
+            if (!StringUtils::startsWith(item.first, prefix)) {
+                rename(item.second, prefix + item.first);
+                renamed++;
+            }
+        }
+        return renamed;
+    }
 }
 
 /****************************************************************************/

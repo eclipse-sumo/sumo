@@ -57,11 +57,13 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
+GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myVehicleType(calibratorDialog->getEditedCalibrator()->getCalibratorVehicleTypes().front()),
+    myVehicleType(net->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
+    myVehsPerHour(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)),
+    mySpeed(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_SPEED)),
     myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)),
     myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)),
     myDepartPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS)),
@@ -76,23 +78,19 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     myDepartPosLat(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS_LAT)),
     myArrivalPosLat(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_ARRIVALPOS_LAT)),
     myBegin(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_BEGIN)),
-    myEnd(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_END)),
-    myVehsPerHour(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)),
-    myPeriod(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_PERIOD)),
-    myProbability(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_PROB)),
-    myNumber(getDefaultValue<int>(SUMO_TAG_FLOW, SUMO_ATTR_NUMBER)),
-    myFlowType(GNE_CALIBRATORFLOW_VEHSPERHOUR) {}
+    myEnd(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_END)) {}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route,
+GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, double vehsPerHour, double speed,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                                     const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability,
-                                     int number, GNECalibratorFlow::TypeOfFlow flowType) :
+                                     const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
     GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
     myCalibratorParent(calibratorParent),
     myVehicleType(vehicleType),
     myRoute(route),
+    myVehsPerHour(vehsPerHour),
+    mySpeed(speed),
     myColor(color),
     myDepartLane(departLane),
     myDepartPos(departPos),
@@ -107,12 +105,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
     myDepartPosLat(departPosLat),
     myArrivalPosLat(arrivalPosLat),
     myBegin(begin),
-    myEnd(end),
-    myVehsPerHour(vehsPerHour),
-    myPeriod(period),
-    myProbability(probability),
-    myNumber(number),
-    myFlowType(flowType) {
+    myEnd(end) {
 }
 
 
@@ -128,52 +121,47 @@ GNECalibratorFlow::writeFlow(OutputDevice& device) {
     // Open flow tag
     device.openTag(getTag());
     // Write begin
-    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    writeAttribute(device, SUMO_ATTR_BEGIN);
     // Write end
-    device.writeAttr(SUMO_ATTR_END, myEnd);
+    writeAttribute(device, SUMO_ATTR_END);
     // Write type
-    device.writeAttr(SUMO_ATTR_TYPE, myVehicleType->getID());
+    writeAttribute(device, SUMO_ATTR_TYPE);
     // Write route
-    device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
-    // Write color
-    device.writeAttr(SUMO_ATTR_COLOR, myColor);
-    // Write depart lane
-    device.writeAttr(SUMO_ATTR_DEPARTLANE, myDepartLane);
-    // Write depart pos
-    device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
-    // Write depart speed
-    device.writeAttr(SUMO_ATTR_DEPARTSPEED, myDepartSpeed);
-    // Write arrival lane
-    device.writeAttr(SUMO_ATTR_ARRIVALLANE, myArrivalLane);
-    // Write arrival pos
-    device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
-    // Write arrival speed
-    device.writeAttr(SUMO_ATTR_ARRIVALSPEED, myArrivalSpeed);
-    // Write line
-    device.writeAttr(SUMO_ATTR_LINE, myLine);
-    // Write person number
-    device.writeAttr(SUMO_ATTR_PERSON_NUMBER, myPersonNumber);
-    // Write container number
-    device.writeAttr(SUMO_ATTR_CONTAINER_NUMBER, myContainerNumber);
-    // Write reroute
-    device.writeAttr(SUMO_ATTR_REROUTE, myReroute);
-    // Write departPosLat
-    device.writeAttr(SUMO_ATTR_DEPARTPOS_LAT, myDepartPosLat);
-    // Write arrivalPosLat
-    device.writeAttr(SUMO_ATTR_ARRIVALPOS_LAT, myArrivalPosLat);
-    // Write number
-    device.writeAttr(SUMO_ATTR_NUMBER, myNumber);
-    // Write type of flow
-    if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
-        // write period
-        device.writeAttr(SUMO_ATTR_PERIOD, myPeriod);
-    } else if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-        // write vehs per hour
-        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, myVehsPerHour);
-    } else if (myFlowType == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
-        // write probability
-        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    writeAttribute(device, SUMO_ATTR_ROUTE);
+    // write vehs per hour only if is different of -1
+    if(myVehsPerHour > 0) {
+        writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
     }
+    // write speed only if is different of -1
+    if(mySpeed > 0) {
+        writeAttribute(device, SUMO_ATTR_SPEED);
+    }
+    // Write color
+    writeAttribute(device, SUMO_ATTR_COLOR);
+    // Write depart lane
+    writeAttribute(device, SUMO_ATTR_DEPARTLANE);
+    // Write depart pos
+    writeAttribute(device, SUMO_ATTR_DEPARTPOS);
+    // Write depart speed
+    writeAttribute(device, SUMO_ATTR_DEPARTSPEED);
+    // Write arrival lane
+    writeAttribute(device, SUMO_ATTR_ARRIVALLANE);
+    // Write arrival pos
+    writeAttribute(device, SUMO_ATTR_ARRIVALPOS);
+    // Write arrival speed
+    writeAttribute(device, SUMO_ATTR_ARRIVALSPEED);
+    // Write line
+    writeAttribute(device, SUMO_ATTR_LINE);
+    // Write person number
+    writeAttribute(device, SUMO_ATTR_PERSON_NUMBER);
+    // Write container number
+    writeAttribute(device, SUMO_ATTR_CONTAINER_NUMBER);
+    // Write reroute
+    writeAttribute(device, SUMO_ATTR_REROUTE);
+    // Write departPosLat
+    writeAttribute(device, SUMO_ATTR_DEPARTPOS_LAT);
+    // Write arrivalPosLat
+    writeAttribute(device, SUMO_ATTR_ARRIVALPOS_LAT);
     // Close flow tag
     device.closeTag();
 }
@@ -185,26 +173,14 @@ GNECalibratorFlow::getCalibratorParent() const {
 }
 
 
-GNECalibratorFlow::TypeOfFlow
-GNECalibratorFlow::getFlowType() const {
-    return myFlowType;
-}
-
-
-void
-GNECalibratorFlow::setFlowType(GNECalibratorFlow::TypeOfFlow type) {
-    myFlowType = type;
-}
-
-
 void 
-GNECalibratorFlow::selectAttributeCarrier() {
+GNECalibratorFlow::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNECalibratorFlow::unselectAttributeCarrier() {
+GNECalibratorFlow::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 
@@ -225,20 +201,16 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             return myVehicleType->getID();
         case SUMO_ATTR_ROUTE:
             return myRoute->getID();
+        case SUMO_ATTR_VEHSPERHOUR:
+            return toString(myVehsPerHour);
+        case SUMO_ATTR_SPEED:
+            return toString(mySpeed);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_BEGIN:
             return toString(myBegin);
         case SUMO_ATTR_END:
             return toString(myEnd);
-        case SUMO_ATTR_VEHSPERHOUR:
-            return toString(myVehsPerHour);
-        case SUMO_ATTR_PERIOD:
-            return toString(myPeriod);
-        case SUMO_ATTR_PROB:
-            return toString(myProbability);
-        case SUMO_ATTR_NUMBER:
-            return toString(myNumber);
         case SUMO_ATTR_DEPARTLANE:
             return myDepartLane;
         case SUMO_ATTR_DEPARTPOS:
@@ -278,12 +250,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_SPEED:
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-        case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_PROB:
-        case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_DEPARTLANE:
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_DEPARTSPEED:
@@ -308,23 +278,19 @@ bool
 GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr);
+            return isValidID(value) && (value == DEFAULT_VTYPE_ID || (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr));
         case SUMO_ATTR_ROUTE:
             return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
+        case SUMO_ATTR_VEHSPERHOUR:
+            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (mySpeed != -1)));
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (myVehsPerHour != -1)));
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_END:
             return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_VEHSPERHOUR:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_PERIOD:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_PROB:
-            return canParse<double>(value)  && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
-        case SUMO_ATTR_NUMBER:
-            return canParse<int>(value) && parse<int>(value) >= 0;
         case SUMO_ATTR_DEPARTLANE:
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
@@ -399,6 +365,12 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             myRoute = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value);
             break;
+        case SUMO_ATTR_VEHSPERHOUR:
+            myVehsPerHour = parse<double>(value);
+            break;
+        case SUMO_ATTR_SPEED:
+            mySpeed = parse<double>(value);
+            break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;
@@ -407,18 +379,6 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_END:
             myEnd = parse<double>(value);
-            break;
-        case SUMO_ATTR_VEHSPERHOUR:
-            myVehsPerHour = parse<double>(value);
-            break;
-        case SUMO_ATTR_PERIOD:
-            myPeriod = parse<double>(value);
-            break;
-        case SUMO_ATTR_PROB:
-            myProbability = parse<double>(value);
-            break;
-        case SUMO_ATTR_NUMBER:
-            myNumber = parse<int>(value);
             break;
         case SUMO_ATTR_DEPARTLANE:
             myDepartLane = value;

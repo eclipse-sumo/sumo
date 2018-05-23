@@ -79,9 +79,15 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
         pars.id = getID() + "_" + toString(trip->getVehicles().size());
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
     }
-    if ((modeSet & SVC_PASSENGER) != 0 && trip->getVehicles().empty()) {
-        pars.id = getID() + "_0";
-        trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
+    if (trip->getVehicles().empty()) {
+        if ((modeSet & SVC_PASSENGER) != 0) {
+            pars.id = getID() + "_0";
+            trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_VTYPE_ID), net));
+        }
+        if ((modeSet & SVC_BICYCLE) != 0) {
+            pars.id = getID() + "_b0";
+            trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_BIKETYPE_ID), net));
+        }
     }
     myPlan.push_back(trip);
 }

@@ -571,6 +571,9 @@ public:
     /// @brief return the bounding box of the person
     PositionVector getBoundingBox() const;
 
+    /// @brief return whether the person has reached the end of its plan
+    bool hasArrived() const;
+
 protected:
     /// @brief the offset for computing positions when standing at an edge
     static const double ROADSIDE_OFFSET;

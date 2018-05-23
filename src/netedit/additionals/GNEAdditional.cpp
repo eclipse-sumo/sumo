@@ -37,6 +37,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -64,8 +65,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -76,8 +77,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(additionalParent),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -89,8 +90,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myEdgeChilds(edgeChilds),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -102,8 +103,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myLaneChilds(laneChilds),
-    myBlockIconRotation(0.),
-    mySelected(false) {
+    myBlockIconRotation(0.)
+{
 }
 
 
@@ -605,27 +606,27 @@ GNEAdditional::changeAdditionalParent(const std::string& newAdditionalParentID) 
 
 
 void 
-GNEAdditional::selectAttributeCarrier() {
+GNEAdditional::selectAttributeCarrier(bool changeFlag) {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
-    } else if (!mySelected) {
-        myViewNet->getNet()->selectAttributeCarrier(getType(), this);
-        mySelected = true;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myViewNet->getViewParent()->updateACChooserDialogs();
+    } else {
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        if(changeFlag) {
+            mySelected = true;
+        }
     } 
 }
 
 
 void 
-GNEAdditional::unselectAttributeCarrier() {
+GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
     if(!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
-    } else if (mySelected) {
-        myViewNet->getNet()->unselectAttributeCarrier(getType(), this);
-        mySelected = false;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myViewNet->getViewParent()->updateACChooserDialogs();
+    } else {
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        if(changeFlag) {
+            mySelected = false;
+        }
     } 
 }
 

@@ -93,7 +93,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
     const std::string source = attrs.getOpt<std::string>(SUMO_ATTR_SOURCE, 0, ok, "");
     // check the parameter
     if (dest == "" || !ok) {
-        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
+        throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occurred.");
     }
     if (source == "") {
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
@@ -121,7 +121,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes& attr
     const std::string source = attrs.getOpt<std::string>(SUMO_ATTR_SOURCE, 0, ok, "");
     // check the parameter
     if (dest == "" || !ok) {
-        throw InvalidArgument("Incomplete description of an 'SaveTLSSwitchTimes'-action occured.");
+        throw InvalidArgument("Incomplete description of an 'SaveTLSSwitchTimes'-action occurred.");
     }
     if (source == "") {
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
@@ -149,7 +149,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes& 
     const std::string source = attrs.getOpt<std::string>(SUMO_ATTR_SOURCE, 0, ok, "");
     // check the parameter
     if (dest == "" || !ok) {
-        throw InvalidArgument("Incomplete description of an 'SaveTLSSwitchStates'-action occured.");
+        throw InvalidArgument("Incomplete description of an 'SaveTLSSwitchStates'-action occurred.");
     }
     if (source == "") {
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();

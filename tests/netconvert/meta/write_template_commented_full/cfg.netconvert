@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO netconvert Version 27b98ce
+<!-- generated on Wed May 23 09:35:21 2018 by Eclipse SUMO netconvert Version ba01b12
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -102,6 +102,9 @@
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
+        <!-- Defines a prefix for edge and junction names -->
+        <prefix value="" type="STR"/>
+
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
 
@@ -155,6 +158,9 @@
 
         <!-- Scaling factor for input coordinates -->
         <proj.scale value="1" type="FLOAT"/>
+
+        <!-- Rotation (clockwise degrees) for input coordinates -->
+        <proj.rotate value="0" type="FLOAT"/>
 
         <!-- Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid) -->
         <proj.utm value="false" type="BOOL"/>
@@ -234,8 +240,20 @@
         <!-- Set INT as fixed time for intermediate red phase after every switch -->
         <tls.allred.time value="0" type="INT"/>
 
+        <!-- Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles -->
+        <tls.minor-left.max-speed value="19.44" type="FLOAT"/>
+
         <!-- Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases -->
         <tls.left-green.time value="6" type="INT"/>
+
+        <!-- Use INT as minimum green duration for pedestrian crossings (s). -->
+        <tls.crossing-min.time value="4" type="INT"/>
+
+        <!-- Use INT as clearance time for pedestrian crossings (s). -->
+        <tls.crossing-clearance.time value="5" type="INT"/>
+
+        <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
+        <tls.scramble.time value="5" type="INT"/>
 
         <!-- TLSs in STR will be shifted by half-phase -->
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>
@@ -643,7 +661,7 @@
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
 
         <!-- The default speed on an edge (in m/s) -->
-        <default.speed value="13.9" synonymes="S speed" type="FLOAT"/>
+        <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>

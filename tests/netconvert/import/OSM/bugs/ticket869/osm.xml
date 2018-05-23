@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="Osmosis SNAPSHOT-r26564">
+  <node id="61321502" version="8" timestamp="2009-02-16T04:55:44Z" uid="85140" user="Larry Stone" changeset="495618" lat="42.387154" lon="-71.137901"/>
+  <node id="61330091" version="5" timestamp="2009-02-16T04:53:38Z" uid="85140" user="Larry Stone" changeset="495618" lat="42.385962" lon="-71.13887"/>
+  <node id="61330124" version="5" timestamp="2009-02-16T04:53:38Z" uid="85140" user="Larry Stone" changeset="495618" lat="42.386732" lon="-71.138253"/>
+  <node id="61330130" version="5" timestamp="2009-02-16T04:53:38Z" uid="85140" user="Larry Stone" changeset="495618" lat="42.386357" lon="-71.138554"/>
+  <node id="1697931355" version="1" timestamp="2012-03-30T15:45:07Z" uid="643767" user="GEO PMF NIS DEDIC JOVAN" changeset="11156378" lat="-79.0133332" lon="-106.7790947"/>
+  <node id="1697931360" version="1" timestamp="2012-03-30T15:45:07Z" uid="643767" user="GEO PMF NIS DEDIC JOVAN" changeset="11156378" lat="43.226864" lon="21.566578"/>
+  <way id="8614778" version="4" timestamp="2009-02-16T20:41:45Z" uid="1034" user="crschmidt" changeset="485479">
+    <nd ref="61330091"/>
+    <nd ref="61330130"/>
+    <nd ref="61330124"/>
+    <nd ref="61321502"/>
+    <tag k="created_by" v="Potlatch 0.10f"/>
+    <tag k="massgis:way_id" v="183575"/>
+    <tag k="highway" v="residential"/>
+    <tag k="source" v="massgis_import_v0.1_20071008165629"/>
+    <tag k="condition" v="fair"/>
+    <tag k="width" v="13.4"/>
+    <tag k="name" v="Fern Street"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="attribution" v="Office of Geographic and Environmental Information (MassGIS)"/>
+    <tag k="lanes" v="2"/>
+  </way>
+  <way id="157562752" version="1" timestamp="2012-03-30T15:45:07Z" uid="643767" user="GEO PMF NIS DEDIC JOVAN" changeset="11156378">
+    <nd ref="1697931360"/>
+    <nd ref="1697931355"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Vodička(Водичка)"/>
+  </way>
+</osm>

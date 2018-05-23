@@ -1,20 +1,16 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'vaporizer' in AdditionalSelector
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Value 'dummyEdge' for attribute edge of vaporizer isn't valid
 Warning: Setting new attribute edge 'gneE0' into vaporizer 'vaporizer_0'
 Warning: Setting new attribute startTime '0' into vaporizer 'vaporizer_0'
 Warning: Value '-10' for attribute startTime of vaporizer isn't valid
 Warning: Value '50' for attribute startTime of vaporizer isn't valid
 Warning: Setting new attribute startTime '5' into vaporizer 'vaporizer_0'
-Warning: Setting new attribute end '10' into vaporizer 'vaporizer_0'
 Warning: Value '-10' for attribute end of vaporizer isn't valid
 Warning: Value '2' for attribute end of vaporizer isn't valid
 Warning: Setting new attribute end '20' into vaporizer 'vaporizer_0'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute end '10.00' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute end '10.00' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -27,6 +23,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -36,9 +33,8 @@ Warning: Setting new attribute startTime '0' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute startTime '5' into vaporizer 'vaporizer_0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute end '10' into vaporizer 'vaporizer_0'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute end '20' into vaporizer 'vaporizer_0'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -49,8 +45,11 @@ Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -73,6 +72,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

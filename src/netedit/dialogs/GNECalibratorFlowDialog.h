@@ -68,9 +68,6 @@ public:
 
     /// @brief event after change value
     long onCmdSetVariable(FXObject*, FXSelector, void*);
-
-    /// @brief event after change type of flow
-    long onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, void*);
     /// @}
 
 protected:
@@ -94,6 +91,12 @@ protected:
 
     /// @brief TextField for Route
     FXComboBox* myComboBoxRoute;
+
+    /// @brief TextField for VehsPerHour
+    FXTextField* myTextFieldVehsPerHour;
+
+    /// @brief TextField for Speed
+    FXTextField* myTextFieldSpeed;
 
     /// @brief TextField for Color
     FXTextField* myTextFieldColor;
@@ -139,27 +142,6 @@ protected:
 
     /// @brief TextField for End
     FXTextField* myTextFieldEnd;
-
-    /// @brief TextField for Number
-    FXTextField* myTextFieldNumber;
-
-    /// @brief RadioButton for VehsPerHour
-    FXRadioButton* myRadioButtonVehsPerHour;
-
-    /// @brief TextField for VehsPerHour
-    FXTextField* myTextFieldVehsPerHour;
-
-    /// @brief RadioButton for Period
-    FXRadioButton* myRadioButtonPeriod;
-
-    /// @brief TextField for Period
-    FXTextField* myTextFieldPeriod;
-
-    /// @brief RadioButton for Probability
-    FXRadioButton* myRadioButtonProbability;
-
-    /// @brief TextField for Probability
-    FXTextField* myTextFieldProbability;
 
     /// @brief update data fields
     void updateCalibratorFlowValues();

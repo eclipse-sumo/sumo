@@ -45,9 +45,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 // ===========================================================================
 
 
-/// @brief constructor for creating an crossing
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
-                                       double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool forward):
+                                       double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
     GNEChange(junctionParent->getNet(), forward),
     myJunctionParent(junctionParent),
     myEdges(edges),
@@ -55,7 +54,8 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
     myPriority(priority),
     myCustomTLIndex(customTLIndex),
     myCustomTLIndex2(customTLIndex2),
-    myCustomShape(customShape) {
+    myCustomShape(customShape),
+    mySelected(selected) {
     assert(myNet);
 }
 
@@ -92,7 +92,7 @@ void GNEChange_Crossing::undo() {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode
-        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
+        NBNode::Crossing *c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
@@ -103,6 +103,10 @@ void GNEChange_Crossing::undo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // select if mySelected is enabled
+        if(mySelected) {
+            myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
+        }
         // Update view
         myNet->getViewNet()->update();
     }
@@ -110,6 +114,8 @@ void GNEChange_Crossing::undo() {
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 
@@ -120,7 +126,7 @@ void GNEChange_Crossing::redo() {
             WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         }
         // add crossing of NBNode and update geometry
-        myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
+        NBNode::Crossing *c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
@@ -131,6 +137,10 @@ void GNEChange_Crossing::redo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
+        // select if mySelected is enabled
+        if(mySelected) {
+            myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
+        }
         // Update view
         myNet->getViewNet()->update();
     } else {
@@ -158,6 +168,8 @@ void GNEChange_Crossing::redo() {
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
+    // enable save netElements
+    myNet->requiereSaveNet();
 }
 
 

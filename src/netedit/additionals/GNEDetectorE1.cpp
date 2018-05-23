@@ -105,20 +105,20 @@ void
 GNEDetectorE1::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_LANE);
+    writeAttribute(device, SUMO_ATTR_POSITION);
+    writeAttribute(device, SUMO_ATTR_FREQUENCY);
     if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        writeAttribute(device, SUMO_ATTR_FILE);
     }
     if (!myVehicleTypes.empty()) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+        writeAttribute(device, SUMO_ATTR_VTYPES);
     }
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
     // write block movement attribute only if it's enabled
     if(myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Close tag
     device.closeTag();
@@ -356,8 +356,6 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

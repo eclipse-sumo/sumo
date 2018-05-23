@@ -76,7 +76,7 @@
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
-//#define DEBUGCOND (getID() == "260479469")
+#define DEBUGCOND (getID() == "C")
 
 // ===========================================================================
 // static members
@@ -636,7 +636,10 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     }
     PositionVector ret;
     if (con.customShape.size() == 0) {
-        ret = computeSmoothShape(fromE->getLaneShape(con.fromLane), con.toEdge->getLaneShape(con.toLane),
+        PositionVector fromShape = fromE->getLaneShape(con.fromLane);
+        PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
+        displaceShapeAtWidthChange(con, fromShape, toShape);
+        ret = computeSmoothShape(fromShape, toShape,
                 numPoints, fromE->getTurnDestination() == con.toEdge,
                 (double) 5. * (double) fromE->getNumLanes(),
                 (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
@@ -652,6 +655,42 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     return ret;
 }
 
+
+bool 
+NBNode::isConstantWidthTransition() const {
+    return (myIncomingEdges.size() == 1 
+            && myOutgoingEdges.size() == 1
+            && myIncomingEdges[0]->getNumLanes() != myOutgoingEdges[0]->getNumLanes()
+            && myIncomingEdges[0]->getTotalWidth() == myOutgoingEdges[0]->getTotalWidth());
+}
+
+void
+NBNode::displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const {
+    if (isConstantWidthTransition()) {
+        // displace shapes
+        NBEdge* in = myIncomingEdges[0];
+        NBEdge* out = myOutgoingEdges[0];
+        double outCenter = out->getLaneWidth(con.toLane) / 2;
+        for (int i = 0; i < con.toLane; ++i) {
+            outCenter += out->getLaneWidth(i);
+        }
+        double inCenter = in->getLaneWidth(con.fromLane) / 2;
+        for (int i = 0; i < con.fromLane; ++i) {
+            inCenter += in->getLaneWidth(i);
+        }
+        //std::cout << "displaceShapeAtWidthChange inCenter=" << inCenter << " outCenter=" << outCenter << "\n";
+        try {
+            if (in->getNumLanes() > out->getNumLanes()) {
+                // shift toShape so the internal lane ends straight at the displaced entry point
+                toShape.move2side(outCenter - inCenter);
+            } else {
+                // shift fromShape so the internal lane starts straight at the displaced exit point
+                fromShape.move2side(inCenter - outCenter);
+
+            }
+        } catch (InvalidArgument&) { }
+    }
+}
 
 bool
 NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
@@ -1947,9 +1986,9 @@ NBNode::checkCrossing(EdgeVector candidates) {
             NBEdge* edge = candidates[i];
             double angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately
-            if (i > 0 && fabs(angle - prevAngle) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
+            if (i > 0 && fabs(NBHelpers::relAngle(angle, prevAngle)) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
                 if (gDebugFlag1) {
-                    std::cout << "no crossing added (found angle difference of " << fabs(angle - prevAngle) << " at i=" << i << "\n";
+                    std::cout << "no crossing added (found angle difference of " << fabs(NBHelpers::relAngle(angle, prevAngle)) << " at i=" << i << "\n";
                 }
                 return 0;
             }
@@ -2003,7 +2042,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
                                 << " intermediateWidth=" << intermediateWidth
                                 << "\n";
                     }
-                    if (fabs(prevAngle - angle) > SPLIT_CROSSING_ANGLE_THRESHOLD
+                    if (fabs(NBHelpers::relAngle(prevAngle, angle)) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
                         return checkCrossing(EdgeVector(candidates.begin(), it))
                                + checkCrossing(EdgeVector(it, candidates.end()));
@@ -2540,7 +2579,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         }
         if (prev.nextWalkingArea == "") {
             if (next.prevWalkingArea != "" || &prev == &next) {
-                WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' has no target.");
+                WRITE_WARNING("Invalid pedestrian topology: crossing '" + prev.id + "' across '" + toString(prev.edges) + "' has no target.");
                 prev.valid = false;
                 continue;
             }
@@ -2669,13 +2708,15 @@ NBNode::setRoundabout() {
 }
 
 
-void
+NBNode::Crossing*
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,
                     const PositionVector& customShape, bool fromSumoNet) {
-    myCrossings.push_back(new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape));
+    Crossing *c = new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape);
+    myCrossings.push_back(c);
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;
     }
+    return c;
 }
 
 
@@ -2705,16 +2746,19 @@ NBNode::getCrossing(const std::string& id) const {
 }
 
 
-void
+bool
 NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
+    bool usedCustom = false;
     for (auto c : getCrossings()) {
         c->tlLinkIndex = startIndex++;
         c->tlID = tlID;
         if (c->customTLIndex != -1) {
+            usedCustom |= (c->tlLinkIndex != c->customTLIndex);
             c->tlLinkIndex = c->customTLIndex;
         }
         c->tlLinkIndex2 = c->customTLIndex2;
     }
+    return usedCustom;
 }
 
 
@@ -2931,6 +2975,26 @@ NBNode::sortEdges(bool useNodeShape) {
             e->computeEdgeShape();
         }
     }
+}
+
+std::vector<Position> 
+NBNode::getEndPoints() const {
+    // using a set would be nicer but we want to have some slack in position identification
+    std::vector<Position> result;
+    for (NBEdge* e : myAllEdges) {
+        Position pos = this == e->getFromNode() ? e->getGeometry().front() : e->getGeometry().back();
+        bool unique = true;
+        for (Position p2 : result) {
+            if (pos.almostSame(p2)) {
+                unique = false;
+                break;
+            }
+        }
+        if (unique) {
+            result.push_back(pos);
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/

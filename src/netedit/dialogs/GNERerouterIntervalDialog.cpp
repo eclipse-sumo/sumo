@@ -56,6 +56,7 @@ FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE,       GNERerouterIntervalDialog::onCmdAddClosingReroute),
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE,      GNERerouterIntervalDialog::onCmdAddDestProbReroute),
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE,     GNERerouterIntervalDialog::onCmdAddRouteProbReroute),
+    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE,   GNERerouterIntervalDialog::onCmdAddParkingAreaReroute),
 
     // clicked table (Double and triple clicks allow to remove element more fast)
     FXMAPFUNC(SEL_CLICKED,          MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute),
@@ -70,12 +71,16 @@ FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
     FXMAPFUNC(SEL_CLICKED,          MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,   GNERerouterIntervalDialog::onCmdClickedRouteProbReroute),
     FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,   GNERerouterIntervalDialog::onCmdClickedRouteProbReroute),
     FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,   GNERerouterIntervalDialog::onCmdClickedRouteProbReroute),
+    FXMAPFUNC(SEL_CLICKED,          MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute),
+    FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute),
+    FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute),
 
     // use "update" instead of "command" to avoid problems mit icons
     FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GNERerouterIntervalDialog::onCmdEditClosingLaneReroute),
     FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE,     GNERerouterIntervalDialog::onCmdEditClosingReroute),
     FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE,    GNERerouterIntervalDialog::onCmdEditDestProbReroute),
     FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE,   GNERerouterIntervalDialog::onCmdEditRouteProbReroute),
+    FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GNERerouterIntervalDialog::onCmdEditParkingAreaReroute),
     FXMAPFUNC(SEL_UPDATE,           MID_GNE_REROUTEDIALOG_EDIT_INTERVAL,            GNERerouterIntervalDialog::onCmdChangeBeginEnd),
 };
 
@@ -87,13 +92,14 @@ FXIMPLEMENT(GNERerouterIntervalDialog, GNEAdditionalDialog, GNERerouterIntervalD
 // ===========================================================================
 
 GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement) :
-    GNEAdditionalDialog(rerouterInterval->getRerouterParent(), 640, 480),
+    GNEAdditionalDialog(rerouterInterval->getRerouterParent(), 960, 480),
     myEditedRerouterInterval(rerouterInterval),
     myUpdatingElement(updatingElement),
     myBeginEndValid(true),
     myClosingLaneReroutesValid(true),
     myClosingReroutesValid(true),
     myDestProbReroutesValid(true),
+    myParkingAreaReroutesValid(true),
     myRouteProbReroutesValid(true) {
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
@@ -103,6 +109,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
     FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnRight2 = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
 
     // create horizontal frame for begin and end label
     FXHorizontalFrame* beginEndElementsLeft = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
@@ -145,11 +152,19 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
     myRouteProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
+    FXHorizontalFrame* buttonAndLabelParkingAreaReroute = new FXHorizontalFrame(columnRight2, GUIDesignAuxiliarHorizontalFrame);
+    myAddParkingAreaReroute = new FXButton(buttonAndLabelParkingAreaReroute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
+    new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_ZONE_REROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    myParkingAreaRerouteTable = new FXTable(columnRight2, this, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GUIDesignTableAdditionals);
+    myParkingAreaRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myParkingAreaRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+
     // update tables
     updateClosingLaneReroutesTable();
     updateClosingReroutesTable();
     updateDestProbReroutesTable();
     updateRouteProbReroutesTable();
+    updateParkingAreaReroutesTable();
 
     // start a undo list for editing local to this additional
     initChanges();
@@ -193,6 +208,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else if (myEditedRerouterInterval->getClosingLaneReroutes().empty() &&
                myEditedRerouterInterval->getClosingReroutes().empty() &&
                myEditedRerouterInterval->getDestProbReroutes().empty() &&
+               myEditedRerouterInterval->getParkingAreaReroutes().empty() &&
                myEditedRerouterInterval->getRouteProbReroutes().empty()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -230,6 +246,18 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else if ((myEditedRerouterInterval->getDestProbReroutes().size() > 0) && (myDestProbReroutesValid == false)) {
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
+        }
+        // open warning Box
+        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_PARKING_ZONE_REROUTE) + "s.").c_str());
+        // write warning if netedit is running in testing mode
+        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
+        }
+        return 0;
+    } else if ((myEditedRerouterInterval->getParkingAreaReroutes().size() > 0) && (myParkingAreaReroutesValid == false)) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -331,6 +359,18 @@ GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*
 
 
 long
+GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, void*) {
+    // create parkingAreaReroute and add it to table
+    GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(this);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(parkingAreaReroute, true), true);
+    // update dest Prob reroutes table
+    updateParkingAreaReroutesTable();
+    return 1;
+}
+
+
+
+long
 GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedRerouterInterval->getClosingLaneReroutes().size(); i++) {
@@ -383,6 +423,21 @@ GNERerouterIntervalDialog::onCmdClickedRouteProbReroute(FXObject*, FXSelector, v
             myRouteProbRerouteTable->removeRows(i);
             myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval->getRouteProbReroutes().at(i), false), true);
             updateRouteProbReroutesTable();
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+long
+GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*) {
+    // check if some delete button was pressed
+    for (int i = 0; i < (int)myEditedRerouterInterval->getParkingAreaReroutes().size(); i++) {
+        if (myParkingAreaRerouteTable->getItem(i, 3)->hasFocus()) {
+            myParkingAreaRerouteTable->removeRows(i);
+            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval->getParkingAreaReroutes().at(i), false), true);
+            updateParkingAreaReroutesTable();
             return 1;
         }
     }
@@ -498,6 +553,32 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
     }
     // update list
     myRouteProbRerouteTable->update();
+    return 1;
+}
+
+
+long
+GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, void*) {
+    myParkingAreaReroutesValid = true;
+    // iterate over table and check that all parameters are correct
+    for (int i = 0; i < myParkingAreaRerouteTable->getNumRows(); i++) {
+        GNEParkingAreaReroute* parkingAreaReroute = myEditedRerouterInterval->getParkingAreaReroutes().at(i);
+        if (parkingAreaReroute->isValid(SUMO_ATTR_ID, myParkingAreaRerouteTable->getItem(i, 0)->getText().text()) == false) {
+            myParkingAreaReroutesValid = false;
+            myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else if (parkingAreaReroute->isValid(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text()) == false) {
+            myParkingAreaReroutesValid = false;
+            myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
+        } else {
+            // set new values in Closing  reroute
+            parkingAreaReroute->setAttribute(SUMO_ATTR_ID, myParkingAreaRerouteTable->getItem(i, 0)->getText().text(), myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList());
+            parkingAreaReroute->setAttribute(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text(), myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList());
+            // set Correct label
+            myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        }
+    }
+    // update list
+    myParkingAreaRerouteTable->update();
     return 1;
 }
 
@@ -696,6 +777,48 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myRouteProbRerouteTable->setItem(i, 3, item);
+    }
+}
+
+
+void
+GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
+    // clear table
+    myParkingAreaRerouteTable->clearItems();
+    // set number of rows
+    myParkingAreaRerouteTable->setTableSize(int(myEditedRerouterInterval->getParkingAreaReroutes().size()), 4);
+    // Configure list
+    myParkingAreaRerouteTable->setVisibleColumns(4);
+    myParkingAreaRerouteTable->setColumnWidth(0, 124);
+    myParkingAreaRerouteTable->setColumnWidth(1, 124);
+    myParkingAreaRerouteTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myParkingAreaRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myParkingAreaRerouteTable->setColumnText(0, toString(SUMO_ATTR_PARKING_AREA).c_str());
+    myParkingAreaRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
+    myParkingAreaRerouteTable->setColumnText(2, "");
+    myParkingAreaRerouteTable->setColumnText(3, "");
+    myParkingAreaRerouteTable->getRowHeader()->setWidth(0);
+    // Declare pointer to FXTableItem
+    FXTableItem* item = 0;
+    // iterate over values
+    for (int i = 0; i < (int)myEditedRerouterInterval->getParkingAreaReroutes().size(); i++) {
+        // Set new destination
+        item = new FXTableItem(myEditedRerouterInterval->getParkingAreaReroutes().at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        myParkingAreaRerouteTable->setItem(i, 0, item);
+        // Set probability
+        item = new FXTableItem(myEditedRerouterInterval->getParkingAreaReroutes().at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
+        myParkingAreaRerouteTable->setItem(i, 1, item);
+        // set valid icon
+        item = new FXTableItem("");
+        item->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
+        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+        item->setEnabled(false);
+        myParkingAreaRerouteTable->setItem(i, 2, item);
+        // set remove
+        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
+        item->setEnabled(false);
+        myParkingAreaRerouteTable->setItem(i, 3, item);
     }
 }
 

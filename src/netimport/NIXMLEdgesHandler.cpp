@@ -404,14 +404,14 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         return;
     }
     bool ok = true;
-    Split e;
+    NBEdgeCont::Split e;
     e.pos = attrs.get<double>(SUMO_ATTR_POSITION, 0, ok);
     if (ok) {
         if (fabs(e.pos) > myCurrentEdge->getGeometry().length()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
             return;
         }
-        std::vector<Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
+        std::vector<NBEdgeCont::Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
         if (i != mySplits.end()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
             return;
@@ -582,7 +582,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
-                    WRITE_ERROR("Duplicate edge occured. ID='" + myCurrentID + "'");
+                    WRITE_ERROR("Duplicate edge occurred. ID='" + myCurrentID + "'");
                     delete myCurrentEdge;
                 }
             } catch (InvalidArgument& e) {
@@ -592,141 +592,7 @@ NIXMLEdgesHandler::myEndElement(int element) {
                 WRITE_ERROR("An important information is missing in edge '" + myCurrentID + "'.");
             }
         }
-        if (mySplits.size() != 0) {
-            std::vector<Split>::iterator i;
-            NBEdge* e = myCurrentEdge;
-            sort(mySplits.begin(), mySplits.end(), split_sorter());
-            int noLanesMax = e->getNumLanes();
-            // compute the node positions and sort the lanes
-            for (i = mySplits.begin(); i != mySplits.end(); ++i) {
-                sort((*i).lanes.begin(), (*i).lanes.end());
-                noLanesMax = MAX2(noLanesMax, (int)(*i).lanes.size());
-            }
-            // split the edge
-            std::vector<int> currLanes;
-            for (int l = 0; l < e->getNumLanes(); ++l) {
-                currLanes.push_back(l);
-            }
-            if (e->getNumLanes() != (int)mySplits.back().lanes.size()) {
-                // invalidate traffic light definitions loaded from a SUMO network
-                e->getToNode()->invalidateTLS(myTLLogicCont, true, true);
-                // if the number of lanes changes the connections should be
-                // recomputed
-                e->invalidateConnections(true);
-            }
-
-            std::string firstID = "";
-            double seen = 0;
-            for (i = mySplits.begin(); i != mySplits.end(); ++i) {
-                const Split& exp = *i;
-                assert(exp.lanes.size() != 0);
-                if (exp.pos > 0 && e->getGeometry().length() + seen > exp.pos && exp.pos > seen) {
-                    myNodeCont.insert(exp.node);
-                    myNodeCont.markAsSplit(exp.node);
-                    //  split the edge
-                    std::string idBefore = exp.idBefore == "" ? e->getID() : exp.idBefore;
-                    std::string idAfter = exp.idAfter == "" ? exp.nameID : exp.idAfter;
-                    if (firstID == "") {
-                        firstID = idBefore;
-                    }
-                    const bool ok = myEdgeCont.splitAt(myDistrictCont, e, exp.pos - seen, exp.node,
-                                                       idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
-                    if (!ok) {
-                        WRITE_WARNING("Error on parsing a split (edge '" + myCurrentID + "').");
-                    }
-                    seen = exp.pos;
-                    std::vector<int> newLanes = exp.lanes;
-                    NBEdge* pe = myEdgeCont.retrieve(idBefore);
-                    NBEdge* ne = myEdgeCont.retrieve(idAfter);
-                    // reconnect lanes
-                    pe->invalidateConnections(true);
-                    //  new on right
-                    int rightMostP = currLanes[0];
-                    int rightMostN = newLanes[0];
-                    for (int l = 0; l < (int) rightMostP - (int) rightMostN; ++l) {
-                        pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
-                    }
-                    //  new on left
-                    int leftMostP = currLanes.back();
-                    int leftMostN = newLanes.back();
-                    for (int l = 0; l < (int) leftMostN - (int) leftMostP; ++l) {
-                        pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::L2L_VALIDATED, true);
-                    }
-                    //  all other connected
-                    for (int l = 0; l < noLanesMax; ++l) {
-                        if (find(currLanes.begin(), currLanes.end(), l) == currLanes.end()) {
-                            continue;
-                        }
-                        if (find(newLanes.begin(), newLanes.end(), l) == newLanes.end()) {
-                            continue;
-                        }
-                        pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
-                    }
-                    //  if there are edges at this node which are not connected
-                    //  we can assume that this split was attached to an
-                    //  existing node. Reset all connections to let the default
-                    //  algorithm recompute them
-                    if (exp.node->getIncomingEdges().size() > 1 || exp.node->getOutgoingEdges().size() > 1) {
-                        for (NBEdge* in : exp.node->getIncomingEdges()) {
-                            in->invalidateConnections(true);
-                        }
-                    }
-                    // move to next
-                    e = ne;
-                    currLanes = newLanes;
-                }  else if (exp.pos == 0) {
-                    const int laneCountDiff = e->getNumLanes() - (int)exp.lanes.size();
-                    if (laneCountDiff < 0) {
-                        e->incLaneNo(-laneCountDiff);
-                    } else {
-                        e->decLaneNo(laneCountDiff);
-                    }
-                    currLanes = exp.lanes;
-                    // invalidate traffic light definition loaded from a SUMO network
-                    // XXX it would be preferable to reconstruct the phase definitions heuristically
-                    e->getFromNode()->invalidateTLS(myTLLogicCont, true, true);
-                } else {
-                    WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + myCurrentID + "').");
-                }
-            }
-            // patch lane offsets
-            e = myEdgeCont.retrieve(firstID);
-            if (mySplits.front().pos != 0) {
-                // add a dummy split at the beginning to ensure correct offset
-                Split start;
-                start.pos = 0;
-                for (int lane = 0; lane < (int)e->getNumLanes(); ++lane) {
-                    start.lanes.push_back(lane);
-                }
-                mySplits.insert(mySplits.begin(), start);
-            }
-            i = mySplits.begin();
-            if (e != 0) {
-                for (; i != mySplits.end(); ++i) {
-                    int maxLeft = (*i).lanes.back();
-                    double offset = 0;
-                    if (maxLeft < noLanesMax) {
-                        if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-                            offset = SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
-                        } else {
-                            offset = SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
-                        }
-                    }
-                    int maxRight = (*i).lanes.front();
-                    if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
-                        offset -= SUMO_const_halfLaneAndOffset * maxRight;
-                    }
-                    if (offset != 0) {
-                        PositionVector g = e->getGeometry();
-                        g.move2side(offset);
-                        e->setGeometry(g);
-                    }
-                    if (e->getToNode()->getOutgoingEdges().size() != 0) {
-                        e = e->getToNode()->getOutgoingEdges()[0];
-                    }
-                }
-            }
-        }
+        myEdgeCont.processSplits(myCurrentEdge, mySplits, myNodeCont, myDistrictCont, myTLLogicCont);
         myCurrentEdge = 0;
     } else if (element == SUMO_TAG_LANE) {
         myLastParameterised.pop_back();
@@ -755,7 +621,6 @@ NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Empty edges in roundabout.");
     }
 }
-
 
 
 /****************************************************************************/

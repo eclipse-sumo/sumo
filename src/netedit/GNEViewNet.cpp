@@ -101,6 +101,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Junctions
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                GNEViewNet::onCmdReplaceJunction),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                  GNEViewNet::onCmdSplitJunction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,      GNEViewNet::onCmdClearConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,      GNEViewNet::onCmdResetConnections),
     // Connections
@@ -802,12 +803,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             }
                         }
                     } else {
-                        // check if clicked AC is selected
-                        if(myObjectsUnderCursor.attributeCarrier->isAttributeCarrierSelected()) {
-                            myViewParent->getInspectorFrame()->inspectMultisection(myNet->getSelectedAttributeCarriers(myObjectsUnderCursor.attributeCarrier->getTag()));
-                        } else {
-                            myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
-                        }
+                        // inspect attribute carrier, or multiseletion if AC is selected
+                        myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarrier);
                         // focus upper element of inspector frame
                         myViewParent->getInspectorFrame()->focusUpperElement();
                     }
@@ -831,6 +828,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             myObjectsUnderCursor.attributeCarrier->unselectAttributeCarrier();
                         } else {
                             myObjectsUnderCursor.attributeCarrier->selectAttributeCarrier();
+                        }
+                        // update selector frame
+                        if(myViewParent->getSelectorFrame()->shown()) {
+                            myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
                         }
                     }
                 }
@@ -940,7 +941,12 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.additionalToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.additionalToMove = 0;
     } else if (mySelectingArea.selectingUsingRectangle) {
-        mySelectingArea.processSelection(this, ((FXEvent*)eventData)->state & SHIFTMASK);
+        bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
+        mySelectingArea.processSelection(this, shiftKeyPressed);
+        // update selector frame
+        if(myViewParent->getSelectorFrame()->shown()) {
+            myViewParent->getSelectorFrame()->getLockGLObjectTypes()->updateLockGLObjectTypes();
+        }
     }
     update();
     return 1;
@@ -2127,6 +2133,20 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
 
 
 long
+GNEViewNet::onCmdSplitJunction(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != 0) {
+        myNet->splitJunction(junction, myUndoList);
+        update();
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != 0) {
@@ -2586,13 +2606,13 @@ GNEViewNet::deleteSelectedConnections() {
 
 
 void
-GNEViewNet::deleteSelectedShapes(SumoXMLTag shapeTag) {
+GNEViewNet::deleteSelectedShapes() {
     // obtain selected shapes
-    std::vector<GNEShape*> selectedShapes = myNet->retrieveShapes(shapeTag, true);
+    std::vector<GNEShape*> selectedShapes = myNet->retrieveShapes(true);
     // remove it
     if (selectedShapes.size() > 0) {
         std::string plural = selectedShapes.size() == 1 ? ("") : ("s");
-        myUndoList->p_begin("delete selected " + toString(shapeTag) + plural);
+        myUndoList->p_begin("delete selected shape" + plural);
         for (auto i : selectedShapes) {
             myNet->deleteShape(i, myUndoList);
         }

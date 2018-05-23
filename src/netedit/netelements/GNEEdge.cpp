@@ -347,6 +347,10 @@ GNEEdge::getBoundary() const {
     for (auto i : myLanes) {
         ret.add(i->getBoundary());
     }
+    // ensure that geometry points are selectable even if the lane geometry is strange
+    for (const Position& pos : myNBEdge.getGeometry()) {
+        ret.add(pos);
+    }
     ret.grow(10); // !!! magic value
     return ret;
 }
@@ -438,46 +442,48 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
-            if((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && 
-               (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
-                glPushMatrix();
-                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION - 0.01);
-                // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, circleResolution);
-                glPopMatrix();
-                // draw a "s" over last point depending of drawForSelecting
-                if(!s.drawForSelecting) {
+            if (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) {
+                if((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) && 
+                        (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
-                    glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION);
-                    GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+                    glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.01);
+                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
-                    // draw line between Junction and point
-                    glPushMatrix();
-                    glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                    glLineWidth(4);
-                    GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
-                    glPopMatrix();
+                    // draw a "s" over last point depending of drawForSelecting
+                    if(!s.drawForSelecting) {
+                        glPushMatrix();
+                        glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.02);
+                        GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+                        glPopMatrix();
+                        // draw line between Junction and point
+                        glPushMatrix();
+                        glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                        glLineWidth(4);
+                        GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
+                        glPopMatrix();
+                    }
                 }
-            }
-            if((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && 
-               (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
-                glPushMatrix();
-                glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION - 0.01);
-                // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, circleResolution);
-                glPopMatrix();
-                glPushMatrix();
-                // draw a "e" over last point depending of drawForSelecting
-                if(!s.drawForSelecting) {
-                    glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION);
-                    GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
-                    glPopMatrix();
-                    // draw line between Junction and point
+                if((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && 
+                        (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
-                    glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                    glLineWidth(4);
-                    GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                    glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.01);
+                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
+                    // draw a "e" over last point depending of drawForSelecting
+                    if(!s.drawForSelecting) {
+                        glPushMatrix();
+                        glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.02);
+                        GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+                        glPopMatrix();
+                        // draw line between Junction and point
+                        glPushMatrix();
+                        glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                        glLineWidth(4);
+                        GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                        glPopMatrix();
+                    }
                 }
             }
             // pop name
@@ -635,7 +641,7 @@ GNEEdge::clearGNEConnections() {
     for (auto i : myGNEConnections) {
         // check if connection is selected
         if(i->isAttributeCarrierSelected()) {
-            myNet->unselectAttributeCarrier(GLO_CONNECTION, i);
+            i->unselectAttributeCarrier();
         }
         // Dec reference of connection
         i->decRef("GNEEdge::clearGNEConnections");
@@ -1174,8 +1180,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }
@@ -1219,7 +1223,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     lane->incRef("GNEEdge::addLane");
     // check if lane is selected
     if(lane->isAttributeCarrierSelected()) {
-        myNet->selectAttributeCarrier(GLO_LANE, lane);
+        lane->selectAttributeCarrier();
     }
     // we copy all attributes except shape since this is recomputed from edge shape
     myNBEdge.setSpeed(lane->getIndex(), laneAttrs.speed);
@@ -1260,7 +1264,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     }
     // check if lane is selected
     if(lane->isAttributeCarrierSelected()) {
-        myNet->unselectAttributeCarrier(GLO_LANE, lane);
+        lane->unselectAttributeCarrier();
     }
     // Delete lane of edge's container
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -1337,7 +1341,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
         // check if connection is selected
         if(con->isAttributeCarrierSelected()) {
-            myNet->unselectAttributeCarrier(GLO_CONNECTION, con);
+            con->unselectAttributeCarrier();
         }
         if (con->unreferenced()) {
             // show extra information for tests

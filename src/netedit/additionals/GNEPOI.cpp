@@ -209,6 +209,18 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     if(!s.drawForSelecting) {
         drawLockIcon(*this, GLO_POI, 0.2);
     }
+    // draw an orange square mode if there is an image(see #4036)
+    if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
+        glPushName(getGlID());
+        // Add a draw matrix for drawing logo
+        glPushMatrix();
+        glTranslated(x(), y(), getType() + 0.01);
+        GLHelper::setColor(RGBColor::ORANGE);
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        glPopMatrix();
+        // Pop name
+        glPopName();
+    }
 }
 
 
@@ -322,9 +334,9 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_RELATIVEPATH:
             return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_HEIGHT:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -421,8 +433,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " attribute '" + toString(key) + "' not allowed");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

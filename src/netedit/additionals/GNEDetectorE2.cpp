@@ -129,22 +129,22 @@ void
 GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
-    device.writeAttr(SUMO_ATTR_LENGTH, myRelativeLength * myLane->getLaneParametricLength());
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_LANE);
+    writeAttribute(device, SUMO_ATTR_POSITION);
+    writeAttribute(device, SUMO_ATTR_LENGTH);
+    writeAttribute(device, SUMO_ATTR_FREQUENCY);
     if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        writeAttribute(device, SUMO_ATTR_FILE);
     }
-    device.writeAttr(SUMO_ATTR_CONT, myCont);
-    device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
-    device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
-    device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    writeAttribute(device, SUMO_ATTR_CONT);
+    writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
+    writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
+    writeAttribute(device, SUMO_ATTR_JAM_DIST_THRESHOLD);
+    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Close tag
     device.closeTag();
@@ -394,8 +394,6 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

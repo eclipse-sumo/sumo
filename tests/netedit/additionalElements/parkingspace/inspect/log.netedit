@@ -1,8 +1,7 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding parkingArea 'parkingArea_gneE2_0_1' in GNEChange_Additional
 Warning: Selected additional 'space' in AdditionalSelector
 Warning: Adding space 'parkingArea_gneE2_0_0space0' in GNEChange_Additional
@@ -25,7 +24,6 @@ Warning: Setting new attribute width '3.2' into space 'parkingArea_gneE2_0_0spac
 Warning: Value '-5' for attribute width of space isn't valid
 Warning: Setting new attribute width '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE2_0_0space1'
-Warning: Setting new attribute length '5' into space 'parkingArea_gneE2_0_0space1'
 Warning: Value '-6' for attribute length of space isn't valid
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute length '3.4' into space 'parkingArea_gneE2_0_0space1'
@@ -43,8 +41,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '0.00' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '0.00' into space 'parkingArea_gneE2_0_0space1'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -82,6 +78,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing parkingArea 'parkingArea_gneE2_0_1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -117,8 +114,6 @@ Warning: Setting new attribute width '0' into space 'parkingArea_gneE2_0_0space1
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute length '5' into space 'parkingArea_gneE2_0_0space1'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '3.4' into space 'parkingArea_gneE2_0_0space1'
@@ -130,6 +125,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '500' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '32.5' into space 'parkingArea_gneE2_0_0space1'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -139,8 +135,11 @@ Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE2_0_0space1'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE2_0_0space0'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_1'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE2_0_0'
@@ -166,6 +165,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

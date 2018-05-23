@@ -3,7 +3,14 @@ binary:$RUN_SIKULIX
 use_case_record_mode:GUI
 config_module:default
 
+copy_test_path:input_net.netccfg
 copy_test_path:input_net.net.xml
+copy_test_path:input_net.con.xml
+copy_test_path:input_net.edg.xml
+copy_test_path:input_net.nod.xml
+copy_test_path:input_net.tll.xml
+copy_test_path:input_net.net.xml
+copy_test_path:input_net_loadedmanually.net.xml
 copy_test_path:input_additionals.add.xml
 copy_test_path:input_shapes.add.xml
 copy_test_path:gui-settings.xml
@@ -13,6 +20,10 @@ copy_test_path_merge:selection.txt
 
 [collate_file]
 net:net.net.xml
+netcon:net.con.xml
+netedg:net.edg.xml
+netnod:net.nod.xml
+nettll:net.tll.xml
 additionals:additionals.xml
 shapes:shapes.xml
 cfg:config.cfg
@@ -21,6 +32,10 @@ selection:selection.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
+netcon:<!--{[->]}-->
+netedg:<!--{[->]}-->
+netnod:<!--{[->]}-->
+nettll:<!--{[->]}-->
 output:\[log\]
 output:\[info\]
 output:SIKULIX_HOME in environment specified as
@@ -28,6 +43,8 @@ output:running SikuliX:
 output:sikulix.jar -run
 output:+++
 output:\\{REPLACE /}
+output:script{LINES 1}
+output:  File{LINES 1}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed

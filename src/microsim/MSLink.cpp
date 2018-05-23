@@ -86,10 +86,29 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myInternalLaneBefore(0),
     myMesoTLSPenalty(0),
     myGreenFraction(1),
+    myLateralShift(0),
     myWalkingAreaFoe(0),
     myParallelRight(0),
     myParallelLeft(0),
     myJunction(0) {
+
+    if (MSGlobals::gLateralResolution > 0) {
+        // detect lateral shift from lane geometries
+        //std::cout << "DEBUG link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " hasInternal=" << MSNet::getInstance()->hasInternalLinks() << " shapeBefore=" << myLaneBefore->getShape().back() << " shapeFront=" << getViaLaneOrLane()->getShape().front() << "\n";
+        if ((myInternalLane != 0 || predLane->isInternal())
+                && myLaneBefore->getShape().back() != getViaLaneOrLane()->getShape().front()) {
+            PositionVector from = myLaneBefore->getShape();
+            const PositionVector& to = getViaLaneOrLane()->getShape();
+            const double dist = from.back().distanceTo2D(to.front());
+            // figure out direction of shift
+            try {
+                from.move2side(dist);
+            } catch (InvalidArgument&) {
+            }
+            myLateralShift = (from.back().distanceTo2D(to.front()) < dist) ? dist : -dist;
+            //std::cout << " lateral shift link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " dist=" << dist << " shift=" << myLateralShift << "\n";
+        }
+    }
 }
 
 
@@ -212,6 +231,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 const double minDist = 0.5 * (lane->getWidth() + sibling->getWidth());
                 const PositionVector& l = lane->getShape();
                 const PositionVector& s = sibling->getShape();
+                if (l.front().distanceTo2D(s.front()) >= minDist) {
+                    // account for lateral shift by the entry links
+                    continue;
+                }
                 double lbcSibling = 0;
                 if (l.back().distanceTo2D(s.back()) > minDist) {
                     // compute the final divergence point
@@ -520,7 +543,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << "       imp=" << impatience << " atb=" << avi.arrivalTimeBraking << " at2=" << foeArrivalTime << " lA=" << lookAhead << " egoLT=" << leaveTime << "\n";
+        std::cout << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
     }
 #endif
     if (avi.leavingTime < arrivalTime) {

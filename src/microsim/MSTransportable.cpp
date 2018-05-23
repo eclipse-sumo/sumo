@@ -253,9 +253,10 @@ MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
         const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING),
     myLines(lines.begin(), lines.end()),
-    myVehicle(0),
+    myVehicle(nullptr),
     myVehicleID("NULL"),
     myVehicleDistance(-1.),
+    myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
     myIntendedVehicleID(intendedVeh),
     myIntendedDepart(intendedDepart)
@@ -266,8 +267,11 @@ MSTransportable::Stage_Driving::~Stage_Driving() {}
 
 const MSEdge*
 MSTransportable::Stage_Driving::getEdge() const {
-    if (myVehicle != 0) {
-        return &myVehicle->getLane()->getEdge();
+    if (myVehicle != nullptr) {
+        if (myVehicle->getLane() != nullptr) {
+            return &myVehicle->getLane()->getEdge();
+        }
+        return myVehicle->getEdge();
     }
     return myWaitingEdge;
 }
@@ -568,5 +572,9 @@ MSTransportable::getStageSummary(int stageIndex) const {
     return (*myPlan)[stageIndex]->getStageSummary();
 }
 
+bool 
+MSTransportable::hasArrived() const {
+    return myStep == myPlan->end();
+}
 
 /****************************************************************************/

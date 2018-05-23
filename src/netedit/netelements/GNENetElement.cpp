@@ -26,6 +26,7 @@
 #endif
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -42,9 +43,8 @@
 GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, icon),
-    myNet(net),
-    mySelected(false) {
-}
+    myNet(net)
+{ }
 
 
 GNENetElement::~GNENetElement() {}
@@ -150,27 +150,27 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 void 
-GNENetElement::selectAttributeCarrier() {
+GNENetElement::selectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (!mySelected) {
-        myNet->selectAttributeCarrier(getType(), this);
-        mySelected = true;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
+    } else {
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        if(changeFlag) {
+            mySelected = true;
+        }
     } 
 }
 
 
 void 
-GNENetElement::unselectAttributeCarrier() {
+GNENetElement::unselectAttributeCarrier(bool changeFlag) {
     if(!myNet) {
         throw ProcessError("Net cannot be nullptr");
-    } else if (mySelected) {
-        myNet->unselectAttributeCarrier(getType(), this);
-        mySelected = false;
-        // Allways update ACChooser dialogs after selecting or unselecting
-        myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
+    } else {
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        if(changeFlag) {
+            mySelected = false;
+        }
     } 
 }
 

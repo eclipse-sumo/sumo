@@ -128,10 +128,6 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
             // delete texture after creating GL Structure
             delete i;
             myTextures[filename] = (int)id;
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding texture '" + filename + "' in GUITexturesHelper::getTextureID");
-            }
         } catch (InvalidArgument& e) {
             WRITE_ERROR("Could not load '" + filename + "'.\n" + e.what());
             myTextures[filename] = -1;
@@ -143,10 +139,6 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
 
 void
 GUITexturesHelper::clearTextures() {
-    // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Cleaning textures in GUITexturesHelper::clearTextures");
-    }
     myTextures.clear();
 }
 

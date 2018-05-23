@@ -53,7 +53,6 @@ FXDEFMAP(GNECalibratorFlowDialog) GNECalibratorFlowDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,   GNECalibratorFlowDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,    GNECalibratorFlowDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,   GNECalibratorFlowDialog::onCmdSetVariable),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE,   GNECalibratorFlowDialog::onCmdSetTypeOfFlow),
 };
 
 // Object implementation
@@ -64,10 +63,11 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialo
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibratorFlow, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 300),
+    GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 280),
     myEditedCalibratorFlow(editedCalibratorFlow),
     myUpdatingElement(updatingElement),
-    myCalibratorFlowValid(true) {
+    myCalibratorFlowValid(false),
+    myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " : "Create " + toString(myEditedCalibratorFlow->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorFlow->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorFlow->getCalibratorParent()->getID() + "'");
@@ -85,69 +85,64 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     // 2 create combobox for route
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ROUTE).c_str(), 0, GUIDesignLabelThick);
     myComboBoxRoute = new FXComboBox(columnLeftValue, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    // 3 create textfield for color
+    // 3 create textfield for vehs per hour
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldVehsPerHour = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
+    // 4 create textfield for vehs per hour
+    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_SPEED).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
+    // 5 create textfield for color
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_COLOR).c_str(), 0, GUIDesignLabelThick);
     myTextFieldColor = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 4 create textfield for lane
+    // 6 create textfield for lane
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DEPARTLANE).c_str(), 0, GUIDesignLabelThick);
     myTextFieldDepartLane = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 5 create textfield for pos
+    // 7 create textfield for pos
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DEPARTPOS).c_str(), 0, GUIDesignLabelThick);
     myTextFieldDepartPos = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 6 create textfield for speed
+    // 8 create textfield for speed
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DEPARTSPEED).c_str(), 0, GUIDesignLabelThick);
     myTextFieldDepartSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 7 create textfield for lane
+    // 9 create textfield for lane
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ARRIVALLANE).c_str(), 0, GUIDesignLabelThick);
     myTextFieldArrivalLane = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 8 create textfield for arrival pos
+    // 10 create textfield for arrival pos
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ARRIVALPOS).c_str(), 0, GUIDesignLabelThick);
     myTextFieldArrivalPos = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 9 create textfield for arrival speed
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ARRIVALSPEED).c_str(), 0, GUIDesignLabelThick);
-    myTextFieldArrivalSpeed = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 10 create textfield for arrival line
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_LINE).c_str(), 0, GUIDesignLabelThick);
-    myTextFieldLine = new FXTextField(columnLeftValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 11 create textfield for person number
+    // 11 create textfield for arrival speed
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_ARRIVALSPEED).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldArrivalSpeed = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 12 create textfield for arrival line
+    new FXLabel(columnRightLabel, toString(SUMO_ATTR_LINE).c_str(), 0, GUIDesignLabelThick);
+    myTextFieldLine = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    // 13 create textfield for person number
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_PERSON_NUMBER).c_str(), 0, GUIDesignLabelThick);
     myTextFieldPersonNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
-    // 12 create textfield for container number
+    // 14 create textfield for container number
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_CONTAINER_NUMBER).c_str(), 0, GUIDesignLabelThick);
     myTextFieldContainerNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
-    // 13 create textfield for reroute
+    // 15 create textfield for reroute
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_REROUTE).c_str(), 0, GUIDesignLabelThick);
     myRerouteCheckButton = new FXCheckButton(columnRightValue, "false", this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignCheckButtonAttribute);
-    // 14 create textfield for depart pos lat
+    // 16 create textfield for depart pos lat
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_DEPARTPOS_LAT).c_str(), 0, GUIDesignLabelThick);
     myTextFieldDepartPosLat = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 15 create textfield for arrival pos lat
+    // 17 create textfield for arrival pos lat
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_ARRIVALPOS_LAT).c_str(), 0, GUIDesignLabelThick);
     myTextFieldArrivalPosLat = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
-    // 16 create textfield for begin
+    // 18 create textfield for begin
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_BEGIN).c_str(), 0, GUIDesignLabelThick);
     myTextFieldBegin = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    // 17 create textfield for end
+    // 19 create textfield for end
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), 0, GUIDesignLabelThick);
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    // 18 create textfield for vehicle number
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_NUMBER).c_str(), 0, GUIDesignLabelThick);
-    myTextFieldNumber = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
-    // 19 create textfield for vehs per hour
-    myRadioButtonVehsPerHour = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonAttribute);
-    myTextFieldVehsPerHour = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    // 20 create textfield for period
-    myRadioButtonPeriod = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonAttribute);
-    myTextFieldPeriod = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-    // 21 create textfield for probability
-    myRadioButtonProbability = new FXRadioButton(columnRightLabel, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_CALIBRATORDIALOG_SET_FLOWTYPE, GUIDesignRadioButtonAttribute);
-    myTextFieldProbability = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
-
     // fill comboBox of VTypes
-    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes()) {
+    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->getCalibratorVehicleTypes()) {
         myComboBoxVehicleType->appendItem(i->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getCalibratorVehicleTypes().size());
+    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->getCalibratorVehicleTypes().size());
 
     // fill comboBox of Routes
     for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorRoutes()) {
@@ -250,6 +245,33 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myComboBoxRoute->setTextColor(FXRGB(255, 0, 0));
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_ROUTE;
+    }
+    // set color of myTextFieldVehsPerHour, depending if current value is valid or not
+    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
+        myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
+        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
+    } else {
+        myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_VEHSPERHOUR;
+    }
+    // set color of myTextFieldSpeed, depending if current value is valid or not
+    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text())) {
+        myTextFieldSpeed->setTextColor(FXRGB(0, 0, 0));
+        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_SPEED, myTextFieldSpeed->getText().text(), undoList);
+        // Check VehsPerHour again
+        if (myEditedCalibratorFlow->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
+            myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
+            myEditedCalibratorFlow->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
+            if(myInvalidAttr == SUMO_ATTR_VEHSPERHOUR) {
+                myCalibratorFlowValid = true;
+                myInvalidAttr = SUMO_ATTR_NOTHING;
+            }
+        }   
+    } else {
+        myTextFieldSpeed->setTextColor(FXRGB(255, 0, 0));
+        myCalibratorFlowValid = false;
+        myInvalidAttr = SUMO_ATTR_SPEED;
     }
     // set color of myTextFieldColor, depending if current value is valid or not
     if (myEditedCalibratorFlow->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
@@ -385,93 +407,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
         myCalibratorFlowValid = false;
         myInvalidAttr = SUMO_ATTR_BEGIN;
     }
-    // set color of myTextFieldNumber, depending if current value is valid or not
-    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_NUMBER, myTextFieldNumber->getText().text())) {
-        myTextFieldNumber->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_NUMBER, myTextFieldNumber->getText().text(), undoList);
-    } else {
-        myTextFieldNumber->setTextColor(FXRGB(255, 0, 0));
-        myCalibratorFlowValid = false;
-        myInvalidAttr = SUMO_ATTR_NUMBER;
-    }
-    // set color of myTextFieldVehsPerHour, depending if current value is valid or not
-    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text())) {
-        myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_VEHSPERHOUR, myTextFieldVehsPerHour->getText().text(), undoList);
-    } else if (myRadioButtonVehsPerHour->getCheck()) {
-        myTextFieldVehsPerHour->setTextColor(FXRGB(255, 0, 0));
-        myCalibratorFlowValid = false;
-        myInvalidAttr = SUMO_ATTR_VEHSPERHOUR;
-    } else {
-        // if radio button is disabled, set default color
-        myTextFieldVehsPerHour->setTextColor(FXRGB(0, 0, 0));
-    }
-    // set color of myTextFieldPeriod, depending if current value is valid or not
-    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_PERIOD, myTextFieldPeriod->getText().text())) {
-        myTextFieldPeriod->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_PERIOD, myTextFieldPeriod->getText().text(), undoList);
-    } else if (myRadioButtonPeriod->getCheck()) {
-        myTextFieldPeriod->setTextColor(FXRGB(255, 0, 0));
-        myCalibratorFlowValid = false;
-        myInvalidAttr = SUMO_ATTR_PERIOD;
-    } else {
-        // if radio button is disabled, set default color
-        myTextFieldPeriod->setTextColor(FXRGB(0, 0, 0));
-    }
-    // set color of myTextFieldProbability, depending if current value is valid or not
-    if (myEditedCalibratorFlow->isValid(SUMO_ATTR_PROB, myTextFieldProbability->getText().text())) {
-        myTextFieldProbability->setTextColor(FXRGB(0, 0, 0));
-        myEditedCalibratorFlow->setAttribute(SUMO_ATTR_PROB, myTextFieldProbability->getText().text(), undoList);
-    } else if (myRadioButtonProbability->getCheck()) {
-        myTextFieldProbability->setTextColor(FXRGB(255, 0, 0));
-        myCalibratorFlowValid = false;
-        myInvalidAttr = SUMO_ATTR_PROB;
-    } else {
-        // if radio button is disabled, set default color
-        myTextFieldProbability->setTextColor(FXRGB(0, 0, 0));
-    }
     return 1;
-}
-
-
-long
-GNECalibratorFlowDialog::onCmdSetTypeOfFlow(FXObject* radioButton, FXSelector, void*) {
-    if (radioButton == myRadioButtonVehsPerHour) {
-        myRadioButtonVehsPerHour->setCheck(true);
-        myTextFieldVehsPerHour->enable();
-        myEditedCalibratorFlow->setFlowType(GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR);
-        // disable other options
-        myRadioButtonPeriod->setCheck(false);
-        myTextFieldPeriod->disable();
-        myRadioButtonProbability->setCheck(false);
-        myTextFieldProbability->disable();
-        onCmdSetVariable(0, 0, 0);
-        return 1;
-    } else if (radioButton == myRadioButtonPeriod) {
-        myRadioButtonPeriod->setCheck(true);
-        myTextFieldPeriod->enable();
-        myEditedCalibratorFlow->setFlowType(GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD);
-        // disable other options
-        myRadioButtonVehsPerHour->setCheck(false);
-        myTextFieldVehsPerHour->disable();
-        myRadioButtonProbability->setCheck(false);
-        myTextFieldProbability->disable();
-        onCmdSetVariable(0, 0, 0);
-        return 1;
-    } else if (radioButton == myRadioButtonProbability) {
-        myRadioButtonProbability->setCheck(true);
-        myTextFieldProbability->enable();
-        myEditedCalibratorFlow->setFlowType(GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY);
-        // disable other options
-        myRadioButtonVehsPerHour->setCheck(false);
-        myTextFieldVehsPerHour->disable();
-        myRadioButtonPeriod->setCheck(false);
-        myTextFieldPeriod->disable();
-        onCmdSetVariable(0, 0, 0);
-        return 1;
-    } else {
-        return 0;
-    }
 }
 
 
@@ -480,6 +416,8 @@ GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     // update fields
     myComboBoxVehicleType->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_TYPE).c_str());
     myComboBoxRoute->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_ROUTE).c_str());
+    myTextFieldVehsPerHour->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_VEHSPERHOUR).c_str());
+    myTextFieldSpeed->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_SPEED).c_str());
     myTextFieldColor->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_COLOR).c_str());
     myTextFieldDepartLane->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_DEPARTLANE).c_str());
     myTextFieldDepartPos->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_DEPARTPOS).c_str());
@@ -495,18 +433,6 @@ GNECalibratorFlowDialog::updateCalibratorFlowValues() {
     myTextFieldArrivalPosLat->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_ARRIVALPOS_LAT).c_str());
     myTextFieldBegin->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_BEGIN).c_str());
     myTextFieldEnd->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_END).c_str());
-    myTextFieldNumber->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_NUMBER).c_str());
-    myTextFieldVehsPerHour->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_VEHSPERHOUR).c_str());
-    myTextFieldPeriod->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_PERIOD).c_str());
-    myTextFieldProbability->setText(myEditedCalibratorFlow->getAttribute(SUMO_ATTR_PROB).c_str());
-    // upsate type of flow
-    if (myEditedCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_VEHSPERHOUR) {
-        onCmdSetTypeOfFlow(myRadioButtonVehsPerHour, 0, 0);
-    } else if (myEditedCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PERIOD) {
-        onCmdSetTypeOfFlow(myRadioButtonPeriod, 0, 0);
-    } else if (myEditedCalibratorFlow->getFlowType() == GNECalibratorFlow::GNE_CALIBRATORFLOW_PROBABILITY) {
-        onCmdSetTypeOfFlow(myRadioButtonProbability, 0, 0);
-    }
 }
 
 

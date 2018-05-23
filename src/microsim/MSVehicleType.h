@@ -331,6 +331,36 @@ public:
     /// @name Setter methods
     /// @{
 
+    /** @brief Set a new value for this type's acceleration.
+     * @param[in] accel The new acceleration of this type
+     */
+    void setAccel(double accel);
+
+    /** @brief Set a new value for this type's deceleration.
+     * @param[in] decel The new deceleration of this type
+     */
+    void setDecel(double decel);
+
+    /** @brief Set a new value for this type's emergency deceleration.
+     * @param[in] emergencyDecel The new emergency deceleration of this type
+     */
+    void setEmergencyDecel(double emergencyDecel);
+
+    /** @brief Set a new value for this type's apparent deceleration.
+     * @param[in] apparentDecel The new apparent deceleration of this type
+     */
+    void setApparentDecel(double apparentDecel);
+
+    /** @brief Set a new value for this type's imperfection.
+     * @param[in] imperfection The new imperfection of this type
+     */
+    void setImperfection(double imperfection);
+
+    /** @brief Set a new value for this type's headway.
+     * @param[in] tau The new headway of this type
+     */
+    void setTau(double tau);
+
     /** @brief Set a new value for this type's length
      *
      * If the given value<0 then the one from the original type will

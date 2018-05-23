@@ -71,7 +71,6 @@ class GNEJunction;
 class GNELane;
 class GNENetElement;
 class GNEPOI;
-class GNEPOILane;
 class GNEPoly;
 class GNERerouterInterval;
 class GNEShape;
@@ -381,12 +380,22 @@ public:
     */
     GNEConnection* retrieveConnection(const std::string& id, bool failHard = true) const;
 
+    /**@brief return all connections
+    * @param[in] onlySelected Whether to return only selected connections
+    */
+    std::vector<GNEConnection*> retrieveConnections(bool onlySelected = false) const;
+
     /**@brief get Crossing by id
     * @param[in] id The id of the desired Crossing
     * @param[in] failHard Whether attempts to retrieve a nonexisting Crossing should result in an exception
     * @throws UnknownElement
     */
     GNECrossing* retrieveCrossing(const std::string& id, bool failHard = true) const;
+
+    /**@brief return all crossings
+    * @param[in] onlySelected Whether to return only selected crossings
+    */
+    std::vector<GNECrossing*> retrieveCrossings(bool onlySelected = false) const;
 
     /**@brief get a single attribute carrier based on a GLID
     * @param[in] ids the GL IDs for which to retrive the AC
@@ -434,6 +443,12 @@ public:
     */
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
+    /// @brief inform that net has to be saved
+    void requiereSaveNet();
+
+    /// @brief return if net has to be saved
+    bool isNetSaved() const;
+
     /**@brief save the network
      * @param[in] oc The OptionsCont which knows how and where to save
      */
@@ -471,19 +486,7 @@ public:
     GNEViewNet* getViewNet() const;
 
     /// @brief get all selected attribute carriers
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers() const;
-
-    // @brief get selected attribute carriers by GLType
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(GUIGlObjectType type);
-
-    // @brief get selected attribute carriers by Tag
-    const std::vector<GNEAttributeCarrier*> &getSelectedAttributeCarriers(SumoXMLTag tag);
-
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
-
-     /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(GUIGlObjectType glType, GNEAttributeCarrier* attributeCarrier, bool updateSelectorFrame = true);
+    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers();
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
@@ -519,6 +522,9 @@ public:
 
     /// @brief replace the selected junction by geometry node(s) and merge the edges
     void replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList);
+
+    /// @brief replace the selected junction by a list of junctions for each unique edge endpoint
+    void splitJunction(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief clear junction's connections
     void clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList);
@@ -619,6 +625,9 @@ public:
     */
     GNECalibratorVehicleType* retrieveCalibratorVehicleType(const std::string& id, bool hardFail = true) const;
 
+    /// @brief get calibrator vehicleTypes
+    std::vector<GNECalibratorVehicleType*> getCalibratorVehicleTypes() const;
+
     /// @brief generate a new Calibrator Route ID
     std::string generateCalibratorRouteID() const;
 
@@ -697,15 +706,6 @@ protected:
 
         /// @brief map with the name and pointer to Calibrator Vehicle Types of net
         std::map<std::string, GNECalibratorVehicleType*> calibratorVehicleTypes;
-
-        /// @brief set with all selected attribute carriers
-        std::vector<GNEAttributeCarrier* > selectedAttributeCarriers;
-
-        /// @brief set with selected attribute carriers grouped by GL Type
-        std::map<GUIGlObjectType, std::vector<GNEAttributeCarrier*> > selectedAttributeCarriersByType;
-
-        /// @brief set with selected attribute carriers grouped by Tags
-        std::map<SumoXMLTag, std::vector<GNEAttributeCarrier*> > selectedAttributeCarriersByTag;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -731,6 +731,9 @@ protected:
 
     /// @brief whether the net needs recomputation
     bool myNeedRecompute;
+
+    /// @brief Flag to check if net has to be saved
+    bool myNetSaved;
 
     /// @brief Flag to check if additionals has to be saved
     bool myAdditionalsSaved;
@@ -821,6 +824,9 @@ private:
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);
 
+    /// @brief save additionals after confirming invalid objects
+    void saveAdditionalsConfirmed(const std::string& filename); 
+
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
@@ -831,6 +837,9 @@ private:
 
     /// @brief map with the Edges and their number of lanes
     std::map<std::string, int> myEdgesAndNumberOfLanes;
+
+    /// @brief flag used to indicate if shaped created can be undo
+    bool myAllowUndoShapes;
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS
     class GNEChange_ReplaceEdgeInTLS : public GNEChange {

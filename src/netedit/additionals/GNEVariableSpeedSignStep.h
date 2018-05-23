@@ -71,10 +71,10 @@ public:
     /// @brief inherited from GNEAttributeCarrier
     /// @{
     /// @brief select attribute carrier
-    void selectAttributeCarrier();
+    void selectAttributeCarrier(bool);
 
     /// @brief unselect attribute carrier
-    void unselectAttributeCarrier();
+    void unselectAttributeCarrier(bool);
 
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;

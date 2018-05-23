@@ -65,3 +65,9 @@ rightTurnConflict
 # a service road (allowing pedestrians and delivery) enters a street with sidewalks at a T-junction
 3_arm_service_entering
 scale
+
+# prefix junction and edge ids
+prefix
+
+# rotate the input network
+rotate

@@ -96,12 +96,12 @@ GNEDetectorExit::updateGeometry() {
 void
 GNEDetectorExit::writeAdditional(OutputDevice& device) const {
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_LANE, myLane->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, getAbsolutePositionOverLane());
-    device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPosition);
+    writeAttribute(device, SUMO_ATTR_LANE);
+    writeAttribute(device, SUMO_ATTR_POSITION);
+    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     device.closeTag();
 }
@@ -318,8 +318,6 @@ GNEDetectorExit::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

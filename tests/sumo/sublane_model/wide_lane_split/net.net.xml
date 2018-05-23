@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 17 Apr 2018 08:32:26 AM CEST by Netedit Version a2ff8dc
+<!-- generated on Thu 26 Apr 2018 10:55:32 AM CEST by Eclipse SUMO netedit Version 2ca4259
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -112,24 +112,24 @@
         <lane id=":W_0_0" index="0" speed="13.89" length="13.14" width="9.00" shape="0.00,104.50 -3.38,102.25 -4.50,100.00 -3.38,97.75 0.00,95.50"/>
     </edge>
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="3.83" width="3.00" shape="44.50,95.50 47.50,92.50"/>
-        <lane id=":gneJ0_0_1" index="1" speed="13.89" length="3.83" width="3.00" shape="44.50,95.50 47.50,95.50"/>
-        <lane id=":gneJ0_0_2" index="2" speed="13.89" length="3.83" width="3.00" shape="44.50,95.50 47.50,98.50"/>
+        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="3.00" width="3.00" shape="44.50,92.50 47.50,92.50"/>
+        <lane id=":gneJ0_0_1" index="1" speed="13.89" length="3.00" width="3.00" shape="44.50,95.50 47.50,95.50"/>
+        <lane id=":gneJ0_0_2" index="2" speed="13.89" length="3.00" width="3.00" shape="44.50,98.50 47.50,98.50"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="3.83" width="3.00" shape="95.50,152.90 92.50,149.90"/>
-        <lane id=":gneJ1_0_1" index="1" speed="13.89" length="3.83" width="3.00" shape="95.50,152.90 95.50,149.90"/>
-        <lane id=":gneJ1_0_2" index="2" speed="13.89" length="3.83" width="3.00" shape="95.50,152.90 98.50,149.90"/>
+        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="3.00" width="3.00" shape="92.50,152.90 92.50,149.90"/>
+        <lane id=":gneJ1_0_1" index="1" speed="13.89" length="3.00" width="3.00" shape="95.50,152.90 95.50,149.90"/>
+        <lane id=":gneJ1_0_2" index="2" speed="13.89" length="3.00" width="3.00" shape="98.50,152.90 98.50,149.90"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="3.83" width="3.00" shape="129.08,104.50 126.08,107.50"/>
-        <lane id=":gneJ2_0_1" index="1" speed="13.89" length="3.83" width="3.00" shape="129.08,104.50 126.08,104.50"/>
-        <lane id=":gneJ2_0_2" index="2" speed="13.89" length="3.83" width="3.00" shape="129.08,104.50 126.08,101.50"/>
+        <lane id=":gneJ2_0_0" index="0" speed="13.89" length="3.00" width="3.00" shape="129.08,107.50 126.08,107.50"/>
+        <lane id=":gneJ2_0_1" index="1" speed="13.89" length="3.00" width="3.00" shape="129.08,104.50 126.08,104.50"/>
+        <lane id=":gneJ2_0_2" index="2" speed="13.89" length="3.00" width="3.00" shape="129.08,101.50 126.08,101.50"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="3.83" width="3.00" shape="104.50,27.01 107.50,30.01"/>
-        <lane id=":gneJ3_0_1" index="1" speed="13.89" length="3.83" width="3.00" shape="104.50,27.01 104.50,30.01"/>
-        <lane id=":gneJ3_0_2" index="2" speed="13.89" length="3.83" width="3.00" shape="104.50,27.01 101.50,30.01"/>
+        <lane id=":gneJ3_0_0" index="0" speed="13.89" length="3.00" width="3.00" shape="107.50,27.01 107.50,30.01"/>
+        <lane id=":gneJ3_0_1" index="1" speed="13.89" length="3.00" width="3.00" shape="104.50,27.01 104.50,30.01"/>
+        <lane id=":gneJ3_0_2" index="2" speed="13.89" length="3.00" width="3.00" shape="101.50,27.01 101.50,30.01"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">

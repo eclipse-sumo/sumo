@@ -1,8 +1,7 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'e2Detector' in AdditionalSelector
 Warning: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding e2Detector 'e2Detector_gneE2_1_1' in GNEChange_Additional
 Warning: Value 'e2Detector_gneE2_1_1' for attribute id of e2Detector isn't valid
 Warning: Value 'Id with spaces' for attribute id of e2Detector isn't valid
@@ -14,10 +13,8 @@ Warning: Setting new attribute lane 'gneE2_0' into e2Detector 'correctID'
 Warning: Setting new attribute pos '-5' into e2Detector 'correctID'
 Warning: Setting new attribute pos '400' into e2Detector 'correctID'
 Warning: Setting new attribute pos '20' into e2Detector 'correctID'
-Warning: Setting new attribute length '10' into e2Detector 'correctID'
 Warning: Value '-5' for attribute length of e2Detector isn't valid
 Warning: Setting new attribute length '5' into e2Detector 'correctID'
-Warning: Setting new attribute freq '100' into e2Detector 'correctID'
 Warning: Value '-100' for attribute freq of e2Detector isn't valid
 Warning: Setting new attribute freq '120' into e2Detector 'correctID'
 Warning: Value '%%%&%%%&&' for attribute file of e2Detector isn't valid
@@ -25,12 +22,10 @@ Warning: Setting new attribute file '' into e2Detector 'correctID'
 Warning: Setting new attribute file 'E2Detector_gneE2_1_1.txt' into e2Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e2Detector 'correctID'
 Warning: Setting new attribute cont 'true' into e2Detector 'correctID'
-Warning: Setting new attribute timeThreshold '1' into e2Detector 'correctID'
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
 Warning: Setting new attribute timeThreshold '4' into e2Detector 'correctID'
 Warning: Value '-12.1' for attribute speedThreshold of e2Detector isn't valid
 Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correctID'
-Warning: Setting new attribute jamThreshold '10' into e2Detector 'correctID'
 Warning: Value '-8' for attribute jamThreshold of e2Detector isn't valid
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
@@ -39,11 +34,7 @@ Warning: Setting previous attribute friendlyPos '0' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute jamThreshold '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute jamThreshold '10.00' into e2Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute speedThreshold '1.39' into e2Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute timeThreshold '1.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute timeThreshold '1.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -53,13 +44,9 @@ Warning: Setting previous attribute file 'E2Detector_gneE2_1_1.txt' into e2Detec
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file '' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute file 'e2Detector_gneE2_1_0.txt' into e2Detector 'correctID'
+Warning: Setting previous attribute file 'e2Detector_gneE2_1_0.xml' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute freq '100.00' into e2Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '100.00' into e2Detector 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute length '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '10.00' into e2Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -82,6 +69,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -101,11 +92,7 @@ Warning: Setting new attribute pos '400' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '20' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute length '10' into e2Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '5' into e2Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute freq '100' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '120' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -117,17 +104,17 @@ Warning: Setting new attribute file 'myOwnOutput.txt' into e2Detector 'correctID
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute cont 'true' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute timeThreshold '1' into e2Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute timeThreshold '4' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute speedThreshold '6.3' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute jamThreshold '10' into e2Detector 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute jamThreshold '12.5' into e2Detector 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -138,8 +125,11 @@ Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced e2Detector 'e2Detector_gneE2_1_1'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e2Detector 'correctID'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -163,6 +153,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

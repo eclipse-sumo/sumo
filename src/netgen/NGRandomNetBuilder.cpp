@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include "NGRandomNetBuilder.h"
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/StdDefs.h>
 #include <utils/common/RandHelper.h>
 
 
@@ -173,10 +174,16 @@ NGRandomNetBuilder::findPossibleOuterNodes(NGNode* node) {
 
 
 bool
-NGRandomNetBuilder::createNewNode(NGNode* baseNode) {
+NGRandomNetBuilder::createNewNode(NGNode* baseNode, bool gridMode) {
     // calculate position of new node based on BaseNode
     double dist = RandHelper::rand(myMinDistance, myMaxDistance);
     double angle = RandHelper::rand((double)(2 * M_PI));
+    if (gridMode) {
+        // dist must be a multiple of minDist
+        dist = MAX2(1, int(dist / myMinDistance)) * myMinDistance;
+        // angle must be a multiple of 90 degrees
+        angle = RandHelper::rand(4) * 0.5 * M_PI;
+    }
     double x = baseNode->getPosition().x() + dist * cos(angle);
     double y = baseNode->getPosition().y() + dist * sin(angle);
     NGNode* newNode = new NGNode(myNet.getNextFreeID());
@@ -204,7 +211,7 @@ NGRandomNetBuilder::createNewNode(NGNode* baseNode) {
 
 
 void
-NGRandomNetBuilder::createNet(int numNodes) {
+NGRandomNetBuilder::createNet(int numNodes, bool gridMode) {
     myNumNodes = numNodes;
 
     NGNode* outerNode = new NGNode(myNet.getNextFreeID());
@@ -246,7 +253,7 @@ NGRandomNetBuilder::createNet(int numNodes) {
         } else {
             int count = 0;
             do {
-                created = createNewNode(outerNode);
+                created = createNewNode(outerNode, gridMode);
                 count++;
             } while ((count <= myNumTries) && !created);
             if (!created) {

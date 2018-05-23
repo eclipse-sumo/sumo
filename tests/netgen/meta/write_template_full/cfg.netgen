@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:20 2018 by Eclipse SUMO netgenerate Version 27b98ce
+<!-- generated on Wed May 23 11:24:31 2018 by Eclipse SUMO netgenerate Version 4bf903e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -22,7 +22,6 @@
         <grid.x-length value="100" synonymes="grid-x-length x-length" type="FLOAT" help="The length of horizontal streets; Overrides --grid-length"/>
         <grid.y-length value="100" synonymes="grid-y-length y-length" type="FLOAT" help="The length of vertical streets; Overrides --grid-length"/>
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT" help="The length of streets attached at the boundary; 0 means no streets are attached"/>
-        <grid.alphanumerical-ids value="true" type="BOOL" help="The Ids of generated nodes use letters for the X axis"/>
     </grid_network>
 
     <spider_network>
@@ -48,6 +47,9 @@
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
+        <rand.random-lanenumber value="false" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
+        <rand.random-priority value="false" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <rand.grid value="false" type="BOOL" help="Place nodes on a regular grid with spacing rand.min-distance"/>
     </random_network>
 
     <output>
@@ -56,9 +58,11 @@
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <alphanumerical-ids value="true" type="BOOL" help="The Ids of generated nodes use an alphanumerical code for easier readability when possible"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
+        <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
@@ -85,7 +89,11 @@
         <tls.yellow.time value="-1" synonymes="traffic-light-yellow" type="INT" help="Set INT as fixed time for yellow phase durations"/>
         <tls.red.time value="5" type="INT" help="Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"/>
         <tls.allred.time value="0" type="INT" help="Set INT as fixed time for intermediate red phase after every switch"/>
+        <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
+        <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
+        <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
+        <tls.scramble.time value="5" type="INT" help="Use INT as green phase duration for pedestrian scramble phase (s)."/>
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
         <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
@@ -110,6 +118,8 @@
     </unregulated_nodes>
 
     <processing>
+        <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
+        <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
@@ -147,7 +157,7 @@
     <building_defaults>
         <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
-        <default.speed value="13.9" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>

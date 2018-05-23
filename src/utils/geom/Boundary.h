@@ -140,6 +140,9 @@ public:
     /// Output operator
     friend std::ostream& operator<<(std::ostream& os, const Boundary& b);
 
+    /// @brief Comparison operator
+    bool operator==(const Boundary& b) const;
+
 private:
     /// The boundaries
     double myXmin, myXmax, myYmin, myYmax, myZmin, myZmax;

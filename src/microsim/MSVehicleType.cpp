@@ -403,6 +403,60 @@ MSVehicleType::check() {
     }
 }
 
+void 
+MSVehicleType::setAccel(double accel) {
+    if (myOriginalType != 0 && accel < 0) {
+        accel = myOriginalType->getCarFollowModel().getMaxAccel();
+    }
+    myCarFollowModel->setMaxAccel(accel);
+    myParameter.cfParameter[SUMO_ATTR_ACCEL] = toString(accel);
+}
+
+void 
+MSVehicleType::setDecel(double decel) {
+    if (myOriginalType != 0 && decel < 0) {
+        decel = myOriginalType->getCarFollowModel().getMaxDecel();
+    }
+    myCarFollowModel->setMaxDecel(decel);
+    myParameter.cfParameter[SUMO_ATTR_DECEL] = toString(decel);
+}
+
+void 
+MSVehicleType::setEmergencyDecel(double emergencyDecel) {
+    if (myOriginalType != 0 && emergencyDecel < 0) {
+        emergencyDecel = myOriginalType->getCarFollowModel().getEmergencyDecel();
+    }
+    myCarFollowModel->setEmergencyDecel(emergencyDecel);
+    myParameter.cfParameter[SUMO_ATTR_EMERGENCYDECEL] = toString(emergencyDecel);
+}
+
+void 
+MSVehicleType::setApparentDecel(double apparentDecel) {
+    if (myOriginalType != 0 && apparentDecel < 0) {
+        apparentDecel = myOriginalType->getCarFollowModel().getApparentDecel();
+    }
+    myCarFollowModel->setApparentDecel(apparentDecel);
+    myParameter.cfParameter[SUMO_ATTR_APPARENTDECEL] = toString(apparentDecel);
+}
+
+void 
+MSVehicleType::setImperfection(double imperfection) {
+    if (myOriginalType != 0 && imperfection < 0) {
+        imperfection = myOriginalType->getCarFollowModel().getImperfection();
+    }
+    myCarFollowModel->setImperfection(imperfection);
+    myParameter.cfParameter[SUMO_ATTR_SIGMA] = toString(imperfection);
+}
+
+void 
+MSVehicleType::setTau(double tau) {
+    if (myOriginalType != 0 && tau < 0) {
+        tau = myOriginalType->getCarFollowModel().getHeadwayTime();
+    }
+    myCarFollowModel->setHeadwayTime(tau);
+    myParameter.cfParameter[SUMO_ATTR_TAU] = toString(tau);
+}
+
 
 /****************************************************************************/
 

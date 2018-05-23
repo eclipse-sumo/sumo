@@ -64,7 +64,7 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibrato
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward) :
-    GNEChange(calibratorVehicleType->getCalibratorParent()->getViewNet()->getNet(), forward),
+    GNEChange(calibratorVehicleType->getNet(), forward),
     myCalibratorFlow(nullptr),
     myCalibratorRoute(nullptr),
     myCalibratorVehicleType(calibratorVehicleType) {
@@ -99,20 +99,8 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
             }
             delete myCalibratorRoute;
         }
-    } else if (myCalibratorVehicleType) {
-        myCalibratorVehicleType->decRef("GNEChange_CalibratorItem");
-        if (myCalibratorVehicleType->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator vehicle type");
-            }
-            // make sure that calibrator Vehicle Type isn't in net before removing
-            if (myNet->retrieveCalibratorVehicleType(myCalibratorVehicleType->getID(), false)) {
-                myNet->deleteCalibratorVehicleType(myCalibratorVehicleType);
-            }
-            delete myCalibratorVehicleType;
-        }
     }
+    // vehicle types can exist by themselves
 }
 
 
@@ -137,10 +125,9 @@ GNEChange_CalibratorItem::undo() {
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Removing calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
             }
-            // remove calibrator vehicle type of calibrator and net
-            myCalibratorVehicleType->getCalibratorParent()->removeCalibratorVehicleType(myCalibratorVehicleType);
+            // remove calibrator vehicle type 
             myNet->deleteCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
@@ -164,10 +151,9 @@ GNEChange_CalibratorItem::undo() {
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding calibrator vehicle type into calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Adding calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
             }
-            // add calibrator vehicle type into calibrator and net
-            myCalibratorVehicleType->getCalibratorParent()->addCalibratorVehicleType(myCalibratorVehicleType);
+            // add calibrator vehicle type
             myNet->insertCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
@@ -199,10 +185,9 @@ GNEChange_CalibratorItem::redo() {
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding calibrator vehicle type into calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Adding calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
             }
-            // add calibrator vehicle type into calibrator and net
-            myCalibratorVehicleType->getCalibratorParent()->addCalibratorVehicleType(myCalibratorVehicleType);
+            // add calibrator vehicle type
             myNet->insertCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");
@@ -226,10 +211,9 @@ GNEChange_CalibratorItem::redo() {
         } else if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing calibrator vehicle type of calibrator '" + myCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+                WRITE_WARNING("Removing calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
             }
-            // remove calibrator vehicle type of calibrator and net
-            myCalibratorVehicleType->getCalibratorParent()->removeCalibratorVehicleType(myCalibratorVehicleType);
+            // remove calibrator vehicle type
             myNet->deleteCalibratorVehicleType(myCalibratorVehicleType);
         } else {
             throw ProcessError("There isn't a defined Calibrator item");

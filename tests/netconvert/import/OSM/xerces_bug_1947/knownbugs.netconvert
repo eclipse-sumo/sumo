@@ -1,0 +1,7 @@
+
+[Reported by behr_mi at 26Feb10:06:07]
+search_string:line/column
+search_file:errors
+ignore_other_errors:1
+bug_system:trac
+bug_id:1636

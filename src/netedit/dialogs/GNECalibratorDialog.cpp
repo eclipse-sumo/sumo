@@ -241,9 +241,9 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is CalibratorRoutes and Calibrator vehicle types
-    if ((myEditedCalibrator->getCalibratorRoutes().size() > 0) && (myEditedCalibrator->getCalibratorVehicleTypes().size() > 0)) {
+    if (myEditedCalibrator->getCalibratorRoutes().size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
-        GNECalibratorFlowDialog(new GNECalibratorFlow(this), false);
+        GNECalibratorFlowDialog(new GNECalibratorFlow(this, myEditedCalibrator->getViewNet()->getNet()), false);
         // update flows table
         updateFlowTable();
         return 1;
@@ -279,7 +279,7 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
-    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(this), false);
+    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(myEditedCalibrator->getViewNet()->getNet()), myEditedCalibrator, false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;
@@ -289,7 +289,8 @@ GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedCalibrator->getCalibratorVehicleTypes().size(); i++) {
+    std::vector<GNECalibratorVehicleType*> vehicleTypes = myEditedCalibrator->getViewNet()->getNet()->getCalibratorVehicleTypes();
+    for (int i = 0; i < (int)vehicleTypes.size(); i++) {
         if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNECalibratorFlow*> calibratorFlowsToErase;
@@ -301,7 +302,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
-                                                       ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() +
+                                                       ("Deletion of type '" + vehicleTypes[i]->getID() +
                                                         "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) +
                                                         ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
@@ -323,7 +324,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                         myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
                     }
                     // remove vehicle type of calibrator vehicle types
-                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorVehicleTypes().at(i), false), true);
+                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(vehicleTypes.at(i), false), true);
                     // update flows and vehicle types table
                     updateFlowTable();
                     updateVehicleTypeTable();
@@ -331,14 +332,14 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 }
             } else {
                 // remove vehicle type of calibrator vehicle types
-                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorVehicleTypes().at(i), false), true);
+                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(vehicleTypes.at(i), false), true);
                 // update vehicle types table
                 updateVehicleTypeTable();
                 return 1;
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
             // modify vehicle type of calibratorVehicleTypes
-            GNECalibratorVehicleTypeDialog(myEditedCalibrator->getCalibratorVehicleTypes().at(i), true);
+            GNECalibratorVehicleTypeDialog(vehicleTypes.at(i), myEditedCalibrator, true);
             // update vehicle types table
             updateVehicleTypeTable();
             return 1;
@@ -437,7 +438,8 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     // clear table
     myVehicleTypeList->clearItems();
     // set number of rows
-    myVehicleTypeList->setTableSize(int(myEditedCalibrator->getCalibratorVehicleTypes().size()), 3);
+    std::vector<GNECalibratorVehicleType*> vehicleTypes = myEditedCalibrator->getViewNet()->getNet()->getCalibratorVehicleTypes();
+    myVehicleTypeList->setTableSize(int(vehicleTypes.size()), 3);
     // Configure list
     myVehicleTypeList->setVisibleColumns(4);
     myVehicleTypeList->setColumnWidth(0, 136);
@@ -451,7 +453,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over vehicle types
-    for (auto i : myEditedCalibrator->getCalibratorVehicleTypes()) {
+    for (auto i : vehicleTypes) {
         // Set id
         item = new FXTableItem(i->getID().c_str());
         myVehicleTypeList->setItem(indexRow, 0, item);
@@ -472,17 +474,11 @@ GNECalibratorDialog::updateVehicleTypeTable() {
 
 void
 GNECalibratorDialog::updateFlowAndLabelButton() {
-    // Enable or disable AddFlow button and flow list depending of currently there are routes and vehicle types defined
-    std::string errorMsg;
-    if (myEditedCalibrator->getCalibratorRoutes().empty() && myEditedCalibrator->getCalibratorVehicleTypes().empty()) {
-        errorMsg = " and ";
-    }
-    if (myEditedCalibrator->getCalibratorRoutes().size() == 0 || myEditedCalibrator->getCalibratorVehicleTypes().size() == 0) {
+    // disable AddFlow button if no route is defined
+    if (myEditedCalibrator->getCalibratorRoutes().size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
-        std::string errorMessage = "No " + (myEditedCalibrator->getCalibratorRoutes().empty() ? (toString(SUMO_TAG_ROUTE) + "s") : ("")) + errorMsg +
-                                   (myEditedCalibrator->getCalibratorVehicleTypes().empty() ? (toString(SUMO_TAG_VTYPE) + "s") : ("")) + " defined";
-        myLabelFlow->setText(errorMessage.c_str());
+        myLabelFlow->setText("No routes defined");
     } else {
         myAddFlow->enable();
         myFlowList->enable();

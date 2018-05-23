@@ -79,6 +79,13 @@ public:
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
     /// @}
+    //
+    /** @brief Called when a closing tag occurs
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
 
     /// @name parsing methods
     ///
@@ -136,6 +143,12 @@ public:
     */
     void parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses his values and builds a parkingAreaReroute
+    * @param[in] attrs SAX-attributes which define the trigger
+    * @param[in] tag of the additional
+    */
+    void parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds a Route Prob Reroute
     * @param[in] attrs SAX-attributes which define the trigger
     * @param[in] tag of the additional
@@ -147,6 +160,12 @@ public:
      * @param[in] tag of the additional
      */
     void parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
+    /**@brief Parses values and adds access to the current bus stop
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] tag of the additional
+     */
+    void parseAndBuildAccess(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag); 
 
     /**@brief Parses his values and builds a container stop
      * @param[in] attrs SAX-attributes which define the trigger
@@ -461,11 +480,11 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, GNECalibratorRoute* route,
-                                    GNECalibratorVehicleType* vtype, const RGBColor& color, const std::string& departLane, const std::string& departPos,
+    static bool buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, GNECalibratorRoute* route, GNECalibratorVehicleType* vtype, 
+                                    double vehsPerHour, double speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
                                     const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
                                     const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
-                                    const std::string& arrivalPosLat, double begin, double end, double vehsPerHour, double period, double probability, int number, int flowType);
+                                    const std::string& arrivalPosLat, double begin, double end);
 
     /**@brief builds a rerouter
      * @param[in] viewNet viewNet in which element will be inserted
@@ -505,6 +524,7 @@ public:
     */
     static bool builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
 
+    static bool builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkignArea, double probability);
     /**
     DOCUMENTAR
     */
@@ -609,11 +629,11 @@ protected:
     bool myUndoAdditionals;
 
     /// @brief ID of last inserted Additional parent (needed for additionals that own a child)
+    // XXX remove this and use myParentElements instead because it allows direct access to the parent element instead of the previously parsed sibling element
     std::string myLastInsertedAdditionalParent;
 
-private:
-    /// @brief get a error message, if configuration of flow distribution is invalid
-    int getTypeOfFlowDistribution(std::string flowID, double vehsPerHour, double period, double probability);
+    /// @brief The element stack
+    std::vector<std::pair<SumoXMLTag, std::string> > myParentElements;
 };
 
 

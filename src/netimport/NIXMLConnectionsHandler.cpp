@@ -371,6 +371,10 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     if (discard) {
         node->removeCrossing(edges);
     } else {
+        if (node->checkCrossingDuplicated(edges)) {
+            WRITE_ERROR("Crossing with edges '" + toString(edges) + "' already exists at node '" + node->getID() + "'.");
+            return;
+        }
         node->addCrossing(edges, width, priority, tlIndex, tlIndex2, customShape);
     }
 }

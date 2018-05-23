@@ -158,6 +158,10 @@ public:
      */
     bool isStopped() const;
 
+    /// @brief Returns the remaining stop duration for a stopped vehicle or 0
+    SUMOTime remainingStopDuration() const {
+        return 0;
+    }
 
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
@@ -168,11 +172,12 @@ public:
      */
     bool isStoppedInRange(double pos) const;
 
-    /** @brief Returns how long to stop at the given segment
+    /** @brief Returns until when to stop at the given segment
      * @param[in] seg The segment in question
+     * @param[in] time the current time
      * @return stop time for the segment
      */
-    SUMOTime getStoptime(const MESegment* const seg) const;
+    SUMOTime getStoptime(const MESegment* const seg, SUMOTime time) const;
 
 
     /** @brief Returns the list of still pending stop edges
@@ -357,7 +362,10 @@ protected:
     SUMOTime myBlockTime;
 
     /// @brief where to stop
-    std::map<const MESegment* const, SUMOTime> myStops;
+    std::map<const MESegment* const, std::vector<SUMOVehicleParameter::Stop> > myStops;
+
+    /// @brief edges to stop
+    ConstMSEdgeVector myStopEdges;
 
 };
 

@@ -424,8 +424,49 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
     // copy current row
     const bool fixed = myEditedDef->getType() == TLTYPE_STATIC;
-    const SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
-    const std::string state = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixed ? 1 : 3).text();
+    SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
+    std::string state = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixed ? 1 : 3).text();
+
+    // smart adapations for new state
+    bool haveGreen = false;
+    bool haveYellow = false;
+    for (char c : state) {
+        if (c == LINKSTATE_TL_GREEN_MAJOR || c == LINKSTATE_TL_GREEN_MINOR) {
+            haveGreen = true;
+        } else if (c == LINKSTATE_TL_YELLOW_MAJOR || c == LINKSTATE_TL_YELLOW_MINOR) {
+            haveYellow = true;
+        }
+    }
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (haveGreen && haveYellow) {
+        // guess left-mover state
+        duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
+                state[i] = LINKSTATE_TL_RED;
+            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                state[i] = LINKSTATE_TL_GREEN_MAJOR;
+            }
+        }
+    } else if (haveGreen) {
+        // guess yellow state
+        myEditedDef->setParticipantsInformation();
+        duration = TIME2STEPS(myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                state[i] = LINKSTATE_TL_YELLOW_MINOR;
+            }
+        }
+    } else if (haveYellow) {
+        duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
+        // guess all-red state
+        for (int i = 0; i < (int)state.size(); i++) {
+            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
+                state[i] = LINKSTATE_TL_RED;
+            }
+        }
+    }
+    
     myEditedDef->getLogic()->addStep(duration, state, newIndex);
     myTLSPhases->getPhaseTable()->setCurrentItem(newIndex, 0);
     myTLSPhases->initPhaseTable(newIndex);
@@ -902,7 +943,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myCycleDuration = new FXLabel(this, "", 0, GUIDesignLabelLeft);
 
     // create new phase button
-    myInsertDuplicateButton = new FXButton(this, "Copy Phase\t\tInsert duplicate phase after selected phase", 0, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
+    myInsertDuplicateButton = new FXButton(this, "Insert Phase\t\tInsert new phase after the selected phase. The new state is deduced from the selected phase.", 0, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_CREATE, GUIDesignButton);
 
     // create delete phase button
     myDeleteSelectedPhaseButton = new FXButton(this, "Delete Phase\t\tDelete selected phase", 0, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_DELETE, GUIDesignButton);

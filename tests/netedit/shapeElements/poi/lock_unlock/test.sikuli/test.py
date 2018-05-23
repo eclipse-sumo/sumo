@@ -68,10 +68,10 @@ netedit.modifyBoolAttribute(14)
 netedit.moveMode()
 
 # try to move first POI to left down
-netedit.moveElement(match, -80, 55, 200, 60)
+netedit.moveElement(match, -78, 50, 200, 60)
 
 # try to move second POI to left up
-netedit.moveElement(match, -80, 400, 200, 300)
+netedit.moveElement(match, -78, 385, 200, 300)
 
 # go to inspect mode again
 netedit.inspectMode()
@@ -92,14 +92,14 @@ netedit.modifyBoolAttribute(14)
 netedit.moveMode()
 
 # move first POI to left down
-netedit.moveElement(match, -80, 55, 200, 60)
+netedit.moveElement(match, -78, 50, 200, 60)
 
 # move second POI to left up
-netedit.moveElement(match, -80, 400, 200, 300)
+netedit.moveElement(match, -78, 385, 200, 300)
 
 # Check undo redo
-netedit.undo(match, 2)
-netedit.redo(match, 2)
+netedit.undo(match, 4)
+netedit.redo(match, 4)
 
 # save shapes
 netedit.saveShapes()

@@ -497,7 +497,7 @@ Option_IntVector::set(const std::string& v) {
         }
         return markSet();
     } catch (EmptyData&) {
-        throw ProcessError("Empty element occured in " + v);
+        throw ProcessError("Empty element occurred in " + v);
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid integer vector.");
     }

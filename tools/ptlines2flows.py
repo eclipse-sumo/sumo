@@ -112,6 +112,10 @@ def createTrips(options):
             departTimes = sorted([options.begin + int(random.random() * options.period) for t in departTimes])
 
         lineCount = collections.defaultdict(int)
+        typeCount = collections.defaultdict(int)
+        numLines = 0
+        numStops = 0
+        numSkipped = 0
         for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine')):
             stop_ids = []
             for stop in line.busStop:
@@ -132,10 +136,12 @@ def createTrips(options):
             if options.types is not None and not line.type in options.types:
                 if options.verbose:
                     print("Skipping line '%s' because it has type '%s'\n" % (line.id, line.type))
+                numSkipped += 1
                 continue
 
             if len(stop_ids) < options.min_stops:
                 sys.stderr.write("Warning: skipping line '%s' because it has too few stops\n" % line.id)
+                numSkipped += 1
                 continue
 
             lineRefOrig = line.line.replace(" ", "_")
@@ -155,6 +161,7 @@ def createTrips(options):
             else:
                 if len(stop_ids) == 0:
                     sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+                    numSkipped += 1
                     continue
                 fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
                 to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
@@ -166,7 +173,14 @@ def createTrips(options):
             for stop in stop_ids:
                 fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopduration))
             fouttrips.write('    </trip>\n')
+            typeCount[line.type] += 1
+            numLines += 1
+            numStops += len(stop_ids)
         fouttrips.write("</routes>\n")
+    if options.verbose:
+        print("Imported %s lines with %s stops and skipped %s lines" % (numLines, numStops, numSkipped))
+        for lineType, count in typeCount.items():
+            print("   %s: %s" % (lineType, count))
     print("done.")
     return trpMap, stopNames
 
@@ -181,6 +195,7 @@ def runSimulation(options):
                      "--ignore-route-errors",
                      "--error-log", options.trips + ".errorlog",
                      "-a", options.ptstops,
+                     "--device.rerouting.adaptation-interval", "0", # ignore tls and traffic effects
                      "--vehroute-output", options.routes,
                      "--stop-output", options.stopinfos, ])
     print("done.")

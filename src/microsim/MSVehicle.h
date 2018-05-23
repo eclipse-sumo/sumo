@@ -19,7 +19,7 @@
 /// @author  Axel Wegener
 /// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: MSVehicle.h v0_32_0+0153-b898c05d6a oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // Representation of a vehicle in the micro simulation
 /****************************************************************************/
@@ -67,11 +67,11 @@ class MSDevice;
 class MSEdgeWeightsStorage;
 class OutputDevice;
 class Position;
-class MSDevice_Transportable;
 class MSContainer;
 class MSJunction;
 class MSLeaderInfo;
-class MSDriverState;
+//class MSDriverState;
+class MSSimpleDriverState;
 
 // ===========================================================================
 // class definitions
@@ -156,7 +156,7 @@ public:
         /// the distance covered in the last timestep
         /// NOTE: In case of ballistic positional update, this is not necessarily given by
         ///       myPos - SPEED2DIST(mySpeed + myPreviousSpeed)/2,
-        /// because a stop may have occured within the last step.
+        /// because a stop may have occurred within the last step.
         double myLastCoveredDist;
 
     };
@@ -774,6 +774,14 @@ public:
      */
     void updateDriveItems();
 
+    /** @brief Get the distance and direction of the next upcoming turn for the vehicle (within its look-ahead range)
+     *  @return The first entry of the returned pair is the distance for the upcoming turn, the second is the link direction
+     */
+    const std::pair<double, LinkDirection>& getNextTurn() {
+        return myNextTurn;
+    }
+
+
     MSAbstractLaneChangeModel& getLaneChangeModel();
     const MSAbstractLaneChangeModel& getLaneChangeModel() const;
 
@@ -889,7 +897,8 @@ public:
      *
      * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
      */
-    inline const std::shared_ptr<MSDriverState> getDriverState() const {
+//    inline const std::shared_ptr<MSDriverState> getDriverState() const {
+    inline const std::shared_ptr<MSSimpleDriverState> getDriverState() const {
         return myDriverState;
     }
 
@@ -972,6 +981,9 @@ public:
      */
     bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
 
+    /** @brief Create a DriverState for the vehicle
+     */
+    void createDriverState();
 
     /** @brief get the current parking area stop
      */
@@ -988,6 +1000,9 @@ public:
      * @return Whether the vehicle has stopped
      */
     bool isStopped() const;
+
+    /// @brief Returns the remaining stop duration for a stopped vehicle or 0
+    SUMOTime remainingStopDuration() const; 
 
     /** @brief Returns whether the vehicle will stop on the current edge
      */
@@ -1698,7 +1713,8 @@ protected:
     State myState;
 
     /// @brief This vehicle's driver state @see MSDriverState
-    std::shared_ptr<MSDriverState> myDriverState;
+//    std::shared_ptr<MSDriverState> myDriverState;
+    std::shared_ptr<MSSimpleDriverState> myDriverState;
 
     /// @brief The flag myActionStep indicates whether the current time step is an action point for the vehicle.
     bool myActionStep;
@@ -1723,7 +1739,7 @@ protected:
      */
     std::vector<std::vector<LaneQ> > myBestLanes;
 
-    /* @brief iterator to speed up retrival of the current lane's LaneQ in getBestLaneOffset() and getBestLanesContinuation()
+    /* @brief iterator to speed up retrieval of the current lane's LaneQ in getBestLaneOffset() and getBestLanesContinuation()
      * This is updated in updateOccupancyAndCurrentBestLane()
      */
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
@@ -1734,14 +1750,12 @@ protected:
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
 
-    /// @brief The passengers this vehicle may have
-    MSDevice_Transportable* myPersonDevice;
-
-    /// @brief The containers this vehicle may have
-    MSDevice_Transportable* myContainerDevice;
-
     /// @brief The current acceleration after dawdling in m/s
     double myAcceleration;
+
+    /// @brief the upcoming turn for the vehicle
+    /// @todo calculate during plan move
+    std::pair<double, LinkDirection> myNextTurn;
 
     /// @brief The information into which lanes the vehicle laps into
     std::vector<MSLane*> myFurtherLanes;
@@ -1842,7 +1856,7 @@ protected:
     DriveItemVector::iterator myNextDriveItem;
 
     /// @todo: documentation
-    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist) const;
+    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const;
 
     /// @todo: documentation
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;

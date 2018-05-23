@@ -153,11 +153,20 @@ GNEInspectorFrame::hide() {
 void
 GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
-    std::vector<GNEAttributeCarrier*> itemToInspect;
+    std::vector<GNEAttributeCarrier*> itemsToInspect;
     if (AC != nullptr) {
-        itemToInspect.push_back(AC);
+        if(AC->isAttributeCarrierSelected()) {
+            std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers();
+            for (auto i : selectedACs) {
+                if (i->getTag() == AC->getTag()) {
+                    itemsToInspect.push_back(i);
+                }
+            }
+        } else {
+            itemsToInspect.push_back(AC);
+        }
     }
-    inspectMultisection(itemToInspect);
+    inspectMultisection(itemsToInspect);
 }
 
 
@@ -215,19 +224,6 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         getFrameHeaderLabel()->setText("Inspect");
         myContentFrame->recalc();
     }
-}
-
-
-void 
-GNEInspectorFrame::inspectMultisection(const std::set<GNEAttributeCarrier*>& ACs) {
-    std::vector<GNEAttributeCarrier*>ACsVector;
-    // resize to improve efficiency
-    ACsVector.reserve(ACs.size());
-    for (auto i : ACs) {
-        ACsVector.push_back(i);
-    }
-    // inspect ACsVector
-    inspectMultisection(ACsVector);
 }
 
 

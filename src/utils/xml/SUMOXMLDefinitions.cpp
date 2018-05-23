@@ -343,6 +343,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcImpatience",           SUMO_ATTR_LCA_IMPATIENCE },
     { "lcTimeToImpatience",     SUMO_ATTR_LCA_TIME_TO_IMPATIENCE },
     { "lcAccelLat",             SUMO_ATTR_LCA_ACCEL_LAT },
+    { "lcTurnAlignmentDistance",SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE },
     { "lcLookaheadLeft",        SUMO_ATTR_LCA_LOOKAHEADLEFT },
     { "lcSpeedGainRight",       SUMO_ATTR_LCA_SPEEDGAINRIGHT },
     { "lcMaxSpeedLatStanding",  SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },

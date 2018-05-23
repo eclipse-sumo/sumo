@@ -1,7 +1,6 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry2' in GNEChange_Additional
@@ -16,6 +15,7 @@ Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Additionals saved
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry7'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry6'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry5'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry4'
@@ -26,6 +26,8 @@ Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -57,6 +59,5 @@ Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry4' in GNENet destru
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry5' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry6' in GNENet destructor
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry7' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

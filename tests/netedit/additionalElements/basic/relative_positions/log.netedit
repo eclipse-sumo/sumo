@@ -1,7 +1,6 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
@@ -14,8 +13,9 @@ Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Format of optional string attribute 'lanes' of variableSpeedSign with ID 'variableSpeedSign_0' is invalid; Default value '' will be used.
 Warning: Setting new attribute length '25' into edge 'gneE1'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute length '25' into edge 'gneE0'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
@@ -23,6 +23,7 @@ Warning: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
 Warning: Additionals saved
 Warning: Deleting unreferenced vaporizer 'vaporizer_0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Warning: Deleting unreferenced rerouter 'rerouter_0'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
@@ -47,6 +48,5 @@ Warning: Deleting unreferenced lane 'gneE1_2' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_2togneE0_2' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

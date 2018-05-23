@@ -49,8 +49,10 @@
 #include "MSPModel.h"
 
 // ===========================================================================
-// method definitions
+// static value definitions
 // ===========================================================================
+DummyState MSPerson::myDummyState;
+
 /* -------------------------------------------------------------------------
  * MSPerson::MSPersonStage_Walking - methods
  * ----------------------------------------------------------------------- */
@@ -69,7 +71,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
     myDepartPos(departPos),
     myDepartPosLat(departPosLat),
     mySpeed(speed),
-    myPedestrianState(0) {
+    myPedestrianState(&myDummyState) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                   "person '" + personID + "' walking from " + route.front()->getID());
     if (walkingTime > 0) {
@@ -79,7 +81,9 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
 
 
 MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
-    delete myPedestrianState;
+    if (myPedestrianState != &myDummyState) {
+        delete myPedestrianState;
+    }
 }
 
 
@@ -410,7 +414,11 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportabl
 
 void
 MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
-    os.openTag("ride").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
+    os.openTag("ride");
+    if (getFromEdge() != nullptr) {
+        os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
+    }
+    os.writeAttr(SUMO_ATTR_TO, getDestination().getID());
     std::string comment = "";
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
@@ -518,7 +526,7 @@ void
 MSPerson::routeOutput(OutputDevice& os) const {
     const std::string typeID = getVehicleType().getID() != DEFAULT_PEDTYPE_ID ? getVehicleType().getID() : "";
     myParameter->write(os, OptionsCont::getOptions(), SUMO_TAG_PERSON, typeID);
-    if (myStep == myPlan->end()) {
+    if (hasArrived()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
     for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {

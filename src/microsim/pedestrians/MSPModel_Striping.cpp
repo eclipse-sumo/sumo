@@ -896,12 +896,22 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWithNeigh=";
             DEBUG_PRINT(currentObs);
         }
+        // time gap to pass the intersection ahead of a vehicle.
+        const double passingClearanceTime = 2;
+        const double passingLength = p.getLength() + passingClearanceTime * speed;
         // check link state
-        gDebugFlag1 = DEBUGCOND(p); // see MSLink_DEBUG_OPENED
+        if DEBUGCOND(p) {
+            gDebugFlag1 = true;
+            std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID()) 
+                << " dist=" << dist << " d2=" << dist -p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR * speed 
+                << " opened=" << link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link)) << "\n";
+            gDebugFlag1 = false;
+        }
         if (link != 0
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
-                && !link->opened(currentTime, speed, speed, p.getLength(), p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link))) {
+                // persons move before vehicles so we subtract DELTA_TO because they cannot rely on vehicles having passed the intersection in the current time step
+                && !link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, 0, p.ignoreRed(link))) {
             // prevent movement passed a closed link
             Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
             p.mergeObstacles(currentObs, closedLink);
@@ -915,7 +925,6 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
             }
         }
-        gDebugFlag1 = false;
         if (&lane->getEdge() == &p.myStage->getDestination() && p.myStage->getDestinationStop() != 0) {
             Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival", 0));
             p.mergeObstacles(currentObs, arrival);
@@ -1718,7 +1727,13 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
         if (gDebugFlag1) {
             std::cout << "     i=" << i << " intoDist=" << distanceTo(into[i]) << " obs2Dist=" << distanceTo(obs2[i]) << "\n";
         }
-        if (distanceTo(obs2[i]) < distanceTo(into[i])) {
+        const double dO = distanceTo(obs2[i]);
+        const double dI = distanceTo(into[i]);
+        if (dO < dI) {
+            into[i] = obs2[i];
+        } else if (dO == dI && (
+                    obs2[i].type == OBSTACLE_PED ||
+                    obs2[i].type == OBSTACLE_VEHICLE)) {
             into[i] = obs2[i];
         }
     }

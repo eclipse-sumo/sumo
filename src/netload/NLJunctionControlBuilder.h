@@ -83,7 +83,7 @@ public:
     /** @brief Destructor
      *
      * Deletes previously allocated "myLogicControl" and "myJunctions" if
-     *  they were not previously returned (this may happen if an error occured).
+     *  they were not previously returned (this may happen if an error occurred).
      */
     virtual ~NLJunctionControlBuilder();
 

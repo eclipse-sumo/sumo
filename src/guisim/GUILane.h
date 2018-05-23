@@ -297,13 +297,13 @@ private:
     double getScaleValue(int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
-    bool setFunctionalColor(int activeScheme) const;
+    bool setFunctionalColor(int activeScheme, RGBColor& col) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
-    bool setMultiColor(const GUIColorer& c) const;
+    bool setMultiColor(const GUIColorer& c, RGBColor& col) const;
 
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;

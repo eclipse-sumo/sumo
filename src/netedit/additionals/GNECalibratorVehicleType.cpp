@@ -54,10 +54,10 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibratorDialog* calibratorDialog) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNENet* net, const std::string& id) :
     GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myVehicleTypeID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorVehicleTypeID()),
+    myNet(net),
+    myVehicleTypeID(id == "" ? net->generateCalibratorVehicleTypeID() : id),
     myAccel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_ACCEL)),
     myDecel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_DECEL)),
     mySigma(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_SIGMA)),
@@ -86,14 +86,14 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibratorDialog* calibrat
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNECalibrator* calibratorParent, std::string vehicleTypeID,
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNENet* net, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
     GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
-    myCalibratorParent(calibratorParent),
+    myNet(net),
     myVehicleTypeID(vehicleTypeID),
     myAccel(accel),
     myDecel(decel),
@@ -131,76 +131,76 @@ GNECalibratorVehicleType::writeVehicleType(OutputDevice& device) {
     // Open vehicle type tag
     device.openTag(getTag());
     // write id
-    device.writeAttr(SUMO_ATTR_ID, myVehicleTypeID);
+    writeAttribute(device, SUMO_ATTR_ID);
     //write accel
-    device.writeAttr(SUMO_ATTR_ACCEL, myAccel);
+    writeAttribute(device, SUMO_ATTR_ACCEL);
     // write decel
-    device.writeAttr(SUMO_ATTR_DECEL, myDecel);
+    writeAttribute(device, SUMO_ATTR_DECEL);
     // write sigma
-    device.writeAttr(SUMO_ATTR_SIGMA, mySigma);
+    writeAttribute(device, SUMO_ATTR_SIGMA);
     // write tau
-    device.writeAttr(SUMO_ATTR_TAU, myTau);
+    writeAttribute(device, SUMO_ATTR_TAU);
     // write lenght
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    writeAttribute(device, SUMO_ATTR_LENGTH);
     // write min gap
-    device.writeAttr(SUMO_ATTR_MINGAP, myMinGap);
+    writeAttribute(device, SUMO_ATTR_MINGAP);
     // write max speed
-    device.writeAttr(SUMO_ATTR_MAXSPEED, myMaxSpeed);
+    writeAttribute(device, SUMO_ATTR_MAXSPEED);
     // write speed factor
-    device.writeAttr(SUMO_ATTR_SPEEDFACTOR, mySpeedFactor);
+    writeAttribute(device, SUMO_ATTR_SPEEDFACTOR);
     // write speed dev
-    device.writeAttr(SUMO_ATTR_SPEEDDEV, mySpeedDev);
+    writeAttribute(device, SUMO_ATTR_SPEEDDEV);
     // write color
-    device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    writeAttribute(device, SUMO_ATTR_COLOR);
     // write vehicle class
-    device.writeAttr(SUMO_ATTR_VCLASS, myVClass);
+    writeAttribute(device, SUMO_ATTR_VCLASS);
     // write emission class
-    device.writeAttr(SUMO_ATTR_EMISSIONCLASS, myEmissionClass);
+    writeAttribute(device, SUMO_ATTR_EMISSIONCLASS);
     // write shape
-    device.writeAttr(SUMO_ATTR_GUISHAPE, myShape);
+    writeAttribute(device, SUMO_ATTR_GUISHAPE);
     // write width
-    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    writeAttribute(device, SUMO_ATTR_WIDTH);
     // write filename
-    device.writeAttr(SUMO_ATTR_IMGFILE, myFilename);
+    writeAttribute(device, SUMO_ATTR_IMGFILE);
     // write impatience
-    device.writeAttr(SUMO_ATTR_IMPATIENCE, myImpatience);
+    writeAttribute(device, SUMO_ATTR_IMPATIENCE);
     // write lane change model
-    device.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, myLaneChangeModel);
+    writeAttribute(device, SUMO_ATTR_LANE_CHANGE_MODEL);
     // write car follow model
-    device.writeAttr(SUMO_ATTR_CAR_FOLLOW_MODEL, myCarFollowModel);
+    writeAttribute(device, SUMO_ATTR_CAR_FOLLOW_MODEL);
     // write person capacity
-    device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
+    writeAttribute(device, SUMO_ATTR_PERSON_CAPACITY);
     // write container capacity
-    device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, myContainerCapacity);
+    writeAttribute(device, SUMO_ATTR_CONTAINER_CAPACITY);
     // write boarding duration
-    device.writeAttr(SUMO_ATTR_BOARDING_DURATION, myBoardingDuration);
+    writeAttribute(device, SUMO_ATTR_BOARDING_DURATION);
     // write loading duration
-    device.writeAttr(SUMO_ATTR_LOADING_DURATION, myLoadingDuration);
+    writeAttribute(device, SUMO_ATTR_LOADING_DURATION);
     // write get lat alignment
-    device.writeAttr(SUMO_ATTR_LATALIGNMENT, myLatAlignment);
+    writeAttribute(device, SUMO_ATTR_LATALIGNMENT);
     // write min gap lat
-    device.writeAttr(SUMO_ATTR_MINGAP_LAT, myMinGapLat);
+    writeAttribute(device, SUMO_ATTR_MINGAP_LAT);
     // write max speed lat
-    device.writeAttr(SUMO_ATTR_MAXSPEED_LAT, myMaxSpeedLat);
+    writeAttribute(device, SUMO_ATTR_MAXSPEED_LAT);
     // Close vehicle type tag
     device.closeTag();
 }
 
 
-GNECalibrator*
-GNECalibratorVehicleType::getCalibratorParent() const {
-    return myCalibratorParent;
+GNENet*
+GNECalibratorVehicleType::getNet() const {
+    return myNet;
 }
 
 
 void 
-GNECalibratorVehicleType::selectAttributeCarrier() {
+GNECalibratorVehicleType::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNECalibratorVehicleType::unselectAttributeCarrier() {
+GNECalibratorVehicleType::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 
@@ -317,7 +317,7 @@ bool
 GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) == nullptr);
+            return isValidID(value) && (myNet->retrieveCalibratorVehicleType(value, false) == nullptr);
         case SUMO_ATTR_ACCEL:
             return canParse<double>(value);
         case SUMO_ATTR_DECEL:
@@ -386,7 +386,7 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_ID: {
             std::string oldID = myVehicleTypeID;
             myVehicleTypeID = value;
-            myCalibratorParent->getViewNet()->getNet()->changeCalibratorVehicleTypeID(this, oldID);
+            myNet->changeCalibratorVehicleTypeID(this, oldID);
             break;
         }
         case SUMO_ATTR_ACCEL:

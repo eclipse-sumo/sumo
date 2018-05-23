@@ -62,8 +62,7 @@ netedit.modifyAttribute(10, "authority  army, passenger; taxi. tram")
 netedit.modifyAttribute(10, "")
 
 # Change parameter 10 with a valid value (empty)
-netedit.modifyAttribute(
-    10, "emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1")
+netedit.modifyAttribute(10, "emergency authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1")
 
 # Change parameter 11 with an non valid value (dummy)
 netedit.modifyAttribute(11, "dummyShape")
@@ -74,11 +73,17 @@ netedit.modifyAttribute(11, "")
 # recompute
 netedit.rebuildNetwork()
 
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 180)
+
 # Change parameter 11 with a valid value
 netedit.modifyAttribute(11, "13.112,16.22 34.19,16.11")
 
 # recompute
 netedit.rebuildNetwork()
+
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 200)
 
 # Change parameter 12 with a non valid value (dummy)
 netedit.modifyAttribute(12, "dummyLegth")
@@ -94,6 +99,9 @@ netedit.modifyAttribute(12, "40")
 
 # recompute
 netedit.rebuildNetwork()
+
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 200)
 
 # Change parameter 13 with a non valid value (dummy)
 netedit.modifyAttribute(13, "dummySpread")
@@ -124,6 +132,9 @@ netedit.modifyAttribute(16, "4")
 
 # recompute
 netedit.rebuildNetwork()
+
+# inspect edge again after recomputing
+netedit.leftClick(match, 250, 200)
 
 # Change parameter 17 with a non valid value (dummy)
 netedit.modifyAttribute(17, "dummyEndOffset")

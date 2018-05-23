@@ -77,6 +77,7 @@ const std::string GNEAttributeCarrier::APPROVED = "approved";
 const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
 #define NODEFAULTVALUE "<NODEFAULTVALUE>"
+#define OPTIONALATTRIBUTE "-1"
 
 // ===========================================================================
 // method definitions
@@ -84,7 +85,9 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
 GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag, GUIIcon icon) :
     myTag(tag),
-    myIcon(icon) {
+    myIcon(icon),
+    mySelected(false)
+{
 }
 
 
@@ -337,7 +340,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RADIUS, "1.5"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_KEEP_CLEAR, "true"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_KEEP_CLEAR, "1"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLTYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLID, ""));
                 break;
@@ -349,7 +352,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 //attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PREFER, ));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "default"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDOFFSET, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ACCELERATION, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ACCELERATION, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CUSTOMSHAPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_INDEX, NODEFAULTVALUE));
                 break;
@@ -358,11 +361,11 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE)); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "3")); // needed to draw it over lane
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "4")); // needed to draw it over lane
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HEIGHT, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_POILANE:
@@ -372,28 +375,28 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION_LAT, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "red"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "3")); // needed to draw it over lane
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "4")); // needed to draw it over lane
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HEIGHT, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_POLY:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SHAPE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "green"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILL, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LAYER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_RELATIVEPATH, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_CROSSING:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PRIORITY, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PRIORITY, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, toString(OptionsCont::getOptions().getFloat("default.crossing-width"))));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLLINKINDEX, "-1"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLLINKINDEX2, "-1"));
@@ -404,10 +407,10 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TO, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FROM_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TO_LANE, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PASS, "false"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_KEEP_CLEAR, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PASS, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_KEEP_CLEAR, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CONTPOS, toString(NBEdge::UNSPECIFIED_CONTPOS)));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_UNCONTROLLED, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_UNCONTROLLED, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VISIBILITY_DISTANCE, toString(NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE)));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TLLINKINDEX, "-1"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, toString(NBEdge::UNSPECIFIED_SPEED)));
@@ -419,8 +422,13 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NAME, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LINES, ""));
+                break;
+            case SUMO_TAG_ACCESS:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 break;
             case SUMO_TAG_CONTAINER_STOP:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -428,7 +436,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NAME, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LINES, ""));
                 break;
             case SUMO_TAG_CHARGING_STATION:
@@ -437,51 +445,51 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NAME, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CHARGINGPOWER, "22000"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CHARGINGPOWER, "22000.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EFFICIENCY, "0.95"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CHARGEINTRANSIT, "false"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CHARGEDELAY, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CHARGEINTRANSIT, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CHARGEDELAY, "0.00"));
                 break;
             case SUMO_TAG_E1DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VTYPES, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 break;
             case SUMO_TAG_E2DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "10"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "10.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CONT, "false"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CONT, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "1.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "1.39"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_JAM_DIST_THRESHOLD, "10"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_JAM_DIST_THRESHOLD, "10.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 break;
             case SUMO_TAG_E3DETECTOR:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0,0")); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "1.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, "1.39"));
                 break;
             case SUMO_TAG_DET_ENTRY:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 break;
             case SUMO_TAG_DET_EXIT:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 break;
             case SUMO_TAG_VSS:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -493,7 +501,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "1.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTEPROBE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_OUTPUT, ""));
                 break;
@@ -501,7 +509,7 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTEPROBE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_OUTPUT, ""));
                 break;
@@ -510,21 +518,21 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_POSITION, "0,0")); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_HALTING_TIME_THRESHOLD, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_OFF, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_OFF, "0"));
                 break;
             case SUMO_TAG_ROUTEPROBE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGE, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FREQUENCY, OPTIONALATTRIBUTE));                
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FILE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, "0"));
                 break;
             case SUMO_TAG_VAPORIZER:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGE, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTTIME, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "10"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "10.00"));
                 break;
             case SUMO_TAG_PARKING_AREA:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -532,31 +540,29 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_STARTPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ENDPOS, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROADSIDE_CAPACITY, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_FRIENDLY_POS, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NAME, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5.0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0.00"));
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_X, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Y, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_Z, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "3.2"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ANGLE, "0"));
                 break;
             case SUMO_TAG_FLOW:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TYPE, DEFAULT_VTYPE_ID));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ROUTE, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "black"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VEHSPERHOUR, OPTIONALATTRIBUTE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, OPTIONALATTRIBUTE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "yellow"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "100"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VEHSPERHOUR, "10"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PERIOD, "10"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_NUMBER, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "100.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTLANE, "first"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTPOS, "base"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTSPEED, "0"));
@@ -566,50 +572,50 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LINE, ""));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PERSON_NUMBER, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CONTAINER_NUMBER, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_REROUTE, "false"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_REROUTE, "0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DEPARTPOS_LAT, "center"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ARRIVALPOS_LAT, ""));
                 break;
             case SUMO_TAG_ROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EDGES, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "black"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "yellow"));
                 break;
             case SUMO_TAG_VTYPE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ACCEL, "2.6"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DECEL, "4.5"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SIGMA, "0.5"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TAU, "1.0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5.0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MINGAP, "2.5"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED, "70.0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEEDFACTOR, "1.0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEEDDEV, "0.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ACCEL, "2.60"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_DECEL, "4.50"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SIGMA, "0.50"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TAU, "1.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LENGTH, "5.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MINGAP, "2.50"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED, "70.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEEDFACTOR, "1.00"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEEDDEV, "0.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_COLOR, "1,1,0"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_VCLASS, "passenger"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_EMISSIONCLASS, "P_7_7"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_GUISHAPE, "passenger"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "2.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_WIDTH, "2.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMGFILE, ""));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMPATIENCE, "0.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_IMPATIENCE, "0.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LANE_CHANGE_MODEL, "LC2013"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CAR_FOLLOW_MODEL, "Krauss"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PERSON_CAPACITY, "4"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_CONTAINER_CAPACITY, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BOARDING_DURATION, "0.5"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LOADING_DURATION, "90.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BOARDING_DURATION, "0.50"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LOADING_DURATION, "90.00"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_LATALIGNMENT, "center"));
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MINGAP_LAT, "0.12"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED_LAT, "1.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_MAXSPEED_LAT, "1.00"));
                 break;
             case SUMO_TAG_STEP:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_TIME, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, "50.0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_SPEED, "50.00"));
                 break;
             case SUMO_TAG_INTERVAL:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_BEGIN, "0"));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "100"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_END, "100.00"));
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
@@ -623,11 +629,15 @@ GNEAttributeCarrier::allowedAttributes(SumoXMLTag tag) {
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
+                break;
+            case SUMO_TAG_PARKING_ZONE_REROUTE:
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
                 attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_ID, NODEFAULTVALUE));
-                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "0"));
+                attrs.push_back(std::pair<SumoXMLAttr, std::string>(SUMO_ATTR_PROB, "1.00"));
                 break;
             default:
                 // Throw exception if tag isn't defined
@@ -669,6 +679,7 @@ GNEAttributeCarrier::allowedAdditionalTags() {
     if (myAllowedAdditionalTags.empty()) {
         // Stopping Places
         myAllowedAdditionalTags.push_back(SUMO_TAG_BUS_STOP);
+        myAllowedAdditionalTags.push_back(SUMO_TAG_ACCESS);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myAllowedAdditionalTags.push_back(SUMO_TAG_CHARGING_STATION);
         myAllowedAdditionalTags.push_back(SUMO_TAG_PARKING_AREA);
@@ -708,6 +719,7 @@ GNEAttributeCarrier::canBlockMovement(SumoXMLTag tag) {
     // define on first access
     if (myBlockMovementTags.empty()) {
         myBlockMovementTags.push_back(SUMO_TAG_BUS_STOP);
+        myBlockMovementTags.push_back(SUMO_TAG_ACCESS);
         myBlockMovementTags.push_back(SUMO_TAG_CONTAINER_STOP);
         myBlockMovementTags.push_back(SUMO_TAG_CHARGING_STATION);
         myBlockMovementTags.push_back(SUMO_TAG_E1DETECTOR);
@@ -817,7 +829,6 @@ GNEAttributeCarrier::isInt(SumoXMLTag tag, SumoXMLAttr attr) {
         // flow
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
         myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_CONTAINER_NUMBER);
-        myNumericalIntAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_NUMBER);
         // vehicle type
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_PERSON_CAPACITY);
         myNumericalIntAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_CONTAINER_CAPACITY);
@@ -841,6 +852,8 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         // bus stop
         myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
         myNumericalFloatAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
+        // stop access
+        myNumericalFloatAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_POSITION);
         // charging station
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_STARTPOS);
         myNumericalFloatAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_ENDPOS);
@@ -900,8 +913,7 @@ GNEAttributeCarrier::isFloat(SumoXMLTag tag, SumoXMLAttr attr) {
         myNumericalFloatAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_IMPATIENCE);
         // flow
         myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_VEHSPERHOUR);
-        myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERIOD);
-        myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
+        myNumericalFloatAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_SPEED);
         // step
         myNumericalFloatAttrs[SUMO_TAG_STEP].insert(SUMO_ATTR_SPEED);
         // POLY
@@ -982,6 +994,8 @@ GNEAttributeCarrier::isBool(SumoXMLTag tag, SumoXMLAttr attr) {
         myBoolAttrs[SUMO_TAG_EDGE].insert(GNE_ATTR_BIDIR);
         // bus stop
         myBoolAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_FRIENDLY_POS);
+        // access
+        myBoolAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_FRIENDLY_POS);
         // container stop
         myBoolAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_FRIENDLY_POS);
         // charging station
@@ -1100,6 +1114,9 @@ GNEAttributeCarrier::isUnique(SumoXMLTag tag, SumoXMLAttr attr) {
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_STARTPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_ENDPOS);
             myUniqueAttrs[SUMO_TAG_BUS_STOP].insert(SUMO_ATTR_LANE);
+            // access
+            myUniqueAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_LANE);
+            myUniqueAttrs[SUMO_TAG_ACCESS].insert(SUMO_ATTR_POSITION);
             // container stop
             myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_STARTPOS);
             myUniqueAttrs[SUMO_TAG_CONTAINER_STOP].insert(SUMO_ATTR_ENDPOS);
@@ -1222,8 +1239,7 @@ GNEAttributeCarrier::isPositive(SumoXMLTag tag, SumoXMLAttr attr) {
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERSON_NUMBER);
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_CONTAINER_NUMBER);
         myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_VEHSPERHOUR);
-        myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PERIOD);
-        myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_NUMBER);
+        myPositiveAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_SPEED);
         // vehicle type
         myPositiveAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_ACCEL);
         myPositiveAttrs[SUMO_TAG_VTYPE].insert(SUMO_ATTR_DECEL);
@@ -1266,10 +1282,10 @@ GNEAttributeCarrier::isProbability(SumoXMLTag tag, SumoXMLAttr attr) {
         myProbabilityAttrs[SUMO_TAG_CHARGING_STATION].insert(SUMO_ATTR_EFFICIENCY);
         // rerouter
         myProbabilityAttrs[SUMO_TAG_REROUTER].insert(SUMO_ATTR_PROB);
-        // flow
-        myProbabilityAttrs[SUMO_TAG_FLOW].insert(SUMO_ATTR_PROB);
         // destiny probability reroute
         myProbabilityAttrs[SUMO_TAG_DEST_PROB_REROUTE].insert(SUMO_ATTR_PROB);
+        // destiny probability reroute
+        myProbabilityAttrs[SUMO_TAG_PARKING_ZONE_REROUTE].insert(SUMO_ATTR_PROB);
         // route prob reroute
         myProbabilityAttrs[SUMO_TAG_ROUTE_PROB_REROUTE].insert(SUMO_ATTR_PROB);
     }
@@ -1548,6 +1564,10 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_NAME] = setAttrDefinition("Name of bus stop");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_LINES] = setAttrDefinition("Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes");
         myAttrDefinitions[SUMO_TAG_BUS_STOP][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
+        // stop access
+        myAttrDefinitions[SUMO_TAG_ACCESS][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the stop access shall be located at");
+        myAttrDefinitions[SUMO_TAG_ACCESS][SUMO_ATTR_POSITION] = setAttrDefinition("The position on the lane (the lower position on the lane) in meters");
+        myAttrDefinitions[SUMO_TAG_ACCESS][SUMO_ATTR_FRIENDLY_POS] = setAttrDefinition("If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1");
         // container Stop
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_ID] = setAttrDefinition("The id of container stop", "Unique");
         myAttrDefinitions[SUMO_TAG_CONTAINER_STOP][SUMO_ATTR_LANE] = setAttrDefinition("The name of the lane the container stop shall be located at");
@@ -1654,13 +1674,11 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         myAttrDefinitions[SUMO_TAG_PARKING_SPACE][SUMO_ATTR_ANGLE] = setAttrDefinition("The angle of the road-side parking spaces relative to the lane angle, positive means clockwise");
         // flow
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_TYPE] = setAttrDefinition("The id of the vehicle type to use for this vehicle.");
+        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_VEHSPERHOUR] = setAttrDefinition("Number of vehicles per hour, equally spaced");
+        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_SPEED] = setAttrDefinition("Speed of vehicles");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_ROUTE] = setAttrDefinition("The id of the route the vehicle shall drive along");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_BEGIN] = setAttrDefinition("First vehicle departure time");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_END] = setAttrDefinition("End of departure interval");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_VEHSPERHOUR] = setAttrDefinition("Number of vehicles per hour, equally spaced (not together with period or probability)");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_PERIOD] = setAttrDefinition("Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_PROB] = setAttrDefinition("Probability for emitting a vehicle each second (not together with vehsPerHour or period)");
-        myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_NUMBER] = setAttrDefinition("Total number of vehicles, equally spaced");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTLANE] = setAttrDefinition("The lane on which the vehicle shall be inserted");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTPOS] = setAttrDefinition("The position at which the vehicle shall enter the net");
         myAttrDefinitions[SUMO_TAG_FLOW][SUMO_ATTR_DEPARTSPEED] = setAttrDefinition("The speed with which the vehicle shall enter the network");
@@ -1721,6 +1739,9 @@ GNEAttributeCarrier::getDefinition(SumoXMLTag tag, SumoXMLAttr attr) {
         // destiny probability reroute
         myAttrDefinitions[SUMO_TAG_DEST_PROB_REROUTE][SUMO_ATTR_ID] = setAttrDefinition("Edge ID");
         myAttrDefinitions[SUMO_TAG_DEST_PROB_REROUTE][SUMO_ATTR_PROB] = setAttrDefinition("probability");
+        // parkingAreaReroute
+        myAttrDefinitions[SUMO_TAG_PARKING_ZONE_REROUTE][SUMO_ATTR_ID] = setAttrDefinition("ParkingArea ID");
+        myAttrDefinitions[SUMO_TAG_PARKING_ZONE_REROUTE][SUMO_ATTR_PROB] = setAttrDefinition("probability");
         // route probability reroute
         myAttrDefinitions[SUMO_TAG_ROUTE_PROB_REROUTE][SUMO_ATTR_ID] = setAttrDefinition("Route");
         myAttrDefinitions[SUMO_TAG_ROUTE_PROB_REROUTE][SUMO_ATTR_PROB] = setAttrDefinition("probability");
@@ -1995,6 +2016,25 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
         return 8;
     } else {
         return 4;
+    }
+}
+
+
+void 
+GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const {
+    std::string attribute = getAttribute(key);
+    if(key == GNE_ATTR_BLOCK_MOVEMENT) {
+        // only write Block Movement if is enabled
+        if(attribute == "1") {
+            device.writeAttr(key, attribute);
+        }
+    } else if(hasDefaultValue(getTag(), key)) {
+        // only write optional attributes (i.e attributes with default value) if are differents
+        if(getDefaultValue<std::string>(getTag(), key) != attribute) {
+            device.writeAttr(key, attribute);
+        }
+    } else {
+        device.writeAttr(key, attribute);
     }
 }
 

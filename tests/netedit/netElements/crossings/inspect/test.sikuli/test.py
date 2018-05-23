@@ -35,7 +35,7 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(match, 250, 225)
+netedit.leftClick(match, 260, 225)
 
 # try to change ID (cannot be possible)
 netedit.modifyAttribute(0, "dummyID")
@@ -46,18 +46,27 @@ netedit.modifyAttribute(1, "3 7 1")
 # rebuild network
 netedit.rebuildNetwork()
 
+# inspect crossing again after recomputing
+netedit.leftClick(match, 295, 225)
+
 # Change Edges with the same edges as another crossing (Duplicate
-# crossings aren't allow)
+# crossings aren't allowed, see Ticket #4043
 netedit.modifyAttribute(1, "4 8")
 
 # rebuild network
 netedit.rebuildNetwork()
+
+# inspect crossing again after recomputing
+netedit.leftClick(match, 390, 225)
 
 # Change Edges to a single edge
 netedit.modifyAttribute(1, "3")
 
 # rebuild network
 netedit.rebuildNetwork()
+
+# inspect crossing again after recomputing
+netedit.leftClick(match, 260, 200)
 
 # Change priority
 netedit.modifyBoolAttribute(2)

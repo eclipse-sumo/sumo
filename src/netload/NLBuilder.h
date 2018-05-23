@@ -132,7 +132,7 @@ protected:
      *  "route-files" and builds loaders reading these files
      * @param[in] oc The options to read the list of route files to open from
      * @return The built route loader control
-     * @exception ProcessError If an error occured
+     * @exception ProcessError If an error occurred
      */
     SUMORouteLoaderControl* buildRouteLoaderControl(const OptionsCont& oc);
 

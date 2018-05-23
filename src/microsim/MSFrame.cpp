@@ -537,6 +537,9 @@ MSFrame::checkOptions() {
     if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
         oc.set("meso-junction-control", "true");
     }
+    if (oc.getBool("mesosim") && oc.isDefault("pedestrian.model")) {
+        oc.set("pedestrian.model", "nonInteracting");
+    }
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     if (begin < 0) {

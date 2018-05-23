@@ -106,6 +106,7 @@ checkOptions() {
 NGNet*
 buildNetwork(NBNetBuilder& nb) {
     OptionsCont& oc = OptionsCont::getOptions();
+
     // spider-net
     if (oc.getBool("spider")) {
         // check values
@@ -153,7 +154,7 @@ buildNetwork(NBNetBuilder& nb) {
         }
         // check values
         bool hadError = false;
-        if (xNo < 2 || yNo < 2) {
+        if (attachLength == 0 && (xNo < 2 || yNo < 2)) {
             WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
             hadError = true;
         }
@@ -165,14 +166,12 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The length of attached streets must be at least 10m.");
             hadError = true;
         }
-        const bool alphaIDs = oc.getBool("grid.alphanumerical-ids");
-
         if (hadError) {
             throw ProcessError();
         }
         // build if everything's ok
         NGNet* net = new NGNet(nb);
-        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength, alphaIDs);
+        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
         return net;
     }
     // random net
@@ -191,7 +190,7 @@ buildNetwork(NBNetBuilder& nb) {
                                  oc.getFloat("rand.connectivity"),
                                  oc.getInt("rand.num-tries"),
                                  neighborDist);
-    randomNet.createNet(oc.getInt("rand.iterations"));
+    randomNet.createNet(oc.getInt("rand.iterations"), oc.getBool("rand.grid"));
     return net;
 }
 

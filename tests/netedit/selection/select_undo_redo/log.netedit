@@ -1,7 +1,6 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -12,6 +11,7 @@ Warning: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes unsaved
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Adding poi 'POI_2' into viewNet
@@ -35,40 +35,28 @@ Warning: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '1'
-Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '2'
-Warning: Current selection: 0 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '3'
-Warning: Current selection: 0 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '4'
-Warning: Current selection: 0 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '5'
-Warning: Current selection: 0 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '6'
-Warning: Current selection: 0 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '7'
-Warning: Current selection: 0 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '8'
-Warning: Current selection: 0 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'Center'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into busStop 'busStop_3_1_0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_1detExit0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_2detEntry0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing connection '6_2->4_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Warning: Removing connection '6_2->1_2' from edge '6'
@@ -109,7 +97,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Removing edge '1' from net
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -118,7 +105,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Removing edge '2' from net
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing poiLane 'POI_5' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -128,7 +114,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Removing edge '3' from net
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -137,7 +122,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Removing edge '4' from net
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -145,7 +129,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '5' from net
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing poiLane 'POI_4' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
@@ -154,38 +137,32 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '6' from net
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '7' from net
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '8' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing junction 'Center' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Removing poly 'poly_0' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding poly 'poly_0' into viewNet
 Warning: Adding junction 'Center' into net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Adding edge '8' from net
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Adding edge '7' from net
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding edge '6' from net
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -194,7 +171,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Adding poiLane 'POI_4' into viewNet
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding edge '5' from net
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -202,7 +178,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Adding edge '4' from net
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -211,7 +186,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding edge '3' from net
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -221,7 +195,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding poiLane 'POI_5' into viewNet
 Warning: Adding edge '2' from net
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -230,7 +203,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding edge '1' from net
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
@@ -271,18 +243,12 @@ Warning: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Warning: Adding connection '6_2->4_2' into edge '6'
 Warning: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing connection '6_2->4_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Warning: Removing connection '6_2->1_2' from edge '6'
@@ -323,7 +289,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Removing edge '1' from net
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -332,7 +297,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Removing edge '2' from net
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing poiLane 'POI_5' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -342,7 +306,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Removing edge '3' from net
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -351,7 +314,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Removing edge '4' from net
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -359,7 +321,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '5' from net
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing poiLane 'POI_4' from viewNet
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
@@ -368,38 +329,32 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '6' from net
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '7' from net
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Removing edge '8' from net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Removing junction 'Center' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Removing poly 'poly_0' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Adding poly 'poly_0' into viewNet
 Warning: Adding junction 'Center' into net
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Adding edge '8' from net
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Adding edge '7' from net
-Warning: Current selection: 1 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Adding edge '6' from net
-Warning: Current selection: 1 Junctions, 3 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -408,7 +363,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Adding poiLane 'POI_4' into viewNet
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding edge '5' from net
-Warning: Current selection: 1 Junctions, 4 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -416,7 +370,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Adding edge '4' from net
-Warning: Current selection: 1 Junctions, 5 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -425,7 +378,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding edge '3' from net
-Warning: Current selection: 1 Junctions, 6 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -435,7 +387,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding poiLane 'POI_5' into viewNet
 Warning: Adding edge '2' from net
-Warning: Current selection: 1 Junctions, 7 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -444,7 +395,6 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Warning: Adding edge '1' from net
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
@@ -485,11 +435,8 @@ Warning: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Warning: Adding connection '6_2->4_2' into edge '6'
 Warning: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 3 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Additionals saved
 Warning: Shapes saved
 Warning: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
@@ -508,17 +455,15 @@ Warning: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced e3Detector 'e3Detector_3'
 Warning: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Deleting unreferenced e3Detector 'e3Detector_2'
 Warning: Deleting unreferenced detExit 'e3Detector_1detExit0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Deleting unreferenced e3Detector 'e3Detector_1'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced busStop 'busStop_3_1_0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -572,6 +517,5 @@ Warning: Deleting unreferenced junction 'B' in GNENet destructor
 Warning: Deleting unreferenced junction 'C' in GNENet destructor
 Warning: Deleting unreferenced junction 'Center' in GNENet destructor
 Warning: Deleting unreferenced junction 'D' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

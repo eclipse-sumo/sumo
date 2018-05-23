@@ -117,7 +117,7 @@ public:
 
 
     /**
-     * @brief The inherited method called when characters occured
+     * @brief The inherited method called when characters occurred
      *
      * The retrieved characters are converted into a string and appended into a
      *  private buffer. They are reported as soon as the element ends.
@@ -177,7 +177,7 @@ public:
      * The message is built using buildErrorMessage and reported
      *  to the warning-instance of the MsgHandler.
      *
-     * @param[in] exception The occured exception to process
+     * @param[in] exception The occurred exception to process
      */
     void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
@@ -187,7 +187,7 @@ public:
      *
      * The message is built using buildErrorMessage and thrown within a ProcessError.
      *
-     * @param[in] exception The occured exception to process
+     * @param[in] exception The occurred exception to process
      * @exception ProcessError On any call
      */
     void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
@@ -199,7 +199,7 @@ public:
      * The message is built using buildErrorMessage and thrown within a ProcessError.
      *
      * @exception ProcessError On any call
-     * @param[in] exception The occured exception to process
+     * @param[in] exception The occurred exception to process
      */
     void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
     //@}

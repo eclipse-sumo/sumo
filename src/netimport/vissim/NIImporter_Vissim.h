@@ -500,7 +500,7 @@ public:
         virtual ~VissimSingleTypeParser();
 
         /** @brief Parses a single data type.
-            Returns whether no error occured */
+            Returns whether no error occurred */
         virtual bool parse(std::istream& from) = 0;
 
     protected:

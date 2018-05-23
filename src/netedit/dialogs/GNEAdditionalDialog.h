@@ -101,6 +101,11 @@ protected:
     /// @brief reset changes did in this dialog.
     void resetChanges();
 
+protected:
+    /// @brief pointer to UndoList
+    GNEUndoList* myUndoList;
+
+
 private:
     /// @brief accept button
     FXButton* myAcceptButton;
@@ -116,9 +121,6 @@ private:
 
     /// @brief number of GNEChanges_... in dialog
     int myNumberOfChanges;
-
-    /// @brief pointer to UndoList
-    GNEUndoList* myUndoList;
 
     /// @brief Invalidated copy constructor
     GNEAdditionalDialog(const GNEAdditionalDialog&) = delete;

@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id: RONet.cpp v0_32_0+0442-c0a2cccfec oss@behrisch.de 2018-02-16 22:10:56 +0100 $
+/// @version $Id$
 ///
 // The router's network representation
 /****************************************************************************/
@@ -65,7 +65,8 @@ RONet::getInstance(void) {
 
 
 RONet::RONet()
-    : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true), myDefaultPedTypeMayBeDeleted(true),
+    : myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
+      myDefaultPedTypeMayBeDeleted(true), myDefaultBikeTypeMayBeDeleted(true),
       myHaveActiveFlows(true),
       myRoutesOutput(0), myRouteAlternativesOutput(0), myTypesOutput(0),
       myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
@@ -85,6 +86,10 @@ RONet::RONet()
     defPedType->onlyReferenced = true;
     defPedType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVehicleTypes.add(defPedType->id, defPedType);
+    SUMOVTypeParameter* defBikeType = new SUMOVTypeParameter(DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
+    defBikeType->onlyReferenced = true;
+    defBikeType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVehicleTypes.add(defBikeType->id, defBikeType);
     myInstance = this;
 }
 
@@ -281,6 +286,9 @@ RONet::getVehicleTypeSecure(const std::string& id) {
     }
     if (id == DEFAULT_PEDTYPE_ID) {
         myDefaultPedTypeMayBeDeleted = false;
+    }
+    if (id == DEFAULT_BIKETYPE_ID) {
+        myDefaultBikeTypeMayBeDeleted = false;
     }
     if (type != 0) {
         return type;

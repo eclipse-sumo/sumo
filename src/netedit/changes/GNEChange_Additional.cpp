@@ -145,8 +145,6 @@ GNEChange_Additional::undo() {
             i->addAdditionalParent(myAdditional);
         }
     }
-    // update ACChooser if it's shown
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // Requiere always save additionals
     myNet->requiereSaveAdditionals();
     // check if inspector frame has to be updated
@@ -213,8 +211,6 @@ GNEChange_Additional::redo() {
             i->removeAdditionalParent(myAdditional);
         }
     }
-    // update ACChooser if it's shown
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // Requiere always save additionals
     myNet->requiereSaveAdditionals();
     // check if inspector frame has to be updated

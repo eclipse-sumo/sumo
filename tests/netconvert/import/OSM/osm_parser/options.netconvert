@@ -1,0 +1,1 @@
+--osm-files osm.xml --output net.net.xml -v --proj.utm --ignore-errors --output.street-names

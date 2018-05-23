@@ -64,7 +64,7 @@ public:
 
     /// @brief Constructor
     GeoConvHelper(const std::string& proj, const Position& offset,
-                  const Boundary& orig, const Boundary& conv, double scale = 1.0, bool inverse = false);
+                  const Boundary& orig, const Boundary& conv, double scale = 1.0, double rot = 0.0, bool inverse = false);
 
     /// @brief Destructor
     ~GeoConvHelper();
@@ -92,6 +92,10 @@ public:
     /// @brief the coordinate transformation that was loaded fron an input file
     static GeoConvHelper& getLoaded() {
         return myLoaded;
+    }
+
+    static int getNumLoaded() {
+        return myNumLoaded;
     }
 
     /**@brief compute the location attributes which will be used for output
@@ -153,6 +157,12 @@ public:
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);
 
+    bool operator==(const GeoConvHelper& o) const;
+
+    bool operator!=(const GeoConvHelper& o) const {
+        return !(*this == o);
+    }
+
 private:
     /// @brief projection method
     enum ProjectionMethod {
@@ -183,6 +193,10 @@ private:
 
     /// @brief The scaling to apply to geo-coordinates
     double myGeoScale;
+
+    /// @brief The rotation to apply to geo-coordinates
+    double mySin;
+    double myCos;
 
     /// @brief Information whether no projection shall be done
     ProjectionMethod myProjectionMethod;

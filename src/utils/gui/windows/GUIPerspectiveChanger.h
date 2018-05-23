@@ -133,10 +133,10 @@ public:
     /// @brief Sets the rotation 
     virtual void setRotation(double rotation) = 0;
 
-    /// @brief Returns the last mouse x-position an event occured at
+    /// @brief Returns the last mouse x-position an event occurred at
     FXint getMouseXPosition() const;
 
-    /// @brief Returns the last mouse y-position an event occured at
+    /// @brief Returns the last mouse y-position an event occurred at
     FXint getMouseYPosition() const;
 
     /* @brief Adapts the viewport so that a change in canvass size keeps most of the

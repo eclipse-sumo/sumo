@@ -82,7 +82,7 @@ MSCFModel_TCI::stopSpeed(const MSVehicle* const veh, const double speed, double 
 
 
 double
-MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel) const {
+MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     assert(veh->getDriverState()!=nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
     const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
     const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed);
@@ -100,7 +100,7 @@ MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap,
                 << "\n  resulting accelError: " << accelError << std::endl;
     }
 #endif
-    return MSCFModel_Krauss::followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
+    return MSCFModel_Krauss::followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel, pred);
 }
 
 

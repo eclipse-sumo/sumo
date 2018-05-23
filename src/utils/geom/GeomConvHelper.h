@@ -43,7 +43,7 @@
  */
 class GeomConvHelper {
 public:
-    /** @brief Builds a PositionVector from a string representation, reporting occured errors
+    /** @brief Builds a PositionVector from a string representation, reporting occurred errors
      *
      * It is assumed, the vector is stored as "x,y[ x,y]*" where x and y are doubles.
      * @param[in] shpdef The shape definition to parse
@@ -58,7 +58,7 @@ public:
             const char* objectid, bool& ok, bool allowEmpty, bool report = true);
 
 
-    /** @brief Builds a boundary from its string representation, reporting occured errors
+    /** @brief Builds a boundary from its string representation, reporting occurred errors
      *
      * It is assumed that the boundary is stored as a quadruple of double, divided by ','.
      * @param[in] def The boundary definition to parse
@@ -76,8 +76,8 @@ private:
     /** @brief Writes an error message into the MessageHandler
      * @param[in] report Whether errors shall be written to msg handler's error instance
      * @param[in] what Name of the parsed object ("Shape", or "Boundary")
-     * @param[in] objecttype The name of the parsed object type the error occured at
-     * @param[in] objectid The name of the parsed object type the error occured at
+     * @param[in] objecttype The name of the parsed object type the error occurred at
+     * @param[in] objectid The name of the parsed object type the error occurred at
      * @param[out] desc Error description
      */
     static void emitError(bool report, const std::string& what, const std::string& objecttype,

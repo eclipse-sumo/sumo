@@ -1,10 +1,9 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Invalid input parameter of poly: 'color' doesn't have a valid 'RBGColor' format
@@ -31,7 +30,6 @@ Loading failed!
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Invalid input parameter of poly: doesn't exist image 'paris.ico'
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_5' into viewNet
@@ -172,6 +170,8 @@ Warning: Setting new attribute blockMovement '1' into poly 'poly_17'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poly 'poly_17' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_17' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_16' from net in ~GNEChange_Shape()
@@ -216,6 +216,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

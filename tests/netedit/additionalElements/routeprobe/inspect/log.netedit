@@ -1,15 +1,14 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected additional 'routeProbe' in AdditionalSelector
 Warning: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding routeProbe 'routeProbe_gneE3_1' in GNEChange_Additional
 Warning: Setting new attribute id 'routeProbe_3_1' into routeProbe 'routeProbe_gneE3_0'
 Warning: Value 'Id with spaces' for attribute id of routeProbe isn't valid
 Warning: Setting new attribute id 'correctID' into routeProbe 'routeProbe_3_1'
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
-Warning: Setting new attribute freq '100' into routeProbe 'correctID'
+Warning: Setting new attribute freq '-1' into routeProbe 'correctID'
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
 Warning: Setting new attribute freq '150' into routeProbe 'correctID'
 Warning: Setting new attribute begin '0' into routeProbe 'correctID'
@@ -26,9 +25,9 @@ Warning: Setting previous attribute begin '0.00' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '100.00' into routeProbe 'correctID'
+Warning: Setting previous attribute freq '-1.00' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '100.00' into routeProbe 'correctID'
+Warning: Setting previous attribute freq '-1.00' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute edge 'gneE3' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -53,7 +52,7 @@ Warning: Setting new attribute id 'correctID' into routeProbe 'routeProbe_3_1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute freq '100' into routeProbe 'correctID'
+Warning: Setting new attribute freq '-1' into routeProbe 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '150' into routeProbe 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -75,8 +74,11 @@ Warning: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Warning: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE3_1'
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced routeProbe 'correctID'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -100,6 +102,5 @@ Warning: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Warning: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -30,6 +30,7 @@
 
 #include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/additionals/GNEClosingLaneReroute.h>
+#include <netedit/additionals/GNEParkingAreaReroute.h>
 #include <netedit/additionals/GNEClosingReroute.h>
 #include <netedit/additionals/GNEDestProbReroute.h>
 #include <netedit/additionals/GNERouteProbReroute.h>
@@ -90,6 +91,9 @@ public:
     /// @brief add route prob reroute
     long onCmdAddRouteProbReroute(FXObject*, FXSelector, void*);
 
+    /// @brief add parkingAreaReroute
+    long onCmdAddParkingAreaReroute(FXObject*, FXSelector, void*);
+
     /// @brief remove closing lane reroute
     long onCmdClickedClosingLaneReroute(FXObject*, FXSelector, void*);
 
@@ -101,6 +105,9 @@ public:
 
     /// @brief remove route prob reroute
     long onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*);
+    
+    /// @brief remove parkingAreaReroute
+    long onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*);
 
     /// @brief /edit closing lane reroute
     long onCmdEditClosingLaneReroute(FXObject*, FXSelector, void*);
@@ -113,6 +120,9 @@ public:
 
     /// @brief /edit route prob reroute
     long onCmdEditRouteProbReroute(FXObject*, FXSelector, void*);
+
+    /// @brief /edit parkingAreaReroute
+    long onCmdEditParkingAreaReroute(FXObject*, FXSelector, void*);
 
     /// @brief called when begin or endis changed
     long onCmdChangeBeginEnd(FXObject*, FXSelector, void*);
@@ -150,6 +160,9 @@ protected:
     /// @brief button for add new route probability reroutes
     FXButton* myAddRouteProbReroute;
 
+    /// @brief button for add new parkingAreaReroute
+    FXButton* myAddParkingAreaReroute;
+
     /// @brief list with closing lane reroutes
     FXTable* myClosingLaneRerouteTable;
 
@@ -162,6 +175,10 @@ protected:
     /// @brief list with route probability reroute
     FXTable* myRouteProbRerouteTable;
 
+    /// @brief list with parkingAreaReroutes
+    FXTable* myParkingAreaRerouteTable;
+
+
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;
 
@@ -173,6 +190,9 @@ protected:
 
     /// @brief flag to check if Destiny probability reroutes are valid
     bool myDestProbReroutesValid;
+
+    /// @brief flag to check if parkingAreaReroutes are valid
+    bool myParkingAreaReroutesValid;
 
     /// @brief flag to check if route prob reroutes are valid
     bool myRouteProbReroutesValid;
@@ -189,6 +209,9 @@ private:
 
     /// @brief update data of probabilitry reroutes table
     void updateRouteProbReroutesTable();
+
+    /// @brief update data of parkingAreaReroute table
+    void updateParkingAreaReroutesTable();
 
     /// @brief Invalidated copy constructor.
     GNERerouterIntervalDialog(const GNERerouterIntervalDialog&) = delete;

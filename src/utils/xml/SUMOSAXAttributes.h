@@ -81,7 +81,7 @@ public:
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; -1 if an error occured
+     * @return The read value if given and correct; -1 if an error occurred
      */
     template <typename T>
     T get(int attr, const char* objectid, bool& ok, bool report = true) const;
@@ -100,7 +100,7 @@ public:
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
+     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occurred
      */
     template <typename T>
     T getOpt(int attr, const char* objectid, bool& ok, T defaultValue, bool report = true) const;
@@ -120,7 +120,7 @@ public:
      * @param[in] objectid The name of the parsed object; used for error message generation
      * @param[out] ok Whether the value could be read
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; -1 if an error occured
+     * @return The read value if given and correct; -1 if an error occurred
      */
     SUMOTime getSUMOTimeReporting(int attr, const char* objectid, bool& ok,
                                   bool report = true) const;
@@ -143,7 +143,7 @@ public:
      * @param[out] ok Whether the value could be read
      * @param[in] defaultValue The value to return if the attribute is not within the element
      * @param[in] report Whether errors shall be written to msg handler's error instance
-     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occured
+     * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occurred
      */
     SUMOTime getOptSUMOTimeReporting(int attr, const char* objectid, bool& ok,
                                      SUMOTime defaultValue, bool report = true) const;
@@ -332,21 +332,21 @@ public:
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
      * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty position vector if an error occured
+     * @return The read value if given and not empty; empty position vector if an error occurred
      */
     virtual PositionVector getShape(int attr) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a Boundary
      *
      * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty Boundary if an error occured
+     * @return The read value if given and not empty; empty Boundary if an error occurred
      */
     virtual Boundary getBoundary(int attr) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a string vector
      *
      * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occured
+     * @return The read value if given and not empty; empty vector if an error occurred
      */
     virtual std::vector<std::string> getStringVector(int attr) const = 0;
     //}

@@ -64,9 +64,9 @@ GNEDestProbReroute::writeDestProbReroute(OutputDevice& device) const {
     // open tag
     device.openTag(getTag());
     // write edge ID
-    device.writeAttr(SUMO_ATTR_ID, myNewEdgeDestination->getID());
+    writeAttribute(device, SUMO_ATTR_ID);
     // write probability
-    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    writeAttribute(device, SUMO_ATTR_PROB);
     // close tag
     device.closeTag();
 }
@@ -79,13 +79,13 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEDestProbReroute::selectAttributeCarrier() {
+GNEDestProbReroute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNEDestProbReroute::unselectAttributeCarrier() {
+GNEDestProbReroute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

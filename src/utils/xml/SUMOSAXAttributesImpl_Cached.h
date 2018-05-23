@@ -245,7 +245,7 @@ public:
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
      * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; "" if an error occured
+     * @return The read value if given and not empty; "" if an error occurred
      */
     PositionVector getShape(int attr) const;
 
@@ -253,14 +253,14 @@ public:
     /** @brief Tries to read given attribute assuming it is a Boundary
      *
      * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; "" if an error occured
+     * @return The read value if given and not empty; "" if an error occurred
      */
     Boundary getBoundary(int attr) const;
 
     /** @brief Tries to read given attribute assuming it is a string vector
      *
      * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occured
+     * @return The read value if given and not empty; empty vector if an error occurred
      */
     std::vector<std::string> getStringVector(int attr) const;
 

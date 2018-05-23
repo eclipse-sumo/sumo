@@ -73,7 +73,10 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int h
 }
 
 
-GNEAdditionalDialog::~GNEAdditionalDialog() {}
+GNEAdditionalDialog::~GNEAdditionalDialog() {
+    // return focus to GNEViewNet to avoid minimization
+    getParent()->setFocus();
+}
 
 
 FXint

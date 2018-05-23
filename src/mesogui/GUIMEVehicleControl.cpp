@@ -53,9 +53,6 @@ GUIMEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                   const MSRoute* route, MSVehicleType* type,
                                   const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
-    if (fromRouteFile) {
-        defs->depart += computeRandomDepartOffset();
-    }
     MSBaseVehicle* built = new GUIMEVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
     built->addStops(ignoreStopErrors);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);

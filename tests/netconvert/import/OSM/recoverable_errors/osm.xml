@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm-derived>
+<meta data_included_until="2010-09-06T14\:46\:03Z" last_rule_applied="10"/>
+
+<node id="1" lat="52.3739673" lon="13.6076206"/>
+<node id="2" lat="52.3772315" lon="13.6170273">
+  <tag k="" v="tag with missing key should be ignored"/>
+</node>
+
+<way id="10860201">
+  <nd ref="1"/>
+  <nd ref="2"/>
+  <tag k="" v="tag with missing key should be ignored"/>
+  <tag k="tracks" v="1; 2"/>
+  <tag k="railway" v="tram"/>
+  <tag k="highway" v="secondary"/>
+</way>
+
+</osm-derived>

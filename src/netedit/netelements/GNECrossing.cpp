@@ -283,7 +283,26 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_EDGES:
-            return checkGNEEdgesValid(myNet, value, false);
+            if (checkGNEEdgesValid(myNet, value, false)) {
+                // parse edges and save their IDs in a set
+                std::vector<GNEEdge*> parsedEdges = parseGNEEdges(myNet, value);
+                EdgeVector nbEdges;
+                for (auto i : parsedEdges) {
+                    nbEdges.push_back(i->getNBEdge());
+                }
+                std::sort(nbEdges.begin(), nbEdges.end());
+                // 
+                EdgeVector originalEdges = myCrossing->edges;
+                std::sort(originalEdges.begin(), originalEdges.end());
+                // return true if we're setting the same edges
+                if(toString(nbEdges) == toString(originalEdges)) {
+                    return true;
+                } else {
+                    return !myParentJunction->getNBNode()->checkCrossingDuplicated(nbEdges);
+                }
+            } else {
+                return false;
+            }
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && isPositive<double>(value);
         case SUMO_ATTR_PRIORITY:
@@ -345,6 +364,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (auto i : edges) {
                 myCrossing->edges.push_back(i->getNBEdge());
             }
+            // sort new edges
+            std::sort(myCrossing->edges.begin(), myCrossing->edges.end());
             // update geometry of parent junction
             myParentJunction->updateGeometry();
             break;
@@ -382,8 +403,6 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

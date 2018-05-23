@@ -347,18 +347,21 @@ GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     onCmdCancel(0, 0, 0);
     myViewNet->getUndoList()->p_begin("clear connections from selected lanes, edges and " + toString(SUMO_TAG_JUNCTION) + "s");
     // clear junction's connection
-    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION)) {
-        dynamic_cast<GNEJunction*>(i)->setLogicValid(false, myViewNet->getUndoList()); // clear connections
-        dynamic_cast<GNEJunction*>(i)->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::MODIFIED); // prevent re-guessing
+    auto junctions = myViewNet->getNet()->retrieveJunctions(true);
+    for (auto i : junctions) {
+        i->setLogicValid(false, myViewNet->getUndoList()); // clear connections
+        i->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::MODIFIED); // prevent re-guessing
     }
     // clear edge's connection
-    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_EDGE)) {
-        for (auto j : dynamic_cast<GNEEdge*>(i)->getLanes()) {
+    auto edges = myViewNet->getNet()->retrieveEdges(true);
+    for (auto i : edges) {
+        for (auto j : i->getLanes()) {
             removeConnections(j);
         }
     }
     // clear lane's connection
-    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_LANE)) {
+    auto lanes = myViewNet->getNet()->retrieveLanes(true);
+    for (auto i : lanes) {
         removeConnections(dynamic_cast<GNELane*>(i));
     }
     myViewNet->getUndoList()->p_end();
@@ -380,8 +383,9 @@ long
 GNEConnectorFrame::onCmdResetSelectedConnections(FXObject*, FXSelector, void*) {
     onCmdCancel(0, 0, 0);
     myViewNet->getUndoList()->p_begin("reset connections from selected lanes");
-    for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers(GLO_JUNCTION)) {
-        dynamic_cast<GNEJunction*>(i)->setLogicValid(false, myViewNet->getUndoList());
+    auto junctions = myViewNet->getNet()->retrieveJunctions(true);
+    for (auto i : junctions) {
+        i->setLogicValid(false, myViewNet->getUndoList());
     }
     myViewNet->getUndoList()->p_end();
     return 1;

@@ -1,13 +1,12 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Value 'POI_1' for attribute id of poi isn't valid
-Warning: Setting new attribute id '' into poi 'POI_0'
+Warning: Value '' for attribute id of poi isn't valid
 Warning: Value 'ID with spaces' for attribute id of poi isn't valid
-Warning: Setting new attribute id 'newID' into poi ''
+Warning: Setting new attribute id 'newID' into poi 'POI_0'
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Warning: Value 'dummyPosition' for attribute pos of poi isn't valid
 Warning: Setting new attribute pos '20.40,7.50' into poi 'newID'
@@ -17,14 +16,14 @@ Warning: Setting new attribute color 'blue' into poi 'newID'
 Warning: Setting new attribute color '125,60,200' into poi 'newID'
 Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
-Warning: Setting new attribute layer '3' into poi 'newID'
+Warning: Setting new attribute layer '4' into poi 'newID'
 Warning: Setting new attribute layer '-2' into poi 'newID'
 Warning: Setting new attribute layer '2' into poi 'newID'
 Warning: Setting new attribute width '0' into poi 'newID'
-Warning: Setting new attribute width '-2' into poi 'newID'
+Warning: Value '-2' for attribute width of poi isn't valid
 Warning: Setting new attribute width '5' into poi 'newID'
 Warning: Setting new attribute height '0' into poi 'newID'
-Warning: Setting new attribute height '-3' into poi 'newID'
+Warning: Value '-3' for attribute height of poi isn't valid
 Warning: Setting new attribute height '5' into poi 'newID'
 Error: Could not load '%$$%%%%%'.
 Unknown file extension '' for image '%$$%%%%%'!
@@ -32,10 +31,7 @@ Warning: Value '%$$%%%%%' for attribute imgFile of poi isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poi isn't valid
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Setting new attribute relativePath 'true' into poi 'newID'
 Warning: Setting new attribute angle '0' into poi 'newID'
 Warning: Setting new attribute angle '-12' into poi 'newID'
@@ -64,15 +60,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute relativePath '0' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poi 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute height '-3.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '0.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute height '0.00' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute width '-2.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '0.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -80,9 +71,9 @@ Warning: Setting previous attribute width '0.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute layer '-2.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '3.00' into poi 'newID'
+Warning: Setting previous attribute layer '4.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '3.00' into poi 'newID'
+Warning: Setting previous attribute layer '4.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -96,17 +87,20 @@ Warning: Setting previous attribute color 'red' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute pos '2.00,18.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id '' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute id 'POI_0' into poi ''
+Warning: Setting previous attribute id 'POI_0' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poi 'POI_1' from viewNet
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing poi 'POI_0' from viewNet
+Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id '' into poi 'POI_0'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute id 'newID' into poi ''
+Warning: Setting new attribute id 'newID' into poi 'POI_0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute pos '20.40,7.50' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -120,7 +114,7 @@ Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute layer '3' into poi 'newID'
+Warning: Setting new attribute layer '4' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '-2' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -128,19 +122,13 @@ Warning: Setting new attribute layer '2' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '0' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute width '-2' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '5' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute height '0' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute height '-3' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute height '5' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
-Warning: Adding texture 'berlin_icon.ico' in GUITexturesHelper::getTextureID
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute relativePath 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -157,9 +145,13 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute geo 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_1' in ~GNEChange_Shape()
 Warning: Removing poi 'newID' from net in ~GNEChange_Shape()
@@ -172,6 +164,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

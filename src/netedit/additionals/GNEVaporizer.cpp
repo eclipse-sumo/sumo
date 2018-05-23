@@ -140,9 +140,9 @@ void
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
-    device.writeAttr(SUMO_ATTR_STARTTIME, myStartTime);
-    device.writeAttr(SUMO_ATTR_END, myEnd);
+    writeAttribute(device, SUMO_ATTR_EDGE);
+    writeAttribute(device, SUMO_ATTR_STARTTIME);
+    writeAttribute(device, SUMO_ATTR_END);
     // Close tag
     device.closeTag();
 }
@@ -333,8 +333,6 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

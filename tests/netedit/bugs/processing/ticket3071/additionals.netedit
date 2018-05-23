@@ -1,1 +1,6 @@
-<additionals/>
+<additionals>
+    <e3Detector id="e3Detector_0" file="e3Detector_0.txt" pos="60.00,50.00">
+        <detEntry lane="gneE14_0" pos="3.31"/>
+        <detExit lane="gneE9_0" pos="3.34"/>
+    </e3Detector>
+</additionals>

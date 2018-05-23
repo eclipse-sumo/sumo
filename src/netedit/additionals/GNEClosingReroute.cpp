@@ -67,11 +67,11 @@ GNEClosingReroute::writeClosingReroute(OutputDevice& device) const {
     // open closing reroute tag
     device.openTag(getTag());
     // write Lane ID
-    device.writeAttr(SUMO_ATTR_ID, myClosedEdge->getID());
+    writeAttribute(device, SUMO_ATTR_ID);
     // write Allowed vehicles
-    device.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(myAllowedVehicles));
+    writeAttribute(device, SUMO_ATTR_ALLOW);
     // write disallowed vehicles
-    device.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(myDisallowedVehicles));
+    writeAttribute(device, SUMO_ATTR_DISALLOW);
     // close closing reroute tag
     device.closeTag();
 }
@@ -84,13 +84,13 @@ GNEClosingReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEClosingReroute::selectAttributeCarrier() {
+GNEClosingReroute::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNEClosingReroute::unselectAttributeCarrier() {
+GNEClosingReroute::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

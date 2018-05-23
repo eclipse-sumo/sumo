@@ -43,6 +43,7 @@ class GNEClosingReroute;
 class GNEClosingLaneReroute;
 class GNEDestProbReroute;
 class GNERouteProbReroute;
+class GNEParkingAreaReroute;
 
 // ===========================================================================
 // class definitions
@@ -85,6 +86,12 @@ public:
     */
     GNEChange_RerouterItem(GNERouteProbReroute* routeProbReroute, bool forward);
 
+    /**@brief Constructor
+    * @param[in] ParkingAreaReroute to be added
+    * @param[in] forward Whether to create/delete (true/false)
+    */
+    GNEChange_RerouterItem(GNEParkingAreaReroute* parkingAreaReroute, bool forward);
+
     /// @brief Destructor
     ~GNEChange_RerouterItem();
 
@@ -116,8 +123,12 @@ private:
     /// @brief modified Closing Interval
     GNEDestProbReroute* myDestProbReroute;
 
+    /// @brief modified parkingAreaReroute
+    GNEParkingAreaReroute* myParkingAreaReroute;
+
     /// @brief modified Route Probability Reroute
     GNERouteProbReroute* myRouteProbReroute;
+
 };
 
 #endif

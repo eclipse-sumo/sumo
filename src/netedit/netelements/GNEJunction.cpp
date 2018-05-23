@@ -143,13 +143,17 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
             }
+            // check if crossing is selected
+            if(retrievedGNECrossing->isAttributeCarrierSelected()) {
+                retrievedGNECrossing->selectAttributeCarrier();
+            }
         }
         // delete non retrieved GNECrossings
         for (auto it : myGNECrossings) {
             it->decRef();
             // check if crossing is selected
             if(it->isAttributeCarrierSelected()) {
-                myNet->unselectAttributeCarrier(GLO_CROSSING, it);
+                it->unselectAttributeCarrier();
             }
             if (it->unreferenced()) {
                 // show extra information for tests
@@ -179,9 +183,11 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //    // XXX if joinable
     //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
     //}
+    const int numEndpoints = myNBNode.getEndPoints().size();
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
     FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", 0, &parent, MID_GNE_JUNCTION_REPLACE);
+    FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), 0, &parent, MID_GNE_JUNCTION_SPLIT);
     FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", 0, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
     FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", 0, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
     // check if menu commands has to be disabled
@@ -204,6 +210,9 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (wrongMode || !myNBNode.checkIsRemovableReporting(reason)) {
         mcReplace->setText(mcReplace->getText() + " (" + reason.c_str() + ")");
         mcReplace->disable();
+    }
+    if (numEndpoints == 1) {
+        mcSplit->disable();
     }
     return ret;
 }
@@ -894,9 +903,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
             // junction is already controlled, remove from previous tls
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
-            for (auto it : copyOfTls) {
-                undoList->add(new GNEChange_TLS(this, it, false), true);
-            }
+            assert(copyOfTls.size() > 0);
+            NBTrafficLightDefinition* currentTLS = *copyOfTls.begin();
             NBTrafficLightLogicCont& tlCont = myNet->getTLLogicCont();
             const std::map<std::string, NBTrafficLightDefinition*> programs = tlCont.getPrograms(value);
             if (programs.size() > 0) {
@@ -907,16 +915,24 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                         undoList->add(new GNEChange_TLS(this, oldTLS, true), true);
                     } else {
                         // delete and re-create the definition because the loaded phases are now invalid
+                        if (dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS) != 0 && 
+                                dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->usingSignalGroups()) {
+                            // keep the old program and add all-red state for the added links
+                            NBLoadedSUMOTLDef* newTLSJoined = new NBLoadedSUMOTLDef(oldTLS, dynamic_cast<NBLoadedSUMOTLDef*>(oldTLS)->getLogic());
+                            newTLSJoined->joinLogic(currentTLS);
+                            undoList->add(new GNEChange_TLS(this, newTLSJoined, true, true), true);
+                        } else {
+                            undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
+                        }
+                        NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
+                        // switch from old to new definition
+                        for (auto it : copyOfTls) {
+                            undoList->add(new GNEChange_TLS(this, it, false), true);
+                        }
                         const std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
                         for (auto it_node : copyOfNodes) {
                             GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
-                        }
-                        undoList->add(new GNEChange_TLS(this, 0, true, false, value), true);
-                        NBTrafficLightDefinition* newTLS = *myNBNode.getControllingTLS().begin();
-                        // re-add existing nodes
-                        for (auto it_node : copyOfNodes) {
-                            GNEJunction* oldJunction = myNet->retrieveJunction(it_node->getID());
                             undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
                         }
                     }
@@ -1038,8 +1054,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myNet->getViewNet()->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

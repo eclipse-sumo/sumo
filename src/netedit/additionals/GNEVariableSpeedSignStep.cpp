@@ -72,9 +72,9 @@ GNEVariableSpeedSignStep::writeStep(OutputDevice& device) {
     // Open VSS tag
     device.openTag(SUMO_TAG_STEP);
     // Write TimeSTep
-    device.writeAttr(SUMO_ATTR_TIME, myTime);
+    writeAttribute(device, SUMO_ATTR_TIME);
     // Write speed
-    device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    writeAttribute(device, SUMO_ATTR_SPEED);
     // Close VSS tag
     device.closeTag();
 }
@@ -87,13 +87,13 @@ GNEVariableSpeedSignStep::getTime() const {
 
 
 void 
-GNEVariableSpeedSignStep::selectAttributeCarrier() {
+GNEVariableSpeedSignStep::selectAttributeCarrier(bool) {
     // this AC cannot be selected
 }
 
 
 void 
-GNEVariableSpeedSignStep::unselectAttributeCarrier() {
+GNEVariableSpeedSignStep::unselectAttributeCarrier(bool) {
     // this AC cannot be unselected
 }
 

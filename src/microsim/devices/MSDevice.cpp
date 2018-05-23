@@ -39,6 +39,7 @@
 #include "MSDevice_Example.h"
 #include "MSDevice_Battery.h"
 #include "MSDevice_SSM.h"
+#include "MSDevice_ToC.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
 
@@ -88,6 +89,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Example::buildVehicleDevices(v, into);
     MSDevice_Battery::buildVehicleDevices(v, into);
     MSDevice_SSM::buildVehicleDevices(v, into);
+    MSDevice_ToC::buildVehicleDevices(v, into);
     MSDevice_Bluelight::buildVehicleDevices(v, into);
     MSDevice_FCD::buildVehicleDevices(v, into);
 }

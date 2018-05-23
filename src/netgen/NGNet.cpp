@@ -47,9 +47,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NGNet::NGNet(NBNetBuilder& nb)
-    : myNetBuilder(nb) {
-    myLastID = 0;
+NGNet::NGNet(NBNetBuilder& nb) : 
+    myLastID(0),
+    myAlphaIDs(OptionsCont::getOptions().getBool("alphanumerical-ids")),
+    myNetBuilder(nb)
+{
 }
 
 
@@ -79,27 +81,27 @@ NGNet::findNode(int xID, int yID) {
     return 0;
 }
 
-
-void
-NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength, bool alphaIDs) {
+std::string 
+NGNet::alphabeticalCode(int i, int iMax) {
     // lazy mans 26th root to determine number of characters for x-label
     int xn = 1;
-    for (;std::pow(26, xn) < numX; xn++) {};
+    for (;std::pow(26, xn) < iMax; xn++) {};
+    std::string result = "";
+    for (int j = 0; j < xn; j++) {
+        result = char('A' + (i % 26)) + result;
+        i /= 26;
+    }
+    return result;
+}
+
+void
+NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength) {
 
     for (int ix = 0; ix < numX; ix++) {
+        const std::string nodeIDStart = (myAlphaIDs ? alphabeticalCode(ix, numX) : toString<int>(ix) + "/");
         for (int iy = 0; iy < numY; iy++) {
             // create Node
-            std::string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
-            if (alphaIDs) {
-                int ixtmp = ix;
-                std::string xID = "";
-                for (int i = 0; i < xn; i++) {
-                    xID = char('A' + (ixtmp % 26)) + xID;
-                    ixtmp /= 26;
-                }
-                nodeID = xID + toString(iy);
-            }
-            NGNode* node = new NGNode(nodeID, ix, iy);
+            NGNode* node = new NGNode(nodeIDStart + toString(iy), ix, iy);
             node->setX(ix * spaceX + attachLength);
             node->setY(iy * spaceY + attachLength);
             myNodeList.push_back(node);
@@ -169,11 +171,14 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
     int ir, ic;
     double angle = (double)(2 * M_PI / numRadDiv); // angle between radial divisions
     NGNode* Node;
-    for (ir = 1; ir < numRadDiv + 1; ir++) {
-        for (ic = 1; ic < numCircles + 1; ic++) {
+    for (ic = 1; ic < numCircles + 1; ic++) {
+        const std::string nodeIDStart = alphabeticalCode(ic, numCircles);
+        for (ir = 1; ir < numRadDiv + 1; ir++) {
             // create Node
-            Node = new NGNode(
-                toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
+            const std::string nodeID = (myAlphaIDs ? 
+                    nodeIDStart + toString<int>(ir) :
+                    toString<int>(ir) + "/" + toString<int>(ic));
+            Node = new NGNode(nodeID, ir, ic);
             Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
             Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
             myNodeList.push_back(Node);
@@ -191,7 +196,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
     }
     if (hasCenter) {
         // node
-        Node = new NGNode(getNextFreeID(), 0, 0, true);
+        Node = new NGNode(myAlphaIDs ? "A1" : "1", 0, 0, true);
         Node->setX(0);
         Node->setY(0);
         myNodeList.push_back(Node);
@@ -205,8 +210,8 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
 
 void
 NGNet::connect(NGNode* node1, NGNode* node2) {
-    std::string id1 = node1->getID() + "to" + node2->getID();
-    std::string id2 = node2->getID() + "to" + node1->getID();
+    std::string id1 = node1->getID() + (myAlphaIDs ? "" : "to") + node2->getID();
+    std::string id2 = node2->getID() + (myAlphaIDs ? "" : "to") + node1->getID();
     NGEdge* link1 = new NGEdge(id1, node1, node2);
     NGEdge* link2 = new NGEdge(id2, node2, node1);
     myEdgeList.push_back(link1);
@@ -230,15 +235,62 @@ NGNet::toNB() const {
     double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
     for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         NBNode* node = *i;
-        EdgeVector incoming = node->getIncomingEdges();
-        for (EdgeVector::const_iterator j = incoming.begin(); j != incoming.end(); ++j) {
-            if (node->getConnectionTo((*j)->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
-                NBEdge* back = new NBEdge("-" + (*j)->getID(), node, (*j)->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""), myNetBuilder.getTypeCont().getNumLanes(""),
-                                          myNetBuilder.getTypeCont().getPriority(""),
+        for (NBEdge* e : node->getIncomingEdges()) {
+            if (node->getConnectionTo(e->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
+                NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
+                                          "", myNetBuilder.getTypeCont().getSpeed(""), 
+                                          e->getNumLanes(),
+                                          e->getPriority(),
                                           myNetBuilder.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET);
                 myNetBuilder.getEdgeCont().insert(back);
             }
+        }
+    }
+    // add splits depending on turn-lane options
+    const int turnLanes = OptionsCont::getOptions().getInt("turn-lanes");
+    if (turnLanes > 0) {
+        const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
+        NBEdgeCont& ec = myNetBuilder.getEdgeCont();
+        EdgeVector allEdges;
+        for (auto it = ec.begin(); it != ec.end(); ++it) {
+            allEdges.push_back(it->second);
+        }
+        for (NBEdge* e : allEdges) {
+            if (e->getToNode()->geometryLike()) {
+                continue;
+            }
+            std::vector<NBEdgeCont::Split> splits;
+            NBEdgeCont::Split split;
+            for (int i = 0; i < e->getNumLanes() + turnLanes; ++i) {
+                split.lanes.push_back(i);
+            }
+            split.pos = MAX2(0.0, e->getLength() - turnLaneLength);
+            split.speed = e->getSpeed();
+            split.node = new NBNode(e->getID() + "." + toString(split.pos), e->getGeometry().positionAtOffset(split.pos));
+            split.idBefore = e->getID();
+            split.idAfter = split.node->getID();
+            if (turnLaneLength <= e->getLength() / 2) {
+                split.offset = -0.5 * turnLanes * e->getLaneWidth(0);
+                if (e->getFromNode()->geometryLike()) {
+                    // shift the reverse direction explicitly as it will not get a turn lane
+                    NBEdge* reverse = 0;
+                    for (NBEdge* reverseCand : e->getFromNode()->getIncomingEdges()) {
+                        if (reverseCand->getFromNode() == e->getToNode()) {
+                            reverse = reverseCand;
+                        }
+                    }
+                    if (reverse != 0) {
+                        PositionVector g = reverse->getGeometry();
+                        g.move2side(-split.offset);
+                        reverse->setGeometry(g);
+                    }
+                }
+            }
+            splits.push_back(split);
+            ec.processSplits(e, splits, 
+                    myNetBuilder.getNodeCont(),
+                    myNetBuilder.getDistrictCont(),
+                    myNetBuilder.getTLLogicCont());
         }
     }
 }

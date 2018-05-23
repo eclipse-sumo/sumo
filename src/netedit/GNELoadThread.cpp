@@ -137,7 +137,7 @@ GNELoadThread::run() {
                 MsgHandler::getErrorInstance()->clear();
             }
 
-            // check whether any errors occured
+            // check whether any errors occurred
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
             } else {

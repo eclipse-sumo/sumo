@@ -1,7 +1,8 @@
 Warning: New value of emergencyDecel (3.00) is lower than decel (4.50)
-/scr1/sumo/tests/../tests/complex/traci/pythonApi/vehicle/runner.py:166: UserWarning: Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.
+Warning: Automatically setting emergencyDecel to 5.10 for vType 'DEFAULT_VEHTYPE@horiz' to match decel.
+/scr1/sumo/tests/../tests/complex/traci/pythonApi/vehicle/runner.py:167: UserWarning: Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.
   traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
-/scr1/sumo/tests/../tests/complex/traci/pythonApi/vehicle/runner.py:167: UserWarning: Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.
+/scr1/sumo/tests/../tests/complex/traci/pythonApi/vehicle/runner.py:168: UserWarning: Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.
   traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 Error: Answered with error to command 0xa4: Vehicle 'bla' is not known
 Warning: Vehicle '1' aborts stop.

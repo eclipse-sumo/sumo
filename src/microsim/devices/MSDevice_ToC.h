@@ -14,7 +14,7 @@
 /// @date    01.04.2018
 /// @version $Id$
 ///
-// The ToC Device controls transition of control between automated and manual driving.
+// The ToC Device controls the transition of control between automated and manual driving.
 //
 /****************************************************************************/
 #ifndef MSDevice_ToC_h
@@ -89,11 +89,9 @@ private:
         AUTOMATED = 2,
         PREPARING_TOC = 3, // this applies only to the transition AUTOMATED -> MANUAL !
         MRM = 4,
-        RECOVERING
+        RECOVERING = 5
     };
 
-
-    void setState(ToCState state);
 
     /// @name Helpers for parameter parsing
     /// @{
@@ -102,9 +100,10 @@ private:
     static double getResponseTime(const SUMOVehicle& v, const OptionsCont& oc);
     static double getRecoveryRate(const SUMOVehicle& v, const OptionsCont& oc);
     static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
 
-    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt);
-    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt);
+    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
+    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
 
     static ToCState _2ToCState(const std::string&);
     static std::string _2string(ToCState state);
@@ -126,6 +125,9 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+
+    /// @brief Ensure existence of DriverState for equipped vehicles
+    SUMOTime ensureDriverStateExistence(SUMOTime);
 
     /// @brief Trigger execution of an MRM
     SUMOTime triggerMRM(SUMOTime t);
@@ -153,12 +155,14 @@ private:
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
             std::string manualType, std::string automatedType,
-            double responseTime, double recoveryRate, double initialAwareness);
+            SUMOTime responseTime, double recoveryRate, double initialAwareness, double mrmDecel);
 
 
     /// @brief Set the awareness to the given value
-    /// @todo  Affect the driver state of the device holding vehicle accordingly.
     void setAwareness(double value);
+
+    /// @brief Set the ToC device's state
+    void setState(ToCState state);
 
     /// @brief Request a ToC.
     ///        If the device is in AUTOMATED or MRM state, a driver response time is sampled
@@ -168,8 +172,22 @@ private:
     ///        The request is ignored if the state is already PREPARING_TOC.
     void requestToC(SUMOTime timeTillMRM);
 
+    /// @brief Request an MRM to be initiated immediately. No downward ToC will be scheduled.
+    /// @note  The initiated MRM process will run forever until a new ToC is requested.
+    void requestMRM();
+
     /// @brief Switch the device holder's vehicle type
     void switchHolderType(const std::string& targetTypeID);
+
+    /// @brief Break MRM Process or remove MRM-Trigger command from the event-queue.
+    void descheduleMRM();
+    /// @brief Remove scheduled ToC-Trigger command from the event-queue.
+    void descheduleToC();
+    /// @brief Remove ongoing ToC-Preparation process from the event-queue.
+    void descheduleToCPreparation();
+    /// @brief Remove ongoing awareness recovery process from the event-queue.
+    void descheduleRecovery();
+
 
 
 private:
@@ -182,11 +200,14 @@ private:
     std::string myAutomatedType;
 
     // @brief Average response time needed by the driver to take back control
-    double myResponseTime;
+    SUMOTime myResponseTime;
     // @brief Recovery rate for the driver's awareness after a ToC
     double myRecoveryRate;
     // @brief Average awareness the driver has initially after a ToC
     double myInitialAwareness;
+
+    /// @brief Deceleration rate applied during MRM
+    double myMRMDecel;
 
     // @brief Current awareness-level of the driver in [0,1]
     double myCurrentAwareness;

@@ -454,7 +454,7 @@ NIImporter_SUMO::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_EDGE:
             if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {
-                WRITE_ERROR("Edge '" + myCurrentEdge->id + "' occured at least twice in the input.");
+                WRITE_ERROR("Edge '" + myCurrentEdge->id + "' occurred at least twice in the input.");
             } else {
                 myEdges[myCurrentEdge->id] = myCurrentEdge;
             }

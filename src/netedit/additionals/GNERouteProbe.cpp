@@ -140,13 +140,15 @@ void
 GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGE, myEdge->getID());
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFrequency);
-    if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_EDGE);
+    if(myFrequency != -1) {
+        writeAttribute(device, SUMO_ATTR_FREQUENCY);
     }
-    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    if (!myFilename.empty()) {
+        writeAttribute(device, SUMO_ATTR_FILE);
+    }
+    writeAttribute(device, SUMO_ATTR_BEGIN);
     // Close tag
     device.closeTag();
 }
@@ -334,7 +336,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_FREQUENCY:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_SELECTED:
@@ -373,8 +375,6 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

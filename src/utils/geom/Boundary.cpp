@@ -335,6 +335,19 @@ operator<<(std::ostream& os, const Boundary& b) {
 }
 
 
+bool
+Boundary::operator==(const Boundary& b) const {
+    return (
+            myXmin == b.myXmin &&
+            myXmax == b.myXmax && 
+            myYmin == b.myYmin &&
+            myYmax == b.myYmax && 
+            myZmin == b.myZmin &&
+            myZmax == b.myZmax && 
+            myWasInitialised == b.myWasInitialised);
+}
+
+
 void
 Boundary::set(double xmin, double ymin, double xmax, double ymax) {
     myXmin = xmin;

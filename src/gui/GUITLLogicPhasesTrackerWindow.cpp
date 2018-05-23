@@ -256,7 +256,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             myLastTime += (*j)->duration;
         }
         if (myLastTime <= myBeginTime) {
-            WRITE_ERROR("Overflow in time computation occured.");
+            WRITE_ERROR("Overflow in time computation occurred.");
             return;
         }
     } else {

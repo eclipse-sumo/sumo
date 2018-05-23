@@ -203,6 +203,7 @@ class Builder(object):
                 "--ignore-errors",
                 #"--no-vtypes",
                 "--vtype-prefix", "pt_",
+                "--verbose",
                 "--flow-attributes", 'departPos="0"',
                 ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
@@ -238,10 +239,15 @@ class Builder(object):
                     self.routenames.append(self.files["trips"])
 
             # create a batch file for reproducing calls to randomTrips.py
+            if os.name == "posix":
+                SUMO_HOME_VAR = "$SUMO_HOME"
+            else:
+                SUMO_HOME_VAR = "%SUMO_HOME%"
+
             randomTripsPath = os.path.join(
-                SUMO_HOME, "tools", "randomTrips.py")
+                SUMO_HOME_VAR, "tools", "randomTrips.py")
             ptlines2flowsPath = os.path.join(
-                SUMO_HOME, "tools", "ptlines2flows.py")
+                SUMO_HOME_VAR, "tools", "ptlines2flows.py")
             batchFile = "build.bat"
             with open(batchFile, 'w') as f:
                 if os.name == "posix":

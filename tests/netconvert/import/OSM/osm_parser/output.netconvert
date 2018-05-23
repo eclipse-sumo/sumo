@@ -1,0 +1,3 @@
+Parsing types from 'D:\behr_mi\Projekte\Vabene\trunk\SE\extern\sumoInternal\sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing nodes from osm-file 'osm.xml'... 
+Found duplicate nodes. Substituting -20 with -14

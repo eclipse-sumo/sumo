@@ -626,7 +626,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                 return false;
             }
         } else {
-            // last rejection occured in a previous timestep, clear cache
+            // last rejection occurred in a previous timestep, clear cache
             myFailedInsertionMemory.clear();
         }
     }

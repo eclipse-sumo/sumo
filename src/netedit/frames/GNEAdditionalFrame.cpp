@@ -364,6 +364,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             if (GNEAttributeCarrier::isPositive(additionalTag, myAdditionalAttr) && (intValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             }
+            // special case for optional attributes (#4047)
+            if ((intValue == -1) && GNEAttributeCarrier::hasDefaultValue(additionalTag, myAdditionalAttr) &&
+                GNEAttributeCarrier::getDefaultValue<std::string>(additionalTag, myAdditionalAttr) == "-1"){
+                myInvalidValue.clear();
+            }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
         }
@@ -375,6 +380,11 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
             // Check if parsed value is negative
             if (doubleValue < 0) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
+            } 
+            // special case for optional attributes (#4047)
+            if ((doubleValue == -1) && GNEAttributeCarrier::hasDefaultValue(additionalTag, myAdditionalAttr) &&
+                GNEAttributeCarrier::getDefaultValue<std::string>(additionalTag, myAdditionalAttr) == "-1"){
+                myInvalidValue.clear();
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
@@ -1330,6 +1340,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 GNEAdditionalFrame::AddAdditionalResult
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
+    const SumoXMLTag tag = myAdditionalSelector->getCurrentAdditionalType();
     // check if current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
@@ -1495,15 +1506,19 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
 
-    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.txt
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
-        valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
+    // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
+    if (GNEAttributeCarrier::hasAttribute(tag, SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
+        if (tag != SUMO_TAG_CALIBRATOR && tag != SUMO_TAG_REROUTER) {
+            // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
+            valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
+        }
     }
 
-    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.txt
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
-        valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".txt");
-    }
+    // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.xml
+    // output is optional
+    //if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
+    //    valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
+    //}
 
     // Save block value if additional can be blocked
     if (GNEAttributeCarrier::canBlockMovement(myAdditionalSelector->getCurrentAdditionalType())) {
@@ -1590,10 +1605,6 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
         // Clear flows (Always first)
         while(calibrator->getCalibratorFlows().size() > 0) {
             myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorFlows().front(), false), true);
-        }
-        // Clear VTypes
-        while(calibrator->getCalibratorVehicleTypes().size() > 0) {
-            myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorVehicleTypes().front(), false), true);
         }
         // Clear Routes
         while(calibrator->getCalibratorRoutes().size() > 0) {

@@ -340,14 +340,21 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
     myDecalsLock.unlock();
     MSVehicleControl::constVehIt it = MSNet::getInstance()->getVehicleControl().loadedVehBegin();
+    // reset active flag
+    for (auto& item : myVehicles) {
+        item.second.active = false;
+    }
     for (; it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
         GUIVehicle* veh = static_cast<GUIVehicle*>(it->second);
         if (!veh->isOnRoad()) {
             continue;
         }
-        if (myVehicles.find(veh) == myVehicles.end()) {
+        auto itVeh = myVehicles.find(veh);
+        if (itVeh == myVehicles.end()) {
             myVehicles[veh] = GUIOSGBuilder::buildMovable(veh->getVehicleType());
             myRoot->addChild(myVehicles[veh].pos);
+        } else {
+            itVeh->second.active = true;
         }
         osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
         n->setPosition(osg::Vec3d(veh->getPosition().x(), veh->getPosition().y(), veh->getPosition().z()));
@@ -372,6 +379,12 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
+    // remove inactive
+    for (auto& item : myVehicles) {
+        if (!item.second.active) {
+            removeVeh(item.first);
+        }
+    }
 
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     if (now != myLastUpdate || (myVisualizationChanger != 0 && myVisualizationChanger->shown())) {
@@ -391,18 +404,35 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myCameraManipulator->setByInverseMatrix(m);
     }
 
+    // reset active flag
+    for (auto& item : myPersons) {
+        item.second.active = false;
+    }
     for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
         MSTransportable* person = (*it).second;
         // XXX if not departed: continue
-        if (myPersons.find(person) == myPersons.end()) {
+        if (person->hasArrived()) {
+            //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
+            continue;
+        }
+        auto itPers = myPersons.find(person);
+        if (itPers == myPersons.end()) {
             myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
             myRoot->addChild(myPersons[person].pos);
+        } else {
+            itPers->second.active = true;
         }
         osg::PositionAttitudeTransform* n = myPersons[person].pos;
         const Position pos = person->getPosition();
         n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
         const double dir = person->getAngle() + M_PI / 2.;
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
+    }
+    // remove inactive
+    for (auto& item : myPersons) {
+        if (!item.second.active) {
+            removeTransportable(item.first);
+        }
     }
     if (myAdapter->makeCurrent()) {
         myViewer->frame();
@@ -414,7 +444,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
 
 
 void
-GUIOSGView::remove(GUIVehicle* veh) {
+GUIOSGView::removeVeh(MSVehicle* veh) {
     if (myTracked == veh) {
         stopTrack();
     }
@@ -422,6 +452,16 @@ GUIOSGView::remove(GUIVehicle* veh) {
     if (i != myVehicles.end()) {
         myRoot->removeChild(i->second.pos);
         myVehicles.erase(i);
+    }
+}
+
+
+void
+GUIOSGView::removeTransportable(MSTransportable* t) {
+    std::map<MSTransportable*, OSGMovable>::iterator i = myPersons.find(t);
+    if (i != myPersons.end()) {
+        myRoot->removeChild(i->second.pos);
+        myPersons.erase(i);
     }
 }
 

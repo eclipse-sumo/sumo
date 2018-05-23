@@ -14,7 +14,7 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id: RONetHandler.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/
@@ -194,7 +194,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
 void
 RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge == 0) {
-        // was an internal edge to skip or an error occured
+        // was an internal edge to skip or an error occurred
         return;
     }
     bool ok = true;

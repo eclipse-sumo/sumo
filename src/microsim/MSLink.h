@@ -507,6 +507,11 @@ public:
     /// @brief initialize parallel links (to be called after all links are loaded)
     void initParallelLinks();
 
+    /// @brief return lateral shift that must be applied when passing this link
+    double getLateralShift() {
+        return myLateralShift;
+    }
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(double leaderSpeed, double followerSpeed, double leaderDecel, double followerDecel) {
@@ -593,6 +598,9 @@ private:
     SUMOTime myMesoTLSPenalty;
     /// @brief green fraction at tls for mesoscopic simulation
     double myGreenFraction;
+
+    /// @brief lateral shift to be applied when passing this link
+    double myLateralShift;
 
     /* @brief lengths after the crossing point with foeLane
      * (lengthOnThis, lengthOnFoe)

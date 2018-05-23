@@ -109,4 +109,7 @@ write_net_weight
 # Test for parsing and writing human-readable-time
 # putting it here because it covers a lot of different inputs
 public_walk_human_readable_time
+
+# Copy of car_public_walk
+bike_public_walk
 errors

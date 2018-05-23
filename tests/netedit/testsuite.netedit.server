@@ -10,6 +10,9 @@ bugs
 # tests for net elements (Junctions, edges, crossings, etc..)
 netElements
 
+# test for Traffic lights
+trafficLights
+
 # test for routes elements (Routes, Vehicles, etc.)
 routeElements
 

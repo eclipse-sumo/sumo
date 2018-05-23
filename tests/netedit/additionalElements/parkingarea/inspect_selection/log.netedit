@@ -1,19 +1,15 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
-Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
@@ -38,8 +34,7 @@ Warning: Setting new attribute length '0' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute length '0' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaB'
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaA'
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaB'
+Warning: Setting new attribute angle '0.00' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaB'
 Warning: Setting new attribute angle '500' into parkingArea 'parkingAreaA'
@@ -62,7 +57,6 @@ Warning: Setting previous attribute angle '0.00' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute angle '0.00' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '30.00' into parkingArea 'parkingAreaB'
-Warning: Setting previous attribute angle '0.00' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '0.00' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute length '0.00' into parkingArea 'parkingAreaA'
@@ -86,7 +80,7 @@ Warning: Setting previous attribute name 'parkingArea2' into parkingArea 'parkin
 Warning: Setting previous attribute name 'parkingArea1' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into parkingArea 'parkingAreaB'
-Warning: Setting previous attribute friendlyPos '0' into parkingArea 'parkingAreaA'
+Warning: Setting previous attribute friendlyPos '1' into parkingArea 'parkingAreaA'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
 Warning: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaA'
@@ -94,17 +88,11 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute roadsideCapacity '10' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute selected '0' into parkingArea 'parkingAreaB'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into parkingArea 'parkingAreaA'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into edge 'gneE0'
-Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into junction 'gneJ1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting previous attribute selected '0' into junction 'gneJ0'
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing parkingArea 'parkingAreaB' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 1 ACs remains.
@@ -115,17 +103,11 @@ Warning: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'
-Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE1'
-Warning: Current selection: 1 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ1'
-Warning: Current selection: 2 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE0'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -156,8 +138,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute length '3.4' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaA'
-Warning: Setting new attribute angle '0' into parkingArea 'parkingAreaB'
+Warning: Setting new attribute angle '0.00' into parkingArea 'parkingAreaB'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaA'
 Warning: Setting new attribute angle '-6' into parkingArea 'parkingAreaB'
@@ -174,10 +155,9 @@ Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced parkingArea 'parkingAreaB'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 1 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced parkingArea 'parkingAreaA'
-Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -186,6 +166,5 @@ Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures

@@ -131,7 +131,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
         WRITE_ERROR("Error occurred: " + std::string(ex.what()) + " while parsing '" + file + "'");
         return false;
     } catch (...) {
-        WRITE_ERROR("Unspecified error occured wile parsing '" + file + "'");
+        WRITE_ERROR("Unspecified error occurred wile parsing '" + file + "'");
         return false;
     }
     return !MsgHandler::getErrorInstance()->wasInformed();

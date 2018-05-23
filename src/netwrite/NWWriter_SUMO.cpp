@@ -295,9 +295,10 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // @note the actual length should be used once sumo supports lanes of
                 // varying length within the same edge
                 //const double length = MAX2((*k).shape.length(), POSITION_EPS);
+                const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
-                          NBEdge::UNSPECIFIED_OFFSET, std::map<int,double>(), successor.width, (*k).shape, &(*k),
+                          NBEdge::UNSPECIFIED_OFFSET, std::map<int,double>(), width, (*k).shape, &(*k),
                           length, (*k).internalLaneIndex, getOppositeInternalID(ec, *i, *k));
                 haveVia = haveVia || (*k).haveVia;
             }

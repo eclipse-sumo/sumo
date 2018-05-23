@@ -30,9 +30,12 @@
 #endif
 
 #include <utils/common/StdDefs.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/options/OptionsCont.h>
+
 #include "GNEDialog_About.h"
 
 
@@ -57,6 +60,15 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     neteditLabel->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "Network editor for Eclipse SUMO, the Simulation of Urban MObility", 0, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, HAVE_ENABLED, 0, GUIDesignLabelAboutInfo);
+
+    // write HAVE_ENABLED with the current modules (except Windows)
+    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
+        std::string modules(HAVE_ENABLED);
+        while((modules.size() > 0) && (modules.front() != ' ')) {
+            modules.erase(modules.begin());
+        }
+        WRITE_WARNING(("Modules: " + modules).c_str());
+    }
 
     // copyright notice
     new FXLabel(this, "Graphical editor for networks of the traffic simulation SUMO.", 0, GUIDesignLabelAboutInfo);

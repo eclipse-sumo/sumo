@@ -56,15 +56,15 @@ FXIMPLEMENT(GNECalibratorVehicleTypeDialog, GNEAdditionalDialog, GNECalibratorVe
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorVehicleType->getCalibratorParent(), 500, 370),
+GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehicleType* editedCalibratorVehicleType, GNEAdditional* parent, bool updatingElement) :
+    GNEAdditionalDialog(parent, 500, 370),
     myEditedCalibratorVehicleType(editedCalibratorVehicleType),
     myUpdatingElement(updatingElement),
     myCalibratorVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorVehicleType->getTag()) + " of " : "Create " + toString(myEditedCalibratorVehicleType->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorVehicleType->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorVehicleType->getCalibratorParent()->getID() + "'");
+    changeAdditionalDialogHeader(typeOfOperation + toString(parent->getTag()) + " '" + parent->getID() + "'");
 
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -207,7 +207,7 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorVehicleType, true), true);
+        parent->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorVehicleType, true), true);
     }
 
     // open as modal dialog
@@ -227,12 +227,11 @@ GNECalibratorVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string parentTagString = toString(myEditedCalibratorVehicleType->getCalibratorParent()->getTag());
         std::string tagString = toString(myEditedCalibratorVehicleType->getTag());
         // open warning dialogBox
         FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
+                              ("Error " + operation1 + " " + tagString).c_str(), "%s",
+                              (tagString + " cannot be " + operation2 +
                                " because parameter " + toString(myInvalidAttr) +
                                " is invalid.").c_str());
         // write warning if netedit is running in testing mode
@@ -276,7 +275,7 @@ GNECalibratorVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorVehicleTypeValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legilibity)
-    GNEUndoList* undoList = myEditedCalibratorVehicleType->getCalibratorParent()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myUndoList;
     // set color of myComboBoxShape, depending if current value is valid or not
     if (myEditedCalibratorVehicleType->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));

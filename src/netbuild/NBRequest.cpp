@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NBRequest.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
@@ -65,9 +65,7 @@ NBRequest::NBRequest(const NBEdgeCont& ec,
     myJunction(junction),
     myAll(all),
     myIncoming(incoming),
-    myOutgoing(outgoing),
-    myCrossings(junction->getCrossings())
-{
+    myOutgoing(outgoing) {
     const int variations = numLinks();
     // build maps with information which forbidding connection were
     //  computed and what's in there
@@ -357,7 +355,7 @@ NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool chec
     int pos = 0;
     EdgeVector::const_iterator i;
     // normal connections
-    const bool padding = getSizes().second + myCrossings.size() > 10;
+    const bool padding = getSizes().second + myJunction->getCrossings().size() > 10;
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int k = 0; k < noLanes; k++) {
@@ -365,7 +363,8 @@ NBRequest::writeLogic(std::string /* key */, OutputDevice& into, const bool chec
         }
     }
     // crossings
-    for (auto c : myCrossings) {
+    auto crossings = myJunction->getCrossings();
+    for (auto c : crossings) {
         pos = writeCrossingResponse(into, *c, pos);
     }
 }
@@ -526,8 +525,8 @@ NBRequest::writeLaneResponse(OutputDevice& od, NBEdge* from,
 
 int
 NBRequest::writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const {
-    std::string foes(myCrossings.size(), '0');
-    std::string response(myCrossings.size(), '0');
+    std::string foes(myJunction->getCrossings().size(), '0');
+    std::string response(myJunction->getCrossings().size(), '0');
     // conflicts with normal connections
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         //const std::vector<NBEdge::Connection> &allConnections = (*i)->getConnections();
@@ -572,7 +571,8 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
     }
     std::string result;
     // crossings
-    for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+    auto crossings = myJunction->getCrossings();
+    for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
         result += mustBrakeForCrossing(myJunction, from, to, **i) ? '1' : '0';
     }
     NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
@@ -624,7 +624,8 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
     // !!! move to forbidden
     std::string result;
     // crossings
-    for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+    auto crossings = myJunction->getCrossings();
+    for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
         bool foes = false;
         for (EdgeVector::const_iterator it_e = (**i).edges.begin(); it_e != (**i).edges.end(); ++it_e) {
             if ((*it_e) == from || (*it_e) == to) {
@@ -665,6 +666,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             && con.toEdge == prohibitorCon.toEdge
             && con.toLane == prohibitorCon.toLane
             && con.fromLane != prohibitorCon.fromLane
+            && !myJunction->isConstantWidthTransition()
             // if the edge has lower priority, this connection yields
             && (foes ||
                 // if the prohibitor has pass, this connection yields
@@ -760,7 +762,8 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     }
     // maybe we need to brake for a pedestrian crossing
     if (includePedCrossings) {
-        for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = myCrossings.rbegin(); i != myCrossings.rend(); i++) {
+        auto crossings = myJunction->getCrossings();
+        for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
             if (mustBrakeForCrossing(myJunction, from, to, **i)) {
                 return true;
             }
@@ -825,7 +828,7 @@ NBRequest::mustBrake(const NBEdge* const possProhibitorFrom, const NBEdge* const
 
 void
 NBRequest::reportWarnings() {
-    // check if any errors occured on build the link prohibitions
+    // check if any errors occurred on build the link prohibitions
     if (myNotBuild != 0) {
         WRITE_WARNING(toString(myNotBuild) + " of " + toString(myNotBuild + myGoodBuilds) + " prohibitions were not build.");
     }
@@ -866,7 +869,7 @@ NBRequest::resetCooperating() {
 
 int
 NBRequest::numLinks() const {
-    return (int)(myIncoming.size() * myOutgoing.size() + myCrossings.size());
+    return (int)(myIncoming.size() * myOutgoing.size() + myJunction->getCrossings().size());
 }
 
 /****************************************************************************/

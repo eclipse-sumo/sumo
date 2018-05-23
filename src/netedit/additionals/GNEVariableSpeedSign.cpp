@@ -132,13 +132,13 @@ void
 GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_LANES, parseGNELanes(myLaneChilds));
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+    writeAttribute(device, SUMO_ATTR_ID);
+    writeAttribute(device, SUMO_ATTR_LANES);
+    writeAttribute(device, SUMO_ATTR_POSITION);
     // If filename isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
     if (!myFilename.empty() && mySaveInFilename) {
         // Write filename attribute
-        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+        writeAttribute(device, SUMO_ATTR_FILE);
         // Save values in a different file
         OutputDevice& deviceVSS = OutputDevice::getDevice(/**currentDirectory +**/ myFilename);
         deviceVSS.openTag("VSS");
@@ -155,7 +155,7 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     }
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Close tag
     device.closeTag();
@@ -401,8 +401,6 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

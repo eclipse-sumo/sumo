@@ -240,8 +240,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorPopup->update();
     GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
         this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
-    chooser->create();
-    chooser->show();
+    UNUSED_PARAMETER(chooser);
     return 1;
 }
 

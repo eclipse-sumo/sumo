@@ -7,6 +7,8 @@ one_vehicle
 # one vehicle is moving, timestep is subseconds
 one_vehicle_subsecond
 
+# a small driving cycle with different emission models
+models_cycle
+
 # Testing error cases
 errors
-

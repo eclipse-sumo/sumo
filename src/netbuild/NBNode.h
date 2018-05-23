@@ -13,7 +13,7 @@
 /// @author  Yun-Pang Floetteroed
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id: NBNode.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The representation of a single node
 /****************************************************************************/
@@ -568,7 +568,7 @@ public:
      * */
     int checkCrossing(EdgeVector candidates);
 
-    /// @brief return true if already exist a crossing with the same edges as the input
+    /// @brief return true if there already exist a crossing with the same edges as the input
     bool checkCrossingDuplicated(EdgeVector edges);
 
     /// @brief build internal lanes, pedestrian crossings and walking areas
@@ -605,8 +605,8 @@ public:
     void setRoundabout();
 
     /// @brief add a pedestrian crossing to this node
-    void addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
-                     const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
+    NBNode::Crossing* addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
+                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
 
     /// @brief add custom shape for walkingArea
     void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape);
@@ -636,8 +636,10 @@ public:
     /// @brief return the crossing with the given id
     Crossing* getCrossing(const std::string& id) const;
 
-    /// @brief set tl indices of this nodes crossing starting at the given index
-    void setCrossingTLIndices(const std::string& tlID, int startIndex);
+    /* @brief set tl indices of this nodes crossing starting at the given index
+     * @return Whether a custom index was used
+     */
+    bool setCrossingTLIndices(const std::string& tlID, int startIndex);
 
     /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
     int numNormalConnections() const;
@@ -709,6 +711,12 @@ public:
         return myIsBentPriority;
     }
 
+    /// @brief detects whether a given junction splits or merges lanes while keeping constant road width
+    bool isConstantWidthTransition() const;
+
+    /// @brief return list of unique endpoint coordinates of all edges at this node
+    std::vector<Position> getEndPoints() const;
+
 private:
     /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
@@ -733,6 +741,9 @@ private:
 
     /// @brief remove all traffic light definitions that are part of a joined tls
     void removeJoinedTrafficLights();
+
+    /// @brief displace lane shapes to account for change in lane width at this node
+    void displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
 private:
     /// @brief The position the node lies at

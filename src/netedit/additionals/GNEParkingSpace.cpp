@@ -77,15 +77,21 @@ void
 GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_X, myX);
-    device.writeAttr(SUMO_ATTR_Y, myY);
-    device.writeAttr(SUMO_ATTR_Z, myZ);
-    device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
-    device.writeAttr(SUMO_ATTR_LENGTH, myLength);
-    device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    writeAttribute(device, SUMO_ATTR_X);
+    writeAttribute(device, SUMO_ATTR_Y);
+    writeAttribute(device, SUMO_ATTR_Z);
+    if(myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH) != getAttribute(SUMO_ATTR_WIDTH)) {
+        writeAttribute(device, SUMO_ATTR_WIDTH);
+    }
+    if(myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH) != getAttribute(SUMO_ATTR_LENGTH)) {
+        writeAttribute(device, SUMO_ATTR_LENGTH);
+    }
+    if(myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE) != getAttribute(SUMO_ATTR_ANGLE)) {
+        writeAttribute(device, SUMO_ATTR_ANGLE);
+    }
     // write block movement attribute only if it's enabled
     if (myBlockMovement) {
-        device.writeAttr(GNE_ATTR_BLOCK_MOVEMENT, myBlockMovement);
+        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
     }
     // Close tag
     device.closeTag();
@@ -296,8 +302,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // update ACChooser dialogs after setting a new attribute
-    myViewNet->getViewParent()->updateACChooserDialogs();
     // After setting attribute always update Geometry
     updateGeometry();
 }

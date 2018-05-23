@@ -134,11 +134,11 @@ public:
     /// @name inherited from GNEAttributeCarrier
     /// @{
 
-    /// @brief select attribute carrier
-    void selectAttributeCarrier();
+    /// @brief select attribute carrier using GUIGlobalSelection
+    void selectAttributeCarrier(bool changeFlag = true);
 
-    /// @brief unselect attribute carrier
-    void unselectAttributeCarrier();
+    /// @brief unselect attribute carrier using GUIGlobalSelection
+    void unselectAttributeCarrier(bool changeFlag = true);
 
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
@@ -177,9 +177,6 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief boolean to check if netElement is selected
-    bool mySelected;
 
     /// @brief Invalidated copy constructor.
     GNENetElement(const GNENetElement&) = delete;

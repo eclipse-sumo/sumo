@@ -140,9 +140,6 @@ public:
     /// @brief get GNE Application Windows
     GNEApplicationWindow* getGNEAppWindows() const;
 
-    /// @brief update Current ACChooserDialogs opened
-    void updateACChooserDialogs();
-
     /// @brief remove created chooser dialog
     void eraseACChooserDialog(GNEDialogACChooser *chooserDialog);
 
@@ -166,6 +163,9 @@ public:
     /// @brief Called when user change the splitter between FrameArea and ViewNet
     long onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*);
     /// @}
+    
+    /// @brief true if the object is selected (may include extra logic besides calling gSelected)
+    bool isSelected(GUIGlObject* o) const;
 
 protected:
     /// @brief FOX needs this

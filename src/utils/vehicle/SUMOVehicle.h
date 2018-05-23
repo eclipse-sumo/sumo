@@ -325,6 +325,8 @@ public:
      */
     virtual bool isStopped() const = 0;
 
+    /// @brief Returns the remaining stop duration for a stopped vehicle or 0
+    virtual SUMOTime remainingStopDuration() const = 0;
 
     /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
      */

@@ -16,6 +16,7 @@ copy_test_path:elmar_connected_lanes.txt
 copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
+copy_test_path:input_net2.net.xml
 copy_test_path:osm.xml
 copy_test_path:matsim.xml
 copy_test_path:vissim.inpx
@@ -88,6 +89,6 @@ elmar_connected_lanes:# <!--{[->]}-->
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
-foreign:0.0001
+foreign:0.0101
 ptlines:0.0101
 cfg:0.000000001

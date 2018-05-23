@@ -1,7 +1,7 @@
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE12'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
 Warning: Removing connection 'gneE13_0->gneE12_0' from edge 'gneE13'
@@ -11,7 +11,6 @@ Warning: Removing connection 'gneE12_0->gneE13_0' from edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE12'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Removing edge 'gneE12' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE13'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -19,7 +18,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Warning: Removing edge 'gneE13' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE14'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -28,7 +26,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Warning: Removing edge 'gneE14' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '-gneE14'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -36,7 +33,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
 Warning: Removing edge '-gneE14' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '-gneE15'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -45,7 +41,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
 Warning: Removing edge '-gneE15' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE15'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -53,7 +48,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ8'
 Warning: Removing edge 'gneE15' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '-gneE22'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -62,7 +56,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE22'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ21'
 Warning: Removing edge '-gneE22' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE22'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -70,7 +63,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE22'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ22'
 Warning: Removing edge 'gneE22' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge '-gneE18'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -79,7 +71,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Warning: Removing edge '-gneE18' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into edge 'gneE18'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
@@ -87,7 +78,6 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE18'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ10'
 Warning: Removing edge 'gneE18' from net
-Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Deleting unreferenced edge 'gneE18' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE18' in GNEChange_Attribute
@@ -166,6 +156,5 @@ Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ9' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
