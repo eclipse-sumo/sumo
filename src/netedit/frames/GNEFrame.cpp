@@ -582,24 +582,18 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     FXDialogBox *attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
+    attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
     auto attrs = GNEAttributeCarrier::getAttributes(elementTag);
+    int sizeColumnDescription = 0;
+    int sizeColumnDefinitions = 0;
     myTable->setVisibleRows((FXint)(attrs.size()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(attrs.size()), 4);
+    myTable->setTableSize((FXint)(attrs.size()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Attribute");
-    myTable->setColumnText(1, "Type");
-    myTable->setColumnText(2, "Restriction");
-    myTable->setColumnText(3, "Definition");
+    myTable->setColumnText(1, "Description");
+    myTable->setColumnText(2, "Definition");
     myTable->getRowHeader()->setWidth(0);
-    FXHeader* header = myTable->getColumnHeader();
-    header->setItemJustify(0, JUSTIFY_CENTER_X);
-    header->setItemSize(0, 120);
-    header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(1, 90);
-    header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(2, 80);
-    int maxSizeColumnDefinitions = 0;
     // Iterate over vector of additional parameters
     int itemIndex = 0;
     for (auto i : attrs) {
@@ -609,51 +603,25 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
         myTable->setItem(itemIndex, 0, attribute);
         // Set type
         FXTableItem* type = new FXTableItem("");
-        if (i.first == SUMO_ATTR_SHAPE) {
-            type->setText("list of positions");
-        }
-        else if (i.second.isInt()) {
-            type->setText("int");
-        }
-        else if (i.second.isFloat()) {
-            type->setText("float");
-        }
-        else if (i.second.isTime()) {
-            type->setText("time");
-        }
-        else if (i.second.isBool()) {
-            type->setText("bool");
-        }
-        else if (i.second.isColor()) {
-            type->setText("color");
-        }
-        else if (i.second.isString()) {
-            if (i.first == SUMO_ATTR_POSITION) {
-                type->setText("position");
-            }
-            else {
-                type->setText("string");
-            }
-        }
+        type->setText(i.second.getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.second.getDescription().size());
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 1, type);
-        // Set restriction
-        FXTableItem* restriction = new FXTableItem(i.second.getRestriction().c_str());
-        restriction->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 2, restriction);
         // Set definition
         FXTableItem* definition = new FXTableItem(i.second.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(itemIndex, 3, definition);
-        if ((int)(i.second.getDefinition().size()) > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = (int)(i.second.getDefinition().size());
-        }
+        myTable->setItem(itemIndex, 2, definition);
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.second.getDefinition().size());
         itemIndex++;
     }
-
-    // Set size of column
-    header->setItemJustify(3, JUSTIFY_CENTER_X);
-    header->setItemSize(3, maxSizeColumnDefinitions * 6);
+    // set header
+    FXHeader* header = myTable->getColumnHeader();
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemSize(0, 120);
+    header->setItemJustify(1, JUSTIFY_CENTER_X);
+    header->setItemSize(1, sizeColumnDescription * 7);
+    header->setItemJustify(2, JUSTIFY_CENTER_X);
+    header->setItemSize(2, sizeColumnDefinitions * 6);
     // Create horizontal separator
     new FXHorizontalSeparator(attributesHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button

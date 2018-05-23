@@ -960,7 +960,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_UNIQUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
             "The id of the edge", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FROM] = AttributeValues(
