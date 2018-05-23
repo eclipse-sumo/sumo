@@ -1,0 +1,28 @@
+version: git.{build}
+
+environment:
+    R_ARCH: x64
+    matrix:
+        - target: msvc
+          ver: 2013
+          generator: "Visual Studio 12 2013 Win64"
+          configuration: Release
+        - target: msvc
+          ver: 2015
+          generator: "Visual Studio 14 2015 Win64"
+          configuration: Release
+        - target: msvc
+          ver: 2017
+          generator: "Visual Studio 15 2017 Win64"
+          configuration: Release
+
+install:
+    - git clone https://github.com/DLR-TS/SUMOLibraries
+    - set SUMO_LIBRARIES=%CD%\SUMOLibraries
+
+build_script:
+    - cd %APPVEYOR_BUILD_FOLDER%
+    - mkdir build_msvc%ver% &&
+      cd build_msvc%ver% &&
+      cmake .. -G"%generator%" &&
+      cmake --build . --config %configuration%
