@@ -269,8 +269,22 @@ NGNet::toNB() const {
             split.node = new NBNode(e->getID() + "." + toString(split.pos), e->getGeometry().positionAtOffset(split.pos));
             split.idBefore = e->getID();
             split.idAfter = split.node->getID();
-            if (turnLaneLength <= e->getLength() / 2 && !e->getFromNode()->geometryLike()) {
+            if (turnLaneLength <= e->getLength() / 2) {
                 split.offset = -0.5 * turnLanes * e->getLaneWidth(0);
+                if (e->getFromNode()->geometryLike()) {
+                    // shift the reverse direction explicitly as it will not get a turn lane
+                    NBEdge* reverse = 0;
+                    for (NBEdge* reverseCand : e->getFromNode()->getIncomingEdges()) {
+                        if (reverseCand->getFromNode() == e->getToNode()) {
+                            reverse = reverseCand;
+                        }
+                    }
+                    if (reverse != 0) {
+                        PositionVector g = reverse->getGeometry();
+                        g.move2side(-split.offset);
+                        reverse->setGeometry(g);
+                    }
+                }
             }
             splits.push_back(split);
             ec.processSplits(e, splits, 
