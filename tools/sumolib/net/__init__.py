@@ -190,6 +190,12 @@ class Net:
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
+        if viaLaneID:
+            viaLane = self.getLane(viaLaneID)
+            viaEdge = viaLane.getEdge()
+            viaEdge._addIncoming(connection.Connection(
+                fromEdge, viaEdge, fromlane, viaLane, direction, tls,
+                tllink, state, ''))
 
     def getEdges(self):
         return self._edges
