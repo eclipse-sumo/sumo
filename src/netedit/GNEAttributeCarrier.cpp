@@ -1162,7 +1162,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Enable or disbale use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Angle of rendered image in degree", 
             "0");
     }
@@ -1216,7 +1216,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Enable or disbale use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Angle of rendered image in degree", 
             "0");
     }
@@ -1258,7 +1258,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Enable or disbale use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Angle of rendered image in degree", 
             "0");
     }
@@ -1372,15 +1372,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Name of bus stop", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LINES] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes", 
             "");
     }
@@ -1398,7 +1398,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
     }
@@ -1424,11 +1424,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Name of Container Stop", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LINES] = AttributeValues(
@@ -1458,27 +1458,27 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "End position in the specified lane", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Name of Charging Station", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CHARGINGPOWER] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Charging power in W", 
             "22000.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_EFFICIENCY] = AttributeValues(
-            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Charging efficiency [0,1]", 
             "0.95");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CHARGEINTRANSIT] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CHARGEDELAY] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins", 
             "0.00");
     }
@@ -1512,7 +1512,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
     }
@@ -1542,27 +1542,27 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The aggregation period the values the detector collects shall be summed up", 
             "900.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The path to the output file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CONT] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Holds the information whether detectors longer than a lane shall be cut off or continued (set it to true for the second case))", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_TIME_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_SPEED_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s", 
             "1.39");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_JAM_DIST_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam) in m", 
             "10.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
     }
@@ -1584,15 +1584,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The aggregation period the values the detector collects shall be summed up", 
             "900.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The path to the output file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_TIME_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_SPEED_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s", 
             "1.39");
     }
@@ -1610,7 +1610,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The position on the lane the detector shall be laid on in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
     }
@@ -1628,7 +1628,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The position on the lane the detector shall be laid on in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
     }
@@ -1650,7 +1650,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "list of lanes of Variable Speed Sign", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The path to the output file", 
             "");
     }
@@ -1672,15 +1672,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The position of the calibrator on the specified lane", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The aggregation interval in which to calibrate the flows. default is step-length", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROUTEPROBE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The id of the routeProbe element from which to determine the route distribution for generated vehicles", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_OUTPUT] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The output file for writing calibrator information or NULL", 
             "");
     }
@@ -1702,15 +1702,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The position of the calibrator on the specified lane", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The aggregation interval in which to calibrate the flows. default is step-length", 
             "100.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROUTEPROBE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The id of the routeProbe element from which to determine the route distribution for generated vehicles", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_OUTPUT] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The output file for writing calibrator information or NULL", 
             "");
     }
@@ -1732,19 +1732,19 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "X,Y position in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The path to the definition file (alternatively, the intervals may defined as children of the rerouter)", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PROB] = AttributeValues(
-            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The probability for vehicle rerouting (0-1)", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_TIME_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_OFF] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Whether the router should be inactive initially (and switched on in the gui)", 
             "0");
     }
@@ -1770,7 +1770,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The file for generated output", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The time at which to start generating output", 
             "0");
     }
@@ -1790,7 +1790,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
             "End Time", 
-            "10.00");
+            "10.00");   // ¿?
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {
@@ -1814,27 +1814,27 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             " The number of parking spaces for road-side parking ", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Name of Parking Area", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The width of the road-side parking spaces", 
-            "3.2");
+            "3.20");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The length of the road-side parking spaces", 
-            "5.0");
+            "5.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_OPTIONAL, 
             "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
             "0.00");
     }
@@ -1852,19 +1852,19 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The Y position in meters of the parking vehicle", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_Z] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The Z position in meters of the parking vehicle", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The width of the road-side parking spaces", 
             "3.2");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The length of the road-side parking spaces", 
             "5.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
             "0");
     }
@@ -1886,15 +1886,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of the route the vehicle shall drive along", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_VEHSPERHOUR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Number of vehicles per hour, equally spaced", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Speed of vehicles", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "This vehicle's color", 
             "yellow");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
@@ -1904,53 +1904,53 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "End of departure interval", 
-            "100.00");
+            "100.00"); // ¿?
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DEPARTLANE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The lane on which the vehicle shall be inserted", 
             "first");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DEPARTPOS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The position at which the vehicle shall enter the net", 
             "base");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DEPARTSPEED] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The speed with which the vehicle shall enter the network", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ARRIVALLANE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The lane at which the vehicle shall leave the network", 
             "current");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ARRIVALPOS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The position at which the vehicle shall leave the network", 
             "max");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ARRIVALSPEED] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The speed with which the vehicle shall leave the network", 
             "current");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LINE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "A string specifying the id of a public transport line which can be used when specifying person rides", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PERSON_NUMBER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The number of occupied seats when the vehicle is inserted", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CONTAINER_NUMBER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The number of occupied container places when the vehicle is inserted",  
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_REROUTE] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Whether the vehicle should be equipped with a rerouting device", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DEPARTPOS_LAT] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The lateral position on the departure lane at which the vehicle shall enter the net", 
             "center");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ARRIVALPOS_LAT] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The lateral position on the arrival lane at which the vehicle shall arrive", 
             "");
     }
@@ -1968,7 +1968,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The edges the vehicle shall drive along, given as their ids, separated using spaces", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "This route's color", 
             "yellow");
     }
@@ -1982,97 +1982,97 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of VehicleType", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ACCEL] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The acceleration ability of vehicles of this type [m/s^2]", 
             "2.60");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DECEL] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The deceleration ability of vehicles of this type [m/s^2]", 
             "4.50");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SIGMA] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Car-following model parameter", 
             "0.50");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TAU] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Car-following model parameter", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The vehicle's netto-length (length) [m]", 
             "5.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_MINGAP] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Empty space after leader [m]", 
             "2.50");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_MAXSPEED] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The vehicle's maximum velocity [m/s]", 
             "70.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEEDFACTOR] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The vehicles expected multiplicator for lane speed limits", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEEDDEV] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | /*ATTRPROPERTY_POSITIVE |*/ ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The deviation of the speedFactor", 
-            "0.00");
+            "0.00"); // ¿?
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "This vehicle type's color", 
             "1,1,0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_VCLASS] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "An abstract vehicle class", 
             "passenger",
             SumoVehicleShapeStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_EMISSIONCLASS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "An abstract emission class", 
             "P_7_7");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_GUISHAPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "How this vehicle is rendered", 
             "passenger",
             SumoVehicleShapeStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The vehicle's width [m] (only used for drawing)", 
             "2.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMPATIENCE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | /*ATTRPROPERTY_POSITIVE |*/ ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Willingess of drivers to impede vehicles with higher priority", 
-            "0.00");
+            "0.00"); // ¿?
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE_CHANGE_MODEL] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The model used for changing lanes", 
             "LC2013");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CAR_FOLLOW_MODEL] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The model used for car following", 
             "Krauss");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PERSON_CAPACITY] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 
             "The number of persons (excluding an autonomous driver) the vehicle can transport", 
             "4");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CONTAINER_CAPACITY] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
             "The number of containers the vehicle can transport", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BOARDING_DURATION] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 
             "The time required by a person to board the vehicle", 
             "0.50");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LOADING_DURATION] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME| ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME| ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 
             "The time required to load a container onto the vehicle", 
             "90.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LATALIGNMENT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
             "The preferred lateral alignment when using the sublane-model", 
             "center");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_MINGAP_LAT] = AttributeValues(
@@ -2096,7 +2096,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
             "Speed", 
-            "50.00");
+            "50.00"); // ¿?
     }
     currentTag = SUMO_TAG_INTERVAL;
     {
@@ -2106,11 +2106,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "Begin", 
-            "0");
+            "0"); // ¿?
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "End", 
-            "100.00");
+            "100.00"); // ¿?
     }
     currentTag = SUMO_TAG_CLOSING_REROUTE;
     {
@@ -2122,13 +2122,13 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Edge ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL, 
             "allowed vehicles", 
-            "all");
+            "all"); 
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL, 
             "disallowed vehicles", 
-            "");
+            ""); // ¿?
     }
     currentTag = SUMO_TAG_CLOSING_LANE_REROUTE;
     {
@@ -2140,11 +2140,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Lane ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL, 
             "allowed vehicles", 
             "all");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL, 
             "disallowed vehicles", 
             "");
     }
@@ -2158,7 +2158,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Edge ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PROB] = AttributeValues(
-            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "probability", 
             "1.00");
     }
@@ -2172,7 +2172,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "ParkingArea ID", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PROB] = AttributeValues(
-            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "probability", 
             "1.00");
     }
@@ -2186,7 +2186,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Route", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PROB] = AttributeValues(
-            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "probability", 
             "1.00");
     }
