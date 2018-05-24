@@ -104,6 +104,9 @@
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\netedit\additionals\GNEAccess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEDetectorEntry.h">
@@ -197,6 +200,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEDetectorE3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\netedit\additionals\GNEAccess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

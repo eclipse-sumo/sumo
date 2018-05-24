@@ -8,6 +8,7 @@ GNEShape.cpp GNEShape.h \
 GNEChargingStation.cpp GNEChargingStation.h \
 GNEStoppingPlace.cpp GNEStoppingPlace.h \
 GNEBusStop.cpp GNEBusStop.h \
+GNEAccess.cpp GNEAccess.h \
 GNEContainerStop.cpp GNEContainerStop.h \
 GNEParkingArea.cpp GNEParkingArea.h \
 GNEParkingSpace.cpp GNEParkingSpace.h \

@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\netedit\additionals\GNEAccess.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEAdditional.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEAdditionalHandler.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEBusStop.cpp" />
@@ -60,6 +61,7 @@
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEVariableSpeedSignStep.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\netedit\additionals\GNEAccess.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEAdditional.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEAdditionalHandler.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEBusStop.h" />
