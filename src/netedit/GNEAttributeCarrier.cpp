@@ -2012,10 +2012,8 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
         return 32;
     } else if (settings.scale >= 2) {
         return 16;
-    } else if (settings.scale >= 1) {
-        return 8;
     } else {
-        return 4;
+        return 8;
     }
 }
 
