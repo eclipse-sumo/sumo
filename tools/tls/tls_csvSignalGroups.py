@@ -117,7 +117,10 @@ class TlLogic(sumolib.net.TLSProgram):
         if self.net is not None:
             tls = self.net._id2tls[self._id]
             connections = tls._connections
-
+            
+            # for connIn, connOut, tlIndex in connections:
+                # print("from %s to %s (tlIndex %d)" % (connIn.getID(), connOut.getID(), tlIndex ))
+            
             for sgID in sgToLinks:
                 for fromLink, toLink in sgToLinks[sgID]:
                     # check link validity (lane exists?)
@@ -136,8 +139,31 @@ class TlLogic(sumolib.net.TLSProgram):
                         if valid:
                             if self._debug:
                                 print("Valid description from %s to %s (SG %s, tlIndex %d)" % (connIn.getID(), connOut.getID(), sgID, tlIndex))
-                            self._signalGroups[sgID].addConnection(connIn, connOut, tlIndex)
-                            self._tlIndexToSignalGroup[tlIndex] = sgID
+                            if tlIndex not in self._tlIndexToSignalGroup:
+                                self._signalGroups[sgID].addConnection(connIn, connOut, tlIndex)
+                                self._tlIndexToSignalGroup[tlIndex] = sgID
+                            else:
+                                print("Error: linkIndex %d already bound to signal group %s. Cannot assign it to signal group %s." % (tlIndex, self._tlIndexToSignalGroup[tlIndex], sgID))
+                                sys.exit(-1)
+                            
+            # set dummy signal groups for every uncovered linkIndex to output "o"/"O" signal
+            for connection in connections:
+                tlIndex = connection[2]
+                if tlIndex not in self._tlIndexToSignalGroup:
+                    sgID = ("tlIndex_%d" % tlIndex)
+                    self._signalGroups[sgID] = SignalGroup(sgID, off=True)
+                    self._signalGroups[sgID].tlLogic = self
+                    self._signalGroups[sgID].addConnection(connection[0], connection[1], connection[2])
+                    self._tlIndexToSignalGroup[tlIndex] = sgID
+            # check for missing linkIndex values
+            tlIndexMax = max(self._tlIndexToSignalGroup.keys())
+            for tlIndex in range(0, tlIndexMax):
+                if tlIndex not in self._tlIndexToSignalGroup:
+                    sgID = ("tlIndex_%d" % tlIndex)
+                    self._signalGroups[sgID] = SignalGroup(sgID, off=True)
+                    self._signalGroups[sgID].addTlIndex(tlIndex)
+                    self._signalGroups[sgID].tlLogic = self
+                    self._tlIndexToSignalGroup[tlIndex] = sgID
 
     def xmlOutput(self, doc):
         # transform signal group based information to "phase" elements of constant signal states # TODO: insert tlIndex in completeSignals query
@@ -153,9 +179,10 @@ class TlLogic(sumolib.net.TLSProgram):
         tlEl.setAttribute("type", "static")
         tlEl.setAttribute("programID", self._programID)
         tlEl.setAttribute("offset", self._offset)
-        commentNode = doc.createComment(" Order of signal groups: %s " % " ".join([self._tlIndexToSignalGroup[tlIndex] for tlIndex in tlIndices]))
+        
+        commentNode = doc.createComment(" Order of signal groups:\n%s" % "\n".join([str(tlIndex)+ " " + self._tlIndexToSignalGroup[tlIndex] for tlIndex in tlIndices]))
         tlEl.appendChild(commentNode)
-
+        
         # output custom parameters
         for key in self._parameters:
             parEl = doc.createElement("param")
@@ -182,7 +209,7 @@ class TlLogic(sumolib.net.TLSProgram):
 
 class SignalGroup(object):
 
-    def __init__(self, id, free = "g", transTimeOn = 0, transTimeOff = 0, debug = False):
+    def __init__(self, id, free = "g", transTimeOn = 0, transTimeOff = 0, off = False, debug = False):
         self._id = id
         self._free = free
         self._red = "r"
@@ -195,11 +222,15 @@ class SignalGroup(object):
         self.tlLogic = None
         self._tlIndexToYield = {}
         self._debug = debug
+        self._off = off
 
     def addFreeTime(self, fromTime, toTime):
         if(fromTime != toTime):
             self._freeTimes.append((fromTime, toTime))
 
+    def addTlIndex(self, tlIndex):
+        self._tlIndexToYield[tlIndex] = []
+            
     def addConnection(self, connIn, connOut, tlIndex):
         junction = connIn.getEdge().getToNode()
         ownConn = None
@@ -211,7 +242,8 @@ class SignalGroup(object):
                     ownConn = conn
                     break
         # store yielding info based on tlIndex values
-        self._tlIndexToYield[tlIndex] = []
+        if tlIndex not in self._tlIndexToYield:
+            self._tlIndexToYield[tlIndex] = []
         if ownConn is not None:
             for conn in junction.getConnections():
                 if(self.connectionYields(ownConn, conn)):
@@ -223,7 +255,9 @@ class SignalGroup(object):
             otherTlIndex = conn.getTLLinkIndex()
             if(otherTlIndex>=0 and conn.getTLSID() == self.tlLogic._id):
                 prohibits = ownConn.getJunction()._prohibits
-                result = prohibits[ownConn.getJunctionIndex()][len(prohibits)-conn.getJunctionIndex() - 1] == '1'
+                ownJunctionIndex = ownConn.getJunctionIndex()
+                if ownJunctionIndex in prohibits:
+                    result = prohibits[ownConn.getJunctionIndex()][len(prohibits)-conn.getJunctionIndex() - 1] == '1'
         return result
 
     def calculateCompleteSignals(self, times):
@@ -262,7 +296,7 @@ class SignalGroup(object):
                         #("SG %s (tlIndex %d) at time %d (state %s) has to wait for SG %s (tlIndex %d, state %s)? %s" % (self._id, tlIndex, time, result, sgID, yieldTlIndex, yieldSignal, str(wait)))
                         if(wait):
                             break
-        else:
+        elif tlIndex in self._tlIndexToYield:
             wait = len(self._tlIndexToYield[tlIndex]) > 0
         if(result in ["g", "o"] and not wait): # prioritary signal
             result = result.upper()
