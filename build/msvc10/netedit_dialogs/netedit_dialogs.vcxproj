@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -36,7 +36,6 @@
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_About.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_AllowDisallow.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_FixAdditionalPositions.h" />
-    <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_Wizard.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNERerouterDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNERerouterIntervalDialog.h" />
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEVariableSpeedSignDialog.h" />
@@ -51,7 +50,6 @@
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_About.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_AllowDisallow.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_FixAdditionalPositions.cpp" />
-    <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_Wizard.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNERerouterDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNERerouterIntervalDialog.cpp" />
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEVariableSpeedSignDialog.cpp" />
