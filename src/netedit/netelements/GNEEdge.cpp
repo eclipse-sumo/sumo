@@ -676,24 +676,6 @@ GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
 }
 
 
-int
-GNEEdge::getVaporizerRelativePosition(GNEVaporizer* vaporizer) const {
-    std::vector<GNEAdditional*> vaporizers;
-    for (auto i : myAdditionalChilds) {
-        if (i->getTag() == vaporizer->getTag()) {
-            vaporizers.push_back(i);
-        }
-    }
-    // return index of routeProbe in routeProbes vector
-    auto it = std::find(vaporizers.begin(), vaporizers.end(), vaporizer);
-    if (it == vaporizers.end()) {
-        return -1;
-    } else {
-        return (int)(it - vaporizers.begin());
-    }
-}
-
-
 std::vector<GNECrossing*>
 GNEEdge::getGNECrossings() {
     std::vector<GNECrossing*> crossings;

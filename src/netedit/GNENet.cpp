@@ -1173,16 +1173,6 @@ GNENet::refreshElement(GUIGlObject* o) {
 }
 
 
-std::string
-GNENet::generateVaporizerID() const {
-    int counter = 0;
-    while (myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>("vaporizer_" + toString(counter), SUMO_TAG_VAPORIZER)) != myAttributeCarriers.additionals.end()) {
-        counter++;
-    }
-    return "vaporizer_" + toString(counter);
-}
-
-
 GNEAttributeCarrier*
 GNENet::retrieveAttributeCarrier(GUIGlID id, bool failHard) {
     // obtain blocked GUIGlObject

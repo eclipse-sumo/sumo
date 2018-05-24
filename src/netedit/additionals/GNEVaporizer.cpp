@@ -57,11 +57,10 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false, false),
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false, false),
     myEdge(edge),
     myStartTime(startTime),
-    myEnd(end),
-    myRelativePositionY(0) {
+    myEnd(end) {
 }
 
 
@@ -77,9 +76,6 @@ GNEVaporizer::updateGeometry() {
 
     // clear Shape
     myShape.clear();
-
-    // obtain relative position of vaporizer in edge
-    myRelativePositionY = 2 * myEdge->getVaporizerRelativePosition(this);
 
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
@@ -104,7 +100,7 @@ GNEVaporizer::updateGeometry() {
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
+    myBlockIconOffset = Position(1.1, (-3.06) - 2);
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
@@ -140,7 +136,7 @@ void
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_EDGE);
+    device.writeAttr(SUMO_ATTR_ID, myEdge->getID());
     writeAttribute(device, SUMO_ATTR_STARTTIME);
     writeAttribute(device, SUMO_ATTR_END);
     // Close tag
@@ -208,7 +204,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
-    glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
+    glTranslated((-2.56), (-1.6), 0);
 
     // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
     if(s.drawForSelecting) {
@@ -244,8 +240,6 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_EDGE:
-            return myEdge->getID();
         case SUMO_ATTR_STARTTIME:
             return toString(myStartTime);
         case SUMO_ATTR_END:
@@ -281,10 +275,8 @@ bool
 GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
-        case SUMO_ATTR_EDGE:
             if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
-                return true;
+                return isValidAdditionalID(value);
             } else {
                 return false;
             }
@@ -313,8 +305,6 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
-            break;
-        case SUMO_ATTR_EDGE:
             myEdge = changeEdge(myEdge, value);
             break;
         case SUMO_ATTR_STARTTIME:

@@ -126,18 +126,15 @@ protected:
     /// @brief number of lanes of edge (To improve efficiency)
     int myNumberOfLanes;
 
-    /// @brief relative position regarding to other route probes
-    int myRelativePositionY;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEVaporizer(const GNEVaporizer&);
+    GNEVaporizer(const GNEVaporizer&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEVaporizer& operator=(const GNEVaporizer&);
+    GNEVaporizer& operator=(const GNEVaporizer&) = delete;
 };
 
 #endif

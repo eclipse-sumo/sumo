@@ -261,9 +261,6 @@ public:
     /// @brief obtain relative positions of RouteProbes
     int getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const;
 
-    /// @brief obtain relative positions of Vaporizer
-    int getVaporizerRelativePosition(GNEVaporizer* vaporizer) const;
-
     /// @brief get GNECrossings vinculated with this Edge
     std::vector<GNECrossing*> getGNECrossings();
 

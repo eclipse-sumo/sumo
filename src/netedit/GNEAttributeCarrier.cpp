@@ -1779,7 +1779,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         // set values of tag
         myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL);
         // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_EDGE] = AttributeValues(
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
             "Edge in which vaporizer is placed", 
             "");
@@ -1854,7 +1854,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_Z] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The Z position in meters of the parking vehicle", 
-            "0");
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The width of the road-side parking spaces", 

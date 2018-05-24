@@ -470,9 +470,6 @@ public:
     /// @brief refreshes boundary information for o and update
     void refreshElement(GUIGlObject* o);
 
-    /// @brief generate an ID for vaporizers
-    std::string generateVaporizerID() const;
-
     /// @brief updates the map and reserves new id
     void renameEdge(GNEEdge* edge, const std::string& newID);
 

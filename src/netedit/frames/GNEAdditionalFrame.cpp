@@ -1380,7 +1380,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
     // Check if additional should be placed over a edge
-    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGE)) {
+    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGE) ||
+             (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_VAPORIZER)) {
         // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
         if (dynamic_cast<GNELane*>(netElement) != nullptr) {
             pointed_edge = &(dynamic_cast<GNELane*>(netElement)->getParentEdge());

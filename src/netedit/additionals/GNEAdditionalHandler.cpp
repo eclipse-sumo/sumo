@@ -185,7 +185,7 @@ void
 GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string edgeId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_EDGE, abort);
+    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     double startTime = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_STARTTIME, abort);
     double endTime = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
     // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
@@ -193,10 +193,12 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get GNEEdge
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
+        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
         // check that all parameters are valid
         if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+        } else if (myViewNet->getNet()->getAdditional(tag, edgeID) != nullptr) {
+            WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edgeID + "'.");
         } else if (startTime > endTime) {
             WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else {
@@ -1245,9 +1247,13 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             GNEEdge* edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
             double startTime = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTTIME]);
             double end = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_END]);
-            // Build RouteProbe
+            // Build Vaporizer
             if (edge) {
-                return buildVaporizer(viewNet, allowUndoRedo, edge, startTime, end);
+                if(viewNet->getNet()->getAdditional(tag, edge->getID()) == nullptr) { 
+                    return buildVaporizer(viewNet, allowUndoRedo, edge, startTime, end);
+                } else {
+                    WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edge->getID() + "'.");
+                }
             } else {
                 return false;
             }
