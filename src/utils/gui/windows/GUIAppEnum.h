@@ -200,6 +200,8 @@ enum {
     MID_TIME_TOOGLE,
     /// @brief toogle delay between alternative value
     MID_DELAY_TOOGLE,
+    /// @brief scale traffic
+    MID_DEMAND_SCALE,
     /// @}
 
 
