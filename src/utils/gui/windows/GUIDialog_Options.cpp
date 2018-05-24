@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_Wizard.cpp
+/// @file    GUIDialog_Options.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 /// @version $Id$
@@ -31,35 +31,35 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/ToString.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include "GNEDialog_Wizard.h"
+#include "GUIDialog_Options.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GNEDialog_Wizard::InputString) InputStringMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputString::onCmdSetOption),
+FXDEFMAP(GUIDialog_Options::InputString) InputStringMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputString::onCmdSetOption),
 };
-FXDEFMAP(GNEDialog_Wizard::InputBool) InputBoolMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputBool::onCmdSetOption),
+FXDEFMAP(GUIDialog_Options::InputBool) InputBoolMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputBool::onCmdSetOption),
 };
-FXDEFMAP(GNEDialog_Wizard::InputInt) InputIntMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputInt::onCmdSetOption),
+FXDEFMAP(GUIDialog_Options::InputInt) InputIntMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputInt::onCmdSetOption),
 };
-FXDEFMAP(GNEDialog_Wizard::InputFloat) InputFloatMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GNEDialog_Wizard::InputFloat::onCmdSetOption),
+FXDEFMAP(GUIDialog_Options::InputFloat) InputFloatMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE, GUIDialog_Options::InputFloat::onCmdSetOption),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDialog_Wizard::InputString, FXHorizontalFrame, InputStringMap, ARRAYNUMBER(InputStringMap))
-FXIMPLEMENT(GNEDialog_Wizard::InputBool, FXHorizontalFrame, InputBoolMap, ARRAYNUMBER(InputBoolMap))
-FXIMPLEMENT(GNEDialog_Wizard::InputInt, FXHorizontalFrame, InputIntMap, ARRAYNUMBER(InputIntMap))
-FXIMPLEMENT(GNEDialog_Wizard::InputFloat, FXHorizontalFrame, InputFloatMap, ARRAYNUMBER(InputFloatMap))
+FXIMPLEMENT(GUIDialog_Options::InputString, FXHorizontalFrame, InputStringMap, ARRAYNUMBER(InputStringMap))
+FXIMPLEMENT(GUIDialog_Options::InputBool, FXHorizontalFrame, InputBoolMap, ARRAYNUMBER(InputBoolMap))
+FXIMPLEMENT(GUIDialog_Options::InputInt, FXHorizontalFrame, InputIntMap, ARRAYNUMBER(InputIntMap))
+FXIMPLEMENT(GUIDialog_Options::InputFloat, FXHorizontalFrame, InputFloatMap, ARRAYNUMBER(InputFloatMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* titleName, int width, int height) :
+GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, int width, int height) :
     FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height) {
     OptionsCont& oc = OptionsCont::getOptions();
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
@@ -96,12 +96,12 @@ GNEDialog_Wizard::GNEDialog_Wizard(FXWindow* parent,  const char* titleName, int
 }
 
 
-GNEDialog_Wizard::~GNEDialog_Wizard() { }
+GUIDialog_Options::~GUIDialog_Options() { }
 
 // ===========================================================================
 // Option input classes method definitions
 // ===========================================================================
-GNEDialog_Wizard::InputString::InputString(FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputString::InputString(FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -112,7 +112,7 @@ GNEDialog_Wizard::InputString::InputString(FXComposite* parent, const std::strin
 
 
 long
-GNEDialog_Wizard::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
+GUIDialog_Options::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.resetWritable();
     oc.set(myName, myTextField->getText().text());
@@ -120,7 +120,7 @@ GNEDialog_Wizard::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GNEDialog_Wizard::InputBool::InputBool(FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputBool::InputBool(FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -131,7 +131,7 @@ GNEDialog_Wizard::InputBool::InputBool(FXComposite* parent, const std::string& n
 
 
 long
-GNEDialog_Wizard::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
+GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.resetWritable();
     oc.set(myName, myCheck->getCheck() ? "true" : "false");
@@ -139,7 +139,7 @@ GNEDialog_Wizard::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GNEDialog_Wizard::InputInt::InputInt(FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputInt::InputInt(FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -150,7 +150,7 @@ GNEDialog_Wizard::InputInt::InputInt(FXComposite* parent, const std::string& nam
 
 
 long
-GNEDialog_Wizard::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
+GUIDialog_Options::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.resetWritable();
     oc.set(myName, myTextField->getText().text());
@@ -158,7 +158,7 @@ GNEDialog_Wizard::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GNEDialog_Wizard::InputFloat::InputFloat(FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputFloat::InputFloat(FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myName(name) {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -169,7 +169,7 @@ GNEDialog_Wizard::InputFloat::InputFloat(FXComposite* parent, const std::string&
 
 
 long
-GNEDialog_Wizard::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
+GUIDialog_Options::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.resetWritable();
     oc.set(myName, myTextField->getText().text());

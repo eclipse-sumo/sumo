@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_Wizard.h
+/// @file    GUIDialog_Options.h
 /// @author  Jakob Erdmann
 /// @date    July 2011
 /// @version $Id$
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
-#ifndef GNEDialog_Wizard_h
-#define GNEDialog_Wizard_h
+#ifndef GUIDialog_Options_h
+#define GUIDialog_Options_h
 
 
 // ===========================================================================
@@ -34,10 +34,10 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDialog_Wizard
+ * @class GUIDialog_Options
  * @briefA Dialog for setting options (see OptionsCont)
  */
-class GNEDialog_Wizard : public FXDialogBox {
+class GUIDialog_Options : public FXDialogBox {
 public:
     /**@brief Constructor
      *
@@ -46,17 +46,17 @@ public:
      * @param[in] width The initial width of the dialog
      * @param[in] height The initial height of the dialog
      */
-    GNEDialog_Wizard(FXWindow* parent,  const char* titleName, int width, int height);
+    GUIDialog_Options(FXWindow* parent,  const char* titleName, int width, int height);
 
     /// @brief Destructor
-    ~GNEDialog_Wizard();
+    ~GUIDialog_Options();
 
     // ===========================================================================
     // Option input classes
     // ===========================================================================
     class InputString : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDialog_Wizard::InputString)
+        FXDECLARE(GUIDialog_Options::InputString)
 
     public:
         /// @brief constructor
@@ -79,7 +79,7 @@ public:
 
     class InputBool : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDialog_Wizard::InputBool)
+        FXDECLARE(GUIDialog_Options::InputBool)
 
     public:
         /// @brief constructor
@@ -102,7 +102,7 @@ public:
 
     class InputInt : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDialog_Wizard::InputInt)
+        FXDECLARE(GUIDialog_Options::InputInt)
 
     public:
         /// @brief
@@ -125,7 +125,7 @@ public:
 
     class InputFloat : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEDialog_Wizard::InputFloat)
+        FXDECLARE(GUIDialog_Options::InputFloat)
 
     public:
         /// @brief constructor

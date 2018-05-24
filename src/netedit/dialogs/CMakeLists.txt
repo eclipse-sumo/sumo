@@ -3,8 +3,6 @@ set(netedit_dialogs_SRCS
    GNEVariableSpeedSignDialog.cpp
    GNEDialog_About.h
    GNEDialog_About.cpp
-   GNEDialog_Wizard.h
-   GNEDialog_Wizard.cpp
    GNEDialog_AllowDisallow.h
    GNEDialog_AllowDisallow.cpp
    GNEDialog_FixAdditionalPositions.h
