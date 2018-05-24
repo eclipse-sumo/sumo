@@ -492,10 +492,21 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                                 && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
                     continue; 
                 }
-                // never join rail_crossings with other node types
+                // never join rail_crossings with other node types unless the crossing is only for tram
                 if ((n->getType() == NODETYPE_RAIL_CROSSING && s->getType() != NODETYPE_RAIL_CROSSING)
                         || (n->getType() != NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING)) {
-                    continue;
+                    const SVCPermissions railNoTram = (SVC_RAIL_CLASSES & ~SVC_TRAM);
+                    bool foundRail = false;
+                    NBNode* crossingNode = n->getType() == NODETYPE_RAIL_CROSSING ? n : s;
+                    for (NBEdge* e2 : crossingNode->getIncomingEdges()) {
+                        if ((e2->getPermissions() & railNoTram) != 0) {
+                            foundRail = true;
+                            break;
+                        }
+                    }
+                    if (foundRail) {
+                        continue;
+                    }
                 }
                 // never join rail_crossings via a rail edge
                 if (bothCrossing && (e->getPermissions() & ~SVC_RAIL_CLASSES) == 0) {
