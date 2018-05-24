@@ -1,8 +1,8 @@
-# some basic tests for importing files
-import
-
 # testing meta processing
 meta
+
+# some basic tests for importing files
+import
 
 # tests for what happens if an error occures
 errors

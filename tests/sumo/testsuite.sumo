@@ -1,3 +1,6 @@
+# testing meta processing
+meta
+
 # whether specification is implemented
 spec
 
@@ -9,9 +12,6 @@ output
 
 # tests for additional structures
 extended
-
-# testing meta processing
-meta
 
 # error handling tests
 errors
