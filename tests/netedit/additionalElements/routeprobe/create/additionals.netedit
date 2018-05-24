@@ -1,6 +1,8 @@
 <additionals>
-    <routeProbe id="routeProbe_gneE1_0" edge="gneE1" file="routeProbe_gneE1_0.xml" begin="0.00"/>
-    <routeProbe id="routeProbe_gneE1_1" edge="gneE1" file="routeProbe_gneE1_1.xml" begin="0.00"/>
-    <routeProbe id="routeProbe_gneE1_2" edge="gneE1" freq="120.00" file="routeProbe_gneE1_2.xml" begin="0.00"/>
-    <routeProbe id="routeProbe_gneE1_3" edge="gneE1" freq="120.00" file="routeProbe_gneE1_3.xml" begin="10.00"/>
+    <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="3600" file="routeProbe_gneE1_0.xml" begin="0.00"/>
+    <routeProbe id="routeProbe_gneE1_1" edge="gneE1" freq="3600" file="routeProbe_gneE1_1.xml" begin="0.00"/>
+    <routeProbe id="routeProbe_gneE1_2" edge="gneE1" freq="-20" file="routeProbe_gneE1_2.xml" begin="0.00"/>
+    <routeProbe id="routeProbe_gneE1_3" edge="gneE1" freq="120" file="routeProbe_gneE1_3.xml" begin="0.00"/>
+    <routeProbe id="routeProbe_gneE1_4" edge="gneE1" freq="120" file="-11" begin="0.00"/>
+    <routeProbe id="routeProbe_gneE1_5" edge="gneE1" freq="120" file="10" begin="0.00"/>
 </additionals>

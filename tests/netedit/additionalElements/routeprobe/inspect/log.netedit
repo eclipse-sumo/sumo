@@ -8,7 +8,7 @@ Warning: Value 'Id with spaces' for attribute id of routeProbe isn't valid
 Warning: Setting new attribute id 'correctID' into routeProbe 'routeProbe_3_1'
 Warning: Value 'dummyEdge' for attribute edge of routeProbe isn't valid
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
-Warning: Setting new attribute freq '-1' into routeProbe 'correctID'
+Warning: Value 'dummy' for attribute freq of routeProbe isn't valid
 Warning: Value '-50' for attribute freq of routeProbe isn't valid
 Warning: Setting new attribute freq '150' into routeProbe 'correctID'
 Warning: Setting new attribute begin '0' into routeProbe 'correctID'
@@ -25,9 +25,7 @@ Warning: Setting previous attribute begin '0.00' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute begin '0.00' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '-1.00' into routeProbe 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute freq '-1.00' into routeProbe 'correctID'
+Warning: Setting previous attribute freq '3600' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute edge 'gneE3' into routeProbe 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -41,6 +39,7 @@ Warning: Removing routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding routeProbe 'routeProbe_gneE3_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -52,8 +51,6 @@ Warning: Setting new attribute id 'correctID' into routeProbe 'routeProbe_3_1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute edge 'gneE0' into routeProbe 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute freq '-1' into routeProbe 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute freq '150' into routeProbe 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correctID'
@@ -63,6 +60,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '0' into routeProbe 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute begin '20' into routeProbe 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Additionals saved

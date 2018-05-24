@@ -1,5 +1,5 @@
 <additionals>
-    <e3Detector id="e3Detector_0" file="e3Detector_0.txt" pos="-9.88,24.71">
+    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" pos="-9.88,24.71">
         <detEntry lane="gneE2_1" pos="19.25"/>
         <detEntry lane="gneE2_2" pos="21.14"/>
         <detEntry lane="gneE2_3" pos="23.63"/>
