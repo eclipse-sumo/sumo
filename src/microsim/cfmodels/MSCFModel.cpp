@@ -576,7 +576,9 @@ MSCFModel::gapExtrapolation(const double duration, const double currentGap, doub
 double
 MSCFModel::passingTime(const double lastPos, const double passedPos, const double currentPos, const double lastSpeed, const double currentSpeed) {
 
-    assert(passedPos <= currentPos && passedPos >= lastPos && currentPos > lastPos);
+    assert(passedPos <= currentPos);
+    assert(passedPos >= lastPos);
+    assert(currentPos > lastPos);
     assert(currentSpeed >= 0);
 
     if (passedPos > currentPos || passedPos < lastPos) {

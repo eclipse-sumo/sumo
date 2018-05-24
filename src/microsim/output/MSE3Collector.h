@@ -77,6 +77,17 @@ public:
 
         /// @name Methods inherited from MSMoveReminder.
         /// @{
+        /** @brief Checks whether the reminder is activated by a vehicle entering the lane
+         *
+         * Lane change means in this case that the vehicle changes to the lane
+         *  the reminder is placed at.
+         *
+         * @param[in] veh The entering vehicle.
+         * @param[in] reason how the vehicle enters the lane
+         * @return True if vehicle enters the reminder.
+         * @see Notification
+         */
+        bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane);
 
         /** @brief Checks whether the vehicle enters
          *
@@ -144,6 +155,17 @@ public:
 
         /// @name methods from MSMoveReminder
         //@{
+        /** @brief Checks whether the reminder is activated by a vehicle entering the lane
+         *
+         * Lane change means in this case that the vehicle changes to the lane
+         *  the reminder is placed at.
+         *
+         * @param[in] veh The entering vehicle.
+         * @param[in] reason how the vehicle enters the lane
+         * @return True if vehicle enters the reminder.
+         * @see Notification
+         */
+        bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane);
 
         /** @brief Checks whether the vehicle leaves
          *
@@ -378,7 +400,7 @@ protected:
     std::map<const SUMOVehicle*, E3Values> myEnteredContainer;
 
     /// @brief Container for vehicles that have left the area
-    std::map<const SUMOVehicle*, E3Values> myLeftContainer;
+    std::vector<E3Values> myLeftContainer;
 
 
     /// @name Storages for current values

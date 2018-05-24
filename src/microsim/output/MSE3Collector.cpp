@@ -44,7 +44,20 @@
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
     const MSCrossSection& crossSection, MSE3Collector& collector) :
     MSMoveReminder(collector.getID() + "_entry", crossSection.myLane),
-    myCollector(collector), myPosition(crossSection.myPosition) {}
+    myCollector(collector), myPosition(crossSection.myPosition) 
+{}
+
+bool
+MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+    if (reason != NOTIFICATION_JUNCTION) {
+        const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
+        if (posOnLane > myPosition) {
+            // if the vehicle changes into a covered section we assume it was already registred on another lane
+            return false;
+        }
+    }
+    return true;
+}
 
 
 bool
@@ -86,6 +99,19 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
     const MSCrossSection& crossSection, MSE3Collector& collector) :
     MSMoveReminder(collector.getID() + "_exit", crossSection.myLane),
     myCollector(collector), myPosition(crossSection.myPosition) {}
+
+
+bool
+MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+    if (reason != NOTIFICATION_JUNCTION) {
+        const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
+        if (posOnLane > myPosition) {
+            // if the vehicle changes into a covered section we assume it was already registred on another lane
+            return false;
+        }
+    }
+    return true;
+}
 
 
 bool
@@ -198,7 +224,6 @@ MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const d
         v.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss();
         v.intervalTimeLoss = v.timeLoss;
     }
-
     myEnteredContainer[&veh] = v;
 }
 
@@ -231,7 +256,7 @@ MSE3Collector::leave(const SUMOVehicle& veh, const double leaveTimestep, const d
             values.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss() - values.timeLoss;
         }
         myEnteredContainer.erase(&veh);
-        myLeftContainer[&veh] = values;
+        myLeftContainer.push_back(values);
     }
 }
 
@@ -247,13 +272,13 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     double meanSpeed = 0.;
     double meanHaltsPerVehicle = 0.;
     double meanTimeLoss = 0.;
-    for (std::map<const SUMOVehicle*, E3Values>::iterator i = myLeftContainer.begin(); i != myLeftContainer.end(); ++i) {
-        meanHaltsPerVehicle += (double)(*i).second.haltings;
-        meanTravelTime += (*i).second.frontLeaveTime - (*i).second.entryTime;
-        const double steps = (*i).second.backLeaveTime - (*i).second.entryTime;
+    for (const E3Values& values : myLeftContainer) {
+        meanHaltsPerVehicle += (double)values.haltings;
+        meanTravelTime += values.frontLeaveTime - values.entryTime;
+        const double steps = values.backLeaveTime - values.entryTime;
         meanOverlapTravelTime += steps;
-        meanSpeed += ((*i).second.speedSum / steps);
-        meanTimeLoss += STEPS2TIME((*i).second.timeLoss);
+        meanSpeed += (values.speedSum / steps);
+        meanTimeLoss += STEPS2TIME(values.timeLoss);
     }
     meanTravelTime = vehicleSum != 0 ? meanTravelTime / (double)vehicleSum : -1;
     meanOverlapTravelTime = vehicleSum != 0 ? meanOverlapTravelTime / (double)vehicleSum : -1;
