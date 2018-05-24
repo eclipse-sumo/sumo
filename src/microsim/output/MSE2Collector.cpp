@@ -724,7 +724,7 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
 
 
 bool
-MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* reason */, const MSLane* enteredLane) {
+MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
         std::cout << std::endl << SIMTIME << " notifyEnter() (detID = " << myID << " on lane '" << myLane->getID() << "')"
@@ -745,19 +745,21 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /* rea
 
 	// determine whether the vehicle entered the lane behind the detector end
 	// e.g. due to lane change manoeuver
-	const double vehBackPos = veh.getBackPositionOnLane(enteredLane);
-	bool vehEnteredBehindDetectorEnd = myEndPos <= vehBackPos;
-	if (vehEnteredBehindDetectorEnd) {
-		// this vehicle cannot influence detector readings, do not subscribe
-		// to move notifications
+    if (reason != NOTIFICATION_JUNCTION) {
+        const double vehBackPos = veh.getBackPositionOnLane(enteredLane);
+        bool vehEnteredBehindDetectorEnd = myEndPos <= vehBackPos;
+        if (vehEnteredBehindDetectorEnd) {
+            // this vehicle cannot influence detector readings, do not subscribe
+            // to move notifications
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
-		if DEBUG_COND{
-			std::cout << "Vehicle entered the lane behind the detector, ignoring it." << std::endl;
-			std::cout << "(myEndPos = " << this->myEndPos << ", veh.getBackPositionOnLane() = " << vehBackPos << ")" << std::endl;
-		}
+            if DEBUG_COND{
+                std::cout << "Vehicle entered the lane behind the detector, ignoring it." << std::endl;
+                std::cout << "(myEndPos = " << this->myEndPos << ", veh.getBackPositionOnLane() = " << vehBackPos << ")" << std::endl;
+            }
 #endif
-		return false;
-	}
+            return false;
+        }
+    }
 
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
