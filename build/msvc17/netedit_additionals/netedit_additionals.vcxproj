@@ -47,6 +47,7 @@
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEDetectorEntry.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEDetectorExit.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEParkingArea.cpp" />
+    <ClCompile Include="..\..\..\src\netedit\additionals\GNEParkingAreaReroute.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEParkingSpace.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEPOI.cpp" />
     <ClCompile Include="..\..\..\src\netedit\additionals\GNEPoly.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEDetectorEntry.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEDetectorExit.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEParkingArea.h" />
+    <ClInclude Include="..\..\..\src\netedit\additionals\GNEParkingAreaReroute.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEParkingSpace.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEPOI.h" />
     <ClInclude Include="..\..\..\src\netedit\additionals\GNEPoly.h" />

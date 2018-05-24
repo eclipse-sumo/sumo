@@ -147,6 +147,7 @@
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.cpp" />
+    <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_Options.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIGlChildWindow.cpp" />
     <ClCompile Include="..\..\..\src\utils\gui\windows\GUIMainWindow.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_GLObjChooser.h" />
+    <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_Options.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIGlChildWindow.h" />
     <ClInclude Include="..\..\..\src\utils\gui\windows\GUIMainWindow.h" />

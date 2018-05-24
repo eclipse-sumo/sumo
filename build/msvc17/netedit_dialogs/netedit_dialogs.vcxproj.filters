@@ -44,9 +44,6 @@
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_FixAdditionalPositions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialog_Wizard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\netedit\dialogs\GNEDialogACChooser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -83,9 +80,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_FixAdditionalPositions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialog_Wizard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\netedit\dialogs\GNEDialogACChooser.cpp">
