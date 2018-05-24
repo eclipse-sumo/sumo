@@ -43,10 +43,10 @@ public:
     /**@brief Constructor
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] edge edge in which this vaporizer is placed
-     * @param[in] startTime start time of vaporizer
+     * @param[in] begin start time of vaporizer
      * @param[in] end end time of vaporizer
      */
-    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end);
+    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end);
 
     /// @brief Destructor
     ~GNEVaporizer();
@@ -117,8 +117,8 @@ protected:
     /// @brief The edge in which this vaporizer is placed
     GNEEdge* myEdge;
 
-    /// @brief start time of vaporizer
-    double myStartTime;
+    /// @brief begin time of vaporizer
+    double myBegin;
 
     /// @brief end time in which this vaporizer is placed
     double myEnd;

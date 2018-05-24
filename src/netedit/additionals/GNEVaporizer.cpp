@@ -56,10 +56,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end) :
     GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false, false),
     myEdge(edge),
-    myStartTime(startTime),
+    myBegin(begin),
     myEnd(end) {
 }
 
@@ -137,7 +137,7 @@ GNEVaporizer::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
     device.writeAttr(SUMO_ATTR_ID, myEdge->getID());
-    writeAttribute(device, SUMO_ATTR_STARTTIME);
+    writeAttribute(device, SUMO_ATTR_BEGIN);
     writeAttribute(device, SUMO_ATTR_END);
     // Close tag
     device.closeTag();
@@ -240,8 +240,8 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_STARTTIME:
-            return toString(myStartTime);
+        case SUMO_ATTR_BEGIN:
+            return toString(myBegin);
         case SUMO_ATTR_END:
             return toString(myEnd);
         case GNE_ATTR_SELECTED:
@@ -260,7 +260,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-        case SUMO_ATTR_STARTTIME:
+        case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -280,7 +280,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_STARTTIME:
+        case SUMO_ATTR_BEGIN:
             if (canParse<double>(value) && (parse<double>(value) >= 0)) {
                 return (parse<double>(value) <= myEnd);
             } else {
@@ -288,7 +288,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_END:
             if (canParse<double>(value) && (parse<double>(value) >= 0)) {
-                return (myStartTime <= parse<double>(value));
+                return (myBegin <= parse<double>(value));
             } else {
                 return false;
             }
@@ -307,8 +307,8 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             myEdge = changeEdge(myEdge, value);
             break;
-        case SUMO_ATTR_STARTTIME:
-            myStartTime = parse<double>(value);
+        case SUMO_ATTR_BEGIN:
+            myBegin = parse<double>(value);
             break;
         case SUMO_ATTR_END:
             myEnd = parse<double>(value);

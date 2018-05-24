@@ -1762,9 +1762,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of an edge in the simulation network", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 
             "The frequency in which to report the distribution", 
-            "");                
+            "3600");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 
             "The file for generated output", 
@@ -1783,14 +1783,14 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 
             "Edge in which vaporizer is placed", 
             "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTTIME] = AttributeValues(
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
             "Start Time", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
             "End Time", 
-            "10.00");   // ¿?
+            "3600.00");
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {
@@ -1904,7 +1904,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "End of departure interval", 
-            "100.00"); // ¿?
+            "3600.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DEPARTLANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The lane on which the vehicle shall be inserted", 
@@ -2014,9 +2014,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The vehicles expected multiplicator for lane speed limits", 
             "1.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEEDDEV] = AttributeValues(
-            ATTRPROPERTY_FLOAT | /*ATTRPROPERTY_POSITIVE |*/ ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The deviation of the speedFactor", 
-            "0.00"); // ¿?
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "This vehicle type's color", 
@@ -2044,9 +2044,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMPATIENCE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | /*ATTRPROPERTY_POSITIVE |*/ ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "Willingess of drivers to impede vehicles with higher priority", 
-            "0.00"); // ¿?
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE_CHANGE_MODEL] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 
             "The model used for changing lanes", 
@@ -2094,9 +2094,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Time", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 
             "Speed", 
-            "50.00"); // ¿?
+            "13.89");
     }
     currentTag = SUMO_TAG_INTERVAL;
     {
@@ -2106,11 +2106,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "Begin", 
-            "0"); // ¿?
+            "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 
             "End", 
-            "100.00"); // ¿?
+            "3600.00");
     }
     currentTag = SUMO_TAG_CLOSING_REROUTE;
     {
@@ -2128,7 +2128,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
             ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE | ATTRPROPERTY_OPTIONAL, 
             "disallowed vehicles", 
-            ""); // ¿?
+            "");
     }
     currentTag = SUMO_TAG_CLOSING_LANE_REROUTE;
     {
