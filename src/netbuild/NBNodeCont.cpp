@@ -482,12 +482,14 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 if (DEBUGCOND(n)) std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
 #endif
                 const bool bothCrossing = n->getType() == NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING;
+                const bool joinPedCrossings = bothCrossing && e->getPermissions() == SVC_PEDESTRIAN;
                 if ( // never join pedestrian stuff (unless at a rail crossing
-                        (e->getPermissions() == SVC_PEDESTRIAN  && !bothCrossing)
-                        // only join edges for regular passenger traffic or edges that are extremely short
-                        || (length > 3 * POSITION_EPS 
-                            && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
-                            && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth)) {
+                    !joinPedCrossings && (
+                            e->getPermissions() == SVC_PEDESTRIAN
+                            // only join edges for regular passenger traffic or edges that are extremely short
+                            || (length > 3 * POSITION_EPS
+                                && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
+                                && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
                     continue; 
                 }
                 // never join rail_crossings with other node types
