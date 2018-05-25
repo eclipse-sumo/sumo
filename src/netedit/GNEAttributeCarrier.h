@@ -90,7 +90,10 @@ public:
         TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
+        TagValues(int tagProperty, int positionListed, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
+
+        /// @brief get position in list (used in frames for listing tags with certain sort)
+        int getPositionListed() const;
 
         /// @brief if has a parent, return parent tag
         SumoXMLTag getParentTag() const;
@@ -131,6 +134,9 @@ public:
     private:
         /// @brief Property of attribute
         int myTagProperty;
+
+        /// @brief listed position
+        int myPositionListed;
 
         /// @brief parent tag
         SumoXMLTag myParentTag;

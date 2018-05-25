@@ -63,13 +63,21 @@ const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
 GNEAttributeCarrier::TagValues::TagValues() :
     myTagProperty(TAGPROPERTY_NETELEMENT),
+    myPositionListed(0),
     myParentTag(SUMO_TAG_NOTHING) {
 }
 
 
-GNEAttributeCarrier::TagValues::TagValues(int tagProperty, SumoXMLTag parentTag) :
+GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, SumoXMLTag parentTag) :
     myTagProperty(tagProperty),
+    myPositionListed(positionListed),
     myParentTag(parentTag) {
+}
+
+
+int 
+GNEAttributeCarrier::TagValues::getPositionListed() const {
+    return myPositionListed;
 }
 
 
@@ -149,6 +157,7 @@ GNEAttributeCarrier::TagValues::hasDialog() const {
 
 GNEAttributeCarrier::AttributeValues::AttributeValues() :
     myAttributeProperty(ATTRPROPERTY_STRING),
+    myPositionListed(0), 
     myDefinition(""),
     myDefaultValue("") {}
 
@@ -596,12 +605,18 @@ GNEAttributeCarrier::getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr) {
 
 std::vector<SumoXMLTag>
 GNEAttributeCarrier::allowedTags(bool includingInternals) {
-    std::vector<SumoXMLTag> tags;
-    // append all net elements to tags
-    tags.insert(std::end(tags), std::begin(allowedNetElementsTags(includingInternals)), std::end(allowedNetElementsTags(includingInternals)));
-    tags.insert(std::end(tags), std::begin(allowedAdditionalTags(includingInternals)), std::end(allowedAdditionalTags(includingInternals)));
-    tags.insert(std::end(tags), std::begin(allowedShapeTags(includingInternals)), std::end(allowedShapeTags(includingInternals)));
-    return tags;
+    std::vector<SumoXMLTag> allTags;
+    // define on first access
+    if (myAllowedAttributes.size() == 0) {
+        fillAttributeCarriers();
+    }
+    // fill all tags
+    for (auto i : myAllowedAttributes) {
+        if (includingInternals || !i.second.first.isInternal()) {
+            allTags.push_back(i.first);
+        }
+    }
+    return allTags;
 }
 
 
@@ -612,7 +627,7 @@ GNEAttributeCarrier::allowedNetElementsTags(bool includingInternals) {
     if (myAllowedAttributes.size() == 0) {
         fillAttributeCarriers();
     }
-    // fill additional tags
+    // fill netElements tags
     for (auto i : myAllowedAttributes) {
         if (i.second.first.isNetElement() && (includingInternals || !i.second.first.isInternal())) {
             netElementTags.push_back(i.first);
@@ -957,7 +972,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 1);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1039,7 +1054,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_JUNCTION;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 2);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1079,7 +1094,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 3);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1121,152 +1136,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)", 
             "");
     }
-    currentTag = SUMO_TAG_POI;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_GEOPOSITION);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
-            "The id of the POI", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE, 2, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-            "The position in view", 
-            ""); 
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 3, 
-            "The color with which the poi shall be displayed", 
-            "red");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 4,
-            "A typename for the poi", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
-            "The layer of the poi for drawing and selecting", 
-            "4"); // needed to draw it over lane
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 6,
-            "Width of rendered image in meters", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 7,
-            "Height of rendered image in meters", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 8,
-            "A bitmap to use for rendering this poi", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 9,
-            "Enable or disbale use image file as a relative path", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 10,
-            "Angle of rendered image in degree", 
-            "0");
-    }
-    currentTag = SUMO_TAG_POILANE;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
-            "The id of the POI", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
-            "The name of the lane the poi is located at); the lane must be a part of the loaded network", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
-            "The position on the named lane or in the net in meters at which the poi is located at", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION_LAT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 4,
-            "The lateral offset on the named lane at which the poi is located at", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 5,
-            "The color with which the poi shall be displayed", 
-            "red");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
-            "A typename for the poi", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 7,
-            "The layer of the poi for drawing and selecting", 
-            "4"); // needed to draw it over lane
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 8,
-            "Width of rendered image in meters", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 9,
-            "Height of rendered image in meters", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 10,
-            "A bitmap to use for rendering this poi", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 11,
-            "Enable or disbale use image file as a relative path", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 12,
-            "Angle of rendered image in degree", 
-            "0");
-    }
-    currentTag = SUMO_TAG_POLY;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_CLOSESHAPE | TAGPROPERTY_GEOSHAPE);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 1,
-            "The id of the polygon", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 2,
-            "The shape of the polygon", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 3,
-            "The RGBA color with which the polygon shall be displayed", 
-            "green");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILL] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 4,
-            "An information whether the polygon shall be filled", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
-            "The layer in which the polygon lies", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
-            "A typename for the polygon", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 7,
-            "A bitmap to use for rendering this polygon", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 8,
-            "Enable or disbale use image file as a relative path", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
-            "Angle of rendered image in degree", 
-            "0");
-    }
     currentTag = SUMO_TAG_CROSSING;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 4);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 1,
@@ -1300,7 +1173,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CONNECTION;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 5);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FROM] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE, 1,
@@ -1354,7 +1227,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 10);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1388,7 +1261,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ACCESS;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 11);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1406,7 +1279,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CONTAINER_STOP;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 12);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1440,7 +1313,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CHARGING_STATION;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 13);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1483,10 +1356,86 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins", 
             "0.00");
     }
+    currentTag = SUMO_TAG_PARKING_AREA;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 14);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "The id of ParkingArea", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
+            "The name of the lane the Parking Area shall be located at", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTPOS] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            "The begin position on the lane (the lower position on the lane) in meters", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 4,
+            "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
+            " The number of parking spaces for road-side parking ", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
+            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
+            "Name of Parking Area", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
+            "The width of the road-side parking spaces", 
+            "3.20");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
+            "The length of the road-side parking spaces", 
+            "5.00");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_OPTIONAL, 10,
+            "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
+            "0.00");
+    }
+    currentTag = SUMO_TAG_PARKING_SPACE;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, 15, SUMO_TAG_PARKING_AREA);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_X] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 1,
+            "The X position in meters of the parking vehicle", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_Y] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 2,
+            "The Y position in meters of the parking vehicle", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_Z] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
+            "The Z position in meters of the parking vehicle", 
+            "0.00");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
+            "The width of the road-side parking spaces", 
+            "3.2");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
+            "The length of the road-side parking spaces", 
+            "5.00");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
+            "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
+            "0");
+    }
     currentTag = SUMO_TAG_E1DETECTOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 20);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1520,7 +1469,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E2DETECTOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 21);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1570,7 +1519,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT, 22);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1600,7 +1549,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_ENTRY;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, SUMO_TAG_E3DETECTOR);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, 23, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1618,7 +1567,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_EXIT;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, SUMO_TAG_E3DETECTOR);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, 24, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1636,7 +1585,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VSS;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG, 30);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 1,
@@ -1655,10 +1604,24 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The path to the output file", 
             "");
     }
+    currentTag = SUMO_TAG_STEP;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 31);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_TIME] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME, 1,
+            "Time", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 2,
+            "Speed", 
+            "13.89");
+    }
     currentTag = SUMO_TAG_CALIBRATOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG, 40);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1688,7 +1651,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANECALIBRATOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG, 41);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1715,164 +1678,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The output file for writing calibrator information or NULL", 
             "");
     }
-    currentTag = SUMO_TAG_REROUTER;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
-            "The id of Rerouter", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_EDGES] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 2,
-            "An edge id or a list of edge ids where vehicles shall be rerouted", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 3,
-            "X,Y position in editor (Only used in NETEDIT)", 
-            "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
-            "The path to the definition file (alternatively, the intervals may defined as children of the rerouter)", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_PROB] = AttributeValues(
-            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
-            "The probability for vehicle rerouting (0-1)", 
-            "1.00");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_TIME_THRESHOLD] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
-            "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_OFF] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
-            "Whether the router should be inactive initially (and switched on in the gui)", 
-            "0");
-    }
-    currentTag = SUMO_TAG_ROUTEPROBE;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
-            "The id of RouteProbe", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_EDGE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
-            "The id of an edge in the simulation network", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 3,
-            "The frequency in which to report the distribution", 
-            "3600");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 4,
-            "The file for generated output", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
-            "The time at which to start generating output", 
-            "0");
-    }
-    currentTag = SUMO_TAG_VAPORIZER;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
-            "Edge in which vaporizer is placed", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 2,
-            "Start Time", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 3,
-            "End Time", 
-            "3600.00");
-    }
-    currentTag = SUMO_TAG_PARKING_AREA;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
-            "The id of ParkingArea", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
-            "The name of the lane the Parking Area shall be located at", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
-            "The begin position on the lane (the lower position on the lane) in meters", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 4,
-            "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
-            " The number of parking spaces for road-side parking ", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
-            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
-            "0");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
-            "Name of Parking Area", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
-            "The width of the road-side parking spaces", 
-            "3.20");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
-            "The length of the road-side parking spaces", 
-            "5.00");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_OPTIONAL, 10,
-            "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
-            "0.00");
-    }
-    currentTag = SUMO_TAG_PARKING_SPACE;
-    {
-        // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, SUMO_TAG_PARKING_AREA);
-        // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_X] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 1,
-            "The X position in meters of the parking vehicle", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_Y] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 2,
-            "The Y position in meters of the parking vehicle", 
-            "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_Z] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
-            "The Z position in meters of the parking vehicle", 
-            "0.00");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
-            "The width of the road-side parking spaces", 
-            "3.2");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
-            "The length of the road-side parking spaces", 
-            "5.00");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
-            "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
-            "0");
-    }
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 42);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1958,7 +1767,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 43);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1976,7 +1785,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 44);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -2085,24 +1894,44 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The maximum lateral speed when using the sublane-model", 
             "1.00");
     }
-    currentTag = SUMO_TAG_STEP;
+    currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DIALOG, 50);
         // set values of attributes
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_TIME] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME, 1,
-            "Time", 
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "The id of Rerouter", 
             "");
-        myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 2,
-            "Speed", 
-            "13.89");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_EDGES] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 2,
+            "An edge id or a list of edge ids where vehicles shall be rerouted", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 3,
+            "X,Y position in editor (Only used in NETEDIT)", 
+            "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
+            "The path to the definition file (alternatively, the intervals may defined as children of the rerouter)", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_PROB] = AttributeValues(
+            ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
+            "The probability for vehicle rerouting (0-1)", 
+            "1.00");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_HALTING_TIME_THRESHOLD] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
+            "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_OFF] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
+            "Whether the router should be inactive initially (and switched on in the gui)", 
+            "0");
     }
     currentTag = SUMO_TAG_INTERVAL;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 51);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 1,
@@ -2116,7 +1945,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_REROUTE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 52);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -2134,7 +1963,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CLOSING_LANE_REROUTE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 53);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -2152,7 +1981,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DEST_PROB_REROUTE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 54);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -2166,7 +1995,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_ZONE_REROUTE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 55);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -2180,7 +2009,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE_PROB_REROUTE; 
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 56);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -2190,6 +2019,192 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 2,
             "probability", 
             "1.00");
+    }
+    currentTag = SUMO_TAG_ROUTEPROBE;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL, 60);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "The id of RouteProbe", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_EDGE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
+            "The id of an edge in the simulation network", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 3,
+            "The frequency in which to report the distribution", 
+            "3600");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 4,
+            "The file for generated output", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
+            "The time at which to start generating output", 
+            "0");
+    }
+    currentTag = SUMO_TAG_VAPORIZER;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL, 70);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "Edge in which vaporizer is placed", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 2,
+            "Start Time", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 3,
+            "End Time", 
+            "3600.00");
+    }
+    currentTag = SUMO_TAG_POLY;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_CLOSESHAPE | TAGPROPERTY_GEOSHAPE, 100);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 1,
+            "The id of the polygon", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 2,
+            "The shape of the polygon", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 3,
+            "The RGBA color with which the polygon shall be displayed", 
+            "green");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILL] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 4,
+            "An information whether the polygon shall be filled", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
+            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
+            "The layer in which the polygon lies", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
+            "A typename for the polygon", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 7,
+            "A bitmap to use for rendering this polygon", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 8,
+            "Enable or disbale use image file as a relative path", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
+            "Angle of rendered image in degree", 
+            "0");
+    }
+    currentTag = SUMO_TAG_POI;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_GEOPOSITION, 110);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "The id of the POI", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE, 2, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            "The position in view", 
+            ""); 
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 3, 
+            "The color with which the poi shall be displayed", 
+            "red");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 4,
+            "A typename for the poi", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
+            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
+            "The layer of the poi for drawing and selecting", 
+            "4"); // needed to draw it over lane
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 6,
+            "Width of rendered image in meters", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 7,
+            "Height of rendered image in meters", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 8,
+            "A bitmap to use for rendering this poi", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 9,
+            "Enable or disbale use image file as a relative path", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 10,
+            "Angle of rendered image in degree", 
+            "0");
+    }
+    currentTag = SUMO_TAG_POILANE;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT, 111);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "The id of the POI", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
+            "The name of the lane the poi is located at); the lane must be a part of the loaded network", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            "The position on the named lane or in the net in meters at which the poi is located at", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION_LAT] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 4,
+            "The lateral offset on the named lane at which the poi is located at", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 5,
+            "The color with which the poi shall be displayed", 
+            "red");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
+            "A typename for the poi", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
+            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 7,
+            "The layer of the poi for drawing and selecting", 
+            "4"); // needed to draw it over lane
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 8,
+            "Width of rendered image in meters", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 9,
+            "Height of rendered image in meters", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 10,
+            "A bitmap to use for rendering this poi", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 11,
+            "Enable or disbale use image file as a relative path", 
+            "0");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 12,
+            "Angle of rendered image in degree", 
+            "0");
     }
 }
 
