@@ -3,13 +3,13 @@ Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_00detExit0' in GNEChange_Additional
-Warning: Format of essential string attribute 'id' of e3Detector is invalid; 'id with spaces' contains invalid characters; e3Detector cannot be created
+Warning: Format of essential unique string attribute 'id' of e3Detector is invalid; 'id with spaces' contains invalid characters; e3Detector cannot be created
 Warning: A detEntry must be declared within the definition of a e3Detector.
 Warning: A detExit must be declared within the definition of a e3Detector.
 Warning: There is another e3Detector with the same ID='e3Detector_00'.
 Warning: A detEntry must be declared within the definition of a e3Detector.
 Warning: A detExit must be declared within the definition of a e3Detector.
-Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector cannot be created
+Warning: Essential unique string attribute 'id' of e3Detector is missing; e3Detector cannot be created
 Warning: A detEntry must be declared within the definition of a e3Detector.
 Warning: A detExit must be declared within the definition of a e3Detector.
 Warning: Adding e3Detector 'e3Detector_02' in GNEChange_Additional
@@ -71,8 +71,8 @@ Warning: Adding detEntry 'e3Detector_20detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_20detExit0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_21' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_22' in GNEChange_Additional
-Warning: Format of essential float attribute 'pos' of detEntry is invalid; detEntry cannot be created
-Warning: Format of essential float attribute 'pos' of detExit is invalid; detExit cannot be created
+Warning: Format of essential unique float attribute 'pos' of detEntry is invalid; detEntry cannot be created
+Warning: Format of essential unique float attribute 'pos' of detExit is invalid; detExit cannot be created
 Warning: e3Detector with ID 'e3Detector_21' cannot be writed in additional file because doesn't have childs.
 Warning: e3Detector with ID 'e3Detector_22' cannot be writed in additional file because doesn't have childs.
 Warning: Additionals saved

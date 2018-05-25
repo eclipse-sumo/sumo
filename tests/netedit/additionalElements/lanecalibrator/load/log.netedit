@@ -1,9 +1,9 @@
 Warning: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
-Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; 'ID with spaces' contains invalid characters; laneCalibrator cannot be created
-Warning: Format of essential string attribute 'id' of laneCalibrator is invalid; ID cannot be empty; laneCalibrator cannot be created
+Warning: Essential unique string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
+Warning: Format of essential unique string attribute 'id' of laneCalibrator is invalid; 'ID with spaces' contains invalid characters; laneCalibrator cannot be created
+Warning: Format of essential unique string attribute 'id' of laneCalibrator is invalid; ID cannot be empty; laneCalibrator cannot be created
 Warning: There is another laneCalibrator with the same ID='calibrator01'.
 Warning: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
 Warning: additional calibrator must have either a lane or an edge attribute.

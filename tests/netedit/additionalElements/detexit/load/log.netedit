@@ -1,14 +1,14 @@
-Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector cannot be created
+Warning: Essential unique string attribute 'id' of e3Detector is missing; e3Detector cannot be created
 Warning: A detExit must be declared within the definition of a e3Detector.
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'lane' of detExit is missing; detExit cannot be created
+Warning: Essential unique string attribute 'lane' of detExit is missing; detExit cannot be created
 Warning: The lane 'dummyLane' to use within the detExit is not known.
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Essential float attribute 'pos' of detExit is missing; detExit cannot be created
-Warning: Format of essential float attribute 'pos' of detExit is invalid; detExit cannot be created
-Warning: Format of essential float attribute 'pos' of detExit is invalid; Cannot be parsed to float; detExit cannot be created
+Warning: Essential unique float attribute 'pos' of detExit is missing; detExit cannot be created
+Warning: Format of essential unique float attribute 'pos' of detExit is invalid; detExit cannot be created
+Warning: Format of essential unique float attribute 'pos' of detExit is invalid; Cannot be parsed to float; detExit cannot be created
 Warning: Invalid position for detExit.
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
