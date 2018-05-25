@@ -309,17 +309,11 @@ public:
         /// @brief vector with the additional parameters
         std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
 
-        /// @brief Index for myVectorOfsingleAdditionalParameter
-        int myIndexParameter;
-
         /// @brief vector with the additional parameters of type list
         std::vector<AdditionalAttributeList*> myVectorOfsingleAdditionalParameterList;
 
         /// @brief index for myIndexParameterList
         int myIndexParameterList;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int myMaxNumberOfParameters;
 
         /// @brief max number of parameters (Defined in constructor)
         int myMaxNumberOfListParameters;

@@ -248,15 +248,6 @@ public:
 
         /// @brief vector with the shape parameters
         std::vector<ShapeAttributeSingle*> myVectorOfsingleShapeParameter;
-
-        /// @brief Index for myVectorOfsingleShapeParameter
-        int myIndexParameter;
-
-        /// @brief index for myIndexParameterList
-        int myIndexParameterList;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int myMaxNumberOfParameters;
     };
 
     // ===========================================================================

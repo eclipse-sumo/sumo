@@ -166,10 +166,10 @@ public:
         AttributeValues();
 
         /// @brief parameter constructor
-        AttributeValues(int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
+        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
 
-        /// @brief get restriction
-        std::string getRestriction() const;
+        /// @brief get position in list (used in frames for listing attributes with certain sort)
+        int getPositionListed() const;
 
         /// @brief get default value
         const std::string &getDefinition() const;
@@ -237,6 +237,9 @@ public:
     private:
         /// @brief Property of attribute
         int myAttributeProperty;
+
+        /// @brief listed position
+        int myPositionListed;
 
         /// @brief text with a definition of attribute
         std::string myDefinition;

@@ -436,13 +436,10 @@ long GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute(FXObject*, FX
 
 GNEPolygonFrame::ShapeAttributes::ShapeAttributes(GNEPolygonFrame* polygonFrameParent) :
     FXGroupBox(polygonFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myPolygonFrameParent(polygonFrameParent),
-    myIndexParameter(0),
-    myIndexParameterList(0),
-    myMaxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()) {
+    myPolygonFrameParent(polygonFrameParent) {
 
     // Create single parameters
-    for (int i = 0; i < myMaxNumberOfParameters; i++) {
+    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfsingleShapeParameter.push_back(new ShapeAttributeSingle(this));
     }
 
@@ -458,13 +455,9 @@ GNEPolygonFrame::ShapeAttributes::~ShapeAttributes() {
 void
 GNEPolygonFrame::ShapeAttributes::clearAttributes() {
     // Hidde al fields
-    for (int i = 0; i < myMaxNumberOfParameters; i++) {
+    for (int i = 0; i < myVectorOfsingleShapeParameter.size(); i++) {
         myVectorOfsingleShapeParameter.at(i)->hideParameter();
     }
-
-    // Reset indexs
-    myIndexParameterList = 0;
-    myIndexParameter = 0;
 }
 
 
@@ -472,26 +465,21 @@ void
 GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle) {
     // get current tag
     SumoXMLTag currentTag = myPolygonFrameParent->getShapeSelector()->getCurrentShapeType();
-    // add attribute depending of type
-    if (myIndexParameter < myMaxNumberOfParameters) {
-        // Check type of attribute list
-        if (GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).isInt()) {
-            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).isFloat() || GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).isTime()) {
-            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).isBool()) {
-            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).isColor()) {
-            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<RGBColor>(currentTag, ShapeAttributeSingle));
-        } else if (GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).isString()) {
-            myVectorOfsingleShapeParameter.at(myIndexParameter)->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentTag, ShapeAttributeSingle));
-        } else {
-            WRITE_WARNING("Attribute '" + toString(ShapeAttributeSingle) + "' doesn't have a defined type. Check definition in GNEAttributeCarrier");
-        }
-        // Update index parameter
-        myIndexParameter++;
+    // obtain attribute property (only for improve code legibility)
+    const GNEAttributeCarrier::AttributeValues &attrvalue = GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle);
+    // Check type of attribute list
+    if (attrvalue.isInt()) {
+        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentTag, ShapeAttributeSingle));
+    } else if (attrvalue.isFloat() || attrvalue.isTime()) {
+        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentTag, ShapeAttributeSingle));
+    } else if (attrvalue.isBool()) {
+        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentTag, ShapeAttributeSingle));
+    } else if (attrvalue.isColor()) {
+        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<RGBColor>(currentTag, ShapeAttributeSingle));
+    } else if (attrvalue.isString()) {
+        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentTag, ShapeAttributeSingle));
     } else {
-        WRITE_ERROR("Max number of attributes reached (" + toString(myMaxNumberOfParameters) + ").");
+        WRITE_WARNING("Attribute '" + toString(ShapeAttributeSingle) + "' doesn't have a defined type. Check definition in GNEAttributeCarrier");
     }
 }
 
@@ -513,8 +501,10 @@ std::map<SumoXMLAttr, std::string>
 GNEPolygonFrame::ShapeAttributes::getAttributesAndValues() const {
     std::map<SumoXMLAttr, std::string> values;
     // get standar Parameters
-    for (int i = 0; i < myIndexParameter; i++) {
-        values[myVectorOfsingleShapeParameter.at(i)->getAttr()] = myVectorOfsingleShapeParameter.at(i)->getValue();
+    for (int i = 0; i < myVectorOfsingleShapeParameter.size(); i++) {
+        if (myVectorOfsingleShapeParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
+            values[myVectorOfsingleShapeParameter.at(i)->getAttr()] = myVectorOfsingleShapeParameter.at(i)->getValue();
+        }
     }
     return values;
 }
@@ -524,11 +514,13 @@ void
 GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (int i = 0; (i < myIndexParameter) && errorMessage.empty(); i++) {
-        // Return string with the error if at least one of the parameter isn't valid
-        std::string attributeValue = myVectorOfsingleShapeParameter.at(i)->isAttributeValid();
-        if (attributeValue.size() != 0) {
-            errorMessage = attributeValue;
+    for (auto i : GNEAttributeCarrier::getAttributes(myPolygonFrameParent->myShapeSelector->getCurrentShapeType())) {
+        if(errorMessage.empty()) {
+            // Return string with the error if at least one of the parameter isn't valid
+            std::string attributeValue = myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid();
+            if (attributeValue.size() != 0) {
+                errorMessage = attributeValue;
+            }
         }
     }
     // show warning box if input parameters aren't invalid
@@ -550,9 +542,9 @@ GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
 bool
 GNEPolygonFrame::ShapeAttributes::areValuesValid() const {
     // iterate over standar parameters
-    for (int i = 0; i < myIndexParameter; i++) {
+    for (auto i : GNEAttributeCarrier::getAttributes(myPolygonFrameParent->myShapeSelector->getCurrentShapeType())) {
         // Return false if error message of attriuve isn't empty
-        if (myVectorOfsingleShapeParameter.at(i)->isAttributeValid().size() != 0) {
+        if (myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
         }
     }
@@ -562,7 +554,7 @@ GNEPolygonFrame::ShapeAttributes::areValuesValid() const {
 
 int
 GNEPolygonFrame::ShapeAttributes::getNumberOfAddedAttributes() const {
-    return (myIndexParameter + myIndexParameterList);
+    return (1);
 }
 
 

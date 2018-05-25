@@ -655,8 +655,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::disableAttributeInputElemen
 
 GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myInspectorFrameParent(inspectorFrameParent),
-    myCurrentIndex(0) {
+    myInspectorFrameParent(inspectorFrameParent) {
     // Create sufficient AttributeInput for all types of AttributeCarriers
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfAttributeInputs.push_back(new AttributeInput(this));
@@ -669,8 +668,6 @@ GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspect
 void 
 GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
     if(myInspectorFrameParent->getInspectedACs().size() > 0) {
-        // reset myCurrentIndex;
-        myCurrentIndex = 0;
         // Gets tag (only for simplify code)
         SumoXMLTag ACFrontTag = myInspectorFrameParent->getInspectedACs().front()->getTag();
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
@@ -696,17 +693,10 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it.first == SUMO_ATTR_TLTYPE) || (it.first == SUMO_ATTR_TLID))) == false) {
-                if (myCurrentIndex < (int)myVectorOfAttributeInputs.size()) {
-                    // first show AttributesEditor
-                    show();
-                    // show attribute
-                    myVectorOfAttributeInputs[myCurrentIndex]->showAttribute(ACFrontTag, it.first, oss.str());
-                    // update current index
-                    myCurrentIndex++;
-                }
-                else {
-                    throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
-                }
+                // first show AttributesEditor
+                show();
+                // show attribute
+                myVectorOfAttributeInputs[it.second.getPositionListed()]->showAttribute(ACFrontTag, it.first, oss.str());
             }
         }
     }
@@ -727,8 +717,6 @@ GNEInspectorFrame::AttributesEditor::hideAttributesEditor() {
 void 
 GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
-        // reset myCurrentIndex;
-        myCurrentIndex = 0;
         // Declare pointer for allow/Disallow vehicles
         std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myAllowAttribute(nullptr, "");
         std::pair<GNEInspectorFrame::AttributesEditor::AttributeInput*, std::string> myDisallowAttribute(nullptr,"");
@@ -757,31 +745,24 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
             }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((it.first == SUMO_ATTR_TLTYPE) || (it.first == SUMO_ATTR_TLID))) == false) {
-                if (myCurrentIndex < (int)myVectorOfAttributeInputs.size()) {
-                    // refresh attribute, with a special case for allow/disallow vehicles
-                    if(it.first  == SUMO_ATTR_ALLOW) {
-                        myAllowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
-                        myAllowAttribute.second = oss.str();
-                    } else if (it.first  == SUMO_ATTR_DISALLOW) {
-                        myDisallowAttribute.first = myVectorOfAttributeInputs[myCurrentIndex];
-                        myDisallowAttribute.second = oss.str();
+                // refresh attribute, with a special case for allow/disallow vehicles
+                if(it.first  == SUMO_ATTR_ALLOW) {
+                    myAllowAttribute.first = myVectorOfAttributeInputs[it.second.getPositionListed()];
+                    myAllowAttribute.second = oss.str();
+                } else if (it.first  == SUMO_ATTR_DISALLOW) {
+                    myDisallowAttribute.first = myVectorOfAttributeInputs[it.second.getPositionListed()];
+                    myDisallowAttribute.second = oss.str();
+                } else {
+                    // Check if refresh of Position or Shape has to be forced
+                    if((it.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                        myVectorOfAttributeInputs[it.second.getPositionListed()]->refreshAttributeInput(oss.str(), true);
+                    } else if ((it.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                        // Refresh attributes maintain invalid values
+                        myVectorOfAttributeInputs[it.second.getPositionListed()]->refreshAttributeInput(oss.str(), true);
                     } else {
-                        // Check if refresh of Position or Shape has to be forced
-                        if((it.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                            myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
-                        } else if ((it.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                            // Refresh attributes maintain invalid values
-                            myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), true);
-                        } else {
-                            // Refresh attributes maintain invalid values
-                            myVectorOfAttributeInputs[myCurrentIndex]->refreshAttributeInput(oss.str(), false);
-                        }
+                        // Refresh attributes maintain invalid values
+                        myVectorOfAttributeInputs[it.second.getPositionListed()]->refreshAttributeInput(oss.str(), false);
                     }
-                    // update current index
-                    myCurrentIndex++;
-                }
-                else {
-                    throw ProcessError("myCurrentIndex greather than myVectorOfAttributeInputs");
                 }
             }
         }

@@ -173,9 +173,6 @@ public:
         /// @brief list of Attribute inputs
         std::vector<GNEInspectorFrame::AttributesEditor::AttributeInput*> myVectorOfAttributeInputs;
 
-        /// @brief current parameter index
-        int myCurrentIndex;
-
         /// @brief button for help
         FXButton* myHelpButton;
     };

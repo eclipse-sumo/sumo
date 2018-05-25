@@ -561,13 +561,11 @@ GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow(FXObject*, FXSelecto
 GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myAdditionalFrameParent(additionalFrameParent),
-    myIndexParameter(0),
     myIndexParameterList(0),
-    myMaxNumberOfParameters(GNEAttributeCarrier::getHigherNumberOfAttributes()),
     myMaxNumberOfListParameters(2) {
 
     // Create single parameters
-    for (int i = 0; i < myMaxNumberOfParameters; i++) {
+    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfsingleAdditionalParameter.push_back(new AdditionalAttributeSingle(this));
     }
 
@@ -587,7 +585,7 @@ GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {}
 void
 GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
     // Hidde al fields
-    for (int i = 0; i < myMaxNumberOfParameters; i++) {
+    for (int i = 0; i < myVectorOfsingleAdditionalParameter.size(); i++) {
         myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
     }
 
@@ -598,16 +596,17 @@ GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
 
     // Reset indexs
     myIndexParameterList = 0;
-    myIndexParameter = 0;
 }
 
 
 void
 GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAttributeSingle) {
     // obtain parameter type
-    SumoXMLTag currentType = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
+    SumoXMLTag currentTag = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
+    // obtain attribute property (only for improve code legibility)
+    const GNEAttributeCarrier::AttributeValues &attrvalue = GNEAttributeCarrier::getAttributeProperties(currentTag, AdditionalAttributeSingle);
     // If  parameter is of type list
-    if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isList()) {
+    if (attrvalue.isList()) {
         // If parameter can be show
         if (myIndexParameterList < myMaxNumberOfListParameters) {
             myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle));
@@ -617,20 +616,14 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
             WRITE_ERROR("Max number of list attributes reached (" + toString(myMaxNumberOfListParameters) + ").");
         }
     } else {
-        if (myIndexParameter < myMaxNumberOfParameters) {
-            if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isBool()) {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentType, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isInt()) {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentType, AdditionalAttributeSingle));
-            } else if (GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isFloat() || GNEAttributeCarrier::getAttributeProperties(currentType, AdditionalAttributeSingle).isTime()) {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentType, AdditionalAttributeSingle));
-            } else {
-                myVectorOfsingleAdditionalParameter.at(myIndexParameter)->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentType, AdditionalAttributeSingle));
-            }
-            // Update index parameter
-            myIndexParameter++;
+        if (attrvalue.isBool()) {
+            myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentTag, AdditionalAttributeSingle));
+        } else if (attrvalue.isInt()) {
+            myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentTag, AdditionalAttributeSingle));
+        } else if (attrvalue.isFloat() || attrvalue.isTime()) {
+            myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentTag, AdditionalAttributeSingle));
         } else {
-            WRITE_ERROR("Max number of attributes reached (" + toString(myMaxNumberOfParameters) + ").");
+            myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentTag, AdditionalAttributeSingle));
         }
     }
 }
@@ -653,8 +646,10 @@ std::map<SumoXMLAttr, std::string>
 GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues() const {
     std::map<SumoXMLAttr, std::string> values;
     // get standar Parameters
-    for (int i = 0; i < myIndexParameter; i++) {
-        values[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
+    for (int i = 0; i < myVectorOfsingleAdditionalParameter.size(); i++) {
+        if (myVectorOfsingleAdditionalParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
+            values[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
+        }
     }
     // get list parameters
     for (int i = 0; i < myIndexParameterList; i++) {
@@ -668,11 +663,13 @@ void
 GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (int i = 0; (i < myIndexParameter) && errorMessage.empty(); i++) {
-        // Return string with the error if at least one of the parameter isn't valid
-        std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid();
-        if (attributeValue.size() != 0) {
-            errorMessage = attributeValue;
+    for (auto i : GNEAttributeCarrier::getAttributes(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType())) {
+        if(errorMessage.empty()) {
+            // Return string with the error if at least one of the parameter isn't valid
+            std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid();
+            if (attributeValue.size() != 0) {
+                errorMessage = attributeValue;
+            }
         }
     }
     // show warning box if input parameters aren't invalid
@@ -694,9 +691,9 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
 bool
 GNEAdditionalFrame::AdditionalAttributes::areValuesValid() const {
     // iterate over standar parameters
-    for (int i = 0; i < myIndexParameter; i++) {
+    for (auto i : GNEAttributeCarrier::getAttributes(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType())) {
         // Return false if error message of attriuve isn't empty
-        if (myVectorOfsingleAdditionalParameter.at(i)->isAttributeValid().size() != 0) {
+        if (myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
         }
     }
@@ -706,7 +703,7 @@ GNEAdditionalFrame::AdditionalAttributes::areValuesValid() const {
 
 int
 GNEAdditionalFrame::AdditionalAttributes::getNumberOfAddedAttributes() const {
-    return (myIndexParameter + myIndexParameterList);
+    return (1 + myIndexParameterList);
 }
 
 
