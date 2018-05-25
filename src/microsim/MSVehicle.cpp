@@ -1223,13 +1223,25 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     // David.C:
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
     const double endPosOffset = stop.lane->getEdge().isInternal() ? (*stop.edge)->getLength() : 0;
-    if (collision) {
-        assert(myCurrEdge == stop.edge);
-        myState.myPos = stop.pars.endPos;
-        myState.mySpeed = 0;
-    } else if (myCurrEdge == stop.edge && myState.myPos > stop.pars.endPos + endPosOffset - getCarFollowModel().brakeGap(myState.mySpeed)) {
-        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
-        return false;
+    const double distToStop = stop.pars.endPos + endPosOffset - myState.myPos;
+    if (myCurrEdge == stop.edge && distToStop < getCarFollowModel().brakeGap(myState.mySpeed)) {
+        if (collision) {
+            if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
+                double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getSpeed(), false, 0);
+                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop 
+                //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
+                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed) 
+                //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
+                //    << " vNew=" << vNew
+                //    << "\n";
+                myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
+                myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
+                myCachedPosition = Position::INVALID;
+            }
+        } else {
+            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to break.";
+            return false;
+        }
     }
     if (!hasDeparted() && myCurrEdge == stop.edge) {
         double pos = -1;

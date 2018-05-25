@@ -1438,8 +1438,26 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         stop.containerTriggered = false;
         stop.parking = false;
         stop.index = 0;
+        const double collisionAngle = RAD2DEG(fabs(GeomHelper::angleDiff(victim->getAngle(), collider->getAngle())));
+        // determine new speeds from collision angle (@todo account for vehicle mass)
+        double victimSpeed = victim->getSpeed();
+        double colliderSpeed = collider->getSpeed();
+        double victimOrigSpeed = victim->getSpeed();
+        double colliderOrigSpeed = collider->getSpeed();
+        if (collisionAngle < 45) {
+            // rear-end collisions 
+            colliderSpeed = MIN2(colliderSpeed, victimSpeed);
+        } else if (collisionAngle < 135) {
+            // side collision
+            colliderSpeed /= 2;
+            victimSpeed /= 2;
+        } else {
+            // frontal collision
+            colliderSpeed = 0;
+            victimSpeed = 0;
+        }
         const double victimStopPos = MIN2(victim->getLane()->getLength(),
-                                          victim->getPositionOnLane() + victim->getCarFollowModel().brakeGap(victim->getSpeed()));
+                                          victim->getPositionOnLane() + victim->getCarFollowModel().brakeGap(victimSpeed, victim->getCarFollowModel().getEmergencyDecel(), 0));
         if (victim->collisionStopTime() < 0) {
             stop.lane = victim->getLane()->getID();
             // @todo: push victim forward?
@@ -1450,11 +1468,15 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         }
         if (collider->collisionStopTime() < 0) {
             stop.lane = collider->getLane()->getID();
-            stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(collider->getSpeed()),
+            stop.startPos = MIN2(collider->getPositionOnLane() + collider->getCarFollowModel().brakeGap(colliderSpeed, collider->getCarFollowModel().getEmergencyDecel(), 0),
                                  MAX2(0.0, victimStopPos - 0.75 * victim->getVehicleType().getLength()));
             stop.endPos = stop.startPos;
             collider->addStop(stop, dummyError, 0, true);
         }
+        //std::cout << " collisionAngle=" << collisionAngle 
+        //    << "\n    vPos=" << victim->getPositionOnLane()   << " vStop=" << victimStopPos  << " vSpeed=" << victimOrigSpeed     << " vSpeed2=" << victimSpeed   << " vSpeed3=" << victim->getSpeed()  
+        //    << "\n    cPos=" << collider->getPositionOnLane() << " cStop=" << stop.startPos  << " cSpeed=" << colliderOrigSpeed   << " cSpeed2=" << colliderSpeed << " cSpeed3=" << collider->getSpeed()
+        //    << "\n";
     } else {
         switch (myCollisionAction) {
             case COLLISION_ACTION_WARN:
