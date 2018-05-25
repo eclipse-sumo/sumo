@@ -1,3 +1,6 @@
+# overtaking a stopped vehicle should be a strategic priority
+ticket3103
+
 # changeProbability should diminsh if there is no advantage in changing
 ticket3337
 
