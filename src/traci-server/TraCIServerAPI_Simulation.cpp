@@ -384,29 +384,6 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
 }
 
 
-std::pair<MSLane*, double>
-TraCIServerAPI_Simulation::convertCartesianToRoadMap(Position pos) {
-    std::pair<MSLane*, double> result;
-    std::vector<std::string> allEdgeIds;
-    double minDistance = std::numeric_limits<double>::max();
-
-    allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
-    for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
-        const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
-        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-            const double newDistance = (*itLane)->getShape().distance2D(pos);
-            if (newDistance < minDistance) {
-                minDistance = newDistance;
-                result.first = (*itLane);
-            }
-        }
-    }
-    // @todo this may be a place where 3D is required but 2D is delivered
-    result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
-    return result;
-}
-
-
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage, int commandId) {
@@ -466,7 +443,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
     switch (destPosType) {
         case POSITION_ROADMAP: {
             // convert cartesion position to edge,offset,lane_index
-            roadPos = convertCartesianToRoadMap(cartesianPos);
+            roadPos = libsumo::Helper::convertCartesianToRoadMap(cartesianPos);
             // write result that is added to response msg
             outputStorage.writeUnsignedByte(POSITION_ROADMAP);
             outputStorage.writeString(roadPos.first->getEdge().getID());
@@ -531,7 +508,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         if (posType == POSITION_3D) {
             inputStorage.readDouble();// z value is ignored
         }
-        roadPos1 = convertCartesianToRoadMap(pos1);
+        roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1);
         break;
         default:
             server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
@@ -561,7 +538,7 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
         if (posType == POSITION_3D) {
             inputStorage.readDouble();// z value is ignored
         }
-        roadPos2 = convertCartesianToRoadMap(pos2);
+        roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2);
         break;
         default:
             server.writeStatusCmd(commandId, RTYPE_ERR, "Unknown position format used for distance request");
