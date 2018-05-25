@@ -998,7 +998,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             SumoVehicleClassStrings.getStrings());
         //myAllowedAttributes[currentTag].second[SUMO_ATTR_PREFER, );
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "If the shape is given it should start and end with the positions of the from-node and to-node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
@@ -1023,11 +1023,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Move the stop line back from the intersection by the given amount", 
             "0");
         myAllowedAttributes[currentTag].second[GNE_ATTR_SHAPE_START] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute used to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute used to define an endPoint
             "Custom position in which shape start (by default position of junction from)", 
             "");
         myAllowedAttributes[currentTag].second[GNE_ATTR_SHAPE_END] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute from to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute from to define an endPoint
             "Custom position in which shape end (by default position of junction from)", 
             "");
         myAllowedAttributes[currentTag].second[GNE_ATTR_BIDIR] = AttributeValues(
@@ -1045,7 +1045,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of the node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The x-y-z position of the node on the plane in meters", 
             ""); 
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
@@ -1054,7 +1054,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "",
             nodeTypes);
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "A custom shape for that node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RADIUS] = AttributeValues(
@@ -1112,7 +1112,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Enable or disable lane as acceleration lane", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CUSTOMSHAPE] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 
             "If the shape is given it overrides the computation based on edge shape", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_INDEX] = AttributeValues(
@@ -1130,7 +1130,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of the POI", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The position in view", 
             ""); 
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
@@ -1230,7 +1230,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of the polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE, 
             "The shape of the polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
@@ -1292,7 +1292,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "sets the opposite-direction tls-index for this crossing", 
             "-1");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CUSTOMSHAPE] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "Overrids default shape of pedestrian crossing", 
             "");
     }
@@ -1346,7 +1346,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "sets custom speed limit for the connection", 
             toString(NBEdge::UNSPECIFIED_SPEED));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_CUSTOMSHAPE] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "sets custom shape for the connection", 
             "");
     }
@@ -1576,7 +1576,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of E3", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "X-Y position of detector in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
@@ -1642,7 +1642,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of Variable Speed Signal", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "X-Y position of detector in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANES] = AttributeValues(
@@ -1728,7 +1728,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "An edge id or a list of edge ids where vehicles shall be rerouted", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 
             "X,Y position in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(

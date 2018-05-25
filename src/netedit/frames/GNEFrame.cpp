@@ -601,7 +601,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
         FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);
-        // Set type
+        // Set description of element
         FXTableItem* type = new FXTableItem("");
         type->setText(i.second.getDescription().c_str());
         sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.second.getDescription().size());

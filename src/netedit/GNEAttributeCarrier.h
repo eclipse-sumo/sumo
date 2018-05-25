@@ -533,7 +533,7 @@ public:
                 } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
                 } else {
-                    WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDefinition() + " attribute '" + toString(attribute) + "' of " +
+                    WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
@@ -549,7 +549,7 @@ public:
              } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
             } else {
-                WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDefinition() + " attribute '" + toString(attribute) + "' of " +
+                WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;
