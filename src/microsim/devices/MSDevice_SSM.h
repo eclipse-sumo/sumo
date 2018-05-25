@@ -225,7 +225,7 @@ private:
 //        std::vector<std::pair<std::pair<const MSLane*, double>, double> > egoPETCrossSections;
 //        std::vector<std::pair<std::pair<const MSLane*, double>, double> > foePETCrossSections;
 
-        /// @name Extremal values for the SSMs (as < <time,value>,Position>-pairs)
+        /// @name Extremal values for the SSMs
         /// @{
         ConflictPointInfo minTTC;
         ConflictPointInfo maxDRAC;
@@ -456,6 +456,12 @@ private:
     void createEncounters(FoeInfoMap& foes);
 
 
+    /** @brief Stores measures, that are not associated to a specific encounter as headways and brake rates
+     *  @todo  Manage as episodes (BR -> braking episode, SGAP/TGAP -> car-following episode) with invariant leader, and filtering applying the
+     *  corresponding thresholds.
+     */
+    void computeGlobalMeasures();
+
     /** @brief Closes all current Encounters and moves conflicts to myPastConflicts, @see processEncounters
      */
     void resetEncounters();
@@ -464,6 +470,11 @@ private:
      * @param[in] all Whether all conflicts should be flushed or only those for which no active encounters with earlier begin can exist
      */
     void flushConflicts(bool all = false);
+
+    /** @brief Write out all non-encounter specific measures as headways and braking rates.
+     *  @todo  Adapt accordingly if episode structure is implemented, @see computeGlobalMeasures()
+     */
+    void flushGlobalMeasures();
 
     /** @brief Updates the encounter (adds a new trajectory point) and deletes the foeInfo.
      */
@@ -623,7 +634,7 @@ private:
     /// Whether to use the original coordinate system for output
     bool myUseGeoCoords;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
-    bool myComputeTTC, myComputeDRAC, myComputePET;
+    bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP;
     MSVehicle* myHolderMS;
     /// @}
 
@@ -636,6 +647,25 @@ private:
     double myOldestActiveEncounterBegin;
     /// @brief Past encounters that where qualified as conflicts and are not yet flushed to the output file
     EncounterQueue myPastConflicts;
+    /// @}
+
+
+
+    /// @name Internal storage for global measures
+    /// @{
+    std::vector<double> myGlobalMeasuresTimeSpan;
+    /// @brief All values for brake rate
+    std::vector<double> myBRspan;
+    /// @brief All values for space gap
+    std::vector<double> mySGAPspan;
+    /// @brief All values for time gap
+    std::vector<double> myTGAPspan;
+    /// @brief Extremal values for the global measures (as <<<time, Position>, value>, [leaderID]>-pairs)
+    /// @{
+    std::pair<std::pair<double, Position>, double> myMaxBR;
+    std::pair<std::pair<std::pair<double, Position>, double>, std::string>  myMinSGAP;
+    std::pair<std::pair<std::pair<double, Position>, double>, std::string>  myMinTGAP;
+    /// @}
     /// @}
 
     /// Output device
