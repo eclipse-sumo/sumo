@@ -91,6 +91,7 @@
 //#define DEBUG_CONSTRUCTOR
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
+//#define DEBUG_COOPERATE
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
@@ -1482,17 +1483,17 @@ MSLCM_LC2013::_wantsChange(
 
     if (amBlockingFollowerPlusNB()
             && (!speedGainInconvenient)
-            //&& ((myOwnState & lcaCounter) == 0) // VARIANT_6 : counterNoHelp
+            //&& ((myOwnState & myLca) != 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
         // VARIANT_2 (nbWhenChangingToHelp)
-#ifdef DEBUG_WANTS_CHANGE
+#ifdef DEBUG_COOPERATE
         if (DEBUG_COND) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
-                      // << (((myOwnState & lcaCounter) != 0) ? " (counter)" : "")
+                      << (((myOwnState & myLca) == 0) ? " (counter)" : "")
                       << "\n";
         }
 #endif
