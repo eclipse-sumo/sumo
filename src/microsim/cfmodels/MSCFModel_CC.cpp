@@ -37,6 +37,10 @@
 #include <libsumo/Vehicle.h>
 #include <libsumo/TraCIDefs.h>
 
+#ifndef sgn
+#define sgn(x) ((x > 0) - (x < 0))
+#endif
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -543,7 +547,9 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
     double d_i = 0;
 
     //compensate my position: compute prediction of what will be my position at time of actuation
-    egoPosition.set(egoPosition.x() + egoSpeed * STEPS2TIME(DELTA_T), egoPosition.y());
+    Position egoVelocity = veh->getVelocityVector();
+    egoPosition.set(egoPosition.x() + egoVelocity.x() * STEPS2TIME(DELTA_T),
+                    egoPosition.y() + egoVelocity.y() * STEPS2TIME(DELTA_T));
     vehicles[index].speed = egoSpeed;
     vehicles[index].positionX = egoPosition.x();
     vehicles[index].positionY = egoPosition.y();
@@ -559,15 +565,26 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
 
     //compute desired distance term
     for (j = 0; j < nCars; j++) {
+        if (j == index)
+            continue;
         d_i += vars->L[index][j];
         desiredDistance -= vars->K[index][j] * vars->L[index][j] * d_i_j(vehicles, vars->h, index, j);
     }
     desiredDistance = desiredDistance / d_i;
 
     //compute actual distance term
-    for (j = 0; j < nCars; j++)
+    for (j = 0; j < nCars; j++) {
+        if (j == index)
+            continue;
         //distance error for consensus with GPS equipped
-        actualDistance -= vars->K[index][j] * vars->L[index][j] * (egoPosition.x() - vehicles[j].positionX - (time - vehicles[j].time) * vehicles[0].speed);
+        Position otherPosition;
+        double dt = time - vehicles[j].time;
+        //predict the position of the other vehicle
+        otherPosition.setx(vehicles[j].positionX + dt * vehicles[j].speedX);
+        otherPosition.sety(vehicles[j].positionY + dt * vehicles[j].speedY);
+        double distance = egoPosition.distanceTo2D(otherPosition) * sgn(j - index);
+        actualDistance -= vars->K[index][j] * vars->L[index][j] * distance;
+    }
 
     actualDistance = actualDistance / (d_i);
 
