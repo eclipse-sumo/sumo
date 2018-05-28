@@ -309,16 +309,12 @@ GNEAdditionalHandler::parseAndBuildCalibratorVehicleType(const SUMOSAXAttributes
     double maxSpeedLat = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_MAXSPEED_LAT, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // get calibrator parent
-        GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
         // check that all elements are valid
         if (myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + vehicleTypeID + "'.");
-        } else if (calibrator == nullptr) {
-            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
         } else {
             // build calibrator vehicle type
-            buildCalibratorVehicleType(myViewNet, true, calibrator, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev,
+            buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev,
                                        color, vClass, emissionClass, shape, width, filename, impatience, laneChangeModel, carFollowModel, personCapacity,
                                        containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat);
         }
@@ -364,7 +360,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
         } else if (vtype == nullptr) {
             WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
             abort = true;
-        } else if ((vehsPerHour.empty()) && (vehsPerHour.empty())) {
+        } else if ((vehsPerHour.empty()) && (speed.empty())) {
             WRITE_WARNING(toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' cannot be created; At least parameters VehsPerHour or Speed has to be defined");
             abort = true;
         } else {
@@ -1550,7 +1546,7 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
 
 
 bool
-GNEAdditionalHandler::buildCalibratorVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, std::string vehicleTypeID,
+GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
