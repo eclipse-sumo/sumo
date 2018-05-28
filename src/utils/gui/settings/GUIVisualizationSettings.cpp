@@ -585,7 +585,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
 
 
     /// add edge coloring schemes
-    edgeColorer.addScheme(GUIColorScheme("uniform (streetwise)", RGBColor::BLACK, "", true));
+    edgeColorer.addScheme(GUIColorScheme("uniform", RGBColor(0, 0, 0, 0), "", true));
     scheme = GUIColorScheme("by selection (streetwise)", RGBColor(128, 128, 128, 255), "unselected", true);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     edgeColorer.addScheme(scheme);

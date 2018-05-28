@@ -67,6 +67,11 @@
 //#define GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
 
 // ===========================================================================
+// static member declaration
+// ===========================================================================
+const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 GUILane::GUILane(const std::string& id, double maxSpeed, double length,
@@ -899,7 +904,7 @@ RGBColor
 GUILane::setColor(const GUIVisualizationSettings& s) const {
     // setting and retrieving the color does not work in OSGView so we return it explicitliy
     RGBColor col;
-    if (MSGlobals::gUseMesoSim) {
+    if (MSGlobals::gUseMesoSim && static_cast<const GUIEdge*>(myEdge)->getMesoColor() != MESO_USE_LANE_COLOR) {
         col = static_cast<const GUIEdge*>(myEdge)->getMesoColor();
     } else {
         const GUIColorer& c = s.laneColorer;

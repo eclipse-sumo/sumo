@@ -343,6 +343,9 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;
 
+    /// @brief special color to signify alternative coloring scheme
+    static const RGBColor MESO_USE_LANE_COLOR;
+
 
 };
 
