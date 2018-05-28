@@ -331,8 +331,8 @@ GNEAttributeCarrier::AttributeValues::isFilename() const {
 }
 
 bool 
-GNEAttributeCarrier::AttributeValues::isSVC() const {
-    return (myAttributeProperty & (ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST)) != 0;
+GNEAttributeCarrier::AttributeValues::isVClass() const {
+    return (myAttributeProperty & ATTRPROPERTY_VCLASS) != 0;
 }
 
 bool 

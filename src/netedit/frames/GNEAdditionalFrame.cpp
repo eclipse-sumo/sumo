@@ -411,8 +411,8 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
-    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isSVC()) {
-        // check if lists of Vclass are valid
+    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isVClass()) {
+        // check if VClasses are valid
         if (canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "list of VClass isn't valid";
         }

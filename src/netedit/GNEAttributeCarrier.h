@@ -223,7 +223,7 @@ public:
         bool isFilename() const;
 
         /// @brief return true if atribute is a VehicleClass
-        bool isSVC() const;
+        bool isVClass() const;
 
         /// @brief return true if atribute is a list
         bool isList() const;
@@ -424,7 +424,7 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
                 // only set default value if this isn't a SVCPermission
-                if(!getAttributeProperties(tag, attribute).isSVC()) {
+                if(!getAttributeProperties(tag, attribute).isVClass()) {
                     parsedAttribute = defaultValue;
                 }
             }
@@ -510,7 +510,7 @@ public:
                 parsedOk = false;
             }
             // set extra check for SVCPermissions values
-            if (getAttributeProperties(tag, attribute).isSVC()) {
+            if (getAttributeProperties(tag, attribute).isVClass()) {
                 if (canParseVehicleClasses(parsedAttribute)) {
                     parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
                     parsedOk = true;
