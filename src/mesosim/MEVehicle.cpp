@@ -255,6 +255,7 @@ MEVehicle::getStoptime(const MESegment* const seg, SUMOTime time) const {
         for (const SUMOVehicleParameter::Stop& stop : myStops.find(seg)->second) {
             time += stop.duration;
             if (stop.until > time) {
+                // @note: this assumes the stop is at the end of the segment and understimates travel time otherwies
                 time = stop.until;
             }
         }
