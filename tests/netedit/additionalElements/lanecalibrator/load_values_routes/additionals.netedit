@@ -1,5 +1,5 @@
 <additionals>
-    <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="private" guiShape="" imgFile="default.png"/>
+    <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="ignoring" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" output="calibratorRoutes.txt">
         <route id="route01" edges="gneE0 gneE1" color="black"/>
         <route id="route02" edges="gneE0 gneE1" color="black"/>

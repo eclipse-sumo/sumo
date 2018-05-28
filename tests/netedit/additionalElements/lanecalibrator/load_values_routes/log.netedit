@@ -2,8 +2,8 @@ Warning: Adding laneCalibrator 'calibratorRoutes' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Essential string attribute 'id' of route is missing; route cannot be created
-Warning: Format of essential string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
+Warning: Essential unique string attribute 'id' of route is missing; route cannot be created
+Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
 Warning: There is another route with the same ID='route01'.
 Warning: Adding calibrator route into calibrator 'calibratorRoutes'
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
