@@ -230,6 +230,18 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
             // Write error if lane isn't valid
             WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
         } else {
+            // Freq needs an extra check, because it can be empty
+            if (GNEAttributeCarrier::canParse<double>(freq)) {
+                if(GNEAttributeCarrier::parse<double>(freq) < 0) {
+                    WRITE_WARNING(toString(SUMO_ATTR_FREQUENCY) + "of " + toString(tag) + "'" + id + "' cannot be negative.");
+                    freq = "";
+                }
+            } else {
+                if(freq.empty()) {
+                    WRITE_WARNING(toString(SUMO_ATTR_FREQUENCY) + "of " + toString(tag) + "'" + id + "' cannot be parsed to float.");
+                }
+                freq = "";
+            }
             buildRouteProbe(myViewNet, myUndoAdditionals, id, edge, freq, file, begin);
         }
     }
