@@ -54,6 +54,7 @@ def check(vehID):
     print("examining", vehID)
     print("speed", traci.vehicle.getSpeed(vehID))
     print("speed w/o traci", traci.vehicle.getSpeedWithoutTraCI(vehID))
+    print("acceleration", traci.vehicle.getAcceleration(vehID))
     print("pos", traci.vehicle.getPosition(vehID))
     print("angle", traci.vehicle.getAngle(vehID))
     print("road", traci.vehicle.getRoadID(vehID))

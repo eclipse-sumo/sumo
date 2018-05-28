@@ -103,6 +103,13 @@ Vehicle::getSpeed(const std::string& vehicleID) {
 
 
 double
+Vehicle::getAcceleration(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    return isVisible(veh) ? veh->getAcceleration() : INVALID_DOUBLE_VALUE;
+}
+
+
+double
 Vehicle::getSpeedWithoutTraCI(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     return isVisible(veh) ? veh->getSpeedWithoutTraciInfluence() : INVALID_DOUBLE_VALUE;

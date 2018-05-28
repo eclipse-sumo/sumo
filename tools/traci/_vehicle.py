@@ -70,6 +70,7 @@ def _readNextTLS(result):
 
 _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
+                      tc.VAR_ACCELERATION: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
                       tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
                       tc.VAR_ANGLE: Storage.readDouble,
@@ -166,6 +167,13 @@ class VehicleDomain(Domain):
         Returns the speed in m/s of the named vehicle within the last step.
         """
         return self._getUniversal(tc.VAR_SPEED, vehID)
+
+    def getAcceleration(self, vehID):
+        """getSpeed(string) -> double
+
+        Returns the acceleration in m/s^2 of the named vehicle within the last step.
+        """
+        return self._getUniversal(tc.VAR_ACCELERATION, vehID)
 
     def getSpeedWithoutTraCI(self, vehID):
         """getSpeedWithoutTraCI(string) -> double

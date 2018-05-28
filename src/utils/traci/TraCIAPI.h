@@ -655,6 +655,7 @@ public:
         std::vector<std::string> getIDList() const;
         int getIDCount() const;
         double getSpeed(const std::string& vehicleID) const;
+        double getAcceleration(const std::string& vehicleID) const;
         libsumo::TraCIPosition getPosition(const std::string& vehicleID) const;
         libsumo::TraCIPosition getPosition3D(const std::string& vehicleID) const;
         double getAngle(const std::string& vehicleID) const;
