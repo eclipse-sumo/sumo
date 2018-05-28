@@ -1,9 +1,9 @@
 Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of routeProbe is missing; routeProbe cannot be created
-Warning: Format of essential string attribute 'id' of routeProbe is invalid; 'id with spaces' contains invalid characters; routeProbe cannot be created
-Warning: Format of essential string attribute 'id' of routeProbe is invalid; ID cannot be empty; routeProbe cannot be created
+Warning: Essential unique string attribute 'id' of routeProbe is missing; routeProbe cannot be created
+Warning: Format of essential unique string attribute 'id' of routeProbe is invalid; 'id with spaces' contains invalid characters; routeProbe cannot be created
+Warning: Format of essential unique string attribute 'id' of routeProbe is invalid; ID cannot be empty; routeProbe cannot be created
 Warning: There is another routeProbe with the same ID='routeProbe_01'.
 Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
@@ -11,6 +11,7 @@ Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is no
 Warning: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
+Warning: freqof routeProbe'routeProbe_08' cannot be negative.
 Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_10' in GNEChange_Additional

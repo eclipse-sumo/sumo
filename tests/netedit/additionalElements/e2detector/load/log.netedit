@@ -1,15 +1,15 @@
 Warning: Adding e2Detector 'E2_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of e2Detector is missing; e2Detector cannot be created
-Warning: Essential string attribute 'lane' of e2Detector is missing; e2Detector cannot be created
-Warning: Essential float attribute 'pos' of e2Detector is missing; e2Detector cannot be created
-Warning: Format of essential string attribute 'id' of e2Detector is invalid; 'id with spaces' contains invalid characters; e2Detector cannot be created
+Warning: Essential unique string attribute 'id' of e2Detector is missing; e2Detector cannot be created
+Warning: Essential unique string attribute 'lane' of e2Detector is missing; e2Detector cannot be created
+Warning: Essential unique float attribute 'pos' of e2Detector is missing; e2Detector cannot be created
+Warning: Format of essential unique string attribute 'id' of e2Detector is invalid; 'id with spaces' contains invalid characters; e2Detector cannot be created
 Warning: There is another e2Detector with the same ID='E2_01'.
 Warning: The lane 'dummyLane' to use within the e2Detector 'E2_02' is not known.
-Warning: Essential string attribute 'lane' of e2Detector with ID 'E2_03' is missing; e2Detector cannot be created
-Warning: Essential float attribute 'pos' of e2Detector with ID 'E2_04' is missing; e2Detector cannot be created
-Warning: Format of essential float attribute 'pos' of e2Detector with ID 'E2_04' is invalid; e2Detector cannot be created
+Warning: Essential unique string attribute 'lane' of e2Detector with ID 'E2_03' is missing; e2Detector cannot be created
+Warning: Essential unique float attribute 'pos' of e2Detector with ID 'E2_04' is missing; e2Detector cannot be created
+Warning: Format of essential unique float attribute 'pos' of e2Detector with ID 'E2_04' is invalid; e2Detector cannot be created
 Warning: Invalid position for e2Detector with ID = 'E2_05'.
 Warning: Invalid position for e2Detector with ID = 'E2_06'.
 Warning: Adding e2Detector 'E2_07' in GNEChange_Additional

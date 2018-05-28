@@ -3,7 +3,7 @@
     <routeProbe id="routeProbe_02" edge="gneE1" freq="100.00" file="routeProbe_02.txt" begin="0.00"/>
     <routeProbe id="routeProbe_03" edge="gneE1" freq="100.00" file="routeProbe_03.txt" begin="0.00"/>
     <routeProbe id="routeProbe_05" edge="gneE1" freq="100.00" file="routeProbe_05.txt" begin="0.00"/>
-    <routeProbe id="routeProbe_06" edge="gneE1" file="routeProbe_06.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_06" edge="gneE1" freq="3600" file="routeProbe_06.txt" begin="0.00"/>
     <routeProbe id="routeProbe_07" edge="gneE1" file="routeProbe_07.txt" begin="0.00"/>
     <routeProbe id="routeProbe_08" edge="gneE1" file="routeProbe_08.txt" begin="0.00"/>
     <routeProbe id="routeProbe_09" edge="gneE1" freq="120.30" file="routeProbe_09.txt" begin="0.00"/>

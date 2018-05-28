@@ -1,13 +1,14 @@
 <additionals>
-    <vaporizer edge="gneE1" startTime="5.00" end="15.00"/>
-    <vaporizer edge="gneE1" startTime="5.00" end="15.00"/>
-    <vaporizer edge="gneE1" startTime="5.00" end="20.00"/>
-    <vaporizer edge="gneE1" startTime="0.00" end="15.00"/>
-    <vaporizer edge="gneE1" startTime="0.00" end="5.00"/>
-    <vaporizer edge="gneE1" startTime="0.00" end="15.00"/>
-    <vaporizer edge="gneE1" startTime="0.00" end="15.00"/>
-    <vaporizer edge="gneE1" startTime="10.00" end="15.00"/>
-    <vaporizer edge="gneE1" startTime="5.00"/>
-    <vaporizer edge="gneE1" startTime="5.00"/>
-    <vaporizer edge="gneE1" startTime="5.00"/>
+    <vaporizer id="1" begin="0.00" end="15.00"/>
+    <vaporizer id="10" begin="0.00" end="3600.00"/>
+    <vaporizer id="12" begin="0.00" end="20.00"/>
+    <vaporizer id="13" begin="0.00" end="20.00"/>
+    <vaporizer id="2" begin="0.00" end="15.00"/>
+    <vaporizer id="3" begin="0.00" end="15.00"/>
+    <vaporizer id="4" begin="0.00" end="5.00"/>
+    <vaporizer id="5" begin="0.00" end="15.00"/>
+    <vaporizer id="6" begin="0.00" end="15.00"/>
+    <vaporizer id="7" begin="0.00" end="15.00"/>
+    <vaporizer id="8" begin="0.00" end="3600.00"/>
+    <vaporizer id="9" begin="0.00" end="3600.00"/>
 </additionals>

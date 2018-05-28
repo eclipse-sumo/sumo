@@ -1,15 +1,15 @@
 Warning: Adding e1Detector 'E1_01' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of e1Detector is missing; e1Detector cannot be created
-Warning: Essential string attribute 'lane' of e1Detector is missing; e1Detector cannot be created
-Warning: Essential float attribute 'pos' of e1Detector is missing; e1Detector cannot be created
-Warning: Format of essential string attribute 'id' of e1Detector is invalid; 'ID with spaces' contains invalid characters; e1Detector cannot be created
+Warning: Essential unique string attribute 'id' of e1Detector is missing; e1Detector cannot be created
+Warning: Essential unique string attribute 'lane' of e1Detector is missing; e1Detector cannot be created
+Warning: Essential unique float attribute 'pos' of e1Detector is missing; e1Detector cannot be created
+Warning: Format of essential unique string attribute 'id' of e1Detector is invalid; 'ID with spaces' contains invalid characters; e1Detector cannot be created
 Warning: There is another e1Detector with the same ID='E1_01'.
-Warning: Essential string attribute 'lane' of e1Detector with ID 'E1_02' is missing; e1Detector cannot be created
+Warning: Essential unique string attribute 'lane' of e1Detector with ID 'E1_02' is missing; e1Detector cannot be created
 Warning: The lane 'dummyLane' to use within the e1Detector 'E1_03' is not known.
-Warning: Essential float attribute 'pos' of e1Detector with ID 'E1_04' is missing; e1Detector cannot be created
-Warning: Format of essential float attribute 'pos' of e1Detector with ID 'E1_05' is invalid; e1Detector cannot be created
+Warning: Essential unique float attribute 'pos' of e1Detector with ID 'E1_04' is missing; e1Detector cannot be created
+Warning: Format of essential unique float attribute 'pos' of e1Detector with ID 'E1_05' is invalid; e1Detector cannot be created
 Warning: Invalid position for e1Detector with ID = 'E1_06'.
 Warning: Invalid position for e1Detector with ID = 'E1_07'.
 Warning: Adding e1Detector 'E1_08' in GNEChange_Additional
