@@ -41,7 +41,10 @@
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 
-// @todo ask an expert
+// typical block length in germany on main lines is 3-5km on branch lines up to 7km
+// special branches that are used by one train exclusively could also be up to 20km in length 
+// minimum block size in germany is 37.5m (LZB)
+// larger countries (USA, Russia) might see blocks beyond 20km)
 #define MAX_BLOCK_LENGTH 20000
 
 //#define DEBUG_SUCCEEDINGBLOCKS
