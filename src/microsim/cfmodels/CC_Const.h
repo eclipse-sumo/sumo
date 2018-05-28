@@ -66,6 +66,9 @@ struct VEHICLE_DATA {
     double time;         //time at which such information was read from vehicle's sensors
     double length;       //vehicle length
     double u;            //controller acceleration
+    double speedX;       //vehicle speed on the X axis
+    double speedY;       //vehicle speed on the Y axis
+    double angle;        //vehicle angle in radians
 };
 
 #define MAX_N_CARS 8

@@ -101,6 +101,10 @@ public:
     Position frontPosition;
     /// @brief when front vehicle data has been readed from GPS
     double frontDataReadTime;
+    /// @brief front vehicle velocity vector
+    Position frontVelocity;
+    /// @brief front vehicle angle in radians
+    double frontAngle;
     /// @did we receive at least one packet?
     bool frontInitialized;
 
@@ -128,6 +132,10 @@ public:
     Position leaderPosition;
     /// @brief when leader data has been readed from GPS
     double leaderDataReadTime;
+    /// @brief platoon's leader velocity vector
+    Position leaderVelocity;
+    /// @brief platoon's leader angle in radians
+    double leaderAngle;
     /// @did we receive at least one packet?
     bool leaderInitialized;
     bool caccInitialized;

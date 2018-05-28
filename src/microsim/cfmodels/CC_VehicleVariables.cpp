@@ -43,11 +43,11 @@ const double CC_VehicleVariables::defaultH[MAX_N_CARS] = {0.8, 0.8, 0.8, 0.8, 0.
 
 CC_VehicleVariables::CC_VehicleVariables() :
     controllerAcceleration(0), frontSpeed(0), frontAcceleration(0),
-    frontControllerAcceleration(0), frontDataReadTime(0), frontInitialized(false),
+    frontControllerAcceleration(0), frontDataReadTime(0), frontAngle(0), frontInitialized(false),
     autoFeed(false), leaderVehicle(0), frontVehicle(0),
     accHeadwayTime(1.5), accLambda(0.1),
     useControllerAcceleration(true), leaderSpeed(0),
-    leaderAcceleration(0), leaderControllerAcceleration(0), leaderDataReadTime(0),
+    leaderAcceleration(0), leaderControllerAcceleration(0), leaderDataReadTime(0), leaderAngle(0),
     leaderInitialized(false), caccInitialized(false),
     useFixedAcceleration(0), fixedAcceleration(0),
     crashed(false), crashedVictim(false),

@@ -613,24 +613,22 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
     vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     try {
         if (key.compare(PAR_LEADER_SPEED_AND_ACCELERATION) == 0) {
-            double x, y;
+            double x, y, vx, vy;
             buf >> vars->leaderSpeed >> vars->leaderAcceleration >> x >> y >> vars->leaderDataReadTime
-                >> vars->leaderControllerAcceleration;
-            if (buf.last_empty())
-                vars->useControllerAcceleration = false;
+                >> vars->leaderControllerAcceleration >> vx >> vy >> vars->leaderAngle;
             vars->leaderPosition = Position(x, y);
+            vars->leaderVelocity = Position(vx, vy);
             vars->leaderInitialized = true;
             if (vars->frontInitialized)
                 vars->caccInitialized = true;
             return;
         }
         if (key.compare(PAR_PRECEDING_SPEED_AND_ACCELERATION) == 0) {
-            double x, y;
+            double x, y, vx, vy;
             buf >> vars->frontSpeed >> vars->frontAcceleration >> x >> y >> vars->frontDataReadTime
-                >> vars->frontControllerAcceleration;
-            if (buf.last_empty())
-                vars->useControllerAcceleration = false;
+                >> vars->frontControllerAcceleration >> vx >> vy >> vars->frontAngle;
             vars->frontPosition = Position(x, y);
+            vars->frontVelocity = Position(vx, vy);
             vars->frontInitialized = true;
             if (vars->leaderInitialized)
                 vars->caccInitialized = true;
@@ -640,7 +638,8 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             struct Plexe::VEHICLE_DATA vehicle;
             buf >> vehicle.index >> vehicle.speed >> vehicle.acceleration >>
                    vehicle.positionX >> vehicle.positionY >> vehicle.time >>
-                   vehicle.length >> vehicle.u;
+                   vehicle.length >> vehicle.u >> vehicle.speedX >>
+                   vehicle.speedY >> vehicle.angle;
             //if the index is larger than the number of cars, simply ignore the data
             if (vehicle.index >= vars->nCars || vehicle.index == -1)
                 return;
@@ -855,10 +854,12 @@ std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& 
 
     vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     if (key.compare(PAR_SPEED_AND_ACCELERATION) == 0) {
+        Position velocity = veh->getVelocityVector();
         buf << veh->getSpeed() << veh->getAcceleration() <<
                vars->controllerAcceleration << veh->getPosition().x() <<
                veh->getPosition().y() <<
-               STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+               STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) <<
+               velocity.x() << velocity.y() << veh->getAngle();
         return buf.str();
     }
     if (key.compare(PAR_CRASHED) == 0) {
@@ -947,7 +948,8 @@ std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& 
             vehicle = vars->vehicles[index];
         buf << vehicle.index << vehicle.speed << vehicle.acceleration <<
                vehicle.positionX << vehicle.positionY << vehicle.time <<
-               vehicle.length << vehicle.u;
+               vehicle.length << vehicle.u << vehicle.speedX <<
+               vehicle.speedY << vehicle.angle;
         return buf.str();
     }
     if (key.compare(PAR_ENGINE_DATA) == 0) {
