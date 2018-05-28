@@ -255,12 +255,19 @@ MEVehicle::getStoptime(const MESegment* const seg, SUMOTime time) const {
         for (const SUMOVehicleParameter::Stop& stop : myStops.find(seg)->second) {
             time += stop.duration;
             if (stop.until > time) {
-                // @note: this assumes the stop is at the end of the segment and understimates travel time otherwies
+                // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
+                // travel time is overestimated of the stop is not at the start of the segment
                 time = stop.until;
             }
         }
     }
     return time;
+}
+
+
+double 
+MEVehicle::getCurrentStoppingTimeSeconds() const {
+    return STEPS2TIME(getStoptime(mySegment, myLastEntryTime) - myLastEntryTime);
 }
 
 
