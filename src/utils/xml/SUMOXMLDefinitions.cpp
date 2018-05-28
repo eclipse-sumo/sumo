@@ -175,6 +175,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-Wiedemann",     SUMO_TAG_CF_WIEDEMANN },
     { "carFollowing-TCI",           SUMO_TAG_CF_TCI },
     { "carFollowing-Rail",          SUMO_TAG_CF_RAIL },
+    { "carFollowing-CC",            SUMO_TAG_CF_CC },
     // Person
     { "person",                     SUMO_TAG_PERSON },
     { "personTrip",                 SUMO_TAG_PERSONTRIP },
@@ -513,6 +514,25 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "security",               SUMO_ATTR_CF_WIEDEMANN_SECURITY },
     { "estimation",             SUMO_ATTR_CF_WIEDEMANN_ESTIMATION },
 
+    { "ccDecel",                SUMO_ATTR_CF_CC_CCDECEL },
+    { "constSpacing",           SUMO_ATTR_CF_CC_CONSTSPACING },
+    { "kp",                     SUMO_ATTR_CF_CC_KP },
+    { "lambda",                 SUMO_ATTR_CF_CC_LAMBDA },
+    { "c1",                     SUMO_ATTR_CF_CC_C1 },
+    { "xi",                     SUMO_ATTR_CF_CC_XI },
+    { "omegaN",                 SUMO_ATTR_CF_CC_OMEGAN },
+    { "tauEngine",              SUMO_ATTR_CF_CC_TAU },
+    { "lanesCount",             SUMO_ATTR_CF_CC_LANES_COUNT },
+    { "ccAccel",                SUMO_ATTR_CF_CC_CCACCEL },
+    { "ploegKp",                SUMO_ATTR_CF_CC_PLOEG_KP },
+    { "ploegKd",                SUMO_ATTR_CF_CC_PLOEG_KD },
+    { "ploegH",                 SUMO_ATTR_CF_CC_PLOEG_H },
+    { "flatbedKa",              SUMO_ATTR_CF_CC_FLATBED_KA },
+    { "flatbedKv",              SUMO_ATTR_CF_CC_FLATBED_KV },
+    { "flatbedKp",              SUMO_ATTR_CF_CC_FLATBED_KP },
+    { "flatbedD",               SUMO_ATTR_CF_CC_FLATBED_D },
+    { "flatbedH",               SUMO_ATTR_CF_CC_FLATBED_H },
+
     { "generateWalks",          SUMO_ATTR_GENERATE_WALKS },
     { "actType",                SUMO_ATTR_ACTTYPE },
     { "slope",                  SUMO_ATTR_SLOPE },
@@ -698,6 +718,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "BKerner",     SUMO_TAG_CF_BKERNER },
     { "Rail",        SUMO_TAG_CF_RAIL },
     { "TCI",         SUMO_TAG_CF_TCI },
+    { "CC",          SUMO_TAG_CF_CC },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
 };
 

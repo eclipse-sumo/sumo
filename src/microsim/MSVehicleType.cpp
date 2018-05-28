@@ -48,6 +48,7 @@
 #include "cfmodels/MSCFModel_Wiedemann.h"
 #include "cfmodels/MSCFModel_TCI.h"
 #include "MSVehicleControl.h"
+#include "cfmodels/MSCFModel_CC.h"
 #include "MSVehicleType.h"
 
 
@@ -357,6 +358,31 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_RAIL:
             vtype->myCarFollowModel = new MSCFModel_Rail(vtype, from.getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400"));
+            break;
+        case SUMO_TAG_CF_CC:
+            vtype->myCarFollowModel = new MSCFModel_CC(vtype,
+                    from.getCFParam(SUMO_ATTR_ACCEL, 1.5),
+                    from.getCFParam(SUMO_ATTR_DECEL, 6),
+                    from.getCFParam(SUMO_ATTR_CF_CC_CCDECEL, 1.5),
+                    from.getCFParam(SUMO_ATTR_TAU, 1.5),
+                    from.getCFParam(SUMO_ATTR_CF_CC_CONSTSPACING, 5.0),
+                    from.getCFParam(SUMO_ATTR_CF_CC_KP, 1.0),
+                    from.getCFParam(SUMO_ATTR_CF_CC_LAMBDA, 0.1),
+                    from.getCFParam(SUMO_ATTR_CF_CC_C1, 0.5),
+                    from.getCFParam(SUMO_ATTR_CF_CC_XI, 1),
+                    from.getCFParam(SUMO_ATTR_CF_CC_OMEGAN, 0.2),
+                    from.getCFParam(SUMO_ATTR_CF_CC_TAU, 0.5),
+                    from.getCFParam(SUMO_ATTR_CF_CC_LANES_COUNT, -1),
+                    from.getCFParam(SUMO_ATTR_CF_CC_CCACCEL, 1.5),
+                    from.getCFParam(SUMO_ATTR_CF_CC_PLOEG_H, 0.5),
+                    from.getCFParam(SUMO_ATTR_CF_CC_PLOEG_KP, 0.2),
+                    from.getCFParam(SUMO_ATTR_CF_CC_PLOEG_KD, 0.7),
+                    from.getCFParam(SUMO_ATTR_CF_CC_FLATBED_KA, 2.4),
+                    from.getCFParam(SUMO_ATTR_CF_CC_FLATBED_KV, 0.6),
+                    from.getCFParam(SUMO_ATTR_CF_CC_FLATBED_KP, 12.0),
+                    from.getCFParam(SUMO_ATTR_CF_CC_FLATBED_H, 4),
+                    from.getCFParam(SUMO_ATTR_CF_CC_FLATBED_D, 5.0));
+
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:
