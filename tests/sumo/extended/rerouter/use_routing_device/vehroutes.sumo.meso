@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 14 13:28:46 2017 by SUMO Version dev-SVN-r24648
+<!-- generated on Mon May 28 10:17:34 2018 by Eclipse SUMO Version 92ee979
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -24,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <ignore-route-errors value="true"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <routing>
@@ -44,6 +46,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="rerouting_device.1" depart="2.00" color="blue" arrival="201.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="2.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
+        </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
+    </vehicle>
+
     <vehicle id="rerouting_device.2" depart="4.00" color="blue" arrival="204.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="4.00" probability="0" edges="beg beg2left left left2end end rend"/>
@@ -52,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
-    <vehicle id="rerouting_device.3" depart="7.00" color="blue" arrival="206.00">
+    <vehicle id="rerouting_device.3" depart="7.00" color="blue" arrival="207.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="7.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
@@ -92,7 +102,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
-    <vehicle id="rerouting_device.8" depart="20.00" color="blue" arrival="220.00">
+    <vehicle id="rerouting_device.8" depart="20.00" color="blue" arrival="221.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="20.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
@@ -127,71 +137,63 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rerouting_device.1" depart="2.00" color="blue" arrival="542.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="2.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
-        </routeDistribution>
-        <param key="has.rerouting.device" value="true"/>
-    </vehicle>
-
-    <vehicle id="no_device.1" depart="2.00" color="yellow" arrival="544.00">
+    <vehicle id="no_device.1" depart="2.00" color="yellow" arrival="542.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="2.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.2" depart="5.00" color="yellow" arrival="545.00">
+    <vehicle id="no_device.2" depart="5.00" color="yellow" arrival="544.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="5.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.3" depart="8.00" color="yellow" arrival="547.00">
+    <vehicle id="no_device.3" depart="8.00" color="yellow" arrival="545.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="8.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.4" depart="11.00" color="yellow" arrival="549.00">
+    <vehicle id="no_device.4" depart="11.00" color="yellow" arrival="547.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="11.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.5" depart="13.00" color="yellow" arrival="551.00">
+    <vehicle id="no_device.5" depart="13.00" color="yellow" arrival="549.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="13.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.6" depart="16.00" color="yellow" arrival="552.00">
+    <vehicle id="no_device.6" depart="16.00" color="yellow" arrival="551.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="16.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.7" depart="18.00" color="yellow" arrival="554.00">
+    <vehicle id="no_device.7" depart="18.00" color="yellow" arrival="552.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="18.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.8" depart="21.00" color="yellow" arrival="555.00">
+    <vehicle id="no_device.8" depart="21.00" color="yellow" arrival="553.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="21.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.9" depart="24.00" color="yellow" arrival="556.00">
+    <vehicle id="no_device.9" depart="24.00" color="yellow" arrival="554.00">
         <routeDistribution>
             <route replacedOnEdge="beg" replacedAtTime="24.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
