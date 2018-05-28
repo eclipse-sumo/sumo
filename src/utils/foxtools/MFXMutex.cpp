@@ -42,7 +42,7 @@ using namespace FX;
 #endif
 
 // MFXMutex constructor
-MFXMutex::MFXMutex() : lock_(0) {
+MFXMutex::MFXMutex() : lock_(0), mutexHandle(0) {
 #ifndef WIN32
     FXint status = 0;
     pthread_mutexattr_t attr;
@@ -69,8 +69,10 @@ MFXMutex::~MFXMutex() {
         fxerror("MFXMutex: mutex still locked\n");
     }
 #if !defined(WIN32)
-    pthread_mutex_destroy((pthread_mutex_t*)mutexHandle);
-    FXFREE(&mutexHandle);
+    if (mutexHandle) {
+        pthread_mutex_destroy((pthread_mutex_t*)mutexHandle);
+        FXFREE(&mutexHandle);
+    }
 #else
     CloseHandle(mutexHandle);
 #endif
