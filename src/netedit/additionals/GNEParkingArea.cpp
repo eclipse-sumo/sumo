@@ -58,7 +58,7 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, 
+GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, const std::string &endPos, const std::string& name, 
                                bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myRoadSideCapacity(roadSideCapacity),
@@ -229,9 +229,9 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_STARTPOS:
-            return toString(getAbsoluteStartPosition());
+            return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
-            return toString(getAbsoluteEndPosition());
+            return myEndPosition;
         case SUMO_ATTR_NAME:
             return myName;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -302,14 +302,16 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             if (canParse<double>(value)) {
                 // Check that new start Position is smaller that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) < myEndPosRelative);
+                return (parse<double>(value) < parse<double>(myEndPosition));
             } else {
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (canParse<double>(value)) {
+            if(value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
                 // Check that new end Position is larger that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) > myStartPosRelative);
+                return (parse<double>(value) > myStartPosition);
             } else {
                 return false;
             }
@@ -352,10 +354,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myStartPosition= parse<double>(value);
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myEndPosition = value;
             break;
         case SUMO_ATTR_NAME:
             myName = value;

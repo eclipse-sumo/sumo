@@ -175,9 +175,6 @@ public:
         /// @brief parameter constructor
         AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
 
-        /// @brief parameter constructor (used for ACs that inherit their default value of other AC)
-        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, SumoXMLTag inheritTag, SumoXMLAttr inheritAttribute, std::vector<std::string> discreteValues = std::vector<std::string>());
-
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
 
@@ -195,6 +192,9 @@ public:
 
         /// @brief return true if attribute owns a default value
         bool hasDefaultValue() const;
+
+        /// @brief return true if attribute owns a default value
+        bool hasInheritValue() const;
 
         /// @brief return true if atribute is an integer
         bool isInt() const;
@@ -244,12 +244,6 @@ public:
         /// @brief return true if atribute is combinable with other Attribute
         bool isCombinable() const;
 
-        /// @brief get inherit tag (throw ProcessError if attribute don't inherit)
-        SumoXMLTag getInheritTag() const;
-
-        /// @brief get inherit attribute (throw ProcessError if attribute don't inherit)
-        SumoXMLAttr getInheritAttribute() const;
-
     private:
         /// @brief Property of attribute
         int myAttributeProperty;
@@ -265,12 +259,6 @@ public:
 
         /// @brief discrete values that can take this Attribute (by default empty)
         std::vector<std::string> myDiscreteValues;
-
-        /// @brief inherit tag
-        SumoXMLTag myInheritTag;
-
-        /// @brief inherit value
-        SumoXMLAttr myInheritAttribute;
     };
 
     /**@brief Constructor
@@ -416,7 +404,7 @@ public:
 
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
+    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort/*, T optional*/) {
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
         // set additionalOfWarningMessage
@@ -552,11 +540,11 @@ public:
             // If attribute has an invalid format
             if (!parsedOk) {
                 // if attribute has a default value, obtain it as string. In other case, abort.
-                if (getTagProperties(tag).canBlockMovement() && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
-                    // by default elements aren't blocked
-                    parsedAttribute = "false";
-                } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
+                if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+                } else if (getAttributeProperties(tag, attribute).hasInheritValue()) {
+                    // set default value
+                    parsedAttribute = defaultValue;
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
@@ -568,11 +556,11 @@ public:
             }
         } else {
             // if attribute has a default value, obtain it. In other case, abort.
-             if (getTagProperties(tag).canBlockMovement() && (attribute == GNE_ATTR_BLOCK_MOVEMENT)) {
-                 // by default elements aren't blocked
-                 parsedAttribute = "false";
-             } else if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
+            if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+            } else if (getAttributeProperties(tag, attribute).hasInheritValue()) {
+                // set default value
+                parsedAttribute = defaultValue;
             } else {
                 WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");

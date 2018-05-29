@@ -57,7 +57,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name,
+GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, const std::string& endPos, const std::string& name,
                                        double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, ICON_CHARGINGSTATION, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myChargingPower(chargingPower),
@@ -283,9 +283,9 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_STARTPOS:
-            return toString(getAbsoluteStartPosition());
+            return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
-            return toString(getAbsoluteEndPosition());
+            return myEndPosition;
         case SUMO_ATTR_NAME:
             return myName;
         case SUMO_ATTR_FRIENDLY_POS:
@@ -348,14 +348,14 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             if (canParse<double>(value)) {
                 // Check that new start Position is smaller that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) < myEndPosRelative);
+                return (parse<double>(value) < parse<double>(myEndPosition));
             } else {
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
             if (canParse<double>(value)) {
                 // Check that new end Position is larger that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) > myStartPosRelative);
+                return (parse<double>(value) > myStartPosition);
             } else {
                 return false;
             }
@@ -394,10 +394,10 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myStartPosition = parse<double>(value);
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myEndPosition = value;
             break;
         case SUMO_ATTR_NAME:
             myName = value;

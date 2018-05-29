@@ -104,11 +104,11 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
         // Set conflict
         std::string errorStartPosition, errorEndPosition, separator;
         // check start position
-        if (i->getAbsoluteStartPosition() < 0) {
+        if (i->getStartPosition() < 0) {
             errorStartPosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
         }
         // check end position
-        if (i->getAbsoluteEndPosition() > i->getLane()->getLaneParametricLength()) {
+        if (i->getEndPosition() > i->getLane()->getLaneParametricLength()) {
             errorEndPosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
         }
         // check separator

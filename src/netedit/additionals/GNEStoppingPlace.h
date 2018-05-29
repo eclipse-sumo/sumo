@@ -53,7 +53,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
+    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, const std::string &endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -66,11 +66,11 @@ public:
     /// @brief get Lane
     GNELane* getLane() const;
 
-    /// @brief get absolute start Position
-    double getAbsoluteStartPosition() const;
+    /// @brief get start Position
+    double getStartPosition() const;
 
-    /// @brief get absolute end Position
-    double getAbsoluteEndPosition() const;
+    /// @brief get end Position
+    double getEndPosition() const;
 
     /// @brief check if Position of stoppingPlace are fixed
     bool areStoppingPlacesPositionsFixed() const;
@@ -136,11 +136,11 @@ protected:
     /// @brief The lane in which this lane is placed
     GNELane* myLane;
 
-    /// @brief The relative [0,1] start position this stopping place is located at
-    double myStartPosRelative;
+    /// @brief The relative start position this stopping place is located at
+    double myStartPosition;
 
-    /// @brief The relative [0,1] end position this stopping place is located at
-    double myEndPosRelative;
+    /// @brief The  position this stopping place is located at (optional)
+    std::string myEndPosition;
 
     /// @brief name of stoppingPlace
     std::string myName;
