@@ -281,8 +281,14 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         // save foes for entry links
         for (MSLink* const it : myLaneBefore->getLinkCont()) {
             const MSEdge* target = &(it->getLane()->getEdge());
-            if (it != this && target == myTarget) {
+            if (it == this) {
+                continue;
+            }
+            if (target == myTarget) {
                 mySublaneFoeLinks.push_back(it);
+            } else if (myDirection != LINKDIR_STRAIGHT && it->getDirection() == LINKDIR_STRAIGHT) {
+                // potential turn conflicht
+                mySublaneFoeLinks2.push_back(it);
             }
         }
         // save foes for exit links
@@ -401,22 +407,21 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     }
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, vehicleLength);
     if (MSGlobals::gLateralResolution > 0) {
-        // check for foes on the same lane
-        for (std::vector<MSLink*>::const_iterator it = mySublaneFoeLinks.begin(); it != mySublaneFoeLinks.end(); ++it) {
-            const MSLink* foeLink = *it;
+        // check for foes on the same lane with the same target edge
+        for (const MSLink* foeLink : mySublaneFoeLinks) {
             assert(myLane != foeLink->getLane());
-            for (std::map<const SUMOVehicle*, ApproachingVehicleInformation>::const_iterator i = foeLink->myApproachingVehicles.begin(); i != foeLink->myApproachingVehicles.end(); ++i) {
-                const SUMOVehicle* foe = i->first;
+            for (auto& it : foeLink->myApproachingVehicles) {
+                const SUMOVehicle* foe = it.first;
                 if (
                     // there only is a conflict if the paths cross
                     ((posLat < foe->getLateralPositionOnLane() && myLane->getIndex() > foeLink->myLane->getIndex())
                      || (posLat > foe->getLateralPositionOnLane() && myLane->getIndex() < foeLink->myLane->getIndex()))
                     // the vehicle that arrives later must yield
-                    && (arrivalTime > i->second.arrivalTime
+                    && (arrivalTime > it.second.arrivalTime
                         // if both vehicles arrive at the same time, the one
                         // to the left must yield
-                        || (arrivalTime == i->second.arrivalTime && posLat > foe->getLateralPositionOnLane()))) {
-                    if (blockedByFoe(i->first, i->second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
+                        || (arrivalTime == it.second.arrivalTime && posLat > foe->getLateralPositionOnLane()))) {
+                    if (blockedByFoe(foe, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
                                      impatience, decel, waitingTime, ego)) {
 #ifdef MSLink_DEBUG_OPENED
                         if (gDebugFlag1) {
@@ -431,7 +436,34 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
 #endif
                             return false;
                         } else {
-                            collectFoes->push_back(i->first);
+                            collectFoes->push_back(foe);
+                        }
+                    }
+                }
+            }
+        }
+        // check for foes on the same lane with a different target edge
+        // (straight movers take precedence if the paths cross)
+        for (const MSLink* foeLink : mySublaneFoeLinks2) {
+            assert(myDirection != LINKDIR_STRAIGHT);
+            for (auto& it : foeLink->myApproachingVehicles) {
+                const SUMOVehicle* foe = it.first;
+                // there only is a conflict if the paths cross
+                if (((myDirection == LINKDIR_RIGHT || myDirection == LINKDIR_PARTRIGHT)
+                            && (posLat > foe->getLateralPositionOnLane()))
+                        || ((myDirection == LINKDIR_LEFT || myDirection == LINKDIR_PARTLEFT)
+                            && (posLat < foe->getLateralPositionOnLane()))) {
+                    if (blockedByFoe(foe, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
+                                     impatience, decel, waitingTime, ego)) {
+#ifdef MSLink_DEBUG_OPENED
+                        if (gDebugFlag1) {
+                            std::cout << SIMTIME << " blocked by sublane foe " << foe->getID() << " arrival=" << arrivalTime << " foeArrival=" << i->second.arrivalTime << "\n";
+                        }
+#endif
+                        if (collectFoes == 0) {
+                            return false;
+                        } else {
+                            collectFoes->push_back(foe);
                         }
                     }
                 }

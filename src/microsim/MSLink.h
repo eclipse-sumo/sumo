@@ -617,6 +617,9 @@ private:
     /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
     std::vector<MSLink*> mySublaneFoeLinks;
+    /* @brief Links with the same origin lane and different destination edge that may
+       be in conflict for sublane simulation */
+    std::vector<MSLink*> mySublaneFoeLinks2;
 
     /* @brief Internal Lanes with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
