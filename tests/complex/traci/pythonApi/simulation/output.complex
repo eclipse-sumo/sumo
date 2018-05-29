@@ -1,5 +1,4 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:44067 [Errno 111] Connection refused
  Retrying in 1 seconds
 {114: ['horiz', 'horiz1'], 116: []}
 step 0
@@ -37,19 +36,19 @@ teleportStart []
 #teleportEnd 0
 teleportEnd []
 deltaT 1000
-boundary ((0.0, 0.0), (3330.25, 3904.56))
-convertRoad2D (-1.26, 3903.4900000000002)
-convertRoad3D (-1.26, 3903.4900000000002, 2.0)
-convertRoadGeo (12.014677620717489, 48.12144890632121)
-convertRoadGeoAlt (12.014677620717489, 48.12144890632121, 2.0)
+boundary ((0.0, 0.0), (3500.0, 3904.56))
+convertRoad2D (-1.22, 3903.52)
+convertRoad3D (-1.22, 3903.52, 2.0)
+convertRoadGeo (12.014678141843579, 48.121449189819344)
+convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
 convert2DGeo (12.023018905467282, 48.09105459770769)
 convertGeo2D (-1619.5653987218393, -9550.720807247795)
-convert2DRoad ('o', 2906.190726022661, 0)
-convertGeoRoad ('o', 1012.1594677716278, 0)
+convert2DRoad ('o', 2906.187593990786, 0)
+convertGeoRoad ('o', 1012.1563357397523, 0)
 distance2D 10.0
 drivingDistance2D 6.48934198154
-distanceRoad 5131.87880547
-drivingDistanceRoad 5136.7
+distanceRoad 5131.87897232
+drivingDistanceRoad 5136.55
 clearing pending
 save simstate
 getParameter 0.00
@@ -91,7 +90,7 @@ stopstart []
 stopend []
 #colliding 2
 colliding ['suddenStop', 'collider']
-min#expected 3
+min#expected 4
 #teleportStart 1
 teleportStart ['collider']
 #teleportEnd 0
