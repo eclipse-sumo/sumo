@@ -37,12 +37,14 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/MSDriverState.h>
 #include "MSCFModel.h"
 
 // ===========================================================================
 // DEBUG constants
 // ===========================================================================
 //#define DEBUG_FINALIZE_SPEED
+//#define DEBUG_DRIVER_ERRORS
 //#define DEBUG_COND (true)
 #define DEBUG_COND (veh->isSelected())
 
@@ -825,6 +827,67 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     assert(!ISNAN(x));
     return x;
 }
+
+
+void
+MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const veh, double speed, double& gap, double& predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    assert(veh->hasDriverState());
+
+    // Obtain perceived gap and headway from the driver state
+    const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap, pred);
+    const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed-speed, gap, pred);
+
+#ifdef DEBUG_DRIVER_ERRORS
+    if DEBUG_COND {
+        if (!veh->getDriverState()->debugLocked()){
+            veh->getDriverState()->lockDebug();
+            std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayAndSpeedDifferencePerceptionErrors()\n"
+                    << "  speed=" << speed << " gap=" << gap << " leaderSpeed=" << predSpeed
+                    << "\n  perceivedGap=" << perceivedGap << " perceivedLeaderSpeed=" << speed+perceivedSpeedDifference
+                    << " perceivedSpeedDifference=" << perceivedSpeedDifference
+                    << std::endl;
+            const double exactFollowSpeed = followSpeed(veh, speed, gap, predSpeed, predMaxDecel);
+            const double errorFollowSpeed = followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
+            const double accelError = SPEED2ACCEL(errorFollowSpeed-exactFollowSpeed);
+            std::cout << "  gapError=" << perceivedGap-gap << "  dvError=" << perceivedSpeedDifference-(predSpeed - speed)
+                            << "\n  resulting accelError: " << accelError << std::endl;
+            veh->getDriverState()->unlockDebug();
+        }
+    }
+#endif
+
+    gap = perceivedGap;
+    predSpeed = speed + perceivedSpeedDifference;
+}
+
+
+void
+MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed, double& gap) const {
+    assert(veh->hasDriverState());
+
+    // Obtain perceived gap from driver state
+    const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
+
+#ifdef DEBUG_DRIVER_ERRORS
+    if DEBUG_COND {
+        if (!veh->getDriverState()->debugLocked()){
+            veh->getDriverState()->lockDebug();
+            std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayPerceptionError()\n"
+                    << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;
+            const double exactStopSpeed = stopSpeed(veh, speed, gap);
+            const double errorStopSpeed = stopSpeed(veh, speed, perceivedGap);
+            const double accelError = SPEED2ACCEL(errorStopSpeed-exactStopSpeed);
+            std::cout << "  gapError=" << perceivedGap-gap << "\n  resulting accelError: " << accelError << std::endl;
+            veh->getDriverState()->unlockDebug();
+        }
+    }
+#endif
+
+    gap = perceivedGap;
+}
+
+
+
 
 
 /****************************************************************************/

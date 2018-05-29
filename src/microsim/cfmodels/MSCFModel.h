@@ -534,6 +534,27 @@ public:
      */
     double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
+
+protected:
+
+    /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
+     *  @see MSCFModel_Krauss::stopSpeed() and MSCFModel_Krauss::followSpeed() for integration into a CF model
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in, out] gap2pred The (netto) distance to the LEADER
+     * @param[in, out] predSpeed The speed of LEADER
+     * @param[in] pred The leading vehicle (LEADER)
+     */
+    void applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const veh, double speed, double& gap, double& predSpeed, double predMaxDecel, const MSVehicle* const pred) const;
+
+    /** @brief Overwrites gap by the perceived value obtained from the vehicle's driver state
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in, out] gap The (netto) distance to the the obstacle
+     */
+    void applyHeadwayPerceptionError(const MSVehicle* const veh, double speed, double& gap) const;
+
+
 protected:
     /// @brief The type to which this model definition belongs to
     const MSVehicleType* myType;
@@ -550,6 +571,8 @@ protected:
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;
+
+
 
 };
 
