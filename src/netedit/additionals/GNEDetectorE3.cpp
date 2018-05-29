@@ -134,10 +134,6 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
         writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
         writeAttribute(device, SUMO_ATTR_POSITION);
-        // write block movement attribute only if it's enabled
-        if (myBlockMovement) {
-            writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-        }
         // Write entrys and exits
         for (auto i : myAdditionalChilds) {
             i->writeAdditional(device);

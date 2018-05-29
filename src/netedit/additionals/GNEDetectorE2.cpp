@@ -142,10 +142,6 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
     writeAttribute(device, SUMO_ATTR_JAM_DIST_THRESHOLD);
     writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
     // Close tag
     device.closeTag();
 }

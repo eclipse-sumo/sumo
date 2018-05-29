@@ -99,10 +99,6 @@ GNEDetectorExit::writeAdditional(OutputDevice& device) const {
     writeAttribute(device, SUMO_ATTR_LANE);
     writeAttribute(device, SUMO_ATTR_POSITION);
     writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
     device.closeTag();
 }
 

@@ -59,7 +59,7 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, 
-                               bool friendlyPosition, int roadSideCapacity, double width, double length, double angle, bool blockMovement) :
+                               bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, ICON_PARKINGAREA, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myRoadSideCapacity(roadSideCapacity),
     myWidth(width),
@@ -115,10 +115,6 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     writeAttribute(device, SUMO_ATTR_WIDTH);
     writeAttribute(device, SUMO_ATTR_LENGTH);
     writeAttribute(device, SUMO_ATTR_ANGLE);
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
     // Write ParkingSpace
     for (auto i : myAdditionalChilds) {
         i->writeAdditional(device);
@@ -245,7 +241,7 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WIDTH:
             return toString(myWidth);
         case SUMO_ATTR_LENGTH:
-            return toString(myLength);
+            return myLength;
         case SUMO_ATTR_ANGLE:
             return toString(myAngle);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -326,7 +322,11 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            if(value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) >= 0);
+            }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -370,7 +370,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myWidth = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            myLength = value;
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = parse<double>(value);

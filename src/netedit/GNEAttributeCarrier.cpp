@@ -1387,9 +1387,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The width of the road-side parking spaces", 
             "3.20");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
-            "The length of the road-side parking spaces", 
-            "5.00");
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
+            "The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity", 
+            "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_OPTIONAL, 10,
             "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 

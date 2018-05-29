@@ -153,10 +153,6 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
             i->writeStep(device);
         }
     }
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
     // Close tag
     device.closeTag();
 }

@@ -114,10 +114,6 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     writeAttribute(device, SUMO_ATTR_EFFICIENCY);
     writeAttribute(device, SUMO_ATTR_CHARGEINTRANSIT);
     writeAttribute(device, SUMO_ATTR_CHARGEDELAY);
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
     // Close tag
     device.closeTag();
 }
