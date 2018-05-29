@@ -131,6 +131,18 @@ public:
     double getPerceivedHeadway(const double trueGap, const void* objID=nullptr);
     /// @}
 
+    inline void lockDebug() {
+        myDebugLock=true;
+    }
+
+    inline void unlockDebug() {
+        myDebugLock=false;
+    }
+
+    inline bool debugLocked() const {
+        return myDebugLock;
+    }
+
 private:
     // @brief Update the current step duration
     void updateStepDuration();
@@ -183,6 +195,9 @@ private:
     /// @brief The last perceived speed differences to the corresponding objects
     std::map<const void*, double> myLastPerceivedSpeedDifference;
     /// @}
+
+    /// @brief Used to prevent infinite loops in debugging outputs, @see followSpeed() and stopSpeed() (of MSCFModel_Krauss, e.g.)
+    bool myDebugLock;
 };
 
 
@@ -551,6 +566,8 @@ struct TCIDefaults {
     static double myErrorTimeScaleCoefficient;
     static double myErrorNoiseIntensityCoefficient;
     static double mySpeedDifferenceErrorCoefficient;
+    static double mySpeedDifferenceChangePerceptionThreshold;
+    static double myHeadwayChangePerceptionThreshold;
     static double myHeadwayErrorCoefficient;
 };
 
