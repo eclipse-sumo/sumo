@@ -165,8 +165,12 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         if (type == 0) {
             throw TraCIException("The vehicle type '" + typeID + "' is not known.");
         }
-        const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-        vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        try {
+            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        } catch (ProcessError& e) {
+            throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
+        }
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
