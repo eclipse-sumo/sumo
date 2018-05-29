@@ -157,7 +157,7 @@ GUIDanielPerspectiveChanger::onLeftBtnPress(void* data) {
 
 bool
 GUIDanielPerspectiveChanger::onLeftBtnRelease(void* data) {
-    myMouseButtonState &= !MOUSEBTN_LEFT;
+    myMouseButtonState &= ~MOUSEBTN_LEFT;
     FXEvent* e = (FXEvent*) data;
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
@@ -179,7 +179,7 @@ GUIDanielPerspectiveChanger::onRightBtnPress(void* data) {
 
 bool
 GUIDanielPerspectiveChanger::onRightBtnRelease(void* data) {
-    myMouseButtonState &= !MOUSEBTN_RIGHT;
+    myMouseButtonState &= ~MOUSEBTN_RIGHT;
     if (data != 0) {
         FXEvent* e = (FXEvent*) data;
         myMouseXPosition = e->win_x;
