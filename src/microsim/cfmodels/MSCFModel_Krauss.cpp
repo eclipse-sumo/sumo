@@ -42,6 +42,8 @@
 // DEBUG constants
 // ===========================================================================
 //#define DEBUG_COND (true)
+#define DEBUG_COND (veh->isSelected())
+#define DEBUG_DRIVER_ERRORS
 
 
 // ===========================================================================
@@ -72,12 +74,22 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
+    if (veh->hasDriverState()) {
+        // @todo: Provide objectID (e.g. pointer address for the relevant object at the given distance(gap))
+        //        This is for item related management of known object and perception updates when the distance
+        //        changes significantly. (Should not be too important for stationary objects though.)
+        applyHeadwayPerceptionError(veh, speed, gap);
+    }
     return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
 double
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    if (veh->hasDriverState()) {
+        applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
+    }
+
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     const double vmin = minNextSpeed(speed);
     const double vmax = maxNextSpeed(speed, veh);
@@ -89,7 +101,6 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
         return MAX2(MIN2(vsafe, vmax), vmin);
     }
 }
-
 
 double
 MSCFModel_Krauss::dawdle2(double speed, double sigma) const {
