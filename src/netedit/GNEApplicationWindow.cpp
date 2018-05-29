@@ -60,7 +60,7 @@
 #include <netimport/NIImporter_SUMO.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/dialogs/GNEDialog_About.h>
-#include <netedit/dialogs/GNEDialog_Wizard.h>
+#include <utils/gui/windows/GUIDialog_Options.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/additionals/GNEPOI.h>
@@ -768,8 +768,8 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
             throw ProcessError("Attempted to import unknown file format '" + file + "'.");
         }
 
-        GNEDialog_Wizard* wizard =
-            new GNEDialog_Wizard(this, "Select Import Options", getWidth(), getHeight());
+        GUIDialog_Options* wizard =
+            new GUIDialog_Options(this, "Select Import Options", getWidth(), getHeight());
 
         if (wizard->execute()) {
             NIFrame::checkOptions(); // needed to set projection parameters
@@ -1543,8 +1543,8 @@ GNEApplicationWindow::onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
-    GNEDialog_Wizard* wizard =
-        new GNEDialog_Wizard(this, "Configure Options", getWidth(), getHeight());
+    GUIDialog_Options* wizard =
+        new GUIDialog_Options(this, "Configure Options", getWidth(), getHeight());
 
     if (wizard->execute()) {
         NIFrame::checkOptions(); // needed to set projection parameters

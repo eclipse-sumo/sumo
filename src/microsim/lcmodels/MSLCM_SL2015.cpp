@@ -98,6 +98,7 @@
 //#define DEBUG_INFORM
 //#define DEBUG_ROUNDABOUTS
 //#define DEBUG_WANTSCHANGE
+//#define DEBUG_COOPERATE
 //#define DEBUG_SLOWDOWN
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 //#define DEBUG_BLOCKING
@@ -1299,11 +1300,11 @@ MSLCM_SL2015::_wantsChangeSublane(
                  // change is in the right direction
                  && (laneOffset * myManeuverDist > 0)))
             && (inconvenience < myCooperativeParam)
-            //&& ((myOwnState & myLcaCounter) == 0) // VARIANT_6 : counterNoHelp
+            //&& ((myOwnState & myLca) != 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
         // VARIANT_2 (nbWhenChangingToHelp)
-#ifdef DEBUG_WANTSCHANGE
+#ifdef DEBUG_COOPERATE
         if (gDebugFlag2) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
@@ -1312,7 +1313,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << " origLatDist=" << myManeuverDist
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
-                      //<< (((myOwnState & myLcaCounter) != 0) ? " (counter)" : "")
+                      //<< (((myOwnState & myLca) == 0) ? " (counter)" : "")
                       << "\n";
         }
 #endif

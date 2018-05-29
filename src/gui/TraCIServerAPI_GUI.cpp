@@ -52,7 +52,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     std::string id = inputStorage.readString();
     // check variable
     if (variable != ID_LIST && variable != VAR_VIEW_ZOOM && variable != VAR_VIEW_OFFSET
-            && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY) {
+            && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY && variable != VAR_HAS_VIEW) {
         return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "Get GUI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
@@ -68,7 +68,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         tempMsg.writeStringList(ids);
     } else {
         GUISUMOAbstractView* v = getNamedView(id);
-        if (v == 0) {
+        if (v == 0 && variable != VAR_HAS_VIEW) {
             return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
@@ -93,6 +93,11 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(b.ymin());
                 tempMsg.writeDouble(b.xmax());
                 tempMsg.writeDouble(b.ymax());
+                break;
+            }
+            case VAR_HAS_VIEW: {
+                tempMsg.writeUnsignedByte(TYPE_UBYTE);
+                tempMsg.writeUnsignedByte(v != nullptr);
                 break;
             }
             default:

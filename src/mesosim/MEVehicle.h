@@ -315,6 +315,8 @@ public:
     /// @brief Returns the delay that is accrued due to option --meso-tls-penalty or --meso-minor-penalty
     double getCurrentLinkPenaltySeconds() const;
 
+    /// @brief Returns the delay that is accrued due to option --meso-tls-penalty or --meso-minor-penalty
+    double getCurrentStoppingTimeSeconds() const;
 
     /// Replaces the current route by the given one
     bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);

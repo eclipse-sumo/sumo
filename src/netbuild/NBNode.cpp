@@ -1720,6 +1720,10 @@ NBNode::checkIsRemovableReporting(std::string& reason) const {
         reason = "TLS";
         return false;
     }
+    if (myType == NODETYPE_RAIL_SIGNAL) {
+        reason = "rail_signal";
+        return false;
+    }
     if (myCrossings.size() != 0) {
         reason = "crossing";
         return false;
@@ -2000,7 +2004,7 @@ NBNode::checkCrossing(EdgeVector candidates) {
             }
             prevAngle = angle;
         }
-        if (candidates.size() == 1) {
+        if (candidates.size() == 1 || getType() == NODETYPE_RAIL_CROSSING) {
             addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
             if (gDebugFlag1) {
                 std::cout << "adding crossing: " << toString(candidates) << "\n";

@@ -130,6 +130,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSAVE,            GUIApplicationWindow::onCmdSaveState),
     FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOOGLE,        GUIApplicationWindow::onCmdTimeToggle),
     FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOOGLE,       GUIApplicationWindow::onCmdDelayToggle),
+    FXMAPFUNC(SEL_COMMAND,  MID_DEMAND_SCALE,       GUIApplicationWindow::onCmdDemandScale),
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GUIApplicationWindow::onCmdClearMsgWindow),
 
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWNETSTATS,       GUIApplicationWindow::onCmdShowStats),
@@ -155,6 +156,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,           GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,              GUIApplicationWindow::onCmdHelp),
 
     // forward requests to the active view
@@ -621,6 +623,17 @@ GUIApplicationWindow::buildToolBars() {
         mySimDelaySpinner->setValue(mySimDelay);
     }
     {
+        // Scale traffic (flows and incrementally loaded vehicles)
+        myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBarShell3);
+        myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarShell2);
+        new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+        new FXLabel(myToolBar8, "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded incrementally from route files", 0, LAYOUT_TOP | LAYOUT_LEFT);
+        myDemandScaleSpinner = new FXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
+        myDemandScaleSpinner->setIncrement(0.5);
+        myDemandScaleSpinner->setRange(0, 1000);
+        myDemandScaleSpinner->setValue(1);
+    }
+    {
         // Views
         myToolBarDrag5 = new FXToolBarShell(this, GUIDesignToolBarShell3);
         myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5, GUIDesignToolBarShell2);
@@ -1010,6 +1023,15 @@ GUIApplicationWindow::onCmdDelayToggle(FXObject*, FXSelector, void*) {
 
 
 long
+GUIApplicationWindow::onCmdDemandScale(FXObject*, FXSelector, void*) {
+    if (myRunThread->simulationAvailable()) {
+        myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
+    }
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
     myMessageWindow->clear();
     return 1;
@@ -1360,6 +1382,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {
                 (*it)->setText("-");
             }
+            // initialize scale from options
+            myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
         }
     }
     getApp()->endWaitCursor();

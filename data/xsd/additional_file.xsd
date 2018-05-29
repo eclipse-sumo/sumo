@@ -271,6 +271,7 @@
                     <xsd:attribute name="lane" type="xsd:string" use="required"/>
                     <xsd:attribute name="pos" type="xsd:float" use="required"/>
                     <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+                    <xsd:attribute name="length" type="nonNegativeFloatType" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>

@@ -1399,31 +1399,16 @@ Warning: Found sharp turn with radius 0.83 at the start of edge '88462848'.
 Warning: Found sharp turn with radius 2.55 at the start of edge '88462862'.
 Warning: Lane '38208961_1' is not connected from any incoming edge at junction '29194685'.
 Warning: The rail crossing '1157325170' does not have any roads.
-Warning: The rail crossing '1615477665' does not have any roads.
-Warning: The rail crossing '1673527106' does not have any roads.
-Warning: The rail crossing '1673527109' does not have any roads.
-Warning: The rail crossing '1827996436' does not have any roads.
-Warning: The rail crossing '1827996440' does not have any roads.
-Warning: The rail crossing '1827996511' does not have any roads.
-Warning: The rail crossing '1827996525' does not have any roads.
-Warning: The rail crossing '1828018031' does not have any roads.
-Warning: The rail crossing '1828018034' does not have any roads.
-Warning: The rail crossing '1828018084' does not have any roads.
-Warning: The rail crossing '1828018088' does not have any roads.
-Warning: The rail crossing '1840326416' does not have any roads.
-Warning: The rail crossing '1840326419' does not have any roads.
-Warning: The rail crossing '1840382342' does not have any roads.
-Warning: The rail crossing '1864428533' does not have any roads.
-Warning: The rail crossing '1864428534' does not have any roads.
-Warning: The rail crossing '3104326557' does not have any roads.
-Warning: The rail crossing '3104326558' does not have any roads.
-Warning: The rail crossing '3269783482' does not have any roads.
 Warning: The rail crossing '506357654' does not have any roads.
-Warning: The rail crossing '506357655' does not have any roads.
-Warning: The rail crossing '997027037' does not have any roads.
-Warning: The rail crossing 'cluster_1615531695_2831092403_52153639' does not have any roads.
-Warning: The rail crossing 'cluster_1633112625_2831092402_30731499' does not have any roads.
-Warning: The rail crossing 'cluster_2831135690_2831135691' does not have any roads.
+Warning: The rail crossing 'cluster_1615477665_997027037' does not have any roads.
+Warning: The rail crossing 'cluster_1673527106_1673527109' does not have any roads.
+Warning: The rail crossing 'cluster_1827996436_1827996440' does not have any roads.
+Warning: The rail crossing 'cluster_1827996511_1827996525' does not have any roads.
+Warning: The rail crossing 'cluster_1828018031_1828018034' does not have any roads.
+Warning: The rail crossing 'cluster_1828018084_1828018088' does not have any roads.
+Warning: The rail crossing 'cluster_1840326416_1840326419' does not have any roads.
+Warning: The rail crossing 'cluster_1840382342_506357655' does not have any roads.
+Warning: The rail crossing 'cluster_1864428533_1864428534' does not have any roads.
 Warning: The traffic light '21487180' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '21487180'
 Warning: The traffic light '25662552' does not control any links; it will not be build.
@@ -1486,15 +1471,18 @@ Warning: busStop '2094266782' on lane '200422335#0_0' is too short for vehicle '
 Warning: busStop '2094266781' on lane '272795472#0_0' is too short for vehicle 'pt_subway_U2:0.0'.
 Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=705.00.
 Warning: Vehicle 'pt_bus_147:1.0' ends teleporting on edge '153698380', time 705.00.
-Warning: Teleporting vehicle 'bus30'; waited too long (jam), lane=':cluster_2003979131_25664841_5_0', time=937.00.
-Warning: Vehicle 'bus30' ends teleporting on edge '330840126#0', time 937.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1019.00.
-Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1067.00.
+Warning: Teleporting vehicle 'bus30'; waited too long (jam), lane=':cluster_2003979131_25664841_5_0', time=938.00.
+Warning: Vehicle 'bus30' ends teleporting on edge '330840126#0', time 938.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.0'; waited too long (wrong lane), lane='153698380_1', time=1017.00.
+Warning: Vehicle 'pt_bus_147:1.0' teleports beyond arrival edge '274513583', time 1065.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.0'; waited too long (wrong lane), lane='272795472#1_0', time=1214.00.
 Warning: Vehicle 'pt_subway_U2:0.0' ends teleporting on edge '199847339', time 1214.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1331.00.
-Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1331.00.
-Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1644.00.
-Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1692.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1340.00.
+Warning: Vehicle 'pt_bus_147:1.1' ends teleporting on edge '153698380', time 1340.00.
+Warning: Teleporting vehicle 'pt_bus_147:1.1'; waited too long (wrong lane), lane='153698380_1', time=1653.00.
+Warning: Vehicle 'pt_bus_147:1.1' teleports beyond arrival edge '274513583', time 1701.00.
 Warning: Teleporting vehicle 'pt_subway_U2:0.1'; waited too long (wrong lane), lane='272795472#1_0', time=1814.00.
 Warning: Vehicle 'pt_subway_U2:0.1' ends teleporting on edge '199847339', time 1814.00.
+Warning: Person 'ped17' aborted waiting for TXL:1 at busStop '271296293'.
+Warning: Person 'ped61' aborted waiting for 100:1 at busStop '270718978'.
+Warning: Person 'ped108' aborted waiting for 100:1 at busStop '270718978'.

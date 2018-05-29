@@ -576,7 +576,9 @@ MSCFModel::gapExtrapolation(const double duration, const double currentGap, doub
 double
 MSCFModel::passingTime(const double lastPos, const double passedPos, const double currentPos, const double lastSpeed, const double currentSpeed) {
 
-    assert(passedPos <= currentPos && passedPos >= lastPos && currentPos > lastPos);
+    assert(passedPos <= currentPos);
+    assert(passedPos >= lastPos);
+    assert(currentPos > lastPos);
     assert(currentSpeed >= 0);
 
     if (passedPos > currentPos || passedPos < lastPos) {
@@ -686,6 +688,7 @@ MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const d
 double
 MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, bool onInsertion, double headway) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
+        // XXX pass headway argument
         return maximumSafeStopSpeedEuler(g);
     } else {
         return maximumSafeStopSpeedBallistic(g, v, onInsertion, headway);
@@ -694,7 +697,7 @@ MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, boo
 
 
 double
-MSCFModel::maximumSafeStopSpeedEuler(double gap) const {
+MSCFModel::maximumSafeStopSpeedEuler(double gap, double headway) const {
     gap -= NUMERICAL_EPS; // lots of code relies on some slack XXX: it shouldn't...
     if (gap <= 0) {
         return 0;
@@ -704,7 +707,7 @@ MSCFModel::maximumSafeStopSpeedEuler(double gap) const {
     }
     const double g = gap;
     const double b = ACCEL2SPEED(myDecel);
-    const double t = myHeadwayTime;
+    const double t = headway >= 0 ? headway : myHeadwayTime;
     const double s = TS;
 
 

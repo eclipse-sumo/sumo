@@ -490,6 +490,11 @@ public:
 
     void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
 
+    /// @brief sets the demand scaling factor
+    void setScale(double scale) {
+        myScale = scale;
+    }
+
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
      *

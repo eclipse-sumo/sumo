@@ -1,3 +1,6 @@
+# testing meta processing
+meta
+
 # Tests whether the detector types are computed properly
 detector_types
 
@@ -15,9 +18,6 @@ function
 
 # Some real world examples
 real_world
-
-# testing meta processing
-meta
 
 # testing error input
 errors

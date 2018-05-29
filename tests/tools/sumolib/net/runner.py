@@ -23,7 +23,9 @@ import sumolib.net
 
 net = sumolib.net.readNet(sys.argv[1], withInternal=True)
 lane = net.getLane("SC_0")
-
+lane2 = net.getLane("CN_0")
+print("lanes to %s: %s" % (lane2.getID(),
+    ' '.join([l.getID() for l in sorted(lane2.getIncoming())])))
 
 print("connections from %s:\n%s" % (
     lane.getID(), 
@@ -36,6 +38,9 @@ internal_lane = net.getLane(":C_0_0")
 internal_lane_cons = internal_lane.getOutgoing()
 print("connections from %s:\n%s" % (internal_lane.getID(),
     '\n'.join(map(str, internal_lane_cons))))
+internal_lane_incoming = sorted(internal_lane.getIncoming())
+print("lanes to %s: %s" % (internal_lane.getID(),
+    ' '.join([l.getID() for l in internal_lane_incoming])))
 assert(internal_edge.getFunction() == 'internal')
 assert(internal_edge.isSpecial())
 assert(internal_lane.getEdge().isSpecial())

@@ -41,6 +41,12 @@
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 
+// typical block length in germany on main lines is 3-5km on branch lines up to 7km
+// special branches that are used by one train exclusively could also be up to 20km in length 
+// minimum block size in germany is 37.5m (LZB)
+// larger countries (USA, Russia) might see blocks beyond 20km)
+#define MAX_BLOCK_LENGTH 20000
+
 //#define DEBUG_SUCCEEDINGBLOCKS
 #define DEBUG_COND (getID() == "disabled")
 
@@ -79,6 +85,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
             afferentBlock.push_back(approachingLane);
             const MSLane* currentLane = approachingLane;
             //look recursively for all lanes that lie before approachingLane and add them to afferentBlock until a rail signal is found
+            double blockLength = approachingLane->getLength();
             while (noRailSignal) {
                 std::vector<MSLane::IncomingLaneInfo> incomingLanes = currentLane->getIncomingLanes();
                 MSLane* precedentLane;
@@ -89,12 +96,17 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 }
                 if (precedentLane == 0) { //if there is no preceeding lane
                     noRailSignal = false;
+                }else if (blockLength >= MAX_BLOCK_LENGTH) { // avoid huge blocks
+                    WRITE_WARNING("Block before rail signal junction '" + getID() + 
+                            "' exceeds maximum length (stopped searching at lane '" + precedentLane->getID() + "' after " + toString(blockLength) + "m).");
+                    noRailSignal = false;
                 } else {
                     const MSJunction* junction = precedentLane->getEdge().getToJunction();
                     if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junction exists and if it has a rail signal
                         noRailSignal = false;
                     } else {
                         afferentBlock.push_back(precedentLane);
+                        blockLength += precedentLane->getLength();
                         currentLane = precedentLane;
                     }
                 }
@@ -108,6 +120,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 succeedingBlock.push_back(toLane);
                 currentLane = toLane;
                 bool noRailSignalLocal = true;   //true if the considered lane is not ending at a rail signal
+                double blockLength = toLane->getLength();
                 while (noRailSignalLocal) {
                     //check first if the current lane is ending at a rail signal
                     std::vector<MSLink*> outGoingLinks = currentLane->getLinkCont();
@@ -124,12 +137,17 @@ MSRailSignal::init(NLDetectorBuilder&) {
                         std::vector<const MSLane*> outGoingLanes = currentLane->getOutgoingLanes();
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)
                             noRailSignalLocal = false;
+                        } else if (blockLength > MAX_BLOCK_LENGTH) {
+                            WRITE_WARNING("Block after rail signal junction '" + getID() + 
+                                    "' exceeds maximum length (stopped searching at lane '" + currentLane->getID() + "' after " + toString(blockLength) + "m).");
+                            noRailSignalLocal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
                                 WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
                             }
                             const MSLane* nextLane = outGoingLanes.front();
                             succeedingBlock.push_back(nextLane);
+                            blockLength += nextLane->getLength();
                             currentLane = nextLane;
                         }
                     }

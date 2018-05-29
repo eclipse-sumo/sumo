@@ -75,6 +75,7 @@ bestLaneStop0
 # error handling
 not_allowed
 too_short
+too_close
 until_order
 
 # tests  defining a stop on an internal lane

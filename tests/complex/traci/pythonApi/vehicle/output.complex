@@ -1,5 +1,4 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:46323 [Errno 111] Connection refused
  Retrying in 1 seconds
 step 0
 step 1
@@ -9,6 +8,7 @@ vehicle count 1
 examining horiz
 speed 3.1154472965
 speed w/o traci 3.1154472965
+acceleration 1.6737586268
 pos (990.4008068495866, 501.65000000000003)
 angle 270.0
 road 2fi
@@ -84,6 +84,7 @@ vehicle count 1
 examining horiz
 speed 9.45050405245
 speed w/o traci 9.45050405245
+acceleration 1.83305876518
 pos (967.8128791013414, 501.65000000000003)
 angle 270.0
 road 2fi
@@ -159,6 +160,7 @@ vehicle count 1
 examining 1
 speed -1001.0
 speed w/o traci -1001.0
+acceleration -1001.0
 pos (-1001.0, -1001.0)
 angle -1001.0
 road 
@@ -242,6 +244,7 @@ vehicle count 3
 examining 2
 speed 4.38550732424
 speed w/o traci 4.38550732424
+acceleration 2.5216656395
 pos (988.7187470850644, 501.65000000000003)
 angle 270.0
 road 2fi
@@ -549,6 +552,7 @@ vehicle count 17
 examining movedVeh
 speed 0.0
 speed w/o traci 0.0
+acceleration 0.0
 pos (438.839014, 491.75)
 angle 90.0
 road 1si
@@ -676,6 +680,7 @@ vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
+acceleration -1001.0
 pos (-1001.0, -1001.0)
 angle -1001.0
 road 
@@ -743,6 +748,7 @@ vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
+acceleration -1001.0
 pos (-1001.0, -1001.0)
 angle -1001.0
 road 
@@ -810,6 +816,7 @@ vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
+acceleration -1001.0
 pos (-1001.0, -1001.0)
 angle -1001.0
 road 
@@ -877,6 +884,7 @@ vehicle count 21
 examining elVeh
 speed -1001.0
 speed w/o traci -1001.0
+acceleration -1001.0
 pos (-1001.0, -1001.0)
 angle -1001.0
 road 

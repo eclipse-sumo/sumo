@@ -481,13 +481,36 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
 #ifdef DEBUG_JOINJUNCTIONS
                 if (DEBUGCOND(n)) std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
 #endif
-                if ( // never join pedestrian stuff
-                        e->getPermissions() == SVC_PEDESTRIAN 
-                        // only join edges for regular passenger traffic or edges that are extremely short
-                        || (length > 3 * POSITION_EPS 
-                            && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
-                            && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth)) {
+                const bool bothCrossing = n->getType() == NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING;
+                const bool joinPedCrossings = bothCrossing && e->getPermissions() == SVC_PEDESTRIAN;
+                if ( // never join pedestrian stuff (unless at a rail crossing
+                    !joinPedCrossings && (
+                            e->getPermissions() == SVC_PEDESTRIAN
+                            // only join edges for regular passenger traffic or edges that are extremely short
+                            || (length > 3 * POSITION_EPS
+                                && (e->getPermissions() & (SVC_PASSENGER | SVC_TRAM)) == 0
+                                && n->getPosition().distanceTo2D(s->getPosition()) > SUMO_const_laneWidth))) {
                     continue; 
+                }
+                // never join rail_crossings with other node types unless the crossing is only for tram
+                if ((n->getType() == NODETYPE_RAIL_CROSSING && s->getType() != NODETYPE_RAIL_CROSSING)
+                        || (n->getType() != NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING)) {
+                    const SVCPermissions railNoTram = (SVC_RAIL_CLASSES & ~SVC_TRAM);
+                    bool foundRail = false;
+                    NBNode* crossingNode = n->getType() == NODETYPE_RAIL_CROSSING ? n : s;
+                    for (NBEdge* e2 : crossingNode->getIncomingEdges()) {
+                        if ((e2->getPermissions() & railNoTram) != 0) {
+                            foundRail = true;
+                            break;
+                        }
+                    }
+                    if (foundRail) {
+                        continue;
+                    }
+                }
+                // never join rail_crossings via a rail edge
+                if (bothCrossing && (e->getPermissions() & ~SVC_RAIL_CLASSES) == 0) {
+                    continue;
                 }
                 if (visited.find(s) != visited.end()) {
                     continue;
@@ -1478,7 +1501,7 @@ void
 NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals) {
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
         NBNode* node = i->second;
-        if (!geometryLike || node->geometryLike()) {
+        if (node->isTLControlled() && (!geometryLike || node->geometryLike())) {
             // make a copy of tldefs
             const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
             if (guessSignals && node->isTLControlled() && node->geometryLike()) {

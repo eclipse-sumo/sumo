@@ -211,10 +211,10 @@ public:
      */
     static void computeNodeTypes(NBNodeCont& nc);
 
-    /** @brief Computes a single node type
-     * @param[in] node the single node to compute node type
+    /** @brief Checks rail_crossing for validity
+     * @param[in] nc The container of nodes to loop along
      */
-    static void computeSingleNodeType(NBNode* node);
+    static void validateRailCrossings(NBNodeCont& nc);
 };
 
 

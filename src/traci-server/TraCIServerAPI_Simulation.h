@@ -64,14 +64,6 @@ public:
 
 
     /**
-     * Converts a cartesian position to the closest road map position
-     *
-     * @param pos cartesian position that is to be converted
-     * @return the closest road map position to the cartesian position
-     */
-    static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
-
-    /**
      * Converts a road map position to a cartesian position
      *
      * @param pos road map position that is to be convertes

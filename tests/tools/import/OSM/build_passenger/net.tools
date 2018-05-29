@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:18 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Thu May 24 00:54:26 2018 by Eclipse SUMO netconvert Version 929f303
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="/scr2/texttest_tmp/dynamic_gui.23May100915.3953/tools/import/OSM/build_passenger/osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/dynamic_gui.24May005415.21725/tools/import/OSM/build_passenger/osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/dynamic_gui.23May100915.3953/tools/import/OSM/build_passenger/net.net.xml"/>
+        <output-file value="/home/kobo/.texttest/tmp/dynamic_gui.24May005415.21725/tools/import/OSM/build_passenger/net.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
     </output>

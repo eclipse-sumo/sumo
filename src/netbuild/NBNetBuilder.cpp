@@ -170,6 +170,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             }
             myNodeCont.addJoinExclusion(nodeIDs);
         }
+        NBNodeTypeComputer::validateRailCrossings(myNodeCont);
     }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
     if (mayAddOrRemove && oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {

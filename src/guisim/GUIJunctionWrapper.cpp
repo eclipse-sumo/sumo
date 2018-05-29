@@ -124,7 +124,8 @@ void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (!myIsInternal && s.drawJunctionShape) {
         // check whether it is not too small
-        if (s.scale * myMaxSize < 1.) {
+        const double exaggeration = s.junctionSize.getExaggeration(s, 4);
+        if (s.scale * exaggeration < s.junctionSize.minSize) {
             return;
         }
         glPushMatrix();
@@ -135,8 +136,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         // recognize full transparency and simply don't draw
         GLfloat color[4];
         glGetFloatv(GL_CURRENT_COLOR, color);
-        const double exaggeration = s.junctionSize.getExaggeration(s, 4);
-        if (color[3] != 0 && s.scale * exaggeration > s.junctionSize.minSize) {
+        if (color[3] != 0) {
             PositionVector shape = myJunction.getShape();
             shape.closePolygon();
             if (exaggeration > 1) {
@@ -151,6 +151,11 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
 #ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
             GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
+            // make small junctions more visible when coloring by type
+            if (myJunction.getType() == NODETYPE_RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
+                glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
+                GLHelper::drawFilledCircle(2 * exaggeration, 12);                    
+            }
         }
         glPopName();
         glPopMatrix();

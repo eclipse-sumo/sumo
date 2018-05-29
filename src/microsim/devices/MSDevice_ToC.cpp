@@ -281,7 +281,12 @@ MSDevice_ToC::~MSDevice_ToC() {
 
 void
 MSDevice_ToC::setAwareness(double value) {
-    assert(value <= 1.0 && value >= 0.0);
+    if (value > 1.0 || value < 0.0) {
+        std::stringstream ss;
+        ss << "Truncating invalid value for awareness (" << value << ") to lie in [0,1].";
+        WRITE_WARNING(ss.str());
+        value = MAX2(0.0, MIN2(1.0, value));
+    }
     myCurrentAwareness = value;
     std::shared_ptr<MSSimpleDriverState> ds = myHolderMS->getDriverState();
     ds->setAwareness(value);
@@ -614,6 +619,9 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "requestMRM") {
         // setting this magic parameter gives the interface for inducing an MRM
         requestMRM();
+    } else if (key == "awareness") {
+        // setting this magic parameter gives the interface for setting the driverstate's awareness
+        setAwareness(TplConvert::_2double(value.c_str()));
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

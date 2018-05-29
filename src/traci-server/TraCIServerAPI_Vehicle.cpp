@@ -104,6 +104,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != VAR_HEIGHT
             && variable != VAR_LINE
             && variable != VAR_VIA
+            && variable != VAR_ACCELERATION
             && variable != CMD_CHANGELANE
        ) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -445,6 +446,10 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_VIA:
                 tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
                 tempMsg.writeStringList(libsumo::Vehicle::getVia(id));
+                break;
+            case VAR_ACCELERATION:
+                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
+                tempMsg.writeDouble(libsumo::Vehicle::getAcceleration(id));
                 break;
             case CMD_CHANGELANE: {
                 int direction = 0;

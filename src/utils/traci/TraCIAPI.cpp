@@ -2150,6 +2150,11 @@ TraCIAPI::VehicleScope::getSpeed(const std::string& vehicleID) const {
 }
 
 double
+TraCIAPI::VehicleScope::getAcceleration(const std::string& vehicleID) const {
+    return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_ACCELERATION, vehicleID);
+}
+
+double
 TraCIAPI::VehicleScope::getMaxSpeed(const std::string& vehicleID) const {
     return myParent.getDouble(CMD_GET_VEHICLE_VARIABLE, VAR_MAXSPEED, vehicleID);
 }

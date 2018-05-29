@@ -18,6 +18,7 @@
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
 // TODO: implement SSM time-gap (estimated conflict entry and exit times are already calculated for PET calculation)
+// TODO: provide brake-rate, time-headway, and space-headway
 /****************************************************************************/
 
 // ===========================================================================
@@ -52,7 +53,7 @@
 //#define DEBUG_SSM
 //#define DEBUG_SSM_DRAC
 //#define DEBUG_SSM_SURROUNDING
-// #define DEBUG_SSM_NOTIFICATIONS
+//#define DEBUG_SSM_NOTIFICATIONS
 
 // ===========================================================================
 // Constants
@@ -67,10 +68,16 @@
 //                                 and a default threshold must be defined. A corresponding
 //                                 case should be added to the switch in buildVehicleDevices,
 //                                 and in computeSSMs(), the SSM-value should be computed.)
-#define AVAILABLE_SSMS "TTC DRAC PET"
-#define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if below threshold (1.5s. is an appropriate criticality threshold according to Van der Horst, A. R. A. (1991). Time-to-collision as a Cue for Decision-making in Braking [also see Guido et al. 2011])
-#define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
-#define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if below threshold
+#define AVAILABLE_SSMS "TTC DRAC PET BR SGAP TGAP"
+
+#define DEFAULT_THRESHOLD_TTC 3. // in [s.], events get logged if time to collision is below threshold (1.5s. is an appropriate criticality threshold according to Van der Horst, A. R. A. (1991). Time-to-collision as a Cue for Decision-making in Braking [also see Guido et al. 2011])
+#define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if "deceleration to avoid a crash" is above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
+#define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if post encroachment time is below threshold
+
+#define DEFAULT_THRESHOLD_BR 4.5 // in [m/s^2], events get logged if brake rate is above threshold
+#define DEFAULT_THRESHOLD_SGAP 0.1 // in [m.], events get logged if the space headway is below threshold.
+#define DEFAULT_THRESHOLD_TGAP 0.5 // in [m.], events get logged if the time headway is below threshold.
+
 #define DEFAULT_EXTRA_TIME 5.      // in seconds, events get logged for extra time even if encounter is over
 
 // ===========================================================================
@@ -174,6 +181,7 @@ MSDevice_SSM::cleanup() {
         for (std::set<MSDevice*>::iterator ii = instances->begin(); ii != instances->end(); ++ii) {
             static_cast<MSDevice_SSM*>(*ii)->resetEncounters();
             static_cast<MSDevice_SSM*>(*ii)->flushConflicts(true);
+            static_cast<MSDevice_SSM*>(*ii)->flushGlobalMeasures();
         }
         instances->clear();
     }
@@ -407,8 +415,65 @@ MSDevice_SSM::update() {
     // Make new encounters for all foes, which were not removed by processEncounters (and deletes corresponding FoeInfos)
     createEncounters(foes);
     foes.clear();
+
+    // Compute "global SSMs" (only computed once per time-step)
+    computeGlobalMeasures();
+
+
 }
 
+
+void
+MSDevice_SSM::computeGlobalMeasures() {
+    if (myComputeBR || myComputeSGAP || myComputeTGAP) {
+        myGlobalMeasuresTimeSpan.push_back(SIMTIME);
+        if (myComputeBR) {
+            double br = MAX2(-myHolderMS->getAcceleration(), 0.0);
+            if (br > myMaxBR.second) {
+                myMaxBR = std::make_pair(std::make_pair(SIMTIME, myHolderMS->getPosition()), br);
+            }
+            myBRspan.push_back(br);
+        }
+
+        double leaderSearchDist = 0;
+        std::pair<const MSVehicle*, double> leader(nullptr,0.);
+        if (myComputeSGAP) {
+            leaderSearchDist = myThresholds["SGAP"];
+        }
+        if (myComputeTGAP) {
+            leaderSearchDist = MAX2(leaderSearchDist, myThresholds["TGAP"]*myHolderMS->getSpeed());
+        }
+
+        if (leaderSearchDist > 0.) {
+            leader = myHolderMS->getLeader(leaderSearchDist);
+        }
+
+        if (myComputeSGAP) {
+            if (leader.first == nullptr) {
+                mySGAPspan.push_back(INVALID);
+            } else {
+                double sgap = leader.second;
+                mySGAPspan.push_back(sgap);
+                if (sgap < myMinSGAP.first.second) {
+                    myMinSGAP = std::make_pair(std::make_pair(std::make_pair(SIMTIME, myHolderMS->getPosition()), sgap), leader.first->getID());
+                }
+            }
+        }
+
+        if (myComputeTGAP) {
+            if (leader.first == nullptr) {
+                myTGAPspan.push_back(INVALID);
+            } else {
+                double tgap = leader.second / myHolderMS->getSpeed();
+                myTGAPspan.push_back(tgap);
+                if (tgap < myMinTGAP.first.second) {
+                    myMinTGAP = std::make_pair(std::make_pair(std::make_pair(SIMTIME, myHolderMS->getPosition()), tgap), leader.first->getID());
+                }
+            }
+        }
+
+    }
+}
 
 void
 MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
@@ -851,7 +916,7 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
         EncounterType prevType = static_cast<EncounterType>(e->typeSpan.back());
         if (prevType == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
 #ifdef DEBUG_SSM
-            std::cout << "PET for crossing encounter already calculated as " << e->PET.second
+            std::cout << "PET for crossing encounter already calculated as " << e->PET.value
                       << std::endl;
 #endif
             // pet must have been calculated already
@@ -1037,7 +1102,7 @@ MSDevice_SSM::determineTTCandDRAC(EncounterApproachInfo& eInfo) const {
             }
 #ifdef DEBUG_SSM
             if (ttc == INVALID) {
-                assert(dv >= 0);
+                // assert(dv >= 0);
                 assert(drac == INVALID);
                 std::cout << "    Extrapolation does not predict any collision." << std::endl;
             } else {
@@ -1997,6 +2062,53 @@ MSDevice_SSM::flushConflicts(bool flushAll) {
 }
 
 void
+MSDevice_SSM::flushGlobalMeasures() {
+    std::string egoID = myHolderMS->getID();
+#ifdef DEBUG_SSM
+    std::cout << SIMTIME << " flushGlobalMeasures() of vehicle '"
+            << egoID << "'"
+            << "'\ntoGeo=" << myUseGeoCoords << std::endl;
+#endif
+    if (myComputeBR || myComputeSGAP || myComputeTGAP) {
+        myOutputFile->openTag("globalMeasures");
+        myOutputFile->writeAttr("ego", egoID);
+        myOutputFile->openTag("timeSpan").writeAttr("values", myGlobalMeasuresTimeSpan).closeTag();
+        if (myComputeBR) {
+            myOutputFile->openTag("BRSpan").writeAttr("values", myBRspan).closeTag();
+
+            if (myMaxBR.second != 0.0) {
+                if (myUseGeoCoords) toGeo(myMaxBR.first.second);
+                myOutputFile->openTag("maxBR").writeAttr("time", myMaxBR.first.first).writeAttr("position", toString(myMaxBR.first.second)).writeAttr("value", myMaxBR.second).closeTag();
+            }
+        }
+
+        if (myComputeSGAP) {
+            myOutputFile->openTag("SGAPSpan").writeAttr("values", makeStringWithNAs(mySGAPspan, INVALID)).closeTag();
+            if (myMinSGAP.second != "") {
+                if (myUseGeoCoords) toGeo(myMinSGAP.first.first.second);
+                myOutputFile->openTag("minSGAP").writeAttr("time", myMinSGAP.first.first.first)
+                        .writeAttr("position", toString(myMinSGAP.first.first.second))
+                        .writeAttr("value", myMinSGAP.first.second)
+                        .writeAttr("leader", myMinSGAP.second).closeTag();
+            }
+        }
+
+        if (myComputeTGAP) {
+            myOutputFile->openTag("TGAPSpan").writeAttr("values", makeStringWithNAs(myTGAPspan, INVALID)).closeTag();
+            if (myMinTGAP.second != "") {
+                if (myUseGeoCoords) toGeo(myMinTGAP.first.first.second);
+                myOutputFile->openTag("minTGAP").writeAttr("time", myMinTGAP.first.first.first)
+                        .writeAttr("position", toString(myMinTGAP.first.first.second))
+                        .writeAttr("value", myMinTGAP.first.second)
+                        .writeAttr("leader", myMinTGAP.second).closeTag();
+            }
+        }
+        // close globalMeasures
+        myOutputFile->closeTag();
+    }
+}
+
+void
 MSDevice_SSM::toGeo(Position& x) {
     GeoConvHelper::getFinal().cartesian2geo(x);
 }
@@ -2120,13 +2232,21 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myRange(range),
     myExtraTime(extraTime),
     myUseGeoCoords(useGeoCoords),
-    myOldestActiveEncounterBegin(INVALID) {
+    myOldestActiveEncounterBegin(INVALID),
+    myMaxBR(std::make_pair(-1, Position(0.,0.)), 0.0),
+    myMinSGAP(std::make_pair(std::make_pair(-1, Position(0.,0.)), std::numeric_limits<double>::max()), ""),
+    myMinTGAP(std::make_pair(std::make_pair(-1, Position(0.,0.)), std::numeric_limits<double>::max()), "")
+ {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
 
     myComputeTTC = myThresholds.find("TTC") != myThresholds.end();
     myComputeDRAC = myThresholds.find("DRAC") != myThresholds.end();
     myComputePET = myThresholds.find("PET") != myThresholds.end();
+
+    myComputeBR = myThresholds.find("BR") != myThresholds.end();
+    myComputeSGAP = myThresholds.find("SGAP") != myThresholds.end();
+    myComputeTGAP = myThresholds.find("TGAP") != myThresholds.end();
 
     myActiveEncounters = EncounterVector();
     myPastConflicts = EncounterQueue();
@@ -2165,6 +2285,7 @@ MSDevice_SSM::~MSDevice_SSM() {
     instances->erase((MSDevice*) this);
     resetEncounters();
     flushConflicts(true);
+    flushGlobalMeasures();
 }
 
 
@@ -2754,6 +2875,12 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_DRAC));
             } else if (*i == "PET") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_PET));
+            } else if (*i == "BR") {
+                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_BR));
+            } else if (*i == "SGAP") {
+                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_SGAP));
+            } else if (*i == "TGAP") {
+                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_TGAP));
             } else {
                 WRITE_ERROR("Unknown SSM identifier '" + (*i) + "'. Aborting construction of ssm device."); // should never occur
                 return false;

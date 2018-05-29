@@ -80,6 +80,8 @@
 #define LC_RESOLUTION_SPEED_LAT (double)0.5 // the lateral speed (in m/s) for a standing vehicle which was unable to finish a continuous LC in time (in case mySpeedLatStanding==0), see #3771
 #define LC_ASSUMED_DECEL (double)1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
 
+#define REACT_TO_STOPPED_DISTANCE 100
+
 // ===========================================================================
 // debug defines
 // ===========================================================================
@@ -89,6 +91,7 @@
 //#define DEBUG_CONSTRUCTOR
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
+//#define DEBUG_COOPERATE
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
@@ -1292,8 +1295,19 @@ MSLCM_LC2013::_wantsChange(
 #endif
             }
         }
-
-        if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
+        const double overtakeDist = (leader.first == 0 ? -1 : 
+                leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap());
+        if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE
+                // current destination leaves enough space to overtake the leader
+                && MIN2(neighDist, currentDist) - posOnLane > overtakeDist
+                // maybe do not overtake on the right at high speed
+                && (!checkOverTakeRight || !right)
+                && (neighLead.first == 0 || !neighLead.first->isStopped()
+                 // neighboring stopped vehicle leaves enough space to overtake leader
+                 || neighLead.second > overtakeDist)) {
+            // avoid becoming stuck behind a stopped leader
+            ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
+        } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
             // the opposite lane-changing direction should be done than the one examined herein
             //  we'll check whether we assume we could change anyhow and get back in time...
             //
@@ -1469,17 +1483,17 @@ MSLCM_LC2013::_wantsChange(
 
     if (amBlockingFollowerPlusNB()
             && (!speedGainInconvenient)
-            //&& ((myOwnState & lcaCounter) == 0) // VARIANT_6 : counterNoHelp
+            //&& ((myOwnState & myLca) != 0) // VARIANT_6 : counterNoHelp
             && (changeToBest || currentDistAllows(neighDist, abs(bestLaneOffset) + 1, laDist))) {
 
         // VARIANT_2 (nbWhenChangingToHelp)
-#ifdef DEBUG_WANTS_CHANGE
+#ifdef DEBUG_COOPERATE
         if (DEBUG_COND) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
                       << " wantsChangeToHelp=" << (right ? "right" : "left")
                       << " state=" << myOwnState
-                      // << (((myOwnState & lcaCounter) != 0) ? " (counter)" : "")
+                      << (((myOwnState & myLca) == 0) ? " (counter)" : "")
                       << "\n";
         }
 #endif

@@ -82,7 +82,10 @@ protected:
     struct NIOSMNode {
         NIOSMNode(long long int _id, double _lon, double _lat)
             :
-            id(_id), lon(_lon), lat(_lat), ele(0), tlsControlled(false), railwayCrossing(false),
+            id(_id), lon(_lon), lat(_lat), ele(0),
+            tlsControlled(false),
+            railwayCrossing(false),
+            railwaySignal(false),
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
             node(0) { }
@@ -99,6 +102,8 @@ protected:
         bool tlsControlled;
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
+        /// @brief Whether this is a railway (main) signal
+        bool railwaySignal;
         /// @brief Whether this is a public transport stop position
         bool ptStopPosition;
         /// @brief The length of the pt stop

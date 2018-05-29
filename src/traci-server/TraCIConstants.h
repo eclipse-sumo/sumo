@@ -30,7 +30,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 18
+#define TRACI_VERSION 19
 
 // ****************************************
 // COMMANDS
@@ -759,6 +759,9 @@
 // upcoming traffic lights (get: vehicle)
 #define VAR_NEXT_TLS 0x70
 
+// current acceleration (get: vehicle)
+#define VAR_ACCELERATION 0x72
+
 // current time step (get: simulation)
 #define VAR_TIME_STEP 0x70
 
@@ -915,6 +918,9 @@
 
 // track vehicle
 #define VAR_TRACK_VEHICLE 0xa6
+
+// presence of view
+#define VAR_HAS_VIEW 0xa7
 
 
 #endif

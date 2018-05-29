@@ -208,6 +208,9 @@ public:
     /// @brief Called on "delay toggle"
     long onCmdDelayToggle(FXObject*, FXSelector, void*);
 
+    /// @brief Called on "demand scale"
+    long onCmdDemandScale(FXObject*, FXSelector, void*);
+
     /// @brief Called if a new view shall be opened (2D view)
     long onCmdNewView(FXObject*, FXSelector, void*);
 
@@ -353,13 +356,17 @@ protected:
 
     /// @brief for some menu detaching fun
     FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-                    *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag;
+                    *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag,
+                    *myToolBarDrag8;
 
     /// @brief the simulation delay in milliseconds
     double mySimDelay;
     FXDataTarget* mySimDelayTarget;
     FXRealSpinner* mySimDelaySpinner;
     FXSlider* mySimDelaySlider;
+
+    /// @brief the demand scale
+    FXRealSpinner* myDemandScaleSpinner;
 
     /// @brief The alternate simulation delay in milliseconds for toggling
     double myAlternateSimDelay;
@@ -374,7 +381,7 @@ protected:
     FXMenuBar* myMenuBar;
 
     /// @brief The application tool bar
-    FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
+    FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5, *myToolBar8;
 
     /// @brief the simulation step display
     FXEX::FXLCDLabel* myLCDLabel;

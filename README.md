@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
+[![MacOS Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/b1vrhimigencm2kw?svg=true)](https://ci.appveyor.com/project/behrisch/sumo)
+
+
 
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================

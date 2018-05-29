@@ -518,7 +518,7 @@ public:
      * when using the semi-implicit Euler update
      * @param[in] gap The (netto) distance to the LEADER
      */
-    double maximumSafeStopSpeedEuler(double gap) const;
+    double maximumSafeStopSpeedEuler(double gap, double headway = -1) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
