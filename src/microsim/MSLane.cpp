@@ -468,7 +468,7 @@ MSLane::getDepartPosLat(const MSVehicle& veh) {
         case DEPART_POSLAT_RANDOM:
             return RandHelper::rand(getWidth() - veh.getVehicleType().getWidth()) - getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
         case DEPART_POSLAT_CENTER:
-        case DEPART_POS_DEFAULT:
+        case DEPART_POSLAT_DEFAULT:
         // @note:
         // case DEPART_POSLAT_FREE
         // case DEPART_POSLAT_RANDOM_FREE
