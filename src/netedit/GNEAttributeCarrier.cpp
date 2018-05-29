@@ -1937,11 +1937,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Edge in which vaporizer is placed", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_BEGIN] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 2,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 2,
             "Start Time", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_END] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 3,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 3,
             "End Time", 
             "3600.00");
     }

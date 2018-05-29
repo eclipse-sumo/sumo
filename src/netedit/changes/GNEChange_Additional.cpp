@@ -68,6 +68,10 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     if (GNEAttributeCarrier::hasAttribute(myAdditional->getTag(), SUMO_ATTR_EDGE)) {
         myEdgeParent = myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE));
     }
+    // special case for Vaporizers
+    if(myAdditional->getTag() == SUMO_TAG_VAPORIZER) {
+        myEdgeParent = myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_ID));
+    }
 }
 
 
