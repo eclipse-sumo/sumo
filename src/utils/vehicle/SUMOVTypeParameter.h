@@ -73,6 +73,8 @@ const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
 const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
 const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
 const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
+const int VTYPEPARS_HASDRIVERSTATE_SET = 1 << 24;
+
 
 
 // ===========================================================================
@@ -202,6 +204,9 @@ public:
 
     /// @brief The enum-representation of the car-following model to use
     SumoXMLTag cfModel;
+
+    /// @brief Whether vehicles of this type are equipped with a driver (i.e. MSDriverState))
+    bool hasDriverState;
 
     /// @brief Car-following parameter
     SubParams cfParameter;
