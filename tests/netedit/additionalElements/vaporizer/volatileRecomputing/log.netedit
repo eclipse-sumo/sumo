@@ -1,19 +1,19 @@
-Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Adding vaporizer 'gneE2' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
+Warning: Adding vaporizer 'gneE4' in GNEChange_Additional
+Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
+Warning: Adding vaporizer 'gneE0' in GNEChange_Additional
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Warning: Additionals saved
-Warning: Deleting unreferenced vaporizer 'vaporizer_3'
+Warning: Deleting unreferenced vaporizer 'gneE0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced vaporizer 'vaporizer_2'
-Warning: Deleting unreferenced vaporizer 'vaporizer_1'
-Warning: Deleting unreferenced vaporizer 'vaporizer_0'
+Warning: Deleting unreferenced vaporizer 'gneE1'
+Warning: Deleting unreferenced vaporizer 'gneE4'
+Warning: Deleting unreferenced vaporizer 'gneE2'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: net has to be saved
@@ -40,9 +40,9 @@ Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
-Warning: Deleting unreferenced vaporizer 'vaporizer_0' in GNENet destructor
-Warning: Deleting unreferenced vaporizer 'vaporizer_1' in GNENet destructor
-Warning: Deleting unreferenced vaporizer 'vaporizer_2' in GNENet destructor
-Warning: Deleting unreferenced vaporizer 'vaporizer_3' in GNENet destructor
+Warning: Deleting unreferenced vaporizer 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced vaporizer 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced vaporizer 'gneE2' in GNENet destructor
+Warning: Deleting unreferenced vaporizer 'gneE4' in GNENet destructor
 Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

@@ -12,19 +12,19 @@ Warning: Adding vaporizer '7' in GNEChange_Additional
 Warning: Adding vaporizer '8' in GNEChange_Additional
 Warning: Adding vaporizer '9' in GNEChange_Additional
 Warning: Adding vaporizer '10' in GNEChange_Additional
-Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.
+Warning: Adding vaporizer '11' in GNEChange_Additional
 Warning: Adding vaporizer '12' in GNEChange_Additional
-Warning: Adding vaporizer '13' in GNEChange_Additional
+Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.
 Warning: Additionals saved
 Warning: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_0to7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE13_0to14_0' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced vaporizer '13'
+Warning: Deleting unreferenced vaporizer '12'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced vaporizer '12'
+Warning: Deleting unreferenced vaporizer '11'
 Warning: Deleting unreferenced vaporizer '10'
 Warning: Deleting unreferenced vaporizer '9'
 Warning: Deleting unreferenced vaporizer '8'
