@@ -159,7 +159,9 @@ GNEAttributeCarrier::AttributeValues::AttributeValues() :
     myAttributeProperty(ATTRPROPERTY_STRING),
     myPositionListed(0), 
     myDefinition(""),
-    myDefaultValue("") {}
+    myDefaultValue(""),
+    myInheritTag(SUMO_TAG_NOTHING),
+    myInheritAttribute(SUMO_ATTR_NOTHING) {}
 
 
 GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues) :
@@ -167,6 +169,18 @@ GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int
     myPositionListed(positionListed), 
     myDefinition(definition),
     myDefaultValue(defaultValue),
+    myInheritTag(SUMO_TAG_NOTHING),
+    myInheritAttribute(SUMO_ATTR_NOTHING),
+    myDiscreteValues(discreteValues) {}
+
+
+GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int positionListed, const std::string &definition, SumoXMLTag inheritTag, SumoXMLAttr inheritAttribute, std::vector<std::string> discreteValues) :
+    myAttributeProperty(attributeProperty),
+    myPositionListed(positionListed), 
+    myDefinition(definition),
+    myDefaultValue(""),
+    myInheritTag(inheritTag),
+    myInheritAttribute(inheritAttribute),
     myDiscreteValues(discreteValues) {}
 
 
@@ -184,7 +198,11 @@ GNEAttributeCarrier::AttributeValues::getDefinition() const {
 
 const std::string&
 GNEAttributeCarrier::AttributeValues::getDefaultValue() const {
-    return myDefaultValue;
+    if((myAttributeProperty & ATTRPROPERTY_INHERITED) == 0) {
+        return myDefaultValue;
+    } else {
+        throw ProcessError("Default value inherits from other AC");
+    }
 }
 
 
@@ -360,6 +378,26 @@ GNEAttributeCarrier::AttributeValues::isDiscrete() const {
 bool 
 GNEAttributeCarrier::AttributeValues::isCombinable() const {
     return (myAttributeProperty & ATTRPROPERTY_COMBINABLE) != 0;
+}
+
+
+SumoXMLTag 
+GNEAttributeCarrier::AttributeValues::getInheritTag() const {
+    if((myAttributeProperty & ATTRPROPERTY_INHERITED) != 0) {
+        return myInheritTag;
+    } else {
+        throw ProcessError("Default value doesn't inherits from other AC");
+    }
+}
+
+
+SumoXMLAttr 
+GNEAttributeCarrier::AttributeValues::getInheritAttribute() const {
+    if((myAttributeProperty & ATTRPROPERTY_INHERITED) != 0) {
+        return myInheritAttribute;
+    } else {
+        throw ProcessError("Default value doesn't inherits from other AC");
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1365,7 +1403,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 4,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_OPTIONAL, 4,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(

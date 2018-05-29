@@ -163,6 +163,7 @@ public:
         ATTRPROPERTY_OPTIONAL =     1 << 16,    // Attribute is optional
         ATTRPROPERTY_DEFAULTVALUE = 1 << 17,    // Attribute owns a default value
         ATTRPROPERTY_COMBINABLE =   1 << 18,    // Attribute is combinable with other Attribute
+        ATTRPROPERTY_INHERITED =    1 << 19,    // Attribute can be inherited of another AC
     };
 
     /// @brief struct with the attribute Properties
@@ -173,6 +174,9 @@ public:
 
         /// @brief parameter constructor
         AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
+
+        /// @brief parameter constructor (used for ACs that inherit their default value of other AC)
+        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, SumoXMLTag inheritTag, SumoXMLAttr inheritAttribute, std::vector<std::string> discreteValues = std::vector<std::string>());
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -240,6 +244,12 @@ public:
         /// @brief return true if atribute is combinable with other Attribute
         bool isCombinable() const;
 
+        /// @brief get inherit tag (throw ProcessError if attribute don't inherit)
+        SumoXMLTag getInheritTag() const;
+
+        /// @brief get inherit attribute (throw ProcessError if attribute don't inherit)
+        SumoXMLAttr getInheritAttribute() const;
+
     private:
         /// @brief Property of attribute
         int myAttributeProperty;
@@ -255,6 +265,12 @@ public:
 
         /// @brief discrete values that can take this Attribute (by default empty)
         std::vector<std::string> myDiscreteValues;
+
+        /// @brief inherit tag
+        SumoXMLTag myInheritTag;
+
+        /// @brief inherit value
+        SumoXMLAttr myInheritAttribute;
     };
 
     /**@brief Constructor
