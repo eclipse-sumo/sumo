@@ -1,1 +1,1 @@
- -n net2.net.xml -r input_routes.rou.xml --emergency-insertion --netstate-dump=rawdump.xml --no-step-log
+ -n net2.net.xml -r input_routes.rou.xml --ignore-route-errors --netstate-dump=rawdump.xml --no-step-log
