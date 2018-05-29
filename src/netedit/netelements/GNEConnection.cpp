@@ -10,7 +10,7 @@
 /// @file    GNEConnection.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2016
-/// @version $Id: GNEConnection.cpp v0_32_0+0134-9f1b8d0bad namdre.sumo@gmail.com 2018-01-05 15:02:37 +0100 $
+/// @version $Id$
 ///
 // A class for visualizing connections between lanes
 /****************************************************************************/
@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>

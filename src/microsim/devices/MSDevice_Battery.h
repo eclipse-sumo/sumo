@@ -20,11 +20,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifndef MSDevice_Battery_h
 #define MSDevice_Battery_h

@@ -15,7 +15,7 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Thu, 17 Oct 2002
-/// @version $Id: NLTriggerBuilder.cpp v0_32_0+0633-ab378fffc5 oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/
@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <microsim/MSEventControl.h>

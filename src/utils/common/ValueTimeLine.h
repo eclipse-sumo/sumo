@@ -28,11 +28,7 @@
 #include <utility>
 #include <utils/common/SUMOTime.h>
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 
 // ===========================================================================
