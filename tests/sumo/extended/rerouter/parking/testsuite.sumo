@@ -16,3 +16,6 @@ newDestination
 # afte rerouting use new parkingArea as the final destination. 
 # The vehicle route never passes the original parking edge
 newDestination2
+
+# handle the case where the length of parking spaces is not given and cannot by deduced from roadside capacity because that is 0
+default_length
