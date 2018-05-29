@@ -647,6 +647,11 @@ public:
         return myAmFringe;
     }
 
+    /// @brief whether this lane is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
+    }
+
     /// @brief grant exclusive access to the mesoscopic state
     virtual void lock() const {}
 

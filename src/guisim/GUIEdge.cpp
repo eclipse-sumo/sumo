@@ -167,7 +167,7 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
-    ret = new GUIParameterTableWindow(app, *this, 18);
+    ret = new GUIParameterTableWindow(app, *this, 19);
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
@@ -190,6 +190,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, double, int>(segment, &MESegment::getCarNumber));
     ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
     ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
+    ret->mkItem("segment entry blocktime [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEntryBlockTimeSeconds));
 
     // close building
     ret->closeBuilding();
@@ -552,5 +553,10 @@ GUIEdge::addRerouter() {
     }
 }
 
+
+bool
+GUIEdge::isSelected() const {
+    return gSelected.isSelected(GLO_EDGE, getGlID());
+}
 /****************************************************************************/
 

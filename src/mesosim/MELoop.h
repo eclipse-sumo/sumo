@@ -139,6 +139,9 @@ private:
      */
     void teleportVehicle(MEVehicle* veh, MESegment* const toSegment);
 
+    /// @brief whether the given edge is entering a roundabout
+    static bool isEnteringRoundabout(const MSEdge& e);
+
 private:
     /// @brief leader cars in the segments sorted by exit time
     std::map<SUMOTime, std::vector<MEVehicle*> > myLeaderCars;

@@ -212,6 +212,9 @@ public:
         return myMesoColor;
     }
 
+    /// @brief whether this lane is selected in the GUI
+    bool isSelected() const;
+
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;
 

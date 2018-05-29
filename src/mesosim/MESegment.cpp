@@ -51,6 +51,13 @@
 // avoid division by zero when driving very slowly
 #define MESO_MIN_SPEED (0.05)
 
+//#define DEBUG_OPENED
+//#define DEBUG_JAMTHRESHOLD
+//#define DEBUG_COND (getID() == "blocker")
+//#define DEBUG_COND (true)
+#define DEBUG_COND (myEdge.isSelected())
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+
 // ===========================================================================
 // static member defintion
 // ===========================================================================
@@ -194,6 +201,12 @@ MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
     if (speed == 0) {
         return std::numeric_limits<double>::max();  // never jam. Irrelevant at speed 0 anyway
     }
+#ifdef DEBUG_JAMTHRESHOLD
+    if (true || DEBUG_COND) {
+        std::cout << "jamThresholdForSpeed seg=" << getID() << " speed=" << speed << " jamThresh=" << jamThresh << " ffVehs=" << std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) << " thresh=" << std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP
+            << "\n";
+    }
+#endif
     return std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP;
 }
 
@@ -421,6 +434,28 @@ MESegment::getLink(const MEVehicle* veh, bool penalty) const {
 
 bool
 MESegment::isOpen(const MEVehicle* veh) const {
+#ifdef DEBUG_OPENED
+    if (DEBUG_COND || DEBUG_COND2(veh)) {
+        std::cout << SIMTIME << " opened seg=" << getID() << " veh=" << Named::getIDSecure(veh)
+            << " tlsPenalty=" << myTLSPenalty;
+        const MSLink* link = getLink(veh);
+        if (link == 0) {
+            std::cout << " link=0";
+        } else {
+            std::cout << " prio=" << link->havePriority()
+                << " override=" << limitedControlOverride(link)
+                << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
+                            veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
+                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
+                << " et=" << veh->getEventTime()
+                << " v=" << veh->getSpeed()
+                << " vLeave=" << veh->estimateLeaveSpeed(link)
+                << " impatience=" << veh->getImpatience()
+                << " tWait=" << veh->getWaitingTime();
+        }
+        std::cout << "\n";
+    }
+#endif
     if (myTLSPenalty) {
         // XXX should limited control take precedence over tls penalty?
         return true;
@@ -444,7 +479,7 @@ MESegment::limitedControlOverride(const MSLink* link) const {
     // if the target segment of this link is not saturated junction control is disabled
     const MSEdge& targetEdge = link->getLane()->getEdge();
     const MESegment* target = MSGlobals::gMesoNet->getSegmentForEdge(targetEdge);
-    return target->myOccupancy * 2 < target->myJamThreshold;
+    return (target->myOccupancy * 2 < target->myJamThreshold) && !targetEdge.isRoundabout();
 }
 
 

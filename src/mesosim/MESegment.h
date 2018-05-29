@@ -291,6 +291,11 @@ public:
         return STEPS2TIME(myLastHeadway);
     }
 
+    /// @brief get the last headway time in seconds
+    inline double getEntryBlockTimeSeconds() const {
+        return STEPS2TIME(myEntryBlockTime);
+    }
+
     /// @name State saving/loading
     /// @{
 
