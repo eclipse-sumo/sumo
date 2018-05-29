@@ -897,8 +897,7 @@ public:
      *
      * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
      */
-//    inline const std::shared_ptr<MSDriverState> getDriverState() const {
-    inline const std::shared_ptr<MSSimpleDriverState> getDriverState() const {
+    inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
         return myDriverState;
     }
 
@@ -994,6 +993,12 @@ public:
      */
     bool hasStops() const {
         return !myStops.empty();
+    }
+
+    /** @brief Whether this vehicle is equipped with a MSDriverState
+     */
+    inline bool hasDriverState() const {
+        return (myDriverState != nullptr);
     }
 
     /** @brief Returns whether the vehicle is at a stop
