@@ -2107,7 +2107,7 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
         doubleValue = TplConvert::_2double(value.c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for laneChangeModel of type '" + toString(myModel) + "'");
     }
     if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {

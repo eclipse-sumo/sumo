@@ -1293,7 +1293,7 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
         bool create;
         try {
             create = TplConvert::_2bool(value.c_str());
-        } catch (BoolFormatException) {
+        } catch (BoolFormatException&) {
             throw TraCIException("Changing device status requires a 'true' or 'false'");
         }
         if (!create) {

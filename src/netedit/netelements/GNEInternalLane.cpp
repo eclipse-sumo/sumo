@@ -218,7 +218,7 @@ GNEInternalLane::colorForLinksState(FXuint state) {
     } else {
         try {
             return GUIVisualizationSettings::getLinkColor((LinkState)state);
-        } catch (ProcessError) {
+        } catch (ProcessError&) {
             std::cout << "invalid link state='" << state << "'\n";
             return RGBColor::BLACK;
         }

@@ -336,7 +336,7 @@ NIImporter_VISUM::parse_Edges() {
             }
             speed = TplConvert::_2doubleSec(speedS.c_str(), -1);
             speed = speed / (double) 3.6;
-        } catch (OutOfBoundsException) {}
+        } catch (OutOfBoundsException&) {}
     }
     if (speed <= 0) {
         speed = myNetBuilder.getTypeCont().getSpeed(type);
@@ -355,7 +355,7 @@ NIImporter_VISUM::parse_Edges() {
                           ? TplConvert::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
                           : TplConvert::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
             }
-        } catch (UnknownElement) {
+        } catch (UnknownElement&) {
         }
     } else {
         double cap = myLineParser.know("KAPIV")

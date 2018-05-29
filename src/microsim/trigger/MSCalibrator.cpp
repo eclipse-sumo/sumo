@@ -179,9 +179,9 @@ MSCalibrator::myStartElement(int element,
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == 0) {
                 WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + myID + "'.");
             }
-        } catch (EmptyData) {
+        } catch (EmptyData&) {
             WRITE_ERROR("Mandatory attribute missing in definition of calibrator '" + myID + "'.");
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException&) {
             WRITE_ERROR("Non-numeric value for numeric attribute in definition of calibrator '" + myID + "'.");
         }
         if (state.q < 0 && state.v < 0) {

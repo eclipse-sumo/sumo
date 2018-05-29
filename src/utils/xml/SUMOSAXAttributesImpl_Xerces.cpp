@@ -103,7 +103,7 @@ SUMOSAXAttributesImpl_Xerces::getString(int id) const {
         try {
             XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
             return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
-        } catch (XERCES_CPP_NAMESPACE::TranscodingException e) {
+        } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {
             return "?";
         }
     }
@@ -128,7 +128,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
         try {
             XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
             return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
-        } catch (XERCES_CPP_NAMESPACE::TranscodingException e) {
+        } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {
             return "?";
         }
     }

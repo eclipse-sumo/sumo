@@ -586,7 +586,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     try {
         myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
-    } catch (EmptyData e) {
+    } catch (EmptyData&) {
         // !!! deprecated
         myCurrentLane->allow = "";
     }

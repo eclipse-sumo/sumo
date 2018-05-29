@@ -716,7 +716,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
             try {
                 posBase = GNEAttributeCarrier::parse<int>(posString.c_str());
                 baseName = baseName.substr(0, sep_index); // includes the .
-            } catch (NumberFormatException) {
+            } catch (NumberFormatException&) {
             }
         }
     }

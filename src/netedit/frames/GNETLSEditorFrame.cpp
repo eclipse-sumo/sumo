@@ -567,7 +567,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             myEditedDef->getLogic()->deletePhase(tp->row + 1);
             myTLSModifications->setHaveModifications(true);
             onCmdPhaseSwitch(0, 0, 0);
-        } catch (ProcessError) {
+        } catch (ProcessError&) {
             // input error, reset value
             myTLSPhases->getPhaseTable()->setItemText(tp->row, 1, getPhases()[tp->row].state.c_str());
         }

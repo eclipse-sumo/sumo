@@ -169,7 +169,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
                 try {
                     GUISettingsHandler handler(content, false, netedit);
                     handler.addSettings();
-                } catch (ProcessError) { }
+                } catch (ProcessError&) { }
             }
         }
     }
