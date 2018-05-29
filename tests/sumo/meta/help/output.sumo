@@ -1,4 +1,4 @@
-Eclipse SUMO Version 27b98ce
+Eclipse SUMO Version UNKNOWN
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -95,6 +95,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -161,6 +165,9 @@ Processing Options:
                                          be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
                                          separately for insertion on an edge
+  --emergency-insertion                Whether it is allowed to insert a
+                                         vehicle in a situation which requires
+                                         emergency braking.
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                          its depart value drawn uniformly from
                                          [0, TIME]

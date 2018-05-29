@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO Version 27b98ce
+<!-- generated on Tue May 29 08:53:29 2018 by Eclipse SUMO Version UNKNOWN
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -63,6 +63,8 @@
         <lanechange-output.started value="false" type="BOOL" help="Record start of lane change manoeuvres"/>
         <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -98,6 +100,7 @@
         <max-depart-delay value="-1" type="TIME" help="How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped"/>
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
+        <emergency-insertion value="false" type="BOOL" help="Whether it is allowed to insert a vehicle in a situation which requires emergency braking."/>
         <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
