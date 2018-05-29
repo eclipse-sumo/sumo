@@ -566,6 +566,17 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
         } else if (speed > 0) {
+            if (MSGlobals::gEmergencyInsertion) {
+                // Check whether vehicle can stop at the given distance when applying emergency braking
+                double emergencyBrakeGap = 0.5*speed*speed/aVehicle->getCarFollowModel().getEmergencyDecel();
+                if (emergencyBrakeGap <= dist) {
+                    // Vehicle may stop in time with emergency deceleration
+                    // stil, emit a warning
+                    WRITE_WARNING("Vehicle '" + aVehicle->getID() + "' is inserted in emergency situation.");
+                    return false;
+                }
+            }
+
             if (errorMsg != "") {
                 WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (" + errorMsg + ")!");
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);

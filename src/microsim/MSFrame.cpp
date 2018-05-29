@@ -309,6 +309,9 @@ MSFrame::fillOptions() {
     oc.doRegister("eager-insert", new Option_Bool(false));
     oc.addDescription("eager-insert", "Processing", "Whether each vehicle is checked separately for insertion on an edge");
 
+    oc.doRegister("emergency-insertion", new Option_Bool(false));
+    oc.addDescription("emergency-insertion", "Processing", "Whether it is allowed to insert a vehicle in a situation which requires emergency braking.");
+
     oc.doRegister("random-depart-offset", new Option_String("0", "TIME"));
     oc.addDescription("random-depart-offset", "Processing", "Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]");
 
@@ -634,6 +637,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         MSGlobals::gUsingInternalLanes = false;
     }
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
+    MSGlobals::gEmergencyInsertion = oc.getBool("emergency-insertion");
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSLane::initCollisionOptions(oc);
 
