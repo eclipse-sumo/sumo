@@ -77,8 +77,9 @@ public:
     // @note Numbers of different lenghts will not be ordered by alphanumerical sorting
     template <class NamedLike>
     struct NamedLikeComparatorIdLess {
-        bool operator()(const NamedLike* const a, const NamedLike* const b) const {
-            return a->getID() < b->getID();
+       template<class T>
+        bool operator()(const T* const a, const T* const b) const {
+            return static_cast<const NamedLike*>(a)->getID() < static_cast<const NamedLike*>(b)->getID();
         }
     };
     typedef NamedLikeComparatorIdLess<Named> ComparatorIdLess;
