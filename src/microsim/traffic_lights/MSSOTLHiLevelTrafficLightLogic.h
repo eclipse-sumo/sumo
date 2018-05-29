@@ -98,7 +98,7 @@ public:
      * @brief Initialises the tls
      * @param[in] nb The detector builder
      */
-    void init(NLDetectorBuilder& nb) throw(ProcessError);
+    void init(NLDetectorBuilder& nb);
 
     /*
      * \brief Adds a low-level policy to this high-level tll.

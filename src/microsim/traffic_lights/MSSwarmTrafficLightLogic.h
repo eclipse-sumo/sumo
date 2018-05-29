@@ -128,7 +128,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder& nb) throw(ProcessError);
+    void init(NLDetectorBuilder& nb);
 
     SUMOTime getMaxCongestionDuration() {
         return TplConvert::_2int(getParameter("MAX_CONGESTION_DUR", "120").c_str());

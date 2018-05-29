@@ -105,7 +105,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder& nb) throw(ProcessError);
+    void init(NLDetectorBuilder& nb);
 
     /*
      * This member implements the base operations for all SOTL logics.
