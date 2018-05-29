@@ -73,9 +73,6 @@ public:
      */
     virtual double getPreviousSpeed() const = 0;
 
-
-    typedef Named::NamedLikeComparatorIdLess<SUMOVehicle> ComparatorIdLess;
-
     /// @brief Destructor
     virtual ~SUMOVehicle() {}
 

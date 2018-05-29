@@ -238,7 +238,7 @@ private:
     SUMOTime myMesoTimeLoss;
 
     /// @brief devices which may still need to produce output
-    typedef std::set<const MSDevice_Tripinfo*, Named::NamedLikeComparatorIdLess<MSDevice_Tripinfo> > DeviceSet;
+    typedef std::set<const MSDevice_Tripinfo*, ComparatorIdLess > DeviceSet;
 
     static DeviceSet myPendingOutput;
 

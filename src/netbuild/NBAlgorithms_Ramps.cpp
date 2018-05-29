@@ -85,8 +85,8 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
         NBDistrictCont& dc = nb.getDistrictCont();
 
         // if an edge is part of two ramps, ordering is important
-        std::set<NBNode*, Named::ComparatorIdLess> potOnRamps;
-        std::set<NBNode*, Named::ComparatorIdLess> potOffRamps;
+        std::set<NBNode*, ComparatorIdLess> potOnRamps;
+        std::set<NBNode*, ComparatorIdLess> potOffRamps;
         for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
             NBNode* cur = (*i).second;
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps)) {
@@ -96,10 +96,10 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
                 potOffRamps.insert(cur);
             }
         }
-        for (std::set<NBNode*, Named::ComparatorIdLess>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
+        for (std::set<NBNode*, ComparatorIdLess>::const_iterator i = potOnRamps.begin(); i != potOnRamps.end(); ++i) {
             buildOnRamp(*i, nc, ec, dc, rampLength, dontSplit);
         }
-        for (std::set<NBNode*, Named::ComparatorIdLess>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
+        for (std::set<NBNode*, ComparatorIdLess>::const_iterator i = potOffRamps.begin(); i != potOffRamps.end(); ++i) {
             buildOffRamp(*i, nc, ec, dc, rampLength, dontSplit);
         }
     }

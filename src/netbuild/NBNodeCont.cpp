@@ -1531,7 +1531,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         avoid.insert(avoid.end(), reserve.begin(), reserve.end());
     }
     IDSupplier idSupplier("", avoid);
-    std::set<NBNode*, Named::ComparatorIdLess> toChange;
+    std::set<NBNode*, ComparatorIdLess> toChange;
     for (NodeCont::iterator it = myNodes.begin(); it != myNodes.end(); it++) {
         if (numericaIDs) {
             try {
@@ -1545,7 +1545,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         }
     }
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
-    for (std::set<NBNode*, Named::ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
+    for (std::set<NBNode*, ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
         NBNode* node = *it;
         myNodes.erase(node->getID());
         if (origNames) {

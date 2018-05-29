@@ -109,7 +109,7 @@ public:
 
 private:
     /// @brief Definition of a map that stores the probabilities of using a certain follower over time
-    typedef std::map<ROJTREdge*, ValueTimeLine<double>*, Named::ComparatorIdLess> FollowerUsageCont;
+    typedef std::map<ROJTREdge*, ValueTimeLine<double>*, ComparatorIdLess> FollowerUsageCont;
 
     /// @brief Storage for the probabilities of using a certain follower over time
     FollowerUsageCont myFollowingDefs;
