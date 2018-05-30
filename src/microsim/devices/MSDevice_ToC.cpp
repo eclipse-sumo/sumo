@@ -215,6 +215,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     myRecoveryRate(recoveryRate),
     myInitialAwareness(initialAwareness),
     myMRMDecel(mrmDecel),
+    myCurrentAwareness(1.),
     myTriggerMRMCommand(nullptr),
     myTriggerToCCommand(nullptr),
     myRecoverAwarenessCommand(nullptr),
@@ -228,10 +229,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
 
     if (holder.getVehicleType().getID() == manualType) {
         myState = ToCState::MANUAL;
-        myCurrentAwareness = 1.;
     } else if (holder.getVehicleType().getID() == automatedType) {
         myState = ToCState::AUTOMATED;
-        myCurrentAwareness = 0.;
     } else {
         throw ProcessError("Vehicle type of vehicle '" + holder.getID() + "' ('" + holder.getVehicleType().getID()
                 + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType + "') specified for its ToC-device.");
@@ -367,7 +366,7 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
     setState(MRM);
     switchHolderType(myAutomatedType);
-    setAwareness(0.);
+    setAwareness(1.);
 
     return 0;
 }
@@ -379,7 +378,7 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
     std::cout << SIMTIME << " triggerUpwardToC() for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
     switchHolderType(myAutomatedType);
-    setAwareness(0.);
+    setAwareness(1.);
     setState(AUTOMATED);
 
     descheduleToC();

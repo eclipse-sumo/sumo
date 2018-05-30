@@ -47,6 +47,8 @@ class Command_ToCProcess;
  * @class MSDevice_ToC
  *
  * @brief The ToC Device controls transition of control between automated and manual driving.
+ * @todo: Add possibility to color according to the different states
+ * @todo: Provide logging facilities
  *
  * @see MSDevice
  */
