@@ -37,19 +37,24 @@ except ImportError:
 
 import traci
 
-ToC_vehicle = "ToC_veh"
-
+ToC_vehicles_identifier = "AVflow"
+DT = 1.
 
 def run():
     """execute the TraCI control loop"""
     step = 0
-    while step < 500:
+    AVsOnRoad = set(traci.vehicle.getVehicleIDList())
+    while step < 500/DT:
         traci.simulationStep()
-        if step == 200:
-            requestToC(ToC_vehicle, timeTillMRM)
+        # Keep book in a set AVsOnRoad
+        AVsOnRoad = AVsOnRoad.difference([vehID in traci.simulation.getArrivedIDList() if vehID.startswith(ToC_vehicles_identifier)])
+        AVsOnRoad.update([vehID in traci.simulation.getDepartedIDList() if vehID.startswith(ToC_vehicles_identifier)])
+        if step == int(200/DT):
             t = traci.simulation.getCurrentTime()/1000.
-            print("Requested ToC of veh0 at t=%s (until t=%s)"%(t,t + timeTillMRM))
-        printToCParams(ToC_vehicle, True)
+            for vehID in AVsOnRoad:
+                requestToC(vehID, timeTillMRM)
+                print("Requested ToC of veh0 at t=%s (until t=%s)"%(t,t + timeTillMRM))
+                printToCParams(vehID, True)
         step += 1
     
 def requestToC(vehID, timeTillMRM):
@@ -116,13 +121,7 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([sumoBinary, "-n", options.netfile, "-r", options.routefile, "-a", options.addfile, "--fcd-output", options.outputfile, "--no-step-log", "true"])
-    
-    # Wait until the vehicle enters
-    while not ToC_vehicle in traci.vehicle.getIDList():
-        traci.simulationStep()
-    
-    printToCParams(ToC_vehicle)
-    
+     
     run()
     
     traci.close()
