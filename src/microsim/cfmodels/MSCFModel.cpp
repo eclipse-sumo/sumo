@@ -41,6 +41,7 @@
 // ===========================================================================
 //#define DEBUG_FINALIZE_SPEED
 //#define DEBUG_DRIVER_ERRORS
+//#define DEBUG_EMERGENCYDECEL
 //#define DEBUG_COND (true)
 #define DEBUG_COND (veh->isSelected())
 
@@ -685,12 +686,48 @@ MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const d
 
 double
 MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, bool onInsertion, double headway) const {
+    double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // XXX pass headway argument
-        return maximumSafeStopSpeedEuler(g);
+        vsafe = maximumSafeStopSpeedEuler(g);
     } else {
-        return maximumSafeStopSpeedBallistic(g, v, onInsertion, headway);
+        vsafe = maximumSafeStopSpeedBallistic(g, v, onInsertion, headway);
     }
+
+#ifdef DEBUG_EMERGENCYDECEL
+    if DEBUG_COND {
+        std::cout << SIMTIME << " maximumSafeStopSpeed()"
+                << " g=" << g
+                << " v=" << v
+                << " initial vsafe=" << vsafe << "(decel=" << SPEED2ACCEL(v-vsafe) << ")" << std::endl;
+    }
+#endif
+
+        if (vsafe < v - ACCEL2SPEED(myDecel + NUMERICAL_EPS)) {
+            // emergency deceleration required
+
+#ifdef DEBUG_EMERGENCYDECEL
+            if DEBUG_COND {
+                std::cout << SIMTIME << " maximumSafeStopSpeed() results in emergency deceleration "
+                        << "initial vsafe=" << vsafe  << " egoSpeed=" << v << "(decel=" << SPEED2ACCEL(v-vsafe) << ")" << std::endl;
+            }
+#endif
+
+            const double safeDecel = calculateEmergencyDeceleration(g, v, 0., 1);
+            vsafe = v - EMERGENCY_DECEL_AMPLIFIER * ACCEL2SPEED(safeDecel);
+
+            if(MSGlobals::gSemiImplicitEulerUpdate) {
+                vsafe = MAX2(vsafe,0.);
+            }
+
+#ifdef DEBUG_EMERGENCYDECEL
+            if DEBUG_COND {
+                std::cout << "     -> corrected emergency deceleration: " << SPEED2ACCEL(v-vsafe) << std::endl;
+            }
+#endif
+
+        }
+    return vsafe;
 }
 
 
@@ -815,14 +852,74 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     // if leader is stopped, calculate stopSpeed without time-headway to prevent creeping stop
     // NOTE: this can lead to the strange phenomenon (for the Krauss-model at least) that if the leader comes to a stop,
     //       the follower accelerates for a short period of time. Refs #2310 (Leo)
-//    const double headway = predSpeed > 0. ? myHeadwayTime : 0.;
+    //    const double headway = predSpeed > 0. ? myHeadwayTime : 0.;
 
     const double headway = myHeadwayTime;
-    const double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), egoSpeed, onInsertion, headway);
+    double x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), egoSpeed, onInsertion, headway);
+
+    double safeDecel = SPEED2ACCEL(egoSpeed - x);
+    if (safeDecel > myDecel + NUMERICAL_EPS) {
+        // Braking harder than myDecel was requested -> calculate required emergency deceleration
+
+#ifdef DEBUG_EMERGENCYDECEL
+        if DEBUG_COND {
+            std::cout << SIMTIME << " maximumSafeFollowSpeed() results in emergency deceleration"
+                    << "initial vsafe=" << x << " egoSpeed=" << egoSpeed << "(decel=" << safeDecel << ")" << std::endl;
+        }
+#endif
+
+        safeDecel = calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
+        x = egoSpeed - EMERGENCY_DECEL_AMPLIFIER * ACCEL2SPEED(safeDecel);
+        if(MSGlobals::gSemiImplicitEulerUpdate) {
+            x = MAX2(x,0.);
+        }
+
+#ifdef DEBUG_EMERGENCYDECEL
+        if DEBUG_COND {
+            std::cout << "     -> corrected emergency deceleration: " << safeDecel << std::endl;
+        }
+#endif
+
+    }
     assert(x >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
     assert(!ISNAN(x));
     return x;
 }
+
+
+double
+MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double predSpeed, double predMaxDecel) const {
+    // There are two cases:
+    // 1) Either, stopping in time is possible with a deceleration b <= predMaxDecel, then this value is returned
+    // 2) Or, b > predMaxDecel is required in this case the minimal value b allowing to stop safely under the assumption maxPredDecel=b is returned
+
+    // Apparent braking distance for the leader
+    const double predBrakeDist = predSpeed == 0.5*predSpeed*predSpeed/predMaxDecel;
+    // Required deceleration according to case 1)
+    const double b1 = 0.5*egoSpeed*egoSpeed/(gap + predBrakeDist);
+
+#ifdef DEBUG_EMERGENCYDECEL
+    std::cout << SIMTIME << " calculateEmergencyDeceleration()"
+            << " gap=" << gap << " egoSpeed=" << egoSpeed << " predSpeed=" << predSpeed
+            << std::endl;
+
+#endif
+
+    if (b1 <= predMaxDecel) {
+        // Case 1) applies
+        return b1;
+    }
+
+    // Case 2) applies
+    assert(predSpeed < egoSpeed);
+    if (gap == 0.) {
+        return - std::numeric_limits<double>::max();
+    }
+    // Required deceleration according to case 1)
+    const double b2 = 0.5*(egoSpeed*egoSpeed - predSpeed*predSpeed)/gap;
+    return b2;
+}
+
 
 
 void
