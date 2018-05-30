@@ -53,7 +53,7 @@ def generateRouteFile(routefile,i,j,k,l,rList):
     f.write('    <!-- vClass custom1 disallows vehicles to enter bus lane at construction site -->\n')
     f.write('    <!-- default vClass is passenger -->\n')
     f.write('    <vType id="automated" sigma="0." speedFactor="1" vClass="custom1"/>\n')
-    f.write('    <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" guiShape="passenger/van" carFollowModel="TCI"/>\n')
+    f.write('    <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" emergencyDecel="9" guiShape="passenger/van" carFollowModel="TCI"/>\n')
     f.write('    <route id="%s" edges="%s"/>\n' %(rList[0], rList[1]))
     f.write('    <!-- one  hour automated vehicle flow -->\n')
     f.write('    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" probability="0.01" color="red">\n' %(rList[0]))
