@@ -163,7 +163,6 @@ public:
         ATTRPROPERTY_OPTIONAL =     1 << 16,    // Attribute is optional
         ATTRPROPERTY_DEFAULTVALUE = 1 << 17,    // Attribute owns a default value
         ATTRPROPERTY_COMBINABLE =   1 << 18,    // Attribute is combinable with other Attribute
-        ATTRPROPERTY_INHERITED =    1 << 19,    // Attribute can be inherited of another AC
     };
 
     /// @brief struct with the attribute Properties
@@ -192,9 +191,6 @@ public:
 
         /// @brief return true if attribute owns a default value
         bool hasDefaultValue() const;
-
-        /// @brief return true if attribute owns a default value
-        bool hasInheritValue() const;
 
         /// @brief return true if atribute is an integer
         bool isInt() const;
@@ -542,9 +538,6 @@ public:
                 // if attribute has a default value, obtain it as string. In other case, abort.
                 if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-                } else if (getAttributeProperties(tag, attribute).hasInheritValue()) {
-                    // set default value
-                    parsedAttribute = defaultValue;
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
@@ -558,9 +551,6 @@ public:
             // if attribute has a default value, obtain it. In other case, abort.
             if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
-            } else if (getAttributeProperties(tag, attribute).hasInheritValue()) {
-                // set default value
-                parsedAttribute = defaultValue;
             } else {
                 WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");

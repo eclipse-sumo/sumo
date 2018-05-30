@@ -184,11 +184,7 @@ GNEAttributeCarrier::AttributeValues::getDefinition() const {
 
 const std::string&
 GNEAttributeCarrier::AttributeValues::getDefaultValue() const {
-    if(!hasInheritValue()) {
-        return myDefaultValue;
-    } else {
-        throw ProcessError("Default value inherits from other AC");
-    }
+    return myDefaultValue;
 }
 
 
@@ -274,12 +270,6 @@ GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
 bool 
 GNEAttributeCarrier::AttributeValues::hasDefaultValue() const {
     return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
-}
-
-
-bool 
-GNEAttributeCarrier::AttributeValues::hasInheritValue() const {
-    return (myAttributeProperty & ATTRPROPERTY_INHERITED) != 0;
 }
 
 
@@ -1375,7 +1365,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_INHERITED, 4,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE, 4,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(
@@ -1395,7 +1385,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The width of the road-side parking spaces", 
             "3.20");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_INHERITED, 9,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE, 9,
             "The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
