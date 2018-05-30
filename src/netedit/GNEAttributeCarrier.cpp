@@ -1229,11 +1229,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The name of the lane the bus stop shall be located at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 4,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
@@ -1281,11 +1281,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The name of the lane the container stop shall be located at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 4,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
@@ -1315,11 +1315,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "Lane of the charging station location", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
             "Begin position in the specified lane", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 4,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "End position in the specified lane", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
@@ -1361,11 +1361,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The name of the lane the Parking Area shall be located at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_STARTPOS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE, 4,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(

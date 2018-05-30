@@ -151,7 +151,7 @@ GNEStoppingPlace::getLane() const {
 double 
 GNEStoppingPlace::getStartPosition() const {
     if(!myStartPosition.empty()) {
-        return parse<double>(myEndPosition);
+        return parse<double>(myStartPosition);
     } else {
         return 0;
     }
@@ -170,19 +170,21 @@ GNEStoppingPlace::getEndPosition() const {
 
 bool
 GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
+
+
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
         if (myStartPosition.empty() && myEndPosition.empty()) {
-            return false;
+            return true;
         } else if(myStartPosition.empty()) {
-            return canParse<double>(myEndPosition)? (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getLength()) : false;
+            return (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
         } else if(myEndPosition.empty()) {
-            return canParse<double>(myStartPosition)? (parse<double>(myStartPosition) >= 0) : false;
+            return (parse<double>(myStartPosition) >= 0);
         } else {
             return (parse<double>(myStartPosition) >= 0) &&
-                   (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getLength()) &&
+                   (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()) &&
                    ((parse<double>(myEndPosition) - parse<double>(myStartPosition)) >= POSITION_EPS);
         }
     }

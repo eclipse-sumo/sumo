@@ -25,6 +25,7 @@
 #endif
 
 #include <iostream>
+#include <netbuild/NBEdge.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -33,6 +34,7 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -108,7 +110,7 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
             errorStartPosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
         }
         // check end position
-        if (i->getEndPosition() > i->getLane()->getLaneParametricLength()) {
+        if (i->getEndPosition() > i->getLane()->getParentEdge().getNBEdge()->getFinalLength()) {
             errorEndPosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
         }
         // check separator
@@ -242,10 +244,10 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
             GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
             if (stoppingPlace != nullptr) {
                 // obtain start and end position
-                double startPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS));
-                double endPos = GNEAttributeCarrier::parse<double>(stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS));
-                // fix start and end positions using fixStoppinPlacePosition
-                GNEAdditionalHandler::fixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength(), POSITION_EPS, true);
+                std::string startPos = stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS);
+                std::string endPos = stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS);
+                // fix start and end positions using fixStoppinPlacePosition (0.01 is used to avoid precision problems)
+                GNEAdditionalHandler::fixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength() - 0.01, POSITION_EPS + 0.01, true);
                 // set new start and end positions
                 stoppingPlace->setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myViewNet->getUndoList());
                 stoppingPlace->setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myViewNet->getUndoList());
@@ -260,7 +262,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
                 double pos = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_POSITION));
                 double length = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_LENGTH));
                 // fix pos and lenght using fixE2DetectorPositionPosition
-                GNEAdditionalHandler::fixE2DetectorPositionPosition(pos, length, E2Detector->getLane()->getLaneParametricLength(), true);
+                GNEAdditionalHandler::fixE2DetectorPositionPosition(pos, length, E2Detector->getLane()->getParentEdge().getNBEdge()->getFinalLength(), true);
                 // set new position and length
                 E2Detector->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
                 E2Detector->setAttribute(SUMO_ATTR_LENGTH, toString(length), myViewNet->getUndoList());
@@ -268,7 +270,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
                 // obtain position
                 double pos = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_POSITION));
                 // fix pos and lenght  checkAndFixDetectorPositionPosition
-                GNEAdditionalHandler::checkAndFixDetectorPositionPosition(pos, E2Detector->getLane()->getLaneParametricLength(), true);
+                GNEAdditionalHandler::checkAndFixDetectorPositionPosition(pos, E2Detector->getLane()->getParentEdge().getNBEdge()->getFinalLength(), true);
                 // set new position
                 E2Detector->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
             }

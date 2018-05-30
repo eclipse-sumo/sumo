@@ -602,7 +602,7 @@ public:
     * @param[in] friendlyPos Attribute of stoppingPlace
     * @return true if the stoppingPlace position is valid, false in otherweise
     */
-    static bool fixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
+    static bool fixStoppinPlacePosition(std::string& startPos, std::string& endPos, const double laneLength, const double minLength, const bool friendlyPos);
 
     /**@brief check if the position of a detector over a lane is valid
     * @param[in] pos pos position of detector

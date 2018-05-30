@@ -149,7 +149,7 @@ public:
         ATTRPROPERTY_BOOL =         1 << 2,     // Attribute is boolean (0/1, true/false)
         ATTRPROPERTY_STRING =       1 << 3,     // Attribute is a string
         ATTRPROPERTY_POSITION =     1 << 4,     // Attribute is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR =        1 << 5,     // Attribute is a color defined by a specifically word (Red, green) or by a speicial format (XXX,YYY,ZZZ)
+        ATTRPROPERTY_COLOR =        1 << 5,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
         ATTRPROPERTY_VCLASS =       1 << 6,     // Attribute is a VClass (passenger, bus, motorcicle...)
         ATTRPROPERTY_POSITIVE =     1 << 7,     // Attribute is positive (Including Zero)
         ATTRPROPERTY_UNIQUE =       1 << 8,     // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
@@ -409,12 +409,6 @@ public:
             additionalOfWarningMessage = toString(tag) + " with ID '" + objectID + "'";
         } else {
             additionalOfWarningMessage = toString(tag);
-        }
-        // first check what kind of default value has to be give if parsing isn't valid (needed to avoid exceptions)
-        if (getAttributeProperties(tag, attribute).isNumerical()) {
-            defaultValue = "0";
-        } else if (getAttributeProperties(tag, attribute).isColor()) {
-            defaultValue = "BLACK";
         }
         // first check that attribute exists in XML
         if (attrs.hasAttribute(attribute)) {

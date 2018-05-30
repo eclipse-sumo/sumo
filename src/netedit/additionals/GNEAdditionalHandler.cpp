@@ -597,8 +597,8 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
     // parse attributes of bus stop
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    double startPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
     std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
@@ -614,11 +614,11 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildBusStop(myViewNet, myUndoAdditionals, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPosition, false);
+            buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false);
             myParentElements.back().second = id;
         }
     }
@@ -631,8 +631,8 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
     // parse attributes of container stop
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    double startPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
     std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
@@ -648,11 +648,11 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildContainerStop(myViewNet, myUndoAdditionals, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPosition, false);
+            buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false);
         }
     }
 }
@@ -695,8 +695,8 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
     // parse attributes of charging station
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    double startPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    double endPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
     double chargingPower = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_CHARGINGPOWER, abort);
     double efficiency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_EFFICIENCY, abort);
@@ -715,11 +715,11 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildChargingStation(myViewNet, myUndoAdditionals, id, lane, toString(startPos), toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false);
+            buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false);
         }
     }
 }
@@ -731,8 +731,8 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
     // parse attributes of charging station
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    double startPos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    std::string endPosStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
     int roadSideCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, tag, SUMO_ATTR_ROADSIDE_CAPACITY, abort);
@@ -745,18 +745,17 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
-        double endPosDouble = GNEAttributeCarrier::canParse<double>(endPosStr)? GNEAttributeCarrier::parse<double>(endPosStr) : 0;
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (GNEAttributeCarrier::canParse<double>(endPosStr) && !fixStoppinPlacePosition(startPos, endPosDouble, lane->getLaneParametricLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildParkingArea(myViewNet, myUndoAdditionals, id, lane, toString(startPos), endPosStr, name, friendlyPosition, roadSideCapacity, width, length, angle, false);
+            buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, false);
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -912,7 +911,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixE2DetectorPositionPosition(position, length, lane->getLaneShapeLength(), friendlyPos)) {
+        } else if (!fixE2DetectorPositionPosition(position, length, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
             buildDetectorE2(myViewNet, myUndoAdditionals, id, lane, position, length, frequency, file, cont, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, false);
@@ -1006,15 +1005,15 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of busStop
             std::string id = values[SUMO_ATTR_ID];
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
-            double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
-            double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string startPos = values[SUMO_ATTR_STARTPOS];
+            std::string endPos = values[SUMO_ATTR_ENDPOS];
             std::string name = values[SUMO_ATTR_NAME];
             std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LINES]);
             bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build busStop
             if (lane) {
-                return buildBusStop(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPos, blockMovement);
+                return buildBusStop(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, lines, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1023,15 +1022,15 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of containerStop
             std::string id = values[SUMO_ATTR_ID];
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
-            double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
-            double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string startPos = values[SUMO_ATTR_STARTPOS];
+            std::string endPos = values[SUMO_ATTR_ENDPOS];
             std::string name = values[SUMO_ATTR_NAME];
             std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(values[SUMO_ATTR_LINES]);
             bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build containerStop
             if (lane) {
-                return buildContainerStop(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPos, blockMovement);
+                return buildContainerStop(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, lines, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1040,8 +1039,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of chargingStation
             std::string id = values[SUMO_ATTR_ID];
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
-            double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
-            double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string startPos = values[SUMO_ATTR_STARTPOS];
+            std::string endPos = values[SUMO_ATTR_ENDPOS];
             std::string name = values[SUMO_ATTR_NAME];
             double chargingPower = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_CHARGINGPOWER]);
             double efficiency = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_EFFICIENCY]);
@@ -1051,7 +1050,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build chargingStation
             if (lane) {
-                return buildChargingStation(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPos, blockMovement);
+                return buildChargingStation(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1060,8 +1059,8 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of Parking Area
             std::string id = values[SUMO_ATTR_ID];
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
-            double startPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_STARTPOS]);
-            double endPos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ENDPOS]);
+            std::string startPos = values[SUMO_ATTR_STARTPOS];
+            std::string endPos = values[SUMO_ATTR_ENDPOS];
             std::string name = values[SUMO_ATTR_NAME];
             bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
             int roadSideCapacity = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_ROADSIDE_CAPACITY]);
@@ -1071,7 +1070,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build Parking Area
             if (lane) {
-                return buildParkingArea(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, friendlyPos, roadSideCapacity, width, lenght, angle, blockMovement);
+                return buildParkingArea(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, friendlyPos, roadSideCapacity, width, lenght, angle, blockMovement);
             } else {
                 return false;
             }
@@ -1847,37 +1846,99 @@ GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos , 
 
 
 bool
-GNEAdditionalHandler::fixStoppinPlacePosition(double& startPos, double& endPos, const double laneLength, const double minLength,  const bool friendlyPos) {
-    if (minLength > laneLength) {
-        return false;
-    }
-    if (startPos < 0) {
-        startPos += laneLength;
-    }
-    if (endPos < 0) {
-        endPos += laneLength;
-    }
-    if (endPos < minLength || endPos > laneLength) {
-        if (!friendlyPos) {
+GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string& endPos, const double laneLength, const double minLength, const bool friendlyPos) {
+    // first check if startPos and endPos were defined
+    if (GNEAttributeCarrier::canParse<double>(startPos) && GNEAttributeCarrier::canParse<double>(endPos)) {
+        // first parse strings to numerical values
+        double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
+        double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
+
+        // fix both positions
+        if (minLength > laneLength) {
             return false;
         }
-        if (endPos < minLength) {
-            endPos = minLength;
+        if (startPosDouble < 0) {
+            startPosDouble += laneLength;
         }
-        if (endPos > laneLength) {
-            endPos = laneLength;
+        if (endPosDouble < 0) {
+            endPosDouble += laneLength;
         }
-    }
-    if (startPos < 0 || startPos > endPos - minLength) {
-        if (!friendlyPos) {
+        if ((endPosDouble < minLength) || (endPosDouble > laneLength)) {
+            if (!friendlyPos) {
+                return false;
+            }
+            if (endPosDouble < minLength) {
+                endPosDouble = minLength;
+            }
+            if (endPosDouble > laneLength) {
+                endPosDouble = laneLength;
+            }
+        }
+        if ((startPosDouble < 0) || (startPosDouble > (endPosDouble - minLength))) {
+            if (!friendlyPos) {
+                return false;
+            }
+            if (startPosDouble < 0) {
+                startPosDouble = 0;
+            }
+            if (startPosDouble > (endPosDouble - minLength)) {
+                startPosDouble = (endPosDouble - minLength);
+            }
+        }
+        // Modify original positions
+        startPos = toString(startPosDouble);
+        endPos = toString(endPosDouble);
+    } else if (GNEAttributeCarrier::canParse<double>(startPos)) {
+        // first parse to double only startPos
+        double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
+        // fix both positions
+        if (minLength > laneLength) {
             return false;
         }
-        if (startPos < 0) {
-            startPos = 0;
+        if (startPosDouble < 0) {
+            startPosDouble += laneLength;
         }
-        if (startPos > endPos - minLength) {
-            startPos = endPos - minLength;
+        if ((startPosDouble < 0) || startPosDouble > (laneLength - minLength)) {
+            if (!friendlyPos) {
+                return false;
+            }
+            if (startPosDouble < 0) {
+                startPosDouble = 0;
+            }
+            if (startPosDouble > (laneLength - minLength)) {
+                startPosDouble = (laneLength - minLength);
+            }
         }
+        // Modify only start position
+        startPos = toString(startPosDouble);
+    } else if (GNEAttributeCarrier::canParse<double>(endPos)) {
+        // first parse to double only endPos
+        double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
+        // fix both positions
+        if (minLength > laneLength) {
+            return false;
+        }
+        if (endPosDouble < 0) {
+            endPosDouble += laneLength;
+        }
+        if ((endPosDouble < minLength) || (endPosDouble > laneLength)) {
+            if (!friendlyPos) {
+                return false;
+            }
+            if (endPosDouble < minLength) {
+                endPosDouble = minLength;
+            }
+            if (endPosDouble > laneLength) {
+                endPosDouble = laneLength;
+            }
+        }
+        if (0 > (endPosDouble - minLength)) {
+            if (!friendlyPos) {
+                return false;
+            }
+        }
+        // Modify only end position
+        endPos = toString(endPosDouble);
     }
     return true;
 }
