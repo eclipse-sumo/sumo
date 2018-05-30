@@ -61,7 +61,7 @@ public:
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, const std::string &endPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string &endPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingArea();

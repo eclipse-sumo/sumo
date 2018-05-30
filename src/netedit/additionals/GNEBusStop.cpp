@@ -57,7 +57,7 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, ICON_BUSSTOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myLines(lines) {
 }
@@ -294,18 +294,34 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (canParse<double>(value)) {
-                // Check that new start Position is smaller that end position
-                return (parse<double>(value) < parse<double>(myEndPosition));
+            if(value.empty()) {
+                return true;
             } else {
-                return false;
+                if (canParse<double>(value)) {
+                    if(canParse<double>(myEndPosition)) {
+                        // Check that new start Position is smaller that end position
+                        return (parse<double>(value) < parse<double>(myEndPosition));
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
         case SUMO_ATTR_ENDPOS:
-            if (canParse<double>(value)) {
-                // Check that new end Position is larger that end position
-                return (parse<double>(value) > myStartPosition);
+            if(value.empty()) {
+                return true;
             } else {
-                return false;
+                if (canParse<double>(value)) {
+                    if(canParse<double>(myStartPosition)) {
+                        // Check that new start Position is smaller that end position
+                        return (parse<double>(myStartPosition) < parse<double>(value));
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
         case SUMO_ATTR_NAME:
             return true;
@@ -336,7 +352,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosition = parse<double>(value);
+            myStartPosition = value;
             break;
         case SUMO_ATTR_ENDPOS:
             myEndPosition = value;

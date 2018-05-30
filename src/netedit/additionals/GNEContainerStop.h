@@ -58,7 +58,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEContainerStop();
@@ -118,10 +118,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEContainerStop(const GNEContainerStop&);
+    GNEContainerStop(const GNEContainerStop&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEContainerStop& operator=(const GNEContainerStop&);
+    GNEContainerStop& operator=(const GNEContainerStop&) = delete;
 };
 
 

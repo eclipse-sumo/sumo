@@ -618,7 +618,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, toString(endPos), name, lines, friendlyPosition, false);
+            buildBusStop(myViewNet, myUndoAdditionals, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPosition, false);
             myParentElements.back().second = id;
         }
     }
@@ -652,7 +652,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, toString(endPos), name, lines, friendlyPosition, false);
+            buildContainerStop(myViewNet, myUndoAdditionals, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPosition, false);
         }
     }
 }
@@ -719,7 +719,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false);
+            buildChargingStation(myViewNet, myUndoAdditionals, id, lane, toString(startPos), toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false);
         }
     }
 }
@@ -756,7 +756,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
-            buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPosStr, name, friendlyPosition, roadSideCapacity, width, length, angle, false);
+            buildParkingArea(myViewNet, myUndoAdditionals, id, lane, toString(startPos), endPosStr, name, friendlyPosition, roadSideCapacity, width, length, angle, false);
             // set myLastInsertedAdditionalParent due this additional can have childs
             myLastInsertedAdditionalParent = id;
         }
@@ -1014,7 +1014,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build busStop
             if (lane) {
-                return buildBusStop(viewNet, allowUndoRedo, id, lane, startPos, toString(endPos), name, lines, friendlyPos, blockMovement);
+                return buildBusStop(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1031,7 +1031,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build containerStop
             if (lane) {
-                return buildContainerStop(viewNet, allowUndoRedo, id, lane, startPos, toString(endPos), name, lines, friendlyPos, blockMovement);
+                return buildContainerStop(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, lines, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1051,7 +1051,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build chargingStation
             if (lane) {
-                return buildChargingStation(viewNet, allowUndoRedo, id, lane, startPos, toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPos, blockMovement);
+                return buildChargingStation(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1071,7 +1071,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build Parking Area
             if (lane) {
-                return buildParkingArea(viewNet, allowUndoRedo, id, lane, startPos, toString(endPos), name, friendlyPos, roadSideCapacity, width, lenght, angle, blockMovement);
+                return buildParkingArea(viewNet, allowUndoRedo, id, lane, toString(startPos), toString(endPos), name, friendlyPos, roadSideCapacity, width, lenght, angle, blockMovement);
             } else {
                 return false;
             }
@@ -1274,7 +1274,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
 
 
 bool
-GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
+GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_BUS_STOP, id) == nullptr) {
         GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
@@ -1294,7 +1294,7 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
 
 
 bool
-GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
+GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CONTAINER_STOP, id) == nullptr) {
         GNEContainerStop* containerStop = new GNEContainerStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
@@ -1314,7 +1314,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo
 
 
 bool
-GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double startPos, const std::string& endPos, const std::string& name, 
+GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, 
                                            double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_CHARGING_STATION, id) == nullptr) {
         GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
@@ -1335,7 +1335,7 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRe
 
 
 bool 
-GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, GNELane* lane, double startPos, const std::string &endPos, const std::string& name, 
+GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, GNELane* lane, const std::string& startPos, const std::string &endPos, const std::string& name, 
                                        bool friendlyPosition, int roadSideCapacity, double width, const std::string &length, double angle, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_PARKING_AREA, id) == nullptr) {
         GNEParkingArea* ParkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, blockMovement);

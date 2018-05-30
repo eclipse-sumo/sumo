@@ -64,7 +64,7 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, const std::string &endPos, const std::string& name, bool friendlyPosition, bool blockMovement) :
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, viewNet, type, tag, icon, true, blockMovement),
     myLane(lane),
     myStartPosition(startPos),
@@ -79,34 +79,66 @@ GNEStoppingPlace::~GNEStoppingPlace() {}
 
 Position
 GNEStoppingPlace::getPositionInView() const {
-    double stoppingPlaceCenter = (myStartPosition + parse<double>(myEndPosition)) / 2.0;
-    return myLane->getShape().positionAtOffset(stoppingPlaceCenter);
+    if(myStartPosition.empty() && myEndPosition.empty()) {
+        return myLane->getShape().positionAtOffset(myLane->getShape().length()/2);
+    } else if (myStartPosition.empty()) {
+        return myLane->getShape().positionAtOffset(parse<double>(myEndPosition));
+    } else if(myEndPosition.empty()) {
+        return myLane->getShape().positionAtOffset(parse<double>(myStartPosition));
+    } else {
+        return myLane->getShape().positionAtOffset((parse<double>(myStartPosition) + parse<double>(myEndPosition)) / 2.0);
+    }
 }
 
 
 void
 GNEStoppingPlace::moveGeometry(const Position& oldPos, const Position& offset) {
-    double halfStoppingPlaceLength = (parse<double>(myEndPosition) - myStartPosition) / 2.0;
-    // Calculate new position using old position
-    Position newPosition = oldPos;
-    newPosition.add(offset);
-    double newStoppingPlaceCenter = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
-    // change start position of stopping place
-    myStartPosition = newStoppingPlaceCenter - halfStoppingPlaceLength;
-    myEndPosition = toString(newStoppingPlaceCenter + halfStoppingPlaceLength);
-    // Update geometry
-    updateGeometry();
+    // only move if at leats start or end positions is defined
+    if(!myStartPosition.empty() || !myEndPosition.empty()) {
+        // Calculate new position using old position
+        Position newStoppingPlaceCenterPosition = oldPos;
+        newStoppingPlaceCenterPosition.add(offset);
+        double newStoppingPlaceCenter = myLane->getShape().nearest_offset_to_point2D(newStoppingPlaceCenterPosition, false);
+        // move stopping palce depending if start or end position is defined
+        if(!myStartPosition.empty() && !myEndPosition.empty()) {
+            double halfStoppingPlaceLength = (parse<double>(myEndPosition) - parse<double>(myStartPosition)) / 2.0;
+            // change start and end position of stopping place
+            myStartPosition = toString(newStoppingPlaceCenter - halfStoppingPlaceLength);
+            myEndPosition = toString(newStoppingPlaceCenter + halfStoppingPlaceLength);
+        } else if(myStartPosition.empty()) {
+            myEndPosition = toString(newStoppingPlaceCenter);
+        } else {
+            myStartPosition = toString(newStoppingPlaceCenter);
+        }
+        // Update geometry
+        updateGeometry();
+    }
 }
 
 
 void
 GNEStoppingPlace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    double halfStoppingPlaceLength = (parse<double>(myEndPosition) - myStartPosition) / 2.0;
-    double oldStoppingPlaceCenterOffset = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, toString(oldStoppingPlaceCenterOffset - halfStoppingPlaceLength)));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, toString(oldStoppingPlaceCenterOffset + halfStoppingPlaceLength)));
-    undoList->p_end();
+    // only commit geometry moving if at leats start or end positions is defined
+    if(!myStartPosition.empty() || !myEndPosition.empty()) {
+        // calculate old stopping place center
+        double oldStoppingPlaceCenterOffset = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
+        undoList->p_begin("position of " + toString(getTag()));
+        // change myStartPosition or myEndPosition depending if they are defined
+        if(!myStartPosition.empty() && !myEndPosition.empty()) {
+            double halfStoppingPlaceLength = (parse<double>(myEndPosition) - parse<double>(myStartPosition)) / 2.0;
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, toString(oldStoppingPlaceCenterOffset - halfStoppingPlaceLength)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, toString(oldStoppingPlaceCenterOffset + halfStoppingPlaceLength)));
+        } else if(myStartPosition.empty()) {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, toString(oldStoppingPlaceCenterOffset)));
+        } else {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, toString(oldStoppingPlaceCenterOffset)));
+
+        }
+        // only change end position if its set
+        if(!myEndPosition.empty()) {
+        }
+        undoList->p_end();
+    }
 }
 
 
@@ -118,13 +150,21 @@ GNEStoppingPlace::getLane() const {
 
 double 
 GNEStoppingPlace::getStartPosition() const {
-    return myStartPosition;
+    if(!myStartPosition.empty()) {
+        return parse<double>(myEndPosition);
+    } else {
+        return 0;
+    }
 }
 
 
 double 
 GNEStoppingPlace::getEndPosition() const {
-    return parse<double>(myEndPosition);
+    if(!myEndPosition.empty()) {
+        return parse<double>(myEndPosition);
+    } else {
+        return myLane->getLaneShapeLength();
+    }
 }
 
 
@@ -134,10 +174,17 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        // floors are needed to avoid precision problems
-        return (myStartPosition >= 0) &&
-               (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getLength()) &&
-               ((parse<double>(myEndPosition) - myStartPosition) >= POSITION_EPS);
+        if (myStartPosition.empty() && myEndPosition.empty()) {
+            return false;
+        } else if(myStartPosition.empty()) {
+            return canParse<double>(myEndPosition)? (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getLength()) : false;
+        } else if(myEndPosition.empty()) {
+            return canParse<double>(myStartPosition)? (parse<double>(myStartPosition) >= 0) : false;
+        } else {
+            return (parse<double>(myStartPosition) >= 0) &&
+                   (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getLength()) &&
+                   ((parse<double>(myEndPosition) - parse<double>(myStartPosition)) >= POSITION_EPS);
+        }
     }
 }
 
@@ -163,9 +210,21 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Move shape to side
     myShape.move2side(movingToSide * offsetSign);
 
+    // obtain start and end position fixed
+    double startPosFixed;
+    if(myStartPosition.empty()) {
+        startPosFixed = 0;
+    } else {
+        startPosFixed = (parse<double>(myStartPosition) < 0) ? 0 : parse<double>(myStartPosition);
+    }
+    double endPosFixed;
+    if(myEndPosition.empty()) {
+        endPosFixed = myLane->getLaneShapeLength();
+    } else {
+        endPosFixed = (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getLength()) ? myLane->getLaneShapeLength() : parse<double>(myEndPosition);
+    }
+
     // Cut shape using as delimitators fixed start position and fixed end position
-    double startPosFixed = (myStartPosition < 0) ? 0 : myStartPosition;
-    double endPosFixed = (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getLength()) ? myLane->getParentEdge().getNBEdge()->getLength() : parse<double>(myEndPosition);
     myShape = myShape.getSubpart(startPosFixed, endPosFixed);
 
     // Get number of parts of the shape

@@ -51,7 +51,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, const std::string& endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEChargingStation();
