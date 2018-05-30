@@ -1,4 +1,4 @@
-Eclipse SUMO Version d63c968
+Eclipse SUMO Version 2395938
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -344,6 +344,27 @@ SSM Device Options:
   --device.ssm.geo                     Whether to use coordinates of the
                                          original reference system in output
                                          (default is false).
+
+ToC Device Options:
+  --device.toc.probability FLOAT       The probability for a vehicle to have a
+                                         'toc' device
+  --device.toc.explicit STR            Assign a 'toc' device to named vehicles
+  --device.toc.deterministic           The 'toc' devices are set deterministic
+                                         using a fraction of 1000
+  --device.toc.manualType STR          Vehicle type for manual driving regime.
+  --device.toc.automatedType STR       Vehicle type for automated driving
+                                         regime.
+  --device.toc.responseTime FLOAT      Average response time needed by a driver
+                                         to take back control.
+  --device.toc.recoveryRate FLOAT      Recovery rate for the driver's awareness
+                                         after a ToC.
+  --device.toc.initialAwareness FLOAT  Average awareness a driver has initially
+                                         after a ToC.
+  --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
+                                         'minimum risk maneuver'.
+  --device.toc.useColorScheme          Whether a coloring scheme shall by
+                                         applied to indicate the different ToC
+                                         stages.
 
 Bluelight Device Options:
   --device.bluelight.probability FLOAT  The probability for a vehicle to have a
