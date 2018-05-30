@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep  9 15:30:42 2016 by SUMO Version dev-SVN-r21424
+<!-- generated on Wed May 30 09:19:29 2018 by Eclipse SUMO Version baab8c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <battery-output value="battery.xml"/>
         <battery-output.precision value="4"/>
     </output>
@@ -599,7 +600,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12385.1278" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="84.0740" y="995.0500" lane="L12_1" posOnLane="82.5740" timeStopped="0"/>
     </timestep>
     <timestep time="187.00">
-        <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12377.1372" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="97.9640" y="991.7500" lane="L12_0" posOnLane="96.4640" timeStopped="0"/>
+        <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12377.1372" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="97.9640" y="995.0500" lane="L12_1" posOnLane="96.4640" timeStopped="0"/>
     </timestep>
     <timestep time="188.00">
         <vehicle id="veh0" energyConsumed="7.9906" actualBatteryCapacity="12369.1465" maximumBatteryCapacity="35000.0000" chargingStationId="NULL" energyCharged="0.0000" energyChargedInTransit="0.0000" energyChargedStopped="0.0000" speed="13.8900" acceleration="0.0000" x="111.8540" y="991.7500" lane="L12_0" posOnLane="110.3540" timeStopped="0"/>
