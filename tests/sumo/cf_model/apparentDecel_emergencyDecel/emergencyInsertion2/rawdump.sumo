@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue May 29 07:27:12 2018 by Eclipse SUMO Version UNKNOWN
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <processing>
+        <emergency-insertion value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="5.10" speed="10.00"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="13.41" speed="8.31"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="18.03" speed="4.62"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="19.96" speed="1.93"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="19.99" speed="0.03"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="19.99" speed="0.00"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="22.53" speed="2.54"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="26.71" speed="4.18"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="33.16" speed="6.46"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="41.51" speed="8.35"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="51.49" speed="9.98"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="64.06" speed="12.57"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="77.07" speed="13.02"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="WC">
+            <lane id="WC_0">
+                <vehicle id="brakingVeh" pos="90.36" speed="13.28"/>
+            </lane>
+            <lane id="WC_1"/>
+        </edge>
+    </timestep>
+    <timestep time="14.00"/>
+</netstate>
