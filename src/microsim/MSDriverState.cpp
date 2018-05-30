@@ -165,7 +165,6 @@ MSSimpleDriverState::updateStepDuration() {
 void
 MSSimpleDriverState::updateError() {
     if (myAwareness == 1.0 || myAwareness == 0.0) {
-        // myAwareness == 0.0 corresponds to automated driving
         myError.setState(0.);
     } else {
         myError.setTimeScale(myErrorTimeScaleCoefficient*myAwareness);
@@ -184,6 +183,9 @@ MSSimpleDriverState::setAwareness(const double value) {
     }
 #endif
     myAwareness = MAX2(value,myMinAwareness);
+    if(myAwareness == 1.) {
+        myError.setState(0.);
+    }
 }
 
 
@@ -197,6 +199,7 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
         }
     }
 #endif
+
     const double perceivedGap = trueGap + myHeadwayErrorCoefficient*myError.getState()*trueGap;
     const auto assumedGap = myAssumedGap.find(objID);
     if (assumedGap == myAssumedGap.end()
