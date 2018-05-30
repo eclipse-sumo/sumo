@@ -61,6 +61,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Example::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
+    MSDevice_ToC::insertOptions(oc);
     MSDevice_Bluelight::insertOptions(oc);
     MSDevice_FCD::insertOptions(oc);
 }
