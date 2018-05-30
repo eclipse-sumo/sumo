@@ -867,8 +867,10 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             //        std::cout << SIMTIME << " maximumSafeFollowSpeed() results in emergency deceleration!" << std::endl;
 #ifdef DEBUG_EMERGENCYDECEL
             if DEBUG_COND {
-                std::cout << SIMTIME << " maximumSafeFollowSpeed() results in emergency deceleration"
-                        << "initial vsafe=" << x << " egoSpeed=" << egoSpeed << "(decel=" << safeDecel << ")" << std::endl;
+                std::cout << SIMTIME << "initial vsafe=" << x
+                        << " egoSpeed=" << egoSpeed << "(decel=" << safeDecel << ")"
+                        << " predSpeed=" << predSpeed << "(predDecel=" << predMaxDecel << ")"
+                        << std::endl;
             }
 #endif
 
