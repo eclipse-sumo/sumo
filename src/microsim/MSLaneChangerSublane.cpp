@@ -41,6 +41,7 @@
 // ===========================================================================
 #define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 //#define DEBUG_COND (vehicle->getID() == "disabled")
+//#define DEBUG_DECISION
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_MANEUVER
@@ -107,10 +108,12 @@ MSLaneChangerSublane::change() {
     // variant of change() for the sublane case
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
+#ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
-    std::cout << "\nCHANGE" << std::endl;
-}
-assert(vehicle->getLane() == (*myCandi).lane);
+        std::cout << "\nCHANGE" << std::endl;
+    }
+#endif
+    assert(vehicle->getLane() == (*myCandi).lane);
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
     if (/*!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() ||*/ vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
@@ -178,9 +181,11 @@ assert(vehicle->getLane() == (*myCandi).lane);
 
     StateAndDist decision = vehicle->getLaneChangeModel().decideDirection(current,
                             vehicle->getLaneChangeModel().decideDirection(right, left));
+#ifdef DEBUG_DECISION
     if (vehicle->getLaneChangeModel().debugVehicle()) {
         std::cout << "\n" << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " dir=" << decision.dir << " latDist=" << decision.latDist << " maneuverDist=" << decision.maneuverDist << "\n";
     }
+#endif
     vehicle->getLaneChangeModel().setOwnState(decision.state);
     vehicle->getLaneChangeModel().setManeuverDist(decision.maneuverDist);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {

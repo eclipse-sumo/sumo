@@ -214,11 +214,11 @@ MSLCM_SL2015::wantsChangeSublane(
     // take into account lateral acceleration
     double latDistTmp = latDist;
     latDist = SPEED2DIST(computeSpeedLat(latDist, maneuverDist));
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (gDebugFlag2 && latDist != latDistTmp) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " maneuverDist=" << maneuverDist << " latDist=" << latDistTmp << " mySpeedPrev=" << mySpeedLat << " speedLat=" << DIST2SPEED(latDist) << " latDist2=" << latDist << "\n";
     }
 
-#if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (gDebugFlag2) {
         if (result & LCA_WANTS_LANECHANGE) {
             std::cout << SIMTIME
@@ -1428,9 +1428,11 @@ MSLCM_SL2015::_wantsChangeSublane(
                     latDist = currentLatDist;
                 }
             }
+#ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) {
                 std::cout << "    i=" << i << " rightmostOnEdge=" << rightmostOnEdge << " vMin=" << vMin << " relGain=" << relativeGain << " sublaneCompact=" << sublaneCompact << " curLatDist=" << currentLatDist << "\n";
             }
+#endif
             if (currentLatDist < -NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
                 maxGainRight = MAX2(maxGainRight, relativeGain);
             } else if (currentLatDist > NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
