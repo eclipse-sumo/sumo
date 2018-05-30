@@ -13,6 +13,7 @@ SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2018 DLR (http://www.dlr.de/) and contributors
 
 """
+from __future__ import print_function
 import os, sys, subprocess, glob
 from optparse import OptionParser
 
@@ -40,46 +41,49 @@ def checkDir(dir):
         return outputdir
 
 def generateRouteFile(routefile,i,j,k,l,rList):
-    if len(rList[1].split(' ')) > 1:
-        start = rList[1].split(' ')[0]
-        end = rList[1].split(' ')[-1]
+    routeID = rList[0]
+    edges = rList[1]
+    if len(edges.split(' ')) > 1:
+        start = edges.split(' ')[0]
+        end = edges.split(' ')[-1]
     else:
-        start = rList[1]
-        end = rList[1]
-    f = open(routefile, 'w')
-    f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    f.write('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n')
-    f.write('    <!-- vType definitions -->\n')
-    f.write('    <!-- vClass custom1 disallows vehicles to enter bus lane at construction site -->\n')
-    f.write('    <!-- default vClass is passenger -->\n')
-    f.write('    <vType id="automated" sigma="0." speedFactor="1" vClass="custom1"/>\n')
-    f.write('    <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" emergencyDecel="9" guiShape="passenger/van" carFollowModel="TCI"/>\n')
-    f.write('    <route id="%s" edges="%s"/>\n' %(rList[0], rList[1]))
-    f.write('    <!-- one  hour automated vehicle flow -->\n')
-    f.write('    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" probability="0.01" color="red">\n' %(rList[0]))
-    f.write('        <param key="has.toc.device" value="true"/>\n')
-    f.write('        <param key="device.toc.manualType" value="manual"/>\n')
-    f.write('        <param key="device.toc.automatedType" value="automated"/>\n')
-    f.write('        <param key="device.toc.initialAwareness" value="%s"/>\n'%(i))
-    f.write('        <param key="device.toc.responseTime" value="%s"/>\n'%(j))
-    f.write('        <param key="device.toc.recoveryRate" value="%s"/>\n'%(k))
-    f.write('        <param key="device.toc.mrmDecel" value="%s"/>\n'%(l))
-    f.write('    </flow>\n')
-    f.write('    <!-- one  hour manually driven vehicle flow -->\n')
-    f.write('    <flow id="LVflow" type="manual" from="%s" to="%s" begin="0" end="3600" probability="0.01"/>\n' %(start, end))
-    f.write('</routes>\n')
-    f.close()
+        start = edges
+        end = edges
+    fd = open(routefile, 'w')
+    print("""<?xml version="1.0" encoding="UTF-8"?>
+    <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+        <!-- vType definitions -->
+        <!-- vClass custom1 disallows vehicles to enter bus lane at construction site -->
+        <!-- default vClass is passenger -->
+        <vType id="automated" sigma="0." speedFactor="1" vClass="custom1"/>
+        <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" emergencyDecel="9" guiShape="passenger/van" carFollowModel="TCI"/>
+        <route id="%s" edges="%s"/>
+        <!-- one  hour automated vehicle flow -->
+        <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" probability="0.01" color="red">
+            <param key="has.toc.device" value="true"/>
+            <param key="device.toc.manualType" value="manual"/>
+            <param key="device.toc.automatedType" value="automated"/>
+            <param key="device.toc.initialAwareness" value="%s"/>
+            <param key="device.toc.responseTime" value="%s"/>
+            <param key="device.toc.recoveryRate" value="%s"/>
+            <param key="device.toc.mrmDecel" value="%s"/>
+        </flow>
+        <!-- one  hour manually driven vehicle flow -->
+        <flow id="LVflow" type="manual" from="%s" to="%s" begin="0" end="3600" probability="0.01"/>
+    </routes>""" %(routeID, edges, routeID, i, j, k, l, start, end), file=fd)
+    fd.close()
     
 def generateAddFile(addfile, frequency, outputdir):
     freq = frequency
-    f = open(addfile, 'w')
+    fd = open(addfile, 'w')
     edgeFile = os.path.join(outputdir, "edges_%s.xml" %freq)
     laneFile = os.path.join(outputdir, "lanes_%s.xml" %freq)
-    f.write('<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
-    f.write('    <edgeData id="edge_%s" freq="%s" file="%s" excludeEmpty="true"/>\n' %(freq,freq,edgeFile))
-    f.write('    <laneData id="lane_%s" freq="%s" file="%s" excludeEmpty="true"/>\n' %(freq,freq,laneFile))
-    f.write('</additional>\n')
-    f.close()
+    print("""
+    <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+        <edgeData id="edge_%s" freq="%s" file="%s" excludeEmpty="true"/>
+        <laneData id="lane_%s" freq="%s" file="%s" excludeEmpty="true"/>
+    </additional>""" %(freq,freq,edgeFile,freq,freq,laneFile), file=fd)
+    fd.close()
 
 if __name__ == "__main__":
 
@@ -118,7 +122,7 @@ if __name__ == "__main__":
                         if routeMap[code]:
                             generateRouteFile(routefile,i,j,k,l,routeMap[code])
                         else:
-                            print 'Error: no route information exists.'
+                            print("Error: no route information exists.")
                         
                         for t in timeUntilMRM:
                             if options.verbose:

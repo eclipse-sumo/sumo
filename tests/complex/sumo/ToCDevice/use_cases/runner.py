@@ -43,12 +43,12 @@ DT = 1.
 def run():
     """execute the TraCI control loop"""
     step = 0
-    AVsOnRoad = set(traci.vehicle.getVehicleIDList())
+    AVsOnRoad = set(traci.vehicle.getIDList())
     while step < 500/DT:
         traci.simulationStep()
         # Keep book in a set AVsOnRoad
-        AVsOnRoad = AVsOnRoad.difference([vehID in traci.simulation.getArrivedIDList() if vehID.startswith(ToC_vehicles_identifier)])
-        AVsOnRoad.update([vehID in traci.simulation.getDepartedIDList() if vehID.startswith(ToC_vehicles_identifier)])
+        AVsOnRoad = AVsOnRoad.difference([vehID for vehID in traci.simulation.getArrivedIDList() if vehID.startswith(ToC_vehicles_identifier)])
+        AVsOnRoad.update([vehID for vehID in traci.simulation.getDepartedIDList() if vehID.startswith(ToC_vehicles_identifier)])
         if step == int(200/DT):
             t = traci.simulation.getCurrentTime()/1000.
             for vehID in AVsOnRoad:
