@@ -78,11 +78,12 @@ add_executable(od2trips version.h od2trips_main.cpp)
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2tripsD)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
 
+install(TARGETS sumo sumo-gui netconvert od2trips RUNTIME DESTINATION bin)
+
 configure_file(config.h.cmake config.h)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/src/version.h
                    COMMAND ${CMAKE_SOURCE_DIR}/tools/build/version.py ${CMAKE_BINARY_DIR}/src
-#                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../.svn/wc.db
                   )
 add_custom_target(generate-version-h
                   DEPENDS ${CMAKE_BINARY_DIR}/src/version.h

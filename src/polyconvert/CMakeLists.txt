@@ -28,3 +28,5 @@ target_link_libraries(polyconvert ${commonlibs} ${GDAL_LIBRARY})
 add_custom_command(OUTPUT pc_typemap.h
                    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py
                    )
+
+install(TARGETS polyconvert RUNTIME DESTINATION bin)
