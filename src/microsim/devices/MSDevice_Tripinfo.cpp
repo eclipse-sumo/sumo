@@ -333,11 +333,11 @@ MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVeh
         myTotalRideWaitingTime += waitingTime;
         myTotalRideRouteLength += rideLength;
         myTotalRideDuration += rideDuration;
-        if (!line.empty()) {
+        if (vClass == SVC_BICYCLE) {
+            myRideBikeCount++;
+        } else if (!line.empty()) {
             if (isRailway(vClass)) {
                 myRideRailCount++;
-            } else if (vClass == SVC_BICYCLE) {
-                myRideBikeCount++;
             } else {
                 // some kind of road vehicle
                 myRideBusCount++;
