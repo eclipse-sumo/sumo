@@ -28,6 +28,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/WrappingCommand.h>
+#include <utils/common/RGBColor.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
@@ -82,6 +83,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.initialAwareness", "ToC Device", "Average awareness a driver has initially after a ToC.");
     oc.doRegister("device.toc.mrmDecel", new Option_Float(DEFAULT_MRM_DECEL));
     oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
+    oc.doRegister("device.toc.useColorScheme", new Option_Bool(true));
+    oc.addDescription("device.toc.useColorScheme", "ToC Device", "Whether a coloring scheme shall by applied to indicate the different ToC stages.");
 }
 
 
@@ -95,9 +98,11 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
         double recoveryRate = getRecoveryRate(v, oc);
         double initialAwareness = getInitialAwareness(v, oc);
         double mrmDecel = getMRMDecel(v, oc);
+        bool useColoring = useColorScheme(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, "toc_" + v.getID(),
-                manualType, automatedType, responseTime, recoveryRate, initialAwareness, mrmDecel);
+                manualType, automatedType, responseTime, recoveryRate,
+                initialAwareness, mrmDecel, useColoring);
         into.push_back(device);
     }
 }
@@ -200,6 +205,12 @@ MSDevice_ToC::getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "mrmDecel", DEFAULT_MRM_DECEL, false);
 }
 
+bool
+MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
+    std::string useColorScheme = getStringParam(v, oc, "useColorScheme", "false", false);
+    return TplConvert::_2bool(useColorScheme.c_str());
+}
+
 
 
 // ---------------------------------------------------------------------------
@@ -207,7 +218,8 @@ MSDevice_ToC::getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc) {
 // ---------------------------------------------------------------------------
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
         std::string manualType, std::string automatedType,
-        SUMOTime responseTime, double recoveryRate, double initialAwareness, double mrmDecel) :
+        SUMOTime responseTime, double recoveryRate, double initialAwareness,
+        double mrmDecel, bool useColoring) :
     MSDevice(holder, id),
     myManualType(manualType),
     myAutomatedType(automatedType),
@@ -220,7 +232,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     myTriggerToCCommand(nullptr),
     myRecoverAwarenessCommand(nullptr),
     myExecuteMRMCommand(nullptr),
-    myPrepareToCCommand(nullptr)
+    myPrepareToCCommand(nullptr),
+    myUseColorScheme(useColoring)
     {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
@@ -236,6 +249,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
                 + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType + "') specified for its ToC-device.");
     }
 
+    initColorScheme();
+
 #ifdef DEBUG_TOC
     std::cout << "initialized device '" << id << "' with "
             << "myManualType=" << myManualType << ", "
@@ -249,6 +264,19 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
 #endif
 
     assert(myInitialAwareness <= 1.0 && myInitialAwareness >= 0.0);
+}
+
+
+
+void
+MSDevice_ToC::initColorScheme() {
+    //RGBColor(red, green, blue)
+    myColorScheme[MANUAL] = MSNet::getInstance()->getVehicleControl().getVType(myManualType)->getColor();
+    myColorScheme[AUTOMATED] = MSNet::getInstance()->getVehicleControl().getVType(myAutomatedType)->getColor();
+    myColorScheme[PREPARING_TOC] = RGBColor(200, 200, 250); // light blue
+    myColorScheme[MRM] = RGBColor(250, 50, 50); // red
+    myColorScheme[RECOVERING] = RGBColor(250, 210, 150); // light yellow
+    myColorScheme[UNDEFINED] = RGBColor(150, 150, 150); // gray
 }
 
 
@@ -291,10 +319,17 @@ MSDevice_ToC::setAwareness(double value) {
 void
 MSDevice_ToC::setState(ToCState state) {
     myState = state;
+    if (myUseColorScheme) {
+        setVehicleColor();
+    }
 }
 
-
-
+void
+MSDevice_ToC::setVehicleColor() {
+    const SUMOVehicleParameter& p = myHolder.getParameter();
+    p.color = myColorScheme[myState];
+    p.parametersSet |= VEHPARS_COLOR_SET;
+}
 
 void
 MSDevice_ToC::requestMRM() {
@@ -589,11 +624,13 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
 #endif
     if (key == "manualType") {
         myManualType = value;
+        myColorScheme[MANUAL] = MSNet::getInstance()->getVehicleControl().getVType(myManualType)->getColor();
         if (myState == MANUAL) {
             switchHolderType(value);
         }
     } else if (key == "automatedType") {
         myAutomatedType = value;
+        myColorScheme[AUTOMATED] = MSNet::getInstance()->getVehicleControl().getVType(myAutomatedType)->getColor();
         if (myState == AUTOMATED || myState == PREPARING_TOC || myState == MRM) {
             switchHolderType(value);
         }
