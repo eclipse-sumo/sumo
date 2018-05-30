@@ -378,7 +378,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         vtype->parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_HASDRIVERSTATE)) {
-        vtype->hasDriverState = attrs.get<bool>(SUMO_ATTR_MINGAP_LAT, vtype->id.c_str(), ok);
+        vtype->hasDriverState = attrs.get<bool>(SUMO_ATTR_HASDRIVERSTATE, vtype->id.c_str(), ok);
         vtype->parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
