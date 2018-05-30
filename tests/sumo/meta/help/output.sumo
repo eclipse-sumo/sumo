@@ -1,4 +1,4 @@
-Eclipse SUMO Version UNKNOWN
+Eclipse SUMO Version d63c968
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -129,8 +129,10 @@ Processing Options:
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
                                          after they have been standing for
                                          SECONDS (-1 means never ignore)
-  --ignore-route-errors                Do not check whether routes are
-                                         connected
+  --ignore-route-errors                (1) Do not check whether routes are
+                                         connected. (2) Allow inserting a
+                                         vehicle in a situation which requires
+                                         emergency braking.
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
                                          [none,warn,teleport,remove]
@@ -165,9 +167,6 @@ Processing Options:
                                          be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
                                          separately for insertion on an edge
-  --emergency-insertion                Whether it is allowed to insert a
-                                         vehicle in a situation which requires
-                                         emergency braking.
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                          its depart value drawn uniformly from
                                          [0, TIME]
