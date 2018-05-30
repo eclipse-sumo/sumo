@@ -12,6 +12,7 @@
 				<xsd:element name="vType" type="vTypeType" minOccurs="0"/>
 				<xsd:element name="vehicle" type="vehicleStateType" minOccurs="0"/>
 				<xsd:element name="route" type="routeStateType" minOccurs="0"/>
+				<xsd:element name="flowState" type="flowStateType" minOccurs="0"/>
 				<xsd:element name="lane" type="laneStateType" minOccurs="0"/>
 				<xsd:element name="segment" type="segmentStateType" minOccurs="0"/>
 				<xsd:element name="vehicleTransfer" type="vehicleTransferType" minOccurs="0"/>

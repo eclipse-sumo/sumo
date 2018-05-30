@@ -107,7 +107,7 @@ MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransp
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", time2string(myArrived - myDeparted));
+    os.writeAttr("duration", myArrived > 0 ? time2string(myArrived - myDeparted) : "-1");
     os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }
