@@ -11,7 +11,7 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-06-23
-# @version $Id: xml.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import
