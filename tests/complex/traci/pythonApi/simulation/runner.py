@@ -121,6 +121,10 @@ try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))
 except traci.TraCIException:
     pass
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("footpath", "footpath2", "bicycle", vtype="DEFAULT_BIKETYPE"))
+except traci.TraCIException:
+    pass
 print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o"))
 
 for step in range(10):
