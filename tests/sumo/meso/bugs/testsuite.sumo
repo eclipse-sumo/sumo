@@ -1,9 +1,12 @@
 invalid_route_multiqueue
 no_teleporting_backwards
+ticket747
 
 # teleporting across a calibrator which no longer exists 
 # when the teleport ends should not crash the simulation
 ticket1017
+ticket1502
+ticket1502b
 
 # Copy of ticket2246
 ticket2244

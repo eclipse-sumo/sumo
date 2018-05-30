@@ -71,7 +71,6 @@ ticket676_no_internal
 # test junction deadlock
 ticket699
 ticket720
-ticket747
 
 # ticket672 (automatically commented due to no test directory being found)
 
