@@ -234,8 +234,12 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0) {
                 throw TraCIException("Invalid vehicle type '" + type->getID() + "', it is not allowed on the start edge.");
             }
-            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-            vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
+            try {
+                const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
+            } catch (ProcessError& e) {
+                throw TraCIException("Invalid departure edge for vehicle type '" + vehType + "' (" + e.what() + ")");
+            }
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
         if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
