@@ -283,9 +283,9 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return false;
         case SUMO_ATTR_EDGES:
-            if (checkGNEEdgesValid(myNet, value, false)) {
+            if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
                 // parse edges and save their IDs in a set
-                std::vector<GNEEdge*> parsedEdges = parseGNEEdges(myNet, value);
+                std::vector<GNEEdge*> parsedEdges = parse<std::vector<GNEEdge*> >(myNet, value, false);
                 EdgeVector nbEdges;
                 for (auto i : parsedEdges) {
                     nbEdges.push_back(i->getNBEdge());
@@ -357,7 +357,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + toString(getTag()) + " isn't allowed");
         case SUMO_ATTR_EDGES: {
             // obtain GNEEdges
-            std::vector<GNEEdge*> edges = parseGNEEdges(myNet, value);
+            std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value, false);
             // remove NBEdges of crossing
             myCrossing->edges.clear();
             // set NBEdge of every GNEEdge into Crossing Edges

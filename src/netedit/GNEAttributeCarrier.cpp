@@ -482,6 +482,70 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
+template<> std::vector<GNEEdge*>
+GNEAttributeCarrier::parse(GNENet* net, const std::string& value, bool report) {
+    // Declare string vector
+    std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    std::vector<GNEEdge*> parsedEdges;
+    // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
+    for (auto i : edgeIds) {
+        GNEEdge* retrievedEdge = net->retrieveEdge(i, false);
+        if(retrievedEdge) {
+            parsedEdges.push_back(net->retrieveEdge(i));
+        } else {
+            if (report) {
+                WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
+            }
+            throw EmptyData();
+        }
+    }
+    return parsedEdges;
+}
+
+
+template<> std::string
+GNEAttributeCarrier::parseIDs(const std::vector<GNEEdge*> &ACs) {
+    // obtain ID's of edges and return their join
+    std::vector<std::string> edgeIDs;
+    for (auto i : ACs) {
+        edgeIDs.push_back(i->getID());
+    }
+    return joinToString(edgeIDs, " ");
+}
+
+
+template<> std::string
+GNEAttributeCarrier::parseIDs(const std::vector<GNELane*> &ACs) {
+    // obtain ID's of lanes and return their join
+    std::vector<std::string> laneIDs;
+    for (auto i : ACs) {
+        laneIDs.push_back(i->getID());
+    }
+    return joinToString(laneIDs, " ");
+}
+
+
+template<> std::vector<GNELane*>
+GNEAttributeCarrier::parse(GNENet* net, const std::string& value, bool report) {
+    // Declare string vector
+    std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    std::vector<GNELane*> parsedLanes;
+    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
+    for (auto i : laneIds) {
+        GNELane* retrievedLane = net->retrieveLane(i, false);
+        if(retrievedLane) {
+            parsedLanes.push_back(net->retrieveLane(i));
+        } else {
+            if (report) {
+                WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist.");
+            }
+            throw EmptyData();
+        }
+    }
+    return parsedLanes;
+}
+
+
 bool 
 GNEAttributeCarrier::parseStringToANDBool(const std::string& string) {
     // obtain boolean vector (throw exception if string is empty)
@@ -842,90 +906,6 @@ GNEAttributeCarrier::getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr) {
 }
 
 
-bool
-GNEAttributeCarrier::checkGNEEdgesValid(GNENet* net, const std::string& value, bool report) {
-    // Declare string vector
-    std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    // Iterate over edges IDs and check if edge exist
-    for (auto i : edgeIds) {
-        if (net->retrieveEdge(i, false) == nullptr) {
-            if (report) {
-                WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
-            }
-            return false;
-        }
-    }
-    // all edges exist, then return true
-    return true;
-}
-
-
-bool
-GNEAttributeCarrier::checkGNELanesValid(GNENet* net, const std::string& value, bool report) {
-    // Declare string vector
-    std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    // Iterate over lanes IDs and check if lane exist
-    for (auto i : laneIds) {
-        if (net->retrieveLane(i, false) == nullptr) {
-            if (report) {
-                WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist.");
-            }
-            return false;
-        }
-    }
-    // all lanes exist, then return true
-    return true;
-}
-
-
-std::vector<GNEEdge*>
-GNEAttributeCarrier::parseGNEEdges(GNENet* net, const std::string& value) {
-    // Declare string vector
-    std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    std::vector<GNEEdge*> parsedEdges;
-    // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
-    for (auto i : edgeIds) {
-        parsedEdges.push_back(net->retrieveEdge(i));
-    }
-    return parsedEdges;
-}
-
-
-std::vector<GNELane*>
-GNEAttributeCarrier::parseGNELanes(GNENet* net, const std::string& value) {
-    // Declare string vector
-    std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    std::vector<GNELane*> parsedLanes;
-    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
-    for (auto i : laneIds) {
-        parsedLanes.push_back(net->retrieveLane(i));
-    }
-    return parsedLanes;
-}
-
-
-std::string
-GNEAttributeCarrier::parseGNEEdges(const std::vector<GNEEdge*>& edges) {
-    // obtain ID's of edges and return their join
-    std::vector<std::string> edgeIDs;
-    for (auto i : edges) {
-        edgeIDs.push_back(i->getID());
-    }
-    return joinToString(edgeIDs, " ");
-}
-
-
-std::string
-GNEAttributeCarrier::parseGNELanes(const std::vector<GNELane*>& lanes) {
-    // obtain ID's of lanes and return their join
-    std::vector<std::string> laneIDs;
-    for (auto i : lanes) {
-        laneIDs.push_back(i->getID());
-    }
-    return joinToString(laneIDs, " ");
-}
-
-
 int 
 GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
     if(settings.drawForSelecting) {
@@ -1261,7 +1241,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 2,
             "The position on the lane (the lower position on the lane) in meters", 
-            "");
+            "");    // !!
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 

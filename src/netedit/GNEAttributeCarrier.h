@@ -361,7 +361,7 @@ public:
     template<typename T>
     static T getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
 
-    /// @brief true if a number of type T can be parsed from string
+    /// @brief true if a value of type T can be parsed from string
     template<typename T>
     static bool canParse(const std::string& string) {
         try {
@@ -376,9 +376,28 @@ public:
         return true;
     }
 
-    /// @brief parses a number of type T from string
+    /// @brief parses a value of type T from string (used for basic types: int, double, bool, etc.)
     template<typename T>
     static T parse(const std::string& string);
+
+    /// @brief true if a value of type T can be parsed from string
+    template<typename T>
+    static bool canParse(GNENet* net, const std::string& value, bool report) {
+        try {
+            parse<T>(net, value, report);
+        } catch (EmptyData&) {
+            return false;
+        }
+        return true;
+    }
+
+    /// @brief parses a complex value of type T from string (use for list of edges, list of lanes, etc.)
+    template<typename T>
+    static T parse(GNENet* net, const std::string& value, bool report);
+
+    /// @brief parses a list of specific Attribute Carriers into a string of IDs
+    template<typename T>
+    static std::string parseIDs(const std::vector<T> &ACs);
 
     /// @brief true if a positive number of type T can be parsed from string
     template<typename T>
@@ -557,43 +576,6 @@ public:
         // return parsed attribute
         return parse<T>(parsedAttribute);
     }
-
-    /// @name function used to parse GNEEdges and GNELanes
-    /// @{
-
-    /** @brief check if a list of edge IDs is valid
-     * @brief value string with a list of edges
-     * @brief report enable or disable show warning if edges aren't valid
-     */
-    static bool checkGNEEdgesValid(GNENet* net, const std::string& value, bool report);
-
-    /**@brief check if a list of Lane IDs is valid
-     * @brief value string with a list of lanes
-     * @brief report enable or disable show warning if lanes aren't valid
-     */
-    static bool checkGNELanesValid(GNENet* net, const std::string& value, bool report);
-
-    /**@brief parse string into vector of GNEEdges
-    * @throw exception one of GNEEdges doesn't exist
-    */
-    static std::vector<GNEEdge*> parseGNEEdges(GNENet* net, const std::string& value);
-
-    /**@brief parse string into vector of GNELanes
-    * @throw exception one of GNELanes doesn't exist
-    */
-    static std::vector<GNELane*> parseGNELanes(GNENet* net, const std::string& value);
-
-    /**@brief parse vector of GNEEdges into string
-    * @throw exception one of GNEEdges doesn't exist
-    */
-    static std::string parseGNEEdges(const std::vector<GNEEdge*>& edges);
-
-    /**@brief parse vector of GNELanes into string
-    * @throw exception one of GNELanes doesn't exist
-    */
-    static std::string parseGNELanes(const std::vector<GNELane*>& lanes);
-
-    /// @}
 
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     static int getCircleResolution(const GUIVisualizationSettings& settings);

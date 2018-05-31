@@ -312,7 +312,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGES:
-            return parseGNEEdges(myEdgeChilds);
+            return parseIDs(myEdgeChilds);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -365,7 +365,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else {
-                return checkGNEEdgesValid(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
@@ -399,7 +399,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
                 i->removeAdditionalParent(this);
             }
             // set new edges
-            myEdgeChilds = parseGNEEdges(myViewNet->getNet(), value);
+            myEdgeChilds = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
             // add references to this rerouter in all newedge childs
             for (auto i : myEdgeChilds) {
                 i->addAdditionalParent(this);

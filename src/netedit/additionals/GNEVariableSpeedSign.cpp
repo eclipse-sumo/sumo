@@ -309,7 +309,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANES:
-            return parseGNELanes(myLaneChilds);
+            return parseIDs(myLaneChilds);
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_FILE:
@@ -355,7 +355,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else {
-                return checkGNELanesValid(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
             }
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
@@ -376,7 +376,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANES:
-            myLaneChilds = parseGNELanes(myViewNet->getNet(), value);
+            myLaneChilds = parse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
