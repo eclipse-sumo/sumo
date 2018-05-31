@@ -55,7 +55,7 @@
 // ===========================================================================
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNENet* net, const std::string& id) :
-    GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_VTYPE),
     myNet(net),
     myVehicleTypeID(id == "" ? net->generateCalibratorVehicleTypeID() : id),
     myAccel(getDefaultValue<double>(SUMO_TAG_VTYPE, SUMO_ATTR_ACCEL)),
@@ -92,7 +92,7 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNENet* net, std::string vehi
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
-    GNEAttributeCarrier(SUMO_TAG_VTYPE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_VTYPE),
     myNet(net),
     myVehicleTypeID(vehicleTypeID),
     myAccel(accel),

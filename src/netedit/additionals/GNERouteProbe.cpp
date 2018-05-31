@@ -57,7 +57,7 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string &frequency, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, ICON_ROUTEPROBE, false, false),
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, false, false),
     myEdge(edge),
     myFrequency(frequency),
     myFilename(filename),

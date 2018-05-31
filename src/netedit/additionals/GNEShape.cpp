@@ -40,8 +40,8 @@
 // method definitions
 // ===========================================================================
 
-GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlocked, bool shapeBlocked) :
-    GNEAttributeCarrier(tag, icon),
+GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked, bool shapeBlocked) :
+    GNEAttributeCarrier(tag),
     myNet(net),
     myBlockMovement(movementBlocked),
     myBlockShape(shapeBlocked),

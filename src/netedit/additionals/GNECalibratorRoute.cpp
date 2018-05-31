@@ -58,7 +58,7 @@
 // ===========================================================================
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_ROUTE),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
     myRouteID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID()),
     myColor(RGBColor::YELLOW) {
@@ -73,7 +73,7 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
 
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_ROUTE),
     myCalibratorParent(calibratorParent),
     myRouteID(routeID),
     myEdges(edges),

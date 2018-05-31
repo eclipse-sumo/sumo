@@ -54,7 +54,7 @@
 // method definitions
 // ===========================================================================
 GNECrossing::GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing) :
-    GNENetElement(parentJunction->getNet(), crossing->id, GLO_CROSSING, SUMO_TAG_CROSSING, ICON_CROSSING),
+    GNENetElement(parentJunction->getNet(), crossing->id, GLO_CROSSING, SUMO_TAG_CROSSING),
     myParentJunction(parentJunction),
     myCrossing(crossing),
     myForceDrawCustomShape(crossing->customShape.size() > 0) {

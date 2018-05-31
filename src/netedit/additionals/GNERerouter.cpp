@@ -59,7 +59,7 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& filename, double probability, bool off, double timeThreshold, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, ICON_REROUTER, true, blockMovement, edges),
+    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, true, blockMovement, edges),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),

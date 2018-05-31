@@ -42,7 +42,7 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_CLOSING_REROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_CLOSING_REROUTE),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myClosedEdge(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)),
     myAllowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW))),
@@ -51,7 +51,7 @@ GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterInterval
 
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
-    GNEAttributeCarrier(SUMO_TAG_CLOSING_REROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_CLOSING_REROUTE),
     myRerouterIntervalParent(rerouterIntervalParent),
     myClosedEdge(closedEdge),
     myAllowedVehicles(allowedVehicles),

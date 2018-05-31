@@ -41,7 +41,7 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_PARKING_ZONE_REROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_PARKING_ZONE_REROUTE),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myParkingArea(nullptr),
     myProbability(getDefaultValue<double>(SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_ATTR_PROB)) {
@@ -49,7 +49,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouter
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkingArea, double probability):
-    GNEAttributeCarrier(SUMO_TAG_PARKING_ZONE_REROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_PARKING_ZONE_REROUTE),
     myRerouterIntervalParent(rerouterIntervalParent),
     myParkingArea(newParkingArea),
     myProbability(probability) {

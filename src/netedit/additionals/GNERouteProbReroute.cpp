@@ -40,7 +40,7 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myNewRouteId(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getViewNet()->getNet()->generateCalibratorRouteID()),
     myProbability(getDefaultValue<double>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB)) {
@@ -48,7 +48,7 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterInte
 
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, const std::string& newRouteId, double probability) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE),
     myRerouterIntervalParent(rerouterIntervalParent),
     myNewRouteId(newRouteId),
     myProbability(probability) {

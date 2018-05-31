@@ -40,9 +40,9 @@
 // ===========================================================================
 
 
-GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
+GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag, icon),
+    GNEAttributeCarrier(tag),
     myNet(net)
 { }
 

@@ -90,7 +90,10 @@ public:
         TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, int positionListed, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
+        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
+
+        /// @brief get GUI icon associated to this Tag
+        GUIIcon getGUIIcon() const;
 
         /// @brief get position in list (used in frames for listing tags with certain sort)
         int getPositionListed() const;
@@ -134,6 +137,9 @@ public:
     private:
         /// @brief Property of attribute
         int myTagProperty;
+
+        /// @brief icon associated to this Tag
+        GUIIcon myIcon;
 
         /// @brief listed position
         int myPositionListed;
@@ -261,7 +267,7 @@ public:
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
      */
-    GNEAttributeCarrier(SumoXMLTag tag, GUIIcon icon);
+    GNEAttributeCarrier(SumoXMLTag tag);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier() {};
@@ -320,11 +326,8 @@ public:
     /// @brief get XML Tag assigned to this object
     SumoXMLTag getTag() const;
 
-    /// @brief get FXIcon assigned to this object
+    /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
-
-    /// @brief get GUI icon assigned to this object
-    GUIIcon getGUIIcon() const;
 
     /// @brief function to support debugging
     const std::string getID() const;
@@ -600,11 +603,11 @@ private:
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
 
-    /// @brief icon associated to this AC
-    GUIIcon myIcon;
-
     /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::pair<TagValues, std::map<SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
+
+    /// @brief Invalidated copy constructor.
+    GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;
 
     /// @brief Invalidated assignment operator
     GNEAttributeCarrier& operator=(const GNEAttributeCarrier& src) = delete;

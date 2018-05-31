@@ -66,8 +66,9 @@ const double GNEJunction::BUBBLE_RADIUS(4);
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
-    GNENetElement(net, nbn.getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION, ICON_JUNCTION),
+    GNENetElement(net, nbn.getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION),
     myNBNode(nbn),
     myAmCreateEdgeSource(false),
     myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),

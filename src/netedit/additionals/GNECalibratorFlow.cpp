@@ -58,7 +58,7 @@
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net) :
-    GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_FLOW),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
     myVehicleType(net->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
@@ -85,7 +85,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
-    GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
+    GNEAttributeCarrier(SUMO_TAG_FLOW),
     myCalibratorParent(calibratorParent),
     myVehicleType(vehicleType),
     myRoute(route),

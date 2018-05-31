@@ -60,7 +60,7 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const double timeThreshold, double speedThreshold, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, ICON_E3, true, blockMovement),
+    GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, true, blockMovement),
     myPosition(pos),
     myFreq(freq),
     myFilename(filename),

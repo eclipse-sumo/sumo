@@ -64,7 +64,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                bool relativePath, double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(net, SUMO_TAG_POI, ICON_LOCATEPOI, movementBlocked, false),
+    GNEShape(net, SUMO_TAG_POI, movementBlocked, false),
     myGNELane(nullptr) {
     // set GEO Position
     myGEOPosition = pos;
@@ -76,7 +76,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
     double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
     double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane / lane->getLaneParametricLength(), posLat, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(net, SUMO_TAG_POILANE, ICON_LOCATEPOI, movementBlocked, false),
+    GNEShape(net, SUMO_TAG_POILANE, movementBlocked, false),
     myGNELane(lane) {
 }
 
