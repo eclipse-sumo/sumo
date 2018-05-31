@@ -304,13 +304,13 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && isPositive<double>(value);
+            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == -1)); // kann NICHT 0 sein, oder -1 (bedeutet default)
         case SUMO_ATTR_PRIORITY:
             return canParse<bool>(value);
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
             return (myCrossing->tlID != "" && canParse<int>(value) 
-                    && (isPositive<int>(value) || (value == "-1" && key == SUMO_ATTR_TLLINKINDEX2))
+                    && ((parse<double>(value) > 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))  // kann 0 sein (oder -1 -> es ist nicht verwendet)
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {

@@ -416,7 +416,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_UNCONTROLLED:
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            return canParse<double>(value) && isPositive<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_TLLINKINDEX:
             if (getNBEdgeConnection().uncontrolled == false 
                     && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0 
@@ -428,7 +428,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && isPositive<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_CUSTOMSHAPE: {
             bool ok = true;
             PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied shape", 0, ok, true);

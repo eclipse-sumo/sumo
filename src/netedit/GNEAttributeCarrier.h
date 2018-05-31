@@ -402,12 +402,6 @@ public:
     template<typename T>
     static std::string parseIDs(const std::vector<T> &ACs);
 
-    /// @brief true if a positive number of type T can be parsed from string
-    template<typename T>
-    static bool isPositive(const std::string& string) {
-        return canParse<T>(string) && parse<T>(string) > 0;
-    }
-
     /// @brief parse a string of booleans (1 0 1 1....) using AND operation
     static bool parseStringToANDBool(const std::string& string);
 
