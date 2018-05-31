@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -406,7 +402,7 @@ MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportabl
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", time2string(duration));
+    os.writeAttr("duration", myArrived > 0 ? time2string(duration) : "-1");
     os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }

@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -211,6 +207,9 @@ public:
     RGBColor getMesoColor() const {
         return myMesoColor;
     }
+
+    /// @brief whether this lane is selected in the GUI
+    bool isSelected() const;
 
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;

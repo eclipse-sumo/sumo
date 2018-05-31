@@ -15,3 +15,9 @@ emergencyDecel_low_warning
 
 # a vehicle performs emergency braking which causes the follower to collide
 emergency_decel_collision
+
+# Tests vehicle insertion in emergency situation. (fixed depart speed, stop too close for braking with decel but possible with emergencyDecel) 
+emergencyInsertion
+
+# Tests vehicle insertion in emergency situation. (fixed depart speed, leader too close for braking with decel but possible with emergencyDecel) 
+emergencyInsertion2

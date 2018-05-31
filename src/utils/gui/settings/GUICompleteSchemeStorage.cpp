@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GUICompleteSchemeStorage.h"
 #include <utils/common/ToString.h>
@@ -169,7 +165,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
                 try {
                     GUISettingsHandler handler(content, false, netedit);
                     handler.addSettings();
-                } catch (ProcessError) { }
+                } catch (ProcessError&) { }
             }
         }
     }

@@ -4,6 +4,8 @@ Error: Answered with error to command 0xab: Invalid chargingStation parameter 'b
 Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
 Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
 Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Error: Answered with error to command 0xab: Invalid departure edge for vehicle type 'DEFAULT_VEHTYPE' (Vehicle '' has no valid route. Edge 'footpath' prohibits.)
 Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Error: Answered with error to command 0xab: Invalid vehicle type 'DEFAULT_BIKETYPE', it is not allowed on the start edge.
 Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', lane='o_0', gap=-0.18, time=13.00 stage=move.
 Warning: Vehicle 'collider' teleports beyond arrival edge 'o', time 13.00.

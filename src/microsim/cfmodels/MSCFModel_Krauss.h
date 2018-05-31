@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel_KraussOrig1.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -78,6 +74,7 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
+     * @param[in] pred The leading vehicle (LEADER)
      * @return EGO's safe speed
      */
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;

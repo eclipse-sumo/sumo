@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
@@ -380,6 +376,10 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         double actionStepLengthSecs = attrs.get<double>(SUMO_ATTR_ACTIONSTEPLENGTH, vtype->id.c_str(), ok);
         vtype->actionStepLength = processActionStepLength(actionStepLengthSecs);
         vtype->parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_HASDRIVERSTATE)) {
+        vtype->hasDriverState = attrs.get<bool>(SUMO_ATTR_HASDRIVERSTATE, vtype->id.c_str(), ok);
+        vtype->parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
     }
     if (attrs.hasAttribute(SUMO_ATTR_EMISSIONCLASS)) {
         vtype->emissionClass = PollutantsInterface::getClassByName(attrs.getOpt<std::string>(SUMO_ATTR_EMISSIONCLASS, id.c_str(), ok, ""));

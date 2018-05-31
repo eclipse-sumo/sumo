@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <string>
@@ -35,6 +31,8 @@
 #include <utils/common/FileHelpers.h>
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
+// Factor that the minimum emergency decel is increased by in corresponding situations
+#define EMERGENCY_DECEL_AMPLIFIER 1.2
 
 // ===========================================================================
 // class declarations
@@ -505,6 +503,20 @@ public:
     double maximumSafeFollowSpeed(double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
 
 
+    /** @brief Returns the minimal deceleration for following the given leader safely
+     * @param[in] gap The (netto) distance to the LEADER
+     * @param[in] egoSpeed The FOLLOWERS's speed
+     * @param[in] predSpeed The LEADER's speed
+     * @param[in] predMaxDecel The LEADER's maximum deceleration
+     * @return The minimal deceleration b>0 that, if applied constantly until a full stop,
+     *         asserts that the vehicle does not crash into the leader.
+     * @note   If b > predMaxDecel, this function actually does not calculate the tangency for the trajectories, i.e. a double root for the gap,
+     *         but applies a simpler approach following the spirit of maximumSafeFollowSpeed, where the
+     *         leader's decel is assumed as maximum of its actual value and the followers decel.
+     */
+    double calculateEmergencyDeceleration(double gap, double egoSpeed, double predSpeed, double predMaxDecel) const;
+
+
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
@@ -535,6 +547,26 @@ public:
     double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
 protected:
+
+    /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
+     *  @see MSCFModel_Krauss::stopSpeed() and MSCFModel_Krauss::followSpeed() for integration into a CF model
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in, out] gap2pred The (netto) distance to the LEADER
+     * @param[in, out] predSpeed The speed of LEADER
+     * @param[in] pred The leading vehicle (LEADER)
+     */
+    void applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const veh, double speed, double& gap, double& predSpeed, double predMaxDecel, const MSVehicle* const pred) const;
+
+    /** @brief Overwrites gap by the perceived value obtained from the vehicle's driver state
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in, out] gap The (netto) distance to the the obstacle
+     */
+    void applyHeadwayPerceptionError(const MSVehicle* const veh, double speed, double& gap) const;
+
+
+protected:
     /// @brief The type to which this model definition belongs to
     const MSVehicleType* myType;
 
@@ -550,6 +582,8 @@ protected:
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;
+
+
 
 };
 

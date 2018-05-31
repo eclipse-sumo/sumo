@@ -21,11 +21,11 @@ import codecs
 import subprocess
 import collections
 import random
-from xml.sax.saxutils import escape
 
 from optparse import OptionParser
 
 import sumolib
+from sumolib.xml import quoteattr
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -257,8 +257,8 @@ def createRoutes(options, trpMap, stopNames):
             line, name, completeness = trpMap[vehID]
             foutflows.write('    <flow id="%s" type="%s" route="%s" begin="%s" end="%s" period="%s" line="%s" %s>\n' % (
                 flowID, type, flowID, ft(begin), ft(begin + flow_duration), options.period, lineRef, options.flowattrs))
-            foutflows.write('        <param key="name" value="%s"/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
-                            (escape(name), completeness))
+            foutflows.write('        <param key="name" value=%s/>\n        <param key="completeness" value="%s"/>\n    </flow>\n' %
+                            (quoteattr(name), completeness))
         foutflows.write('</routes>\n')
 
     print("done.")

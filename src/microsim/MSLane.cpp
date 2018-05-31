@@ -27,11 +27,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <bitset>
@@ -78,6 +74,7 @@
 //#define DEBUG_JUNCTION_COLLISIONS
 //#define DEBUG_PEDESTRIAN_COLLISIONS
 //#define DEBUG_LANE_SORTER
+//#define DEBUG_NO_CONNECTION
 
 #define DEBUG_COND (true)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
@@ -468,7 +465,7 @@ MSLane::getDepartPosLat(const MSVehicle& veh) {
         case DEPART_POSLAT_RANDOM:
             return RandHelper::rand(getWidth() - veh.getVehicleType().getWidth()) - getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
         case DEPART_POSLAT_CENTER:
-        case DEPART_POS_DEFAULT:
+        case DEPART_POSLAT_DEFAULT:
         // @note:
         // case DEPART_POSLAT_FREE
         // case DEPART_POSLAT_RANDOM_FREE
@@ -566,6 +563,17 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
         } else if (speed > 0) {
+            if (!MSGlobals::gCheckRoutes) {
+                // Check whether vehicle can stop at the given distance when applying emergency braking
+                double emergencyBrakeGap = 0.5*speed*speed/aVehicle->getCarFollowModel().getEmergencyDecel();
+                if (emergencyBrakeGap <= dist) {
+                    // Vehicle may stop in time with emergency deceleration
+                    // stil, emit a warning
+                    WRITE_WARNING("Vehicle '" + aVehicle->getID() + "' is inserted in emergency situation.");
+                    return false;
+                }
+            }
+
             if (errorMsg != "") {
                 WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (" + errorMsg + ")!");
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
@@ -1177,7 +1185,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     if (myVehicles.size() == 0 || myCollisionAction == COLLISION_ACTION_NONE) {
         return;
     }
-    std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess> toRemove;
+    std::set<const MSVehicle*, ComparatorIdLess> toRemove;
     std::set<const MSVehicle*> toTeleport;
     if (!MSAbstractLaneChangeModel::haveLateralDynamics()) {
         // no sublanes
@@ -1309,7 +1317,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
 
-    for (std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
+    for (std::set<const MSVehicle*, ComparatorIdLess>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
         MSVehicle* veh = const_cast<MSVehicle*>(*it);
         MSLane* vehLane = veh->getLane();
         vehLane->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT, false);
@@ -1358,7 +1366,7 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
 
 bool
 MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
-                               std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
+                               std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
     if (myCollisionAction == COLLISION_ACTION_TELEPORT && ((victim->hasInfluencer() && victim->getInfluencer().isRemoteAffected(timestep)) ||
             (collider->hasInfluencer() && collider->getInfluencer().isRemoteAffected(timestep)))) {
@@ -1419,7 +1427,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 
 void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
-                               double gap, double latGap, std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
+                               double gap, double latGap, std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
     std::string prefix = "Vehicle '" + collider->getID() + "'; collision with vehicle '" + victim->getID() ;
     if (myCollisionStopTime > 0) {
@@ -1893,7 +1901,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
         return succLinkSource.myLinks.end();
     }
     // the only case where this should happen is for a disconnected route (deliberately ignored)
-#ifdef _DEBUG
+#ifdef DEBUG_NO_CONNECTION
     // the "'" around the ids are missing intentionally in the message below because it slows messaging down, resulting in test timeouts
     WRITE_WARNING("Could not find connection between lane " + succLinkSource.getID() + " and lane " + conts[nRouteSuccs]->getID() +
                   " for vehicle " + veh.getID() + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

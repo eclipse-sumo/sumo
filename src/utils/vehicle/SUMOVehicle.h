@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <typeinfo>
@@ -72,9 +68,6 @@ public:
      * @return The vehicle's speed
      */
     virtual double getPreviousSpeed() const = 0;
-
-
-    typedef Named::NamedLikeComparatorIdLess<SUMOVehicle> ComparatorIdLess;
 
     /// @brief Destructor
     virtual ~SUMOVehicle() {}
@@ -295,6 +288,16 @@ public:
      * @param[in] container The container to add
      */
     virtual void addContainer(MSTransportable* container) = 0;
+
+    /** @brief Returns the number of persons
+     * @return The number of passengers on-board
+     */
+    virtual int getPersonNumber() const = 0;
+
+    /** @brief Returns the number of containers
+     * @return The number of contaiers on-board
+     */
+    virtual int getContainerNumber() const = 0;
 
     /** @brief Adds a stop
      *

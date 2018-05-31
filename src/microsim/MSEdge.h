@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <map>
@@ -645,6 +641,11 @@ public:
     /// @brief return whether this edge is at the fringe of the network
     bool isFringe() const {
         return myAmFringe;
+    }
+
+    /// @brief whether this lane is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
     }
 
     /// @brief grant exclusive access to the mesoscopic state

@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fstream>
 #include <utils/iodevices/OutputDevice.h>
@@ -45,22 +41,22 @@ class OutputDeviceMock : public OutputDevice {
 public:
     /** @brief Constructor    
      */
-	OutputDeviceMock() throw(IOError){}
+	OutputDeviceMock() {}
 
     /// @brief Destructor
-	~OutputDeviceMock() throw() {}
+	~OutputDeviceMock()  {}
 
 
     /** @brief Returns the current content as a string   
      */
-    std::string getString() throw() {
+    std::string getString()  {
         return myStream.str();
     }
 
 protected:    
     /** @brief Returns the associated ostream    
      */
-    std::ostream &getOStream() throw() {
+    std::ostream &getOStream()  {
         return myStream;
     }
 

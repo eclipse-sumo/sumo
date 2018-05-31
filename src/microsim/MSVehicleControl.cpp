@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
@@ -337,7 +333,7 @@ MSVehicleControl::addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) {
 
 
 void
-MSVehicleControl::removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) {
+MSVehicleControl::removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle) {
     if (myWaiting.find(edge) != myWaiting.end()) {
         std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting[edge].begin(), myWaiting[edge].end(), vehicle);
         if (it != myWaiting[edge].end()) {

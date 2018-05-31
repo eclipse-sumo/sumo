@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <string>
@@ -132,7 +128,7 @@ NBHelpers::interpretLaneID(const std::string& lane_id, std::string& edge_id, int
     std::string index_string = lane_id.substr(sep_index + 1);
     try {
         index = TplConvert::_2int(index_string.c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
     }
 }

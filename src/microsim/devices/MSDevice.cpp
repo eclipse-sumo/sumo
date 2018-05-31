@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/options/OptionsCont.h>
 #include <utils/common/TplConvert.h>
@@ -65,6 +61,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Example::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
+    MSDevice_ToC::insertOptions(oc);
     MSDevice_Bluelight::insertOptions(oc);
     MSDevice_FCD::insertOptions(oc);
 }

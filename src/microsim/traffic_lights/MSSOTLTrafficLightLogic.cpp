@@ -117,7 +117,7 @@ MSSOTLTrafficLightLogic::setToATargetPhase() {
 
 
 void
-MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
+MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
     MSTrafficLightLogic::init(nb);
 

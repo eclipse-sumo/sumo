@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utility>
@@ -231,7 +227,7 @@ MSRailSignal::getAppropriateState() {
                 std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
                 if (it != mySucceedingBlocksIncommingLinks.end()) {
                     const MSLink* inCommingLing = it->second;
-                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess> approaching = inCommingLing->getApproaching();
+                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, ComparatorIdLess> approaching = inCommingLing->getApproaching();
                     std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
                     for (; apprIt != approaching.end(); apprIt++) {
                         MSLink::ApproachingVehicleInformation info = apprIt->second;

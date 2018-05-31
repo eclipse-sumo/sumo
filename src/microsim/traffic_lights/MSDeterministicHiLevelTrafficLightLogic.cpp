@@ -35,8 +35,7 @@ MSDeterministicHiLevelTrafficLightLogic::~MSDeterministicHiLevelTrafficLightLogi
 
 }
 
-void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb)
-throw(ProcessError) {
+void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSSOTLHiLevelTrafficLightLogic::init(nb);
     //Setting the startup policy
     choosePolicy(0, 0);

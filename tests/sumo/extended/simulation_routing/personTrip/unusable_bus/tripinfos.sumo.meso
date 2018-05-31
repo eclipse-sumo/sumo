@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu May 31 09:14:16 2018 by Eclipse SUMO Version 35e3bfd
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="bus.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="214.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="vehroute_bus.0 tripinfo_bus.0 routing_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus.1" depart="300.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="514.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="vehroute_bus.1 tripinfo_bus.1 routing_bus.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus.2" depart="600.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="814.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="vehroute_bus.2 tripinfo_bus.2 routing_bus.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1" depart="0.00">
+        <walk depart="0.00" departPos="0.00" arrival="901.00" arrivalPos="250.00" duration="901.00" routeLength="1250.00" timeLoss="1.00" maxSpeed="1.39"/>
+    </personinfo>
+    <tripinfo id="bus.3" depart="900.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="1114.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="vehroute_bus.3 tripinfo_bus.3 routing_bus.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00">
+        <walk depart="0.00" departPos="0.00" arrival="1260.00" arrivalPos="250.00" duration="1260.00" routeLength="1750.00" timeLoss="0.00" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <algorithm>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -50,7 +46,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
       vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
       loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
-      cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
+      cfModel(SUMO_TAG_CF_KRAUSS), hasDriverState(false), lcModel(LCM_DEFAULT),
       maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
       parametersSet(0), saved(false), onlyReferenced(false) {
     switch (vclass) {
@@ -232,6 +228,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         // Note: action step length is only exposed in seconds to the user
         dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
+    }
+    if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        // Note: action step length is only exposed in seconds to the user
+        dev.writeAttr(SUMO_ATTR_HASDRIVERSTATE, hasDriverState);
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));

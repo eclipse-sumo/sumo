@@ -24,17 +24,14 @@
 // DEBUG
 // ===========================================================================
 //#define DEBUG_TARGET_LANE
+//#define DEBUG_SHADOWLANE
 #define DEBUG_COND (myVehicle.isSelected())
 
 
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/options/OptionsCont.h>
 #include "MSAbstractLaneChangeModel.h"
@@ -301,9 +298,11 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) cons
     if (std::find(myNoPartiallyOccupatedByShadow.begin(), myNoPartiallyOccupatedByShadow.end(), lane) == myNoPartiallyOccupatedByShadow.end()) {
         // initialize shadow lane
         const double overlap = myVehicle.getLateralOverlap(posLat);
+#ifdef DEBUG_SHADOWLANE
         if (debugVehicle()) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " posLat=" << posLat << " overlap=" << overlap << "\n";
         }
+#endif
         if (overlap > NUMERICAL_EPS) {
             const int shadowDirection = posLat < 0 ? -1 : 1;
             return lane->getParallelLane(shadowDirection);
@@ -391,9 +390,11 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         return;
     }
     if (myShadowLane != 0) {
+#ifdef DEBUG_SHADOWLANE
         if (debugVehicle()) {
             std::cout << SIMTIME << " updateShadowLane()\n";
         }
+#endif
         myShadowLane->resetPartialOccupation(&myVehicle);
     }
     myShadowLane = getShadowLane(myVehicle.getLane());
@@ -406,9 +407,11 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         passed.push_back(myShadowLane);
         for (int i = 0; i < (int)further.size(); ++i) {
             MSLane* shadowFurther = getShadowLane(further[i], furtherPosLat[i]);
+#ifdef DEBUG_SHADOWLANE
             if (debugVehicle()) {
                 std::cout << SIMTIME << "   further=" << further[i]->getID() << " (posLat=" << furtherPosLat[i] << ") shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
             }
+#endif
             if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
                 passed.push_back(shadowFurther);
             }
@@ -421,15 +424,19 @@ MSAbstractLaneChangeModel::updateShadowLane() {
             endLaneChangeManeuver();
         }
     }
+#ifdef DEBUG_SHADOWLANE
     if (debugVehicle()) {
         std::cout << SIMTIME << " updateShadowLane() veh=" << myVehicle.getID()
                   << " newShadowLane=" << Named::getIDSecure(myShadowLane)
                   << "\n   before:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << " further=" << toString(myVehicle.getFurtherLanes()) << " passed=" << toString(passed);
         std::cout << std::endl;
     }
+#endif
     myVehicle.updateFurtherLanes(myShadowFurtherLanes, myShadowFurtherLanesPosLat, passed);
+#ifdef DEBUG_SHADOWLANE
     if (debugVehicle()) std::cout
                 << "\n   after:" << " myShadowFurtherLanes=" << toString(myShadowFurtherLanes) << "\n";
+#endif
 }
 
 

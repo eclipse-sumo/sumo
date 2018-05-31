@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -586,7 +582,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     try {
         myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
-    } catch (EmptyData e) {
+    } catch (EmptyData&) {
         // !!! deprecated
         myCurrentLane->allow = "";
     }

@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <memory>
 #include <utils/common/SUMOTime.h>
@@ -33,11 +29,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSJunction;
-class MSLink;
-class MSVehicle;
-class MSLane;
-class MSPerson;
+//class MSJunction;
+//class MSLink;
+//class MSVehicle;
+//class MSLane;
+//class MSPerson;
 
 
 // ===========================================================================
@@ -100,14 +96,19 @@ public:
     MSSimpleDriverState(MSVehicle* veh);
     virtual ~MSSimpleDriverState() {};
 
-    void setAwareness(double value);
+    void setAwareness(const double value);
 
     double getError() const {
         return myError.getState();
     }
 
-    /// @brief Trigger updates for the errorProcess
+    /// @brief Trigger updates for the errorProcess, assumed gaps, etc
     void update();
+
+
+    /// @brief Update the assumed gaps to the known objects according to
+    ///        the corresponding perceived speed differences.
+    void updateAssumedGaps();
 
     /// @name Methods to obtain the current error quantities to be used by the car-following model
     /// @see TCIModel
@@ -116,15 +117,27 @@ public:
 //    inline double getAppliedAcceleration(double desiredAccel) {
 //        return desiredAccel + myError.getState();
 //    };
-    /// @see mySpeedPerceptionError
-    inline double getPerceivedSpeedDifference(double trueSpeedDifference) {
-        return trueSpeedDifference + myError.getState();
-    };
+
+    /// @brief This method checks whether the errorneous speed difference that would be perceived for this step
+    ///        differs sufficiently from the previously perceived to be actually perceived. If so, it sets the
+    ///        flag myReactionFlag[objID]=true, which should be checked just after the call to this method because
+    ///        it will be overwritten by subsequent calls.
+    double getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID=nullptr);
     /// @see myHeadwayPerceptionError
-    inline double getPerceivedHeadway(double trueGap) {
-        return trueGap + myError.getState();
-    };
+    double getPerceivedHeadway(const double trueGap, const void* objID=nullptr);
     /// @}
+
+    inline void lockDebug() {
+        myDebugLock=true;
+    }
+
+    inline void unlockDebug() {
+        myDebugLock=false;
+    }
+
+    inline bool debugLocked() const {
+        return myDebugLock;
+    }
 
 private:
     // @brief Update the current step duration
@@ -148,6 +161,17 @@ private:
     /// @brief Coefficient controlling the impact of awareness on the noise intensity of the error process
     double myErrorNoiseIntensityCoefficient;
 
+    /// @brief Scaling coefficients for the magnitude of errors
+    double mySpeedDifferenceErrorCoefficient;
+    double myHeadwayErrorCoefficient;
+    /// @brief Thresholds above a change in the corresponding quantity is perceived.
+    /// @note  In the comparison, we multiply the actual change amount by the current
+    ///       gap to the object to reflect a more precise perception if the object is closer.
+    double myHeadwayChangePerceptionThreshold;
+    double mySpeedDifferenceChangePerceptionThreshold;
+//    // @brief if a perception threshold is passed for some object, a flag is set to induce a reaction to the object
+//    std::map<void*, bool> myReactionFlag;
+
     /// @brief action step length induced by awareness level
     /// @todo make effective
     double myActionStepLength;
@@ -159,7 +183,17 @@ private:
     double myStepDuration;
     /// @brief Time point of the last state update
     double myLastUpdateTime;
+
+
+    /// @brief The assumed gaps to different objects
+    /// @todo: update each step to incorporate the assumed change given a specific speed difference
+    std::map<const void*, double> myAssumedGap;
+    /// @brief The last perceived speed differences to the corresponding objects
+    std::map<const void*, double> myLastPerceivedSpeedDifference;
     /// @}
+
+    /// @brief Used to prevent infinite loops in debugging outputs, @see followSpeed() and stopSpeed() (of MSCFModel_Krauss, e.g.)
+    bool myDebugLock;
 };
 
 
@@ -502,8 +536,8 @@ private:
 
 
 
-/// @brief Default values for the TCI Driver Model parameters
-struct TCIDefaults {
+/// @brief Default values for the MSDriverState parameters
+struct DriverStateDefaults {
 //    static double myMinTaskCapability;
 //    static double myMaxTaskCapability;
 //    static double myMaxTaskDemand;
@@ -527,6 +561,10 @@ struct TCIDefaults {
     static double myMinAwareness;
     static double myErrorTimeScaleCoefficient;
     static double myErrorNoiseIntensityCoefficient;
+    static double mySpeedDifferenceErrorCoefficient;
+    static double mySpeedDifferenceChangePerceptionThreshold;
+    static double myHeadwayChangePerceptionThreshold;
+    static double myHeadwayErrorCoefficient;
 };
 
 

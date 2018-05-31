@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -52,8 +48,8 @@ SUMOSAXAttributes::SUMOSAXAttributes(const std::string& objectType):
     myObjectType(objectType) {}
 
 
-template<> const std::string invalid_return<std::string>::value = "";
-template<> const std::string invalid_return<std::string>::type = "string";
+const std::string invalid_return<std::string>::value = "";
+const std::string invalid_return<std::string>::type = "string";
 template<>
 std::string SUMOSAXAttributes::getInternal(const int attr) const {
     const std::string ret = getString(attr);
@@ -190,56 +186,56 @@ SUMOSAXAttributes::parseStringSet(const std::string& def, std::set<std::string>&
 }
 
 
-template<> const int invalid_return<int>::value = -1;
-template<> const std::string invalid_return<int>::type = "int";
+const int invalid_return<int>::value = -1;
+const std::string invalid_return<int>::type = "int";
 template<>
 int SUMOSAXAttributes::getInternal(const int attr) const {
     return getInt(attr);
 }
 
 
-template<> const long long int invalid_return<long long int>::value = -1;
-template<> const std::string invalid_return<long long int>::type = "long";
+const long long int invalid_return<long long int>::value = -1;
+const std::string invalid_return<long long int>::type = "long";
 template<>
 long long int SUMOSAXAttributes::getInternal(const int attr) const {
     return getLong(attr);
 }
 
 
-template<> const double invalid_return<double>::value = -1;
-template<> const std::string invalid_return<double>::type = "float";
+const double invalid_return<double>::value = -1;
+const std::string invalid_return<double>::type = "float";
 template<>
 double SUMOSAXAttributes::getInternal(const int attr) const {
     return getFloat(attr);
 }
 
 
-template<> const bool invalid_return<bool>::value = false;
-template<> const std::string invalid_return<bool>::type = "bool";
+const bool invalid_return<bool>::value = false;
+const std::string invalid_return<bool>::type = "bool";
 template<>
 bool SUMOSAXAttributes::getInternal(const int attr) const {
     return getBool(attr);
 }
 
 
-template<> const RGBColor invalid_return<RGBColor>::value = RGBColor();
-template<> const std::string invalid_return<RGBColor>::type = "color";
+const RGBColor invalid_return<RGBColor>::value = RGBColor();
+const std::string invalid_return<RGBColor>::type = "color";
 template<>
 RGBColor SUMOSAXAttributes::getInternal(const int /* attr */) const {
     return getColor();
 }
 
 
-template<> const PositionVector invalid_return<PositionVector>::value = PositionVector();
-template<> const std::string invalid_return<PositionVector>::type = "PositionVector";
+const PositionVector invalid_return<PositionVector>::value = PositionVector();
+const std::string invalid_return<PositionVector>::type = "PositionVector";
 template<>
 PositionVector SUMOSAXAttributes::getInternal(const int attr) const {
     return getShape(attr);
 }
 
 
-template<> const Boundary invalid_return<Boundary>::value = Boundary();
-template<> const std::string invalid_return<Boundary>::type = "Boundary";
+const Boundary invalid_return<Boundary>::value = Boundary();
+const std::string invalid_return<Boundary>::type = "Boundary";
 template<>
 Boundary SUMOSAXAttributes::getInternal(const int attr) const {
     return getBoundary(attr);

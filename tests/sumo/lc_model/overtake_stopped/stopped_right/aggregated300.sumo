@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May 30 17:27:24 2018 by Eclipse SUMO Version ddd1bf7
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <max-depart-delay value="1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="1098.00" id="laneData">
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="16909.68" traveltime="104.19" overlapTraveltime="104.33" density="5.14" occupancy="2.57" waitingTime="1424.00" speed="28.77" departed="210" arrived="206" entered="0" left="0" laneChangedFrom="269" laneChangedTo="265"/>
+            <lane id="beg2_1" sampledSeconds="16110.45" traveltime="109.92" overlapTraveltime="110.07" density="4.90" occupancy="2.45" waitingTime="177.00" speed="27.27" departed="99" arrived="103" entered="0" left="0" laneChangedFrom="265" laneChangedTo="269"/>
+        </edge>
+    </interval>
+</meandata>

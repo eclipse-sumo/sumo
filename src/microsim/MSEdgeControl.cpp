@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSEdgeControl.h"
 #include "MSGlobals.h"
@@ -75,7 +71,7 @@ MSEdgeControl::~MSEdgeControl() {
 
 void
 MSEdgeControl::patchActiveLanes() {
-    for (std::set<MSLane*, Named::ComparatorIdLess>::iterator i = myChangedStateLanes.begin(); i != myChangedStateLanes.end(); ++i) {
+    for (std::set<MSLane*, ComparatorIdLess>::iterator i = myChangedStateLanes.begin(); i != myChangedStateLanes.end(); ++i) {
         LaneUsage& lu = myLanes[(*i)->getNumericalID()];
         // if the lane was inactive but is now...
         if (!lu.amActive && (*i)->getVehicleNumber() > 0) {

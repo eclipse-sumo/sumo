@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO Version 27b98ce
+<!-- generated on Wed May 30 16:19:32 2018 by Eclipse SUMO Version 2395938
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -165,6 +165,12 @@
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
 
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR"/>
+
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
 
@@ -213,7 +219,7 @@
         <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
         <ignore-junction-blocker value="-1" type="TIME"/>
 
-        <!-- Do not check whether routes are connected -->
+        <!-- (1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking. -->
         <ignore-route-errors value="false" type="BOOL"/>
 
         <!-- Do not check whether accidents occur -->
@@ -493,6 +499,39 @@
         <device.ssm.geo value="false" type="BOOL"/>
 
     </ssm_device>
+
+    <toc_device>
+        <!-- The probability for a vehicle to have a &apos;toc&apos; device -->
+        <device.toc.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;toc&apos; device to named vehicles -->
+        <device.toc.explicit value="" synonymes="device.toc.knownveh" type="STR"/>
+
+        <!-- The &apos;toc&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.toc.deterministic value="false" type="BOOL"/>
+
+        <!-- Vehicle type for manual driving regime. -->
+        <device.toc.manualType value="" type="STR"/>
+
+        <!-- Vehicle type for automated driving regime. -->
+        <device.toc.automatedType value="" type="STR"/>
+
+        <!-- Average response time needed by a driver to take back control. -->
+        <device.toc.responseTime value="5" type="FLOAT"/>
+
+        <!-- Recovery rate for the driver&apos;s awareness after a ToC. -->
+        <device.toc.recoveryRate value="0.1" type="FLOAT"/>
+
+        <!-- Average awareness a driver has initially after a ToC. -->
+        <device.toc.initialAwareness value="0.5" type="FLOAT"/>
+
+        <!-- Deceleration rate applied during a &apos;minimum risk maneuver&apos;. -->
+        <device.toc.mrmDecel value="1.5" type="FLOAT"/>
+
+        <!-- Whether a coloring scheme shall by applied to indicate the different ToC stages. -->
+        <device.toc.useColorScheme value="true" type="BOOL"/>
+
+    </toc_device>
 
     <bluelight_device>
         <!-- The probability for a vehicle to have a &apos;bluelight&apos; device -->

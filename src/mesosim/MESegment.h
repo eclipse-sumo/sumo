@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <utils/common/Named.h>
@@ -289,6 +285,11 @@ public:
     /// @brief get the last headway time in seconds
     inline double getLastHeadwaySeconds() const {
         return STEPS2TIME(myLastHeadway);
+    }
+
+    /// @brief get the last headway time in seconds
+    inline double getEntryBlockTimeSeconds() const {
+        return STEPS2TIME(myEntryBlockTime);
     }
 
     /// @name State saving/loading

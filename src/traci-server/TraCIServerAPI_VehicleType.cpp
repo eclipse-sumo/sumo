@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <limits>
 #include <utils/emissions/PollutantsInterface.h>
@@ -313,7 +309,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
             try {
                 libsumo::VehicleType::setVehicleClass(id, vclass);
-            } catch (InvalidArgument e) {
+            } catch (InvalidArgument&) {
                 return server.writeErrorStatusCmd(cmd, "Unknown vehicle class '" + vclass + "'.", outputStorage);
             }
         }
@@ -347,8 +343,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
             try {
                 libsumo::VehicleType::setEmissionClass(id, eclass);
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
+            } catch (InvalidArgument& e) {
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;
@@ -416,8 +412,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
             try {
                 libsumo::VehicleType::setShapeClass(id, sclass);
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown vehicle shape " + sclass + "'.", outputStorage);
+            } catch (InvalidArgument& e) {
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;

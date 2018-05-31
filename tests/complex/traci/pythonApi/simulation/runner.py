@@ -113,7 +113,16 @@ except traci.TraCIException:
 print("findRoute", traci.simulation.findRoute("o", "2o"))
 print("findRoute with routing mode", traci.simulation.findRoute("o", "2o", routingMode=traci.constants.ROUTING_MODE_AGGREGATED))
 try:
+    print("findRoute", traci.simulation.findRoute("footpath", "footpath2", "DEFAULT_VEHTYPE"))
+except traci.TraCIException:
+    pass
+
+try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))
+except traci.TraCIException:
+    pass
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("footpath", "footpath2", "bicycle", vtype="DEFAULT_BIKETYPE"))
 except traci.TraCIException:
     pass
 print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o"))

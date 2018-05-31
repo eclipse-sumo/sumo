@@ -10,7 +10,7 @@
 /// @file    RORoutable.h
 /// @author  Michael Behrisch
 /// @date    Oct 2015
-/// @version $Id: RORoutable.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A routable thing such as a vehicle or person
 /****************************************************************************/
@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>

@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <memory>
 #include <microsim/MSVehicle.h>
@@ -56,7 +52,7 @@
 MSCFModel_TCI::MSCFModel_TCI(const MSVehicleType* vtype, double accel, double decel,
                                    double emergencyDecel, double apparentDecel,
                                    double headwayTime) :
-    MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime, 0.)
+    MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, 0., headwayTime)
 {}
 
 
@@ -83,13 +79,14 @@ MSCFModel_TCI::stopSpeed(const MSVehicle* const veh, const double speed, double 
 
 double
 MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
-    assert(veh->getDriverState()!=nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
+    UNUSED_PARAMETER(pred);
+    assert(veh->getDriverState() != nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
     const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
-    const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed);
+    const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed, gap);
 #ifdef DEBUG_DRIVER_ERRORS
     if DEBUG_COND {
         std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_TCI::followSpeed()\n"
-                << "  speed=" << speed << " gap=" << gap << " predSpeed=" << predSpeed
+                << "  speed=" << speed << " gap=" << gap << " leaderSpeed=" << predSpeed
                 << "\n  perceivedGap=" << perceivedGap << " perceivedLeaderSpeed=" << speed+perceivedSpeedDifference
                 << " perceivedSpeedDifference=" << perceivedSpeedDifference
                 << std::endl;
@@ -100,7 +97,7 @@ MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap,
                 << "\n  resulting accelError: " << accelError << std::endl;
     }
 #endif
-    return MSCFModel_Krauss::followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel, pred);
+    return MSCFModel_Krauss::followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
 }
 
 

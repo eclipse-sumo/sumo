@@ -26,11 +26,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/common/RandHelper.h>
@@ -871,7 +867,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                     ((dir == LCA_MRIGHT && myVehicle.getWaitingSeconds() > LCA_RIGHT_IMPATIENCE) // NOTE: it might be considered to use myVehicle.getAccumulatedWaitingSeconds() > LCA_RIGHT_IMPATIENCE instead (Leo). Refs. #2578
                      || (dir == LCA_MLEFT && plannedSpeed > CUT_IN_LEFT_SPEED_THRESHOLD) // VARIANT_22 (slowDownLeft)
                      // XXX this is a hack to determine whether the vehicles is on an on-ramp. This information should be retrieved from the network itself
-                     || (dir == LCA_MLEFT && myLeftSpace > MAX_ONRAMP_LENGTH)
+                     || (dir == LCA_MLEFT && myVehicle.getLane()->getLength() > MAX_ONRAMP_LENGTH)
                     )) {
                 // let the follower slow down to increase the likelihood that later vehicles will be slow enough to help
                 // follower should still be fast enough to open a gap
@@ -1306,6 +1302,7 @@ MSLCM_LC2013::_wantsChange(
                  // neighboring stopped vehicle leaves enough space to overtake leader
                  || neighLead.second > overtakeDist)) {
             // avoid becoming stuck behind a stopped leader
+            currentDist = leader.first->getBackPositionOnLane(myVehicle.getLane());
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
         } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
             // the opposite lane-changing direction should be done than the one examined herein
@@ -2107,7 +2104,7 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
         doubleValue = TplConvert::_2double(value.c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for laneChangeModel of type '" + toString(myModel) + "'");
     }
     if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {

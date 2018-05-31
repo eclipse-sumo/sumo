@@ -1,2 +1,2 @@
 --no-step-log --no-duration-log --net-file=net2.net.xml -a input_routes.rou.xml
---fcd-output fcd.xml --ignore-route-errors
+--fcd-output fcd.xml 

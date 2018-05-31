@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <sstream>
@@ -346,7 +342,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     double speed;
     try {
         speed = TplConvert::_2int(getColumn(st, SPEED_RESTRICTION, "-1").c_str()) / 3.6;
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for the SPEED_RESTRICTION of link '" + id + "'.");
     }
     if (speed < 0) {

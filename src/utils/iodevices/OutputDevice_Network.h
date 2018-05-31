@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif // #ifdef _MSC_VER
+#include <config.h> // #ifdef _MSC_VER
 
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"

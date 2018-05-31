@@ -26,11 +26,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/StringBijection.h>
 
@@ -405,6 +401,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_DECEL,
     SUMO_ATTR_EMERGENCYDECEL,
     SUMO_ATTR_APPARENTDECEL,
+    SUMO_ATTR_HASDRIVERSTATE,
     SUMO_ATTR_ACTIONSTEPLENGTH,
     SUMO_ATTR_VCLASS,
     SUMO_ATTR_VCLASSES,

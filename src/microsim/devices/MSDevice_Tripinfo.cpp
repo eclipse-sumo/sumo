@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 30.01.2009
-/// @version $Id: MSDevice_Tripinfo.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A device which collects info on the vehicle trip
 /****************************************************************************/
@@ -21,17 +21,14 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <mesosim/MEVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -161,11 +158,14 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOVehicle& veh,
                                       const double /* meanLengthOnLane */) {
 
     // called by meso
+    const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(&veh);
+    assert(mesoVeh);
     const double vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
     if (vmax > 0) {
         myMesoTimeLoss += TIME2STEPS(timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax);
     }
     myWaitingTime += veh.getWaitingTime();
+    myStoppingTime += TIME2STEPS(mesoVeh->getCurrentStoppingTimeSeconds());
 }
 
 bool
@@ -337,11 +337,11 @@ MSDevice_Tripinfo::addRideData(double rideLength, SUMOTime rideDuration, SUMOVeh
         myTotalRideWaitingTime += waitingTime;
         myTotalRideRouteLength += rideLength;
         myTotalRideDuration += rideDuration;
-        if (!line.empty()) {
+        if (vClass == SVC_BICYCLE) {
+            myRideBikeCount++;
+        } else if (!line.empty()) {
             if (isRailway(vClass)) {
                 myRideRailCount++;
-            } else if (vClass == SVC_BICYCLE) {
-                myRideBikeCount++;
             } else {
                 // some kind of road vehicle
                 myRideBusCount++;

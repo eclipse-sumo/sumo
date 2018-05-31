@@ -30,11 +30,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <list>
 #include <deque>
@@ -897,8 +893,7 @@ public:
      *
      * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
      */
-//    inline const std::shared_ptr<MSDriverState> getDriverState() const {
-    inline const std::shared_ptr<MSSimpleDriverState> getDriverState() const {
+    inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
         return myDriverState;
     }
 
@@ -994,6 +989,12 @@ public:
      */
     bool hasStops() const {
         return !myStops.empty();
+    }
+
+    /** @brief Whether this vehicle is equipped with a MSDriverState
+     */
+    inline bool hasDriverState() const {
+        return (myDriverState != nullptr);
     }
 
     /** @brief Returns whether the vehicle is at a stop
@@ -1167,16 +1168,6 @@ public:
 
     /// @brief retrieve riding containers
     const std::vector<MSTransportable*>& getContainers() const;
-
-    /** @brief Returns the number of persons
-     * @return The number of passengers on-board
-     */
-    int getPersonNumber() const;
-
-    /** @brief Returns the number of containers
-     * @return The number of contaiers on-board
-     */
-    int getContainerNumber() const;
 
     /// @name Access to bool signals
     /// @{

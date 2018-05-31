@@ -112,7 +112,7 @@ bool MSSwarmTrafficLightLogic::allowLine(MSLane* lane) {
     return true;
 }
 
-void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
+void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSSOTLHiLevelTrafficLightLogic::init(nb);
     //Setting the startup policy
     choosePolicy(0, 0, 0, 0);

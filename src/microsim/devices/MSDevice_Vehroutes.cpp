@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
@@ -165,8 +161,8 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveRemi
 
 
 void
-MSDevice_Vehroutes::stopEnded(const MSVehicle::Stop& stop) {
-    stop.pars.write(myStopOut);
+MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
+    stop.write(myStopOut);
 }
 
 
@@ -181,6 +177,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
         assert((int)myReplacedRoutes.size() > index);
+        if (myDUAStyle) {
+            os.writeAttr(SUMO_ATTR_COST, myReplacedRoutes[index].route->getCosts());
+        }
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"";
         if (myReplacedRoutes[index].edge) {
@@ -200,6 +199,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         }
         myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
     } else {
+        if (myDUAStyle) {
+            os.writeAttr(SUMO_ATTR_COST, myHolder.getRoute().getCosts());
+        }
         os << " edges=\"";
         const MSEdge* lastEdge = 0;
         int numWritten = 0;
@@ -318,15 +320,6 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             od.closeTag();
         }
     }
-    if (MSGlobals::gUseMesoSim) {
-        // stopEnded is never called by mesosim
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getRoute().getStops().begin(); i != myHolder.getRoute().getStops().end(); ++i) {
-            i->write(od);
-        }
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getParameter().stops.begin(); i != myHolder.getParameter().stops.end(); ++i) {
-            i->write(od);
-        }
-    }
     od << myStopOut.getString();
     myHolder.getParameter().writeParams(od);
     od.closeTag();
@@ -382,7 +375,7 @@ MSDevice_Vehroutes::addRoute() {
 
 void
 MSDevice_Vehroutes::generateOutputForUnfinished() {
-    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*, Named::NamedLikeComparatorIdLess<SUMOVehicle> >::const_iterator it = myStateListener.myDevices.begin();
+    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess >::const_iterator it = myStateListener.myDevices.begin();
             it != myStateListener.myDevices.end(); ++it) {
         if (it->first->hasDeparted()) {
             it->second->writeOutput(false);

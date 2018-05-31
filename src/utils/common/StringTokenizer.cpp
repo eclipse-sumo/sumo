@@ -12,7 +12,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    ?
-/// @version $Id: StringTokenizer.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A java-style StringTokenizer for c++ (stl)
 /****************************************************************************/
@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <vector>
@@ -51,6 +47,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
@@ -61,6 +58,7 @@
 #include "GUIEdge.h"
 #include "GUILane.h"
 
+//#define DRAW_BOUNDING_BOX
 
 // ===========================================================================
 // FOX callback mapping
@@ -1263,6 +1261,47 @@ GUIBaseVehicle::getSeatPosition(int personIndex) const {
     /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
     return mySeatPositions[MIN2(personIndex, (int)mySeatPositions.size() - 1)];
 }
+
+
+void
+GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {
+    if (myVehicle.myPersonDevice != 0) {
+        const std::vector<MSTransportable*>& ps = myVehicle.myPersonDevice->getTransportables();
+        int personIndex = 0;
+        for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
+            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
+            assert(person != 0);
+            person->setPositionInVehicle(getSeatPosition(personIndex++));
+            person->drawGL(s);
+        }
+    }
+    if (myVehicle.myContainerDevice != 0) {
+        const std::vector<MSTransportable*>& cs = myVehicle.myContainerDevice->getTransportables();
+        int containerIndex = 0;
+        for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
+            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
+            assert(container != 0);
+            container->setPositionInVehicle(getSeatPosition(containerIndex++));
+            container->drawGL(s);
+        }
+    }
+#ifdef DRAW_BOUNDING_BOX
+    glPushName(getGlID());
+    glPushMatrix();
+    glTranslated(0, 0, getType());
+    PositionVector boundingBox = getBoundingBox();
+    boundingBox.push_back(boundingBox.front());
+    PositionVector smallBB = getBoundingPoly();
+    glColor3d(0, .8, 0);
+    GLHelper::drawLine(boundingBox);
+    glColor3d(0.5, .8, 0);
+    GLHelper::drawLine(smallBB);
+    //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
+    glPopMatrix();
+    glPopName();
+#endif
+}
+
 
 
 /****************************************************************************/

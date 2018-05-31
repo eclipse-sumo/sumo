@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
@@ -434,7 +430,7 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
     double doubleValue;
     try {
         doubleValue = TplConvert::_2double(value.c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
     if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {

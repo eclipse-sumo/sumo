@@ -1,7 +1,19 @@
 <?xml version="1.0" ?>
 <add>
     <tlLogic id="1" offset="0" programID="SZP_Prio" type="static">
-        <!-- Order of signal groups: FZ11 FZ11 FZ11 FZ21 FZ21 FZ21 FZ31 FZ31 FZ31 FZ41 FZ41 FZ41 -->
+        <!-- Order of signal groups:
+0 FZ11
+1 FZ11
+2 FZ11
+3 FZ21
+4 FZ21
+5 FZ21
+6 FZ31
+7 FZ31
+8 FZ31
+9 FZ41
+10 FZ41
+11 FZ41-->
         <phase duration="10" state="GGGrrrrrrrrr"/>
         <phase duration="3" state="yyyrrrrrrrrr"/>
         <phase duration="1" state="rrrrrrrrrrrr"/>

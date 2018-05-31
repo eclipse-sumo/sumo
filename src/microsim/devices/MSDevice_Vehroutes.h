@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSDevice.h"
 #include <microsim/MSNet.h>
@@ -117,7 +113,7 @@ public:
         return "vehroute";
     }
 
-    void stopEnded(const MSVehicle::Stop& stop);
+    void stopEnded(const SUMOVehicleParameter::Stop& stop);
 
     /** @brief Called on writing vehroutes output
      *
@@ -216,7 +212,7 @@ private:
         void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
 
         /// @brief A map for internal notification
-        std::map<const SUMOVehicle*, MSDevice_Vehroutes*, SUMOVehicle::ComparatorIdLess> myDevices;
+        std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess> myDevices;
 
     };
 

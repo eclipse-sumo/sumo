@@ -10,7 +10,7 @@
 /// @file    Vehicle.cpp
 /// @author  Jakob Erdmann
 /// @date    15.03.2017
-/// @version $Id: Vehicle.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // C++ Vehicle API
 /****************************************************************************/
@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
@@ -1293,7 +1289,7 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
         bool create;
         try {
             create = TplConvert::_2bool(value.c_str());
-        } catch (BoolFormatException) {
+        } catch (BoolFormatException&) {
             throw TraCIException("Changing device status requires a 'true' or 'false'");
         }
         if (!create) {

@@ -29,11 +29,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <cassert>
@@ -696,7 +692,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
-    if (type->getCarFollowModel().getModelID() == SUMO_TAG_CF_TCI) {
+    if (type->getParameter().hasDriverState) {
         createDriverState();
     }
     myNextDriveItem = myLFLinkLanes.begin();
@@ -1435,6 +1431,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
 
     Stop& stop = myStops.front();
+    const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (stop.reached) {
 
 #ifdef DEBUG_STOPS
@@ -1446,9 +1443,11 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedPerson == 0;
+        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, 
+                stop.pars, stop.timeToBoardNextPerson, stop.duration) && stop.numExpectedPerson == 0;
         // load containers
-        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedContainer == 0;
+        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting( &myLane->getEdge(), this, 
+                stop.pars, stop.timeToLoadNextContainer, stop.duration) && stop.numExpectedContainer == 0;
         if (boarded) {
             if (stop.busstop != 0) {
                 const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
@@ -1601,16 +1600,16 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
                 if (MSStopOut::active()) {
-                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber());
+                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
                 }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
                 if (stop.pars.until >= 0) {
                     if (stop.duration == -1) {
-                        stop.duration = stop.pars.until - MSNet::getInstance()->getCurrentTimeStep();
+                        stop.duration = stop.pars.until - time;
                     } else {
-                        stop.duration = MAX2(stop.duration, stop.pars.until - MSNet::getInstance()->getCurrentTimeStep());
+                        stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
                 if (stop.busstop != 0) {
@@ -1752,13 +1751,12 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
     getLaneChangeModel().resetChanged();
 }
 
-
 void
 MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const {
-//    // Serving the task difficulty interface, refs #2668
-//    if (myDriverState != nullptr) {
-//        myDriverState->registerEgoVehicleState();
-//    }
+    // Serving the task difficulty interface
+    if (hasDriverState()) {
+        myDriverState->update();
+    }
     // remove information about approaching links, will be reset later in this step
     removeApproachingInformation(lfLinks);
     lfLinks.clear();
@@ -1861,10 +1859,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (leader.first != 0) {
                 const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                 v = MIN2(v, stopSpeed);
-//                // Serving the task difficulty interface, refs #2668
-//                if (myDriverState != nullptr) {
-//                    myDriverState->registerPedestrian(leader.first, leader.second);
-//                }
 #ifdef DEBUG_PLAN_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << "    pedLeader=" << leader.first->getID() << " dist=" << leader.second << " v=" << v << "\n";
@@ -1872,11 +1866,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
             }
         }
-
-//        if (myDriverState != nullptr && lane->getSpeedLimit() < myLane->getSpeedLimit()) {
-//            // Serving the task difficulty interface, refs #2668
-//            myDriverState->registerSpeedLimit(lane, lane->getSpeedLimit(), seen - lane->getLength());
-//        }
 
         // process stops
         if (!myStops.empty() && &myStops.begin()->lane->getEdge() == &lane->getEdge() && !myStops.begin()->reached
@@ -1929,10 +1918,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
 
-//        if (myDriverState != nullptr) {
-//            // Serving the task difficulty interface, refs #2668
-//            myDriverState->registerJunction(*link, seen);
-//        }
         //  check whether the vehicle is on its final edge
         if (myCurrEdge + view + 1 == myRoute->end()) {
             const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ?
@@ -2171,10 +2156,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(lane->getLength(), v, cfModel.getMaxAccel()), laneMaxV); // upper bound
         lastLink = &lfLinks.back();
     }
-    // Serving the task difficulty interface
-    if (myDriverState != nullptr) {
-        myDriverState->update();
-    }
 
 //#ifdef DEBUG_PLAN_MOVE
 //    if(DEBUG_COND){
@@ -2225,10 +2206,6 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             }
 #endif
             adaptToLeader(std::make_pair(pred, gap), seen, lastLink, lane, v, vLinkPass);
-//            // task difficulty interface, refs #2668
-//            if (myDriverState != nullptr) {
-//                myDriverState->registerLeader(pred, gap, getSpeed()-pred->getSpeed());
-//            }
         }
     }
 }
@@ -4359,19 +4336,6 @@ MSVehicle::getContainers() const {
 }
 
 
-int
-MSVehicle::getPersonNumber() const {
-    int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
-    return boarded + myParameter->personNumber;
-}
-
-int
-MSVehicle::getContainerNumber() const {
-    int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
-    return loaded + myParameter->containerNumber;
-}
-
-
 void
 MSVehicle::setBlinkerInformation() {
     switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT | VEH_SIGNAL_BLINKER_LEFT);
@@ -4897,10 +4861,10 @@ MSVehicle::resumeFromStopping() {
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != 0) {
-            vehroutes->stopEnded(myStops.front());
+            vehroutes->stopEnded(myStops.front().pars);
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, myStops.front());
+            MSStopOut::getInstance()->stopEnded(this, myStops.front().pars, myStops.front().lane->getID());
         }
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
@@ -5095,7 +5059,6 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
 
 void
 MSVehicle::createDriverState() {
-//        myDriverState = std::make_shared<MSDriverState>(this); // refs #2668
     myDriverState = std::make_shared<MSSimpleDriverState>(this);
 }
 

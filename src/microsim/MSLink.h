@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <set>
@@ -202,7 +198,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess>& getApproaching() const {
+    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorIdLess>& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -542,7 +538,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess> myApproachingVehicles;
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorIdLess> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
@@ -617,6 +613,9 @@ private:
     /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
     std::vector<MSLink*> mySublaneFoeLinks;
+    /* @brief Links with the same origin lane and different destination edge that may
+       be in conflict for sublane simulation */
+    std::vector<MSLink*> mySublaneFoeLinks2;
 
     /* @brief Internal Lanes with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */

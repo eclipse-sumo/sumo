@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <iomanip>
@@ -265,7 +261,7 @@ MSFrame::fillOptions() {
     oc.addDescription("ignore-junction-blocker", "Processing", "Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)");
 
     oc.doRegister("ignore-route-errors", new Option_Bool(false));
-    oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
+    oc.addDescription("ignore-route-errors", "Processing", "(1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking.");
 
     oc.doRegister("ignore-accidents", new Option_Bool(false));
     oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occur");

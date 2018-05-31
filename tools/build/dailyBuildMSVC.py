@@ -116,17 +116,12 @@ optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default=r"D:\Sumo", help="root for git and log output")
 optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
-optParser.add_option("-p", "--project", default=r"git\build\msvc10\prj.sln",
-                     help="path to project solution relative to the root dir")
 optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
                      help="directory containg the binaries, relative to the root dir")
 optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
                      help="directory containg the tests, relative to the root dir")
 optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
                      help="directory to move the results to")
-optParser.add_option("-l", "--add-solution", dest="addSln",
-                     default=r"git\build\msvc10\tools.sln",
-                     help="path to an additional solution to build")
 optParser.add_option("-d", "--dll-dirs", dest="dllDirs",
                      default=r"Win32:bin,x64:bin64",
                      help="path to dependency dlls for the relevant platforms")
@@ -136,8 +131,6 @@ optParser.add_option("-n", "--no-tests", action="store_true",
                      default=False, help="skip tests")
 optParser.add_option("-e", "--no-extended-tests", action="store_true",
                      default=False, help="skip netedit tests and tests for the debug build")
-optParser.add_option("-c", "--cmake", action="store_true",
-                     default=False, help="do a cmake build")
 (options, args) = optParser.parse_args()
 
 sys.path.append(os.path.join(options.rootDir, options.testsDir))
@@ -149,13 +142,7 @@ if "SUMO_HOME" not in env:
         os.path.dirname(os.path.dirname(__file__)))
 env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
-compiler = r"D:\Programme\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe"
-msvcVersion = "msvc10"
-if "VS100COMNTOOLS" in env:
-    compiler = os.path.join(env["VS100COMNTOOLS"], "..", "IDE", "devenv.exe")
-if "VS120COMNTOOLS" in env:
-    compiler = os.path.join(env["VS120COMNTOOLS"], "..", "IDE", "devenv.exe")
-    msvcVersion = "msvc12"
+msvcVersion = "msvc12"
 gitrev = repositoryUpdate(options, os.path.join(
     options.remoteDir, msvcVersion + options.suffix + "Update.log"))
 
@@ -182,23 +169,16 @@ for platform, dllDir in platformDlls:
             os.remove(f)
         except WindowsError:
             pass
-    if options.cmake:
-        with open(makeLog, 'a') as log:
-            generator = "Visual Studio 12 2013"
-            if platform == "x64":
-                generator += " Win64"
-            buildDir = generateCMake(generator, log, options.suffix == "extra")
-            if options.suffix == "extra":
-                subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "_libsumo"],
-                                cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-            subprocess.call(["cmake", "--build", ".", "--config", "Release"],
+    with open(makeLog, 'a') as log:
+        generator = "Visual Studio 12 2013"
+        if platform == "x64":
+            generator += " Win64"
+        buildDir = generateCMake(generator, log, options.suffix == "extra")
+        if options.suffix == "extra":
+            subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "_libsumo"],
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-    else:
-        subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
-                        (platform, options.rootDir, options.project, makeLog))
-        if options.addSln:
-            subprocess.call(compiler + " /rebuild Release|%s %s\\%s /out %s" %
-                            (platform, options.rootDir, options.addSln, makeLog))
+        subprocess.call(["cmake", "--build", ".", "--config", "Release"],
+                        cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     envSuffix = ""
     if platform == "x64":
         envSuffix = "_64"
@@ -220,7 +200,7 @@ for platform, dllDir in platformDlls:
                         binDir = f
                 elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
                     write = not f.endswith('/doxygen/')
-                elif write or os.path.basename(f) in ["COPYING", "README"]:
+                elif write or os.path.basename(f) in ["AUTHORS", "COPYING", "README.md"]:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
             dllPath = os.path.join(options.rootDir, dllDir)
@@ -243,16 +223,9 @@ for platform, dllDir in platformDlls:
     except Exception as e:
         print("Warning: Could not create nightly sumo-game.zip! (%s)" % e, file=log)
     log.close()
-    if options.cmake:
-        with open(makeAllLog, 'a') as log:
-            subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
-                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-    else:
-        subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
-                        (platform, options.rootDir, options.project, makeAllLog))
-        if options.addSln:
-            subprocess.call(compiler + " /rebuild Debug|%s %s\\%s /out %s" %
-                            (platform, options.rootDir, options.addSln, makeAllLog))
+    with open(makeAllLog, 'a') as log:
+        subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
+                        cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     if sumoAllZip:
         try:
             debugZip = sumoAllZip.replace("-all-", "Debug-%s-" % env["FILEPREFIX"])
@@ -263,17 +236,8 @@ for platform, dllDir in platformDlls:
             for dllPath in (os.path.join(options.rootDir, dllDir), debugDllPath):
                 for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
                     zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-            buildDir = os.path.dirname(os.path.join(options.rootDir, options.project))
-            for f in glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")):
-                exe = os.path.basename(f)
-                pdb = exe[:-3] + "pdb"
-                zipf.write(f, os.path.join(binDir, exe))
-                if platform == "x64":
-                    pdbPath = os.path.join(buildDir, exe[:-5], "x64", "Debug", pdb)
-                else:
-                    pdbPath = os.path.join(buildDir, exe[:-5], "Debug", pdb)
-                if os.path.exists(pdbPath):
-                    zipf.write(pdbPath, os.path.join(binDir, pdb))
+            for f in glob.glob(os.path.join(options.rootDir, options.binDir, "*D.exe")) + glob.glob(os.path.join(options.rootDir, options.binDir, "*D.pdb")):
+                zipf.write(f, os.path.join(binDir, os.path.basename(f)))
             zipf.close()
         except IOError as ziperr:
             (errno, strerror) = ziperr.args

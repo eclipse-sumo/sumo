@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <queue>
 #include <vector>
@@ -263,7 +259,7 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     MESegment* newSegment = 0;
     MESegment* nextSegment = 0;
     bool multiQueue = oc.getBool("meso-multi-queue");
-    bool junctionControl = oc.getBool("meso-junction-control");
+    bool junctionControl = oc.getBool("meso-junction-control") || isEnteringRoundabout(e);
     for (int s = no - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
         newSegment =
@@ -296,5 +292,15 @@ MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
     return s;
 }
 
+
+bool 
+MELoop::isEnteringRoundabout(const MSEdge& e) {
+    for (const MSEdge* succ : e.getSuccessors()) {
+        if (succ->isRoundabout()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/

@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id: TraCIServerAPI_Simulation.cpp v0_32_0+0483-665b60c05f oss@behrisch.de 2018-02-20 17:38:42 +0100 $
+/// @version $Id$
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeoConvHelper.h>

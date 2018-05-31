@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <cassert>
@@ -162,6 +158,9 @@ public:
     SUMOTime remainingStopDuration() const {
         return 0;
     }
+
+    ///@brief ends the current stop and performs loading/unloading
+    void processStop();
 
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop

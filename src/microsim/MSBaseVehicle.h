@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <vector>
@@ -293,6 +289,16 @@ public:
 
     /// @brief Returns this vehicles impatience
     double getImpatience() const;
+
+    /** @brief Returns the number of persons
+     * @return The number of passengers on-board
+     */
+    int getPersonNumber() const;
+
+    /** @brief Returns the number of containers
+     * @return The number of contaiers on-board
+     */
+    int getContainerNumber() const;
 
 
     /** @brief Returns this vehicle's devices

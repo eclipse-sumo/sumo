@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
@@ -86,6 +82,8 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
         }
         if ((modeSet & SVC_BICYCLE) != 0) {
             pars.id = getID() + "_b0";
+            pars.vtypeid = DEFAULT_BIKETYPE_ID;
+            pars.parametersSet |= VEHPARS_VTYPE_SET;
             trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), net->getVehicleTypeSecure(DEFAULT_BIKETYPE_ID), net));
         }
     }

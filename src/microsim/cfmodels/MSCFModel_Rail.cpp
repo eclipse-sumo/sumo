@@ -17,11 +17,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
@@ -66,6 +62,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType
     }
     myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
+    setEmergencyDecel(myTrainParams.decl);
     // update type parameters so they are shown correctly in the gui (if defaults from trainType are used)
     const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);

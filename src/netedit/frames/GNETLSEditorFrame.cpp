@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/foxtools/fxexdefs.h>
@@ -280,11 +276,11 @@ long
 GNETLSEditorFrame::onCmdDefDelete(FXObject*, FXSelector, void*) {
     GNEJunction* junction = myTLSJunction->getCurrentJunction();
     const bool changeType = myTLSAttributes->getNumberOfTLSDefinitions() == 1;
+    NBTrafficLightDefinition* tlDef = myTLSAttributes->getCurrentTLSDefinition();
     onCmdCancel(0, 0, 0); // abort because onCmdOk assumes we wish to save an edited definition
     if (changeType) {
         junction->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_PRIORITY), myViewNet->getUndoList());
     } else {
-        NBTrafficLightDefinition* tlDef = myTLSAttributes->getCurrentTLSDefinition();
         myViewNet->getUndoList()->add(new GNEChange_TLS(junction, tlDef, false), true);
     }
     return 1;
@@ -567,7 +563,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             myEditedDef->getLogic()->deletePhase(tp->row + 1);
             myTLSModifications->setHaveModifications(true);
             onCmdPhaseSwitch(0, 0, 0);
-        } catch (ProcessError) {
+        } catch (ProcessError&) {
             // input error, reset value
             myTLSPhases->getPhaseTable()->setItemText(tp->row, 1, getPhases()[tp->row].state.c_str());
         }

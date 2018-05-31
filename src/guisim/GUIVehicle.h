@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -94,7 +90,6 @@ public:
 
     void drawAction_drawVehicleBlinker(double length) const;
     void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const;
-    void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
     void drawAction_drawLinkItems(const GUIVisualizationSettings& s) const;
     void drawAction_drawVehicleBlueLight() const;
 

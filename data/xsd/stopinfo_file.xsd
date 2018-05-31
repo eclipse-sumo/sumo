@@ -15,7 +15,8 @@
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="type" use="required" type="xsd:string"/>
-            <xsd:attribute name="lane" use="required" type="xsd:string"/>
+            <xsd:attribute name="lane" use="optional" type="xsd:string"/>
+            <xsd:attribute name="edge" use="optional" type="xsd:string"/>
             <xsd:attribute name="pos" use="required" type="xsd:string"/>
             <xsd:attribute name="parking" use="required" type="boolType"/>
             <xsd:attribute name="started" use="required" type="xsd:float"/>
