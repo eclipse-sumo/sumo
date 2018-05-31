@@ -17,8 +17,9 @@ before_install:
 script:
   - make -f Makefile.cvs
   - export CPPFLAGS="$CPPFLAGS -I/opt/X11/include -I/usr/local/include"
-  - export LDFLAGS="-L/opt/X11/lib -stdlib=libc++"
-  - ./configure CXXFLAGS="-stdlib=libc++"
+  - export LDFLAGS="-L/opt/X11/lib"
+  - if [[ "$CXX" == "clang++" ]]; then export CXXFLAGS="$CXXFLAGS -stdlib=libc++"; export LDFLAGS="$LDFLAGS -stdlib=libc++"; fi
+  - ./configure
   - cat config.log
   - make -j
   - sudo make install
