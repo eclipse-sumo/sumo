@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 31 13:49:14 2018 by Eclipse SUMO Version 659ab64
+<!-- generated on Thu May 31 13:49:12 2018 by Eclipse SUMO Version 659ab64
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,11 +11,13 @@ SPDX-License-Identifier: EPL-2.0
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <processing>
@@ -24,7 +26,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -36,11 +37,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" depart="1.00" arrival="187.00">
-        <route edges="beg end"/>
-        <stop lane="beg_0" endPos="16.00" duration="50.00"/>
-        <stop lane="beg_0" endPos="6.00" duration="50.00"/>
-        <stop lane="end_0" endPos="4.00" duration="50.00"/>
-    </vehicle>
+    <person id="public" depart="4.00" arrival="154.00">
+        <walk edges="b" busStop="busstop1"/>
+        <ride from="b" to="g" busStop="busstop3" lines="100" intended="0" depart="50.00"/>
+        <walk edges="g"/>
+    </person>
 
 </routes>
