@@ -184,7 +184,8 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
             }
         }
     }
-    return myLength / MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor.getParameter()[0] * mySpeed);
+    const double speed = veh != nullptr ? MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor.getParameter()[0] * mySpeed) : mySpeed;
+    return myLength / speed;
 }
 
 
