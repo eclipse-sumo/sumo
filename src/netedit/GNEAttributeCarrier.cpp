@@ -2037,7 +2037,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 11,
-            "Enable or disbale use image file as a relative path", 
+            "Enable or disable use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 12,

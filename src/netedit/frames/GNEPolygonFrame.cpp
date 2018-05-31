@@ -214,66 +214,30 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, std:
     myInvalidValue = "";
     myLabel->setText(toString(myShapeAttr).c_str());
     myLabel->show();
-    myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-    myTextFieldStrings->setText(value.c_str());
-    myTextFieldStrings->show();
-    show();
-}
-
-
-void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, int value) {
-    myShapeAttr = shapeAttr;
-    myInvalidValue = "";
-    myLabel->setText(toString(myShapeAttr).c_str());
-    myLabel->show();
-    myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-    myTextFieldInt->setText(toString(value).c_str());
-    myTextFieldInt->show();
-    show();
-}
-
-
-void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, double value) {
-    myShapeAttr = shapeAttr;
-    myInvalidValue = "";
-    myLabel->setText(toString(myShapeAttr).c_str());
-    myLabel->show();
-    myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-    myTextFieldReal->setText(toString(value).c_str());
-    myTextFieldReal->show();
-    show();
-}
-
-
-void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, bool value) {
-    myShapeAttr = shapeAttr;
-    myInvalidValue = "";
-    myLabel->setText(toString(myShapeAttr).c_str());
-    myLabel->show();
-    if (value) {
-        myBoolCheckButton->setCheck(true);
-        myBoolCheckButton->setText("true");
+    // Retrieve attribute properties
+    const GNEAttributeCarrier::AttributeValues & attributeProperties = GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->myShapeSelector->getCurrentShapeType(), shapeAttr);
+    if(attributeProperties.isInt()) {
+        myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldInt->setText(toString(value).c_str());
+        myTextFieldInt->show();
+    } else if (attributeProperties.isFloat()) {
+        myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldReal->setText(toString(value).c_str());
+        myTextFieldReal->show();
+    } else if (attributeProperties.isBool()) {
+        if (GNEAttributeCarrier::parse<bool>(value)) {
+            myBoolCheckButton->setCheck(true);
+            myBoolCheckButton->setText("true");
+        } else {
+            myBoolCheckButton->setCheck(false);
+            myBoolCheckButton->setText("false");
+        }
+        myBoolCheckButton->show();
     } else {
-        myBoolCheckButton->setCheck(false);
-        myBoolCheckButton->setText("false");
+        myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldStrings->setText(value.c_str());
+        myTextFieldStrings->show();
     }
-    myBoolCheckButton->show();
-    show();
-}
-
-
-void
-GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, RGBColor value) {
-    myShapeAttr = shapeAttr;
-    myInvalidValue = "";
-    mycolorEditor->setText(toString(myShapeAttr).c_str());
-    mycolorEditor->show();
-    myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
-    myTextFieldStrings->setText(toString(value).c_str());
-    myTextFieldStrings->show();
     show();
 }
 

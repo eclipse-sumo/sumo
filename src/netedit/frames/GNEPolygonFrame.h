@@ -118,18 +118,6 @@ public:
         /// @brief show name and value of attribute of type string
         void showParameter(SumoXMLAttr shapeAttr, std::string value);
 
-        /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLAttr shapeAttr, int value);
-
-        /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLAttr shapeAttr, double value);
-
-        /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLAttr shapeAttr, bool value);
-
-        /// @brief show name and value of parameters of type Color
-        void showParameter(SumoXMLAttr shapeAttr, RGBColor value);
-
         /// @brief hide all parameters
         void hideParameter();
 
