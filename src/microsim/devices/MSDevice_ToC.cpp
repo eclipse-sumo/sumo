@@ -228,12 +228,12 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     myInitialAwareness(initialAwareness),
     myMRMDecel(mrmDecel),
     myCurrentAwareness(1.),
+    myUseColorScheme(useColoring),
     myTriggerMRMCommand(nullptr),
     myTriggerToCCommand(nullptr),
     myRecoverAwarenessCommand(nullptr),
     myExecuteMRMCommand(nullptr),
-    myPrepareToCCommand(nullptr),
-    myUseColorScheme(useColoring)
+    myPrepareToCCommand(nullptr)
     {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);

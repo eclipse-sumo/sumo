@@ -931,6 +931,8 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
 
 void
 MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const veh, double speed, double& gap, double& predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    UNUSED_PARAMETER(speed);
+    UNUSED_PARAMETER(predMaxDecel);
     assert(veh->hasDriverState());
 
     // Obtain perceived gap and headway from the driver state

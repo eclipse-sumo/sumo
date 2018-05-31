@@ -205,12 +205,6 @@ private:
     /// @brief vehicle type for automated driving
     std::string myAutomatedType;
 
-    /// @brief Coloring scheme, @see initColorScheme()
-    std::map<ToCState, RGBColor> myColorScheme;
-
-    /// @brief Whether a coloring scheme shall by applied to indicate the different toc stages, @see initColorScheme()
-    bool myUseColorScheme;
-
     // @brief Average response time needed by the driver to take back control
     SUMOTime myResponseTime;
     // @brief Recovery rate for the driver's awareness after a ToC
@@ -223,6 +217,12 @@ private:
 
     // @brief Current awareness-level of the driver in [0,1]
     double myCurrentAwareness;
+
+    /// @brief Coloring scheme, @see initColorScheme()
+    std::map<ToCState, RGBColor> myColorScheme;
+
+    /// @brief Whether a coloring scheme shall by applied to indicate the different toc stages, @see initColorScheme()
+    bool myUseColorScheme;
 
     /// @brief Current state of the device
     ToCState myState;
