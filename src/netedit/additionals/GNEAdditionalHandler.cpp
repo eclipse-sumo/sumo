@@ -260,7 +260,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attr
         // obtain edges (And show warnings if isn't valid)
         std::vector<GNEEdge*> edges;
         if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs, true)) {
-            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs, false);
+            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs);
         }
         // get calibrator parent
         GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->retrieveAdditional(myLastInsertedAdditionalParent, false));
@@ -386,7 +386,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
         // obtain lanes
         std::vector<GNELane*> lanes;
         if (GNEAttributeCarrier::canParse<std::vector<GNELane*> >(myViewNet->getNet(), lanesIDs, true)) {
-            lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myViewNet->getNet(), lanesIDs, false);
+            lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myViewNet->getNet(), lanesIDs);
         }
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != nullptr) {
@@ -436,7 +436,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
         // obtain edges
         std::vector<GNEEdge*> edges;
         if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgesIDs, true)) {
-            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgesIDs, false);
+            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgesIDs);
         }
         // check that all elements are valid
         if (myViewNet->getNet()->getAdditional(tag, id) != nullptr) {
@@ -1176,7 +1176,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string id = values[SUMO_ATTR_ID];
             bool ok;
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
-            std::vector<GNELane*> lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(viewNet->getNet(), values[SUMO_ATTR_LANES], true);
+            std::vector<GNELane*> lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(viewNet->getNet(), values[SUMO_ATTR_LANES]);
             // get rest of parameters
             std::string file = values[SUMO_ATTR_FILE];
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
@@ -1222,7 +1222,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string id = values[SUMO_ATTR_ID];
             bool ok;
             PositionVector pos = GeomConvHelper::parseShapeReporting(values[SUMO_ATTR_POSITION], "user-supplied position", 0, ok, false);
-            std::vector<GNEEdge*> edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(viewNet->getNet(), values[SUMO_ATTR_EDGES], true);
+            std::vector<GNEEdge*> edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(viewNet->getNet(), values[SUMO_ATTR_EDGES]);
             // Get rest of parameters
             bool off = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_OFF]);
             double prob = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_PROB]);

@@ -399,7 +399,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
                 i->removeAdditionalParent(this);
             }
             // set new edges
-            myEdgeChilds = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            myEdgeChilds = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
             // add references to this rerouter in all newedge childs
             for (auto i : myEdgeChilds) {
                 i->addAdditionalParent(this);

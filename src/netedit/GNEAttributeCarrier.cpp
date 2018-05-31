@@ -490,7 +490,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 
 template<> std::vector<GNEEdge*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value, bool report) {
+GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     // Declare string vector
     std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNEEdge*> parsedEdges;
@@ -500,13 +500,28 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value, bool report) {
         if(retrievedEdge) {
             parsedEdges.push_back(net->retrieveEdge(i));
         } else {
-            if (report) {
-                WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
-            }
-            throw EmptyData();
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "'  doesn't exist.");
         }
     }
     return parsedEdges;
+}
+
+
+template<> std::vector<GNELane*>
+GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
+    // Declare string vector
+    std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    std::vector<GNELane*> parsedLanes;
+    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
+    for (auto i : laneIds) {
+        GNELane* retrievedLane = net->retrieveLane(i, false);
+        if(retrievedLane) {
+            parsedLanes.push_back(net->retrieveLane(i));
+        } else {
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist.");
+        }
+    }
+    return parsedLanes;
 }
 
 
@@ -529,27 +544,6 @@ GNEAttributeCarrier::parseIDs(const std::vector<GNELane*> &ACs) {
         laneIDs.push_back(i->getID());
     }
     return joinToString(laneIDs, " ");
-}
-
-
-template<> std::vector<GNELane*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value, bool report) {
-    // Declare string vector
-    std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    std::vector<GNELane*> parsedLanes;
-    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
-    for (auto i : laneIds) {
-        GNELane* retrievedLane = net->retrieveLane(i, false);
-        if(retrievedLane) {
-            parsedLanes.push_back(net->retrieveLane(i));
-        } else {
-            if (report) {
-                WRITE_WARNING("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist.");
-            }
-            throw EmptyData();
-        }
-    }
-    return parsedLanes;
 }
 
 

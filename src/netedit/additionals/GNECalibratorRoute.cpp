@@ -170,7 +170,7 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EDGES:
             if (canParse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return GNEAdditional::isRouteValid(parse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value, false), false);
+                return GNEAdditional::isRouteValid(parse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value), false);
             } else {
                 return false;
             }
@@ -195,7 +195,7 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_EDGES:
-            myEdges = parse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value, false);
+            myEdges = parse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value);
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
