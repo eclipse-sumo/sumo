@@ -161,8 +161,8 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveRemi
 
 
 void
-MSDevice_Vehroutes::stopEnded(const MSVehicle::Stop& stop) {
-    stop.pars.write(myStopOut);
+MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
+    stop.write(myStopOut);
 }
 
 

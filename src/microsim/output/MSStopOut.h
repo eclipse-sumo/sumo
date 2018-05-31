@@ -78,7 +78,7 @@ public:
     void loadedContainers(const SUMOVehicle* veh, int n);
     void unloadedContainers(const SUMOVehicle* veh, int n);
 
-    void stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop);
+    void stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID);
 
 
 private:

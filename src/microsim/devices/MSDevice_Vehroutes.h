@@ -113,7 +113,7 @@ public:
         return "vehroute";
     }
 
-    void stopEnded(const MSVehicle::Stop& stop);
+    void stopEnded(const SUMOVehicleParameter::Stop& stop);
 
     /** @brief Called on writing vehroutes output
      *
