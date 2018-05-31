@@ -15,7 +15,7 @@ Options:
                         Detector's frequency. Defaults to 60.
   -o OUTPUT, --output=OUTPUT
                         The name of the file to write the detector definitions
-                        into. Defaults to e1.add.xml.
+                        into. Defaults to e3.add.xml.
   -r RESULTS, --results-file=RESULTS
                         The name of the file the detectors write their output
-                        into. Defaults to e1output.xml.
+                        into. Defaults to e3output.xml.
