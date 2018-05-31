@@ -344,7 +344,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             try {
                 libsumo::VehicleType::setEmissionClass(id, eclass);
             } catch (InvalidArgument& e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;
@@ -413,7 +413,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             try {
                 libsumo::VehicleType::setShapeClass(id, sclass);
             } catch (InvalidArgument& e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown vehicle shape " + sclass + "'.", outputStorage);
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;
