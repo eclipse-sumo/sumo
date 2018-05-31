@@ -38,11 +38,7 @@ def open_detector_file(destination_dir, detector_file_name):
 
     return open(os.path.join(destination_dir, detector_file_name), "w")
 
-if __name__ == "__main__":
-    # pylint: disable-msg=C0103
-
-    logging.basicConfig(level="INFO")
-
+def getOptions():
     option_parser = optparse.OptionParser()
     option_parser.add_option("-n", "--net-file",
                              dest="net_file",
@@ -85,6 +81,30 @@ if __name__ == "__main__":
         print("Missing arguments")
         option_parser.print_help()
         exit()
+    return options
+
+def writeEntryExit(edge, detector_xml):
+    input_edges = network.getDownstreamEdges(
+        edge, options.requested_detector_length, True)
+    for firstEdge, position, intermediate, aborted  in input_edges:
+        if aborted:
+            position = .1
+        for lane in firstEdge.getLanes():
+            detector_entry_xml = detector_xml.addChild("detEntry")
+            detector_entry_xml.setAttribute("lane", lane.getID())
+            detector_entry_xml.setAttribute("pos", "%.2f" % position)
+
+    for lane in edge.getLanes():
+        detector_exit_xml = detector_xml.addChild("detExit")
+        detector_exit_xml.setAttribute("lane", lane.getID())
+        detector_exit_xml.setAttribute("pos", "-.1")
+
+if __name__ == "__main__":
+    # pylint: disable-msg=C0103
+    options = getOptions()
+
+    logging.basicConfig(level="INFO")
+
 
     logging.info("Reading net...")
     network = sumolib.net.readNet(options.net_file)
@@ -99,22 +119,7 @@ if __name__ == "__main__":
                 "id", "e3_" + str(tls._id) + "_" + str(edge._id))
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("file", options.results)
-
-            input_edges = network.getDownstreamEdges(
-                edge, options.requested_detector_length, True)
-            for firstEdge, position, intermediate, aborted  in input_edges:
-                if aborted:
-                    position = .1
-                for lane in firstEdge.getLanes():
-                    detector_entry_xml = detector_xml.addChild("detEntry")
-                    detector_entry_xml.setAttribute("lane", lane.getID())
-                    detector_entry_xml.setAttribute("pos", "%.2f" % position)
-
-            for lane in edge.getLanes():
-                detector_exit_xml = detector_xml.addChild("detExit")
-                detector_exit_xml.setAttribute("lane", lane.getID())
-                detector_exit_xml.setAttribute("pos", "-.1")
-
+            writeEntryExit(edge, detector_xml)
             generated_detectors += 1
 
     detector_file = open_detector_file(
