@@ -76,6 +76,8 @@ def getOptions():
 
     option_parser.add_option("--joined", action="store_true",
                          default=False, help="Create one e3Detector per junction")
+    option_parser.add_option("--follow-turnaround", dest="followTurnaround", action="store_true",
+                         default=False, help="Extend entry detectors past turn-around connections")
     option_parser.set_usage("generateTLSE3Detectors.py -n example.net.xml "
                             "-l 250 -d .1 -f 60")
 
@@ -86,9 +88,11 @@ def getOptions():
         exit()
     return options
 
-def writeEntryExit(edge, detector_xml):
+def writeEntryExit(options, edge, detector_xml):
+    stopOnTLS = True
+    stopOnTurnaround = not options.followTurnaround
     input_edges = network.getDownstreamEdges(
-        edge, options.requested_detector_length, True)
+        edge, options.requested_detector_length, stopOnTLS, stopOnTurnaround)
     input_edges.sort()
     for firstEdge, position, intermediate, aborted in input_edges:
         if aborted:
@@ -124,7 +128,7 @@ if __name__ == "__main__":
             detector_xml.setAttribute("file", options.results)
             generated_detectors += 1
             for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
-                writeEntryExit(edge, detector_xml)
+                writeEntryExit(options, edge, detector_xml)
 
         else:
             for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
@@ -133,7 +137,7 @@ if __name__ == "__main__":
                     "id", "e3_" + str(tls._id) + "_" + str(edge._id))
                 detector_xml.setAttribute("freq", str(options.frequency))
                 detector_xml.setAttribute("file", options.results)
-                writeEntryExit(edge, detector_xml)
+                writeEntryExit(options, edge, detector_xml)
                 generated_detectors += 1
 
     detector_file = open_detector_file(
