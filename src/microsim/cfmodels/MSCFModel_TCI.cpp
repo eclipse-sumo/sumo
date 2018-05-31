@@ -79,7 +79,8 @@ MSCFModel_TCI::stopSpeed(const MSVehicle* const veh, const double speed, double 
 
 double
 MSCFModel_TCI::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
-    assert(veh->getDriverState()!=nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
+    UNUSED_PARAMETER(pred);
+    assert(veh->getDriverState() != nullptr); // DriverState must be defined for vehicle with MSCFModel_TCI
     const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
     const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed, gap);
 #ifdef DEBUG_DRIVER_ERRORS

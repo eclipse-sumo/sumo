@@ -1169,16 +1169,6 @@ public:
     /// @brief retrieve riding containers
     const std::vector<MSTransportable*>& getContainers() const;
 
-    /** @brief Returns the number of persons
-     * @return The number of passengers on-board
-     */
-    int getPersonNumber() const;
-
-    /** @brief Returns the number of containers
-     * @return The number of contaiers on-board
-     */
-    int getContainerNumber() const;
-
     /// @name Access to bool signals
     /// @{
 

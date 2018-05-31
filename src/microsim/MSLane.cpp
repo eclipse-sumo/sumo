@@ -74,6 +74,7 @@
 //#define DEBUG_JUNCTION_COLLISIONS
 //#define DEBUG_PEDESTRIAN_COLLISIONS
 //#define DEBUG_LANE_SORTER
+//#define DEBUG_NO_CONNECTION
 
 #define DEBUG_COND (true)
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
@@ -562,7 +563,7 @@ MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, con
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
         } else if (speed > 0) {
-            if (MSGlobals::gEmergencyInsertion) {
+            if (!MSGlobals::gCheckRoutes) {
                 // Check whether vehicle can stop at the given distance when applying emergency braking
                 double emergencyBrakeGap = 0.5*speed*speed/aVehicle->getCarFollowModel().getEmergencyDecel();
                 if (emergencyBrakeGap <= dist) {
@@ -1900,7 +1901,7 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
         return succLinkSource.myLinks.end();
     }
     // the only case where this should happen is for a disconnected route (deliberately ignored)
-#ifdef _DEBUG
+#ifdef DEBUG_NO_CONNECTION
     // the "'" around the ids are missing intentionally in the message below because it slows messaging down, resulting in test timeouts
     WRITE_WARNING("Could not find connection between lane " + succLinkSource.getID() + " and lane " + conts[nRouteSuccs]->getID() +
                   " for vehicle " + veh.getID() + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

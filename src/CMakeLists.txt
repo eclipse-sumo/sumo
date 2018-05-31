@@ -35,22 +35,15 @@ add_subdirectory(traci_testclient)
 add_subdirectory(utils)
 
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    set(sumoexec
+set(sumoexec
             sumo_main.cpp
             microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
-    set(sumoguiexec
+set(sumoguiexec
             guisim_main.cpp
             microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h
             gui/GUIManipulator.h gui/GUIManipulator.cpp
             gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
             mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
-else ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(sumoexec
-            sumo_main.cpp)
-    set(sumoguiexec
-            guisim_main.cpp)
-endif ()
 
 add_executable(sumo version.h ${sumoexec})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
@@ -78,11 +71,12 @@ add_executable(od2trips version.h od2trips_main.cpp)
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2tripsD)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
 
+install(TARGETS sumo sumo-gui netconvert od2trips RUNTIME DESTINATION bin)
+
 configure_file(config.h.cmake config.h)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/src/version.h
                    COMMAND ${CMAKE_SOURCE_DIR}/tools/build/version.py ${CMAKE_BINARY_DIR}/src
-#                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../.svn/wc.db
                   )
 add_custom_target(generate-version-h
                   DEPENDS ${CMAKE_BINARY_DIR}/src/version.h

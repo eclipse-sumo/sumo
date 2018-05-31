@@ -29,11 +29,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSJunction;
-class MSLink;
-class MSVehicle;
-class MSLane;
-class MSPerson;
+//class MSJunction;
+//class MSLink;
+//class MSVehicle;
+//class MSLane;
+//class MSPerson;
 
 
 // ===========================================================================
@@ -536,8 +536,8 @@ private:
 
 
 
-/// @brief Default values for the TCI Driver Model parameters
-struct TCIDefaults {
+/// @brief Default values for the MSDriverState parameters
+struct DriverStateDefaults {
 //    static double myMinTaskCapability;
 //    static double myMaxTaskCapability;
 //    static double myMaxTaskDemand;

@@ -84,9 +84,6 @@ public:
     /** Lateral resolution within a lane */
     static double gLateralResolution;
 
-    /** Whethter vehicles with given depart speed are inserted in situations that require emergency braking */
-    static double gEmergencyInsertion;
-
     /// Information whether a state has been loaded
     static bool gStateLoaded;
 

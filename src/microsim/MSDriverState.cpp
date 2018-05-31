@@ -76,13 +76,13 @@
 //double TCIDefaults::myHeadwayPerceptionErrorTimeScaleCoefficient = 1.0;
 //double TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient = 1.0;
 
-double TCIDefaults::myMinAwareness = 0.1;
-double TCIDefaults::myErrorTimeScaleCoefficient = 100.0;
-double TCIDefaults::myErrorNoiseIntensityCoefficient = 0.2;
-double TCIDefaults::mySpeedDifferenceErrorCoefficient = 0.15;
-double TCIDefaults::myHeadwayErrorCoefficient = 0.75;
-double TCIDefaults::mySpeedDifferenceChangePerceptionThreshold = 0.1;
-double TCIDefaults::myHeadwayChangePerceptionThreshold = 0.1;
+double DriverStateDefaults::myMinAwareness = 0.1;
+double DriverStateDefaults::myErrorTimeScaleCoefficient = 100.0;
+double DriverStateDefaults::myErrorNoiseIntensityCoefficient = 0.2;
+double DriverStateDefaults::mySpeedDifferenceErrorCoefficient = 0.15;
+double DriverStateDefaults::myHeadwayErrorCoefficient = 0.75;
+double DriverStateDefaults::mySpeedDifferenceChangePerceptionThreshold = 0.1;
+double DriverStateDefaults::myHeadwayChangePerceptionThreshold = 0.1;
 
 
 // ===========================================================================
@@ -119,14 +119,14 @@ OUProcess::getState() const {
 MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
         myVehicle(veh),
         myAwareness(1.),
-        myMinAwareness(TCIDefaults::myMinAwareness),
+        myMinAwareness(DriverStateDefaults::myMinAwareness),
         myError(0., 1.,1.),
-        myErrorTimeScaleCoefficient(TCIDefaults::myErrorTimeScaleCoefficient),
-        myErrorNoiseIntensityCoefficient(TCIDefaults::myErrorNoiseIntensityCoefficient),
-        mySpeedDifferenceErrorCoefficient(TCIDefaults::mySpeedDifferenceErrorCoefficient),
-        myHeadwayErrorCoefficient(TCIDefaults::myHeadwayErrorCoefficient),
-        mySpeedDifferenceChangePerceptionThreshold(TCIDefaults::mySpeedDifferenceChangePerceptionThreshold),
-        myHeadwayChangePerceptionThreshold(TCIDefaults::myHeadwayChangePerceptionThreshold),
+        myErrorTimeScaleCoefficient(DriverStateDefaults::myErrorTimeScaleCoefficient),
+        myErrorNoiseIntensityCoefficient(DriverStateDefaults::myErrorNoiseIntensityCoefficient),
+        mySpeedDifferenceErrorCoefficient(DriverStateDefaults::mySpeedDifferenceErrorCoefficient),
+        myHeadwayErrorCoefficient(DriverStateDefaults::myHeadwayErrorCoefficient),
+        mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::mySpeedDifferenceChangePerceptionThreshold),
+        myHeadwayChangePerceptionThreshold(DriverStateDefaults::myHeadwayChangePerceptionThreshold),
         myActionStepLength(TS),
         myStepDuration(TS),
         myLastUpdateTime(SIMTIME-TS),
@@ -165,7 +165,6 @@ MSSimpleDriverState::updateStepDuration() {
 void
 MSSimpleDriverState::updateError() {
     if (myAwareness == 1.0 || myAwareness == 0.0) {
-        // myAwareness == 0.0 corresponds to automated driving
         myError.setState(0.);
     } else {
         myError.setTimeScale(myErrorTimeScaleCoefficient*myAwareness);
@@ -184,6 +183,9 @@ MSSimpleDriverState::setAwareness(const double value) {
     }
 #endif
     myAwareness = MAX2(value,myMinAwareness);
+    if(myAwareness == 1.) {
+        myError.setState(0.);
+    }
 }
 
 
@@ -197,6 +199,7 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
         }
     }
 #endif
+
     const double perceivedGap = trueGap + myHeadwayErrorCoefficient*myError.getState()*trueGap;
     const auto assumedGap = myAssumedGap.find(objID);
     if (assumedGap == myAssumedGap.end()

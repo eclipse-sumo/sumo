@@ -232,6 +232,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     continue;
                 }
                 double lbcSibling = 0;
+                double lbcLane = 0;
                 if (l.back().distanceTo2D(s.back()) > minDist) {
                     // compute the final divergence point
                     // this position serves two purposes:
@@ -240,8 +241,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     //    Since the actual crossing point is at the start of the junction, 
                     //    we want to make sure that both vehicles have the same distance to the crossing point and thus follow each other naturally
                     std::vector<double> distances = l.distances(s);
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                    std::cout << "   distances=" << toString(distances) << "\n";
+#endif
                     assert(distances.size() == l.size() + s.size());
                     if (distances.back() > minDist) {
+                        // do a pairwise check between lane and sibling to make because we do not know which of them bends more
                         for (int j = (int)s.size() - 2; j >= 0; j--) {
                             const int i = j + (int)l.size();
                             const double segLength = s[j].distanceTo2D(s[j + 1]);
@@ -253,16 +258,38 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                                 break;
                             }
                         }
+                        for (int i = (int)l.size() - 2; i >= 0; i--) {
+                            const double segLength = l[i].distanceTo2D(l[i + 1]);
+                            if (distances[i] > minDist) {
+                                lbcLane += segLength;
+                            } else {
+                                // assume no sharp bends and just interpolate the last segment
+                                lbcLane += segLength - (minDist - distances[i]) * segLength /  (distances[i + 1] - distances[i]);
+                                break;
+                            }
+                        }
                     }
                     assert(lbcSibling >= -NUMERICAL_EPS);
+                    assert(lbcLane >= -NUMERICAL_EPS);
                 }
-                const double distToDivergence = sibling->getLength() - lbcSibling;
-                double lbcLane = lane->getLength() - distToDivergence;
+                const double distToDivergence1 = sibling->getLength() - lbcSibling;
+                const double distToDivergence2 = lane->getLength() - lbcLane;
+                const double distToDivergence = MIN3(
+                        MAX2(distToDivergence1, distToDivergence2),
+                        sibling->getLength(), lane->getLength());
+                lbcLane = MAX2(0.0, lane->getLength() - distToDivergence);
                 lbcLane = lane->interpolateGeometryPosToLanePos(lbcLane);
+                lbcSibling = MAX2(0.0, sibling->getLength() - distToDivergence);
                 lbcSibling = lane->interpolateGeometryPosToLanePos(lbcSibling);
                 myLengthsBehindCrossing.push_back(std::make_pair(lbcLane, lbcSibling));
                 myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout << "   distToDivergence=" << distToDivergence
+                          << " distTD1=" << distToDivergence1
+                          << " distTD2=" << distToDivergence2
+                          << " length=" << lane->getLength()
+                          << " sibLength=" << sibling->getLength()
+                          << "\n";
                 std::cout << " adding same-origin foe" << sibling->getID()
                           << " dist1=" << myLengthsBehindCrossing.back().first
                           << " dist2=" << myLengthsBehindCrossing.back().second

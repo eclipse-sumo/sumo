@@ -11,3 +11,5 @@ target_link_libraries(emissionsDrivingCycle utils_emissions foreign_phemlight ${
 add_executable(emissionsMap emissionsMap_main.cpp)
 set_target_properties(emissionsMap PROPERTIES OUTPUT_NAME_DEBUG emissionsMapD)
 target_link_libraries(emissionsMap utils_emissions foreign_phemlight ${commonlibs})
+
+install(TARGETS emissionsDrivingCycle emissionsMap RUNTIME DESTINATION bin)

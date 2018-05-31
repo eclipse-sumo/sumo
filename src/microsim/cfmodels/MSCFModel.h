@@ -31,6 +31,8 @@
 #include <utils/common/FileHelpers.h>
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
+// Factor that the minimum emergency decel is increased by in corresponding situations
+#define EMERGENCY_DECEL_AMPLIFIER 1.2
 
 // ===========================================================================
 // class declarations
@@ -501,6 +503,20 @@ public:
     double maximumSafeFollowSpeed(double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
 
 
+    /** @brief Returns the minimal deceleration for following the given leader safely
+     * @param[in] gap The (netto) distance to the LEADER
+     * @param[in] egoSpeed The FOLLOWERS's speed
+     * @param[in] predSpeed The LEADER's speed
+     * @param[in] predMaxDecel The LEADER's maximum deceleration
+     * @return The minimal deceleration b>0 that, if applied constantly until a full stop,
+     *         asserts that the vehicle does not crash into the leader.
+     * @note   If b > predMaxDecel, this function actually does not calculate the tangency for the trajectories, i.e. a double root for the gap,
+     *         but applies a simpler approach following the spirit of maximumSafeFollowSpeed, where the
+     *         leader's decel is assumed as maximum of its actual value and the followers decel.
+     */
+    double calculateEmergencyDeceleration(double gap, double egoSpeed, double predSpeed, double predMaxDecel) const;
+
+
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
@@ -529,7 +545,6 @@ public:
      * If a negative value is returned, the required stop has to take place before the end of the time step.
      */
     double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
-
 
 protected:
 

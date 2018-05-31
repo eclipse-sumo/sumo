@@ -502,6 +502,20 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
 }
 
 
+int
+MSBaseVehicle::getPersonNumber() const {
+    int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
+    return boarded + myParameter->personNumber;
+}
+
+int
+MSBaseVehicle::getContainerNumber() const {
+    int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
+    return loaded + myParameter->containerNumber;
+}
+
+
+
 bool
 MSBaseVehicle::hasDevice(const std::string& deviceName) const {
     for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {

@@ -391,7 +391,7 @@ public:
     void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
     /// @brief Removes a vehicle from the list of waiting vehicles to a given edge
-    void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
+    void removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle);
 
     /* @brief returns a vehicle of the given lines that is waiting for a for a person or a container at this edge at the given positions
      * @param[in] edge The edge at which the vehicle is positioned.

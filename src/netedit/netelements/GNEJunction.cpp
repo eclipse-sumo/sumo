@@ -179,7 +179,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //    // XXX if joinable
     //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
     //}
-    const int numEndpoints = myNBNode.getEndPoints().size();
+    const int numEndpoints = (int)myNBNode.getEndPoints().size();
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", 0, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
     FXMenuCommand* mcReplace = new FXMenuCommand(ret, "Replace junction by geometry point", 0, &parent, MID_GNE_JUNCTION_REPLACE);

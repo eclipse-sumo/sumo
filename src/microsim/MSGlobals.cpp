@@ -46,8 +46,6 @@ SUMOTime MSGlobals::gLaneChangeDuration;
 
 double MSGlobals::gLateralResolution;
 
-double MSGlobals::gEmergencyInsertion;
-
 bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 bool MSGlobals::gMesoLimitedJunctionControl;

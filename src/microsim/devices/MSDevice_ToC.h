@@ -38,7 +38,7 @@ class SUMOVehicle;
 class MSVehicle;
 class Command_ToCTrigger;
 class Command_ToCProcess;
-
+class RGBColor;
 
 // ===========================================================================
 // class definitions
@@ -47,6 +47,7 @@ class Command_ToCProcess;
  * @class MSDevice_ToC
  *
  * @brief The ToC Device controls transition of control between automated and manual driving.
+ * @todo: Provide logging facilities
  *
  * @see MSDevice
  */
@@ -88,7 +89,6 @@ private:
         RECOVERING = 5
     };
 
-
     /// @name Helpers for parameter parsing
     /// @{
     static std::string getManualType(const SUMOVehicle& v, const OptionsCont& oc);
@@ -97,6 +97,7 @@ private:
     static double getRecoveryRate(const SUMOVehicle& v, const OptionsCont& oc);
     static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
+    static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
 
     static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
     static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
@@ -151,14 +152,23 @@ private:
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
             std::string manualType, std::string automatedType,
-            SUMOTime responseTime, double recoveryRate, double initialAwareness, double mrmDecel);
+            SUMOTime responseTime, double recoveryRate, double initialAwareness,
+            double mrmDecel, bool useColorScheme);
 
+    /** @brief Initialize vehicle colors for different states
+     *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
+     *         and for the other states hardcoded colors are given.
+     */
+    void initColorScheme();
 
     /// @brief Set the awareness to the given value
     void setAwareness(double value);
 
     /// @brief Set the ToC device's state
     void setState(ToCState state);
+
+    // @brief Sets the device holder's color corresponding to the current state
+    void setVehicleColor();
 
     /// @brief Request a ToC.
     ///        If the device is in AUTOMATED or MRM state, a driver response time is sampled
@@ -207,6 +217,12 @@ private:
 
     // @brief Current awareness-level of the driver in [0,1]
     double myCurrentAwareness;
+
+    /// @brief Coloring scheme, @see initColorScheme()
+    std::map<ToCState, RGBColor> myColorScheme;
+
+    /// @brief Whether a coloring scheme shall by applied to indicate the different toc stages, @see initColorScheme()
+    bool myUseColorScheme;
 
     /// @brief Current state of the device
     ToCState myState;

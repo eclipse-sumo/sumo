@@ -161,8 +161,8 @@ MSDevice_Vehroutes::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveRemi
 
 
 void
-MSDevice_Vehroutes::stopEnded(const MSVehicle::Stop& stop) {
-    stop.pars.write(myStopOut);
+MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
+    stop.write(myStopOut);
 }
 
 
@@ -312,15 +312,6 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         writeXMLRoute(od);
         if (myReplacedRoutes.size() > 0) {
             od.closeTag();
-        }
-    }
-    if (MSGlobals::gUseMesoSim) {
-        // stopEnded is never called by mesosim
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getRoute().getStops().begin(); i != myHolder.getRoute().getStops().end(); ++i) {
-            i->write(od);
-        }
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getParameter().stops.begin(); i != myHolder.getParameter().stops.end(); ++i) {
-            i->write(od);
         }
     }
     od << myStopOut.getString();

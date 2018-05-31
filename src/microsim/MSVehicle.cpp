@@ -1431,6 +1431,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
 
     Stop& stop = myStops.front();
+    const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (stop.reached) {
 
 #ifdef DEBUG_STOPS
@@ -1442,9 +1443,11 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedPerson == 0;
+        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, 
+                stop.pars, stop.timeToBoardNextPerson, stop.duration) && stop.numExpectedPerson == 0;
         // load containers
-        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedContainer == 0;
+        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting( &myLane->getEdge(), this, 
+                stop.pars, stop.timeToLoadNextContainer, stop.duration) && stop.numExpectedContainer == 0;
         if (boarded) {
             if (stop.busstop != 0) {
                 const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
@@ -1597,16 +1600,16 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
                 if (MSStopOut::active()) {
-                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber());
+                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
                 }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
                 if (stop.pars.until >= 0) {
                     if (stop.duration == -1) {
-                        stop.duration = stop.pars.until - MSNet::getInstance()->getCurrentTimeStep();
+                        stop.duration = stop.pars.until - time;
                     } else {
-                        stop.duration = MAX2(stop.duration, stop.pars.until - MSNet::getInstance()->getCurrentTimeStep());
+                        stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
                 if (stop.busstop != 0) {
@@ -4333,19 +4336,6 @@ MSVehicle::getContainers() const {
 }
 
 
-int
-MSVehicle::getPersonNumber() const {
-    int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
-    return boarded + myParameter->personNumber;
-}
-
-int
-MSVehicle::getContainerNumber() const {
-    int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
-    return loaded + myParameter->containerNumber;
-}
-
-
 void
 MSVehicle::setBlinkerInformation() {
     switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT | VEH_SIGNAL_BLINKER_LEFT);
@@ -4871,10 +4861,10 @@ MSVehicle::resumeFromStopping() {
         MSNet::getInstance()->getVehicleControl().removeWaiting(&myLane->getEdge(), this);
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
         if (vehroutes != 0) {
-            vehroutes->stopEnded(myStops.front());
+            vehroutes->stopEnded(myStops.front().pars);
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, myStops.front());
+            MSStopOut::getInstance()->stopEnded(this, myStops.front().pars, myStops.front().lane->getID());
         }
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
