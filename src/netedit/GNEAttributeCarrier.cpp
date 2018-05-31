@@ -1908,7 +1908,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_SHAPE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_BLOCKSHAPE | TAGPROPERTY_CLOSESHAPE | TAGPROPERTY_GEOSHAPE, 100, ICON_LOCATEPOLY /* temporal */);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 1,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
             "The id of the polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
@@ -1916,27 +1916,27 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The shape of the polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 3,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 3,
             "The RGBA color with which the polygon shall be displayed", 
             "green");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILL] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 4,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 4,
             "An information whether the polygon shall be filled", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 5,
             "The layer in which the polygon lies", 
-            "0");
+            "default");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 6,
             "A typename for the polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 7,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 7,
             "A bitmap to use for rendering this polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 8,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
             "Enable or disbale use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
@@ -1958,32 +1958,32 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The position in view", 
             ""); 
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 3, 
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3, 
             "The color with which the poi shall be displayed", 
             "red");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 4,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "A typename for the poi", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_OPTIONAL, 5,
             "The layer of the poi for drawing and selecting", 
-            "4"); // needed to draw it over lane
+            "default");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
             "Width of rendered image in meters", 
-            "0");
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 7,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
             "Height of rendered image in meters", 
-            "0");
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 8,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
             "A bitmap to use for rendering this poi", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 9,
-            "Enable or disbale use image file as a relative path", 
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
+            "Enable or disable use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 10,
@@ -2001,42 +2001,42 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
-            "The name of the lane the poi is located at); the lane must be a part of the loaded network", 
+            "The name of the lane the poi is located at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
             "The position on the named lane or in the net in meters at which the poi is located at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION_LAT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE, 4,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "The lateral offset on the named lane at which the poi is located at", 
-            "0");
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE, 5,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 5,
             "The color with which the poi shall be displayed", 
             "red");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
             "A typename for the poi", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 7,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
             "The layer of the poi for drawing and selecting", 
-            "4"); // needed to draw it over lane
+            "default");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 8,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
             "Width of rendered image in meters", 
-            "0");
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 9,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
             "Height of rendered image in meters", 
-            "0");
+            "0.00");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 10,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 10,
             "A bitmap to use for rendering this poi", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 11,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 11,
             "Enable or disable use image file as a relative path", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(

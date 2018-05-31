@@ -248,7 +248,11 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_LAYER:
-            return toString(getShapeLayer());
+            if(getShapeLayer() == GLO_POI) {
+                return "default";
+            } else {
+                return toString(getShapeLayer());
+            }
         case SUMO_ATTR_IMGFILE:
             return getShapeImgFile();
         case SUMO_ATTR_RELATIVEPATH:
@@ -301,7 +305,8 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
 
 bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
+    switch (key) 
+    {
         case SUMO_ATTR_ID:
             return isValidID(value) && (myNet->retrievePOI(value, false) == 0);
         case SUMO_ATTR_COLOR:
@@ -323,7 +328,11 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_LAYER:
-            return canParse<double>(value);
+            if (value == "default") {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_IMGFILE:
             if (value == "") {
                 return true;
@@ -401,7 +410,11 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeType(value);
             break;
         case SUMO_ATTR_LAYER:
-            setShapeLayer(parse<double>(value));
+            if(value == "default") {
+                setShapeLayer(GLO_POI);
+            } else {
+                setShapeLayer(parse<double>(value));
+            }
             break;
         case SUMO_ATTR_IMGFILE:
             setShapeImgFile(value);

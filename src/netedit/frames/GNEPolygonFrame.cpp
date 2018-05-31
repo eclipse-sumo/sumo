@@ -991,13 +991,13 @@ GNEPolygonFrame::addPolygon(const std::map<SumoXMLAttr, std::string>& polyValues
     std::string id = polyValues.at(SUMO_ATTR_ID);
     std::string type = polyValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(polyValues.at(SUMO_ATTR_COLOR));
-    double layer = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_LAYER));
-    double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
+    std::string layerStr = polyValues.at(SUMO_ATTR_LAYER);    double angle = GNEAttributeCarrier::parse<double>(polyValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = polyValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_RELATIVEPATH));
     PositionVector shape = GeomConvHelper::parseShapeReporting(polyValues.at(SUMO_ATTR_SHAPE), "user-supplied position", 0, ok, true);
     bool fill = GNEAttributeCarrier::parse<bool>(polyValues.at(SUMO_ATTR_FILL));
-
+    // parse layer
+    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : Shape::DEFAULT_LAYER;
     // create new Polygon only if number of shape points is greather than 2
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POLY));
     if ((shape.size() > 0) && myViewNet->getNet()->addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, false, fill)) {
@@ -1023,14 +1023,15 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     std::string id = POIValues.at(SUMO_ATTR_ID);
     std::string type = POIValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
-    double layer = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_LAYER));
+    std::string layerStr = POIValues.at(SUMO_ATTR_LAYER);
     Position pos = GeomConvHelper::parseShapeReporting(POIValues.at(SUMO_ATTR_POSITION), "netedit-given", 0, ok, false)[0];
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_RELATIVEPATH));
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
-
+    // parse layer
+    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : GLO_POI;
     // create new POI
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POI));
     if (myViewNet->getNet()->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, relativePath, widthPOI, heightPOI)) {
@@ -1054,7 +1055,7 @@ GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues)
     std::string id = POIValues.at(SUMO_ATTR_ID);
     std::string type = POIValues.at(SUMO_ATTR_TYPE);
     RGBColor color = RGBColor::parseColor(POIValues.at(SUMO_ATTR_COLOR));
-    double layer = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_LAYER));
+    std::string layerStr = POIValues.at(SUMO_ATTR_LAYER);
     double angle = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_ANGLE));
     std::string imgFile = POIValues.at(SUMO_ATTR_IMGFILE);
     bool relativePath = GNEAttributeCarrier::parse<bool>(POIValues.at(SUMO_ATTR_RELATIVEPATH));
@@ -1063,7 +1064,8 @@ GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues)
     double posLat = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_POSITION_LAT));
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
-
+    // parse layer
+    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : GLO_POI;
     // create new POILane
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POILANE));
     if (myViewNet->getNet()->addPOI(id, type, color, Position(), false, lane->getID(), posLane, posLat, layer, angle, imgFile, relativePath, widthPOI, heightPOI)) {
