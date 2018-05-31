@@ -117,15 +117,6 @@ public:
         /// @brief show name and value of attribute of type string
         void showParameter(SumoXMLAttr additionalAttr, std::string value);
 
-        /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLAttr additionalAttr, int value);
-
-        /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLAttr additionalAttr, double value);
-
-        /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLAttr additionalAttr, bool value);
-
         /// @brief hide all parameters
         void hideParameter();
 
@@ -176,7 +167,7 @@ public:
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
     };
-
+/**
     // ===========================================================================
     // class AdditionalAttributeList
     // ===========================================================================
@@ -245,7 +236,7 @@ public:
         /// @brief Number max of values in a parameter of type list
         int myMaxNumberOfValuesInParameterList;
     };
-
+**/
     // ===========================================================================
     // class AdditionalAttributes
     // ===========================================================================
@@ -256,7 +247,9 @@ public:
 
         /// @brief friend class declaration
         friend class AdditionalAttributeSingle;
+/**
         friend class AdditionalAttributeList;
+**/
 
     public:
         /// @brief constructor
@@ -285,10 +278,10 @@ public:
 
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
-
+/**
         /// @brief get number of added attributes
         int getNumberOfAddedAttributes() const;
-
+**/
         /// @brief get additional frame parent
         GNEAdditionalFrame *getAdditionalFrameParent() const;
 
@@ -308,7 +301,7 @@ public:
 
         /// @brief vector with the additional parameters
         std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
-
+/**
         /// @brief vector with the additional parameters of type list
         std::vector<AdditionalAttributeList*> myVectorOfsingleAdditionalParameterList;
 
@@ -317,6 +310,7 @@ public:
 
         /// @brief max number of parameters (Defined in constructor)
         int myMaxNumberOfListParameters;
+**/
     };
 
     // ===========================================================================

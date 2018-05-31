@@ -525,7 +525,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isFloat() || GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isTime()) {
         // Check if default value of attribute must be set
         if (myTextFieldReal->getText().empty() && GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).hasDefaultValue()) {
-            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+            newVal = GNEAttributeCarrier::getDefaultValue(myTag, myAttr);
             myTextFieldReal->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldReal
@@ -534,7 +534,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isInt()) {
         // Check if default value of attribute must be set
         if (myTextFieldInt->getText().empty() && GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).hasDefaultValue()) {
-            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+            newVal = GNEAttributeCarrier::getDefaultValue(myTag, myAttr);
             myTextFieldInt->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldInt
@@ -543,7 +543,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     } else if (GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).isString()) {
         // Check if default value of attribute must be set
         if (myTextFieldStrings->getText().empty() && GNEAttributeCarrier::getAttributeProperties(myTag, myAttr).hasDefaultValue()) {
-            newVal = GNEAttributeCarrier::getDefaultValue<std::string>(myTag, myAttr);
+            newVal = GNEAttributeCarrier::getDefaultValue(myTag, myAttr);
             myTextFieldStrings->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldStrings

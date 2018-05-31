@@ -49,8 +49,8 @@
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAttributeCarrier(SUMO_TAG_INTERVAL),
     myRerouterParent(rerouterDialog->getEditedRerouter()),
-    myBegin(getDefaultValue<double>(SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN)),
-    myEnd(getDefaultValue<double>(SUMO_TAG_INTERVAL, SUMO_ATTR_END)) {
+    myBegin(parse<double>(getDefaultValue(SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN))),
+    myEnd(parse<double>(getDefaultValue(SUMO_TAG_INTERVAL, SUMO_ATTR_END))) {
 }
 
 

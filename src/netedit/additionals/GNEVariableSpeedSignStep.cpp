@@ -42,7 +42,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
     GNEAttributeCarrier(SUMO_TAG_STEP),
     myVariableSpeedSignParent(variableSpeedSignDialog->getEditedVariableSpeedSign()),
     myTime(0),
-    mySpeed(getDefaultValue<double>(SUMO_TAG_STEP, SUMO_ATTR_SPEED)) {
+    mySpeed(parse<double>(getDefaultValue(SUMO_TAG_STEP, SUMO_ATTR_SPEED))) {
     // set Time
     if (variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().size() > 0) {
         myTime = variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().back()->getTime() + 1;

@@ -467,20 +467,7 @@ GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle)
     SumoXMLTag currentTag = myPolygonFrameParent->getShapeSelector()->getCurrentShapeType();
     // obtain attribute property (only for improve code legibility)
     const GNEAttributeCarrier::AttributeValues &attrvalue = GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle);
-    // Check type of attribute list
-    if (attrvalue.isInt()) {
-        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<int>(currentTag, ShapeAttributeSingle));
-    } else if (attrvalue.isFloat() || attrvalue.isTime()) {
-        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<double>(currentTag, ShapeAttributeSingle));
-    } else if (attrvalue.isBool()) {
-        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<bool>(currentTag, ShapeAttributeSingle));
-    } else if (attrvalue.isColor()) {
-        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<RGBColor>(currentTag, ShapeAttributeSingle));
-    } else if (attrvalue.isString()) {
-        myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue<std::string>(currentTag, ShapeAttributeSingle));
-    } else {
-        WRITE_WARNING("Attribute '" + toString(ShapeAttributeSingle) + "' doesn't have a defined type. Check definition in GNEAttributeCarrier");
-    }
+    myVectorOfsingleShapeParameter.at(attrvalue.getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue(currentTag, ShapeAttributeSingle));
 }
 
 

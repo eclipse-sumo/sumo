@@ -44,7 +44,7 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterInterv
     GNEAttributeCarrier(SUMO_TAG_DEST_PROB_REROUTE),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myNewEdgeDestination(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)),
-    myProbability(getDefaultValue<double>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB)) {
+    myProbability(parse<double>(getDefaultValue(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB))) {
 }
 
 

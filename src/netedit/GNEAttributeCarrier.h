@@ -360,9 +360,7 @@ public:
     static int getHigherNumberOfAttributes();
 
     /// @brief return the default value of the attribute of an element
-    /// @note It's advisable to check before with function hasDefaultValue if  exits a default value
-    template<typename T>
-    static T getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
+    static const std::string &getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -550,7 +548,7 @@ public:
             if (!parsedOk) {
                 // if attribute has a default value, obtain it as string. In other case, abort.
                 if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
-                    parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+                    parsedAttribute = toString(getDefaultValue(tag, attribute));
                 } else {
                     WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
@@ -563,7 +561,7 @@ public:
         } else {
             // if attribute has a default value, obtain it. In other case, abort.
             if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
-                parsedAttribute = toString(getDefaultValue<T>(tag, attribute));
+                parsedAttribute = toString(getDefaultValue(tag, attribute));
             } else {
                 WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");

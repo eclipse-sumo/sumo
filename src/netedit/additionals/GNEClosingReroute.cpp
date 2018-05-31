@@ -45,8 +45,8 @@ GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterInterval
     GNEAttributeCarrier(SUMO_TAG_CLOSING_REROUTE),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myClosedEdge(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)),
-    myAllowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW))),
-    myDisallowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW))) {
+    myAllowedVehicles(parseVehicleClasses(getDefaultValue(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW))),
+    myDisallowedVehicles(parseVehicleClasses(getDefaultValue(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW))) {
 }
 
 

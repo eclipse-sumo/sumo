@@ -231,8 +231,8 @@ GNECrossingFrame::crossingParameters::enableCrossingParameters() {
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::getDefaultValue<bool>(SUMO_TAG_CROSSING, SUMO_ATTR_PRIORITY));
-    myCrossingWidth->setText(GNEAttributeCarrier::getDefaultValue<std::string>(SUMO_TAG_CROSSING, SUMO_ATTR_WIDTH).c_str());
+    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(GNEAttributeCarrier::getDefaultValue(SUMO_TAG_CROSSING, SUMO_ATTR_PRIORITY)));
+    myCrossingWidth->setText(GNEAttributeCarrier::getDefaultValue(SUMO_TAG_CROSSING, SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
 
