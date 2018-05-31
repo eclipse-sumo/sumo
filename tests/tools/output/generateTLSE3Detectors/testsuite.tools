@@ -9,3 +9,6 @@ cross3ltl
 
 # an intersection with various splits and intermediate intersections on approach to the central intersection
 complicated
+
+# create one e3Detector per junction
+joined

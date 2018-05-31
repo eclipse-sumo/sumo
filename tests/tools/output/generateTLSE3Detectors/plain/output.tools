@@ -19,3 +19,4 @@ Options:
   -r RESULTS, --results-file=RESULTS
                         The name of the file the detectors write their output
                         into. Defaults to e3output.xml.
+  --joined              Create one e3Detector per junction

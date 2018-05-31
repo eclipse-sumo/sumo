@@ -73,6 +73,9 @@ def getOptions():
                              "their output into. Defaults to e3output.xml.",
                              type="string",
                              default="e3output.xml")
+
+    option_parser.add_option("--joined", action="store_true",
+                         default=False, help="Create one e3Detector per junction")
     option_parser.set_usage("generateTLSE3Detectors.py -n example.net.xml "
                             "-l 250 -d .1 -f 60")
 
@@ -114,14 +117,24 @@ if __name__ == "__main__":
     detectors_xml = sumolib.xml.create_document("additional")
     generated_detectors = 0
     for tls in network._tlss:
-        for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
+        if options.joined:
             detector_xml = detectors_xml.addChild("e3Detector")
-            detector_xml.setAttribute(
-                "id", "e3_" + str(tls._id) + "_" + str(edge._id))
+            detector_xml.setAttribute("id", "e3_" + str(tls._id))
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("file", options.results)
-            writeEntryExit(edge, detector_xml)
             generated_detectors += 1
+            for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
+                writeEntryExit(edge, detector_xml)
+
+        else:
+            for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
+                detector_xml = detectors_xml.addChild("e3Detector")
+                detector_xml.setAttribute(
+                    "id", "e3_" + str(tls._id) + "_" + str(edge._id))
+                detector_xml.setAttribute("freq", str(options.frequency))
+                detector_xml.setAttribute("file", options.results)
+                writeEntryExit(edge, detector_xml)
+                generated_detectors += 1
 
     detector_file = open_detector_file(
         get_net_file_directory(options.net_file),
