@@ -497,7 +497,7 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
         MSGlobals::gMesoNet->addLeaderCar(lc, getLink(lc));
     }
     if (veh->isStopped()) {
-        MSNet::getInstance()->getVehicleControl().removeWaiting(&myEdge, veh);
+        veh->processStop();
     }
 }
 

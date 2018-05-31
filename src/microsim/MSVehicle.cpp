@@ -1431,6 +1431,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
 
     Stop& stop = myStops.front();
+    const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (stop.reached) {
 
 #ifdef DEBUG_STOPS
@@ -1442,9 +1443,11 @@ MSVehicle::processNextStop(double currentVelocity) {
         // ok, we have already reached the next stop
         // any waiting persons may board now
         MSNet* const net = MSNet::getInstance();
-        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedPerson == 0;
+        const bool boarded = net->hasPersons() && net->getPersonControl().boardAnyWaiting(&myLane->getEdge(), this, 
+                stop.pars, stop.timeToBoardNextPerson, stop.duration) && stop.numExpectedPerson == 0;
         // load containers
-        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting(&myLane->getEdge(), this, &stop) && stop.numExpectedContainer == 0;
+        const bool loaded = net->hasContainers() && net->getContainerControl().loadAnyWaiting( &myLane->getEdge(), this, 
+                stop.pars, stop.timeToLoadNextContainer, stop.duration) && stop.numExpectedContainer == 0;
         if (boarded) {
             if (stop.busstop != 0) {
                 const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
@@ -1597,16 +1600,16 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
                 if (MSStopOut::active()) {
-                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber());
+                    MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), time);
                 }
                 MSNet::getInstance()->getVehicleControl().addWaiting(&myLane->getEdge(), this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
                 // compute stopping time
                 if (stop.pars.until >= 0) {
                     if (stop.duration == -1) {
-                        stop.duration = stop.pars.until - MSNet::getInstance()->getCurrentTimeStep();
+                        stop.duration = stop.pars.until - time;
                     } else {
-                        stop.duration = MAX2(stop.duration, stop.pars.until - MSNet::getInstance()->getCurrentTimeStep());
+                        stop.duration = MAX2(stop.duration, stop.pars.until - time);
                     }
                 }
                 if (stop.busstop != 0) {

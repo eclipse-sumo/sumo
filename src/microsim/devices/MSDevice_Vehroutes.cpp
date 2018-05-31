@@ -314,15 +314,6 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             od.closeTag();
         }
     }
-    if (MSGlobals::gUseMesoSim) {
-        // stopEnded is never called by mesosim
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getRoute().getStops().begin(); i != myHolder.getRoute().getStops().end(); ++i) {
-            i->write(od);
-        }
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = myHolder.getParameter().stops.begin(); i != myHolder.getParameter().stops.end(); ++i) {
-            i->write(od);
-        }
-    }
     od << myStopOut.getString();
     myHolder.getParameter().writeParams(od);
     od.closeTag();

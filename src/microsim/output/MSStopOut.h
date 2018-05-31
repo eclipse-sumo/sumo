@@ -70,7 +70,7 @@ public:
     /// @brief Destructor.
     virtual ~MSStopOut();
 
-    void stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers);
+    void stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time);
 
     void loadedPersons(const SUMOVehicle* veh, int n);
     void unloadedPersons(const SUMOVehicle* veh, int n);

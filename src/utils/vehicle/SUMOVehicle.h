@@ -289,6 +289,16 @@ public:
      */
     virtual void addContainer(MSTransportable* container) = 0;
 
+    /** @brief Returns the number of persons
+     * @return The number of passengers on-board
+     */
+    virtual int getPersonNumber() const = 0;
+
+    /** @brief Returns the number of containers
+     * @return The number of contaiers on-board
+     */
+    virtual int getContainerNumber() const = 0;
+
     /** @brief Adds a stop
      *
      * The stop is put into the sorted list.

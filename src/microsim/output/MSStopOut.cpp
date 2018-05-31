@@ -61,11 +61,11 @@ MSStopOut::~MSStopOut() {}
 
 
 void
-MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers) {
+MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != 0);
     if (myStopped.count(veh) != 0) {
         WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID() 
-                + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) 
+                + "', time " + time2string(time) 
                 + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
     }
     StopInfo stopInfo(MSNet::getInstance()->getCurrentTimeStep(), numPersons, numContainers);

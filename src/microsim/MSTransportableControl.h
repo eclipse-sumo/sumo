@@ -100,7 +100,7 @@ public:
      * @param[in] the stop at which the vehicle is stopping
      * @return Whether any transportables have been boarded
      */
-    bool boardAnyWaiting(MSEdge* edge, MSVehicle* vehicle, MSVehicle::Stop* stop);
+    bool boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToBoardNextPerson, SUMOTime& stopDuration);
 
     /** @brief load any applicable containers
     * Loads any container that is waiting on that edge for the given vehicle and removes them from myWaiting
@@ -108,7 +108,7 @@ public:
     * @param[in] the vehicle which is taking on containers
     * @return Whether any containers have been loaded
     */
-    bool loadAnyWaiting(MSEdge* edge, MSVehicle* vehicle, MSVehicle::Stop* stop);
+    bool loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToLoadNextContainer, SUMOTime& stopDuration);
 
     /// checks whether any transportable waits to finish her plan
     bool hasTransportables() const;
