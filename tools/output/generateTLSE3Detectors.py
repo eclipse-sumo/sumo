@@ -86,7 +86,8 @@ def getOptions():
 def writeEntryExit(edge, detector_xml):
     input_edges = network.getDownstreamEdges(
         edge, options.requested_detector_length, True)
-    for firstEdge, position, intermediate, aborted  in input_edges:
+    input_edges.sort()
+    for firstEdge, position, intermediate, aborted in input_edges:
         if aborted:
             position = .1
         for lane in firstEdge.getLanes():
