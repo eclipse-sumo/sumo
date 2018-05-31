@@ -102,16 +102,15 @@ if __name__ == "__main__":
 
             input_edges = network.getDownstreamEdges(
                 edge, options.requested_detector_length, True)
-            for input_edge in input_edges:
-                position = input_edge[1]
-                if input_edge[3]:
+            for firstEdge, position, intermediate, aborted  in input_edges:
+                if aborted:
                     position = .1
-                for lane in input_edge[0]._lanes:
+                for lane in firstEdge.getLanes():
                     detector_entry_xml = detector_xml.addChild("detEntry")
                     detector_entry_xml.setAttribute("lane", lane.getID())
                     detector_entry_xml.setAttribute("pos", "%.2f" % position)
 
-            for lane in edge._lanes:
+            for lane in edge.getLanes():
                 detector_exit_xml = detector_xml.addChild("detExit")
                 detector_exit_xml.setAttribute("lane", lane.getID())
                 detector_exit_xml.setAttribute("pos", "-.1")

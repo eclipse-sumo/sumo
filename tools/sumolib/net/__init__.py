@@ -313,6 +313,15 @@ class Net:
         return possProhibitor.getFrom().getToNode().forbids(possProhibitor, possProhibited)
 
     def getDownstreamEdges(self, edge, distance, stopOnTLS):
+        """return a list of lists of the form
+           [[firstEdge, pos, [edge_0, edge_1, ..., edge_k], aborted], ...]
+           where
+             firstEdge: is the downstream edge furthest away from the intersection,
+             [edge_0, ..., edge_k]: is the list of edges from the intersection downstream to firstEdge
+             pos: is the position on firstEdge with distance to the end of the input edge
+             aborted: a flag indicating whether the downstream
+                 search stopped at a TLS or a node without incoming edges before reaching the distance threshold
+        """
         ret = []
         seen = set()
         toProc = []
