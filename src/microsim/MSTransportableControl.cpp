@@ -239,6 +239,10 @@ MSTransportableControl::hasNonWaiting() const {
     return !myWaiting4Departure.empty() || myWaitingForVehicleNumber < myRunningNumber || myHaveNewWaiting;
 }
 
+int 
+MSTransportableControl::getActiveCount() {
+    return myWaiting4Departure.size() + myRunningNumber - myWaitingForVehicleNumber;
+}
 
 void
 MSTransportableControl::abortWaitingForVehicle() {

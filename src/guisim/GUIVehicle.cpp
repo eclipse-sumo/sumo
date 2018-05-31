@@ -58,7 +58,6 @@
 #include "GUIEdge.h"
 #include "GUILane.h"
 
-//#define DRAW_BOUNDING_BOX
 //#define DEBUG_FOES
 
 // ===========================================================================
@@ -235,47 +234,6 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     return ret;
 }
 
-
-
-
-void
-GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {
-    if (myPersonDevice != 0) {
-        const std::vector<MSTransportable*>& ps = myPersonDevice->getTransportables();
-        int personIndex = 0;
-        for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
-            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
-            assert(person != 0);
-            person->setPositionInVehicle(getSeatPosition(personIndex++));
-            person->drawGL(s);
-        }
-    }
-    if (myContainerDevice != 0) {
-        const std::vector<MSTransportable*>& cs = myContainerDevice->getTransportables();
-        int containerIndex = 0;
-        for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
-            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
-            assert(container != 0);
-            container->setPositionInVehicle(getSeatPosition(containerIndex++));
-            container->drawGL(s);
-        }
-    }
-#ifdef DRAW_BOUNDING_BOX
-    glPushName(getGlID());
-    glPushMatrix();
-    glTranslated(0, 0, getType());
-    PositionVector boundingBox = getBoundingBox();
-    boundingBox.push_back(boundingBox.front());
-    PositionVector smallBB = getBoundingPoly();
-    glColor3d(0, .8, 0);
-    GLHelper::drawLine(boundingBox);
-    glColor3d(0.5, .8, 0);
-    GLHelper::drawLine(smallBB);
-    //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
-    glPopMatrix();
-    glPopName();
-#endif
-}
 
 
 void

@@ -116,6 +116,9 @@ public:
     /// checks whether any transportable is still engaged in walking / stopping
     bool hasNonWaiting() const;
 
+    /// @brief return the number of active transportable objects
+    int getActiveCount();
+
     /// aborts the plan for any transportable that is still waiting for a ride
     void abortWaitingForVehicle();
 

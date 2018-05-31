@@ -116,6 +116,11 @@ traci.vehicle.setStop(
     "veh0", "3si", 235, laneIndex=2, startPos=230, duration=1000)
 
 print("getIDList", traci.person.getIDList())
+print("numVehs=%s, numPersons=%s, minExpected=%s" % (
+    traci.vehicle.getIDCount(),
+    traci.person.getIDCount(),
+    traci.simulation.getMinExpectedNumber()))
+
 for i in range(10):
     print("step", step())
     print(traci.person.getSubscriptionResults(personID))

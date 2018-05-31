@@ -177,6 +177,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
     os.openTag(SUMO_TAG_ROUTE);
     if (index >= 0) {
         assert((int)myReplacedRoutes.size() > index);
+        if (myDUAStyle) {
+            os.writeAttr(SUMO_ATTR_COST, myReplacedRoutes[index].route->getCosts());
+        }
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"";
         if (myReplacedRoutes[index].edge) {
@@ -196,6 +199,9 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         }
         myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
     } else {
+        if (myDUAStyle) {
+            os.writeAttr(SUMO_ATTR_COST, myHolder.getRoute().getCosts());
+        }
         os << " edges=\"";
         const MSEdge* lastEdge = 0;
         int numWritten = 0;

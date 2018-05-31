@@ -68,13 +68,13 @@ if __name__ == "__main__":
     option_parser.add_option("-o", "--output",
                              dest="output",
                              help="The name of the file to write the detector "
-                             "definitions into. Defaults to e1.add.xml.",
+                             "definitions into. Defaults to e3.add.xml.",
                              type="string",
                              default="e3.add.xml")
     option_parser.add_option("-r", "--results-file",
                              dest="results",
                              help="The name of the file the detectors write "
-                             "their output into. Defaults to e1output.xml.",
+                             "their output into. Defaults to e3output.xml.",
                              type="string",
                              default="e3output.xml")
     option_parser.set_usage("generateTLSE3Detectors.py -n example.net.xml "

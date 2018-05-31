@@ -36,6 +36,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/devices/MSDevice_Routing.h>
@@ -139,7 +140,11 @@ Simulation::getNetBoundary() {
 
 int
 Simulation::getMinExpectedNumber() {
-    return MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount();
+    MSNet* net = MSNet::getInstance();
+    return (net->getVehicleControl().getActiveVehicleCount() 
+            + net->getInsertionControl().getPendingFlowCount()
+            + (net->hasPersons() ? net->getPersonControl().getActiveCount() : 0)
+            + (net->hasContainers() ? net->getContainerControl().getActiveCount() : 0));
 }
 
 

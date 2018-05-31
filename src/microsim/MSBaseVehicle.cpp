@@ -204,6 +204,8 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
         edges.pop_back();
     }
     replaceRouteEdges(edges, onInit);
+    const double routeCost = router.recomputeCosts(edges, this, t);
+    const_cast<MSRoute*>(myRoute)->setCosts(routeCost);
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
