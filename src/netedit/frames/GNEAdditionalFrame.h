@@ -167,76 +167,7 @@ public:
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
     };
-/**
-    // ===========================================================================
-    // class AdditionalAttributeList
-    // ===========================================================================
 
-    class AdditionalAttributeList : protected FXVerticalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalAttributeList)
-
-    public:
-        /// @brief constructor
-        AdditionalAttributeList(AdditionalAttributes *additionalAttributesParent);
-
-        /// @brief destructor
-        ~AdditionalAttributeList();
-
-        /// @brief show name and value of parameters of type string
-        void showListParameter(SumoXMLAttr additionalAttr, std::vector<std::string> value);
-
-        /// @brief hide all parameters
-        void hideParameter();
-
-        /// @brief return attribute of list
-        SumoXMLAttr getAttr() const;
-
-        /// @brief return the value of list
-        std::string getListValues();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief add a new row int the list
-        long onCmdAddRow(FXObject*, FXSelector, void*);
-
-        /// @brief add a new row int the list
-        long onCmdRemoveRow(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalAttributeList() {}
-
-    private:
-        /// @brief current XML attribute
-        SumoXMLAttr myAdditionalAttr;
-
-        /// @brief Vector with HorizontalFrames
-        std::vector<FXHorizontalFrame*> myHorizontalFrames;
-
-        /// @brief vector with with the name of every parameter
-        std::vector<FXLabel*> myLabels;
-
-        /// @brief vector textField to modify the value of parameter
-        std::vector<FXTextField*> myTextFields;
-
-        /// @brief horizontal frame for buttons
-        FXHorizontalFrame* myHorizontalFrameButtons;
-
-        /// @brief Button to increase the number of textFields
-        FXButton* myAddButton;
-
-        /// @brief Button to decrease the number of textFields
-        FXButton* myRemoveButton;
-
-        /// @brief number of visible text fields
-        int myNumberOfVisibleTextfields;
-
-        /// @brief Number max of values in a parameter of type list
-        int myMaxNumberOfValuesInParameterList;
-    };
-**/
     // ===========================================================================
     // class AdditionalAttributes
     // ===========================================================================
@@ -247,9 +178,6 @@ public:
 
         /// @brief friend class declaration
         friend class AdditionalAttributeSingle;
-/**
-        friend class AdditionalAttributeList;
-**/
 
     public:
         /// @brief constructor
@@ -278,10 +206,7 @@ public:
 
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
-/**
-        /// @brief get number of added attributes
-        int getNumberOfAddedAttributes() const;
-**/
+
         /// @brief get additional frame parent
         GNEAdditionalFrame *getAdditionalFrameParent() const;
 
@@ -301,16 +226,7 @@ public:
 
         /// @brief vector with the additional parameters
         std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
-/**
-        /// @brief vector with the additional parameters of type list
-        std::vector<AdditionalAttributeList*> myVectorOfsingleAdditionalParameterList;
 
-        /// @brief index for myIndexParameterList
-        int myIndexParameterList;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int myMaxNumberOfListParameters;
-**/
     };
 
     // ===========================================================================

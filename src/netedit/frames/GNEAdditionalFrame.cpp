@@ -72,12 +72,7 @@ FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeSingle) AdditionalAttributeSingl
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute),
 };
-/**
-FXDEFMAP(GNEAdditionalFrame::AdditionalAttributeList) AdditionalAttributeListMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_ADDROW,     GNEAdditionalFrame::AdditionalAttributeList::onCmdAddRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_REMOVEROW,  GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow),
-};
-**/
+
 FXDEFMAP(GNEAdditionalFrame::AdditionalAttributes) AdditionalAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEAdditionalFrame::AdditionalAttributes::onCmdHelp),
 };
@@ -175,16 +170,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
                 myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(true);
             }
         }
-/**
-        // if there are parameters, show and Recalc groupBox
-        if (myAdditionalFrameParent->getAdditionalParameters()->getNumberOfAddedAttributes() > 0) {
-**/
-            myAdditionalFrameParent->getAdditionalParameters()->showAdditionalParameters();
-/**
-        } else {
-            myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
-        }
-**/
+        myAdditionalFrameParent->getAdditionalParameters()->showAdditionalParameters();
         // Show myAdditionalParentSelector if we're adding a additional with parent
         if (GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).hasParent()) {
             myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).getParentTag());
@@ -422,132 +408,18 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetBooleanAttribute(FXObject
     }
     return 0;
 }
-/**
-// ---------------------------------------------------------------------------
-// GNEAdditionalFrame::AdditionalAttributeList - methods
-// ---------------------------------------------------------------------------
 
-GNEAdditionalFrame::AdditionalAttributeList::AdditionalAttributeList(AdditionalAttributes *additionalAttributesParent) :
-    FXVerticalFrame(additionalAttributesParent, GUIDesignAuxiliarHorizontalFrame),
-    myAdditionalAttr(SUMO_ATTR_NOTHING),
-    myNumberOfVisibleTextfields(1),
-    myMaxNumberOfValuesInParameterList(20) {
-    // Create elements
-    for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
-        myHorizontalFrames.push_back(new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame));
-        myLabels.push_back(new FXLabel(myHorizontalFrames.back(), "name", 0, GUIDesignLabelAttribute));
-        myTextFields.push_back(new FXTextField(myHorizontalFrames.back(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField));
-    }
-    // Create label Row
-    myHorizontalFrameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabels.push_back(new FXLabel(myHorizontalFrameButtons, "Rows", 0, GUIDesignLabelAttribute));
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myHorizontalFrameButtons, GUIDesignAuxiliarHorizontalFrame);
-    // Create add button
-    myAddButton = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_ADDITIONALFRAME_ADDROW, GUIDesignButtonIcon);
-    // Create remove buttons
-    myRemoveButton = new FXButton(buttonsFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), this, MID_GNE_ADDITIONALFRAME_REMOVEROW, GUIDesignButtonIcon);
-    // Hide all para meters
-    hideParameter();
-}
-
-
-GNEAdditionalFrame::AdditionalAttributeList::~AdditionalAttributeList() {}
-
-void
-GNEAdditionalFrame::AdditionalAttributeList::showListParameter(SumoXMLAttr additionalAttr, std::vector<std::string> value) {
-    if ((int)value.size() < myMaxNumberOfValuesInParameterList) {
-        myAdditionalAttr = additionalAttr;
-        myNumberOfVisibleTextfields = (int)value.size();
-        if (myNumberOfVisibleTextfields == 0) {
-            myNumberOfVisibleTextfields++;
-        }
-        for (int i = 0; i < myMaxNumberOfValuesInParameterList; i++) {
-            myLabels.at(i)->setText((toString(myAdditionalAttr) + ": " + toString(i)).c_str());
-        }
-        for (int i = 0; i < myNumberOfVisibleTextfields; i++) {
-            myHorizontalFrames.at(i)->show();
-        }
-        myHorizontalFrameButtons->show();
-        FXVerticalFrame::show();
-    }
-}
-
-
-void
-GNEAdditionalFrame::AdditionalAttributeList::hideParameter() {
-    myAdditionalAttr = SUMO_ATTR_NOTHING;
-    for (int i = 0; i < (int)myHorizontalFrames.size(); i++) {
-        myHorizontalFrames.at(i)->hide();
-    }
-    myHorizontalFrameButtons->hide();
-    FXVerticalFrame::hide();
-}
-
-
-SumoXMLAttr
-GNEAdditionalFrame::AdditionalAttributeList::getAttr() const {
-    return myAdditionalAttr;
-}
-
-
-std::string
-GNEAdditionalFrame::AdditionalAttributeList::getListValues() {
-    // Declare, fill and return a string with the list values
-    std::string value;
-    for (int i = 0; i < myNumberOfVisibleTextfields; i++) {
-        if (!myTextFields.at(i)->getText().empty()) {
-            value += (myTextFields.at(i)->getText().text() + std::string(" "));
-        }
-    }
-    return value;
-}
-
-
-long
-GNEAdditionalFrame::AdditionalAttributeList::onCmdAddRow(FXObject*, FXSelector, void*) {
-    if (myNumberOfVisibleTextfields < (myMaxNumberOfValuesInParameterList - 1)) {
-        myHorizontalFrames.at(myNumberOfVisibleTextfields)->show();
-        myNumberOfVisibleTextfields++;
-        getParent()->recalc();
-    }
-    return 1;
-}
-
-
-long
-GNEAdditionalFrame::AdditionalAttributeList::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-    if (myNumberOfVisibleTextfields > 1) {
-        myNumberOfVisibleTextfields--;
-        myHorizontalFrames.at(myNumberOfVisibleTextfields)->hide();
-        myTextFields.at(myNumberOfVisibleTextfields)->setText("");
-        getParent()->recalc();
-    }
-    return 1;
-}
-**/
 // ---------------------------------------------------------------------------
 // GNEAdditionalFrame::AdditionalAttributes - methods
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::AdditionalAttributes::AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myAdditionalFrameParent(additionalFrameParent)
-/**
-    ,myIndexParameterList(0),
-    myMaxNumberOfListParameters(2) 
-**/
-    {
-
+    myAdditionalFrameParent(additionalFrameParent) {
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfsingleAdditionalParameter.push_back(new AdditionalAttributeSingle(this));
     }
-/**
-    // Create single list parameters
-    for (int i = 0; i < myMaxNumberOfListParameters; i++) {
-        myVectorOfsingleAdditionalParameterList.push_back(new AdditionalAttributeList(this));
-    }
-**/
     // Create help button
     new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -562,15 +434,6 @@ GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
     for (int i = 0; i < myVectorOfsingleAdditionalParameter.size(); i++) {
         myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
     }
-/**
-    // Hidde al list fields
-    for (int i = 0; i < myMaxNumberOfListParameters; i++) {
-        myVectorOfsingleAdditionalParameterList.at(i)->hideParameter();
-    }
-
-    // Reset indexs
-    myIndexParameterList = 0;
-**/
 }
 
 
@@ -580,23 +443,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
     SumoXMLTag currentTag = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
     // obtain attribute property (only for improve code legibility)
     const GNEAttributeCarrier::AttributeValues &attrvalue = GNEAttributeCarrier::getAttributeProperties(currentTag, AdditionalAttributeSingle);
-/**
-    // If  parameter is of type list
-    if (attrvalue.isList()) {
-        // If parameter can be show
-        if (myIndexParameterList < myMaxNumberOfListParameters) {
-            myVectorOfsingleAdditionalParameterList.at(myIndexParameterList)->showListParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue< std::vector<std::string> >(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType(), AdditionalAttributeSingle));
-            // Update index
-            myIndexParameterList++;
-        } else {
-            WRITE_ERROR("Max number of list attributes reached (" + toString(myMaxNumberOfListParameters) + ").");
-        }
-    } else {
-**/
-        myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue(currentTag, AdditionalAttributeSingle));
-/**
-    }
-    **/
+    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue(currentTag, AdditionalAttributeSingle));
 }
 
 
@@ -622,12 +469,6 @@ GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues() const {
             values[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
         }
     }
-/**
-    // get list parameters
-    for (int i = 0; i < myIndexParameterList; i++) {
-        values[myVectorOfsingleAdditionalParameterList.at(i)->getAttr()] = myVectorOfsingleAdditionalParameterList.at(i)->getListValues();
-    }
-**/
     return values;
 }
 
@@ -673,14 +514,8 @@ GNEAdditionalFrame::AdditionalAttributes::areValuesValid() const {
     return true;
 }
 
-/**
-int
-GNEAdditionalFrame::AdditionalAttributes::getNumberOfAddedAttributes() const {
-    return (1 + myIndexParameterList);
-}
-**/
 
-GNEAdditionalFrame *
+GNEAdditionalFrame*
 GNEAdditionalFrame::AdditionalAttributes::getAdditionalFrameParent() const {
     return myAdditionalFrameParent;
 }
@@ -854,7 +689,7 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
+        WRITE_WARNING("Opening NeteditAttributes help dialog");
     }
     // create Dialog
     additionalNeteditAttributesHelpDialog->create();
@@ -866,7 +701,7 @@ GNEAdditionalFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
     // Write Warning in console if we're in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Closing NeteditAttributes dialog for tag '"/** Finish + toString(currentTag) **/);
+        WRITE_WARNING("Closing NeteditAttributes help dialog");
     }
     return 1;
 }
