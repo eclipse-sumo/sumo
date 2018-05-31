@@ -35,22 +35,15 @@ add_subdirectory(traci_testclient)
 add_subdirectory(utils)
 
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    set(sumoexec
+set(sumoexec
             sumo_main.cpp
             microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
-    set(sumoguiexec
+set(sumoguiexec
             guisim_main.cpp
             microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h
             gui/GUIManipulator.h gui/GUIManipulator.cpp
             gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
             mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
-else ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(sumoexec
-            sumo_main.cpp)
-    set(sumoguiexec
-            guisim_main.cpp)
-endif ()
 
 add_executable(sumo version.h ${sumoexec})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
