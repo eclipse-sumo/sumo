@@ -25,6 +25,9 @@ import traci
 import sumolib  # noqa
 import traci.constants as tc
 
+def ppStages(comment, stages):
+    print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
+
 sumoBinary = os.environ["SUMO_BINARY"]
 
 cmd = [sumoBinary,
@@ -34,6 +37,6 @@ cmd = [sumoBinary,
         ]
 
 traci.start(cmd)
-print("shortcut via trainStop:", traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))
-print("train ride", traci.simulation.findIntermodalRoute("beg2left", "left2end", modes="public"))
+ppStages("shortcut via trainStop:", traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))
+ppStages("train ride", traci.simulation.findIntermodalRoute("beg2left", "left2end", modes="public"))
 traci.close()

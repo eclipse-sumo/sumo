@@ -265,7 +265,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             if (!it->edges.empty()) {
                 if (it->line == "") {
                     result.push_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
-                } else if (vehicle != 0 && it->line == vehicle->getID()) {
+                } else {
                     result.push_back(TraCIStage(MSTransportable::DRIVING));
                 }
                 result.back().destStop = it->destStop;
