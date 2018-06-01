@@ -499,6 +499,7 @@
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="exitTimes" type="xsd:string"/>
+        <xsd:attribute name="cost" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistRouteType">
