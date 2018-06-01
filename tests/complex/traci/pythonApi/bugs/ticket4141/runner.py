@@ -34,5 +34,6 @@ cmd = [sumoBinary,
         ]
 
 traci.start(cmd)
-print(traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))
+print("shortcut via trainStop:", traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))
+print("train ride", traci.simulation.findIntermodalRoute("beg2left", "left2end", modes="public"))
 traci.close()
