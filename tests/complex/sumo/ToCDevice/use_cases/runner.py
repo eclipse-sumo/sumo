@@ -38,58 +38,47 @@ except ImportError:
 import traci
 
 ToC_vehicles_identifier = "AVflow"
-DT = 1.
 
-def run():
+def doToC(vehSet,toRemove,timeUntilMRM,edgeID,distance):
+    for vehID in vehSet:
+        distToTOR = traci.vehicle.getDrivingDistance(vehID, edgeID, distance)
+        print ("distToTOR = %s"%distToTOR)
+        if distToTOR < 0.:
+            toRemove.add(vehID)
+            if traci.vehicle.getTypeID(vehID).startswith("toc"):
+                requestToC(vehID, timeUntilMRM)
+                if options.verbose:
+                    t = traci.simulation.getCurrentTime()/1000.
+                    print("Requested ToC of %s at t=%s (until t=%s)"%(vehID, t,t + float(timeUntilMRM)))
+                    printToCParams(vehID, True)
+            elif traci.vehicle.getTypeID(vehID).startswith("auto"):
+                traci.vehicle.setVehicleClass(vehID, "passenger")
+    return toRemove
+    
+def run(timeUntilMRM,edgeID,distance):
     """execute the TraCI control loop"""
-    step = 0
     AVsOnRoad = set(traci.vehicle.getIDList())
     onlyUpward = set()
-    while traci.simulation.getMinExpectedNumber() > 0: #while step < 3600/DT:
+
+    while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         # Keep book in a set AVsOnRoad
         AVsOnRoad = AVsOnRoad.difference([vehID for vehID in traci.simulation.getArrivedIDList() if vehID.startswith(ToC_vehicles_identifier)])
         AVsOnRoad.update([vehID for vehID in traci.simulation.getDepartedIDList() if vehID.startswith(ToC_vehicles_identifier)])
-        toRemove=set()
+
         # provide the ToCService at the traffic sign for informing the lane closure
-        for vehID in AVsOnRoad:
-                distToTOR = traci.vehicle.getDrivingDistance(vehID, "approach2", 245.)
-                print ("distToTOR = %s"%distToTOR)
-                if distToTOR < 0:
-                    toRemove.add(vehID)
-                    t = traci.simulation.getCurrentTime()/1000.
-                    if traci.vehicle.getTypeID(vehID).startswith("toc"):
-                        requestToC(vehID, timeUntilMRM)
-                        if options.verbose:
-                            print("Requested ToC of %s at t=%s (until t=%s)"%(vehID, t,t + float(timeUntilMRM)))
-                            printToCParams(vehID, True)
-                    elif traci.vehicle.getTypeID(vehID).startswith("auto"):
-                        traci.vehicle.setVehicleClass(vehID, "passenger")
-            # todo: for UC5_1
-            #if traci.vehicle.getDrivingDistance(vehID, "e0", 250.) == 250.:
-            #    traci.vehicle.setType(vehID, "manual")
+        toRemove=set()
+        toRemove = doToC(AVsOnRoad,toRemove,timeUntilMRM,edgeID,distance)
         AVsOnRoad = AVsOnRoad.difference(toRemove)
         onlyUpward.update(toRemove)
-        print ("onlyUpward:%s" %onlyUpward)
-        toRemove=set()
-        # provide ToCService at the traffic sign for informing the lane closure
-        for vehID in onlyUpward:
-            distToTOR = traci.vehicle.getDrivingDistance(vehID, "approach2", 245.)
-            print ("distToTOR = %s"%distToTOR)
-            if distToTOR < 0:
-                toRemove.add(vehID)
-                t = traci.simulation.getCurrentTime()/1000.
-                if traci.vehicle.getTypeID(vehID).startswith("toc"):
-                    requestToC(vehID, timeUntilMRM)
-                    if options.verbose:
-                        print("Requested ToC of %s at t=%s (until t=%s)"%(vehID, t,t + float(timeUntilMRM)))
-                        printToCParams(vehID, True)
-                elif traci.vehicle.getTypeID(vehID).startswith("auto"):
-                    traci.vehicle.setVehicleClass(vehID, "passenger")
-        onlyUpward.difference(toRemove)
         
-        step += 1
-    
+        print ("onlyUpward:%s" %onlyUpward)
+
+        # provide ToCService to the upwardTransitions
+        toRemove=set()
+        toRemove = doToC(onlyUpward,toRemove,0.,edgeID,distance)
+        onlyUpward.difference(toRemove)
+
 def requestToC(vehID, timeUntilMRM):
     traci.vehicle.setParameter(vehID, "device.toc.requestToC", str(timeUntilMRM))
 
@@ -143,6 +132,8 @@ if __name__ == "__main__":
     options = get_options()
     timeUntilMRM = float(options.timeUntilMRM)
     code = options.code
+    edgeID = None
+    distance = None
     if options.verbose:
         print ("time to MRM: %s" %(timeUntilMRM))
     # this script has been called from the command line. It will start sumo as a
@@ -157,9 +148,14 @@ if __name__ == "__main__":
     traci.start([sumoBinary, "-n", options.netfile, "-r", options.routefile, "-a", options.addfile, "--ignore-route-errors", "--step-method.ballistic", "--fcd-output", options.outputfile, "--gui-settings-file", options.viewfile, "--no-step-log", "true"])
      
     if code=="UC1_1":
-        run()
-    else:
-        pass
+        edgeID = "approach2"
+        distance = 245.
+    elif code == "UC5_1":
+        edgeID = "e0"
+        distance = 3000.
+    
+    if edgeID and distance:
+        run(timeUntilMRM, edgeID, distance)
     
     traci.close()
     sys.stdout.flush()

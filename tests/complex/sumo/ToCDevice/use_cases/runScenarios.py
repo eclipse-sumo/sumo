@@ -44,7 +44,15 @@ def checkDir(dir):
             os.mkdir(outputdir)
         return outputdir
 
-def generateRouteFile(routefile,i,j,k,l,rList):
+def getInputFiles(OUT_DIR):
+    netfile = glob.glob(os.path.join(OUT_DIR, '*.net.xml'))[0]
+    closedLaneFile = glob.glob(os.path.join(OUT_DIR, 'close*.add.xml'))
+    shapefile = glob.glob(os.path.join(OUT_DIR, 'shape*.add.xml'))
+    viewfile = glob.glob(os.path.join(OUT_DIR, 'view*.add.xml'))[0]
+
+    return netfile, closedLaneFile, shapefile, viewfile
+
+def generateRouteFile(routefile,i,j,k,l,rList,code):
     routeID = rList[0]
     edges = rList[1]
     if len(edges.split(' ')) > 1:
@@ -55,7 +63,7 @@ def generateRouteFile(routefile,i,j,k,l,rList):
         end = edges
     fd = open(routefile, 'w')
     print("""<?xml version="1.0" encoding="UTF-8"?>
-    <routes >
+    <routes>
         <!-- vType definitions -->
         <!-- vClass custom1 disallows vehicles to enter bus lane at construction site -->
         <!-- default vClass is passenger -->
@@ -73,16 +81,17 @@ def generateRouteFile(routefile,i,j,k,l,rList):
             <param key="device.toc.recoveryRate" value="%s"/>
             <param key="device.toc.mrmDecel" value="%s"/>
             <param key="device.toc.colorScheme" value="true"/>
-        </flow>
-        <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" number="150" color="white">
-            <param key="has.toc.device" value="false"/>
-            <param key="device.toc.manualType" value="manual"/>
-            <param key="device.toc.automatedType" value="automated"/>
-            <param key="device.toc.colorScheme" value="true"/>
-        </flow>
-        <!-- one  hour manually driven vehicle flow -->
+        </flow>""" %(routeID, edges, routeID, i, j, k, l), file=fd)
+    if code == "UC1_1":
+        print("""    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" number="150" color="white">
+                <param key="has.toc.device" value="false"/>
+                <param key="device.toc.manualType" value="manual"/>
+                <param key="device.toc.automatedType" value="automated"/>
+                <param key="device.toc.colorScheme" value="true"/>
+            </flow>""" %(routeID), file=fd)
+    print("""    <!-- one  hour manually driven vehicle flow -->
         <flow id="LVflow" type="manual" from="%s" to="%s" begin="0" end="3600" number="200"/>
-    </routes>""" %(routeID, edges, routeID, i, j, k, l, routeID, start, end), file=fd)
+    </routes>""" %(start, end), file=fd)
     fd.close()
     
 def generateAddFile(addfile, frequency, outputdir, i, j, k, l, t):
@@ -118,15 +127,12 @@ if __name__ == "__main__":
         print ("output frequency: %s" %(options.frequency))
     # two use cases
     for code in options.codes:
-        # generate input files
         OUT_DIR = os.path.join(ROOT_DIR, code)
         outputdir = checkDir(OUT_DIR)
-        netfile = glob.glob(os.path.join(OUT_DIR, '*.net.xml'))[0]
-        closedLaneFile = glob.glob(os.path.join(OUT_DIR, 'close*.add.xml'))
-        shapefile = glob.glob(os.path.join(OUT_DIR, 'shape*.add.xml'))
-        viewfile = glob.glob(os.path.join(OUT_DIR, 'view*.add.xml'))[0]
-        print ("%s: %s; %s" %(OUT_DIR, closedLaneFile, shapefile))
+        # get input files
+        netfile, closedLaneFile, shapefile, viewfile = getInputFiles(OUT_DIR)
         
+        # generate the route file and the additional files for each scenario and run the simulation
         for i in initialAwareness:
             for j in responseTime:
                 for k in recoveryRate:
@@ -135,7 +141,7 @@ if __name__ == "__main__":
                         routefile = os.path.join(OUT_DIR, filename)
 
                         if routeMap[code]:
-                            generateRouteFile(routefile,i,j,k,l,routeMap[code])
+                            generateRouteFile(routefile,i,j,k,l,routeMap[code],code)
                         else:
                             print("Error: no route information exists.")
                         
