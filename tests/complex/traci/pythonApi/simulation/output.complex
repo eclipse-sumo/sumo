@@ -57,7 +57,19 @@ getParameter parkingArea.occupancy 0
 getBusStopWaiting 0
 findRoute Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4, intended='', depart=-1.0)
 findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=0.0, cost=0.0, intended='', depart=-1.0)
-findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)]
+findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['footpath', 'footpath2'], travelTime=144.00000000000003, cost=144.00000000000003, intended='', depart=-1.0)]
+findIntermodalRoute (walk)
+  Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
+
+findIntermodalRoute (bike)
+  Stage(stageType=3, line='bicycle', destStop='', edges=['o', '2o'], travelTime=1847.4768000000001, cost=1847.4768000000001, intended='bicycle', depart=-1.0)
+
+findIntermodalRoute (car)
+  Stage(stageType=3, line='car', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+
+findIntermodalRoute (bike,car,public)
+  Stage(stageType=3, line='car', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+
 step 0
 {114: [], 116: []}
 step 1

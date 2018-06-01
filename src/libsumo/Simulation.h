@@ -74,7 +74,7 @@ public:
     static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes="",
             SUMOTime depart=-1, const int routingMode=0, double speed = -1., double walkFactor = -1.,
             double departPos = 0, double arrivalPos = INVALID_DOUBLE_VALUE, const double departPosLat = 0,
-            const std::string& pType = "", const std::string& vehType = "", const std::string& destStop = "");
+            const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
 

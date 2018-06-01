@@ -56,6 +56,10 @@ def checkVehicleStates():
     print("#teleportEnd", traci.simulation.getEndingTeleportNumber())
     print("teleportEnd", traci.simulation.getEndingTeleportIDList())
 
+
+def ppStages(comment, stages):
+    print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
+
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 traci.simulation.subscribe(
     (traci.constants.VAR_LOADED_VEHICLES_IDS, traci.constants.VAR_DEPARTED_VEHICLES_IDS))
@@ -125,7 +129,10 @@ try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("footpath", "footpath2", "bicycle", vtype="DEFAULT_BIKETYPE"))
 except traci.TraCIException:
     pass
-print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o"))
+ppStages("findIntermodalRoute (walk)", traci.simulation.findIntermodalRoute("o", "2o"))
+ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o", "2o", modes="bicycle"))
+ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))
+ppStages("findIntermodalRoute (bike,car,public)", traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
 
 for step in range(10):
     print("step", step)
