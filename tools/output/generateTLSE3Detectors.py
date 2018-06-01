@@ -70,6 +70,11 @@ def getOptions():
                              "their output into. Defaults to e3output.xml.",
                              type="string",
                              default="e3output.xml")
+    option_parser.add_option("--min-pos",
+                             dest="minPos",
+                             help="minimum position of entry detectors light in meters. Defaults to 0.1m.",
+                             type="float",
+                             default=.1)
 
     option_parser.add_option("--interior", action="store_true",
                          default=False, help="Extend measurement area to the junction interior")
@@ -96,6 +101,7 @@ def writeEntryExit(options, edge, detector_xml, writeExit=True):
     for firstEdge, position, intermediate, aborted in input_edges:
         if aborted:
             position = .1
+        position = max(position, min(options.minPos, firstEdge.getLength()))
         for lane in firstEdge.getLanes():
             detector_entry_xml = detector_xml.addChild("detEntry")
             detector_entry_xml.setAttribute("lane", lane.getID())

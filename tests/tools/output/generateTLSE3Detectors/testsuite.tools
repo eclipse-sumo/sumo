@@ -16,6 +16,9 @@ joined
 # specify the list of junctions for generating detectors
 explicit
 
+# minimum detector position
+minPos
+
 # different names for generated detectors
 prefix
 
