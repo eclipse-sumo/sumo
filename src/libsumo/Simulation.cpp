@@ -21,6 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/options/OptionsCont.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -190,8 +191,8 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
 
 std::vector<TraCIStage>
 Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
-                                const std::string& modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
-                                const double departPos, const double arrivalPos, const double departPosLat,
+                                const std::string& modes, SUMOTime depart, const int routingMode, double speed, double walkFactor,
+                                double departPos, double arrivalPos, const double departPosLat,
                                 const std::string& pType, const std::string& vehType, const std::string& destStop) {
     UNUSED_PARAMETER(routingMode);
     UNUSED_PARAMETER(departPosLat);
@@ -218,8 +219,31 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             throw TraCIException("Unknown person mode '" + mode + "'.");
         }
     }
+    // interpret default arguments
     const MSVehicleType* pedType = vehControl.hasVType(pType) ? vehControl.getVType(pType) : vehControl.getVType(DEFAULT_PEDTYPE_ID);
-    const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
+    if (depart < 0) {
+        depart = MSNet::getInstance()->getCurrentTimeStep();
+    }
+    if (speed < 0) {
+        speed =  pedType->getMaxSpeed();
+    }
+    if (walkFactor < 0) {
+        walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
+    }
+    if (departPos < 0) {
+        departPos += fromEdge->getLength();
+    }
+    if (arrivalPos == INVALID_DOUBLE_VALUE) {
+        arrivalPos = toEdge->getLength() / 2;
+    } else if (arrivalPos < 0) {
+        arrivalPos += toEdge->getLength();
+    }
+    if (departPos < 0 || departPos >= fromEdge->getLength()) {
+        throw TraCIException("Invalid depart position " + toString(departPos) + " for edge '" + to + "'.");
+    }
+    if (arrivalPos < 0 || arrivalPos >= toEdge->getLength()) {
+        throw TraCIException("Invalid arrival position " + toString(arrivalPos) + " for edge '" + to + "'.");
+    }
     SUMOVehicleParameter* pars = new SUMOVehicleParameter();
     SUMOVehicle* vehicle = 0;
     if (vehType != "") {
@@ -236,13 +260,13 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     }
     std::vector<MSNet::MSIntermodalRouter::TripItem> items;
     if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
-                pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, dep, items)) {
+                speed * walkFactor, vehicle, modeSet, depart, items)) {
         for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
             if (!it->edges.empty()) {
                 if (it->line == "") {
-                    result.emplace_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
+                    result.push_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
                 } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                    result.emplace_back(TraCIStage(MSTransportable::DRIVING));
+                    result.push_back(TraCIStage(MSTransportable::DRIVING));
                 }
                 result.back().destStop = it->destStop;
                 result.back().line = it->line;

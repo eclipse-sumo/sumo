@@ -357,7 +357,7 @@ class SimulationDomain(Domain):
         return _readStage(self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.FIND_ROUTE, ""))
 
     def findIntermodalRoute(self, fromEdge, toEdge, modes="", depart=-1., routingMode=0, speed=-1.,
-                            walkFactor=-1., departPos=-1., arrivalPos=-1., departPosLat=-1.,
+                            walkFactor=-1., departPos=0., arrivalPos=tc.INVALID_DOUBLE_VALUE, departPosLat=0.,
                             ptype="", vtype="", destStop=""):
         self._connection._beginMessage(tc.CMD_GET_SIM_VARIABLE, tc.FIND_INTERMODAL_ROUTE, "",
                                        1 + 4 + 1 + 4 + len(fromEdge) + 1 + 4 + len(toEdge) + 1 + 4 + len(modes) +

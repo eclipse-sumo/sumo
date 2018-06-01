@@ -57,7 +57,7 @@ getParameter parkingArea.occupancy 0
 getBusStopWaiting 0
 findRoute Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4, intended='', depart=-1.0)
 findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=0.0, cost=0.0, intended='', depart=-1.0)
-findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=3694.9536, cost=3694.9536, intended='', depart=-1.0)]
+findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)]
 step 0
 {114: [], 116: []}
 step 1
