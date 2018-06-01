@@ -77,9 +77,27 @@ GNEDetectorE2::updateGeometry() {
     // Get shape of lane parent
     myShape = myLane->getShape();
 
+    // set start position
+    double startPosFixed;
+    if(myPositionOverLane < 0) {
+        startPosFixed = 0;
+    } else if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else {
+        startPosFixed = myPositionOverLane;
+    }
+
+    // set end position
+    double endPosFixed;
+    if((myPositionOverLane + myLength) < 0) {
+        endPosFixed = 0;
+    } else if ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else {
+        endPosFixed = (myPositionOverLane + myLength);
+    }
+
     // Cut shape using as delimitators fixed start position and fixed end position
-    double startPosFixed = (myPositionOverLane < 0) ? 0 : myPositionOverLane;
-    double endPosFixed = ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) ? myLane->getParentEdge().getNBEdge()->getFinalLength() : (myPositionOverLane + myLength);
     myShape = myShape.getSubpart(startPosFixed, endPosFixed);
     
     // Get number of parts of the shape
@@ -300,9 +318,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_LENGTH:
-            if (canParse<double>(value)) {
-                return (parse<double>(value) <= 0);
-            }
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_CONT:
