@@ -16,5 +16,8 @@ joined
 # specify the list of junctions for generating detectors
 explicit
 
+# different names for generated detectors
+prefix
+
 # follow turnaround when searching upstream
 followTurnaround

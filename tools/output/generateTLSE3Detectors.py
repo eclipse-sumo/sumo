@@ -71,6 +71,11 @@ def getOptions():
                              "definitions into. Defaults to e3.add.xml.",
                              type="string",
                              default="e3.add.xml")
+    option_parser.add_option("--prefix",
+                             dest="prefix",
+                             help="Prefix for generated detectors",
+                             type="string",
+                             default="e3_")
     option_parser.add_option("-r", "--results-file",
                              dest="results",
                              help="The name of the file the detectors write "
@@ -133,7 +138,7 @@ if __name__ == "__main__":
     for tls in tlsList:
         if options.joined:
             detector_xml = detectors_xml.addChild("e3Detector")
-            detector_xml.setAttribute("id", "e3_" + str(tls.getID()))
+            detector_xml.setAttribute("id", options.prefix + str(tls.getID()))
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("file", options.results)
             generated_detectors += 1
@@ -144,7 +149,7 @@ if __name__ == "__main__":
             for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
                 detector_xml = detectors_xml.addChild("e3Detector")
                 detector_xml.setAttribute(
-                    "id", "e3_" + str(tls.getID()) + "_" + str(edge.getID()))
+                    "id", options.prefix + str(tls.getID()) + "_" + str(edge.getID()))
                 detector_xml.setAttribute("freq", str(options.frequency))
                 detector_xml.setAttribute("file", options.results)
                 writeEntryExit(options, edge, detector_xml)

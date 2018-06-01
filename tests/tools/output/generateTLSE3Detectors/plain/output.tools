@@ -19,6 +19,7 @@ Options:
   -o OUTPUT, --output=OUTPUT
                         The name of the file to write the detector definitions
                         into. Defaults to e3.add.xml.
+  --prefix=PREFIX       Prefix for generated detectors
   -r RESULTS, --results-file=RESULTS
                         The name of the file the detectors write their output
                         into. Defaults to e3output.xml.
