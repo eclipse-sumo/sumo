@@ -19,6 +19,7 @@ cfg:config.cfg
 log:log.txt
 landmarks:landmarks.csv
 weights:weights.xml
+edges:edges.xml
 additional:additional.xml
 
 [run_dependent_text]
