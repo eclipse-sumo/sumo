@@ -1,0 +1,5 @@
+FROM fedora:rawhide
+
+RUN dnf upgrade
+RUN dnf install proj-dev xerces-c-dev fox-dev
+

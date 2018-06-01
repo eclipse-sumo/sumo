@@ -428,6 +428,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "timeThreshold",          SUMO_ATTR_HALTING_TIME_THRESHOLD },
     { "speedThreshold",         SUMO_ATTR_HALTING_SPEED_THRESHOLD },
     { "jamThreshold",           SUMO_ATTR_JAM_DIST_THRESHOLD },
+    // E3 detector
+    { "openEntry",              SUMO_ATTR_OPEN_ENTRY },
 
     { "wautID",                 SUMO_ATTR_WAUT_ID },
     { "junctionID",             SUMO_ATTR_JUNCTION_ID },

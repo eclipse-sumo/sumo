@@ -1,0 +1,5 @@
+FROM opensuse:latest
+
+RUN zypper -n ar -G http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_42.3/ nightly
+RUN zypper -n in sumo-git
+RUN export LANG=en_US.UTF-8

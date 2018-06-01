@@ -161,10 +161,13 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              const CrossSectionVector& exits,
                              double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold,
-                             const std::string& vTypes)
-    : MSDetectorFileOutput(id, vTypes), myEntries(entries), myExits(exits),
-      myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
-      myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1) {
+                             const std::string& vTypes,
+                             bool openEntry) : 
+    MSDetectorFileOutput(id, vTypes), myEntries(entries), myExits(exits),
+    myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
+    myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
+    myOpenEntry(openEntry)
+{
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));
@@ -227,7 +230,9 @@ MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const d
 void
 MSE3Collector::leaveFront(const SUMOVehicle& veh, const double leaveTimestep) {
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+        if (!myOpenEntry) {
+            WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+        }
     } else {
         myEnteredContainer[&veh].frontLeaveTime = leaveTimestep;
     }
@@ -237,7 +242,9 @@ MSE3Collector::leaveFront(const SUMOVehicle& veh, const double leaveTimestep) {
 void
 MSE3Collector::leave(const SUMOVehicle& veh, const double leaveTimestep, const double fractionTimeOnDet) {
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+        if (!myOpenEntry) {
+            WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+        }
     } else {
         E3Values values = myEnteredContainer[&veh];
         values.backLeaveTime = leaveTimestep;

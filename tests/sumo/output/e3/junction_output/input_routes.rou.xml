@@ -1,0 +1,25 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="SUMO_DEFAULT_TYPE" sigma="0"/>
+
+    <!-- 4 * 250 vehicles -->
+    <flow id="SN" begin="0" end="600" departLane="random" number="120" from="SS3" to="CN"/>
+    <flow id="SE" begin="0" end="600" departLane="random" number="60" from="SS3" to="CE"/>
+    <flow id="SW" begin="0" end="600" departLane="random" number="60" from="SS3" to="CW"/>
+    <flow id="SS" begin="0" end="600" departLane="random" number="10" from="SS3" to="CS"/>
+
+    <flow id="WE" begin="0" end="600" departLane="random" number="120" from="W3W2" to="CE"/>
+    <flow id="WN" begin="0" end="600" departLane="random" number="60" from="W3W2" to="CN"/>
+    <flow id="WS" begin="0" end="600" departLane="random" number="60" from="W3W2" to="CS"/>
+    <flow id="WW" begin="0" end="600" departLane="random" number="10" from="W3W2" to="CW"/>
+
+    <flow id="NS" begin="0" end="600" departLane="random" number="120" from="NN3" to="CS"/>
+    <flow id="NE" begin="0" end="600" departLane="random" number="60" from="NN3" to="CE"/>
+    <flow id="NW" begin="0" end="600" departLane="random" number="60" from="NN3" to="CW"/>
+    <flow id="NN" begin="0" end="600" departLane="random" number="10" from="NN3" to="CN"/>
+
+    <flow id="EW" begin="0" end="600" departLane="random" number="120" from="EE3" to="CW"/>
+    <flow id="EN" begin="0" end="600" departLane="random" number="60" from="EE3" to="CN"/>
+    <flow id="ES" begin="0" end="600" departLane="random" number="60" from="EE3" to="CS"/>
+    <flow id="EE" begin="0" end="600" departLane="random" number="10" from="EE3" to="CE"/>
+    
+</routes>

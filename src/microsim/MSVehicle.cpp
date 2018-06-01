@@ -1010,14 +1010,19 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
 Position
 MSVehicle::validatePosition(Position result, double offset) const {
     int furtherIndex = 0;
+    double lastLength = getPositionOnLane();
     while (result == Position::INVALID) {
         if (furtherIndex >= (int)myFurtherLanes.size()) {
             //WRITE_WARNING("Could not compute position for vehicle '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             break;
         }
         //std::cout << SIMTIME << " veh=" << getID() << " lane=" << myLane->getID() << " pos=" << getPositionOnLane() << " posLat=" << getLateralPositionOnLane() << " offset=" << offset << " result=" << result << " i=" << furtherIndex << " further=" << myFurtherLanes.size() << "\n";
-        result = myFurtherLanes[furtherIndex]->geometryPositionAtOffset(myFurtherLanes[furtherIndex]->getLength() + offset, -getLateralPositionOnLane());
+        MSLane* further = myFurtherLanes[furtherIndex];
+        offset+= lastLength;
+        result = further->geometryPositionAtOffset(further->getLength() + offset, -getLateralPositionOnLane());
+        lastLength = further->getLength();
         furtherIndex++;
+        //std::cout << SIMTIME << "   newResult=" << result << "\n";
     }
     return result;
 }

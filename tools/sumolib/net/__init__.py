@@ -312,7 +312,16 @@ class Net:
     def forbids(self, possProhibitor, possProhibited):
         return possProhibitor.getFrom().getToNode().forbids(possProhibitor, possProhibited)
 
-    def getDownstreamEdges(self, edge, distance, stopOnTLS):
+    def getDownstreamEdges(self, edge, distance, stopOnTLS, stopOnTurnaround):
+        """return a list of lists of the form
+           [[firstEdge, pos, [edge_0, edge_1, ..., edge_k], aborted], ...]
+           where
+             firstEdge: is the downstream edge furthest away from the intersection,
+             [edge_0, ..., edge_k]: is the list of edges from the intersection downstream to firstEdge
+             pos: is the position on firstEdge with distance to the end of the input edge
+             aborted: a flag indicating whether the downstream
+                 search stopped at a TLS or a node without incoming edges before reaching the distance threshold
+        """
         ret = []
         seen = set()
         toProc = []
@@ -330,17 +339,20 @@ class Net:
                 ret.append([ie[0], ie[0].getLength() + ie[1], ie[2], True])
                 continue
             mn = []
-            hadTLS = False
+            stop = False
             for ci in ie[0]._incoming:
                 if ci not in seen:
                     prev = copy(ie[2])
-                    if stopOnTLS and ci._tls and ci != edge and not hadTLS:
+                    if stopOnTLS and ci._tls and ci != edge and not stop:
                         ret.append([ie[0], ie[1], prev, True])
-                        hadTLS = True
+                        stop = True
+                    elif stopOnTurnaround and ie[0]._incoming[ci][0].getDirection() == Connection.LINKDIR_TURN and not stop:
+                        ret.append([ie[0], ie[1], prev, True])
+                        stop = True
                     else:
                         prev.append(ie[0])
                         mn.append([ci, ie[0].getLength() + ie[1], prev])
-            if not hadTLS:
+            if not stop:
                 toProc.extend(mn)
         return ret
 

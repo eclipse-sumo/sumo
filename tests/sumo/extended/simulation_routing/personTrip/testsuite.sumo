@@ -71,6 +71,9 @@ access
 
 # walk to train stop via access
 access_walk
+
+# use train stop as a shortcut to connect walks
+walk_access_walk
 car_public_walk
 
 # bug: person does not board the train when changing access position to 450
