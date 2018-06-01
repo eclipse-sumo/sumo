@@ -59,7 +59,7 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 addPoly(attrs, false, false);
                 break;
             case SUMO_TAG_POI:
-                myDefaultLayer = (double)GLO_POI;
+                myDefaultLayer = Shape::DEFAULT_LAYER_POI;
                 addPOI(attrs, false, false);
                 break;
             case SUMO_TAG_PARAM:
