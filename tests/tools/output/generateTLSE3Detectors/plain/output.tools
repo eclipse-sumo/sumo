@@ -5,6 +5,9 @@ Options:
   -h, --help            show this help message and exit
   -n NET_FILE, --net-file=NET_FILE
                         Network file to work with. Mandatory.
+  -j JUNCTIONIDS, --junction-ids=JUNCTIONIDS
+                        List of junctions that shall receive detectors (comma
+                        separated)
   -l REQUESTED_DETECTOR_LENGTH, --detector-length=REQUESTED_DETECTOR_LENGTH
                         Length of the detector in meters (-1 for maximal
                         length).

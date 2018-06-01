@@ -44,6 +44,10 @@ def getOptions():
                              dest="net_file",
                              help="Network file to work with. Mandatory.",
                              type="string")
+    option_parser.add_option("-j", "--junction-ids",
+                             dest="junctionIDs",
+                             help="List of junctions that shall receive detectors (comma separated)",
+                             type="string")
     option_parser.add_option("-l", "--detector-length",
                              dest="requested_detector_length",
                              help="Length of the detector in meters "
@@ -120,21 +124,27 @@ if __name__ == "__main__":
     logging.info("Generating detectors...")
     detectors_xml = sumolib.xml.create_document("additional")
     generated_detectors = 0
-    for tls in network._tlss:
+
+    tlsList, getEdges = network._tlss, sumolib.net.TLS.getEdges
+    if options.junctionIDs:
+        tlsList = [network.getNode(n) for n in options.junctionIDs.split(',')]
+        getEdges = sumolib.net.node.Node.getIncoming
+
+    for tls in tlsList:
         if options.joined:
             detector_xml = detectors_xml.addChild("e3Detector")
-            detector_xml.setAttribute("id", "e3_" + str(tls._id))
+            detector_xml.setAttribute("id", "e3_" + str(tls.getID()))
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("file", options.results)
             generated_detectors += 1
-            for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
+            for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
                 writeEntryExit(options, edge, detector_xml)
 
         else:
-            for edge in sorted(tls.getEdges(), key=sumolib.net.edge.Edge.getID):
+            for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
                 detector_xml = detectors_xml.addChild("e3Detector")
                 detector_xml.setAttribute(
-                    "id", "e3_" + str(tls._id) + "_" + str(edge._id))
+                    "id", "e3_" + str(tls.getID()) + "_" + str(edge.getID()))
                 detector_xml.setAttribute("freq", str(options.frequency))
                 detector_xml.setAttribute("file", options.results)
                 writeEntryExit(options, edge, detector_xml)

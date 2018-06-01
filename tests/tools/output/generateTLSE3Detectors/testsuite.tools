@@ -13,5 +13,8 @@ complicated
 # create one e3Detector per junction
 joined
 
+# specify the list of junctions for generating detectors
+explicit
+
 # follow turnaround when searching upstream
 followTurnaround
