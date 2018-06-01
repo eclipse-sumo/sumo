@@ -1,0 +1,2 @@
+ Retrying in 1 seconds
+[Stage(stageType=2, line='', destStop='beg2left', edges=['beg2left'], travelTime=-0.7228800000000002, cost=-0.7228800000000002, intended='', depart=-1.0), Stage(stageType=2, line='', destStop='', edges=['beg2left2'], travelTime=-143.4168, cost=-143.4168, intended='', depart=-1.0)]

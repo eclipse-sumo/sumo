@@ -220,56 +220,43 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     }
     const MSVehicleType* pedType = vehControl.hasVType(pType) ? vehControl.getVType(pType) : vehControl.getVType(DEFAULT_PEDTYPE_ID);
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
-    if (modeSet == 0) {
-        ConstMSEdgeVector edges;
-        const double cost = MSNet::getInstance()->getPedestrianRouter().compute(fromEdge, toEdge, departPos, arrivalPos, speed > 0 ? speed : pedType->getMaxSpeed(), dep, 0, edges);
-        if (cost < 0) {
-            return result;
+    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    SUMOVehicle* vehicle = 0;
+    if (vehType != "") {
+        MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehType);
+        if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0) {
+            throw TraCIException("Invalid vehicle type '" + type->getID() + "', it is not allowed on the start edge.");
         }
-        result.emplace_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
-        for (const MSEdge* e : edges) {
-            result.back().edges.push_back(e->getID());
+        try {
+            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
+        } catch (ProcessError& e) {
+            throw TraCIException("Invalid departure edge for vehicle type '" + vehType + "' (" + e.what() + ")");
         }
-        result.back().travelTime = result.back().cost = cost;
-    } else {
-        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-        SUMOVehicle* vehicle = 0;
-        if (vehType != "") {
-            MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehType);
-            if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0) {
-                throw TraCIException("Invalid vehicle type '" + type->getID() + "', it is not allowed on the start edge.");
-            }
-            try {
-                const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-                vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
-            } catch (ProcessError& e) {
-                throw TraCIException("Invalid departure edge for vehicle type '" + vehType + "' (" + e.what() + ")");
-            }
-        }
-        std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
+    }
+    std::vector<MSNet::MSIntermodalRouter::TripItem> items;
+    if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
                 pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, dep, items)) {
-            for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
-                if (!it->edges.empty()) {
-                    if (it->line == "") {
-                        result.emplace_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
-                    } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                        result.emplace_back(TraCIStage(MSTransportable::DRIVING));
-                    }
-                    result.back().destStop = it->destStop;
-                    result.back().line = it->line;
-                    for (const MSEdge* e : it->edges) {
-                        result.back().edges.push_back(e->getID());
-                    }
-                    result.back().travelTime = result.back().cost = it->cost;
-                    result.back().intended = it->intended;
-                    result.back().depart = it->depart;
+        for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
+            if (!it->edges.empty()) {
+                if (it->line == "") {
+                    result.emplace_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
+                } else if (vehicle != 0 && it->line == vehicle->getID()) {
+                    result.emplace_back(TraCIStage(MSTransportable::DRIVING));
                 }
+                result.back().destStop = it->destStop;
+                result.back().line = it->line;
+                for (const MSEdge* e : it->edges) {
+                    result.back().edges.push_back(e->getID());
+                }
+                result.back().travelTime = result.back().cost = it->cost;
+                result.back().intended = it->intended;
+                result.back().depart = it->depart;
             }
         }
-        if (vehicle != 0) {
-            vehControl.deleteVehicle(vehicle, true);
-        }
+    }
+    if (vehicle != 0) {
+        vehControl.deleteVehicle(vehicle, true);
     }
     return result;
 }
