@@ -166,8 +166,6 @@ GNEStoppingPlace::getEndPosition() const {
 
 bool
 GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
-
-
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
@@ -208,18 +206,28 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Move shape to side
     myShape.move2side(movingToSide * offsetSign);
 
-    // obtain start and end position fixed
+    // set start position
     double startPosFixed;
-    if(myStartPosition.empty()) {
+    if(!canParse<double>(myStartPosition)) {
         startPosFixed = 0;
+    } else if(parse<double>(myStartPosition) < 0) {
+        startPosFixed = 0;
+    } else if (parse<double>(myStartPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else {
-        startPosFixed = (parse<double>(myStartPosition) < 0) ? 0 : parse<double>(myStartPosition);
+        startPosFixed = parse<double>(myStartPosition);
     }
+
+    // set end position
     double endPosFixed;
-    if(myEndPosition.empty()) {
-        endPosFixed = myLane->getLaneShapeLength();
+    if(!canParse<double>(myStartPosition)) {
+        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else if(parse<double>(myEndPosition) < 0) {
+        endPosFixed = 0;
+    } else if (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else {
-        endPosFixed = (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getLength()) ? myLane->getLaneShapeLength() : parse<double>(myEndPosition);
+        endPosFixed = parse<double>(myEndPosition);
     }
 
     // Cut shape using as delimitators fixed start position and fixed end position
