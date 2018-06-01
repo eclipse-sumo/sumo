@@ -83,6 +83,8 @@ def getOptions():
                              type="string",
                              default="e3output.xml")
 
+    option_parser.add_option("--interior", action="store_true",
+                         default=False, help="Extend measurement area to the junction interior")
     option_parser.add_option("--joined", action="store_true",
                          default=False, help="Create one e3Detector per junction")
     option_parser.add_option("--follow-turnaround", dest="followTurnaround", action="store_true",
@@ -97,7 +99,7 @@ def getOptions():
         exit()
     return options
 
-def writeEntryExit(options, edge, detector_xml):
+def writeEntryExit(options, edge, detector_xml, writeExit=True):
     stopOnTLS = True
     stopOnTurnaround = not options.followTurnaround
     input_edges = network.getDownstreamEdges(
@@ -111,10 +113,21 @@ def writeEntryExit(options, edge, detector_xml):
             detector_entry_xml.setAttribute("lane", lane.getID())
             detector_entry_xml.setAttribute("pos", "%.2f" % position)
 
-    for lane in edge.getLanes():
-        detector_exit_xml = detector_xml.addChild("detExit")
-        detector_exit_xml.setAttribute("lane", lane.getID())
-        detector_exit_xml.setAttribute("pos", "-.1")
+    if writeExit:
+        if options.interior:
+            # exit just after leaving the intersection
+            for e2 in edge.getOutgoing():
+                for lane in e2.getLanes():
+                    detector_exit_xml = detector_xml.addChild("detExit")
+                    detector_exit_xml.setAttribute("lane", lane.getID())
+                    detector_exit_xml.setAttribute("pos", "0")
+        else:
+            # exit just before entering the intersection
+            for lane in edge.getLanes():
+                detector_exit_xml = detector_xml.addChild("detExit")
+                detector_exit_xml.setAttribute("lane", lane.getID())
+                detector_exit_xml.setAttribute("pos", "-.1")
+
 
 if __name__ == "__main__":
     # pylint: disable-msg=C0103
@@ -142,8 +155,10 @@ if __name__ == "__main__":
             detector_xml.setAttribute("freq", str(options.frequency))
             detector_xml.setAttribute("file", options.results)
             generated_detectors += 1
+            writeExit = True
             for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
-                writeEntryExit(options, edge, detector_xml)
+                writeEntryExit(options, edge, detector_xml, writeExit)
+                writeExit = not options.interior
 
         else:
             for edge in sorted(getEdges(tls), key=sumolib.net.edge.Edge.getID):
@@ -152,6 +167,7 @@ if __name__ == "__main__":
                     "id", options.prefix + str(tls.getID()) + "_" + str(edge.getID()))
                 detector_xml.setAttribute("freq", str(options.frequency))
                 detector_xml.setAttribute("file", options.results)
+                # XXX if options.interior, add attribute to supress 'left-without-entering' warnings. (#4139)
                 writeEntryExit(options, edge, detector_xml)
                 generated_detectors += 1
 

@@ -21,3 +21,9 @@ prefix
 
 # follow turnaround when searching upstream
 followTurnaround
+
+# also detect on junction interior
+interior
+
+# also detect on junction interior when joining all approaches
+interior_joined

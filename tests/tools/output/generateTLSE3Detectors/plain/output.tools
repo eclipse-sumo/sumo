@@ -23,5 +23,6 @@ Options:
   -r RESULTS, --results-file=RESULTS
                         The name of the file the detectors write their output
                         into. Defaults to e3output.xml.
+  --interior            Extend measurement area to the junction interior
   --joined              Create one e3Detector per junction
   --follow-turnaround   Extend entry detectors past turn-around connections
