@@ -23,7 +23,8 @@ runnerPy = os.path.join(ROOT_DIR,"runner.py")
 
 # parameters
 timeUntilMRM =[10]#, 8, 6]
-initialAwareness= [0.95]#, 0.75, 0.5]
+#~ initialAwareness= [0.95, 0.75, 0.5]
+initialAwareness= [0.5]
 responseTime= [2]#, 5, 9, 15] # [[1, 5], [3, 9], [3,15]] ? give a range or a certain value?
 recoveryRate= [0.05]#, 0.05, 0.05]
 mrmDecel= [1.1]#, 1.3, 1.5]
@@ -80,14 +81,14 @@ def generateRouteFile(routefile,i,j,k,l,rList,code):
             <param key="device.toc.responseTime" value="%s"/>
             <param key="device.toc.recoveryRate" value="%s"/>
             <param key="device.toc.mrmDecel" value="%s"/>
-            <param key="device.toc.colorScheme" value="true"/>
+            <param key="device.toc.useColorScheme" value="true"/>
         </flow>""" %(routeID, edges, routeID, i, j, k, l), file=fd)
     if code == "UC1_1":
         print("""    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" number="150" color="white">
                 <param key="has.toc.device" value="false"/>
                 <param key="device.toc.manualType" value="manual"/>
                 <param key="device.toc.automatedType" value="automated"/>
-                <param key="device.toc.colorScheme" value="true"/>
+                <param key="device.toc.useColorScheme" value="true"/>
             </flow>""" %(routeID), file=fd)
     print("""    <!-- one  hour manually driven vehicle flow -->
         <flow id="LVflow" type="manual" from="%s" to="%s" begin="0" end="3600" number="200"/>
@@ -169,7 +170,7 @@ if __name__ == "__main__":
                                 '--time-MRM', str(t),
                                 '--code', code,
                                 '--nogui', "false",
-                                #'--verbose',
+                                '--verbose',
                                 ]
                             print("calling %s" % ' '.join(cmd))
                             subprocess.call(cmd, stdout=sys.stdout, stderr=sys.stderr)
