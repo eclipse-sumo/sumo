@@ -43,6 +43,7 @@ def doToC(vehSet,toRemove,timeUntilMRM,edgeID,distance):
     for vehID in vehSet:
         distToTOR = traci.vehicle.getDrivingDistance(vehID, edgeID, distance)
         print ("distToTOR = %s"%distToTOR)
+        print ("timeToMRM = %s"%timeUntilMRM)
         if distToTOR < 0.:
             toRemove.add(vehID)
             if traci.vehicle.getTypeID(vehID).startswith("toc"):
