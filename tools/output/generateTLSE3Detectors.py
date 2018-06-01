@@ -104,7 +104,7 @@ def writeEntryExit(options, edge, detector_xml, writeExit=True):
     if writeExit:
         if options.interior:
             # exit just after leaving the intersection
-            for e2 in edge.getOutgoing():
+            for e2 in sorted(edge.getOutgoing(), key=lambda e : e.getID()):
                 for lane in e2.getLanes():
                     detector_exit_xml = detector_xml.addChild("detExit")
                     detector_exit_xml.setAttribute("lane", lane.getID())
