@@ -203,7 +203,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     GUIPointOfInterest::drawGL(s);
     // draw lock icon if isn't in selecting mode
     if(!s.drawForSelecting) {
-        drawLockIcon(*this, GLO_POI, 0.2);
+        drawLockIcon(*this, getShapeLayer() + 0.1, 0.2);
     }
     // draw an orange square mode if there is an image(see #4036)
     if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
@@ -244,7 +244,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_LAYER:
-            if(getShapeLayer() == GLO_POI) {
+            if(getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
                 return "default";
             } else {
                 return toString(getShapeLayer());
@@ -407,7 +407,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LAYER:
             if(value == "default") {
-                setShapeLayer(GLO_POI);
+                setShapeLayer(Shape::DEFAULT_LAYER_POI);
             } else {
                 setShapeLayer(parse<double>(value));
             }

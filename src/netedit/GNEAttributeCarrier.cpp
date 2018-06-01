@@ -1916,29 +1916,29 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The RGBA color with which the polygon shall be displayed", 
             "green");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILL] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 4,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 4,
             "An information whether the polygon shall be filled", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 5,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 5,
             "The layer in which the polygon lies", 
-            "default");
+            toString(Shape::DEFAULT_LAYER));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 6,
             "A typename for the polygon", 
-            "");
+            toString(Shape::DEFAULT_TYPE));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 7,
             "A bitmap to use for rendering this polygon", 
-            "");
+            toString(Shape::DEFAULT_IMG_FILE));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
             "Enable or disbale use image file as a relative path", 
-            "0");
+            toString(Shape::DEFAULT_RELATIVEPATH));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
             "Angle of rendered image in degree", 
-            "0");
+            toString(Shape::DEFAULT_ANGLE));
     }
     currentTag = SUMO_TAG_POI;
     {
@@ -1960,31 +1960,31 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "A typename for the poi", 
-            "");
+            toString(Shape::DEFAULT_TYPE));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_OPTIONAL, 5,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 5,
             "The layer of the poi for drawing and selecting", 
-            "default");
+            toString(Shape::DEFAULT_LAYER_POI));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
             "Width of rendered image in meters", 
-            "0.00");
+            toString(Shape::DEFAULT_IMG_WIDTH));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
             "Height of rendered image in meters", 
-            "0.00");
+            toString(Shape::DEFAULT_IMG_HEIGHT));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
             "A bitmap to use for rendering this poi", 
-            "");
+            toString(Shape::DEFAULT_IMG_FILE));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
             "Enable or disable use image file as a relative path", 
-            "0");
+            toString(Shape::DEFAULT_RELATIVEPATH));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 10,
             "Angle of rendered image in degree", 
-            "0");
+            toString(Shape::DEFAULT_ANGLE));
     }
     currentTag = SUMO_TAG_POILANE;
     {
@@ -2014,31 +2014,31 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 6,
             "A typename for the poi", 
-            "");
+            toString(Shape::DEFAULT_TYPE));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LAYER] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 7,
             "The layer of the poi for drawing and selecting", 
-            "default");
+            toString(Shape::DEFAULT_LAYER_POI));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 8,
             "Width of rendered image in meters", 
-            "0.00");
+            toString(Shape::DEFAULT_IMG_WIDTH));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_HEIGHT] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 9,
             "Height of rendered image in meters", 
-            "0.00");
+            toString(Shape::DEFAULT_IMG_HEIGHT));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_IMGFILE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 10,
             "A bitmap to use for rendering this poi", 
-            "");
+            toString(Shape::DEFAULT_IMG_FILE));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RELATIVEPATH] = AttributeValues(
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 11,
             "Enable or disable use image file as a relative path", 
-            "0");
+            toString(Shape::DEFAULT_RELATIVEPATH));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ANGLE] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 12,
             "Angle of rendered image in degree", 
-            "0");
+            toString(Shape::DEFAULT_ANGLE));
     }
 }
 

@@ -1027,7 +1027,7 @@ GNEPolygonFrame::addPOI(const std::map<SumoXMLAttr, std::string>& POIValues) {
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
     // parse layer
-    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : GLO_POI;
+    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : Shape::DEFAULT_LAYER_POI;
     // create new POI
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POI));
     if (myViewNet->getNet()->addPOI(id, type, color, pos, false, "", 0, 0, layer, angle, imgFile, relativePath, widthPOI, heightPOI)) {
@@ -1061,7 +1061,7 @@ GNEPolygonFrame::addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues)
     double widthPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_WIDTH));
     double heightPOI = GNEAttributeCarrier::parse<double>(POIValues.at(SUMO_ATTR_HEIGHT));
     // parse layer
-    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : GLO_POI;
+    double layer = GNEAttributeCarrier::canParse<double>(layerStr)? GNEAttributeCarrier::parse<double>(layerStr) : Shape::DEFAULT_LAYER_POI;
     // create new POILane
     myViewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_POILANE));
     if (myViewNet->getNet()->addPOI(id, type, color, Position(), false, lane->getID(), posLane, posLat, layer, angle, imgFile, relativePath, widthPOI, heightPOI)) {
