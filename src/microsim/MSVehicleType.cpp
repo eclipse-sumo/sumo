@@ -42,6 +42,7 @@
 #include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
 #include "cfmodels/MSCFModel_Wiedemann.h"
+#include "cfmodels/MSCFModel_ACC.h"
 #include "cfmodels/MSCFModel_TCI.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
@@ -353,6 +354,18 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_RAIL:
             vtype->myCarFollowModel = new MSCFModel_Rail(vtype, from.getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400"));
+            break;
+        case SUMO_TAG_CF_ACC:
+            vtype->myCarFollowModel = new MSCFModel_ACC(vtype,
+                    from.getCFParam(SUMO_ATTR_ACCEL, 2.6),
+                    from.getCFParam(SUMO_ATTR_DECEL, 4.5),
+                    from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, 4.5),
+                    from.getCFParam(SUMO_ATTR_TAU, 1.),
+                    from.getCFParam(SUMO_ATTR_SC_GAIN, -0.4),
+                    from.getCFParam(SUMO_ATTR_GCC_GAIN_SPEED, 0.8),
+                    from.getCFParam(SUMO_ATTR_GCC_GAIN_SPACE, 0.04),
+                    from.getCFParam(SUMO_ATTR_GC_GAIN_SPEED, 0.07),
+                    from.getCFParam(SUMO_ATTR_GC_GAIN_SPACE, 0.23));
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:
