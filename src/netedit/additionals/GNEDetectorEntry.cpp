@@ -23,6 +23,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#include <netbuild/NBEdge.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -42,6 +43,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/netelements/GNEEdge.h>
 
 #include "GNEDetectorEntry.h"
 #include "GNEDetectorE3.h"
@@ -69,11 +71,11 @@ GNEDetectorEntry::updateGeometry() {
     myShape.clear();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > 1 ? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
-    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getShape().length()));
+    double fixedPositionOverLane = myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength() ? myLane->getParentEdge().getNBEdge()->getFinalLength() : myPositionOverLane < 0 ? 0 : myPositionOverLane;
+    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane));
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane * myLane->getShape().length()) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
@@ -104,8 +106,7 @@ bool GNEDetectorEntry::isDetectorPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        // floors are needed to avoid precision problems
-        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor(myPositionOverLane * 1000) / 1000) <= 1);
+        return (myPositionOverLane>= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -221,7 +222,7 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_POSITION:
-            return toString(getAbsolutePositionOverLane());
+            return toString(myPositionOverLane);
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -289,7 +290,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

@@ -71,8 +71,8 @@ GNEDetectorE1::updateGeometry() {
     myShape.clear();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > 1 ? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
-    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getShape().length()));
+    double fixedPositionOverLane = myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength() ? myLane->getParentEdge().getNBEdge()->getFinalLength() : myPositionOverLane < 0 ? 0 : myPositionOverLane;
+    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -81,7 +81,7 @@ GNEDetectorE1::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane * myLane->getShape().length()) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
@@ -122,8 +122,7 @@ bool GNEDetectorE1::isDetectorPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        // floors are needed to avoid precision problems
-        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor(myPositionOverLane * 1000) / 1000) <= 1);
+        return (myPositionOverLane>= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -234,7 +233,7 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_POSITION:
-            return toString(getAbsolutePositionOverLane());
+            return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_FILE:
@@ -321,7 +320,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);

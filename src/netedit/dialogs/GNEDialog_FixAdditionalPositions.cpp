@@ -132,13 +132,13 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
         // Set conflict
         std::string errorPosition, errorLenght, separator;
         // check position over lane
-        if (i->getAbsolutePositionOverLane() < 0) {
+        if (i->getPositionOverLane() < 0) {
             errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-        } else if (i->getAbsolutePositionOverLane() > i->getLane()->getLaneParametricLength()) {
+        } else if (i->getPositionOverLane() > i->getLane()->getParentEdge().getNBEdge()->getFinalLength()) {
             errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
         }
         GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
-        if ((E2Detector != nullptr) && ((E2Detector->getAbsolutePositionOverLane() + E2Detector->getAbsoluteLenght()) > i->getLane()->getLaneParametricLength())) {
+        if ((E2Detector != nullptr) && ((E2Detector->getPositionOverLane() + E2Detector->getLength()) > i->getLane()->getParentEdge().getNBEdge()->getFinalLength())) {
             errorLenght = (toString(SUMO_ATTR_LENGTH) + " > lanes's length");
         }
 

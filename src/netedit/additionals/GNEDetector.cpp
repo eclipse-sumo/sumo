@@ -53,7 +53,7 @@ GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObject
                          double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement) :
     GNEAdditional(id, viewNet, type, tag, true, blockMovement, additionalParent),
     myLane(lane),
-    myPositionOverLane(pos / lane->getLaneParametricLength()),
+    myPositionOverLane(pos),
     myFreq(freq),
     myFilename(filename),
     myFriendlyPosition(friendlyPos) {
@@ -69,9 +69,9 @@ GNEDetector::getLane() const {
 }
 
 
-double
-GNEDetector::getAbsolutePositionOverLane() const {
-    return myPositionOverLane * myLane->getLaneParametricLength();
+double 
+GNEDetector::getPositionOverLane() const {
+    return myPositionOverLane;
 }
 
 
@@ -80,7 +80,7 @@ GNEDetector::moveGeometry(const Position& oldPos, const Position& offset) {
     // Calculate new position using old position
     Position newPosition = oldPos;
     newPosition.add(offset);
-    myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false) / myLane->getLaneShapeLength();
+    myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
     updateGeometry();
 }
@@ -92,7 +92,7 @@ GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
         // restore old position before commit new position
         double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
         undoList->p_begin("position of " + toString(getTag()));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane * myLane->getLaneParametricLength()), true, toString(originalPosOverLane)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, toString(originalPosOverLane)));
         undoList->p_end();
     }
 }
@@ -100,7 +100,7 @@ GNEDetector::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 
 Position
 GNEDetector::getPositionInView() const {
-    return myLane->getShape().positionAtOffset(myPositionOverLane * myLane->getShape().length());
+    return myLane->getShape().positionAtOffset(myPositionOverLane);
 }
 
 

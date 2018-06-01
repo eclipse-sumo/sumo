@@ -62,11 +62,11 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
+    /// @brief get length of E2 Detector
+    double getLength() const;
+
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;
-
-    /// @brief get absolute lenght
-    double getAbsoluteLenght() const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -107,8 +107,8 @@ public:
     /// @}
 
 protected:
-    /// @brief relative length [0,1]
-    double myRelativeLength;
+    /// @brief E2 detector lenght
+    double myLength;
 
     /// @brief attribute to enable or disable splitByType
     bool myCont;

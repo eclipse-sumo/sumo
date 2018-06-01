@@ -64,8 +64,8 @@ public:
     /// @brief get lane
     GNELane* getLane() const;
 
-    /// @brief get absolute position over Lane
-    double getAbsolutePositionOverLane() const;
+    /// @brief get position over lane
+    double getPositionOverLane() const;
 
     /// @name Functions related with geometry of element
     /// @{

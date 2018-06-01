@@ -23,6 +23,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#include <netbuild/NBEdge.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -37,6 +38,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -54,7 +56,7 @@
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
                              bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, friendlyPos, nullptr, blockMovement),
-    myRelativeLength(length / lane->getLaneParametricLength()),
+    myLength(length),
     myCont(cont),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -77,9 +79,9 @@ GNEDetectorE2::updateGeometry() {
 
     // Cut shape using as delimitators fixed start position and fixed end position
     double startPosFixed = (myPositionOverLane < 0) ? 0 : myPositionOverLane;
-    double endPosFixed = ((myPositionOverLane + myRelativeLength) > 1) ? 1 : (myPositionOverLane + myRelativeLength);
-    myShape = myShape.getSubpart(startPosFixed * myShape.length(), endPosFixed * myShape.length());
-
+    double endPosFixed = ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) ? myLane->getParentEdge().getNBEdge()->getFinalLength() : (myPositionOverLane + myLength);
+    myShape = myShape.getSubpart(startPosFixed, endPosFixed);
+    
     // Get number of parts of the shape
     int numberOfSegments = (int)myShape.size() - 1;
 
@@ -143,19 +145,20 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
 }
 
 
-bool GNEDetectorE2::isDetectorPositionFixed() const {
+double 
+GNEDetectorE2::getLength() const {
+    return myLength;
+}
+
+
+bool 
+GNEDetectorE2::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        // floors are needed to avoid precision problems
-        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor((myPositionOverLane + myRelativeLength) * 1000) / 1000) <= 1);
+        return (myPositionOverLane>= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
-}
-
-
-double GNEDetectorE2::getAbsoluteLenght() const {
-    return myRelativeLength * myLane->getLaneParametricLength();
 }
 
 
@@ -227,11 +230,11 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_POSITION:
-            return toString(getAbsolutePositionOverLane());
+            return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_LENGTH:
-            return toString(myRelativeLength * myLane->getLaneParametricLength());
+            return toString(myLength);
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_CONT:
@@ -298,19 +301,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_LENGTH:
             if (canParse<double>(value)) {
-                // obtain relative new start position
-                double newLength = parse<double>(value);
-                // lengths withs size 0 aren't valid
-                if (newLength <= 0) {
-                    return false;
-                } else {
-                    newLength = newLength / myLane->getLaneParametricLength();
-                    if ((myPositionOverLane + newLength) > 1) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+                return (parse<double>(value) <= 0);
             }
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
@@ -347,13 +338,13 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myRelativeLength = parse<double>(value) / myLane->getLaneParametricLength();
+            myLength = parse<double>(value);
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
