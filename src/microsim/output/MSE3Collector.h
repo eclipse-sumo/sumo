@@ -224,7 +224,7 @@ public:
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
-                  const std::string& vTypes);
+                  const std::string& vTypes, bool openEntry);
 
 
     /// @brief Destructor
@@ -413,6 +413,8 @@ protected:
     /// @brief Information when the last reset has been done
     SUMOTime myLastResetTime;
 
+    /// @brief whether this dector is declared as having incomplete entry detectors
+    const bool myOpenEntry;
 
 private:
     /// @brief Invalidated copy constructor.

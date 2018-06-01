@@ -161,8 +161,8 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold, const std::string& vTypes)
-    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes) {}
+                               SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry)
+    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry) {}
 
 
 GUIE3Collector::~GUIE3Collector() {}

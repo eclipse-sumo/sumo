@@ -161,7 +161,8 @@ if __name__ == "__main__":
                     "id", options.prefix + str(tls.getID()) + "_" + str(edge.getID()))
                 detector_xml.setAttribute("freq", str(options.frequency))
                 detector_xml.setAttribute("file", options.results)
-                # XXX if options.interior, add attribute to supress 'left-without-entering' warnings. (#4139)
+                if options.interior:
+                    detector_xml.setAttribute("openEntry", "true")
                 writeEntryExit(options, edge, detector_xml)
                 generated_detectors += 1
 

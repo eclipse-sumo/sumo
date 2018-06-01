@@ -1066,13 +1066,14 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes);
+                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
