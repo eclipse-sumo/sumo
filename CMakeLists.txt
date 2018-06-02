@@ -3,6 +3,7 @@
 
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
 option(MULTITHREADED_BUILD "Use all available cores for building" true)
+SET(PYTHON_EXE "python" CACHE STRING "Python to use for building")
 
 project(SUMO)
 cmake_minimum_required(VERSION 3.1)
@@ -146,7 +147,7 @@ if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIRS})
 endif (XercesC_FOUND)
 
-find_package(Proj)
+find_package(PROJ4 REQUIRED)
 if (PROJ_FOUND)
     include_directories(${PROJ_INCLUDE_DIR})
     set(HAVE_PROJ 1)
