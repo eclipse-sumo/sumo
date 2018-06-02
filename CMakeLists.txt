@@ -2,8 +2,7 @@
 # -DCMAKE_BUILD_TYPE:STRING=Debug (default Release)
 
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
-option(MULTITHREADED_BUILD "Use all available cores for building" true)
-SET(PYTHON_EXE "python" CACHE STRING "Python to use for building")
+option(MULTITHREADED_BUILD "Use all available cores for building" true)\
 
 project(SUMO)
 cmake_minimum_required(VERSION 3.1)
@@ -66,6 +65,8 @@ endif ()
 message(STATUS "")
 
 set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
+
+find_package(PythonInterp REQUIRED)
 
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)

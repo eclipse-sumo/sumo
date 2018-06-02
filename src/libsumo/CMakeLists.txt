@@ -26,8 +26,8 @@ if(SWIG_FOUND)
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${swig_extra_generated_files} ${CMAKE_SOURCE_DIR}/bin
             DEPENDS $<TARGET_FILE:_libsumo>)
-        execute_process(COMMAND ${PYTHON_EXE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES_DEFAULT OUTPUT_STRIP_TRAILING_WHITESPACE)
-		set(PYTHON_SITE_PACKAGES ${PYTHON_SITE_PACKAGES_DEFAULT} CACHE STRING "Python Site Packages")
+        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES_DEFAULT OUTPUT_STRIP_TRAILING_WHITESPACE)
+		set(PYTHON_SITE_PACKAGES ${PYTHON_SITE_PACKAGES_DEFAULT} CACHE STRING "Python Site Packages Directory")
         install(TARGETS ${SWIG_MODULE_libsumo_REAL_NAME} DESTINATION ${PYTHON_SITE_PACKAGES})
         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/python/libsumo.py DESTINATION ${PYTHON_SITE_PACKAGES})
 		message(STATUS "PYTHON_SITE_PACKAGES: ${PYTHON_SITE_PACKAGES}")
