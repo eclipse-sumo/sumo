@@ -2,7 +2,7 @@
 # -DCMAKE_BUILD_TYPE:STRING=Debug (default Release)
 
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries" true)
-option(MULTITHREADED_BUILD "Use all available cores for building" true)\
+option(MULTITHREADED_BUILD "Use all available cores for building" true)
 
 project(SUMO)
 cmake_minimum_required(VERSION 3.1)
