@@ -148,7 +148,7 @@ if (XercesC_FOUND)
     include_directories(${XercesC_INCLUDE_DIRS})
 endif (XercesC_FOUND)
 
-find_package(PROJ REQUIRED)
+find_package(Proj REQUIRED)
 if (PROJ_FOUND)
     include_directories(${PROJ_INCLUDE_DIR})
     set(HAVE_PROJ 1)
