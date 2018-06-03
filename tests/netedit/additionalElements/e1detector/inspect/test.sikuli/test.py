@@ -94,7 +94,10 @@ netedit.modifyAttribute(4, "e1Detector_gneE2_1_1.txt")
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(4, "myOwnOutput.txt")
 
-# Change parameter 5
+# Change parameter 5 with an invalid value
+netedit.modifyAdditionalDefaultValue(5, "DummyVClasses")
+
+# Change parameter 5 with a valid value
 netedit.modifyAdditionalDefaultValue(5, "private passenger taxi bus")
 
 # Change boolean parameter 5

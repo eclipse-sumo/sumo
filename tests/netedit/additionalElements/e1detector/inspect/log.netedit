@@ -19,6 +19,7 @@ Warning: Setting new attribute file '' into e1Detector 'correctID'
 Warning: Value '%%%&&%$%$' for attribute file of e1Detector isn't valid
 Warning: Setting new attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'correctID'
+Warning: Value 'DummyVClasses' for attribute vTypes of e1Detector isn't valid
 Warning: Setting new attribute vTypes 'private passenger taxi bus' into e1Detector 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into e1Detector 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed

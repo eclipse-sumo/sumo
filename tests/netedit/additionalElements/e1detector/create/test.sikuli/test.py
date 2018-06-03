@@ -34,33 +34,57 @@ netedit.changeAdditional("e1Detector")
 # create E1 with default parameters
 netedit.leftClick(match, 200, 250)
 
+# set a invalid  frequency (dummy)
+netedit.modifyAdditionalDefaultValue(2, "dummyFrequency")
+
+# try to create E1 with invalid frequency
+netedit.leftClick(match, 250, 250)
+
 # set a invalid  frequency
 netedit.modifyAdditionalDefaultValue(2, "-30")
 
-# try to create E1 with different frequency
+# try to create E1 with invalid frequency
 netedit.leftClick(match, 250, 250)
 
 # set a valid frequency
 netedit.modifyAdditionalDefaultValue(2, "150")
 
-# create E1 with different frequency
+# try to create E1 with valid frequency
 netedit.leftClick(match, 250, 250)
 
-# set different vehicle type
-netedit.modifyAdditionalDefaultValue(3, "private passenger taxi bus")
+# set invalid filename
+netedit.modifyAdditionalDefaultValue(3, "&&&&&&&&")
 
-# create E1 with different split by type
+# try to create E1 with invalid filename
 netedit.leftClick(match, 300, 250)
 
-# Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(4)
+# set valid filename
+netedit.modifyAdditionalDefaultValue(3, "myOwnFilename.txt")
 
-# create E1 with different split by type
+# create E1 with valid filename
+netedit.leftClick(match, 300, 250)
+
+# set invalid vehicle type
+netedit.modifyAdditionalDefaultValue(4, "dummy vehicles")
+
+# try to create E1 with invalid vehicle types
 netedit.leftClick(match, 350, 250)
 
+# set valid vehicle type
+netedit.modifyAdditionalDefaultValue(4, "private passenger taxi bus")
+
+# create E1 with valid vehicle types
+netedit.leftClick(match, 350, 250)
+
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(5)
+
+# create E1 with different split by type
+netedit.leftClick(match, 400, 250)
+
 # Check undo redo
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()

@@ -37,21 +37,39 @@ netedit.inspectMode()
 # inspect E1
 netedit.leftClick(match, 150, 240)
 
-# Try to set invalid frecuency
-netedit.modifyAttribute(0, "-30")
+# Change parameter 0 with a non valid value (non numeral)
+netedit.modifyAttribute(0, "dummyFrequency")
 
-# set valid frecuency
-netedit.modifyAttribute(0, "20")
+# Change parameter 0 with a non valid value (negative)
+netedit.modifyAttribute(0, "-100")
 
-# set vehicle types
-netedit.modifyAttribute(1, "taxi passenger")
+# Change parameter 0 with a valid value
+netedit.modifyAttribute(0, "120")
 
-# Change friendly pos
-netedit.modifyBoolAttribute(2)
+# Change parameter 1 with an empty value
+netedit.modifyAttribute(1, "")
+
+# Change parameter 1 with an non valid value
+netedit.modifyAttribute(1, "%%%&&%$%$")
+
+# Change parameter 1 with a duplicated value
+netedit.modifyAttribute(1, "e1Detector_gneE2_1_1.txt")
+
+# Change parameter 1 with a valid value
+netedit.modifyAttribute(1, "myOwnOutput.txt")
+
+# Change parameter 2 with an invalid value
+netedit.modifyAdditionalDefaultValue(2, "DummyVClasses")
+
+# Change parameter 2
+netedit.modifyAdditionalDefaultValue(2, "private passenger taxi bus")
+
+# Change boolean parameter 3
+netedit.modifyBoolAttribute(3)
 
 # Check undos and redos
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(match, 4)
+netedit.redo(match, 4)
 
 # save additionals
 netedit.saveAdditionals()
