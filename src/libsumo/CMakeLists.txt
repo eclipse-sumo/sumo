@@ -28,18 +28,17 @@ if(SWIG_FOUND)
             configure_file(${SETUP_PY_IN} ${SETUP_PY})
             set(PYLIBSUMO_DIR ${CMAKE_SWIG_OUTDIR}/$<CONFIG>)
             add_custom_target(copy_python ALL
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py ${PYLIBSUMO_DIR}/libsumo/
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py ${PYLIBSUMO_DIR}/libsumo/__init__.py
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${swig_extra_generated_files} ${PYLIBSUMO_DIR}/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:${SWIG_MODULE_libsumo_REAL_NAME}> ${PYLIBSUMO_DIR}/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SETUP_PY} ${PYLIBSUMO_DIR}/
             )
             add_dependencies(copy_python ${SWIG_MODULE_libsumo_REAL_NAME})
             add_custom_target(install_pylibsumo
-                COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} install
-                WORKING_DIRECTORY ${CMAKE_SWIG_OUTDIR}/$<CONFIG>)
+                COMMAND ${PYTHON_EXECUTABLE} ${PYLIBSUMO_DIR}/setup.py install)
             add_dependencies(install_pylibsumo copy_python)
             install(
-                CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY}) install WORKING_DIRECTORY ${CMAKE_SWIG_OUTDIR}/$<CONFIG>"
+                CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY}) install WORKING_DIRECTORY ${PYLIBSUMO_DIR}"
                 COMPONENT pylibsumo)
         else()
             message(WARNING "ENABLE_PYTHON_BINDINGS is set but python libraries were not found.")
