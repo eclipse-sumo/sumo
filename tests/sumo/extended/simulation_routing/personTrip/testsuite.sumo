@@ -109,4 +109,7 @@ public_walk_human_readable_time
 
 # Copy of car_public_walk
 bike_public_walk
+
+# train access with given length
+access_length
 errors
