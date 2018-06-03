@@ -21,7 +21,7 @@ Warning: Setting new attribute color '255,255,500' into poly 'newID'
 Warning: Setting new attribute color 'blue' into poly 'newID'
 Warning: Setting new attribute color '125,60,200' into poly 'newID'
 Warning: Setting new attribute fill 'true' into poly 'newID'
-Warning: Setting new attribute layer '0' into poly 'newID'
+Warning: Value 'dummyLayer' for attribute layer of poly isn't valid
 Warning: Setting new attribute layer '-2' into poly 'newID'
 Warning: Setting new attribute layer '2' into poly 'newID'
 Warning: Setting new attribute type 'myOwnType' into poly 'newID'
@@ -33,7 +33,6 @@ Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poly isn't valid
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
 Warning: Setting new attribute relativePath 'true' into poly 'newID'
-Warning: Setting new attribute angle '0' into poly 'newID'
 Warning: Setting new attribute angle '-5' into poly 'newID'
 Warning: Setting new attribute angle '365' into poly 'newID'
 Warning: Setting new attribute angle '10' into poly 'newID'
@@ -59,8 +58,6 @@ Warning: Setting previous attribute angle '-5.00' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '0.00' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '0.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute relativePath '0' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poly 'newID'
@@ -69,9 +66,7 @@ Warning: Setting previous attribute type '' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute layer '-2.00' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '0.00' into poly 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '0.00' into poly 'newID'
+Warning: Setting previous attribute layer 'default' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute fill '0' into poly 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -92,6 +87,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_0' from viewNet
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -111,8 +108,6 @@ Warning: Setting new attribute color '125,60,200' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute fill 'true' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute layer '0' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '-2' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '2' into poly 'newID'
@@ -122,8 +117,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute relativePath 'true' into poly 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '0' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '-5' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -140,6 +133,8 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockShape 'true' into poly 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute closedShape 'false' into poly 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

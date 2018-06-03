@@ -38,32 +38,62 @@ netedit.changeAdditional("rerouter")
 netedit.leftClick(match, 100, 100)
 
 # select edge child
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(10, 0)
 
 # create rerouter with default parameters
 netedit.leftClick(match, 200, 100)
 
+# set invalid filename
+netedit.modifyAdditionalDefaultValue(2, "$$$$$$$$")
+
+# try to create rerouter with invalid filename
+netedit.leftClick(match, 300, 100)
+
+# set valid filename
+netedit.modifyAdditionalDefaultValue(2, "myOwnFilename.txt")
+
+# create rerouter with valid filename
+netedit.leftClick(match, 300, 100)
+
 # set invalid probability
-netedit.modifyAdditionalDefaultValue(2, "2")
+netedit.modifyAdditionalDefaultValue(3, "2")
 
-# try to create rerouter with different frequency
-netedit.leftClick(match, 300, 100)
-
-# set valid probability
-netedit.modifyAdditionalDefaultValue(2, "0.3")
-
-# create rerouter with different probability
-netedit.leftClick(match, 300, 100)
-
-# change off
-netedit.modifyAdditionalDefaultBoolValue(3)
-
-# try to create rerouter with different timeTreshold
+# try to create rerouter with invalid probability
 netedit.leftClick(match, 400, 100)
 
+# set valid probability
+netedit.modifyAdditionalDefaultValue(3, "0.3")
+
+# create rerouter with valid probability
+netedit.leftClick(match, 400, 100)
+
+# set invalid frequency (dummy)
+netedit.modifyAdditionalDefaultValue(4, "dummyFrequency")
+
+# create rerouter with invalid frequency
+netedit.leftClick(match, 500, 100)
+
+# set invalid frequency (negative)
+netedit.modifyAdditionalDefaultValue(4, "-3")
+
+# create rerouter with invalid frequency
+netedit.leftClick(match, 500, 100)
+
+# set valid frequency
+netedit.modifyAdditionalDefaultValue(4, "2.7")
+
+# create rerouter with invalid frequency
+netedit.leftClick(match, 500, 100)
+
+# change off
+netedit.modifyAdditionalDefaultBoolValue(5)
+
+# try to create rerouter with different timeTreshold
+netedit.leftClick(match, 600, 100)
+
 # Check undo redo
-netedit.undo(match, 3)
-netedit.redo(match, 3)
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()
