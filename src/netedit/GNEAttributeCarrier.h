@@ -503,10 +503,6 @@ public:
      */
     void writeAttribute(OutputDevice& device, SumoXMLAttr key) const;
 
-protected:
-    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
-
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
@@ -517,7 +513,11 @@ private:
     /// @brief icon associated to this AC
     GUIIcon myIcon;
 
+protected:
+    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    bool mySelected;
 
+private:
     /// @brief map with the allowed attributes and their default values
     static std::map<SumoXMLTag, std::vector<std::pair <SumoXMLAttr, std::string> > > _allowedAttributes;
 

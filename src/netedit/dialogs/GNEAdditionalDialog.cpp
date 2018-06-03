@@ -52,9 +52,9 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, A
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
     FXTopWindow(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), parent->getIcon(), parent->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4),
+    myUndoList(parent->getViewNet()->getUndoList()),
     myChangesDescription("change " + toString(parent->getTag()) + " values"),
-    myNumberOfChanges(0),
-    myUndoList(parent->getViewNet()->getUndoList()) {
+    myNumberOfChanges(0) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // Create frame for contents

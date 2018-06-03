@@ -466,7 +466,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildCalibratorVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, std::string vehicleTypeID,
+    static bool buildCalibratorVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
                                            double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
                                            double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
                                            SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
