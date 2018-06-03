@@ -220,7 +220,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 
     // set end position
     double endPosFixed;
-    if(!canParse<double>(myStartPosition)) {
+    if(!canParse<double>(myEndPosition)) {
         endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else if(parse<double>(myEndPosition) < 0) {
         endPosFixed = 0;

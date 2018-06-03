@@ -416,12 +416,20 @@ public:
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort/*, T optional*/) {
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
+        // obtain attribute properties (Only for improving efficiency)
+        const AttributeValues &attrProperties = getAttributeProperties(tag, attribute);
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if (objectID != "") {
             additionalOfWarningMessage = toString(tag) + " with ID '" + objectID + "'";
         } else {
             additionalOfWarningMessage = toString(tag);
+        }
+        // set a special default value valid depending of type of element (To avoid error parsing)
+        if(attrProperties.isNumerical() || attrProperties.isBool()) {
+            defaultValue = "0";
+        } else if (attrProperties.isColor()) {
+            defaultValue = "black";
         }
         // first check that attribute exists in XML
         if (attrs.hasAttribute(attribute)) {
@@ -431,7 +439,7 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
                 // only set default value if this isn't a SVCPermission
-                if(!getAttributeProperties(tag, attribute).isVClass()) {
+                if(!attrProperties.isVClass()) {
                     parsedAttribute = defaultValue;
                 }
             }
@@ -448,11 +456,11 @@ public:
                 }
             }
             // Set extra checks for int values
-            if (getAttributeProperties(tag, attribute).isInt()) {
+            if (attrProperties.isInt()) {
                 if (canParse<int>(parsedAttribute)) {
                     // parse to int and check if can be negative
                     int parsedIntAttribute = parse<int>(parsedAttribute);
-                    if (getAttributeProperties(tag, attribute).isPositive() && parsedIntAttribute < 0) {
+                    if (attrProperties.isPositive() && parsedIntAttribute < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -465,10 +473,10 @@ public:
                 }
             }
             // Set extra checks for float(double) values
-            if (getAttributeProperties(tag, attribute).isFloat()) {
+            if (attrProperties.isFloat()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to double and check if can be negative
-                    if (getAttributeProperties(tag, attribute).isPositive() && parse<double>(parsedAttribute) < 0) {
+                    if (attrProperties.isPositive() && parse<double>(parsedAttribute) < 0) {
                         errorFormat = "Cannot be negative; ";
                         parsedOk = false;
                     }
@@ -478,7 +486,7 @@ public:
                 }
             }
             // set extra check for time(double) values
-            if (getAttributeProperties(tag, attribute).isTime()) {
+            if (attrProperties.isTime()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -491,7 +499,7 @@ public:
                 }
             }
             // set extra check for probability values
-            if (getAttributeProperties(tag, attribute).isProbability()) {
+            if (attrProperties.isProbability()) {
                 if (canParse<double>(parsedAttribute)) {
                     // parse to SUMO Real and check if is negative
                     if (parse<double>(parsedAttribute) < 0) {
@@ -507,17 +515,17 @@ public:
                 }
             }
             // set extra check for color values
-            if (getAttributeProperties(tag, attribute).isColor() && !canParse<RGBColor>(parsedAttribute)) {
+            if (attrProperties.isColor() && !canParse<RGBColor>(parsedAttribute)) {
                 errorFormat = "Invalid RGB format or named color; ";
                 parsedOk = false;
             }
             // set extra check for filename values
-            if (getAttributeProperties(tag, attribute).isFilename() && (isValidFilename(parsedAttribute) == false)) {
+            if (attrProperties.isFilename() && (isValidFilename(parsedAttribute) == false)) {
                 errorFormat = "Filename contains invalid characters; ";
                 parsedOk = false;
             }
             // set extra check for SVCPermissions values
-            if (getAttributeProperties(tag, attribute).isVClass()) {
+            if (attrProperties.isVClass()) {
                 if (canParseVehicleClasses(parsedAttribute)) {
                     parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
                     parsedOk = true;
@@ -543,10 +551,10 @@ public:
             // If attribute has an invalid format
             if (!parsedOk) {
                 // if attribute has a default value, obtain it as string. In other case, abort.
-                if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
+                if (attrProperties.hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue(tag, attribute));
                 } else {
-                    WRITE_WARNING("Format of essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
+                    WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
                     // abort parsing of element
                     abort = true;
@@ -556,10 +564,10 @@ public:
             }
         } else {
             // if attribute has a default value, obtain it. In other case, abort.
-            if (getAttributeProperties(tag, attribute).hasDefaultValue()) {
+            if (attrProperties.hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue(tag, attribute));
             } else {
-                WRITE_WARNING("Essential " + getAttributeProperties(tag, attribute).getDescription() + " attribute '" + toString(attribute) + "' of " +
+                WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
                 // abort parsing of element
                 abort = true;
