@@ -26,17 +26,17 @@ if(SWIG_FOUND)
             set(SETUP_PY_IN ${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in)
             set(SETUP_PY ${CMAKE_SWIG_OUTDIR}/setup.py)
             configure_file(${SETUP_PY_IN} ${SETUP_PY})
-            add_custom_target(TARGET copy_python POST BUILD
+            add_custom_target(copy_python
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${swig_extra_generated_files} ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:${SWIG_MODULE_libsumo_REAL_NAME}> ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${SETUP_PY} ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/
-                DEPENDS ${SWIG_MODULE_libsumo_REAL_NAME}
             )
+            add_dependencies(copy_python ${SWIG_MODULE_libsumo_REAL_NAME})
             add_custom_target(install_pylibsumo
                 COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} install
-                WORKING_DIRECTORY ${CMAKE_SWIG_OUTDIR}/$<CONFIG>
-                DEPENDS ${SWIG_MODULE_pylibsumo_REAL_NAME} copy_python)
+                WORKING_DIRECTORY ${CMAKE_SWIG_OUTDIR}/$<CONFIG>)
+            add_dependencies(install_pylibsumo copy_python)
             install(
                 CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY}) install WORKING_DIRECTORY ${CMAKE_SWIG_OUTDIR}/$<CONFIG>"
                 COMPONENT pylibsumo)
