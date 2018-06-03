@@ -76,7 +76,7 @@ install(TARGETS sumo sumo-gui netconvert od2trips RUNTIME DESTINATION bin)
 configure_file(config.h.cmake config.h)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/src/version.h
-                   COMMAND ${CMAKE_SOURCE_DIR}/tools/build/version.py ${CMAKE_BINARY_DIR}/src
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/version.py ${CMAKE_BINARY_DIR}/src
                   )
 add_custom_target(generate-version-h
                   DEPENDS ${CMAKE_BINARY_DIR}/src/version.h
