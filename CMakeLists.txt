@@ -66,6 +66,8 @@ message(STATUS "")
 
 set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
 
+find_package(PythonInterp REQUIRED)
+
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
     # Detect if the "port" command is valid on this system; if so, return full path
