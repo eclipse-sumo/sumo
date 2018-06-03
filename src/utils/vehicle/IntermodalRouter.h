@@ -183,6 +183,7 @@ public:
         for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr(SUMO_ATTR_LINE, e->getLine());
             dev.writeAttr(SUMO_ATTR_LENGTH, e->getLength());
             dev.writeAttr("successors", toString(e->getSuccessors(SVC_IGNORING)));
             dev.closeTag();
