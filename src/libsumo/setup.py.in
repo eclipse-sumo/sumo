@@ -6,5 +6,5 @@ setup(name='libsumo',
       version='${PACKAGE_VERSION}',
       packages=find_packages(package_dir),
       package_dir={'':package_dir},
-      package_data = {'libsumo': ['*.pyd', '*.so']}
+      package_data = {'libsumo': ['*.pyd', '*.so', '*.dylib']}
 )
