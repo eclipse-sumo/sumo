@@ -44,3 +44,6 @@ ticket3648
 
 # vehicle.getLaneChangeState() with setLaneChangeMode()
 ticket3810
+
+# use busStop as shortcut without intending to use public transport
+ticket4141

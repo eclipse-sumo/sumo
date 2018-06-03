@@ -25,6 +25,7 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -67,10 +68,13 @@ public:
 
     static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);
 
+    /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction, 
+     * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.
+     */
     static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes="",
-            const SUMOTime depart=-1, const int routingMode=0, const double speed = -1., const double walkFactor = -1.,
-            const double departPos = -1., const double arrivalPos = -1., const double departPosLat = -1.,
-            const std::string& pType = "", const std::string& vehType = "", const std::string& destStop = "");
+            SUMOTime depart=-1, const int routingMode=0, double speed = -1., double walkFactor = -1.,
+            double departPos = 0, double arrivalPos = INVALID_DOUBLE_VALUE, const double departPosLat = 0,
+            const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
 

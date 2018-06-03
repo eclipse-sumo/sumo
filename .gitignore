@@ -80,6 +80,8 @@
 # tools dir
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/game/racing/log
+/tools/game/racing/tripinfos.xml
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
