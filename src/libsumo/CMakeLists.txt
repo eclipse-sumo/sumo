@@ -26,7 +26,7 @@ if(SWIG_FOUND)
             set(SETUP_PY_IN ${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in)
             set(SETUP_PY ${CMAKE_SWIG_OUTDIR}/setup.py)
             configure_file(${SETUP_PY_IN} ${SETUP_PY})
-            add_custom_target(copy_python
+            add_custom_target(copy_python ALL
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different ${swig_extra_generated_files} ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/libsumo/
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:${SWIG_MODULE_libsumo_REAL_NAME}> ${CMAKE_SWIG_OUTDIR}/$<CONFIG>/libsumo/
