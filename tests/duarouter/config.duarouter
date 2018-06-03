@@ -29,6 +29,7 @@ routes:<!--{[->]}-->
 alts:<!--{[->]}-->
 vtypes:<!--{[->]}-->
 weights:<!--{[->]}-->
+edges:<!--{[->]}-->
 additional:<!--{[->]}-->
 output:ms answering queries
 log:ms answering queries
