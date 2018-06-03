@@ -321,19 +321,21 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
     myInvalidValue = "";
     // obtain current additional tag
     SumoXMLTag additionalTag = myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType();
+    // get attribute Values (only for improve efficiency)
+    const GNEAttributeCarrier::AttributeValues &attrValues = GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr);
     // Check if format of current value of myTextField is correct
-    if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isInt()) {
+    if (attrValues.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
             // convert string to int
             int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
             // Check if int value must be positive
-            if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isPositive() && (intValue < 0)) {
+            if (attrValues.isPositive() && (intValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'int' format";
         }
-    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isTime()) {
+    } else if (attrValues.isTime()) {
         // time attributes work as positive doubles
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
@@ -345,26 +347,26 @@ GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSe
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'time' format";
         }
-    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isFloat()) {
+    } else if (attrValues.isFloat()) {
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
             // convert string to double
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if double value must be positive
-            if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isPositive() && (doubleValue < 0)) {
+            if (attrValues.isPositive() && (doubleValue < 0)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' cannot be negative";
                 // check if double value is a probability
-            } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
+            } else if (attrValues.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
                 myInvalidValue = "'" + toString(myAdditionalAttr) + "' takes only values between 0 and 1";
             }
         } else {
             myInvalidValue = "'" + toString(myAdditionalAttr) + "' doesn't have a valid 'float' format";
         }
-    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isFilename()) {
+    } else if (attrValues.isFilename()) {
         // check if filename format is valid
         if (GNEAttributeCarrier::isValidFilename(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
         }
-    } else if (GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr).isVClass()) {
+    } else if (attrValues.isVClass() && attrValues.isList()) {
         // check if VClasses are valid
         if (canParseVehicleClasses(myTextFieldStrings->getText().text()) == false) {
             myInvalidValue = "list of VClass isn't valid";

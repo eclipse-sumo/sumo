@@ -294,7 +294,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILE:
             return isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            return true;
+            return (value.empty() || canParseVehicleClasses(value));
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:

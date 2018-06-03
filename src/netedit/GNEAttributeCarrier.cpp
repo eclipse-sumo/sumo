@@ -1292,7 +1292,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The path to the output file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_VTYPES] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 6,
             "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
