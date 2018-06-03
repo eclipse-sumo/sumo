@@ -1,6 +1,6 @@
 <additionals>
-    <busStop id="busStop_3_2_0" lane="3_2" startPos="27.37" endPos="38.50"/>
-    <busStop id="busStop_4_2_2" lane="4_2" startPos="22.75" endPos="33.88"/>
-    <busStop id="busStop_7_1_3" lane="7_1" startPos="12.81" endPos="23.93"/>
-    <busStop id="busStop_8_2_1" lane="8_2" startPos="12.68" endPos="23.81"/>
+    <busStop id="busStop_3_2_0" lane="3_2" startPos="24.60" endPos="34.60"/>
+    <busStop id="busStop_4_2_2" lane="4_2" startPos="20.45" endPos="30.45"/>
+    <busStop id="busStop_7_1_3" lane="7_1" startPos="11.51" endPos="21.51"/>
+    <busStop id="busStop_8_2_1" lane="8_2" startPos="11.40" endPos="21.40"/>
 </additionals>

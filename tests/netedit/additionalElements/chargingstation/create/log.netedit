@@ -41,8 +41,8 @@ Warning: Adding chargingStation 'chargingStation_gneE1_0_5' in GNEChange_Additio
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding chargingStation 'chargingStation_gneE1_0_6' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute endPos '50.00' into chargingStation 'chargingStation_gneE1_0_5'
-Warning: Setting new attribute startPos '7.90' into chargingStation 'chargingStation_gneE1_0_6'
+Warning: Setting new attribute endPos '49.99' into chargingStation 'chargingStation_gneE1_0_5'
+Warning: Setting new attribute startPos '7.89' into chargingStation 'chargingStation_gneE1_0_6'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

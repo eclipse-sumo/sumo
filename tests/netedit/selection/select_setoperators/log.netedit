@@ -299,11 +299,13 @@ Warning: Setting new attribute selected 'true' into junction 'Center'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_1detEntry0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
 Warning: Setting new attribute selected 'true' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
+Warning: Setting new attribute selected 'true' into detEntry 'e3Detector_3detEntry0'
 Warning: Setting new attribute selected 'true' into poly 'poly_0'
-Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 6 Additionals, 0 Crossings, 1 Polygons, 0 POIs
+Warning: Current selection: 1 Junctions, 8 Edges, 0 Lanes, 0 connections, 8 Additionals, 0 Crossings, 1 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'A'
 Warning: Setting new attribute selected 'true' into edge '1'
 Warning: Setting new attribute selected 'true' into junction 'B'
@@ -364,11 +366,13 @@ Warning: Setting new attribute selected 'false' into edge '8'
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
 Warning: Setting new attribute selected 'false' into detExit 'e3Detector_0detExit0'
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
+Warning: Setting new attribute selected 'false' into detEntry 'e3Detector_1detEntry0'
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
 Warning: Setting new attribute selected 'false' into detExit 'e3Detector_2detExit0'
 Warning: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
+Warning: Setting new attribute selected 'false' into detEntry 'e3Detector_3detEntry0'
 Warning: Setting new attribute selected 'false' into poly 'poly_0'
-Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 6 Additionals, 0 Crossings, 0 Polygons, 4 POIs
+Warning: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 16 connections, 4 Additionals, 0 Crossings, 0 Polygons, 4 POIs
 Warning: Key DEL (delete) pressed
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
@@ -451,10 +455,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into 
 Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '7'
 Warning: Removing connection '8_2->1_2' from edge '8'
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -489,6 +491,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '2' from net
 Warning: Setting new attribute type 'priority' into junction 'B'
 Warning: Removing junction 'B' from net
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -504,6 +507,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '3' from net
 Warning: Setting new attribute type 'priority' into junction 'C'
 Warning: Removing junction 'C' from net
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -537,6 +541,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
+Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding junction 'C' into net
 Warning: Setting previous attribute type 'dead_end' into junction 'C'
 Warning: Adding edge '3' from net
@@ -552,6 +557,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
+Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding junction 'B' into net
 Warning: Setting previous attribute type 'dead_end' into junction 'B'
 Warning: Adding edge '2' from net
@@ -586,10 +592,8 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'modified' 
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Warning: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding a previously selected connection '8_2->1_2' into edge '8'
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
@@ -785,10 +789,8 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'modified' into 
 Warning: Removing connection '8_2->1_2' from edge '8'
 Warning: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -823,6 +825,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '2' from net
 Warning: Setting new attribute type 'priority' into junction 'B'
 Warning: Removing junction 'B' from net
+Warning: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -838,6 +841,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Removing edge '3' from net
 Warning: Setting new attribute type 'priority' into junction 'C'
 Warning: Removing junction 'C' from net
+Warning: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'

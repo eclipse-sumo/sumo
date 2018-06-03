@@ -1,5 +1,9 @@
 <additionals>
     <containerStop id="containerStop_00" lane="gneE0_0" startPos="5.00" endPos="10.00" lines="line1 line2"/>
+    <containerStop id="containerStop_03" lane="gneE0_0" endPos="30.00" name="containerStop" lines="line1 line2"/>
+    <containerStop id="containerStop_04" lane="gneE0_0" endPos="25.00" name="containerStop" lines="line1 line2"/>
+    <containerStop id="containerStop_07" lane="gneE0_0" startPos="35.00" name="containerStop" lines="line1 line2"/>
+    <containerStop id="containerStop_08" lane="gneE0_0" startPos="35.00" name="containerStop" lines="line1 line2"/>
     <containerStop id="containerStop_11" lane="gneE0_0" startPos="25.00" endPos="30.00" name="containerStop"/>
     <containerStop id="containerStop_12" lane="gneE0_0" startPos="35.00" endPos="40.00" name="containerStop" lines="line1  line2"/>
     <containerStop id="containerStop_13" lane="gneE0_0" startPos="45.00" endPos="50.00" name="containerStop" lines="lineA lineB"/>

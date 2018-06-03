@@ -39,11 +39,11 @@ Warning: Setting previous attribute friendlyPos '0' into chargingStation 'correc
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '3000.00' into chargingStation 'correctID'
+Warning: Setting previous attribute endPos '3000' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute startPos '-5.00' into chargingStation 'correctID'
+Warning: Setting previous attribute startPos '-5' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '12.00' into chargingStation 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
