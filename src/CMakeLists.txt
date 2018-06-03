@@ -81,5 +81,7 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/src/version.h
 add_custom_target(generate-version-h
                   DEPENDS ${CMAKE_BINARY_DIR}/src/version.h
                  )
+set_property(TARGET generate-version-h PROPERTY FOLDER "CMake") 
+
 set_source_files_properties(${CMAKE_BINARY_DIR}/src/version.h
     PROPERTIES GENERATED TRUE)
