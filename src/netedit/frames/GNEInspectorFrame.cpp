@@ -66,7 +66,7 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor::AttributeInput) AttributeInputMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAllowDisallowEditor)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog)
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor) AttributesEditorMap[] = {
@@ -326,12 +326,15 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspector
     myAttributesEditorParent(attributeEditorParent),
     myTag(SUMO_TAG_NOTHING),
     myAttr(SUMO_ATTR_NOTHING) {
-    // Create and hide ButtonCombinableChoices
-    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myButtonCombinableChoices->hide();
     // Create and hide label
     myLabel = new FXLabel(this, "attributeLabel", 0, GUIDesignLabelAttribute);
     myLabel->hide();
+    // Create and hide ButtonCombinableChoices
+    myButtonCombinableChoices = new FXButton(this, "AttributeButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myButtonCombinableChoices->hide();
+    // create and hidde color editor
+    myColorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor->hide();
     // Create and hide textField for int attributes
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
     myTextFieldInt->hide();
@@ -355,13 +358,19 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     // Set actual Tag and attribute
     myTag = ACTag;
     myAttr = ACAttr;
+    // obtain attribute property (only for improve code legibility)
+    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(myTag, myAttr);
     // enable all input values
     enableAttributeInputElements();
-    // Show attribute Label
-    myLabel->setText(toString(myAttr).c_str());
-    myLabel->show();
-        // obtain attribute property (only for improve code legibility)
-    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(myTag, myAttr);
+    if (attrValue.isColor()) {
+        myColorEditor->setTextColor(FXRGB(0, 0, 0));
+        myColorEditor->setText(toString(ACAttr).c_str());
+        myColorEditor->show();
+    } else {
+        // Show attribute Label
+        myLabel->setText(toString(myAttr).c_str());
+        myLabel->show();
+    }
     // Set field depending of the type of value
     if (attrValue.isBool()) {
         // set check button
@@ -430,6 +439,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::hideAttribute() {
     myChoicesCombo->hide();
     myBoolCheckButton->hide();
     myButtonCombinableChoices->hide();
+    myColorEditor->hide();
     // hide AttributeInput
     hide();
 }
@@ -475,23 +485,60 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::isCurrentAttributeValid() c
 
 
 long
-GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*) {
-    // obtain vehicles of text field and check if are valid
-    std::string vehicles = myTextFieldStrings->getText().text();
-    // check if values can parse
-    if (canParseVehicleClasses(vehicles) == false) {
-        if (myAttr == SUMO_ATTR_ALLOW) {
-            vehicles = getVehicleClassNames(SVCAll, true);
+GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+    if(obj == myColorEditor) {
+        // create FXColorDialog
+        FXColorDialog colordialog(this, tr("Color Dialog"));
+        colordialog.setTarget(this);
+        // If previous attribute wasn't correct, set black as default color
+        if(GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
         } else {
-            vehicles = "";
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getAttributeProperties(myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->getTag(), myAttr).getDefaultValue())));
         }
+        // execute dialog to get a new color
+        if (colordialog.execute()) {
+            std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
+            myTextFieldStrings->setText(newValue.c_str());
+            if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->isValid(myAttr, newValue)) {
+                // if its valid for the first AC than its valid for all (of the same type)
+                if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+                    myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+                }
+                // Set new value of attribute in all selected ACs
+                for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
+                    it_ac->setAttribute(myAttr, newValue, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
+                }
+                // finish change multiple attributes
+                if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+                    myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
+                }
+                // If previously value was incorrect, change font color to black
+                myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+                myTextFieldStrings->killFocus();
+            }
+        }
+        return 0;
+    } else if (obj == myButtonCombinableChoices) {
+        // obtain vehicles of text field and check if are valid
+        std::string vehicles = myTextFieldStrings->getText().text();
+        // check if values can parse
+        if (canParseVehicleClasses(vehicles) == false) {
+            if (myAttr == SUMO_ATTR_ALLOW) {
+                vehicles = getVehicleClassNames(SVCAll, true);
+            } else {
+                vehicles = "";
+            }
+        }
+        // open GNEDialog_AllowDisallow
+        GNEDialog_AllowDisallow(getApp(), &vehicles).execute();
+        // set obtained vehicles into TextField Strings
+        myTextFieldStrings->setText((vehicles).c_str());
+        onCmdSetAttribute(0, 0, 0);
+        return 1;
+    } else {
+        throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
     }
-    // open GNEDialog_AllowDisallow
-    GNEDialog_AllowDisallow(getApp(), &vehicles).execute();
-    // set obtained vehicles into TextField Strings
-    myTextFieldStrings->setText((vehicles).c_str());
-    onCmdSetAttribute(0, 0, 0);
-    return 1;
 }
 
 

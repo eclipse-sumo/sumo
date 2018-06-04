@@ -88,7 +88,7 @@ public:
             long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
             /// @brief open model dialog for more comfortable attribute editing
-            long onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*);
+            long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
             /// @}
 
         protected:
@@ -134,6 +134,9 @@ public:
 
             /// @brief pointer to buttonCombinableChoices
             FXButton* myButtonCombinableChoices;
+
+            /// @brief Button for open color editor
+            FXButton* myColorEditor;
         };
 
         /// @brief constructor

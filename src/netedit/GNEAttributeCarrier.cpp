@@ -171,7 +171,12 @@ GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int
     myPositionListed(positionListed), 
     myDefinition(definition),
     myDefaultValue(defaultValue),
-    myDiscreteValues(discreteValues) {}
+    myDiscreteValues(discreteValues) {
+    // Check that color attributes always owns an default value
+    if(isColor() && myDefaultValue.empty()) {
+        throw FormatException("Color attributes must own always a default color");
+    }
+}
 
 
 int
@@ -1914,9 +1919,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The shape of the polygon", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_COLOR] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL, 3,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 3,
             "The RGBA color with which the polygon shall be displayed", 
-            "green");
+            "red");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FILL] = AttributeValues(
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 4,
             "An information whether the polygon shall be filled", 

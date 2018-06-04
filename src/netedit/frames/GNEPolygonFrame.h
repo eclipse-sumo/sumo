@@ -168,7 +168,7 @@ public:
         FXCheckButton* myBoolCheckButton;
 
         /// @brief Button for open color editor
-        FXButton* mycolorEditor;
+        FXButton* myColorEditor;
 
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;

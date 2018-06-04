@@ -425,11 +425,9 @@ public:
         } else {
             additionalOfWarningMessage = toString(tag);
         }
-        // set a special default value valid depending of type of element (To avoid error parsing)
+        // set a special default value for numerical and boolean attributes (To avoid errors parsing)
         if(attrProperties.isNumerical() || attrProperties.isBool()) {
             defaultValue = "0";
-        } else if (attrProperties.isColor()) {
-            defaultValue = "black";
         }
         // first check that attribute exists in XML
         if (attrs.hasAttribute(attribute)) {

@@ -191,7 +191,7 @@ GNEPolygonFrame::ShapeAttributeSingle::ShapeAttributeSingle(ShapeAttributes *sha
     myShapeAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
     myLabel = new FXLabel(this, "name", 0, GUIDesignLabelAttribute);
-    mycolorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor = new FXButton(this, "ColorButton", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
     myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
@@ -208,17 +208,24 @@ void
 GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, std::string value) {
     myShapeAttr = shapeAttr;
     myInvalidValue = "";
-    myLabel->setText(toString(myShapeAttr).c_str());
-    myLabel->show();
     // Retrieve attribute properties
     const GNEAttributeCarrier::AttributeValues & attributeProperties = GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->myShapeSelector->getCurrentShapeType(), shapeAttr);
+    // show label or button for edit colors
+    if (attributeProperties.isColor()) {
+        myColorEditor->setTextColor(FXRGB(0, 0, 0));
+        myColorEditor->setText(toString(shapeAttr).c_str());
+        myColorEditor->show();
+    } else {
+        myLabel->setText(toString(myShapeAttr).c_str());
+        myLabel->show();
+    }
     if(attributeProperties.isInt()) {
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldInt->setText(toString(value).c_str());
+        myTextFieldInt->setText(value.c_str());
         myTextFieldInt->show();
     } else if (attributeProperties.isFloat()) {
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldReal->setText(toString(value).c_str());
+        myTextFieldReal->setText(value.c_str());
         myTextFieldReal->show();
     } else if (attributeProperties.isBool()) {
         if (GNEAttributeCarrier::parse<bool>(value)) {
@@ -246,7 +253,7 @@ GNEPolygonFrame::ShapeAttributeSingle::hideParameter() {
     myTextFieldReal->hide();
     myTextFieldStrings->hide();
     myBoolCheckButton->hide();
-    mycolorEditor->hide();
+    myColorEditor->hide();
     hide();
 }
  
@@ -383,10 +390,16 @@ long GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute(FXObject*, FX
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
-    colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
+    // If previous attribute wasn't correct, set black as default color
+    if(GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
+    } else {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType(), myShapeAttr).getDefaultValue())));
+    }
     // execute dialog to get a new color
     if (colordialog.execute()) {
         myTextFieldStrings->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
+        onCmdSetAttribute(0,0,0);
     }
     return 0;
 }
