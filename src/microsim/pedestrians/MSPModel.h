@@ -26,6 +26,7 @@
 #include <limits>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/pedestrians/MSPerson.h>
 
@@ -157,6 +158,7 @@ public:
         UNUSED_PARAMETER(routeOffset);
         UNUSED_PARAMETER(edges);
         UNUSED_PARAMETER(t);
+        WRITE_WARNING("moveToXY is ignored by the current pedestrian model");
     }
 
 };

@@ -1673,6 +1673,10 @@ void
 MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                                     double lanePosLat, double angle, int routeOffset,
                                     const ConstMSEdgeVector& edges, SUMOTime t) {
+    assert(p == myPerson);
+    UNUSED_PARAMETER(p);
+    UNUSED_PARAMETER(pos);
+    UNUSED_PARAMETER(angle);
     /*
     std::cout << " MSPModel_Striping::PState::moveToXY"
         << " pos=" << pos
@@ -1683,16 +1687,28 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         << " routeOffset=" << routeOffset
         << " myRelX=" << myRelX << " myRelY=" << myRelY;
         */
+    //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
+    if (lane != 0) {
+        myLane = lane;
+        const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());
+        if (lane != sidewalk) {
+            // add a new active lane
+        }
+        if (edges.empty()) {
+            // map within route
+            myStage->setRouteIndex(myPerson, routeOffset);
+            if (lane->getEdge().isInternal()) {
+                myStage->moveToNextEdge(myPerson, t, &lane->getEdge());
+            }
+        } else {
+            // map to new edge
+        }
+    } else {
+        // map outside the network
+    }
+
     myRelX = lanePos,
     myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
-    //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
-    UNUSED_PARAMETER(p);
-    UNUSED_PARAMETER(pos);
-    UNUSED_PARAMETER(lane);
-    UNUSED_PARAMETER(angle);
-    UNUSED_PARAMETER(routeOffset);
-    UNUSED_PARAMETER(edges);
-    UNUSED_PARAMETER(t);
 }
 
 

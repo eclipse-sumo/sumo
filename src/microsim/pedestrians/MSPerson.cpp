@@ -311,6 +311,14 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     }
 }
 
+void
+MSPerson::MSPersonStage_Walking::setRouteIndex(MSPerson* person, int routeOffset) {
+    assert(routeOffset >= 0);
+    assert(routeOffset < myRoute.size());
+    ((MSEdge*)getEdge())->removePerson(person);
+    myRouteStep = myRoute.begin() + routeOffset;
+    ((MSEdge*)getEdge())->addPerson(person);
+}
 
 double
 MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
@@ -604,6 +612,18 @@ MSPerson::Influencer::isRemoteAffected(SUMOTime t) const {
 
 void
 MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
+    /*
+    std::cout << SIMTIME << " moveToXY person=" << p->getID()
+        << " xyPos=" << myRemoteXYPos
+        << " lane=" << Named::getIDSecure(myRemoteLane)
+        << " pos=" << myRemotePos
+        << " posLat=" << myRemotePosLat
+        << " angle=" << myRemoteAngle
+        << " eOf=" << myRemoteEdgeOffset
+        << " route=" << toString(myRemoteRoute)
+        << " aTime=" << time2string(myLastRemoteAccess)
+        << "\n";
+        */
     switch (p->getStageType(0)) {
         case MOVING_WITHOUT_VEHICLE: {
             MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());

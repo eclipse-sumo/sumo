@@ -135,6 +135,9 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
+        /// @brief place person on a previously passed edge
+        void setRouteIndex(MSPerson* person, int routeOffset);
+
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSPerson* person) const;
