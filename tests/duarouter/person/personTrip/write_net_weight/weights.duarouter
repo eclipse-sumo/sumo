@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jun  3 21:27:11 2018 by Eclipse SUMO duarouter Version caa5032
+<!-- generated on Mon Jun  4 12:22:52 2018 by Eclipse SUMO duarouter Version 2207eac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,9 +33,33 @@ SPDX-License-Identifier: EPL-2.0
 <weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="intermodalweights" begin="0" end="9223372036854775807">
         <edge id=":absBeg_w0-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":absEnd_0_fwd-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":absEnd_0_bwd-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":absEnd_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":absEnd_0_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id=":absEnd_w0-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":beg_0_fwd-1.00" traveltime="5.23" effort="0.00"/>
+        <edge id=":beg_0_bwd-1.00" traveltime="5.23" effort="0.00"/>
+        <edge id=":beg_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_1_fwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":beg_1_bwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":beg_1_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_1_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id=":beg_w0-1.00" traveltime="4.44" effort="0.00"/>
+        <edge id=":begleft_0_fwd-1.00" traveltime="1.86" effort="0.00"/>
+        <edge id=":begleft_0_bwd-1.00" traveltime="1.86" effort="0.00"/>
+        <edge id=":begleft_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":begleft_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":end_0_fwd-1.00" traveltime="7.37" effort="0.00"/>
+        <edge id=":end_0_bwd-1.00" traveltime="7.37" effort="0.00"/>
+        <edge id=":end_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":end_0_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id=":end_w0-1.00" traveltime="5.64" effort="0.00"/>
+        <edge id=":endleft_0_fwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":endleft_0_bwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":endleft_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":endleft_0_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id=":endleft_w0-1.00" traveltime="3.15" effort="0.00"/>
         <edge id=":rabsEnd_w0-1.00" traveltime="0.07" effort="0.00"/>
         <edge id="beg_fwd-1.00" traveltime="358.96" effort="0.00"/>
