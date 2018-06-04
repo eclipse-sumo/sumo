@@ -62,6 +62,9 @@ public:
     /// @brief register the given person as a pedestrian
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now);
 
+    /// @brief put the given state on lane
+    void add(PedestrianState* pState, const MSLane* lane);
+
     /// @brief remove the specified person from the pedestrian simulation
     void remove(PedestrianState* state);
 

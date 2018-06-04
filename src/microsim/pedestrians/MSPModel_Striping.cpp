@@ -145,6 +145,14 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
 
 
 void
+MSPModel_Striping::add(PedestrianState* pState, const MSLane* lane) {
+    PState* ped = dynamic_cast<PState*>(pState);
+    assert(ped != 0);
+    myActiveLanes[lane].push_back(ped);
+}
+
+
+void
 MSPModel_Striping::remove(PedestrianState* state) {
     const MSLane* lane = dynamic_cast<PState*>(state)->myLane;
     Pedestrians& pedestrians = myActiveLanes[lane];
@@ -1697,11 +1705,14 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         */
     //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
     if (lane != 0) {
-        myLane = lane;
         myRemoteXYPos = Position::INVALID;
         const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());
         if (lane != sidewalk) {
+            MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSPModel::getModel());
+            assert(pm != 0);
             // add a new active lane
+            pm->remove(this);
+            pm->add(this, lane);
         }
         if (edges.empty()) {
             // map within route
@@ -1712,6 +1723,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         } else {
             // map to new edge
         }
+        myLane = lane;
         myRelX = lanePos;
         myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
     } else {
