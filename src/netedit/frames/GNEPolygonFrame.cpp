@@ -835,9 +835,11 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 GNEPolygonFrame::AddShapeResult
 GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
     // Declare map to keep values
-    std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
+    std::map<SumoXMLAttr, std::string> valuesOfElement;
     // check if current selected shape is valid
     if (myShapeSelector->getCurrentShapeType() == SUMO_TAG_POI) {
+        // obtain POI values
+        valuesOfElement = myShapeAttributes->getAttributesAndValues();
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
@@ -858,6 +860,8 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         }
     }
     else  if (myShapeSelector->getCurrentShapeType() == SUMO_TAG_POILANE) {
+        // obtain POILane values
+        valuesOfElement = myShapeAttributes->getAttributesAndValues();
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
@@ -885,6 +889,8 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         }
     }
     else if (myShapeSelector->getCurrentShapeType() == SUMO_TAG_POLY) {
+        // obtain Shape values
+        valuesOfElement = myShapeAttributes->getAttributesAndValues();
         if (myDrawingMode->isDrawing()) {
             myDrawingMode->addNewPoint(clickedPosition);
             return ADDSHAPE_NEWPOINT;
