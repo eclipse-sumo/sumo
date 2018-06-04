@@ -55,7 +55,7 @@ def evaluate(forTest=False):
         return
     waitTimes = []
     routeTimes = {}
-    for person in persons.itervalues():
+    for person in persons.values():
         waitTimes.append(person.depart - person.waitStart)
         route = (person.source, person.target)
         if not route in routeTimes:
@@ -69,7 +69,7 @@ def evaluate(forTest=False):
         print("waiting time (max, mean, dev):", waitArray.max(),
               waitArray.mean(), math.sqrt(waitArray.var()))
 
-    for route, times in sorted(routeTimes.iteritems()):
+    for route, times in sorted(routeTimes.items()):
         timeArray = numpy.array(times)
         if forTest:
             print(route, timeArray.max() < 1000, timeArray.mean()
