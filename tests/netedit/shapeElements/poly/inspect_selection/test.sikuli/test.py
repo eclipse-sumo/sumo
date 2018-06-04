@@ -41,52 +41,52 @@ netedit.inspectMode()
 netedit.leftClick(match, 350, 100)
 
 # Set invalid color
-netedit.modifyAttribute(0, "Jren")
+netedit.modifyAttribute(1, "Jren")
 
 # Set valid color
-netedit.modifyAttribute(0, "green")
+netedit.modifyAttribute(1, "green")
 
 # change fill
-netedit.modifyBoolAttribute(1)
+netedit.modifyBoolAttribute(2)
 
 # Set invalid layer
-netedit.modifyAttribute(2, "dummyLayer")
+netedit.modifyAttribute(3, "dummyLayer")
 
 # Set layer
-netedit.modifyAttribute(2, "1")
+netedit.modifyAttribute(3, "1")
 
 # Set type
-netedit.modifyAttribute(3, "common type")
+netedit.modifyAttribute(4, "common type")
 
 # Set invalid imgfile
-netedit.modifyAttribute(4, "paris.ico")
+netedit.modifyAttribute(5, "paris.ico")
 
 # Set empty imgfile
-netedit.modifyAttribute(4, "")
+netedit.modifyAttribute(5, "")
 
 # Set imgfile
-netedit.modifyAttribute(4, "berlin_icon.ico")
+netedit.modifyAttribute(5, "berlin_icon.ico")
 
 # change save relative path
-netedit.modifyBoolAttribute(5)
+netedit.modifyBoolAttribute(6)
 
 # Set invalid angle
-netedit.modifyAttribute(6, "dummyAngle")
+netedit.modifyAttribute(7, "dummyAngle")
 
 # Set valid angle
-netedit.modifyAttribute(6, "180")
+netedit.modifyAttribute(7, "180")
 
 # change use geo
-netedit.modifyBoolAttribute(8)
+netedit.modifyBoolAttribute(9)
 
 # change block move
-netedit.modifyBoolAttribute(10)
-
-# change block shape
 netedit.modifyBoolAttribute(11)
 
-# change close
+# change block shape
 netedit.modifyBoolAttribute(12)
+
+# change close
+netedit.modifyBoolAttribute(13)
 
 # go to select mode
 netedit.selectMode()

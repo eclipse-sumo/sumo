@@ -21,7 +21,7 @@ import atexit
 from sikuli import *
 
 # define delay before every operation
-DELAY = 0.2
+DELAY = 0.1
 DELAY_QUESTION = 1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3

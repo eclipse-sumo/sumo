@@ -41,52 +41,52 @@ netedit.inspectMode()
 netedit.leftClick(match, 385, 410)
 
 # Set invalid color
-netedit.modifyAttribute(0, "Jren")
+netedit.modifyAttribute(1, "Jren")
 
 # Set valid color
-netedit.modifyAttribute(0, "green")
+netedit.modifyAttribute(1, "green")
 
 # Set type
-netedit.modifyAttribute(1, "common type")
+netedit.modifyAttribute(2, "common type")
 
 # Set invalid layer
-netedit.modifyAttribute(2, "dummyLayer")
+netedit.modifyAttribute(3, "dummyLayer")
 
 # Set layer
-netedit.modifyAttribute(2, "1")
+netedit.modifyAttribute(3, "1")
 
 # Set invalid width
-netedit.modifyAttribute(3, "-3")
+netedit.modifyAttribute(4, "-3")
 
 # Set width
-netedit.modifyAttribute(3, "10")
-
-# Set invalid height
-netedit.modifyAttribute(4, "-5")
-
-# Set height
 netedit.modifyAttribute(4, "10")
 
+# Set invalid height
+netedit.modifyAttribute(5, "-5")
+
+# Set height
+netedit.modifyAttribute(5, "10")
+
 # Set invalid imgfile
-netedit.modifyAttribute(5, "paris.ico")
+netedit.modifyAttribute(6, "paris.ico")
 
 # Set imgfile
-netedit.modifyAttribute(5, "berlin_icon.ico")
+netedit.modifyAttribute(6, "berlin_icon.ico")
 
 # Change relative image
-netedit.modifyShapeDefaultBoolValue(6)
+netedit.modifyShapeDefaultBoolValue(7)
 
 # Set invalid angle
-netedit.modifyAttribute(7, "dummyAngle")
+netedit.modifyAttribute(8, "dummyAngle")
 
 # Set valid angle
-netedit.modifyAttribute(7, "180")
+netedit.modifyAttribute(8, "180")
 
 # Change use GEO
-netedit.modifyShapeDefaultBoolValue(9)
+netedit.modifyShapeDefaultBoolValue(10)
 
 # Change block move
-netedit.modifyShapeDefaultBoolValue(11)
+netedit.modifyShapeDefaultBoolValue(12)
 
 # go to select mode
 netedit.selectMode()

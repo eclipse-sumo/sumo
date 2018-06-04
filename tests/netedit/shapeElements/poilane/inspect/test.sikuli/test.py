@@ -86,70 +86,70 @@ netedit.modifyAttribute(3, "-20")
 netedit.modifyAttribute(3, "15")
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(4, "dummyColor")
+netedit.modifyAttribute(5, "dummyColor")
 
 # Change parameter 4 with a non valid value (invalid format)
-netedit.modifyAttribute(4, "255,255,500")
+netedit.modifyAttribute(5, "255,255,500")
 
 # Change parameter 4 with a valid value (valid format)
-netedit.modifyAttribute(4, "blue")
+netedit.modifyAttribute(5, "blue")
 
 # Change parameter 4 with a valid value (valid format)
-netedit.modifyAttribute(4, "125,60,200")
+netedit.modifyAttribute(5, "125,60,200")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "myOwnType")
+netedit.modifyAttribute(6, "myOwnType")
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(6, "dummyLayer")
+netedit.modifyAttribute(7, "dummyLayer")
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(6, "-2")
-
-# Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(6, "2")
-
-# Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummyWidth")
-
-# Change parameter 7 with a non valid value (negative)
 netedit.modifyAttribute(7, "-2")
 
+# Change parameter 6 with a valid value (negative)
+netedit.modifyAttribute(7, "2")
+
+# Change parameter 7 with a non valid value (dummy)
+netedit.modifyAttribute(8, "dummyWidth")
+
+# Change parameter 7 with a non valid value (negative)
+netedit.modifyAttribute(8, "-2")
+
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(7, "5")
-
-# Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyHeight")
-
-# Change parameter 8 with a non valid value (negative)
-netedit.modifyAttribute(8, "-3")
-
-# Change parameter 8 with a valid value
 netedit.modifyAttribute(8, "5")
 
+# Change parameter 8 with a non valid value (dummy)
+netedit.modifyAttribute(9, "dummyHeight")
+
+# Change parameter 8 with a non valid value (negative)
+netedit.modifyAttribute(9, "-3")
+
+# Change parameter 8 with a valid value
+netedit.modifyAttribute(9, "5")
+
 # Change parameter 9 with a non valid value (invalid)
-netedit.modifyAttribute(9, "%$$%%%%%")
+netedit.modifyAttribute(10, "%$$%%%%%")
 
 # Change parameter 9 with a non valid value (no exist)
-netedit.modifyAttribute(9, "paris.ico")
+netedit.modifyAttribute(10, "paris.ico")
 
 # Change parameter 9 with a valid value (valid)
-netedit.modifyAttribute(9, "berlin_icon.ico")
+netedit.modifyAttribute(10, "berlin_icon.ico")
 
 # Change boolean parameter 10
-netedit.modifyShapeDefaultBoolValue(10)
+netedit.modifyShapeDefaultBoolValue(11)
 
 # Change parameter 11 with a non valid value (dummy)
-netedit.modifyAttribute(11, "dummyAngle")
+netedit.modifyAttribute(12, "dummyAngle")
 
 # Change parameter 11 with a valid value (negative)
-netedit.modifyAttribute(11, "-12")
+netedit.modifyAttribute(12, "-12")
 
 # Change parameter 11 with a valid value (> 360)
-netedit.modifyAttribute(11, "500")
+netedit.modifyAttribute(12, "500")
 
 # Change parameter 11 with a valid value
-netedit.modifyAttribute(11, "30")
+netedit.modifyAttribute(12, "30")
 
 # Change boolean parameter block
 netedit.modifyShapeDefaultBoolValue(13)
