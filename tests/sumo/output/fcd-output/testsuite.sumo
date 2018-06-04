@@ -22,5 +22,8 @@ period
 # output not from every vehicle
 explicit_assignment
 
+# output not from every person
+person_by_param
+
 # correctly compute positions when vehicle is on a short lane
 short_lane

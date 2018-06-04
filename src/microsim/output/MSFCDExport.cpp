@@ -125,6 +125,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation) {
+    if (!MSDevice::equippedByParameter(p, "fcd", true)) {
+        return;
+    }
     Position pos = p->getPosition();
     if (useGeo) {
         of.setPrecision(gPrecisionGeo);

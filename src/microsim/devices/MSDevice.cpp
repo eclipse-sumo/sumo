@@ -24,6 +24,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/TplConvert.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
 #include "MSDevice.h"
 #include "MSDevice_Vehroutes.h"
@@ -159,6 +160,16 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     }
 }
 
+bool
+MSDevice::equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet) {
+    const std::string key = "has." + deviceName + ".device";
+    if (t->getParameter().knowsParameter(key)) {
+        return TplConvert::_2bool(t->getParameter().getParameter(key, "false").c_str());
+    } else if (t->getVehicleType().getParameter().knowsParameter(key)) {
+        return TplConvert::_2bool(t->getVehicleType().getParameter().getParameter(key, "false").c_str());
+    }
+    return outputOptionSet;
+}
 
 void
 MSDevice::saveState(OutputDevice& /* out */) const {
