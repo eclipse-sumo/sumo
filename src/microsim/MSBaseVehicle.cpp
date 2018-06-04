@@ -29,6 +29,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSGlobals.h"
 #include "MSTransportable.h"
 #include "MSVehicleControl.h"
@@ -47,6 +48,7 @@
 // static members
 // ===========================================================================
 const SUMOTime MSBaseVehicle::NOT_YET_DEPARTED = SUMOTime_MAX;
+std::vector<MSTransportable*> MSBaseVehicle::myEmptyTransportableVector;
 #ifdef _DEBUG
 std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 #endif
@@ -514,6 +516,36 @@ int
 MSBaseVehicle::getContainerNumber() const {
     int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
     return loaded + myParameter->containerNumber;
+}
+
+
+void
+MSBaseVehicle::removeTransportable(MSTransportable* t) {
+    const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
+    MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
+    if (device != 0) {
+        device->removeTransportable(t);
+    }
+}
+
+
+const std::vector<MSTransportable*>&
+MSBaseVehicle::getPersons() const {
+    if (myPersonDevice == 0) {
+        return myEmptyTransportableVector;
+    } else {
+        return myPersonDevice->getTransportables();
+    }
+}
+
+
+const std::vector<MSTransportable*>&
+MSBaseVehicle::getContainers() const {
+    if (myContainerDevice == 0) {
+        return myEmptyTransportableVector;
+    } else {
+        return myContainerDevice->getTransportables();
+    }
 }
 
 

@@ -107,7 +107,6 @@
 // static value definitions
 // ===========================================================================
 std::vector<MSLane*> MSVehicle::myEmptyLaneVector;
-std::vector<MSTransportable*> MSVehicle::myEmptyTransportableVector;
 
 
 // ===========================================================================
@@ -4307,36 +4306,6 @@ MSVehicle::addContainer(MSTransportable* container) {
         if (myStops.front().numExpectedContainer == 0) {
             myStops.front().duration = 0;
         }
-    }
-}
-
-
-void
-MSVehicle::removeTransportable(MSTransportable* t) {
-    const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
-    MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
-    if (device != 0) {
-        device->removeTransportable(t);
-    }
-}
-
-
-const std::vector<MSTransportable*>&
-MSVehicle::getPersons() const {
-    if (myPersonDevice == 0) {
-        return myEmptyTransportableVector;
-    } else {
-        return myPersonDevice->getTransportables();
-    }
-}
-
-
-const std::vector<MSTransportable*>&
-MSVehicle::getContainers() const {
-    if (myContainerDevice == 0) {
-        return myEmptyTransportableVector;
-    } else {
-        return myContainerDevice->getTransportables();
     }
 }
 

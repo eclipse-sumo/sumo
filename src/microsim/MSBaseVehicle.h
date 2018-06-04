@@ -325,6 +325,16 @@ public:
      */
     virtual void addContainer(MSTransportable* container);
 
+    /// @brief removes a person or container
+    void removeTransportable(MSTransportable* t);
+
+    /// @brief retrieve riding persons
+    const std::vector<MSTransportable*>& getPersons() const;
+
+    /// @brief retrieve riding containers
+    const std::vector<MSTransportable*>& getContainers() const;
+
+
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @param[in] route The route to check (or 0 if the current route shall be checked)
@@ -504,6 +514,8 @@ protected:
      * @note: in previous versions this was -1
      */
     static const SUMOTime NOT_YET_DEPARTED;
+
+    static std::vector<MSTransportable*> myEmptyTransportableVector;
 
 private:
     /// invalidated assignment operator

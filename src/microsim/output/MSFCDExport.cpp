@@ -84,16 +84,16 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 of.writeAttr("signals", toString(microVeh->getSignals()));
             }
             of.closeTag();
-            if (microVeh != 0) {
-                // write persons and containers
-                const std::vector<MSTransportable*>& persons = microVeh->getPersons();
-                for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_p, SUMO_TAG_PERSON, useGeo, elevation);
-                }
-                const std::vector<MSTransportable*>& containers = microVeh->getContainers();
-                for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
-                }
+            // write persons and containers
+            const MSEdge* edge = microVeh == 0 ? veh->getEdge() : &veh->getLane()->getEdge();
+
+            const std::vector<MSTransportable*>& persons = veh->getPersons();
+            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+                writeTransportable(of, edge, *it_p, SUMO_TAG_PERSON, useGeo, elevation);
+            }
+            const std::vector<MSTransportable*>& containers = veh->getContainers();
+            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+                writeTransportable(of, edge, *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
             }
         }
     }
