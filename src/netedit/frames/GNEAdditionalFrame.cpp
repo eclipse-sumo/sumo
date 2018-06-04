@@ -147,10 +147,10 @@ void
 GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAdditionalType) {
     // Set new actualAdditionalType
     myCurrentAdditionalType = actualAdditionalType;
-    // obtain tag property (only for improve code legibility)
-    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType);
     // Check that current additional type is valid
     if(myCurrentAdditionalType != SUMO_TAG_NOTHING) {
+        // obtain tag property (only for improve code legibility)
+        const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType);
         // first check if additional can block movement, then show neteditParameters
         if (tagValue.canBlockMovement()) {
             myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(false);
