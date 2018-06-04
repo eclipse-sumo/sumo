@@ -203,7 +203,7 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
     const double perceivedGap = trueGap + myHeadwayErrorCoefficient*myError.getState()*trueGap;
     const auto assumedGap = myAssumedGap.find(objID);
     if (assumedGap == myAssumedGap.end()
-            || fabs(perceivedGap - assumedGap->second) > myHeadwayChangePerceptionThreshold*trueGap) {
+            || fabs(perceivedGap - assumedGap->second) > myHeadwayChangePerceptionThreshold*trueGap*(1.0-myAwareness)) {
 
 #ifdef DEBUG_PERCEPTION_ERRORS
         if (!debugLocked()) {
@@ -261,7 +261,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
     const double perceivedSpeedDifference = trueSpeedDifference + mySpeedDifferenceErrorCoefficient*myError.getState()*trueGap;
     const auto lastPerceivedSpeedDifference = myLastPerceivedSpeedDifference.find(objID);
     if (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end()
-            || fabs(perceivedSpeedDifference - lastPerceivedSpeedDifference->second) > mySpeedDifferenceChangePerceptionThreshold*trueGap) {
+            || fabs(perceivedSpeedDifference - lastPerceivedSpeedDifference->second) > mySpeedDifferenceChangePerceptionThreshold*trueGap*(1.0-myAwareness)) {
 
 #ifdef DEBUG_PERCEPTION_ERRORS
         if DEBUG_COND {
