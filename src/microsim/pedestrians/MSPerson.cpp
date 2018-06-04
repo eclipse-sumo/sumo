@@ -534,23 +534,23 @@ MSPerson::routeOutput(OutputDevice& os) const {
 
 
 void
-MSPerson::reroute(ConstMSEdgeVector& newEdges) {
-    double departPos = getEdgePos();
-    double arrivalPos = getArrivalPos();
-    double speed = getVehicleType().getMaxSpeed();
-    //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
-    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges, 0, -1, speed, departPos, arrivalPos, 0);
-    if (getNumRemainingStages() == 1) {
-        // Do not remove the last stage (a waiting stage would be added otherwise)
-        appendStage(newStage);
-        //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
-        removeStage(0);
-    } else {
-        removeStage(0);
-        appendStage(newStage);
-        //std::cout << "case b: remaining=" << p->getNumRemainingStages() << "\n";
+MSPerson::reroute(ConstMSEdgeVector& newEdges, int firstIndex, int nextIndex) {
+    assert(nextIndex > firstIndex);
+    //std::cout << " newEdges=" << toString(newEdges) << " firstIndex=" << firstIndex << " nextIndex=" << nextIndex << "\n";
+    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges,
+            getNextStage(nextIndex - 1)->getDestinationStop(), -1,
+            -1,
+            getEdgePos(),
+            getNextStage(nextIndex - 1)->getArrivalPos(), 
+            0);
+    appendStage(newStage, nextIndex);
+    // remove stages in reverse order so that proceed will only be called at the last removal
+    for (int i = nextIndex - 1; i >= firstIndex; i--) {
+        //std::cout << " removeStage=" << i << "\n";
+        removeStage(i);
     }
 }
+
 
 MSPerson::Influencer&
 MSPerson::getInfluencer() {

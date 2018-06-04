@@ -349,12 +349,21 @@ void
 Person::rerouteTraveltime(const std::string& personID) {
     MSPerson* p = getPerson(personID);
     if (p->getNumRemainingStages() == 0 || p->getCurrentStageType() != MSTransportable::MOVING_WITHOUT_VEHICLE) {
-        throw TraCIException("Person '" + personID + "' is not currenlty walking.");
+        throw TraCIException("Person '" + personID + "' is not currently walking.");
     }
     const MSEdge* from = p->getEdge();
     double  departPos = p->getEdgePos();
-    const MSEdge* to = p->getArrivalEdge();
-    double  arrivalPos = p->getArrivalPos();
+    // reroute to the start of the next-non-walking stage
+    int firstIndex = 0;
+    int nextIndex = firstIndex + 1;
+    for (; nextIndex < p->getNumRemainingStages(); nextIndex++) {
+        if (p->getStageType(nextIndex) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+            break;
+        }
+    }
+    MSTransportable::Stage* destStage = p->getNextStage(nextIndex - 1);
+    const MSEdge* to = destStage->getEdges().back();
+    double  arrivalPos = destStage->getArrivalPos();
     double speed = p->getVehicleType().getMaxSpeed();
     ConstMSEdgeVector newEdges;
     MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, newEdges);
@@ -373,7 +382,7 @@ Person::rerouteTraveltime(const std::string& personID) {
         // @note: maybe this should be done automatically by the router
         newEdges.insert(newEdges.begin(), from);
     }
-    p->reroute(newEdges);
+    p->reroute(newEdges, firstIndex, nextIndex);
 }
 
 

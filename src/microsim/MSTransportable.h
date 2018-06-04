@@ -78,7 +78,7 @@ public:
         const MSEdge& getDestination() const;
 
         /// returns the destination stop (if any)
-        const MSStoppingPlace* getDestinationStop() const {
+        MSStoppingPlace* getDestinationStop() const {
             return myDestinationStop;
         }
 
@@ -480,6 +480,13 @@ public:
     /// @brief Return the current stage
     MSTransportable::Stage* getCurrentStage() const {
         return *myStep;
+    }
+
+    /// @brief Return the current stage
+    MSTransportable::Stage* getNextStage(int next) const {
+        assert(myStep + next >= myPlan->begin());
+        assert(myStep + next < myPlan->end());
+        return *(myStep + next);
     }
 
     /// @brief Return the edges of the nth next stage

@@ -301,8 +301,8 @@ public:
         return myChosenSpeedFactor;
     }
 
-    /// @brief set new walk
-    void reroute(ConstMSEdgeVector& newEdges);
+    /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
+    void reroute(ConstMSEdgeVector& newEdges, int firstIndex, int nextIndex);
 
 
     /** @class Influencer
