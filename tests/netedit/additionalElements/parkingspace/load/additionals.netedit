@@ -1,5 +1,5 @@
 <additionals>
-    <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_0" startPos="20.00" endPos="30.00">
+    <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_0" startPos="20.00" endPos="30.00" length="5.00">
         <space x="0.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
         <space x="10.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
         <space x="15.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>

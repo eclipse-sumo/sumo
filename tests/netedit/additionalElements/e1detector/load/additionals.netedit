@@ -12,8 +12,8 @@
     <e1Detector id="E1_17" lane="gneE0_0" pos="42.00" freq="120.00" file="e1Detector_17.txt"/>
     <e1Detector id="E1_18" lane="gneE0_0" pos="45.00" freq="120.00" file="e1Detector_18.txt"/>
     <e1Detector id="E1_19" lane="gneE0_0" pos="48.00" freq="120.00" file="e1Detector_19.txt"/>
-    <e1Detector id="E1_20" lane="gneE1_0" pos="10.00" freq="120.00" file="e1Detector_20.txt"/>
-    <e1Detector id="E1_21" lane="gneE1_0" pos="20.00" freq="120.00" file="e1Detector_21.txt"/>
-    <e1Detector id="E1_22" lane="gneE1_0" pos="0.00" freq="120.00" file="e1Detector_22.txt" friendlyPos="1"/>
-    <e1Detector id="E1_23" lane="gneE1_0" pos="50.00" freq="120.00" file="e1Detector_23.txt" friendlyPos="1"/>
+    <e1Detector id="E1_20" lane="gneE1_0" pos="10.00" freq="120.00" file="e1Detector_20.txt" vTypes="taxi bus"/>
+    <e1Detector id="E1_21" lane="gneE1_0" pos="20.00" freq="120.00" file="e1Detector_21.txt" vTypes="taxi bus"/>
+    <e1Detector id="E1_22" lane="gneE1_0" pos="0.00" freq="120.00" file="e1Detector_22.txt" vTypes="taxi bus" friendlyPos="1"/>
+    <e1Detector id="E1_23" lane="gneE1_0" pos="50.00" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1"/>
 </additionals>
