@@ -18,18 +18,16 @@
     </report>
 
     <traci_server>
-        <remote-port value="56281"/>
+        <remote-port value="46451"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" departPos="-10.00" arrival="110.00">
-        <walk edges="SC CE EC CN"/>
-        <walk edges="CE CN"/>
-        <stop lane="CN" duration="15.00"/>
-        <walk edges="CN SC"/>
+    <person id="p0" depart="0.00" departPos="-10.00" arrival="29.00">
+        <walk edges="SC CN"/>
+        <walk edges=":C_11 CN"/>
     </person>
 
 </routes>
