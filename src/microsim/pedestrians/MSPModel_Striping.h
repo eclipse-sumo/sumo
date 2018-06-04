@@ -299,6 +299,10 @@ protected:
         WalkingAreaPath* myWalkingAreaPath;
         /// @brief whether the person is jammed
         bool myAmJammed;
+        /// @brief remote-controlled position
+        Position myRemoteXYPos;
+        /// @brief cached angle
+        mutable double myAngle;
 
         /// @brief return the minimum position on the lane
         double getMinX(const bool includeMinGap = true) const;
