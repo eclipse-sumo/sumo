@@ -16,13 +16,11 @@ Warning: Setting new attribute color 'blue' into poi 'newID'
 Warning: Setting new attribute color '125,60,200' into poi 'newID'
 Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
-Warning: Setting new attribute layer '4' into poi 'newID'
+Warning: Value 'dummyLayer' for attribute layer of poi isn't valid
 Warning: Setting new attribute layer '-2' into poi 'newID'
 Warning: Setting new attribute layer '2' into poi 'newID'
-Warning: Setting new attribute width '0' into poi 'newID'
 Warning: Value '-2' for attribute width of poi isn't valid
 Warning: Setting new attribute width '5' into poi 'newID'
-Warning: Setting new attribute height '0' into poi 'newID'
 Warning: Value '-3' for attribute height of poi isn't valid
 Warning: Setting new attribute height '5' into poi 'newID'
 Error: Could not load '%$$%%%%%'.
@@ -33,7 +31,6 @@ Loading failed!
 Warning: Value 'paris.ico' for attribute imgFile of poi isn't valid
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
 Warning: Setting new attribute relativePath 'true' into poi 'newID'
-Warning: Setting new attribute angle '0' into poi 'newID'
 Warning: Setting new attribute angle '-12' into poi 'newID'
 Warning: Setting new attribute angle '500' into poi 'newID'
 Warning: Setting new attribute angle '30' into poi 'newID'
@@ -55,25 +52,17 @@ Warning: Setting previous attribute angle '-12.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '0.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '0.00' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute relativePath '0' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute imgFile '' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute height '0.00' into poi 'newID'
+Warning: Setting previous attribute height '1.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute height '0.00' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute width '0.00' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute width '0.00' into poi 'newID'
+Warning: Setting previous attribute width '1.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute layer '-2.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '4.00' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute layer '4.00' into poi 'newID'
+Warning: Setting previous attribute layer 'default' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -95,6 +84,10 @@ Warning: Removing poi 'POI_0' from viewNet
 Warning: Removed inspected element from Inspected ACs. 0 ACs remains.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -114,25 +107,17 @@ Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute layer '4' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '-2' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute layer '2' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute width '0' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '5' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute height '0' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute height '5' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute imgFile 'berlin_icon.ico' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute relativePath 'true' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '0' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '-12' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -145,6 +130,10 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute geo 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
