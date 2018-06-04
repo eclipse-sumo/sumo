@@ -512,8 +512,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
     v->setRemoteState(myRemoteXYPos);
-    // inverse of GeomHelper::naviDegree
-    v->setAngle(M_PI / 2. - DEG2RAD(myRemoteAngle));
+    v->setAngle(GeomHelper::fromNaviDegree(myRemoteAngle));
 }
 
 
