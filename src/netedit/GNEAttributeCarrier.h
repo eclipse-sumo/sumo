@@ -524,10 +524,7 @@ public:
             }
             // set extra check for SVCPermissions values
             if (attrProperties.isVClass()) {
-                if (canParseVehicleClasses(parsedAttribute)) {
-                    parsedAttribute = toString(parseVehicleClasses(parsedAttribute));
-                    parsedOk = true;
-                } else {
+                if (!canParseVehicleClasses(parsedAttribute)) {
                     errorFormat = "List of VClasses isn't valid; ";
                     parsedAttribute = defaultValue;
                     parsedOk = false;
