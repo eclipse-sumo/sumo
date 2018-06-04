@@ -524,8 +524,7 @@ MSLCM_SL2015::informLeader(int blocked,
     }
 #endif
 
-    if ((blocked & LCA_BLOCKED_BY_LEADER) != 0) {
-        assert(neighLead.first != 0);
+    if ((blocked & LCA_BLOCKED_BY_LEADER) != 0 && neighLead.first != 0) {
         const MSVehicle* nv = neighLead.first;
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by leader nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="
@@ -650,8 +649,7 @@ MSLCM_SL2015::informFollower(int blocked,
                              const CLeaderDist& neighFollow,
                              double remainingSeconds,
                              double plannedSpeed) {
-    if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0) {
-        assert(neighFollow.first != 0);
+    if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && neighFollow.first != 0) {
         const MSVehicle* nv = neighFollow.first;
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="

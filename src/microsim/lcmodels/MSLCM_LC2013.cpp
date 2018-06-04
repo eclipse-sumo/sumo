@@ -457,8 +457,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     }
 #endif
 
-    if ((blocked & LCA_BLOCKED_BY_LEADER) != 0) {
-        assert(neighLead.first != 0);
+    if ((blocked & LCA_BLOCKED_BY_LEADER) != 0 && neighLead.first != 0) {
         MSVehicle* nv = neighLead.first;
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
@@ -630,8 +629,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
     }
 
 #endif
-    if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0) {
-        assert(nv != 0);
+    if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && nv != 0) {
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " blocked by follower nv=" <<  nv->getID() << " nvSpeed=" << nv->getSpeed() << " needGap="

@@ -36,6 +36,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/pedestrians/MSPModel.h>
 #include <utils/common/MsgHandler.h>
 
 #define OPPOSITE_OVERTAKING_SAFE_TIMEGAP 0.0
@@ -729,7 +730,6 @@ MSLaneChanger::checkChange(
 #endif
 
     }
-
     double secureFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     double secureBackGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
     double secureOrigFrontGap = MSAbstractLaneChangeModel::NO_NEIGHBOR;
@@ -803,6 +803,23 @@ MSLaneChanger::checkChange(
 
         }
     }
+    if (blocked == 0 && MSPModel::getModel()->hasPedestrians(targetLane)) {
+        PersonDist leader = MSPModel::getModel()->nextBlocking(targetLane, vehicle->getBackPositionOnLane(),
+                            vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
+                            ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
+        if (leader.first != 0) {
+            const double brakeGap = vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed());
+            if (brakeGap > leader.second) {
+                blocked |= blockedByLeader;
+#ifdef DEBUG_CHECK_CHANGE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << "  blocked by pedestrian " + leader.first->getID() << "\n";
+                }
+#endif
+            }
+        }
+    }
+
     if (leader.first != 0) {
         secureOrigFrontGap = vehicle->getCarFollowModel().getSecureGap(vehicle->getSpeed(), leader.first->getSpeed(), leader.first->getCarFollowModel().getMaxDecel());
     }
