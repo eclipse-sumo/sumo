@@ -549,6 +549,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     }
     // check that typed-by-user value is correct
     if (myCurrentTag != SUMO_TAG_NOTHING) {
+        // obtain tag property (only for improve code legibility)
+        const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
         // set color and enable items
         myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchAttrComboBox->enable();
@@ -559,19 +561,19 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
         // check if item can block movement
-        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockMovement()) {
+        if(tagValue.canBlockMovement()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_MOVEMENT).c_str());
         }
         // check if item can block shape
-        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockShape()) {
+        if(tagValue.canBlockShape()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_BLOCK_SHAPE).c_str());
         }
         // check if item can close shape
-        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canCloseShape()) {
+        if(tagValue.canCloseShape()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
         }
         // check if item can have parent
-        if(GNEAttributeCarrier::getTagProperties(myCurrentTag).hasParent()) {
+        if(tagValue.hasParent()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
         }
         // @ToDo: Here can be placed a button to set the default value
@@ -593,26 +595,28 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     // first obtain all item attributes vinculated with current tag
     auto itemAttrs = GNEAttributeCarrier::getAttributes(myCurrentTag);
     int numberOfAttributes = itemAttrs.size();
+    // obtain tag property (only for improve code legibility)
+    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // add extra attribute if item can block movement
-    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockMovement()) {
+    if(tagValue.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
         itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, numberOfAttributes, "", "false");
         numberOfAttributes++;
     }
     // add extra attribute if item can block shape
-    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canBlockShape()) {
+    if(tagValue.canBlockShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block shape"
         itemAttrs[GNE_ATTR_BLOCK_SHAPE] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, numberOfAttributes, "", "false");
         numberOfAttributes++;
     }
     // add extra attribute if item can close shape
-    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).canCloseShape()) {
+    if(tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
         itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, numberOfAttributes, "", "true");
         numberOfAttributes++;
     }
     // add extra attribute if item can have parent
-    if(GNEAttributeCarrier::getTagProperties(myCurrentTag).hasParent()) {
+    if(tagValue.hasParent()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
         itemAttrs[GNE_ATTR_PARENT] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, numberOfAttributes, "", "");
         numberOfAttributes++;

@@ -785,10 +785,12 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
 
 void 
 GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const {
+    // obtain attribute property (only for improve code legibility)
+    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(getTag(), key);
     std::string attribute = getAttribute(key);
-    if(getAttributeProperties(getTag(), key).isOptional()) {
+    if(attrValue.isOptional()) {
         // only write optional attributes (i.e attributes with default value) if are differents
-        if(getAttributeProperties(getTag(), key).getDefaultValue() != attribute) {
+        if(attrValue.getDefaultValue() != attribute) {
             device.writeAttr(key, attribute);
         }
     } else {

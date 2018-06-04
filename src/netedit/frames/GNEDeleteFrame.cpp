@@ -280,9 +280,11 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                 break;
             }
             default: {
-                if(GNEAttributeCarrier::getTagProperties(ac->getTag()).isAdditional()) {
+                // obtain tag property (only for improve code legibility)
+                const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
+                if(tagValue.isAdditional()) {
                     myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
-                } else if(GNEAttributeCarrier::getTagProperties(ac->getTag()).isShape()) {
+                } else if(tagValue.isShape()) {
                     myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
                 }
                 break;

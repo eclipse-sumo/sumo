@@ -2739,14 +2739,16 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
             poly = dynamic_cast<GNEPoly*>(attributeCarrier);
         }
     } else {
+        // obtain tag property (only for improve code legibility)
+        const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag());
         // check if attributeCarrier can be casted into netElement, additional or shape
-        if(GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag()).isNetElement()) {
+        if(tagValue.isNetElement()) {
             // cast netElement from attribute carrier
             netElement = dynamic_cast<GNENetElement*>(attributeCarrier);
-        } else if(GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag()).isAdditional()) {
+        } else if(tagValue.isAdditional()) {
             // cast additional element from attribute carrier
             additional = dynamic_cast<GNEAdditional*>(attributeCarrier);
-        } else if(GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag()).isShape()) {
+        } else if(tagValue.isShape()) {
             // cast shape element from attribute carrier
             shape = dynamic_cast<GNEShape*>(attributeCarrier);
         } else {

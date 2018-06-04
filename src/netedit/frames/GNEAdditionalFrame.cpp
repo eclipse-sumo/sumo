@@ -147,10 +147,12 @@ void
 GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAdditionalType) {
     // Set new actualAdditionalType
     myCurrentAdditionalType = actualAdditionalType;
+    // obtain tag property (only for improve code legibility)
+    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType);
     // Check that current additional type is valid
     if(myCurrentAdditionalType != SUMO_TAG_NOTHING) {
         // first check if additional can block movement, then show neteditParameters
-        if (GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).canBlockMovement()) {
+        if (tagValue.canBlockMovement()) {
             myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(false);
         } else {
             myAdditionalFrameParent->getNeteditAttributes()->hideNeteditAttributes();
@@ -168,8 +170,8 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         }
         myAdditionalFrameParent->getAdditionalParameters()->showAdditionalParameters();
         // Show myAdditionalParentSelector if we're adding a additional with parent
-        if (GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).hasParent()) {
-            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(GNEAttributeCarrier::getTagProperties(myCurrentAdditionalType).getParentTag());
+        if (tagValue.hasParent()) {
+            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(tagValue.getParentTag());
         } else {
             myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
         }
@@ -296,12 +298,14 @@ GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
 
 std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
-    if (GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isBool()) {
+    // obtain attribute property (only for improve code legibility)
+    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr);
+    // return value depending of attribute type
+    if (attrValue.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
-    } else if (GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isInt()) {
+    } else if (attrValue.isInt()) {
         return myTextFieldInt->getText().text();
-    } else if (GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isFloat() || 
-               GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr).isTime()) {
+    } else if (attrValue.isFloat() || attrValue.isTime()) {
         return myTextFieldReal->getText().text();
     } else {
         return myTextFieldStrings->getText().text();
@@ -1327,20 +1331,23 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     //    valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
     //}
 
+    // obtain tag property (only for improve code legibility)
+    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
+
     // Save block value if additional can be blocked
-    if (GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).canBlockMovement()) {
+    if (tagValue.canBlockMovement()) {
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditParameters->isBlockEnabled());
     }
 
     // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
-    if (GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).hasParent()) {
+    if (tagValue.hasParent()) {
         if (myAdditionalParentSelector->getIdSelected() != "") {
             valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
-        } else if (additionalElement && (additionalElement->getTag() == GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).getParentTag())) {
+        } else if (additionalElement && (additionalElement->getTag() == tagValue.getParentTag())) {
             valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
             myAdditionalParentSelector->setIDSelected(additionalElement->getID());
         } else {
-            myAdditionalParameters->showWarningMessage("A " + toString(GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType()).getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
+            myAdditionalParameters->showWarningMessage("A " + toString(tagValue.getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
             return ADDADDITIONAL_INVALID_ARGUMENTS;
         }
     }
