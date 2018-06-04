@@ -39,37 +39,32 @@ import traci
 
 AV_identifier = "AVflow"
 ToC_identifier = "AVflowToC."
-upwardEdgeID="end"
-upwardDist=50.0
+upwardDist = 50.0
 routeID="r0"
 global options
 
-def doToC(vehSet,tocPerformed,timeUntilMRM,edgeID,distance):
+def doToC(vehSet,changePerformed,timeUntilMRM,edgeID,distance):
     global options
     for vehID in vehSet:
-        if options.verbose:
-            print ("vehID = %s"%vehID)
         distToTOR = traci.vehicle.getDrivingDistance(vehID, edgeID, distance)
-        print ("distToTOR = %s"%distToTOR)
-        print ("timeToMRM = %s"%timeUntilMRM)
         if distToTOR < 0.:
-            tocPerformed.add(vehID)
+            changePerformed.add(vehID)
             if vehID.startswith("AVflowToC."):
                 print("## Requesting ToC for vehicle '%s'!"%(vehID))
                 requestToC(vehID, timeUntilMRM)
-                if True or options.verbose:
+                if options.verbose:
                     t = traci.simulation.getCurrentTime()/1000.
                     print("Requested ToC of %s at t=%s (until t=%s)"%(vehID, t,t + float(timeUntilMRM)))
                     printToCParams(vehID, True)
             elif traci.vehicle.getTypeID(vehID).startswith("auto"):
-                if True or options.verbose:
+                if options.verbose:
                     print("## Informing AV '%s' about alternative path!"%(vehID))
                 traci.vehicle.setVehicleClass(vehID, "passenger")
-    #~ return tocPerformed
+    #~ return changePerformed
     
-def run(timeUntilMRM,downwardEdgeID,distance):
+def run(timeUntilMRM,downwardEdgeID,distance,upwardEdgeID):
     """execute the TraCI control loop"""
-    global upwardDist, upwardEdgeID
+    global upwardDist
     # this is the list of vehicle states for the scenario, which each AV will traverse
     downwardToCPending = set(traci.vehicle.getIDList())
     downwardTocRequested=set()
@@ -78,35 +73,34 @@ def run(timeUntilMRM,downwardEdgeID,distance):
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        step+=1
-        if options.verbose:
+        step += 1
+        if options.debug:
             print ("\n---------------------------------\nsimstep: %s"%step)
         # Keep book of entered AVs 
         arrivedVehs = [vehID for vehID in traci.simulation.getArrivedIDList() if vehID.startswith(AV_identifier)]
         downwardToCPending.update([vehID for vehID in traci.simulation.getDepartedIDList() if vehID.startswith(AV_identifier)])
-
+        
         # provide the ToCService at the traffic sign for informing the lane closure
         doToC(downwardToCPending,downwardTocRequested,timeUntilMRM,downwardEdgeID,distance)
         downwardToCPending.difference_update(downwardTocRequested)
-        
+
         # keep book on performed ToCs and trigger best lanes update by resetting the route
         downwardTocPerformed=set()
         for vehID in downwardTocRequested:
             if traci.vehicle.getVehicleClass(vehID) == "passenger":
-                print("ToC successful for vehicle '%s'"%vehID)
+                if options.debug:
+                    print("successful change for vehicle '%s'"%vehID)
                 downwardTocPerformed.add(vehID)
                 traci.vehicle.setRoute(vehID,traci.vehicle.getRoadID(vehID))
                 traci.vehicle.setRouteID(vehID,routeID)
         downwardTocRequested.difference_update(downwardTocPerformed)
-        
         upwardToCPending.update(downwardTocPerformed)
 
         # provide ToCService to the upwardTransitions
         upwardTocPerformed=set()
-        #~ upwardTocPerformed = 
         doToC(upwardToCPending,upwardTocPerformed,0.,upwardEdgeID,upwardDist)
         upwardToCPending.difference_update(upwardTocPerformed)
-        if options.verbose:        
+        if options.debug:
             print("downwardTocRequested=%s"%downwardTocRequested)
             print ("Downward ToC performed: %s"%str(sorted(downwardTocPerformed)))
             print ("Upward ToC performed: %s"%str(sorted(upwardTocPerformed)))
@@ -158,6 +152,8 @@ def get_options():
                          default=True, help="run the commandline version of sumo")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose", 
                          default=False, help="tell me what you are doing")
+    optParser.add_option("-d", "--debug", action="store_true", dest="debug", 
+                         default=False, help="debug messages")
     options, args = optParser.parse_args()
     return options
 
@@ -184,16 +180,17 @@ if __name__ == "__main__":
      
     if code=="UC1_1":
         downwardEdgeID = "approach2"
-        distance = 245.
+        distance = 200.
+        upwardEdgeID = "end"
         #~ distance = 100.
     elif code == "UC5_1":
         downwardEdgeID = "e0"
         distance = 3000.
+        upwardEdgeID = "e0"
     
     if downwardEdgeID and distance:
-        run(timeUntilMRM, downwardEdgeID, distance)
-        
-    
+        run(timeUntilMRM, downwardEdgeID, distance, upwardEdgeID)
+
     traci.close()
     sys.stdout.flush()
 
