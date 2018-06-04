@@ -1,4 +1,0 @@
-Could not connect to TraCI server at localhost:43282 [Errno 111] Connection refused
- Retrying in 1 seconds
-s=0 x=106.23 y=81.95
-s=1 x=106.23 y=71.95

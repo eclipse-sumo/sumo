@@ -21,7 +21,7 @@ import subprocess
 import sys
 import random
 sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "..", "tools"))
+    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "..", "..", "tools"))
 import traci
 import sumolib  # noqa
 
@@ -39,11 +39,18 @@ def step():
     traci.simulationStep()
     return s
 
+
 p = "p0"
 s = step()
 x, y = traci.person.getPosition(p)
 print("s=%s x=%s y=%s" % (s, x, y))
+print("jumping backwards on the same edge")
 traci.person.moveToXY(p, "", x, y-10)
+s = step()
+x, y = traci.person.getPosition(p)
+print("s=%s x=%s y=%s" % (s, x, y))
+print("jumping forward to route edge")
+traci.person.moveToXY(p, "", x, y+60)
 s = step()
 x, y = traci.person.getPosition(p)
 print("s=%s x=%s y=%s" % (s, x, y))
