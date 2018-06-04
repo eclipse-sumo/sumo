@@ -1215,7 +1215,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDPOS] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 4,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ROADSIDE_CAPACITY] = AttributeValues(
