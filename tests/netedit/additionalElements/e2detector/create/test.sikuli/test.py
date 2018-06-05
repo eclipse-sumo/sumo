@@ -58,57 +58,69 @@ netedit.modifyAdditionalDefaultValue(3, "120")
 # create E2 with different frequency
 netedit.leftClick(match, 350, 250)
 
+# set invalid filename
+netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
+
+# try to create E2 with invalid filename
+netedit.leftClick(match, 400, 250)
+
+# set valid filename
+netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
+
+#create E2 with valid filename
+netedit.leftClick(match, 400, 250)
+
 # Change cont
-netedit.modifyAdditionalDefaultBoolValue(4)
+netedit.modifyAdditionalDefaultBoolValue(5)
 
 # create E2 with different cont
 netedit.leftClick(match, 450, 250)
 
 # set invalid time threshold
-netedit.modifyAdditionalDefaultValue(5, "-12")
+netedit.modifyAdditionalDefaultValue(6, "-12")
 
 # create E2 with different time threshold
 netedit.leftClick(match, 150, 220)
 
 # set valid time threshold
-netedit.modifyAdditionalDefaultValue(5, "10")
+netedit.modifyAdditionalDefaultValue(6, "10")
 
 # create E2 with different time threshold
 netedit.leftClick(match, 150, 220)
 
 # set invalid speed threshold
-netedit.modifyAdditionalDefaultValue(6, "-14")
+netedit.modifyAdditionalDefaultValue(7, "-14")
 
 # try to create E2 with different speed threshold
 netedit.leftClick(match, 250, 220)
 
 # set valid speed threshold
-netedit.modifyAdditionalDefaultValue(6, "2.5")
+netedit.modifyAdditionalDefaultValue(7, "2.5")
 
 # create E2 with different speed threshold
 netedit.leftClick(match, 250, 220)
 
 # set invalid jam threshold
-netedit.modifyAdditionalDefaultValue(7, "-30")
+netedit.modifyAdditionalDefaultValue(8, "-30")
 
 # try to create E2 with different jam threshold
 netedit.leftClick(match, 350, 220)
 
 # set valid jam threshold
-netedit.modifyAdditionalDefaultValue(7, "15.5")
+netedit.modifyAdditionalDefaultValue(8, "15.5")
 
 # create E2 with different jam threshold
 netedit.leftClick(match, 350, 220)
 
 # Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(8)
+netedit.modifyAdditionalDefaultBoolValue(9)
 
 # create E2 with different friendlyPos
 netedit.leftClick(match, 450, 220)
 
 # Check undo redo
-netedit.undo(match, 8)
-netedit.redo(match, 8)
+netedit.undo(match, 9)
+netedit.redo(match, 9)
 
 # save additionals
 netedit.saveAdditionals()

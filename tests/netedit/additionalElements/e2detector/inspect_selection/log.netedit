@@ -18,6 +18,9 @@ Warning: Setting new attribute length '7' into e2Detector 'E2_B'
 Warning: Value '-30' for attribute freq of e2Detector isn't valid
 Warning: Setting new attribute freq '50' into e2Detector 'E2_A'
 Warning: Setting new attribute freq '50' into e2Detector 'E2_B'
+Warning: Value '&&&&&&&&' for attribute file of e2Detector isn't valid
+Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_A'
+Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_B'
 Warning: Setting new attribute cont 'true' into e2Detector 'E2_A'
 Warning: Setting new attribute cont 'true' into e2Detector 'E2_B'
 Warning: Value '-5' for attribute timeThreshold of e2Detector isn't valid
@@ -31,6 +34,62 @@ Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
 Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_A'
 Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_B'
+Warning: Setting new attribute blockMovement 'true' into e2Detector 'E2_A'
+Warning: Setting new attribute blockMovement 'true' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into e2Detector 'E2_B'
+Warning: Setting previous attribute blockMovement '0' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute friendlyPos '0' into e2Detector 'E2_B'
+Warning: Setting previous attribute friendlyPos '0' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute jamThreshold '5.00' into e2Detector 'E2_B'
+Warning: Setting previous attribute jamThreshold '10.00' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute speedThreshold '3.49' into e2Detector 'E2_B'
+Warning: Setting previous attribute speedThreshold '1.39' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute timeThreshold '2.00' into e2Detector 'E2_B'
+Warning: Setting previous attribute timeThreshold '1.00' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute cont '1' into e2Detector 'E2_B'
+Warning: Setting previous attribute cont '0' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute file 'e2Detector_B.txt' into e2Detector 'E2_B'
+Warning: Setting previous attribute file 'e2Detector_A.txt' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute freq '100.00' into e2Detector 'E2_B'
+Warning: Setting previous attribute freq '100.00' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute length '5.00' into e2Detector 'E2_B'
+Warning: Setting previous attribute length '5.00' into e2Detector 'E2_A'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute length '7' into e2Detector 'E2_A'
+Warning: Setting new attribute length '7' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute freq '50' into e2Detector 'E2_A'
+Warning: Setting new attribute freq '50' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_A'
+Warning: Setting new attribute file 'myOwnFilename.txt' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute cont 'true' into e2Detector 'E2_A'
+Warning: Setting new attribute cont 'true' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_A'
+Warning: Setting new attribute timeThreshold '11.3' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_A'
+Warning: Setting new attribute speedThreshold '4' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_A'
+Warning: Setting new attribute jamThreshold '8.5' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_A'
+Warning: Setting new attribute friendlyPos 'true' into e2Detector 'E2_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into e2Detector 'E2_A'
+Warning: Setting new attribute blockMovement 'true' into e2Detector 'E2_B'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
