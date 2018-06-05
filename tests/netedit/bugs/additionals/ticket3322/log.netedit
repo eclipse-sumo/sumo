@@ -13,7 +13,7 @@ Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
@@ -30,7 +30,7 @@ Warning: Removing edge 'gneE0' from net
 Warning: Removing rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Removing calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Warning: Removing routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
-Warning: Removing vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Removing vaporizer 'gneE1' in GNEChange_Additional
 Warning: Removing busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Warning: Removing laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Warning: Removing laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
@@ -52,7 +52,7 @@ Warning: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Warning: Adding laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
 Warning: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Warning: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
+Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
@@ -73,7 +73,7 @@ Warning: Opening FXMessageBox 'Force deletion needed'
 Warning: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Warning: Key F5 (Compute) pressed
 Warning: Additionals saved
-Warning: Deleting unreferenced vaporizer 'vaporizer_0'
+Warning: Deleting unreferenced vaporizer 'gneE1'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
