@@ -43,6 +43,7 @@
 #include "GNEDetectorE3.h"
 #include "GNEDetectorEntry.h"
 #include "GNEDetectorExit.h"
+#include "GNEDetectorE1Instant.h"
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
@@ -113,6 +114,9 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             break;
         case SUMO_TAG_DET_EXIT:
             parseAndBuildDetectorExit(attrs, tag);
+            break;
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            parseAndBuildDetectorE1Instant(attrs, tag);
             break;
         case SUMO_TAG_ROUTEPROBE:
             parseAndBuildRouteProbe(attrs, tag);
@@ -993,6 +997,38 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
 }
 
 
+void 
+GNEAdditionalHandler::parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    // parse attributes of E1Instant
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
+    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_VTYPES, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    // myLastInsertedAdditionalParent must be empty because this additional cannot be child of another additional
+    myLastInsertedAdditionalParent = "";
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // get pointer to lane
+        GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
+        // check that all elements are valid
+        if (myViewNet->getNet()->getAdditional(tag, id) != nullptr) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        } else if (lane == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+        } else if (!checkAndFixDetectorPositionPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
+            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+        } else {
+            buildDetectorE1Instant(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, vehicleTypes, friendlyPos, false);
+        }
+    }
+}
+
+
 bool
 GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values) {
     // create additional depending of the tag
@@ -1163,6 +1199,23 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // Build detector Exit
             if (lane && E3) {
                 return buildDetectorExit(viewNet, allowUndoRedo, E3, lane, pos, friendlyPos, blockMovement);
+            } else {
+                return false;
+            }
+        }
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP: {
+            // obtain specify attributes of detector E1Instant
+            std::string id = values[SUMO_ATTR_ID];
+            GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
+            double pos = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_POSITION]);
+            double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
+            std::string filename = values[SUMO_ATTR_FILE];
+            std::string vehicleTypes = values[SUMO_ATTR_VTYPES];
+            bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
+            bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
+            // Build detector E1Instant
+            if (lane) {
+                return buildDetectorE1Instant(viewNet, allowUndoRedo, id, lane, pos, freq, filename, vehicleTypes, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1470,6 +1523,26 @@ GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo,
             exit->incRef("buildDetectorExit");
         }
         return true;
+    }
+}
+
+
+bool
+GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) {
+    if (viewNet->getNet()->getAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id) == nullptr) {
+        GNEDetectorE1Instant* detectorE1Instant = new GNEDetectorE1Instant(id, lane, viewNet, pos, freq, filename, vehicleTypes, friendlyPos, blockMovement);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP));
+            viewNet->getUndoList()->add(new GNEChange_Additional(detectorE1Instant, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertAdditional(detectorE1Instant);
+            lane->addAdditionalChild(detectorE1Instant);
+            detectorE1Instant->incRef("buildDetectorE1Instant");
+        }
+        return true;
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 

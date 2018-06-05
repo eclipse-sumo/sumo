@@ -1435,6 +1435,40 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
     }
+    currentTag = SUMO_TAG_INSTANT_INDUCTION_LOOP;
+    {
+        // set values of tag
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 25, ICON_E1INSTANT);
+        // set values of attributes
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            "The id of Instant Induction Loop (E1Instant)", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
+            "The id of the lane the detector shall be laid on. The lane must be a part of the network used", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 3,
+            "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FREQUENCY] = AttributeValues(
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE, 4,
+            "The aggregation period the values the detector collects shall be summed up", 
+            "900.00");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FILE] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE, 5,
+            "The path to the output file", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_VTYPES] = AttributeValues(
+            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 6,
+            "Space separated list of vehicle type ids to consider", 
+            "");
+        myAllowedAttributes[currentTag].second[SUMO_ATTR_FRIENDLY_POS] = AttributeValues(
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
+            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
+            "0");
+    }
     currentTag = SUMO_TAG_VSS;
     {
         // set values of tag

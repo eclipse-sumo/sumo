@@ -223,6 +223,12 @@ public:
      */
     void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses his values and builds a Instant induction loop detector (E1Instant)
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] tag of the additional
+     */
+    void parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parses his values and builds routeProbe
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] tag of the additional
@@ -429,6 +435,23 @@ public:
      * @exception InvalidArgument If the exit detector can not be added to the net (invalid parent or lane
      */
     static bool buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEDetectorE3* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
+
+    /**@brief Builds a Instant Induction Loop Detector (E1Instant)
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+     * @param[in] id The id of the detector
+     * @param[in] lane The lane the detector is placed on
+     * @param[in] pos position of the detector on the lane
+     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] filename The path to the output file.
+     * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
+     * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] blockMovemet enable or disable block movement
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
+     */
+    static bool buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, 
+                                const std::string& vehicleTypes, bool friendlyPos, bool blockMovement);
 
     /**@brief builds a microscopic calibrator over a lane
      * @param[in] viewNet viewNet in which element will be inserted
