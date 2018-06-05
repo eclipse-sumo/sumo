@@ -1903,16 +1903,44 @@ void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.openTag("additionals");
-    // write all vehicle types
+    // first write all vehicle types
     for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
         if (i.first != DEFAULT_VTYPE_ID) {
             i.second->writeVehicleType(device);
         }
     }
+    // now write all route probes (see Ticket #4058)
     for (auto i : myAttributeCarriers.additionals) {
-        // if not writeAll, only save additionals that doesn't have Additional parents
-        if (i.second->getAdditionalParent() == nullptr) {
+        if (i.first.second == SUMO_TAG_ROUTEPROBE) {
             i.second->writeAdditional(device);
+        }
+    }
+    // now write all stoppingPlaces
+    for (auto i : myAttributeCarriers.additionals) {
+        if (GNEAttributeCarrier::getTagProperties(i.first.second).isStoppingPlace()) {
+            // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
+            if (i.second->getAdditionalParent() == nullptr) {
+                i.second->writeAdditional(device);
+            }
+        }
+    }
+    // now write all detectors
+    for (auto i : myAttributeCarriers.additionals) {
+        if (GNEAttributeCarrier::getTagProperties(i.first.second).isDetector()) {
+            // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
+            if (i.second->getAdditionalParent() == nullptr) {
+                i.second->writeAdditional(device);
+            }
+        }
+    }
+    // finally write rest of additionals
+    for (auto i : myAttributeCarriers.additionals) {
+        const GNEAttributeCarrier::TagValues &tagValue= GNEAttributeCarrier::getTagProperties(i.first.second);
+        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE)) {
+            // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
+            if (i.second->getAdditionalParent() == nullptr) {
+                i.second->writeAdditional(device);
+            }
         }
     }
     device.close();
