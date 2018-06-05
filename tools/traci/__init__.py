@@ -36,6 +36,8 @@ from . import _poi, _polygon, _junction, _edge, _simulation, _gui
 
 _connections = {}
 _stepListeners = []
+# cannot use immutable type as global variable
+_currentLabel = [""]
 
 
 def _STEPS2TIME(step):
@@ -167,9 +169,13 @@ def close(wait=True):
 
 
 def switch(label):
+    _currentLabel[0] = label
     _connections[""] = _connections[label]
     for domain in _defaultDomains:
         domain._setConnection(_connections[""])
+
+def getLabel():
+    return _currentLabel[0]
 
 def getConnection(label ="default"):
     if not label in _connections:
