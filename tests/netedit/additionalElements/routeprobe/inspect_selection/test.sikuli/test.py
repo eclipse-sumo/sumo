@@ -43,11 +43,17 @@ netedit.modifyAttribute(0, "-30")
 # Set valid freq
 netedit.modifyAttribute(0, "50")
 
+# Change parameter 3 with a non valid value (invalid characters)
+netedit.modifyAttribute(1, "$$$$$$$$")
+
+# Change parameter 3 with a valid value
+netedit.modifyAttribute(1, "OwnOutput.txt")
+
 # Set invalid begin
-netedit.modifyAttribute(1, "-5")
+netedit.modifyAttribute(2, "-5")
 
 # Set valid begin
-netedit.modifyAttribute(1, "11.3")
+netedit.modifyAttribute(2, "11.3")
 
 # save additionals
 netedit.saveAdditionals()

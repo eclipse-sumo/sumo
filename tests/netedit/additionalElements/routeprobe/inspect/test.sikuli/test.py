@@ -67,11 +67,11 @@ netedit.modifyAttribute(2, "-50")
 # Change parameter 2 with a valid value
 netedit.modifyAttribute(2, "150")
 
-# Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(4, "")
+# Change parameter 3 with a non valid value (invalid characters)
+netedit.modifyAttribute(3, "$$$$$$$$")
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(4, "OwnOutput.txt")
+netedit.modifyAttribute(3, "OwnOutput.txt")
 
 # Change parameter 4 with a non valid value (dummy)
 netedit.modifyAttribute(4, "dummy")
