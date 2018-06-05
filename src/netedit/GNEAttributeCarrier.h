@@ -68,15 +68,17 @@ public:
         TAGPROPERTY_NETELEMENT =    1 << 0,     // Edges, Junctions, Lanes...
         TAGPROPERTY_ADDITIONAL =    1 << 1,     // Bus Stops, Charging Stations, Detectors...
         TAGPROPERTY_SHAPE =         1 << 2,     // POIs, Polygons
-        TAGPROPERTY_ROUTEELEMENT =  1 << 3,     // VTypes, Vehicles, Flows...
-        TAGPROPERTY_INTERNAL =      1 << 4,     // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
-        TAGPROPERTY_BLOCKMOVEMENT = 1 << 5,     // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =    1 << 6,     // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =    1 << 7,     // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =   1 << 8,     // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =      1 << 9,     // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =        1 << 10,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =        1 << 11,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_STOPPINGPLACE = 1 << 3,     // StoppingPlaces (BusStops, ChargingStations...)
+        TAGPROPERTY_DETECTOR =      1 << 4,     // Detectors (E1, E2...)
+        TAGPROPERTY_ROUTEELEMENT =  1 << 5,     // VTypes, Vehicles, Flows...
+        TAGPROPERTY_INTERNAL =      1 << 6,     // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
+        TAGPROPERTY_BLOCKMOVEMENT = 1 << 7,     // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =    1 << 8,     // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =    1 << 9,     // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =   1 << 10,    // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =      1 << 11,    // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =        1 << 12,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =        1 << 13,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
     };
 
     /// @brief struct with the attribute Properties
@@ -105,6 +107,12 @@ public:
 
         /// @brief return true if tag correspond to a shape
         bool isShape() const;
+
+        /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
+        bool isStoppingPlace() const;
+
+        /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
+        bool isDetector() const;
 
         /// @brief return true if tag correspond to an internal element (i.e. Cannot be created using frames)
         bool isInternal() const;
