@@ -350,6 +350,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_E3] = new FXXPMIcon(a, e3_xpm);
     myIcons[ICON_E3ENTRY] = new FXXPMIcon(a, e3entry_xpm);
     myIcons[ICON_E3EXIT] = new FXXPMIcon(a, e3exit_xpm);
+    myIcons[ICON_E1INSTANT] = new FXXPMIcon(a, e1_xpm); /** temporal **/
     myIcons[ICON_REROUTER] = new FXXPMIcon(a, rerouter_xpm);
     myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
