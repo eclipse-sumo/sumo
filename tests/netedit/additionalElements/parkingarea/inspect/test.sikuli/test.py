@@ -148,9 +148,13 @@ netedit.modifyAttribute(9, "32.5")
 # Change parameter 5 with a different value
 netedit.modifyBoolAttribute(11)
 
+# Leave start and end positions empty
+netedit.modifyAttribute(2, "")
+netedit.modifyAttribute(3, "")
+
 # Check undos and redos
-netedit.undo(match, 24)
-netedit.redo(match, 24)
+netedit.undo(match, 26)
+netedit.redo(match, 26)
 
 # save additionals
 netedit.saveAdditionals()
