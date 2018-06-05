@@ -25,29 +25,17 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, match = netedit.setupAndStart(neteditTestRoot)
 
-# go to additional mode
-netedit.additionalMode()
-
-# select vaporizer
-netedit.changeAdditional("vaporizer")
-
-# create vaporizer
-netedit.leftClick(match, 350, 200)
-
 # Change to delete
 netedit.deleteMode()
 
 # delete loaded vaporizer
 netedit.leftClick(match, 310, 200)
 
-# delete created vaporizer (using stack)
-netedit.leftClick(match, 310, 200)
-
-# delete lane with the second loaded vaporizer
+# delete lane with the loaded vaporizer
 netedit.leftClick(match, 310, 250)
 
 # Check undo
-netedit.undo(match, 3)
+netedit.undo(match, 2)
 
 # Change to delete
 netedit.deleteMode()
@@ -55,14 +43,14 @@ netedit.deleteMode()
 # disable 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(match)
 
-# try to delete lane with the second loaded vaporizer (doesn't allowed)
+# try to delete lane with the  loaded vaporizer (doesn't allowed)
 netedit.leftClick(match, 310, 250)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
 
 # check redo
-netedit.redo(match, 3)
+netedit.redo(match, 2)
 
 # save additionals
 netedit.saveAdditionals()

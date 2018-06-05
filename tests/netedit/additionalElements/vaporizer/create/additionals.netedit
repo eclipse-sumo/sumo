@@ -1,6 +1,6 @@
 <additionals>
-    <vaporizer edge="gneE1" startTime="0.00"/>
-    <vaporizer edge="gneE1" startTime="0.00"/>
-    <vaporizer edge="gneE1" startTime="10.00"/>
-    <vaporizer edge="gneE1" startTime="10.00" end="20.00"/>
+    <vaporizer id="gneE0" begin="10.00" end="3600.00"/>
+    <vaporizer id="gneE1" begin="0.00" end="3600.00"/>
+    <vaporizer id="gneE3" begin="50.00" end="20.00"/>
+    <vaporizer id="gneE4" begin="10.00" end="20.00"/>
 </additionals>

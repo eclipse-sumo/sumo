@@ -52,6 +52,10 @@ netedit.modifyAttribute(1, "1")
 # Set valid begin
 netedit.modifyAttribute(1, "15.8")
 
+# Check undos and redos
+netedit.undo(match, 2)
+netedit.redo(match, 2)
+
 # save additionals
 netedit.saveAdditionals()
 
