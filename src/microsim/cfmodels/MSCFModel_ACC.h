@@ -1,13 +1,11 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    MSCFModel_CACC.cpp
 /// @author  Kallirroi Porfyri
@@ -29,11 +27,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -84,7 +78,7 @@ public:
    * @return EGO's safe speed
    * @see MSCFModel::ffeV
    */
-   double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* pred) const;
+   double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
 
    /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -140,7 +134,7 @@ private:
        ACCVehicleVariables() : ACC_ControlMode(0) {}
        /// @brief The vehicle's ACC control mode. 0 for speed control and 1 for gap control
        int ACC_ControlMode;
-       double lastUpdateTime;
+       SUMOTime lastUpdateTime;
    };
 
 

@@ -1,13 +1,11 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2017 German Aerospace Center (DLR) and others.
-/****************************************************************************/
-//
-//   This program and the accompanying materials
-//   are made available under the terms of the Eclipse Public License v2.0
-//   which accompanies this distribution, and is available at
-//   http://www.eclipse.org/legal/epl-v20.html
-//
+// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    MSCFModel_CACC.cpp
 /// @author  Kallirroi Porfyri
@@ -28,15 +26,10 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <iostream>
-using namespace std;
 
 #include "MSCFModel_ACC.h"
 #include <microsim/MSVehicle.h>
@@ -90,8 +83,7 @@ MSCFModel_ACC::moveHelper(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* /*pred*/) const {
-
+MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /* pred */) const {
    return _v(veh, gap2pred, speed, predSpeed, MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed()), true);
 }
 
@@ -146,7 +138,6 @@ const double predSpeed, const double desSpeed, const bool respectMinGap) const {
 
    /* Velocity error */
    double vErr = speed - desSpeed;
-   double timestep = MSNet::getInstance()->getCurrentTimeStep();
    int setControlMode = 0;
    ACCVehicleVariables* vars = (ACCVehicleVariables*)veh->getCarFollowVariables();
    if (vars->lastUpdateTime != MSNet::getInstance()->getCurrentTimeStep()) {
