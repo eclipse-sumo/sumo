@@ -15,7 +15,7 @@ Copyright (C) 2008-2018 DLR (http://www.dlr.de/) and contributors
 
 """
 from __future__ import print_function
-import os, sys, subprocess, glob
+import os, sys, subprocess, glob, random
 from optparse import OptionParser
 
 SUMO_HOME = os.environ['SUMO_HOME']
@@ -33,6 +33,7 @@ routeMap= {}
 routeMap['UC1_1'] = ['r0', 'start approach1 approach2 safetyzone1_1 safetyzone1_2 workzone safetyzone2_1 safetyzone2_2 leave end']
 routeMap['UC5_1'] = ['r0', 'e0']
 outputDirName = "OUTPUT"
+random.seed(606)
 
 # TODO: set up the planed 45 scenarios in regard to the demands (3 levels) , vehicular compositions (2 vehicle types) and 5 parameter sets
 #demandMap = {"UC1_1":[525, 825, 1155], "UC5_1":[665, 1015, 1463]}
@@ -117,13 +118,15 @@ def setAddOutputFiles(DATA_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFi
     #set set additional file
     addfile = os.path.join(DATA_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" %(i,j,k,l,t))
     edgeFile = os.path.join(outputDirName, "edges_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
+    emissionFile = os.path.join(outputDirName, "emissions_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
     laneFile = os.path.join(outputDirName, "lanes_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
     fd = open(addfile, 'w')
     print("""
     <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
         <edgeData id="edge_%s" freq="%s" file="%s" excludeEmpty="true"/>
+        <edgeData id="edge_%s" type= "emissions" freq="%s" file="%s" excludeEmpty="true"/>
         <laneData id="lane_%s" freq="%s" file="%s" excludeEmpty="true"/>
-    </additional>""" %(freq,freq,edgeFile,freq,freq,laneFile), file=fd)
+    </additional>""" %(freq,freq,edgeFile,freq,freq,emissionFile,freq,freq,laneFile), file=fd)
     fd.close()
 
     addfiles = addfile
