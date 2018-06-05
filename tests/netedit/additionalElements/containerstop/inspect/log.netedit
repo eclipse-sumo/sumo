@@ -16,7 +16,9 @@ Warning: Setting new attribute startPos '20' into containerStop 'correctID'
 Warning: Setting new attribute endPos '3000' into containerStop 'correctID'
 Warning: Value '10' for attribute endPos of containerStop isn't valid
 Warning: Setting new attribute endPos '30' into containerStop 'correctID'
-Warning: Setting new attribute name 'busStop' into containerStop 'correctID'
+Warning: Setting new attribute startPos '' into containerStop 'correctID'
+Warning: Setting new attribute endPos '' into containerStop 'correctID'
+Warning: Setting new attribute name 'containerStop' into containerStop 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into containerStop 'correctID'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
  From 1.0 onwards, only ' ' will be accepted.
@@ -31,11 +33,15 @@ Warning: Setting previous attribute friendlyPos '0' into containerStop 'correctI
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '3000.00' into containerStop 'correctID'
+Warning: Setting previous attribute endPos '30' into containerStop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute startPos '20' into containerStop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute endPos '3000' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.00' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute startPos '-5.00' into containerStop 'correctID'
+Warning: Setting previous attribute startPos '-5' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '12.00' into containerStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -72,7 +78,11 @@ Warning: Setting new attribute endPos '3000' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute name 'busStop' into containerStop 'correctID'
+Warning: Setting new attribute startPos '' into containerStop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute endPos '' into containerStop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute name 'containerStop' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into containerStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

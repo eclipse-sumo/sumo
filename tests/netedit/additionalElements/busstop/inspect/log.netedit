@@ -16,6 +16,8 @@ Warning: Setting new attribute startPos '20' into busStop 'correctID'
 Warning: Setting new attribute endPos '3000' into busStop 'correctID'
 Warning: Value '10' for attribute endPos of busStop isn't valid
 Warning: Setting new attribute endPos '30' into busStop 'correctID'
+Warning: Setting new attribute startPos '' into busStop 'correctID'
+Warning: Setting new attribute endPos '' into busStop 'correctID'
 Warning: Setting new attribute name 'busStop' into busStop 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into busStop 'correctID'
 Warning: Please note that using ';' and ',' as XML list separators is deprecated.
@@ -31,11 +33,15 @@ Warning: Setting previous attribute friendlyPos '0' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '3000.00' into busStop 'correctID'
+Warning: Setting previous attribute endPos '30' into busStop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute startPos '20' into busStop 'correctID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute endPos '3000' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '22.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute startPos '-5.00' into busStop 'correctID'
+Warning: Setting previous attribute startPos '-5' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute startPos '12.00' into busStop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -71,6 +77,10 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '3000' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute endPos '30' into busStop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute startPos '' into busStop 'correctID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute endPos '' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute name 'busStop' into busStop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

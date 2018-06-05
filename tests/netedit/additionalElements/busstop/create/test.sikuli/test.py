@@ -32,46 +32,43 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # set name
-netedit.modifyAdditionalDefaultValue(2, "busStop")
+netedit.modifyAdditionalDefaultValue(2, "busStopName")
 
 # set friendlyPos
 netedit.modifyAdditionalDefaultBoolValue(3)
 
-# Add three extra lines
-netedit.modifyStoppingPlaceLines(5, 3)
-
-# fill extra lines
-netedit.fillStoppingPlaceLines(4, 4)
-
-# remove last line (line 4)
-netedit.modifyStoppingPlaceLines(9, 1)
-
 # create busStop in mode "reference left"
 netedit.leftClick(match, 250, 250)
 
-# change reference to right
-netedit.modifyAdditionalDefaultValue(10, "reference right")
+# set own lines
+netedit.modifyAdditionalDefaultValue(4, "lineA lineB")
 
-# create busStop in mode "reference right"
+# create busStop in mode "reference left"
 netedit.leftClick(match, 240, 250)
 
+# change reference to right
+netedit.modifyAdditionalDefaultValue(6, "reference right")
+
+# create busStop in mode "reference right"
+netedit.leftClick(match, 230, 250)
+
 # change reference to center
-netedit.modifyAdditionalDefaultValue(10, "reference center")
+netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(match, 425, 250)
 
 # Change length
-netedit.modifyAdditionalDefaultValue(12, "30")
+netedit.modifyAdditionalDefaultValue(8, "30")
 
 # change reference to "reference left"
-netedit.modifyAdditionalDefaultValue(10, "reference left")
+netedit.modifyAdditionalDefaultValue(6, "reference left")
 
 # create a busStop in mode "reference left"
 netedit.leftClick(match, 500, 250)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(10, "reference right")
+netedit.modifyAdditionalDefaultValue(6, "reference right")
 
 # create a busStop in mode "reference right"
 netedit.leftClick(match, 110, 250)
@@ -80,20 +77,20 @@ netedit.leftClick(match, 110, 250)
 netedit.modifyAdditionalDefaultBoolValue(3)
 
 # change reference to "reference left"
-netedit.modifyAdditionalDefaultValue(10, "reference left")
+netedit.modifyAdditionalDefaultValue(6, "reference left")
 
 # create a busStop in mode "reference left" without friendlyPos
 netedit.leftClick(match, 120, 215)
 
 # change reference to "reference right"
-netedit.modifyAdditionalDefaultValue(10, "reference right")
+netedit.modifyAdditionalDefaultValue(6, "reference right")
 
 # create a busStop in mode "reference right" without friendlyPos
 netedit.leftClick(match, 500, 215)
 
 # Check undo redo
-netedit.undo(match, 7)
-netedit.redo(match, 7)
+netedit.undo(match, 8)
+netedit.redo(match, 8)
 
 # save additionals
 netedit.saveAdditionals()
