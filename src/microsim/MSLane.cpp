@@ -1450,8 +1450,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         // determine new speeds from collision angle (@todo account for vehicle mass)
         double victimSpeed = victim->getSpeed();
         double colliderSpeed = collider->getSpeed();
-        double victimOrigSpeed = victim->getSpeed();
-        double colliderOrigSpeed = collider->getSpeed();
+        // double victimOrigSpeed = victim->getSpeed();
+        // double colliderOrigSpeed = collider->getSpeed();
         if (collisionAngle < 45) {
             // rear-end collisions 
             colliderSpeed = MIN2(colliderSpeed, victimSpeed);

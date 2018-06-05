@@ -965,6 +965,7 @@ MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const
 
 void
 MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed, double& gap) const {
+    UNUSED_PARAMETER(speed);
     assert(veh->hasDriverState());
 
     // Obtain perceived gap from driver state

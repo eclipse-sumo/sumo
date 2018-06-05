@@ -125,8 +125,8 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
         myErrorNoiseIntensityCoefficient(DriverStateDefaults::myErrorNoiseIntensityCoefficient),
         mySpeedDifferenceErrorCoefficient(DriverStateDefaults::mySpeedDifferenceErrorCoefficient),
         myHeadwayErrorCoefficient(DriverStateDefaults::myHeadwayErrorCoefficient),
-        mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::mySpeedDifferenceChangePerceptionThreshold),
         myHeadwayChangePerceptionThreshold(DriverStateDefaults::myHeadwayChangePerceptionThreshold),
+        mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::mySpeedDifferenceChangePerceptionThreshold),
         myActionStepLength(TS),
         myStepDuration(TS),
         myLastUpdateTime(SIMTIME-TS),
@@ -234,7 +234,6 @@ void
 MSSimpleDriverState::updateAssumedGaps() {
     for (auto& p : myAssumedGap) {
         const void* objID = p.first;
-        const double assumedGap = p.second;
         const auto speedDiff = myLastPerceivedSpeedDifference.find(objID);
         double assumedSpeedDiff;
         if (speedDiff != myLastPerceivedSpeedDifference.end()) {

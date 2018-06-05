@@ -83,7 +83,7 @@ MSCFModel_ACC::moveHelper(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /* pred */) const {
+MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /* predMaxDecel */, const MSVehicle* const /* pred */) const {
    return _v(veh, gap2pred, speed, predSpeed, MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed()), true);
 }
 
@@ -99,7 +99,7 @@ MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double 
 
 /// @todo update interactionGap logic
 double
-MSCFModel_ACC::interactionGap(const MSVehicle* const veh, double vL) const {
+MSCFModel_ACC::interactionGap(const MSVehicle* const /* veh */, double /* vL */) const {
    /*maximum radar range is ACC is enabled*/
    return 250;
 }
@@ -128,9 +128,11 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
 
    return gclAccel;
 }
+
+
 double
 MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const double speed,
-const double predSpeed, const double desSpeed, const bool respectMinGap) const {
+                  const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const {
 
    double accelACC = 0;
    double gapLimit_SC = 120; // lower gap limit in meters to enable speed control law

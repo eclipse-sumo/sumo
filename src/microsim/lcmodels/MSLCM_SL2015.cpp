@@ -212,7 +212,9 @@ MSLCM_SL2015::wantsChangeSublane(
 
     result |= getLCA(result, latDist);
     // take into account lateral acceleration
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     double latDistTmp = latDist;
+#endif
     latDist = SPEED2DIST(computeSpeedLat(latDist, maneuverDist));
 #if defined(DEBUG_MANEUVER) || defined(DEBUG_STATE)
     if (gDebugFlag2 && latDist != latDistTmp) {
