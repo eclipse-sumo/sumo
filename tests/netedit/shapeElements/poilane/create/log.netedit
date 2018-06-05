@@ -10,33 +10,31 @@ Warning: Adding poiLane 'POI_3' into viewNet
 Warning: Invalid input parameter of poiLane: 'color' doesn't have a valid 'RBGColor' format
 Warning: Adding poiLane 'POI_4' into viewNet
 Warning: Adding poiLane 'POI_5' into viewNet
-Warning: Invalid input parameter of poiLane: 'layer' doesn't have a valid 'int' format
 Warning: Adding poiLane 'POI_6' into viewNet
 Warning: Adding poiLane 'POI_7' into viewNet
-Warning: Invalid input parameter of poiLane: 'width' doesn't have a valid 'float' format
 Warning: Adding poiLane 'POI_8' into viewNet
+Warning: Invalid input parameter of poiLane: 'width' doesn't have a valid 'float' format
+Warning: Invalid input parameter of poiLane: 'width' cannot be negative
 Warning: Adding poiLane 'POI_9' into viewNet
 Warning: Invalid input parameter of poiLane: 'height' doesn't have a valid 'float' format
+Warning: Invalid input parameter of poiLane: 'height' cannot be negative
 Warning: Adding poiLane 'POI_10' into viewNet
-Warning: Adding poiLane 'POI_11' into viewNet
 Warning: Invalid input parameter of poiLane: input contains invalid characters for a filename
 Error: Could not load 'paris.ico'.
 Loading failed!
 Warning: Invalid input parameter of poiLane: doesn't exist image 'paris.ico'
+Warning: Adding poiLane 'POI_11' into viewNet
 Warning: Adding poiLane 'POI_12' into viewNet
+Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
+Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
+Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
 Warning: Adding poiLane 'POI_13' into viewNet
-Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
-Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
-Warning: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format
 Warning: Adding poiLane 'POI_14' into viewNet
 Warning: Adding poiLane 'POI_15' into viewNet
 Warning: Adding poiLane 'POI_16' into viewNet
-Warning: Adding poiLane 'POI_17' into viewNet
-Warning: Setting new attribute blockMovement '1' into poiLane 'POI_17'
+Warning: Setting new attribute blockMovement '1' into poiLane 'POI_16'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into poiLane 'POI_17'
-Warning: Removing poiLane 'POI_17' from viewNet
-Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into poiLane 'POI_16'
 Warning: Removing poiLane 'POI_16' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poiLane 'POI_15' from viewNet
@@ -68,6 +66,10 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poiLane 'POI_2' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poiLane 'POI_1' from viewNet
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing poiLane 'POI_0' from viewNet
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -100,16 +102,12 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poiLane 'POI_15' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poiLane 'POI_16' into viewNet
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding poiLane 'POI_17' into viewNet
-Warning: Setting new attribute blockMovement '1' into poiLane 'POI_17'
+Warning: Setting new attribute blockMovement '1' into poiLane 'POI_16'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Removing poiLane 'POI_17' from net in ~GNEChange_Shape()
-Warning: delete poiLane 'POI_17' in ~GNEChange_Shape()
 Warning: Removing poiLane 'POI_16' from net in ~GNEChange_Shape()
 Warning: delete poiLane 'POI_16' in ~GNEChange_Shape()
 Warning: Removing poiLane 'POI_15' from net in ~GNEChange_Shape()
