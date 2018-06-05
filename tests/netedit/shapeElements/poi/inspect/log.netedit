@@ -14,7 +14,6 @@ Warning: Value 'dummyColor' for attribute color of poi isn't valid
 Warning: Setting new attribute color '255,255,500' into poi 'newID'
 Warning: Setting new attribute color 'blue' into poi 'newID'
 Warning: Setting new attribute color '125,60,200' into poi 'newID'
-Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
 Warning: Value 'dummyLayer' for attribute layer of poi isn't valid
 Warning: Setting new attribute layer '-2' into poi 'newID'
@@ -64,8 +63,6 @@ Warning: Setting previous attribute layer '-2.00' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute layer 'default' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute type 'dummyValue' into poi 'newID'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute type '' into poi 'newID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute color 'blue' into poi 'newID'
@@ -88,6 +85,7 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -102,8 +100,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute color 'blue' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute color '125,60,200' into poi 'newID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute type 'dummyValue' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute type 'myOwnType' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -130,6 +126,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute geo 'true' into poi 'newID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into poi 'newID'
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed

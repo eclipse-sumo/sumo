@@ -15,13 +15,13 @@ Warning: Key ENTER pressed
 Warning: Adding poly 'poly_2' into viewNet
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
-Warning: Invalid input parameter of poly: 'layer' doesn't have a valid 'int' format
-Warning: Key ENTER pressed
-Warning: Key ENTER pressed
 Warning: Adding poly 'poly_3' into viewNet
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_4' into viewNet
+Warning: Key ENTER pressed
+Warning: Key ENTER pressed
+Warning: Adding poly 'poly_5' into viewNet
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Invalid input parameter of poly: input contains invalid characters for a filename
@@ -32,16 +32,13 @@ Warning: Key ENTER pressed
 Warning: Invalid input parameter of poly: doesn't exist image 'paris.ico'
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
-Warning: Adding poly 'poly_5' into viewNet
-Warning: Key ENTER pressed
-Warning: Key ENTER pressed
 Warning: Adding poly 'poly_6' into viewNet
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
-Warning: Invalid input parameter of poly: 'angle' doesn't have a valid 'float' format
-Warning: Key ENTER pressed
-Warning: Key ENTER pressed
 Warning: Adding poly 'poly_7' into viewNet
+Warning: Key ENTER pressed
+Warning: Key ENTER pressed
+Warning: Invalid input parameter of poly: 'angle' doesn't have a valid 'float' format
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_8' into viewNet
@@ -51,16 +48,15 @@ Warning: Adding poly 'poly_9' into viewNet
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_10' into viewNet
-Warning: Setting new attribute blockMovement '1' into poly 'poly_10'
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_11' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_11'
-Warning: Setting new attribute blockShape '1' into poly 'poly_11'
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_12'
+Warning: Setting new attribute blockShape '1' into poly 'poly_12'
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_13' into viewNet
@@ -81,6 +77,13 @@ Warning: Key ENTER pressed
 Warning: Key ENTER pressed
 Warning: Adding poly 'poly_17' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_17'
+Warning: Key ENTER pressed
+Warning: Key ENTER pressed
+Warning: Adding poly 'poly_18' into viewNet
+Warning: Setting new attribute blockMovement '1' into poly 'poly_18'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into poly 'poly_18'
+Warning: Removing poly 'poly_18' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poly 'poly_17'
 Warning: Removing poly 'poly_17' from viewNet
@@ -97,14 +100,13 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into poly 'poly_13'
 Warning: Removing poly 'poly_13' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockShape '0' into poly 'poly_12'
 Warning: Setting previous attribute blockMovement '0' into poly 'poly_12'
 Warning: Removing poly 'poly_12' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockShape '0' into poly 'poly_11'
 Warning: Setting previous attribute blockMovement '0' into poly 'poly_11'
 Warning: Removing poly 'poly_11' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute blockMovement '0' into poly 'poly_10'
 Warning: Removing poly 'poly_10' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_9' from viewNet
@@ -122,10 +124,6 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_3' from viewNet
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing poly 'poly_2' from viewNet
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing poly 'poly_1' from viewNet
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding poly 'poly_1' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_2' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -144,14 +142,13 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_9' into viewNet
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_10' into viewNet
-Warning: Setting new attribute blockMovement '1' into poly 'poly_10'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_11' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_11'
-Warning: Setting new attribute blockShape '1' into poly 'poly_11'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_12' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_12'
+Warning: Setting new attribute blockShape '1' into poly 'poly_12'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_13' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_13'
@@ -167,11 +164,16 @@ Warning: Setting new attribute blockMovement '1' into poly 'poly_16'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding poly 'poly_17' into viewNet
 Warning: Setting new attribute blockMovement '1' into poly 'poly_17'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding poly 'poly_18' into viewNet
+Warning: Setting new attribute blockMovement '1' into poly 'poly_18'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
+Warning: Removing poly 'poly_18' from net in ~GNEChange_Shape()
+Warning: delete poly 'poly_18' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_17' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_17' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_16' from net in ~GNEChange_Shape()

@@ -152,7 +152,7 @@ netedit.modifyAttribute(12, "500")
 netedit.modifyAttribute(12, "30")
 
 # Change boolean parameter block
-netedit.modifyShapeDefaultBoolValue(13)
+netedit.modifyShapeDefaultBoolValue(14)
 
 # Check undos and redos
 netedit.undo(match, 28)
