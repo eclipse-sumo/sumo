@@ -138,7 +138,7 @@ def stopAt(vehicleID, edge, pos=None):
     vehicleStatus[vehicleID].targetPos = pos
 
 
-def leaveStop(vehicleID, newTarget=None, delay=0.):
+def leaveStop(vehicleID, newTarget=None, delay=0):
     v = vehicleStatus[vehicleID]
     if newTarget:
         traci.vehicle.changeTarget(vehicleID, newTarget)
@@ -204,7 +204,7 @@ def doStep():
         print("step", setting.step)
     traci.simulationStep()
     moveNodes = []
-    for veh, subs in traci.vehicle.getSubscriptionResults().iteritems():
+    for veh, subs in traci.vehicle.getSubscriptionResults().items():
         moveNodes.append(
             (veh, subs[tc.VAR_ROAD_ID], subs[tc.VAR_LANEPOSITION]))
     departed = traci.simulation.getSubscriptionResults(

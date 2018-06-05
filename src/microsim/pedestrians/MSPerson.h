@@ -135,6 +135,9 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
+        /// @brief place person on a previously passed edge
+        void setRouteIndex(MSPerson* person, int routeOffset);
+
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSPerson* person) const;
@@ -301,8 +304,8 @@ public:
         return myChosenSpeedFactor;
     }
 
-    /// @brief set new walk
-    void reroute(ConstMSEdgeVector& newEdges);
+    /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
+    void reroute(ConstMSEdgeVector& newEdges, int firstIndex, int nextIndex);
 
 
     /** @class Influencer

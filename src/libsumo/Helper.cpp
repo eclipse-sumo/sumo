@@ -523,6 +523,7 @@ bool
 Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
         const ConstMSEdgeVector& currentRoute, int routeIndex,
         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
+    //std::cout << "moveToXYMap_matchingRoutePosition pos=" << pos << "\n";
     routeOffset = 0;
     // routes may be looped which makes routeOffset ambiguous. We first try to
     // find the closest upcoming edge on the route and then look for closer passed edges
@@ -544,13 +545,16 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     }
     // look backward along the route
     const MSEdge* next = currentRoute[routeIndex];
-    for (int i = routeIndex; i > 0; --i) {
+    for (int i = routeIndex; i >= 0; --i) {
         const MSEdge* cand = currentRoute[i];
+        //std::cout << "  next=" << next->getID() << " cand=" << cand->getID() << " i=" << i << " routeIndex=" << routeIndex << "\n";
         prev = cand;
         while (prev != 0) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
-            findCloserLane(internalCand, pos, bestDistance, lane);
+            if (findCloserLane(internalCand, pos, bestDistance, lane)) {
+                routeOffset = i;
+            }
             prev = internalCand;
         }
         if (findCloserLane(cand, pos, bestDistance, lane)) {

@@ -4,5 +4,5 @@ keepRoute2
 # mapping a fast vehicle onto short edges
 short_edges
 
-# Tests the person API
+# moveToXY for persons
 person

@@ -6,8 +6,9 @@
 @date    2018-05-30
 @version $Id: runScenarios.py
 
-- generate *.rou.xml files according to the parameters of the pre-defined scenarios
-- Run runner.py for each scenario for UC1_1 and UC5
+- generate *.rou.xml files according to the given parameters sets for the pre-defined scenarios
+- run runner.py for simulating each scenario for UC1_1 and UC5
+- fcd- and edge/lane-based outputs will be generated.
 
 SUMO, Simulation of Urban MObility; see http://sumo.dlr.de/
 Copyright (C) 2008-2018 DLR (http://www.dlr.de/) and contributors
@@ -31,16 +32,18 @@ mrmDecel= [1.1]#, 1.3, 1.5]
 routeMap= {}
 routeMap['UC1_1'] = ['r0', 'start approach1 approach2 safetyzone1_1 safetyzone1_2 workzone safetyzone2_1 safetyzone2_2 leave end']
 routeMap['UC5_1'] = ['r0', 'e0']
-# TODO: set up the planed 45 scenarios in regard to the demands, vehicular compositions and 5 parameter sets
+outputDirName = "OUTPUT"
+
+# TODO: set up the planed 45 scenarios in regard to the demands (3 levels) , vehicular compositions (2 vehicle types) and 5 parameter sets
 #demandMap = {"UC1_1":[525, 825, 1155], "UC5_1":[665, 1015, 1463]}
 #compositionMap = {}
 #componentMap = {"UC1_1":[[0.7, 0.3]], "UC5_1":[665, 1015, 1463]}
 
-def checkDir(dir):
+def checkDir(dir, outputDirName):
     if not os.path.exists(dir):
         print ("%s does not exist." %dir)
     else:
-        outputdir = os.path.join(dir, 'OUTPUT')
+        outputdir = os.path.join(dir, outputDirName)
         if not os.path.exists(outputdir):
             os.mkdir(outputdir)
         return outputdir
@@ -95,17 +98,31 @@ def generateRouteFile(routefile,i,j,k,l,rList,code):
     </routes>""" %(start, end), file=fd)
     fd.close()
     
-def generateAddFile(addfile, frequency, outputdir, i, j, k, l, t):
-    freq = frequency
+def setAddOutputFiles(OUT_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFile, shapefile):
+    outputdir = checkDir(OUT_DIR, outputDirName)
+    #set set additional file
+    addfile = os.path.join(OUT_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" %(i,j,k,l,t))
+    edgeFile = os.path.join(outputDirName, "edges_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
+    laneFile = os.path.join(outputDirName, "lanes_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
     fd = open(addfile, 'w')
-    edgeFile = os.path.join('OUTPUT', "edges_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
-    laneFile = os.path.join('OUTPUT', "lanes_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
     print("""
     <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
         <edgeData id="edge_%s" freq="%s" file="%s" excludeEmpty="true"/>
         <laneData id="lane_%s" freq="%s" file="%s" excludeEmpty="true"/>
     </additional>""" %(freq,freq,edgeFile,freq,freq,laneFile), file=fd)
     fd.close()
+
+    addfiles = addfile
+    if closedLaneFile:
+        addfiles = addfiles + ',' + closedLaneFile[0]
+    if shapefile:
+        addfiles = addfiles + ',' + shapefile[0]
+    
+    # set the output files
+    fcdname = 'fcd_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '_' + str(t) + '.xml'
+    fcdfile = os.path.join(outputdir, fcdname)
+
+    return addfiles, fcdfile
 
 def printParameterSet(i,j,k,l,t):
     print ("initialAwareness: %s" %(i))
@@ -117,7 +134,7 @@ def printParameterSet(i,j,k,l,t):
 if __name__ == "__main__":
 
     optParser = OptionParser()
-    optParser.add_option("--codes", help="scenario code", default="UC1_1")# UC5_1")
+    optParser.add_option("--codes", help="scenario code", default="UC1_1 UC5_1")
     optParser.add_option("--frequency", help="output frequency", default= 300)
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose", 
                          default=False, help="tell me what you are doing")
@@ -129,7 +146,6 @@ if __name__ == "__main__":
     # two use cases
     for code in options.codes:
         OUT_DIR = os.path.join(ROOT_DIR, code)
-        outputdir = checkDir(OUT_DIR)
         # get input files
         netfile, closedLaneFile, shapefile, viewfile = getInputFiles(OUT_DIR)
         
@@ -145,20 +161,12 @@ if __name__ == "__main__":
                             generateRouteFile(routefile,i,j,k,l,routeMap[code],code)
                         else:
                             print("Error: no route information exists.")
-                        
+
                         for t in timeUntilMRM:
-                            addfile = os.path.join(OUT_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" %(i,j,k,l,t))
-                            generateAddFile(addfile, options.frequency, outputdir, i, j, k, l, t)
+                            addfiles, fcdfile = setAddOutputFiles(OUT_DIR, outputDirName, options.frequency, i, j, k, l, t, closedLaneFile, shapefile)
                             if options.verbose:
                                 printParameterSet(i,j,k,l,t)
-                            fcdname = 'fcd_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '_' + str(t) + '.xml'
-                            fcdfile = os.path.join(outputdir, fcdname)
-                            addfiles = addfile
-                            if closedLaneFile:
-                                addfiles = addfiles + ',' + closedLaneFile[0]
-                            if shapefile:
-                                addfiles = addfiles + ',' + shapefile[0]
-                            
+
                             cmd = [
                                 'python',
                                 runnerPy,

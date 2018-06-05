@@ -183,6 +183,7 @@ public:
         for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr(SUMO_ATTR_LINE, e->getLine());
             dev.writeAttr(SUMO_ATTR_LENGTH, e->getLength());
             dev.writeAttr("successors", toString(e->getSuccessors(SVC_IGNORING)));
             dev.closeTag();
@@ -191,11 +192,12 @@ public:
 
     void writeWeights(OutputDevice& dev) {
         createNet();
+        _IntermodalTrip trip(nullptr, nullptr, 0., 0., DEFAULT_PEDESTRIAN_SPEED, 0, 0, nullptr, SVC_PASSENGER | SVC_BICYCLE | SVC_BUS);
         for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
-            dev.writeAttr("traveltime", 0. /* e->getTravelTime() */);
-            dev.writeAttr("effort", 0. /* e->getEffort() */);
+            dev.writeAttr("traveltime", e->getTravelTime(&trip, 0.));
+            dev.writeAttr("effort", e->getEffort(&trip, 0.));
             dev.closeTag();
         }
     }

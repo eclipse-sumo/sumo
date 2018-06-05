@@ -145,6 +145,14 @@ MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage,
 
 
 void
+MSPModel_Striping::add(PedestrianState* pState, const MSLane* lane) {
+    PState* ped = dynamic_cast<PState*>(pState);
+    assert(ped != 0);
+    myActiveLanes[lane].push_back(ped);
+}
+
+
+void
 MSPModel_Striping::remove(PedestrianState* state) {
     const MSLane* lane = dynamic_cast<PState*>(state)->myLane;
     Pedestrians& pedestrians = myActiveLanes[lane];
@@ -1142,7 +1150,10 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSPerson::MSPersonStage_Walk
     myWaitingToEnter(true),
     myWaitingTime(0),
     myWalkingAreaPath(0),
-    myAmJammed(false) {
+    myAmJammed(false),
+    myRemoteXYPos(Position::INVALID),
+    myAngle(std::numeric_limits<double>::max())
+{
     const MSEdge* currentEdge = &lane->getEdge();
     const ConstMSEdgeVector& route = myStage->getRoute();
     assert(!route.empty());
@@ -1400,6 +1411,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
 
 void
 MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
+    myAngle = std::numeric_limits<double>::max(); // set on first access or via remote control
     const int stripes = (int)obs.size();
     const int sMax =  stripes - 1;
     assert(stripes == numStripes(myLane));
@@ -1639,6 +1651,9 @@ MSPModel_Striping::PState::getPosition(const MSPerson::MSPersonStage_Walking& st
 
 double
 MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
+    if (myAngle != std::numeric_limits<double>::max()) {
+        return myAngle;
+    }
     if (myLane == 0) {
         // pedestrian has already finished
         return 0;
@@ -1648,6 +1663,7 @@ MSPModel_Striping::PState::getAngle(const MSPerson::MSPersonStage_Walking&, SUMO
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }
+    myAngle = angle;
     return angle;
 }
 
@@ -1673,6 +1689,10 @@ void
 MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                                     double lanePosLat, double angle, int routeOffset,
                                     const ConstMSEdgeVector& edges, SUMOTime t) {
+    UNUSED_PARAMETER(p);
+    assert(p == myPerson);
+    myAngle = angle;
+    myAngle = GeomHelper::fromNaviDegree(angle);
     /*
     std::cout << " MSPModel_Striping::PState::moveToXY"
         << " pos=" << pos
@@ -1683,16 +1703,34 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         << " routeOffset=" << routeOffset
         << " myRelX=" << myRelX << " myRelY=" << myRelY;
         */
-    myRelX = lanePos,
-    myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
     //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
-    UNUSED_PARAMETER(p);
-    UNUSED_PARAMETER(pos);
-    UNUSED_PARAMETER(lane);
-    UNUSED_PARAMETER(angle);
-    UNUSED_PARAMETER(routeOffset);
-    UNUSED_PARAMETER(edges);
-    UNUSED_PARAMETER(t);
+    if (lane != 0) {
+        myRemoteXYPos = Position::INVALID;
+        const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());
+        if (lane != sidewalk) {
+            MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSPModel::getModel());
+            assert(pm != 0);
+            // add a new active lane
+            pm->remove(this);
+            pm->add(this, lane);
+        }
+        if (edges.empty()) {
+            // map within route
+            myStage->setRouteIndex(myPerson, routeOffset);
+            if (lane->getEdge().isInternal()) {
+                myStage->moveToNextEdge(myPerson, t, &lane->getEdge());
+            }
+        } else {
+            // map to new edge
+        }
+        myLane = lane;
+        myRelX = lanePos;
+        myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
+    } else {
+        // map outside the network
+        myRemoteXYPos = pos;
+    }
+
 }
 
 

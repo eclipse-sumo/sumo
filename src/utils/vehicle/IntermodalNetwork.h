@@ -105,7 +105,7 @@ public:
         // build the pedestrian edges and the depart / arrival connectors with lookup tables
         bool haveSeenWalkingArea = false;
         for (const E* const edge : edges) {
-            if (edge->isInternal() || edge->isTazConnector()) {
+            if (edge->isTazConnector()) {
                 continue;
             }
             const L* lane = getSidewalk<E, L>(edge);
@@ -134,7 +134,7 @@ public:
 
         // build the walking connectors if there are no walking areas
         for (const E* const edge : edges) {
-            if (edge->isInternal() || edge->isTazConnector()) {
+            if (edge->isTazConnector()) {
                 continue;
             }
             if (haveSeenWalkingArea) {
@@ -158,7 +158,7 @@ public:
         // build the connections
         for (const E* const edge : edges) {
             const L* const sidewalk = getSidewalk<E, L>(edge);
-            if (edge->isInternal() || sidewalk == nullptr) {
+            if (sidewalk == nullptr) {
                 continue;
             }
             // find all incoming and outgoing lanes for the sidewalk and
@@ -287,7 +287,14 @@ public:
 
     /// @brief Returns the departing intermodal connector at the given split offset
     _IntermodalEdge* getDepartConnector(const E* e, const int splitIndex = 0) const {
-        return myDepartLookup.find(e)->second[splitIndex];
+        typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
+        if (it == myDepartLookup.end()) {
+            throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
+        }
+        if (splitIndex >= (int)it->second.size()) {
+            throw ProcessError("Split index " + toString(splitIndex) + " invalid for depart edge '" + e->getID() + "' .");
+        }
+        return it->second[splitIndex];
     }
 
     /// @brief Returns the arriving intermodal edge

@@ -66,6 +66,8 @@ message(STATUS "")
 
 set(ENABLED_FEATURES "${CMAKE_HOST_SYSTEM}")
 
+find_package(PythonInterp REQUIRED)
+
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
     # Detect if the "port" command is valid on this system; if so, return full path
@@ -227,13 +229,13 @@ endif ()
 set(commonvehiclelibs
         utils_emissions foreign_phemlight utils_vehicle ${commonlibs} ${FOX_LIBRARY})
 
+# set custom name and folder for ALL_BUILD and ZERO_CHECK in visual studio solutions
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
+
 add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
-
-# set custom name and folder for ALL_BUILD and ZERO_CHECK in visual studio solutions
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")

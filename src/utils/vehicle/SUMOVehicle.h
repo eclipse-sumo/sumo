@@ -299,6 +299,15 @@ public:
      */
     virtual int getContainerNumber() const = 0;
 
+    /// @brief removes a person or container
+    virtual void removeTransportable(MSTransportable* t) = 0;
+
+    /// @brief retrieve riding persons
+    virtual const std::vector<MSTransportable*>& getPersons() const = 0;
+
+    /// @brief retrieve riding containers
+    virtual const std::vector<MSTransportable*>& getContainers() const = 0;
+
     /** @brief Adds a stop
      *
      * The stop is put into the sorted list.

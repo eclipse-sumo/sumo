@@ -311,6 +311,14 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     }
 }
 
+void
+MSPerson::MSPersonStage_Walking::setRouteIndex(MSPerson* person, int routeOffset) {
+    assert(routeOffset >= 0);
+    assert(routeOffset < myRoute.size());
+    ((MSEdge*)getEdge())->removePerson(person);
+    myRouteStep = myRoute.begin() + routeOffset;
+    ((MSEdge*)getEdge())->addPerson(person);
+}
 
 double
 MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSPerson* person) const {
@@ -534,23 +542,23 @@ MSPerson::routeOutput(OutputDevice& os) const {
 
 
 void
-MSPerson::reroute(ConstMSEdgeVector& newEdges) {
-    double departPos = getEdgePos();
-    double arrivalPos = getArrivalPos();
-    double speed = getVehicleType().getMaxSpeed();
-    //std::cout << " from=" << from->getID() << " to=" << to->getID() << " newEdges=" << toString(newEdges) << "\n";
-    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges, 0, -1, speed, departPos, arrivalPos, 0);
-    if (getNumRemainingStages() == 1) {
-        // Do not remove the last stage (a waiting stage would be added otherwise)
-        appendStage(newStage);
-        //std::cout << "case a: remaining=" << p->getNumRemainingStages() << "\n";
-        removeStage(0);
-    } else {
-        removeStage(0);
-        appendStage(newStage);
-        //std::cout << "case b: remaining=" << p->getNumRemainingStages() << "\n";
+MSPerson::reroute(ConstMSEdgeVector& newEdges, int firstIndex, int nextIndex) {
+    assert(nextIndex > firstIndex);
+    //std::cout << " newEdges=" << toString(newEdges) << " firstIndex=" << firstIndex << " nextIndex=" << nextIndex << "\n";
+    MSPerson::MSPersonStage_Walking* newStage = new MSPerson::MSPersonStage_Walking(getID(), newEdges,
+            getNextStage(nextIndex - 1)->getDestinationStop(), -1,
+            -1,
+            getEdgePos(),
+            getNextStage(nextIndex - 1)->getArrivalPos(), 
+            0);
+    appendStage(newStage, nextIndex);
+    // remove stages in reverse order so that proceed will only be called at the last removal
+    for (int i = nextIndex - 1; i >= firstIndex; i--) {
+        //std::cout << " removeStage=" << i << "\n";
+        removeStage(i);
     }
 }
+
 
 MSPerson::Influencer&
 MSPerson::getInfluencer() {
@@ -604,6 +612,18 @@ MSPerson::Influencer::isRemoteAffected(SUMOTime t) const {
 
 void
 MSPerson::Influencer::postProcessRemoteControl(MSPerson* p) {
+    /*
+    std::cout << SIMTIME << " moveToXY person=" << p->getID()
+        << " xyPos=" << myRemoteXYPos
+        << " lane=" << Named::getIDSecure(myRemoteLane)
+        << " pos=" << myRemotePos
+        << " posLat=" << myRemotePosLat
+        << " angle=" << myRemoteAngle
+        << " eOf=" << myRemoteEdgeOffset
+        << " route=" << toString(myRemoteRoute)
+        << " aTime=" << time2string(myLastRemoteAccess)
+        << "\n";
+        */
     switch (p->getStageType(0)) {
         case MOVING_WITHOUT_VEHICLE: {
             MSPersonStage_Walking* s = dynamic_cast<MSPerson::MSPersonStage_Walking*>(p->getCurrentStage());

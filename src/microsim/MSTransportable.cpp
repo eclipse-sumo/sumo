@@ -174,7 +174,8 @@ MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, MSTransportable
 void
 MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os) const {
     if (myType != WAITING_FOR_DEPART) {
-        os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination().getID());
+        // lane index is arbitrary
+        os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination().getID() + "_0");
         if (myWaitingDuration >= 0) {
             os.writeAttr(SUMO_ATTR_DURATION, time2string(myWaitingDuration));
         }

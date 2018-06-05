@@ -262,6 +262,7 @@ enum SumoXMLTag {
     SUMO_TAG_CF_BKERNER,
     SUMO_TAG_CF_WIEDEMANN,
     SUMO_TAG_CF_TCI,
+    SUMO_TAG_CF_ACC,
     SUMO_TAG_CF_RAIL,
     /// @}
 
@@ -503,6 +504,15 @@ enum SumoXMLAttr {
     SUMO_ATTR_TMP3,
     SUMO_ATTR_TMP4,
     SUMO_ATTR_TMP5,
+    /// @}
+
+    // @name Train ACC model attributes
+    /// @{
+    SUMO_ATTR_SC_GAIN,
+    SUMO_ATTR_GCC_GAIN_SPEED,
+    SUMO_ATTR_GCC_GAIN_SPACE,
+    SUMO_ATTR_GC_GAIN_SPEED,
+    SUMO_ATTR_GC_GAIN_SPACE,
     /// @}
 
     /// @name Train model attributes

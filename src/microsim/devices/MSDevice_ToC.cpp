@@ -71,9 +71,9 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("ToC Device");
     insertDefaultAssignmentOptions("toc", "ToC Device", oc);
 
-    oc.doRegister("device.toc.manualType", new Option_String(""));
+    oc.doRegister("device.toc.manualType", new Option_String());
     oc.addDescription("device.toc.manualType", "ToC Device", "Vehicle type for manual driving regime.");
-    oc.doRegister("device.toc.automatedType", new Option_String(""));
+    oc.doRegister("device.toc.automatedType", new Option_String());
     oc.addDescription("device.toc.automatedType", "ToC Device", "Vehicle type for automated driving regime.");
     oc.doRegister("device.toc.responseTime", new Option_Float(DEFAULT_RESPONSE_TIME));
     oc.addDescription("device.toc.responseTime", "ToC Device", "Average response time needed by a driver to take back control.");
@@ -125,9 +125,9 @@ MSDevice_ToC::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::s
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
         }
     } else {
-        try {
+        if (oc.isSet("device.toc."+paramName)) {
             result = oc.getString("device.toc."+paramName);
-        } catch (...) {
+        } else {
             if (required) {
                 throw ProcessError("Missing parameter 'device.toc."+paramName+"' for vehicle '" + v.getID());
             } else {
@@ -158,9 +158,42 @@ MSDevice_ToC::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::st
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
         }
     } else {
-        try {
+        if (oc.isSet("device.toc."+paramName)) {
             result = oc.getFloat("device.toc."+paramName);
+        } else {
+            if (required) {
+                throw ProcessError("Missing parameter 'device.toc."+paramName+"' for vehicle '" + v.getID());
+            } else {
+                result = deflt;
+#ifdef DEBUG_TOC
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.toc."+paramName+"'. Using default of '" << result << "'\n";
+#endif
+            }
+        }
+    }
+    return result;
+}
+
+
+bool
+MSDevice_ToC::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required) {
+    bool result = deflt;
+    if (v.getParameter().knowsParameter("device.toc."+paramName)) {
+        try {
+            result = TplConvert::_2bool(v.getParameter().getParameter("device.toc."+paramName, "").c_str());
         } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.toc."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+        }
+    } else if (v.getVehicleType().getParameter().knowsParameter("device.toc."+paramName)) {
+        try {
+            result = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device.toc."+paramName, "").c_str());
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+        }
+    } else {
+        if (oc.isSet("device.toc."+paramName)) {
+            result = oc.getBool("device.toc."+paramName);
+        } else {
             if (required) {
                 throw ProcessError("Missing parameter 'device.toc."+paramName+"' for vehicle '" + v.getID());
             } else {
@@ -207,8 +240,7 @@ MSDevice_ToC::getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc) {
 
 bool
 MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
-    std::string useColorScheme = getStringParam(v, oc, "useColorScheme", "false", false);
-    return TplConvert::_2bool(useColorScheme.c_str());
+    return getBoolParam(v, oc, "useColorScheme", "false", false);
 }
 
 

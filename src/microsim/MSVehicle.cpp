@@ -107,7 +107,6 @@
 // static value definitions
 // ===========================================================================
 std::vector<MSLane*> MSVehicle::myEmptyLaneVector;
-std::vector<MSTransportable*> MSVehicle::myEmptyTransportableVector;
 
 
 // ===========================================================================
@@ -513,8 +512,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     }
     // ensure that the position is correct (i.e. when the lanePosition is ambiguous at corners)
     v->setRemoteState(myRemoteXYPos);
-    // inverse of GeomHelper::naviDegree
-    v->setAngle(M_PI / 2. - DEG2RAD(myRemoteAngle));
+    v->setAngle(GeomHelper::fromNaviDegree(myRemoteAngle));
 }
 
 
@@ -4307,36 +4305,6 @@ MSVehicle::addContainer(MSTransportable* container) {
         if (myStops.front().numExpectedContainer == 0) {
             myStops.front().duration = 0;
         }
-    }
-}
-
-
-void
-MSVehicle::removeTransportable(MSTransportable* t) {
-    const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
-    MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
-    if (device != 0) {
-        device->removeTransportable(t);
-    }
-}
-
-
-const std::vector<MSTransportable*>&
-MSVehicle::getPersons() const {
-    if (myPersonDevice == 0) {
-        return myEmptyTransportableVector;
-    } else {
-        return myPersonDevice->getTransportables();
-    }
-}
-
-
-const std::vector<MSTransportable*>&
-MSVehicle::getContainers() const {
-    if (myContainerDevice == 0) {
-        return myEmptyTransportableVector;
-    } else {
-        return myContainerDevice->getTransportables();
     }
 }
 

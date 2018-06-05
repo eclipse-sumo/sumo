@@ -40,6 +40,7 @@
 // ===========================================================================
 class OutputDevice;
 class SUMOVehicle;
+class MSTransportable;
 class OptionsCont;
 class SUMOSAXAttributes;
 
@@ -87,6 +88,10 @@ public:
 
     /// @brief return the name for this type of device
     virtual const std::string deviceName() const = 0;
+
+    /** @brief Determines whether a transportable should get a certain device
+     **/
+    static bool equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet); 
 
     /// @brief perform cleanup for all devices
     static void cleanupAll();

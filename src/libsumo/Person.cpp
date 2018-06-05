@@ -348,32 +348,52 @@ Person::removeStage(const std::string& personID, int nextStageIndex) {
 void
 Person::rerouteTraveltime(const std::string& personID) {
     MSPerson* p = getPerson(personID);
-    if (p->getNumRemainingStages() == 0 || p->getCurrentStageType() != MSTransportable::MOVING_WITHOUT_VEHICLE) {
-        throw TraCIException("Person '" + personID + "' is not currenlty walking.");
+    if (p->getNumRemainingStages() == 0) {
+        throw TraCIException("Person '" + personID + "' has no remaining stages.");
     }
     const MSEdge* from = p->getEdge();
     double  departPos = p->getEdgePos();
-    const MSEdge* to = p->getArrivalEdge();
-    double  arrivalPos = p->getArrivalPos();
+    // reroute to the start of the next-non-walking stage
+    int firstIndex;
+    if (p->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE) {
+        firstIndex = 0;
+    } else if (p->getCurrentStageType() == MSTransportable::WAITING) {
+        if (p->getNumRemainingStages() < 2 || p->getStageType(1) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+            throw TraCIException("Person '" + personID + "' cannot reroute after the current stop.");
+        }
+        firstIndex = 1;
+    } else {
+        throw TraCIException("Person '" + personID + "' cannot reroute in stage type '" + toString(p->getCurrentStageType()) + "'.");
+    }
+    int nextIndex = firstIndex + 1;
+    for (; nextIndex < p->getNumRemainingStages(); nextIndex++) {
+        if (p->getStageType(nextIndex) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+            break;
+        }
+    }
+    MSTransportable::Stage* destStage = p->getNextStage(nextIndex - 1);
+    const MSEdge* to = destStage->getEdges().back();
+    double  arrivalPos = destStage->getArrivalPos();
     double speed = p->getVehicleType().getMaxSpeed();
     ConstMSEdgeVector newEdges;
     MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, newEdges);
     if (newEdges.empty()) {
         throw TraCIException("Could not find new route for person '" + personID + "'.");
     }
-    ConstMSEdgeVector oldEdges = p->getEdges(0);
+    ConstMSEdgeVector oldEdges = p->getEdges(firstIndex);
     assert(!oldEdges.empty());
     if (oldEdges.front()->getFunction() != EDGEFUNC_NORMAL) {
         oldEdges.erase(oldEdges.begin());
     }
-    if (newEdges == oldEdges) {
+    //std::cout << " remainingStages=" << p->getNumRemainingStages() << " oldEdges=" << toString(oldEdges) << " newEdges=" << toString(newEdges) << " firstIndex=" << firstIndex << " nextIndex=" << nextIndex << "\n";
+    if (newEdges == oldEdges && (firstIndex + 1 == nextIndex)) {
         return;
     }
     if (newEdges.front() != from) {
         // @note: maybe this should be done automatically by the router
         newEdges.insert(newEdges.begin(), from);
     }
-    p->reroute(newEdges);
+    p->reroute(newEdges, firstIndex, nextIndex);
 }
 
 
@@ -458,7 +478,6 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         found = Helper::moveToXYMap_matchingRoutePosition(pos, edgeID,
                 ev, routeIndex,
                 bestDistance, &lane, lanePos, routeOffset);
-        // @note silenty ignoring mapping failure
     } else {
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,

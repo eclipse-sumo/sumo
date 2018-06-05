@@ -6,3 +6,6 @@ rerouteTraveltime_adaptEdgeWeight_varyWithTime
 
 # adapt vehicle specific custom edge weights
 rerouteTraveltime_adaptVehicleEdgeWeight
+
+# rerouting person
+person

@@ -1160,15 +1160,6 @@ public:
      */
     void addContainer(MSTransportable* container);
 
-    /// @brief removes a person or container
-    void removeTransportable(MSTransportable* t);
-
-    /// @brief retrieve riding persons
-    const std::vector<MSTransportable*>& getPersons() const;
-
-    /// @brief retrieve riding containers
-    const std::vector<MSTransportable*>& getContainers() const;
-
     /// @name Access to bool signals
     /// @{
 
@@ -1736,7 +1727,6 @@ protected:
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
 
     static std::vector<MSLane*> myEmptyLaneVector;
-    static std::vector<MSTransportable*> myEmptyTransportableVector;
 
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;

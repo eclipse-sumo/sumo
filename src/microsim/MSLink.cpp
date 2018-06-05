@@ -245,7 +245,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     std::cout << "   distances=" << toString(distances) << "\n";
 #endif
                     assert(distances.size() == l.size() + s.size());
-                    if (distances.back() > minDist) {
+                    if (distances.back() > minDist && distances[l.size() - 1] > minDist) {
                         // do a pairwise check between lane and sibling to make because we do not know which of them bends more
                         for (int j = (int)s.size() - 2; j >= 0; j--) {
                             const int i = j + (int)l.size();
