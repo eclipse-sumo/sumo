@@ -53,8 +53,10 @@ Warning: Value 'dummySpread' for attribute spreadType of edge isn't valid
 Warning: Value '' for attribute spreadType of edge isn't valid
 Warning: Setting new attribute spreadType 'center' into edge 'gneE2'
 Warning: Setting new attribute name 'my own name' into edge 'gneE2'
-Warning: Value 'dummyWidth' for attribute width of edge isn't valid
+Warning: Value 'default' for attribute width of edge isn't valid
+Warning: Value 'default' for attribute width of edge isn't valid
 Warning: Value '-2' for attribute width of edge isn't valid
+Warning: Value 'default' for attribute width of edge isn't valid
 Warning: Setting new attribute width '4' into lane 'gneE2_0'
 Warning: Setting new attribute width '4' into lane 'gneE2_1'
 Warning: Setting new attribute width '4' into edge 'gneE2'
@@ -84,6 +86,7 @@ Warning: Value '24' for attribute shapeEnd of edge isn't valid
 Warning: Value '14,15.5' for attribute shapeEnd of edge isn't valid
 Warning: Setting new attribute shapeEnd '' into edge 'gneE2'
 Warning: Setting new attribute shapeEnd '34,15.5' into edge 'gneE2'
+Warning: Value 'true' for attribute bidiRail of edge isn't valid
 Warning: Key F5 (Compute) pressed
 Warning: Found angle of 141.26 degrees at edge 'gneE2', segment 0
 Warning: Found sharp turn with radius 0.40 at the start of edge 'gneE2'.
@@ -114,9 +117,9 @@ Warning: Setting previous attribute endOffset '0.00' into edge 'gneE2'
 Warning: Setting previous attribute endOffset '0.00' into lane 'gneE2_1'
 Warning: Setting previous attribute endOffset '0.00' into lane 'gneE2_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute width 'default' into edge 'gneE2'
-Warning: Setting previous attribute width 'default' into lane 'gneE2_1'
-Warning: Setting previous attribute width 'default' into lane 'gneE2_0'
+Warning: Setting previous attribute width '' into edge 'gneE2'
+Warning: Setting previous attribute width '' into lane 'gneE2_1'
+Warning: Setting previous attribute width '' into lane 'gneE2_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute name '' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -141,7 +144,21 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute allow 'all' into edge 'gneE2'
 Warning: Setting previous attribute allow 'all' into lane 'gneE2_1'
 Warning: Setting previous attribute allow 'all' into lane 'gneE2_0'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing busStop 'busStop6' in GNEChange_Additional
+Warning: Removing busStop 'busStop5' in GNEChange_Additional
+Warning: Removing busStop 'busStop4' in GNEChange_Additional
+Warning: Removing busStop 'busStop3' in GNEChange_Additional
+Warning: Removing busStop 'busStop2' in GNEChange_Additional
+Warning: Removing busStop 'busStop1' in GNEChange_Additional
 Warning: Key F5 (Compute) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding busStop 'busStop1' in GNEChange_Additional
+Warning: Adding busStop 'busStop2' in GNEChange_Additional
+Warning: Adding busStop 'busStop3' in GNEChange_Additional
+Warning: Adding busStop 'busStop4' in GNEChange_Additional
+Warning: Adding busStop 'busStop5' in GNEChange_Additional
+Warning: Adding busStop 'busStop6' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute allow '' into lane 'gneE2_0'
 Warning: Setting new attribute allow '' into lane 'gneE2_1'

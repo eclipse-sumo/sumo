@@ -155,9 +155,6 @@ Warning: Value '-13' for attribute speed of edge isn't valid
 Warning: Setting new attribute speed '120.5' into lane 'correct_ID_0'
 Warning: Setting new attribute speed '120.5' into lane 'correct_ID_1'
 Warning: Setting new attribute speed '120.5' into edge 'correct_ID'
-Warning: Setting new attribute priority '-6' into edge 'correct_ID'
-Warning: Setting new attribute priority '1' into edge 'correct_ID'
-Warning: Setting new attribute priority '4' into edge 'correct_ID'
 Warning: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
 Warning: Deleting unreferenced connection 'fromgneE3_1tocorrect_ID_1' in removeConnection()
 Warning: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
@@ -191,6 +188,10 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Adding nullptr lane into edge
 Warning: Adding nullptr lane into edge
 Warning: Adding nullptr lane into edge
+Warning: Setting new attribute type 'dummyLanes' into edge 'correct_ID'
+Warning: Setting new attribute type '-6' into edge 'correct_ID'
+Warning: Setting new attribute type '-3.5' into edge 'correct_ID'
+Warning: Setting new attribute type '4' into edge 'correct_ID'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'fromcorrect_ID_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromcorrect_ID_3togneE3_1' in retrieveGNEConnection()
@@ -202,6 +203,14 @@ Warning: Created connection 'fromgneE9_0tocorrect_ID_0' in retrieveGNEConnection
 Warning: Created connection 'fromgneE9_0tocorrect_ID_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0tocorrect_ID_2' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0tocorrect_ID_3' in retrieveGNEConnection()
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type '-3.5' into edge 'correct_ID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type '-6' into edge 'correct_ID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type 'dummyLanes' into edge 'correct_ID'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute type '' into edge 'correct_ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing nullptr lane from edge
 Warning: Deleting unreferenced lane 'correct_ID_3' in removeLane()
@@ -249,12 +258,6 @@ Warning: Adding connection 'gneE3_0->gneE8_0' into edge 'gneE3'
 Warning: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Warning: Adding connection 'gneE3_1->correct_ID_1' into edge 'gneE3'
 Warning: Created connection 'fromgneE3_1tocorrect_ID_1' in retrieveGNEConnection()
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute priority '1' into edge 'correct_ID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute priority '-6' into edge 'correct_ID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute priority '1' into edge 'correct_ID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute speed '13.89' into edge 'correct_ID'
 Warning: Setting previous attribute speed '13.89' into lane 'correct_ID_1'
@@ -393,21 +396,7 @@ Warning: Adding connection 'gneE3_1->correct_ID_1' into edge 'gneE3'
 Warning: Created connection 'fromgneE3_1tocorrect_ID_1' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute id 'gneE2' into edge 'correct_ID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Removing busStop 'busStop6' in GNEChange_Additional
-Warning: Removing busStop 'busStop5' in GNEChange_Additional
-Warning: Removing busStop 'busStop4' in GNEChange_Additional
-Warning: Removing busStop 'busStop3' in GNEChange_Additional
-Warning: Removing busStop 'busStop2' in GNEChange_Additional
-Warning: Removing busStop 'busStop1' in GNEChange_Additional
 Warning: Key F5 (Compute) pressed
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Adding busStop 'busStop1' in GNEChange_Additional
-Warning: Adding busStop 'busStop2' in GNEChange_Additional
-Warning: Adding busStop 'busStop3' in GNEChange_Additional
-Warning: Adding busStop 'busStop4' in GNEChange_Additional
-Warning: Adding busStop 'busStop5' in GNEChange_Additional
-Warning: Adding busStop 'busStop6' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute id 'correct_ID' into edge 'gneE2'
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -507,12 +496,6 @@ Warning: Setting new attribute speed '120.5' into lane 'correct_ID_0'
 Warning: Setting new attribute speed '120.5' into lane 'correct_ID_1'
 Warning: Setting new attribute speed '120.5' into edge 'correct_ID'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute priority '-6' into edge 'correct_ID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute priority '1' into edge 'correct_ID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute priority '4' into edge 'correct_ID'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Removing connection 'gneE3_1->correct_ID_1' from edge 'gneE3'
 Warning: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
@@ -538,6 +521,14 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Adding nullptr lane into edge
 Warning: Adding nullptr lane into edge
 Warning: Adding nullptr lane into edge
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type 'dummyLanes' into edge 'correct_ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type '-6' into edge 'correct_ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type '-3.5' into edge 'correct_ID'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute type '4' into edge 'correct_ID'
 Warning: Additionals saved
 Warning: Created connection 'fromcorrect_ID_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
