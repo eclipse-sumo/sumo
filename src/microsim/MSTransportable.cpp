@@ -56,6 +56,44 @@ MSTransportable::Stage::getDestination() const {
 }
 
 
+const MSEdge*
+MSTransportable::Stage::getEdge() const {
+    return &myDestination;
+}
+
+
+const MSEdge*
+MSTransportable::Stage::getFromEdge() const {
+    return &myDestination;
+}
+
+
+double
+MSTransportable::Stage::getEdgePos(SUMOTime /* now */) const {
+    return myArrivalPos;
+}
+
+
+SUMOTime
+MSTransportable::Stage::getWaitingTime(SUMOTime /* now */) const {
+    return 0;
+}
+
+
+double
+MSTransportable::Stage::getSpeed() const {
+    return 0.;
+}
+
+
+ConstMSEdgeVector
+MSTransportable::Stage::getEdges() const {
+    ConstMSEdgeVector result;
+    result.push_back(&getDestination());
+    return result;
+}
+
+
 void
 MSTransportable::Stage::setDeparted(SUMOTime now) {
     if (myDeparted < 0) {
@@ -105,24 +143,6 @@ MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge& destination,
 
 
 MSTransportable::Stage_Waiting::~Stage_Waiting() {}
-
-
-const MSEdge*
-MSTransportable::Stage_Waiting::getEdge() const {
-    return &myDestination;
-}
-
-
-const MSEdge*
-MSTransportable::Stage_Waiting::getFromEdge() const {
-    return &myDestination;
-}
-
-
-double
-MSTransportable::Stage_Waiting::getEdgePos(SUMOTime /* now */) const {
-    return myArrivalPos;
-}
 
 
 SUMOTime
@@ -206,19 +226,6 @@ MSTransportable::Stage_Waiting::getWaitingTime(SUMOTime now) const {
     return now - myDeparted;
 }
 
-
-double
-MSTransportable::Stage_Waiting::getSpeed() const {
-    return 0;
-}
-
-
-ConstMSEdgeVector
-MSTransportable::Stage_Waiting::getEdges() const {
-    ConstMSEdgeVector result;
-    result.push_back(&getDestination());
-    return result;
-}
 
 void
 MSTransportable::Stage_Waiting::abort(MSTransportable* t) {

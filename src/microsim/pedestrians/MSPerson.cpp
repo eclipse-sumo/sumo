@@ -38,6 +38,7 @@
 #include "MSPerson.h"
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
@@ -336,16 +337,16 @@ MSPerson::MSPersonStage_Walking::getStageSummary() const {
 
 
 /* -------------------------------------------------------------------------
- * MSPerson::MSPersonStage_Driving - methods
- * ----------------------------------------------------------------------- */
+* MSPerson::MSPersonStage_Driving - methods
+* ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge& destination,
-        MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
-        const std::string& intendedVeh, SUMOTime intendedDepart) :
+    MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
+    const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage_Driving(destination, toStop,
-                                   SUMOVehicleParameter::interpretEdgePos(
-                                       arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination.getID()),
-                                   lines,
-                                   intendedVeh, intendedDepart) {
+    SUMOVehicleParameter::interpretEdgePos(
+    arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "person riding to " + destination.getID()),
+    lines,
+    intendedVeh, intendedDepart) {
 }
 
 
@@ -387,15 +388,15 @@ MSPerson::MSPersonStage_Driving::getStageDescription() const {
 
 std::string
 MSPerson::MSPersonStage_Driving::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ? 
-        " edge '" + getDestination().getID() + "'" : 
+    const std::string dest = (getDestinationStop() == 0 ?
+        " edge '" + getDestination().getID() + "'" :
         " stop '" + getDestinationStop()->getID() + "'" + (
-            getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
+        getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     const std::string intended = myIntendedVehicleID != "" ?
         " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
         "";
-    return isWaiting4Vehicle() ? 
-        "waiting for " + joinToString(myLines, ",") + intended + " then drive to " + dest: 
+    return isWaiting4Vehicle() ?
+        "waiting for " + joinToString(myLines, ",") + intended + " then drive to " + dest :
         "driving to " + dest;
 }
 
@@ -427,7 +428,7 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     if (myDestinationStop != 0) {
         os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
         if (myDestinationStop->getMyName() != "") {
-            comment =  " <!-- " + myDestinationStop->getMyName() + " -->";
+            comment = " <!-- " + myDestinationStop->getMyName() + " -->";
         }
     }
     os.writeAttr(SUMO_ATTR_LINES, myLines);
@@ -440,6 +441,56 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
     os.closeTag(comment);
 }
 
+
+/* -------------------------------------------------------------------------
+* MSPerson::MSPersonStage_Access - methods
+* ----------------------------------------------------------------------- */
+MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge& destination, MSStoppingPlace* toStop,
+    const double arrivalPos, const double dist) :
+    MSTransportable::Stage(destination, toStop, arrivalPos, ACCESS),
+    myDist(dist) {
+}
+
+
+MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
+
+
+void
+MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
+    ProceedCmd* cmd = new ProceedCmd(person);
+    net->getBeginOfTimestepEvents()->addEvent(cmd, now + TIME2STEPS(myDist / DEFAULT_PEDESTRIAN_SPEED));
+}
+
+
+std::string
+MSPerson::MSPersonStage_Access::getStageDescription() const {
+    return "access";
+}
+
+
+std::string
+MSPerson::MSPersonStage_Access::getStageSummary() const {
+    return "access to stop '" + getDestinationStop()->getID() + "'";
+}
+
+
+Position
+MSPerson::MSPersonStage_Access::getPosition(SUMOTime /* now */) const {
+    return myDestinationStop->getLane().geometryPositionAtOffset(myDestinationStop->getAccessPos(&myDestination));
+}
+
+
+double
+MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
+    return 0.;
+}
+
+
+SUMOTime
+MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
+    myPerson->proceed(MSNet::getInstance(), currentTime);
+    return 0;
+}
 
 
 /* -------------------------------------------------------------------------

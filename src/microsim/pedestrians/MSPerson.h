@@ -229,15 +229,15 @@ public:
     };
 
     /**
-     * A "real" stage performing the travelling by a transport system
-     * The given route will be chosen. The travel time is computed by the simulation
-     */
+    * A "real" stage performing the travelling by a transport system
+    * The given route will be chosen. The travel time is computed by the simulation
+    */
     class MSPersonStage_Driving : public MSTransportable::Stage_Driving {
     public:
         /// constructor
         MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
-                              const double arrivalPos, const std::vector<std::string>& lines,
-                              const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
+            const double arrivalPos, const std::vector<std::string>& lines,
+            const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
         /// destructor
         ~MSPersonStage_Driving();
@@ -250,18 +250,85 @@ public:
         std::string getStageSummary() const;
 
         /** @brief Called on writing tripinfo output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
         virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
 
         /** @brief Called on writing vehroute output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
         virtual void routeOutput(OutputDevice& os) const;
+    };
+
+    /**
+     * An intermediate stage performing the access from or to public transport as given
+     * by the access elements of the public transport stop. The travel time is computed by the simulation
+     */
+    class MSPersonStage_Access : public MSTransportable::Stage {
+    public:
+        /// constructor
+        MSPersonStage_Access(const MSEdge& destination, MSStoppingPlace* toStop,
+                             const double arrivalPos, const double dist);
+
+        /// destructor
+        ~MSPersonStage_Access();
+
+        /// proceeds to the next step
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+
+        /// @brief returns the stage description as a string
+        std::string getStageDescription() const;
+        std::string getStageSummary() const;
+
+        Position getPosition(SUMOTime now) const;
+
+        double getAngle(SUMOTime now) const;
+
+        /** @brief Called on writing tripinfo output
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const {};
+
+        /** @brief Called on writing vehroute output
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        void routeOutput(OutputDevice& os) const {};
+
+        /** @brief Called for writing the events output (begin of an action)
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        void beginEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const {};
+
+        /** @brief Called for writing the events output (end of an action)
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
+        void endEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const {};
+
+    private:
+        class ProceedCmd : public Command {
+        public:
+            ProceedCmd(MSTransportable* person) : myPerson(person) {}
+            ~ProceedCmd() {}
+            SUMOTime execute(SUMOTime currentTime);
+        private:
+            MSTransportable* myPerson;
+        private:
+            /// @brief Invalidated assignment operator.
+            ProceedCmd& operator=(const ProceedCmd&);
+        };
+
+    private:
+        double myDist;
     };
 
 public:

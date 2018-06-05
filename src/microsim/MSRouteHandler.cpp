@@ -1140,9 +1140,9 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             localArrivalPos = arrivalPos;
                         }
                         if (it->line == "") {
-                            const double depPos = myActivePlan->back()->getDestinationStop() != 0 ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
+                            const double depPos = myActivePlan->back()->getDestinationStop() != nullptr ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
                             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, localArrivalPos, departPosLat));
-                        } else if (vehicle != 0 && it->line == vehicle->getID()) {
+                        } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                             if (bs == nullptr && it + 1 != result.end()) {
                                 // we have no defined endpoint and are in the middle of the trip, drive as far as possible
                                 localArrivalPos = it->edges.back()->getLength();
@@ -1153,6 +1153,13 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             vehControl.addVehicle(vehPar->id, vehicle);
                             carUsed = true;
                         } else {
+                            MSStoppingPlace* lastStop = myActivePlan->back()->getDestinationStop();
+                            if (lastStop != nullptr) {
+                                const double accessDist = bs->getAccessDistance(&myActivePlan->back()->getDestination());
+                                if (accessDist > 0) {
+                                    myActivePlan->push_back(new MSPerson::MSPersonStage_Access(myActivePlan->back()->getDestination(), lastStop, localArrivalPos, accessDist));
+                                }
+                            }
                             myActivePlan->push_back(new MSPerson::MSPersonStage_Driving(
                                         *it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), it->intended, TIME2STEPS(it->depart)));
                         }

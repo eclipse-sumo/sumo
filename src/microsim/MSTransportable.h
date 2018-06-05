@@ -59,7 +59,8 @@ public:
         WAITING_FOR_DEPART = 0,
         WAITING = 1,
         MOVING_WITHOUT_VEHICLE = 2, // walking for persons, tranship for containers
-        DRIVING = 3
+        DRIVING = 3,
+        ACCESS = 4
     };
 
     /**
@@ -87,9 +88,9 @@ public:
         }
 
         /// Returns the current edge
-        virtual const MSEdge* getEdge() const = 0;
-        virtual const MSEdge* getFromEdge() const = 0;
-        virtual double getEdgePos(SUMOTime now) const = 0;
+        virtual const MSEdge* getEdge() const;
+        virtual const MSEdge* getFromEdge() const;
+        virtual double getEdgePos(SUMOTime now) const;
 
         /// returns the position of the transportable
         virtual Position getPosition(SUMOTime now) const = 0;
@@ -133,17 +134,17 @@ public:
 
         /// @brief Whether the transportable waits for a vehicle
         virtual SUMOVehicle* getVehicle() const {
-            return 0;
+            return nullptr;
         }
 
         /// @brief the time this transportable spent waiting
-        virtual SUMOTime getWaitingTime(SUMOTime now) const = 0;
+        virtual SUMOTime getWaitingTime(SUMOTime now) const;
 
         /// @brief the speed of the transportable
-        virtual double getSpeed() const = 0;
+        virtual double getSpeed() const;
 
         /// @brief the edges of the current stage
-        virtual ConstMSEdgeVector getEdges() const = 0;
+        virtual ConstMSEdgeVector getEdges() const;
 
         /// @brief get position on edge e at length at with orthogonal offset
         Position getEdgePosition(const MSEdge* e, double at, double offset) const;
@@ -221,10 +222,6 @@ public:
         /// abort this stage (TraCI)
         void abort(MSTransportable*);
 
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        double getEdgePos(SUMOTime now) const;
         SUMOTime getUntil() const;
 
         ///
@@ -233,10 +230,6 @@ public:
         double getAngle(SUMOTime now) const;
 
         SUMOTime getWaitingTime(SUMOTime now) const;
-
-        double getSpeed() const;
-
-        ConstMSEdgeVector getEdges() const;
 
         std::string getStageDescription() const {
             return "waiting (" + myActType + ")";
