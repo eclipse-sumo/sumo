@@ -594,7 +594,7 @@ long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain all item attributes vinculated with current tag
     auto itemAttrs = GNEAttributeCarrier::getAttributes(myCurrentTag);
-    int numberOfAttributes = itemAttrs.size();
+    int numberOfAttributes = (int)itemAttrs.size();
     // obtain tag property (only for improve code legibility)
     const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // add extra attribute if item can block movement
