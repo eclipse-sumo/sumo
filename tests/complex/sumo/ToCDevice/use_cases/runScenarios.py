@@ -48,15 +48,15 @@ def checkDir(dir, outputDirName):
             os.mkdir(outputdir)
         return outputdir
 
-def getInputFiles(OUT_DIR):
-    netfile = glob.glob(os.path.join(OUT_DIR, '*.net.xml'))[0]
-    closedLaneFile = glob.glob(os.path.join(OUT_DIR, 'close*.add.xml'))
-    shapefile = glob.glob(os.path.join(OUT_DIR, 'shape*.add.xml'))
-    viewfile = glob.glob(os.path.join(OUT_DIR, 'view*.add.xml'))[0]
+def getInputFiles(DATA_DIR):
+    netfile = glob.glob(os.path.join(DATA_DIR, '*.net.xml'))[0]
+    closedLaneFile = glob.glob(os.path.join(DATA_DIR, 'close*.add.xml'))
+    shapefile = glob.glob(os.path.join(DATA_DIR, 'shape*.add.xml'))
+    viewfile = glob.glob(os.path.join(DATA_DIR, 'view*.add.xml'))[0]
 
     return netfile, closedLaneFile, shapefile, viewfile
 
-def generateRouteFile(routefile,i,j,k,l,rList,code):
+def generateRouteFile(DATA_DIR,i,j,k,l,rList,code):
     routeID = rList[0]
     edges = rList[1]
     if len(edges.split(' ')) > 1:
@@ -65,18 +65,27 @@ def generateRouteFile(routefile,i,j,k,l,rList,code):
     else:
         start = edges
         end = edges
+    # define the route file
+    fname =  'input_routes_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '.rou.xml'
+    routefile = os.path.join(DATA_DIR, fname)
+    
+    # define the ssm output file
+    outputdir = checkDir(DATA_DIR, outputDirName)
+    fname = 'ssm_%s_%s_%s_%s.xml' %(i,j,k,l)
+    ssmfile = os.path.join(outputdir, fname)
+    
     fd = open(routefile, 'w')
     print("""<?xml version="1.0" encoding="UTF-8"?>
     <routes>
         <!-- vType definitions -->
-        <!-- vClass custom1 disallows vehicles to enter bus lane at construction site -->
+        <!-- vClass custom1 disallows vehicles to enter the bus lane at construction site -->
         <!-- default vClass is passenger -->
         <vType id="toc" sigma="0." speedFactor="1" vClass="custom1" emergencyDecel="9" />
         <vType id="automated" sigma="0." speedFactor="1" vClass="custom1" emergencyDecel="9" />
         <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" emergencyDecel="9" guiShape="passenger/van" driverState="true"/>
         <route id="%s" edges="%s"/>
         <!-- one  hour automated vehicle flow -->
-        <flow id="AVflowToC" type="toc" route="%s" begin="0" end="3600" number="150" color="red">
+        <flow id="AVflowToC" type="toc" route="%s" begin="0" end="3600" number="100" color="red">
             <param key="has.toc.device" value="true"/>
             <param key="device.toc.manualType" value="manual"/>
             <param key="device.toc.automatedType" value="toc"/>
@@ -85,23 +94,28 @@ def generateRouteFile(routefile,i,j,k,l,rList,code):
             <param key="device.toc.recoveryRate" value="%s"/>
             <param key="device.toc.mrmDecel" value="%s"/>
             <param key="device.toc.useColorScheme" value="true"/>
-        </flow>""" %(routeID, edges, routeID, i, j, k, l), file=fd)
+            <param key="has.ssm.device" value="true"/>
+            <param key="device.ssm.measures" value="TTC DRAC PET"/>
+            <param key="device.ssm.file" value="%s"/>
+        </flow>""" %(routeID, edges, routeID, i, j, k, l, ssmfile), file=fd)
     if code == "UC1_1":
-        print("""    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" number="150" color="white">
+        print("""    <flow id="AVflow" type="automated" route="%s" begin="0" end="3600" number="100" color="white">
                 <param key="has.toc.device" value="false"/>
                 <param key="device.toc.manualType" value="manual"/>
                 <param key="device.toc.automatedType" value="automated"/>
                 <param key="device.toc.useColorScheme" value="true"/>
             </flow>""" %(routeID), file=fd)
     print("""    <!-- one  hour manually driven vehicle flow -->
-        <flow id="LVflow" type="manual" from="%s" to="%s" begin="0" end="3600" number="200"/>
+        <flow id="LVflow" type="manual" from="%s" to="%s" begin="0" end="3600" number="300"/>
     </routes>""" %(start, end), file=fd)
     fd.close()
     
-def setAddOutputFiles(OUT_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFile, shapefile):
-    outputdir = checkDir(OUT_DIR, outputDirName)
+    return routefile
+    
+def setAddOutputFiles(DATA_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFile, shapefile):
+    outputdir = checkDir(DATA_DIR, outputDirName)
     #set set additional file
-    addfile = os.path.join(OUT_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" %(i,j,k,l,t))
+    addfile = os.path.join(DATA_DIR, "input_additional_%s_%s_%s_%s_%s.add.xml" %(i,j,k,l,t))
     edgeFile = os.path.join(outputDirName, "edges_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
     laneFile = os.path.join(outputDirName, "lanes_%s_%s_%s_%s_%s_%s.xml" %(freq, i, j, k, l, t))
     fd = open(addfile, 'w')
@@ -119,10 +133,18 @@ def setAddOutputFiles(OUT_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFil
         addfiles = addfiles + ',' + shapefile[0]
     
     # set the output files
-    fcdname = 'fcd_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '_' + str(t) + '.xml'
-    fcdfile = os.path.join(outputdir, fcdname)
+    for prefix in ['fcd', 'summary', 'lanechange', 'log']:
+        fname = prefix + '_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '_' + str(t) + '.xml'
+        if prefix == 'fcd':
+            fcdfile = os.path.join(outputdir, fname)
+        elif prefix == 'summary':
+            summaryfile = os.path.join(outputdir, fname)
+        elif prefix == 'lanechange':
+            lcfile = os.path.join(outputdir, fname)
+        else:
+            logfile = os.path.join(outputdir, fname)
 
-    return addfiles, fcdfile
+    return addfiles, fcdfile, summaryfile, lcfile, logfile
 
 def printParameterSet(i,j,k,l,t):
     print ("initialAwareness: %s" %(i))
@@ -145,25 +167,22 @@ if __name__ == "__main__":
         print ("output frequency: %s" %(options.frequency))
     # two use cases
     for code in options.codes:
-        OUT_DIR = os.path.join(ROOT_DIR, code)
+        DATA_DIR = os.path.join(ROOT_DIR, code)
         # get input files
-        netfile, closedLaneFile, shapefile, viewfile = getInputFiles(OUT_DIR)
+        netfile, closedLaneFile, shapefile, viewfile = getInputFiles(DATA_DIR)
         
         # generate the route file and the additional files for each scenario and run the simulation
         for i in initialAwareness:
             for j in responseTime:
                 for k in recoveryRate:
                     for l in mrmDecel:
-                        filename =  'input_routes_' + str(i) + '_' + str(j) + '_' + str(k) + '_' + str(l) + '.rou.xml'
-                        routefile = os.path.join(OUT_DIR, filename)
-
                         if routeMap[code]:
-                            generateRouteFile(routefile,i,j,k,l,routeMap[code],code)
+                            routefile = generateRouteFile(DATA_DIR,i,j,k,l,routeMap[code],code)
                         else:
                             print("Error: no route information exists.")
 
                         for t in timeUntilMRM:
-                            addfiles, fcdfile = setAddOutputFiles(OUT_DIR, outputDirName, options.frequency, i, j, k, l, t, closedLaneFile, shapefile)
+                            addfiles, fcdfile, summaryfile, lcfile, logfile = setAddOutputFiles(DATA_DIR, outputDirName, options.frequency, i, j, k, l, t, closedLaneFile, shapefile)
                             if options.verbose:
                                 printParameterSet(i,j,k,l,t)
 
@@ -173,12 +192,15 @@ if __name__ == "__main__":
                                 '--net-file', netfile,
                                 '--route-file', routefile,
                                 '--add-file', addfiles,
-                                '--output-file', fcdfile,
+                                '--fcd-file', fcdfile,
                                 '--view-file', viewfile,
                                 '--time-MRM', str(t),
                                 '--code', code,
+                                '--summary', summaryfile,
+                                '--lanechange-file', lcfile,
+                                '--error-log', logfile,
                                 '--nogui', "false",
-                                '--verbose',
+                                #'--verbose',
                                 ]
                             print("calling %s" % ' '.join(cmd))
                             subprocess.call(cmd, stdout=sys.stdout, stderr=sys.stderr)
