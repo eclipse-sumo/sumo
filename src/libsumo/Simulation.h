@@ -41,6 +41,9 @@ public:
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
 
+    /// @brief close simulation
+    static void close();
+
     /// @brief Advances by one step (or up to the given time)
     static void step(const SUMOTime time = 0);
 

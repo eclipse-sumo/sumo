@@ -22,7 +22,7 @@ def init(port):
     print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
 
 def close():
-    pass
+    simulation.close()
 
 def start(args):
     simulation.load(args[1:])
