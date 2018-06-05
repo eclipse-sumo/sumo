@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 13:05:55 2018 by SUMO netconvert Version 51a1a62
+<!-- generated on Tue Jun  5 16:12:40 2018 by Eclipse SUMO netconvert Version 4243c2a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,9 +47,9 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="-3895454719" name="Zur Nachtheide" lane="-93704176#0_1" startPos="1356.08" endPos="1371.08" friendlyPos="true"/>
     <busStop id="1865677162" name="Krankenhaus Köpenick/Südseite" lane="176156044#5_0" startPos="26.01" endPos="72.00" friendlyPos="true">
         <access lane="26284993#1_0" pos="46.45" friendlyPos="1"/>
-        <access lane="-10855364#0_0" pos="41.92" friendlyPos="1"/>
-        <access lane="10855364#0_0" pos="32.73" friendlyPos="1"/>
         <access lane="54048877#1_0" pos="29.23" friendlyPos="1"/>
+        <access lane="26284993#2_0" pos="0.00" friendlyPos="1"/>
+        <access lane="25816398#0_0" pos="18.93" friendlyPos="1"/>
     </busStop>
     <busStop id="1865677163" name="Pablo-Neruda-Straße" lane="176156044#6_0" startPos="46.28" endPos="65.52" friendlyPos="true">
         <access lane="10699438#2_0" pos="41.45" friendlyPos="1"/>
@@ -81,8 +81,8 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="-296614492" name="Müggelheimer Straße/Wendenschloßstraße" lane="-283006425#0_1" startPos="0.00" endPos="16.64" friendlyPos="true"/>
     <busStop id="296942988" name="Pablo-Neruda-Straße" lane="26708288#1_1" startPos="14.69" endPos="31.15" friendlyPos="true"/>
     <busStop id="3239724394" name="Anemonenstraße" lane="37850032#0_1" startPos="47.65" endPos="62.65" friendlyPos="true"/>
-    <busStop id="3239724399" name="Krankenhaus Köpenick/Südseite" lane="31343609#1_1" startPos="14.30" endPos="40.23" friendlyPos="true"/>
-    <busStop id="-3239724400" name="Krankenhaus Köpenick/Südseite" lane="-10855364#0_1" startPos="9.11" endPos="55.10" friendlyPos="true"/>
+    <busStop id="3239724399" name="Krankenhaus Köpenick/Südseite" lane="31343609#1_0" startPos="14.30" endPos="40.23" friendlyPos="true"/>
+    <busStop id="-3239724400" name="Krankenhaus Köpenick/Südseite" lane="-10855364#0_0" startPos="9.11" endPos="55.10" friendlyPos="true"/>
     <busStop id="3239724408" name="Müggelheimer Straße/Wendenschloßstraße" lane="32204601#3_1" startPos="47.00" endPos="58.69" friendlyPos="true"/>
     <busStop id="3257062964" name="Dregerhoffstraße" lane="319292807_0" startPos="1147.84" endPos="1172.84" friendlyPos="true">
         <access lane="-93704176#0_0" pos="1059.81" friendlyPos="1"/>
@@ -148,8 +148,8 @@ SPDX-License-Identifier: EPL-2.0
     </busStop>
     <busStop id="95948746" name="Krankenhaus Köpenick/Südseite" lane="10699464#3_0" startPos="317.37" endPos="352.44" friendlyPos="true">
         <access lane="26284993#1_0" pos="9.37" friendlyPos="1"/>
-        <access lane="-10855364#0_0" pos="4.63" friendlyPos="1"/>
-        <access lane="10855364#0_0" pos="70.32" friendlyPos="1"/>
-        <access lane="-10855364#1_0" pos="1.59" friendlyPos="1"/>
+        <access lane="214614422#1_0" pos="0.00" friendlyPos="1"/>
+        <access lane="214614422#0_0" pos="2.80" friendlyPos="1"/>
+        <access lane="214614422#2_0" pos="0.00" friendlyPos="1"/>
     </busStop>
 </additional>

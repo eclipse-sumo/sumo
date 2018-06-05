@@ -924,9 +924,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             // special sidewalk stuff
             if (key == "sidewalk") {
                 if (value == "no" || value == "none") {
-                    return;
-                }
-                if (value == "both") {
+                    myCurrentEdge->mySidewalkType = WAY_NONE;
+                } else if (value == "both") {
                     myCurrentEdge->mySidewalkType = WAY_BOTH;
                 } else if (value == "right") {
                     myCurrentEdge->mySidewalkType = WAY_FORWARD;
