@@ -665,6 +665,7 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, parentID, tag, SUMO_ATTR_LANE, abort);
     double pos = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, parentID, tag, SUMO_ATTR_POSITION, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, parentID, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, parentID, tag, SUMO_ATTR_LENGTH, abort);
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
@@ -682,7 +683,7 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
                 std::cout << "access fail, parentID='" << parentID << "' parentN=" << myParentElements.size() << " parent0=" << myParentElements[0].first << "\n";
                 WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
             } else {
-                bs->addAccess(lane, pos, friendlyPosition);
+                bs->addAccess(lane, pos, friendlyPosition, length);
             }
         }
     }

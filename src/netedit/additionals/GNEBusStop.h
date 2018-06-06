@@ -47,12 +47,13 @@ public:
     /// XXX this is a temporary measure. Instead of a struct, GNEAccess
     // must be implemented (#4018)
     struct Access {
-        Access(GNELane* _lane, double _pos, bool _friendlyPos):
-            lane(_lane), pos(_pos), friendlyPos(_friendlyPos) {}
+        Access(GNELane* _lane, double _pos, bool _friendlyPos, double _length):
+            lane(_lane), pos(_pos), friendlyPos(_friendlyPos), length(_length) {}
 
         GNELane* lane;
         double pos;
         bool friendlyPos;
+        double length;
     };
 
     /**@brief Constructor
@@ -118,7 +119,7 @@ public:
     /// @}
 
     /// @brief add acces to this busStop
-    void addAccess(GNELane* lane, double pos, bool friendlyPos);
+    void addAccess(GNELane* lane, double pos, bool friendlyPos, double length);
 
 protected:
     /// @brief The list of lines that are assigned to this stop
