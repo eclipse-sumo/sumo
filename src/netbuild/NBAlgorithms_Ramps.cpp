@@ -533,15 +533,22 @@ NBRampsComputer::hasWrongMode(NBEdge* edge) {
 void 
 NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, bool onRamp) {
     PositionVector p = potRamp->getGeometry();
-    int firstIndex = 0; // MAX2(0, MIN2(potRamp->getNumLanes(), first->getNumLanes()) - 1);
-    PositionVector l = first->getLaneShape(firstIndex);
     double offset = 0;
+    int firstIndex = MAX2(0, MIN2(potRamp->getNumLanes(), first->getNumLanes()) - 1);
     if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-        offset = -first->getLaneWidth(0) / 2;
+        offset = -first->getLaneWidth(firstIndex) / 2;
+    } else {
+        if (firstIndex % 2 == 1) {
+            // even number of lanes
+            offset = -first->getLaneWidth(firstIndex / 2) / 2;
+        }
+        firstIndex /= 2; // integer division
     }
+    PositionVector l = first->getLaneShape(firstIndex);
     try {
         l.move2side(offset);
     } catch (InvalidArgument& e) {}
+    //std::cout << " ramp=" << potRamp->getID() << " firstIndex=" << firstIndex << " offset=" << offset << " l=" << l << "\n";
 
     if (onRamp) {
         p[0] = l[-1];
