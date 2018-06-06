@@ -25,6 +25,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/vehicle/IntermodalRouter.h>
@@ -68,6 +69,15 @@ Simulation::step(const SUMOTime time) {
             MSNet::getInstance()->simulationStep();
         }
     }
+}
+
+
+void
+Simulation::close() {
+	MSNet::getInstance()->closeSimulation(0);
+    delete MSNet::getInstance();
+	XMLSubSys::close();
+    SystemFrame::close();
 }
 
 
