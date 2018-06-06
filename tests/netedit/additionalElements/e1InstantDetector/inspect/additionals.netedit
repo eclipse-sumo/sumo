@@ -1,0 +1,4 @@
+<additionals>
+    <instantInductionLoop id="correctID" lane="gneE2_0" pos="20.00" freq="120.00" file="myOwnOutput.txt" vTypes="private passenger taxi bus" friendlyPos="1"/>
+    <instantInductionLoop id="instantInductionLoop_gneE2_1_1" lane="gneE2_1" pos="37.00" freq="900.00" file="instantInductionLoop_gneE2_1_1.xml"/>
+</additionals>
