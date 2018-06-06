@@ -314,8 +314,8 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
         const std::string& stopEdgeID = ptStop.second->getEdgeId();
         NBEdge* stopEdge = cont.getByID(stopEdgeID);
         //std::cout << "findAccessEdgesForRailStops edge=" << stopEdgeID << " exists=" << (stopEdge != 0) << "\n";
-        //if (stopEdge != 0 && (stopEdge->getPermissions() & SVC_PEDESTRIAN) == 0) {
-        if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
+        if (stopEdge != 0 && (stopEdge->getPermissions() & SVC_PEDESTRIAN) == 0) {
+        //if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
             std::set<std::string> ids;
             Named::StoringVisitor visitor(ids);
             const Position& pos = ptStop.second->getPosition();
