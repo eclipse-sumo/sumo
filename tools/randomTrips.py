@@ -157,12 +157,14 @@ class RandomEdgeGenerator:
     def write_weights(self, fname):
         # normalize to [0,100]
         normalizer = 100.0 / max(1, max(map(self.weight_fun, self.net._edges)))
+        weights = [(self.weight_fun(e) * normalizer, e.getID()) for e in self.net.getEdges()]
+        weights.sort(reverse=True)
         with open(fname, 'w+') as f:
             f.write('<edgedata>\n')
             f.write('    <interval begin="0" end="10">\n')
-            for i, edge in enumerate(self.net._edges):
+            for weight, edgeID in weights:
                 f.write('        <edge id="%s" value="%0.2f"/>\n' %
-                        (edge.getID(), self.weight_fun(edge) * normalizer))
+                        (edgeID, weight))
             f.write('    </interval>\n')
             f.write('</edgedata>\n')
 
