@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 09:35:21 2018 by Eclipse SUMO netconvert Version ba01b12
+<!-- generated on Wed Jun  6 09:08:10 2018 by Eclipse SUMO netconvert Version e99930d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -146,6 +146,9 @@
 
         <!-- The maximum roud accesses registered per rail stops -->
         <osm.stop-output.footway-max-accesses value="5" type="INT"/>
+
+        <!-- The walking length of the access is computed as air-line distance multiplied by FLOAT -->
+        <osm.stop-output.footway-access-factor value="1.5" type="FLOAT"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>

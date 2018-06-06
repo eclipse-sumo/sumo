@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version a355048
+Eclipse SUMO netconvert Version e99930d
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -82,6 +82,9 @@ Output Options:
                                          stops
   --osm.stop-output.footway-max-accesses INT  The maximum roud accesses
                                          registered per rail stops
+  --osm.stop-output.footway-access-factor FLOAT  The walking length of the
+                                         access is computed as air-line distance
+                                         multiplied by FLOAT
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees
