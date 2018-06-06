@@ -257,8 +257,14 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     }
     // patch ramp geometry
     PositionVector p = potRamp->getGeometry();
+    PositionVector l = first->getLaneShape(0);
+    if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+        try {
+            l.move2side(-first->getLaneWidth(0) / 2);
+        } catch (InvalidArgument& e) {}
+    }
     p.pop_back();
-    p.push_back(first->getLaneShape(0)[0]);
+    p.push_back(l[0]);
     potRamp->setGeometry(p);
 
 }
@@ -352,7 +358,13 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     }
     // patch ramp geometry
     PositionVector p = potRamp->getGeometry();
-    p[0] = first->getLaneShape(0)[-1];
+    PositionVector l = first->getLaneShape(0);
+    if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+        try {
+            l.move2side(-first->getLaneWidth(0) / 2);
+        } catch (InvalidArgument& e) {}
+    }
+    p[0] = l[-1];
     potRamp->setGeometry(p);
 }
 
