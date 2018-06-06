@@ -43,19 +43,6 @@
 class GNEBusStop : public GNEStoppingPlace {
 
 public:
-
-    /// XXX this is a temporary measure. Instead of a struct, GNEAccess
-    // must be implemented (#4018)
-    struct Access {
-        Access(GNELane* _lane, double _pos, bool _friendlyPos, double _length):
-            lane(_lane), pos(_pos), friendlyPos(_friendlyPos), length(_length) {}
-
-        GNELane* lane;
-        double pos;
-        bool friendlyPos;
-        double length;
-    };
-
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
@@ -124,9 +111,6 @@ public:
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
-
-    /// @brief vector with the access to this busStop
-    std::vector<Access> myAccess;
 
 private:
     /// @brief set attribute after validation

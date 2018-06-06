@@ -105,6 +105,7 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myLines.size() > 0) {
         writeAttribute(device, SUMO_ATTR_LINES);
     }
+    /*
     if (!myAccess.empty()) {
         for (auto a : myAccess) {
             device.openTag(SUMO_TAG_ACCESS);
@@ -117,6 +118,7 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
             device.closeTag();
         }
     }
+    */
     // Close tag
     device.closeTag();
 }
@@ -384,7 +386,9 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEBusStop::addAccess(GNELane* lane, double pos, bool friendlyPos, double length) {
+    /*
     myAccess.push_back(Access(lane, pos, friendlyPos, length));
+    */
 }
 
 /****************************************************************************/

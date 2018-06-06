@@ -9,28 +9,119 @@
 /****************************************************************************/
 /// @file    GNEAccess.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 2015
+/// @date    Jun 2018
 /// @version $Id$
 ///
-// A class for visualizing busStop geometry (adapted from GUILaneWrapper)
+//
 /****************************************************************************/
 #ifndef GNEAccess_h
 #define GNEAccess_h
 
+
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <utils/geom/PositionVector.h>
-#include <netedit/GNEAttributeCarrier.h>
+#include "GNEAdditional.h"
 
-#include "GNEStoppingPlace.h"
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class GNEAccess
+ * class for busStop acces
+ */
+class GNEAccess : public GNEAdditional {
+
+public:
+    /**@brief Constructor
+     * @param[in] id The storage of gl-ids to get the one for this lane representation from
+     * @param[in] lane Lane of this Access belongs
+     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] pos position of the Access on the lane
+     * @param[in] length The length of the Access in meters.
+     * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] block movement enable or disable additional movement
+     */
+    GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, bool friendlyPos, bool blockMovement);
+
+    /// @brief Destructor
+    ~GNEAccess();
+
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
+    /// @brief get length of Access
+    double getLength() const;
+
+    /// @brief check if Position of Access is fixed
+    bool isAccessPositionFixed() const;
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
+
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their correspond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value asociated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+    /// @}
+
+protected:
+    /// @brief lane in which this Access is placed
+    GNELane* myLane;
+
+    /// @brief position over lane
+    double myPositionOverLane;
+
+    /// @brief flag to check if friendly position is enabled
+    bool myFriendlyPosition;
+
+    /// @brief Acces lenght
+    double myLength;
+
+private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief Invalidated copy constructor.
+    GNEAccess(const GNEAccess&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEAccess& operator=(const GNEAccess&) = delete;
+};
 
 #endif
+/****************************************************************************/
