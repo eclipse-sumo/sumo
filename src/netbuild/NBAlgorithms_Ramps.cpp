@@ -255,7 +255,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             throw ProcessError("Could not set connection!");
         }
     }
-    patchRampGeometry(potRamp, first, false);
+    patchRampGeometry(potRamp, first, potHighway, false);
 }
 
 
@@ -345,7 +345,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             throw ProcessError("Could not set connection!");
         }
     }
-    patchRampGeometry(potRamp, first, true);
+    patchRampGeometry(potRamp, first, potHighway, true);
 }
 
 
@@ -531,7 +531,20 @@ NBRampsComputer::hasWrongMode(NBEdge* edge) {
 }
 
 void 
-NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, bool onRamp) {
+NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp) {
+    // geometry of first and highway should allign on the left side
+    if (first->getLaneSpreadFunction() == LANESPREAD_CENTER && first->hasDefaultGeometryEndpoints()) {
+        const NBNode* n = onRamp ? potHighway->getToNode() : potHighway->getFromNode();
+        if (potHighway->hasDefaultGeometryEndpointAtNode(n)) {
+            PositionVector p2 = first->getGeometry();
+            try {
+                p2.move2side((first->getNumLanes() - potHighway->getNumLanes()) * first->getLaneWidth(0) * 0.5);
+                first->setGeometry(p2);
+            } catch (InvalidArgument& e) {}
+        }
+    }
+
+    // ramp should merge smoothly with first
     PositionVector p = potRamp->getGeometry();
     double offset = 0;
     int firstIndex = MAX2(0, MIN2(potRamp->getNumLanes(), first->getNumLanes()) - 1);
@@ -557,6 +570,7 @@ NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, bool onRamp) 
         p.push_back(l[0]);
     }
     potRamp->setGeometry(p);
+
 }
 
 /****************************************************************************/

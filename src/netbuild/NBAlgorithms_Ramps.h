@@ -136,7 +136,7 @@ private:
     static bool hasWrongMode(NBEdge* edge);
 
     /// @brief shift ramp geometry to merge smoothly with the motorway
-    static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, bool onRamp);
+    static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp);
 };
 
 
