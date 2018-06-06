@@ -686,10 +686,12 @@ void
 MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
     for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
         MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(*it));
-        assert(v != 0);
-        assert(v->getSegment() == this);
-        myCarQues[queIdx].push_back(v);
-        myOccupancy += v->getVehicleType().getLengthWithGap();
+        // vehicle could be removed due to options
+        if (v != 0) {
+            assert(v->getSegment() == this);
+            myCarQues[queIdx].push_back(v);
+            myOccupancy += v->getVehicleType().getLengthWithGap();
+        }
     }
     if (myCarQues[queIdx].size() != 0) {
         // add the last vehicle of this queue
