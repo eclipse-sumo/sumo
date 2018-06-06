@@ -255,18 +255,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             throw ProcessError("Could not set connection!");
         }
     }
-    // patch ramp geometry
-    PositionVector p = potRamp->getGeometry();
-    PositionVector l = first->getLaneShape(0);
-    if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-        try {
-            l.move2side(-first->getLaneWidth(0) / 2);
-        } catch (InvalidArgument& e) {}
-    }
-    p.pop_back();
-    p.push_back(l[0]);
-    potRamp->setGeometry(p);
-
+    patchRampGeometry(potRamp, first, false);
 }
 
 
@@ -356,16 +345,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             throw ProcessError("Could not set connection!");
         }
     }
-    // patch ramp geometry
-    PositionVector p = potRamp->getGeometry();
-    PositionVector l = first->getLaneShape(0);
-    if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
-        try {
-            l.move2side(-first->getLaneWidth(0) / 2);
-        } catch (InvalidArgument& e) {}
-    }
-    p[0] = l[-1];
-    potRamp->setGeometry(p);
+    patchRampGeometry(potRamp, first, true);
 }
 
 
@@ -548,6 +528,28 @@ NBRampsComputer::hasWrongMode(NBEdge* edge) {
         }
     }
     return false;
+}
+
+void 
+NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, bool onRamp) {
+    PositionVector p = potRamp->getGeometry();
+    int firstIndex = 0; // MAX2(0, MIN2(potRamp->getNumLanes(), first->getNumLanes()) - 1);
+    PositionVector l = first->getLaneShape(firstIndex);
+    double offset = 0;
+    if (potRamp->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+        offset = -first->getLaneWidth(0) / 2;
+    }
+    try {
+        l.move2side(offset);
+    } catch (InvalidArgument& e) {}
+
+    if (onRamp) {
+        p[0] = l[-1];
+    } else {
+        p.pop_back();
+        p.push_back(l[0]);
+    }
+    potRamp->setGeometry(p);
 }
 
 /****************************************************************************/

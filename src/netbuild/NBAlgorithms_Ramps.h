@@ -134,6 +134,9 @@ private:
 
     /// @brief whether the edge has a mode that does not indicate a ramp edge
     static bool hasWrongMode(NBEdge* edge);
+
+    /// @brief shift ramp geometry to merge smoothly with the motorway
+    static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, bool onRamp);
 };
 
 
