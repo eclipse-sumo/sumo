@@ -6,6 +6,10 @@ Warning: Adding busStop 'busStop_7_1_3' in GNEChange_Additional
 Warning: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
 Warning: Current Viewport values: 50.00, 50.00, 100.00. Zoom = '120.00'
 Warning: Key F5 (Compute) pressed
+Warning: Created connection 'from1_2to5_2' in retrieveGNEConnection()
+Warning: Created connection 'from2_2to6_2' in retrieveGNEConnection()
+Warning: Created connection 'from3_2to7_2' in retrieveGNEConnection()
+Warning: Created connection 'from4_2to8_2' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_2to2_2' in retrieveGNEConnection()
@@ -72,6 +76,8 @@ Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute from 'B' into edge '3'
+Warning: Removing connection '2_2->6_2' from edge '2'
+Warning: Deleting unreferenced connection 'from2_2to6_2' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -80,6 +86,7 @@ Warning: Setting new attribute shapeStart '50.00,100.00' into edge '3'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from2_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_2to3_2' in retrieveGNEConnection()
+Warning: Created connection 'from2_2to6_2' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_2to2_2' in retrieveGNEConnection()
@@ -122,6 +129,8 @@ Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute to 'A' into edge '7'
+Warning: Removing connection '1_2->5_2' from edge '1'
+Warning: Deleting unreferenced connection 'from1_2to5_2' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -130,6 +139,7 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into e
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting new attribute shapeEnd '50.00,0.00' into edge '7'
 Warning: Key F5 (Compute) pressed
+Warning: Created connection 'from1_2to5_2' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_2to2_2' in retrieveGNEConnection()
@@ -163,6 +173,8 @@ Warning: Deleting unreferenced connection 'from5_1to4_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute to 'B' into edge '8'
+Warning: Removing connection '2_2->6_2' from edge '2'
+Warning: Deleting unreferenced connection 'from2_2to6_2' in removeConnection()
 Warning: Removing connection '2_2->3_2' from edge '2'
 Warning: Deleting unreferenced connection 'from2_2to3_2' in removeConnection()
 Warning: Removing connection '2_1->3_1' from edge '2'
@@ -177,6 +189,7 @@ Warning: Setting new attribute shapeEnd '50.00,100.00' into edge '8'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from2_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_2to3_2' in retrieveGNEConnection()
+Warning: Created connection 'from2_2to6_2' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_2to2_2' in retrieveGNEConnection()
@@ -202,6 +215,8 @@ Warning: Deleting unreferenced connection 'from5_1to4_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute from 'A' into edge '4'
+Warning: Removing connection '1_2->5_2' from edge '1'
+Warning: Deleting unreferenced connection 'from1_2to5_2' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Removing connection '7_2->5_2' from edge '7'
 Warning: Deleting unreferenced connection 'from7_2to5_2' in removeConnection()
@@ -216,6 +231,7 @@ Warning: Setting new attribute shapeStart '50.00,0.00' into edge '4'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from1_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from1_2to4_2' in retrieveGNEConnection()
+Warning: Created connection 'from1_2to5_2' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_2to2_2' in retrieveGNEConnection()
 Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
@@ -233,6 +249,7 @@ Warning: Deleting unreferenced connection 'from7_2to5_2' in clearGNEConnections(
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Deleting unreferenced connection 'from1_1to4_1' in clearGNEConnections()
 Warning: Deleting unreferenced connection 'from1_2to4_2' in clearGNEConnections()
+Warning: Deleting unreferenced connection 'from1_2to5_2' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Adding connection '7_1->5_1' into edge '7'
@@ -240,6 +257,8 @@ Warning: Created connection 'from7_1to5_1' in retrieveGNEConnection()
 Warning: Adding connection '7_2->5_2' into edge '7'
 Warning: Created connection 'from7_2to5_2' in retrieveGNEConnection()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Adding connection '1_2->5_2' into edge '1'
+Warning: Created connection 'from1_2to5_2' in retrieveGNEConnection()
 Warning: Setting previous attribute from 'Center' into edge '4'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -270,6 +289,7 @@ Warning: Deleting unreferenced connection 'from8_2to6_2' in clearGNEConnections(
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Deleting unreferenced connection 'from2_1to3_1' in clearGNEConnections()
 Warning: Deleting unreferenced connection 'from2_2to3_2' in clearGNEConnections()
+Warning: Deleting unreferenced connection 'from2_2to6_2' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -277,6 +297,8 @@ Warning: Adding connection '2_1->3_1' into edge '2'
 Warning: Created connection 'from2_1to3_1' in retrieveGNEConnection()
 Warning: Adding connection '2_2->3_2' into edge '2'
 Warning: Created connection 'from2_2to3_2' in retrieveGNEConnection()
+Warning: Adding connection '2_2->6_2' into edge '2'
+Warning: Created connection 'from2_2to6_2' in retrieveGNEConnection()
 Warning: Setting previous attribute to 'Center' into edge '8'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
@@ -313,9 +335,12 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Deleting unreferenced connection 'from7_1to5_1' in clearGNEConnections()
 Warning: Deleting unreferenced connection 'from7_2to5_2' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Warning: Deleting unreferenced connection 'from1_2to5_2' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
+Warning: Adding connection '1_2->5_2' into edge '1'
+Warning: Created connection 'from1_2to5_2' in retrieveGNEConnection()
 Warning: Setting previous attribute to 'Center' into edge '7'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -360,8 +385,11 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' i
 Warning: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Deleting unreferenced connection 'from2_1to3_1' in clearGNEConnections()
 Warning: Deleting unreferenced connection 'from2_2to3_2' in clearGNEConnections()
+Warning: Deleting unreferenced connection 'from2_2to6_2' in clearGNEConnections()
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
+Warning: Adding connection '2_2->6_2' into edge '2'
+Warning: Created connection 'from2_2to6_2' in retrieveGNEConnection()
 Warning: Setting previous attribute from 'Center' into edge '3'
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
 Warning: Deleting unreferenced connection 'from5_1to4_1' in clearGNEConnections()
@@ -456,6 +484,8 @@ Warning: Deleting unreferenced connection 'from7_1to1_1' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute from 'B' into edge '3'
+Warning: Removing connection '2_2->6_2' from edge '2'
+Warning: Deleting unreferenced connection 'from2_2to6_2' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -480,6 +510,8 @@ Warning: Removing connection '7_1->1_1' from edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute to 'A' into edge '7'
+Warning: Removing connection '1_2->5_2' from edge '1'
+Warning: Deleting unreferenced connection 'from1_2to5_2' in removeConnection()
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -503,6 +535,7 @@ Warning: Removing connection '5_1->4_1' from edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute to 'B' into edge '8'
+Warning: Removing connection '2_2->6_2' from edge '2'
 Warning: Removing connection '2_2->3_2' from edge '2'
 Warning: Removing connection '2_1->3_1' from edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
@@ -523,6 +556,7 @@ Warning: Removing connection '5_1->4_1' from edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Warning: Setting new attribute from 'A' into edge '4'
+Warning: Removing connection '1_2->5_2' from edge '1'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Warning: Removing connection '7_2->5_2' from edge '7'
 Warning: Removing connection '7_1->5_1' from edge '7'
@@ -570,10 +604,12 @@ Warning: Deleting unreferenced edge '3' in GNENet destructor
 Warning: Deleting unreferenced lane '3_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '3_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane '3_2' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from3_2to7_2' in GNEEdge destructor
 Warning: Deleting unreferenced edge '4' in GNENet destructor
 Warning: Deleting unreferenced lane '4_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '4_1' in GNEEdge destructor
 Warning: Deleting unreferenced lane '4_2' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from4_2to8_2' in GNEEdge destructor
 Warning: Deleting unreferenced edge '5' in GNENet destructor
 Warning: Deleting unreferenced lane '5_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '5_1' in GNEEdge destructor

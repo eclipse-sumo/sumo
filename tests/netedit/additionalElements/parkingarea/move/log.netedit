@@ -40,8 +40,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute endPos '18.00' into parkingArea 'parkingArea_gneE0_0_0'
 Warning: Setting previous attribute startPos '8.00' into parkingArea 'parkingArea_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute endPos '27.00' into parkingArea 'parkingArea_gneE0_0_0'
-Warning: Setting previous attribute startPos '17.00' into parkingArea 'parkingArea_gneE0_0_0'
+Warning: Setting previous attribute endPos '22.00' into parkingArea 'parkingArea_gneE0_0_0'
+Warning: Setting previous attribute startPos '12.00' into parkingArea 'parkingArea_gneE0_0_0'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed

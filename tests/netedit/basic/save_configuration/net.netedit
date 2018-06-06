@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.05.2018 12:14:47 by Eclipse SUMO netedit Version UNKNOWN
+<!-- generated on 06.06.2018 08:50:03 by Eclipse SUMO netedit Version 38586a3af4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May121433.2812/netedit.gui/basic/save_configuration\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_05Jun141810.2848/netedit.gui/basic/save_configuration\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May121433.2812/netedit.gui/basic/save_configuration\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May121433.2812/netedit.gui/basic/save_configuration\shapes.xml"/>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May121433.2812/netedit.gui/basic/save_configuration\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_05Jun141810.2848/netedit.gui/basic/save_configuration\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_05Jun141810.2848/netedit.gui/basic/save_configuration\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_05Jun141810.2848/netedit.gui/basic/save_configuration\net.net.xml"/>
         <plain-output-prefix value=""/>
     </output>
 
@@ -25,7 +25,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May121433.2812/netedit.gui/basic/save_configuration\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_05Jun141810.2848/netedit.gui/basic/save_configuration\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02May121433.2812/netedit.gui/basic/save_configuration\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_05Jun141810.2848/netedit.gui/basic/save_configuration\log.txt"/>
     </report>
 
 </configuration>
@@ -197,15 +197,11 @@
     </edge>
 
     <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="28" state="gGGggrrrrrgGGggrrrrrGG"/>
+        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
-        <phase duration="3"  state="yyyggrrrrryyyggrrrrrrr"/>
-        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrrrr"/>
-        <phase duration="3"  state="rrryyrrrrrrrryyrrrrrrr"/>
-        <phase duration="33" state="rrrrrGGGggrrrrrGGGggrr"/>
-        <phase duration="3"  state="rrrrryyyggrrrrryyyggrr"/>
-        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGGrr"/>
-        <phase duration="3"  state="rrrrrrrryyrrrrrrrryyrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
     </tlLogic>
 
     <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">

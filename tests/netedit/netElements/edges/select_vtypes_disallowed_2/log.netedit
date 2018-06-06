@@ -4,8 +4,10 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
+Warning: Removing connection '-gneE17_0->gneE17_0' from edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ18'
+Warning: Removing connection 'gneE17_0->-gneE17_0' from edge 'gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
 Warning: Removing edge 'gneE17' from net
@@ -19,8 +21,10 @@ Warning: Removing edge '-gneE17' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE16'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
+Warning: Removing connection 'gneE16_0->-gneE16_0' from edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ20'
+Warning: Removing connection '-gneE16_0->gneE16_0' from edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Warning: Removing edge '-gneE16' from net
@@ -34,8 +38,10 @@ Warning: Removing edge 'gneE16' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE23'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
+Warning: Removing connection 'gneE23_0->-gneE23_0' from edge 'gneE23'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE23'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ24'
+Warning: Removing connection '-gneE23_0->gneE23_0' from edge '-gneE23'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE23'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ23'
 Warning: Removing edge '-gneE23' from net
@@ -49,8 +55,10 @@ Warning: Removing edge 'gneE23' from net
 Warning: Setting new attribute selected 'true' into edge '-gneE19'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
+Warning: Removing connection 'gneE19_0->-gneE19_0' from edge 'gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
+Warning: Removing connection '-gneE19_0->gneE19_0' from edge '-gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Warning: Removing edge '-gneE19' from net
@@ -64,8 +72,10 @@ Warning: Removing edge 'gneE19' from net
 Warning: Setting new attribute selected 'true' into edge 'gneE20'
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key DEL (delete) pressed
+Warning: Removing connection '-gneE20_0->gneE20_0' from edge '-gneE20'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
+Warning: Removing connection 'gneE20_0->-gneE20_0' from edge 'gneE20'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE20'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
 Warning: Removing edge 'gneE20' from net
@@ -76,6 +86,20 @@ Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into j
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE20'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ14'
 Warning: Removing edge '-gneE20' from net
+Warning: Created connection 'from-gneE14_0togneE14_0' in retrieveGNEConnection()
+Warning: Created connection 'from-gneE15_0togneE15_0' in retrieveGNEConnection()
+Warning: Created connection 'from-gneE18_0togneE18_0' in retrieveGNEConnection()
+Warning: Created connection 'from-gneE21_0togneE21_0' in retrieveGNEConnection()
+Warning: Created connection 'from-gneE22_0togneE22_0' in retrieveGNEConnection()
+Warning: Created connection 'from-gneE24_0togneE24_0' in retrieveGNEConnection()
+Warning: Created connection 'from-gneE25_0togneE25_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE14_0to-gneE14_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE15_0to-gneE15_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE18_0to-gneE18_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE21_0to-gneE21_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE22_0to-gneE22_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE24_0to-gneE24_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE25_0to-gneE25_0' in retrieveGNEConnection()
 Warning: Deleting unreferenced edge '-gneE20' in GNEChange_Attribute
 Warning: Deleting unreferenced lane '-gneE20_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE20' in GNEChange_Attribute
@@ -98,36 +122,50 @@ Warning: Deleting unreferenced edge 'gneE17' in GNEChange_Attribute
 Warning: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE14' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE14_0togneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE15' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE15_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE15_0togneE15_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE18' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE18_0togneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE21' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE21_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE21_0togneE21_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE22' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE22_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE22_0togneE22_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE24' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE24_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE24_0togneE24_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge '-gneE25' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE25_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'from-gneE25_0togneE25_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE12' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE13' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE14' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE14_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE14_0to-gneE14_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE15' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE15_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE15_0to-gneE15_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE18' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE18_0to-gneE18_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE21' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE21_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE21_0to-gneE21_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE22' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE22_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE22_0to-gneE22_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE24' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE24_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE24_0to-gneE24_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE25' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE25_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE25_0to-gneE25_0' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ10' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ11' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ12' in GNENet destructor

@@ -33,8 +33,8 @@ Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'E1_B'
 Warning: Setting previous attribute friendlyPos '0' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute vTypes '385' into e1Detector 'E1_B'
-Warning: Setting previous attribute vTypes '385' into e1Detector 'E1_A'
+Warning: Setting previous attribute vTypes 'bus taxi private' into e1Detector 'E1_B'
+Warning: Setting previous attribute vTypes 'bus taxi private' into e1Detector 'E1_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'E1_B'
 Warning: Setting previous attribute file 'e1Detector_gneE2_1_1.txt' into e1Detector 'E1_A'

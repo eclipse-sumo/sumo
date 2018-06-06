@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.05.2018 11:13:14 by Eclipse SUMO netedit Version UNKNOWN
+<!-- generated on Tue Jun  5 14:13:09 2018 by Eclipse SUMO netconvert Version 38586a3af4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\basic\save_configuration\input_net.net.xml"/>
+        <node-files value=".\netedit\basic\save_configuration\input_net.nod.xml"/>
+        <edge-files value=".\netedit\basic\save_configuration\input_net.edg.xml"/>
+        <connection-files value=".\netedit\basic\save_configuration\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\basic\save_configuration\input_net.net.xml"/>
-        <plain-output-prefix value=""/>
+        <output-file value=".\netedit\basic\save_configuration\input_net.net.xml"/>
     </output>
 
-    <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
-    </processing>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -182,15 +177,11 @@
     </edge>
 
     <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="28" state="gGGggrrrrrgGGggrrrrrGG"/>
+        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
-        <phase duration="3"  state="yyyggrrrrryyyggrrrrrrr"/>
-        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrrrr"/>
-        <phase duration="3"  state="rrryyrrrrrrrryyrrrrrrr"/>
-        <phase duration="33" state="rrrrrGGGggrrrrrGGGggrr"/>
-        <phase duration="3"  state="rrrrryyyggrrrrryyyggrr"/>
-        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGGrr"/>
-        <phase duration="3"  state="rrrrrrrryyrrrrrrrryyrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
     </tlLogic>
 
     <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">
@@ -209,8 +200,8 @@
         <request index="3"  response="0101000001110100000000" foes="0101110001111111000000" cont="1"/>
         <request index="4"  response="0001000001100000100000" foes="0001000001100000100000" cont="1"/>
         <request index="5"  response="0100000001100000000000" foes="0101000001100000010000" cont="0"/>
-        <request index="6"  response="0100000011100000001111" foes="1111000011100000001111" cont="0"/>
-        <request index="7"  response="0100000011100000001111" foes="1111000011100000001111" cont="0"/>
+        <request index="6"  response="1100000011100000001111" foes="1111000011100000001111" cont="0"/>
+        <request index="7"  response="1100000011100000001111" foes="1111000011100000001111" cont="0"/>
         <request index="8"  response="0100111011100000001110" foes="0100111111100000001110" cont="1"/>
         <request index="9"  response="0100110000010000001000" foes="0100110000010000001000" cont="1"/>
         <request index="10" response="0100000000000000000000" foes="0100110000001000001000" cont="1"/>
@@ -218,13 +209,13 @@
         <request index="12" response="0001000000000100000000" foes="0001110000000111111000" cont="0"/>
         <request index="13" response="1001000000000100000111" foes="1011110000000111000111" cont="1"/>
         <request index="14" response="0000001000000100000110" foes="0000001000000100000110" cont="1"/>
-        <request index="15" response="0000000000000000000110" foes="1000000100000100000110" cont="0"/>
-        <request index="16" response="0100000011110000001110" foes="1100000011111100001110" cont="0"/>
-        <request index="17" response="0100000011110000001110" foes="1100000011111100001110" cont="0"/>
-        <request index="18" response="0000000011100011101110" foes="1000000011100011111110" cont="1"/>
-        <request index="19" response="0000000010000011000001" foes="1000000010000011000001" cont="1"/>
+        <request index="15" response="1000000000000000000110" foes="1000000100000100000110" cont="0"/>
+        <request index="16" response="1100000011110000001110" foes="1100000011111100001110" cont="0"/>
+        <request index="17" response="1100000011110000001110" foes="1100000011111100001110" cont="0"/>
+        <request index="18" response="1000000011100011101110" foes="1000000011100011111110" cont="1"/>
+        <request index="19" response="1000000010000011000001" foes="1000000010000011000001" cont="1"/>
         <request index="20" response="0000000000000000000000" foes="0000110000011111101000" cont="0"/>
-        <request index="21" response="0011111000000011000000" foes="0011111010000011000001" cont="0"/>
+        <request index="21" response="0000000000000000000000" foes="0011111010000011000001" cont="0"/>
     </junction>
     <junction id="D" type="priority" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.00 100.00,43.60 100.00,50.00">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -315,7 +306,7 @@
     <connection from="8" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="5" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="7" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" tl="Center" linkIndex="21" dir="s" state="m"/>
+    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" tl="Center" linkIndex="21" dir="s" state="M"/>
     <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" tl="Center" linkIndex="20" dir="s" state="M"/>
     <connection from=":D_w0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>

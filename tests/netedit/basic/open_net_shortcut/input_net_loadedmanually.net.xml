@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.05.2018 12:30:47 by Eclipse SUMO netedit Version UNKNOWN
+<!-- generated on Tue Jun  5 14:13:08 2018 by Eclipse SUMO netconvert Version 38586a3af4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:\sumo\tests\netedit\basic\open_net_shortcut\input_net.nod.xml"/>
-        <edge-files value="D:\sumo\tests\netedit\basic\open_net_shortcut\input_net.edg.xml"/>
-        <connection-files value="D:\sumo\tests\netedit\basic\open_net_shortcut\input_net.con.xml"/>
+        <node-files value=".\netedit\basic\open_net_shortcut\input_net_loadedmanually.nod.xml"/>
+        <edge-files value=".\netedit\basic\open_net_shortcut\input_net_loadedmanually.edg.xml"/>
+        <connection-files value=".\netedit\basic\open_net_shortcut\input_net_loadedmanually.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\basic\open_net_shortcut\input_net.net.xml"/>
+        <output-file value=".\netedit\basic\open_net_shortcut\input_net_loadedmanually.net.xml"/>
     </output>
 
-    <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-    </processing>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
@@ -179,15 +177,11 @@
     </edge>
 
     <tlLogic id="Center" type="static" programID="0" offset="0">
-        <phase duration="28" state="gGGggrrrrrgGGggrrrrrGG"/>
+        <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
-        <phase duration="3"  state="yyyggrrrrryyyggrrrrrrr"/>
-        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrrrr"/>
-        <phase duration="3"  state="rrryyrrrrrrrryyrrrrrrr"/>
-        <phase duration="33" state="rrrrrGGGggrrrrrGGGggrr"/>
-        <phase duration="3"  state="rrrrryyyggrrrrryyyggrr"/>
-        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGGrr"/>
-        <phase duration="3"  state="rrrrrrrryyrrrrrrrryyrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
     </tlLogic>
 
     <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">

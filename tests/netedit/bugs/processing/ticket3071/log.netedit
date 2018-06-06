@@ -192,7 +192,7 @@ Warning: Removing junction 'gneJ13' from net
 Warning: Removing junction 'gneJ17' from net
 Warning: Removing junction 'gneJ19' from net
 Warning: Setting new attribute id '_gneJ13_gneJ17_gneJ19' into junction 'gneJ20'
-Warning: Setting new attribute pos '70.00,20.00' into junction '_gneJ13_gneJ17_gneJ19'
+Warning: Setting new attribute pos '20.00,20.00' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_1togneE16_1' in retrieveGNEConnection()
@@ -225,7 +225,7 @@ Warning: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '70.10,20.10' into junction '_gneJ13_gneJ17_gneJ19'
+Warning: Setting previous attribute pos '20.10,20.10' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Setting previous attribute id 'gneJ20' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Adding junction 'gneJ19' into net
 Warning: Adding junction 'gneJ17' into net
@@ -482,7 +482,7 @@ Warning: Removing junction 'gneJ13' from net
 Warning: Removing junction 'gneJ17' from net
 Warning: Removing junction 'gneJ19' from net
 Warning: Setting new attribute id '_gneJ13_gneJ17_gneJ19' into junction 'gneJ21'
-Warning: Setting new attribute pos '70.00,20.00' into junction '_gneJ13_gneJ17_gneJ19'
+Warning: Setting new attribute pos '20.00,20.00' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_1togneE16_1' in retrieveGNEConnection()
@@ -515,7 +515,7 @@ Warning: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute pos '70.10,20.10' into junction '_gneJ13_gneJ17_gneJ19'
+Warning: Setting previous attribute pos '20.10,20.10' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Setting previous attribute id 'gneJ21' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Adding junction 'gneJ19' into net
 Warning: Adding junction 'gneJ17' into net
@@ -762,7 +762,7 @@ Warning: Removing junction 'gneJ13' from net
 Warning: Removing junction 'gneJ17' from net
 Warning: Removing junction 'gneJ19' from net
 Warning: Setting new attribute id '_gneJ13_gneJ17_gneJ19' into junction 'gneJ21'
-Warning: Setting new attribute pos '70.00,20.00' into junction '_gneJ13_gneJ17_gneJ19'
+Warning: Setting new attribute pos '20.00,20.00' into junction '_gneJ13_gneJ17_gneJ19'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_1togneE16_1' in retrieveGNEConnection()

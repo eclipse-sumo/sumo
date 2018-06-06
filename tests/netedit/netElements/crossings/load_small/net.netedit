@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.04.2018 10:47:17 by Netedit Version b46590447d
+<!-- generated on 05.06.2018 15:57:48 by Eclipse SUMO netedit Version 38586a3af4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/crossings/load_small\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/netElements/crossings/load_small\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/crossings/load_small\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/crossings/load_small\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/crossings/load_small\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/netElements/crossings/load_small\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/netElements/crossings/load_small\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/netElements/crossings/load_small\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/crossings/load_small\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/netElements/crossings/load_small\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/crossings/load_small\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/netElements/crossings/load_small\log.txt"/>
     </report>
 
 </configuration>
@@ -250,16 +250,12 @@
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="26" state="rrrrrrgGgGGgrrrrrrgGgGGgGrGr"/>
+        <phase duration="37" state="rrrrrrgGgGGgrrrrrrgGgGGgGrGr"/>
         <phase duration="5"  state="rrrrrrgGgGGgrrrrrrgGgGGgrrrr"/>
-        <phase duration="4"  state="rrrrrryyyyygrrrrrryyyyygrrrr"/>
-        <phase duration="6"  state="rrrrrrrrrrrGrrrrrrrrrrrGrrrr"/>
-        <phase duration="4"  state="rrrrrrrrrrryrrrrrrrrrrryrrrr"/>
-        <phase duration="26" state="gGgGGgrrrrrrgGgGGgrrrrrrrGrG"/>
+        <phase duration="3"  state="rrrrrryyyyyyrrrrrryyyyyyrrrr"/>
+        <phase duration="37" state="gGgGGgrrrrrrgGgGGgrrrrrrrGrG"/>
         <phase duration="5"  state="gGgGGgrrrrrrgGgGGgrrrrrrrrrr"/>
-        <phase duration="4"  state="yyyyygrrrrrryyyyygrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrGrrrrrrrrrrrGrrrrrrrrrr"/>
-        <phase duration="4"  state="rrrrryrrrrrrrrrrryrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyyrrrrrryyyyyyrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 NC_4 EC_0 EC_1 EC_2 EC_3 EC_4 SC_0 SC_1 SC_2 SC_3 SC_4 WC_0 WC_1 WC_2 WC_3 WC_4 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_24_0 :C_1_0 :C_25_0 :C_3_0 :C_3_1 :C_26_0 :C_27_0 :C_7_0 :C_28_0 :C_9_0 :C_9_1 :C_29_0 :C_30_0 :C_13_0 :C_31_0 :C_15_0 :C_15_1 :C_32_0 :C_33_0 :C_19_0 :C_34_0 :C_21_0 :C_21_1 :C_35_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="88.10,112.65 111.90,112.65 113.40,110.40 113.40,87.35 111.90,85.85 88.10,85.85 86.60,88.10 86.60,111.15">

@@ -27,38 +27,28 @@ Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 50.00, 50.00, 150.00. Zoom = '80.00'
 Warning: Adding junction 'gneJ0' into net
+Warning: Adding junction 'gneJ1' into net
 Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Removing connection '2_1->6_1' from edge '2'
-Warning: Deleting unreferenced connection 'from2_1to6_1' in removeConnection()
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Warning: Adding junction 'gneJ2' into net
 Warning: Adding edge 'gneE1' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Warning: Removing connection '3_1->7_1' from edge '3'
-Warning: Deleting unreferenced connection 'from3_1to7_1' in removeConnection()
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Warning: Adding junction 'gneJ1' into net
-Warning: Adding junction 'gneJ2' into net
-Warning: Adding edge 'gneE2' from net
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Warning: Adding junction 'gneJ3' into net
 Warning: Adding junction 'gneJ4' into net
-Warning: Adding edge 'gneE3' from net
+Warning: Adding edge 'gneE2' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
-Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
-Warning: Created connection 'from3_1to7_1' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE0_0to6_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE0_0to6_1' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0to7_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0to7_1' in retrieveGNEConnection()
+Warning: Adding junction 'gneJ5' into net
+Warning: Adding junction 'gneJ6' into net
+Warning: Adding edge 'gneE3' from net
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ6'
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -109,12 +99,8 @@ Warning: Deleting unreferenced connection 'from8_1to3_1' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from8_1to4_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0to6_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0to6_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0to7_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0to7_1' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE3' in GNENet destructor
@@ -129,5 +115,7 @@ Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ3' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ4' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ5' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ6' in GNENet destructor
 Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Warning: Deleting net builder in GNENet destructor

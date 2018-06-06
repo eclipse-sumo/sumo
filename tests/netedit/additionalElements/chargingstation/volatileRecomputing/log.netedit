@@ -24,6 +24,8 @@ Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_1'
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
@@ -42,8 +44,10 @@ Warning: Deleting unreferenced lane 'gneE2_2' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_3' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_4' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'gneE2_5' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE2_5togneE4_0' in GNEEdge destructor
 Warning: Deleting unreferenced edge 'gneE4' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE4_0togneE2_5' in GNEEdge destructor
 Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Warning: Deleting unreferenced junction 'gneJ2' in GNENet destructor
