@@ -272,7 +272,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge& destination, MSStoppingPlace* toStop,
-                             const double arrivalPos, const double dist);
+                             const double arrivalPos, const double dist, const bool isExit);
 
         /// destructor
         ~MSPersonStage_Access();
@@ -288,31 +288,17 @@ public:
 
         double getAngle(SUMOTime now) const;
 
-        /** @brief Called on writing tripinfo output
-        *
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const {};
+        /// @brief Called on writing tripinfo output. Currently does nothing.
+        void tripInfoOutput(OutputDevice&, MSTransportable*) const {};
 
-        /** @brief Called on writing vehroute output
-        *
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        void routeOutput(OutputDevice& os) const {};
+        /// @brief Called on writing vehroute output. Currently does nothing.
+        void routeOutput(OutputDevice&) const {};
 
-        /** @brief Called for writing the events output (begin of an action)
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        void beginEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const {};
+        /// @brief Called on writing events output (begin of an action). Currently does nothing.
+        void beginEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
 
-        /** @brief Called for writing the events output (end of an action)
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        void endEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const {};
+        /// @brief Called on writing events output (end of an action). Currently does nothing.
+        void endEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
 
     private:
         class ProceedCmd : public Command {
@@ -329,6 +315,8 @@ public:
 
     private:
         double myDist;
+        SUMOTime myEstimatedArrival;
+        PositionVector myPath;
     };
 
 public:

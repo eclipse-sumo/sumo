@@ -446,9 +446,14 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 * MSPerson::MSPersonStage_Access - methods
 * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge& destination, MSStoppingPlace* toStop,
-    const double arrivalPos, const double dist) :
+    const double arrivalPos, const double dist, const bool isExit) :
     MSTransportable::Stage(destination, toStop, arrivalPos, ACCESS),
     myDist(dist) {
+    myPath.push_back(destination.getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(&destination)));
+    myPath.push_back(toStop->getWaitPosition());
+    if (isExit) {
+        myPath = myPath.reverse();
+    }
 }
 
 
@@ -457,8 +462,8 @@ MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
 
 void
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
-    ProceedCmd* cmd = new ProceedCmd(person);
-    net->getBeginOfTimestepEvents()->addEvent(cmd, now + TIME2STEPS(myDist / DEFAULT_PEDESTRIAN_SPEED));
+    myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
+    net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person), myEstimatedArrival);
 }
 
 
@@ -475,20 +480,22 @@ MSPerson::MSPersonStage_Access::getStageSummary() const {
 
 
 Position
-MSPerson::MSPersonStage_Access::getPosition(SUMOTime /* now */) const {
-    return myDestinationStop->getLane().geometryPositionAtOffset(myDestinationStop->getAccessPos(&myDestination));
+MSPerson::MSPersonStage_Access::getPosition(SUMOTime now) const {
+    return myPath.positionAtOffset((now - myDeparted) / double(myEstimatedArrival - myDeparted));
 }
 
 
 double
 MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
-    return 0.;
+    return myPath.angleAt2D(0);
 }
 
 
 SUMOTime
 MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
-    myPerson->proceed(MSNet::getInstance(), currentTime);
+    if (!myPerson->proceed(MSNet::getInstance(), currentTime)) {
+        MSNet::getInstance()->getPersonControl().erase(myPerson);
+    }
     return 0;
 }
 
