@@ -13,12 +13,6 @@ chargingstation
 # container stops
 containerstop
 
-# det entry
-detentry
-
-# det exit
-detexit
-
 # e1 detector
 e1detector
 
@@ -27,6 +21,15 @@ e2detector
 
 # e3 detector
 e3detector
+
+# det entry
+detentry
+
+# det exit
+detexit
+
+# E1 Instant detector
+e1InstantDetector
 
 # lanecalibrator
 lanecalibrator
