@@ -102,7 +102,7 @@ def createTrips(options):
             stopNames[stop.id] = stop.attr_name
 
     trpMap = {}
-    with open(options.trips, 'w') as fouttrips:
+    with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id$", "routes")
         writeTypes(fouttrips, options.vtypeprefix)
