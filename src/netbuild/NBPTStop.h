@@ -73,7 +73,7 @@ public:
     bool findLaneAndComputeBusStopExtend(NBEdgeCont& ec);
 
     void setMyPTStopId(std::string id);
-    void addAccess(std::string laneID, double offset);
+    void addAccess(std::string laneID, double offset, double length);
 
     /// @brief register line that services this stop (for displaying)
     void addLine(const std::string& line);
@@ -100,7 +100,8 @@ private:
     double myStartPos;
     double myEndPos;
 
-    std::vector<std::tuple<std::string, double>> myAccesses;
+    /// @brief laneId, lanePos, accessLength
+    std::vector<std::tuple<std::string, double, double>> myAccesses;
 
     /// @brief list of public transport lines (for displaying)
     std::vector<std::string> myLines;

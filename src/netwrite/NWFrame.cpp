@@ -116,6 +116,9 @@ NWFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("osm.stop-output.footway-max-accesses", new Option_Integer(5));
         oc.addDescription("osm.stop-output.footway-max-accesses", "Output", "The maximum roud accesses registered per rail stops");
+
+        oc.doRegister("osm.stop-output.footway-access-factor", new Option_Float(1.5));
+        oc.addDescription("osm.stop-output.footway-access-factor", "Output", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
     }
 
     // register opendrive options

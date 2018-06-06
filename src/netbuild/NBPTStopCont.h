@@ -70,7 +70,7 @@ public:
 
     void localizePTStops(NBEdgeCont& cont);
 
-    void findAccessEdgesForRailStops(NBEdgeCont& cont, double d, int i);
+    void findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount, double accessFactor);
 
     void postprocess(std::set<std::string>& usedStops);
 

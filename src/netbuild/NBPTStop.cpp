@@ -108,6 +108,7 @@ NBPTStop::write(OutputDevice& device) {
             device.openTag(SUMO_TAG_ACCESS);
             device.writeAttr(SUMO_ATTR_LANE, std::get<0>(tuple));
             device.writeAttr(SUMO_ATTR_POSITION, std::get<1>(tuple));
+            device.writeAttr(SUMO_ATTR_LENGTH, std::get<2>(tuple));
             device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             device.closeTag();
         }
@@ -223,8 +224,8 @@ NBPTStop::setMyPTStopId(std::string id) {
 
 
 void 
-NBPTStop::addAccess(std::string laneID, double offset) {
-    myAccesses.push_back(std::make_tuple(laneID, offset));
+NBPTStop::addAccess(std::string laneID, double offset, double length) {
+    myAccesses.push_back(std::make_tuple(laneID, offset, length));
 }
 
 
