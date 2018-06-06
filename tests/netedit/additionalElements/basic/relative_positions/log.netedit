@@ -10,6 +10,7 @@ Warning: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Essential unique string attribute 'id' of vaporizer is missing; vaporizer cannot be created
@@ -31,6 +32,7 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced rerouter 'rerouter_0'
+Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'

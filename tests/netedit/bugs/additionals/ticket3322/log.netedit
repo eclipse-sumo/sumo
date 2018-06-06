@@ -11,6 +11,7 @@ Warning: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
@@ -18,6 +19,7 @@ Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Warning: Removing e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
+Warning: Removing instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Warning: Removing connection 'gneE1_2->gneE0_2' from edge 'gneE1'
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
@@ -65,6 +67,7 @@ Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' in
 Warning: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
 Warning: Adding connection 'gneE1_2->gneE0_2' into edge 'gneE1'
 Warning: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
+Warning: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Warning: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Warning: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
@@ -78,6 +81,7 @@ Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Warning: Deleting unreferenced rerouter 'rerouter_0'
+Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
