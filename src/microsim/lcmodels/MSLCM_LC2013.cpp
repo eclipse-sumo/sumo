@@ -1300,7 +1300,7 @@ MSLCM_LC2013::_wantsChange(
                  // neighboring stopped vehicle leaves enough space to overtake leader
                  || neighLead.second > overtakeDist)) {
             // avoid becoming stuck behind a stopped leader
-            currentDist = leader.first->getBackPositionOnLane(myVehicle.getLane());
+            currentDist = myVehicle.getPositionOnLane() + leader.second;
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
         } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
             // the opposite lane-changing direction should be done than the one examined herein

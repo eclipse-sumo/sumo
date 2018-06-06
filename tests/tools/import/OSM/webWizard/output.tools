@@ -1,11 +1,11 @@
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm.netccfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm.netccfg'
 Loading configuration... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm_bbox.osm.xml'... 
+Parsing nodes from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm_bbox.osm.xml'... 
 Found duplicate nodes. Substituting 1241955149 with 1026369077
 Found duplicate nodes. Substituting 1241955153 with 1241955144
 Found duplicate nodes. Substituting 2094266861 with 27410745
@@ -90,7 +90,7 @@ Found duplicate nodes. Substituting 3334358080 with 2166130502
 Found duplicate nodes. Substituting 3334358081 with 2166130495
 Found duplicate nodes. Substituting 3334358082 with 2166130499
 done.
-Parsing edges from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm_bbox.osm.xml'... 
+Parsing edges from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm_bbox.osm.xml'... 
 done.
 Removing duplicate edges... done.
 Adding new type 'cycleway.track|highway.primary' (first occurence for edge '4067932').
@@ -101,7 +101,7 @@ Adding new type 'cycleway.track|highway.tertiary' (first occurence for edge '477
 Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '23812656#0').
 Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24540240#0').
 Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
-Parsing relations from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm_bbox.osm.xml'... 
+Parsing relations from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm_bbox.osm.xml'... 
 done.
  Removed 47 traffic lights before loading plain-XML
  Import done:
@@ -115,39 +115,39 @@ Revising public transport stops based on pt lines...
 done (4ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
 Joining junction clusters... 
-done (14ms).
+done (11ms).
  Joined 76 junction cluster(s).
-Removing empty nodes and geometry nodes... done (12ms).
+Removing empty nodes and geometry nodes... done (8ms).
    510 nodes removed.
-Moving network to origin... done (17ms).
+Moving network to origin... done (11ms).
 Computing turning directions... 
-done (4ms).
+done (3ms).
 Assigning nodes to traffic lights... done (0ms).
 Guessing and setting on-/off-ramps... done (6ms).
-Sorting nodes' edges... done (6ms).
-Computing node shapes... done (92ms).
-Computing edge shapes... done (50ms).
-Computing node types... done (1ms).
+Sorting nodes' edges... done (5ms).
+Computing node shapes... done (104ms).
+Computing edge shapes... done (32ms).
+Computing node types... done (2ms).
 Guessed 939 pedestrian crossings.
 Computing priorities... done (3ms).
 Computing approached edges... done (4ms).
 Guessing and setting roundabouts... 
  Guessed 4 roundabout(s).
 done (2ms).
-Computing approaching lanes... done (10ms).
-Dividing of lanes on approached lanes... done (6ms).
-Processing turnarounds... done (0ms).
+Computing approaching lanes... done (17ms).
+Dividing of lanes on approached lanes... done (9ms).
+Processing turnarounds... done (2ms).
 Rechecking of lane endings... 
-done (1ms).
-Joining traffic light nodes... done (2ms).
+done (2ms).
+Joining traffic light nodes... done (3ms).
 Computing traffic light control information... 
-done (1ms).
-Computing node logics... done (15ms).
+done (2ms).
+Computing node logics... done (27ms).
 Computing traffic light logics... 
-done (5ms).
+done (9ms).
  48 traffic light(s) computed.
 Building inner edges... 
-done (53ms).
+done (58ms).
 Find accesses for pt rail stops... done (36ms).
 -----------------------------------------------------
 Summary:
@@ -161,14 +161,14 @@ Summary:
   Applied offset     : -388415.86,-5817979.56
   Converted boundary : 0.00,0.00,6080.75,5405.51
 -----------------------------------------------------
-Writing network... done (805ms).
+Writing network... done (904ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm.polycfg'
 Loading configuration... done.
-Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm.net.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm_bbox.osm.xml'... done.
-Parsing relations from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm_bbox.osm.xml'... done.
-Parsing edges from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11/osm_bbox.osm.xml'... done.
+Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm.net.xml'... done.
+Parsing nodes from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm_bbox.osm.xml'... done.
+Parsing relations from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm_bbox.osm.xml'... done.
+Parsing edges from osm-file '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05/osm_bbox.osm.xml'... done.
 Success.
 Success.
 Success.
@@ -178,17 +178,17 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (1098ms).
-Loading additional-files from 'osm.poly.xml'... done (245ms).
+Loading net-file from 'osm.net.xml'... done (1008ms).
+Loading additional-files from 'osm.poly.xml'... done (219ms).
 Loading additional-files from 'osm_stops.add.xml'... done (11ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 3013.00
+Simulation ended at time: 3057.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 10751ms
- Real time factor: 280.253
- UPS: 12706.352897
+ Duration: 13039ms
+ Real time factor: 234.45
+ UPS: 10373.418207
 Vehicles: 
  Inserted: 453
  Running: 0
@@ -198,29 +198,29 @@ Persons:
  Inserted: 211
  Running: 0
 Statistics (avg):
- RouteLength: 1904.84
- Duration: 301.56
- WaitingTime: 42.29
- TimeLoss: 91.81
- DepartDelay: -0.04
+ RouteLength: 1904.42
+ Duration: 298.58
+ WaitingTime: 39.67
+ TimeLoss: 88.85
+ DepartDelay: -0.08
 Pedestrian Statistics (avg of 355 walks):
  RouteLength: 578.07
- Duration: 485.04
- TimeLoss: 68.83
+ Duration: 485.45
+ TimeLoss: 69.24
 Ride Statistics (avg of 116 rides):
- WaitingTime: 162.71
- RouteLength: 810.07
- Duration: 72.07
+ WaitingTime: 158.55
+ RouteLength: 825.71
+ Duration: 74.61
  Bus: 50
- Train: 63
+ Train: 65
  Bike: 0
- Aborted: 3
+ Aborted: 1
 
-DijkstraRouter answered 11001 queries and explored 11.13 edges on average.
-DijkstraRouter spent 52ms answering queries (0.00ms on average).
-DijkstraRouter answered 383 queries and explored 629.47 edges on average.
-DijkstraRouter spent 203ms answering queries (0.53ms on average).
-Building scenario in '/scr2/texttest_tmp/dynamic_gui.06Jun090804.15065/tools/import/OSM/webWizard/2018-06-06-09-08-11'
+DijkstraRouter answered 10825 queries and explored 10.89 edges on average.
+DijkstraRouter spent 70ms answering queries (0.01ms on average).
+DijkstraRouter answered 383 queries and explored 629.45 edges on average.
+DijkstraRouter spent 199ms answering queries (0.52ms on average).
+Building scenario in '/scr2/texttest_tmp/dynamic_gui.06Jun095500.19770/tools/import/OSM/webWizard/2018-06-06-09-55-05'
 generating trips...
 Imported 36 lines with 115 stops and skipped 23 lines
    bus: 17
