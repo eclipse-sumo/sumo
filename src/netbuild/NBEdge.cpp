@@ -3048,15 +3048,10 @@ NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
         }
         double edgeLength = myLoadedLength != -1 ? myLoadedLength : myLength;
         // all lanes are meant...
-        if (offsets.size() != 0 && (edgeLength < offsets.begin()->second || 0 > offsets.begin()->second)) {
+        if (offsets.size() != 0 && 0 > offsets.begin()->second) {
             //  Edge length unknown at parsing time, thus check here.
             std::stringstream ss;
-            ss << "Ignoring invalid stopOffset for edge " << getID();
-            if (edgeLength < offsets.begin()->second) {
-                ss<< " (offset larger than the edge length).";
-            } else {
-                ss<< " (negative offset).";
-            }
+            ss << "Ignoring invalid stopOffset for edge " << getID() << " (negative offset).";
             WRITE_WARNING(ss.str());
             return false;
         } else {
@@ -3066,15 +3061,10 @@ NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
         assert(lane < (int)myLanes.size());
         if (myLanes[lane].stopOffsets.size()==0 || overwrite) {
             double laneLength = myLoadedLength != -1 ? myLoadedLength : getLaneShape(lane).length();
-            if (offsets.size() != 0 && (laneLength < offsets.begin()->second || 0 > offsets.begin()->second)) {
+            if (offsets.size() != 0 && 0 > offsets.begin()->second) {
                 //  Edge length unknown at parsing time, thus check here.
                 std::stringstream ss;
-                ss << "Ignoring invalid stopOffset for lane " << lane << " on edge " << getID();
-                if (laneLength < offsets.begin()->second) {
-                    ss<< " (offset larger than the lane length).";
-                } else {
-                    ss<< " (negative offset).";
-                }
+                ss << "Ignoring invalid stopOffset for lane " << lane << " on edge " << getID() << " (negative offset).";
                 WRITE_WARNING(ss.str());
                 return false;
             } else {
