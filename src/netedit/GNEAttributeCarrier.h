@@ -144,7 +144,7 @@ public:
         bool hasDialog() const;
 
         /// @brief return true if tag correspond to an element that only have a limited number of childs
-        bool hasLimitedNumberOfCHilds() const;
+        bool hasLimitedNumberOfChilds() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;

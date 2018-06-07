@@ -127,7 +127,7 @@ GNEAdditionalFrame::AdditionalSelector::AdditionalSelector(GNEAdditionalFrame *a
     myAdditionalMatchBox->setNumVisible((int)myAdditionalMatchBox->getNumItems());
 
     // set busstop as default additional
-    myAdditionalMatchBox->setCurrentItem(9);
+    myAdditionalMatchBox->setCurrentItem(10);
 
     // AdditionalSelector is always shown
     show();
@@ -171,9 +171,9 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         myAdditionalFrameParent->getAdditionalParameters()->showAdditionalParameters();
         // Show myAdditionalParentSelector if we're adding a additional with parent
         if (tagValue.hasParent()) {
-            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionals(tagValue.getParentTag());
+            myAdditionalFrameParent->getAdditionalParentSelector()->showListOfAdditionalParents(tagValue.getParentTag());
         } else {
-            myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
+            myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionalParents();
         }
         // Show SelectorParentEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
         if (GNEAttributeCarrier::hasAttribute(myCurrentAdditionalType, SUMO_ATTR_EDGES)) {
@@ -191,7 +191,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         // hide all groupbox if additional isn't valid
         myAdditionalFrameParent->getAdditionalParameters()->hideAdditionalParameters();
         myAdditionalFrameParent->getNeteditAttributes()->hideNeteditAttributes();
-        myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionals();
+        myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionalParents();
         myAdditionalFrameParent->getEdgeParentsSelector()->hideList();
         myAdditionalFrameParent->getLaneParentsSelector()->hideList();
      }
@@ -766,13 +766,14 @@ GNEAdditionalFrame::getLaneParentsSelector() const {
 
 GNEAdditionalFrame::SelectorParentAdditional::SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent) :
     FXGroupBox(additionalFrameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
-    myAdditionalFrameParent(additionalFrameParent) {
+    myAdditionalFrameParent(additionalFrameParent),
+    myAdditionalTypeParent(SUMO_TAG_NOTHING) {
     // Create label with the type of SelectorParentAdditional
     myAdditionalParentsLabel = new FXLabel(this, "No additional selected", 0, GUIDesignLabelLeftThick);
     // Create list
     myAdditionalParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElement, 0, 0, 0, 100);
     // Hide List
-    hideListOfAdditionals();
+    hideListOfAdditionalParents();
 }
 
 
@@ -808,22 +809,39 @@ GNEAdditionalFrame::SelectorParentAdditional::setIDSelected(const std::string &i
 
 
 void
-GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionals(SumoXMLTag additionalType) {
+GNEAdditionalFrame::SelectorParentAdditional::showListOfAdditionalParents(SumoXMLTag additionalType) {
+    myAdditionalTypeParent = additionalType;
     myAdditionalParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
-    myAdditionalParentsList->clearItems();
-    // obtain all additionals of class "type"
-    std::vector<GNEAdditional*> vectorOfAdditionalParents = myAdditionalFrameParent->getViewNet()->getNet()->getAdditionals(additionalType);
-    // fill list with IDs of additionals
-    for (auto i : vectorOfAdditionalParents) {
-        myAdditionalParentsList->appendItem(i->getID().c_str());
-    }
+    refreshListOfAdditionalParents();
     show();
 }
 
 
 void
-GNEAdditionalFrame::SelectorParentAdditional::hideListOfAdditionals() {
+GNEAdditionalFrame::SelectorParentAdditional::hideListOfAdditionalParents() {
+    myAdditionalTypeParent = SUMO_TAG_NOTHING;
     hide();
+}
+
+
+void 
+GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
+    myAdditionalParentsList->clearItems();
+    if(myAdditionalTypeParent != SUMO_TAG_NOTHING) {
+        // obtain all additionals of class "type"
+        std::vector<GNEAdditional*> vectorOfAdditionalParents = myAdditionalFrameParent->getViewNet()->getNet()->getAdditionals(myAdditionalTypeParent);
+        // fill list with IDs of additionals
+        for (auto i : vectorOfAdditionalParents) {
+            // Only show additionals that have unlimited number of childs, or limited but currently number under the limit
+            if(GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).hasLimitedNumberOfChilds()) {
+                if(i->getAdditionalChilds().size() < GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
+                    myAdditionalParentsList->appendItem(i->getID().c_str());
+                }
+            } else {
+                myAdditionalParentsList->appendItem(i->getID().c_str());
+            }
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1400,6 +1418,8 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
 
     // Create additional
     if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalSelector->getCurrentAdditionalType(), valuesOfElement)) {
+        // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+        myAdditionalParentSelector->refreshListOfAdditionalParents();
         return ADDADDITIONAL_SUCCESS;
     } else {
         return ADDADDITIONAL_INVALID_ARGUMENTS;

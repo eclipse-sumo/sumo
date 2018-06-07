@@ -330,14 +330,20 @@ public:
         void setIDSelected(const std::string &id);
 
         /// @brief Show list of SelectorParentAdditional
-        void showListOfAdditionals(SumoXMLTag additionalType);
+        void showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
 
         /// @brief hide SelectorParentAdditional
-        void hideListOfAdditionals();
+        void hideListOfAdditionalParents();
+
+        /// @brief Refresh list of Additional Parents
+        void refreshListOfAdditionalParents();
 
     private:
         /// @brief pointer to Additional Frame Parent
         GNEAdditionalFrame * myAdditionalFrameParent;
+
+        /// @brief current additional type parent
+        SumoXMLTag myAdditionalTypeParent;
 
         /// @brief Label with the name of additional
         FXLabel* myAdditionalParentsLabel;

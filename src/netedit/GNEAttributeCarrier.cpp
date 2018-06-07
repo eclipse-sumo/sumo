@@ -178,7 +178,7 @@ GNEAttributeCarrier::TagValues::hasDialog() const {
 
 
 bool 
-GNEAttributeCarrier::TagValues::hasLimitedNumberOfCHilds() const {
+GNEAttributeCarrier::TagValues::hasLimitedNumberOfChilds() const {
     return (myTagProperty & TAGPROPERTY_LIMITEDCHILDS) != 0;
 }
 
