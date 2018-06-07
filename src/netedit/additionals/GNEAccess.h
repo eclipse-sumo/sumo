@@ -60,9 +60,6 @@ public:
      */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief get length of Access
-    double getLength() const;
-
     /// @brief check if Position of Access is fixed
     bool isAccessPositionFixed() const;
 

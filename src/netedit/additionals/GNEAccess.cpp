@@ -99,66 +99,29 @@ GNEAccess::updateGeometry() {
     myShape = myLane->getShape();
 
     // set start position
-    double startPosFixed;
+    double fixedPositionOverLane;
     if(!canParse<double>(myPositionOverLane)) {
-        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+        fixedPositionOverLane = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else if(parse<double>(myPositionOverLane) < 0) {
-        startPosFixed = 0;
+        fixedPositionOverLane = 0;
     } else if (parse<double>(myPositionOverLane) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+        fixedPositionOverLane = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else {
-        startPosFixed = parse<double>(myPositionOverLane);
+        fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
+    // obtain position
+    myShape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane);
 
-    // set end position
-    double endPosFixed;
-    if(!canParse<double>(myLength)) {
-        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
-    } else if((parse<double>(myPositionOverLane) + parse<double>(myLength)) < 0) {
-        endPosFixed = 0;
-    } else if ((parse<double>(myPositionOverLane) + parse<double>(myLength)) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        endPosFixed = (parse<double>(myPositionOverLane) + parse<double>(myLength));
-    }
-
-    // Cut shape using as delimitators fixed start position and fixed end position
-    myShape = myShape.getSubpart(startPosFixed, endPosFixed);
-    
-    // Get number of parts of the shape
-    int numberOfSegments = (int)myShape.size() - 1;
-
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-
-            // Obtain first position
-            const Position& f = myShape[i];
-
-            // Obtain next position
-            const Position& s = myShape[i + 1];
-
-            // Save distance between position into myShapeLengths
-            myShapeLengths.push_back(f.distanceTo(s));
-
-            // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
-    }
+    // Save rotation (angle) of the vector constructed by points f and s
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(-0.75, 0);
+    myBlockIconOffset = Position(-1, 0);
 
-    // Set block icon rotation, and using their rotation for draw logo
+    // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(myLane);
 
     // Refresh element (neccesary to avoid grabbing problems)
@@ -189,66 +152,51 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 }
 
 
-double 
-GNEAccess::getLength() const {
-    if(myLength.empty()) {
-        return myLane->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        return parse<double>(myLength);
-    }
-}
-
-
 bool 
 GNEAccess::isAccessPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (parse<double>(myPositionOverLane)>= 0) && ((parse<double>(myPositionOverLane) + parse<double>(myLength)) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        if(canParse<double>(myPositionOverLane)) {
+            return (parse<double>(myPositionOverLane)>= 0) && ((parse<double>(myPositionOverLane)) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        } else {
+            return false;
+        }
     }
 }
 
 
 const std::string& 
 GNEAccess::getParentName() const {
-    return myLane->getMicrosimID();
+    return myAdditionalParent->getID();
 }
 
 
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
-    // Start drawing adding an gl identificator
-    glPushName(getGlID());
-
-    // Add a draw matrix
-    glPushMatrix();
-
-    // Start with the drawing of the area traslating matrix to origing
-    glTranslated(0, 0, getType());
-
-    // Set color of the base
-    if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(RGBColor(0, 204, 204));
-    }
-
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s);
-
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
-
-    // Pop last matrix
-    glPopMatrix();
-
-    // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    // Start drawing adding an gl identificator
+    glPushName(getGlID());
+    // push matrix
+    glPushMatrix();
+    // set color depending of selection
+    if (mySelected) {
+        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(s.SUMO_color_busStop);
     }
-
-    // Pop name
+    glTranslated(myShape[0].x(), myShape[0].y(), GLO_ACCESS);
+    // draw circle
+    if(s.drawForSelecting) {
+        GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);
+    } else {
+        GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 16);
+    }
+    // pop matrix
+    glPopMatrix();
+    // pop gl identficador
     glPopName();
 }
 
@@ -308,9 +256,17 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value);
+            if(value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case SUMO_ATTR_LENGTH:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            if(value.empty()) {
+                return true;
+            } else {
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -342,7 +298,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLength = value;
             break;
         case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);;
+            myFriendlyPosition = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

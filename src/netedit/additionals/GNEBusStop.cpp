@@ -158,6 +158,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
     } else if (s.scale * exaggeration >= 10) {
+        // draw lines between BusStops and Acces
+        for (auto i : myAdditionalChilds) {
+            GLHelper::drawBoxLine(i->getShape()[0], RAD2DEG(mySignPos.angleTo2D(i->getShape()[0])) - 90, mySignPos.distanceTo2D(i->getShape()[0]), .05);
+        }
         // Add a draw matrix for details
         glPushMatrix();
         // Iterate over every line
