@@ -112,14 +112,32 @@ def computeScoreFromWaitingTime(gamename):
 def computeScoreFromTimeLoss(gamename):
     totalArrived = 0
     timeLoss = None
+    departDelay = None
+    departDelayWaiting = None
+    inserted = None
+    running = None
     for line in open(gamename + ".log"):
+        m = re.search('Inserted: ([0-9]*)', line)
+        if m:
+            inserted = float(m.group(1))
+        m = re.search('Running: (.*)', line)
+        if m:
+            running = float(m.group(1))
         m = re.search('TimeLoss: (.*)', line)
         if m:
             timeLoss = float(m.group(1))
+        m = re.search('DepartDelay: (.*)', line)
+        if m:
+            departDelay = float(m.group(1))
+        m = re.search('DepartDelayWaiting: (.*)', line)
+        if m:
+            departDelayWaiting = float(m.group(1))
     if timeLoss is None:
         return 0, totalArrived, False
     else:
-        return 10000 - timeLoss * 100, totalArrived, True
+        totalArrived = inserted - running
+        score = 10000 - 100 * (timeLoss + departDelay + departDelayWaiting)
+        return score, totalArrived, True
 
 
 _SCORING_FUNCTION = defaultdict(lambda : computeScoreFromWaitingTime)
