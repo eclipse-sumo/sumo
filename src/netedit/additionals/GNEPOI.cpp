@@ -238,7 +238,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION_LAT:
             return toString(myPosLat);
         case SUMO_ATTR_GEOPOSITION:
-            return toString(myGEOPosition);
+            return toString(myGEOPosition, gPrecisionGeo);
         case SUMO_ATTR_GEO:
             return toString(myGeo);
         case SUMO_ATTR_TYPE:

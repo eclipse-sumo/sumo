@@ -543,7 +543,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SHAPE:
             return toString(myShape);
         case SUMO_ATTR_GEOSHAPE:
-            return toString(myGeoShape);
+            return toString(myGeoShape, gPrecisionGeo);
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_FILL:
