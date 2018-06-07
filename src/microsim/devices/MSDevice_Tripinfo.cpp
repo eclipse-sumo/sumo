@@ -48,6 +48,7 @@ SUMOTime MSDevice_Tripinfo::myTotalDuration(0);
 SUMOTime MSDevice_Tripinfo::myTotalWaitingTime(0);
 SUMOTime MSDevice_Tripinfo::myTotalTimeLoss(0);
 SUMOTime MSDevice_Tripinfo::myTotalDepartDelay(0);
+SUMOTime MSDevice_Tripinfo::myWaitingDepartDelay(-1);
 
 int MSDevice_Tripinfo::myWalkCount(0);
 double MSDevice_Tripinfo::myTotalWalkRouteLength(0);
@@ -114,6 +115,7 @@ MSDevice_Tripinfo::cleanup() {
     myTotalWaitingTime = 0;
     myTotalTimeLoss = 0;
     myTotalDepartDelay = 0;
+    myWaitingDepartDelay = -1;
 
     myWalkCount = 0;
     myTotalWalkRouteLength = 0;
@@ -291,18 +293,30 @@ MSDevice_Tripinfo::generateOutput() const {
 
 void
 MSDevice_Tripinfo::generateOutputForUnfinished() {
+    const bool writeTripinfos = OptionsCont::getOptions().isSet("tripinfo-output");
+    myWaitingDepartDelay = 0;
+    int undeparted = 0;
+    int departed = 0;
+    const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     while (myPendingOutput.size() > 0) {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
         if (d->myHolder.hasDeparted()) {
+            departed++;
             d->generateOutput();
-            if (!OptionsCont::getOptions().isSet("tripinfo-output")) {
-                return;
+            if (writeTripinfos) {
+                // @todo also generate emission output if holder has a device
+                OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
+            } else {
+                myPendingOutput.erase(d);
             }
-            // @todo also generate emission output if holder has a device
-            OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
         } else {
+            undeparted++;
+            myWaitingDepartDelay += (t - d->myHolder.getParameter().depart);
             myPendingOutput.erase(d);
         }
+    }
+    if (myWaitingDepartDelay > 0) {
+        myWaitingDepartDelay /= undeparted;
     }
 }
 
@@ -364,6 +378,9 @@ MSDevice_Tripinfo::printStatistics() {
         << " WaitingTime: " << getAvgWaitingTime() << "\n"
         << " TimeLoss: " << getAvgTimeLoss() << "\n"
         << " DepartDelay: " << getAvgDepartDelay() << "\n";
+    if (myWaitingDepartDelay >= 0) {
+        msg << " DepartDelayWaiting: " << STEPS2TIME(myWaitingDepartDelay) << "\n";
+    }
     if (myWalkCount > 0) {
         msg << "Pedestrian Statistics (avg of " << myWalkCount << " walks):\n"
             << " RouteLength: " << getAvgWalkRouteLength() << "\n"

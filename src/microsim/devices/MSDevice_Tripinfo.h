@@ -245,6 +245,7 @@ private:
     static SUMOTime myTotalWaitingTime;
     static SUMOTime myTotalTimeLoss;
     static SUMOTime myTotalDepartDelay;
+    static SUMOTime myWaitingDepartDelay;
 
     static int myWalkCount;
     static double myTotalWalkRouteLength;
