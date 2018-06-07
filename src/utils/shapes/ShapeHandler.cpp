@@ -121,6 +121,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
         }
     }
     Position pos(x, y);
+    bool useGeo = false;
     if (x == INVALID_POSITION || y == INVALID_POSITION) {
         // try computing x,y from lane,pos
         if (laneID != "") {
@@ -135,6 +136,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                 return;
             }
             pos.set(lon, lat);
+            useGeo = true;
             bool success = true;
             if (useProcessing) {
                 success = GeoConvHelper::getProcessing().x2cartesian(pos);
@@ -147,7 +149,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             }
         }
     }
-    if (!myShapeContainer.addPOI(id, type, color, pos, gch.usingGeoProjection(), laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+    if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
     myLastParameterised = myShapeContainer.getPOIs().get(id);
