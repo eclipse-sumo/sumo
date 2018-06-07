@@ -125,6 +125,12 @@ def get_options(args=None):
     if options.period <= 0:
         print("Error: Period must be positive", file=sys.stderr)
         sys.exit(1)
+
+    if options.vehicle_class:
+        if options.tripprefix:
+            options.vtypeID = "%s_%s" % (options.tripprefix, options.vehicle_class)
+        else:
+            options.vtypeID = options.vehicle_class
     return options
 
 
@@ -414,8 +420,9 @@ def main(options):
             fouttrips, "$Id$", "routes")
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s"%s/>\n' %
-                            (options.vehicle_class, options.vehicle_class, vtypeattrs))
-            options.tripattrs += ' type="%s"' % options.vehicle_class
+                            (options.vtypeID, options.vehicle_class, vtypeattrs))
+            options.tripattrs += ' type="%s"' % options.vtypeID
+            personattrs += ' type="%s"' % options.vtypeID
         depart = options.begin
         if trip_generator:
             if options.flows == 0:
