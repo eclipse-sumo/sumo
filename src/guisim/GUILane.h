@@ -287,6 +287,9 @@ private:
     /// @brief add intermediate points at segment borders
     PositionVector splitAtSegments(const PositionVector& shape);
 
+    /// @brief get number of vehicles waiting for departure on this lane
+    double getPendingEmits() const;
+
 private:
 
     /// @brief gets the scaling value according to the current scheme index

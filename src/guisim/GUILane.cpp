@@ -801,7 +801,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 14);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
@@ -812,6 +812,7 @@ GUILane::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("routing speed [m/s]", true, new FunctionBinding<MSEdge, double>(myEdge, &MSEdge::getRoutingSpeed));
     ret->mkItem("brutto occupancy [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getBruttoOccupancy, 100.));
     ret->mkItem("netto occupancy [%]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getNettoOccupancy, 100.));
+    ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getPendingEmits));
     ret->mkItem("edge type", false, myEdge->getEdgeType());
     ret->mkItem("priority", false, myEdge->getPriority());
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
@@ -1066,7 +1067,7 @@ GUILane::getColorValue(int activeScheme) const {
         case 28:
             return getElectricityConsumption() / myLength;
         case 29:
-            return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
+            return getPendingEmits();
     }
     return 0;
 }
@@ -1218,6 +1219,11 @@ GUILane::isSelected() const {
 bool
 GUILane::isLaneOrEdgeSelected() const {
     return isSelected() || gSelected.isSelected(GLO_EDGE, dynamic_cast<GUIEdge*>(myEdge)->getGlID());
+}
+
+double 
+GUILane::getPendingEmits() const {
+    return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
 }
 
 /****************************************************************************/
