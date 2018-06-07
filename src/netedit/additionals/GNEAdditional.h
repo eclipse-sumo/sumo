@@ -174,9 +174,6 @@ public:
 
     /// @}
 
-    /// @name members and functions relative to select and unselect additionals
-    /// @{
-
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name (ID) of the parent object

@@ -45,7 +45,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, bool friendlyPos, bool blockMovement);
+    GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -63,11 +63,30 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+    * @param[in] oldPos position before start movement
+    * @param[in] offset movement offset regardings to oldPos
+    */
+    void moveGeometry(const Position& oldPos, const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+    * @param[in] oldPos the old position of additional
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const ;
     /// @}
 
     /// @name inherited from GUIGlObject
+    /// @{
+    /// @brief Returns the name (ID) of the parent object
+    const std::string& getParentName() const;
+
     /// @{
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -104,13 +123,13 @@ protected:
     GNELane* myLane;
 
     /// @brief position over lane
-    double myPositionOverLane;
+    std::string myPositionOverLane;
+
+    /// @brief Acces lenght
+    std::string myLength;
 
     /// @brief flag to check if friendly position is enabled
     bool myFriendlyPosition;
-
-    /// @brief Acces lenght
-    double myLength;
 
 private:
     /// @brief set attribute after validation

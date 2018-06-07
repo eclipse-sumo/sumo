@@ -25,10 +25,16 @@
 #include <netedit/changes/GNEChange_CalibratorItem.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
 #include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
-
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
+#include "GNEAccess.h"
 #include "GNECalibrator.h"
 #include "GNECalibratorFlow.h"
 #include "GNECalibratorRoute.h"
@@ -44,10 +50,6 @@
 #include "GNEDetectorEntry.h"
 #include "GNEDetectorExit.h"
 #include "GNEDetectorE1Instant.h"
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/GNENet.h>
 #include "GNEParkingArea.h"
 #include "GNEParkingSpace.h"
 #include "GNERerouter.h"
@@ -55,11 +57,10 @@
 #include "GNERouteProbReroute.h"
 #include "GNEParkingAreaReroute.h"
 #include "GNERouteProbe.h"
-#include <netedit/GNEUndoList.h>
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
-#include <netedit/GNEViewNet.h>
+
 
 // ===========================================================================
 // member method definitions
@@ -1051,6 +1052,21 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
                 return false;
             }
         }
+        case SUMO_TAG_ACCESS: {
+            // obtain specify attributes of detector E2
+            std::string id = values[SUMO_ATTR_ID];
+            GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
+            std::string pos = values[SUMO_ATTR_POSITION];
+            std::string length = values[SUMO_ATTR_LENGTH];
+            bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
+            bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
+            // Build detector E2
+            if (lane) {
+                return buildAccess(viewNet, allowUndoRedo, id, lane, pos, length, friendlyPos, blockMovement);
+            } else {
+                return false;
+            }
+        }
         case SUMO_TAG_CONTAINER_STOP: {
             // obtain specify attributes of containerStop
             std::string id = values[SUMO_ATTR_ID];
@@ -1338,6 +1354,26 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
         return true;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
+    }
+}
+
+
+bool
+GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
+    if (viewNet->getNet()->getAdditional(SUMO_TAG_ACCESS, id) == nullptr) {
+        GNEAccess* access = new GNEAccess(id, lane, viewNet, pos, length, friendlyPos, blockMovement);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_ACCESS));
+            viewNet->getUndoList()->add(new GNEChange_Additional(access, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertAdditional(access);
+            lane->addAdditionalChild(access);
+            access->incRef("buildAccess");
+        }
+        return true;
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 

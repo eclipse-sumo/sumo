@@ -53,7 +53,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, bool friendlyPos, bool blockMovement) :
+GNEAccess::GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
@@ -63,6 +63,29 @@ GNEAccess::GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, 
 
 
 GNEAccess::~GNEAccess() {
+}
+
+
+void 
+GNEAccess::moveGeometry(const Position& oldPos, const Position& offset) {
+    // Calculate new position using old position
+    Position newPosition = oldPos;
+    newPosition.add(offset);
+    myPositionOverLane = toString(myLane->getShape().nearest_offset_to_point2D(newPosition, false));
+    // Update geometry
+    updateGeometry();
+}
+
+
+void 
+GNEAccess::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+    if (!myBlockMovement) {
+        // restore old position before commit new position
+        double originalPosOverLane = myLane->getShape().nearest_offset_to_point2D(oldPos, false);
+        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, myPositionOverLane, true, toString(originalPosOverLane)));
+        undoList->p_end();
+    }
 }
 
 
@@ -77,22 +100,26 @@ GNEAccess::updateGeometry() {
 
     // set start position
     double startPosFixed;
-    if(myPositionOverLane < 0) {
+    if(!canParse<double>(myPositionOverLane)) {
+        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else if(parse<double>(myPositionOverLane) < 0) {
         startPosFixed = 0;
-    } else if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+    } else if (parse<double>(myPositionOverLane) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
         startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else {
-        startPosFixed = myPositionOverLane;
+        startPosFixed = parse<double>(myPositionOverLane);
     }
 
     // set end position
     double endPosFixed;
-    if((myPositionOverLane + myLength) < 0) {
+    if(!canParse<double>(myLength)) {
+        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else if((parse<double>(myPositionOverLane) + parse<double>(myLength)) < 0) {
         endPosFixed = 0;
-    } else if ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+    } else if ((parse<double>(myPositionOverLane) + parse<double>(myLength)) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
         endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
     } else {
-        endPosFixed = (myPositionOverLane + myLength);
+        endPosFixed = (parse<double>(myPositionOverLane) + parse<double>(myLength));
     }
 
     // Cut shape using as delimitators fixed start position and fixed end position
@@ -139,6 +166,16 @@ GNEAccess::updateGeometry() {
 }
 
 
+Position 
+GNEAccess::getPositionInView() const {
+    if(myPositionOverLane.empty()) {
+        return myLane->getShape().positionAtOffset(0);
+    } else {
+        return myLane->getShape().positionAtOffset(parse<double>(myPositionOverLane));
+    }
+}
+
+
 void
 GNEAccess::writeAdditional(OutputDevice& device) const {
     // Write parameters
@@ -155,7 +192,11 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 
 double 
 GNEAccess::getLength() const {
-    return myLength;
+    if(myLength.empty()) {
+        return myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else {
+        return parse<double>(myLength);
+    }
 }
 
 
@@ -165,8 +206,14 @@ GNEAccess::isAccessPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane>= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return (parse<double>(myPositionOverLane)>= 0) && ((parse<double>(myPositionOverLane) + parse<double>(myLength)) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
+}
+
+
+const std::string& 
+GNEAccess::getParentName() const {
+    return myLane->getID();
 }
 
 
@@ -196,29 +243,6 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
 
     // Pop last matrix
     glPopMatrix();
-
-    // Check if the distance is enougth to draw details and isn't being drawn for selecting
-    if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
-        // Push matrix
-        glPushMatrix();
-        // Traslate to center of detector
-        glTranslated(myShape.getLineCenter().x(), myShape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, -1);
-        //move to logo position
-        glTranslated(-0.75, 0, 0);
-        // draw E2 logo
-        if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
-        } else {
-            GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
-        }
-        // pop matrix
-        glPopMatrix();
-
-        // Show Lock icon depending of the Edit mode
-        drawLockIcon();
-    }
 
     // Draw name if isn't being drawn for selecting
     if(!s.drawForSelecting) {
@@ -314,10 +338,10 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value);
+            myPositionOverLane = value;
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            myLength = value;
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);;
