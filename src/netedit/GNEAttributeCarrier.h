@@ -79,6 +79,8 @@ public:
         TAGPROPERTY_GEOSHAPE =      1 << 11,    // Element's shape acn be defined using a GEO Shape
         TAGPROPERTY_DIALOG =        1 << 12,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
         TAGPROPERTY_PARENT =        1 << 13,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_LIMITEDCHILDS = 1 << 14,    // Element can only have a certain number of childs (0 -> unlimited)
+        TAGPROPERTY_REPARENT =      1 << 15,    // Element can be reparent
     };
 
     /// @brief struct with the attribute Properties
@@ -88,7 +90,7 @@ public:
         TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING);
+        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int maxNumberOfChilds = 0);
 
         /// @brief get GUI icon associated to this Tag
         GUIIcon getGUIIcon() const;
@@ -98,6 +100,9 @@ public:
 
         /// @brief if has a parent, return parent tag
         SumoXMLTag getParentTag() const;
+
+        /// @brief get maximum number of childs
+        int getMaxNumberOfChilds() const;
 
         /// @brief return true if tag correspond to a netElement
         bool isNetElement() const;
@@ -138,6 +143,12 @@ public:
         /// @brief return true if tag correspond to an element that can be edited using a dialog
         bool hasDialog() const;
 
+        /// @brief return true if tag correspond to an element that only have a limited number of childs
+        bool hasLimitedNumberOfCHilds() const;
+
+        /// @brief return true if tag correspond to an element that can be reparent
+        bool canBeReparent() const;
+
     private:
         /// @brief Property of attribute
         int myTagProperty;
@@ -150,6 +161,9 @@ public:
 
         /// @brief parent tag
         SumoXMLTag myParentTag;
+
+        /// @brief maximun number of childs (0 -> unlimited)
+        int myMaxNumberOfChilds;
     };
 
 

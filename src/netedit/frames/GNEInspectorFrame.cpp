@@ -949,8 +949,8 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
                 myCheckBoxCloseShape->setText("false");
             }
         }
-        // Check if item has another item as parent
-        if (tagValue.hasParent()) {
+        // Check if item has another item as parent and can be reparemt
+        if (tagValue.hasParent() && tagValue.canBeReparent()) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent

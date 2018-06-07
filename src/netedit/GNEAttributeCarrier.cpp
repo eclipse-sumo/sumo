@@ -61,15 +61,17 @@ GNEAttributeCarrier::TagValues::TagValues() :
     myTagProperty(TAGPROPERTY_NETELEMENT),
     myIcon(ICON_EMPTY),
     myPositionListed(0),
-    myParentTag(SUMO_TAG_NOTHING) {
+    myParentTag(SUMO_TAG_NOTHING),
+    myMaxNumberOfChilds(0) {
 }
 
 
-GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag) :
+GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, int maxNumberOfChilds) :
     myTagProperty(tagProperty),
     myIcon(icon),
     myPositionListed(positionListed),
-    myParentTag(parentTag) {
+    myParentTag(parentTag),
+    myMaxNumberOfChilds(maxNumberOfChilds){
 }
 
 
@@ -88,6 +90,12 @@ GNEAttributeCarrier::TagValues::getGUIIcon() const {
 SumoXMLTag 
 GNEAttributeCarrier::TagValues::getParentTag() const {
     return myParentTag;
+}
+
+
+int
+GNEAttributeCarrier::TagValues::getMaxNumberOfChilds() const {
+    return myMaxNumberOfChilds;
 }
 
 
@@ -162,9 +170,22 @@ GNEAttributeCarrier::TagValues::hasParent() const {
     return (myTagProperty & TAGPROPERTY_PARENT) != 0;
 }
 
+
 bool 
 GNEAttributeCarrier::TagValues::hasDialog() const {
     return (myTagProperty & TAGPROPERTY_DIALOG) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::hasLimitedNumberOfCHilds() const {
+    return (myTagProperty & TAGPROPERTY_LIMITEDCHILDS) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::canBeReparent() const {
+    return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -1080,7 +1101,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_STOPPINGPLACE, 10, ICON_BUSSTOP);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_LIMITEDCHILDS, 10, ICON_BUSSTOP, SUMO_TAG_NOTHING, 1);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1136,7 +1157,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CONTAINER_STOP;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_STOPPINGPLACE, 12, ICON_CONTAINERSTOP);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, 12, ICON_CONTAINERSTOP);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1170,7 +1191,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_CHARGING_STATION;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_STOPPINGPLACE, 13, ICON_CHARGINGSTATION);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, 13, ICON_CHARGINGSTATION);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1216,7 +1237,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_AREA;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_STOPPINGPLACE, 14, ICON_PARKINGAREA);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, 14, ICON_PARKINGAREA);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1292,7 +1313,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E1DETECTOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 20, ICON_E1);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, 20, ICON_E1);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1326,7 +1347,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E2DETECTOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 21, ICON_E2);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, 21, ICON_E2);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1376,7 +1397,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 22, ICON_E3);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, 22, ICON_E3);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1406,7 +1427,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_ENTRY;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 23, ICON_E3ENTRY, SUMO_TAG_E3DETECTOR);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, 23, ICON_E3ENTRY, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1424,7 +1445,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_EXIT;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 24, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, 24, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LANE] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1442,7 +1463,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_INSTANT_INDUCTION_LOOP;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_DETECTOR, 25, ICON_E1INSTANT);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, 25, ICON_E1INSTANT);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
