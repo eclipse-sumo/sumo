@@ -32,11 +32,12 @@ import glob
 import Tkinter
 from optparse import OptionParser
 from xml.dom import pulldom
+from collections import defaultdict
 
 _SCOREFILE = "scores.pkl"
 _SCORESERVER = "sumo.dlr.de"
 _SCORESCRIPT = "/scores.php?game=TLS&"
-_DEBUG = False
+_DEBUG = True
 _SCORES = 30
 
 _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
@@ -49,6 +50,7 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'bs3Dosm': '3D Junction OpenStreetMap',
                 'ramp': 'Highway Ramp',
                 'corridor': 'Corridor',
+                'A10KW': 'Highway Ramp A10 (new)',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
                 'lang': 'Deutsch',
@@ -67,6 +69,7 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'bs3d': '3D Forschungskreuzung Virtuelle Welt',
                 'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
                 'ramp': 'Autobahnauffahrt',
+                'A10KW': 'A10 KW (neu)',
                 'corridor': 'Strecke',
                 'high': 'Bestenliste',
                 'reset': 'Bestenliste zurücksetzen',
@@ -77,6 +80,52 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'your score': 'Deine Punkte',
                 'Continue': 'Weiter',
                 }
+
+def computeScoreFromWaitingTime(gamename):
+    totalDistance = 0
+    totalFuel = 0
+    totalArrived = 0
+    totalWaitingTime = 0
+    complete = True
+    for line in open(os.path.join(base, "%s.netstate.xml" % start.category)):
+        m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
+        if m and float(m.group(2)) != start.gametime:
+            print("error: incomplete output")
+            complete = False
+        m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
+        if m:
+            totalDistance += float(m.group(1)) * float(m.group(2))
+        m = re.search('fuel_abs="([^"]*)"', line)
+        if m:
+            totalFuel += float(m.group(1))
+        m = re.search('arrived="([^"]*)"', line)
+        if m:
+            totalArrived += float(m.group(1))
+        m = re.search('waitingTime="([^"]*)"', line)
+        if m:
+            totalWaitingTime += float(m.group(1))
+    # doing nothing gives a waitingTime of 6033 for cross and 6700 for
+    # square
+    score = 10000 - totalWaitingTime
+    return score, totalArrived, complete
+
+def computeScoreFromTimeLoss(gamename):
+    totalArrived = 0
+    timeLoss = None
+    for line in open(gamename + ".log"):
+        m = re.search('TimeLoss: (.*)', line)
+        if m:
+            timeLoss = float(m.group(1))
+    if timeLoss is None:
+        return 0, totalArrived, False
+    else:
+        return 10000 - timeLoss * 100, totalArrived, True
+
+
+_SCORING_FUNCTION = defaultdict(lambda : computeScoreFromWaitingTime)
+_SCORING_FUNCTION.update({
+                'A10KW': computeScoreFromTimeLoss,
+                })
 
 
 def loadHighscore():
@@ -211,33 +260,19 @@ class StartDialog(Tkinter.Frame):
             print("starting", cfg)
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call(
-            [guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log'], stderr=sys.stderr)
+            [guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
+                '--output-prefix', "%s." % self.category,
+                '--duration-log.statistics',
+                '--tripinfo-output.write-unfinished']
+            , stderr=sys.stderr)
+
         if _DEBUG:
             print("ended", cfg)
 
         # compute score
-        totalDistance = 0
-        totalFuel = 0
-        totalArrived = 0
-        totalWaitingTime = 0
-        complete = True
-        for line in open(os.path.join(base, "%s.netstate.xml" % start.category)):
-            m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
-            if m and float(m.group(2)) != start.gametime:
-                print("error: incomplete output")
-                complete = False
-            m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
-            if m:
-                totalDistance += float(m.group(1)) * float(m.group(2))
-            m = re.search('fuel_abs="([^"]*)"', line)
-            if m:
-                totalFuel += float(m.group(1))
-            m = re.search('arrived="([^"]*)"', line)
-            if m:
-                totalArrived += float(m.group(1))
-            m = re.search('waitingTime="([^"]*)"', line)
-            if m:
-                totalWaitingTime += float(m.group(1))
+        score, totalArrived, complete = _SCORING_FUNCTION[self.category](self.category)
+
+        # parse switches
         switch = []
         lastProg = {}
         for line in open(os.path.join(base, "%s.tlsstate.xml" % start.category)):
@@ -249,14 +284,15 @@ class StartDialog(Tkinter.Frame):
                 if tls not in lastProg or lastProg[tls] != program:
                     lastProg[tls] = program
                     switch += [m.group(3), m.group(1)]
-        # doing nothing gives a waitingTime of 6033 for cross and 6700 for
-        # square
-        score = 10000 - totalWaitingTime
+
         lang = start._language_text
         if _DEBUG:
             print(switch, score, totalArrived, complete)
         if complete:
             ScoreDialog(self, switch, score, self.category, lang)
+
+
+
         # if ret != 0:
         # quit on error
         #    sys.exit(start.ret)
