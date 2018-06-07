@@ -62,7 +62,9 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) {
             GeoConvHelper::getFinal().cartesian2geo(shape[i]);
         }
     }
+    out.setPrecision(gPrecisionGeo);
     out.writeAttr(SUMO_ATTR_SHAPE, shape);
+    out.setPrecision();
     if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
         out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     }
