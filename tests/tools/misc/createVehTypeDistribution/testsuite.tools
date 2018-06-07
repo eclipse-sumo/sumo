@@ -1,5 +1,8 @@
 example
 
+# test assigning a distribution to a parameter
+parameter
+
 # uniform maximum speed distribution
 uniform_speed
 

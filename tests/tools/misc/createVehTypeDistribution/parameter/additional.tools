@@ -1,0 +1,34 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vTypeDistribution id="paramDist">
+        <vType bla="bla" id="paramDist0">
+            <param key="foo" value="3.245"/>
+        </vType>
+        <vType bla="bla" id="paramDist1">
+            <param key="foo" value="2.503"/>
+        </vType>
+        <vType bla="bla" id="paramDist2">
+            <param key="foo" value="4.255"/>
+        </vType>
+        <vType bla="bla" id="paramDist3">
+            <param key="foo" value="2.862"/>
+        </vType>
+        <vType bla="bla" id="paramDist4">
+            <param key="foo" value="2.024"/>
+        </vType>
+        <vType bla="bla" id="paramDist5">
+            <param key="foo" value="3.565"/>
+        </vType>
+        <vType bla="bla" id="paramDist6">
+            <param key="foo" value="1.832"/>
+        </vType>
+        <vType bla="bla" id="paramDist7">
+            <param key="foo" value="4.738"/>
+        </vType>
+        <vType bla="bla" id="paramDist8">
+            <param key="foo" value="2.675"/>
+        </vType>
+        <vType bla="bla" id="paramDist9">
+            <param key="foo" value="4.182"/>
+        </vType>
+    </vTypeDistribution>
+</additional>

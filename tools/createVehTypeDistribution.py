@@ -130,14 +130,24 @@ def readConfigFile(filePath):
     with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
-            parName = None
+            attName = None
             lowerLimit = 0
             upperLimit = None
             value = None
 
             if len(row) >= 2:
                 if len(row[0].strip()) > 0:
-                    parName = row[0].strip()
+                    attName = row[0].strip()
+                    if attName == "param":
+                        # this indicates that a parameter child-element is to be created for the vTypes
+                        isParameter=True
+                        del row[0]
+                        if len(row) < 2:
+                            # a parameter needs a name and a value specification
+                            continue
+                        attName = row[0].strip()
+                    else:
+                        isParameter=False
                     # check if attribute value matches given distribution
                     # syntax
                     attValue = row[1].strip()
@@ -171,7 +181,8 @@ def readConfigFile(filePath):
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])
                     value.setLimits((lowerLimit, upperLimit))
-                    result[parName] = value
+                    res = {"value":value, "isParameter":isParameter}
+                    result[attName] = res
     return result
 
 
@@ -195,9 +206,17 @@ def main(options):
     for i in range(0, options.vehicleCount):
         vTypeNode = domTree.createElement("vType")
         vTypeNode.setAttribute("id", options.vehDistName + str(i))
-        for attName, attValue in vTypeParameters.items():
-            vTypeNode.setAttribute(
-                attName, attValue.sampleValueString(options.decimalPlaces))
+        for attName, d in vTypeParameters.items():
+            attValue = d["value"] 
+            isParameter = d["isParameter"] 
+            if isParameter:
+                paramNode = domTree.createElement("param")
+                paramNode.setAttribute("key", attName)
+                paramNode.setAttribute("value", attValue.sampleValueString(options.decimalPlaces))
+                vTypeNode.appendChild(paramNode)
+            else:
+                vTypeNode.setAttribute(
+                    attName, attValue.sampleValueString(options.decimalPlaces))
         vTypeDistNode.appendChild(vTypeNode)
 
     existingDistNodes = domTree.getElementsByTagName("vTypeDistribution")
