@@ -47,14 +47,14 @@
 #include <netedit/GNEViewParent.h>
 
 #include "GNEAccess.h"
-
+#include "GNEBusStop.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement),
+GNEAccess::GNEAccess(const std::string& id, GNEBusStop *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
+    GNEAdditional(id, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement, busStop),
     myLane(lane),
     myPositionOverLane(pos),
     myLength(length),

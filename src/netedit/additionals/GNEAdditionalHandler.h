@@ -39,6 +39,7 @@ class GNECalibrator;
 class GNECalibratorRoute;
 class GNECalibratorVehicleType;
 class GNEDetectorE3;
+class GNEBusStop;
 class GNEEdge;
 class GNEJunction;
 class GNELane;
@@ -288,6 +289,7 @@ public:
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
      * @param[in] id The id of the Access
+     * @param[in] busStop GNEBusStop of this Access belongs
      * @param[in] lane The lane the Access is placed on
      * @param[in] pos position of the Access on the lane
      * @param[in[ length length of the Access
@@ -296,7 +298,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    static bool buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEBusStop *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a container stop
      * @param[in] viewNet viewNet in which element will be inserted

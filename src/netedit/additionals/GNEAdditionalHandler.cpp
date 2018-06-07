@@ -1056,13 +1056,14 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             // obtain specify attributes of detector E2
             std::string id = values[SUMO_ATTR_ID];
             GNELane* lane = viewNet->getNet()->retrieveLane(values[SUMO_ATTR_LANE], false);
+            GNEBusStop* busStop = dynamic_cast<GNEBusStop*>(viewNet->getNet()->retrieveAdditional(values[GNE_ATTR_PARENT]));
             std::string pos = values[SUMO_ATTR_POSITION];
             std::string length = values[SUMO_ATTR_LENGTH];
             bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build detector E2
-            if (lane) {
-                return buildAccess(viewNet, allowUndoRedo, id, lane, pos, length, friendlyPos, blockMovement);
+            if (lane && busStop) {
+                return buildAccess(viewNet, allowUndoRedo, id, busStop, lane, pos, length, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1359,9 +1360,9 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
 
 
 bool
-GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEBusStop *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->getAdditional(SUMO_TAG_ACCESS, id) == nullptr) {
-        GNEAccess* access = new GNEAccess(id, lane, viewNet, pos, length, friendlyPos, blockMovement);
+        GNEAccess* access = new GNEAccess(id, busStop, lane, viewNet, pos, length, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_ACCESS));
             viewNet->getUndoList()->add(new GNEChange_Additional(access, true), true);
@@ -1373,7 +1374,7 @@ GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const
         }
         return true;
     } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR) + " with ID '" + id + "' in netedit; probably declared twice.");
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 

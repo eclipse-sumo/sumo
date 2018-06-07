@@ -25,6 +25,10 @@
 
 #include "GNEAdditional.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GNEBusStop;
 
 // ===========================================================================
 // class definitions
@@ -38,14 +42,15 @@ class GNEAccess : public GNEAdditional {
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this Access belongs
+     * @param[in] busStop GNEBusStop of this Access belongs
+     * @param[in] lane GNELane of this Access belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position of the Access on the lane
      * @param[in] length The length of the Access in meters.
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEAccess(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    GNEAccess(const std::string& id, GNEBusStop *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();
