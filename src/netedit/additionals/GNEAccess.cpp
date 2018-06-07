@@ -212,7 +212,7 @@ GNEAccess::isAccessPositionFixed() const {
 
 const std::string& 
 GNEAccess::getParentName() const {
-    return myLane->getID();
+    return myLane->getMicrosimID();
 }
 
 
