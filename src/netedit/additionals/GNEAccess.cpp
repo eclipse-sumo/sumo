@@ -180,7 +180,6 @@ void
 GNEAccess::writeAdditional(OutputDevice& device) const {
     // Write parameters
     device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
     writeAttribute(device, SUMO_ATTR_LANE);
     writeAttribute(device, SUMO_ATTR_POSITION);
     writeAttribute(device, SUMO_ATTR_LENGTH);
@@ -269,6 +268,8 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
             return toString(myFriendlyPosition);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
+        case GNE_ATTR_PARENT:
+            return myAdditionalParent->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         default:
@@ -283,7 +284,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
@@ -301,8 +301,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
 bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
             if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
                 return true;

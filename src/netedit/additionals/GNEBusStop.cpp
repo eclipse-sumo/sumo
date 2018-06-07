@@ -105,20 +105,10 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myLines.size() > 0) {
         writeAttribute(device, SUMO_ATTR_LINES);
     }
-    /*
-    if (!myAccess.empty()) {
-        for (auto a : myAccess) {
-            device.openTag(SUMO_TAG_ACCESS);
-            device.writeAttr(SUMO_ATTR_LANE, a.lane->getID());
-            device.writeAttr(SUMO_ATTR_POSITION, a.pos);
-            if (a.length > 0) {
-                device.writeAttr(SUMO_ATTR_LENGTH, a.length);
-            }
-            device.writeAttr(SUMO_ATTR_FRIENDLY_POS, a.friendlyPos);
-            device.closeTag();
-        }
+    // Write Access
+    for (auto i : myAdditionalChilds) {
+        i->writeAdditional(device);
     }
-    */
     // Close tag
     device.closeTag();
 }
