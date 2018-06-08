@@ -1101,7 +1101,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_LIMITEDCHILDS, 10, ICON_BUSSTOP, SUMO_TAG_NOTHING, 1);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, 10, ICON_BUSSTOP, SUMO_TAG_NOTHING);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,

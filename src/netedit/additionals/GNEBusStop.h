@@ -70,6 +70,9 @@ public:
     /// @brief generate Acces ID
     std::string generateAccesID() const;
 
+    /// @brief
+    bool accesCanBeCreated(GNEEdge &edge) const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

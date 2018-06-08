@@ -63,6 +63,9 @@ public:
     /// @brief check if Position of Access is fixed
     bool isAccessPositionFixed() const;
 
+    /// @brief get edge in which this Access is placed
+    GNEEdge &getEdge() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

@@ -167,6 +167,12 @@ GNEAccess::isAccessPositionFixed() const {
 }
 
 
+GNEEdge&
+GNEAccess::getEdge() const {
+    return myLane->getParentEdge();
+}
+
+
 const std::string& 
 GNEAccess::getParentName() const {
     return myAdditionalParent->getID();
@@ -252,12 +258,18 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
-                return true;
+        case SUMO_ATTR_LANE: {
+            GNELane *lane = myViewNet->getNet()->retrieveLane(value, false);
+            if (lane != nullptr) {
+                if(myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
+                    return dynamic_cast<GNEBusStop*>(myAdditionalParent)->accesCanBeCreated(lane->getParentEdge());
+                } else {
+                    return true;
+                }
             } else {
                 return false;
             }
+        }
         case SUMO_ATTR_POSITION:
             if(value.empty()) {
                 return true;

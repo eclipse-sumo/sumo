@@ -48,6 +48,7 @@
 #include <netedit/GNEViewParent.h>
 
 #include "GNEBusStop.h"
+#include "GNEAccess.h"
 
 // ===========================================================================
 // method definitions
@@ -127,6 +128,17 @@ GNEBusStop::generateAccesID() const {
         counter++;
     }
     return (getID() + toString(SUMO_TAG_ACCESS) + toString(counter));
+}
+
+ 
+bool 
+GNEBusStop::accesCanBeCreated(GNEEdge &edge) const {
+    for (auto i : myAdditionalChilds) {
+        if (dynamic_cast<GNEAccess*>(i)->getEdge().getID() == edge.getID()) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
