@@ -664,8 +664,7 @@ protected:
     bool myUndoAdditionals;
 
     /// @brief The element stack used to save the last inserted element
-    int index;
-    std::map<int, std::pair<SumoXMLTag, std::string> > myParentElements;
+    std::vector<std::pair<SumoXMLTag, std::string> > myParentElements;
 };
 
 
