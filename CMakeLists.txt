@@ -238,4 +238,8 @@ if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
 
+install(DIRECTORY data/ DESTINATION share/sumo/data) 
+install(DIRECTORY tools/ DESTINATION share/sumo/tools) 
+install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
