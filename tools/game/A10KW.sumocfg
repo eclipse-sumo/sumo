@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  6 11:22:56 2018 by Eclipse SUMO Version 7cf86d2
+<!-- generated on Fri Jun  8 07:26:59 2018 by Eclipse SUMO Version 621ab1d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -11,8 +11,14 @@
         <additional-files value="input_additional.add.xml,A10KW/osm.poly.xml"/>
     </input>
 
+    <time>
+        <end value="1800"/>
+        <step-length value="0.5"/>
+    </time>
+
     <processing>
         <ignore-route-errors value="true"/>
+        <time-to-teleport value="0"/>
     </processing>
 
     <routing>
@@ -28,13 +34,5 @@
     <gui_only>
         <gui-settings-file value="A10KW/osm.view.xml"/>
     </gui_only>
-
-    <time-to-teleport value="0"/>
-    <step-length value="0.5"/>
-    <end value="1800"/>
-
-    <!--
-    <max-depart-delay value="1"/>
-    -->
 
 </configuration>
