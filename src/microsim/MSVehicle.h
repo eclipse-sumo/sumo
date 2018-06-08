@@ -891,7 +891,6 @@ public:
      *
      * @return The vehicle driver's state
      *
-     * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
      */
     inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
         return myDriverState;
