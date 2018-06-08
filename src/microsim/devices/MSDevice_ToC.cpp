@@ -31,6 +31,7 @@
 #include <utils/common/RGBColor.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSRouteHandler.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSDriverState.h>
@@ -253,8 +254,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
         SUMOTime responseTime, double recoveryRate, double initialAwareness,
         double mrmDecel, bool useColoring) :
     MSDevice(holder, id),
-    myManualType(manualType),
-    myAutomatedType(automatedType),
+    myManualTypeID(manualType),
+    myAutomatedTypeID(automatedType),
     myResponseTime(responseTime),
     myRecoveryRate(recoveryRate),
     myInitialAwareness(initialAwareness),
@@ -272,21 +273,47 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::ensureDriverStateExistence), SIMSTEP);
 
-    if (holder.getVehicleType().getID() == manualType) {
+
+    // Check if the given vTypes for the ToC Device are vTypeDistributions
+    MSVehicleControl& vehCtrl = MSNet::getInstance()->getVehicleControl();
+    const bool automatedVTypeIsDist = vehCtrl.hasVTypeDistribution(myAutomatedTypeID);
+    const bool manualVTypeIsDist = vehCtrl.hasVTypeDistribution(myManualTypeID);
+
+    // Check if the vType of the holder matches one of the given vTypes
+    std::string holderVTypeID = holder.getVehicleType().getID();
+    if (holderVTypeID == myManualTypeID) {
         myState = ToCState::MANUAL;
-    } else if (holder.getVehicleType().getID() == automatedType) {
+    } else if (holderVTypeID == myAutomatedTypeID) {
         myState = ToCState::AUTOMATED;
+    } else if(manualVTypeIsDist && holderVTypeID.find(myManualTypeID) == 0) {
+        // Holder type id starts with type distribution name.
+        // We assume that this means that it is from the given distribution.
+        myState = ToCState::MANUAL;
+        myManualTypeID = holderVTypeID;
+    } else if(automatedVTypeIsDist && holderVTypeID.find(myAutomatedTypeID) == 0) {
+        // Holder type id starts with type distribution name.
+        // We assume that this means that it is from the given distribution.
+        myState = ToCState::AUTOMATED;
+        myAutomatedTypeID = holderVTypeID;
     } else {
         throw ProcessError("Vehicle type of vehicle '" + holder.getID() + "' ('" + holder.getVehicleType().getID()
-                + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType + "') specified for its ToC-device.");
+                + "') must coincide with manualType ('" + manualType + "') or automatedType ('" + automatedType
+                + "') specified for its ToC-device (or drawn from the specified vTypeDistributions).");
+    }
+
+    // Eventually instantiate given vTypes from distributions
+    if (myState == ToCState::MANUAL && automatedVTypeIsDist) {
+        myAutomatedTypeID = vehCtrl.getVType(myAutomatedTypeID, MSRouteHandler::getParsingRNG())->getID();
+    } else if (myState == ToCState::AUTOMATED && manualVTypeIsDist) {
+        myManualTypeID = vehCtrl.getVType(myManualTypeID, MSRouteHandler::getParsingRNG())->getID();
     }
 
     initColorScheme();
 
 #ifdef DEBUG_TOC
     std::cout << "initialized device '" << id << "' with "
-            << "myManualType=" << myManualType << ", "
-            << "myAutomatedType=" << myAutomatedType << ", "
+            << "myManualType=" << myManualTypeID << ", "
+            << "myAutomatedType=" << myAutomatedTypeID << ", "
             << "myResponseTime=" << myResponseTime << ", "
             << "myRecoveryRate=" << myRecoveryRate << ", "
             << "myInitialAwareness=" << myInitialAwareness << ", "
@@ -303,8 +330,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id,
 void
 MSDevice_ToC::initColorScheme() {
     //RGBColor(red, green, blue)
-    myColorScheme[MANUAL] = MSNet::getInstance()->getVehicleControl().getVType(myManualType)->getColor();
-    myColorScheme[AUTOMATED] = MSNet::getInstance()->getVehicleControl().getVType(myAutomatedType)->getColor();
+    myColorScheme[MANUAL] = MSNet::getInstance()->getVehicleControl().getVType(myManualTypeID)->getColor();
+    myColorScheme[AUTOMATED] = MSNet::getInstance()->getVehicleControl().getVType(myAutomatedTypeID)->getColor();
     myColorScheme[PREPARING_TOC] = RGBColor(200, 200, 250); // light blue
     myColorScheme[MRM] = RGBColor(250, 50, 50); // red
     myColorScheme[RECOVERING] = RGBColor(250, 210, 150); // light yellow
@@ -432,7 +459,7 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     myExecuteMRMCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::MRMExecutionStep);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myExecuteMRMCommand, SIMSTEP + DELTA_T);
     setState(MRM);
-    switchHolderType(myAutomatedType);
+    switchHolderType(myAutomatedTypeID);
     setAwareness(1.);
 
     return 0;
@@ -444,7 +471,7 @@ MSDevice_ToC::triggerUpwardToC(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " triggerUpwardToC() for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-    switchHolderType(myAutomatedType);
+    switchHolderType(myAutomatedTypeID);
     setAwareness(1.);
     setState(AUTOMATED);
 
@@ -465,7 +492,7 @@ MSDevice_ToC::triggerDownwardToC(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " triggerDownwardToC() for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-    switchHolderType(myManualType);
+    switchHolderType(myManualTypeID);
 
     // @todo: Sample initial awareness
     double initialAwareness = myInitialAwareness;
@@ -627,9 +654,9 @@ MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
 std::string
 MSDevice_ToC::getParameter(const std::string& key) const {
     if (key == "manualType") {
-        return myManualType;
+        return myManualTypeID;
     } else if (key == "automatedType") {
-        return myAutomatedType;
+        return myAutomatedTypeID;
     } else if (key == "responseTime") {
         return toString(STEPS2TIME(myResponseTime));
     } else if (key == "recoveryRate") {
@@ -655,14 +682,14 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     std::cout << "MSDevice_ToC::setParameter(key=" << key << ", value=" << value << ")" << std::endl;
 #endif
     if (key == "manualType") {
-        myManualType = value;
-        myColorScheme[MANUAL] = MSNet::getInstance()->getVehicleControl().getVType(myManualType)->getColor();
+        myManualTypeID = value;
+        myColorScheme[MANUAL] = MSNet::getInstance()->getVehicleControl().getVType(myManualTypeID)->getColor();
         if (myState == MANUAL) {
             switchHolderType(value);
         }
     } else if (key == "automatedType") {
-        myAutomatedType = value;
-        myColorScheme[AUTOMATED] = MSNet::getInstance()->getVehicleControl().getVType(myAutomatedType)->getColor();
+        myAutomatedTypeID = value;
+        myColorScheme[AUTOMATED] = MSNet::getInstance()->getVehicleControl().getVType(myAutomatedTypeID)->getColor();
         if (myState == AUTOMATED || myState == PREPARING_TOC || myState == MRM) {
             switchHolderType(value);
         }

@@ -48,6 +48,7 @@ class RGBColor;
  *
  * @brief The ToC Device controls transition of control between automated and manual driving.
  * @todo: Provide logging facilities
+ * @todo: allow manual and automated type to refer to vTypeDistributions
  *
  * @see MSDevice
  */
@@ -201,10 +202,10 @@ private:
     /// @name private state members of the ToC device
     /// @{
 
-    /// @brief vehicle type for manual driving
-    std::string myManualType;
-    /// @brief vehicle type for automated driving
-    std::string myAutomatedType;
+    /// @brief vehicle type ID for manual driving
+    std::string myManualTypeID;
+    /// @brief vehicle type ID for automated driving
+    std::string myAutomatedTypeID;
 
     // @brief Average response time needed by the driver to take back control
     SUMOTime myResponseTime;
