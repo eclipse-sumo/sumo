@@ -101,6 +101,7 @@
 //#define DEBUG_TRACI
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
+//#define DEBUG_EXPECTED_SLSPEED
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -267,9 +268,9 @@ MSLCM_SL2015::setOwnState(const int state) {
         if ((state & LCA_STAY) != 0) {
             myManeuverDist = 0;
             myCanChangeFully = true;
-            if (DEBUG_COND) {
-                std::cout << "    myCanChangeFully=true\n";
-            }
+//            if (DEBUG_COND) {
+//                std::cout << "    myCanChangeFully=true\n";
+//            }
         }
     }
 }
@@ -1904,9 +1905,11 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 } else {
                     vSafe = myCarFollowModel.followSpeed(
                                 &myVehicle, vMax, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
+#ifdef DEBUG_EXPECTED_SLSPEED
                     if (DEBUG_COND) {
                         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " leader=" << leader->getID() << " gap=" << gap << " vSafe=" << vSafe << "\n";
                     }
+#endif
                     const double deltaV = vMax - leader->getSpeed();
                     if (deltaV > 0 && gap / deltaV < 5) {
                         // anticipate future braking

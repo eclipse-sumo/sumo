@@ -1983,8 +1983,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //   the next step, new foes may appear and cause a collision (see #1096)
         // - major links: stopping point is irrelevant
         const double laneStopOffset = yellowOrRed || (*link)->havePriority() ? MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this)): MAX2(POSITION_EPS, lane->getStopOffset(this));
-
         const double stopDist = MAX2(0., seen - laneStopOffset);
+
+#ifdef DEBUG_PLAN_MOVE
+      if DEBUG_COND {
+          std::cout << SIMTIME << " veh=" << getID() << " effective stopOffset on lane '" << lane->getID()
+                  << "' is " << laneStopOffset << " (-> stopDist=" << stopDist << ")" << std::endl;
+      }
+#endif
+
         // check whether we need to slow down in order to finish a continuous lane change
         if (getLaneChangeModel().isChangingLanes()) {
             if (    // slow down to finish lane change before a turn lane
@@ -1998,12 +2005,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 // XXX: Euler-logic (#860), but I couldn't identify problems from this yet (Leo). Refs. #2575
                 const double va = MAX2(0., (seen - POSITION_EPS) / timeRemaining);
 #ifdef DEBUG_PLAN_MOVE
-                if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " slowing down to finish continuous change before"
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() << " slowing down to finish continuous change before"
                                               << " link=" << (*link)->getViaLaneOrLane()->getID()
                                               << " timeRemaining=" << timeRemaining
                                               << " v=" << v
                                               << " va=" << va
                                               << "\n";
+                }
 #endif
                 v = MIN2(va, v);
             }
