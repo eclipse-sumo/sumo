@@ -2243,10 +2243,8 @@ MSLCM_SL2015::checkBlockingVehicles(
                     }
 #endif
 
-                    const double decelFactor = (1 + 0.5 * myImpatience) * myAssertive;
-
-                    // @note for euler-update, a different value for secureGap2 may be obtained when applying decelFactor to followerDecel rather than secureGap
-                    const double secureGap2 = expectedSecureGap / decelFactor;
+                    // @note for euler-update, a different value for secureGap2 may be obtained when applying safetyFactor to followerDecel rather than secureGap
+                    const double secureGap2 = expectedSecureGap * getSafetyFactor();
                     if (expectedGap < secureGap2) {
                         // Foe is a blocker. Update lateral safe gaps accordingly.
                         if (foeRight > leftVehSide) {
@@ -2258,7 +2256,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 #ifdef DEBUG_BLOCKING
                         if (gDebugFlag2) {
                             std::cout << "    blocked by " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
-                                      << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor
+                                      << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << safetyFactor
                                       << " safeLatGapLeft=" << safeLatGapLeft << " safeLatGapRight=" << safeLatGapRight
                                       << "\n";
                         }
@@ -2272,7 +2270,7 @@ MSLCM_SL2015::checkBlockingVehicles(
 #ifdef DEBUG_BLOCKING
                     } else if (gDebugFlag2 && expectedGap < expectedSecureGap) {
                         std::cout << "    ignore blocker " << vehDist.first->getID() << " gap=" << vehDist.second << " expectedGap=" << expectedGap
-                                  << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " decelFactor=" << decelFactor << "\n";
+                                  << " expectedSecureGap=" << expectedSecureGap << " secGap2=" << secureGap2 << " safetyFactor=" << safetyFactor << "\n";
 #endif
                     }
                 }
@@ -3127,11 +3125,10 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
         // - vehicles with overlap at the start of the maneuver: avoid collision within secondsToLeaveLane
         // - vehicles without overlap: ignore
 
-        const double decelFactor = (1 + 0.5 * myImpatience) * myAssertive;
         const double maxDecel = myVehicle.getCarFollowModel().getMaxDecel();
         // temporarily use another decel value
         MSCFModel& cfmodel = const_cast<MSCFModel&>(myVehicle.getCarFollowModel());
-        cfmodel.setMaxDecel(maxDecel * decelFactor);
+        cfmodel.setMaxDecel(maxDecel / getSafetyFactor());
 
         const double vehWidth = getWidth();
         const double rightVehSide = myVehicle.getCenterOnEdge() - 0.5 * vehWidth;
@@ -3199,6 +3196,11 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
 
     }
     return speed;
+}
+
+double
+MSLCM_SL2015::getSafetyFactor() const {
+    return 1 / ((1 + 0.5 * myImpatience) * myAssertive);
 }
 
 

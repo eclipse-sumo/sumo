@@ -321,6 +321,11 @@ public:
     virtual void changed() = 0;
 
 
+    /// @brief return factor for modifying the safety constraints of the car-following model
+    virtual double getSafetyFactor() const {
+        return 1.0;
+    }
+
     /// @brief whether the current vehicles shall be debugged
     virtual bool debugVehicle() const {
         return false;

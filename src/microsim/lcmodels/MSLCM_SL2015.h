@@ -110,6 +110,8 @@ public:
 
     void changed();
 
+    double getSafetyFactor() const;
+
     void prepareStep();
 
     /// @brief whether the current vehicles shall be debugged

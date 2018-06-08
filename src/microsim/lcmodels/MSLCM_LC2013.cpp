@@ -110,6 +110,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myKeepRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_KEEPRIGHT_PARAM, 1)),
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
+    myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
@@ -2076,6 +2077,11 @@ MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) {
 double
 MSLCM_LC2013::getAssumedDecelForLaneChangeDuration() const {
     return MAX2(LC_ASSUMED_DECEL, -myVehicle.getAcceleration());
+}
+
+double
+MSLCM_LC2013::getSafetyFactor() const {
+    return 1 / myAssertive;
 }
 
 std::string

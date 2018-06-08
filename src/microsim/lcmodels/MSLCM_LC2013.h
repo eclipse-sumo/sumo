@@ -101,6 +101,8 @@ public:
 
     void changed();
 
+    double getSafetyFactor() const;
+
     void prepareStep();
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
@@ -267,6 +269,9 @@ protected:
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
+
+    // @brief willingness to undercut longitudinal safe gaps
+    double myAssertive;
 
     const double myExperimentalParam1; // for feature testing
     //@}

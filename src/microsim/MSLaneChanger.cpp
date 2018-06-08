@@ -750,7 +750,7 @@ MSLaneChanger::checkChange(
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         secureBackGap = neighFollow.first->getCarFollowModel().getSecureGap(vNextFollower,
                         vNextLeader, vehicle->getCarFollowModel().getMaxDecel());
-        if (neighFollow.second < secureBackGap) {
+        if (neighFollow.second < secureBackGap * vehicle->getLaneChangeModel().getSafetyFactor()) {
             blocked |= blockedByFollower;
 
             // Debug (Leo)
@@ -785,7 +785,7 @@ MSLaneChanger::checkChange(
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
         secureFrontGap = vehicle->getCarFollowModel().getSecureGap(vNextFollower,
                          vNextLeader, neighLead.first->getCarFollowModel().getMaxDecel());
-        if (neighLead.second < secureFrontGap) {
+        if (neighLead.second < secureFrontGap * vehicle->getLaneChangeModel().getSafetyFactor()) {
             blocked |= blockedByLeader;
 
             // Debug (Leo)
