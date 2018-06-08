@@ -1835,7 +1835,7 @@ void
 GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) {
     auto additionalToUpdate = myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(oldID, additional->getTag()));
     if (additionalToUpdate == myAttributeCarriers.additionals.end()) {
-        throw ProcessError(toString(additional->getTag()) + "  with old ID='" + oldID + "' doesn't exist");
+        throw ProcessError(toString(additional->getTag()) + " with old ID='" + oldID + "' doesn't exist");
     } else {
         // remove an insert additional again into container
         myAttributeCarriers.additionals.erase(additionalToUpdate);

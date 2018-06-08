@@ -67,6 +67,9 @@ public:
     /// @brief get string vector with the lines of the busStop
     const std::vector<std::string>& getLines() const;
 
+    /// @brief generate Acces ID
+    std::string generateAccesID() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

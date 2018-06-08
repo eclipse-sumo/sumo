@@ -120,6 +120,16 @@ GNEBusStop::getLines() const {
 }
 
 
+std::string 
+GNEBusStop::generateAccesID() const {
+    int counter = 0;
+    while (myViewNet->getNet()->getAdditional(SUMO_TAG_ACCESS, getID() + toString(SUMO_TAG_ACCESS) + toString(counter)) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(SUMO_TAG_ACCESS) + toString(counter));
+}
+
+
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
@@ -260,7 +270,15 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            // change ID of BusStop
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            // Change Ids of all Acces childs
+            for (auto i : myAdditionalChilds) {
+                i->setAttribute(SUMO_ATTR_ID, generateAccesID(), undoList);
+            }
+            break;
+        }
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:

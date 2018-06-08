@@ -674,7 +674,7 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
         } else if (!checkAndFixDetectorPositionPosition(posDouble, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(tag) + ".");
         } else {
-            buildAccess(myViewNet, myUndoAdditionals,"", busStop, lane, toString(posDouble), length, friendlyPos, false);
+            buildAccess(myViewNet, myUndoAdditionals, busStop, lane, toString(posDouble), length, friendlyPos, false);
         }
     }
 }
@@ -1038,7 +1038,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build detector E2
             if (lane && busStop) {
-                return buildAccess(viewNet, allowUndoRedo, id, busStop, lane, pos, length, friendlyPos, blockMovement);
+                return buildAccess(viewNet, allowUndoRedo, busStop, lane, pos, length, friendlyPos, blockMovement);
             } else {
                 return false;
             }
@@ -1335,9 +1335,14 @@ GNEAdditionalHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, cons
 
 
 bool
-GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEBusStop *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
-    if (viewNet->getNet()->getAdditional(SUMO_TAG_ACCESS, id) == nullptr) {
-        GNEAccess* access = new GNEAccess(id, busStop, lane, viewNet, pos, length, friendlyPos, blockMovement);
+GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEBusStop *busStop, GNELane* lane, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) {
+    // Check if busStop parent and lane is correct
+    if (lane == nullptr) {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
+    } else if (busStop == nullptr) {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_BUS_STOP) + " parent doesn't exist.");
+    } else {
+        GNEAccess* access = new GNEAccess(busStop, lane, viewNet, pos, length, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_ACCESS));
             viewNet->getUndoList()->add(new GNEChange_Additional(access, true), true);
@@ -1348,8 +1353,6 @@ GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const
             access->incRef("buildAccess");
         }
         return true;
-    } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
 }
 

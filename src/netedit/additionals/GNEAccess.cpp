@@ -53,8 +53,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(const std::string& id, GNEBusStop *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement, busStop),
+GNEAccess::GNEAccess(GNEBusStop *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
+    GNEAdditional(busStop->generateAccesID(), viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement, busStop),
     myLane(lane),
     myPositionOverLane(pos),
     myLength(length),
@@ -232,6 +232,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
@@ -249,6 +250,8 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
 bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
             if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
                 return true;
