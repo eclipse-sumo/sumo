@@ -1982,7 +1982,19 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //   vehicle 'decides' to accelerate and cannot enter the junction in
         //   the next step, new foes may appear and cause a collision (see #1096)
         // - major links: stopping point is irrelevant
-        const double laneStopOffset = yellowOrRed || (*link)->havePriority() ? MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this)): MAX2(POSITION_EPS, lane->getStopOffset(this));
+        double laneStopOffset;
+        const double majorStopOffset = MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this));
+        const double minorStopOffset = MAX2(POSITION_EPS, lane->getStopOffset(this));
+        if (yellowOrRed) {
+            // Wait at red traffic light with full distance
+            laneStopOffset = majorStopOffset;
+        } else if ((*link)->havePriority()) {
+            // On priority link, we should never stop below visibility distance
+            laneStopOffset = MIN2((*link)->getFoeVisibilityDistance()-POSITION_EPS, majorStopOffset);
+        } else {
+            // On minor link, we should likewise never stop below visibility distance
+            laneStopOffset = MIN2((*link)->getFoeVisibilityDistance()-POSITION_EPS, minorStopOffset);
+        }
         const double stopDist = MAX2(0., seen - laneStopOffset);
 
 #ifdef DEBUG_PLAN_MOVE
@@ -2011,7 +2023,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                                               << " timeRemaining=" << timeRemaining
                                               << " v=" << v
                                               << " va=" << va
-                                              << "\n";
+                                              << std::endl;
                 }
 #endif
                 v = MIN2(va, v);
@@ -2083,7 +2095,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         // whether the vehicle/driver is close enough to the link to see all possible foes #2123
         double visibilityDistance = (*link)->getFoeVisibilityDistance();
-        double determinedFoePresence = seen < visibilityDistance;
+        double determinedFoePresence = seen <= visibilityDistance;
 //        // VARIANT: account for time needed to recognize whether relevant vehicles are on the foe lanes. (Leo)
 //        double foeRecognitionTime = 0.0;
 //        double determinedFoePresence = seen < visibilityDistance - myState.mySpeed*foeRecognitionTime;
@@ -2971,7 +2983,7 @@ MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
         std::cout << SIMTIME << " finalizeSpeed vSafe=" << vSafe << " vSafeMin=" << (vSafeMin == -std::numeric_limits<double>::max() ? "-Inf" : toString(vSafeMin))
-                  << " vNext=" << vNext << " (i.e. accel=" << SPEED2ACCEL(vNext - getSpeed()) << "\n";
+                  << " vNext=" << vNext << " (i.e. accel=" << SPEED2ACCEL(vNext - getSpeed()) << ")" << std::endl;
     }
 #endif
 
