@@ -27,12 +27,16 @@ import subprocess
 import sys
 import re
 import pickle
-import httplib
 import glob
 import Tkinter
 from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
+
+try:
+    import httplib
+except:
+    pass
 
 _SCOREFILE = "scores.pkl"
 _SCORESERVER = "sumo.dlr.de"
@@ -116,13 +120,21 @@ def computeScoreFromTimeLoss(gamename):
     departDelayWaiting = None
     inserted = None
     running = None
+    waiting = None
+    completed = False
+    
     for line in open(gamename + ".log"):
+        if "Simulation ended at time" in line:
+            completed = True
         m = re.search('Inserted: ([0-9]*)', line)
         if m:
             inserted = float(m.group(1))
         m = re.search('Running: (.*)', line)
         if m:
             running = float(m.group(1))
+        m = re.search('Waiting: (.*)', line)
+        if m:
+            waiting = float(m.group(1))
         m = re.search('TimeLoss: (.*)', line)
         if m:
             timeLoss = float(m.group(1))
@@ -132,11 +144,15 @@ def computeScoreFromTimeLoss(gamename):
         m = re.search('DepartDelayWaiting: (.*)', line)
         if m:
             departDelayWaiting = float(m.group(1))
-    if timeLoss is None:
+    if not completed or timeLoss is None:
         return 0, totalArrived, False
     else:
         totalArrived = inserted - running
-        score = 10000 - 100 * (timeLoss + departDelay + departDelayWaiting)
+        if _DEBUG:
+            print("timeLoss=%s departDelay=%s departDelayWaiting=%s inserted=%s running=%s waiting=%s" % (
+                timeLoss, departDelay, departDelayWaiting, inserted, running, waiting))
+        
+        score = 10000 - int(100 * ((timeLoss + departDelay) * inserted + departDelayWaiting * waiting) / (inserted + waiting))
         return score, totalArrived, True
 
 
