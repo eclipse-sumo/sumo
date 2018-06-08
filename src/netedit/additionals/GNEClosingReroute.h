@@ -52,8 +52,7 @@ public:
     GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
     /// @brief constructor
-    GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge,
-                      SVCPermissions allowedVehicles = SVC_IGNORING, SVCPermissions disallowedVehicles = SVC_IGNORING);
+    GNEClosingReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, const std::string &allowedVehicles, const std::string &disallowedVehicles);
 
     /// @brief destructor
     ~GNEClosingReroute();
@@ -104,10 +103,10 @@ protected:
     GNEEdge* myClosedEdge;
 
     /// @brief codified allowed vehicles
-    SVCPermissions myAllowedVehicles;
+    std::string myAllowedVehicles;
 
     /// @brief codified disallowed vehicles
-    SVCPermissions myDisallowedVehicles;
+    std::string myDisallowedVehicles;
 
 private:
     /// @brief set attribute after validation

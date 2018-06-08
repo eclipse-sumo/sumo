@@ -547,12 +547,12 @@ public:
     /**
     DOCUMENTAR
     */
-    static bool buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles);
+    static bool buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, const std::string &allowedVehicles, const std::string &disallowedVehicles);
 
     /**
     DOCUMENTAR
     */
-    static bool buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles);
+    static bool buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouterInterval* rerouterIntervalParent, GNEEdge* closedEdge, const std::string &allowedVehicles, const std::string &disallowedVehicles);
 
     /**
     DOCUMENTAR
@@ -663,12 +663,9 @@ protected:
     /// @brief flag to check if created additionals must be undo and redo
     bool myUndoAdditionals;
 
-    /// @brief ID of last inserted Additional parent (needed for additionals that own a child)
-    // XXX remove this and use myParentElements instead because it allows direct access to the parent element instead of the previously parsed sibling element
-    std::string myLastInsertedAdditionalParent;
-
-    /// @brief The element stack
-    std::vector<std::pair<SumoXMLTag, std::string> > myParentElements;
+    /// @brief The element stack used to save the last inserted element
+    int index;
+    std::map<int, std::pair<SumoXMLTag, std::string> > myParentElements;
 };
 
 

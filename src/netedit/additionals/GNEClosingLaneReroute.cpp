@@ -42,12 +42,12 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouter
     GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myClosedLane(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)->getLanes().at(0)),
-    myAllowedVehicles(parseVehicleClasses(getDefaultValue(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW))),
-    myDisallowedVehicles(parseVehicleClasses(getDefaultValue(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW))) {
+    myAllowedVehicles(getDefaultValue(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW)),
+    myDisallowedVehicles(getDefaultValue(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW)) {
 }
 
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, const std::string &allowedVehicles, const std::string &disallowedVehicles) :
     GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE),
     myRerouterIntervalParent(rerouterIntervalParent),
     myClosedLane(closedLane),
@@ -105,9 +105,9 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return myClosedLane->getID();
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(myAllowedVehicles);
+            return myAllowedVehicles;
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(myDisallowedVehicles);
+            return myDisallowedVehicles;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -157,11 +157,11 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_ALLOW: {
-            myAllowedVehicles = parseVehicleClasses(value);
+            myAllowedVehicles = value;
             break;
         }
         case SUMO_ATTR_DISALLOW: {
-            myAllowedVehicles = parseVehicleClasses(value);
+            myAllowedVehicles = value;
             break;
         }
         default:
