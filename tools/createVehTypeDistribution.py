@@ -51,18 +51,32 @@ class FixDistribution(object):
             self._params = params
         self._limits = (0, None)
         self._isNumeric = isNumeric
+        self._maxSampleAttempts = 10
+        
+    def setMaxSamplingAttempts(self, n):
+        if n is not None:
+            self._maxSampleAttempts = n
 
     def setLimits(self, limits):
         self._limits = limits
 
     def sampleValue(self):
-        value = self._sampleValue()
         if self._isNumeric:
+            value = None
+            nrSampleAttempts = 0
+            # Sample until value falls into limits
+            while nrSampleAttempts < self._maxSampleAttempts \
+                    and (value is None or (self._limits[1] is not None and value > self._limits[1]) \
+                           or (self._limits[0] is not None and value < self._limits[0])):
+                value = self._sampleValue()
+                nrSampleAttempts += 1
+            # Eventually apply fallback cutting value to limits
             if self._limits[0] is not None and value < self._limits[0]:
                 value = self._limits[0]
             elif self._limits[1] is not None and value > self._limits[1]:
                 value = self._limits[1]
-
+        else:
+            value = self._sampleValue()
         return value
 
     def sampleValueString(self, decimalPlaces):
@@ -114,13 +128,16 @@ def get_options(args=None):
         "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
     argParser.add_argument(
         "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for numeric attribute values")
+    argParser.add_argument(
+        "--resampling", type=int, default=100, dest="nrSamplingAttempts", help="number of attempts to resample a value until it lies in the specified bounds")
     argParser.add_argument("--seed", type=int, help="random seed", default=42)
 
     options = argParser.parse_args()
     return options
 
 
-def readConfigFile(filePath):
+def readConfigFile(options):
+    filePath = options.configFile
     result = {}
 
     distSyntaxes = {'normal': 'normal\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)',
@@ -181,6 +198,7 @@ def readConfigFile(filePath):
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])
                     value.setLimits((lowerLimit, upperLimit))
+                    value.setMaxSamplingAttempts(options.nrSamplingAttempts)
                     res = {"value":value, "isParameter":isParameter}
                     result[attName] = res
     return result
@@ -189,7 +207,7 @@ def readConfigFile(filePath):
 def main(options):
     if options.seed:
         random.seed(options.seed)
-    vTypeParameters = readConfigFile(options.configFile)
+    vTypeParameters = readConfigFile(options)
     useExistingFile = False
     if os.path.exists(options.outputFile):
         try:
