@@ -1,0 +1,15 @@
+<configuration>
+    <files>
+        <net-file>net.net.xml</net-file>
+		<a>input_additional.add.xml</a>
+		<r>input_routes.rou.xml</r>
+    </files>
+    <!--
+	<simulation>
+        <begin>0</begin>
+		<step-length>0.1</step-length>
+        <end>7201</end>
+    </simulation>
+    <no-warnings>true</no-warnings>
+	-->
+ </configuration>
