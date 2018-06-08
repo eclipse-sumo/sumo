@@ -2,4 +2,3 @@
 -r input_routes.rou.xml
 --no-step-log
 --step-length 0.1
---tripinfo-output tripinfos.xml
