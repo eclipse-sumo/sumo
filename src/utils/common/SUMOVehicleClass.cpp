@@ -330,6 +330,13 @@ bool isForbidden(SVCPermissions permissions) {
     return (permissions & SVCAll) == 0;
 }
 
+bool isSidewalk(SVCPermissions permissions) {
+    return (permissions & SVCAll) == SVC_PEDESTRIAN;
+}
+
+bool noVehicles(SVCPermissions permissions) {
+    return isForbidden(permissions) || isSidewalk(permissions);
+}
 
 std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, 0, ok, "");

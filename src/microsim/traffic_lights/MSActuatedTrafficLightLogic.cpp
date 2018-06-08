@@ -87,6 +87,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         const LaneVector& lanes = *i2;
         for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
+            if (noVehicles(lane->getPermissions())) {
+                // do not build detectors on green verges or sidewalks
+                continue;
+            }
             double length = lane->getLength();
             double speed = lane->getSpeedLimit();
             double inductLoopPosition = myDetectorGap * speed;

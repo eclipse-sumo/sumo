@@ -327,6 +327,18 @@ extern bool isWaterway(SVCPermissions permissions);
  */
 extern bool isForbidden(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is a sidewalk
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a sidewalk
+ */
+extern bool isSidewalk(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permission forbids vehicles
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is forbidden for vehicles
+ */
+extern bool noVehicles(SVCPermissions permissions);
+
 // ---------------------------------------------------------------------------
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
