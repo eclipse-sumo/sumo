@@ -10,7 +10,7 @@
     <time>
         <begin value="0"/>
         <end value="600"/>
-        <step-length value="1.0"/>
+        <step-length value="0.2"/>
     </time>
 
 </configuration>

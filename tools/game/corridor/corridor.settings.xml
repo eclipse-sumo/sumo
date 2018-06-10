@@ -1,5 +1,5 @@
 <viewsettings>
-    <delay value="200"/>
+    <delay value="50"/>
     <viewport zoom="180" x="0" y="0"/>
     <decal filename="dlr.gif" centerX="-300" centerY="200" width="100" height="100" rotation="0.00"/>
     <scheme name="*real world">
