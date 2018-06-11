@@ -1359,6 +1359,7 @@ GNEAdditionalHandler::buildAccess(GNEViewNet* viewNet, bool allowUndoRedo, GNEBu
         } else {
             viewNet->getNet()->insertAdditional(access);
             lane->addAdditionalChild(access);
+            busStop->addAdditionalChild(access);
             access->incRef("buildAccess");
         }
         return true;
