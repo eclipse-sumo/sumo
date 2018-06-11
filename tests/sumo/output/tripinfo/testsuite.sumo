@@ -28,5 +28,11 @@ write_unfinished
 # count length of internal lanes as well
 internal_lanes
 
+# compute correct departDelay for triggered vehicle
+depart_triggered
+
+# compute correct departDelay for triggered vehicle (insertion is delayed due to a blocking vehicle)
+depart_triggered_delayed
+
 # Testing error cases
 errors
