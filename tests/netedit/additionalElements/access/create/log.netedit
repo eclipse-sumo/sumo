@@ -1,0 +1,44 @@
+Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
+Warning: Selected additional 'busStop' in AdditionalSelector
+Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Selected additional 'access' in AdditionalSelector
+Warning: Invalid input parameter of access: A busStop must be selected before insertion of access.
+Warning: Adding access 'busStop_gneE0_0_0access0' in GNEChange_Additional
+Warning: busStop'busStop_gneE0_0_0' already owns a Acces in the edge 'gneE1'
+Warning: Invalid input parameter of access: 'length' cannot be negative
+Warning: Adding access 'busStop_gneE0_0_0access1' in GNEChange_Additional
+Warning: Invalid input parameter of access: A busStop must be selected before insertion of access.
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing access 'busStop_gneE0_0_0access1' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing access 'busStop_gneE0_0_0access0' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding access 'busStop_gneE0_0_0access0' in GNEChange_Additional
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding access 'busStop_gneE0_0_0access1' in GNEChange_Additional
+Warning: Additionals saved
+Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
+Warning: Deleting unreferenced access 'busStop_gneE0_0_0access1'
+Warning: Additionals has to be saved
+Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced access 'busStop_gneE0_0_0access0'
+Warning: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Warning: Deleting net builder in GNENet destructor
