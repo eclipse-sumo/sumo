@@ -76,6 +76,9 @@ double_con_bikelane
 # 3 connections from the same edge to the same lane. Bikelane should yield
 double_con_bikelane2
 
+# a bike lane ends and merges with the road. Priority depends on turning direction
+double_con_turns
+
 # custom position for internal junction
 contPos
 
