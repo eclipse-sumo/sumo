@@ -1,0 +1,16 @@
+<additionals>
+    <busStop id="busStop_0" lane="1_0" startPos="23.00" endPos="33.00">
+        <access lane="1_0" pos="15.00" length="10"/>
+        <access lane="2_0" pos="0.00" length="10"/>
+        <access lane="3_0" pos="0.00" length="10"/>
+        <access lane="4_0" pos="10.00"/>
+        <access lane="5_0" pos="10.00"/>
+        <access lane="6_0" pos="10.00"/>
+        <access lane="7_0" pos="10.00" length="40"/>
+        <access lane="8_0" pos="10.00"/>
+        <access lane="9_0" pos="10.00" length="10"/>
+        <access lane="10_0" pos="50.00" length="10" friendlyPos="1"/>
+        <access lane="11_0" pos="0.00" length="10" friendlyPos="1"/>
+        <access lane="12_0" pos="10.00" length="10" friendlyPos="1"/>
+    </busStop>
+</additionals>
