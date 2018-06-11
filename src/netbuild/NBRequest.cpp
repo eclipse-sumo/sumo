@@ -658,29 +658,43 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
 bool
 NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                          const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
-    return (from == prohibitorFrom
+    if (from == prohibitorFrom
             && con.toEdge == prohibitorCon.toEdge
             && con.toLane == prohibitorCon.toLane
             && con.fromLane != prohibitorCon.fromLane
-            && !myJunction->isConstantWidthTransition()
-            // if the edge has lower priority, this connection yields
-            && (foes ||
-                // if the prohibitor has pass, this connection yields
-                (prohibitorCon.mayDefinitelyPass ||
-                 // if this connection has pass, it does not yield
-                 (!con.mayDefinitelyPass &&
-                  // at off-ramp like situations (2 outgoing), right light should get priority 
-                  // merging bicycles should always yield
-                  (((myOutgoing.size() > 1) && 
-                   ((con.fromLane > prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
-                    || (con.fromLane < prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)))
-                  ||
-                  // at on-ramp like situations, right lane should pass
-                  // merging bicycles should always yield
-                  ((myOutgoing.size() == 1) && 
-                   ((con.fromLane < prohibitorCon.fromLane && prohibitorFrom->getPermissions(prohibitorCon.fromLane) != SVC_BICYCLE)
-                    || (con.fromLane > prohibitorCon.fromLane && from->getPermissions(con.fromLane) == SVC_BICYCLE)))
-                  )))));
+            && !myJunction->isConstantWidthTransition()) {
+        if (foes) {
+            return true;
+        }
+        if (prohibitorCon.mayDefinitelyPass) {
+            return true;
+        }
+        if (con.mayDefinitelyPass) {
+            return false;
+        }
+        const bool bike = from->getPermissions(con.fromLane) == SVC_BICYCLE;
+        const bool prohibitorBike = prohibitorFrom->getPermissions(prohibitorCon.fromLane) == SVC_BICYCLE;
+        if (myOutgoing.size() == 1) {
+            // at on-ramp like situations, right lane should yield
+            return bike || (con.fromLane < prohibitorCon.fromLane && !prohibitorBike);
+        } else if (myIncoming.size() == 1) {
+            // at off-ramp like situations, right lane should pass unless it's a bicycle lane
+            return bike || (con.fromLane > prohibitorCon.fromLane && !prohibitorBike);
+        } else {
+            // priority depends on direction:
+            // for right turns the rightmost lane gets priority
+            // otherwise the left lane
+            LinkDirection dir = myJunction->getDirection(from, con.toEdge);
+            if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+                return con.fromLane > prohibitorCon.fromLane;
+            } else {
+                return con.fromLane < prohibitorCon.fromLane;
+            }
+        }
+
+    } else {
+        return false;
+    }
 }
 
 
