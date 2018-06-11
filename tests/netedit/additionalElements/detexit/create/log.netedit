@@ -6,17 +6,19 @@ Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Selected additional 'detExit' in AdditionalSelector
 Warning: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
-Warning: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Warning: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
+Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
+Warning: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_0detExit3' in GNEChange_Additional
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Removing detExit 'e3Detector_0detExit2' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -24,15 +26,19 @@ Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced detExit 'e3Detector_0detExit1'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit3'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit2'
+Warning: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Deleting unreferenced e3Detector 'e3Detector_0'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor

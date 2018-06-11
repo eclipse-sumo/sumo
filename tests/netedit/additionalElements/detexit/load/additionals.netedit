@@ -7,6 +7,5 @@
         <detExit lane="gneE1_0" pos="50.00" friendlyPos="1"/>
         <detExit lane="gneE1_0" pos="0.00" friendlyPos="1"/>
         <detExit lane="gneE1_0" pos="50.00" friendlyPos="1"/>
-        <detExit lane="gneE1_0" pos="10.00"/>
     </e3Detector>
 </additionals>
