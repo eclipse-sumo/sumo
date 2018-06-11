@@ -4,8 +4,8 @@ basic
 # bus stops
 busstop
 
-# calibrator
-calibrator
+# access
+access
 
 # charging station
 chargingstation
@@ -30,6 +30,9 @@ detexit
 
 # E1 Instant detector
 e1InstantDetector
+
+# calibrator
+calibrator
 
 # lanecalibrator
 lanecalibrator
