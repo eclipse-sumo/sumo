@@ -235,6 +235,12 @@ public:
      */
     virtual bool isRemoteControlled() const = 0;
 
+    /** @brief Returns the information whether the vehicle is fully controlled
+     * via TraCI
+     * @return Whether the vehicle was remote-controlled within the given time range
+     */
+    virtual bool wasRemoteControlled(SUMOTime lookBack = DELTA_T) const = 0;
+
     /** @brief Returns this vehicle's real departure time
      * @return This vehicle's real departure time
      */

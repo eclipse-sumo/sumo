@@ -189,7 +189,7 @@ public:
 private:
     static MSVehicle* getVehicle(const std::string& id);
 
-    static bool isVisible(const MSVehicle* veh);
+    static bool isVisible(const SUMOVehicle* veh);
 
     static bool isOnInit(const std::string& vehicleID);
 

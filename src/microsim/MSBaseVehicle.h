@@ -156,6 +156,11 @@ public:
         return false;
     }
 
+    virtual bool wasRemoteControlled(SUMOTime lookBack = DELTA_T) const {
+        UNUSED_PARAMETER(lookBack);
+        return false;
+    }
+
     /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */

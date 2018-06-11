@@ -63,7 +63,7 @@ Vehicle::getVehicle(const std::string& id) {
 
 
 bool
-Vehicle::isVisible(const MSVehicle* veh) {
+Vehicle::isVisible(const SUMOVehicle* veh) {
     return veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled();
 }
 
@@ -79,7 +79,7 @@ Vehicle::getIDList() {
     std::vector<std::string> ids;
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
-        if ((*i).second->isOnRoad() || (*i).second->isParking()) {
+        if (isVisible((*i).second)) {
             ids.push_back((*i).first);
         }
     }

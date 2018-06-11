@@ -68,5 +68,6 @@ check(198, 1.9, ANGLE_UNDEF, "middle_0", 98.0, 1.9,        "internal corner (ins
 check(198, 1.9, 0,           "middle_0", 102,  2.0,        "internal corner (inside, segment2)")
 check(201, -1, 0,            "middle_0", 100, -1.41,       "internal corner (outside, near)")
 check(203, -4, 0,            "", INVALID, INVALID,         "internal corner (outside, far)")
+print("vehicleList", traci.vehicle.getIDList())
 traci.close()
 sumoProcess.wait()
