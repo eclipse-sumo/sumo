@@ -263,7 +263,8 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();
-                    glColor3d(0, 1, 0);
+                    // orange
+                    GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_REDYELLOW));
                     Position pos = (*it_lane)->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2.);
