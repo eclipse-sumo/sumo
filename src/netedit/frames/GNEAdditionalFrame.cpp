@@ -1167,7 +1167,9 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 GNEAdditionalFrame::AddAdditionalResult
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
+    // obtain tag and  tagproperty (only for improve code legibility)
     const SumoXMLTag tag = myAdditionalSelector->getCurrentAdditionalType();
+    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
     // check if current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
@@ -1185,6 +1187,22 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     GNEEdge* pointed_edge = nullptr;
     GNELane* pointed_lane = nullptr;
     GNECrossing* pointed_crossing = nullptr;
+
+    // If element owns an additional parent, get id of parent from AdditionalParentSelector
+    if (tagValue.hasParent()) {
+        // if user click over an additional element parent, mark int in AdditionalParentSelector
+        if (additionalElement && (additionalElement->getTag() == tagValue.getParentTag())) {
+        valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
+        myAdditionalParentSelector->setIDSelected(additionalElement->getID());
+        }
+        // stop if currently there isn't a valid selected parent
+        if (myAdditionalParentSelector->getIdSelected() != "") {
+            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
+        } else {
+            myAdditionalParameters->showWarningMessage("A " + toString(tagValue.getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
+            return ADDADDITIONAL_INVALID_ARGUMENTS;
+        }
+    }
 
     // Check if additional should be placed over a junction
     if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_JUNCTION)) {
@@ -1348,25 +1366,9 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     //    valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
     //}
 
-    // obtain tag property (only for improve code legibility)
-    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
-
     // Save block value if additional can be blocked
     if (tagValue.canBlockMovement()) {
         valuesOfElement[GNE_ATTR_BLOCK_MOVEMENT] = toString(myNeteditParameters->isBlockEnabled());
-    }
-
-    // If element belongst to an additional Set, get id of parent from myAdditionalParentSelector
-    if (tagValue.hasParent()) {
-        if (myAdditionalParentSelector->getIdSelected() != "") {
-            valuesOfElement[GNE_ATTR_PARENT] = myAdditionalParentSelector->getIdSelected();
-        } else if (additionalElement && (additionalElement->getTag() == tagValue.getParentTag())) {
-            valuesOfElement[GNE_ATTR_PARENT] = additionalElement->getID();
-            myAdditionalParentSelector->setIDSelected(additionalElement->getID());
-        } else {
-            myAdditionalParameters->showWarningMessage("A " + toString(tagValue.getParentTag()) + " must be selected before insertion of " + toString(myAdditionalSelector->getCurrentAdditionalType()) + ".");
-            return ADDADDITIONAL_INVALID_ARGUMENTS;
-        }
     }
 
     // If element own a list of SelectorParentEdges as attribute
