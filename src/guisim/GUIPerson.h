@@ -130,6 +130,9 @@ public:
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
     Position getPosition() const;
 
+    /// @brief return the Network coordinate of the person (only for drawing centering and tracking)
+    Position getGUIPosition() const;
+
     /// @brief return the current angle of the person
     double getNaviDegree() const;
 
