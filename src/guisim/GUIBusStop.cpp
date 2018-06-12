@@ -89,7 +89,7 @@ GUIBusStop::~GUIBusStop() {}
 void
 GUIBusStop::addAccess(MSLane* lane, const double pos, const double length) {
     MSStoppingPlace::addAccess(lane, pos, length);
-    myAccessCoords.push_back(lane->getShape().positionAtOffset(pos));
+    myAccessCoords.push_back(lane->geometryPositionAtOffset(pos));
 }
 
 
