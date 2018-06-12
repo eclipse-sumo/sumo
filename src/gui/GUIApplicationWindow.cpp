@@ -601,7 +601,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBarShell3);
         myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarShell2);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
+        new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
 
         mySimDelay = 0;
         mySimDelayTarget = new FXDataTarget(mySimDelay);
@@ -615,7 +615,7 @@ GUIApplicationWindow::buildToolBars() {
         //mySimDelayTarget->setNumberFormat(0);
         //mySimDelayTarget->setIncrements(1, 10, 10);
         mySimDelaySpinner->setIncrement(10);
-        mySimDelaySpinner->setRange(0, 1000);
+        mySimDelaySpinner->setRange(0, 10000);
         mySimDelaySpinner->setValue(mySimDelay);
     }
     {

@@ -121,11 +121,9 @@ GUIRunThread::run() {
     while (!myQuit) {
         // if the simulation shall be perfomed, do it
         if (!myHalting && myNet != 0 && myOk) {
-            if (getNet().logSimulationDuration()) {
-                beg = SysUtils::getCurrentMillis();
-                if (end != -1) {
-                    getNet().setIdleDuration((int)(beg - end));
-                }
+            beg = SysUtils::getCurrentMillis();
+            if (end != -1) {
+                getNet().setIdleDuration((int)(beg - end));
             }
             // check whether we shall stop at this step
             myBreakpointLock.lock();
@@ -138,13 +136,11 @@ GUIRunThread::run() {
             if (haltAfter) {
                 stop();
             }
-            // wait if wanted
-            long wait = (long)mySimDelay;
-            if (getNet().logSimulationDuration()) {
-                end = SysUtils::getCurrentMillis();
-                getNet().setSimDuration((int)(end - beg));
-                wait -= (end - beg);
-            }
+            // wait if wanted (delay is per simualted second)
+            long wait = (long)mySimDelay * TS;
+            end = SysUtils::getCurrentMillis();
+            getNet().setSimDuration((int)(end - beg));
+            wait -= (end - beg);
             if (wait > 0) {
                 sleep(wait);
             }
