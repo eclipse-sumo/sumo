@@ -58,6 +58,7 @@
 #include <netedit/frames/GNECrossingFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
+#include <netedit/frames/GNEProhibitionFrame.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/dialogs/GNEAdditionalDialog.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -172,6 +173,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModeAdditional(0),
     myEditModeCrossing(0),
     myEditModePolygon(0),
+    myEditModeProhibition(0),
     myEditModeNames(),
     myUndoList(undoList),
     myEditShapePoly(0) {
@@ -322,7 +324,7 @@ GNEViewNet::selectEdges() {
 
 bool
 GNEViewNet::showConnections() {
-    if (myEditMode == GNE_MODE_CONNECT) {
+    if (myEditMode == GNE_MODE_CONNECT || myEditMode == GNE_MODE_PROHIBITION) {
         return true;
     } else if (myMenuCheckShowConnections->shown() == false) {
         return false;
@@ -898,6 +900,16 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 }
                 break;
             }
+			case GNE_MODE_PROHIBITION: {
+				if (myObjectsUnderCursor.connection) {
+					// shift key may pass connections, Control key allow conflicts.
+					myViewParent->getProhibitionFrame()->handleConnectionClick(myObjectsUnderCursor.connection, myObjectsUnderCursor.shiftKeyPressed(), myObjectsUnderCursor.controlKeyPressed(), true);
+					update();
+				}
+				// process click
+				processClick(evt, eventData);
+				break;
+			}
             default: {
                 // process click
                 processClick(evt, eventData);
@@ -1071,6 +1083,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
         // abort current drawing
         myViewParent->getPolygonFrame()->getDrawingMode()->abortDrawing();
     }
+    else if (myEditMode == GNE_MODE_PROHIBITION) {
+        myViewParent->getProhibitionFrame()->onCmdCancel(0, 0, 0);
+    }
     myUndoList->p_abort();
 }
 
@@ -1170,6 +1185,9 @@ GNEViewNet::setEditModeFromHotkey(FXushort selid) {
         case MID_GNE_SETMODE_POLYGON:
             setEditMode(GNE_MODE_POLYGON);
             break;
+		case MID_GNE_SETMODE_PROHIBITION:
+			setEditMode(GNE_MODE_PROHIBITION);
+			break;
         default:
             throw ProcessError("invalid edit mode called by hotkey");
             break;
@@ -2319,6 +2337,7 @@ GNEViewNet::buildEditModeControls() {
     myEditModeNames.insert("(a) Additionals", GNE_MODE_ADDITIONAL);
     myEditModeNames.insert("(r) Crossings", GNE_MODE_CROSSING);
     myEditModeNames.insert("(p) Polygons", GNE_MODE_POLYGON);
+	myEditModeNames.insert("(w) Prohibitions", GNE_MODE_PROHIBITION);
 
     // initialize buttons for modes
     myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
@@ -2341,6 +2360,8 @@ GNEViewNet::buildEditModeControls() {
             GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
     myEditModePolygon = new MFXCheckableButton(false, myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
             GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
+	myEditModeProhibition = new MFXCheckableButton(false, myToolbar, "\tset prohibition mode\tMode for editing connection prohibitions.",
+		GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), this, MID_GNE_SETMODE_PROHIBITION, GUIDesignButtonToolbarCheckable);
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, nullptr, 0, GUIDesignToolbarGrip);
 
@@ -2402,6 +2423,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeAdditional->setChecked(false);
     myEditModeCrossing->setChecked(false);
     myEditModePolygon->setChecked(false);
+	myEditModeProhibition->setChecked(false);
     myViewParent->hideAllFrames();
     // enable selected controls
     switch (myEditMode) {
@@ -2477,6 +2499,12 @@ GNEViewNet::updateModeSpecificControls() {
             myEditModePolygon->setChecked(true);
             myMenuCheckShowGrid->show();
             break;
+		case GNE_MODE_PROHIBITION:
+			myViewParent->getProhibitionFrame()->show();
+			myViewParent->getProhibitionFrame()->focusUpperElement();
+			myCurrentFrame = myViewParent->getProhibitionFrame();
+			myEditModeProhibition->setChecked(true);
+			break;
         default:
             break;
     }
@@ -2491,6 +2519,7 @@ GNEViewNet::updateModeSpecificControls() {
     myEditModeAdditional->update();
     myEditModeCrossing->update();
     myEditModePolygon->update();
+	myEditModeProhibition->update();
     // force repaint because different modes draw different things
     myToolbar->recalc();
     onPaint(0, 0, 0);

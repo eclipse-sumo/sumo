@@ -53,6 +53,7 @@
 #include <netedit/frames/GNECrossingFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
+#include <netedit/frames/GNEProhibitionFrame.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -101,7 +102,8 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myACChooserTLS(nullptr),
     myACChooserAdditional(nullptr),
     myACChooserPOI(nullptr),
-    myACChooserPolygon(nullptr) {
+    myACChooserPolygon(nullptr),
+    myACChooserProhibition(nullptr) {
     // Add child to parent
     myParent->addChild(this, false);
 
@@ -147,7 +149,8 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myGNEFrames[MID_GNE_SETMODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
-
+    myGNEFrames[MID_GNE_SETMODE_PROHIBITION] = new GNEProhibitionFrame(myFramesArea, viewNet);
+    
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(0, 0, 0);
 
@@ -181,6 +184,9 @@ GNEViewParent::~GNEViewParent() {
     } 
     if(myACChooserPolygon) {
         delete myACChooserPolygon ;
+    }
+    if(myACChooserProhibition) {
+        delete myACChooserProhibition;
     }
     // Remove child before remove
     myParent->removeChild(this);
@@ -239,6 +245,11 @@ GNEViewParent::getDeleteFrame() const {
 GNEPolygonFrame*
 GNEViewParent::getPolygonFrame() const {
     return dynamic_cast<GNEPolygonFrame*>(myGNEFrames.at(MID_GNE_SETMODE_POLYGON));
+}
+
+GNEProhibitionFrame*
+GNEViewParent::getProhibitionFrame() const {
+    return dynamic_cast<GNEProhibitionFrame*>(myGNEFrames.at(MID_GNE_SETMODE_PROHIBITION));
 }
 
 void
@@ -305,6 +316,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser *chooserDialog) {
         myACChooserPOI = nullptr;
     } else if(chooserDialog == myACChooserPolygon) {
         myACChooserPolygon = nullptr;
+    } else if(chooserDialog == myACChooserProhibition) {
+        myACChooserProhibition = nullptr;
     } else {
         throw ProcessError("Unregistered chooserDialog");
     }

@@ -56,6 +56,7 @@ class GNEAdditionalFrame;
 class GNECrossingFrame;
 class GNEDeleteFrame;
 class GNEPolygonFrame;
+class GNEProhibitionFrame;
 
 // ===========================================================================
 // class declarations
@@ -126,6 +127,9 @@ public:
     /// @brief get frame for GNE_MODE_POLYGON
     GNEPolygonFrame* getPolygonFrame() const;
 
+    /// @brief get frame for GNE_MODE_PROHIBITION
+    GNEProhibitionFrame* getProhibitionFrame() const;
+    
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
     void showFramesArea();
@@ -196,12 +200,15 @@ private:
     /// @brief pointer to ACChooser dialog
     GNEDialogACChooser* myACChooserAdditional;
 
-        /// @brief pointer to ACChooser dialog
+    /// @brief pointer to ACChooser dialog
     GNEDialogACChooser* myACChooserPOI;
 
-        /// @brief pointer to ACChooser dialog
+    /// @brief pointer to ACChooser dialog
     GNEDialogACChooser* myACChooserPolygon;
 
+    /// @brief pointer to ACChooser dialog
+    GNEDialogACChooser* myACChooserProhibition;
+    
     /// @brief map with the Frames
     std::map<int, GNEFrame*> myGNEFrames;
 };

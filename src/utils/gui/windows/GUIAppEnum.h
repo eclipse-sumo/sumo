@@ -495,6 +495,8 @@ enum {
     MID_GNE_SETMODE_CROSSING,
     /// @brief mode for creating polygons
     MID_GNE_SETMODE_POLYGON,
+    /// @brief mode for editing connection prohibitions
+    MID_GNE_SETMODE_PROHIBITION,
     /// @}
 
 
@@ -665,6 +667,17 @@ enum {
     MID_GNE_POLYGONFRAME_ABORTDRAWING,
     /// @}
 
+    /// @name GNEProhibitionFrame messages
+    /// @{
+
+    /// @brief select prohibiting connection
+    MID_GNE_PROHIBITIONFRAME_SELECTPROHIBITING,
+    /// @brief select connections to be prohibited
+    MID_GNE_PROHIBITIONFRAME_SELECTPROHIBITED,
+    /// @brief abort drawing polygon
+    MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
+    /// @}
+    
 
     /// @name GNEEdge messages
     /// @{
