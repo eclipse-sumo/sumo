@@ -86,10 +86,13 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
 GUIBusStop::~GUIBusStop() {}
 
 
-void
+bool
 GUIBusStop::addAccess(MSLane* lane, const double pos, const double length) {
-    MSStoppingPlace::addAccess(lane, pos, length);
-    myAccessCoords.push_back(lane->geometryPositionAtOffset(pos));
+    bool added = MSStoppingPlace::addAccess(lane, pos, length);
+    if (added) {
+        myAccessCoords.push_back(lane->geometryPositionAtOffset(pos));
+    }
+    return added;
 }
 
 

@@ -214,4 +214,17 @@ MSStoppingPlace::getMyName() const {
 }
 
 
+bool 
+MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) {
+    // prevent multiple accesss on the same lane
+    for (const auto& access : myAccessPos) {
+        if (lane == std::get<0>(access)) {
+            return false;
+        }
+    }
+    myAccessPos.push_back(std::make_tuple(lane, pos, length));
+    return true;
+}
+
+
 /****************************************************************************/

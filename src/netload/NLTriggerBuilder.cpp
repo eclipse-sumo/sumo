@@ -214,7 +214,10 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     }
     // add bus stop access
     if (myCurrentStop != 0) {
-        myCurrentStop->addAccess(lane, pos, length);
+        ok = myCurrentStop->addAccess(lane, pos, length);
+        if (!ok) {
+            throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
+        }
     } else {
         throw InvalidArgument("Could not add access outside a stopping place.");
     }
