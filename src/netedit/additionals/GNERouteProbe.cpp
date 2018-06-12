@@ -150,7 +150,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
 }
 
 
-const std::string&
+std::string
 GNERouteProbe::getParentName() const {
     return myEdge->getMicrosimID();
 }

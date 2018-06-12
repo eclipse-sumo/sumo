@@ -218,7 +218,7 @@ GNERerouter::sortIntervals() {
 }
 
 
-const std::string&
+std::string
 GNERerouter::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }

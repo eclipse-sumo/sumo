@@ -176,8 +176,6 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /// @brief Returns the name (ID) of the parent object
-    virtual const std::string& getParentName() const = 0;
 
     /**@brief Returns an own popup-menu
      *

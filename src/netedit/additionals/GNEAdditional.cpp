@@ -233,12 +233,6 @@ GNEAdditional::getLaneChilds() const {
 }
 
 
-const std::string&
-GNEAdditional::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
-}
-
-
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);

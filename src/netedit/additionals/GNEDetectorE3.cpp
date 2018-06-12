@@ -162,7 +162,7 @@ GNEDetectorE3::generateExitID() {
 }
 
 
-const std::string&
+std::string
 GNEDetectorE3::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }

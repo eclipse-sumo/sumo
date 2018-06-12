@@ -90,7 +90,7 @@ public:
     /// @name inherited from GUIGlObject
     /// @{
     /// @brief Returns the name (ID) of the parent object
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /// @{
     /**@brief Draws the object

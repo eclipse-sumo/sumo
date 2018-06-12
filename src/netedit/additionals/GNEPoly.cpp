@@ -203,7 +203,7 @@ GNEPoly::getGlID() const {
 }
 
 
-const std::string&
+std::string
 GNEPoly::getParentName() const {
     if (myNetElementShapeEdited != nullptr) {
         return myNetElementShapeEdited->getMicrosimID();

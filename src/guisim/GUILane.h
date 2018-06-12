@@ -88,7 +88,7 @@ public:
      * @note Inherited from GUIGlObject
      * @return This object's parent id
      */
-    const std::string& getParentName() const {
+    std::string getParentName() const {
         return getEdge().getID();
     }
 

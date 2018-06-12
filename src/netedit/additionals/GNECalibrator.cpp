@@ -179,7 +179,7 @@ GNECalibrator::getPositionInView() const {
 }
 
 
-const std::string&
+std::string
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane
     if (myLane) {

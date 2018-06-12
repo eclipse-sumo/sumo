@@ -104,7 +104,7 @@ GNEDetector::getPositionInView() const {
 }
 
 
-const std::string&
+std::string
 GNEDetector::getParentName() const {
     return myLane->getMicrosimID();
 }

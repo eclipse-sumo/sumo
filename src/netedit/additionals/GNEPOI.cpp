@@ -161,7 +161,7 @@ GNEPOI::getGlID() const {
 }
 
 
-const std::string&
+std::string
 GNEPOI::getParentName() const {
     return myNet->getMicrosimID();
 }

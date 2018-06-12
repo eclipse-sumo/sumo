@@ -1093,7 +1093,7 @@ GNELane::drawDirectionIndicators() const {
 
 
 
-const std::string&
+std::string
 GNELane::getParentName() const {
     return myParentEdge.getMicrosimID();
 }

@@ -173,7 +173,7 @@ GNEAccess::getEdge() const {
 }
 
 
-const std::string& 
+std::string
 GNEAccess::getParentName() const {
     return myAdditionalParent->getID();
 }

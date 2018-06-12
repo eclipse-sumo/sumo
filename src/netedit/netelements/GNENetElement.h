@@ -93,10 +93,6 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /**@brief Returns the name of the parent object
-     * @return This object's parent id
-     */
-    virtual const std::string& getParentName() const;
 
     /**@brief Returns an own parameter window
     *

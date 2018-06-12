@@ -129,7 +129,7 @@ GNEParkingSpace::getPositionInView() const {
 }
 
 
-const std::string&
+std::string
 GNEParkingSpace::getParentName() const {
     return myAdditionalParent->getMicrosimID();
 }

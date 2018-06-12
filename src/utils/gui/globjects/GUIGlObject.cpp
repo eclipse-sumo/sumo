@@ -116,7 +116,7 @@ GUIGlObject::getFullName() const {
 }
 
 
-const std::string&
+std::string
 GUIGlObject::getParentName() const {
     return StringUtils::emptyString;
 }

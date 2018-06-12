@@ -95,7 +95,7 @@ public:
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

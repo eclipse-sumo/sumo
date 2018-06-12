@@ -185,7 +185,7 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
 }
 
 
-const std::string&
+std::string
 GNEStoppingPlace::getParentName() const {
     return myLane->getMicrosimID();
 }

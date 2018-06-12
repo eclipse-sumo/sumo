@@ -208,7 +208,7 @@ GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
 }
 
 
-const std::string&
+std::string
 GNEVariableSpeedSign::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }

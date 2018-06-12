@@ -140,7 +140,7 @@ GNEVaporizer::writeAdditional(OutputDevice& device) const {
 }
 
 
-const std::string&
+std::string
 GNEVaporizer::getParentName() const {
     return myEdge->getMicrosimID();
 }

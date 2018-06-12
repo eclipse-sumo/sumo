@@ -89,10 +89,6 @@ public:
 
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{
-    /**@brief Returns the name of the parent object
-     * @return This object's parent id
-     */
-    virtual const std::string& getParentName() const = 0;
 
     /**@brief Returns an own popup-menu
      *

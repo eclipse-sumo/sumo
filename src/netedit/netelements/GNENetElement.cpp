@@ -118,12 +118,6 @@ GNENetElement::getAdditionalChilds() const {
 }
 
 
-const std::string&
-GNENetElement::getParentName() const {
-    return myNet->getMicrosimID();
-}
-
-
 GUIParameterTableWindow*
 GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
