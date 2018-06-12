@@ -81,7 +81,6 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<st
         myCurrentStop = 0;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
 }
 
 
@@ -139,6 +138,15 @@ GUITriggerBuilder::endParkingArea() {
 }
 
 
+void
+GUITriggerBuilder::endStoppingPlace() {
+    if (myCurrentStop != 0) {
+        static_cast<GUINet*>(MSNet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
+        myCurrentStop = 0;
+    } else {
+        throw InvalidArgument("Could not end a stopping place that is not opened.");
+    }
+}
 
 /****************************************************************************/
 

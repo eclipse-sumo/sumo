@@ -215,6 +215,8 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     // add bus stop access
     if (myCurrentStop != 0) {
         myCurrentStop->addAccess(lane, pos, length);
+    } else {
+        throw InvalidArgument("Could not add access outside a stopping place.");
     }
 }
 
@@ -468,6 +470,16 @@ NLTriggerBuilder::endParkingArea() {
         myParkingArea = 0;
     } else {
         throw InvalidArgument("Could not end a parking area that is not opened.");
+    }
+}
+
+
+void
+NLTriggerBuilder::endStoppingPlace() {
+    if (myCurrentStop != 0) {
+        myCurrentStop = 0;
+    } else {
+        throw InvalidArgument("Could not end a stopping place that is not opened.");
     }
 }
 

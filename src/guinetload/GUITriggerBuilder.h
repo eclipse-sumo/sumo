@@ -177,6 +177,12 @@ protected:
      * (it must be added to the SUMORTree after all parking spaces are loaded
      */
     virtual void endParkingArea();
+
+    /** @brief End a stopping place
+     *
+     * @exception InvalidArgument If the current stopping place is 0
+     */
+    virtual void endStoppingPlace();
 };
 
 

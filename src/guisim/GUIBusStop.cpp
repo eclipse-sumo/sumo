@@ -183,6 +183,9 @@ Boundary
 GUIBusStop::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
     b.grow(SUMO_const_laneWidth);
+    for (const Position& p : myAccessCoords) {
+        b.add(p);
+    }
     return b;
 }
 

@@ -285,6 +285,11 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_PARKING_AREA:
             myTriggerBuilder.endParkingArea();
             break;
+        case SUMO_TAG_BUS_STOP:
+        case SUMO_TAG_TRAIN_STOP:
+        case SUMO_TAG_CONTAINER_STOP:
+            myTriggerBuilder.endStoppingPlace();
+            break;
         case SUMO_TAG_NET:
             // build junction graph
             for (JunctionGraph::iterator it = myJunctionGraph.begin(); it != myJunctionGraph.end(); ++it) {

@@ -204,6 +204,12 @@ public:
      */
     virtual void endParkingArea();
 
+    /** @brief End a stopping place
+     *
+     * @exception InvalidArgument If the current stopping place is 0
+     */
+    virtual void endStoppingPlace();
+
 
     /** @brief Parses his values and builds a charging station
      *
