@@ -65,7 +65,9 @@ enum EditMode {
     ///@brief Mode for editing crossing
     GNE_MODE_CROSSING,
     ///@brief Mode for editing Polygons
-    GNE_MODE_POLYGON
+    GNE_MODE_POLYGON,
+    ///@brief Mode for editing connection prohibits
+    GNE_MODE_PROHIBITION
 };
 
 // ===========================================================================
@@ -673,6 +675,10 @@ private:
 
     /// @brief chekable button for edit mode polygon
     MFXCheckableButton* myEditModePolygon;
+
+	/// @brief checkable button for edit mode polygon
+	MFXCheckableButton* myEditModeProhibition;
+
     /// @}
 
     /// @brief since we cannot switch on strings we map the mode names to an enum

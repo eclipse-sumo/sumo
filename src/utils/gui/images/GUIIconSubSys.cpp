@@ -140,6 +140,7 @@
 #include "modeselect.xpm"
 #include "modetrafficlight.xpm"
 #include "modepolygon.xpm"
+#include "modeprohibition.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -331,6 +332,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
     myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
     myIcons[ICON_MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
+    myIcons[ICON_MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);

@@ -205,6 +205,7 @@ enum GUIIcon {
     ICON_MODESELECT,
     ICON_MODETLS,
     ICON_MODEPOLYGON,
+    ICON_MODEPROHIBITION,
     /// @}
 
     /// @name netedit processing icons
