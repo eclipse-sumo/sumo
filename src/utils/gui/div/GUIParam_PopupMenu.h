@@ -27,7 +27,6 @@
 
 #include <fx.h>
 #include <utils/common/ValueSource.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 
 
 // ===========================================================================
@@ -35,6 +34,7 @@
 // ===========================================================================
 class GUIGlObject;
 class GUIMainWindow;
+class GUIParameterTableWindow;
 
 
 // ===========================================================================

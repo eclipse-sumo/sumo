@@ -167,27 +167,6 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, vo
 
 
 void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic, ValueSource<unsigned>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-
-
-void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic, ValueSource<int>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-
-
-void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic, ValueSource<double>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-
-
-void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string value) {
     // T = double is only a dummy type here
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
