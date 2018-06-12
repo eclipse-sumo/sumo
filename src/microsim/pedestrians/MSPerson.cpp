@@ -462,6 +462,7 @@ MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
 
 void
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
+    myDeparted = now;
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
     net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
     myDestinationStop->getLane().getEdge().addPerson(person);
@@ -482,7 +483,7 @@ MSPerson::MSPersonStage_Access::getStageSummary() const {
 
 Position
 MSPerson::MSPersonStage_Access::getPosition(SUMOTime now) const {
-    return myPath.positionAtOffset((now - myDeparted) / double(myEstimatedArrival - myDeparted));
+    return myPath.positionAtOffset(myPath.length() * (now - myDeparted) / (myEstimatedArrival - myDeparted));
 }
 
 
