@@ -846,123 +846,127 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     // fill all ACs
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
+        // position in attribute list
+        int pos = 0;
         // set values of tag
         myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 1, ICON_EDGE);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, pos++,
             "The id of the edge", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_FROM] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 2,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, pos++,
             "The name of a node within the nodes-file the edge shall start at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TO] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 3,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, pos++,
             "The name of a node within the nodes-file the edge shall end at", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 4,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "The maximum speed allowed on the edge in m/s", 
             toString(oc.getFloat("default.speed")));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PRIORITY] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
+            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "The priority of the edge", 
             toString(oc.getInt("default.priority")));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NUMLANES] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "The number of lanes of the edge", 
             toString(oc.getInt("default.lanenumber")));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 7,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "The name of a type within the SUMO edge type file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 8,
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, pos++,
             "Explicitly allows the given vehicle classes (not given will be not allowed)", 
             "all",
             SumoVehicleClassStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 9,
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, pos++,
             "Explicitly disallows the given vehicle classes (not given will be allowed)", 
             "",
             SumoVehicleClassStrings.getStrings());
         //myAllowedAttributes[currentTag].second[SUMO_ATTR_PREFER, );
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 10,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "If the shape is given it should start and end with the positions of the from-node and to-node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 11,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, pos++,
             "The length of the edge in meter", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPREADTYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 12,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "Lane width for all lanes of this edge in meters (used for visualization)", 
             "right",
             SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 13,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "street name (need not be unique, used for visualization)", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 14,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "Lane width for all lanes of this edge in meters (used for visualization)", 
             "default");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDOFFSET] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 15,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "Move the stop line back from the intersection by the given amount", 
             "0");
         myAllowedAttributes[currentTag].second[GNE_ATTR_SHAPE_START] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, 16, // virtual attribute used to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, pos++, // virtual attribute used to define an endPoint
             "Custom position in which shape start (by default position of junction from)", 
             "");
         myAllowedAttributes[currentTag].second[GNE_ATTR_SHAPE_END] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, 17, // virtual attribute from to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, pos++, // virtual attribute from to define an endPoint
             "Custom position in which shape end (by default position of junction from)", 
             "");
         myAllowedAttributes[currentTag].second[GNE_ATTR_BIDIR] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 18, // virtual attribute to check of this edge is part of a bidirectional railway
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, pos++, // virtual attribute to check of this edge is part of a bidirectional railway
             "Enable or disable bidireccional edge", 
             "false");
     }
     currentTag = SUMO_TAG_JUNCTION;
     {
+        // position in attribute list
+        int pos = 0;
         // set values of tag
         myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_NETELEMENT, 2, ICON_JUNCTION);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, pos++,
             "The id of the node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_POSITION] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION, 2, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION, pos++, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The x-y-z position of the node on the plane in meters", 
             ""); 
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 3,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "An optional type for the node", 
             "",
             nodeTypes);
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 4,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "A custom shape for that node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_RADIUS] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 5,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, pos++,
             "Optional turning radius (for all corners) for that node in meters", 
             "1.5");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_KEEP_CLEAR] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "Whether the junction-blocking-heuristic should be activated at this node", 
             "1");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TLTYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 7,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "An optional type for the traffic light algorithm", 
             "",
             SUMOXMLDefinitions::TrafficLightTypes.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TLID] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 8,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, pos++,
             "An optional id for the traffic light program", 
             "");
     }
