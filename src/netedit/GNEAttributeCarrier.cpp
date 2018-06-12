@@ -839,6 +839,7 @@ GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const
 
 void 
 GNEAttributeCarrier::fillAttributeCarriers() {
+    const OptionsCont& oc = OptionsCont::getOptions();
     // obtain Node Types except NODETYPE_DEAD_END_DEPRECATED
     std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(NODETYPE_DEAD_END_DEPRECATED)));
@@ -863,65 +864,65 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPEED] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 4,
             "The maximum speed allowed on the edge in m/s", 
-            "13.89");
+            toString(oc.getFloat("default.speed")));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_PRIORITY] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 5,
+            ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE, 5,
             "The priority of the edge", 
-            "1");
+            toString(oc.getInt("default.priority")));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NUMLANES] = AttributeValues(
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 5,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 6,
             "The number of lanes of the edge", 
-            "1");
+            toString(oc.getInt("default.lanenumber")));
         myAllowedAttributes[currentTag].second[SUMO_ATTR_TYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 6,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 7,
             "The name of a type within the SUMO edge type file", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 7,
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 8,
             "Explicitly allows the given vehicle classes (not given will be not allowed)", 
             "all",
             SumoVehicleClassStrings.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_DISALLOW] = AttributeValues(
-            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 8,
+            ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_COMBINABLE, 9,
             "Explicitly disallows the given vehicle classes (not given will be allowed)", 
             "",
             SumoVehicleClassStrings.getStrings());
         //myAllowedAttributes[currentTag].second[SUMO_ATTR_PREFER, );
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SHAPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 9,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE, 10,
             "If the shape is given it should start and end with the positions of the from-node and to-node", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LENGTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 10,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE, 11,
             "The length of the edge in meter", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_SPREADTYPE] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 11,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE, 12,
             "Lane width for all lanes of this edge in meters (used for visualization)", 
             "right",
             SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
         myAllowedAttributes[currentTag].second[SUMO_ATTR_NAME] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 12,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE, 13,
             "street name (need not be unique, used for visualization)", 
             "");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_WIDTH] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 13,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 14,
             "Lane width for all lanes of this edge in meters (used for visualization)", 
             "default");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ENDOFFSET] = AttributeValues(
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 14,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE, 15,
             "Move the stop line back from the intersection by the given amount", 
             "0");
         myAllowedAttributes[currentTag].second[GNE_ATTR_SHAPE_START] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, 15, // virtual attribute used to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, 16, // virtual attribute used to define an endPoint
             "Custom position in which shape start (by default position of junction from)", 
             "");
         myAllowedAttributes[currentTag].second[GNE_ATTR_SHAPE_END] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, 16, // virtual attribute from to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, 17, // virtual attribute from to define an endPoint
             "Custom position in which shape end (by default position of junction from)", 
             "");
         myAllowedAttributes[currentTag].second[GNE_ATTR_BIDIR] = AttributeValues(
-            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 17, // virtual attribute to check of this edge is part of a bidirectional railway
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE, 18, // virtual attribute to check of this edge is part of a bidirectional railway
             "Enable or disable bidireccional edge", 
             "false");
     }
