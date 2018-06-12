@@ -540,7 +540,7 @@ NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHi
             try {
                 p2.move2side((first->getNumLanes() - potHighway->getNumLanes()) * first->getLaneWidth(0) * 0.5);
                 first->setGeometry(p2);
-            } catch (InvalidArgument& e) {}
+            } catch (InvalidArgument&) {}
         }
     }
 
@@ -560,7 +560,7 @@ NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHi
     PositionVector l = first->getLaneShape(firstIndex);
     try {
         l.move2side(offset);
-    } catch (InvalidArgument& e) {}
+    } catch (InvalidArgument&) {}
     //std::cout << " ramp=" << potRamp->getID() << " firstIndex=" << firstIndex << " offset=" << offset << " l=" << l << "\n";
 
     if (onRamp) {
