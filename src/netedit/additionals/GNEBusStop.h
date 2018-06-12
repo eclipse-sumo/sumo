@@ -68,10 +68,10 @@ public:
     const std::vector<std::string>& getLines() const;
 
     /// @brief generate Acces ID
-    std::string generateAccesID() const;
+    std::string generateAccessID() const;
 
     /// @brief
-    bool accesCanBeCreated(GNEEdge &edge) const;
+    bool accessCanBeCreated(GNEEdge &edge) const;
 
     /// @name Functions related with geometry of element
     /// @{

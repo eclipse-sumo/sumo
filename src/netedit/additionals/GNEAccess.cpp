@@ -54,7 +54,7 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEBusStop *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(busStop->generateAccesID(), viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement, busStop),
+    GNEAdditional(busStop->generateAccessID(), viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, true, blockMovement, busStop),
     myLane(lane),
     myPositionOverLane(pos),
     myLength(length),
@@ -262,7 +262,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             GNELane *lane = myViewNet->getNet()->retrieveLane(value, false);
             if (lane != nullptr) {
                 if(myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
-                    return dynamic_cast<GNEBusStop*>(myAdditionalParent)->accesCanBeCreated(lane->getParentEdge());
+                    return dynamic_cast<GNEBusStop*>(myAdditionalParent)->accessCanBeCreated(lane->getParentEdge());
                 } else {
                     return true;
                 }
