@@ -1,5 +1,5 @@
 <viewsettings>
-    <delay value="50"/>
+    <delay value="250"/>
     <viewport zoom="400" x="-10" y="20"/>
     <scheme name="game_ramp">
         <opengl antialiase="0" dither="0"/>
