@@ -463,7 +463,8 @@ MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
 void
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
     myEstimatedArrival = now + TIME2STEPS(myDist / person->getVehicleType().getMaxSpeed());
-    net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person), myEstimatedArrival);
+    net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, &myDestinationStop->getLane().getEdge()), myEstimatedArrival);
+    myDestinationStop->getLane().getEdge().addPerson(person);
 }
 
 
@@ -493,6 +494,7 @@ MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
 
 SUMOTime
 MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
+    myStopEdge->removePerson(myPerson);
     if (!myPerson->proceed(MSNet::getInstance(), currentTime)) {
         MSNet::getInstance()->getPersonControl().erase(myPerson);
     }

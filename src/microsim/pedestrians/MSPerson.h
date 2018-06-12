@@ -303,11 +303,12 @@ public:
     private:
         class ProceedCmd : public Command {
         public:
-            ProceedCmd(MSTransportable* person) : myPerson(person) {}
+            ProceedCmd(MSTransportable* person, MSEdge* edge) : myPerson(person), myStopEdge(edge) {}
             ~ProceedCmd() {}
             SUMOTime execute(SUMOTime currentTime);
         private:
-            MSTransportable* myPerson;
+            MSTransportable* const myPerson;
+            MSEdge* myStopEdge;
         private:
             /// @brief Invalidated assignment operator.
             ProceedCmd& operator=(const ProceedCmd&);
