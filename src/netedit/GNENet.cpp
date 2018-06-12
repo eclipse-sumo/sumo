@@ -376,10 +376,11 @@ GNENet::createEdge(
         edge = new GNEEdge(*nbe, this, wasSplit);
     } else {
         // default if no template is given
-        double defaultSpeed = 50 / 3.6;
+        const OptionsCont& oc = OptionsCont::getOptions();
+        double defaultSpeed = oc.getFloat("default.speed");
         std::string defaultType = "";
-        int defaultNrLanes = 1;
-        int defaultPriority = 1;
+        int defaultNrLanes = oc.getInt("default.lanenumber");
+        int defaultPriority = oc.getInt("default.priority");
         double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
         double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
         NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(),
