@@ -246,7 +246,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     else:
         pattern = '.*'.join(['<%s' % element_name] +
                             ['%s="([^"]*)"' % attr for attr in attrnames])
-    Record = namedtuple(element_name, prefixedAttrnames)
+    Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
     reprog = re.compile(pattern)
     for line in open(xmlfile):
         m = reprog.search(line)
