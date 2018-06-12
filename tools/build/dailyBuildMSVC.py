@@ -99,9 +99,11 @@ def runTests(options, env, gitrev, debugSuffix=""):
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
 
-def generateCMake(generator, log, checkOptionalLibs=False):
+def generateCMake(generator, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
     cmakeOpt = ["-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    if python:
+        cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
         print("Cleaning directory of", generator, file=log)
@@ -131,6 +133,7 @@ optParser.add_option("-n", "--no-tests", action="store_true",
                      default=False, help="skip tests")
 optParser.add_option("-e", "--no-extended-tests", action="store_true",
                      default=False, help="skip netedit tests and tests for the debug build")
+optParser.add_option("-p", "--python", help="path to python interpreter to use")
 (options, args) = optParser.parse_args()
 
 sys.path.append(os.path.join(options.rootDir, options.testsDir))
@@ -173,10 +176,7 @@ for platform, dllDir in platformDlls:
         generator = "Visual Studio 12 2013"
         if platform == "x64":
             generator += " Win64"
-        buildDir = generateCMake(generator, log, options.suffix == "extra")
-        if options.suffix == "extra":
-            subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "_libsumo"],
-                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+        buildDir = generateCMake(generator, log, options.suffix == "extra", options.python)
         subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     envSuffix = ""
