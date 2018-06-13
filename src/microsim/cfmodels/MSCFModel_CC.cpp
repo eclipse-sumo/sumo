@@ -179,6 +179,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     if (vars->activeController != Plexe::DRIVER) {
         controllerAcceleration = SPEED2ACCEL(vPos - veh->getSpeed());
+        controllerAcceleration = std::min(vars->uMax, std::max(vars->uMin, controllerAcceleration));
         //compute the actual acceleration applied by the engine
         engineAcceleration = vars->engine->getRealAcceleration(veh->getSpeed(), veh->getAcceleration(), controllerAcceleration, MSNet::getInstance()->getCurrentTimeStep());
         vNext = MAX2(double(0), veh->getSpeed() + ACCEL2SPEED(engineAcceleration));
@@ -738,6 +739,14 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             vars->engine->setParameter(FOLM_PAR_TAU, vars->engineTau);
             recomputeParameters(veh);
             vars->engine->setParameter(FOLM_PAR_TAU, vars->engineTau);
+        }
+        if (key.compare(CC_PAR_UMIN) == 0) {
+            vars->uMin = TplConvert::_2double(value.c_str());
+            return;
+        }
+        if (key.compare(CC_PAR_UMAX) == 0) {
+            vars->uMax = TplConvert::_2double(value.c_str());
+            return;
         }
         if (key.compare(CC_PAR_PLOEG_H) == 0) {
             vars->ploegH = TplConvert::_2double(value.c_str());

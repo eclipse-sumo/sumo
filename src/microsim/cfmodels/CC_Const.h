@@ -94,6 +94,9 @@ struct VEHICLE_DATA {
 #define CC_PAR_CACC_C1                   "ccc1"    //C1
 #define CC_PAR_ENGINE_TAU                "cctau"   //engine time constant
 
+#define CC_PAR_UMIN                      "ccumin"  //lower saturation for u
+#define CC_PAR_UMAX                      "ccumax"  //upper saturation for u
+
 #define CC_PAR_PLOEG_H                   "ccph"    //time headway of ploeg's CACC
 #define CC_PAR_PLOEG_KP                  "ccpkp"   //kp parameter of ploeg's CACC
 #define CC_PAR_PLOEG_KD                  "ccpkd"   //kd parameter of ploeg's CACC

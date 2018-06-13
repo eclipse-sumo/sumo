@@ -186,6 +186,8 @@ public:
     /// @brief fixed spacing for CACC
     double caccSpacing;
     double engineTau;
+    /// @brief limits for u
+    double uMin, uMax;
     double ploegH;
     double ploegKp;
     double ploegKd;

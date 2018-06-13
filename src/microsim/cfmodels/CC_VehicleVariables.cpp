@@ -56,6 +56,7 @@ CC_VehicleVariables::CC_VehicleVariables() :
     caccXi(-1), caccOmegaN(-1), caccC1(-1), caccAlpha1(-1), caccAlpha2(-1),
     caccAlpha3(-1), caccAlpha4(-1), caccAlpha5(-1), caccSpacing(5),
     engineTau(0.5),
+    uMin(-1e6), uMax(1e6),
     ploegH(0.5), ploegKp(0.2), ploegKd(0.7),
     flatbedKa(2.4), flatbedKv(0.6), flatbedKp(12), flatbedD(5), flatbedH(4),
     engine(0), engineModel(CC_ENGINE_MODEL_FOLM),
