@@ -25,6 +25,5 @@
         <space x="10.00" y="-15.00" z="1.30" width="3.30" length="6.00" angle="45.00"/>
         <space x="15.00" y="-15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
         <space x="20.00" y="-15.00"/>
-        <space x="50.00" y="-15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
     </parkingArea>
 </additionals>

@@ -47,6 +47,7 @@ netedit.selectAdditionalChild(9, 0)
 netedit.leftClick(match, 250, 100)
 
 # set invalid z (dummy)
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(2, "dummyZ")
 
 # try to create space
@@ -65,12 +66,14 @@ netedit.modifyAdditionalDefaultValue(2, "-2")
 netedit.leftClick(match, 260, 100)
 
 # set valid z (negative)
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(2, "3.5")
 
 # create space
 netedit.leftClick(match, 270, 100)
 
 # set invalid width (dummy)
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(3, "dummyWidth")
 
 # try to create area
@@ -95,6 +98,7 @@ netedit.modifyAdditionalDefaultValue(3, "2.5")
 netedit.leftClick(match, 280, 100)
 
 # set invalid height (dummy)
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(4, "dummyHeight")
 
 # try to create area
@@ -122,6 +126,7 @@ netedit.leftClick(match, 290, 100)
 netedit.modifyAdditionalDefaultValue(5, "dummyHeight")
 
 # try to create area
+netedit.selectAdditionalChild(9, 0)
 netedit.leftClick(match, 300, 100)
 
 # set invalid angle (empty)
@@ -137,18 +142,21 @@ netedit.modifyAdditionalDefaultValue(5, "-4")
 netedit.leftClick(match, 300, 100)
 
 # set valid angle (>360)
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(5, "500")
 
 # create area
 netedit.leftClick(match, 310, 100)
 
 # set valid angle
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultValue(5, "120")
 
 # create area
 netedit.leftClick(match, 320, 100)
 
 # block movement
+netedit.selectAdditionalChild(9, 0)
 netedit.modifyAdditionalDefaultBoolValue(7)
 
 # create area

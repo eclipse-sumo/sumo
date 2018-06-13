@@ -1,36 +1,30 @@
 Warning: Adding laneCalibrator 'calibratorRoutes' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
+Warning: A route must be declared within the definition of a calibrator.
 Warning: Essential unique string attribute 'id' of route is missing; route cannot be created
 Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
-Warning: There is another route with the same ID='route01'.
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
+Warning: A route must be declared within the definition of a calibrator.
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
+Warning: A route must be declared within the definition of a calibrator.
 Warning: Adding calibrator vehicle type 'typeWithoutCalibrator'
-Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
+Warning: A flow must be declared within the definition of a calibrator.
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
 Warning: Deleting unreferenced laneCalibrator 'calibratorRoutes'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

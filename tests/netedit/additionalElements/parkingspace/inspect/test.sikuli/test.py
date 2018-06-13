@@ -43,13 +43,12 @@ netedit.leftClick(match, 400, 180)
 # select space
 netedit.changeAdditional("space")
 
-# select parent
-netedit.selectAdditionalChild(9, 0)
-
 # create first space
+netedit.selectAdditionalChild(9, 0)
 netedit.leftClick(match, 250, 320)
 
 # create second space
+netedit.selectAdditionalChild(9, 0)
 netedit.leftClick(match, 400, 320)
 
 # go to inspect mode

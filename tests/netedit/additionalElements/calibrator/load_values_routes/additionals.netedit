@@ -9,6 +9,5 @@
         <route id="route09" edges="gneE1 gneE0"/>
         <route id="route10" edges="gneE1 gneE0"/>
         <route id="route11" edges="gneE1 gneE0" color="white"/>
-        <route id="routeWithoutCalibrator" edges="gneE0 gneE1" color="black"/>
     </calibrator>
 </additionals>

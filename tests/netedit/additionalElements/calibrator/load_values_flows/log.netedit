@@ -201,15 +201,14 @@ Warning: Adding calibrator flow into calibrator 'calibratorFlows'
 Warning: Adding calibrator flow into calibrator 'calibratorFlows'
 Warning: Adding calibrator flow into calibrator 'calibratorFlows'
 Warning: Adding calibrator flow into calibrator 'calibratorFlows'
-Warning: Adding calibrator route into calibrator 'calibratorFlows'
+Warning: A route must be declared within the definition of a calibrator.
 Warning: Adding calibrator vehicle type 'typeWithoutCalibrator'
-Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
+Warning: A flow must be declared within the definition of a calibrator.
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting calibrator route
 Warning: Deleting calibrator flow
 Warning: Deleting calibrator flow
 Warning: Deleting calibrator flow

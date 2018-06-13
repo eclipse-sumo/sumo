@@ -1,14 +1,4 @@
 <additionals>
     <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
-    <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" output="calibratorRoutes.txt">
-        <route id="route01" edges="gneE0 gneE1" color="black"/>
-        <route id="route02" edges="gneE0 gneE1" color="black"/>
-        <route id="route06" edges="gneE0 gneE0" color="black"/>
-        <route id="route07" edges="gneE1 gneE0" color="black"/>
-        <route id="route08" edges="gneE1 gneE0"/>
-        <route id="route09" edges="gneE1 gneE0"/>
-        <route id="route10" edges="gneE1 gneE0"/>
-        <route id="route11" edges="gneE1 gneE0" color="white"/>
-        <route id="routeWithoutCalibrator" edges="gneE0 gneE1" color="black"/>
-    </calibrator>
+    <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" output="calibratorRoutes.txt"/>
 </additionals>
