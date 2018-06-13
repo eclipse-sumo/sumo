@@ -106,7 +106,7 @@
 
     <xsd:complexType name="segmentStateType">
         <xsd:sequence>
-            <xsd:element name="vehicles" type="queueType" minOccurs="1"/>
+            <xsd:element name="vehicles" type="queueType" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
         <!-- <xsd:attribute name="id" type="xsd:string" use="required"/> -->
     </xsd:complexType>
