@@ -214,6 +214,7 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
     if (myInstance != 0) {
         // maybe net was deleted and built again
         MSNet::getInstance()->addVehicleStateListener(myInstance);
+        myInstance->mySubscriptionCache.writeInt(0);
     }
 }
 
