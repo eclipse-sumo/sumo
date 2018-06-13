@@ -87,6 +87,7 @@ private:
 		PROHIBITING
 	};
 
+<<<<<<< HEAD
     /// @brief Groupbox for description
     FXGroupBox* myGroupBoxDescription;
 
@@ -108,6 +109,8 @@ private:
     /// @brief "prohibiting" label
     FXLabel* myProhibitingLabel;
 
+=======
+>>>>>>> origin/netedit_prohibit
 	/// @brief "Cancel" button
 	FXButton* myCancelButton;
 
@@ -131,10 +134,13 @@ private:
 
 	/// @brief color for connections with precedence
 	static RGBColor prohibitingColor;
+<<<<<<< HEAD
 
 private:
     /// @brief update description
     void updateDescription() const;
+=======
+>>>>>>> origin/netedit_prohibit
 };
 
 

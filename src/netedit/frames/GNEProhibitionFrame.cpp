@@ -56,8 +56,8 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEProhibitionFrame) GNEProhibitionFrameMap[] = {
-	FXMAPFUNC(SEL_COMMAND, MID_CANCEL, GNEProhibitionFrame::onCmdCancel),
-	FXMAPFUNC(SEL_COMMAND, MID_OK, GNEProhibitionFrame::onCmdOK)
+    FXMAPFUNC(SEL_COMMAND, MID_CANCEL, GNEProhibitionFrame::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND, MID_OK, GNEProhibitionFrame::onCmdOK)
 };
 
 // Object implementation
@@ -77,7 +77,7 @@ RGBColor GNEProhibitionFrame::prohibitingColor;
 
 GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), myCurrentConn(0) {
-	getFrameHeaderLabel()->setText("Prohibitions");
+    getFrameHeaderLabel()->setText("Prohibitions");
 
     // init colors here
     selectedColor = GNENet::selectedConnectionColor;
@@ -105,14 +105,12 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Has right of way", 0, GUIDesignLabelFrameInformation);
     myProhibitingLabel->setBackColor(MFXUtils::getFXColor(prohibitingColor));
 
-	// Create "Cancel" button
-	myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
-		GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
-	// Create "OK" button
-	//mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
-	//	GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
-
-
+    // Create "Cancel" button
+    myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
+        GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
+    // Create "OK" button
+    //mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
+    //    GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
 }
 
 GNEProhibitionFrame::~GNEProhibitionFrame() {}
@@ -120,18 +118,18 @@ GNEProhibitionFrame::~GNEProhibitionFrame() {}
 void
 GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle) {
 
-	if (myCurrentConn == 0) {
-		myCurrentConn = conn;
+    if (myCurrentConn == 0) {
+        myCurrentConn = conn;
         myCurrentConn->setSpecialColor(&selectedColor);
 
-		// determine prohibition status of all other connections with respect to the selected one
-		GNEJunction* junction = myCurrentConn->getEdgeFrom()->getGNEJunctionDestiny();
-		std::vector<GNEConnection*> allConns = junction->getGNEConnections();
+        // determine prohibition status of all other connections with respect to the selected one
+        GNEJunction* junction = myCurrentConn->getEdgeFrom()->getGNEJunctionDestiny();
+        std::vector<GNEConnection*> allConns = junction->getGNEConnections();
         NBNode* node = junction->getNBNode();
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();
         NBEdge* currentConnTo = myCurrentConn->getEdgeTo()->getNBEdge();
 
-		for (auto conn:allConns) {
+        for (auto conn:allConns) {
             if (conn != myCurrentConn) {
                 NBEdge* otherConnFrom = conn->getEdgeFrom()->getNBEdge();
                 NBEdge* otherConnTo = conn->getEdgeTo()->getNBEdge();
@@ -154,9 +152,10 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool mayDefinite
                     conn->setSpecialColor(&prohibitingColor);
                 }
             }
-		}
+        }
+
         updateDescription();
-	}
+    }
 }
 
 void 
@@ -168,7 +167,6 @@ void
 GNEProhibitionFrame::hide() {
     GNEFrame::hide();
 }
-
 
 void
 GNEProhibitionFrame::updateDescription() const {
@@ -197,7 +195,7 @@ GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEProhibitionFrame::onCmdOK(FXObject*, FXSelector, void*) {
-	return 1;
+    return 1;
 }
 
 
