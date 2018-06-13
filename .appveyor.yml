@@ -23,7 +23,7 @@ build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
     - mkdir build_msvc%ver% &&
       cd build_msvc%ver% &&
-      cmake .. -G"%generator%" &&
+      cmake .. -G"%generator%" -DPYTHON_EXECUTABLE=C:\Python27-x64 &&
       cmake --build . --config %configuration%
 
 # maybe enable later but for now it probably exceeds the cache limit of 1GB
