@@ -156,8 +156,8 @@ def createTrips(options):
                 if len(edges) > 2:
                     vias = ' via="%s"' % (' '.join(edges[1:-1]))
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="%s" departLane="%s" from="%s" to="%s"%s>\n' % (
-                        tripID, options.vtypeprefix, line.type, begin, 'best', edges[0], edges[-1], vias))
+                    '    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" to="%s"%s>\n' % (
+                        tripID, options.vtypeprefix, line.type, begin, edges[0], edges[-1], vias))
             else:
                 if len(stop_ids) == 0:
                     sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
@@ -166,8 +166,8 @@ def createTrips(options):
                 fr, _ = stopsLanes[stop_ids[0]].rsplit("_", 1)
                 to, _ = stopsLanes[stop_ids[-1]].rsplit("_", 1)
                 fouttrips.write(
-                    '    <trip id="%s" type="%s%s" depart="%s" departLane="%s" from="%s" to="%s">\n' % (
-                        tripID, options.vtypeprefix, line.type, begin, 'best', fr, to))
+                    '    <trip id="%s" type="%s%s" depart="%s" departLane="best" departPos="0" from="%s" to="%s">\n' % (
+                        tripID, options.vtypeprefix, line.type, begin, fr, to))
 
             trpMap[tripID] = (lineRef, line.attr_name, line.completeness)
             for stop in stop_ids:
