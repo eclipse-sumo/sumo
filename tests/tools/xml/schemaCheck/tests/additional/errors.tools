@@ -1,16 +1,17 @@
 Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
 Traceback (most recent call last):
-  File "D:/behr_mi/Projekte/Vabene/trunk/SE/extern/sumo/tests\..\tools/xml/schemaCheck.py", line 49, in validate
+  File "/scr1/sumo/tests/../tools/xml/schemaCheck.py", line 48, in validate
     doc = etree.parse(f)
-  File "src\lxml\lxml.etree.pyx", line 3427, in lxml.etree.parse (src\lxml\lxml.etree.c:80041)
-  File "src\lxml\parser.pxi", line 1782, in lxml.etree._parseDocument (src\lxml\lxml.etree.c:116235)
-  File "src\lxml\parser.pxi", line 1808, in lxml.etree._parseDocumentFromURL (src\lxml\lxml.etree.c:116585)
-  File "src\lxml\parser.pxi", line 1712, in lxml.etree._parseDocFromFile (src\lxml\lxml.etree.c:115473)
-  File "src\lxml\parser.pxi", line 1115, in lxml.etree._BaseParser._parseDocFromFile (src\lxml\lxml.etree.c:110170)
-  File "src\lxml\parser.pxi", line 573, in lxml.etree._ParserContext._handleParseResultDoc (src\lxml\lxml.etree.c:103644)
-  File "src\lxml\parser.pxi", line 683, in lxml.etree._handleParseResult (src\lxml\lxml.etree.c:105298)
-  File "src\lxml\parser.pxi", line 613, in lxml.etree._raiseParseError (src\lxml\lxml.etree.c:104207)
+  File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
+  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)
+  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:93013)
+  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:92076)
+  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:88976)
+  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84385)
+  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85488)
+  File "parser.pxi", line 616, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:84811)
 XMLSyntaxError: Opening and ending tag mismatch: additional line 1 and calibrator, line 5, column 18
+sumo/extended/simulation_routing/personTrip/errors/access_invalid/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'access': This element is not expected.
 sumo/extended/vaporizer/errors/begin_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/extended/vaporizer/errors/begin_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vaporizer', attribute 'begin': [facet 'minInclusive'] The value '-10' is less than the minimum value allowed ('0').
 sumo/extended/vaporizer/errors/begin_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '-10' is not a valid value of the atomic type 'nonNegativeFloatType'.
