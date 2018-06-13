@@ -94,6 +94,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,              GNEViewNet::onCmdSetModeAdditional),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                GNEViewNet::onCmdSetModeCrossing),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                 GNEViewNet::onCmdSetModePolygon),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION,             GNEViewNet::onCmdSetModeProhibition),
     // Viewnet
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
@@ -1471,6 +1472,11 @@ GNEViewNet::onCmdSetModePolygon(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GNEViewNet::onCmdSetModeProhibition(FXObject*, FXSelector, void*) {
+    setEditMode(GNE_MODE_PROHIBITION);
+    return 1;
+}
 
 long
 GNEViewNet::onCmdSplitEdge(FXObject*, FXSelector, void*) {

@@ -185,6 +185,10 @@ public:
 
     /// @brief called when user press the button for polygon mode
     long onCmdSetModePolygon(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for polygon mode
+    long onCmdSetModeProhibition(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @brief split edge at cursor position

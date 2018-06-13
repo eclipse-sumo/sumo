@@ -87,6 +87,27 @@ private:
 		PROHIBITING
 	};
 
+    /// @brief Groupbox for description
+    FXGroupBox* myGroupBoxDescription;
+
+    /// @brief the label that shows the currently selected connection
+    FXLabel* myConnDescriptionLabel;
+
+    /// @brief group box for legend
+    FXGroupBox* myGroupBoxLegend;
+
+    /// @brief selected connection label
+    FXLabel* mySelectedLabel;
+
+    /// @brief "undefined" yielding label
+    FXLabel* myUndefinedLabel;
+
+    /// @brief "prohibited" label
+    FXLabel* myProhibitedLabel;
+
+    /// @brief "prohibiting" label
+    FXLabel* myProhibitingLabel;
+
 	/// @brief "Cancel" button
 	FXButton* myCancelButton;
 
@@ -110,6 +131,10 @@ private:
 
 	/// @brief color for connections with precedence
 	static RGBColor prohibitingColor;
+
+private:
+    /// @brief update description
+    void updateDescription() const;
 };
 
 

@@ -79,6 +79,32 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), myCurrentConn(0) {
 	getFrameHeaderLabel()->setText("Prohibitions");
 
+    // init colors here
+    selectedColor = GNENet::selectedConnectionColor;
+    undefinedColor = RGBColor::GREY;
+    prohibitedColor = RGBColor(0, 179, 0);
+    prohibitingColor = RGBColor::RED;
+
+    // Create groupbox for current connection information
+    myGroupBoxDescription = new FXGroupBox(myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame);
+
+    // Create label for current connection description and update it
+    myConnDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelFrameInformation);
+    updateDescription();
+
+    // Create groupbox for color legend
+    myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
+
+    // Create labels for color legend
+    mySelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GUIDesignLabelFrameInformation);
+    mySelectedLabel->setBackColor(MFXUtils::getFXColor(selectedColor));
+    myUndefinedLabel = new FXLabel(myGroupBoxLegend, "Undefined", 0, GUIDesignLabelFrameInformation);
+    myUndefinedLabel->setBackColor(MFXUtils::getFXColor(undefinedColor));
+    myProhibitedLabel = new FXLabel(myGroupBoxLegend, "Yields", 0, GUIDesignLabelFrameInformation);
+    myProhibitedLabel->setBackColor(MFXUtils::getFXColor(prohibitedColor));
+    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Has right of way", 0, GUIDesignLabelFrameInformation);
+    myProhibitingLabel->setBackColor(MFXUtils::getFXColor(prohibitingColor));
+
 	// Create "Cancel" button
 	myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
 		GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_CANCEL, GUIDesignButton);
@@ -86,11 +112,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
 	//mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
 	//	GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
 
-	// init colors here
-    selectedColor = GNENet::selectedConnectionColor;
-	undefinedColor = RGBColor::GREY;
-    prohibitedColor = RGBColor(0, 179, 0);
-	prohibitingColor = RGBColor::RED;
+
 }
 
 GNEProhibitionFrame::~GNEProhibitionFrame() {}
@@ -133,6 +155,7 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool mayDefinite
                 }
             }
 		}
+        updateDescription();
 	}
 }
 
@@ -146,6 +169,17 @@ GNEProhibitionFrame::hide() {
     GNEFrame::hide();
 }
 
+
+void
+GNEProhibitionFrame::updateDescription() const {
+    if (myCurrentConn == 0) {
+        myConnDescriptionLabel->setText("No Connection selected\n");
+    }
+    else {
+        myConnDescriptionLabel->setText(("from lane " + myCurrentConn->getLaneFrom()->getMicrosimID() + "\nto lane " + myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
+    }
+}
+
 long
 GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myCurrentConn != 0) {
@@ -155,6 +189,7 @@ GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
         myCurrentConn->setSpecialColor(0);
         myCurrentConn = 0;
         myConcernedConns.clear();
+        updateDescription();
         myViewNet->update();
     }
     return 1;
