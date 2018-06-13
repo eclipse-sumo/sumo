@@ -804,7 +804,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
                 WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
             } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, outfile, freq)) {
                 // save ID of last created element
-                myParentElements.back().second = edgeID;
+                myParentElements.back().second = id;
             }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
@@ -827,7 +827,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
                 WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
             } else if (buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, outfile, freq)) {
                 // save ID of last created element
-                myParentElements.back().second = edgeID;
+                myParentElements.back().second = id;
             }
         }
     } else {

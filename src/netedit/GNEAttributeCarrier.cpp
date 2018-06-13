@@ -1598,7 +1598,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 42, ICON_EMPTY /* temporal */, SUMO_TAG_CALIBRATOR);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 42, ICON_EMPTY /* temporal */, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1684,7 +1684,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 43, ICON_EMPTY /* temporal */, SUMO_TAG_CALIBRATOR);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 43, ICON_EMPTY /* temporal */, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
@@ -1872,7 +1872,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 80, ICON_EMPTY /* temporal */);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_INTERNAL, 80, ICON_EMPTY /* temporal */);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_ID] = AttributeValues(
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE, 1,
