@@ -1,8 +1,8 @@
 # E2 detector registers downstream vehicles as passing over it after their lane change
 ticket4015
 
-# SW_passenger doesn't recognize EW_bike as link-leader. All the stopping on internal lanes is to reproduce the situation with vehicles on the junction after phase switch, occuring in dense traffic without artificial setup.
-ticket4189
-
 # stopOffset>visibilityDistance causes deadlocks before minor links.
 ticket4180
+
+# SW_passenger doesn't recognize EW_bike as link-leader. All the stopping on internal lanes is to reproduce the situation with vehicles on the junction after phase switch, occuring in dense traffic without artificial setup.
+ticket4189

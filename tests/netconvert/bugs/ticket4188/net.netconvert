@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 11 23:32:25 2018 by Eclipse SUMO netconvert Version 66cf7e4
+<!-- generated on Wed Jun 13 09:20:17 2018 by Eclipse SUMO netconvert Version 10fe6e6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -129,32 +129,32 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="EW1" from="gneJ10" to="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" priority="1" shape="583.53,166.27 376.20,158.95">
-        <lane id="EW1_0" index="0" allow="bicycle" speed="13.89" length="205.76" endOffset="-1.00" width="1.85" shape="583.27,173.69 375.04,166.34"/>
-        <lane id="EW1_1" index="1" disallow="pedestrian" speed="13.89" length="205.76" endOffset="-1.00" width="3.25" shape="583.36,171.14 379.04,163.93"/>
-        <lane id="EW1_2" index="2" disallow="pedestrian" speed="13.89" length="205.76" endOffset="-1.00" width="3.25" shape="583.47,167.89 379.13,160.68"/>
+        <lane id="EW1_0" index="0" allow="bicycle" speed="13.89" length="205.76" width="1.85" shape="583.27,173.69 375.04,166.34"/>
+        <lane id="EW1_1" index="1" disallow="pedestrian" speed="13.89" length="205.76" width="3.25" shape="583.36,171.14 379.04,163.93"/>
+        <lane id="EW1_2" index="2" disallow="pedestrian" speed="13.89" length="205.76" width="3.25" shape="583.47,167.89 379.13,160.68"/>
     </edge>
     <edge id="EW2" from="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" to="gneJ19" priority="1" shape="337.23,160.56 0.00,152.03">
         <lane id="EW2_0" index="0" allow="bicycle" speed="13.89" length="336.49" width="1.50" shape="336.30,164.79 -0.11,156.28"/>
         <lane id="EW2_1" index="1" disallow="pedestrian" speed="13.89" length="336.49" width="3.50" shape="336.31,162.29 -0.04,153.78"/>
     </edge>
     <edge id="NS1" from="gneJ14" to="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" priority="1" shape="352.32,278.93 356.59,172.67">
-        <lane id="NS1_0" index="0" disallow="pedestrian" speed="13.89" length="104.06" endOffset="-1.00" width="3.25" shape="347.45,278.73 351.63,174.80"/>
-        <lane id="NS1_1" index="1" disallow="pedestrian" speed="13.89" length="104.06" endOffset="-1.00" width="3.25" shape="350.70,278.86 354.88,174.85"/>
+        <lane id="NS1_0" index="0" disallow="pedestrian" speed="13.89" length="104.06" width="3.25" shape="347.45,278.73 351.63,174.80"/>
+        <lane id="NS1_1" index="1" disallow="pedestrian" speed="13.89" length="104.06" width="3.25" shape="350.70,278.86 354.88,174.85"/>
     </edge>
     <edge id="NS2" from="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" to="gneJ5" priority="1" shape="354.40,143.29 359.21,29.22">
         <lane id="NS2_0" index="0" disallow="pedestrian" speed="13.89" length="116.56" width="3.50" shape="352.55,145.61 357.46,29.15"/>
     </edge>
     <edge id="SN1" from="gneJ6" to="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" priority="1" shape="360.47,0.00 354.49,145.74">
-        <lane id="SN1_0" index="0" disallow="pedestrian" speed="13.89" length="143.10" endOffset="-1.00" width="3.25" shape="365.34,0.20 359.48,143.11"/>
-        <lane id="SN1_1" index="1" disallow="pedestrian" speed="13.89" length="143.10" endOffset="-1.00" width="3.25" shape="362.09,0.07 356.22,143.11"/>
+        <lane id="SN1_0" index="0" disallow="pedestrian" speed="13.89" length="143.10" width="3.25" shape="365.34,0.20 359.48,143.11"/>
+        <lane id="SN1_1" index="1" disallow="pedestrian" speed="13.89" length="143.10" width="3.25" shape="362.09,0.07 356.22,143.11"/>
     </edge>
     <edge id="SN2" from="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" to="gneJ13" priority="1" shape="356.66,171.84 352.15,286.25">
         <lane id="SN2_0" index="0" disallow="pedestrian" speed="13.89" length="113.52" width="3.50" shape="358.37,172.89 353.90,286.32"/>
     </edge>
     <edge id="WE1" from="gneJ16" to="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" priority="1" shape="25.85,152.39 335.72,160.21">
-        <lane id="WE1_0" index="0" allow="bicycle" speed="13.89" length="307.83" endOffset="-1.00" width="1.85" shape="26.04,144.97 335.16,152.77"/>
-        <lane id="WE1_1" index="1" disallow="pedestrian" speed="13.89" length="307.83" endOffset="-1.00" width="3.25" shape="25.97,147.52 332.99,155.26"/>
-        <lane id="WE1_2" index="2" disallow="pedestrian" speed="13.89" length="307.83" endOffset="-1.00" width="3.25" shape="25.89,150.77 332.95,158.51"/>
+        <lane id="WE1_0" index="0" allow="bicycle" speed="13.89" length="307.83" width="1.85" shape="26.04,144.97 335.16,152.77"/>
+        <lane id="WE1_1" index="1" disallow="pedestrian" speed="13.89" length="307.83" width="3.25" shape="25.97,147.52 332.99,155.26"/>
+        <lane id="WE1_2" index="2" disallow="pedestrian" speed="13.89" length="307.83" width="3.25" shape="25.89,150.77 332.95,158.51"/>
     </edge>
     <edge id="WE2" from="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" to="gneJ9" priority="1" shape="378.05,159.16 600.07,166.42">
         <lane id="WE2_0" index="0" allow="bicycle" speed="13.89" length="227.75" width="1.50" shape="372.60,154.73 600.21,162.17"/>
