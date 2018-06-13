@@ -1288,7 +1288,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_PARKING_SPACE;
     {
         // set values of tag
-        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, 15, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
+        myAllowedAttributes[currentTag].first = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, 15, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
         // set values of attributes
         myAllowedAttributes[currentTag].second[SUMO_ATTR_X] = AttributeValues(
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE, 1,
