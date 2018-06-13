@@ -1984,7 +1984,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - major links: stopping point is irrelevant
         double laneStopOffset;
         const double majorStopOffset = MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this));
-        const double minorStopOffset = MAX2(POSITION_EPS, lane->getStopOffset(this));
+        const double minorStopOffset = lane->getStopOffset(this);
         if (yellowOrRed) {
             // Wait at red traffic light with full distance
             laneStopOffset = majorStopOffset;
@@ -1995,6 +1995,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // On minor link, we should likewise never stop below visibility distance
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance()-POSITION_EPS, minorStopOffset);
         }
+        laneStopOffset = MAX2(POSITION_EPS, laneStopOffset);
         const double stopDist = MAX2(0., seen - laneStopOffset);
 
 #ifdef DEBUG_PLAN_MOVE
