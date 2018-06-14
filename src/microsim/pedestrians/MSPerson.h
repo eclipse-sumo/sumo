@@ -252,6 +252,7 @@ public:
         /** @brief Called on writing tripinfo output
         *
         * @param[in] os The stream to write the information into
+        * @param[in] transportable The person to write information about
         * @exception IOError not yet implemented
         */
         virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
@@ -288,8 +289,13 @@ public:
 
         double getAngle(SUMOTime now) const;
 
-        /// @brief Called on writing tripinfo output. Currently does nothing.
-        void tripInfoOutput(OutputDevice&, MSTransportable*) const {};
+        /** @brief Called on writing tripinfo output
+        *
+        * @param[in] os The stream to write the information into
+        * @param[in] transportable The person to write information about
+        * @exception IOError not yet implemented
+        */
+        void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
 
         /// @brief Called on writing vehroute output. Currently does nothing.
         void routeOutput(OutputDevice&) const {};
@@ -315,7 +321,8 @@ public:
         };
 
     private:
-        double myDist;
+        const double myDist;
+        const bool myAmExit;
         SUMOTime myEstimatedArrival;
         PositionVector myPath;
     };

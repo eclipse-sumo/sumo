@@ -400,6 +400,7 @@ MSPerson::MSPersonStage_Driving::getStageSummary() const {
         "driving to " + dest;
 }
 
+
 void
 MSPerson::MSPersonStage_Driving::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
     const SUMOTime waitingTime = myDeparted - myWaitingSince;
@@ -448,7 +449,7 @@ MSPerson::MSPersonStage_Driving::routeOutput(OutputDevice& os) const {
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge& destination, MSStoppingPlace* toStop,
     const double arrivalPos, const double dist, const bool isExit) :
     MSTransportable::Stage(destination, toStop, arrivalPos, ACCESS),
-    myDist(dist) {
+    myDist(dist), myAmExit(isExit) {
     myPath.push_back(destination.getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(&destination)));
     myPath.push_back(toStop->getLane().geometryPositionAtOffset((toStop->getEndLanePosition() + toStop->getBeginLanePosition())/2));
     if (isExit) {
@@ -477,7 +478,7 @@ MSPerson::MSPersonStage_Access::getStageDescription() const {
 
 std::string
 MSPerson::MSPersonStage_Access::getStageSummary() const {
-    return "access to stop '" + getDestinationStop()->getID() + "'";
+    return (myAmExit ? "access from stop '" : "access to stop '") + getDestinationStop()->getID() + "'";
 }
 
 
@@ -490,6 +491,16 @@ MSPerson::MSPersonStage_Access::getPosition(SUMOTime now) const {
 double
 MSPerson::MSPersonStage_Access::getAngle(SUMOTime /* now */) const {
     return myPath.angleAt2D(0);
+}
+
+
+void
+MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, MSTransportable*) const {
+    os.openTag("access");
+    os.writeAttr("stop", getDestinationStop()->getID());
+    os.writeAttr("duration", myArrived > 0 ? time2string(myArrived - myDeparted) : "-1");
+    os.writeAttr("routeLength", myDist);
+    os.closeTag();
 }
 
 
