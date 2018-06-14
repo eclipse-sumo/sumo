@@ -581,7 +581,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
-    auto attrs = GNEAttributeCarrier::getAttributes(elementTag);
+    auto attrs = GNEAttributeCarrier::getTagProperties(elementTag).getAttributeValues();
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
     myTable->setVisibleRows((FXint)(attrs.size()));

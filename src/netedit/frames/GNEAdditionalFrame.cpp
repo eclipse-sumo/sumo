@@ -159,7 +159,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         // Clear internal attributes
         myAdditionalFrameParent->getAdditionalParameters()->clearAttributes();
         // iterate over attributes of myCurrentAdditionalType
-        for (auto i : GNEAttributeCarrier::getAttributes(myCurrentAdditionalType)) {
+        for (auto i : tagValue.getAttributeValues()) {
             // only show attributes that aren't uniques
             if (!GNEAttributeCarrier::getAttributeProperties(myCurrentAdditionalType, i.first).isUnique()) {
                 myAdditionalFrameParent->getAdditionalParameters()->addAttribute(i.first);
@@ -478,7 +478,7 @@ void
 GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getAttributes(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType())) {
+    for (auto i : GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType()).getAttributeValues()) {
         if(errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid();
@@ -506,7 +506,7 @@ GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) 
 bool
 GNEAdditionalFrame::AdditionalAttributes::areValuesValid() const {
     // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getAttributes(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType())) {
+    for (auto i : GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType()).getAttributeValues()) {
         // Return false if error message of attriuve isn't empty
         if (myVectorOfsingleAdditionalParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;

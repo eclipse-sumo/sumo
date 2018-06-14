@@ -64,108 +64,6 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
 
 public:
-    enum TAGProperty {
-        TAGPROPERTY_NETELEMENT =    1 << 0,     // Edges, Junctions, Lanes...
-        TAGPROPERTY_ADDITIONAL =    1 << 1,     // Bus Stops, Charging Stations, Detectors...
-        TAGPROPERTY_SHAPE =         1 << 2,     // POIs, Polygons
-        TAGPROPERTY_STOPPINGPLACE = 1 << 3,     // StoppingPlaces (BusStops, ChargingStations...)
-        TAGPROPERTY_DETECTOR =      1 << 4,     // Detectors (E1, E2...)
-        TAGPROPERTY_ROUTEELEMENT =  1 << 5,     // VTypes, Vehicles, Flows...
-        TAGPROPERTY_INTERNAL =      1 << 6,     // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
-        TAGPROPERTY_BLOCKMOVEMENT = 1 << 7,     // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =    1 << 8,     // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =    1 << 9,     // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =   1 << 10,    // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =      1 << 11,    // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =        1 << 12,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =        1 << 13,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_LIMITEDCHILDS = 1 << 14,    // Element can only have a certain number of childs (0 -> unlimited)
-        TAGPROPERTY_REPARENT =      1 << 15,    // Element can be reparent
-    };
-
-    /// @brief struct with the attribute Properties
-    class TagValues {
-    public:
-        /// @brief default constructor
-        TagValues();
-
-        /// @brief parameter constructor
-        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int maxNumberOfChilds = 0);
-
-        /// @brief get GUI icon associated to this Tag
-        GUIIcon getGUIIcon() const;
-
-        /// @brief get position in list (used in frames for listing tags with certain sort)
-        int getPositionListed() const;
-
-        /// @brief if has a parent, return parent tag
-        SumoXMLTag getParentTag() const;
-
-        /// @brief get maximum number of childs
-        int getMaxNumberOfChilds() const;
-
-        /// @brief return true if tag correspond to a netElement
-        bool isNetElement() const;
-
-        /// @brief return true if tag correspond to an additional
-        bool isAdditional() const;
-
-        /// @brief return true if tag correspond to a shape
-        bool isShape() const;
-
-        /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
-        bool isStoppingPlace() const;
-
-        /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
-        bool isDetector() const;
-
-        /// @brief return true if tag correspond to an internal element (i.e. Cannot be created using frames)
-        bool isInternal() const;
-
-        /// @brief return true if tag correspond to an element that can block their movement
-        bool canBlockMovement() const;
-
-        /// @brief return true if tag correspond to an element that can block their shape
-        bool canBlockShape() const;
-
-        /// @brief return true if tag correspond to an element that can close their shape
-        bool canCloseShape() const;
-
-        /// @brief return true if tag correspond to an element that can use a geo position
-        bool hasGEOPosition() const;
-
-        /// @brief return true if tag correspond to an element that can use a geo shape
-        bool hasGEOShape() const;
-
-        /// @brief return true if tag correspond to an element that can had another element as parent
-        bool hasParent() const;
-
-        /// @brief return true if tag correspond to an element that can be edited using a dialog
-        bool hasDialog() const;
-
-        /// @brief return true if tag correspond to an element that only have a limited number of childs
-        bool hasLimitedNumberOfChilds() const;
-
-        /// @brief return true if tag correspond to an element that can be reparent
-        bool canBeReparent() const;
-
-    private:
-        /// @brief Property of attribute
-        int myTagProperty;
-
-        /// @brief icon associated to this Tag
-        GUIIcon myIcon;
-
-        /// @brief listed position
-        int myPositionListed;
-
-        /// @brief parent tag
-        SumoXMLTag myParentTag;
-
-        /// @brief maximun number of childs (0 -> unlimited)
-        int myMaxNumberOfChilds;
-    };
-
 
     enum AttrProperty {
         ATTRPROPERTY_INT =          1 << 0,     // Attribute is an integer (Including Zero)
@@ -196,7 +94,7 @@ public:
         AttributeValues();
 
         /// @brief parameter constructor
-        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
+        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, const std::vector<std::string> &discreteValues);
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -281,6 +179,117 @@ public:
         std::vector<std::string> myDiscreteValues;
     };
 
+    enum TAGProperty {
+        TAGPROPERTY_NETELEMENT =    1 << 0,     // Edges, Junctions, Lanes...
+        TAGPROPERTY_ADDITIONAL =    1 << 1,     // Bus Stops, Charging Stations, Detectors...
+        TAGPROPERTY_SHAPE =         1 << 2,     // POIs, Polygons
+        TAGPROPERTY_STOPPINGPLACE = 1 << 3,     // StoppingPlaces (BusStops, ChargingStations...)
+        TAGPROPERTY_DETECTOR =      1 << 4,     // Detectors (E1, E2...)
+        TAGPROPERTY_ROUTEELEMENT =  1 << 5,     // VTypes, Vehicles, Flows...
+        TAGPROPERTY_INTERNAL =      1 << 6,     // If set, element cannot be created using Frames (GNEAdditionalFrame, GNEPolygonFrame...)
+        TAGPROPERTY_BLOCKMOVEMENT = 1 << 7,     // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =    1 << 8,     // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =    1 << 9,     // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =   1 << 10,    // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =      1 << 11,    // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =        1 << 12,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =        1 << 13,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_LIMITEDCHILDS = 1 << 14,    // Element can only have a certain number of childs (0 -> unlimited)
+        TAGPROPERTY_REPARENT =      1 << 15,    // Element can be reparent
+    };
+
+    /// @brief struct with the attribute Properties
+    class TagValues {
+    public:
+        /// @brief default constructor
+        TagValues();
+
+        /// @brief parameter constructor
+        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int maxNumberOfChilds = 0);
+
+        /// @brief add attribute (duplicated attributed aren't allowed)
+        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
+
+        /// @brief get map with the attribute values vinculated with this tag
+        const std::map<SumoXMLAttr, AttributeValues> &getAttributeValues() const;
+
+        /// @brief get GUI icon associated to this Tag
+        GUIIcon getGUIIcon() const;
+
+        /// @brief get position in list (used in frames for listing tags with certain sort)
+        int getPositionListed() const;
+
+        /// @brief if has a parent, return parent tag
+        SumoXMLTag getParentTag() const;
+
+        /// @brief get maximum number of childs
+        int getMaxNumberOfChilds() const;
+
+        /// @brief return true if tag correspond to a netElement
+        bool isNetElement() const;
+
+        /// @brief return true if tag correspond to an additional
+        bool isAdditional() const;
+
+        /// @brief return true if tag correspond to a shape
+        bool isShape() const;
+
+        /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
+        bool isStoppingPlace() const;
+
+        /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
+        bool isDetector() const;
+
+        /// @brief return true if tag correspond to an internal element (i.e. Cannot be created using frames)
+        bool isInternal() const;
+
+        /// @brief return true if tag correspond to an element that can block their movement
+        bool canBlockMovement() const;
+
+        /// @brief return true if tag correspond to an element that can block their shape
+        bool canBlockShape() const;
+
+        /// @brief return true if tag correspond to an element that can close their shape
+        bool canCloseShape() const;
+
+        /// @brief return true if tag correspond to an element that can use a geo position
+        bool hasGEOPosition() const;
+
+        /// @brief return true if tag correspond to an element that can use a geo shape
+        bool hasGEOShape() const;
+
+        /// @brief return true if tag correspond to an element that can had another element as parent
+        bool hasParent() const;
+
+        /// @brief return true if tag correspond to an element that can be edited using a dialog
+        bool hasDialog() const;
+
+        /// @brief return true if tag correspond to an element that only have a limited number of childs
+        bool hasLimitedNumberOfChilds() const;
+
+        /// @brief return true if tag correspond to an element that can be reparent
+        bool canBeReparent() const;
+
+    private:
+        /// @brief Property of attribute
+        int myTagProperty;
+
+        /// @brief map with the attribute values vinculated with this Tag
+        std::map<SumoXMLAttr, AttributeValues> myAttributeValues;
+
+        /// @brief icon associated to this Tag
+        GUIIcon myIcon;
+
+        /// @brief listed position
+        int myPositionListed;
+
+        /// @brief parent tag
+        SumoXMLTag myParentTag;
+
+        /// @brief maximun number of childs (0 -> unlimited)
+        int myMaxNumberOfChilds;
+    };
+
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
@@ -349,9 +358,6 @@ public:
 
     /// @brief function to support debugging
     const std::string getID() const;
-
-    /// @brief get all editable attributes for the given tag
-    static const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>& getAttributes(SumoXMLTag tag);
 
     /// @brief get Tag Properties
     static const TagValues &getTagProperties(SumoXMLTag tag);
@@ -609,7 +615,6 @@ protected:
     bool mySelected;
 
 private:
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
@@ -619,8 +624,8 @@ private:
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
 
-    /// @brief map with the allowed attributes and their default values
-    static std::map<SumoXMLTag, std::pair<TagValues, std::map<SumoXMLAttr, AttributeValues> > > myAllowedAttributes;
+    /// @brief map with the tags values
+    static std::map<SumoXMLTag, TagValues> myAllowedAttributes;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

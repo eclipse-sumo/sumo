@@ -125,7 +125,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
         // Clear internal attributes
         myShapeFrameParent->getShapeAttributes()->clearAttributes();
         // Iterate over attributes of myActualShapeType
-        for (auto i : GNEAttributeCarrier::getAttributes(myCurrentShapeType)) {
+        for (auto i : GNEAttributeCarrier::getTagProperties(myCurrentShapeType).getAttributeValues()) {
             if (!GNEAttributeCarrier::getAttributeProperties(myCurrentShapeType, i.first).isUnique()) {
                 myShapeFrameParent->getShapeAttributes()->addAttribute(i.first);
             }
@@ -473,7 +473,7 @@ void
 GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getAttributes(myPolygonFrameParent->myShapeSelector->getCurrentShapeType())) {
+    for (auto i : GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->myShapeSelector->getCurrentShapeType()).getAttributeValues()) {
         if(errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid();
@@ -501,7 +501,7 @@ GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
 bool
 GNEPolygonFrame::ShapeAttributes::areValuesValid() const {
     // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getAttributes(myPolygonFrameParent->myShapeSelector->getCurrentShapeType())) {
+    for (auto i : GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->myShapeSelector->getCurrentShapeType()).getAttributeValues()) {
         // Return false if error message of attriuve isn't empty
         if (myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;

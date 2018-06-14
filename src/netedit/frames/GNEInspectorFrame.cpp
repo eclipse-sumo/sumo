@@ -720,7 +720,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (auto it : GNEAttributeCarrier::getAttributes(ACFrontTag)) {
+        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag).getAttributeValues()) {
             // disable editing for unique attributes in case of multi-selection
             if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;
@@ -772,7 +772,7 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (auto it : GNEAttributeCarrier::getAttributes(ACFrontTag)) {
+        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag).getAttributeValues()) {
             // disable editing for unique attributes in case of multi-selection
             if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;

@@ -557,7 +557,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchString->enable();
         myMatchAttrComboBox->clearItems();
         // fill attribute combo box
-        for (auto it : GNEAttributeCarrier::getAttributes(myCurrentTag)) {
+        for (auto it : tagValue.getAttributeValues()) {
             myMatchAttrComboBox->appendItem(toString(it.first).c_str());
         }
         // check if item can block movement
@@ -592,38 +592,32 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
-    // first obtain all item attributes vinculated with current tag
-    auto itemAttrs = GNEAttributeCarrier::getAttributes(myCurrentTag);
-    int numberOfAttributes = (int)itemAttrs.size();
+    // first obtain a copy of item attributes vinculated with current tag
+    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // obtain tag property (only for improve code legibility)
     const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // add extra attribute if item can block movement
     if(tagValue.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
-        itemAttrs[GNE_ATTR_BLOCK_MOVEMENT] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, numberOfAttributes, "", "false");
-        numberOfAttributes++;
+        tagPropertiesCopy.addAttribute(GNE_ATTR_BLOCK_MOVEMENT, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
     }
     // add extra attribute if item can block shape
     if(tagValue.canBlockShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block shape"
-        itemAttrs[GNE_ATTR_BLOCK_SHAPE] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, numberOfAttributes, "", "false");
-        numberOfAttributes++;
+        tagPropertiesCopy.addAttribute(GNE_ATTR_BLOCK_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
     }
     // add extra attribute if item can close shape
     if(tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
-        itemAttrs[GNE_ATTR_CLOSE_SHAPE] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, numberOfAttributes, "", "true");
-        numberOfAttributes++;
-    }
+        tagPropertiesCopy.addAttribute(GNE_ATTR_CLOSE_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");    }
     // add extra attribute if item can have parent
     if(tagValue.hasParent()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
-        itemAttrs[GNE_ATTR_PARENT] = GNEAttributeCarrier::AttributeValues(GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, numberOfAttributes, "", "");
-        numberOfAttributes++;
+        tagPropertiesCopy.addAttribute(GNE_ATTR_PARENT, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (auto i : itemAttrs) {
+    for (auto i : tagPropertiesCopy.getAttributeValues()) {
         if (toString(i.first) == myMatchAttrComboBox->getText().text()) {
             myCurrentAttribute = i.first;
         }

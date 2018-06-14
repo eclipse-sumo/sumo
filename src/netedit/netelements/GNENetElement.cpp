@@ -121,9 +121,9 @@ GNENetElement::getAdditionalChilds() const {
 GUIParameterTableWindow*
 GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)getAttributes(getTag()).size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)getTagProperties(getTag()).getAttributeValues().size());
     // Iterate over attributes
-    for (auto i : getAttributes(getTag())) {
+    for (auto i : getTagProperties(getTag()).getAttributeValues()) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
