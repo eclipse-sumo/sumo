@@ -236,6 +236,8 @@ GNEAdditional::getLaneChilds() const {
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    // obtain tag properties
+    auto tagProperties = getTagProperties(getTag());
     // build header
     buildPopupHeader(ret, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -254,7 +256,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         new FXMenuSeparator(ret);
     }
     // Show position parameters
-    if (hasAttribute(getTag(), SUMO_ATTR_LANE)) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
         GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
@@ -264,7 +266,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             const double lanePos = lane->getShape().nearest_offset_to_point2D(myShape[0]);
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
         }
-    } else if (hasAttribute(getTag(), SUMO_ATTR_EDGE)) {
+    } else if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myShape.nearest_offset_to_point2D(parent.getPositionInformation());
@@ -353,7 +355,7 @@ GNEAdditional::setBlockIconRotation(GNELane* additionalLane) {
     if (myShape.size() > 0 && myShape.length() != 0) {
         // If length of the shape is distint to 0, Obtain rotation of center of shape
         myBlockIconRotation = myShape.rotationDegreeAtOffset((myShape.length() / 2.)) - 90;
-    } else if (hasAttribute(getTag(), SUMO_ATTR_LANE)) {
+    } else if (getTagProperties(getTag()).hasAttribute(SUMO_ATTR_LANE)) {
         // If additional is over a lane, set rotation in the position over lane
         double posOverLane = additionalLane->getShape().nearest_offset_to_point2D(getPositionInView());
         myBlockIconRotation = additionalLane->getShape().rotationDegreeAtOffset(posOverLane) - 90;

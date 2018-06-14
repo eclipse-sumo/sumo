@@ -547,8 +547,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     // Declare changed value
     std::string newVal;
     bool refreshGEOAndNeteditEditors = false;
-    // get attribute Values (only for improve efficiency)
-    const GNEAttributeCarrier::AttributeValues &attrValues = GNEAttributeCarrier::getAttributeProperties(myTag, myAttr);
+    // get Tag and attribute Values (only for improve efficiency)
+    auto tagValues = GNEAttributeCarrier::getTagProperties(myTag);
+    auto attrValues = GNEAttributeCarrier::getAttributeProperties(myTag, myAttr);
     // First, obtain the string value of the new attribute depending of their type
     if (attrValues.isBool()) {
         // Set true o false depending of the checkBox
@@ -572,7 +573,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     } else if (attrValues.isFloat() || attrValues.isTime()) {
         // Check if default value of attribute must be set
         if (myTextFieldReal->getText().empty() && attrValues.hasDefaultValue()) {
-            newVal = GNEAttributeCarrier::getDefaultValue(myTag, myAttr);
+            newVal = tagValues.getDefaultValue(myAttr);
             myTextFieldReal->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldReal
@@ -581,7 +582,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     } else if (attrValues.isInt()) {
         // Check if default value of attribute must be set
         if (myTextFieldInt->getText().empty() && attrValues.hasDefaultValue()) {
-            newVal = GNEAttributeCarrier::getDefaultValue(myTag, myAttr);
+            newVal = tagValues.getDefaultValue(myAttr);
             myTextFieldInt->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldInt
@@ -590,7 +591,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     } else if (attrValues.isString()) {
         // Check if default value of attribute must be set
         if (myTextFieldStrings->getText().empty() && attrValues.hasDefaultValue()) {
-            newVal = GNEAttributeCarrier::getDefaultValue(myTag, myAttr);
+            newVal = tagValues.getDefaultValue(myAttr);
             myTextFieldStrings->setText(newVal.c_str());
         } else {
             // obtain value of myTextFieldStrings

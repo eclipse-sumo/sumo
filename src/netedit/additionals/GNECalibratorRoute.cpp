@@ -59,7 +59,7 @@ GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
     myRouteID(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID()),
     myColor(RGBColor::YELLOW) {
     // add the Edge in which Calibrator is placed as default Edge
-    if (GNEAttributeCarrier::hasAttribute(myCalibratorParent->getTag(), SUMO_ATTR_EDGE)) {
+    if (GNEAttributeCarrier::getTagProperties(myCalibratorParent->getTag()).hasAttribute(SUMO_ATTR_EDGE)) {
         myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(myCalibratorParent->getAttribute(SUMO_ATTR_EDGE)));
     } else {
         GNELane* lane = myCalibratorParent->getViewNet()->getNet()->retrieveLane(myCalibratorParent->getAttribute(SUMO_ATTR_LANE));

@@ -57,11 +57,11 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     assert(myNet);
     myAdditional->incRef("GNEChange_Additional");
     // handle additionals with lane parent
-    if (GNEAttributeCarrier::hasAttribute(myAdditional->getTag(), SUMO_ATTR_LANE)) {
+    if (GNEAttributeCarrier::getTagProperties(myAdditional->getTag()).hasAttribute(SUMO_ATTR_LANE)) {
         myLaneParent = myNet->retrieveLane(myAdditional->getAttribute(SUMO_ATTR_LANE));
     }
     // handle additionals with edge parent
-    if (GNEAttributeCarrier::hasAttribute(myAdditional->getTag(), SUMO_ATTR_EDGE)) {
+    if (GNEAttributeCarrier::getTagProperties(myAdditional->getTag()).hasAttribute(SUMO_ATTR_EDGE)) {
         myEdgeParent = myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE));
     }
     // special case for Vaporizers

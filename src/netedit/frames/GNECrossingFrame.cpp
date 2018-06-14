@@ -217,6 +217,8 @@ GNECrossingFrame::crossingParameters::~crossingParameters() {}
 
 void
 GNECrossingFrame::crossingParameters::enableCrossingParameters() {
+    // obtain Tag Values
+    auto tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
@@ -227,8 +229,8 @@ GNECrossingFrame::crossingParameters::enableCrossingParameters() {
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(GNEAttributeCarrier::getDefaultValue(SUMO_TAG_CROSSING, SUMO_ATTR_PRIORITY)));
-    myCrossingWidth->setText(GNEAttributeCarrier::getDefaultValue(SUMO_TAG_CROSSING, SUMO_ATTR_WIDTH).c_str());
+    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+    myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
 

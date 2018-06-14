@@ -213,6 +213,9 @@ public:
         /// @brief get map with the attribute values vinculated with this tag
         const std::map<SumoXMLAttr, AttributeValues> &getAttributeValues() const;
 
+        /// @brief return the default value of the attribute of an element
+        const std::string &getDefaultValue(SumoXMLAttr attr) const;
+
         /// @brief get GUI icon associated to this Tag
         GUIIcon getGUIIcon() const;
 
@@ -224,6 +227,9 @@ public:
 
         /// @brief get maximum number of childs
         int getMaxNumberOfChilds() const;
+
+        /// @brief check if current TagValues owns the attribute attr
+        bool hasAttribute(SumoXMLAttr attr) const;
 
         /// @brief return true if tag correspond to a netElement
         bool isNetElement() const;
@@ -377,14 +383,8 @@ public:
     /// @brief get all editable for tag shape elements
     static std::vector<SumoXMLTag> allowedShapeTags(bool includingInternals);
 
-    /// @brief check if an element with certain tag has a certain attribute
-    static bool hasAttribute(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();
-
-    /// @brief return the default value of the attribute of an element
-    static const std::string &getDefaultValue(SumoXMLTag tag, SumoXMLAttr attr);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -575,7 +575,7 @@ public:
             if (!parsedOk) {
                 // if attribute is optional and has a default value, obtain it as string. In other case, abort.
                 if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
-                    parsedAttribute = toString(getDefaultValue(tag, attribute));
+                    parsedAttribute = attrProperties.getDefaultValue();
                 } else {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
@@ -588,7 +588,7 @@ public:
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
             if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
-                parsedAttribute = toString(getDefaultValue(tag, attribute));
+                parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
@@ -625,7 +625,7 @@ private:
     const SumoXMLTag myTag;
 
     /// @brief map with the tags values
-    static std::map<SumoXMLTag, TagValues> myAllowedAttributes;
+    static std::map<SumoXMLTag, TagValues> myAllowedTags;
 
     /// @brief Invalidated copy constructor.
     GNEAttributeCarrier(const GNEAttributeCarrier&) = delete;

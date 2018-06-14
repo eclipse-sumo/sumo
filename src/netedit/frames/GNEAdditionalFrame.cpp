@@ -175,13 +175,13 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
             myAdditionalFrameParent->getAdditionalParentSelector()->hideListOfAdditionalParents();
         }
         // Show SelectorParentEdges if we're adding an additional that own the attribute SUMO_ATTR_EDGES
-        if (GNEAttributeCarrier::hasAttribute(myCurrentAdditionalType, SUMO_ATTR_EDGES)) {
+        if (tagValue.hasAttribute(SUMO_ATTR_EDGES)) {
             myAdditionalFrameParent->getEdgeParentsSelector()->showList();
         } else {
             myAdditionalFrameParent->getEdgeParentsSelector()->hideList();
         }
         // Show SelectorParentLanes if we're adding an additional that own the attribute SUMO_ATTR_LANES
-        if (GNEAttributeCarrier::hasAttribute(myCurrentAdditionalType, SUMO_ATTR_LANES)) {
+        if (tagValue.hasAttribute(SUMO_ATTR_LANES)) {
             myAdditionalFrameParent->getLaneParentsSelector()->showList();
         } else {
             myAdditionalFrameParent->getLaneParentsSelector()->hideList();
@@ -444,7 +444,7 @@ GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAtt
     SumoXMLTag currentTag = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
     // obtain attribute property (only for improve code legibility)
     const GNEAttributeCarrier::AttributeValues &attrvalue = GNEAttributeCarrier::getAttributeProperties(currentTag, AdditionalAttributeSingle);
-    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getDefaultValue(currentTag, AdditionalAttributeSingle));
+    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getTagProperties(currentTag).getDefaultValue(AdditionalAttributeSingle));
 }
 
 
@@ -1205,7 +1205,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // Check if additional should be placed over a junction
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_JUNCTION)) {
+    if (tagValue.hasAttribute(SUMO_ATTR_JUNCTION)) {
         pointed_junction = dynamic_cast<GNEJunction*>(netElement);
         if (pointed_junction != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
@@ -1222,7 +1222,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
     // Check if additional should be placed over a edge
-    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGE) ||
+    else if (tagValue.hasAttribute(SUMO_ATTR_EDGE) ||
              (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_VAPORIZER)) {
         // Due a edge is composed of lanes, its neccesary check if clicked element is an lane
         if (dynamic_cast<GNELane*>(netElement) != nullptr) {
@@ -1243,7 +1243,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
     // Check if additional should be placed over a lane
-    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_LANE)) {
+    else if (tagValue.hasAttribute(SUMO_ATTR_LANE)) {
         pointed_lane = dynamic_cast<GNELane*>(netElement);
         if (pointed_lane != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
@@ -1260,7 +1260,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
         }
     }
     // Check if additional should be placed over a crossing
-    else if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_CROSSING)) {
+    else if (tagValue.hasAttribute(SUMO_ATTR_CROSSING)) {
         pointed_crossing = dynamic_cast<GNECrossing*>(netElement);
         if (pointed_crossing != nullptr) {
             // show warning dialogbox and stop check if input parameters are valid
@@ -1292,7 +1292,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             // Obtain position of the mouse over edge
             double positionOfTheMouseOverEdge = pointed_edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(currentPosition);
             // If element has a StartPosition and EndPosition over edge, extract attributes
-            if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_ENDPOS)) {
+            if (tagValue.hasAttribute(SUMO_ATTR_STARTPOS) && tagValue.hasAttribute(SUMO_ATTR_ENDPOS)) {
                 // First check that current length is valid
                 if (myNeteditParameters->isCurrentLengthValid()) {
                     // check if current reference point is valid
@@ -1316,7 +1316,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
             // Obtain position of the mouse over lane
             double positionOfTheMouseOverLane = pointed_lane->getShape().nearest_offset_to_point2D(currentPosition);
             // If element has a StartPosition and EndPosition over lane, extract attributes
-            if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_STARTPOS) && GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_ENDPOS)) {
+            if (tagValue.hasAttribute(SUMO_ATTR_STARTPOS) && tagValue.hasAttribute(SUMO_ATTR_ENDPOS)) {
                 // First check that current length is valid
                 if (myNeteditParameters->isCurrentLengthValid()) {
                     // check if current reference point is valid
@@ -1343,7 +1343,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // If additional has a interval defined by a begin or end, check that is valid
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_STARTTIME) && GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_END)) {
+    if (tagValue.hasAttribute(SUMO_ATTR_STARTTIME) && tagValue.hasAttribute(SUMO_ATTR_END)) {
         double begin = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_STARTTIME]);
         double end = GNEAttributeCarrier::parse<double>(valuesOfElement[SUMO_ATTR_END]);
         if (begin > end) {
@@ -1353,7 +1353,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
-    if (GNEAttributeCarrier::hasAttribute(tag, SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
+    if (GNEAttributeCarrier::getTagProperties(tag).hasAttribute(SUMO_ATTR_FILE) && valuesOfElement[SUMO_ATTR_FILE] == "") {
         if (tag != SUMO_TAG_CALIBRATOR && tag != SUMO_TAG_REROUTER) {
             // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
             valuesOfElement[SUMO_ATTR_FILE] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
@@ -1362,7 +1362,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
 
     // If additional own the attribute SUMO_ATTR_OUTPUT but was't defined, will defined as <ID>.xml
     // output is optional
-    //if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
+    //if (tagValue.hasAttribute(SUMO_ATTR_OUTPUT) && valuesOfElement[SUMO_ATTR_OUTPUT] == "") {
     //    valuesOfElement[SUMO_ATTR_OUTPUT] = (valuesOfElement[SUMO_ATTR_ID] + ".xml");
     //}
 
@@ -1372,7 +1372,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // If element own a list of SelectorParentEdges as attribute
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_EDGES)) {
+    if (tagValue.hasAttribute(SUMO_ATTR_EDGES)) {
         if (myEdgeParentsSelector->isUseSelectedEdgesEnable()) {
             // Declare a vector of Id's
             std::vector<std::string> vectorOfIds;
@@ -1395,7 +1395,7 @@ GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* addi
     }
 
     // If element own a list of SelectorParentLanes as attribute
-    if (GNEAttributeCarrier::hasAttribute(myAdditionalSelector->getCurrentAdditionalType(), SUMO_ATTR_LANES)) {
+    if (tagValue.hasAttribute(SUMO_ATTR_LANES)) {
         if (myLaneParentsSelector->isUseSelectedLanesEnable()) {
             // Declare a vector of Id's
             std::vector<std::string> vectorOfIds;

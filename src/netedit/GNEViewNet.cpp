@@ -1100,7 +1100,7 @@ GNEViewNet::hotkeyEnter() {
         if (myEditShapePoly != 0) {
             myUndoList->p_begin("custom " + toString(myEditShapePoly->getShapeEditedElement()->getTag()) + " shape");
             SumoXMLAttr attr = SUMO_ATTR_SHAPE;
-            if (GNEAttributeCarrier::hasAttribute(myEditShapePoly->getShapeEditedElement()->getTag(), SUMO_ATTR_CUSTOMSHAPE)) {
+            if (GNEAttributeCarrier::getTagProperties(myEditShapePoly->getShapeEditedElement()->getTag()).hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
                 attr = SUMO_ATTR_CUSTOMSHAPE;
             }
             myEditShapePoly->getShapeEditedElement()->setAttribute(attr, toString(myEditShapePoly->getShape()), myUndoList);

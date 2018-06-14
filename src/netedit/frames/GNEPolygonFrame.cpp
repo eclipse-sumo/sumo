@@ -437,9 +437,9 @@ GNEPolygonFrame::ShapeAttributes::clearAttributes() {
 
 void
 GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle) {
-    // get current tag
-    SumoXMLTag currentTag = myPolygonFrameParent->getShapeSelector()->getCurrentShapeType();
-    myVectorOfsingleShapeParameter.at(GNEAttributeCarrier::getAttributeProperties(currentTag, ShapeAttributeSingle).getPositionListed())->showParameter(ShapeAttributeSingle, GNEAttributeCarrier::getDefaultValue(currentTag, ShapeAttributeSingle));
+    // get current tag Properties
+    auto attrProperties = GNEAttributeCarrier::getAttributeProperties(myPolygonFrameParent->getShapeSelector()->getCurrentShapeType(), ShapeAttributeSingle);
+    myVectorOfsingleShapeParameter.at(attrProperties.getPositionListed())->showParameter(ShapeAttributeSingle, attrProperties.getDefaultValue());
 }
 
 

@@ -323,7 +323,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         // Save it in myTreeItemToACMap
                         myTreeItemToACMap[additionalParentItem] = additionalParent;
                     }
-                    if(additional->hasAttribute(additional->getTag(), SUMO_ATTR_EDGE)) {
+                    if(tagValue.hasAttribute(SUMO_ATTR_EDGE)) {
                         // obtain edge parent
                         GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
                         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
@@ -339,7 +339,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         myTreeItemToACMap[edgeItem] = edge;
                         // return edge item
                         return edgeItem;
-                    } else if (additional->hasAttribute(additional->getTag(), SUMO_ATTR_LANE)) {
+                    } else if (tagValue.hasAttribute(SUMO_ATTR_LANE)) {
                         // obtain lane parent
                         GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(additional->getAttribute(SUMO_ATTR_LANE));
                         // obtain edge parent
