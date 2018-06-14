@@ -1143,15 +1143,15 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             MSStoppingPlace* const prevStop = myActivePlan->back()->getDestinationStop();
                             if (prevStop != nullptr) {
                                 const double accessDist = prevStop->getAccessDistance(it->edges.front());
-                                if (accessDist > 0) {
-                                    myActivePlan->push_back(new MSPerson::MSPersonStage_Access(*it->edges.front(), prevStop, localArrivalPos, accessDist, true));
+                                if (accessDist > 0.) {
+                                    myActivePlan->push_back(new MSPerson::MSPersonStage_Access(*it->edges.front(), prevStop, prevStop->getAccessPos(it->edges.front()), accessDist, true));
                                 }
                             }
                             const double depPos = prevStop != nullptr ? prevStop->getAccessPos(it->edges.front()) : departPos;
                             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, localArrivalPos, departPosLat));
                             if (bs != nullptr) {
                                 const double accessDist = bs->getAccessDistance(it->edges.back());
-                                if (accessDist > 0) {
+                                if (accessDist > 0.) {
                                     myActivePlan->push_back(new MSPerson::MSPersonStage_Access(*it->edges.back(), bs, localArrivalPos, accessDist, false));
                                 }
                             }
