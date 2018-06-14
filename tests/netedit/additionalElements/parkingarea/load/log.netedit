@@ -3,19 +3,17 @@ Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
 Warning: Essential unique string attribute 'lane' of parkingArea is missing; parkingArea cannot be created
-Warning: Essential unique float attribute 'startPos' of parkingArea is missing; parkingArea cannot be created
-Warning: Essential unique float attribute 'endPos' of parkingArea is missing; parkingArea cannot be created
 Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
 Warning: Format of essential unique string attribute 'id' of parkingArea is invalid; 'ID with spaces' contains invalid characters; parkingArea cannot be created
 Warning: There is another parkingArea with the same ID='parkingArea_00'.
 Warning: Essential unique string attribute 'lane' of parkingArea with ID 'parkingArea_01' is missing; parkingArea cannot be created
 Warning: The lane 'dummyLane' to use within the parkingArea 'parkingArea_02' is not known.
-Warning: Essential unique float attribute 'startPos' of parkingArea with ID 'parkingArea_03' is missing; parkingArea cannot be created
-Warning: Format of essential unique float attribute 'startPos' of parkingArea with ID 'parkingArea_04' is invalid; parkingArea cannot be created
+Warning: Invalid position for parkingArea with ID = 'parkingArea_03'.
+Warning: Invalid position for parkingArea with ID = 'parkingArea_04'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_05'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_06'.
-Warning: Essential unique float attribute 'endPos' of parkingArea with ID 'parkingArea_07' is missing; parkingArea cannot be created
-Warning: Format of essential unique float attribute 'endPos' of parkingArea with ID 'parkingArea_08' is invalid; parkingArea cannot be created
+Warning: Invalid position for parkingArea with ID = 'parkingArea_07'.
+Warning: Invalid position for parkingArea with ID = 'parkingArea_08'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_09'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_10'.
 Warning: Adding parkingArea 'parkingArea_11' in GNEChange_Additional
