@@ -1167,14 +1167,14 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 
 GNEAdditionalFrame::AddAdditionalResult
 GNEAdditionalFrame::addAdditional(GNENetElement* netElement, GNEAdditional* additionalElement) {
-    // obtain tag and  tagproperty (only for improve code legibility)
-    const SumoXMLTag tag = myAdditionalSelector->getCurrentAdditionalType();
-    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
-    // check if current selected additional is valid
+    // first check that current selected additional is valid
     if (myAdditionalSelector->getCurrentAdditionalType() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
         return ADDADDITIONAL_INVALID_ARGUMENTS;
     }
+    // obtain tag and  tagproperty (only for improve code legibility)
+    const SumoXMLTag tag = myAdditionalSelector->getCurrentAdditionalType();
+    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myAdditionalSelector->getCurrentAdditionalType());
 
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement = myAdditionalParameters->getAttributesAndValues();
