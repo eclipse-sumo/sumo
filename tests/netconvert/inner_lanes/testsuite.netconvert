@@ -10,6 +10,9 @@ cross
 # Simple test using the cross junction but join internal edges of turning connections
 join-turns
 
+# limit speed on junctions based on radius
+limit-turn-speed
+
 # more geometry points for internal lanes
 cross_more_detail
 internal_junctions_for_multiple_tls_programs

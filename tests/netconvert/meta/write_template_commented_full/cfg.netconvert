@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  6 09:08:10 2018 by Eclipse SUMO netconvert Version e99930d
+<!-- generated on Thu Jun 14 16:05:58 2018 by Eclipse SUMO netconvert Version d6f78cf
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -620,6 +620,9 @@
 
         <!-- Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning -->
         <junctions.join-turns value="false" type="BOOL"/>
+
+        <!-- Limits speed on junctions by FLOAT times sqrt(turningRadius) -->
+        <junctions.limit-turn-speed value="-1" type="FLOAT"/>
 
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>

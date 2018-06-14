@@ -1420,6 +1420,7 @@ void
 NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex, int& splitIndex) {
     const int numPoints = OptionsCont::getOptions().getInt("junctions.internal-link-detail");
     const bool joinTurns = OptionsCont::getOptions().getBool("junctions.join-turns");
+    const double limitTurnSpeed = OptionsCont::getOptions().getFloat("junctions.limit-turn-speed");
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = 0;
     int edgeIndex = linkIndex;
@@ -1558,6 +1559,15 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         */
         if (con.speed == UNSPECIFIED_SPEED) {
             con.vmax = (myLanes[con.fromLane].speed + con.toEdge->getLanes()[con.toLane].speed) / (double) 2.0;
+            if (limitTurnSpeed > 0) {
+                // see [Odhams and Cole, Models of Driver Speed Choice in Curves, 2004]
+                const double angle = fabs(GeomHelper::angleDiff(
+                            getLaneShape(con.fromLane).angleAt2D(-2),
+                            con.toEdge->getLaneShape(con.toLane).angleAt2D(0)));
+                const double radius = shape.length2D() / angle;
+                con.vmax = MIN2(con.vmax, limitTurnSpeed * sqrt(radius));
+                //std::cout << con.getDescription(this) <<  " angle=" << angle << " length=" << shape.length2D() << " radius=" << radius << " vmaxTurn=" << limitTurnSpeed * sqrt(radius) << "\n";
+            }
         } else {
             con.vmax = con.speed;
         }

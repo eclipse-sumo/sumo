@@ -218,6 +218,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.join-turns", "Processing",
                       "Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning");
 
+    oc.doRegister("junctions.limit-turn-speed", new Option_Float(-1));
+    oc.addDescription("junctions.limit-turn-speed", "Processing",
+                      "Limits speed on junctions by FLOAT times sqrt(turningRadius)");
+
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
     oc.addDescription("rectangular-lane-cut", "Processing", "Forces rectangular cuts between lanes and intersections");
 
