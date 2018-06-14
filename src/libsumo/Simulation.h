@@ -67,6 +67,8 @@ public:
 
     static TraCIBoundary getNetBoundary();
 
+    static TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex=0, bool toGeo=false);
+
     static int getMinExpectedNumber();
 
     static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);

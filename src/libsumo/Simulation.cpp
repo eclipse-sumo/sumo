@@ -159,6 +159,16 @@ Simulation::getMinExpectedNumber() {
 }
 
 
+TraCIPosition 
+Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
+    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
+    if (toGeo) {
+        GeoConvHelper::getFinal().cartesian2geo(result);
+    }
+    return Helper::makeTraCIPosition(result);
+}
+
+
 TraCIStage
 Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {
     TraCIStage result(MSTransportable::DRIVING);
