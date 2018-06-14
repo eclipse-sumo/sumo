@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.06.2018 11:21:14 by Eclipse SUMO netedit Version 45435feb69
+<!-- generated on 14.06.2018 14:12:15 by Eclipse SUMO netedit Version b50f1d14b4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.39_from_04Jun134616.1328/netedit.gui/netElements/edges/inspectA\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_14Jun133435.1424/netedit.gui/netElements/edges/inspectA\log.txt"/>
     </report>
 
 </configuration>
@@ -80,7 +80,7 @@
         <lane id=":gneJ3_2_0" index="0" speed="67.19" length="5.00" shape="45.30,8.80 46.66,8.61 47.63,8.03 48.21,7.06 48.40,5.70"/>
     </edge>
 
-    <edge id="correct_ID" from="gneJ2" to="gneJ3" priority="1" type="4">
+    <edge id="correct_ID" from="gneJ2" to="gneJ3" priority="4">
         <lane id="correct_ID_0" index="0" speed="120.50" length="40.60" shape="4.70,8.80 45.30,8.80"/>
         <lane id="correct_ID_1" index="1" speed="120.50" length="40.60" shape="4.70,12.00 45.30,12.00"/>
         <lane id="correct_ID_2" index="2" speed="120.50" length="40.60" shape="4.70,15.20 45.30,15.20"/>

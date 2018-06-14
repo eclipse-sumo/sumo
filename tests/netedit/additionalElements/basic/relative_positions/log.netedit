@@ -14,6 +14,7 @@ Warning: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Addit
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Essential unique string attribute 'id' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential list of strings attribute 'lanes' of variableSpeedSign with ID 'variableSpeedSign_0' is invalid; variableSpeedSign cannot be created
 Warning: Setting new attribute length '25' into edge 'gneE1'
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved

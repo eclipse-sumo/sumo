@@ -10,6 +10,7 @@ Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Selected additional 'detExit' in AdditionalSelector
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -25,6 +26,7 @@ Warning: Selected additional 'detEntry' in AdditionalSelector
 Warning: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 Warning: Selected additional 'detExit' in AdditionalSelector
 Warning: Adding detExit 'e3Detector_2detExit0' in GNEChange_Additional
+Warning: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Removing detExit 'e3Detector_2detExit0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
