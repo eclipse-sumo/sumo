@@ -18,7 +18,6 @@
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles
 // XXX: Preliminary implementation. Use with care. Especially rerouting vehicles could be problematic.
 // TODO: implement SSM time-gap (estimated conflict entry and exit times are already calculated for PET calculation)
-// TODO: provide brake-rate, time-headway, and space-headway
 /****************************************************************************/
 
 // ===========================================================================
@@ -70,8 +69,8 @@
 #define DEFAULT_THRESHOLD_DRAC 3. // in [m/s^2], events get logged if "deceleration to avoid a crash" is above threshold (3.4s. is an appropriate criticality threshold according to American Association of State Highway and Transportation Officials (2004). A Policy on Geometric Design of Highways and Streets [also see Guido et al. 2011])
 #define DEFAULT_THRESHOLD_PET 2. // in seconds, events get logged if post encroachment time is below threshold
 
-#define DEFAULT_THRESHOLD_BR 4.5 // in [m/s^2], events get logged if brake rate is above threshold
-#define DEFAULT_THRESHOLD_SGAP 0.1 // in [m.], events get logged if the space headway is below threshold.
+#define DEFAULT_THRESHOLD_BR 0.0 // in [m/s^2], events get logged if brake rate is above threshold
+#define DEFAULT_THRESHOLD_SGAP 0.2 // in [m.], events get logged if the space headway is below threshold.
 #define DEFAULT_THRESHOLD_TGAP 0.5 // in [m.], events get logged if the time headway is below threshold.
 
 #define DEFAULT_EXTRA_TIME 5.      // in seconds, events get logged for extra time even if encounter is over
