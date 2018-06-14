@@ -165,6 +165,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     }
     // assign further lane attributes (edges are built)
     EdgeVector toRemove;
+    const bool dismissVclasses = oc.getBool("dismiss-vclasses");
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         NBEdge* nbe = ed->builtEdge;
@@ -211,7 +212,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
             }
             // allow/disallow XXX preferred
-            nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
+            if (!dismissVclasses) {
+                nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
+            }
             // width, offset
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);

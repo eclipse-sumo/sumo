@@ -26,6 +26,9 @@ traffic_light_actuated
 # handle shape, allow, disallow, type
 attributes
 
+# dismiss vclass information
+dismiss-vclasses
+
 # handle non-default spreadType
 spreadType
 
