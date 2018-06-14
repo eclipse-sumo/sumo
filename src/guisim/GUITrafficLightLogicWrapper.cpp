@@ -267,7 +267,7 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     // split circle in red and yellow 
                     Position pos = (*it_lane)->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
-                    double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((*it_lane)->getShape().size() - 2)) - 90;
+                    double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((int)(*it_lane)->getShape().size() - 2)) - 90;
                     glRotated(rot, 0, 0, 1);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_RED));
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, -90, 90);
