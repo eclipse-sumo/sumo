@@ -1984,6 +1984,10 @@ GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string
         startPos = toString(startPosDouble);
         endPos = toString(endPosDouble);
     } else if (GNEAttributeCarrier::canParse<double>(startPos)) {
+        // check that endPosition is valid
+        if(endPos.empty() || !GNEAttributeCarrier::canParse<double>(endPos)) {
+            return false;
+        }
         // first parse to double only startPos
         double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
         // fix both positions
@@ -2007,6 +2011,10 @@ GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string
         // Modify only start position
         startPos = toString(startPosDouble);
     } else if (GNEAttributeCarrier::canParse<double>(endPos)) {
+        // check that endPosition is valid
+        if(startPos.empty() || !GNEAttributeCarrier::canParse<double>(startPos)) {
+            return false;
+        }
         // first parse to double only endPos
         double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
         // fix both positions
