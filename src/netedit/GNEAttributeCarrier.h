@@ -368,9 +368,6 @@ public:
     /// @brief get Tag Properties
     static const TagValues &getTagProperties(SumoXMLTag tag);
 
-    /// @brief get Attribute Properties (Used for simplify code)
-    static const AttributeValues &getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr);
-
     /// @brief get all editable for tag elements of all types
     static std::vector<SumoXMLTag> allowedTags(bool includingInternals);
 
@@ -445,7 +442,7 @@ public:
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
         // obtain attribute properties (Only for improving efficiency)
-        const AttributeValues &attrProperties = getAttributeProperties(tag, attribute);
+        auto attrProperties = getTagProperties(tag).getAttributeValues().at(attribute);
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if (objectID != "") {

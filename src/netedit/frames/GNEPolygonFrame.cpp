@@ -126,7 +126,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
         myShapeFrameParent->getShapeAttributes()->clearAttributes();
         // Iterate over attributes of myActualShapeType
         for (auto i : GNEAttributeCarrier::getTagProperties(myCurrentShapeType).getAttributeValues()) {
-            if (!GNEAttributeCarrier::getAttributeProperties(myCurrentShapeType, i.first).isUnique()) {
+            if (!i.second.isUnique()) {
                 myShapeFrameParent->getShapeAttributes()->addAttribute(i.first);
             }
         }
@@ -209,7 +209,7 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, std:
     myShapeAttr = shapeAttr;
     myInvalidValue = "";
     // Retrieve attribute properties
-    const GNEAttributeCarrier::AttributeValues & attributeProperties = GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->myShapeSelector->getCurrentShapeType(), shapeAttr);
+    auto attributeProperties = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->myShapeSelector->getCurrentShapeType()).getAttributeValues().at(shapeAttr);
     // show label or button for edit colors
     if (attributeProperties.isColor()) {
         myColorEditor->setTextColor(FXRGB(0, 0, 0));
@@ -267,7 +267,7 @@ GNEPolygonFrame::ShapeAttributeSingle::getAttr() const {
 std::string
 GNEPolygonFrame::ShapeAttributeSingle::getValue() const {
     // obtain attribute property (only for improve code legibility)
-    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType(), myShapeAttr);
+    auto attrValue = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getAttributeValues().at(myShapeAttr);
     if (attrValue.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
     } else if (attrValue.isInt()) {
@@ -297,7 +297,7 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
     // We assume that current value is valid
     myInvalidValue = "";
     // get attribute Values (only for improve efficiency)
-    const GNEAttributeCarrier::AttributeValues &attrValues = GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType(), myShapeAttr);
+    auto attrValues = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getAttributeValues().at(myShapeAttr);
     // Check if format of current value of myTextField is correct
     if (attrValues.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
@@ -394,7 +394,7 @@ long GNEPolygonFrame::ShapeAttributeSingle::onCmdSetColorAttribute(FXObject*, FX
     if(GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
     } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getAttributeProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType(), myShapeAttr).getDefaultValue())));
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getDefaultValue(myShapeAttr))));
     }
     // execute dialog to get a new color
     if (colordialog.execute()) {
@@ -438,7 +438,7 @@ GNEPolygonFrame::ShapeAttributes::clearAttributes() {
 void
 GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle) {
     // get current tag Properties
-    auto attrProperties = GNEAttributeCarrier::getAttributeProperties(myPolygonFrameParent->getShapeSelector()->getCurrentShapeType(), ShapeAttributeSingle);
+    auto attrProperties = GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->getShapeSelector()->getCurrentShapeType()).getAttributeValues().at(ShapeAttributeSingle);
     myVectorOfsingleShapeParameter.at(attrProperties.getPositionListed())->showParameter(ShapeAttributeSingle, attrProperties.getDefaultValue());
 }
 

@@ -161,7 +161,7 @@ GNEAdditionalFrame::AdditionalSelector::setCurrentAdditional(SumoXMLTag actualAd
         // iterate over attributes of myCurrentAdditionalType
         for (auto i : tagValue.getAttributeValues()) {
             // only show attributes that aren't uniques
-            if (!GNEAttributeCarrier::getAttributeProperties(myCurrentAdditionalType, i.first).isUnique()) {
+            if (!i.second.isUnique()) {
                 myAdditionalFrameParent->getAdditionalParameters()->addAttribute(i.first);
             } else if (i.first == SUMO_ATTR_ENDPOS) {
                 myAdditionalFrameParent->getNeteditAttributes()->showNeteditAttributes(true);
@@ -250,7 +250,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::showParameter(SumoXMLAttr additio
     myLabel->setText(toString(myAdditionalAttr).c_str());
     myLabel->show();
     // Retrieve attribute properties
-    const GNEAttributeCarrier::AttributeValues & attributeProperties = GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType(), additionalAttr);
+    auto attributeProperties = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType()).getAttributeValues().at(additionalAttr);
     if(attributeProperties.isInt()) {
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->setText(toString(value).c_str());
@@ -298,7 +298,7 @@ GNEAdditionalFrame::AdditionalAttributeSingle::getAttr() const {
 std::string
 GNEAdditionalFrame::AdditionalAttributeSingle::getValue() const {
     // obtain attribute property (only for improve code legibility)
-    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType(), myAdditionalAttr);
+    auto attrValue = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).getAttributeValues().at(myAdditionalAttr);
     // return value depending of attribute type
     if (attrValue.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
@@ -322,10 +322,8 @@ long
 GNEAdditionalFrame::AdditionalAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // We assume that current value is valid
     myInvalidValue = "";
-    // obtain current additional tag
-    SumoXMLTag additionalTag = myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType();
     // get attribute Values (only for improve efficiency)
-    const GNEAttributeCarrier::AttributeValues &attrValues = GNEAttributeCarrier::getAttributeProperties(additionalTag, myAdditionalAttr);
+    auto attrValues = GNEAttributeCarrier::getTagProperties(myAdditionalAttributesParent->getAdditionalFrameParent()->getAdditionalSelector()->getCurrentAdditionalType()).getAttributeValues().at(myAdditionalAttr);
     // Check if format of current value of myTextField is correct
     if (attrValues.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
@@ -440,11 +438,9 @@ GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
 
 void
 GNEAdditionalFrame::AdditionalAttributes::addAttribute(SumoXMLAttr AdditionalAttributeSingle) {
-    // obtain parameter type
-    SumoXMLTag currentTag = myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType();
     // obtain attribute property (only for improve code legibility)
-    const GNEAttributeCarrier::AttributeValues &attrvalue = GNEAttributeCarrier::getAttributeProperties(currentTag, AdditionalAttributeSingle);
-    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, GNEAttributeCarrier::getTagProperties(currentTag).getDefaultValue(AdditionalAttributeSingle));
+    auto attrvalue = GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->getAdditionalSelector()->getCurrentAdditionalType()).getAttributeValues().at(AdditionalAttributeSingle);
+    myVectorOfsingleAdditionalParameter.at(attrvalue.getPositionListed())->showParameter(AdditionalAttributeSingle, attrvalue.getDefaultValue());
 }
 
 

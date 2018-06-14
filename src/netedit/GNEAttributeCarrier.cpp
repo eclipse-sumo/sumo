@@ -699,7 +699,7 @@ GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
         return myAllowedTags.at(tag);
     }
 }
-
+/***
 
 const GNEAttributeCarrier::AttributeValues &
 GNEAttributeCarrier::getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr) {
@@ -716,7 +716,7 @@ GNEAttributeCarrier::getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr) {
         return myAllowedTags.at(tag).getAttributeValues().at(attr);
     }
 }
-
+***/
 
 std::vector<SumoXMLTag>
 GNEAttributeCarrier::allowedTags(bool includingInternals) {
@@ -818,7 +818,7 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
 void 
 GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const {
     // obtain attribute property (only for improve code legibility)
-    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(getTag(), key);
+    auto attrValue = GNEAttributeCarrier::getTagProperties(getTag()).getAttributeValues().at(key);
     std::string attribute = getAttribute(key);
     if(attrValue.isOptional()) {
         // only write optional attributes (i.e attributes with default value) if are differents

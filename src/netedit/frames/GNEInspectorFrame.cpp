@@ -359,7 +359,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     myTag = ACTag;
     myAttr = ACAttr;
     // obtain attribute property (only for improve code legibility)
-    const GNEAttributeCarrier::AttributeValues &attrValue = GNEAttributeCarrier::getAttributeProperties(myTag, myAttr);
+    auto attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttributeValues().at(myAttr);
     // enable all input values
     enableAttributeInputElements();
     if (attrValue.isColor()) {
@@ -494,7 +494,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog(FX
         if(GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
         } else {
-            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getAttributeProperties(myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->getTag(), myAttr).getDefaultValue())));
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(GNEAttributeCarrier::getTagProperties(myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().front()->getTag()).getDefaultValue(myAttr))));
         }
         // execute dialog to get a new color
         if (colordialog.execute()) {
@@ -549,7 +549,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     bool refreshGEOAndNeteditEditors = false;
     // get Tag and attribute Values (only for improve efficiency)
     auto tagValues = GNEAttributeCarrier::getTagProperties(myTag);
-    auto attrValues = GNEAttributeCarrier::getAttributeProperties(myTag, myAttr);
+    auto attrValues = tagValues.getAttributeValues().at(myAttr);
     // First, obtain the string value of the new attribute depending of their type
     if (attrValues.isBool()) {
         // Set true o false depending of the checkBox
