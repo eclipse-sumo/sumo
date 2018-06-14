@@ -1986,62 +1986,64 @@ GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string
     } else if (GNEAttributeCarrier::canParse<double>(startPos)) {
         // check that endPosition is valid
         if(endPos.empty() || !GNEAttributeCarrier::canParse<double>(endPos)) {
-            return false;
-        }
-        // first parse to double only startPos
-        double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
-        // fix both positions
-        if (minLength > laneLength) {
-            return false;
-        }
-        if (startPosDouble < 0) {
-            startPosDouble += laneLength;
-        }
-        if ((startPosDouble < 0) || startPosDouble > (laneLength - minLength)) {
-            if (!friendlyPos) {
+            // first parse to double only startPos
+            double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
+            // fix both positions
+            if (minLength > laneLength) {
                 return false;
             }
             if (startPosDouble < 0) {
-                startPosDouble = 0;
+                startPosDouble += laneLength;
             }
-            if (startPosDouble > (laneLength - minLength)) {
-                startPosDouble = (laneLength - minLength);
+            if ((startPosDouble < 0) || startPosDouble > (laneLength - minLength)) {
+                if (!friendlyPos) {
+                    return false;
+                }
+                if (startPosDouble < 0) {
+                    startPosDouble = 0;
+                }
+                if (startPosDouble > (laneLength - minLength)) {
+                    startPosDouble = (laneLength - minLength);
+                }
             }
+            // Modify only start position
+            startPos = toString(startPosDouble);
+        } else {
+            return false;
         }
-        // Modify only start position
-        startPos = toString(startPosDouble);
     } else if (GNEAttributeCarrier::canParse<double>(endPos)) {
         // check that endPosition is valid
         if(startPos.empty() || !GNEAttributeCarrier::canParse<double>(startPos)) {
-            return false;
-        }
-        // first parse to double only endPos
-        double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
-        // fix both positions
-        if (minLength > laneLength) {
-            return false;
-        }
-        if (endPosDouble < 0) {
-            endPosDouble += laneLength;
-        }
-        if ((endPosDouble < minLength) || (endPosDouble > laneLength)) {
-            if (!friendlyPos) {
+            // first parse to double only endPos
+            double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
+            // fix both positions
+            if (minLength > laneLength) {
                 return false;
             }
-            if (endPosDouble < minLength) {
-                endPosDouble = minLength;
+            if (endPosDouble < 0) {
+                endPosDouble += laneLength;
             }
-            if (endPosDouble > laneLength) {
-                endPosDouble = laneLength;
+            if ((endPosDouble < minLength) || (endPosDouble > laneLength)) {
+                if (!friendlyPos) {
+                    return false;
+                }
+                if (endPosDouble < minLength) {
+                    endPosDouble = minLength;
+                }
+                if (endPosDouble > laneLength) {
+                    endPosDouble = laneLength;
+                }
             }
+            if (0 > (endPosDouble - minLength)) {
+                if (!friendlyPos) {
+                    return false;
+                }
+            }
+            // Modify only end position
+            endPos = toString(endPosDouble);
+        } else {
+            return false;
         }
-        if (0 > (endPosDouble - minLength)) {
-            if (!friendlyPos) {
-                return false;
-            }
-        }
-        // Modify only end position
-        endPos = toString(endPosDouble);
     }
     return true;
 }

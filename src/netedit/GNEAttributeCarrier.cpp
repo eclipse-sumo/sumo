@@ -1189,7 +1189,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 
             "0");
         myAllowedAttributes[currentTag].second[SUMO_ATTR_LINES] = AttributeValues(
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE, 7,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL, 7,
             "meant to be the names of the bus lines that stop at this container stop. This is only used for visualization purposes", 
             "");
     }

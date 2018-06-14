@@ -567,28 +567,28 @@ public:
             }
             // If attribute has an invalid format
             if (!parsedOk) {
-                // if attribute has a default value, obtain it as string. In other case, abort.
-                if (attrProperties.hasDefaultValue()) {
+                // if attribute is optional and has a default value, obtain it as string. In other case, abort.
+                if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
                     parsedAttribute = toString(getDefaultValue(tag, attribute));
                 } else {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
-                    // abort parsing of element
+                    // abort parsing (and creation) of element
                     abort = true;
-                    // set default value
+                    // set default value (To avoid errors in parse<T>(parsedAttribute))
                     parsedAttribute = defaultValue;
                 }
             }
         } else {
-            // if attribute has a default value, obtain it. In other case, abort.
-            if (attrProperties.hasDefaultValue()) {
+            // if attribute is optional and has a default value, obtain it. In other case, abort.
+            if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
                 parsedAttribute = toString(getDefaultValue(tag, attribute));
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                               additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
-                // abort parsing of element
+                // abort parsing (and creation) of element
                 abort = true;
-                // set default value
+                // set default value (To avoid errors in parse<T>(parsedAttribute))
                 parsedAttribute = defaultValue;
             }
         }
