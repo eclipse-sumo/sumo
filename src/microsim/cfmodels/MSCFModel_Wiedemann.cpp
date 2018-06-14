@@ -45,16 +45,14 @@ const double MSCFModel_Wiedemann::D_MAX = 150;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype,
-        double accel, double decel, double emergencyDecel, double apparentDecel,
-        double security, double estimation) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, 1.0),
-    mySecurity(security),
-    myEstimation(estimation),
-    myAX(vtype->getLength() + 1. + 2. * security),
-    myCX(25. *(1. + security + estimation)),
-    myMinAccel(0.2 * myAccel) { // +noise?
-}
+MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
+    MSCFModel(vtype),
+    mySecurity(vtype->getParameter().getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0.5)),
+    myEstimation(vtype->getParameter().getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5)),
+    myAX(vtype->getLength() + 1. + 2. * mySecurity),
+    myCX(25. *(1. + mySecurity + myEstimation)),
+    myMinAccel(0.2 * myAccel)  // +noise?
+{ }
 
 
 MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
@@ -96,7 +94,7 @@ MSCFModel_Wiedemann::interactionGap(const MSVehicle* const , double vL) const {
 
 MSCFModel*
 MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Wiedemann(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, mySecurity, myEstimation);
+    return new MSCFModel_Wiedemann(vtype);
 }
 
 

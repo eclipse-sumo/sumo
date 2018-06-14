@@ -41,16 +41,10 @@
 class MSCFModel_IDM : public MSCFModel {
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others
-     * @param[in] headwayTime the headway gap
-     * @param[in] delta a model constant
-     * @param[in] internalStepping internal time step size
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
+     *  @param[in] idmm Wether IDM or IDMM shall be built
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel,
-                  double headwayTime, double delta, double internalStepping);
+    MSCFModel_IDM(const MSVehicleType* vtype, bool idmm);
 
 
     /** @brief Constructor
@@ -157,6 +151,9 @@ private:
 
 
 private:
+    /// @brief whether the model is IDMM or IDM
+    const bool myIDMM;
+
     /// @brief The IDM delta exponent
     const double myDelta;
 

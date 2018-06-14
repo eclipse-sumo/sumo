@@ -50,15 +50,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel::MSCFModel(const MSVehicleType* vtype, double accel,
-                     double decel, double emergencyDecel, double apparentDecel, double headwayTime) :
+MSCFModel::MSCFModel(const MSVehicleType* vtype) :
     myType(vtype),
-    myAccel(accel),
-    myDecel(decel),
-    myEmergencyDecel(emergencyDecel),
-    myApparentDecel(apparentDecel),
-    myHeadwayTime(headwayTime) {
-}
+    myAccel(vtype->getParameter().getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(vtype->getParameter().vehicleClass))),
+    myDecel(vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(vtype->getParameter().vehicleClass))),
+    myEmergencyDecel(vtype->getParameter().getCFParam(SUMO_ATTR_EMERGENCYDECEL, myDecel)),
+    myApparentDecel(vtype->getParameter().getCFParam(SUMO_ATTR_APPARENTDECEL, myDecel)),
+    myHeadwayTime(vtype->getParameter().getCFParam(SUMO_ATTR_TAU, 1.0)) 
+{ }
 
 
 MSCFModel::~MSCFModel() {}

@@ -34,11 +34,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype, double accel,
-                                       double decel, double emergencyDecel, double apparentDecel,
-                                       double dawdle, double headwayTime) :
-    MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, dawdle, headwayTime) {
-}
+MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype) :
+    MSCFModel_Krauss(vtype) 
+{ }
 
 
 MSCFModel_KraussPS::~MSCFModel_KraussPS() {}
@@ -56,7 +54,7 @@ MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const
 
 MSCFModel*
 MSCFModel_KraussPS::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_KraussPS(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime);
+    return new MSCFModel_KraussPS(vtype);
 }
 
 

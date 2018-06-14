@@ -64,9 +64,9 @@ public:
     };
 
     /** @brief Constructor
-     *  @param[in] rvtype a reference to the corresponding vtype
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel, double headwayTime);
+    MSCFModel(const MSVehicleType* vtype);
 
 
     /// @brief Destructor

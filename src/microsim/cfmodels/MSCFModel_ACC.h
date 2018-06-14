@@ -47,14 +47,11 @@ class MSVehicleType;
 */
 class MSCFModel_ACC : public MSCFModel {
 public:
-   /** @brief Constructor
-   * @param[in] accel The maximum acceleration
-   * @param[in] decel The maximum deceleration
-   * @param[in] headwayTime the headway gap
-   */
+    /** @brief Constructor
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
+     */
+   MSCFModel_ACC(const MSVehicleType* vtype);
 
-   MSCFModel_ACC(const MSVehicleType* vtype, double maxAccel, double maxDecel,
-       double emergencyDecel, double headwayTime, double SpeedControlGain, double GapClosingControlGainSpeed, double GapClosingControlGainSpace, double GapControlGainSpeed, double GapControlGainSpace);
    /// @brief Destructor
    ~MSCFModel_ACC();
 

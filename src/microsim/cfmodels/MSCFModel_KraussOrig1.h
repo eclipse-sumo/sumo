@@ -39,15 +39,9 @@
 class MSCFModel_KraussOrig1 : public MSCFModel {
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others (always equal to decel for the original model)
-     * @param[in] dawdle The driver imperfection
-     * @param[in] tau The driver's desired headway
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel,
-                          double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype);
 
 
     /// @brief Destructor

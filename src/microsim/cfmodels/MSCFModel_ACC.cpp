@@ -44,19 +44,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_ACC::MSCFModel_ACC(const MSVehicleType* vtype, double maxAccel, double maxDecel,
-   double emergencyDecel, double headwayTime, double SpeedControlGain, double GapClosingControlGainSpeed, double GapClosingControlGainSpace, double GapControlGainSpeed, double GapControlGainSpace)
-   : MSCFModel(vtype, maxAccel, maxDecel, emergencyDecel, maxDecel, headwayTime)
-{
-   myAccel = maxAccel;
-   myDecel = maxDecel;
-   myheadwayTime = headwayTime;
-   mySpeedControlGain = SpeedControlGain;
-   myGapClosingControlGainSpeed = GapClosingControlGainSpeed;
-   myGapClosingControlGainSpace = GapClosingControlGainSpace;
-   myGapControlGainSpeed = GapControlGainSpeed;
-   myGapControlGainSpace = GapControlGainSpace;
-}
+MSCFModel_ACC::MSCFModel_ACC(const MSVehicleType* vtype) : 
+    MSCFModel(vtype),
+    mySpeedControlGain(vtype->getParameter().getCFParam(SUMO_ATTR_SC_GAIN, -0.4)),
+    myGapClosingControlGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_GCC_GAIN_SPEED, 0.8)),
+    myGapClosingControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GCC_GAIN_SPACE, 0.04)),
+    myGapControlGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPEED, 0.07)),
+    myGapControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPACE, 0.23))
+{ }
 
 MSCFModel_ACC::~MSCFModel_ACC() {}
 
@@ -175,5 +170,5 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
 
 MSCFModel*
 MSCFModel_ACC::duplicate(const MSVehicleType* vtype) const {
-   return new MSCFModel_ACC(vtype, myAccel, myDecel, myEmergencyDecel, myHeadwayTime, mySpeedControlGain, myGapClosingControlGainSpeed, myGapClosingControlGainSpace, myGapControlGainSpeed, myGapControlGainSpace);
+   return new MSCFModel_ACC(vtype);
 }

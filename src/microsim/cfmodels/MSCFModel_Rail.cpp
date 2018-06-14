@@ -28,11 +28,10 @@
 
 #define G  9.80665
 
-MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType)
-    :
-
-    MSCFModel(vtype, -1, -1, -1, -1, 1) {
-
+MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
+    MSCFModel(vtype) 
+{
+    const std::string trainType = vtype->getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
     if (trainType.compare("RB425") == 0) {
         myTrainParams = initRB425Params();
     } else if (trainType.compare("RB628") == 0) {
@@ -69,8 +68,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType
 
 }
 
-MSCFModel_Rail::~MSCFModel_Rail() {
-}
+MSCFModel_Rail::~MSCFModel_Rail() { }
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double /* gap2pred*/,
                                    double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
@@ -83,9 +81,8 @@ MSCFModel_Rail::getModelID() const {
 }
 
 MSCFModel*
-MSCFModel_Rail::duplicate(const MSVehicleType* /* vtype */) const {
-    /// XXX Fixme
-    throw ProcessError("not yet implemented");
+MSCFModel_Rail::duplicate(const MSVehicleType* vtype) const {
+    return new MSCFModel_Rail(vtype);
 }
 
 double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) const {
