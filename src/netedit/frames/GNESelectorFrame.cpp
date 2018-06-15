@@ -180,6 +180,29 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, Modifi
                 break;
         }
     }
+    // select junctions and their connections if Auto select junctions is enabled (note: only for "add mode")
+    if(myViewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
+        std::vector<GNEEdge*> edgesToSelect;
+        // iterate over ACToSelect and extract edges
+        for(auto i : ACToSelect) {
+            if(i.second->getTag() == SUMO_TAG_EDGE) {
+                edgesToSelect.push_back(dynamic_cast<GNEEdge*>(i.second));
+            }
+        }
+        // iterate over extracted edges
+        for (auto i : edgesToSelect) {
+            // select junction source and all their connections
+            ACToSelect.insert(std::make_pair(i->getGNEJunctionSource()->getID(), i->getGNEJunctionSource()));
+            for (auto j : i->getGNEJunctionSource()->getGNEConnections()) {
+                ACToSelect.insert(std::make_pair(j->getID(), j));
+            }
+            // select junction destiny and all their connections
+            ACToSelect.insert(std::make_pair(i->getGNEJunctionDestiny()->getID(), i->getGNEJunctionDestiny()));
+            for (auto j : i->getGNEJunctionDestiny()->getGNEConnections()) {
+                ACToSelect.insert(std::make_pair(j->getID(), j));
+            }
+        }
+    }
     // only continue if there is ACs to select or unselect
     if((ACToSelect.size() + ACToUnselect.size()) > 0) {
         // first unselect AC of ACToUnselect and then selects AC of ACToSelect

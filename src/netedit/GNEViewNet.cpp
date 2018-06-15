@@ -2870,7 +2870,7 @@ GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                 }
             }
             // select junctions and their connections if Auto select junctions is enabled (note: only for "add mode")
-            if(viewNet->autoSelectNodes()) {
+            if(viewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
                 std::vector<GNEEdge*> edgesToSelect;
                 // iterate over ACToSelect and extract edges
                 for(auto i : ACToSelect) {
@@ -2892,7 +2892,6 @@ GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                     }
                 }
             }
-
             // only continue if there is ACs to select or unselect
             if((ACToSelect.size() + ACToUnselect.size()) > 0) {
                 // first unselect AC of ACToUnselect and then selects AC of ACToSelect
