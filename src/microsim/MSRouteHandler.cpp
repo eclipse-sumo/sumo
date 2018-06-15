@@ -1140,21 +1140,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                             localArrivalPos = arrivalPos;
                         }
                         if (it->line == "") {
-                            MSStoppingPlace* const prevStop = myActivePlan->back()->getDestinationStop();
-                            if (prevStop != nullptr) {
-                                const double accessDist = prevStop->getAccessDistance(it->edges.front());
-                                if (accessDist > 0.) {
-                                    myActivePlan->push_back(new MSPerson::MSPersonStage_Access(*it->edges.front(), prevStop, prevStop->getAccessPos(it->edges.front()), accessDist, true));
-                                }
-                            }
-                            const double depPos = prevStop != nullptr ? prevStop->getAccessPos(it->edges.front()) : departPos;
+                            const double depPos = myActivePlan->back()->getDestinationStop() != nullptr ? myActivePlan->back()->getDestinationStop()->getAccessPos(it->edges.front()) : departPos;
                             myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, it->edges, bs, duration, speed, depPos, localArrivalPos, departPosLat));
-                            if (bs != nullptr) {
-                                const double accessDist = bs->getAccessDistance(it->edges.back());
-                                if (accessDist > 0.) {
-                                    myActivePlan->push_back(new MSPerson::MSPersonStage_Access(*it->edges.back(), bs, localArrivalPos, accessDist, false));
-                                }
-                            }
                         } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                             if (bs == nullptr && it + 1 != result.end()) {
                                 // we have no defined endpoint and are in the middle of the trip, drive as far as possible

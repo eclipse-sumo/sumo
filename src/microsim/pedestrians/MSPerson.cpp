@@ -135,6 +135,7 @@ MSPerson::MSPersonStage_Walking::getEdges() const {
     return myRoute;
 }
 
+
 void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
     myDeparted = now;
@@ -159,10 +160,12 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
     (*myRouteStep)->addPerson(person);
 }
 
+
 void
 MSPerson::MSPersonStage_Walking::abort(MSTransportable*) {
     MSPModel::getModel()->remove(myPedestrianState);
 }
+
 
 void
 MSPerson::MSPersonStage_Walking::setSpeed(double speed) {
@@ -542,7 +545,25 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
     // must be done before increasing myStep to avoid invalid state for rendering
     prior->getEdge()->removePerson(this);
     myStep++;
+    if (prior->getStageType() == MOVING_WITHOUT_VEHICLE) {
+        MSStoppingPlace* const bs = prior->getDestinationStop();
+        if (bs != nullptr) {
+            const double accessDist = bs->getAccessDistance(&prior->getDestination());
+            if (accessDist > 0.) {
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), bs, bs->getAccessPos(&prior->getDestination()), accessDist, false));
+            }
+        }
+    }
     if (myStep != myPlan->end()) {
+        if ((*myStep)->getStageType() == MOVING_WITHOUT_VEHICLE && (prior->getStageType() != ACCESS || &prior->getDestination() != (*myStep)->getFromEdge())) {
+            MSStoppingPlace* const prevStop = prior->getDestinationStop();
+            if (prevStop != nullptr) {
+                const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
+                if (accessDist > 0.) {
+                    myStep = myPlan->insert(myStep, new MSPersonStage_Access(*(*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
+                }
+            }
+        }
         (*myStep)->proceed(net, this, time, prior);
         /*
         if(myWriteEvents) {
