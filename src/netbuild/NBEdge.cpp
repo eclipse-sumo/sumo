@@ -1564,9 +1564,14 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 const double angle = fabs(GeomHelper::angleDiff(
                             getLaneShape(con.fromLane).angleAt2D(-2),
                             con.toEdge->getLaneShape(con.toLane).angleAt2D(0)));
-                const double radius = shape.length2D() / angle;
-                con.vmax = MIN2(con.vmax, limitTurnSpeed * sqrt(radius));
-                //std::cout << con.getDescription(this) <<  " angle=" << angle << " length=" << shape.length2D() << " radius=" << radius << " vmaxTurn=" << limitTurnSpeed * sqrt(radius) << "\n";
+                if (angle > 0) {
+                    const double radius = shape.length2D() / angle;
+                    con.vmax = MIN2(con.vmax, limitTurnSpeed * sqrt(radius));
+                    // ensure, that value is saved
+                    con.speed = con.vmax;
+                }
+                //std::cout << con.getDescription(this) <<  " angle=" << angle << " length=" << shape.length2D() << " radius=" << shape.length2d() / angle 
+                //    << " vmaxTurn=" << limitTurnSpeed * sqrt(shape.length2d() / angle) << " vmax=" << con.vmax << "\n";
             }
         } else {
             con.vmax = con.speed;
