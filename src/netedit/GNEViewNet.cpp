@@ -2740,7 +2740,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(GUIGlID glIDObject, GNEP
         }
     } else {
         // obtain tag property (only for improve code legibility)
-        const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag());
+        const auto &tagValue = GNEAttributeCarrier::getTagProperties(attributeCarrier->getTag());
         // check if attributeCarrier can be casted into netElement, additional or shape
         if(tagValue.isNetElement()) {
             // cast netElement from attribute carrier

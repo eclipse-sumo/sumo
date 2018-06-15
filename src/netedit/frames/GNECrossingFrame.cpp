@@ -218,7 +218,7 @@ GNECrossingFrame::crossingParameters::~crossingParameters() {}
 void
 GNECrossingFrame::crossingParameters::enableCrossingParameters() {
     // obtain Tag Values
-    auto tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
+    const auto &tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();

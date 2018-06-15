@@ -1936,7 +1936,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     }
     // finally write rest of additionals
     for (auto i : myAttributeCarriers.additionals) {
-        const GNEAttributeCarrier::TagValues &tagValue= GNEAttributeCarrier::getTagProperties(i.first.second);
+        const auto &tagValue = GNEAttributeCarrier::getTagProperties(i.first.second);
         if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE)) {
             // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
             if (i.second->getAdditionalParent() == nullptr) {
@@ -2603,7 +2603,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
 
 void
 GNENet::replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList) {
-    assert(GNEAttributeCarrier::getTagProperties(ac->getTag()).getAttributeValues().at(key).isList());
+    assert(GNEAttributeCarrier::getTagProperties(ac->getTag()).getAttribute(key).isList());
     std::vector<std::string> values = GNEAttributeCarrier::parse<std::vector<std::string> >(ac->getAttribute(key));
     std::vector<std::string> newValues;
     for (auto v : values) {

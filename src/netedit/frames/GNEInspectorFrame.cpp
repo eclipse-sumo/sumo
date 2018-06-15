@@ -359,7 +359,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
     myTag = ACTag;
     myAttr = ACAttr;
     // obtain attribute property (only for improve code legibility)
-    auto attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttributeValues().at(myAttr);
+    const auto &attrValue = GNEAttributeCarrier::getTagProperties(myTag).getAttribute(myAttr);
     // enable all input values
     enableAttributeInputElements();
     if (attrValue.isColor()) {
@@ -548,8 +548,8 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
     std::string newVal;
     bool refreshGEOAndNeteditEditors = false;
     // get Tag and attribute Values (only for improve efficiency)
-    auto tagValues = GNEAttributeCarrier::getTagProperties(myTag);
-    auto attrValues = tagValues.getAttributeValues().at(myAttr);
+    const auto &tagValues = GNEAttributeCarrier::getTagProperties(myTag);
+    const auto &attrValues = tagValues.getAttribute(myAttr);
     // First, obtain the string value of the new attribute depending of their type
     if (attrValues.isBool()) {
         // Set true o false depending of the checkBox
@@ -721,7 +721,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditor() {
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag).getAttributeValues()) {
+        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
             // disable editing for unique attributes in case of multi-selection
             if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;
@@ -773,7 +773,7 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front()) && (dynamic_cast<GNEJunction*>(myInspectorFrameParent->getInspectedACs().front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
-        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag).getAttributeValues()) {
+        for (auto it : GNEAttributeCarrier::getTagProperties(ACFrontTag)) {
             // disable editing for unique attributes in case of multi-selection
             if ((myInspectorFrameParent->getInspectedACs().size() > 1) && it.second.isUnique()) {
                 continue;
@@ -887,7 +887,7 @@ void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
     if(myInspectorFrameParent->getInspectedACs().size() > 0) {
         // obtain tag property (only for improve code legibility)
-        const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+        const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
         // Check if item can be moved
         if (tagValue.canBlockMovement()) {
             // show NeteditAttributesEditor
@@ -1146,7 +1146,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
     // make sure that ACs has elements
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         // obtain tag property (only for improve code legibility)
-        const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+        const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
         // check if item can use a geo position
         if (tagValue.hasGEOPosition() || tagValue.hasGEOShape()) {
             // show GEOAttributesEditor
@@ -1196,7 +1196,7 @@ GNEInspectorFrame::GEOAttributesEditor::hideGEOAttributesEditor() {
 void 
 GNEInspectorFrame::GEOAttributesEditor::refreshGEOAttributesEditor(bool forceRefresh) {
     // obtain tag property (only for improve code legibility)
-    const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+    const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
     // Check that myGEOAttributeFrame is shown
     if(myGEOAttributeFrame->shown() && ((myGEOAttributeTextField->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
         if (tagValue.hasGEOPosition()) {
@@ -1215,7 +1215,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
     if (myInspectorFrameParent->getInspectedACs().size() > 0) {
         if (obj == myGEOAttributeTextField) {
             // obtain tag property (only for improve code legibility)
-            const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
+            const auto &tagValue = GNEAttributeCarrier::getTagProperties(myInspectorFrameParent->getInspectedACs().front()->getTag());
             // Change GEO Attribute depending of type (Position or shape)
             if (tagValue.hasGEOPosition()) {
                 if (myInspectorFrameParent->getInspectedACs().front()->isValid(SUMO_ATTR_GEOPOSITION, myGEOAttributeTextField->getText().text())) {

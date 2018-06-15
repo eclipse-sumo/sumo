@@ -281,7 +281,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             default: {
                 // obtain tag property (only for improve code legibility)
-                const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
+                const auto &tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
                 if(tagValue.isAdditional()) {
                     myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
                 } else if(tagValue.isShape()) {

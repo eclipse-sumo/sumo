@@ -125,7 +125,7 @@ GNEPolygonFrame::ShapeSelector::setCurrentShape(SumoXMLTag actualShapeType) {
         // Clear internal attributes
         myShapeFrameParent->getShapeAttributes()->clearAttributes();
         // Iterate over attributes of myActualShapeType
-        for (auto i : GNEAttributeCarrier::getTagProperties(myCurrentShapeType).getAttributeValues()) {
+        for (auto i : GNEAttributeCarrier::getTagProperties(myCurrentShapeType)) {
             if (!i.second.isUnique()) {
                 myShapeFrameParent->getShapeAttributes()->addAttribute(i.first);
             }
@@ -209,7 +209,7 @@ GNEPolygonFrame::ShapeAttributeSingle::showParameter(SumoXMLAttr shapeAttr, std:
     myShapeAttr = shapeAttr;
     myInvalidValue = "";
     // Retrieve attribute properties
-    auto attributeProperties = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->myShapeSelector->getCurrentShapeType()).getAttributeValues().at(shapeAttr);
+    const auto &attributeProperties = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->myShapeSelector->getCurrentShapeType()).getAttribute(shapeAttr);
     // show label or button for edit colors
     if (attributeProperties.isColor()) {
         myColorEditor->setTextColor(FXRGB(0, 0, 0));
@@ -267,7 +267,7 @@ GNEPolygonFrame::ShapeAttributeSingle::getAttr() const {
 std::string
 GNEPolygonFrame::ShapeAttributeSingle::getValue() const {
     // obtain attribute property (only for improve code legibility)
-    auto attrValue = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getAttributeValues().at(myShapeAttr);
+    const auto &attrValue = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getAttribute(myShapeAttr);
     if (attrValue.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
     } else if (attrValue.isInt()) {
@@ -297,7 +297,7 @@ GNEPolygonFrame::ShapeAttributeSingle::onCmdSetAttribute(FXObject*, FXSelector, 
     // We assume that current value is valid
     myInvalidValue = "";
     // get attribute Values (only for improve efficiency)
-    auto attrValues = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getAttributeValues().at(myShapeAttr);
+    const auto &attrValues = GNEAttributeCarrier::getTagProperties(myShapeAttributesParent->getPolygonFrameParent()->getShapeSelector()->getCurrentShapeType()).getAttribute(myShapeAttr);
     // Check if format of current value of myTextField is correct
     if (attrValues.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myTextFieldInt->getText().text())) {
@@ -438,7 +438,7 @@ GNEPolygonFrame::ShapeAttributes::clearAttributes() {
 void
 GNEPolygonFrame::ShapeAttributes::addAttribute(SumoXMLAttr ShapeAttributeSingle) {
     // get current tag Properties
-    auto attrProperties = GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->getShapeSelector()->getCurrentShapeType()).getAttributeValues().at(ShapeAttributeSingle);
+    const auto &attrProperties = GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->getShapeSelector()->getCurrentShapeType()).getAttribute(ShapeAttributeSingle);
     myVectorOfsingleShapeParameter.at(attrProperties.getPositionListed())->showParameter(ShapeAttributeSingle, attrProperties.getDefaultValue());
 }
 
@@ -473,7 +473,7 @@ void
 GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->myShapeSelector->getCurrentShapeType()).getAttributeValues()) {
+    for (auto i : GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->myShapeSelector->getCurrentShapeType())) {
         if(errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid();
@@ -501,7 +501,7 @@ GNEPolygonFrame::ShapeAttributes::showWarningMessage(std::string extra) const {
 bool
 GNEPolygonFrame::ShapeAttributes::areValuesValid() const {
     // iterate over standar parameters
-    for (auto i : GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->myShapeSelector->getCurrentShapeType()).getAttributeValues()) {
+    for (auto i : GNEAttributeCarrier::getTagProperties(myPolygonFrameParent->myShapeSelector->getCurrentShapeType())) {
         // Return false if error message of attriuve isn't empty
         if (myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;

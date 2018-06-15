@@ -210,8 +210,17 @@ public:
         /// @brief add attribute (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
 
-        /// @brief get map with the attribute values vinculated with this tag
-        const std::map<SumoXMLAttr, AttributeValues> &getAttributeValues() const;
+        /// @brief get attribute (throw error if doesn't exist)
+        const AttributeValues &getAttribute(SumoXMLAttr attr) const;
+
+        /// @brief get begin of attribute values (used for iterate)
+        std::map<SumoXMLAttr, AttributeValues>::const_iterator begin() const;
+
+        /// @brief get end of attribute values (used for iterate)
+        std::map<SumoXMLAttr, AttributeValues>::const_iterator end() const;
+
+        /// @brief get number of attributes
+        int getNumberOfAttributes() const;
 
         /// @brief return the default value of the attribute of an element
         const std::string &getDefaultValue(SumoXMLAttr attr) const;
@@ -222,7 +231,7 @@ public:
         /// @brief get position in list (used in frames for listing tags with certain sort)
         int getPositionListed() const;
 
-        /// @brief if has a parent, return parent tag
+        /// @brief if Tag owns a parent, return parent tag
         SumoXMLTag getParentTag() const;
 
         /// @brief get maximum number of childs
@@ -442,7 +451,7 @@ public:
         bool parsedOk = true;
         std::string defaultValue, parsedAttribute;
         // obtain attribute properties (Only for improving efficiency)
-        auto attrProperties = getTagProperties(tag).getAttributeValues().at(attribute);
+        const auto &attrProperties = getTagProperties(tag).getAttribute(attribute);
         // set additionalOfWarningMessage
         std::string additionalOfWarningMessage;
         if (objectID != "") {

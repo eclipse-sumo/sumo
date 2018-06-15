@@ -74,12 +74,12 @@ GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, G
     myMaxNumberOfChilds(maxNumberOfChilds){
 }
 
-
+/*
 const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> & 
 GNEAttributeCarrier::TagValues::getAttributeValues() const {
     return myAttributeValues;
 }
-
+*/
 
 const std::string&
 GNEAttributeCarrier::TagValues::getDefaultValue(SumoXMLAttr attr) const {
@@ -106,6 +106,34 @@ GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProp
     } else {
         throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
     }
+}
+
+
+const GNEAttributeCarrier::AttributeValues&
+GNEAttributeCarrier::TagValues::getAttribute(SumoXMLAttr attr) const {
+    if(myAttributeValues.count(attr) != 0) {
+        return myAttributeValues.at(attr);
+    } else {
+        throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
+    }
+}
+
+
+std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>::const_iterator 
+GNEAttributeCarrier::TagValues::begin() const {
+    return myAttributeValues.begin();
+}
+
+
+std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues>::const_iterator 
+GNEAttributeCarrier::TagValues::end() const {
+    return myAttributeValues.end();
+}
+
+
+int 
+GNEAttributeCarrier::TagValues::getNumberOfAttributes() const {
+    return (int)myAttributeValues.size();
 }
 
 
@@ -699,24 +727,7 @@ GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
         return myAllowedTags.at(tag);
     }
 }
-/***
 
-const GNEAttributeCarrier::AttributeValues &
-GNEAttributeCarrier::getAttributeProperties(SumoXMLTag tag, SumoXMLAttr attr) {
-    // define on first access
-    if (myAllowedTags.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // check that tag is defined
-    if(myAllowedTags.count(tag) == 0) {
-        throw ProcessError("Attributes for tag '" + toString(tag) + "' not defined");
-    } else if(myAllowedTags.at(tag).getAttributeValues().count(attr) == 0) {
-        throw ProcessError("Attributes for tag '" + toString(tag) + "' and attribute '" + toString(attr) + "' not defined");
-    } else {
-        return myAllowedTags.at(tag).getAttributeValues().at(attr);
-    }
-}
-***/
 
 std::vector<SumoXMLTag>
 GNEAttributeCarrier::allowedTags(bool includingInternals) {
@@ -795,7 +806,7 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
     }
     // get max num attributes
     for (auto i : myAllowedTags) {
-        maxNumAttribute = MAX2(maxNumAttribute, (int)i.second.getAttributeValues().size());
+        maxNumAttribute = MAX2(maxNumAttribute, i.second.getNumberOfAttributes());
     }
     return maxNumAttribute;
 }
@@ -818,7 +829,7 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
 void 
 GNEAttributeCarrier::writeAttribute(OutputDevice& device, SumoXMLAttr key) const {
     // obtain attribute property (only for improve code legibility)
-    auto attrValue = GNEAttributeCarrier::getTagProperties(getTag()).getAttributeValues().at(key);
+    const auto &attrValue = GNEAttributeCarrier::getTagProperties(getTag()).getAttribute(key);
     std::string attribute = getAttribute(key);
     if(attrValue.isOptional()) {
         // only write optional attributes (i.e attributes with default value) if are differents

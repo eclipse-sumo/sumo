@@ -308,7 +308,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
         default: {
             // obtain tag property (only for improve code legibility)
-            const GNEAttributeCarrier::TagValues &tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
+            const auto &tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
             // check if is an additional, and in other case return nullptr
             if(tagValue.isAdditional()) {
                 // Obtain Additional
@@ -581,12 +581,12 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
-    auto attrs = GNEAttributeCarrier::getTagProperties(elementTag).getAttributeValues();
+    const auto &attrs = GNEAttributeCarrier::getTagProperties(elementTag);
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(attrs.size()));
+    myTable->setVisibleRows((FXint)(attrs.getNumberOfAttributes()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(attrs.size()), 3);
+    myTable->setTableSize((FXint)(attrs.getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Attribute");
     myTable->setColumnText(1, "Description");
@@ -630,7 +630,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.size()) + " attributes");
+        WRITE_WARNING("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.getNumberOfAttributes()) + " attributes");
     }
     // create Dialog
     attributesHelpDialog->create();
