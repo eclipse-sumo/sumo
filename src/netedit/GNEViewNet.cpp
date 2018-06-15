@@ -2869,7 +2869,7 @@ GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                         break;
                 }
             }
-            // select junctions and their connections if Auto select junctions is enabled (note: only for "add mode")
+            // select junctions and their connections and crossings if Auto select junctions is enabled (note: only for "add mode")
             if(viewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
                 std::vector<GNEEdge*> edgesToSelect;
                 // iterate over ACToSelect and extract edges
@@ -2880,14 +2880,20 @@ GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
                 }
                 // iterate over extracted edges
                 for (auto i : edgesToSelect) {
-                    // select junction source and all their connections
+                    // select junction source and all their connections and crossings
                     ACToSelect.insert(std::make_pair(i->getGNEJunctionSource()->getID(), i->getGNEJunctionSource()));
                     for (auto j : i->getGNEJunctionSource()->getGNEConnections()) {
                         ACToSelect.insert(std::make_pair(j->getID(), j));
                     }
-                    // select junction destiny and all their connections
+                    for (auto j : i->getGNEJunctionSource()->getGNECrossings()) {
+                        ACToSelect.insert(std::make_pair(j->getID(), j));
+                    }
+                    // select junction destiny and all their connections crossings
                     ACToSelect.insert(std::make_pair(i->getGNEJunctionDestiny()->getID(), i->getGNEJunctionDestiny()));
                     for (auto j : i->getGNEJunctionDestiny()->getGNEConnections()) {
+                        ACToSelect.insert(std::make_pair(j->getID(), j));
+                    }
+                    for (auto j : i->getGNEJunctionDestiny()->getGNECrossings()) {
                         ACToSelect.insert(std::make_pair(j->getID(), j));
                     }
                 }

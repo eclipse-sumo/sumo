@@ -191,14 +191,20 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, Modifi
         }
         // iterate over extracted edges
         for (auto i : edgesToSelect) {
-            // select junction source and all their connections
+            // select junction source and all their connections and crossings
             ACToSelect.insert(std::make_pair(i->getGNEJunctionSource()->getID(), i->getGNEJunctionSource()));
             for (auto j : i->getGNEJunctionSource()->getGNEConnections()) {
                 ACToSelect.insert(std::make_pair(j->getID(), j));
             }
-            // select junction destiny and all their connections
+            for (auto j : i->getGNEJunctionSource()->getGNECrossings()) {
+                ACToSelect.insert(std::make_pair(j->getID(), j));
+            }
+            // select junction destiny and all their connections crossings
             ACToSelect.insert(std::make_pair(i->getGNEJunctionDestiny()->getID(), i->getGNEJunctionDestiny()));
             for (auto j : i->getGNEJunctionDestiny()->getGNEConnections()) {
+                ACToSelect.insert(std::make_pair(j->getID(), j));
+            }
+            for (auto j : i->getGNEJunctionDestiny()->getGNECrossings()) {
                 ACToSelect.insert(std::make_pair(j->getID(), j));
             }
         }
