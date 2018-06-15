@@ -552,9 +552,14 @@ public:
                 parsedOk = false;
             }
             // set extra check for filename values
-            if (attrProperties.isFilename() && (isValidFilename(parsedAttribute) == false)) {
-                errorFormat = "Filename contains invalid characters; ";
-                parsedOk = false;
+            if (attrProperties.isFilename()) {
+                if(isValidFilename(parsedAttribute) == false) {
+                    errorFormat = "Filename contains invalid characters; ";
+                    parsedOk = false;
+                } else if (parsedAttribute.empty()) {
+                    errorFormat = "Filename cannot be empty; ";
+                    parsedOk = false;
+                }
             }
             // set extra check for SVCPermissions values
             if (attrProperties.isVClass()) {

@@ -705,8 +705,7 @@ GNEAttributeCarrier::isValidID(const std::string& value) {
 
 bool
 GNEAttributeCarrier::isValidFilename(const std::string& value) {
-    // @note Only characteres that aren't permited in a file path or belong
-    // to XML sintax
+    // @note Only characteres that aren't permited in a file path or belong to XML sintax
     return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
 }
 
@@ -1344,7 +1343,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The path to the output file", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
@@ -1412,7 +1411,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The id of E3", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "X-Y position of detector in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FREQUENCY,
@@ -1420,7 +1419,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The aggregation period the values the detector collects shall be summed up", 
             "900.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD,
@@ -1494,7 +1493,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The path to the output file", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Space separated list of vehicle type ids to consider", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
