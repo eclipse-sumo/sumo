@@ -17,6 +17,7 @@ set(netedit_frames_SRCS
    GNEDeleteFrame.cpp
    GNEPolygonFrame.h
    GNEPolygonFrame.cpp
+   GNEProhibitionFrame.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

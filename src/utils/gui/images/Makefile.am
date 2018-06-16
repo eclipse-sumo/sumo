@@ -50,6 +50,7 @@ grid1.xpm grid2.xpm grid3.xpm \
 parkingarea.xpm parkingspace.xpm \
 modeadditional.xpm modeconnection.xpm modecreateedge.xpm modecrossing.xpm modepolygon.xpm \
 modedelete.xpm modeinspect.xpm modemove.xpm modeselect.xpm modetrafficlight.xpm \
+modeprohibition.xpm \
 vclass_ignoring.xpm vclass_private.xpm vclass_emergency.xpm vclass_authority.xpm \
 vclass_army.xpm vclass_vip.xpm vclass_passenger.xpm vclass_hov.xpm \
 vclass_taxi.xpm vclass_bus.xpm vclass_coach.xpm vclass_delivery.xpm \
