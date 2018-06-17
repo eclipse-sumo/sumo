@@ -4,15 +4,15 @@ Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential unique string attribute 'id' of vaporizer is missing; vaporizer cannot be created
 Warning: The edge 'dummyid' to use within the vaporizer is not known.
 Warning: Adding vaporizer '2' in GNEChange_Additional
-Warning: Adding vaporizer '3' in GNEChange_Additional
-Warning: Adding vaporizer '4' in GNEChange_Additional
-Warning: Adding vaporizer '5' in GNEChange_Additional
-Warning: Adding vaporizer '6' in GNEChange_Additional
+Warning: Essential time attribute 'begin' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential time attribute 'begin' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential time attribute 'begin' of vaporizer is invalid; vaporizer cannot be created
+Warning: Format of essential time attribute 'begin' of vaporizer is invalid; Time cannot be negative; vaporizer cannot be created
 Warning: Adding vaporizer '7' in GNEChange_Additional
-Warning: Adding vaporizer '8' in GNEChange_Additional
-Warning: Adding vaporizer '9' in GNEChange_Additional
-Warning: Adding vaporizer '10' in GNEChange_Additional
-Warning: Adding vaporizer '11' in GNEChange_Additional
+Warning: Essential time attribute 'end' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential time attribute 'end' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential time attribute 'end' of vaporizer is invalid; vaporizer cannot be created
+Warning: Format of essential time attribute 'end' of vaporizer is invalid; Time cannot be negative; vaporizer cannot be created
 Warning: Adding vaporizer '12' in GNEChange_Additional
 Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.
 Warning: Additionals saved
@@ -24,15 +24,7 @@ Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced vaporizer '12'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced vaporizer '11'
-Warning: Deleting unreferenced vaporizer '10'
-Warning: Deleting unreferenced vaporizer '9'
-Warning: Deleting unreferenced vaporizer '8'
 Warning: Deleting unreferenced vaporizer '7'
-Warning: Deleting unreferenced vaporizer '6'
-Warning: Deleting unreferenced vaporizer '5'
-Warning: Deleting unreferenced vaporizer '4'
-Warning: Deleting unreferenced vaporizer '3'
 Warning: Deleting unreferenced vaporizer '2'
 Warning: Deleting unreferenced vaporizer '1'
 Warning: Deleting unreferenced edge '1' in GNENet destructor

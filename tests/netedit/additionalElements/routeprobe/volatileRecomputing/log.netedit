@@ -8,9 +8,9 @@ Warning: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_10' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_11' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_12' in GNEChange_Additional
+Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_10' is missing; routeProbe cannot be created
+Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_11' is missing; routeProbe cannot be created
+Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_12' is missing; routeProbe cannot be created
 Warning: Adding routeProbe 'routeProbe_13' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
@@ -27,9 +27,6 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
 Warning: Deleting unreferenced routeProbe 'routeProbe_14'
 Warning: Deleting unreferenced routeProbe 'routeProbe_13'
-Warning: Deleting unreferenced routeProbe 'routeProbe_12'
-Warning: Deleting unreferenced routeProbe 'routeProbe_11'
-Warning: Deleting unreferenced routeProbe 'routeProbe_10'
 Warning: Deleting unreferenced routeProbe 'routeProbe_09'
 Warning: Deleting unreferenced routeProbe 'routeProbe_08'
 Warning: Deleting unreferenced routeProbe 'routeProbe_07'
@@ -76,9 +73,6 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_06' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_07' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_08' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_09' in GNENet destructor
-Warning: Deleting unreferenced routeProbe 'routeProbe_10' in GNENet destructor
-Warning: Deleting unreferenced routeProbe 'routeProbe_11' in GNENet destructor
-Warning: Deleting unreferenced routeProbe 'routeProbe_12' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_13' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_14' in GNENet destructor
 Warning: Deleting unreferenced routeProbe 'routeProbe_15' in GNENet destructor

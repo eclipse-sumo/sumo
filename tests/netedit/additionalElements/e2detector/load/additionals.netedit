@@ -1,11 +1,6 @@
 <additionals>
     <e2Detector id="E2_01" lane="gneE0_0" pos="1.00" length="10.00" freq="100.00" file="e2Detector_01.txt"/>
-    <e2Detector id="E2_07" lane="gneE0_0" pos="6.00" length="10.00" freq="100.00" file="e2Detector_07.txt"/>
-    <e2Detector id="E2_08" lane="gneE0_0" pos="7.00" length="10.00" freq="100.00" file="e2Detector_08.txt"/>
     <e2Detector id="E2_10" lane="gneE0_0" pos="9.00" length="12.00" freq="100.00" file="e2Detector_10.txt"/>
-    <e2Detector id="E2_11" lane="gneE0_0" pos="10.00" length="10.00" freq="900.00" file="e2Detector_11.txt"/>
-    <e2Detector id="E2_12" lane="gneE0_0" pos="11.00" length="10.00" freq="900.00" file="e2Detector_12.txt"/>
-    <e2Detector id="E2_13" lane="gneE0_0" pos="12.00" length="10.00" freq="900.00" file="e2Detector_13.txt"/>
     <e2Detector id="E2_14" lane="gneE0_0" pos="13.00" length="10.00" freq="120.00" file="e2Detector_14.txt"/>
     <e2Detector id="E2_15" lane="gneE0_0" pos="14.00" length="10.00" freq="120.00"/>
     <e2Detector id="E2_16" lane="gneE0_0" pos="15.00" length="10.00" freq="120.00"/>
@@ -33,5 +28,4 @@
     <e2Detector id="E2_38" lane="gneE0_0" pos="0.00" length="10.00" freq="120.00" file="e2Detector_38.txt" jamThreshold="12.00" friendlyPos="1"/>
     <e2Detector id="E2_39" lane="gneE0_0" pos="50.00" length="0.00" freq="120.00" file="e2Detector_39.txt" jamThreshold="12.00" friendlyPos="1"/>
     <e2Detector id="E2_40" lane="gneE0_0" pos="36.00" length="14.00" freq="120.00" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_41" lane="gneE0_0" pos="37.00" length="10.00" freq="120.00" file="e2Detector_41.txt" jamThreshold="12.00" friendlyPos="1"/>
 </additionals>

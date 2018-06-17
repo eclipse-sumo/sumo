@@ -9,14 +9,14 @@ Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
 Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is not known.
 Warning: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
+Warning: Essential string attribute 'freq' of routeProbe with ID 'routeProbe_06' is missing; routeProbe cannot be created
 Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
 Warning: freqof routeProbe'routeProbe_08' cannot be negative.
 Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_10' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_11' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_12' in GNEChange_Additional
+Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_10' is missing; routeProbe cannot be created
+Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_11' is invalid; Filename contains invalid characters; routeProbe cannot be created
+Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_12' is invalid; Filename cannot be empty; routeProbe cannot be created
 Warning: Adding routeProbe 'routeProbe_13' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
@@ -34,13 +34,9 @@ Warning: Deleting unreferenced routeProbe 'routeProbe_16'
 Warning: Deleting unreferenced routeProbe 'routeProbe_15'
 Warning: Deleting unreferenced routeProbe 'routeProbe_14'
 Warning: Deleting unreferenced routeProbe 'routeProbe_13'
-Warning: Deleting unreferenced routeProbe 'routeProbe_12'
-Warning: Deleting unreferenced routeProbe 'routeProbe_11'
-Warning: Deleting unreferenced routeProbe 'routeProbe_10'
 Warning: Deleting unreferenced routeProbe 'routeProbe_09'
 Warning: Deleting unreferenced routeProbe 'routeProbe_08'
 Warning: Deleting unreferenced routeProbe 'routeProbe_07'
-Warning: Deleting unreferenced routeProbe 'routeProbe_06'
 Warning: Deleting unreferenced routeProbe 'routeProbe_05'
 Warning: Deleting unreferenced routeProbe 'routeProbe_03'
 Warning: Deleting unreferenced routeProbe 'routeProbe_02'

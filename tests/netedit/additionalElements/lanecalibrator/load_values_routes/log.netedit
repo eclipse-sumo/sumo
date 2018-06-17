@@ -6,7 +6,7 @@ Warning: Essential unique string attribute 'id' of route is missing; route canno
 Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
 Warning: A route must be declared within the definition of a calibrator.
 Warning: A route must be declared within the definition of a calibrator.
-Warning: A route must be declared within the definition of a calibrator.
+Warning: Essential list of strings attribute 'edges' of route with ID 'route03' is missing; route cannot be created
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
 Warning: A route must be declared within the definition of a calibrator.
 Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.

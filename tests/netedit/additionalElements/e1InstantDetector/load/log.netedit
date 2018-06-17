@@ -4,6 +4,8 @@ Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Essential unique string attribute 'id' of instantInductionLoop is missing; instantInductionLoop cannot be created
 Warning: Essential unique string attribute 'lane' of instantInductionLoop is missing; instantInductionLoop cannot be created
 Warning: Essential unique float attribute 'pos' of instantInductionLoop is missing; instantInductionLoop cannot be created
+Warning: Essential positive time attribute 'freq' of instantInductionLoop is missing; instantInductionLoop cannot be created
+Warning: Essential filename attribute 'file' of instantInductionLoop is missing; instantInductionLoop cannot be created
 Warning: Format of essential unique string attribute 'id' of instantInductionLoop is invalid; 'ID with spaces' contains invalid characters; instantInductionLoop cannot be created
 Warning: There is another instantInductionLoop with the same ID='E1Instant_01'.
 Warning: Essential unique string attribute 'lane' of instantInductionLoop with ID 'E1Instant_02' is missing; instantInductionLoop cannot be created
@@ -12,13 +14,13 @@ Warning: Essential unique float attribute 'pos' of instantInductionLoop with ID 
 Warning: Format of essential unique float attribute 'pos' of instantInductionLoop with ID 'E1Instant_05' is invalid; instantInductionLoop cannot be created
 Warning: Invalid position for instantInductionLoop with ID = 'E1Instant_06'.
 Warning: Invalid position for instantInductionLoop with ID = 'E1Instant_07'.
-Warning: Adding instantInductionLoop 'E1Instant_08' in GNEChange_Additional
-Warning: Adding instantInductionLoop 'E1Instant_09' in GNEChange_Additional
-Warning: Adding instantInductionLoop 'E1Instant_10' in GNEChange_Additional
+Warning: Essential positive time attribute 'freq' of instantInductionLoop with ID 'E1Instant_08' is missing; instantInductionLoop cannot be created
+Warning: Format of essential positive time attribute 'freq' of instantInductionLoop with ID 'E1Instant_09' is invalid; instantInductionLoop cannot be created
+Warning: Format of essential positive time attribute 'freq' of instantInductionLoop with ID 'E1Instant_10' is invalid; Time cannot be negative; instantInductionLoop cannot be created
 Warning: Adding instantInductionLoop 'E1Instant_11' in GNEChange_Additional
-Warning: Adding instantInductionLoop 'E1Instant_12' in GNEChange_Additional
-Warning: Adding instantInductionLoop 'E1Instant_13' in GNEChange_Additional
-Warning: Adding instantInductionLoop 'E1Instant_14' in GNEChange_Additional
+Warning: Essential filename attribute 'file' of instantInductionLoop with ID 'E1Instant_12' is missing; instantInductionLoop cannot be created
+Warning: Format of essential filename attribute 'file' of instantInductionLoop with ID 'E1Instant_13' is invalid; Filename contains invalid characters; instantInductionLoop cannot be created
+Warning: Format of essential filename attribute 'file' of instantInductionLoop with ID 'E1Instant_14' is invalid; Filename cannot be empty; instantInductionLoop cannot be created
 Warning: Adding instantInductionLoop 'E1Instant_15' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'E1Instant_16' in GNEChange_Additional
 Warning: Adding instantInductionLoop 'E1Instant_17' in GNEChange_Additional
@@ -44,13 +46,7 @@ Warning: Deleting unreferenced instantInductionLoop 'E1Instant_18'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_17'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_16'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_15'
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_14'
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_13'
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_12'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_11'
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_10'
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_09'
-Warning: Deleting unreferenced instantInductionLoop 'E1Instant_08'
 Warning: Deleting unreferenced instantInductionLoop 'E1Instant_01'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

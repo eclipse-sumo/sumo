@@ -1,14 +1,6 @@
 <additionals>
     <vaporizer id="1" begin="5.00" end="15.00"/>
-    <vaporizer id="10" begin="5.00" end="3600.00"/>
-    <vaporizer id="11" begin="5.00" end="3600.00"/>
     <vaporizer id="12" begin="5.00" end="20.00"/>
     <vaporizer id="2" begin="5.00" end="15.00"/>
-    <vaporizer id="3" begin="0.00" end="15.00"/>
-    <vaporizer id="4" begin="0.00" end="5.00"/>
-    <vaporizer id="5" begin="0.00" end="15.00"/>
-    <vaporizer id="6" begin="0.00" end="15.00"/>
     <vaporizer id="7" begin="10.00" end="15.00"/>
-    <vaporizer id="8" begin="5.00" end="3600.00"/>
-    <vaporizer id="9" begin="50.00" end="3600.00"/>
 </additionals>

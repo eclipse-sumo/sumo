@@ -15,4 +15,5 @@
     <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_2_2.txt"/>
     <vaporizer id="gneE1" begin="0.00" end="10.00"/>
     <rerouter id="rerouter_0" edges="gneE1" file="rerouter_0.txt" pos="15.15,-14.96"/>
+    <variableSpeedSign id="variableSpeedSign_0" lanes="gneE1_0 gneE1_1" pos="19.52,-14.87"/>
 </additionals>
