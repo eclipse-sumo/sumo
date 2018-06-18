@@ -236,6 +236,7 @@ void FXSevenSegment::drawFigure(FXDCWindow& dc, FXchar figure) {
             break;
         case '_' :
         case '.' :
+        case ',' :
             drawSegments(dc, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE);
             break;
         case '0' :
