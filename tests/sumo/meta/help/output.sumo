@@ -1,4 +1,4 @@
-Eclipse SUMO Version 2395938
+Eclipse SUMO Version 654c3d7
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -365,6 +365,35 @@ ToC Device Options:
   --device.toc.useColorScheme          Whether a coloring scheme shall by
                                          applied to indicate the different ToC
                                          stages.
+
+Driver State Device Options:
+  --device.driverstate.probability FLOAT  The probability for a vehicle to have
+                                         a 'driverstate' device
+  --device.driverstate.explicit STR    Assign a 'driverstate' device to named
+                                         vehicles
+  --device.driverstate.deterministic   The 'driverstate' devices are set
+                                         deterministic using a fraction of 1000
+  --device.driverstate.minAwareness FLOAT  Minimal admissible value for the
+                                         driver's awareness.
+  --device.driverstate.errorTimeScaleCoefficient FLOAT  Time scale for the
+                                         error process.
+  --device.driverstate.errorNoiseIntensityCoefficient FLOAT  Noise intensity
+                                         driving the error process.
+  --device.driverstate.speedDifferenceErrorCoefficient FLOAT  General scaling
+                                         coefficient for applying the error to
+                                         the perceived speed difference (error
+                                         also scales with distance).
+  --device.driverstate.headwayErrorCoefficient FLOAT  General scaling
+                                         coefficient for applying the error to
+                                         the perceived distance (error also
+                                         scales with distance).
+  --device.driverstate.speedDifferenceChangePerceptionThreshold FLOAT  Base
+                                         threshold for recognizing changes in
+                                         the speed difference (threshold also
+                                         scales with distance).
+  --device.driverstate.headwayChangePerceptionThreshold FLOAT  Base threshold
+                                         for recognizing changes in the headway
+                                         (threshold also scales with distance).
 
 Bluelight Device Options:
   --device.bluelight.probability FLOAT  The probability for a vehicle to have a

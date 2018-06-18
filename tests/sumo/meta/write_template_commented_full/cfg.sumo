@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 30 16:19:32 2018 by Eclipse SUMO Version 2395938
+<!-- generated on Mon Jun 18 17:02:37 2018 by Eclipse SUMO Version 654c3d7
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -532,6 +532,39 @@
         <device.toc.useColorScheme value="true" type="BOOL"/>
 
     </toc_device>
+
+    <driver_state_device>
+        <!-- The probability for a vehicle to have a &apos;driverstate&apos; device -->
+        <device.driverstate.probability value="0" type="FLOAT"/>
+
+        <!-- Assign a &apos;driverstate&apos; device to named vehicles -->
+        <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" type="STR"/>
+
+        <!-- The &apos;driverstate&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.driverstate.deterministic value="false" type="BOOL"/>
+
+        <!-- Minimal admissible value for the driver&apos;s awareness. -->
+        <device.driverstate.minAwareness value="0.1" type="FLOAT"/>
+
+        <!-- Time scale for the error process. -->
+        <device.driverstate.errorTimeScaleCoefficient value="100" type="FLOAT"/>
+
+        <!-- Noise intensity driving the error process. -->
+        <device.driverstate.errorNoiseIntensityCoefficient value="0.2" type="FLOAT"/>
+
+        <!-- General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance). -->
+        <device.driverstate.speedDifferenceErrorCoefficient value="0.15" type="FLOAT"/>
+
+        <!-- General scaling coefficient for applying the error to the perceived distance (error also scales with distance). -->
+        <device.driverstate.headwayErrorCoefficient value="0.75" type="FLOAT"/>
+
+        <!-- Base threshold for recognizing changes in the speed difference (threshold also scales with distance). -->
+        <device.driverstate.speedDifferenceChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+        <!-- Base threshold for recognizing changes in the headway (threshold also scales with distance). -->
+        <device.driverstate.headwayChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+    </driver_state_device>
 
     <bluelight_device>
         <!-- The probability for a vehicle to have a &apos;bluelight&apos; device -->
