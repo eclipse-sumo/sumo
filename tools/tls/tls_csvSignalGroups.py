@@ -146,6 +146,7 @@ class TlLogic(sumolib.net.TLSProgram):
                                 print("Error: linkIndex %d already bound to signal group %s. Cannot assign it to signal group %s." % (tlIndex, self._tlIndexToSignalGroup[tlIndex], sgID))
                                 sys.exit(-1)
                             
+                            
             # set dummy signal groups for every uncovered linkIndex to output "o"/"O" signal
             for connection in connections:
                 tlIndex = connection[2]
