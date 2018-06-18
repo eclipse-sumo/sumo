@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 18.06.2018 13:38:45 by Eclipse SUMO netedit Version b50f1d14b4
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun133101.3988/netedit.gui/additionalElements/calibrator/load\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
     <calibrator id="calibrator02" edge="gneE0" pos="10.00" freq="100.00" output="calibrator02d.txt"/>
     <calibrator id="calibrator05" edge="gneE1" pos="16.00" freq="100.00" output="calibrator05.txt"/>
-    <calibrator id="calibrator06" edge="gneE0" pos="0.00" freq="100.00" output="calibrator06.txt"/>
-    <calibrator id="calibrator07" edge="gneE0" pos="0.00" freq="100.00" output="calibrator07.txt"/>
-    <calibrator id="calibrator08" edge="gneE0" pos="0.00" freq="100.00" output="calibrator08.txt"/>
     <calibrator id="calibrator09" edge="gneE0" pos="18.00" freq="100.00" output="calibrator09.txt"/>
     <calibrator id="calibrator10" edge="gneE0" pos="20.00" output="calibrator10.txt"/>
     <calibrator id="calibrator11" edge="gneE0" pos="22.00" output="calibrator11.txt"/>
