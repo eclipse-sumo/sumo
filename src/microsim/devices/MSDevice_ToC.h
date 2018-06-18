@@ -100,10 +100,6 @@ private:
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
 
-    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
-    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
-    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required);
-
     static ToCState _2ToCState(const std::string&);
     static std::string _2string(ToCState state);
     /// @}

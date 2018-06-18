@@ -43,6 +43,7 @@
 //#define DEBUG_TRAFFIC_ITEMS
 //#define DEBUG_AWARENESS
 //#define DEBUG_PERCEPTION_ERRORS
+//#define DEBUG_DRIVERSTATE
 #define DEBUG_COND (true)
 //#define DEBUG_COND (myVehicle->isSelected())
 
@@ -52,7 +53,7 @@
  * ----------------------------------------------------------------------- */
 // hash function
 //std::hash<std::string> MSDriverState::MSTrafficItem::hash = std::hash<std::string>();
-
+std::mt19937 OUProcess::myRNG;
 
 // ===========================================================================
 // Default value definitions
@@ -76,13 +77,13 @@
 //double TCIDefaults::myHeadwayPerceptionErrorTimeScaleCoefficient = 1.0;
 //double TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient = 1.0;
 
-double DriverStateDefaults::myMinAwareness = 0.1;
-double DriverStateDefaults::myErrorTimeScaleCoefficient = 100.0;
-double DriverStateDefaults::myErrorNoiseIntensityCoefficient = 0.2;
-double DriverStateDefaults::mySpeedDifferenceErrorCoefficient = 0.15;
-double DriverStateDefaults::myHeadwayErrorCoefficient = 0.75;
-double DriverStateDefaults::mySpeedDifferenceChangePerceptionThreshold = 0.1;
-double DriverStateDefaults::myHeadwayChangePerceptionThreshold = 0.1;
+double DriverStateDefaults::minAwareness = 0.1;
+double DriverStateDefaults::errorTimeScaleCoefficient = 100.0;
+double DriverStateDefaults::errorNoiseIntensityCoefficient = 0.2;
+double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
+double DriverStateDefaults::headwayErrorCoefficient = 0.75;
+double DriverStateDefaults::speedDifferenceChangePerceptionThreshold = 0.1;
+double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
 
 
 // ===========================================================================
@@ -103,6 +104,7 @@ OUProcess::step(double dt) {
 #ifdef DEBUG_OUPROCESS
     const double oldstate = myState;
 #endif
+//    myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1, &myRNG);
     myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1);
 #ifdef DEBUG_OUPROCESS
     std::cout << "  OU-step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
@@ -119,19 +121,22 @@ OUProcess::getState() const {
 MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
         myVehicle(veh),
         myAwareness(1.),
-        myMinAwareness(DriverStateDefaults::myMinAwareness),
+        myMinAwareness(DriverStateDefaults::minAwareness),
         myError(0., 1.,1.),
-        myErrorTimeScaleCoefficient(DriverStateDefaults::myErrorTimeScaleCoefficient),
-        myErrorNoiseIntensityCoefficient(DriverStateDefaults::myErrorNoiseIntensityCoefficient),
-        mySpeedDifferenceErrorCoefficient(DriverStateDefaults::mySpeedDifferenceErrorCoefficient),
-        myHeadwayErrorCoefficient(DriverStateDefaults::myHeadwayErrorCoefficient),
-        myHeadwayChangePerceptionThreshold(DriverStateDefaults::myHeadwayChangePerceptionThreshold),
-        mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::mySpeedDifferenceChangePerceptionThreshold),
+        myErrorTimeScaleCoefficient(DriverStateDefaults::errorTimeScaleCoefficient),
+        myErrorNoiseIntensityCoefficient(DriverStateDefaults::errorNoiseIntensityCoefficient),
+        mySpeedDifferenceErrorCoefficient(DriverStateDefaults::speedDifferenceErrorCoefficient),
+        myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
+        myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
+        mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
         myActionStepLength(TS),
         myStepDuration(TS),
         myLastUpdateTime(SIMTIME-TS),
         myDebugLock(false)
 {
+#ifdef DEBUG_DRIVERSTATE
+    std::cout << "Constructing driver state for veh '" << veh->getID() << "'." << std::endl;
+#endif
     updateError();
 }
 
@@ -179,7 +184,7 @@ MSSimpleDriverState::setAwareness(const double value) {
     assert(value <= 1.);
 #ifdef DEBUG_AWARENESS
     if DEBUG_COND {
-        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness("<<MAX2(value,myMinAwareness)<<")"<< std::endl;
+        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness("<<MAX2(value,minAwareness)<<")"<< std::endl;
     }
 #endif
     myAwareness = MAX2(value,myMinAwareness);

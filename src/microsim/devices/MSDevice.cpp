@@ -37,6 +37,7 @@
 #include "MSDevice_Battery.h"
 #include "MSDevice_SSM.h"
 #include "MSDevice_ToC.h"
+#include "MSDevice_DriverState.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
 
@@ -46,6 +47,12 @@
 // ===========================================================================
 std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
 std::mt19937 MSDevice::myEquipmentRNG;
+
+// ===========================================================================
+// debug flags
+// ===========================================================================
+//#define DEBUG_DEVICE_PARAMS
+
 
 // ===========================================================================
 // method definitions
@@ -63,6 +70,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
     MSDevice_ToC::insertOptions(oc);
+    MSDevice_DriverState::insertOptions(oc);
     MSDevice_Bluelight::insertOptions(oc);
     MSDevice_FCD::insertOptions(oc);
 }
@@ -88,6 +96,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_Battery::buildVehicleDevices(v, into);
     MSDevice_SSM::buildVehicleDevices(v, into);
     MSDevice_ToC::buildVehicleDevices(v, into);
+    MSDevice_DriverState::buildVehicleDevices(v, into);
     MSDevice_Bluelight::buildVehicleDevices(v, into);
     MSDevice_FCD::buildVehicleDevices(v, into);
 }
@@ -181,5 +190,103 @@ void
 MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 }
 
+
+std::string
+MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required) {
+    std::string result = deflt;
+    if (v.getParameter().knowsParameter("device."+paramName)) {
+        try {
+            result = v.getParameter().getParameter("device."+paramName, "").c_str();
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+        }
+    } else if (v.getVehicleType().getParameter().knowsParameter("device."+paramName)) {
+        try {
+            result = v.getVehicleType().getParameter().getParameter("device."+paramName, "").c_str();
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+        }
+    } else {
+        if (oc.isSet("device."+paramName)) {
+            result = oc.getString("device."+paramName);
+        } else {
+            if (required) {
+                throw ProcessError("Missing parameter 'device."+paramName+"' for vehicle '" + v.getID());
+            } else {
+                result = deflt;
+#ifdef DEBUG_DEVICE_PARAMS
+                std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device."+paramName+"'. Using default of '" << result << "'\n";
+#endif
+            }
+        }
+    }
+    return result;
+}
+
+
+double
+MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required) {
+    double result = deflt;
+    if (v.getParameter().knowsParameter("device."+paramName)) {
+        try {
+            result = TplConvert::_2double(v.getParameter().getParameter("device."+paramName, "").c_str());
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+        }
+    } else if (v.getVehicleType().getParameter().knowsParameter("device."+paramName)) {
+        try {
+            result = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device."+paramName, "").c_str());
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+        }
+    } else {
+        if (oc.isSet("device."+paramName)) {
+            result = oc.getFloat("device."+paramName);
+        } else {
+            if (required) {
+                throw ProcessError("Missing parameter 'device."+paramName+"' for vehicle '" + v.getID());
+            } else {
+                result = deflt;
+#ifdef DEBUG_DEVICE_PARAMS
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device."+paramName+"'. Using default of '" << result << "'\n";
+#endif
+            }
+        }
+    }
+    return result;
+}
+
+
+bool
+MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required) {
+    bool result = deflt;
+    if (v.getParameter().knowsParameter("device."+paramName)) {
+        try {
+            result = TplConvert::_2bool(v.getParameter().getParameter("device."+paramName, "").c_str());
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+        }
+    } else if (v.getVehicleType().getParameter().knowsParameter("device."+paramName)) {
+        try {
+            result = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device."+paramName, "").c_str());
+        } catch (...) {
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+        }
+    } else {
+        if (oc.isSet("device."+paramName)) {
+            result = oc.getBool("device."+paramName);
+        } else {
+            if (required) {
+                throw ProcessError("Missing parameter 'device."+paramName+"' for vehicle '" + v.getID());
+            } else {
+                result = deflt;
+#ifdef DEBUG_DEVICE_PARAMS
+            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device."+paramName+"'. Using default of '" << result << "'\n";
+#endif
+            }
+        }
+    }
+    return result;
+}
 
 /****************************************************************************/

@@ -2,6 +2,7 @@ noinst_LIBRARIES = libmicrosimdevs.a
 
 libmicrosimdevs_a_SOURCES = MSDevice.cpp MSDevice.h \
 MSDevice_SSM.cpp MSDevice_SSM.h \
+MSDevice_DriverState.cpp MSDevice_DriverState.h \
 MSDevice_ToC.cpp MSDevice_ToC.h \
 MSDevice_BTreceiver.cpp MSDevice_BTreceiver.h \
 MSDevice_BTsender.cpp MSDevice_BTsender.h \
