@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
@@ -41,8 +43,6 @@ Warning: Setting new attribute y '2.00' into space 'parkingArea_gneE0_0_0space0'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE0_0_0space0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

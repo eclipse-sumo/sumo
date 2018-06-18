@@ -8,6 +8,8 @@ Warning: Adding e2Detector 'e2Detector_gneE2_2_2' in GNEChange_Additional
 Warning: Adding e2Detector 'e2Detector_gneE2_3_3' in GNEChange_Additional
 Warning: Adding e2Detector 'e2Detector_gneE2_4_4' in GNEChange_Additional
 Warning: Adding e2Detector 'e2Detector_gneE4_0_5' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -26,8 +28,6 @@ Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

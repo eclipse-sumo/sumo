@@ -35,11 +35,11 @@ Warning: Adding space 'parkingArea_gneE1_0_0space22' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE1_0_0space23' in GNEChange_Additional
 Warning: Adding space 'parkingArea_gneE1_0_0space24' in GNEChange_Additional
 Warning: A space must be declared within the definition of a parkingArea.
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE1_0_0space24'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

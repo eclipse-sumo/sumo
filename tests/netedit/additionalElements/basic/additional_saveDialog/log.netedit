@@ -1,11 +1,11 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected additional 'busStop' in AdditionalSelector
 Warning: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Opening FXMessageBox 'Save additionals before exit'
 Warning: Closed FXMessageBox 'Save additionals before exit' with 'Yes'
 Warning: Additionals saved

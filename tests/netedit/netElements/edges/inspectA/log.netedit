@@ -6,6 +6,8 @@ Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
 Warning: Adding busStop 'busStop5' in GNEChange_Additional
 Warning: Adding busStop 'busStop6' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Value '' for attribute id of edge isn't valid
 Warning: Value 'gneE3' for attribute id of edge isn't valid
 Warning: Setting new attribute id 'correct_ID' into edge 'gneE2'

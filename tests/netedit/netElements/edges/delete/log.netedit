@@ -3,6 +3,8 @@ Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding busStop 'busStop_4_2_2' in GNEChange_Additional
 Warning: Adding busStop 'busStop_8_2_1' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -34,10 +36,10 @@ Warning: Created connection 'from8_3to3_3' in retrieveGNEConnection()
 Warning: Created connection 'from8_3to1_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Warning: Setting new attribute edges '7' into crossing ':Center_c1'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Removing connection '6_0->3_2' from edge '6'
 Warning: Deleting unreferenced connection 'from6_0to3_2' in removeConnection()
 Warning: Removing connection '6_0->3_1' from edge '6'

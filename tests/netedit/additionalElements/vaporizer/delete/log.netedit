@@ -2,6 +2,8 @@ Warning: Adding vaporizer 'gneE0' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Removing vaporizer 'gneE1' in GNEChange_Additional
 Warning: Removing vaporizer 'gneE0' in GNEChange_Additional
 Warning: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'

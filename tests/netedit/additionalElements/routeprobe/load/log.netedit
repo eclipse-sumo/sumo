@@ -22,11 +22,11 @@ Warning: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced routeProbe 'routeProbe_17'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

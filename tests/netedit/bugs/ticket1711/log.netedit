@@ -1,13 +1,15 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from7_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
 Warning: Removing connection '8_1->3_1' from edge '8'
 Warning: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing edge '3' from net
 Warning: Removing connection '7_1->4_1' from edge '7'
 Warning: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()

@@ -13,6 +13,8 @@ Warning: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
 Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: The lane 'gneE23_0' to use within the detEntry is not known.
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
@@ -70,8 +72,6 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Warning: Additionals has to be saved

@@ -17,11 +17,11 @@ Warning: Adding detExit 'e3Detector_0detExit4' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit5' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit6' in GNEChange_Additional
 Warning: A detExit must be declared within the definition of a e3Detector.
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced detExit 'e3Detector_0detExit6'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

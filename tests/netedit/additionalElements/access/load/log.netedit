@@ -22,11 +22,11 @@ Warning: Adding access 'busStop_0access9' in GNEChange_Additional
 Warning: Adding access 'busStop_0access10' in GNEChange_Additional
 Warning: Adding access 'busStop_0access11' in GNEChange_Additional
 Warning: A access must be declared within the definition of a busStop.
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_0to7_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced access 'busStop_0access11'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

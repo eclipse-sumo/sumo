@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -25,11 +27,11 @@ Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing crossing from junction 'Center'
 Warning: Invalid pedestrian topology: crossing ':Center_c0' across '4 8' has no target.
 Warning: Deleting unreferenced crossing ':Center_c1' in rebuildGNECrossings()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing crossing from junction 'Center'
 Warning: Deleting unreferenced crossing ':Center_c0' in rebuildGNECrossings()
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'

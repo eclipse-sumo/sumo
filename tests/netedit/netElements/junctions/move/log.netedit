@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Edge '-gneE16' has a grade of 13.21%.
 Warning: Edge '-gneE17' has a grade of 13.21%.
@@ -63,9 +65,9 @@ Warning: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Warning: Setting new attribute pos '30.00,21.00' into junction 'gneJ19'
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Setting new attribute pos '30.00,21.00' into junction 'gneJ19'
 Warning: Key F5 (Compute) pressed
 Warning: Setting new attribute pos '120,20.2' into junction 'gneJ13'
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor

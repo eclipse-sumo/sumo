@@ -2,6 +2,8 @@ Warning: Adding poly 'poly_1' into viewNet
 Warning: Shapes has to be saved
 Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Adding poly 'poly_2' into viewNet
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -23,8 +25,6 @@ Warning: Removing poly 'poly_2' from viewNet
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: delete poly 'poly_0' in ~GNEChange_Shape()
 Warning: delete poly 'poly_2' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_1' from net in ~GNEChange_Shape()

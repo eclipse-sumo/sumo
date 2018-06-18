@@ -2,6 +2,8 @@ Warning: Adding instantInductionLoop 'instantInductionLoop_0' in GNEChange_Addit
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Selected additional 'instantInductionLoop' in AdditionalSelector
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_2' in GNEChange_Additional
 Warning: Removing instantInductionLoop 'instantInductionLoop_gneE0_0_2' in GNEChange_Additional

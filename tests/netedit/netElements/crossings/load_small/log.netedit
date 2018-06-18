@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'fromCE_4toEC_4' in retrieveGNEConnection()
 Warning: Created connection 'fromCN_4toNC_4' in retrieveGNEConnection()
@@ -31,8 +33,6 @@ Warning: Created crossing ':C_c0' in retrieveGNECrossing()
 Warning: Created crossing ':C_c1' in retrieveGNECrossing()
 Warning: Created crossing ':C_c2' in retrieveGNECrossing()
 Warning: Created crossing ':C_c3' in retrieveGNECrossing()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced edge 'CE' in GNENet destructor
 Warning: Deleting unreferenced lane 'CE_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane 'CE_1' in GNEEdge destructor

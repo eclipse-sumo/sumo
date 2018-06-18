@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -6,8 +8,6 @@ Warning: Shapes has to be saved
 Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Opening FXMessageBox 'Save shapes before exit'
 Warning: Closed FXMessageBox 'Save shapes before exit' with 'Yes'
 Warning: Shapes saved

@@ -6,6 +6,8 @@ Warning: Adding busStop 'busStop3' in GNEChange_Additional
 Warning: Adding busStop 'busStop4' in GNEChange_Additional
 Warning: Adding busStop 'busStop5' in GNEChange_Additional
 Warning: Adding busStop 'busStop6' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -21,10 +23,10 @@ Warning: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Value 'DummyAllowed' for attribute allow of edge isn't valid
 Warning: Setting new attribute allow '' into lane 'gneE2_0'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Setting new attribute allow '' into lane 'gneE2_1'
 Warning: Setting new attribute allow '' into edge 'gneE2'
 Warning: Value 'authority  army, passenger; taxi. tram' for attribute allow of edge isn't valid

@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -139,8 +141,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poly 'poly_1' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_1' in ~GNEChange_Shape()
 Warning: Removing poly 'newID' from net in ~GNEChange_Shape()

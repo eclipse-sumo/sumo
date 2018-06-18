@@ -12,6 +12,8 @@ Warning: Adding poi 'POI_6' into viewNet
 Warning: Adding poi 'POI_7' into viewNet
 Warning: Adding poi 'POI_8' into viewNet
 Warning: Adding poi 'POI_9' into viewNet
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Keys Shift + F5 (Compute with volatile options) pressed
 Warning: Opening FXMessageBox 'Volatile Recomputing'
 Warning: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -42,10 +44,8 @@ Warning: Removing poi 'POI_0' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_0' in ~GNEChange_Shape()
 Warning: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Shapes has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
+Warning: Current saving Status: net saved, additionals saved, shapes unsaved
 Warning: Shapes saved
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

@@ -16,6 +16,8 @@ Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Warning: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Warning: Adding vaporizer 'gneE1' in GNEChange_Additional
 Warning: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional

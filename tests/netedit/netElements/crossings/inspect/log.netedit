@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -25,11 +27,11 @@ Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
 Warning: Value 'dummyID' for attribute id of crossing isn't valid
 Warning: Setting new attribute edges '3 7 1' into crossing ':Center_c1'
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Value '4 8' for attribute edges of crossing isn't valid
 Warning: Key F5 (Compute) pressed

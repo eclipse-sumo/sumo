@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -25,9 +27,9 @@ Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
 Warning: Created crossing ':Center_c1' in retrieveGNECrossing()
+Warning: Adding TLS into junction 'C'
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Adding TLS into junction 'C'
 Warning: Setting new attribute type 'traffic_light' into junction 'C'
 Warning: Adding TLS into junction 'Center'
 Warning: Setting new attribute type 'traffic_light' into junction 'Center'

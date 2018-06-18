@@ -11,6 +11,8 @@ Warning: Adding poly 'poly_6' into viewNet
 Warning: Adding poly 'poly_7' into viewNet
 Warning: Adding poly 'poly_8' into viewNet
 Warning: Adding poly 'poly_9' into viewNet
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Current Viewport values: 0.00, 0.00, 100.00. Zoom = '53.20'
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Setting new attribute selected 'true' into junction 'gneJ0'

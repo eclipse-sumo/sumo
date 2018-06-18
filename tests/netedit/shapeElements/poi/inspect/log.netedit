@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected shape 'poi' in ShapeSelector
 Warning: Adding poi 'POI_0' into viewNet
 Warning: Shapes has to be saved
@@ -130,8 +132,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_1' in ~GNEChange_Shape()
 Warning: Removing poi 'newID' from net in ~GNEChange_Shape()

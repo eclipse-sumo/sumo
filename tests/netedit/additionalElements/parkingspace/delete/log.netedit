@@ -4,6 +4,8 @@ Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding space 'parkingAreaLoaded_Aspace0' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingAreaLoaded_B' in GNEChange_Additional
 Warning: Adding space 'parkingAreaLoaded_Bspace0' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Selected additional 'parkingArea' in AdditionalSelector
 Warning: Adding parkingArea 'parkingArea_gneE1_0_2' in GNEChange_Additional
 Warning: Selected additional 'space' in AdditionalSelector
@@ -31,8 +33,6 @@ Warning: Removing space 'parkingAreaLoaded_Aspace0' in GNEChange_Additional
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced space 'parkingArea_gneE1_0_2space0'
 Warning: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_2'
 Warning: Deleting unreferenced space 'parkingAreaLoaded_Bspace0'

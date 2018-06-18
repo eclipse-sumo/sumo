@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Warning: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -23,10 +25,10 @@ Warning: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to4_1' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 50.00, 50.00, 150.00. Zoom = '80.00'
 Warning: Adding junction 'gneJ0' into net
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Adding junction 'gneJ1' into net
 Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'

@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from5_2to2_2' in retrieveGNEConnection()
@@ -14,8 +16,6 @@ Warning: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Warning: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced edge '1' in GNENet destructor
 Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor

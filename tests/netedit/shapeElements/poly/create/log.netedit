@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -170,8 +172,6 @@ Warning: Setting new attribute blockMovement '1' into poly 'poly_18'
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poly 'poly_18' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_18' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_17' from net in ~GNEChange_Shape()

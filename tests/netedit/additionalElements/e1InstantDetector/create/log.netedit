@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected additional 'instantInductionLoop' in AdditionalSelector
 Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_0' in GNEChange_Additional
 Warning: Additionals has to be saved
@@ -33,8 +35,6 @@ Warning: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_4' in GNEChan
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_4'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

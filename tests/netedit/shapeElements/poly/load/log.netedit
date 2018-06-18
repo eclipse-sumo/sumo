@@ -29,7 +29,7 @@ Warning: Adding poly 'poly_17' into viewNet
 Error: Attribute 'type' in definition of poly 'poly_18' is empty.
 Warning: Adding poly 'poly_18' into viewNet
 Warning: Adding poly 'poly_19' into viewNet
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.09May143539.3056/netedit.gui/shapeElements/poly/load\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poly/load\paris.ico'.
 Loading failed!
 Warning: Adding poly 'poly_20' into viewNet
 Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
@@ -46,6 +46,8 @@ Warning: Adding poly 'poly_27' into viewNet
 Warning: Adding poly 'poly_28' into viewNet
 Warning: Adding poly 'poly_29' into viewNet
 Error: Loading of shapes failed.
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
@@ -55,8 +57,6 @@ Warning: Created connection 'fromgneE4_0togneE6_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0togneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poly 'poly_29' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_29' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_28' from net in ~GNEChange_Shape()

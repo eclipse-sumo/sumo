@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from5_0to4_0' in retrieveGNEConnection()
@@ -16,11 +18,11 @@ Warning: Created connection 'from8_0to2_0' in retrieveGNEConnection()
 Warning: Created connection 'from8_0to3_1' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to3_2' in retrieveGNEConnection()
 Warning: Created connection 'from8_1to1_2' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Adding crossing into junction 'Center'
 Warning: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Warning: Created crossing ':Center_c0' in retrieveGNECrossing()
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Adding crossing into junction 'Center'
 Warning: Invalid pedestrian topology: crossing ':Center_c1' across '4 8' has no target.

@@ -6,14 +6,14 @@ Warning: Adding poiLane 'POI_0' into viewNet
 Warning: Adding poiLane 'POI_1' into viewNet
 Warning: Adding poi 'POI_2' into viewNet
 Warning: Adding poi 'POI_3' into viewNet
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 1 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 0 Junctions, 1 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes unsaved
 Warning: Shapes saved
 Warning: Removing poi 'POI_3' from net in ~GNEChange_Shape()
 Warning: delete poi 'POI_3' in ~GNEChange_Shape()

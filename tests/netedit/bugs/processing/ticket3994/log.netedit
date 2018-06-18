@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE3_0togneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE4_0to-gneE3_0' in retrieveGNEConnection()
@@ -21,13 +23,13 @@ Warning: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_2togneE10_2' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_2to-gneE4_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
 Warning: Key F7 (Join junctions) pressed
 Warning: Adding junction 'gneJ16' into net
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Setting new attribute type 'priority' into junction 'gneJ16'
 Warning: Removing connection '-gneE4_0->gneE12_2' from edge '-gneE4'
 Warning: Deleting unreferenced connection 'from-gneE4_0togneE12_2' in removeConnection()

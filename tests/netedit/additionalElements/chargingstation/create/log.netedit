@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected additional 'chargingStation' in AdditionalSelector
 Warning: Invalid input parameter of chargingStation: 'power' cannot be negative
 Warning: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
@@ -46,8 +48,6 @@ Warning: Setting new attribute startPos '7.89' into chargingStation 'chargingSta
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_6'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

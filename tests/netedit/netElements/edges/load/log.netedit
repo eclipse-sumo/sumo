@@ -5,6 +5,8 @@ Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Warning: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Warning: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'from-gneE10_0togneE10_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_0togneE11_0' in retrieveGNEConnection()
@@ -22,8 +24,6 @@ Warning: Created connection 'fromgneE5_0to-gneE5_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_0to-gneE7_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE8_0to-gneE8_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE9_0to-gneE9_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced rerouter 'rerouter_0'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

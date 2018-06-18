@@ -1,7 +1,9 @@
-Warning: Key F5 (Compute) pressed
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
+Warning: Key F5 (Compute) pressed
 Warning: Adding junction 'gneJ0' into net
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Adding junction 'gneJ1' into net
 Warning: Adding edge 'gneE0' from net
 Warning: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'

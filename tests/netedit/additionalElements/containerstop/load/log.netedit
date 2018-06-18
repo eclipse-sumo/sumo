@@ -27,11 +27,11 @@ Warning: Adding containerStop 'containerStop_16' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_17' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_18' in GNEChange_Additional
 Warning: Adding containerStop 'containerStop_19' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced containerStop 'containerStop_19'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

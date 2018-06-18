@@ -2,6 +2,8 @@ Warning: Adding rerouter 'rerouter_1' in GNEChange_Additional
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
 Warning: Adding rerouter 'rerouter_2' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Warning: Selected additional 'rerouter' in AdditionalSelector
 Warning: Adding rerouter 'rerouter_3' in GNEChange_Additional

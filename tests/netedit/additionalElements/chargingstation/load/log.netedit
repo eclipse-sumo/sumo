@@ -37,11 +37,11 @@ Warning: Adding chargingStation 'chargingStation_28' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_29' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_30' in GNEChange_Additional
 Warning: Adding chargingStation 'chargingStation_31' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced chargingStation 'chargingStation_31'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

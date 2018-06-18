@@ -1,3 +1,5 @@
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Selected shape 'poly' in ShapeSelector
 Warning: Key ENTER pressed
 Warning: Key ENTER pressed
@@ -66,8 +68,6 @@ Warning: Setting new attribute shape '22.36,-5.95 22.36,-0.95 17.36,-0.95 17.36,
 Warning: Shapes saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Removing poly 'poly_4' from net in ~GNEChange_Shape()
 Warning: delete poly 'poly_4' in ~GNEChange_Shape()
 Warning: Removing poly 'poly_3' from net in ~GNEChange_Shape()
