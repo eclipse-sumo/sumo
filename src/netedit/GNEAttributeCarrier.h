@@ -447,6 +447,18 @@ public:
     /// @brief return the number of attributes of the tag with the most highter number of attributes
     static int getHigherNumberOfAttributes();
 
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string &parameter, const std::string &value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string &parameter, const std::string &value);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string &oldParameter, const std::string &newParameter);
+
+    /// @brief update generic parameter value
+    bool updateGenericParameterValue(const std::string &parameter, const std::string &newValue);
+
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
     static bool canParse(const std::string& string) {
@@ -721,6 +733,9 @@ public:
 protected:
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
+
+    /// @brief Vector with the generic parameters
+    std::vector<std::pair<std::string, std::string> > myGenericParameters;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

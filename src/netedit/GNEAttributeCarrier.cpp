@@ -936,6 +936,62 @@ GNEAttributeCarrier::getHigherNumberOfAttributes() {
 }
 
 
+bool 
+GNEAttributeCarrier::addGenericParameter(const std::string &parameter, const std::string &value) {
+    // make sure that generic parameter isn't duplicated
+    for (auto i : myGenericParameters) {
+        if(i.first == parameter) {
+            return false;
+        }
+    }
+    // add generic parameter
+    myGenericParameters.push_back(std::make_pair(parameter, value));
+    return true;
+}
+
+
+bool 
+GNEAttributeCarrier::removeGenericParameter(const std::string &parameter, const std::string &value) {
+    // find generic parameter
+    auto finder = std::find(myGenericParameters.begin(), myGenericParameters.end(), std::make_pair(parameter, value));
+    // make sure that generic parameter exist
+    if(finder != myGenericParameters.end()) {
+        myGenericParameters.erase(finder);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEAttributeCarrier::updateGenericParameter(const std::string &oldParameter, const std::string &newParameter) {
+    // find and replace parameter
+    for (auto i : myGenericParameters) {
+        if(i.first == oldParameter) {
+            i.first = newParameter;
+            return true;
+        }
+    }
+    // return false if parameter wasn't found
+    return false;
+}
+
+
+bool 
+GNEAttributeCarrier::updateGenericParameterValue(const std::string &parameter, const std::string &newValue) {
+    // find and replace parameter
+    for (auto i : myGenericParameters) {
+        if(i.first == parameter) {
+            i.second = newValue;
+            return true;
+        }
+    }
+    // return false if parameter wasn't found
+    return false;
+}
+
+
 int 
 GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& settings) {
     if(settings.drawForSelecting) {
