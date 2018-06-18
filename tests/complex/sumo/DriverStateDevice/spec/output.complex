@@ -44,4 +44,4 @@ Dynamic parameters:
   awareness = 0.77
   errorNoiseIntensity = 0.05
   errorTimeScale = 0.08
-  errorState = -0.32
+  errorState = 0.27
