@@ -1903,7 +1903,7 @@ GNENet::saveAdditionals(const std::string& filename) {
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.openTag("additionals");
+    device.writeXMLHeader("additional", "additional_file.xsd");
     // first write all vehicle types
     for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
         if (i.first != DEFAULT_VTYPE_ID) {
@@ -2125,7 +2125,7 @@ void
 GNENet::saveShapes(const std::string& filename) {
     // save Shapes
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.openTag("additionals");
+    device.writeXMLHeader("additional", "additional_file.xsd");
     // write only visible polygons
     for (const auto& i : myPolygons) {
         dynamic_cast<GNEShape*>(i.second)->writeShape(device);
