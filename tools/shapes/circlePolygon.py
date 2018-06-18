@@ -10,6 +10,7 @@
 # @file    circlePolygon.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Yun-Pang Floetteroed
 # @date    2010-02-20
 # @version $Id$
 
@@ -39,27 +40,38 @@ optParser.add_option(
     "-o", "--output-file", help="output file (default: standard output)")
 (options, args) = optParser.parse_args()
 
-output = sys.stdout if options.output_file is None else open(
-    options.output_file, 'w')
 
-if len(args) == 0:
-    print >> sys.stderr, "Usage: " + sys.argv[0] + " x,y[[,r],c] ..."
-    sys.exit()
-
-
-print("<additional>", file=output)
-for idx, d in enumerate(args):
-    desc = d.split(",")
-    x = float(desc[0])
-    y = float(desc[1])
-    r = float(desc[2]) if len(desc) > 2 else options.radius
-    c = int(desc[3]) if len(desc) > 3 else options.corners
+def setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output):
     angle = 2 * math.pi / c
     shape = ""
     for i in range(c):
         shape += "%.2f,%.2f " % (math.cos(i * angle) * r + x,
                                  math.sin(i * angle) * r + y)
+        if i == 0:
+            beginPoint = shape
+    shape += beginPoint
     print('    <poly id="%s%s" type="%s" color="%s" fill="%i" layer="%s" shape="%s"/>' % (
-        options.prefix, idx, options.type, options.color, options.fill, options.layer, shape[:-1]),
+        prefix, idx, options.type, color, fill, layer, shape[:-1]),
         file=output)
-print("</additional>", file=output)
+
+if __name__ == "__main__":
+
+    output = sys.stdout if options.output_file is None else open(options.output_file, 'w')
+    
+    if len(args) == 0:
+        print >> sys.stderr, "Usage: " + sys.argv[0] + " x,y[[,r],c] ..."
+        sys.exit()
+        
+    optParser = OptionParser()
+    (options, args) = optParser.parse_args()
+    output = sys.stdout if options.output_file is None else open(options.output_file, 'w')
+    print("<additional>", file=output)
+    for idx, d in enumerate(args):
+        desc = d.split(",")
+        x = float(desc[0])
+        y = float(desc[1])
+        r = float(desc[2]) if len(desc) > 2 else options.radius
+        c = int(desc[3]) if len(desc) > 3 else options.corners
+
+        setCircle(idx,x,y,r,c,prefix,type,color,fill,layer,output)
+    print("</additional>", file=output)
