@@ -131,8 +131,14 @@ public:
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
+    /// @brief disable save additionals
+    void disableSaveAdditionalsMenu();
+
     /// @brief enable save shapes
     void enableSaveShapesMenu();
+
+    /// @brief disable save shapes
+    void disableSaveShapesMenu();
 
     /// @brief enable save TLS Programs
     void enableSaveTLSProgramsMenu();

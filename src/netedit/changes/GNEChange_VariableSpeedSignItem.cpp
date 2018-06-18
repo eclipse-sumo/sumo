@@ -75,7 +75,7 @@ GNEChange_VariableSpeedSignItem::undo() {
         myVariableSpeedSignStep->getVariableSpeedSignParent()->addVariableSpeedSignStep(myVariableSpeedSignStep);
     }
     // enable save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
 }
 
 
@@ -97,7 +97,7 @@ GNEChange_VariableSpeedSignItem::redo() {
         myVariableSpeedSignStep->getVariableSpeedSignParent()->removeVariableSpeedSignStep(myVariableSpeedSignStep);
     }
     // enable save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
 }
 
 

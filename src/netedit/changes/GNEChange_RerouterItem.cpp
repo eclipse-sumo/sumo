@@ -272,7 +272,7 @@ GNEChange_RerouterItem::undo() {
         }
     }
     // enable save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
 }
 
 
@@ -372,7 +372,7 @@ GNEChange_RerouterItem::redo() {
         }
     }
     // enable save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
 }
 
 

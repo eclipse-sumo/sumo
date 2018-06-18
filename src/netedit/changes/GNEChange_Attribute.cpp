@@ -92,11 +92,11 @@ GNEChange_Attribute::undo() {
     myAC->setAttribute(myKey, myOrigValue);
     // check if netElements, additional or shapes has to be saved
     if (myNetElement) {
-        myNetElement->getNet()->requiereSaveNet();
+        myNetElement->getNet()->requiereSaveNet(true);
     } else if (myAdditional) {
-        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
+        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
     } else if (myShape) {
-        myShape->getNet()->requiereSaveShapes();
+        myShape->getNet()->requiereSaveShapes(true);
     }
 }
 
@@ -111,11 +111,11 @@ GNEChange_Attribute::redo() {
     myAC->setAttribute(myKey, myNewValue);
     // check if netElements, additional or shapes has to be saved
     if (myNetElement) {
-        myNetElement->getNet()->requiereSaveNet();
+        myNetElement->getNet()->requiereSaveNet(true);
     } else if (myAdditional) {
-        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals();
+        myAdditional->getViewNet()->getNet()->requiereSaveAdditionals(true);
     } else if (myShape) {
-        myShape->getNet()->requiereSaveShapes();
+        myShape->getNet()->requiereSaveShapes(true);
     }
 }
 

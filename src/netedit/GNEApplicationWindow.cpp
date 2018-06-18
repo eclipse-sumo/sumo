@@ -732,10 +732,8 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         loadConfigOrNet(file, true);
         myRecentNets.appendFile(file.c_str());
         // when a net is loaded, save additional, shapes an TLSPrograms are disabled
-        mySaveAdditionalsMenuCommand->disable();
-        mySaveAdditionalsMenuCommandAs->disable();
-        mySaveShapesMenuCommand->disable();
-        mySaveShapesMenuCommandAs->disable();
+        disableSaveAdditionalsMenu();
+        disableSaveShapesMenu();
         mySaveTLSProgramsMenuCommand->disable();
     }
     return 1;
@@ -892,8 +890,8 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges()) {
         closeAllWindows();
         // disable save additionals, shapes and TLS menu
-        mySaveAdditionalsMenuCommand->disable();
-        mySaveShapesMenuCommand->disable();
+        disableSaveAdditionalsMenu();
+        disableSaveShapesMenu();
         mySaveTLSProgramsMenuCommand->disable();
     }
     return 1;
@@ -1028,6 +1026,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
         myUndoList->p_end();
+        // Additionals loaded during start shouldn't be saved
+        myNet->requiereSaveAdditionals(false);
     }
     // check if shapes has to be loaded at start
     if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
@@ -1040,6 +1040,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_ERROR("Loading of shapes failed.");
         }
         myUndoList->p_end();
+        // shapes loaded during start shouldn't be saved
+        myNet->requiereSaveShapes(false);
     }
     // check if additionals output must be changed
     if (OptionsCont::getOptions().isSet("additionals-output")) {
@@ -1053,7 +1055,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (OptionsCont::getOptions().isSet("TLSPrograms-output")) {
         myTLSProgramsFile = OptionsCont::getOptions().getString("TLSPrograms-output");
     }
-
+    // after loading net shouldn't be saved
+    myNet->requiereSaveNet(false);
     update();
 }
 
@@ -1172,10 +1175,8 @@ GNEApplicationWindow::closeAllWindows() {
     // reset fonts
     GLHelper::resetFont();
     // disable saving commmand
-    mySaveAdditionalsMenuCommand->disable();
-    mySaveAdditionalsMenuCommandAs->disable();
-    mySaveShapesMenuCommand->disable();
-    mySaveShapesMenuCommandAs->disable();
+    disableSaveAdditionalsMenu();
+    disableSaveShapesMenu();
 }
 
 
@@ -1225,9 +1226,23 @@ GNEApplicationWindow::enableSaveAdditionalsMenu() {
 
 
 void
+GNEApplicationWindow::disableSaveAdditionalsMenu() {
+    mySaveAdditionalsMenuCommand->disable();
+    mySaveAdditionalsMenuCommandAs->disable();
+}
+
+
+void
 GNEApplicationWindow::enableSaveShapesMenu() {
     mySaveShapesMenuCommand->enable();
     mySaveShapesMenuCommandAs->enable();
+}
+
+
+void
+GNEApplicationWindow::disableSaveShapesMenu() {
+    mySaveShapesMenuCommand->disable();
+    mySaveShapesMenuCommandAs->disable();
 }
 
 

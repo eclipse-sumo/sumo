@@ -156,7 +156,7 @@ GNEChange_CalibratorItem::undo() {
         }
     }
     // enable save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
 }
 
 
@@ -216,7 +216,7 @@ GNEChange_CalibratorItem::redo() {
         }
     }
     // enable save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
 }
 
 

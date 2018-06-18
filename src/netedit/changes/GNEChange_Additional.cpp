@@ -146,7 +146,7 @@ GNEChange_Additional::undo() {
         }
     }
     // Requiere always save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
@@ -212,7 +212,7 @@ GNEChange_Additional::redo() {
         }
     }
     // Requiere always save additionals
-    myNet->requiereSaveAdditionals();
+    myNet->requiereSaveAdditionals(true);
     // check if inspector frame has to be updated
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();

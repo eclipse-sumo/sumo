@@ -440,7 +440,7 @@ public:
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
     /// @brief inform that net has to be saved
-    void requiereSaveNet();
+    void requiereSaveNet(bool value);
 
     /// @brief return if net has to be saved
     bool isNetSaved() const;
@@ -593,7 +593,7 @@ public:
     void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
 
     /// @brief inform that additionals has to be saved
-    void requiereSaveAdditionals();
+    void requiereSaveAdditionals(bool value);
 
     /**@brief save additional elements of the network
     * @param[in] filename name of the file in wich save additionals
@@ -657,7 +657,7 @@ public:
     void changeShapeID(GNEShape* s, const std::string& OldID);
 
     /// @brief inform that shapes has to be saved
-    void requiereSaveShapes();
+    void requiereSaveShapes(bool value);
 
     /**@brief save shapes elements of the network
      * @param[in] filename name of the file in wich save shapes

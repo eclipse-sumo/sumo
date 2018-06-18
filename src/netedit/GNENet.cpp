@@ -847,14 +847,14 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 
 void 
-GNENet::requiereSaveNet() {
+GNENet::requiereSaveNet(bool value) {
     if ((myNetSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
         WRITE_WARNING("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
     }
-    myNetSaved = false;
+    myNetSaved = !value;
 }
 
 
@@ -1842,21 +1842,25 @@ GNENet::updateAdditionalID(const std::string& oldID, GNEAdditional* additional) 
         myAttributeCarriers.additionals.erase(additionalToUpdate);
         myAttributeCarriers.additionals[std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag())] = additional;
         // additionals has to be saved
-        requiereSaveAdditionals();
+        requiereSaveAdditionals(true);
     }
 }
 
 
 void
-GNENet::requiereSaveAdditionals() {
+GNENet::requiereSaveAdditionals(bool value) {
     if ((myAdditionalsSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Additionals has to be saved");
         std::string netSaved = (myNetSaved?"saved":"unsaved");
         std::string shapeSaved = (myShapesSaved?"saved":"unsaved");
         WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
     }
-    myAdditionalsSaved = false;
-    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+    myAdditionalsSaved = !value;
+    if(myAdditionalsSaved) {
+        myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
+    } else {
+        myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+    }
 }
 
 
@@ -2109,15 +2113,19 @@ GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
 
 
 void
-GNENet::requiereSaveShapes() {
+GNENet::requiereSaveShapes(bool value) {
     if ((myShapesSaved == true) && OptionsCont::getOptions().getBool("gui-testing-debug")) {
         WRITE_WARNING("Shapes has to be saved");
         std::string netSaved = (myNetSaved?"saved":"unsaved");
         std::string additionalsSaved = (myAdditionalsSaved?"saved":"unsaved");
         WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", shapes unsaved");
     }
-    myShapesSaved = false;
-    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
+    myShapesSaved = !value;
+    if(myShapesSaved) {
+        myViewNet->getViewParent()->getGNEAppWindows()->disableSaveShapesMenu();
+    } else {
+        myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
+    }
 }
 
 
@@ -2196,7 +2204,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         // update geometry after insertion of additionals
         additional->updateGeometry();
         // additionals has to be saved
-        requiereSaveAdditionals();
+        requiereSaveAdditionals(true);
     } else {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' already exist");
     }
@@ -2224,7 +2232,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
         // update view
         update();
         // additionals has to be saved
-        requiereSaveAdditionals();
+        requiereSaveAdditionals(true);
     }
 }
 
@@ -2431,7 +2439,7 @@ GNENet::insertShape(GNEShape* shape) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->addShapeChild(shape);
     }
     // insert shape requieres always save shapes
-    requiereSaveShapes();
+    requiereSaveShapes(true);
     // update view
     myViewNet->update();
 }
@@ -2459,7 +2467,7 @@ GNENet::removeShape(GNEShape* shape) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
     }
     // remove shape requires always save shapes
-    requiereSaveShapes();
+    requiereSaveShapes(true);
     // update view
     myViewNet->update();
 }
@@ -2595,9 +2603,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     }
 
     myNeedRecompute = false;
-
-    // After a recomputing net has to be always saved
-    requiereSaveNet();
 }
 
 
