@@ -332,8 +332,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(MKUINT(5,  75), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS));   // Ctrl + Shift + K
     getAccelTable()->addAccel(MKUINT(4, 119), this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + w
     getAccelTable()->addAccel(MKUINT(4,  87), this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + W
-    getAccelTable()->addAccel(MKUINT(4, 113), this, FXSEL(SEL_COMMAND, MID_QUIT, 0));                           // Ctrl + q
-    getAccelTable()->addAccel(MKUINT(4,  81), this, FXSEL(SEL_COMMAND, MID_QUIT, 0));                           // Ctrl + Q
+    getAccelTable()->addAccel(MKUINT(4, 113), this, FXSEL(SEL_COMMAND, MID_QUIT));                           // Ctrl + q
+    getAccelTable()->addAccel(MKUINT(4,  81), this, FXSEL(SEL_COMMAND, MID_QUIT));                           // Ctrl + Q
     getAccelTable()->addAccel(MKUINT(4, 122), this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + z
     getAccelTable()->addAccel(MKUINT(4,  90), this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + Z
     getAccelTable()->addAccel(MKUINT(4, 121), this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                   // Ctrl + y
