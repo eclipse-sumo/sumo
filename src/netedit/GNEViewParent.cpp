@@ -140,12 +140,12 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myGNEFrames[MID_GNE_SETMODE_INSPECT] = new GNEInspectorFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_SELECT] = new GNESelectorFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_CONNECT] = new GNEConnectorFrame(myFramesArea, viewNet);
+    myGNEFrames[MID_GNE_SETMODE_PROHIBITION] = new GNEProhibitionFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_TLS] = new GNETLSEditorFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_ADDITIONAL] = new GNEAdditionalFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_CROSSING] = new GNECrossingFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_DELETE] = new GNEDeleteFrame(myFramesArea, viewNet);
     myGNEFrames[MID_GNE_SETMODE_POLYGON] = new GNEPolygonFrame(myFramesArea, viewNet);
-    myGNEFrames[MID_GNE_SETMODE_PROHIBITION] = new GNEProhibitionFrame(myFramesArea, viewNet);
     
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(0, 0, 0);
