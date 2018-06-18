@@ -146,7 +146,7 @@ GNEStoppingPlace::getLane() const {
 
 double 
 GNEStoppingPlace::getStartPosition() const {
-    if(!myStartPosition.empty()) {
+    if(canParse<double>(myStartPosition)) {
         return parse<double>(myStartPosition);
     } else {
         return 0;
@@ -156,7 +156,7 @@ GNEStoppingPlace::getStartPosition() const {
 
 double 
 GNEStoppingPlace::getEndPosition() const {
-    if(!myEndPosition.empty()) {
+    if(canParse<double>(myEndPosition)) {
         return parse<double>(myEndPosition);
     } else {
         return myLane->getLaneShapeLength();
@@ -172,12 +172,13 @@ GNEStoppingPlace::areStoppingPlacesPositionsFixed() const {
     } else {
         if (myStartPosition.empty() && myEndPosition.empty()) {
             return true;
-        } else if(myStartPosition.empty()) {
-            return (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        } else if (myStartPosition.empty()) {
+            return (canParse<double>(myEndPosition) && (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()));
         } else if(myEndPosition.empty()) {
-            return (parse<double>(myStartPosition) >= 0);
+            return (canParse<double>(myStartPosition) && (parse<double>(myStartPosition) >= 0));
         } else {
-            return (parse<double>(myStartPosition) >= 0) &&
+            return canParse<double>(myStartPosition) && canParse<double>(myEndPosition) &&
+                   (parse<double>(myStartPosition) >= 0) &&
                    (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()) &&
                    ((parse<double>(myEndPosition) - parse<double>(myStartPosition)) >= POSITION_EPS);
         }

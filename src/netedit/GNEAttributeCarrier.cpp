@@ -1259,7 +1259,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The begin position on the lane (the lower position on the lane) in meters", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ENDPOS,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ROADSIDE_CAPACITY,
