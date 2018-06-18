@@ -33,3 +33,6 @@ speedMap
 
 # Tests scheduling of Takeover-of-Control events via the ToC-Device (MSDevice_ToC).
 ToCDevice
+
+# Tests traci interaction with driver state via MSDevice_DriverState
+DriverStateDevice
