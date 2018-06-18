@@ -264,7 +264,7 @@ for svnRoot in svnRoots:
     try:
         output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
         xml.sax.parseString(output, propRead)
-    except subprocess.CalledProcessError as e:
+    except (OSError, subprocess.CalledProcessError) as e:
         print("This seems to be no valid svn repository", svnRoot, e)
         if options.verbose:
             print("trying git at", svnRoot)
