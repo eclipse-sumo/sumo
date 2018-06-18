@@ -8,12 +8,12 @@ Warning: Format of essential unique string attribute 'id' of parkingArea is inva
 Warning: There is another parkingArea with the same ID='parkingArea_00'.
 Warning: Essential unique string attribute 'lane' of parkingArea with ID 'parkingArea_01' is missing; parkingArea cannot be created
 Warning: The lane 'dummyLane' to use within the parkingArea 'parkingArea_02' is not known.
-Warning: Invalid position for parkingArea with ID = 'parkingArea_03'.
-Warning: Invalid position for parkingArea with ID = 'parkingArea_04'.
+Warning: Adding parkingArea 'parkingArea_03' in GNEChange_Additional
+Warning: Adding parkingArea 'parkingArea_04' in GNEChange_Additional
 Warning: Invalid position for parkingArea with ID = 'parkingArea_05'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_06'.
-Warning: Invalid position for parkingArea with ID = 'parkingArea_07'.
-Warning: Invalid position for parkingArea with ID = 'parkingArea_08'.
+Warning: Adding parkingArea 'parkingArea_07' in GNEChange_Additional
+Warning: Adding parkingArea 'parkingArea_08' in GNEChange_Additional
 Warning: Invalid position for parkingArea with ID = 'parkingArea_09'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_10'.
 Warning: Adding parkingArea 'parkingArea_11' in GNEChange_Additional
@@ -38,11 +38,11 @@ Warning: Adding parkingArea 'parkingArea_29' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_30' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_31' in GNEChange_Additional
 Warning: Adding parkingArea 'parkingArea_32' in GNEChange_Additional
+Warning: net has to be saved
+Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Deleting unreferenced parkingArea 'parkingArea_32'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -67,6 +67,10 @@ Warning: Deleting unreferenced parkingArea 'parkingArea_14'
 Warning: Deleting unreferenced parkingArea 'parkingArea_13'
 Warning: Deleting unreferenced parkingArea 'parkingArea_12'
 Warning: Deleting unreferenced parkingArea 'parkingArea_11'
+Warning: Deleting unreferenced parkingArea 'parkingArea_08'
+Warning: Deleting unreferenced parkingArea 'parkingArea_07'
+Warning: Deleting unreferenced parkingArea 'parkingArea_04'
+Warning: Deleting unreferenced parkingArea 'parkingArea_03'
 Warning: Deleting unreferenced parkingArea 'parkingArea_00'
 Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
