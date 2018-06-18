@@ -1064,8 +1064,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
         myUndoList->p_end();
-        // Additionals loaded during start shouldn't be saved
-        myNet->requiereSaveAdditionals(false);
     }
     // check if shapes has to be loaded at start
     if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
@@ -1078,8 +1076,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_ERROR("Loading of shapes failed.");
         }
         myUndoList->p_end();
-        // shapes loaded during start shouldn't be saved
-        myNet->requiereSaveShapes(false);
     }
     // check if additionals output must be changed
     if (OptionsCont::getOptions().isSet("additionals-output")) {

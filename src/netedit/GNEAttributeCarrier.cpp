@@ -1955,31 +1955,31 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The model used for car following", 
             "Krauss");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_PERSON_CAPACITY,
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The number of persons (excluding an autonomous driver) the vehicle can transport", 
             "4");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_CONTAINER_CAPACITY,
-            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The number of containers the vehicle can transport", 
             "0");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_BOARDING_DURATION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The time required by a person to board the vehicle", 
             "0.50");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LOADING_DURATION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME| ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME| ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The time required to load a container onto the vehicle", 
             "90.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LATALIGNMENT,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The preferred lateral alignment when using the sublane-model", 
             "center");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_MINGAP_LAT,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The minimum lateral gap at a speed difference of 50km/h when using the sublane-model", 
             "0.12");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_MAXSPEED_LAT,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The maximum lateral speed when using the sublane-model", 
             "1.00");
     }
@@ -2009,11 +2009,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The layer in which the polygon lies", 
             toString(Shape::DEFAULT_LAYER));
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TYPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "A typename for the polygon", 
             toString(Shape::DEFAULT_TYPE));
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_IMGFILE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE| ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "A bitmap to use for rendering this polygon", 
             toString(Shape::DEFAULT_IMG_FILE));
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_RELATIVEPATH,
