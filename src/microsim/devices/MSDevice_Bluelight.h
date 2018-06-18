@@ -114,7 +114,7 @@ public:
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
-        return "example";
+        return "bluelight";
     }
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
