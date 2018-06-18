@@ -2314,6 +2314,7 @@ GNEViewNet::setEditMode(EditMode mode) {
         myEditMode = mode;
         switch (mode) {
             case GNE_MODE_CONNECT:
+            case GNE_MODE_PROHIBITION:
             case GNE_MODE_TLS:
                 // modes which depend on computed data
                 myNet->computeEverything((GNEApplicationWindow*)myApp);
