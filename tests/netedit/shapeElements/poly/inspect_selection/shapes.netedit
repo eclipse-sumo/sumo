@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="poly_0" type="common type" color="green" fill="1" layer="1.00" geo="1" shape="-60.000000,10.000000 -50.000000,10.000000 -50.000000,0.000000 -60.000000,0.000000 -60.000000,10.000000" angle="180.00" imgFile="berlin_icon.ico"/>
     <poly id="poly_1" type="common type" color="green" fill="1" layer="1.00" geo="1" shape="-40.000000,10.000000 -30.000000,10.000000 -30.000000,0.000000 -40.000000,0.000000 -40.000000,10.000000" angle="180.00" imgFile="berlin_icon.ico"/>
     <poly id="poly_12" type="common type" color="green" fill="1" layer="1.00" geo="1" shape="-60.000000,-50.000000 -50.000000,-50.000000 -50.000000,-60.000000 -60.000000,-60.000000 -60.000000,-60.000000 -60.000000,-50.000000" angle="180.00" imgFile="berlin_icon.ico"/>
@@ -10,4 +13,4 @@
     <poly id="poly_7" type="common type" color="green" fill="1" layer="1.00" geo="1" shape="-10.000000,-50.000000 -10.000000,-60.000000 -20.000000,-60.000000 -20.000000,-50.000000 -10.000000,-50.000000" angle="180.00" imgFile="berlin_icon.ico"/>
     <poly id="poly_8" type="common type" color="green" fill="1" layer="1.00" geo="1" shape="-40.000000,-50.000000 -30.000000,-50.000000 -30.000000,-60.000000 -40.000000,-60.000000 -40.000000,-50.000000" angle="180.00" imgFile="berlin_icon.ico"/>
     <poly id="poly_9" type="common type" color="green" fill="1" layer="1.00" geo="1" shape="-60.000000,-10.000000 -50.000000,-10.000000 -50.000000,-20.000000 -60.000000,-20.000000 -60.000000,-10.000000" angle="180.00" imgFile="berlin_icon.ico"/>
-</additionals>
+</additional>

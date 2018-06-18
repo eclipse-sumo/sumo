@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e1Detector id="E1_01" lane="gneE0_0" pos="3.00" freq="100.00" file="e1Detector_01.txt" vTypes="bus taxi private"/>
     <e1Detector id="E1_11" lane="gneE0_0" pos="24.00" freq="120.00" file="e1Detector_11.txt" vTypes="bus taxi private"/>
     <e1Detector id="E1_15" lane="gneE0_0" pos="36.00" freq="120.00" file="e1Detector_01.txt" vTypes="bus taxi private"/>
@@ -10,4 +13,4 @@
     <e1Detector id="E1_21" lane="gneE1_0" pos="20.00" freq="120.00" file="e1Detector_21.txt" vTypes="taxi bus"/>
     <e1Detector id="E1_22" lane="gneE1_0" pos="0.00" freq="120.00" file="e1Detector_22.txt" vTypes="taxi bus" friendlyPos="1"/>
     <e1Detector id="E1_23" lane="gneE1_0" pos="50.00" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1"/>
-</additionals>
+</additional>

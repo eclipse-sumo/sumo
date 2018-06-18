@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" output="calibratorRoutes.txt"/>
-</additionals>
+</additional>

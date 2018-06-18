@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="24.88" endPos="24.99"/>
     <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="24.88" endPos="24.99"/>
@@ -13,4 +16,4 @@
     <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="2.50" output="calibrator_gneE1_0_0.txt"/>
     <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="5.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
     <rerouter id="rerouter_0" edges="gneE1" file="rerouter_0.txt" pos="15.15,-14.96"/>
-</additionals>
+</additional>

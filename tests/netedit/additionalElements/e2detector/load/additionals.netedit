@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e2Detector id="E2_01" lane="gneE0_0" pos="1.00" length="10.00" freq="100.00" file="e2Detector_01.txt"/>
     <e2Detector id="E2_10" lane="gneE0_0" pos="9.00" length="12.00" freq="100.00" file="e2Detector_10.txt"/>
     <e2Detector id="E2_14" lane="gneE0_0" pos="13.00" length="10.00" freq="120.00" file="e2Detector_14.txt"/>
@@ -28,4 +31,4 @@
     <e2Detector id="E2_38" lane="gneE0_0" pos="0.00" length="10.00" freq="120.00" file="e2Detector_38.txt" jamThreshold="12.00" friendlyPos="1"/>
     <e2Detector id="E2_39" lane="gneE0_0" pos="50.00" length="0.00" freq="120.00" file="e2Detector_39.txt" jamThreshold="12.00" friendlyPos="1"/>
     <e2Detector id="E2_40" lane="gneE0_0" pos="36.00" length="14.00" freq="120.00" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-</additionals>
+</additional>

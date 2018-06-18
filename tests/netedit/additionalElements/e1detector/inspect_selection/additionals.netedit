@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e1Detector id="E1_A" lane="gneE0_0" pos="6.00" freq="120.00" file="myOwnOutput.txt" vTypes="private passenger taxi bus" friendlyPos="1"/>
     <e1Detector id="E1_B" lane="gneE0_0" pos="10.00" freq="120.00" file="myOwnOutput.txt" vTypes="private passenger taxi bus" friendlyPos="1"/>
-</additionals>
+</additional>

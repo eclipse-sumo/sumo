@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="type01" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <vType id="type02" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <vType id="type03" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
@@ -124,4 +127,4 @@
     <vType id="type99" accel="2.30" decel="8.30" sigma="2.00" tau="2.50" length="0.00" minGap="3.40" maxSpeed="90.00" speedFactor="2.00" speedDev="1.20" color="255,128,255" vClass="emergency" emissionClass="P_7_2" guiShape="passenger" width="3.10" imgFile="ownImgFile.png" impatience="2.00" laneChangeModel="DK2008" carFollowModel="PWagner2009" personCapacity="6" containerCapacity="4" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <calibrator id="calibratorVehicleTypes" edge="gneE0" pos="10.00" freq="100.00" output="calibratorVehicleTypes.txt"/>
-</additionals>
+</additional>

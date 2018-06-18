@@ -32,6 +32,8 @@ selection:selection.txt
 
 [run_dependent_text]
 net:<!--{[->]}-->
+additionals:<!--{[->]}-->
+shapes:<!--{[->]}-->
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->

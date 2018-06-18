@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="poly_0" color="139,131,120" fill="0" layer="128.00" shape="2.000000,18.000000 2.000000,23.000000 -3.000000,23.000000 -3.000000,18.000000 2.000000,18.000000"/>
     <poly id="poly_1" color="red" fill="0" layer="128.00" shape="12.000000,18.000000 12.000000,23.000000 7.000000,23.000000 7.000000,18.000000 12.000000,18.000000"/>
     <poly id="poly_10" type="poly_test" color="red" fill="1" layer="2.00" shape="32.000000,8.000000 32.000000,13.000000 27.000000,13.000000 27.000000,8.000000 32.000000,8.000000" angle="5.00" imgFile="berlin_icon.ico"/>
@@ -18,4 +21,4 @@
     <poly id="poly_7" type="poly_test" color="red" fill="1" layer="2.00" shape="2.000000,8.000000 2.000000,13.000000 -3.000000,13.000000 -3.000000,8.000000 2.000000,8.000000" imgFile="berlin_icon.ico"/>
     <poly id="poly_8" type="poly_test" color="red" fill="1" layer="2.00" shape="12.000000,8.000000 12.000000,13.000000 7.000000,13.000000 7.000000,8.000000 12.000000,8.000000" angle="365.00" imgFile="berlin_icon.ico"/>
     <poly id="poly_9" type="poly_test" color="red" fill="1" layer="2.00" shape="22.000000,8.000000 22.000000,13.000000 17.000000,13.000000 17.000000,8.000000 22.000000,8.000000" angle="-5.00" imgFile="berlin_icon.ico"/>
-</additionals>
+</additional>

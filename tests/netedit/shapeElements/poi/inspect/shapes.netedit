@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="POI_1" color="red" layer="202.00" x="7.00" y="18.00"/>
     <poi id="newID" type="myOwnType" color="125,60,200" layer="2.00" lon="3.730000" lat="74.300000" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
-</additionals>
+</additional>

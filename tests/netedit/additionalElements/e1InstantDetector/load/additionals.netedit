@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <instantInductionLoop id="E1Instant_01" lane="gneE0_0" pos="3.00" freq="100.00" file="instantInductionLoop_01.txt" vTypes="bus taxi private"/>
     <instantInductionLoop id="E1Instant_11" lane="gneE0_0" pos="24.00" freq="120.00" file="instantInductionLoop_11.txt" vTypes="bus taxi private"/>
     <instantInductionLoop id="E1Instant_15" lane="gneE0_0" pos="36.00" freq="120.00" file="instantInductionLoop_01.txt" vTypes="bus taxi private"/>
@@ -10,4 +13,4 @@
     <instantInductionLoop id="E1Instant_21" lane="gneE1_0" pos="20.00" freq="120.00" file="instantInductionLoop_21.txt" vTypes="taxi bus"/>
     <instantInductionLoop id="E1Instant_22" lane="gneE1_0" pos="0.00" freq="120.00" file="instantInductionLoop_22.txt" vTypes="taxi bus" friendlyPos="1"/>
     <instantInductionLoop id="E1Instant_23" lane="gneE1_0" pos="50.00" freq="120.00" file="instantInductionLoop_23.txt" vTypes="taxi bus" friendlyPos="1"/>
-</additionals>
+</additional>

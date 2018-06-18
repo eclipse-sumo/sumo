@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_0" lane="1_0" startPos="23.00" endPos="33.00">
         <access lane="1_0" pos="15.00" length="10"/>
         <access lane="2_0" pos="0.00" length="10"/>
@@ -13,4 +16,4 @@
         <access lane="11_0" pos="0.00" length="10" friendlyPos="1"/>
         <access lane="12_0" pos="10.00" length="10" friendlyPos="1"/>
     </busStop>
-</additionals>
+</additional>

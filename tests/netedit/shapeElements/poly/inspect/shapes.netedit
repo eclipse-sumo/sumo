@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="newID" type="myOwnType" color="125,60,200" fill="1" layer="2.00" geo="1" shape="-13.000000,8.000000 -8.000000,13.000000 -13.000000,18.000000 -18.000000,23.000000 -23.000000,18.000000 -28.000000,13.000000 -23.000000,8.000000 -18.000000,3.000000" angle="10.00" imgFile="berlin_icon.ico"/>
     <poly id="poly_1" color="red" fill="0" layer="128.00" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000"/>
-</additionals>
+</additional>

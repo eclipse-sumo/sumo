@@ -1,8 +1,11 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingArea_gneE2_0_0" lane="gneE2_0" startPos="17.00" endPos="27.00">
         <space x="32.00" y="2.00" width="2.30" length="3.40" angle="32.50"/>
     </parkingArea>
     <parkingArea id="parkingArea_gneE2_0_1" lane="gneE2_0" startPos="32.00" endPos="42.00">
         <space x="3.00" y="2.50" z="1.00"/>
     </parkingArea>
-</additionals>
+</additional>

@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_01" edge="gneE1" freq="50" file="OwnOutput.txt" begin="11.30"/>
     <routeProbe id="routeProbe_02" edge="gneE1" freq="50" file="OwnOutput.txt" begin="11.30"/>
-</additionals>
+</additional>

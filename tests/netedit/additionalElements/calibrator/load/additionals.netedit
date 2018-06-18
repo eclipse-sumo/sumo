@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
     <calibrator id="calibrator02" edge="gneE0" pos="10.00" freq="100.00" output="calibrator02d.txt"/>
     <calibrator id="calibrator05" edge="gneE1" pos="16.00" freq="100.00" output="calibrator05.txt"/>
@@ -17,4 +20,4 @@
     <calibrator id="calibrator18" edge="gneE0" pos="30.00" freq="100.00"/>
     <calibrator id="calibrator19" edge="gneE0" pos="32.00" freq="100.00"/>
     <calibrator id="calibrator20" edge="gneE0" pos="34.00" freq="100.00" output="ownOutput.txt"/>
-</additionals>
+</additional>

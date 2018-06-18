@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStation_gneE2_1_1" lane="gneE2_1" startPos="32.00" endPos="42.00"/>
     <chargingStation id="correctID" lane="gneE2_0" startPos="20.00" endPos="30.00" name="chargingStation" friendlyPos="1" power="10000.00" efficiency="0.90" chargeInTransit="1" chargeDelay="3.00"/>
-</additionals>
+</additional>

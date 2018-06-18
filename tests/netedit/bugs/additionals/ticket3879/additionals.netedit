@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_gneE1_0_0" lane="gneE1_1" startPos="42.01" endPos="50.00" friendlyPos="1"/>
     <chargingStation id="chargingStation_gneE1_0_0" lane="gneE1_1" startPos="21.94" endPos="31.94" friendlyPos="1"/>
     <containerStop id="containerStop_gneE1_0_0" lane="gneE1_1" startPos="31.87" endPos="41.87" friendlyPos="1"/>
@@ -16,4 +19,4 @@
     <instantInductionLoop id="instantInductionLoop_0" lane="gneE1_1" pos="22.00" freq="100.00" file="instantInductionLoop_0.txt"/>
     <rerouter id="rerouter_0" edges="gneE0" file="rerouter_0.txt" pos="15.59,-7.40"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="gneE0_0" pos="20.22,-7.28"/>
-</additionals>
+</additional>

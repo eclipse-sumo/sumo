@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="35.00" endPos="45.00"/>
     <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="35.00" endPos="45.00"/>
@@ -16,4 +19,4 @@
     <vaporizer id="gneE1" begin="0.00" end="10.00"/>
     <rerouter id="rerouter_0" edges="gneE1" file="rerouter_0.txt" pos="15.15,-14.96"/>
     <variableSpeedSign id="variableSpeedSign_0" lanes="gneE1_0 gneE1_1" pos="19.52,-14.87"/>
-</additionals>
+</additional>

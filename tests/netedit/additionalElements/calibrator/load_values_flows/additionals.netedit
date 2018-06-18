@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="CalibratorFlowType" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="private" imgFile="default.png" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.00"/>
     <calibrator id="calibratorFlows" edge="gneE0" pos="20.00" freq="100.00" output="calibratorFlows.txt">
@@ -202,4 +205,4 @@
         <flow begin="0.00" end="100.00" type="CalibratorFlowType" route="CalibratorFlowRoute" vehsPerHour="10" speed="10" line="line" arrivalPosLat="center"/>
         <flow begin="0.00" end="100.00" type="CalibratorFlowType" route="CalibratorFlowRoute" vehsPerHour="10" speed="10" line="line" arrivalPosLat="center"/>
     </calibrator>
-</additionals>
+</additional>

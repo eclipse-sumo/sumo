@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <containerStop id="containerStop_gneE2_1_1" lane="gneE2_1" startPos="32.00" endPos="42.00"/>
     <containerStop id="correctID" lane="gneE2_0" name="containerStop" friendlyPos="1" lines="line1 line2"/>
-</additionals>
+</additional>

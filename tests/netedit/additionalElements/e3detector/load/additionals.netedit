@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e3Detector id="e3Detector_00" freq="100.00" file="e3Detector_00.txt" pos="0.00,10.00">
         <detEntry lane="gneE1_0" pos="2.00"/>
         <detExit lane="gneE0_0" pos="2.00"/>
@@ -59,4 +62,4 @@
         <detEntry lane="gneE1_0" pos="46.00"/>
         <detExit lane="gneE0_0" pos="46.00"/>
     </e3Detector>
-</additionals>
+</additional>

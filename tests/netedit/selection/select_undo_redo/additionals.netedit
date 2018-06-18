@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_3_1_0" lane="3_1" startPos="0.20" endPos="10.20"/>
     <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" pos="0.00,100.00">
         <detEntry lane="6_1" pos="36.66"/>
@@ -12,4 +15,4 @@
     <e3Detector id="e3Detector_3" freq="100.00" file="e3Detector_3.txt" pos="0.00,0.00">
         <detExit lane="7_2" pos="36.48"/>
     </e3Detector>
-</additionals>
+</additional>

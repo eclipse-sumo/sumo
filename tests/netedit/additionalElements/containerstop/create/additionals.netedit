@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="17.00" endPos="27.00" name="containerStopName" friendlyPos="1"/>
     <containerStop id="containerStop_gneE0_0_1" lane="gneE0_0" startPos="16.00" endPos="26.00" name="containerStopName" friendlyPos="1" lines="lineA lineB"/>
     <containerStop id="containerStop_gneE0_0_2" lane="gneE0_0" startPos="5.00" endPos="15.00" name="containerStopName" friendlyPos="1" lines="lineA lineB"/>
@@ -7,4 +10,4 @@
     <containerStop id="containerStop_gneE0_0_5" lane="gneE0_0" startPos="-27.00" endPos="3.00" name="containerStopName" friendlyPos="1" lines="lineA lineB"/>
     <containerStop id="containerStop_gneE1_0_6" lane="gneE1_0" startPos="46.00" endPos="49.99" name="containerStopName" lines="lineA lineB"/>
     <containerStop id="containerStop_gneE1_0_7" lane="gneE1_0" startPos="7.89" endPos="8.00" name="containerStopName" lines="lineA lineB"/>
-</additionals>
+</additional>

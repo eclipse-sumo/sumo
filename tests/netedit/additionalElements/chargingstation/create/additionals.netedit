@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_0" startPos="17.00" endPos="27.00" name="chargingStation" friendlyPos="1" power="12000.00"/>
     <chargingStation id="chargingStation_gneE0_0_1" lane="gneE0_0" startPos="6.00" endPos="16.00" name="chargingStation" friendlyPos="1" power="12000.00" efficiency="0.30"/>
     <chargingStation id="chargingStation_gneE0_0_2" lane="gneE0_0" startPos="30.00" endPos="40.00" name="chargingStation" friendlyPos="1" power="12000.00" efficiency="0.30" chargeInTransit="1"/>
@@ -6,4 +9,4 @@
     <chargingStation id="chargingStation_gneE0_0_4" lane="gneE0_0" startPos="-27.00" endPos="3.00" name="chargingStation" friendlyPos="1" power="12000.00" efficiency="0.30" chargeInTransit="1" chargeDelay="7.00"/>
     <chargingStation id="chargingStation_gneE1_0_5" lane="gneE1_0" startPos="46.00" endPos="50.00" name="chargingStation" power="12000.00" efficiency="0.30" chargeInTransit="1" chargeDelay="7.00"/>
     <chargingStation id="chargingStation_gneE1_0_6" lane="gneE1_0" startPos="7.90" endPos="8.00" name="chargingStation" power="12000.00" efficiency="0.30" chargeInTransit="1" chargeDelay="7.00"/>
-</additionals>
+</additional>

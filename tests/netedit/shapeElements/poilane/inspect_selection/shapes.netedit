@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="POI_0" type="myOwnType" color="125,60,200" layer="2.00" lane="gneE1_0" pos="44.00" posLat="15.00" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
     <poi id="POI_1" type="myOwnType" color="125,60,200" layer="2.00" lane="gneE1_0" pos="42.00" posLat="15.00" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
     <poi id="POI_10" type="myOwnType" color="125,60,200" layer="2.00" lane="gneE1_0" pos="26.00" posLat="15.00" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
@@ -17,4 +20,4 @@
     <poi id="POI_7" type="myOwnType" color="125,60,200" layer="2.00" lane="gneE1_0" pos="30.00" posLat="15.00" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
     <poi id="POI_8" type="myOwnType" color="125,60,200" layer="2.00" lane="gneE1_0" pos="28.00" posLat="15.00" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
     <poi id="POI_9" type="myOwnType" color="125,60,200" layer="2.00" lane="gneE1_0" pos="28.00" posLat="15.00" angle="30.00" imgFile="berlin_icon.ico" width="5.00" height="5.00"/>
-</additionals>
+</additional>
