@@ -93,6 +93,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
 
     // Create labels for color legend
     mySelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GUIDesignLabelFrameInformation);
+    mySelectedLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     mySelectedLabel->setBackColor(MFXUtils::getFXColor(selectedColor));
     myUndefinedLabel = new FXLabel(myGroupBoxLegend, "Undefined", 0, GUIDesignLabelFrameInformation);
     myUndefinedLabel->setBackColor(MFXUtils::getFXColor(undefinedColor));
