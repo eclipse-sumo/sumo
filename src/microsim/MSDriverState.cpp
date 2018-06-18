@@ -104,8 +104,7 @@ OUProcess::step(double dt) {
 #ifdef DEBUG_OUPROCESS
     const double oldstate = myState;
 #endif
-//    myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1, &myRNG);
-    myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1);
+    myState = exp(-dt/myTimeScale)*myState + myNoiseIntensity*sqrt(2*dt/myTimeScale)*RandHelper::randNorm(0, 1, &myRNG);
 #ifdef DEBUG_OUPROCESS
     std::cout << "  OU-step (" << dt << " s.): " << oldstate << "->" << myState << std::endl;
 #endif
