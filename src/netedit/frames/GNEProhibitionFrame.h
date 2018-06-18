@@ -39,8 +39,8 @@ class GNEAttributeCarrier;
  */
 class GNEProhibitionFrame : public GNEFrame {
 
-	/// @brief FOX-declaration
-	FXDECLARE(GNEProhibitionFrame)
+    /// @brief FOX-declaration
+    FXDECLARE(GNEProhibitionFrame)
 
 public:
 
@@ -53,8 +53,8 @@ public:
     /// @brief Destructor
     ~GNEProhibitionFrame();
 
-	/// @brief handle prohibitions and set teh relative colouring
-	void handleConnectionClick(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);
+    /// @brief handle prohibitions and set teh relative colouring
+    void handleConnectionClick(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle);
 
     /// @brief show prohibition frame
     void show();
@@ -62,26 +62,26 @@ public:
     /// @brief hide prohibition frame
     void hide();
 
-	/// @name FOX-callbacks
-	/// @{
-	/// @brief Called when the user presses the OK-Button saves any prohibition modifications
-	long onCmdOK(FXObject*, FXSelector, void*);
+    /// @name FOX-callbacks
+    /// @{
+    /// @brief Called when the user presses the OK-Button saves any prohibition modifications
+    long onCmdOK(FXObject*, FXSelector, void*);
 
-	/// @brief Called when the user presses the Cancel-button discards any prohibition modifications
-	long onCmdCancel(FXObject*, FXSelector, void*);
+    /// @brief Called when the user presses the Cancel-button discards any prohibition modifications
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
 protected:
-	/// @brief FOX needs this
-	GNEProhibitionFrame() {}
+    /// @brief FOX needs this
+    GNEProhibitionFrame() {}
 
 private:
 
-	/// @brief the prohibition status of a connection
-	enum ConnStatus {
-		UNDEFINED,
-		PROHIBITED,
-		PROHIBITING
-	};
+    /// @brief the prohibition status of a connection
+    enum ConnStatus {
+        UNDEFINED,
+        PROHIBITED,
+        PROHIBITING
+    };
 
     /// @brief Groupbox for description
     FXGroupBox* myGroupBoxDescription;
@@ -104,14 +104,14 @@ private:
     /// @brief "prohibiting" label
     FXLabel* myProhibitingLabel;
 
-	/// @brief "Cancel" button
-	FXButton* myCancelButton;
+    /// @brief "Cancel" button
+    FXButton* myCancelButton;
 
-	/// @brief "OK" button
-	//FXButton* mySaveButton;
+    /// @brief "OK" button
+    //FXButton* mySaveButton;
 
-	/// @brief the connection which prohibits
-	GNEConnection* myCurrentConn;
+    /// @brief the connection which prohibits
+    GNEConnection* myCurrentConn;
 
     /// @brief the set of connections which 
     std::set<GNEConnection*> myConcernedConns;
@@ -119,14 +119,14 @@ private:
     /// @brief color for selected connection whose prohibition shall be shown
     static RGBColor selectedColor;
 
-	/// @brief color for unregulated conflicts / non-conflicting pairs of connections
-	static RGBColor undefinedColor;
+    /// @brief color for unregulated conflicts / non-conflicting pairs of connections
+    static RGBColor undefinedColor;
 
-	/// @brief color for waiting connections
-	static RGBColor prohibitedColor;
+    /// @brief color for waiting connections
+    static RGBColor prohibitedColor;
 
-	/// @brief color for connections with precedence
-	static RGBColor prohibitingColor;
+    /// @brief color for connections with precedence
+    static RGBColor prohibitingColor;
 
 private:
     /// @brief update description

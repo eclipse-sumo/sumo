@@ -676,8 +676,8 @@ private:
     /// @brief chekable button for edit mode polygon
     MFXCheckableButton* myEditModePolygon;
 
-	/// @brief checkable button for edit mode polygon
-	MFXCheckableButton* myEditModeProhibition;
+    /// @brief checkable button for edit mode polygon
+    MFXCheckableButton* myEditModeProhibition;
 
     /// @}
 

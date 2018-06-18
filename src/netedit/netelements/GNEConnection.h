@@ -114,10 +114,10 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
-	/* @brief method for setting the special color of the connection
-	* @param[in] color Pointer to new special color
-	*/
-	void setSpecialColor(const RGBColor* Color2);
+    /* @brief method for setting the special color of the connection
+    * @param[in] color Pointer to new special color
+    */
+    void setSpecialColor(const RGBColor* Color2);
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -167,8 +167,8 @@ protected:
     /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
     LinkState myLinkState;
 
-	/// @brief optional special color
-	const RGBColor* mySpecialColor;
+    /// @brief optional special color
+    const RGBColor* mySpecialColor;
 
 private:
     /// @brief set attribute after validation

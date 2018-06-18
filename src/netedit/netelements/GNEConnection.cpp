@@ -65,7 +65,7 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     myFromLane(from),
     myToLane(to),
     myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-	mySpecialColor(0) {
+    mySpecialColor(0) {
 }
 
 
@@ -270,8 +270,8 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if (myNet->getViewNet()->showConnections()) {	
-		// Push draw matrix 1
+    if (myNet->getViewNet()->showConnections()) {    
+        // Push draw matrix 1
         glPushMatrix();
         // Push name
         glPushName(getGlID());
@@ -282,10 +282,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(GNENet::selectedConnectionColor);
         } 
-		else if (mySpecialColor != 0) {
-			GLHelper::setColor(*mySpecialColor);
-		}
-		else {
+        else if (mySpecialColor != 0) {
+            GLHelper::setColor(*mySpecialColor);
+        }
+        else {
             // Set color depending of the link state
             GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
@@ -310,7 +310,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEConnection::setSpecialColor(const RGBColor* color) {
-	mySpecialColor = color;
+    mySpecialColor = color;
 }
 
 std::string
