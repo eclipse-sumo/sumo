@@ -77,6 +77,7 @@
                 <xsd:element minOccurs="0" ref="stop"/>
                 <xsd:element minOccurs="0" ref="ride"/>
                 <xsd:element minOccurs="0" ref="walk"/>
+                <xsd:element minOccurs="0" ref="access"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
@@ -126,6 +127,14 @@
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="timeLoss" use="required" type="xsd:float"/> <!-- negative values indicate jumps -->
             <xsd:attribute name="maxSpeed" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="access">
+        <xsd:complexType>
+            <xsd:attribute name="stop" type="xsd:string"/>
+            <xsd:attribute name="duration" type="nonNegativeFloatType"/>
+            <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
