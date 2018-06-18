@@ -119,7 +119,7 @@ private:
     /// @brief color for selected connection whose prohibition shall be shown
     static RGBColor selectedColor;
 
-    /// @brief color for unregulated conflicts / non-conflicting pairs of connections
+    /// @brief color for non-conflicting pairs of connections
     static RGBColor undefinedColor;
 
     /// @brief color for waiting connections
@@ -127,6 +127,12 @@ private:
 
     /// @brief color for connections with precedence
     static RGBColor prohibitingColor;
+
+    /// @brief color for unregulated conflicts 
+    static RGBColor unregulatedConflictColor;
+
+    /// @brief color for mutual conflicts 
+    static RGBColor mutualConflictColor;
 
 private:
     /// @brief update description

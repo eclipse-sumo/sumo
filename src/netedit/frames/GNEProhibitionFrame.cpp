@@ -66,6 +66,8 @@ RGBColor GNEProhibitionFrame::selectedColor;
 RGBColor GNEProhibitionFrame::undefinedColor;
 RGBColor GNEProhibitionFrame::prohibitedColor;
 RGBColor GNEProhibitionFrame::prohibitingColor;
+RGBColor GNEProhibitionFrame::unregulatedConflictColor;
+RGBColor GNEProhibitionFrame::mutualConflictColor;
 
 // ===========================================================================
 // method definitions
@@ -80,6 +82,8 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     undefinedColor = RGBColor::GREY;
     prohibitedColor = RGBColor(0, 179, 0);
     prohibitingColor = RGBColor::RED;
+    unregulatedConflictColor = RGBColor::ORANGE;
+    mutualConflictColor = RGBColor::CYAN;
 
     // Create groupbox for current connection information
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame);
@@ -95,12 +99,16 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     mySelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GUIDesignLabelFrameInformation);
     mySelectedLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     mySelectedLabel->setBackColor(MFXUtils::getFXColor(selectedColor));
-    myUndefinedLabel = new FXLabel(myGroupBoxLegend, "Undefined", 0, GUIDesignLabelFrameInformation);
+    myUndefinedLabel = new FXLabel(myGroupBoxLegend, "No conflict", 0, GUIDesignLabelFrameInformation);
     myUndefinedLabel->setBackColor(MFXUtils::getFXColor(undefinedColor));
     myProhibitedLabel = new FXLabel(myGroupBoxLegend, "Yields", 0, GUIDesignLabelFrameInformation);
     myProhibitedLabel->setBackColor(MFXUtils::getFXColor(prohibitedColor));
     myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Has right of way", 0, GUIDesignLabelFrameInformation);
     myProhibitingLabel->setBackColor(MFXUtils::getFXColor(prohibitingColor));
+    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Unregulated conflict", 0, GUIDesignLabelFrameInformation);
+    myProhibitingLabel->setBackColor(MFXUtils::getFXColor(unregulatedConflictColor));
+    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Mutual conflict", 0, GUIDesignLabelFrameInformation);
+    myProhibitingLabel->setBackColor(MFXUtils::getFXColor(mutualConflictColor));
 
     // Create "Cancel" button
     myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
@@ -136,17 +144,20 @@ GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool mayDefinite
                 bool forbids = node->forbids(currentConnFrom, currentConnTo, otherConnFrom, otherConnTo, true);
                 bool forbidden = node->forbids(otherConnFrom, otherConnTo, currentConnFrom, currentConnTo, true);
 
-                if (foes || forbids || forbidden) {
-                    myConcernedConns.insert(conn);
-                }
-                if (foes && !(forbids || forbidden)) {
+                myConcernedConns.insert(conn);
+
+                if (!foes) {
                     conn->setSpecialColor(&undefinedColor);
-                }
-                else if (forbids) {
-                    conn->setSpecialColor(&prohibitedColor);
-                }
-                else if (forbidden) {
-                    conn->setSpecialColor(&prohibitingColor);
+                } else {
+                    if (forbids && forbidden) {
+                        conn->setSpecialColor(&mutualConflictColor);
+                    } else if (forbids) {
+                        conn->setSpecialColor(&prohibitedColor);
+                    } else if (forbidden) {
+                        conn->setSpecialColor(&prohibitingColor);
+                    } else {
+                        conn->setSpecialColor(&unregulatedConflictColor);
+                    }
                 }
             }
         }
