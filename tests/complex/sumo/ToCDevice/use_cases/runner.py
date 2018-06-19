@@ -21,9 +21,6 @@ from __future__ import print_function
 import os
 import sys
 import optparse
-import subprocess
-import random
-from optparse import OptionParser
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
     sys.path.append(os.path.join(os.path.dirname(

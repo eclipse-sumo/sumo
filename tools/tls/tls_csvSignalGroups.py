@@ -51,7 +51,6 @@ from __future__ import print_function
 import sys
 import os
 import csv
-import math
 import xml
 import xml.dom.minidom
 import argparse

@@ -18,7 +18,6 @@ import os
 import subprocess
 import sys
 import time
-import threading
 import socket
 import difflib
 toolDir = os.path.join(

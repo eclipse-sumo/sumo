@@ -17,8 +17,8 @@ from __future__ import print_function
 
 from . import *
 import os
-import sumolib.net.generator.cross as netGenerator
-import sumolib.net.generator.demand as demandGenerator
+import sumolib.net.generator.cross as netGenerator  # noqa
+import sumolib.net.generator.demand as demandGenerator  # noqa
 from sumolib.net.generator.network import *
 
 

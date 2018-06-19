@@ -18,17 +18,12 @@
 
 import sys
 import os
-import subprocess
-del sys.path[0]
-del sys.path[0]
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
-sys.path.append(
-    "D:\\projects\\x_EU_COLOMBO_318622\\svn_smartSVN\\trunk\\software\\sumo\\tools")
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 
-import sumolib.net.generator.cross as generator
-from sumolib.net.generator.network import *
-from sumolib.net.generator.demand import *
+from sumolib.net.generator.network import * # noqa
+from sumolib.net.generator.demand import * # noqa
 
 demand = Demand()
 demand.addStream(Stream(None, None, None, 800, "from", "to", "passenger"))

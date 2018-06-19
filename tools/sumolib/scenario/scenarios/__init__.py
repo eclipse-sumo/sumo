@@ -14,7 +14,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import sumolib.net.generator.cross as netGenerator
+import sumolib.net.generator.cross as netGenerator  # noqa
 import sumolib.net.generator.demand as demandGenerator
 from sumolib.net.generator.network import *
 import sumolib

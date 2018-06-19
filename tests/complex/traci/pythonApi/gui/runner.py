@@ -20,9 +20,6 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import random
-import struct
-import random
 import time
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))

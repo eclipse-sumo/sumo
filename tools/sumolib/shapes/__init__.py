@@ -14,4 +14,4 @@
 
 from __future__ import absolute_import
 
-from . import poi, polygon
+from . import poi, polygon  # noqa

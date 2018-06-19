@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import sys, os, shutil
+import os
+import shutil
 
 #~ orig_fn = "/home/leo/repos/sumo_master/sumo/tests/complex/sumo/ToCDevice/spec/options.complex"
 #~ orig_fn = "/home/leo/repos/sumo_master/sumo/tests/complex/sumo/ToCDevice/runner.py"

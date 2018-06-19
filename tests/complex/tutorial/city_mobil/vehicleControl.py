@@ -19,7 +19,6 @@ from __future__ import print_function
 import subprocess
 import random
 import sys
-import os
 from optparse import OptionParser
 
 from constants import *  # sys.path is modified here

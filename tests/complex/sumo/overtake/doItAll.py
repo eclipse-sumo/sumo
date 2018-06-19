@@ -17,9 +17,7 @@ from __future__ import print_function
 
 import sys
 import os
-import math
 import random
-import numpy as np
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 

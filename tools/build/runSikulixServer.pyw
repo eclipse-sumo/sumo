@@ -15,7 +15,6 @@
 import gtk
 import os
 import subprocess
-import sys
 import socket
 import platform
 

@@ -20,7 +20,6 @@
 
 from __future__ import absolute_import
 import struct
-import sys
 import warnings
 from .domain import Domain
 from .storage import Storage

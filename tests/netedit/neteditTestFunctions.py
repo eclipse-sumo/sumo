@@ -16,8 +16,6 @@
 import os
 import sys
 import subprocess
-import platform
-import atexit
 from sikuli import *
 
 # define delay before every operation

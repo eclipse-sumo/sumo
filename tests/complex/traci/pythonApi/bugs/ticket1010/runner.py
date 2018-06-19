@@ -18,8 +18,6 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import time
-import math
 
 sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', '..'))

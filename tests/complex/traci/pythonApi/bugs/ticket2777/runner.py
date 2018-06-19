@@ -21,7 +21,6 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import random
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci
 import sumolib  # noqa

@@ -26,7 +26,6 @@ if 'SUMO_HOME' in os.environ:
     sys.path += [tools, os.path.join(tools, 'assign')]
     import sumolib  # noqa
     import traci
-    import traci.constants as tc
 
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")

@@ -16,13 +16,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sumolib.output
-from matplotlib.pyplot import figure, show, axes, sci
-from matplotlib import cm, colors
 from pylab import *
-import numpy as np
-from mpl_toolkits.mplot3d import axes3d
 
-from runner import types, flow1def, flow2def, fillSteps, measureSteps, simSteps
+from runner import flow1def, flow2def, types
 
 
 durationM = {}

@@ -17,8 +17,8 @@ from __future__ import print_function
 from __future__ import absolute_import
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
-from . import dump, inductionloop, convert
-from sumolib.xml import *
+from . import dump, inductionloop, convert  # noqa
+from sumolib.xml import *  # noqa
 
 
 class AbstractHandler__byID(ContentHandler):

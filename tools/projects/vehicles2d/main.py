@@ -22,7 +22,6 @@ try:
 except ImportError:
     print >> sys.stderr, "No imaging"
     haveImaging = False
-    pass
 import numpy
 import math
 

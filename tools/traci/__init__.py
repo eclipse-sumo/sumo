@@ -25,14 +25,14 @@ import warnings
 import abc
 
 import sumolib  # noqa
-from sumolib.miscutils import getFreeSocketPort
+from sumolib.miscutils import getFreeSocketPort  # noqa
 
 from .domain import _defaultDomains
 from .connection import Connection, _embedded
 from .exceptions import FatalTraCIError, TraCIException
-from . import _inductionloop, _lanearea, _multientryexit, _trafficlight
-from . import _lane, _vehicle, _vehicletype, _person, _route
-from . import _poi, _polygon, _junction, _edge, _simulation, _gui
+from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
+from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
+from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 
 _connections = {}
 _stepListeners = []
@@ -125,7 +125,6 @@ class StepListener(object):
         After adding a StepListener 'listener' with traci.addStepListener(listener),
         TraCI will call listener.step(s) after each call to traci.simulationStep(s)
         """
-        pass
 
 
 def addStepListener(listener):

@@ -21,7 +21,6 @@ import os
 import subprocess
 import sys
 import time
-import math
 from multiprocessing import Process, freeze_support
 
 sumoHome = os.path.abspath(

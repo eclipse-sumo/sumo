@@ -1,1 +1,1 @@
-from .libsumo import *
+from .libsumo import * # noqa

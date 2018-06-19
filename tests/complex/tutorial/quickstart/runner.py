@@ -20,7 +20,6 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
-import time
 import shutil
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))

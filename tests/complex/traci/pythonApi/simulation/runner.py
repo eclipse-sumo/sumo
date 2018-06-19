@@ -19,11 +19,7 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import shutil
-import struct
-import random
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path += [os.path.join(SUMO_HOME, "tools"), os.path.join(SUMO_HOME, "bin")]
 if len(sys.argv) > 1:

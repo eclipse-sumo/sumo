@@ -13,7 +13,7 @@
 # @author  Jakob Erdmann
 # @author  Daniel Krajzewicz
 # @date    2011-03-04
-# @version $Id: runner.py v0_32_0+0134-9f1b8d0bad namdre.sumo@gmail.com 2018-01-05 13:46:42 +0100 $
+# @version $Id$
 
 
 from __future__ import print_function
@@ -21,7 +21,6 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import random
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci
 import sumolib  # noqa

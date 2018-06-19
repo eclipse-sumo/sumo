@@ -34,7 +34,6 @@ edgemap["203"] = "203[0]"
 
 
 import sys
-from random import *
 
 
 def getName(vals, beg):

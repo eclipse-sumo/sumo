@@ -19,7 +19,6 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
-import time
 
 sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))

@@ -26,7 +26,6 @@ import os
 import sys
 import optparse
 import subprocess
-import random
 
 
 # the directory in which this script resides

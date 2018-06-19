@@ -13,7 +13,7 @@
 
 
 from __future__ import absolute_import
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import handler, make_parser
 
 
 class DumpReader(handler.ContentHandler):

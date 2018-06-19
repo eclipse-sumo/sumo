@@ -12,7 +12,7 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2011-06-23
-# @version $Id: __init__.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 from __future__ import absolute_import
 import os
@@ -29,9 +29,9 @@ except ImportError as e:
         def __getattr__(self, name):
             raise e
     visualization = VisDummy()
-from . import files, net, output, sensors, shapes
-from . import color, geomhelper, miscutils, options, route
-from .xml import writeHeader as writeXMLHeader
+from . import files, net, output, sensors, shapes  # noqa
+from . import color, geomhelper, miscutils, options, route  # noqa
+from .xml import writeHeader as writeXMLHeader  # noqa
 
 
 class ConfigurationReader(handler.ContentHandler):

@@ -20,7 +20,6 @@ import os
 import subprocess
 import sys
 import time
-import shutil
 
 sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))

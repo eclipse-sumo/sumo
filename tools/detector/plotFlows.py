@@ -18,19 +18,15 @@ import math
 import sys
 import os
 
-from xml.sax import make_parser, handler
 from optparse import OptionParser
-from collections import defaultdict
 import matplotlib.pyplot as plt
 
 import detector
-from detector import relError
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-from sumolib.xml import parse
 
 
 def get_options(args=None):

@@ -26,19 +26,18 @@ from __future__ import absolute_import
 import os
 import sys
 import math
-import re
-from xml.sax import saxutils, parse, handler
+from xml.sax import handler, parse
 from copy import copy
-from itertools import *
+from itertools import *  # noqa
 from collections import defaultdict
 
 import sumolib
 from . import lane, edge, node, connection, roundabout
-from .lane import Lane
-from .edge import Edge
-from .node import Node
+from .lane import Lane  # noqa
+from .edge import Edge  # noqa
+from .node import Node  # noqa
 from .connection import Connection
-from .roundabout import Roundabout
+from .roundabout import Roundabout  # noqa
 
 
 class TLS:

@@ -59,7 +59,7 @@ class SimplaException(Exception):
 
 import simpla._config
 import simpla._reporting as rp
-import simpla._platoonmanager
+import simpla._platoonmanager  # noqa
 
 warn = rp.Warner("simpla")
 _mgr = None

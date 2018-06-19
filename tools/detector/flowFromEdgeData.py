@@ -18,7 +18,6 @@ import math
 import sys
 import os
 
-from xml.sax import make_parser, handler
 from optparse import OptionParser
 from collections import defaultdict
 

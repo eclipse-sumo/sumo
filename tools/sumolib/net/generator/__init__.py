@@ -13,9 +13,9 @@
 # @version $Id$
 
 from __future__ import absolute_import
-from . import network
-from . import demand
-from . import cross
-from . import straight
-from . import grid
-from . import corridor
+from . import network  # noqa
+from . import demand  # noqa
+from . import cross  # noqa
+from . import straight  # noqa
+from . import grid  # noqa
+from . import corridor  # noqa
