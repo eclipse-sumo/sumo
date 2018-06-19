@@ -107,6 +107,7 @@
         <xsd:attribute name="speedThreshold" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="openEntry" type="boolType" use="optional"/>
+        <xsd:attribute name="pos" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="detEntryExitType">
