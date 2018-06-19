@@ -9,3 +9,6 @@ ticket4189
 
 # Bicycle wrongly recognizes vehicle as leader
 ticket4223
+
+# Deadlock on junction
+ticket4251
