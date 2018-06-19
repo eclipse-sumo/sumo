@@ -14,6 +14,11 @@
 ///
 // A class representing a vehicle driver's current mental state
 /****************************************************************************/
+
+
+/// @todo: check parameter admissibility in setter methods
+
+
 #ifndef MSDriverState_h
 #define MSDriverState_h
 
@@ -114,6 +119,10 @@ public:
         return myMinAwareness;
     }
 
+    inline double getInitialAwareness() const {
+        return myInitialAwareness;
+    }
+
     inline double getErrorTimeScaleCoefficient() const {
         return myErrorTimeScaleCoefficient;
     }
@@ -160,6 +169,10 @@ public:
     ///@{
     inline void setMinAwareness(const double value)  {
         myMinAwareness = value;
+    }
+
+    inline void setInitialAwareness(const double value)  {
+        myInitialAwareness = value;
     }
 
     inline void setErrorTimeScaleCoefficient(const double value)  {
@@ -253,6 +266,8 @@ private:
     double myAwareness;
     // @brief Minimal value for 'awareness' \in [0,1]
     double myMinAwareness;
+    // @brief Initial value for 'awareness' \in [0,1]
+    double myInitialAwareness;
     // @brief Driver's 'error', @see TCI_Model
     OUProcess myError;
     /// @brief Coefficient controlling the impact of awareness on the time scale of the error process
@@ -658,6 +673,7 @@ struct DriverStateDefaults {
 
     // for MSSimpleDriverState
     static double minAwareness;
+    static double initialAwareness;
     static double errorTimeScaleCoefficient;
     static double errorNoiseIntensityCoefficient;
     static double speedDifferenceErrorCoefficient;

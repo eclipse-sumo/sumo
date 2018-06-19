@@ -75,6 +75,7 @@ private:
     /// @name Helpers for parameter parsing
     /// @{
     static double getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
     static double getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
     static double getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
     static double getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
@@ -108,6 +109,7 @@ private:
      */
     MSDevice_DriverState(SUMOVehicle& holder, const std::string& id,
             double minAwareness,
+            double initialAwareness,
             double errorTimeScaleCoefficient,
             double errorNoiseIntensityCoefficient,
             double speedDifferenceErrorCoefficient,
@@ -137,6 +139,7 @@ private:
 
 
     double myMinAwareness;
+    double myInitialAwareness;
     double myErrorTimeScaleCoefficient;
     double myErrorNoiseIntensityCoefficient;
     double mySpeedDifferenceErrorCoefficient;

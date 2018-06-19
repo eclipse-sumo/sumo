@@ -78,6 +78,7 @@ std::mt19937 OUProcess::myRNG;
 //double TCIDefaults::myHeadwayPerceptionErrorNoiseIntensityCoefficient = 1.0;
 
 double DriverStateDefaults::minAwareness = 0.1;
+double DriverStateDefaults::initialAwareness = 1.0;
 double DriverStateDefaults::errorTimeScaleCoefficient = 100.0;
 double DriverStateDefaults::errorNoiseIntensityCoefficient = 0.2;
 double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
