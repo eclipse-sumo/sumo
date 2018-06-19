@@ -74,17 +74,18 @@ public:
         ATTRPROPERTY_COLOR =        1 << 5,     // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
         ATTRPROPERTY_VCLASS =       1 << 6,     // Attribute is a VClass (passenger, bus, motorcicle...)
         ATTRPROPERTY_POSITIVE =     1 << 7,     // Attribute is positive (Including Zero)
-        ATTRPROPERTY_UNIQUE =       1 << 8,     // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =     1 << 9,     // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_NONEDITABLE =  1 << 10,    // Attribute is non editable (index of a lane)
-        ATTRPROPERTY_DISCRETE =     1 << 11,    // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =  1 << 12,    // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_TIME =         1 << 13,    // Attribute is a Time (float positive)
-        ATTRPROPERTY_ANGLE =        1 << 14,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST =         1 << 15,    // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_OPTIONAL =     1 << 16,    // Attribute is optional
-        ATTRPROPERTY_DEFAULTVALUE = 1 << 17,    // Attribute owns a default value
-        ATTRPROPERTY_COMBINABLE =   1 << 18,    // Attribute is combinable with other Attribute
+        ATTRPROPERTY_NOTZERO =      1 << 8,     // Attribute cannot be 0 (only for numerical attributes)
+        ATTRPROPERTY_UNIQUE =       1 << 9,     // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME =     1 << 10,     // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_NONEDITABLE =  1 << 11,    // Attribute is non editable (index of a lane)
+        ATTRPROPERTY_DISCRETE =     1 << 12,    // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY =  1 << 13,    // Attribute is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_TIME =         1 << 14,    // Attribute is a Time (float positive)
+        ATTRPROPERTY_ANGLE =        1 << 15,    // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST =         1 << 16,    // Attribute is a list of other elements separated by spaces
+        ATTRPROPERTY_OPTIONAL =     1 << 17,    // Attribute is optional
+        ATTRPROPERTY_DEFAULTVALUE = 1 << 18,    // Attribute owns a default value
+        ATTRPROPERTY_COMBINABLE =   1 << 19,    // Attribute is combinable with other Attribute
     };
 
     /// @brief struct with the attribute Properties
@@ -137,6 +138,9 @@ public:
 
         /// @brief return true if atribute is positive
         bool isPositive() const;
+
+        /// @brief return true if atribute cannot be zero
+        bool isntZero() const;
 
         /// @brief return true if atribute is a color
         bool isColor() const;
@@ -490,10 +494,14 @@ public:
             // Set extra checks for int values
             if (attrProperties.isInt()) {
                 if (canParse<int>(parsedAttribute)) {
-                    // parse to int and check if can be negative
+                    // obtain int value
                     int parsedIntAttribute = parse<int>(parsedAttribute);
-                    if (attrProperties.isPositive() && parsedIntAttribute < 0) {
+                    // check if attribute can be negative or zero
+                    if (attrProperties.isPositive() && (parsedIntAttribute < 0)) {
                         errorFormat = "Cannot be negative; ";
+                        parsedOk = false;
+                    } else if (attrProperties.isntZero() && (parsedIntAttribute == 0)) {
+                        errorFormat = "Cannot be zero; ";
                         parsedOk = false;
                     }
                 } else if (canParse<double>(parsedAttribute)) {
@@ -507,9 +515,14 @@ public:
             // Set extra checks for float(double) values
             if (attrProperties.isFloat()) {
                 if (canParse<double>(parsedAttribute)) {
-                    // parse to double and check if can be negative
-                    if (attrProperties.isPositive() && parse<double>(parsedAttribute) < 0) {
+                    // obtain double value
+                    double parsedDoubleAttribute = parse<double>(parsedAttribute);
+                    //check if can be negative and Zero
+                    if (attrProperties.isPositive() && (parsedDoubleAttribute < 0)) {
                         errorFormat = "Cannot be negative; ";
+                        parsedOk = false;
+                    } else if (attrProperties.isntZero() && (parsedDoubleAttribute == 0)) {
+                        errorFormat = "Cannot be zero; ";
                         parsedOk = false;
                     }
                 } else {

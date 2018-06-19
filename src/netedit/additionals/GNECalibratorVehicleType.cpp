@@ -319,11 +319,11 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DECEL:
             return canParse<double>(value);
         case SUMO_ATTR_SIGMA:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_TAU:
             return canParse<double>(value);
         case SUMO_ATTR_LENGTH:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MINGAP:
             return canParse<double>(value);
         case SUMO_ATTR_MAXSPEED:

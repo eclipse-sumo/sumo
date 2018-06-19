@@ -424,30 +424,42 @@ GNEAttributeCarrier::AttributeValues::isPositive() const {
     return (myAttributeProperty & ATTRPROPERTY_POSITIVE) != 0;
 }
 
+
+bool 
+GNEAttributeCarrier::AttributeValues::isntZero() const {
+    return (myAttributeProperty & ATTRPROPERTY_NOTZERO) != 0;
+}
+
+
 bool 
 GNEAttributeCarrier::AttributeValues::isColor() const {
     return (myAttributeProperty & ATTRPROPERTY_COLOR) != 0;
 }
+
 
 bool 
 GNEAttributeCarrier::AttributeValues::isFilename() const {
     return (myAttributeProperty & ATTRPROPERTY_FILENAME) != 0;
 }
 
+
 bool 
 GNEAttributeCarrier::AttributeValues::isVClass() const {
     return (myAttributeProperty & ATTRPROPERTY_VCLASS) != 0;
 }
+
 
 bool 
 GNEAttributeCarrier::AttributeValues::isList() const {
     return (myAttributeProperty & ATTRPROPERTY_LIST) != 0;
 }
 
+
 bool 
 GNEAttributeCarrier::AttributeValues::isUnique() const {
     return (myAttributeProperty & ATTRPROPERTY_UNIQUE) != 0;
 }
+
 
 bool 
 GNEAttributeCarrier::AttributeValues::isOptional() const {
@@ -1885,7 +1897,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "The deceleration ability of vehicles of this type [m/s^2]", 
             "4.50");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_SIGMA,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Car-following model parameter", 
             "0.50");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TAU,
