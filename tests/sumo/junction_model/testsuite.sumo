@@ -13,3 +13,6 @@ stopOffset
 
 # tests for the proper behavior on internal lanes
 internal_lanes
+
+# Tests for indirect left turns
+indirect_left_turn
