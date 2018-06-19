@@ -243,6 +243,7 @@
                             <xsd:complexType>
                                 <xsd:attribute name="id" type="xsd:string" use="required"/>
                                 <xsd:attribute name="probability" type="positiveFloatType"/>
+                                <xsd:attribute name="visible" type="boolType"/>
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>

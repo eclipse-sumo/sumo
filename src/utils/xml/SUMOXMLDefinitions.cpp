@@ -537,6 +537,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "amount",                 SUMO_ATTR_AMOUNT },
     { "origin",                 SUMO_ATTR_ORIGIN },
     { "destination",            SUMO_ATTR_DESTINATION },
+    { "visible",                SUMO_ATTR_VISIBLE },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

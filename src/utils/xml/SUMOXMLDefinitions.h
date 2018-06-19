@@ -773,6 +773,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_AMOUNT,
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
+    SUMO_ATTR_VISIBLE,
 
 
     /// @name ActivityGen Tags

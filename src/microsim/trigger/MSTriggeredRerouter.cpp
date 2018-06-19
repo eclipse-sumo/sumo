@@ -53,7 +53,7 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
-//#define DEBUG_PARKING
+#define DEBUG_PARKING
 #define DEBUGCOND (veh.isSelected())
 
 // ===========================================================================
@@ -217,8 +217,9 @@ MSTriggeredRerouter::myStartElement(int element,
         if (prob < 0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + parkingarea + "' is negative (must not).");
         }
+        const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, getID().c_str(), ok, false);
         // add
-        myCurrentParkProb.add(pa, prob);
+        myCurrentParkProb.add(std::make_pair(pa, visible), prob);
         //MSEdge* to = &(pa->getLane().getEdge());
         //myCurrentEdgeProb.add(prob, to);
     }
@@ -540,21 +541,37 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination) const {
-
-    MSParkingArea* nearParkArea = 0;
-    std::vector<MSParkingArea*> parks = rerouteDef->parkProbs.getVals();
+    // reroute destination from initial parking area to the near parking area
+    // if the next stop is a parking area, it is included in the current
+    // alternative set and if it can be observed to be full 
+    
+    MSParkingArea* nearParkArea = nullptr;
+    std::vector<ParkingAreaVisible> parks = rerouteDef->parkProbs.getVals();
 
     // get vehicle params
     MSParkingArea* destParkArea = veh.getNextParkingArea();
     const MSRoute& route = veh.getRoute();
 
-    // reroute destination from initial parking area to the near parking area
-    // if the next stop is a parking area, it is included in the current
-    // alternative set and if it is full
-    if (destParkArea != 0 
-            && std::find(parks.begin(), parks.end(), destParkArea) != parks.end()
-            && destParkArea->getOccupancy() == destParkArea->getCapacity()) {
-
+    if (destParkArea == nullptr) {
+        // not driving towards a parkingArea
+        return nullptr;
+    }
+    
+    bool destVisible = false;
+    for (auto paVis : parks) {
+        if (paVis.first == destParkArea 
+                && (paVis.second
+                    // if the vehicle is on the destParkArea edge it is always visible
+                    || &(destParkArea->getLane().getEdge()) == veh.getEdge())) {
+            destVisible = true;
+            break;
+        }
+    }
+    if (!destVisible) {
+        // cannot determine destination occupancy
+        return nullptr;
+    }
+    if (destParkArea->getOccupancy() == destParkArea->getCapacity()) {
         // if the current route ends at the parking area, the new route will
         // also and at the new area
         newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
@@ -565,6 +582,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         if (DEBUGCOND) {
             std::cout << SIMTIME << " veh=" << veh.getID()
                       << " rerouteParkingArea dest=" << destParkArea->getID()
+                      << " onDestEdge=" << (&(destParkArea->getLane().getEdge()) == veh.getEdge())
                       << " newDest=" << newDestination
                       << "\n";
         }
@@ -619,9 +637,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         std::vector<double> probs = rerouteDef->parkProbs.getProbs();
 
         for (int i = 0; i < (int)parks.size(); ++i) {
-            MSParkingArea* pa = parks[i];
+            MSParkingArea* pa = parks[i].first;
             const double prob = probs[i];
-            if (pa->getOccupancy() < pa->getCapacity()) {
+            // alternative occupancy is randomized (but never full) if invisible
+            // current destination must be visible at this point
+            int paOccupancy = parks[i].second || pa == destParkArea ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            if (paOccupancy < pa->getCapacity()) {
 
                 // a map stores the parking values
                 ParkingParamMap_t parkValues;
@@ -652,7 +673,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                         }
 
                         parkValues["capacity"] = (double)(pa->getCapacity());
-                        parkValues["absfreespace"] = (double)(pa->getCapacity() - pa->getOccupancy());
+                        parkValues["absfreespace"] = (double)(pa->getCapacity() - paOccupancy);
                         parkValues["relfreespace"] = parkValues["absfreespace"] / parkValues["capacity"];
 
                         if (parkValues["capacity"] > maxValues["capacity"]) {

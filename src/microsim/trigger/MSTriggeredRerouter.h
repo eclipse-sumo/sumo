@@ -81,6 +81,7 @@ public:
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
+    typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
 
     /**
      * @struct RerouteInterval
@@ -106,7 +107,7 @@ public:
         /// The permissions to use
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
-        RandomDistributor<MSParkingArea*> parkProbs;
+        RandomDistributor<ParkingAreaVisible> parkProbs;
     };
 
     /** @brief Tries to reroute the vehicle
@@ -226,7 +227,7 @@ protected:
     /// List of permissions for closed edges
     SVCPermissions myCurrentPermissions;
     /// new destinations with probabilities
-    RandomDistributor<MSParkingArea*> myCurrentParkProb;
+    RandomDistributor<ParkingAreaVisible> myCurrentParkProb;
     /// new destinations with probabilities
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities
