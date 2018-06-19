@@ -850,8 +850,8 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             if (line.length() != 0) {
                 // obtain GLObject
                 GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(line);
-                // check if GUIGlObject doesn't exist
-                if(object != nullptr) {
+                // check if GUIGlObject exist and their  their GL type isn't blocked
+                if((object != nullptr) && !mySelectorFrameParent->myLockGLObjectTypes->IsObjectTypeLocked(object->getType())) {
                     // obtain GNEAttributeCarrier
                     GNEAttributeCarrier *AC = mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
@@ -861,7 +861,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                 }
             }
         }
-        // change selected attribute in loaded ACs
+        // change selected attribute in loaded ACs allowing undo/redo
         if (loadedACs.size() > 0) {
             mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("load selection");
             for (auto i : loadedACs) {
@@ -869,6 +869,8 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             }
             mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
         }
+        // update list of current selected items
+        mySelectorFrameParent->myLockGLObjectTypes->updateLockGLObjectTypes();
     }
     mySelectorFrameParent->getViewNet()->update();
     return 1;
