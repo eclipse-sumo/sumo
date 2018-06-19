@@ -3,6 +3,7 @@ time step 1000
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
   minAwareness = 0.01
+  initialAwareness = 0.20
   errorTimeScaleCoefficient = 1.11
   errorNoiseIntensityCoefficient = 2.22
   speedDifferenceErrorCoefficient = 3.33
@@ -10,7 +11,7 @@ Static parameters:
   speedDifferenceChangePerceptionThreshold = 5.55
   headwayChangePerceptionThreshold = 7.77
 Dynamic parameters:
-  awareness = 1.00
+  awareness = 0.20
   errorNoiseIntensity = 1.00
   errorTimeScale = 1.00
   errorState = 0.00

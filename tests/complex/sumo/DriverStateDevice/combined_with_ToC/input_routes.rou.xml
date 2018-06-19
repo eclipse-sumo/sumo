@@ -13,6 +13,7 @@
         
         <param key="has.driverstate.device" value="true"/>
         <param key="device.driverstate.minAwareness" value="0.01"/>
+        <param key="device.driverstate.initialAwareness" value="0.2"/>
         <param key="device.driverstate.errorTimeScaleCoefficient" value="1.11"/>
         <param key="device.driverstate.errorNoiseIntensityCoefficient" value="2.22"/>
         <param key="device.driverstate.speedDifferenceErrorCoefficient" value="3.33"/>

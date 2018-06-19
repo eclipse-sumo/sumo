@@ -45,6 +45,7 @@ def printParams(vehID, only_dynamic = False):
     errorTimeScale = traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScale")
     errorNoiseIntensity = traci.vehicle.getParameter(vehID, "device.driverstate.errorNoiseIntensity")
     minAwareness = traci.vehicle.getParameter(vehID, "device.driverstate.minAwareness")
+    initialAwareness = traci.vehicle.getParameter(vehID, "device.driverstate.initialAwareness")
     errorTimeScaleCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScaleCoefficient")
     errorNoiseIntensityCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.errorNoiseIntensityCoefficient")
     speedDifferenceErrorCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.speedDifferenceErrorCoefficient")
@@ -58,6 +59,7 @@ def printParams(vehID, only_dynamic = False):
     if not only_dynamic:
         print("Static parameters:")
         print("  minAwareness = %s"%minAwareness)
+        print("  initialAwareness = %s"%initialAwareness)
         print("  errorTimeScaleCoefficient = %s"%errorTimeScaleCoefficient)
         print("  errorNoiseIntensityCoefficient = %s"%errorNoiseIntensityCoefficient)
         print("  speedDifferenceErrorCoefficient = %s"%speedDifferenceErrorCoefficient)
@@ -73,10 +75,15 @@ def printParams(vehID, only_dynamic = False):
 def resetParams(vehID):
     print ("\nResetting parameters...\n")
     
-    new_minAwareness = 0.01
+    new_minAwareness = 0.05
     traci.vehicle.setParameter(vehID, "device.driverstate.minAwareness", str(new_minAwareness))
     minAwareness = float(traci.vehicle.getParameter(vehID, "device.driverstate.minAwareness"))
     print ("new minAwareness:%s (diff=%s)"%(minAwareness, minAwareness-new_minAwareness))
+    
+    new_initialAwareness = 0.06
+    traci.vehicle.setParameter(vehID, "device.driverstate.initialAwareness", str(new_initialAwareness))
+    initialAwareness = float(traci.vehicle.getParameter(vehID, "device.driverstate.initialAwareness"))
+    print ("new initialAwareness:%s (diff=%s)"%(initialAwareness, initialAwareness-new_initialAwareness))
     
     new_errorTimeScaleCoefficient = 0.11
     traci.vehicle.setParameter(vehID, "device.driverstate.errorTimeScaleCoefficient", str(new_errorTimeScaleCoefficient))

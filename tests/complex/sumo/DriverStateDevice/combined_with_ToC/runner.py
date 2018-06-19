@@ -45,6 +45,7 @@ def printParams(vehID, only_dynamic = False):
     errorTimeScale = traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScale")
     errorNoiseIntensity = traci.vehicle.getParameter(vehID, "device.driverstate.errorNoiseIntensity")
     minAwareness = traci.vehicle.getParameter(vehID, "device.driverstate.minAwareness")
+    initialAwareness = traci.vehicle.getParameter(vehID, "device.driverstate.initialAwareness")
     errorTimeScaleCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScaleCoefficient")
     errorNoiseIntensityCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.errorNoiseIntensityCoefficient")
     speedDifferenceErrorCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.speedDifferenceErrorCoefficient")
@@ -58,6 +59,7 @@ def printParams(vehID, only_dynamic = False):
     if not only_dynamic:
         print("Static parameters:")
         print("  minAwareness = %s"%minAwareness)
+        print("  initialAwareness = %s"%initialAwareness)
         print("  errorTimeScaleCoefficient = %s"%errorTimeScaleCoefficient)
         print("  errorNoiseIntensityCoefficient = %s"%errorNoiseIntensityCoefficient)
         print("  speedDifferenceErrorCoefficient = %s"%speedDifferenceErrorCoefficient)
