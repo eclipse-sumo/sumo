@@ -5,7 +5,7 @@
 	    <param key="parking.distance.weight" value="1"/>
     </vType>
 
-    <vehicle id="ego" depart="0">
+    <vehicle id="ego" depart="0" arrivalPos="45">
         <route edges="A1A0 A0B0 B0C0 C0D0 D0D1"/>
 		<stop parkingArea="parkD0D1" duration="200"/>
     </vehicle>

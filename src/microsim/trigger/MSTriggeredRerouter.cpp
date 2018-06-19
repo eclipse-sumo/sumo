@@ -542,15 +542,18 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                                         SUMOVehicle& veh, bool& newDestination) const {
 
     MSParkingArea* nearParkArea = 0;
+    std::vector<MSParkingArea*> parks = rerouteDef->parkProbs.getVals();
 
     // get vehicle params
     MSParkingArea* destParkArea = veh.getNextParkingArea();
     const MSRoute& route = veh.getRoute();
 
-    // I reroute destination from initial parking area to the near parking area
-    // if the next stop is a parking area and if it is full
-    if (destParkArea != 0 &&
-            destParkArea->getOccupancy() == destParkArea->getCapacity()) {
+    // reroute destination from initial parking area to the near parking area
+    // if the next stop is a parking area, it is included in the current
+    // alternative set and if it is full
+    if (destParkArea != 0 
+            && std::find(parks.begin(), parks.end(), destParkArea) != parks.end()
+            && destParkArea->getOccupancy() == destParkArea->getCapacity()) {
 
         // if the current route ends at the parking area, the new route will
         // also and at the new area
@@ -613,7 +616,6 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSNet::getInstance()->getRouterTT(rerouteDef->closed);
 
-        std::vector<MSParkingArea*> parks = rerouteDef->parkProbs.getVals();
         std::vector<double> probs = rerouteDef->parkProbs.getProbs();
 
         for (int i = 0; i < (int)parks.size(); ++i) {
