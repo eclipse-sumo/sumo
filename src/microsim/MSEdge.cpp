@@ -684,8 +684,8 @@ const MSEdge*
 MSEdge::getNormalBefore() const {
     const MSEdge* result = this;
     while (result->isInternal()) {
-        assert(myPredecessors.size() == 1);
-        result = myPredecessors.front();
+        assert(result->getPredecessors().size() == 1);
+        result = result->getPredecessors().front();
     }
     return result;
 }
