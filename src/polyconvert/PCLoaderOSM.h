@@ -75,6 +75,8 @@ protected:
         double lon;
         /// @brief The latitude the node is located at
         double lat;
+        /// @brief The nodes name (if any)
+        std::string name;
         /// @brief Additional attributes
         std::map<std::string, std::string> myAttributes;
     };
@@ -118,7 +120,7 @@ protected:
 
     /// @brief try add the POI and return the next index on success
     static int addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def,
-                      const std::string& fullType, int index, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes);
+                      const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes);
 
 
 protected:

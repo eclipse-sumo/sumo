@@ -198,16 +198,16 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
             const std::string& value = it->second;
             const std::string fullType = key + "." + value;
             if (tm.has(key + "." + value)) {
-                index = addPOI(n, pos, tm.get(fullType), fullType, index, toFill, ignorePruning, withAttributes);
+                index = addPOI(n, pos, tm.get(fullType), fullType, index, useName, toFill, ignorePruning, withAttributes);
             } else if (tm.has(key)) {
-                index = addPOI(n, pos, tm.get(key), fullType, index, toFill, ignorePruning, withAttributes);
+                index = addPOI(n, pos, tm.get(key), fullType, index, useName, toFill, ignorePruning, withAttributes);
             } else if (MyKeysToInclude.count(key) > 0) {
                 unKnownPOIType = fullType;
             }
         }
         const PCTypeMap::TypeDef& def = tm.getDefault();
         if (index == 0 && !def.discard && unKnownPOIType != "") {
-            addPOI(n, pos, def, unKnownPOIType, index,  toFill, ignorePruning, withAttributes);
+            addPOI(n, pos, def, unKnownPOIType, index, useName, toFill, ignorePruning, withAttributes);
         }
     }
     // delete nodes
@@ -250,12 +250,12 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
 
 int
 PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap::TypeDef& def, const std::string& fullType,
-                    int index, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
+                    int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
     if (def.discard) {
         return index;
     } else {
         const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
-        const std::string id = def.prefix + toString(node->id) + idSuffix;
+        const std::string id = def.prefix + (useName && node->name != "" ? node->name : toString(node->id)) + idSuffix;
         PointOfInterest* poi = new PointOfInterest(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
@@ -315,7 +315,9 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, "", false);
-        if (key == "") {
+        if (key == "name") {
+            myToFill[myLastNodeID]->name = value;
+        } else if (key == "") {
             myErrorHandler.inform("Empty key in a a tag while parsing node '" + toString(myLastNodeID) + "' occurred.");
             ok = false;
         }
