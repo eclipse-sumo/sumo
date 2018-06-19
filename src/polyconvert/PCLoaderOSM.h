@@ -89,8 +89,12 @@ protected:
         long long int id;
         /// @brief The relation's name (if any)
         std::string name;
+        /// @brief The list of ways this relation is made of
+        std::vector<long long int> myWays;
         /// @brief Additional attributes
         std::map<std::string, std::string> myAttributes;
+        /// @brief whether this relation is a valid polygon
+        bool keep;
     };
 
 
@@ -107,6 +111,8 @@ protected:
         std::vector<long long int> myCurrentNodes;
         /// @brief Additional attributes
         std::map<std::string, std::string> myAttributes;
+        // @brief Wether this way constitutes a complete polygon object
+        bool standalone;
     };
 
     typedef std::vector<PCOSMRelation*> Relations;
@@ -129,6 +135,8 @@ protected:
 private:
     static std::set<std::string> initMyKeysToInclude();
 
+    /// @brief retrieve cartesian coordinate for way start/end
+    static Position getEndPosition(PCOSMEdge* e, bool start, const std::map<long long int, PCOSMNode*>& nodes);
 
 protected:
     /**

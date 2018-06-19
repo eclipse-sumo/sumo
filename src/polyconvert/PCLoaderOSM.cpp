@@ -134,11 +134,82 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
 
     // build all
     const bool useName = oc.getBool("osm.use-name");
+    const double mergeRelationsThreshold = OptionsCont::getOptions().getFloat("osm.merge-relations");
+    // create polygons from relations
+    if (mergeRelationsThreshold >= 0) { 
+        for (PCOSMRelation* rel: relations) {
+            if (!rel->keep || rel->myWays.empty()) {
+                continue;
+            }
+            // filter unknown and empty ways
+            int numNodes = 0;
+            for (auto it = rel->myWays.begin(); it != rel->myWays.end();) {
+                if (edges.count(*it) == 0 || edges[*it]->myCurrentNodes.empty()) {
+                    it = rel->myWays.erase(it);
+                } else {
+                    numNodes += edges[*it]->myCurrentNodes.size();
+                    it++;
+                }
+            }
+            if (numNodes == 0) {
+                WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) + "' (missing ways)");
+                continue;
+            }
+            PCOSMEdge* e = new PCOSMEdge();
+            e->id = rel->id;
+            e->name = rel->name;
+            e->myAttributes = rel->myAttributes;
+            e->myIsClosed = false;
+            e->standalone = true;
+
+            Position prev = getEndPosition(edges[rel->myWays.front()], true, nodes);
+            std::set<long long int> remaining(rel->myWays.begin(), rel->myWays.end());
+            bool ok = true;
+            while (!remaining.empty()) {
+                // assemble in an order that greedily reduces jump size 
+                double minDist = std::numeric_limits<double>::max();
+                PCOSMEdge* minEdge = 0;
+                for (long long int wayID : remaining) {
+                    PCOSMEdge* part = edges[wayID];
+                    const double dist = prev.distanceTo2D(getEndPosition(part, true, nodes));
+                    if (dist < minDist) {
+                        minDist = dist;
+                        minEdge = part;
+                    }
+                }
+                if (minDist > mergeRelationsThreshold) {
+                    WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) + "' (name:" + e->name + " reason: found gap of " + toString(minDist) + "m)");
+                    ok = false;
+                    break;
+                }
+                e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
+                prev = getEndPosition(minEdge, false, nodes);
+                minEdge->standalone = false;
+                remaining.erase(minEdge->id);
+            }
+            if (ok) {
+                edges[e->id] = e;
+                WRITE_MESSAGE("Assembled polygon from relation '" + toString(rel->id) + "' (name:" + e->name + ")");
+            } else {
+                delete e;
+                // export ways by themselves
+                for (long long int wayID : rel->myWays) {
+                    PCOSMEdge* part = edges[wayID];
+                    part->standalone = true;
+                }
+            }
+        }
+    }
+
     // instatiate polygons
     for (EdgeMap::iterator i = edges.begin(); i != edges.end(); ++i) {
         PCOSMEdge* e = (*i).second;
         if (e->myAttributes.size() == 0) {
             // cannot be relevant as a polygon
+            continue;
+        }
+        if (!e->standalone && mergeRelationsThreshold >= 0) {
+            // part of a relation
             continue;
         }
         if (e->myCurrentNodes.size() == 0) {
@@ -224,6 +295,14 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
 }
 
+
+Position 
+PCLoaderOSM::getEndPosition(PCOSMEdge* e, bool start, const std::map<long long int, PCOSMNode*>& nodes) {
+    PCOSMNode* n = nodes.find(start ? e->myCurrentNodes.front() : e->myCurrentNodes.back())->second;
+    Position pos(n->lon, n->lat);
+    GeoConvHelper::getProcessing().x2cartesian(pos);
+    return pos;
+}
 
 int
 PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const PCTypeMap::TypeDef& def, const std::string& fullType, int index, bool useName, PCPolyContainer& toFill, bool ignorePruning, bool withAttributes) {
@@ -369,6 +448,7 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
             myCurrentRelation = 0;
         } else {
             myCurrentRelation = new PCOSMRelation();
+            myCurrentRelation->keep = false;
             bool ok = true;
             myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
             myRelations.push_back(myCurrentRelation);
@@ -406,6 +486,7 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
         if (key == "name") {
             myCurrentRelation->name = value;
         } else if (MyKeysToInclude.count(key) > 0) {
+            myCurrentRelation->keep = true;
             for (std::vector<long long int>::iterator it = myCurrentWays.begin(); it != myCurrentWays.end(); ++it) {
                 myAdditionalWays[*it] = myCurrentRelation;
             }
@@ -419,6 +500,7 @@ void
 PCLoaderOSM::RelationsHandler::myEndElement(int element) {
     myParentElements.pop_back();
     if (element == SUMO_TAG_RELATION) {
+        myCurrentRelation->myWays = myCurrentWays;
         myCurrentRelation = 0;
         myCurrentWays.clear();
     }
@@ -460,6 +542,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         myCurrentEdge = new PCOSMEdge();
         myCurrentEdge->id = id;
         myCurrentEdge->myIsClosed = false;
+        myCurrentEdge->standalone = false;
         myKeep = (myAdditionalWays.find(id) != myAdditionalWays.end());
     }
     // parse "nd" (node) elements
@@ -491,6 +574,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
             myCurrentEdge->name = value;
         } else if (MyKeysToInclude.count(key) > 0) {
             myKeep = true;
+            myCurrentEdge->standalone = true;
         }
         myCurrentEdge->myAttributes[key] = value;
     }
