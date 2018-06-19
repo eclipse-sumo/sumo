@@ -482,7 +482,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     }
     if (myRemoteRoute.size() != 0) {
-        v->replaceRouteEdges(myRemoteRoute, true);
+        v->replaceRouteEdges(myRemoteRoute, "traci:moveToXY", true);
     }
     v->myCurrEdge = v->getRoute().begin() + myRemoteEdgeOffset;
     if (myRemoteLane != 0 && myRemotePos > myRemoteLane->getLength()) {
@@ -742,7 +742,7 @@ MSVehicle::hasArrived() const {
 
 
 bool
-MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addRouteStops, bool removeStops) {
+MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
@@ -770,7 +770,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     calculateArrivalParams();
     // save information that the vehicle was rerouted
     myNumberReroutes++;
-    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
+    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE, info);
     // if we did not drive yet it may be best to simply reassign the stops from scratch
     if (stopsFromScratch) {
         myStops.clear();

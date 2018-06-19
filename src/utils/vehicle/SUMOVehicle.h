@@ -156,10 +156,10 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false, bool removeStops = true) = 0;
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true) = 0;
+    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true) = 0;
 
     /** @brief Performs a rerouting using the given router
      *
@@ -170,7 +170,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    virtual void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false) = 0;
+    virtual void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false) = 0;
 
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)

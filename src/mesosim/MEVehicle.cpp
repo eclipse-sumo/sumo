@@ -175,7 +175,7 @@ MEVehicle::isParking() const {
 
 
 bool
-MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops, bool removeStops) {
+MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addStops, bool removeStops) {
     UNUSED_PARAMETER(addStops); // @todo recheck!
     UNUSED_PARAMETER(removeStops); // @todo recheck!
     const ConstMSEdgeVector& edges = newRoute->getEdges();
@@ -211,7 +211,7 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     calculateArrivalParams();
     // save information that the vehicle was rerouted
     myNumberReroutes++;
-    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
+    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE, info);
     calculateArrivalParams();
     return true;
 }

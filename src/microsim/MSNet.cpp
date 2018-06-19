@@ -824,9 +824,9 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 
 
 void
-MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) {
+MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
     for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
-        (*i)->vehicleStateChanged(vehicle, to);
+        (*i)->vehicleStateChanged(vehicle, to, info);
     }
 }
 

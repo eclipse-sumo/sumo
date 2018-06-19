@@ -258,7 +258,7 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         if (myCachedRoutes.find(key) != myCachedRoutes.end()) {
             if (myCachedRoutes[key]->size() > 2) {
-                myHolder.replaceRoute(myCachedRoutes[key], true);
+                myHolder.replaceRoute(myCachedRoutes[key], "device.rerouting", true);
                 return myPreInsertionPeriod;
             }
         }
@@ -444,7 +444,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         return;
     }
 #endif
-    myHolder.reroute(currentTime, *myRouter, onInit, myWithTaz);
+    myHolder.reroute(currentTime, "device.rerouting", *myRouter, onInit, myWithTaz);
 }
 
 
@@ -539,7 +539,7 @@ MSDevice_Routing::waitForAll() {
 // ---------------------------------------------------------------------------
 void
 MSDevice_Routing::RoutingTask::run(FXWorkerThread* context) {
-    myVehicle.reroute(myTime, static_cast<WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
+    myVehicle.reroute(myTime, "device.rerouting", static_cast<WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
     const MSEdge* source = *myVehicle.getRoute().begin();
     const MSEdge* dest = myVehicle.getRoute().getLastEdge();
     if (source->isTazConnector() && dest->isTazConnector()) {

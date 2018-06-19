@@ -240,7 +240,7 @@ TraCIServer::wasClosed() {
 
 
 void
-TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to) {
+TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
     if (!myDoCloseConnection) {
         myVehicleStateChanges[to].push_back(vehicle->getID());
         if (!myAmEmbedded) {

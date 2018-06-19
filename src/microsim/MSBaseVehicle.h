@@ -203,7 +203,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
+    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
 
 
     /** @brief Replaces the current route by the given edges
@@ -218,7 +218,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false, bool removeStops = true);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
 
 
     /** @brief Returns the vehicle's acceleration

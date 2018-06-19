@@ -404,7 +404,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 edges.insert(edges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
             }
 
-            veh.replaceRouteEdges(edges, false, false, false);
+            veh.replaceRouteEdges(edges, getID(), false, false, false);
             std::string errorMsg;
             if (!veh.replaceParkingArea(newParkingArea, errorMsg)) {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
@@ -427,7 +427,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             std::cout << "    replacedRoute from routeDist " << newRoute->getID() << "\n";
         }
 #endif
-        veh.replaceRoute(newRoute);
+        veh.replaceRoute(newRoute, getID());
         return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
     }
     const MSEdge* newEdge = lastEdge;
@@ -469,7 +469,7 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
                 : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
         router.compute(
             veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-        const bool useNewRoute = veh.replaceRouteEdges(edges);
+        const bool useNewRoute = veh.replaceRouteEdges(edges, getID());
 #ifdef DEBUG_REROUTER
         if (DEBUGCOND) std::cout << "   rerouting:  newEdge=" << newEdge->getID() << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
                                      << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";

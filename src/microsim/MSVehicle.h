@@ -269,10 +269,11 @@ public:
      *  contain the vehicle's current edge.
      *
      * @param[in] route The new route to pass
+     * @param[in] info Information regarding the replacement
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
+    bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
 
     /** @brief Returns whether the vehicle wil pass the given edge

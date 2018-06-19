@@ -170,7 +170,7 @@ private:
 
     /** @brief Called on route change
      */
-    void addRoute();
+    void addRoute(const std::string& info);
 
 
 
@@ -209,7 +209,7 @@ private:
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to);
+        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info="");
 
         /// @brief A map for internal notification
         std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess> myDevices;
@@ -243,8 +243,8 @@ private:
          * @param[in] time_ The time the route was replaced
          * @param[in] route_ The prior route
          */
-        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_)
-            : edge(edge_), time(time_), route(route_) {}
+        RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_, const std::string& info_)
+            : edge(edge_), time(time_), route(route_), info(info_) {}
 
         /// @brief Destructor
         ~RouteReplaceInfo() { }
@@ -257,6 +257,9 @@ private:
 
         /// @brief The prior route
         const MSRoute* route;
+
+        /// @brief Information regarding rerouting
+        std::string info;
 
     };
 
