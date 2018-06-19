@@ -12,3 +12,6 @@ ticket4223
 
 # Deadlock on junction
 ticket4251
+
+# Infinite loop
+ticket4254
