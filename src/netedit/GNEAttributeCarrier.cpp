@@ -1484,10 +1484,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
             "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length", 
             "");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FREQUENCY,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
-            "The aggregation period the values the detector collects shall be summed up", 
-            "900.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
