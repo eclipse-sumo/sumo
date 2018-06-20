@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun 20 13:13:23 2018 by Eclipse SUMO netgenerate Version d7156f9
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.number value="1"/>
+        <grid.attach-length value="100"/>
+    </grid_network>
+
+    <processing>
+        <no-turnarounds value="true"/>
+    </processing>
+
+    <building_defaults>
+        <default.junctions.radius value="1.5"/>
+    </building_defaults>
+
+</configuration>

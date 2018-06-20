@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="SW" depart="0" departPos="-20">
+        <route edges="bottom0A0 A0left0"/>
+    </vehicle>
+
+    <vehicle id="NE" depart="0" departPos="-20">
+        <route edges="top0A0 A0right0"/>
+    </vehicle>
+
+</routes>
