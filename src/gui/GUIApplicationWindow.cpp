@@ -569,7 +569,8 @@ GUIApplicationWindow::fillMenuBar() {
     getAccelTable()->addAccel(262209, this, FXSEL(SEL_COMMAND, MID_START));         // Ctrl + A
     getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_STOP));          // Ctrl + S
     getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_STEP));          // Ctrl + D
-    
+
+    /** Disabled shorcuts for Locate dialog due #4261
      // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
     getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
@@ -577,6 +578,7 @@ GUIApplicationWindow::fillMenuBar() {
     getAccelTable()->addAccel(65633, this, FXSEL(SEL_COMMAND, MID_LOCATEADD));      // Shift + A
     getAccelTable()->addAccel(65647, this, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
     getAccelTable()->addAccel(65644, this, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
+    **/
 }
 
 
