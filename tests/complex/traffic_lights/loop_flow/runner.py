@@ -20,8 +20,13 @@ import os
 import subprocess
 import random
 import shutil
-sys.path.append(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
 from sumolib import checkBinary  # noqa
 
 types = ["static", "actuated", "sotl_phase", "sotl_platoon", "sotl_request", "sotl_wave", "sotl_marching", "swarm"]
@@ -36,15 +41,15 @@ def buildDemand(simSteps, pWE, pEW, pNS, pSN):
     fd = open("input_routes.rou.xml", "w")
     #---routes---
     print("""<routes>
-		
-			<vType id="type1" accel="2.0" decel="5.0" sigma="0.0" length="6.5" maxSpeed="70"/>
-		
-			<route id="WE" edges="1i 3o 5o"/>
-			<route id="NS" edges="2i 4o 6o"/>
-			<route id="EW" edges="3i 1o 7o"/>
-			<route id="SN" edges="4i 2o 8o"/>
-			
-		""", file=fd)
+
+            <vType id="type1" accel="2.0" decel="5.0" sigma="0.0" length="6.5" maxSpeed="70"/>
+
+            <route id="WE" edges="1i 3o 5o"/>
+            <route id="NS" edges="2i 4o 6o"/>
+            <route id="EW" edges="3i 1o 7o"/>
+            <route id="SN" edges="4i 2o 8o"/>
+
+        """, file=fd)
     lastVeh = 0
     vehNr = 0
     for i in range(simSteps):

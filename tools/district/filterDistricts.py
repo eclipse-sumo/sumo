@@ -27,7 +27,8 @@ import sumolib  # noqa
 
 def getOptions():
     optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, 
+    optParser.add_option(
+            "-v", "--verbose", action="store_true", default=False, 
             help="tell me what you are doing")
     optParser.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
     optParser.add_option("-t", "--taz-file", dest="tazfile", help="the district file to be filtered")
@@ -51,8 +52,9 @@ if __name__ == "__main__":
         outf.write("<tazs>\n")
         for taz in sumolib.output.parse(options.tazfile, "taz"):
             if taz.edges is not None:
-                taz.edges = " ".join([e for e in taz.edges.split() if
-                    net.hasEdge(e) and net.getEdge(e).allows(options.vclass)])
+                taz.edges = " ".join(
+                    [e for e in taz.edges.split() if
+                     net.hasEdge(e) and net.getEdge(e).allows(options.vclass)])
             deleteSources = []
             if taz.tazSink is not None:
                 taz.tazSink = [s for s in taz.tazSink if net.hasEdge(s.id) and net.getEdge(s.id).allows(options.vclass)]

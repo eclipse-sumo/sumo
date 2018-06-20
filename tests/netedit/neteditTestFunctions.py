@@ -447,8 +447,8 @@ def waitQuestion(answer):
 
 
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False, 
-                         openAdditionalsNonSavedDialog=False, saveAdditionals=False, 
-                         openShapesNonSavedDialog=False, saveShapes=False):
+         openAdditionalsNonSavedDialog=False, saveAdditionals=False, 
+         openShapesNonSavedDialog=False, saveShapes=False):
     # check if Netedit is already closed
     if NeteditProcess.poll() is not None:
         # print debug information

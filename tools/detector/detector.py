@@ -183,7 +183,7 @@ class DetectorReader(handler.ContentHandler):
         if name == 'detectorDefinition' or name == 'e1Detector':
             detType = attrs['type'] if attrs.has_key('type') else None
             self.addDetector(attrs['id'], float(attrs['pos']),
-                    self._laneMap.get(attrs['lane'], self._currentEdge), detType)
+                             self._laneMap.get(attrs['lane'], self._currentEdge), detType)
         elif name == 'group':
             self._currentGroup = DetectorGroupData(float(attrs['pos']),
                                                    attrs.get('valid', "1") == "1")
@@ -215,9 +215,10 @@ class DetectorReader(handler.ContentHandler):
 
 
     def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
-        values = parseFlowFile(flowFile, 
-                detCol=det, timeCol=time, flowCol=flow, 
-                speedCol=speed, begin=timeVal, end=timeMax)
+        values = parseFlowFile(
+                    flowFile, 
+                    detCol=det, timeCol=time, flowCol=flow, 
+                    speedCol=speed, begin=timeVal, end=timeMax)
         hadFlow = False
         for det, time, flow, speed in values:
             hadFlow = True

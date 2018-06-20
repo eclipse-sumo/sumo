@@ -118,7 +118,7 @@ class TlLogic(sumolib.net.TLSProgram):
             connections = tls._connections
             
             # for connIn, connOut, tlIndex in connections:
-                # print("from %s to %s (tlIndex %d)" % (connIn.getID(), connOut.getID(), tlIndex ))
+            #     print("from %s to %s (tlIndex %d)" % (connIn.getID(), connOut.getID(), tlIndex ))
             
             for sgID in sgToLinks:
                 for fromLink, toLink in sgToLinks[sgID]:
@@ -434,7 +434,8 @@ if __name__ == "__main__":
                                     colIndices[line[colIndex].strip()] = colIndex
                             secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
                         else:
-                            sg = SignalGroup(line[colIndices["id"]],
+                            sg = SignalGroup(
+                                    line[colIndices["id"]],
                                     transTimeOn = int(line[colIndices["transOn"]]),
                                     transTimeOff = int(line[colIndices["transOff"]]),
                                     debug = options.debug)

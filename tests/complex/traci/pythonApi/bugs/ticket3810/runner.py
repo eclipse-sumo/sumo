@@ -19,16 +19,16 @@ from __future__ import absolute_import
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
 
-cmd = [sumoBinary,
-        '-n', 'input_net2.net.xml',
-        '-r', 'input_routes.rou.xml',
-        '--no-step-log',
-        ]
+cmd = [
+    sumoBinary,
+    '-n', 'input_net2.net.xml',
+    '-r', 'input_routes.rou.xml',
+    '--no-step-log',]
 
 traci.start(cmd)
 traci.simulationStep() # insert vehicles

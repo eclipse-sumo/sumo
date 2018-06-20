@@ -43,8 +43,7 @@ if ("net.netgen" in orig
         or "net.complex" in orig
         or "net.tools" in orig
         or "osmimport.tools" in orig
-        or ".net.xml" in orig
-    ):
+        or ".net.xml" in orig):
     sumo = os.environ["GUISIM_BINARY"]
     extraArgs = []
     #extraArgs += ["--gui-settings-file", "/scr2/debug/000_view_settings/internal_junctions.xml"]

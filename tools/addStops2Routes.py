@@ -22,15 +22,14 @@ import os
 import sys
 import optparse
 
-import sumolib
-
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-	
+import sumolib  # noqa
+
 def get_options(args=None):
     optParser = optparse.OptionParser()			 
     optParser.add_option("-r", "--route-file", dest="routefile", help="define the route file")
@@ -42,19 +41,17 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
-
     if not options.routefile or not options.parking:
         optParser.print_help()
         sys.exit()
-	
     return options	
-	
-	
+
+
 def main(options):
     infile = options.routefile
     if not options.outfile:
-         outfile = infile.replace(".xml", ".parking.xml")
-    
+        outfile = infile.replace(".xml", ".parking.xml")
+
     with open(outfile, 'w') as outf:
         outf.write("<?xml version= \"1.0\" encoding=\"UTF-8\"?>\n\n")
         outf.write("<routes>\n")

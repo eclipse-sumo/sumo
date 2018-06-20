@@ -25,7 +25,8 @@ import traci
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
-cmd = [sumoBinary,
+cmd = [
+    sumoBinary,
     "-n", "input_net2.net.xml",
     "-r", "input_routes.rou.xml",
     "--fcd-output", "fcd.xml",

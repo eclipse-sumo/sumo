@@ -27,11 +27,11 @@ def ppStages(comment, stages):
 
 sumoBinary = os.environ["SUMO_BINARY"]
 
-cmd = [sumoBinary,
-        '-n', 'input_net.net.xml',
-        '-a', 'input_additional.add.xml',
-        '--no-step-log',
-        ]
+cmd = [
+    sumoBinary,
+    '-n', 'input_net.net.xml',
+    '-a', 'input_additional.add.xml',
+    '--no-step-log',]
 
 traci.start(cmd)
 ppStages("shortcut via trainStop:", traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))

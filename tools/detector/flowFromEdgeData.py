@@ -49,15 +49,15 @@ def get_options(args=None):
                          default=False, help="do not use abbreviated names for detector groups")
     optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                          default=False, help="include detector group edge name in output")
-    optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
-    optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
+    optParser.add_option("-b", "--begin", type="float", default=0, help="begin time in minutes")
+    optParser.add_option("--end", type="float", default=None, help="end time in minutes")
     optParser.add_option("-o", "--output-file", dest="output", help="write output to file instead of printing it to console", metavar="FILE")
     optParser.add_option("--flow-output", dest="flowout", help="write output in flowfile format to FILE", metavar="FILE")
     optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
     if not options.detfile or not options.edgeDataFile or (not options.flowfile
-            and not options.flowout):
+                                                           and not options.flowout):
         optParser.print_help()
         sys.exit()
 
@@ -87,7 +87,7 @@ def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
                 if flowout:
                     for group in detReader.getEdgeDetGroups(edge.id):
                         f.write(";".join(map(str, [group.ids[0], interval.begin / 60,
-                            flow, edge.speed])) + "\n")
+                                flow, edge.speed])) + "\n")
             if flowout:
                 f.close()
             if DEBUG:
@@ -183,8 +183,9 @@ def main(options):
             haveDetFlows = detReader.readFlows(options.flowfile, flow=options.flowcol, time="Time", timeVal=intervalBeginM, timeMax=intervalEndM)
         if options.verbose:
             print("Reading edgeData")
-        edgeFlow = readEdgeData(options.edgeDataFile, time, intervalEndM * 60,
-                detReader, options.flowout)
+        edgeFlow = readEdgeData(
+            options.edgeDataFile, time, intervalEndM * 60,
+            detReader, options.flowout)
         if haveDetFlows and options.flowfile:
             printFlows(options, edgeFlow, detReader)
             calcStatistics(options, intervalBeginM, edgeFlow, detReader)

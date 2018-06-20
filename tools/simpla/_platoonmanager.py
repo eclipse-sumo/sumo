@@ -76,8 +76,9 @@ class PlatoonManager(traci.StepListener):
         # rate for executing the platoon logic
         if(1. / cfg.CONTROL_RATE < self._DeltaT):
             if rp.VERBOSITY>=1:
-                warn("Restricting given control rate (= %d per sec.) to 1 per timestep (= %g per sec.)" %
-                 (cfg.CONTROL_RATE, 1./self._DeltaT), True)
+                warn(
+                    "Restricting given control rate (= %d per sec.) to 1 per timestep (= %g per sec.)" %
+                    (cfg.CONTROL_RATE, 1./self._DeltaT), True)
             self._controlInterval = self._DeltaT
         else:
             self._controlInterval = 1. / cfg.CONTROL_RATE
@@ -125,11 +126,11 @@ class PlatoonManager(traci.StepListener):
                 if origLength != mappedLength:
                     if rp.VERBOSITY>=1:
                         warn("length of mapped vType '%s' (%sm.) does not equal length of original vType '%s' (%sm.)\nThis will probably lead to collisions." % (
-                        typeID, mappedLength, origType, origLength), True)
+                            typeID, mappedLength, origType, origLength), True)
                 if origEmergencyDecel != mappedEmergencyDecel:
                     if rp.VERBOSITY>=1:
                         warn("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original vType '%s' (%gm.)" % (
-                        typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
+                            typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
@@ -333,8 +334,9 @@ class PlatoonManager(traci.StepListener):
                     newPlatoons.append(newPlatoon)
                     if rp.VERBOSITY >= 2:
                         report("Platoon '%s' splits (ID of new platoon: '%s'):\n" % (pltn.getID(), newPlatoon.getID()) +
-                               "    Platoon '%s': %s\n    Platoon '%s': %s" % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
-                                                                       newPlatoon.getID(), str([veh.getID() for veh in newPlatoon.getVehicles()])))
+                               "    Platoon '%s': %s\n    Platoon '%s': %s" % (
+                                                                        pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
+                                                                        newPlatoon.getID(), str([veh.getID() for veh in newPlatoon.getVehicles()])))
         for pltn in newPlatoons:
             self._platoons[pltn.getID()] = pltn
 

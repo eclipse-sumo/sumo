@@ -36,32 +36,32 @@ class TestConfig(ut.TestCase):
         
         # define config contents
         self.cfg_body0=\
-"""
-    <vTypeMapFile value="vtype.map" />
-    <controlRate value="10." /> 
-    <vehicleSelectors value="pkwFern1,pkwFern2" />
-    <maxPlatoonGap value="15.0" />
-    <catchupDist value="50.0" />
-    <switchImpatienceFactor value="0.1" />
-    <platoonSplitTime value="3.0" />
-    <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-    <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
-    <verbosity value="2" />
-    <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
-"""
+            """
+                <vTypeMapFile value="vtype.map" />
+                <controlRate value="10." /> 
+                <vehicleSelectors value="pkwFern1,pkwFern2" />
+                <maxPlatoonGap value="15.0" />
+                <catchupDist value="50.0" />
+                <switchImpatienceFactor value="0.1" />
+                <platoonSplitTime value="3.0" />
+                <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <verbosity value="2" />
+                <vTypeMap original="origVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+            """
         self.cfg_body1=\
-    """        
-    <controlRate value="0" /> 
-    <vehicleSelectors>empty</vehicleSelectors>
-    <maxPlatoonGap value="-1" />
-    <catchupDist value="-1" />
-    <switchImpatienceFactor value="-1" />
-    <platoonSplitTime value="-1" ></platoonSplitTime>
-    <lcMode leader="100000" follower="-1" catchupFollower="0" />
-    <speedFactor original="-1" leader="0" follower="0.5" catchup="-4"/>
-    <vTypeMap leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
-    <UnknownConfigParam></UnknownConfigParam>
-    """
+            """        
+                <controlRate value="0" /> 
+                <vehicleSelectors>empty</vehicleSelectors>
+                <maxPlatoonGap value="-1" />
+                <catchupDist value="-1" />
+                <switchImpatienceFactor value="-1" />
+                <platoonSplitTime value="-1" ></platoonSplitTime>
+                <lcMode leader="100000" follower="-1" catchupFollower="0" />
+                <speedFactor original="-1" leader="0" follower="0.5" catchup="-4"/>
+                <vTypeMap leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
+                <UnknownConfigParam></UnknownConfigParam>
+            """
         self.cfg_body2 = '<vTypeMapFile file="vtype2.map"></vTypeMapFile>'
         self.cfg_body3 = '<vTypeMapFile file="vtype3.map"></vTypeMapFile>'
         self.cfg_body4 = '<vTypeMapFile file="FileThatDoesntExist"></vTypeMapFile>'
@@ -155,21 +155,21 @@ class TestConfig(ut.TestCase):
         cfg.load(self.CFG1)
         #cfg.load(TestConfig.CFG2)
         expected_warnings = [
-        "WARNING: No attributes found for tag 'vehicleSelectors'. (Config)",
-        "WARNING: Encountered unknown configuration parameter 'UnknownConfigParam'! (Config)",
-        "WARNING: Verbosity must be one of [0, 1, 2, 3, 4]! Ignoring given value: 200 (Config)",
-        "WARNING: Parameter controlRate must be positive. Ignoring given value: 0.0 (Config)",
-        "WARNING: Parameter maxPlatoonGap must be positive. Ignoring given value: -1.0 (Config)",
-        "WARNING: Parameter catchupDist must be positive. Ignoring given value: -1.0 (Config)",
-        "WARNING: Parameter switchImpatienceFactor must be non-negative. Ignoring given value: -1.0 (Config)",
-        "WARNING: Parameter platoonSplitTime must be non-negative. Ignoring given value: -1.0 (Config)",
-        "WARNING: Given lane change mode '100000' lies out of admissible range [0,255]. Using default mode instead. (Config)",
-        "WARNING: Given lane change mode '-1' lies out of admissible range [0,255]. Using default mode instead. (Config)",
-        "WARNING: vTypeMap must specify original type. Ignoring malformed vTypeMap element. (Config)",
-        "WARNING: Given speedFactor 0.0 is invalid. Using default value. (Config)",
-        "WARNING: Given speedFactor -4.0 is invalid. Using default value. (Config)",
-        "WARNING: Given speedFactor -1.0 is invalid. Using default value. (Config)"
-        ]
+            "WARNING: No attributes found for tag 'vehicleSelectors'. (Config)",
+            "WARNING: Encountered unknown configuration parameter 'UnknownConfigParam'! (Config)",
+            "WARNING: Verbosity must be one of [0, 1, 2, 3, 4]! Ignoring given value: 200 (Config)",
+            "WARNING: Parameter controlRate must be positive. Ignoring given value: 0.0 (Config)",
+            "WARNING: Parameter maxPlatoonGap must be positive. Ignoring given value: -1.0 (Config)",
+            "WARNING: Parameter catchupDist must be positive. Ignoring given value: -1.0 (Config)",
+            "WARNING: Parameter switchImpatienceFactor must be non-negative. Ignoring given value: -1.0 (Config)",
+            "WARNING: Parameter platoonSplitTime must be non-negative. Ignoring given value: -1.0 (Config)",
+            "WARNING: Given lane change mode '100000' lies out of admissible range [0,255]. Using default mode instead. (Config)",
+            "WARNING: Given lane change mode '-1' lies out of admissible range [0,255]. Using default mode instead. (Config)",
+            "WARNING: vTypeMap must specify original type. Ignoring malformed vTypeMap element. (Config)",
+            "WARNING: Given speedFactor 0.0 is invalid. Using default value. (Config)",
+            "WARNING: Given speedFactor -4.0 is invalid. Using default value. (Config)",
+            "WARNING: Given speedFactor -1.0 is invalid. Using default value. (Config)"
+            ]
         warning_list = [w[1] for w in rp.WARNING_LOG]
         for w in expected_warnings:
             self.assertIn(w, warning_list)

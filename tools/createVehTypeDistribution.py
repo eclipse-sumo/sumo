@@ -67,7 +67,7 @@ class FixDistribution(object):
             # Sample until value falls into limits
             while nrSampleAttempts < self._maxSampleAttempts \
                     and (value is None or (self._limits[1] is not None and value > self._limits[1]) \
-                           or (self._limits[0] is not None and value < self._limits[0])):
+                         or (self._limits[0] is not None and value < self._limits[0])):
                 value = self._sampleValue()
                 nrSampleAttempts += 1
             # Eventually apply fallback cutting value to limits

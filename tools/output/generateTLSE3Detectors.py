@@ -76,12 +76,15 @@ def getOptions():
                              type="float",
                              default=.1)
 
-    option_parser.add_option("--interior", action="store_true",
-                         default=False, help="Extend measurement area to the junction interior")
-    option_parser.add_option("--joined", action="store_true",
-                         default=False, help="Create one e3Detector per junction")
-    option_parser.add_option("--follow-turnaround", dest="followTurnaround", action="store_true",
-                         default=False, help="Extend entry detectors past turn-around connections")
+    option_parser.add_option(
+                        "--interior", action="store_true",
+                        default=False, help="Extend measurement area to the junction interior")
+    option_parser.add_option(
+                        "--joined", action="store_true",
+                        default=False, help="Create one e3Detector per junction")
+    option_parser.add_option(
+                        "--follow-turnaround", dest="followTurnaround", action="store_true",
+                        default=False, help="Extend entry detectors past turn-around connections")
     option_parser.set_usage("generateTLSE3Detectors.py -n example.net.xml "
                             "-l 250 -d .1 -f 60")
 

@@ -58,9 +58,9 @@ def get_options(args=None):
     optParser.add_option("--persontrips", action="store_true",
                          default=False, help="create a person file with person trips instead of vehicle trips")
     optParser.add_option("--persontrip.transfer.car-walk", dest="carWalkMode", 
-            help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)")
+                         help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)")
     optParser.add_option("--persontrip.walkfactor", dest="walkfactor", 
-            help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
+                         help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
     optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",

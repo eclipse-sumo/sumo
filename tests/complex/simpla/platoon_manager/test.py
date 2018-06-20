@@ -16,14 +16,17 @@ import unittest as ut
 import os, sys, subprocess
 
 # Put tools into PYTHONPATH
-sumoHome = os.environ.get("SUMO_HOME", os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..')))
-sys.path.append(os.path.join(sumoHome, "tools"))
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
-import traci, simpla, sumolib
-import simpla._reporting as rp
-import simpla._config as cfg
-from simpla._platoonmode import PlatoonMode
-from functools import reduce
+import traci, simpla, sumolib  # noqa
+import simpla._reporting as rp  # noqa
+import simpla._config as cfg  # noqa
+from simpla._platoonmode import PlatoonMode  # noqa
+from functools import reduce  # noqa
 
 
 class TestPlatoonManager(ut.TestCase):
@@ -43,51 +46,51 @@ class TestPlatoonManager(ut.TestCase):
         
         # define config contents
         self.cfg_body0=\
-"""
-    <vTypeMapFile value="vtype.map" />
-    <controlRate value="10." /> 
-    <vehicleSelectors value="connected" />
-    <maxPlatoonGap value="15.0" />
-    <catchupDist value="50.0" />
-    <switchImpatienceFactor value="0.1" />
-    <platoonSplitTime value="3.0" />
-    <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-    <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
-    <verbosity value="2" />
-"""
+            """
+                <vTypeMapFile value="vtype.map" />
+                <controlRate value="10." /> 
+                <vehicleSelectors value="connected" />
+                <maxPlatoonGap value="15.0" />
+                <catchupDist value="50.0" />
+                <switchImpatienceFactor value="0.1" />
+                <platoonSplitTime value="3.0" />
+                <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <verbosity value="2" />
+            """
     
         self.cfg_body1=\
-"""
-    <vTypeMapFile file="vtype.map"/>
-    <controlRate value="1000." /> 
-    <vehicleSelectors value="connected" />
-    <maxPlatoonGap value="15.0" />
-    <catchupDist value="50.0" />
-    <switchImpatienceFactor value="0.1" />
-    <platoonSplitTime value="3.0" />
-    <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-    <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
-    <verbosity value="2" />
-"""
+            """
+                <vTypeMapFile file="vtype.map"/>
+                <controlRate value="1000." /> 
+                <vehicleSelectors value="connected" />
+                <maxPlatoonGap value="15.0" />
+                <catchupDist value="50.0" />
+                <switchImpatienceFactor value="0.1" />
+                <platoonSplitTime value="3.0" />
+                <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <verbosity value="2" />
+            """
     
         self.cfg_body2=\
-"""
-    <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
-"""
+            """
+                <vTypeMap original="unknownVTypeID" leader="leaderVTypeID" follower="followerVTypeID" catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
+            """
         
         self.cfg_body3=\
-"""
-    <controlRate value="10." /> 
-    <vehicleSelectors value="connected" />
-    <maxPlatoonGap value="15.0" />
-    <catchupDist value="50.0" />
-    <switchImpatienceFactor value="0.1" />
-    <platoonSplitTime value="3.0" />
-    <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
-    <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
-    <verbosity value="2" />
-    <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower" catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
-"""     
+            """
+                <controlRate value="10." /> 
+                <vehicleSelectors value="connected" />
+                <maxPlatoonGap value="15.0" />
+                <catchupDist value="50.0" />
+                <switchImpatienceFactor value="0.1" />
+                <platoonSplitTime value="3.0" />
+                <lcMode original="597" leader="597" follower="514" catchup="514" catchupFollower="514" />
+                <speedFactor original="1.01" leader="1.01" follower="1.11" catchup="1.21" catchupFollower="1.31" ></speedFactor>
+                <verbosity value="2" />
+                <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower" catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
+            """     
         # template still needs to insert definite values for placeholders
         self.SUMO_CFG_TEMPLATE = os.path.join(testDir, "sumo.sumocfg")
         self.SUMO_CFG = os.path.join(testDir, "test.sumocfg")

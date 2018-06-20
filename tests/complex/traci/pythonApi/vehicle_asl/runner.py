@@ -19,12 +19,13 @@ from __future__ import absolute_import
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
 #~ sumoBinary = sumolib.checkBinary("sumo-gui")
-cmd = [sumoBinary,
+cmd = [
+        sumoBinary,
         '-n', 'input_net.net.xml',
         '-r', 'input_routes.rou.xml',
         '--lanechange-output', 'lanechanges.xml',
@@ -34,11 +35,9 @@ cmd = [sumoBinary,
         '--no-step-log',
         '--begin', '0',
         #~ '--lateral-resolution', '3.2',
-        '--step-length', '0.1',
-        '--default.action-step-length', '1.0',
         #'-S', '-Q',
-        ]
-
+        '--step-length', '0.1',
+        '--default.action-step-length', '1.0',]
 
 traci.start(cmd)
 traci.simulationStep()

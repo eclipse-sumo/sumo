@@ -18,17 +18,23 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import traci  # noqa
 import sumolib  # noqa
 
 WATCH = False
 
 sumoBinary = 'sumo-gui' if WATCH else os.environ["SUMO_BINARY"]
-cmd = [sumoBinary,
-        '-n', 'input_net.net.xml',
-        '--no-step-log',
-        ]
+cmd = [
+    sumoBinary,
+    '-n', 'input_net.net.xml',
+    '--no-step-log',]
 if not WATCH:
     cmd += ['-S', '-Q']
 
@@ -50,8 +56,7 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
             or abs(y - y2) > 0.1
             or (exLane is not None and exLane != lane2)
             or (exPos is not None and abs(exPos - pos2) > 0.1)
-            or (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)
-        ):
+            or (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)):
         print(comment, "failed: x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   posLat=%s posLat2=%s" % (
             x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
     else:

@@ -18,10 +18,12 @@
 import sys
 import os
 
-SUMO_HOME = os.environ.get('SUMO_HOME',
-                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
-sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-	
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
 import sumolib.net.generator.cross as generator # noqa
 from sumolib.net.generator.network import * # noqa
 from sumolib.net.generator.demand import * # noqa

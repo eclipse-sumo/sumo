@@ -19,7 +19,7 @@ from __future__ import absolute_import
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 def ppStages(comment, stages):
@@ -27,11 +27,11 @@ def ppStages(comment, stages):
 
 sumoBinary = os.environ["SUMO_BINARY"]
 
-cmd = [sumoBinary,
-        '--begin', '1',
-        '-n', 'input_net.net.xml',
-        '--no-step-log',
-        ]
+cmd = [
+    sumoBinary,
+    '--begin', '1',
+    '-n', 'input_net.net.xml',
+    '--no-step-log',]
 
 traci.start(cmd)
 traci.simulationStep(1000)
