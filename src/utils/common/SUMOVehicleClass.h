@@ -195,8 +195,9 @@ enum SUMOVehicleClass {
     SVC_CUSTOM2 = 1 << 24,
     //@}
 
-    /// @brief classes which (normally) do not drive on normal roads
+    /// @brief classes which drive on tracks
     SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    /// @brief classes which (normally) do not drive on normal roads
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
 
