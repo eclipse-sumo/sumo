@@ -105,4 +105,3 @@ set(libsumostatic_STAT_SRCS
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 set_property(TARGET libsumostatic PROPERTY PROJECT_LABEL "z_libsumostatic")
-target_link_libraries(libsumostatic ${sumolibs})

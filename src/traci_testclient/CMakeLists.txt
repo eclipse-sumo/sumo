@@ -9,4 +9,8 @@ set_target_properties(TraCITestClient PROPERTIES OUTPUT_NAME_DEBUG TraCITestClie
 target_link_libraries(TraCITestClient utils_traci ${commonlibs})
 
 add_executable(testlibsumo testlibsumo_main.cpp)
-target_link_libraries(testlibsumo libsumostatic)
+if (MSVC)
+    target_link_libraries(testlibsumo ${sumolibs})
+else()
+    target_link_libraries(testlibsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive)
+endif()
