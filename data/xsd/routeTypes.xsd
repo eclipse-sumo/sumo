@@ -513,6 +513,7 @@
         <xsd:attribute name="probability" type="xsd:float"/>
         <xsd:attribute name="exitTimes" type="xsd:string"/>
         <xsd:attribute name="refId" type="xsd:string"/>
+        <xsd:attribute name="reason" type="xsd:string"/>
         <xsd:attribute name="replacedOnEdge" type="xsd:string"/>
         <xsd:attribute name="replacedAtTime" type="nonNegativeFloatType"/>
     </xsd:complexType>
