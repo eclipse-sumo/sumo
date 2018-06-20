@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 18 17:02:36 2018 by Eclipse SUMO Version 654c3d7
+<!-- generated on Wed Jun 20 08:17:39 2018 by Eclipse SUMO Version c536a4b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -63,8 +63,6 @@
         <lanechange-output.started value="false" type="BOOL" help="Record start of lane change manoeuvres"/>
         <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -211,13 +209,14 @@
         <device.driverstate.probability value="0" type="FLOAT" help="The probability for a vehicle to have a &apos;driverstate&apos; device"/>
         <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" type="STR" help="Assign a &apos;driverstate&apos; device to named vehicles"/>
         <device.driverstate.deterministic value="false" type="BOOL" help="The &apos;driverstate&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.driverstate.minAwareness value="0.1" type="FLOAT" help="Minimal admissible value for the driver&apos;s awareness."/>
+        <device.driverstate.initialAwareness value="0.1" type="FLOAT" help="Initial value assigned to the driver&apos;s awareness."/>
         <device.driverstate.errorTimeScaleCoefficient value="100" type="FLOAT" help="Time scale for the error process."/>
         <device.driverstate.errorNoiseIntensityCoefficient value="0.2" type="FLOAT" help="Noise intensity driving the error process."/>
         <device.driverstate.speedDifferenceErrorCoefficient value="0.15" type="FLOAT" help="General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance)."/>
         <device.driverstate.headwayErrorCoefficient value="0.75" type="FLOAT" help="General scaling coefficient for applying the error to the perceived distance (error also scales with distance)."/>
         <device.driverstate.speedDifferenceChangePerceptionThreshold value="0.1" type="FLOAT" help="Base threshold for recognizing changes in the speed difference (threshold also scales with distance)."/>
         <device.driverstate.headwayChangePerceptionThreshold value="0.1" type="FLOAT" help="Base threshold for recognizing changes in the headway (threshold also scales with distance)."/>
+        <device.driverstate.minAwareness value="0.1" type="FLOAT" help="Minimal admissible value for the driver&apos;s awareness."/>
     </driver_state_device>
 
     <bluelight_device>
@@ -271,6 +270,7 @@
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
     </gui_only>

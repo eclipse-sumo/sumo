@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 18 17:02:37 2018 by Eclipse SUMO Version 654c3d7
+<!-- generated on Wed Jun 20 08:17:39 2018 by Eclipse SUMO Version c536a4b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -164,12 +164,6 @@
 
         <!-- Record stops and loading/unloading of passenger and containers for all vehicles into FILE -->
         <stop-output value="" type="FILE"/>
-
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR"/>
 
         <!-- Use INT[] as times at which a network state written -->
         <save-state.times value="" type="INT[]"/>
@@ -543,8 +537,8 @@
         <!-- The &apos;driverstate&apos; devices are set deterministic using a fraction of 1000 -->
         <device.driverstate.deterministic value="false" type="BOOL"/>
 
-        <!-- Minimal admissible value for the driver&apos;s awareness. -->
-        <device.driverstate.minAwareness value="0.1" type="FLOAT"/>
+        <!-- Initial value assigned to the driver&apos;s awareness. -->
+        <device.driverstate.initialAwareness value="0.1" type="FLOAT"/>
 
         <!-- Time scale for the error process. -->
         <device.driverstate.errorTimeScaleCoefficient value="100" type="FLOAT"/>
@@ -563,6 +557,9 @@
 
         <!-- Base threshold for recognizing changes in the headway (threshold also scales with distance). -->
         <device.driverstate.headwayChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+        <!-- Minimal admissible value for the driver&apos;s awareness. -->
+        <device.driverstate.minAwareness value="0.1" type="FLOAT"/>
 
     </driver_state_device>
 
@@ -686,6 +683,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
