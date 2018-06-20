@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version d6f78cf
+Eclipse SUMO netgenerate Version af267e6
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -249,6 +249,8 @@ Processing Options:
                                          lane-changing while turning
   --junctions.limit-turn-speed FLOAT   Limits speed on junctions by FLOAT times
                                          sqrt(turningRadius)
+  --junctions.small-radius FLOAT       Default radius for junctions that do not
+                                         require wide vehicle turns
   --rectangular-lane-cut               Forces rectangular cuts between lanes
                                          and intersections
   --check-lane-foes.roundabout         Allow driving onto a multi-lane road if

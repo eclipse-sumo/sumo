@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 14 16:05:46 2018 by Eclipse SUMO netgenerate Version d6f78cf
+<!-- generated on Wed Jun 20 22:02:50 2018 by Eclipse SUMO netgenerate Version af267e6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -365,6 +365,9 @@
 
         <!-- Limits speed on junctions by FLOAT times sqrt(turningRadius) -->
         <junctions.limit-turn-speed value="-1" type="FLOAT"/>
+
+        <!-- Default radius for junctions that do not require wide vehicle turns -->
+        <junctions.small-radius value="1.5" type="FLOAT"/>
 
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>
