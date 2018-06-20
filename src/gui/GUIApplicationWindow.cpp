@@ -557,6 +557,26 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myHelpMenu, "&Online Documentation\tF1\tOpen Online documentation", 0, this, MID_HELP);
     new FXMenuCommand(myHelpMenu, "&About\tF2\tAbout sumo-gui", GUIIconSubSys::getIcon(ICON_APP),
                       this, MID_ABOUT);
+
+    // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));   // Ctrl + O
+    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_RELOAD));        // Ctrl + R
+    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));   // Ctrl + P
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_CLOSE));         // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_QUIT));          // Ctrl + Q
+    getAccelTable()->addAccel(262214, this, FXSEL(SEL_COMMAND, MID_FULLSCREEN));    // Ctrl + F
+    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GAMING));        // Ctrl + G
+    getAccelTable()->addAccel(262209, this, FXSEL(SEL_COMMAND, MID_START));         // Ctrl + A
+    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_STOP));          // Ctrl + S
+    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_STEP));          // Ctrl + D
+    
+     // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
+    getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
+    getAccelTable()->addAccel(65652, this, FXSEL(SEL_COMMAND, MID_LOCATETLS));      // Shift + T
+    getAccelTable()->addAccel(65633, this, FXSEL(SEL_COMMAND, MID_LOCATEADD));      // Shift + A
+    getAccelTable()->addAccel(65647, this, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
+    getAccelTable()->addAccel(65644, this, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
 }
 
 
