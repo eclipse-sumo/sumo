@@ -1500,10 +1500,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE,
             "The path to the output file", 
             "");
-        myAllowedTags[currentTag].addAttribute(SUMO_ATTR_VTYPES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_VCLASS | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Space separated list of vehicle type ids to consider", 
-            "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FRIENDLY_POS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1", 

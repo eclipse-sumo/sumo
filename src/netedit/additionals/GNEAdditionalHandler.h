@@ -380,7 +380,7 @@ public:
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
-     * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
+     * @param[in] vtypes list of vehicle types to be reported
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
@@ -458,14 +458,12 @@ public:
      * @param[in] lane The lane the detector is placed on
      * @param[in] pos position of the detector on the lane
      * @param[in] filename The path to the output file.
-     * @param[in] splitByType If set, the collected values will be additionally reported on per-vehicle type base.
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static bool buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& filename, 
-                                       const std::string& vehicleTypes, bool friendlyPos, bool blockMovement);
+    static bool buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& filename, bool friendlyPos, bool blockMovement);
 
     /**@brief builds a microscopic calibrator over a lane
      * @param[in] viewNet viewNet in which element will be inserted
