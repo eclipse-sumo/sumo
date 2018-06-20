@@ -301,49 +301,28 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
     getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
     getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // V
-    // initialize Ctrl hotkeys using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(MKUINT(4, 110), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_NEWNETWORK));        // Ctrl + n
-    getAccelTable()->addAccel(MKUINT(4,  78), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_NEWNETWORK));        // Ctrl + N
-    getAccelTable()->addAccel(MKUINT(4, 111), this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));                      // Ctrl + o
-    getAccelTable()->addAccel(MKUINT(4,  79), this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));                      // Ctrl + O
-    getAccelTable()->addAccel(MKUINT(5, 111), this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));                       // Ctrl + Shift + o
-    getAccelTable()->addAccel(MKUINT(5,  79), this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));                       // Ctrl + Shift + O
-    getAccelTable()->addAccel(MKUINT(4, 114), this, FXSEL(SEL_COMMAND, MID_RELOAD));                            // Ctrl + r
-    getAccelTable()->addAccel(MKUINT(4,  82), this, FXSEL(SEL_COMMAND, MID_RELOAD));                            // Ctrl + R
-    getAccelTable()->addAccel(MKUINT(4, 115), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK));       // Ctrl + s
-    getAccelTable()->addAccel(MKUINT(4,  83), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK));       // Ctrl + S
-    getAccelTable()->addAccel(MKUINT(5, 115), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));    // Ctrl + Shift + s
-    getAccelTable()->addAccel(MKUINT(5,  83), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));    // Ctrl + Shift + S
-    getAccelTable()->addAccel(MKUINT(4, 108), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEPLAINXML));      // Ctrl + l
-    getAccelTable()->addAccel(MKUINT(4,  76), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEPLAINXML));      // Ctrl + L
-    getAccelTable()->addAccel(MKUINT(4, 106), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEJOINED));        // Ctrl + j
-    getAccelTable()->addAccel(MKUINT(4,  74), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEJOINED));        // Ctrl + J
-    getAccelTable()->addAccel(MKUINT(4, 112), this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));                       // Ctrl + p
-    getAccelTable()->addAccel(MKUINT(4,  80), this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));                       // Ctrl + P
-    getAccelTable()->addAccel(MKUINT(5, 112), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVESHAPES));        // Ctrl + Shift + p
-    getAccelTable()->addAccel(MKUINT(5,  80), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVESHAPES));        // Ctrl + Shift + P
-    getAccelTable()->addAccel(MKUINT(4, 100), this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                  // Ctrl + d
-    getAccelTable()->addAccel(MKUINT(4,  68), this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                  // Ctrl + D
-    getAccelTable()->addAccel(MKUINT(5, 100), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALS));   // Ctrl + Shift + d
-    getAccelTable()->addAccel(MKUINT(5,  68), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALS));   // Ctrl + Shift + D
-    getAccelTable()->addAccel(MKUINT(4, 107), this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                  // Ctrl + k
-    getAccelTable()->addAccel(MKUINT(4,  75), this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                  // Ctrl + K
-    getAccelTable()->addAccel(MKUINT(5, 107), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS));   // Ctrl + Shift + k
-    getAccelTable()->addAccel(MKUINT(5,  75), this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS));   // Ctrl + Shift + K
-    getAccelTable()->addAccel(MKUINT(4, 119), this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + w
-    getAccelTable()->addAccel(MKUINT(4,  87), this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + W
-    getAccelTable()->addAccel(MKUINT(4, 113), this, FXSEL(SEL_COMMAND, MID_QUIT));                           // Ctrl + q
-    getAccelTable()->addAccel(MKUINT(4,  81), this, FXSEL(SEL_COMMAND, MID_QUIT));                           // Ctrl + Q
-    getAccelTable()->addAccel(MKUINT(4, 122), this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + z
-    getAccelTable()->addAccel(MKUINT(4,  90), this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + Z
-    getAccelTable()->addAccel(MKUINT(4, 121), this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                   // Ctrl + y
-    getAccelTable()->addAccel(MKUINT(4,  89), this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                   // Ctrl + Y
-    getAccelTable()->addAccel(MKUINT(4, 118), this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                    // Ctrl + v
-    getAccelTable()->addAccel(MKUINT(4,  86), this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                    // Ctrl + V
-    getAccelTable()->addAccel(MKUINT(4, 105), this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                      // Ctrl + i
-    getAccelTable()->addAccel(MKUINT(4,  73), this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                      // Ctrl + I
-    getAccelTable()->addAccel(MKUINT(4, 103), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));            // Ctrl + i
-    getAccelTable()->addAccel(MKUINT(4,  71), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));            // Ctrl + I
+    // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_NEWNETWORK));        // Ctrl + N
+    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));                      // Ctrl + O
+    getAccelTable()->addAccel(327649, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));                       // Ctrl + Shift + O
+    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_RELOAD));                            // Ctrl + R
+    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK));       // Ctrl + S
+    getAccelTable()->addAccel(131043, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));    // Ctrl + Shift + S
+    getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEPLAINXML));      // Ctrl + L
+    getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEJOINED));        // Ctrl + J
+    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));                       // Ctrl + P
+    getAccelTable()->addAccel(327649, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVESHAPES));        // Ctrl + Shift + P
+    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                  // Ctrl + D
+    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALS));   // Ctrl + Shift + D
+    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                  // Ctrl + K
+    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS));   // Ctrl + Shift + K
+    getAccelTable()->addAccel(232231, this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_QUIT));                              // Ctrl + Q
+    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + Z
+    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                   // Ctrl + Y
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                    // Ctrl + V
+    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                      // Ctrl + I
+    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));            // Ctrl + G
     // initialize rest of hotkeys
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
