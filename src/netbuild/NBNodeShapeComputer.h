@@ -137,6 +137,9 @@ private:
     /// @brief return the intersection point closest to the given offset
     double closestIntersection(const PositionVector& geom1, const PositionVector& geom2, double offset);
 
+    /// @brief determine the default radius appropriate for the current junction
+    double getDefaultRadius(const OptionsCont& oc);
+
 private:
     /// The node to compute the geometry for
     const NBNode& myNode;

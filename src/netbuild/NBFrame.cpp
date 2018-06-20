@@ -222,6 +222,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed", "Processing",
                       "Limits speed on junctions by FLOAT times sqrt(turningRadius)");
 
+    oc.doRegister("junctions.small-radius", new Option_Float(1.5));
+    oc.addDescription("junctions.small-radius", "Processing",
+                      "Default radius for junctions that do not require wide vehicle turns");
+
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
     oc.addDescription("rectangular-lane-cut", "Processing", "Forces rectangular cuts between lanes and intersections");
 

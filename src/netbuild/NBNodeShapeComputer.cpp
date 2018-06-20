@@ -142,8 +142,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
     // magic values
     const OptionsCont& oc = OptionsCont::getOptions();
-    const bool defaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;
-    const double radius = (defaultRadius ? oc.getFloat("default.junctions.radius") : myNode.getRadius());
+    const bool useDefaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;
+    const double radius = (useDefaultRadius ? getDefaultRadius(oc) : myNode.getRadius());
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
@@ -353,7 +353,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                 }
             }
         }
-        if (defaultRadius && sCurveStretch > 0) {
+        if (useDefaultRadius && sCurveStretch > 0) {
             double sCurveWidth = myNode.getDisplacementError();
             if (sCurveWidth > 0) {
                 const double sCurveRadius = radius + sCurveWidth / SUMO_const_laneWidth * sCurveStretch * pow((*i)->getSpeed(), 2 + sCurveStretch) / 1000;
@@ -793,5 +793,40 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
 }
 
 
+double
+NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
+    // look for incoming/outgoing edge pairs that do not go straight and allow wide vehicles 
+    // (connection information is not available yet)
+    SVCPermissions large = SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN);
+    // XXX scale returned radius based on maximum turning angle
+    for (NBEdge* in : myNode.getIncomingEdges()) {
+        int wideLanesIn = 0;
+        for (int i = 0; i < in->getNumLanes(); i++) {
+            if ((in->getPermissions(i) & large) != 0) {
+                wideLanesIn++;
+            }
+        }
+        for (NBEdge* out : myNode.getOutgoingEdges()) {
+            if ((in->getPermissions() & out->getPermissions() & large) != 0) {
+                LinkDirection dir = myNode.getDirection(in, out);
+                if (dir != LINKDIR_STRAIGHT && dir != LINKDIR_TURN) {
+                    // need wide turn
+                    return oc.getFloat("default.junctions.radius");
+                }
+                int wideLanesOut = 0;
+                for (int i = 0; i < out->getNumLanes(); i++) {
+                    if ((out->getPermissions(i) & large) != 0) {
+                        wideLanesOut++;
+                    }
+                }
+                // changing the number of wide-vehicle lanes also requires the larger default
+                if (wideLanesOut != wideLanesIn) {
+                    return oc.getFloat("default.junctions.radius");
+                }
+            }
+        }
+    }
+    return oc.getFloat("junctions.small-radius");
+}
 
 /****************************************************************************/
