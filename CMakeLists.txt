@@ -238,8 +238,12 @@ if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
 
+# installation
 install(DIRECTORY data/ DESTINATION share/sumo/data) 
 install(DIRECTORY tools/ DESTINATION share/sumo/tools) 
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+
+# custom targets
+add_custom_target(examples COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/extractTest.py -x -f ${CMAKE_SOURCE_DIR}/tests/examples.txt) 
 
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
