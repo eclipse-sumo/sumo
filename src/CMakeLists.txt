@@ -35,9 +35,6 @@ add_subdirectory(traci_testclient)
 add_subdirectory(utils)
 
 
-set(sumoexec
-            sumo_main.cpp
-            microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
 set(sumoguiexec
             guisim_main.cpp
             microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h
@@ -45,7 +42,8 @@ set(sumoguiexec
             gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
             mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
 
-add_executable(sumo version.h ${sumoexec})
+add_executable(sumo version.h sumo_main.cpp
+        microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumoD)
 target_link_libraries(sumo ${sumolibs})
 
