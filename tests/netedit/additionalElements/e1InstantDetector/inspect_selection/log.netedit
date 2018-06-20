@@ -14,11 +14,6 @@ Warning: Setting new attribute selected 'true' into edge 'gneE0'
 Warning: Setting new attribute selected 'true' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute selected 'true' into instantInductionLoop 'E1Instant_B'
 Warning: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Warning: Setting new attribute freq '900.00' into instantInductionLoop 'E1Instant_A'
-Warning: Setting new attribute freq '900.00' into instantInductionLoop 'E1Instant_B'
-Warning: Value '-100' for attribute freq of instantInductionLoop isn't valid
-Warning: Setting new attribute freq '120' into instantInductionLoop 'E1Instant_A'
-Warning: Setting new attribute freq '120' into instantInductionLoop 'E1Instant_B'
 Warning: Setting new attribute file '' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute file '' into instantInductionLoop 'E1Instant_B'
 Warning: Value '%%%&&%$%$' for attribute file of instantInductionLoop isn't valid
@@ -31,6 +26,11 @@ Warning: Setting new attribute vTypes 'private passenger taxi bus' into instantI
 Warning: Setting new attribute vTypes 'private passenger taxi bus' into instantInductionLoop 'E1Instant_B'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_B'
+Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'E1Instant_A'
+Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'E1Instant_B'
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Setting previous attribute blockMovement '0' into instantInductionLoop 'E1Instant_B'
+Warning: Setting previous attribute blockMovement '0' into instantInductionLoop 'E1Instant_A'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into instantInductionLoop 'E1Instant_B'
 Warning: Setting previous attribute friendlyPos '0' into instantInductionLoop 'E1Instant_A'
@@ -55,6 +55,9 @@ Warning: Setting new attribute vTypes 'private passenger taxi bus' into instantI
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_A'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'E1Instant_B'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'E1Instant_A'
+Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'E1Instant_B'
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

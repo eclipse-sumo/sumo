@@ -28,18 +28,6 @@
     
     <!-- non valid position (overpassing lenght) -->
     <instantInductionLoop id="E1Instant_07" lane="gneE0_0" pos="3000" freq="100.00" file="instantInductionLoop_07.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    
-    <!-- non valid frequency (missing) -->
-    <instantInductionLoop id="E1Instant_08" lane="gneE0_0" pos="15" file="instantInductionLoop_08.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    
-    <!-- non valid frequency (dummy) -->
-    <instantInductionLoop id="E1Instant_09" lane="gneE0_0" pos="18" freq="dummyFrequency" file="instantInductionLoop_09.txt" vTypes="bus taxi private" friendlyPos="0"/>
-
-    <!-- non valid frequency (negative) -->
-    <instantInductionLoop id="E1Instant_10" lane="gneE0_0" pos="21" freq="-100.00" file="instantInductionLoop_10.txt" vTypes="bus taxi private" friendlyPos="0"/>
-
-    <!-- valid frequency -->
-    <instantInductionLoop id="E1Instant_11" lane="gneE0_0" pos="24" freq="120.00" file="instantInductionLoop_11.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
     <!-- non valid file (missing) -->
     <instantInductionLoop id="E1Instant_12" lane="gneE0_0" pos="27" freq="120.00" vTypes="bus taxi private" friendlyPos="0"/>

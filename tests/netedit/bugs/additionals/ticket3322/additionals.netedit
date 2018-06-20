@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 19.06.2018 16:10:35 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/bugs/additionals/ticket3322\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
@@ -12,7 +50,7 @@
         <detExit lane="gneE0_0" pos="15.00"/>
         <detEntry lane="gneE0_0" pos="5.00"/>
     </e3Detector>
-    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" freq="100.00" file="instantInductionLoop_1.txt" vTypes="bus taxi private"/>
+    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" file="instantInductionLoop_1.txt" vTypes="bus taxi private"/>
     <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="0.00" output="calibrator_gneE1_0_0.txt"/>
     <calibrator id="calibrator_gneE1_1_1" lane="gneE1_1" pos="5.00" output="calibrator_gneE1_1_1.txt"/>
     <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_2_2.txt"/>

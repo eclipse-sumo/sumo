@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 19.06.2018 14:30:30 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Jun142820.3048/netedit.gui/additionalElements/basic/relative_positions\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
@@ -12,7 +50,7 @@
         <detEntry lane="gneE0_0" pos="5.00"/>
         <detExit lane="gneE0_0" pos="15.00"/>
     </e3Detector>
-    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" freq="100.00" file="instantInductionLoop_1.txt" vTypes="bus taxi private"/>
+    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" file="instantInductionLoop_1.txt" vTypes="bus taxi private"/>
     <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="2.50" output="calibrator_gneE1_0_0.txt"/>
     <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="5.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
     <rerouter id="rerouter_0" edges="gneE1" file="rerouter_0.txt" pos="15.15,-14.96"/>

@@ -37,39 +37,33 @@ netedit.inspectMode()
 # inspect E1 Instant
 netedit.leftClick(match, 150, 240)
 
-# Change parameter 0 with a non valid value (non numeral)
-netedit.modifyAttribute(0, "dummyFrequency")
+# Change parameter 0 with an empty value
+netedit.modifyAttribute(0, "")
 
-# Change parameter 0 with a non valid value (negative)
-netedit.modifyAttribute(0, "-100")
+# Change parameter 0 with an non valid value
+netedit.modifyAttribute(0, "%%%&&%$%$")
+
+# Change parameter 0 with a duplicated value
+netedit.modifyAttribute(0, "instantInductionLoop_gneE2_1_1.txt")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "120")
+netedit.modifyAttribute(0, "myOwnOutput.txt")
 
-# Change parameter 1 with an empty value
-netedit.modifyAttribute(1, "")
+# Change parameter 1 with an invalid value
+netedit.modifyAdditionalDefaultValue(1, "DummyVClasses")
 
-# Change parameter 1 with an non valid value
-netedit.modifyAttribute(1, "%%%&&%$%$")
+# Change parameter 1
+netedit.modifyAdditionalDefaultValue(1, "private passenger taxi bus")
 
-# Change parameter 1 with a duplicated value
-netedit.modifyAttribute(1, "instantInductionLoop_gneE2_1_1.txt")
+# Change boolean parameter 2
+netedit.modifyBoolAttribute(2)
 
-# Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "myOwnOutput.txt")
-
-# Change parameter 2 with an invalid value
-netedit.modifyAdditionalDefaultValue(2, "DummyVClasses")
-
-# Change parameter 2
-netedit.modifyAdditionalDefaultValue(2, "private passenger taxi bus")
-
-# Change boolean parameter 3
-netedit.modifyBoolAttribute(3)
+# Change boolean parameter block movement
+netedit.modifyBoolAttribute(4)
 
 # Check undos and redos
-netedit.undo(match, 4)
-netedit.redo(match, 4)
+netedit.undo(match, 5)
+netedit.redo(match, 5)
 
 # save additionals
 netedit.saveAdditionals()
