@@ -17,7 +17,7 @@ environment:
 
 install:
     - Invoke-WebRequest https://codeload.github.com/DLR-TS/SUMOLibraries/zip/master -OutFile SUMOLibraries-master.zip
-	- 7z x SUMOLibraries-master.zip
+    - 7z x SUMOLibraries-master.zip
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries-master
 
 build_script:
