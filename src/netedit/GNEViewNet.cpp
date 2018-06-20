@@ -1033,6 +1033,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.additionalToMove->moveGeometry(myMoveSingleElementValues.movingOriginalPosition, offsetMovement);
     } else if (mySelectingArea.selectingUsingRectangle) {
         mySelectingArea.selectionCorner2 = getPositionInformation();
+        setStatusBarText(mySelectingArea.reportDimensions());
     }
     // update view
     update();
@@ -2949,6 +2950,13 @@ GNEViewNet::SelectingArea::processSelection(GNEViewNet *viewNet, bool shiftKeyPr
             viewNet->makeNonCurrent();
         }
     }
+}
+
+std::string 
+GNEViewNet::SelectingArea::reportDimensions() {
+    return ("Selection width:" + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
+            + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
+            + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
 }
 
 /****************************************************************************/

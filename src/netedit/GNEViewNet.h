@@ -531,6 +531,9 @@ private:
 
         /// @brief second corner of the rectangle-selection
         Position selectionCorner2;
+
+        /// @brief inform about selection size
+        std::string reportDimensions();
     };
 
     /// @brief struct used to group all variables related with testing
