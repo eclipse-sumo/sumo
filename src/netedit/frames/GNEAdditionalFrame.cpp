@@ -1446,9 +1446,9 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
     if (additional->getTag() == SUMO_TAG_REROUTER) {
         GNERerouter *rerouter = dynamic_cast<GNERerouter*>(additional);
         // Clear rerouter intervals
-        while(rerouter->getRerouterIntervals().size() > 0) {
+        while(rerouter->getAdditionalChilds().size() > 0) {
             // remove rerouter interval
-            myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front(), false), true);
+            myViewNet->getUndoList()->add(new GNEChange_Additional(rerouter->getAdditionalChilds().front(), false), true);
         }
     }
     // if Additional is a Variable Speed Singn, remove all steps

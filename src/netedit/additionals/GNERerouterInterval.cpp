@@ -27,16 +27,11 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
-
-#include "GNEClosingLaneReroute.h"
-#include "GNEParkingAreaReroute.h"
-#include "GNEClosingReroute.h"
-#include "GNEDestProbReroute.h"
-#include "GNERouteProbReroute.h"
-#include "GNERerouter.h"
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
+
+#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions
@@ -44,7 +39,6 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedRerouter(), rerouterDialog->getEditedRerouter()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
-    myRerouterParent(rerouterDialog->getEditedRerouter()),
     myBegin(parse<double>(getTagProperties(SUMO_TAG_INTERVAL).getDefaultValue(SUMO_ATTR_BEGIN))),
     myEnd(parse<double>(getTagProperties(SUMO_TAG_INTERVAL).getDefaultValue(SUMO_ATTR_END))) {
 }
@@ -52,19 +46,12 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
     GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
-    myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end) {
 }
 
 
 GNERerouterInterval::~GNERerouterInterval() {}
-
-
-GNERerouter*
-GNERerouterInterval::getRerouterParent() const {
-    return myRerouterParent;
-}
 
 
 double
@@ -105,7 +92,7 @@ GNERerouterInterval::getPositionInView() const {
 
 std::string 
 GNERerouterInterval::getParentName() const {
-    return myRerouterParent->getID();
+    return myAdditionalParent->getID();
 }
 
 

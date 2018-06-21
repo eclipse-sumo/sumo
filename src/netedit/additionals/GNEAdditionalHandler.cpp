@@ -459,9 +459,9 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         GNERerouter* rerouter = dynamic_cast<GNERerouter*>(myViewNet->getNet()->getAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second));
         // special case for load multiple intervals in the same rerouter
         if(rerouter == nullptr) {
-            GNERerouterInterval* lastInsertedRerouterInterval = myViewNet->getNet()->getRerouterInterval((myParentElements.end()-2)->second);
+            GNERerouterInterval* lastInsertedRerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->getAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second));
             if(lastInsertedRerouterInterval) {
-                rerouter = lastInsertedRerouterInterval->getRerouterParent();
+                rerouter = dynamic_cast<GNERerouter*>(lastInsertedRerouterInterval->getAdditionalParent());
             }
         }
         // check that rerouter exist
@@ -485,7 +485,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
     if (!abort) {
         // obtain lane and rerouter interval
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneID, false, true);
-        GNERerouterInterval* rerouterInterval = myViewNet->getNet()->getRerouterInterval((myParentElements.end()-2)->second);
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->getAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second));
         // check that all elements are valid
         if (lane == nullptr) {
             WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " is not known.");
@@ -509,7 +509,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttribute
     if (!abort) {
         // obtain edge and rerouter interval
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNERerouterInterval* rerouterInterval = myViewNet->getNet()->getRerouterInterval((myParentElements.end()-2)->second);
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->getAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second));
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
@@ -532,7 +532,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
     if (!abort) {
         // obtain edge and rerouter interval
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        GNERerouterInterval* rerouterInterval = myViewNet->getNet()->getRerouterInterval((myParentElements.end()-2)->second);
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->getAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second));
         // check that all elements are valid
         if (edge == nullptr) {
             WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
@@ -555,7 +555,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttri
     if (!abort) {
         // obtain edge and rerouter interval
         GNEParkingArea* parkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(parkingAreaID, false));
-        GNERerouterInterval* rerouterInterval = myViewNet->getNet()->getRerouterInterval((myParentElements.end()-2)->second);
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->getAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second));
         // check that all elements are valid
         if (parkingArea == nullptr) {
             WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(tag) + " is not known.");
@@ -577,7 +577,7 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttribu
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain rerouter interval
-        GNERerouterInterval* rerouterInterval = myViewNet->getNet()->getRerouterInterval((myParentElements.end()-2)->second);
+        GNERerouterInterval* rerouterInterval = dynamic_cast<GNERerouterInterval*>(myViewNet->getNet()->getAdditional(SUMO_TAG_INTERVAL, (myParentElements.end()-2)->second));
         // check that all elements are valid
         if (rerouterInterval == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_INTERVAL) + ".");
@@ -1714,22 +1714,24 @@ bool
 GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNERerouter* rerouterParent, double begin, double end) {
     // first create rerouter interval and add it into rerouter parent
     GNERerouterInterval* rerouterInterval = new GNERerouterInterval(rerouterParent, begin, end);
-    rerouterParent->addRerouterInterval(rerouterInterval);
+    rerouterParent->addAdditionalChild(rerouterInterval);
     // remove it if there is overlapping with another intervals
     if (rerouterParent->getNumberOfOverlappedIntervals() == 0) {
         // if allowUndoRedo is enabled, remove it and add it again using GNEChange_RerouterItem
         if (allowUndoRedo) {
-            rerouterParent->removeRerouterInterval(rerouterInterval);
+            // remove child because will be added again throught GNEChange_Additional
+            rerouterParent->removeAdditionalChild(rerouterInterval);
             viewNet->getUndoList()->p_begin("add " + toString(rerouterInterval->getTag()));
-            viewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval, true), true);
+            viewNet->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
             viewNet->getUndoList()->p_end();
         } else {
+            // child is already inserted
             rerouterInterval->incRef("buildRerouterInterval");
         }
         return true;
     } else {
         // delete created rerouter interval and throw exception
-        rerouterParent->removeRerouterInterval(rerouterInterval);
+        rerouterParent->removeAdditionalChild(rerouterInterval);
         delete rerouterInterval;
         throw ProcessError("Could not build " + toString(SUMO_TAG_INTERVAL) + " with begin '" + toString(begin) + "' and '" + toString(end) + "' in '" + rerouterParent->getID() + "' due overlapping.");
     }

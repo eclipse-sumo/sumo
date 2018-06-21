@@ -33,52 +33,10 @@
 // class declarations
 // ===========================================================================
 
-class GNERerouter;
-class GNERerouterInterval;
-class GNEClosingLaneReroute;
-class GNEDestProbReroute;
-class GNERouteProbReroute;
-class GNEParkingAreaReroute;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
-* @class GNEChange_RerouterItem
-* A change to the network selection
-*/
-class GNEChange_RerouterItem : public GNEChange {
-    FXDECLARE_ABSTRACT(GNEChange_RerouterItem)
-
-public:
-    /**@brief Constructor
-    * @param[in] rerouterInterval rerouter interval to be added
-    * @param[in] forward Whether to create/delete (true/false)
-    */
-    GNEChange_RerouterItem(GNERerouterInterval* rerouterInterval, bool forward);
-
-    /// @brief Destructor
-    ~GNEChange_RerouterItem();
-
-    /// @name inherited from GNEChange
-    /// @{
-    /// @brief get undo Name
-    FXString undoName() const;
-
-    /// @brief get Redo name
-    FXString redoName() const;
-
-    /// @brief undo action
-    void undo();
-
-    /// @brief redo action
-    void redo();
-    /// @}
-
-private:
-    /// @brief modified rerouter interval
-    GNERerouterInterval* myRerouterInterval;
-};
 
 #endif
 /****************************************************************************/

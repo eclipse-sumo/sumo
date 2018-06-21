@@ -1802,24 +1802,6 @@ GNENet::getAdditionals(SumoXMLTag type) const {
 }
 
 
-GNERerouterInterval*
-GNENet::getRerouterInterval(const std::string& rerouterIntervalID) const {
-    // iterate over additionals and obtain Rerouters
-    for (auto i : myAttributeCarriers.additionals) {
-        if (i.second->getTag() == SUMO_TAG_REROUTER) {
-            GNERerouter* rerouter = dynamic_cast<GNERerouter*>(i.second);
-            // iterate over intervals of rerouter.
-            for (auto j : rerouter->getRerouterIntervals()) {
-                if (j->getID() == rerouterIntervalID) {
-                    return j;
-                }
-            }
-        }
-    }
-    return nullptr;
-}
-
-
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;

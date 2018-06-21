@@ -56,13 +56,13 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement);
+    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
 
     /// @brief get edited Rerouter Interval
-    GNERerouterInterval* getEditedRerouterInterval() const;
+    GNEAdditional* getEditedRerouterInterval() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -130,7 +130,7 @@ protected:
     GNERerouterIntervalDialog() {}
 
     /// @brief pointer to rerouter interval
-    GNERerouterInterval* myEditedRerouterInterval;
+    GNEAdditional* myEditedRerouterInterval;
 
     /// @brief flag to indicate if rerouter interval is being created or modified
     bool myUpdatingElement;

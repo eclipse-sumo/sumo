@@ -30,7 +30,6 @@
 // ===========================================================================
 
 class GNEEdge;
-class GNERerouterInterval;
 
 // ===========================================================================
 // class definitions
@@ -63,15 +62,6 @@ public:
 
     /// @name Functions related with rerouter intervals
     /// @{
-
-    /// @brief add rerouter interval
-    void addRerouterInterval(GNERerouterInterval* rerouterInterval);
-
-    /// @brief add rerouter interval
-    void removeRerouterInterval(GNERerouterInterval* rerouterInterval);
-
-    /// @brief get rerouter intervals
-    const std::vector<GNERerouterInterval*>& getRerouterIntervals() const;
 
     /// @brief get number of overlapped intervals
     int getNumberOfOverlappedIntervals() const;
@@ -153,9 +143,6 @@ protected:
 
     /// @brief attribute to configure activation time threshold
     double myTimeThreshold;
-
-    /// @brief set with the GNERerouterInterval
-    std::vector<GNERerouterInterval*> myRerouterIntervals;
 
 private:
     /// @brief set attribute after validation

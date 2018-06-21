@@ -575,12 +575,6 @@ public:
      */
     std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /* @brief retrieve Rerouter Interval
-     * @param rerouterIntervalID ID of rerouter interval
-     * @param rerouter interval if was found, or nullptr in other case
-     */
-    GNERerouterInterval* getRerouterInterval(const std::string& rerouterIntervalID) const;
-
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
      * @return Number of additionals of the net

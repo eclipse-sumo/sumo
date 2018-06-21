@@ -45,9 +45,6 @@ class GNEParkingAreaReroute;
  * class used to represent a interval used in rerouters
  */
 class GNERerouterInterval : public GNEAdditional {
-    /// @brief declare friend class
-    friend class GNEChange_RerouterItem;
-    friend class GNEAdditionalHandler;
 
 public:
     /// @brief constructor (Used in GNERerouterDialog)
@@ -58,9 +55,6 @@ public:
 
     /// @brief destructor
     ~GNERerouterInterval();
-
-    /// @brief get rerouter parent
-    GNERerouter* getRerouterParent() const;
 
     /// @brief get begin
     double getBegin() const;
@@ -127,9 +121,6 @@ public:
     /// @}
 
 protected:
-    /// @brief pointer to rerouter parent
-    GNERerouter* myRerouterParent;
-
     /// @brief begin timeStep
     double myBegin;
 

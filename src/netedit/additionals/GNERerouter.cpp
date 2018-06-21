@@ -123,40 +123,9 @@ GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 }
 
 
-void
-GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
-    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
-    if (it == myRerouterIntervals.end()) {
-        myRerouterIntervals.push_back(rerouterInterval);
-        // sort intervals always after a adding/restoring
-        sortIntervals();
-    } else {
-        throw ProcessError("Rerouter Interval already exist");
-    }
-}
-
-
-void
-GNERerouter::removeRerouterInterval(GNERerouterInterval* rerouterInterval) {
-    auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
-    if (it != myRerouterIntervals.end()) {
-        myRerouterIntervals.erase(it);
-        // sort intervals always after a adding/restoring
-        sortIntervals();
-    } else {
-        throw ProcessError("Rerouter Interval doesn't exist");
-    }
-}
-
-
-const std::vector<GNERerouterInterval*>&
-GNERerouter::getRerouterIntervals() const {
-    return myRerouterIntervals;
-}
-
-
 int
 GNERerouter::getNumberOfOverlappedIntervals() const {
+    /*
     int numOverlappings = 0;
     // iterate over intervals to save the number of overlappings
     for (int i = 0; i < (int)(myRerouterIntervals.size() - 1); i++) {
@@ -168,11 +137,14 @@ GNERerouter::getNumberOfOverlappedIntervals() const {
     }
     // return number of overlappings found
     return numOverlappings;
+    */
+    return 0;
 }
 
 
 void
 GNERerouter::sortIntervals() {
+    /*
     // declare a vector to keep sorted intervals
     std::vector<GNERerouterInterval*> sortedIntervals;
     // sort intervals usin begin as criterium
@@ -190,6 +162,7 @@ GNERerouter::sortIntervals() {
     }
     // restore myRerouterIntervals using sorted intervals
     myRerouterIntervals = sortedIntervals;
+    */
 }
 
 
@@ -310,7 +283,15 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            // change ID of Rerouter Interval
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            // Change Ids of all Rerouter interval childs
+            for (auto i : myAdditionalChilds) {
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_INTERVAL), undoList);
+            }
+            break;
+        }
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:

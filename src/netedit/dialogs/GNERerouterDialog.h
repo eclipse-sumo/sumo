@@ -81,6 +81,9 @@ protected:
     /// @brief pointer to edited rerouter
     GNERerouter* myEditedRerouter;
 
+    /// @brief rerouter interval edited
+    std::vector<GNEAdditional*> myRerouterIntervalsEdited;
+
     /// @brief button for add new interval
     FXButton* myAddInterval;
 
