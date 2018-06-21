@@ -47,7 +47,6 @@ FXIMPLEMENT_ABSTRACT(GNEChange_RerouterItem, GNEChange, nullptr, 0)
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNERerouterInterval* rerouterInterval, bool forward) :
     GNEChange(rerouterInterval->getRerouterParent()->getViewNet()->getNet(), forward),
     myRerouterInterval(rerouterInterval),
-    myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(nullptr),
     myParkingAreaReroute(nullptr),
@@ -56,22 +55,9 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNERerouterInterval* rerouterInte
 }
 
 
-GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingReroute* closingReroute, bool forward) :
-    GNEChange(closingReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(nullptr),
-    myClosingReroute(closingReroute),
-    myClosingLaneReroute(nullptr),
-    myDestProbReroute(nullptr),
-    myParkingAreaReroute(nullptr),
-    myRouteProbReroute(nullptr) {
-    myClosingReroute->incRef("GNEChange_RerouterItem");
-}
-
-
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingLaneReroute* closingLaneReroute, bool forward) :
     GNEChange(closingLaneReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
     myRerouterInterval(nullptr),
-    myClosingReroute(nullptr),
     myClosingLaneReroute(closingLaneReroute),
     myDestProbReroute(nullptr),
     myParkingAreaReroute(nullptr),
@@ -83,7 +69,6 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNEClosingLaneReroute* closingLan
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNEDestProbReroute* destProbReroute, bool forward) :
     GNEChange(destProbReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
     myRerouterInterval(nullptr),
-    myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(destProbReroute),
     myParkingAreaReroute(nullptr),
@@ -95,7 +80,6 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNEDestProbReroute* destProbRerou
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNERouteProbReroute* routeProbReroute, bool forward) :
     GNEChange(routeProbReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
     myRerouterInterval(nullptr),
-    myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(nullptr),
     myParkingAreaReroute(nullptr),
@@ -106,7 +90,6 @@ GNEChange_RerouterItem::GNEChange_RerouterItem(GNERouteProbReroute* routeProbRer
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNEParkingAreaReroute* parkingAreaReroute, bool forward) :
     GNEChange(parkingAreaReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
     myRerouterInterval(nullptr),
-    myClosingReroute(nullptr),
     myClosingLaneReroute(nullptr),
     myDestProbReroute(nullptr),
     myParkingAreaReroute(parkingAreaReroute),
@@ -126,15 +109,6 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
                 WRITE_WARNING("Deleting rerouter Interval");
             }
             delete myRerouterInterval;
-        }
-    } else if (myClosingReroute) {
-        myClosingReroute->decRef("GNEChange_RerouterItem");
-        if (myClosingReroute->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Closing Reroute");
-            }
-            delete myClosingReroute;
         }
     } else if (myClosingLaneReroute) {
         myClosingLaneReroute->decRef("GNEChange_RerouterItem");
@@ -186,13 +160,6 @@ GNEChange_RerouterItem::undo() {
             }
             // remove rerouter interval from Rerouter
             myRerouterInterval->getRerouterParent()->removeRerouterInterval(myRerouterInterval);
-        } else if (myClosingReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing Closing Reroute from Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // remove Closing Reroute from Interval
-            myClosingReroute->getRerouterIntervalParent()->removeClosingReroute(myClosingReroute);
         } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -232,13 +199,6 @@ GNEChange_RerouterItem::undo() {
             }
             // add rerouter interval to Rerouter
             myRerouterInterval->getRerouterParent()->addRerouterInterval(myRerouterInterval);
-        } else if (myClosingReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding Closing Reroute to Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // add Closing Reroute to Interval
-            myClosingReroute->getRerouterIntervalParent()->addClosingReroute(myClosingReroute);
         } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -286,13 +246,6 @@ GNEChange_RerouterItem::redo() {
             }
             // add rerouter interval to Rerouter
             myRerouterInterval->getRerouterParent()->addRerouterInterval(myRerouterInterval);
-        } else if (myClosingReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding Closing Reroute to Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // add Closing Reroute to Interval
-            myClosingReroute->getRerouterIntervalParent()->addClosingReroute(myClosingReroute);
         } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -332,13 +285,6 @@ GNEChange_RerouterItem::redo() {
             }
             // remove rerouter interval from Rerouter
             myRerouterInterval->getRerouterParent()->removeRerouterInterval(myRerouterInterval);
-        } else if (myClosingReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing Closing Reroute from Interval '" + myClosingReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // remove Closing Reroute from Interval
-            myClosingReroute->getRerouterIntervalParent()->removeClosingReroute(myClosingReroute);
         } else if (myClosingLaneReroute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -380,8 +326,6 @@ FXString
 GNEChange_RerouterItem::undoName() const {
     if (myRerouterInterval) {
         return ("Undo change " + toString(myRerouterInterval->getTag()) + " values").c_str();
-    } else if (myClosingReroute) {
-        return ("Undo change " + toString(myClosingReroute->getTag()) + " values").c_str();
     } else if (myClosingLaneReroute) {
         return ("Undo change " + toString(myClosingLaneReroute->getTag()) + " values").c_str();
     } else if (myDestProbReroute) {
@@ -400,8 +344,6 @@ FXString
 GNEChange_RerouterItem::redoName() const {
     if (myRerouterInterval) {
         return ("Redo change " + toString(myRerouterInterval->getTag()) + " values").c_str();
-    } else if (myClosingReroute) {
-        return ("Redo change " + toString(myClosingReroute->getTag()) + " values").c_str();
     } else if (myClosingLaneReroute) {
         return ("Redo change " + toString(myClosingLaneReroute->getTag()) + " values").c_str();
     } else if (myDestProbReroute) {

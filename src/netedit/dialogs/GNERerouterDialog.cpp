@@ -25,6 +25,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/GNENet.h>
@@ -153,10 +154,6 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // get rerouter interval to remove
             GNERerouterInterval* rerouterInterval = myEditedRerouter->getRerouterIntervals().at(i);
-            // drop all closing reroutes of interval
-            while (rerouterInterval->getClosingReroutes().size() > 0) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getClosingReroutes().front(), false), true);
-            }
             // drop all closing lane reroutes of interval
             while (rerouterInterval->getClosingLaneReroutes().size() > 0) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getClosingLaneReroutes().front(), false), true);

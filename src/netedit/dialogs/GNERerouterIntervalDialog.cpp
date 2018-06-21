@@ -26,6 +26,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_RerouterItem.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNERerouterInterval.h>
 #include <netedit/additionals/GNEClosingLaneReroute.h>
@@ -97,6 +98,13 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
     myDestProbReroutesValid(true),
     myParkingAreaReroutesValid(true),
     myRouteProbReroutesValid(true) {
+
+    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+        if(i->getTag() == SUMO_TAG_CLOSING_REROUTE) {
+            closingReroutes.push_back(i);
+        }
+    }
+
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
@@ -202,7 +210,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         return 0;
     } else if (myEditedRerouterInterval->getClosingLaneReroutes().empty() &&
-               myEditedRerouterInterval->getClosingReroutes().empty() &&
+               closingReroutes.empty() &&
                myEditedRerouterInterval->getDestProbReroutes().empty() &&
                myEditedRerouterInterval->getParkingAreaReroutes().empty() &&
                myEditedRerouterInterval->getRouteProbReroutes().empty()) {
@@ -229,7 +237,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
-    } else if ((myEditedRerouterInterval->getClosingReroutes().size() > 0) && (myClosingReroutesValid == false)) {
+    } else if ((closingReroutes.size() > 0) && (myClosingReroutesValid == false)) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -325,7 +333,8 @@ long
 GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) {
     // create closing reroute
     GNEClosingReroute* closingReroute = new GNEClosingReroute(this);
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(closingReroute, true), true);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
+    closingReroutes.push_back(closingReroute);
     // update closing reroutes table
     updateClosingReroutesTable();
     return 1;
@@ -384,10 +393,11 @@ GNERerouterIntervalDialog::onCmdClickedClosingLaneReroute(FXObject*, FXSelector,
 long
 GNERerouterIntervalDialog::onCmdClickedClosingReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedRerouterInterval->getClosingReroutes().size(); i++) {
+    for (int i = 0; i < (int)closingReroutes.size(); i++) {
         if (myClosingRerouteTable->getItem(i, 4)->hasFocus()) {
             myClosingRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval->getClosingReroutes().at(i), false), true);
+            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroutes.at(i), false), true);
+            closingReroutes.erase(closingReroutes.begin() + i);
             updateClosingReroutesTable();
             return 1;
         }
@@ -476,8 +486,8 @@ GNERerouterIntervalDialog::onCmdEditClosingReroute(FXObject*, FXSelector, void*)
     myClosingReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myClosingRerouteTable->getNumRows(); i++) {
-        GNEClosingReroute* closingReroute = myEditedRerouterInterval->getClosingReroutes().at(i);
-        if (closingReroute->isValid(SUMO_ATTR_ID, myClosingRerouteTable->getItem(i, 0)->getText().text()) == false) {
+        GNEAdditional* closingReroute = closingReroutes.at(i);
+        if (closingReroute->isValidID(myClosingRerouteTable->getItem(i, 0)->getText().text()) == false) {
             myClosingReroutesValid = false;
             myClosingRerouteTable->getItem(i, 3)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else if (closingReroute->isValid(SUMO_ATTR_ALLOW, myClosingRerouteTable->getItem(i, 1)->getText().text()) == false) {
@@ -651,7 +661,7 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     // clear table
     myClosingRerouteTable->clearItems();
     // set number of rows
-    myClosingRerouteTable->setTableSize(int(myEditedRerouterInterval->getClosingReroutes().size()), 5);
+    myClosingRerouteTable->setTableSize(int(closingReroutes.size()), 5);
     // Configure list
     myClosingRerouteTable->setVisibleColumns(5);
     myClosingRerouteTable->setColumnWidth(0, 83);
@@ -668,15 +678,15 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     // Declare pointer to FXTableItem
     FXTableItem* item = 0;
     // iterate over values
-    for (int i = 0; i < (int)myEditedRerouterInterval->getClosingReroutes().size(); i++) {
+    for (int i = 0; i < (int)closingReroutes.size(); i++) {
         // Set closing edge
-        item = new FXTableItem(myEditedRerouterInterval->getClosingReroutes().at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(closingReroutes.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
         myClosingRerouteTable->setItem(i, 0, item);
         // set allow vehicles
-        item = new FXTableItem(myEditedRerouterInterval->getClosingReroutes().at(i)->getAttribute(SUMO_ATTR_ALLOW).c_str());
+        item = new FXTableItem(closingReroutes.at(i)->getAttribute(SUMO_ATTR_ALLOW).c_str());
         myClosingRerouteTable->setItem(i, 1, item);
         // set disallow vehicles
-        item = new FXTableItem(myEditedRerouterInterval->getClosingReroutes().at(i)->getAttribute(SUMO_ATTR_DISALLOW).c_str());
+        item = new FXTableItem(closingReroutes.at(i)->getAttribute(SUMO_ATTR_DISALLOW).c_str());
         myClosingRerouteTable->setItem(i, 2, item);
         // set valid icon
         item = new FXTableItem("");

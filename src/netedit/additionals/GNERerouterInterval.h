@@ -129,9 +129,6 @@ public:
     /// @brief get closing reroutes
     const std::vector<GNEClosingLaneReroute*>& getClosingLaneReroutes() const;
 
-    /// @brief get closing reroutes
-    const std::vector<GNEClosingReroute*>& getClosingReroutes() const;
-
     /// @brief get destiny probability reroutes
     const std::vector<GNEDestProbReroute*>& getDestProbReroutes() const;
 
@@ -154,9 +151,6 @@ protected:
     /// @brief vector with the closingLaneReroutes
     std::vector<GNEClosingLaneReroute*> myClosingLaneReroutes;
 
-    /// @brief vector with the closingReroutes
-    std::vector<GNEClosingReroute*> myClosingReroutes;
-
     /// @brief vector with the destProbReroutes
     std::vector<GNEDestProbReroute*> myDestProbReroutes;
 
@@ -171,12 +165,6 @@ protected:
 
     /// @brief add closing reroute
     void removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
-
-    /// @brief add closing reroute
-    void addClosingReroute(GNEClosingReroute* closingReroute);
-
-    /// @brief add closing reroute
-    void removeClosingReroute(GNEClosingReroute* closingReroute);
 
     /// @brief add destiny probability reroute
     void addDestProbReroute(GNEDestProbReroute* destProbReroute);

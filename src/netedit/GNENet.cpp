@@ -1782,8 +1782,8 @@ GNEAdditional*
 GNENet::getAdditional(SumoXMLTag type, const std::string& id) const {
     if (myAttributeCarriers.additionals.empty()) {
         return nullptr;
-    } else if (myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(id, type)) != myAttributeCarriers.additionals.end())  {
-        return myAttributeCarriers.additionals.at(std::pair<std::string, SumoXMLTag>(id, type));
+    } else if (myAttributeCarriers.additionals.find(std::make_pair(id, type)) != myAttributeCarriers.additionals.end())  {
+        return myAttributeCarriers.additionals.at(std::make_pair(id, type));
     } else {
         return nullptr;
     }

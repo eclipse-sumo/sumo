@@ -1760,10 +1760,10 @@ GNEAdditionalHandler::buildClosingReroute(GNEViewNet* viewNet, bool allowUndoRed
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(closingReroute->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_RerouterItem(closingReroute, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addClosingReroute(closingReroute);
+        rerouterIntervalParent->addAdditionalChild(closingReroute);
         closingReroute->incRef("buildClosingReroute");
     }
     return true;

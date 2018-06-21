@@ -1448,10 +1448,6 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
         // Clear rerouter intervals
         while(rerouter->getRerouterIntervals().size() > 0) {
             // clear closing lane reroutes
-            while(rerouter->getRerouterIntervals().front()->getClosingReroutes().size() > 0) {
-                myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getClosingReroutes().front(), false), true);
-            }
-            // clear closing lane reroutes
             while(rerouter->getRerouterIntervals().front()->getClosingLaneReroutes().size() > 0) {
                 myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getClosingLaneReroutes().front(), false), true);
             }

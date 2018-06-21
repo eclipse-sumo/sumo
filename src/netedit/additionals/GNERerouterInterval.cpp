@@ -43,7 +43,7 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional("", rerouterDialog->getEditedRerouter()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
+    GNEAdditional(rerouterDialog->getEditedRerouter(), rerouterDialog->getEditedRerouter()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
     myRerouterParent(rerouterDialog->getEditedRerouter()),
     myBegin(parse<double>(getTagProperties(SUMO_TAG_INTERVAL).getDefaultValue(SUMO_ATTR_BEGIN))),
     myEnd(parse<double>(getTagProperties(SUMO_TAG_INTERVAL).getDefaultValue(SUMO_ATTR_END))) {
@@ -51,7 +51,7 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
-    GNEAdditional("", rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
+    GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
     myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end) {
@@ -119,7 +119,7 @@ std::string
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myRerouterParent->getID() + "_" + toString(myBegin) + "_" + toString(myEnd);
+            return getAdditionalID();
         case SUMO_ATTR_BEGIN:
             return toString(myBegin);
         case SUMO_ATTR_END:
@@ -136,6 +136,15 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case SUMO_ATTR_ID: {
+            // change ID of Rerouter Interval
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            // Change Ids of all Rerouter childs
+            for (auto i : myAdditionalChilds) {
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTag()), undoList);
+            }
+            break;
+        }
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -149,6 +158,8 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
 bool
 GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(value);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < myEnd);
         case SUMO_ATTR_END:
@@ -162,12 +173,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
 const std::vector<GNEClosingLaneReroute*>&
 GNERerouterInterval::getClosingLaneReroutes() const {
     return myClosingLaneReroutes;
-}
-
-
-const std::vector<GNEClosingReroute*>&
-GNERerouterInterval::getClosingReroutes() const {
-    return myClosingReroutes;
 }
 
 
@@ -206,28 +211,6 @@ GNERerouterInterval::removeClosingLaneReroute(GNEClosingLaneReroute* closingLane
         myClosingLaneReroutes.erase(it);
     } else {
         throw ProcessError("Closing lane Reroute doesn't exist");
-    }
-}
-
-
-void
-GNERerouterInterval::addClosingReroute(GNEClosingReroute* closingReroute) {
-    auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
-    if (it == myClosingReroutes.end()) {
-        myClosingReroutes.push_back(closingReroute);
-    } else {
-        throw ProcessError("Closing Reroute already exist");
-    }
-}
-
-
-void
-GNERerouterInterval::removeClosingReroute(GNEClosingReroute* closingReroute) {
-    auto it = std::find(myClosingReroutes.begin(), myClosingReroutes.end(), closingReroute);
-    if (it != myClosingReroutes.end()) {
-        myClosingReroutes.erase(it);
-    } else {
-        throw ProcessError("Closing Reroute doesn't exist");
     }
 }
 
@@ -306,6 +289,9 @@ GNERerouterInterval::removeParkingAreaReroute(GNEParkingAreaReroute* parkingArea
 void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
         case SUMO_ATTR_BEGIN: {
             myBegin = parse<double>(value);
             break;

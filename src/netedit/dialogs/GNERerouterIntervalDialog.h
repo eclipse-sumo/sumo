@@ -174,6 +174,8 @@ protected:
     /// @brief list with parkingAreaReroutes
     FXTable* myParkingAreaRerouteTable;
 
+    // closingReroutes
+    std::vector<GNEAdditional*> closingReroutes;
 
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;
