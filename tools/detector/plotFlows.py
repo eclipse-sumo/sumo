@@ -156,7 +156,7 @@ def main(options):
                     if options.idfilter is not None and options.idfilter not in group.ids[0]:
                         continue
                     assert(len(group.timeline) <= len(data))
-                    if group.type == detType :
+                    if group.type == detType:
                         for i, (flow, speed) in enumerate(group.timeline):
                             addToDataList(data, i, flow)
                 allData.append(data)

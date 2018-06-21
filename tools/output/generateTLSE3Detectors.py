@@ -100,7 +100,7 @@ def writeEntryExit(options, edge, detector_xml, writeExit=True):
     stopOnTurnaround = not options.followTurnaround
     input_edges = network.getDownstreamEdges(
         edge, options.requested_detector_length, stopOnTLS, stopOnTurnaround)
-    input_edges.sort(key=lambda vals : vals[0].getID())
+    input_edges.sort(key=lambda vals: vals[0].getID())
     for firstEdge, position, intermediate, aborted in input_edges:
         if aborted:
             position = .1
@@ -113,7 +113,7 @@ def writeEntryExit(options, edge, detector_xml, writeExit=True):
     if writeExit:
         if options.interior:
             # exit just after leaving the intersection
-            for e2 in sorted(edge.getOutgoing(), key=lambda e : e.getID()):
+            for e2 in sorted(edge.getOutgoing(), key=lambda e: e.getID()):
                 for lane in e2.getLanes():
                     detector_exit_xml = detector_xml.addChild("detExit")
                     detector_exit_xml.setAttribute("lane", lane.getID())

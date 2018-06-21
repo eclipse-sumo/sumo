@@ -229,8 +229,8 @@ optParser.add_option("--first-name", action="store_true", dest="firstname",
                      default=False, help="use first id in group as representative")
 optParser.add_option("--edge-names", action="store_true", dest="edgenames",
                      default=False, help="include detector group edge name in output")
-optParser.add_option( "-b", "--begin", type="float", default=0, help="begin time in minutes")
-optParser.add_option( "--end", type="float", default=None, help="end time in minutes")
+optParser.add_option("-b", "--begin", type="float", default=0, help="begin time in minutes")
+optParser.add_option("--end", type="float", default=None, help="end time in minutes")
 optParser.add_option("--geh", action="store_true", dest="geh",
                      default=False, help="compare flows using GEH measure")
 optParser.add_option("--geh-treshold", type="float", default=5, dest="geh_threshold", 

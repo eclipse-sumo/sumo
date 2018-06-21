@@ -209,7 +209,7 @@ def createRoutes(options, trpMap, stopNames):
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
         stopsUntil[(stop.id, stop.busStop)] = float(stop.ended)
 
-    ft = formatTime if options.hrtime else lambda x : x
+    ft = formatTime if options.hrtime else lambda x: x
 
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
         flows = []

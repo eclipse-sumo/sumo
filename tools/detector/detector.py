@@ -106,7 +106,7 @@ class DetectorGroupData:
                 self.timeline.append([0, 0])
             else:
                 sys.stderr.write("Gap in data for group=%s. Or data interval is higher than aggregation interval (i=%s, time=%s, begin=%s, lastTime=%s)\n" % (
-                    self.ids, self.interval, time ,self.begin, len(self.timeline) * self.interval))
+                    self.ids, self.interval, time, self.begin, len(self.timeline) * self.interval))
                 while len(self.timeline) < index:
                     self.timeline.append([None, None])
                 self.timeline.append([0, 0])

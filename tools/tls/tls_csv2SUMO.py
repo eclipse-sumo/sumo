@@ -40,7 +40,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net
 
 class Logic:
-    def __init__ (self, key):
+    def __init__(self, key):
         self.minTimes = []
         self.maxTimes = []
         self.normTimes = []

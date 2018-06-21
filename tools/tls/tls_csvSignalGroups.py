@@ -65,7 +65,7 @@ except ImportError:
 class TlLogic(sumolib.net.TLSProgram):
 
     def __init__(self, id, programID, cycleTime, offset = 0, parameters = {}, net = None, debug = False):
-        if(not isinstance( cycleTime, int ) or cycleTime < 1):
+        if(not isinstance(cycleTime, int) or cycleTime < 1):
             print("Invalid cycle time = %s" % str(cycleTime))
 
         sumolib.net.TLSProgram.__init__(self, id, str(offset), "static")

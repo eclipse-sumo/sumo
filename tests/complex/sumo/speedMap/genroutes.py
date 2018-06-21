@@ -66,7 +66,7 @@ for model in ["Krauss", "KraussPS", "KraussOrig1", "BKerner", "SmartSK", "IDM", 
     ''' % (model, model))
     for i in range(1, numVehs):
         routes.write('''     <vehicle id="%s" type="leader" route="r0" depart="0" departPos="%s"/>
-    ''' % (i, 500 - i * 8) )
+    ''' % (i, 500 - i * 8))
     routes.write('</routes>\n')
     routes.close()
     subprocess.call(

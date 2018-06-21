@@ -164,7 +164,7 @@ def load(filename):
             if hasAttributes(e):
                 verbosity = int(list(e.attrib.values())[0])
                 if verbosity in range(5):
-                    rp.VERBOSITY  = verbosity
+                    rp.VERBOSITY = verbosity
                 else:
                     if rp.VERBOSITY >= 1: warn("Verbosity must be one of %s! Ignoring given value: %s"%(str(list(range(5))), verbosity),True)
         elif e.tag == "controlRate":

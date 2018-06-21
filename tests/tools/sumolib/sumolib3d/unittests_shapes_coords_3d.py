@@ -254,7 +254,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -315,7 +315,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -385,7 +385,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -408,7 +408,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - with junction included #######
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 5)
@@ -463,7 +463,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -489,7 +489,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - with junction included #######
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 5)
@@ -538,10 +538,10 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # ':left_center_3_0'
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         # there should be no difference between the two results
@@ -573,10 +573,10 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # ':left_center_3_0'
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         # there should be no difference between the two results
@@ -611,7 +611,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -629,7 +629,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - with junction included #######
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 4)
@@ -672,7 +672,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -692,7 +692,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - with junction included #######
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 4)
@@ -742,7 +742,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -765,7 +765,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - with junction included #######
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         self.assertEqual(len(result_lane_shape_with_junc), 5)
@@ -818,7 +818,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - without junction included ####
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -844,7 +844,7 @@ class Test_Shapes(unittest.TestCase):
 
         #### check lane shape - with junction included #######
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         self.assertEqual(len(result_lane_shape_with_junc), 5)
@@ -896,12 +896,12 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # straight_no_counter_0
 
-        expected_result     = \
+        expected_result = \
             [(100.0, 100.0), (200.0, 100.0)]
 
         #### check lane shape ################################
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         result_lane_shape_without_junc = \
@@ -931,12 +931,12 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # straight_no_counter_0
 
-        expected_result     = \
+        expected_result = \
             [(100.0, 100.0, 10.0),  (200.0, 100.0, 10.0)]
 
         #### check lane shape ################################
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         result_lane_shape_without_junc = \

@@ -156,7 +156,7 @@ def computeScoreFromTimeLoss(gamename):
         return score, totalArrived, True
 
 
-_SCORING_FUNCTION = defaultdict(lambda : computeScoreFromWaitingTime)
+_SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
                 'A10KW': computeScoreFromTimeLoss,
                 })
@@ -297,8 +297,7 @@ class StartDialog(Tkinter.Frame):
             [guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
                 '--output-prefix', "%s." % self.category,
                 '--duration-log.statistics',
-                '--tripinfo-output.write-unfinished']
-            , stderr=sys.stderr)
+                '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
 
         if _DEBUG:
             print("ended", cfg)

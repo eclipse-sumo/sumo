@@ -65,7 +65,7 @@ def get_options(args=None):
 
 
 def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
-    edgeFlow = defaultdict(lambda : 0)
+    edgeFlow = defaultdict(lambda: 0)
     for interval in parse(edgeDataFile, "interval", attr_conversions={"begin":float, "end":float}):
         if DEBUG:
             print("reading intervals for begin=%s end=%s (current interval begin=%s end=%s)" % (begin, end, interval.begin, interval.end))
