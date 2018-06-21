@@ -1,0 +1,8 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+
+<routes>
+    <vehicle color="1,0,0" depart="0" id="0_parkingA" type="type1" arrivalPos="-2">
+        <route edges="beg middle end rend"/>
+        <stop duration="3600" parkingArea="parkingA"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <parkingArea id="parkingLot" lane="connEdge" startPos="0" endPos="2">
+        <space x="0" y="0" length="5" angle="315"/>
+        <space x="5" y="0" length="5" angle="315"/>
+        <space x="10" y="0" length="5" angle="315"/>
+        <space x="15" y="0" length="5" angle="315"/>
+        <space x="0.0" y="5.0" length="5" angle="315"/>
+    </parkingArea>
+</additional>

@@ -130,6 +130,8 @@ osmbatch:*/build.bat
 osmtrips:*/osm.pedestrian.trips.xml
 districts:districts.xml
 restrictions:restrictions.txt
+parking:input_routes.rou.parking.xml
+parking:parking_parkingLot.add.xml
 
 [run_dependent_text]
 output:Begin time
