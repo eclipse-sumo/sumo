@@ -58,12 +58,6 @@ public:
     GNEChange_RerouterItem(GNERerouterInterval* rerouterInterval, bool forward);
 
     /**@brief Constructor
-    * @param[in] closingLaneReroute Closing Lane Reroute to be added
-    * @param[in] forward Whether to create/delete (true/false)
-    */
-    GNEChange_RerouterItem(GNEClosingLaneReroute* closingLaneReroute, bool forward);
-
-    /**@brief Constructor
     * @param[in] destProbReroute Destiny Probability Reroute to be added
     * @param[in] forward Whether to create/delete (true/false)
     */
@@ -102,9 +96,6 @@ public:
 private:
     /// @brief modified rerouter interval
     GNERerouterInterval* myRerouterInterval;
-
-    /// @brief modified Closing lane Reroute
-    GNEClosingLaneReroute* myClosingLaneReroute;
 
     /// @brief modified Closing Interval
     GNEDestProbReroute* myDestProbReroute;

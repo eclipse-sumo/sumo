@@ -1743,10 +1743,10 @@ GNEAdditionalHandler::buildClosingLaneReroute(GNEViewNet* viewNet, bool allowUnd
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(closingLaneReroute->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_RerouterItem(closingLaneReroute, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addClosingLaneReroute(closingLaneReroute);
+        rerouterIntervalParent->addAdditionalChild(closingLaneReroute);
         closingLaneReroute->incRef("buildClosingLaneReroute");
     }
     return true;

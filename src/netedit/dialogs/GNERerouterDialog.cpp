@@ -154,10 +154,6 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // get rerouter interval to remove
             GNERerouterInterval* rerouterInterval = myEditedRerouter->getRerouterIntervals().at(i);
-            // drop all closing lane reroutes of interval
-            while (rerouterInterval->getClosingLaneReroutes().size() > 0) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getClosingLaneReroutes().front(), false), true);
-            }
             // drop all route probability reroutes of interval
             while (rerouterInterval->getRouteProbReroutes().size() > 0) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getRouteProbReroutes().front(), false), true);

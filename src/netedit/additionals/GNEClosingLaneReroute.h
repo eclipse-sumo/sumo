@@ -57,9 +57,6 @@ public:
     /// @brief destructor
     ~GNEClosingLaneReroute();
 
-    /// @brief get rerouter interval parent
-    GNERerouterInterval* getRerouterIntervalParent() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -119,9 +116,6 @@ public:
     /// @}
 
 protected:
-    /// @brief reference to rerouter interval parent
-    GNERerouterInterval* myRerouterIntervalParent;
-
     /// @brief closed lane
     GNELane* myClosedLane;
 

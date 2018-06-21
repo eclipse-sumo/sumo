@@ -39,8 +39,7 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional("XXX", rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
-    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
+    GNEAdditional(rerouterIntervalDialog->getEditedRerouterInterval(), rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
     myClosedLane(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)->getLanes().at(0)),
     myAllowedVehicles(getTagProperties(SUMO_TAG_CLOSING_LANE_REROUTE).getDefaultValue(SUMO_ATTR_ALLOW)),
     myDisallowedVehicles(getTagProperties(SUMO_TAG_CLOSING_LANE_REROUTE).getDefaultValue(SUMO_ATTR_DISALLOW)) {
@@ -48,8 +47,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouter
 
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, const std::string &allowedVehicles, const std::string &disallowedVehicles) :
-    GNEAdditional("XXX", rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
-    myRerouterIntervalParent(rerouterIntervalParent),
+    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
     myClosedLane(closedLane),
     myAllowedVehicles(allowedVehicles),
     myDisallowedVehicles(disallowedVehicles) {
@@ -57,12 +55,6 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterInterv
 
 
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
-
-
-GNERerouterInterval*
-GNEClosingLaneReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
-}
 
 
 void 
@@ -91,7 +83,7 @@ GNEClosingLaneReroute::getPositionInView() const {
 
 std::string 
 GNEClosingLaneReroute::getParentName() const {
-    return myRerouterIntervalParent->getID();
+    return myAdditionalParent->getID();
 }
 
 
@@ -105,6 +97,8 @@ std::string
 GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
+            return getAdditionalID();
+        case SUMO_ATTR_LANE:
             return myClosedLane->getID();
         case SUMO_ATTR_ALLOW:
             return myAllowedVehicles;
@@ -123,6 +117,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_LANE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -137,7 +132,9 @@ bool
 GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
+            return isValidAdditionalID(value);
+        case SUMO_ATTR_LANE:
+            return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
@@ -154,18 +151,18 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: {
-            myClosedLane = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value);
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
             break;
-        }
-        case SUMO_ATTR_ALLOW: {
+        case SUMO_ATTR_LANE:
+            myClosedLane = myViewNet->getNet()->retrieveLane(value);
+            break;
+        case SUMO_ATTR_ALLOW:
             myAllowedVehicles = value;
             break;
-        }
-        case SUMO_ATTR_DISALLOW: {
+        case SUMO_ATTR_DISALLOW:
             myAllowedVehicles = value;
             break;
-        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

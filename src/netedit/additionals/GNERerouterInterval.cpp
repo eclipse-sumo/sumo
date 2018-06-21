@@ -170,12 +170,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-const std::vector<GNEClosingLaneReroute*>&
-GNERerouterInterval::getClosingLaneReroutes() const {
-    return myClosingLaneReroutes;
-}
-
-
 const std::vector<GNEDestProbReroute*>&
 GNERerouterInterval::getDestProbReroutes() const {
     return myDestProbReroutes;
@@ -190,28 +184,6 @@ GNERerouterInterval::getRouteProbReroutes() const {
 const std::vector<GNEParkingAreaReroute*>&
 GNERerouterInterval::getParkingAreaReroutes() const {
     return myParkingAreaReroutes;
-}
-
-
-void
-GNERerouterInterval::addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
-    auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
-    if (it == myClosingLaneReroutes.end()) {
-        myClosingLaneReroutes.push_back(closingLaneReroute);
-    } else {
-        throw ProcessError("Closing lane Reroute already exist");
-    }
-}
-
-
-void
-GNERerouterInterval::removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute) {
-    auto it = std::find(myClosingLaneReroutes.begin(), myClosingLaneReroutes.end(), closingLaneReroute);
-    if (it != myClosingLaneReroutes.end()) {
-        myClosingLaneReroutes.erase(it);
-    } else {
-        throw ProcessError("Closing lane Reroute doesn't exist");
-    }
 }
 
 

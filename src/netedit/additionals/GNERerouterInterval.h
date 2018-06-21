@@ -126,9 +126,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief get closing reroutes
-    const std::vector<GNEClosingLaneReroute*>& getClosingLaneReroutes() const;
-
     /// @brief get destiny probability reroutes
     const std::vector<GNEDestProbReroute*>& getDestProbReroutes() const;
 
@@ -148,9 +145,6 @@ protected:
     /// @brief end timeStep
     double myEnd;
 
-    /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute*> myClosingLaneReroutes;
-
     /// @brief vector with the destProbReroutes
     std::vector<GNEDestProbReroute*> myDestProbReroutes;
 
@@ -159,12 +153,6 @@ protected:
 
     /// @brief vector with the parkingAreaReroutes
     std::vector<GNEParkingAreaReroute*> myParkingAreaReroutes;
-
-    /// @brief add closing reroute
-    void addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
-
-    /// @brief add closing reroute
-    void removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
 
     /// @brief add destiny probability reroute
     void addDestProbReroute(GNEDestProbReroute* destProbReroute);
