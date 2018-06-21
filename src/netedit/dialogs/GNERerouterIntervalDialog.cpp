@@ -25,7 +25,6 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
-#include <netedit/changes/GNEChange_RerouterItem.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/additionals/GNERerouter.h>
 #include <netedit/additionals/GNERerouterInterval.h>
