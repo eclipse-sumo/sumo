@@ -108,7 +108,7 @@ double MSCFModel_ACC::accelSpeedContol(double vErr) const {
 double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
    // Gap control law
    double gclAccel = 0.0;
-   double desSpacing = myheadwayTime * speed;
+   double desSpacing = myHeadwayTime * speed;
    // The argument gap2pred does not consider minGap ->  substract minGap!!
    double gap = gap2pred - veh->getVehicleType().getMinGap();
    double spacingErr = gap - desSpacing;

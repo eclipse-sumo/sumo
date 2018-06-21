@@ -144,9 +144,6 @@ private:
 
 
 private:
-   double myAccel;
-   double myDecel;
-   double myheadwayTime;
    double mySpeedControlGain;
    double myGapClosingControlGainSpeed;
    double myGapClosingControlGainSpace;
