@@ -1447,10 +1447,6 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
         GNERerouter *rerouter = dynamic_cast<GNERerouter*>(additional);
         // Clear rerouter intervals
         while(rerouter->getRerouterIntervals().size() > 0) {
-            // clear dest prob reroutes
-            while(rerouter->getRerouterIntervals().front()->getDestProbReroutes().size() > 0) {
-                myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getDestProbReroutes().front(), false), true);
-            }
             // clear route porb reroutes
             while(rerouter->getRerouterIntervals().front()->getRouteProbReroutes().size() > 0) {
                 myViewNet->getUndoList()->add(new GNEChange_RerouterItem(rerouter->getRerouterIntervals().front()->getRouteProbReroutes().front(), false), true);

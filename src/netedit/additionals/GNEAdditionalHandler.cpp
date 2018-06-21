@@ -1777,10 +1777,10 @@ GNEAdditionalHandler::builDestProbReroute(GNEViewNet* viewNet, bool allowUndoRed
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(destProbReroute->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_RerouterItem(destProbReroute, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addDestProbReroute(destProbReroute);
+        rerouterIntervalParent->addAdditionalChild(destProbReroute);
         destProbReroute->incRef("builDestProbReroute");
     }
     return true;

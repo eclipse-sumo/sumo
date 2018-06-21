@@ -110,6 +110,12 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
             myClosingLaneReroutesEdited.push_back(i);
         }
     }
+    // fill Dest Prob Reroutes
+    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+        if(i->getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
+            myDestProbReroutesEdited.push_back(i);
+        }
+    }
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
@@ -216,7 +222,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         return 0;
     } else if (myClosingLaneReroutesEdited.empty() &&
                myClosingReroutesEdited.empty() &&
-               myEditedRerouterInterval->getDestProbReroutes().empty() &&
+               myDestProbReroutesEdited.empty() &&
                myEditedRerouterInterval->getParkingAreaReroutes().empty() &&
                myEditedRerouterInterval->getRouteProbReroutes().empty()) {
         // write warning if netedit is running in testing mode
@@ -254,7 +260,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
-    } else if ((myEditedRerouterInterval->getDestProbReroutes().size() > 0) && (myDestProbReroutesValid == false)) {
+    } else if ((myDestProbReroutesEdited.size() > 0) && (myDestProbReroutesValid == false)) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -351,7 +357,8 @@ long
 GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*) {
     // create closing reroute and add it to table
     GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(this);
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(destProbReroute, true), true);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
+    myDestProbReroutesEdited.push_back(destProbReroute);
     // update dest Prob reroutes table
     updateDestProbReroutesTable();
     return 1;
@@ -416,10 +423,11 @@ GNERerouterIntervalDialog::onCmdClickedClosingReroute(FXObject*, FXSelector, voi
 long
 GNERerouterIntervalDialog::onCmdClickedDestProbReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedRerouterInterval->getDestProbReroutes().size(); i++) {
+    for (int i = 0; i < (int)myDestProbReroutesEdited.size(); i++) {
         if (myDestProbRerouteTable->getItem(i, 3)->hasFocus()) {
             myDestProbRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval->getDestProbReroutes().at(i), false), true);
+            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myDestProbReroutesEdited.at(i), false), true);
+            myDestProbReroutesEdited.erase(myDestProbReroutesEdited.begin() + i);
             updateDestProbReroutesTable();
             return 1;
         }
@@ -523,8 +531,8 @@ GNERerouterIntervalDialog::onCmdEditDestProbReroute(FXObject*, FXSelector, void*
     myDestProbReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myDestProbRerouteTable->getNumRows(); i++) {
-        GNEDestProbReroute* destProbReroute = myEditedRerouterInterval->getDestProbReroutes().at(i);
-        if (destProbReroute->isValid(SUMO_ATTR_ID, myDestProbRerouteTable->getItem(i, 0)->getText().text()) == false) {
+        GNEAdditional* destProbReroute = myDestProbReroutesEdited.at(i);
+        if (destProbReroute->isValidID(myDestProbRerouteTable->getItem(i, 0)->getText().text()) == false) {
             myDestProbReroutesValid = false;
             myDestProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else if (destProbReroute->isValid(SUMO_ATTR_PROB, myDestProbRerouteTable->getItem(i, 1)->getText().text()) == false) {
@@ -715,7 +723,7 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     // clear table
     myDestProbRerouteTable->clearItems();
     // set number of rows
-    myDestProbRerouteTable->setTableSize(int(myEditedRerouterInterval->getDestProbReroutes().size()), 4);
+    myDestProbRerouteTable->setTableSize(int(myDestProbReroutesEdited.size()), 4);
     // Configure list
     myDestProbRerouteTable->setVisibleColumns(4);
     myDestProbRerouteTable->setColumnWidth(0, 124);
@@ -730,12 +738,12 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     // Declare pointer to FXTableItem
     FXTableItem* item = 0;
     // iterate over values
-    for (int i = 0; i < (int)myEditedRerouterInterval->getDestProbReroutes().size(); i++) {
+    for (int i = 0; i < (int)myDestProbReroutesEdited.size(); i++) {
         // Set new destination
-        item = new FXTableItem(myEditedRerouterInterval->getDestProbReroutes().at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
         myDestProbRerouteTable->setItem(i, 0, item);
         // Set probability
-        item = new FXTableItem(myEditedRerouterInterval->getDestProbReroutes().at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
+        item = new FXTableItem(myDestProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
         myDestProbRerouteTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");

@@ -170,42 +170,15 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-const std::vector<GNEDestProbReroute*>&
-GNERerouterInterval::getDestProbReroutes() const {
-    return myDestProbReroutes;
-}
-
-
 const std::vector<GNERouteProbReroute*>&
 GNERerouterInterval::getRouteProbReroutes() const {
     return myRouteProbReroutes;
 }
 
+
 const std::vector<GNEParkingAreaReroute*>&
 GNERerouterInterval::getParkingAreaReroutes() const {
     return myParkingAreaReroutes;
-}
-
-
-void
-GNERerouterInterval::addDestProbReroute(GNEDestProbReroute* destProbReroute) {
-    auto it = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), destProbReroute);
-    if (it == myDestProbReroutes.end()) {
-        myDestProbReroutes.push_back(destProbReroute);
-    } else {
-        throw ProcessError("Destiny Probability Reroute already exist");
-    }
-}
-
-
-void
-GNERerouterInterval::removeDestProbReroute(GNEDestProbReroute* destProbReroute) {
-    auto it = std::find(myDestProbReroutes.begin(), myDestProbReroutes.end(), destProbReroute);
-    if (it != myDestProbReroutes.end()) {
-        myDestProbReroutes.erase(it);
-    } else {
-        throw ProcessError("Destiny Probability Reroute doesn't exist");
-    }
 }
 
 

@@ -174,11 +174,14 @@ protected:
     /// @brief list with parkingAreaReroutes
     FXTable* myParkingAreaRerouteTable;
 
-    /// @brief closingReroutes edited
+    /// @brief closing Reroutes edited
     std::vector<GNEAdditional*> myClosingReroutesEdited;
 
-    /// @brief closingReroutes edited
+    /// @brief closing Lane Reroutes edited
     std::vector<GNEAdditional*> myClosingLaneReroutesEdited;
+
+    /// @brief Dest Pro bRereoutes edites
+    std::vector<GNEAdditional*> myDestProbReroutesEdited;
 
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;

@@ -158,10 +158,6 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
             while (rerouterInterval->getRouteProbReroutes().size() > 0) {
                 myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getRouteProbReroutes().front(), false), true);
             }
-            // drop all destiny probability reroutes of interval
-            while (rerouterInterval->getDestProbReroutes().size() > 0) {
-                myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval->getDestProbReroutes().front(), false), true);
-            }
             // remove interval
             myEditedRerouter->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(rerouterInterval, false), true);
             // update interval table after removing

@@ -126,9 +126,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief get destiny probability reroutes
-    const std::vector<GNEDestProbReroute*>& getDestProbReroutes() const;
-
     /// @brief get reoute probability reroutes
     const std::vector<GNERouteProbReroute*>& getRouteProbReroutes() const;
 
@@ -145,20 +142,11 @@ protected:
     /// @brief end timeStep
     double myEnd;
 
-    /// @brief vector with the destProbReroutes
-    std::vector<GNEDestProbReroute*> myDestProbReroutes;
-
     /// @brief vector with the routeProbReroutes
     std::vector<GNERouteProbReroute*> myRouteProbReroutes;
 
     /// @brief vector with the parkingAreaReroutes
     std::vector<GNEParkingAreaReroute*> myParkingAreaReroutes;
-
-    /// @brief add destiny probability reroute
-    void addDestProbReroute(GNEDestProbReroute* destProbReroute);
-
-    /// @brief add destiny probability reroute
-    void removeDestProbReroute(GNEDestProbReroute* destProbReroute);
 
     /// @brief add reoute probability reroute
     void addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
