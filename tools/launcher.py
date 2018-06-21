@@ -214,5 +214,6 @@ def main():
     app = Launcher(root, app, appOptions)
     root.mainloop()
 
+
 if __name__ == "__main__":
     main()

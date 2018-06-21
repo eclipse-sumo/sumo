@@ -337,6 +337,7 @@ def main(options):
                          '-a', ','.join(additionals),
                          '-v', '--no-step-log', '--duration-log.statistics'], stdout=sys.stdout)
 
+
 if __name__ == "__main__":
     options = get_options(sys.argv)
     main(options)

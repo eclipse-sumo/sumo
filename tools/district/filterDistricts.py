@@ -17,7 +17,8 @@ Filters a TAZ file for a specific vehicle class
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os, sys
+import os
+import sys
 from optparse import OptionParser
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -28,8 +29,8 @@ import sumolib  # noqa
 def getOptions():
     optParser = OptionParser()
     optParser.add_option(
-            "-v", "--verbose", action="store_true", default=False, 
-            help="tell me what you are doing")
+        "-v", "--verbose", action="store_true", default=False,
+        help="tell me what you are doing")
     optParser.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
     optParser.add_option("-t", "--taz-file", dest="tazfile", help="the district file to be filtered")
     optParser.add_option("-o", "--output", default="taz_filtered.add.xml",
@@ -59,10 +60,7 @@ if __name__ == "__main__":
             if taz.tazSink is not None:
                 taz.tazSink = [s for s in taz.tazSink if net.hasEdge(s.id) and net.getEdge(s.id).allows(options.vclass)]
             if taz.tazSource is not None:
-                taz.tazSource = [s for s in taz.tazSource if net.hasEdge(s.id) and net.getEdge(s.id).allows(options.vclass)]
+                taz.tazSource = [s for s in taz.tazSource if net.hasEdge(
+                    s.id) and net.getEdge(s.id).allows(options.vclass)]
             outf.write(taz.toXML(initialIndent=" " * 4))
         outf.write("</tazs>\n")
-
-
-
-    

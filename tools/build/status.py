@@ -78,5 +78,6 @@ Subject: Error occurred while building
         except:
             print("Could not send mail.")
 
+
 if __name__ == "__main__":
     printStatus(sys.argv[1], sys.argv[2], sys.argv[3], sys.stdout, sys.argv[4])

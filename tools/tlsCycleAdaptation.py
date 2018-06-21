@@ -359,6 +359,7 @@ def main(options):
             print("There are no flows at the given intersections. No green time optimization is done.")
         outf.write('</additional>\n')
 
+
 if __name__ == "__main__":
     options = get_options(sys.argv)
     main(options)

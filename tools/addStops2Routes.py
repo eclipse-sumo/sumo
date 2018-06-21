@@ -30,21 +30,22 @@ else:
 
 import sumolib  # noqa
 
+
 def get_options(args=None):
-    optParser = optparse.OptionParser()			 
+    optParser = optparse.OptionParser()
     optParser.add_option("-r", "--route-file", dest="routefile", help="define the route file")
     optParser.add_option("-o", "--output-file", dest="outfile", help="output route file including parking")
     optParser.add_option("-p", "--parking-areas", dest="parking",
                          help="define the parking areas seperated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
-                         help="define the parking duration (in seconds)", default = 3600)
+                         help="define the parking duration (in seconds)", default=3600)
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
     if not options.routefile or not options.parking:
         optParser.print_help()
         sys.exit()
-    return options	
+    return options
 
 
 def main(options):
@@ -57,12 +58,13 @@ def main(options):
         outf.write("<routes>\n")
         for veh in sumolib.xml.parse(infile, "vehicle"):
             stops = [x for x in options.parking.split(',') if x in veh.id]
-            for stop in stops:          
-                veh.addChild("stop", {"parkingArea":stop, "duration":int(options.duration)})
+            for stop in stops:
+                veh.addChild("stop", {"parkingArea": stop, "duration": int(options.duration)})
                 veh.setAttribute("arrivalPos", -2)
             outf.write(veh.toXML(initialIndent="    "))
         outf.write("</routes>\n")
-    
+
+
 if __name__ == "__main__":
     options = get_options(sys.argv)
     main(options)

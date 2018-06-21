@@ -86,6 +86,7 @@ class ConfigReader(handler.ContentHandler):
     def endDocument(self):
         print(("".join(self._mergeWiki[self._end:])).strip())
 
+
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         app = sys.argv[1].lower()

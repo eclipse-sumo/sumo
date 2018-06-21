@@ -89,6 +89,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
                     stdout=log, stderr=log)
     shutil.rmtree(tmpDir, True)  # comment this out when debugging
 
+
 if __name__ == "__main__":
     optParser = optparse.OptionParser()
     optParser.add_option("-n", "--nightly-zip", dest="nightlyZip",

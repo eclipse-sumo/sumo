@@ -97,6 +97,7 @@ def writeSUMOConf(step, options, files):
         </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation), file=fd)
         fd.close()
 
+
 optParser = OptionParser()
 optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWarnings",
                      default=False, help="enables warnings")

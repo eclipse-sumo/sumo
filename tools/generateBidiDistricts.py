@@ -56,6 +56,7 @@ def getCandidates(edge, net, radius):
         candidates.append(nearby)
     return candidates
 
+
 ASYM_BIDI_CACHE = {}  # edge : opposites
 
 
@@ -110,6 +111,7 @@ def main(netFile, outFile, radius, travelDist, symmetrical):
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
     return net
+
 
 if __name__ == "__main__":
     options = parse_args()

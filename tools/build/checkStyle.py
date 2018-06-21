@@ -243,6 +243,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             if HAVE_AUTOPEP and self._fix:
                 subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 
+
 sumoRoot = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 svnRoots = [sumoRoot]

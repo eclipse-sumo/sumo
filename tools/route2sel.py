@@ -59,5 +59,6 @@ def main():
         for e in sorted(list(edges)):
             outf.write('edge:%s\n' % e)
 
+
 if __name__ == "__main__":
     main()

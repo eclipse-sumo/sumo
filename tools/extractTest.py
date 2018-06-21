@@ -207,7 +207,8 @@ def main(options):
                 # name
                 app = "netgenerate"
             if options.verbose:
-                print("calling %s for testPath '%s' with  options '%s'" % (checkBinary(app), testPath, " ".join(appOptions)))
+                print("calling %s for testPath '%s' with  options '%s'" %
+                      (checkBinary(app), testPath, " ".join(appOptions)))
             subprocess.call([checkBinary(app)] + appOptions)
         elif app == "tools":
             if os.name == "posix" or options.file:
@@ -219,6 +220,7 @@ def main(options):
                 open(nameBase + ".bat", "w").write(tool +
                                                    " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
+
 
 if __name__ == "__main__":
     main(get_options())

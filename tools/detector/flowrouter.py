@@ -761,7 +761,6 @@ class Net:
             while queue:
                 queue.pop(0)
 
-
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
             return

@@ -88,6 +88,7 @@ def getImages(page):
             b = page.find(t, b + 1)
     return images
 
+
 if __name__ == "__main__":
     optParser = OptionParser()
     optParser.add_option(

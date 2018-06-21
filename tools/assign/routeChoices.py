@@ -77,6 +77,7 @@ class Edge:
         self.fuel_perVeh_default = 0.
         self.freetraveltime = 0.
 
+
 pathNum = 0
 
 

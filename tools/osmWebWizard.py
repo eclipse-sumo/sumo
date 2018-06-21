@@ -62,7 +62,7 @@ vehicleParameters = {
     "rail":       ["--vehicle-class", "rail",       "--vclass", "rail",       "--prefix", "rail",  "--min-distance", "2400", "--trip-attributes",                'departLane="best"', "--validate"],
     "ship":       ["--vehicle-class", "ship",       "--vclass", "ship",       "--prefix", "ship",                                                                                      "--validate"],
     "pedestrian": ["--vehicle-class", "pedestrian", "--pedestrians", "--prefix", "ped",   "--max-distance", "2000", "--trip-attributes", 'speedDev="0.1"', ],
-    "persontrips":["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",                             "--trip-attributes", 'speedDev="0.1" modes="public"', ],
+    "persontrips": ["--vehicle-class", "pedestrian", "--persontrips", "--prefix", "ped",                             "--trip-attributes", 'speedDev="0.1" modes="public"', ],
 }
 
 vehicleNames = {
@@ -201,11 +201,11 @@ class Builder(object):
                 "--ptlines", self.files["ptlines"],
                 "-o", self.files["ptroutes"],
                 "--ignore-errors",
-                #"--no-vtypes",
+                # "--no-vtypes",
                 "--vtype-prefix", "pt_",
                 "--verbose",
                 "--flow-attributes", 'departPos="0"',
-                ]
+            ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
 
         if self.data["vehicles"] or ptOptions:
@@ -402,6 +402,7 @@ class OSMImporterWebSocket(WebSocket):
             while self.steps > 0:
                 self.report("Recovering")
         os.chdir(builder.origDir)
+
 
 parser = ArgumentParser(
     description="OSM Web Wizard for SUMO - Websocket Server")

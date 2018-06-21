@@ -139,6 +139,7 @@ def parseWikiLink(l):
         link = ""
     return text, link
 
+
 optParser = OptionParser()
 optParser.add_option("-m", "--mirror", default="mirror", help="mirror folder")
 optParser.add_option("-o", "--output", default="docs", help="output folder")

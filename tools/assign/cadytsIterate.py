@@ -35,7 +35,8 @@ import sumolib  # noqa
 
 
 def initOptions():
-    jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
+    jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + \
+        glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
     argParser = ArgumentParser()
     addGenericOptions(argParser)
     argParser.add_argument("-r", "--route-alternatives", dest="routes",
@@ -156,6 +157,7 @@ def main():
 
     print("calibration ended (duration: %s)" % (datetime.now() - starttime))
     log.close()
+
 
 if __name__ == "__main__":
     main()

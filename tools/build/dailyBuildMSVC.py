@@ -98,6 +98,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     log.close()
 
+
 def generateCMake(generator, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
     cmakeOpt = ["-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]

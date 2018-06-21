@@ -72,5 +72,6 @@ def main():
                           options.layer, taz.edges.split(), outf)
         outf.write('</polygons>\n')
 
+
 if __name__ == "__main__":
     main()

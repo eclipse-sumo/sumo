@@ -129,6 +129,7 @@ def generateWeights(step, options, edges, weights, costFunction):
     print('</netstats>', file=fd)
     fd.close()
 
+
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")

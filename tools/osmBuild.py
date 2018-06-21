@@ -83,7 +83,7 @@ def build(args=None, bindir=None):
     if options.netconvert_typemap:
         netconvertOpts += ["-t", options.netconvert_typemap]
     netconvertOpts += options.netconvert_options.split(',') + ['--osm-files']
-    polyconvertOpts = ([polyconvert] + options.polyconvert_options.split(',') 
+    polyconvertOpts = ([polyconvert] + options.polyconvert_options.split(',')
                        + ['--type-file', options.typemap, '--osm-files'])
 
     prefix = options.oldapi_prefix

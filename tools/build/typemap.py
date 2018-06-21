@@ -32,6 +32,7 @@ def writeTypeMap(typemapFile, typemap):
                       line.replace('"', r'\"').replace('\n', r'\n'), file=f)
             print(";", file=f)
 
+
 def generateTypeMap(relPath, formats, suffix):
     typemapDataDir = join(dirname(__file__), '..', '..', 'data', 'typemap')
     typemapFile = join(dirname(__file__), '..', '..', 'src', relPath)

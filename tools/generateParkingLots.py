@@ -35,7 +35,7 @@ else:
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-i", "--parking-id", dest="parkId",
-                         default="parking lot", help="define the name/id of the parking lot")
+                         default="parkingLot", help="define the name/id of the parking lot")
     optParser.add_option("-x", "--x-axis", dest="xaxis", type="int",
                          help="define x-position of the parking lot")
     optParser.add_option("-y", "--y-axis", dest="yaxis", type="int",

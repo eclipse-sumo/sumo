@@ -31,8 +31,9 @@ from sumolib.miscutils import uMin, uMax
 import detector
 from detector import relError
 
+
 def make_geh(interval_minutes):
-    def geh(m,c):
+    def geh(m, c):
         # GEH expects hourly flow
         m = m * 60 / interval_minutes
         c = c * 60 / interval_minutes
@@ -43,10 +44,14 @@ def make_geh(interval_minutes):
             return math.sqrt(2 * (m-c) * (m-c) / float(m+c))
     return geh
 
+
 SEP = ";"
+
+
 def print_record(*args, **kwargs):
     comment = '#' + SEP if kwargs.get('comment', False) else ''
     print(comment + SEP.join(map(str, args)))
+
 
 class LaneMap:
 
@@ -148,23 +153,23 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
                         n += 1
         if self._begin is not None:
             print_record('interval', self._begin, comment=True)
-        print_record('avgRouteFlow','avgDetFlow','avgDev','RMSE','RMSPE','GEH','GEH%', comment=True)
+        print_record('avgRouteFlow', 'avgDetFlow', 'avgDev', 'RMSE', 'RMSPE', 'GEH', 'GEH%', comment=True)
         if n == 0:
             # avoid division by zero
             n = -1
         print_record(
-                rSum / n, 
-                dSum / n, 
-                sumAbsDev / n,
-                math.sqrt(sumSquaredDev / n), 
-                math.sqrt(sumSquaredPercent / n),
-                sumGEH / n,
-                100 * nGEHthresh / n,
-                comment=True)
+            rSum / n,
+            dSum / n,
+            sumAbsDev / n,
+            math.sqrt(sumSquaredDev / n),
+            math.sqrt(sumSquaredPercent / n),
+            sumGEH / n,
+            100 * nGEHthresh / n,
+            comment=True)
 
     def printFlows(self, includeDets, useGEH, interval):
         edgeIDCol = ["edge"] if options.edgenames else []
-        timeCol =  ["Time"] if options.writetime else []
+        timeCol = ["Time"] if options.writetime else []
         measureCol = "ratio"
         measure = relError
         if useGEH:
@@ -172,7 +177,7 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
             measure = make_geh(interval)
 
         if includeDets:
-            cols = ['Detector'] + edgeIDCol + timeCol + ['RouteFlow','DetFlow',measureCol]
+            cols = ['Detector'] + edgeIDCol + timeCol + ['RouteFlow', 'DetFlow', measureCol]
         else:
             cols = ['Detector'] + edgeIDCol + timeCol + ['qPkw']
         print_record(*cols)
@@ -233,7 +238,7 @@ optParser.add_option("-b", "--begin", type="float", default=0, help="begin time 
 optParser.add_option("--end", type="float", default=None, help="end time in minutes")
 optParser.add_option("--geh", action="store_true", dest="geh",
                      default=False, help="compare flows using GEH measure")
-optParser.add_option("--geh-treshold", type="float", default=5, dest="geh_threshold", 
+optParser.add_option("--geh-treshold", type="float", default=5, dest="geh_threshold",
                      help="report percentage of detectors below threshold")
 optParser.add_option("--write-time", action="store_true", dest="writetime",
                      default=False, help="write time in output")
@@ -250,7 +255,7 @@ reader = DetectorRouteEmitterReader(options.detfile)
 parser.setContentHandler(reader)
 if options.interval:
     haveFlows = True
-    start = options.begin # minutes
+    start = options.begin  # minutes
     while ((options.end is None and haveFlows)
             or (options.end is not None and start < options.end)):
         end = start + options.interval

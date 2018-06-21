@@ -362,6 +362,7 @@ def main():
         print('Total assigned vehicles:', vehID)
     print('Total number of the assigned trips:', matrixSum)
 
+
 optParser = OptionParser()
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",
                      help="read OD matrix for passenger vehicles from FILE (mandatory)", metavar="FILE")

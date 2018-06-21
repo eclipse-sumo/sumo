@@ -52,7 +52,7 @@ class FixDistribution(object):
         self._limits = (0, None)
         self._isNumeric = isNumeric
         self._maxSampleAttempts = 10
-        
+
     def setMaxSamplingAttempts(self, n):
         if n is not None:
             self._maxSampleAttempts = n
@@ -66,7 +66,7 @@ class FixDistribution(object):
             nrSampleAttempts = 0
             # Sample until value falls into limits
             while nrSampleAttempts < self._maxSampleAttempts \
-                    and (value is None or (self._limits[1] is not None and value > self._limits[1]) \
+                    and (value is None or (self._limits[1] is not None and value > self._limits[1])
                          or (self._limits[0] is not None and value < self._limits[0])):
                 value = self._sampleValue()
                 nrSampleAttempts += 1
@@ -157,14 +157,14 @@ def readConfigFile(options):
                     attName = row[0].strip()
                     if attName == "param":
                         # this indicates that a parameter child-element is to be created for the vTypes
-                        isParameter=True
+                        isParameter = True
                         del row[0]
                         if len(row) < 2:
                             # a parameter needs a name and a value specification
                             continue
                         attName = row[0].strip()
                     else:
-                        isParameter=False
+                        isParameter = False
                     # check if attribute value matches given distribution
                     # syntax
                     attValue = row[1].strip()
@@ -199,7 +199,7 @@ def readConfigFile(options):
                             upperLimit = float(items[0][2])
                     value.setLimits((lowerLimit, upperLimit))
                     value.setMaxSamplingAttempts(options.nrSamplingAttempts)
-                    res = {"value":value, "isParameter":isParameter}
+                    res = {"value": value, "isParameter": isParameter}
                     result[attName] = res
     return result
 
@@ -225,8 +225,8 @@ def main(options):
         vTypeNode = domTree.createElement("vType")
         vTypeNode.setAttribute("id", options.vehDistName + str(i))
         for attName, d in vTypeParameters.items():
-            attValue = d["value"] 
-            isParameter = d["isParameter"] 
+            attValue = d["value"]
+            isParameter = d["isParameter"]
             if isParameter:
                 paramNode = domTree.createElement("param")
                 paramNode.setAttribute("key", attName)

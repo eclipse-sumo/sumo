@@ -12,7 +12,7 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2007-07-26
-# @version $Id: edgesInDistricts.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 """
 Parsing a number of networks and taz (district) files with shapes
@@ -82,10 +82,10 @@ class DistrictEdgeComputer:
 
     def writeResults(self, options):
         fd = open(options.output, "w")
-        sumolib.xml.writeHeader(fd, "$Id: $", "tazs", "taz_file.xsd")
+        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")
         lastId = None
         lastEdges = None
-        key = (lambda i:i[0].attributes[options.merge_param]) if options.merge_param else None
+        key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
         for idx, (district, edges) in enumerate(sorted(self._districtEdges.items(), key=key)):
             filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
             if len(filtered) == 0:

@@ -22,6 +22,7 @@ from xml.sax import make_parser, handler
 
 MAX_POS_DEVIATION = 10
 
+
 class LaneMap:
     def get(self, key, default):
         return key[0:-2]
@@ -36,37 +37,38 @@ def relError(actual, expected):
     else:
         return (actual - expected) / expected
 
+
 def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW", begin=None, end=None):
-        detIdx = -1
-        flowIdx = -1
-        speedIdx = -1
-        timeIdx = -1
-        with open(flowFile) as f:
-            for l in f:
-                if ';' not in l:
-                    continue
-                flowDef = [e.strip() for e in l.split(';')]
-                if detIdx == -1 and detCol in flowDef:
-                    # init columns
-                    detIdx = flowDef.index(detCol)
-                    if flowCol in flowDef:
-                        flowIdx = flowDef.index(flowCol)
-                    if speedCol in flowDef:
-                        speedIdx = flowDef.index(speedCol)
-                    if timeCol in flowDef:
-                        timeIdx = flowDef.index(timeCol)
-                elif flowIdx != -1:
-                    # columns are initialized
-                    if timeIdx == -1 or begin is None:
-                        curTime = None
-                        timeIsValid = True
-                    else:
-                        curTime = float(flowDef[timeIdx])
-                        timeIsValid = (end is None and curTime == begin) or (
-                            curTime >= begin and curTime < end)
-                    if timeIsValid:
-                        speed = float(flowDef[speedIdx]) if speedIdx != -1 else None
-                        yield (flowDef[detIdx], curTime, float(flowDef[flowIdx]), speed)
+    detIdx = -1
+    flowIdx = -1
+    speedIdx = -1
+    timeIdx = -1
+    with open(flowFile) as f:
+        for l in f:
+            if ';' not in l:
+                continue
+            flowDef = [e.strip() for e in l.split(';')]
+            if detIdx == -1 and detCol in flowDef:
+                # init columns
+                detIdx = flowDef.index(detCol)
+                if flowCol in flowDef:
+                    flowIdx = flowDef.index(flowCol)
+                if speedCol in flowDef:
+                    speedIdx = flowDef.index(speedCol)
+                if timeCol in flowDef:
+                    timeIdx = flowDef.index(timeCol)
+            elif flowIdx != -1:
+                # columns are initialized
+                if timeIdx == -1 or begin is None:
+                    curTime = None
+                    timeIsValid = True
+                else:
+                    curTime = float(flowDef[timeIdx])
+                    timeIsValid = (end is None and curTime == begin) or (
+                        curTime >= begin and curTime < end)
+                if timeIsValid:
+                    speed = float(flowDef[speedIdx]) if speedIdx != -1 else None
+                    yield (flowDef[detIdx], curTime, float(flowDef[flowIdx]), speed)
 
 
 class DetectorGroupData:
@@ -213,12 +215,11 @@ class DetectorReader(handler.ContentHandler):
             for group in groupList:
                 group.clearFlow(begin, interval)
 
-
     def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
         values = parseFlowFile(
-                    flowFile, 
-                    detCol=det, timeCol=time, flowCol=flow, 
-                    speedCol=speed, begin=timeVal, end=timeMax)
+            flowFile,
+            detCol=det, timeCol=time, flowCol=flow,
+            speedCol=speed, begin=timeVal, end=timeMax)
         hadFlow = False
         for det, time, flow, speed in values:
             hadFlow = True
@@ -253,11 +254,8 @@ class DetectorReader(handler.ContentHandler):
                         tMax = curTime
         return tMin, tMax
 
-
     def getGroups(self):
         for edge, detData in self._edge2DetData.items():
             for group in detData:
                 if group.isValid:
                     yield edge, group
-
-

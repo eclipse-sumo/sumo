@@ -49,12 +49,15 @@ def get_options(args=None):
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-g", "--group-by", dest="groupby", help="group detectors (all, none, type) ", default="all")
     optParser.add_option("-t", "--type-filter", dest="typefilter", help="only show selected types")
-    optParser.add_option("-r", "--reference-flow", dest="reference", help="reference flow file that should not be grouped", metavar="FILE")
+    optParser.add_option("-r", "--reference-flow", dest="reference",
+                         help="reference flow file that should not be grouped", metavar="FILE")
     optParser.add_option("--id-filter", dest="idfilter", help="filter detector ids")
-    optParser.add_option("--single-plot", action="store_true", dest="singleplot", default=False, help="put averything in a single plot")
+    optParser.add_option("--single-plot", action="store_true", dest="singleplot",
+                         default=False, help="put averything in a single plot")
     #optParser.add_option("--boxplot", action="store_true", dest="boxplot", default=False, help="boxplot")
     optParser.add_option("-m", "--max-files", type="int", dest="maxfiles", help="limit number of input files")
-    optParser.add_option("-n", "--no-legend", dest="nolegend", action="store_true", default=False, help="dont draw legend")
+    optParser.add_option("-n", "--no-legend", dest="nolegend", action="store_true",
+                         default=False, help="dont draw legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     options, args = optParser.parse_args(args=args)
     options.flowfiles = args
@@ -73,8 +76,10 @@ def write_csv(keys, data, fname):
         for key, v in zip(keys, data):
             f.write("%s;%s\n" % (key, v))
 
+
 def initDataList(begin, end, interval):
     return [None] * int(math.ceil((end - begin) / interval))
+
 
 def addToDataList(data, i, val):
     if val is not None:
@@ -82,6 +87,7 @@ def addToDataList(data, i, val):
             data[i] = val
         else:
             data[i] += val
+
 
 def plot(options, allData, prefix="", linestyle="-"):
     if not options.singleplot:
@@ -94,7 +100,7 @@ def plot(options, allData, prefix="", linestyle="-"):
 
     plt.xlabel("Minutes")
     x = range(int(options.begin), int(options.end), options.interval)
-    #if options.boxplot:
+    # if options.boxplot:
     #    for f, data in zip(options.flowfiles, allData):
     #        label = f[-12:-4] + labelsuffix
     #        #plt.plot(x, data, label=label, linestyle=linestyle)
@@ -106,11 +112,11 @@ def plot(options, allData, prefix="", linestyle="-"):
     #        plt.plot(x, data, label=label, linestyle=linestyle)
     #        label = label.replace(";","_")
     #    plt.boxplot(x, allData[1:])
-    #else:
+    # else:
     for f, data in zip(options.flowfiles, allData):
         label = f[-12:-4] + labelsuffix
         plt.plot(x, data, label=label, linestyle=linestyle)
-        label = label.replace(";","_")
+        label = label.replace(";", "_")
         if options.csv_output is not None:
             lastdir = os.path.basename(os.path.dirname(f))
             write_csv(x, data, "%s_%s.%s.csv" % (options.csv_output, label, lastdir))
@@ -129,13 +135,13 @@ def main(options):
     for detReader, f in zip(detReaders, options.flowfiles):
         if options.verbose:
             print("reading %s" % f)
-        detReader.clearFlows(options.begin, options.interval) # initialize
+        detReader.clearFlows(options.begin, options.interval)  # initialize
         detReader.readFlowsTimeline(f, options.interval, begin=options.begin, end=options.end, flowCol=options.flowcol)
     # aggregated detectors
     if options.singleplot:
         plt.figure(figsize=(14, 9), dpi=100)
     if options.groupby == "all":
-        allData = [] # one list for each file 
+        allData = []  # one list for each file
         for detReader, f in zip(detReaders, options.flowfiles):
             data = initDataList(options.begin, options.end, options.interval)
             for edge, group in detReader.getGroups():
@@ -149,7 +155,7 @@ def main(options):
 
     elif options.groupby == "type":
         for detType, linestyle in [("source", "-"), ("sink", ":"), ("between", "--")]:
-            allData = [] # one list for each file 
+            allData = []  # one list for each file
             for detReader, f in zip(detReaders, options.flowfiles):
                 data = initDataList(options.begin, options.end, options.interval)
                 for edge, group in detReader.getGroups():
@@ -164,7 +170,7 @@ def main(options):
 
     elif options.groupby == "none":
         for det, groupName in [(g.ids[0], g.getName(options.longnames)) for e, g in detReaders[0].getGroups()]:
-            allData = [] # one list for each file 
+            allData = []  # one list for each file
             for detReader, f in zip(detReaders, options.flowfiles):
                 data = initDataList(options.begin, options.end, options.interval)
                 group = detReader.getGroup(det)
@@ -185,6 +191,7 @@ def main(options):
         plt.savefig("singlePlot." + options.extension)
     if options.show:
         plt.show()
+
 
 if __name__ == "__main__":
     main(get_options())
