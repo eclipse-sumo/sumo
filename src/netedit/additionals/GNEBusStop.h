@@ -59,9 +59,6 @@ public:
     /// @brief Destructor
     ~GNEBusStop();
 
-    /// @brief generate Acces ID
-    std::string generateAccessID() const;
-
     /// @brief
     bool accessCanBeCreated(GNEEdge &edge) const;
 

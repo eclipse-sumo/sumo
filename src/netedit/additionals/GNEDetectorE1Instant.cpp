@@ -52,7 +52,7 @@
 // ===========================================================================
 
 GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, friendlyPos, nullptr, blockMovement) {
+    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, lane, pos, 0, filename, friendlyPos, blockMovement) {
 }
 
 

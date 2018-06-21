@@ -61,20 +61,18 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
-    myBlockIconRotation(0.)
-{
+    myBlockIconRotation(0.) {
 }
 
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement, GNEAdditional* additionalParent) :
-    GUIGlObject(type, id),
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, bool movable, bool blockMovement) :
+    GUIGlObject(type, additionalParent->generateAdditionalChildID(tag)),
     GNEAttributeCarrier(tag),
     myViewNet(viewNet),
     myMovable(movable),
     myBlockMovement(blockMovement),
     myAdditionalParent(additionalParent),
-    myBlockIconRotation(0.)
-{
+    myBlockIconRotation(0.) {
 }
 
 
@@ -86,8 +84,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myEdgeChilds(edgeChilds),
-    myBlockIconRotation(0.)
-{
+    myBlockIconRotation(0.) {
 }
 
 
@@ -141,6 +138,15 @@ GNEAdditional::getAdditionalParent() const {
     return myAdditionalParent;
 }
 
+
+std::string 
+GNEAdditional::generateAdditionalChildID(SumoXMLTag childTag) {
+    int counter = 0;
+    while (myViewNet->getNet()->getAdditional(childTag, getID() + toString(childTag) + toString(counter)) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
+}
 
 
 void

@@ -56,7 +56,7 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) :
-    GNEAdditional(parkingAreaParent->generateParkingSpaceID(), viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, true, blockMovement, parkingAreaParent),
+    GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, true, blockMovement),
     myX(x),
     myY(y),
     myZ(z),

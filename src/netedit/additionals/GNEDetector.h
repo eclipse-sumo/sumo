@@ -45,10 +45,23 @@ public:
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
      * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] additionalParent additional parent of this detector
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, bool blockMovement);
+
+    /**@brief Constructor.
+     * @param[in] additionalParent additional parent of this detector (ID will be generated automatically)
+     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] type GUIGlObjectType of detector
+     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
+     * @param[in] lane Lane of this detector belongs
+     * @param[in] pos position of the detector on the lane
+     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] filename The path to the output file.
+     * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] block movement enable or disable additional movement
+     */
+    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double pos, double freq, const std::string& filename, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetector();

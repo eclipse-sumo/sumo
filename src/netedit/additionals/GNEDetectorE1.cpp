@@ -52,7 +52,7 @@
 // ===========================================================================
 
 GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, lane, pos, freq, filename, friendlyPos, nullptr, blockMovement),
+    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, lane, pos, freq, filename, friendlyPos, blockMovement),
     myVehicleTypes(vehicleTypes) {
 }
 

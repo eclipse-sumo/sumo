@@ -117,26 +117,6 @@ GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoLis
 
 
 std::string
-GNEDetectorE3::generateEntryID() {
-    int counter = 0;
-    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_ENTRY, getID() + toString(SUMO_TAG_DET_ENTRY) + toString(counter)) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(SUMO_TAG_DET_ENTRY) + toString(counter));
-}
-
-
-std::string
-GNEDetectorE3::generateExitID() {
-    int counter = 0;
-    while (myViewNet->getNet()->getAdditional(SUMO_TAG_DET_EXIT, getID() + toString(SUMO_TAG_DET_EXIT) + toString(counter)) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(SUMO_TAG_DET_EXIT) + toString(counter));
-}
-
-
-std::string
 GNEDetectorE3::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }
@@ -220,11 +200,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Entry/Exits childs
             for (auto i : myAdditionalChilds) {
-                if (i->getTag() == SUMO_TAG_ENTRY) {
-                    i->setAttribute(SUMO_ATTR_ID, generateEntryID(), undoList);
-                } else {
-                    i->setAttribute(SUMO_ATTR_ID, generateExitID(), undoList);
-                }
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTag()), undoList);
             }
             break;
         }

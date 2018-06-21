@@ -54,7 +54,7 @@
 // ===========================================================================
 
 GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEDetectorE3* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent->generateEntryID(), viewNet, GLO_DET_ENTRY, SUMO_TAG_DET_ENTRY, lane, pos, 0, "", friendlyPos, parent, blockMovement) {
+    GNEDetector(parent, viewNet, GLO_DET_ENTRY, SUMO_TAG_DET_ENTRY, lane, pos, 0, "", friendlyPos, blockMovement) {
 }
 
 

@@ -51,12 +51,6 @@ public:
     /// @brief GNEDetectorE3 6Destructor
     ~GNEDetectorE3();
 
-    /// @brief gererate a new ID for an Entry detector child
-    std::string generateEntryID();
-
-    /// @brief gererate a new ID for an Exit detector child
-    std::string generateExitID();
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

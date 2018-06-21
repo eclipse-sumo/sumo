@@ -95,16 +95,6 @@ GNEParkingArea::updateGeometry() {
 }
 
 
-std::string 
-GNEParkingArea::generateParkingSpaceID() {
-    int counter = 0;
-    while (myViewNet->getNet()->getAdditional(SUMO_TAG_PARKING_SPACE, getID() + toString(SUMO_TAG_PARKING_SPACE) + toString(counter)) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(SUMO_TAG_PARKING_SPACE) + toString(counter));
-}
-
-
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
@@ -236,7 +226,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Parking Spaces
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateParkingSpaceID(), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_PARKING_SPACE), undoList);
             }
             break;
         }

@@ -91,16 +91,6 @@ GNEBusStop::updateGeometry() {
 }
 
 
-std::string 
-GNEBusStop::generateAccessID() const {
-    int counter = 0;
-    while (myViewNet->getNet()->getAdditional(SUMO_TAG_ACCESS, getID() + toString(SUMO_TAG_ACCESS) + toString(counter)) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(SUMO_TAG_ACCESS) + toString(counter));
-}
-
- 
 bool 
 GNEBusStop::accessCanBeCreated(GNEEdge &edge) const {
     for (auto i : myAdditionalChilds) {
@@ -257,7 +247,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Acces childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAccessID(), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_ACCESS), undoList);
             }
             break;
         }

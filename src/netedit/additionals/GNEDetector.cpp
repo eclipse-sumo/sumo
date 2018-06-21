@@ -50,8 +50,19 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane,
-                         double pos, double freq, const std::string& filename, bool friendlyPos, GNEAdditional* additionalParent, bool blockMovement) :
-    GNEAdditional(id, viewNet, type, tag, true, blockMovement, additionalParent),
+                         double pos, double freq, const std::string& filename, bool friendlyPos, bool blockMovement) :
+    GNEAdditional(id, viewNet, type, tag, true, blockMovement),
+    myLane(lane),
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
+}
+
+
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane,
+                         double pos, double freq, const std::string& filename, bool friendlyPos, bool blockMovement) :
+    GNEAdditional(additionalParent, viewNet, type, tag, true, blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
     myFreq(freq),
