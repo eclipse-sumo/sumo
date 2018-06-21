@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_DEST_PROB_REROUTE),
+    GNEAdditional("", rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myNewEdgeDestination(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)),
     myProbability(parse<double>(getTagProperties(SUMO_TAG_ROUTE_PROB_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
@@ -45,7 +45,7 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterInterv
 
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
-    GNEAttributeCarrier(SUMO_TAG_DEST_PROB_REROUTE),
+    GNEAdditional("", rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalParent),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(probability) {
@@ -55,19 +55,6 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterInterval* rerouterIntervalPare
 GNEDestProbReroute::~GNEDestProbReroute() {}
 
 
-void
-GNEDestProbReroute::writeDestProbReroute(OutputDevice& device) const {
-    // open tag
-    device.openTag(getTag());
-    // write edge ID
-    writeAttribute(device, SUMO_ATTR_ID);
-    // write probability
-    writeAttribute(device, SUMO_ATTR_PROB);
-    // close tag
-    device.closeTag();
-}
-
-
 GNERerouterInterval*
 GNEDestProbReroute::getRerouterIntervalParent() const {
     return myRerouterIntervalParent;
@@ -75,21 +62,37 @@ GNEDestProbReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEDestProbReroute::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNEDestProbReroute::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNEDestProbReroute::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNEDestProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
+}
+
+void 
+GNEDestProbReroute::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
 }
 
 
-bool 
-GNEDestProbReroute::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+Position 
+GNEDestProbReroute::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNEDestProbReroute::getParentName() const {
+    return myRerouterIntervalParent->getID();
+}
+
+
+void 
+GNEDestProbReroute::drawGL(const GUIVisualizationSettings&) const {
+    // Currently This additional isn't drawn
 }
 
 

@@ -21,22 +21,22 @@
 #include <config.h>
 
 #include <utils/common/ToString.h>
-#include "GNERouteProbReroute.h"
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
-
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
+
+#include "GNERouteProbReroute.h"
+#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE),
+    GNEAdditional("", rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myNewRouteId(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getViewNet()->getNet()->generateCalibratorRouteID()),
     myProbability(parse<double>(getTagProperties(SUMO_TAG_ROUTE_PROB_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
@@ -44,7 +44,7 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterInte
 
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, const std::string& newRouteId, double probability) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE),
+    GNEAdditional("", rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalParent),
     myNewRouteId(newRouteId),
     myProbability(probability) {
@@ -54,19 +54,6 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalPa
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
-void
-GNERouteProbReroute::writeRouteProbReroute(OutputDevice& device) const {
-    // open Tag
-    device.openTag(getTag());
-    // write Route ID
-    writeAttribute(device, SUMO_ATTR_ID);
-    // write Probability
-    writeAttribute(device, SUMO_ATTR_PROB);
-    // close tag
-    device.closeTag();
-}
-
-
 GNERerouterInterval*
 GNERouteProbReroute::getRerouterIntervalParent() const {
     return myRerouterIntervalParent;
@@ -74,21 +61,38 @@ GNERouteProbReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNERouteProbReroute::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNERouteProbReroute::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNERouteProbReroute::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNERouteProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-bool 
-GNERouteProbReroute::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void 
+GNERouteProbReroute::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
+}
+
+
+Position 
+GNERouteProbReroute::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNERouteProbReroute::getParentName() const {
+    return myRerouterIntervalParent->getID();
+}
+
+
+void 
+GNERouteProbReroute::drawGL(const GUIVisualizationSettings&) const {
+    // Currently This additional isn't drawn
 }
 
 

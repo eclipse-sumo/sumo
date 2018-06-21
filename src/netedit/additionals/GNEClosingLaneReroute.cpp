@@ -39,7 +39,7 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE),
+    GNEAdditional("XXX", rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myClosedLane(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)->getLanes().at(0)),
     myAllowedVehicles(getTagProperties(SUMO_TAG_CLOSING_LANE_REROUTE).getDefaultValue(SUMO_ATTR_ALLOW)),
@@ -48,7 +48,7 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouter
 
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, const std::string &allowedVehicles, const std::string &disallowedVehicles) :
-    GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE),
+    GNEAdditional("XXX", rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalParent),
     myClosedLane(closedLane),
     myAllowedVehicles(allowedVehicles),
@@ -59,21 +59,6 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterInterv
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
-void
-GNEClosingLaneReroute::writeClosingLaneReroute(OutputDevice& device) const {
-    // open closing reroute tag
-    device.openTag(getTag());
-    // write Lane ID
-    writeAttribute(device, SUMO_ATTR_ID);
-    // write Allowed vehicles
-    writeAttribute(device, SUMO_ATTR_ALLOW);
-    // write disallowed vehicles
-    writeAttribute(device, SUMO_ATTR_DISALLOW);
-    // close closing reroute tag
-    device.closeTag();
-}
-
-
 GNERerouterInterval*
 GNEClosingLaneReroute::getRerouterIntervalParent() const {
     return myRerouterIntervalParent;
@@ -81,21 +66,38 @@ GNEClosingLaneReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEClosingLaneReroute::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNEClosingLaneReroute::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNEClosingLaneReroute::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNEClosingLaneReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-bool 
-GNEClosingLaneReroute::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void 
+GNEClosingLaneReroute::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
+}
+
+
+Position 
+GNEClosingLaneReroute::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNEClosingLaneReroute::getParentName() const {
+    return myRerouterIntervalParent->getID();
+}
+
+
+void 
+GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& s) const {
+    // Currently This additional isn't drawn
 }
 
 

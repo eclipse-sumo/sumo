@@ -23,7 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
@@ -44,7 +44,7 @@ class GNEParkingAreaReroute;
  * @class GNERerouterInterval
  * class used to represent a interval used in rerouters
  */
-class GNERerouterInterval : public GNEAttributeCarrier {
+class GNERerouterInterval : public GNEAdditional {
     /// @brief declare friend class
     friend class GNEChange_RerouterItem;
     friend class GNEAdditionalHandler;
@@ -59,9 +59,6 @@ public:
     /// @brief destructor
     ~GNERerouterInterval();
 
-    /// @brief write Interval and all of their values
-    void writeRerouterInterval(OutputDevice& device) const;
-
     /// @brief get rerouter parent
     GNERerouter* getRerouterParent() const;
 
@@ -71,17 +68,43 @@ public:
     /// @brief get end
     double getEnd() const;
 
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position& oldPos, const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    std::string getParentName() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(bool);
-
-    /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(bool);
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key

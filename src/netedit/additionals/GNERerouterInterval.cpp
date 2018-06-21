@@ -43,7 +43,7 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAttributeCarrier(SUMO_TAG_INTERVAL),
+    GNEAdditional("", rerouterDialog->getEditedRerouter()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
     myRerouterParent(rerouterDialog->getEditedRerouter()),
     myBegin(parse<double>(getTagProperties(SUMO_TAG_INTERVAL).getDefaultValue(SUMO_ATTR_BEGIN))),
     myEnd(parse<double>(getTagProperties(SUMO_TAG_INTERVAL).getDefaultValue(SUMO_ATTR_END))) {
@@ -51,7 +51,7 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end) :
-    GNEAttributeCarrier(SUMO_TAG_INTERVAL),
+    GNEAdditional("", rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, false, false),
     myRerouterParent(rerouterParent),
     myBegin(begin),
     myEnd(end) {
@@ -59,39 +59,6 @@ GNERerouterInterval::GNERerouterInterval(GNERerouter* rerouterParent, double beg
 
 
 GNERerouterInterval::~GNERerouterInterval() {}
-
-
-void
-GNERerouterInterval::writeRerouterInterval(OutputDevice& device) const {
-    // openTag
-    device.openTag(getTag());
-    // write begin
-    writeAttribute(device, SUMO_ATTR_BEGIN);
-    //write end
-    writeAttribute(device, SUMO_ATTR_END);
-    // write closing reroutes
-    for (auto i : myClosingReroutes) {
-        i->writeClosingReroute(device);
-    }
-    // write closing lane reroutes
-    for (auto i : myClosingLaneReroutes) {
-        i->writeClosingLaneReroute(device);
-    }
-    // write dest prob reroutes
-    for (auto i : myDestProbReroutes) {
-        i->writeDestProbReroute(device);
-    }
-    // write parkingAreaReroutes
-    for (auto i : myParkingAreaReroutes) {
-        i->writeParkingAreaReroute(device);
-    }
-    // write route prob reroutes
-    for (auto i : myRouteProbReroutes) {
-        i->writeRouteProbReroute(device);
-    }
-    // Close tag
-    device.closeTag();
-}
 
 
 GNERerouter*
@@ -113,21 +80,38 @@ GNERerouterInterval::getEnd() const {
 
 
 void 
-GNERerouterInterval::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNERerouterInterval::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNERerouterInterval::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNERerouterInterval::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-bool 
-GNERerouterInterval::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void 
+GNERerouterInterval::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
+}
+
+
+Position 
+GNERerouterInterval::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNERerouterInterval::getParentName() const {
+    return myRerouterParent->getID();
+}
+
+
+void 
+GNERerouterInterval::drawGL(const GUIVisualizationSettings&) const {
+    // Currently This additional isn't drawn
 }
 
 
