@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 18 16:45:45 2018 by Eclipse SUMO netconvert Version 4b5eff6
+<!-- generated on Thu Jun 21 14:19:56 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,5 +41,4 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <join nodes="442733 613378773"/>
 </nodes>

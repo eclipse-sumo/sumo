@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:35 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Jun 21 14:19:52 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,39 +41,39 @@ SPDX-License-Identifier: EPL-2.0
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="11" from="3" to="12" priority="-1">
-        <lane id="11_0" index="0" speed="27.78" length="5986.29" shape="19134.01,15920.68 19997.04,10009.22"/>
+        <lane id="11_0" index="0" speed="27.78" length="5986.29" shape="19134.01,15920.68 19996.75,10011.16"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="12" from="4" to="12" priority="-1">
-        <lane id="12_0" index="0" speed="27.78" length="4999.31" shape="17501.94,14327.91 19993.47,10008.11"/>
+        <lane id="12_0" index="0" speed="27.78" length="4999.31" shape="17501.94,14327.91 19992.49,10009.81"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="13" from="5" to="12" priority="-1">
-        <lane id="13_0" index="0" speed="27.78" length="4999.82" shape="16171.28,13212.68 19990.66,10005.75"/>
+        <lane id="13_0" index="0" speed="27.78" length="4999.82" shape="16171.28,13212.68 19989.16,10007.01"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="14" from="6" to="12" priority="-1">
-        <lane id="14_0" index="0" speed="27.78" length="5000.35" shape="15302.24,11709.21 19989.25,10002.21"/>
+        <lane id="14_0" index="0" speed="27.78" length="5000.35" shape="15302.24,11709.21 19987.41,10002.88"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="15" from="7" to="12" priority="-1">
-        <lane id="15_0" index="0" speed="27.78" length="5000.00" shape="15000.00,9998.40 19989.15,9998.40"/>
+        <lane id="15_0" index="0" speed="27.78" length="5000.00" shape="15000.00,9998.40 19987.19,9998.40"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="16" from="8" to="12" priority="-1">
-        <lane id="16_0" index="0" speed="27.78" length="4999.87" shape="15302.55,8287.50 19990.35,9994.78"/>
+        <lane id="16_0" index="0" speed="27.78" length="4999.87" shape="15302.55,8287.50 19988.51,9994.11"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="17" from="9" to="12" priority="-1">
-        <lane id="17_0" index="0" speed="27.78" length="4999.75" shape="16172.03,6783.77 19992.72,9991.80"/>
+        <lane id="17_0" index="0" speed="27.78" length="4999.75" shape="16172.03,6783.77 19991.22,9990.54"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="18" from="10" to="12" priority="-1">
-        <lane id="18_0" index="0" speed="27.78" length="4999.76" shape="17503.39,5668.20 19995.96,9989.80"/>
+        <lane id="18_0" index="0" speed="27.78" length="4999.76" shape="17503.39,5668.20 19994.98,9988.10"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="19" from="11" to="12" priority="-1">
-        <lane id="19_0" index="0" speed="27.78" length="5987.81" shape="19136.58,4074.77 20000.11,9989.71"/>
+        <lane id="19_0" index="0" speed="27.78" length="5987.81" shape="19136.58,4074.77 19999.83,9987.77"/>
         <param key="capacity" value="1000.00"/>
     </edge>
     <edge id="2" from="2" to="3" priority="-1">
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="capacity" value="3600.00"/>
     </edge>
     <edge id="20" from="12" to="13" priority="-1">
-        <lane id="20_0" index="0" speed="27.78" length="4999.19" shape="20004.27,9998.40 24996.80,9998.40"/>
+        <lane id="20_0" index="0" speed="27.78" length="4999.19" shape="20006.23,9998.40 24996.80,9998.40"/>
         <param key="capacity" value="36000.00"/>
     </edge>
     <edge id="21" from="13" to="14" priority="-1">
@@ -134,7 +134,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="11" type="priority" x="19135.00" y="4075.00" incLanes="10_0" intLanes="" shape="19135.00,4075.00 19138.17,4074.54 19133.76,4072.05">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="12" type="priority" x="20000.00" y="10000.00" incLanes="19_0 18_0 17_0 16_0 15_0 14_0 13_0 12_0 11_0" intLanes="" shape="20004.27,10000.00 20004.27,9996.80 20001.70,9989.48 19998.53,9989.94 19997.35,9989.00 19994.58,9990.60 19993.75,9990.57 19991.69,9993.02 19990.90,9993.28 19989.80,9996.29 19989.15,9996.80 19989.15,10000.00 19988.71,10000.71 19989.80,10003.71 19989.63,10004.53 19991.69,10006.98 19992.09,10007.31 19994.86,10008.91 19995.45,10008.99 19998.62,10009.45">
+    <junction id="12" type="priority" x="20000.00" y="10000.00" incLanes="19_0 18_0 17_0 16_0 15_0 14_0 13_0 12_0 11_0" intLanes="" shape="20006.23,10000.00 20006.23,9996.80 20001.41,9987.54 19998.25,9988.00 19996.37,9987.30 19993.60,9988.90 19992.25,9989.31 19990.19,9991.76 19989.06,9992.61 19987.96,9995.62 19987.19,9996.80 19987.19,10000.00 19986.87,10001.38 19987.96,10004.38 19988.13,10005.79 19990.19,10008.24 19991.11,10009.01 19993.88,10010.61 19995.17,10010.93 19998.34,10011.39">
         <request index="0" response="000000000" foes="111111110"/>
         <request index="1" response="101111101" foes="111111101"/>
         <request index="2" response="100000001" foes="111111011"/>

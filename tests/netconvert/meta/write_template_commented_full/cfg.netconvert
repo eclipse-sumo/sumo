@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 20 22:03:13 2018 by Eclipse SUMO netconvert Version af267e6
+<!-- generated on Thu Jun 21 14:19:39 2018 by Eclipse SUMO netconvert Version 1e1904d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -688,7 +688,7 @@
         <default.junctions.keep-clear value="true" type="BOOL"/>
 
         <!-- The default turning radius of intersections -->
-        <default.junctions.radius value="1.5" type="FLOAT"/>
+        <default.junctions.radius value="4" type="FLOAT"/>
 
     </building_defaults>
 

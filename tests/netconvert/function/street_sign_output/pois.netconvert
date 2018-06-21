@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:45 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Jun 21 14:20:03 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,12 +37,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="gneE1.37.33" type="priority" color="yellow" x="-2.30" y="52.76" angle="0"/>
-    <poi id="gneE10.34.66" type="priority" color="yellow" x="-17.84" y="43.60" angle="0"/>
-    <poi id="gneE11.34.66" type="right before left" color="255,153,0" x="-49.46" y="52.95" angle="0"/>
-    <poi id="gneE12.25.62" type="yield" color="red" x="-14.31" y="56.32" angle="0"/>
-    <poi id="gneE15.22.40" type="yield" color="red" x="-5.44" y="40.49" angle="0"/>
-    <poi id="gneE16.33.74" type="right before left" color="255,153,0" x="-64.91" y="43.79" angle="0"/>
-    <poi id="gneE19.26.66" type="right before left" color="255,153,0" x="-61.89" y="56.07" angle="0"/>
-    <poi id="gneE21.26.88" type="right before left" color="255,153,0" x="-52.65" y="40.60" angle="0"/>
+    <poi id="gneE1.34.83" type="priority" color="yellow" x="0.20" y="52.76" angle="0"/>
+    <poi id="gneE10.29.66" type="priority" color="yellow" x="-20.34" y="43.61" angle="0"/>
+    <poi id="gneE11.29.66" type="right before left" color="255,153,0" x="-46.96" y="52.94" angle="0"/>
+    <poi id="gneE12.23.12" type="yield" color="red" x="-14.16" y="58.82" angle="0"/>
+    <poi id="gneE15.19.90" type="yield" color="red" x="-5.39" y="37.99" angle="0"/>
+    <poi id="gneE16.31.24" type="right before left" color="255,153,0" x="-67.41" y="43.79" angle="0"/>
+    <poi id="gneE19.24.16" type="right before left" color="255,153,0" x="-61.93" y="58.57" angle="0"/>
+    <poi id="gneE21.24.38" type="right before left" color="255,153,0" x="-52.67" y="38.10" angle="0"/>
 </additional>

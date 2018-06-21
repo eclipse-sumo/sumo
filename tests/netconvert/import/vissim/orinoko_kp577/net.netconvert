@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 11:04:06 2018 by Eclipse SUMO netconvert Version 3aa404f
+<!-- generated on Thu Jun 21 14:19:49 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -403,10 +403,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="96_0" index="0" speed="13.89" length="405.96" shape="2030.15,1571.70 1758.25,1359.32 1709.98,1343.93"/>
     </edge>
     <edge id="97" from="605001195" to="605001150" name="VISUM Strecke 905006352" priority="-1" type="100" spreadType="center" shape="1568.46,2825.33 1509.56,2900.54">
-        <lane id="97_0" index="0" speed="13.89" length="105.34" shape="1568.46,2825.33 1509.56,2900.54"/>
+        <lane id="97_0" index="0" speed="13.89" length="105.32" shape="1568.46,2825.33 1510.27,2899.63"/>
     </edge>
     <edge id="98" from="605001150" to="605001195" name="VISUM Strecke 905006352" priority="-1" type="100" spreadType="center" shape="1506.80,2898.38 1565.70,2823.17">
-        <lane id="98_0" index="0" speed="13.89" length="102.17" shape="1506.80,2898.38 1565.70,2823.17"/>
+        <lane id="98_0" index="0" speed="13.89" length="102.10" shape="1507.51,2897.48 1565.70,2823.17"/>
     </edge>
     <edge id="99" from="605001164" to="605001156" name="9564 (905006790)" priority="-1" type="86" spreadType="center" shape="3597.94,2819.61 3506.93,2741.05">
         <lane id="99_0" index="0" speed="13.89" length="140.06" shape="3597.94,2819.61 3506.93,2741.05"/>
@@ -511,7 +511,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0001" foes="0001"/>
     </junction>
     <junction id="605001149" type="dead_end" x="1261.40" y="2674.21" incLanes="" intLanes="" shape="1259.19,2676.54 1263.60,2671.89"/>
-    <junction id="605001150" type="priority" x="1504.83" y="2904.72" incLanes="77_0 77_1 97_0 15_0 15_1" intLanes="" shape="1504.92,2918.86 1513.91,2908.93 1510.82,2901.52 1505.54,2897.39 1499.50,2895.58 1490.28,2905.30">
+    <junction id="605001150" type="priority" x="1504.83" y="2904.72" incLanes="77_0 77_1 97_0 15_0 15_1" intLanes="" shape="1504.92,2918.86 1513.91,2908.93 1511.53,2900.62 1506.25,2896.49 1499.50,2895.58 1490.28,2905.30">
         <request index="0"  response="0000000000000" foes="1010001000000"/>
         <request index="1"  response="0101000100000" foes="0101000100000"/>
         <request index="2"  response="0000000000000" foes="1010001000000"/>

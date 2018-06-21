@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:38 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Jun 21 14:19:57 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,28 +39,28 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="963.58,-181.11" convBoundary="0.00,0.00,2707.33,850.72" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="-gneE13" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ17" priority="1">
-        <lane id="-gneE13_0" index="0" speed="13.89" length="200.00" shape="1858.88,320.49 1663.58,320.49"/>
+        <lane id="-gneE13_0" index="0" speed="13.89" length="200.00" shape="1856.38,320.49 1663.58,320.49"/>
     </edge>
     <edge id="-gneE14" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ19" priority="1">
-        <lane id="-gneE14_0" index="0" speed="13.89" length="200.00" shape="1861.98,314.19 1861.98,118.89"/>
+        <lane id="-gneE14_0" index="0" speed="13.89" length="200.00" shape="1861.98,311.69 1861.98,118.89"/>
     </edge>
     <edge id="-gneE15" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ21" priority="1">
-        <lane id="-gneE15_0" index="0" speed="13.89" length="200.00" shape="1868.28,317.29 2063.58,317.29"/>
+        <lane id="-gneE15_0" index="0" speed="13.89" length="200.00" shape="1870.78,317.29 2063.58,317.29"/>
     </edge>
     <edge id="-gneE16" from="cluster_gneJ18_gneJ20_gneJ22_gneJ24" to="gneJ23" priority="1">
-        <lane id="-gneE16_0" index="0" speed="13.89" length="200.00" shape="1865.18,323.59 1865.18,518.89"/>
+        <lane id="-gneE16_0" index="0" speed="13.89" length="200.00" shape="1865.18,326.09 1865.18,518.89"/>
     </edge>
     <edge id="-gneE18" from="cluster_gneJ28_gneJ31" to="gneJ27" priority="1">
-        <lane id="-gneE18_0" index="0" speed="13.89" length="66.96" shape="1094.78,546.61 1087.42,486.31"/>
+        <lane id="-gneE18_0" index="0" speed="13.89" length="66.63" shape="1094.48,544.13 1087.42,486.31"/>
     </edge>
     <edge id="-gneE19" from="gneJ29" to="cluster_gneJ28_gneJ31" priority="1">
-        <lane id="-gneE19_0" index="0" speed="13.89" length="175.97" shape="1258.63,618.67 1103.18,557.68"/>
+        <lane id="-gneE19_0" index="0" speed="13.89" length="175.67" shape="1258.63,618.67 1105.50,558.60"/>
     </edge>
     <edge id="-gneE20" from="gneJ30" to="gneJ29" priority="1">
         <lane id="-gneE20_0" index="0" speed="13.89" length="194.20" shape="1265.18,425.60 1265.18,614.20"/>
     </edge>
     <edge id="-gneE21" from="cluster_gneJ28_gneJ31" to="gneJ30" priority="1">
-        <lane id="-gneE21_0" index="0" speed="13.89" length="205.38" shape="1101.90,547.81 1257.36,421.87"/>
+        <lane id="-gneE21_0" index="0" speed="13.89" length="203.69" shape="1103.84,546.24 1257.36,421.87"/>
     </edge>
     <edge id="-gneE23" from="gneJ34" to="cluster_gneJ33_gneJ37_gneJ38" priority="1">
         <lane id="-gneE23_0" index="0" speed="13.89" length="200.00" shape="1361.98,615.69 1361.98,422.09"/>
@@ -102,22 +102,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE1_0" index="0" speed="13.89" length="200.00" shape="1165.18,18.89 1165.18,218.89"/>
     </edge>
     <edge id="gneE13" from="gneJ17" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1">
-        <lane id="gneE13_0" index="0" speed="13.89" length="200.00" shape="1663.58,317.29 1858.88,317.29"/>
+        <lane id="gneE13_0" index="0" speed="13.89" length="200.00" shape="1663.58,317.29 1856.38,317.29"/>
     </edge>
     <edge id="gneE14" from="gneJ19" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1">
-        <lane id="gneE14_0" index="0" speed="13.89" length="200.00" shape="1865.18,118.89 1865.18,314.19"/>
+        <lane id="gneE14_0" index="0" speed="13.89" length="200.00" shape="1865.18,118.89 1865.18,311.69"/>
     </edge>
     <edge id="gneE15" from="gneJ21" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1">
-        <lane id="gneE15_0" index="0" speed="13.89" length="200.00" shape="2063.58,320.49 1868.28,320.49"/>
+        <lane id="gneE15_0" index="0" speed="13.89" length="200.00" shape="2063.58,320.49 1870.78,320.49"/>
     </edge>
     <edge id="gneE16" from="gneJ23" to="cluster_gneJ18_gneJ20_gneJ22_gneJ24" priority="1">
-        <lane id="gneE16_0" index="0" speed="13.89" length="200.00" shape="1861.98,518.89 1861.98,323.59"/>
+        <lane id="gneE16_0" index="0" speed="13.89" length="200.00" shape="1861.98,518.89 1861.98,326.09"/>
     </edge>
     <edge id="gneE18" from="gneJ27" to="cluster_gneJ28_gneJ31" priority="1">
-        <lane id="gneE18_0" index="0" speed="13.89" length="66.96" shape="1090.60,485.93 1097.96,546.22"/>
+        <lane id="gneE18_0" index="0" speed="13.89" length="66.63" shape="1090.60,485.93 1097.65,543.74"/>
     </edge>
     <edge id="gneE19" from="cluster_gneJ28_gneJ31" to="gneJ29" priority="1">
-        <lane id="gneE19_0" index="0" speed="13.89" length="175.97" shape="1104.35,554.70 1259.80,615.69"/>
+        <lane id="gneE19_0" index="0" speed="13.89" length="175.67" shape="1106.67,555.62 1259.80,615.69"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
         <lane id="gneE2_0" index="0" speed="13.89" length="200.00" shape="1163.58,220.49 963.58,220.49"/>
@@ -126,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE20_0" index="0" speed="13.89" length="194.20" shape="1261.98,614.20 1261.98,425.60"/>
     </edge>
     <edge id="gneE21" from="gneJ30" to="cluster_gneJ28_gneJ31" priority="1">
-        <lane id="gneE21_0" index="0" speed="13.89" length="205.38" shape="1259.37,424.36 1103.91,550.30"/>
+        <lane id="gneE21_0" index="0" speed="13.89" length="203.69" shape="1259.37,424.36 1105.86,548.73"/>
     </edge>
     <edge id="gneE23" from="cluster_gneJ33_gneJ37_gneJ38" to="gneJ34" priority="1">
         <lane id="gneE23_0" index="0" speed="13.89" length="200.00" shape="1365.18,422.09 1365.18,615.69"/>
@@ -174,13 +174,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE42_0" index="0" speed="13.89" length="139.21" shape="1581.70,85.84 1711.32,52.66"/>
     </edge>
     <edge id="gneE44" from="gneJ62" to="gneJ63" priority="1">
-        <lane id="gneE44_0" index="0" speed="13.89" length="233.57" shape="25.76,564.35 199.09,718.24"/>
+        <lane id="gneE44_0" index="0" speed="13.89" length="232.41" shape="27.50,565.89 199.09,718.24"/>
     </edge>
     <edge id="gneE45" from="gneJ65" to="gneJ62" priority="1">
-        <lane id="gneE45_0" index="0" speed="13.89" length="93.60" shape="80.71,491.67 25.40,559.98"/>
+        <lane id="gneE45_0" index="0" speed="13.89" length="93.81" shape="80.71,491.67 26.86,558.18"/>
     </edge>
     <edge id="gneE46" from="gneJ66" to="gneJ62" priority="1">
-        <lane id="gneE46_0" index="0" speed="13.89" length="118.25" shape="-1.57,679.84 18.41,569.45"/>
+        <lane id="gneE46_0" index="0" speed="13.89" length="118.01" shape="-1.57,679.84 18.00,571.74"/>
     </edge>
     <edge id="gneE48" from="gneJ69" to="gneJ70" priority="1">
         <lane id="gneE48_0" index="0" speed="13.89" length="188.66" shape="603.25,525.88 590.02,709.36"/>
@@ -213,7 +213,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="cluster_gneJ0_gneJ4" type="priority" x="963.58" y="18.89" incLanes="gneE3_0" intLanes="" shape="960.38,18.89 963.58,18.89 963.58,15.69">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="cluster_gneJ18_gneJ20_gneJ22_gneJ24" type="priority" x="1863.58" y="318.89" incLanes="gneE16_0 gneE15_0 gneE14_0 gneE13_0" intLanes="" shape="1860.38,323.59 1866.78,323.59 1868.28,322.09 1868.28,315.69 1866.78,314.19 1860.38,314.19 1858.88,315.69 1858.88,322.09">
+    <junction id="cluster_gneJ18_gneJ20_gneJ22_gneJ24" type="priority" x="1863.58" y="318.89" incLanes="gneE16_0 gneE15_0 gneE14_0 gneE13_0" intLanes="" shape="1860.38,326.09 1866.78,326.09 1870.78,322.09 1870.78,315.69 1866.78,311.69 1860.38,311.69 1856.38,315.69 1856.38,322.09">
         <request index="0"  response="0000000000000000" foes="1000010000100000"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000"/>
         <request index="2"  response="0000001100000000" foes="0110001111100000"/>
@@ -231,7 +231,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000011000110110" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="cluster_gneJ28_gneJ31" type="priority" x="1097.25" y="553.64" incLanes="-gneE19_0 gneE21_0 gneE18_0" intLanes="" shape="1102.59,559.17 1104.93,553.22 1104.92,551.54 1100.89,546.57 1099.54,546.03 1093.19,546.80">
+    <junction id="cluster_gneJ28_gneJ31" type="priority" x="1097.25" y="553.64" incLanes="-gneE19_0 gneE21_0 gneE18_0" intLanes="" shape="1104.92,560.09 1107.26,554.13 1106.86,549.97 1102.83,545.00 1099.24,543.54 1092.89,544.32">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -351,7 +351,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="gneJ57" type="dead_end" x="1528.31" y="217.14" incLanes="gneE41_0" intLanes="" shape="1531.30,218.27 1528.31,217.14"/>
     <junction id="gneJ58" type="dead_end" x="1711.72" y="54.21" incLanes="gneE42_0" intLanes="" shape="1710.93,51.11 1711.72,54.21"/>
-    <junction id="gneJ62" type="priority" x="21.29" y="562.52" incLanes="gneE45_0 gneE46_0" intLanes="" shape="24.70,565.55 26.82,563.15 26.64,560.99 24.16,558.98 16.83,569.17 19.98,569.74">
+    <junction id="gneJ62" type="priority" x="21.29" y="562.52" incLanes="gneE45_0 gneE46_0" intLanes="" shape="26.43,567.09 28.56,564.69 28.11,559.19 25.62,557.17 16.42,571.45 19.57,572.02">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

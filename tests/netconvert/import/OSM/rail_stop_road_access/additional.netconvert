@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  6 09:16:44 2018 by Eclipse SUMO netconvert Version 4cc2846
+<!-- generated on Thu Jun 21 14:19:54 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -97,14 +97,14 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="3257062964" name="Dregerhoffstraße" lane="319292807_0" startPos="1147.84" endPos="1172.84" friendlyPos="true">
         <access lane="-93704176#0_0" pos="1059.81" length="11.02" friendlyPos="1"/>
         <access lane="93704176#0_0" pos="646.51" length="3.08" friendlyPos="1"/>
-        <access lane="-151020315#0_0" pos="1000.83" length="190.19" friendlyPos="1"/>
+        <access lane="-151020315#0_0" pos="1000.33" length="190.19" friendlyPos="1"/>
         <access lane="151020315#0_0" pos="0.00" length="202.77" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062965" name="Lienhardweg" lane="319292807_0" startPos="473.93" endPos="498.93" friendlyPos="true">
         <access lane="-93704176#0_0" pos="1706.13" length="41.97" friendlyPos="1"/>
         <access lane="93704176#0_0" pos="0.00" length="41.64" friendlyPos="1"/>
         <access lane="-214614381#1_0" pos="0.00" length="345.39" friendlyPos="1"/>
-        <access lane="214614381#1_0" pos="1755.05" length="333.05" friendlyPos="1"/>
+        <access lane="214614381#1_0" pos="1754.55" length="333.05" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062966" name="Mayschweg" lane="176023646#0_0" startPos="0.00" endPos="14.59" friendlyPos="true">
         <access lane="151260829#1_0" pos="17.82" length="8.31" friendlyPos="1"/>
@@ -116,7 +116,7 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="3257062969" name="Pritstabelstraße" lane="319292807_0" startPos="1461.24" endPos="1486.24" friendlyPos="true">
         <access lane="93704176#0_0" pos="959.68" length="4.24" friendlyPos="1"/>
         <access lane="-93704176#0_0" pos="745.79" length="9.86" friendlyPos="1"/>
-        <access lane="-151020315#0_0" pos="699.95" length="187.80" friendlyPos="1"/>
+        <access lane="-151020315#0_0" pos="699.45" length="187.80" friendlyPos="1"/>
         <access lane="151020315#0_0" pos="300.69" length="200.40" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062970" name="Segewaldweg" lane="319292807_0" startPos="1944.39" endPos="1969.39" friendlyPos="true">
@@ -153,7 +153,7 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="94951410" name="Pablo-Neruda-Straße" lane="10699464#0_0" startPos="140.69" endPos="156.92" friendlyPos="true">
         <access lane="10780554_0" pos="0.00" length="31.55" friendlyPos="1"/>
         <access lane="238053686#1_0" pos="2.14" length="26.13" friendlyPos="1"/>
-        <access lane="238053686#0_0" pos="23.93" length="28.34" friendlyPos="1"/>
+        <access lane="238053686#0_0" pos="21.43" length="28.34" friendlyPos="1"/>
         <access lane="44956230#1_0" pos="12.13" length="25.13" friendlyPos="1"/>
     </busStop>
     <busStop id="95948746" name="Krankenhaus Köpenick/Südseite" lane="10699464#3_0" startPos="317.37" endPos="352.44" friendlyPos="true">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 20 22:02:50 2018 by Eclipse SUMO netgenerate Version af267e6
+<!-- generated on Thu Jun 21 14:20:04 2018 by Eclipse SUMO netgenerate Version 1e1904d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -165,7 +165,7 @@
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
-        <default.junctions.radius value="1.5" type="FLOAT" help="The default turning radius of intersections"/>
+        <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
         <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
     </building_defaults>
 

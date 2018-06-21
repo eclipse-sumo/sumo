@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:19 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Thu Jun 21 14:19:40 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,13 +45,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-3_0" index="0" speed="13.89" length="48.58" shape="139.01,88.51 177.31,86.98"/>
     </edge>
     <edge id="-4" from="A" to="B" priority="1" type="highway.unclassified" shape="119.72,91.01 123.05,90.76 133.94,90.32">
-        <lane id="-4_0" index="0" speed="13.89" length="14.24" shape="124.37,89.11 129.57,88.90"/>
+        <lane id="-4_0" index="0" speed="13.89" length="14.24" shape="126.87,89.00 129.57,88.90"/>
     </edge>
     <edge id="-5" from="A" to="42734846" priority="1" type="highway.unclassified" shape="119.72,91.01 118.37,63.81 112.31,11.08 120.68,10.27 200.19,3.13 205.87,0.00">
-        <lane id="-5_0" index="0" speed="13.89" length="175.03" shape="117.88,86.31 116.77,63.94 110.53,9.64 120.53,8.68 199.71,1.57 205.10,-1.40"/>
+        <lane id="-5_0" index="0" speed="13.89" length="175.03" shape="117.76,83.82 116.77,63.94 110.53,9.64 120.53,8.68 199.71,1.57 205.10,-1.40"/>
     </edge>
     <edge id="-6" from="287360464" to="A" priority="1" type="highway.unclassified" shape="0.00,90.97 43.04,89.52 80.80,88.25 84.26,88.13 110.25,92.40 119.72,91.01">
-        <lane id="-6_0" index="0" speed="13.89" length="120.22" shape="-0.05,89.37 42.99,87.92 80.75,86.65 84.36,86.53 110.26,90.78 115.13,90.07"/>
+        <lane id="-6_0" index="0" speed="13.89" length="120.22" shape="-0.05,89.37 42.99,87.92 80.75,86.65 84.36,86.53 110.26,90.78 112.65,90.43"/>
     </edge>
     <edge id="1" from="42736497" to="C" priority="1" type="highway.unclassified" shape="198.75,62.09 194.14,78.05 192.39,84.12 184.59,88.29 182.48,88.37">
         <lane id="1_0" index="0" speed="13.89" length="33.77" shape="200.29,62.53 195.68,78.49 193.74,85.21 186.71,88.97"/>
@@ -63,13 +63,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="3_0" index="0" speed="13.89" length="48.58" shape="177.44,90.17 139.14,91.71"/>
     </edge>
     <edge id="4" from="B" to="A" priority="1" type="highway.unclassified" shape="133.94,90.32 123.05,90.76 119.72,91.01">
-        <lane id="4_0" index="0" speed="13.89" length="14.24" shape="129.70,92.09 124.61,92.30"/>
+        <lane id="4_0" index="0" speed="13.89" length="14.24" shape="129.70,92.09 127.11,92.20"/>
     </edge>
     <edge id="5" from="42734846" to="A" priority="1" type="highway.unclassified" shape="205.87,0.00 200.19,3.13 120.68,10.27 112.31,11.08 118.37,63.81 119.72,91.01">
-        <lane id="5_0" index="0" speed="13.89" length="175.03" shape="206.64,1.40 200.67,4.69 120.82,11.86 114.09,12.52 119.97,63.68 121.08,86.15"/>
+        <lane id="5_0" index="0" speed="13.89" length="175.03" shape="206.64,1.40 200.67,4.69 120.82,11.86 114.09,12.52 119.97,63.68 120.96,83.66"/>
     </edge>
     <edge id="6" from="A" to="287360464" priority="1" type="highway.unclassified" shape="119.72,91.01 110.25,92.40 84.26,88.13 80.80,88.25 43.04,89.52 0.00,90.97">
-        <lane id="6_0" index="0" speed="13.89" length="120.22" shape="115.59,93.23 110.24,94.02 84.16,89.73 80.85,89.85 43.09,91.12 0.05,92.57"/>
+        <lane id="6_0" index="0" speed="13.89" length="120.22" shape="113.12,93.60 110.24,94.02 84.16,89.73 80.85,89.85 43.09,91.12 0.05,92.57"/>
     </edge>
 
     <tlLogic id="joinedS_4" type="static" programID="0" offset="0">
@@ -84,7 +84,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="287360464" type="dead_end" x="0.00" y="90.97" incLanes="6_0" intLanes="" shape="0.00,90.97 0.11,94.17 0.00,90.97"/>
     <junction id="42734846" type="dead_end" x="205.87" y="0.00" incLanes="-5_0" intLanes="" shape="205.87,0.00 204.33,-2.80 205.87,0.00"/>
     <junction id="42736497" type="dead_end" x="198.75" y="62.09" incLanes="-1_0" intLanes="" shape="198.75,62.09 195.68,61.20 198.75,62.09"/>
-    <junction id="A" type="traffic_light" x="119.72" y="91.01" incLanes="4_0 5_0 -6_0" intLanes="" shape="124.73,93.89 124.25,87.51 122.68,86.08 116.29,86.39 114.90,88.48 115.83,94.82">
+    <junction id="A" type="traffic_light" x="119.72" y="91.01" incLanes="4_0 5_0 -6_0" intLanes="" shape="127.23,93.79 126.75,87.41 122.56,83.58 116.16,83.90 112.42,88.85 113.35,95.18">
         <request index="0" response="000000" foes="001000"/>
         <request index="1" response="110000" foes="111000"/>
         <request index="2" response="100000" foes="100000"/>

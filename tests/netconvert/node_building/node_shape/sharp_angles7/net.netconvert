@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 10:41:02 2018 by Eclipse SUMO netconvert Version 3aa404f
+<!-- generated on Thu Jun 21 14:19:40 2018 by Eclipse SUMO netconvert Version 1e1904d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,16 +37,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="1_0" index="0" speed="13.90" length="46.46" shape="42.10,115.19 71.30,149.18"/>
     </edge>
     <edge id="2" from="C" to="414958322" priority="0" spreadType="center" shape="40.89,116.31 21.18,83.37 108.08,0.00">
-        <lane id="2_0" index="0" speed="13.90" length="160.49" shape="41.32,117.03 21.18,83.37 108.08,0.00"/>
+        <lane id="2_0" index="0" speed="13.90" length="158.81" shape="40.04,114.89 21.18,83.37 108.08,0.00"/>
     </edge>
     <edge id="3" from="100797353" to="C" priority="0" spreadType="center" shape="0.00,141.22 41.67,117.75 39.44,117.10">
-        <lane id="3_0" index="0" speed="13.90" length="51.25" shape="0.00,141.22 41.67,117.75 39.76,117.19"/>
+        <lane id="3_0" index="0" speed="13.90" length="49.52" shape="0.00,141.22 41.67,117.75 41.51,117.70"/>
     </edge>
 
     <junction id="100797353" type="dead_end" x="0.00" y="141.22" incLanes="" intLanes="" shape="0.79,142.61 -0.79,139.83"/>
     <junction id="414958322" type="dead_end" x="108.08" y="0.00" incLanes="2_0" intLanes="" shape="106.97,-1.15 109.19,1.15"/>
     <junction id="415082951" type="dead_end" x="71.30" y="149.18" incLanes="1_0" intLanes="" shape="72.51,148.14 70.09,150.22"/>
-    <junction id="C" type="priority" x="40.89" y="116.31" incLanes="3_0" intLanes="" shape="40.89,116.23 43.31,114.15 42.69,116.21 39.95,117.85 37.04,118.52 41.89,116.15">
+    <junction id="C" type="priority" x="40.89" y="116.31" incLanes="3_0" intLanes="" shape="40.89,116.23 43.31,114.15 41.41,114.06 38.66,115.71 34.86,119.75 44.29,116.85">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
