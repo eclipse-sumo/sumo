@@ -53,10 +53,10 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net) :
-    GNEAttributeCarrier(SUMO_TAG_FLOW),
+GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
+    GNEAdditional("XXX", calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myVehicleType(net->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
+    myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
     myVehsPerHour(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_VEHSPERHOUR)),
     mySpeed(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_SPEED)),
@@ -81,7 +81,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
-    GNEAttributeCarrier(SUMO_TAG_FLOW),
+    GNEAdditional("XXX", calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myCalibratorParent(calibratorParent),
     myVehicleType(vehicleType),
     myRoute(route),
@@ -112,57 +112,6 @@ GNECalibratorFlow::~GNECalibratorFlow() {
 }
 
 
-void
-GNECalibratorFlow::writeFlow(OutputDevice& device) {
-    // Open flow tag
-    device.openTag(getTag());
-    // Write begin
-    writeAttribute(device, SUMO_ATTR_BEGIN);
-    // Write end
-    writeAttribute(device, SUMO_ATTR_END);
-    // Write type
-    writeAttribute(device, SUMO_ATTR_TYPE);
-    // Write route
-    writeAttribute(device, SUMO_ATTR_ROUTE);
-    // write vehs per hour only if isn't empty
-    if(!myVehsPerHour.empty()) {
-        writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
-    }
-    // write speed only if isn't empty
-    if(!mySpeed.empty()) {
-        writeAttribute(device, SUMO_ATTR_SPEED);
-    }
-    // Write color
-    writeAttribute(device, SUMO_ATTR_COLOR);
-    // Write depart lane
-    writeAttribute(device, SUMO_ATTR_DEPARTLANE);
-    // Write depart pos
-    writeAttribute(device, SUMO_ATTR_DEPARTPOS);
-    // Write depart speed
-    writeAttribute(device, SUMO_ATTR_DEPARTSPEED);
-    // Write arrival lane
-    writeAttribute(device, SUMO_ATTR_ARRIVALLANE);
-    // Write arrival pos
-    writeAttribute(device, SUMO_ATTR_ARRIVALPOS);
-    // Write arrival speed
-    writeAttribute(device, SUMO_ATTR_ARRIVALSPEED);
-    // Write line
-    writeAttribute(device, SUMO_ATTR_LINE);
-    // Write person number
-    writeAttribute(device, SUMO_ATTR_PERSON_NUMBER);
-    // Write container number
-    writeAttribute(device, SUMO_ATTR_CONTAINER_NUMBER);
-    // Write reroute
-    writeAttribute(device, SUMO_ATTR_REROUTE);
-    // Write departPosLat
-    writeAttribute(device, SUMO_ATTR_DEPARTPOS_LAT);
-    // Write arrivalPosLat
-    writeAttribute(device, SUMO_ATTR_ARRIVALPOS_LAT);
-    // Close flow tag
-    device.closeTag();
-}
-
-
 GNECalibrator*
 GNECalibratorFlow::getCalibratorParent() const {
     return myCalibratorParent;
@@ -170,21 +119,38 @@ GNECalibratorFlow::getCalibratorParent() const {
 
 
 void 
-GNECalibratorFlow::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNECalibratorFlow::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNECalibratorFlow::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNECalibratorFlow::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-bool 
-GNECalibratorFlow::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void 
+GNECalibratorFlow::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
+}
+
+
+Position 
+GNECalibratorFlow::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNECalibratorFlow::getParentName() const {
+    return myCalibratorParent->getID();
+}
+
+
+void 
+GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
+    // Currently This additional isn't drawn
 }
 
 
