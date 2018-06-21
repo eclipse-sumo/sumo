@@ -139,19 +139,6 @@ GNEAccess::getPositionInView() const {
 }
 
 
-void
-GNEAccess::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    writeAttribute(device, SUMO_ATTR_LENGTH);
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // Close tag
-    device.closeTag();
-}
-
-
 bool 
 GNEAccess::isAccessPositionFixed() const {
     // with friendly position enabled position are "always fixed"

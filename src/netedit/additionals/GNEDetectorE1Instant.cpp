@@ -96,22 +96,6 @@ GNEDetectorE1Instant::updateGeometry() {
 }
 
 
-void
-GNEDetectorE1Instant::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // Close tag
-    device.closeTag();
-}
-
-
 bool GNEDetectorE1Instant::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {

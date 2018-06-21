@@ -50,11 +50,6 @@ public:
     /// @brief Destructor
     ~GNEDetectorE1Instant();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;
 

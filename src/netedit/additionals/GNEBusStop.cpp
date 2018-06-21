@@ -91,36 +91,6 @@ GNEBusStop::updateGeometry() {
 }
 
 
-void
-GNEBusStop::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_STARTPOS);
-    writeAttribute(device, SUMO_ATTR_ENDPOS);
-    if (myName.empty() == false) {
-        writeAttribute(device, SUMO_ATTR_NAME);
-    }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    if (myLines.size() > 0) {
-        writeAttribute(device, SUMO_ATTR_LINES);
-    }
-    // Write Access
-    for (auto i : myAdditionalChilds) {
-        i->writeAdditional(device);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
-const std::vector<std::string>&
-GNEBusStop::getLines() const {
-    return myLines;
-}
-
-
 std::string 
 GNEBusStop::generateAccessID() const {
     int counter = 0;

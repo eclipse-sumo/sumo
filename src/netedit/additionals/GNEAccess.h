@@ -55,11 +55,6 @@ public:
     /// @brief Destructor
     ~GNEAccess();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief check if Position of Access is fixed
     bool isAccessPositionFixed() const;
 

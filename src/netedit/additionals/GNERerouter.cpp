@@ -124,31 +124,6 @@ GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 
 
 void
-GNERerouter::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_EDGES);
-    writeAttribute(device, SUMO_ATTR_PROB);
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    if (myTimeThreshold > 0) {
-        writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-    }
-    writeAttribute(device, SUMO_ATTR_OFF);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-
-    // write intervals and their values
-    for (auto i : myRerouterIntervals) {
-        i->writeRerouterInterval(device);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
-void
 GNERerouter::addRerouterInterval(GNERerouterInterval* rerouterInterval) {
     auto it = std::find(myRerouterIntervals.begin(), myRerouterIntervals.end(), rerouterInterval);
     if (it == myRerouterIntervals.end()) {

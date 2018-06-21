@@ -71,11 +71,6 @@ public:
     /// @brief Destructor
     ~GNECalibrator();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
 

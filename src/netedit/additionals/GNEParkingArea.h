@@ -62,11 +62,6 @@ public:
     /// @brief Destructor
     ~GNEParkingArea();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief gererate a new ID for an Parking Space child
     std::string generateParkingSpaceID();
 

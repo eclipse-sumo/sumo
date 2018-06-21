@@ -99,12 +99,17 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     myBlockMovement(blockMovement),
     myAdditionalParent(nullptr),
     myLaneChilds(laneChilds),
-    myBlockIconRotation(0.)
-{
+    myBlockIconRotation(0.) {
 }
 
 
 GNEAdditional::~GNEAdditional() {}
+
+
+void 
+GNEAdditional::writeAdditional(OutputDevice& device) const {
+
+}
 
 
 void

@@ -128,18 +128,6 @@ GNEVaporizer::commitGeometryMoving(const Position&, GNEUndoList*) {
 }
 
 
-void
-GNEVaporizer::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    device.writeAttr(SUMO_ATTR_ID, myEdge->getID());
-    writeAttribute(device, SUMO_ATTR_BEGIN);
-    writeAttribute(device, SUMO_ATTR_END);
-    // Close tag
-    device.closeTag();
-}
-
-
 std::string
 GNEVaporizer::getParentName() const {
     return myEdge->getMicrosimID();

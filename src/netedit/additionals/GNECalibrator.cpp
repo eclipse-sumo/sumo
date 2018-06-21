@@ -93,40 +93,6 @@ GNECalibrator::~GNECalibrator() {
 
 
 void
-GNECalibrator::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(SUMO_TAG_CALIBRATOR);
-    writeAttribute(device, SUMO_ATTR_ID);
-    if (myLane) {
-        writeAttribute(device, SUMO_ATTR_LANE);
-        writeAttribute(device, SUMO_ATTR_POSITION);
-    } else if (myEdge) {
-        writeAttribute(device, SUMO_ATTR_EDGE);
-        writeAttribute(device, SUMO_ATTR_POSITION);
-    } else {
-        throw ProcessError("Both myEdge and myLane aren't defined");
-    }
-    writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    if(!myOutput.empty()) {
-        writeAttribute(device, SUMO_ATTR_OUTPUT);
-    }
-    if(myRouteProbe != nullptr) {
-        writeAttribute(device, SUMO_ATTR_ROUTEPROBE);
-    }
-    // write all routes of this calibrator
-    for (auto i : myCalibratorRoutes) {
-        i->writeRoute(device);
-    }
-    // Write all flows of this calibrator
-    for (auto i : myCalibratorFlows) {
-        i->writeFlow(device);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
-void
 GNECalibrator::moveGeometry(const Position&, const Position&) {
     // This additional cannot be moved
 }

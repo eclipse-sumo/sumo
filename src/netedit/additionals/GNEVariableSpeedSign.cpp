@@ -125,36 +125,6 @@ GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* 
 
 
 void
-GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANES);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    // If filename isn't empty and save in filename is enabled, save in a different file. In other case, save in the same additional XML
-    if (!myFilename.empty() && mySaveInFilename) {
-        // Write filename attribute
-        writeAttribute(device, SUMO_ATTR_FILE);
-        // Save values in a different file
-        OutputDevice& deviceVSS = OutputDevice::getDevice(/**currentDirectory +**/ myFilename);
-        deviceVSS.openTag("VSS");
-        // write steps
-        for (auto i : mySteps) {
-            i->writeStep(device);
-        }
-        deviceVSS.close();
-    } else {
-        // write steps
-        for (auto i : mySteps) {
-            i->writeStep(device);
-        }
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
-void
 GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
     auto it = std::find(mySteps.begin(), mySteps.end(), step);
     if (it == mySteps.end()) {

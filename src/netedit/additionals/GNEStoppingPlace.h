@@ -53,11 +53,6 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
-
     /// @brief get Lane
     GNELane* getLane() const;
 

@@ -95,31 +95,6 @@ GNEParkingArea::updateGeometry() {
 }
 
 
-void
-GNEParkingArea::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_STARTPOS);
-    writeAttribute(device, SUMO_ATTR_ENDPOS);
-    if (myName.empty() == false) {
-        writeAttribute(device, SUMO_ATTR_NAME);
-    }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    writeAttribute(device, SUMO_ATTR_ROADSIDE_CAPACITY);
-    writeAttribute(device, SUMO_ATTR_WIDTH);
-    writeAttribute(device, SUMO_ATTR_LENGTH);
-    writeAttribute(device, SUMO_ATTR_ANGLE);
-    // Write ParkingSpace
-    for (auto i : myAdditionalChilds) {
-        i->writeAdditional(device);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
 std::string 
 GNEParkingArea::generateParkingSpaceID() {
     int counter = 0;

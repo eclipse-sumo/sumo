@@ -116,32 +116,6 @@ GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoLis
 }
 
 
-void
-GNEDetectorE3::writeAdditional(OutputDevice& device) const {
-    // Only save E3 if have Entry/Exits
-    if (myAdditionalChilds.size() > 0) {
-        // Write parameters
-        device.openTag(getTag());
-        writeAttribute(device, SUMO_ATTR_ID);
-        writeAttribute(device, SUMO_ATTR_FREQUENCY);
-        if (!myFilename.empty()) {
-            writeAttribute(device, SUMO_ATTR_FILE);
-        }
-        writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-        writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-        writeAttribute(device, SUMO_ATTR_POSITION);
-        // Write entrys and exits
-        for (auto i : myAdditionalChilds) {
-            i->writeAdditional(device);
-        }
-        // Close E3 tag
-        device.closeTag();
-    } else {
-        WRITE_WARNING(toString(getTag()) + " with ID '" + getID() + "' cannot be writed in additional file because doesn't have childs.");
-    }
-}
-
-
 std::string
 GNEDetectorE3::generateEntryID() {
     int counter = 0;

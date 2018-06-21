@@ -57,11 +57,6 @@ public:
     /// @brief Destructor
     ~GNEDetectorE2();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief get length of E2 Detector
     double getLength() const;
 

@@ -141,28 +141,6 @@ GNEDetectorE2::updateGeometry() {
 }
 
 
-void
-GNEDetectorE2::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    writeAttribute(device, SUMO_ATTR_LENGTH);
-    writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    writeAttribute(device, SUMO_ATTR_CONT);
-    writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-    writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-    writeAttribute(device, SUMO_ATTR_JAM_DIST_THRESHOLD);
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // Close tag
-    device.closeTag();
-}
-
-
 double 
 GNEDetectorE2::getLength() const {
     return myLength;

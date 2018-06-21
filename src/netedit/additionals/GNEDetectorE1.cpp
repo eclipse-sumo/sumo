@@ -96,27 +96,6 @@ GNEDetectorE1::updateGeometry() {
     myViewNet->getNet()->refreshElement(this);
 }
 
-
-void
-GNEDetectorE1::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    if (!myVehicleTypes.empty()) {
-        writeAttribute(device, SUMO_ATTR_VTYPES);
-    }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // Close tag
-    device.closeTag();
-}
-
-
 bool GNEDetectorE1::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {

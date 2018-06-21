@@ -101,7 +101,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
+    void writeAdditional(OutputDevice& device) const;
 
     /**@brief open Additional Dialog
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)

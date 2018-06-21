@@ -91,16 +91,6 @@ GNEDetectorExit::updateGeometry() {
 }
 
 
-void
-GNEDetectorExit::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    device.closeTag();
-}
-
-
 bool GNEDetectorExit::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {

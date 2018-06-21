@@ -53,11 +53,6 @@ public:
     /// @brief Destructor
     ~GNEDetector();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
-
     /// @brief check if Position of detector is fixed
     virtual bool isDetectorPositionFixed() const = 0;
 

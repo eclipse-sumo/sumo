@@ -69,27 +69,6 @@ GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAre
 GNEParkingSpace::~GNEParkingSpace() {}
 
 
-void
-GNEParkingSpace::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_X);
-    writeAttribute(device, SUMO_ATTR_Y);
-    writeAttribute(device, SUMO_ATTR_Z);
-    if(myAdditionalParent->getAttribute(SUMO_ATTR_WIDTH) != getAttribute(SUMO_ATTR_WIDTH)) {
-        writeAttribute(device, SUMO_ATTR_WIDTH);
-    }
-    if(myAdditionalParent->getAttribute(SUMO_ATTR_LENGTH) != getAttribute(SUMO_ATTR_LENGTH)) {
-        writeAttribute(device, SUMO_ATTR_LENGTH);
-    }
-    if(myAdditionalParent->getAttribute(SUMO_ATTR_ANGLE) != getAttribute(SUMO_ATTR_ANGLE)) {
-        writeAttribute(device, SUMO_ATTR_ANGLE);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
 void 
 GNEParkingSpace::moveGeometry(const Position & oldPos, const Position & offset) {
     // restore old position, apply offset and update Geometry

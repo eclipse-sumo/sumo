@@ -92,32 +92,6 @@ GNEContainerStop::updateGeometry() {
 
 
 void
-GNEContainerStop::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_STARTPOS);
-    writeAttribute(device, SUMO_ATTR_ENDPOS);
-    if (myName.empty() == false) {
-        writeAttribute(device, SUMO_ATTR_NAME);
-    }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    if (myLines.size() > 0) {
-        writeAttribute(device, SUMO_ATTR_LINES);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
-const std::vector<std::string>&
-GNEContainerStop::getLines() const {
-    return myLines;
-}
-
-
-void
 GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);

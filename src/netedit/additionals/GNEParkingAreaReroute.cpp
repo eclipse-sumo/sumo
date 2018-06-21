@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_PARKING_ZONE_REROUTE),
+    GNEAdditional("XXX", rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
     myParkingArea(nullptr),
     myProbability(parse<double>(getTagProperties(SUMO_TAG_PARKING_ZONE_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
@@ -45,7 +45,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouter
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkingArea, double probability):
-    GNEAttributeCarrier(SUMO_TAG_PARKING_ZONE_REROUTE),
+    GNEAdditional("XXX", rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
     myRerouterIntervalParent(rerouterIntervalParent),
     myParkingArea(newParkingArea),
     myProbability(probability) {
@@ -55,19 +55,6 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterInterval* rerouterInterv
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
-void
-GNEParkingAreaReroute::writeParkingAreaReroute(OutputDevice& device) const {
-    // open tag
-    device.openTag(getTag());
-    // write edge ID
-    writeAttribute(device, SUMO_ATTR_ID);
-    // write probability
-    writeAttribute(device, SUMO_ATTR_PROB);
-    // close tag
-    device.closeTag();
-}
-
-
 GNERerouterInterval*
 GNEParkingAreaReroute::getRerouterIntervalParent() const {
     return myRerouterIntervalParent;
@@ -75,21 +62,38 @@ GNEParkingAreaReroute::getRerouterIntervalParent() const {
 
 
 void 
-GNEParkingAreaReroute::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNEParkingAreaReroute::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNEParkingAreaReroute::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNEParkingAreaReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-bool 
-GNEParkingAreaReroute::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void 
+GNEParkingAreaReroute::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
+}
+
+
+Position 
+GNEParkingAreaReroute::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNEParkingAreaReroute::getParentName() const {
+    return myRerouterIntervalParent->getID();
+}
+
+
+void 
+GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
+    // Currently This additional isn't drawn
 }
 
 

@@ -59,14 +59,6 @@ public:
     /// @brief Destructor
     ~GNEBusStop();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
-    /// @brief get string vector with the lines of the busStop
-    const std::vector<std::string>& getLines() const;
-
     /// @brief generate Acces ID
     std::string generateAccessID() const;
 

@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAttributeCarrier(SUMO_TAG_STEP),
+    GNEAdditional("XXX", variableSpeedSignDialog->getEditedVariableSpeedSign()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, false, false),
     myVariableSpeedSignParent(variableSpeedSignDialog->getEditedVariableSpeedSign()),
     myTime(0),
     mySpeed(parse<double>(getTagProperties(SUMO_TAG_STEP).getDefaultValue(SUMO_ATTR_SPEED))) {
@@ -47,7 +47,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent, double time, double speed) :
-    GNEAttributeCarrier(SUMO_TAG_STEP),
+    GNEAdditional("XXX", variableSpeedSignParent->getViewNet(), GLO_VSS, SUMO_TAG_STEP, false, false),
     myVariableSpeedSignParent(variableSpeedSignParent),
     myTime(time),
     mySpeed(speed) {
@@ -63,19 +63,6 @@ GNEVariableSpeedSignStep::getVariableSpeedSignParent() const {
 }
 
 
-void
-GNEVariableSpeedSignStep::writeStep(OutputDevice& device) {
-    // Open VSS tag
-    device.openTag(SUMO_TAG_STEP);
-    // Write TimeSTep
-    writeAttribute(device, SUMO_ATTR_TIME);
-    // Write speed
-    writeAttribute(device, SUMO_ATTR_SPEED);
-    // Close VSS tag
-    device.closeTag();
-}
-
-
 double
 GNEVariableSpeedSignStep::getTime() const {
     return myTime;
@@ -83,21 +70,38 @@ GNEVariableSpeedSignStep::getTime() const {
 
 
 void 
-GNEVariableSpeedSignStep::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+GNEVariableSpeedSignStep::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void 
-GNEVariableSpeedSignStep::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+GNEVariableSpeedSignStep::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-bool 
-GNEVariableSpeedSignStep::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void 
+GNEVariableSpeedSignStep::updateGeometry() {
+    // Currently this additional doesn't own a Geometry
+}
+
+
+Position 
+GNEVariableSpeedSignStep::getPositionInView() const {
+    return Position();
+}
+
+
+std::string 
+GNEVariableSpeedSignStep::getParentName() const {
+    return myVariableSpeedSignParent->getID();
+}
+
+
+void 
+GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings&) const {
+    // Currently This additional isn't drawn
 }
 
 

@@ -132,23 +132,6 @@ GNERouteProbe::commitGeometryMoving(const Position&, GNEUndoList*) {
     // This additional cannot be moved
 }
 
-void
-GNERouteProbe::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_EDGE);
-    if(!myFrequency.empty()) {
-        writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    }
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    writeAttribute(device, SUMO_ATTR_BEGIN);
-    // Close tag
-    device.closeTag();
-}
-
 
 std::string
 GNERouteProbe::getParentName() const {

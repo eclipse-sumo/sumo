@@ -51,11 +51,6 @@ public:
     /// @brief GNEDetectorE3 6Destructor
     ~GNEDetectorE3();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief gererate a new ID for an Entry detector child
     std::string generateEntryID();
 
