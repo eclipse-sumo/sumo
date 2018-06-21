@@ -1794,10 +1794,10 @@ GNEAdditionalHandler::builParkingAreaReroute(GNEViewNet* viewNet, bool allowUndo
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(parkingAreaReroute->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_RerouterItem(parkingAreaReroute, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addParkingAreaReroute(parkingAreaReroute);
+        rerouterIntervalParent->addAdditionalChild(parkingAreaReroute);
         parkingAreaReroute->incRef("builParkingAreaReroute");
     }
     return true;

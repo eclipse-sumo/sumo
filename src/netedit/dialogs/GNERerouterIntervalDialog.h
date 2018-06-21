@@ -180,8 +180,11 @@ protected:
     /// @brief closing Lane Reroutes edited
     std::vector<GNEAdditional*> myClosingLaneReroutesEdited;
 
-    /// @brief Dest Pro bRereoutes edites
+    /// @brief Dest Prob Reroutes edited
     std::vector<GNEAdditional*> myDestProbReroutesEdited;
+
+    /// @brief Parking Area reroute edited
+    std::vector<GNEAdditional*> myParkingAreaRerouteEdited;
 
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;

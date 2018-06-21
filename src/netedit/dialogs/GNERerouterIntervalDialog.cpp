@@ -116,6 +116,12 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
             myDestProbReroutesEdited.push_back(i);
         }
     }
+    // fill Parking Area reroutes
+    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+        if(i->getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
+            myParkingAreaRerouteEdited.push_back(i);
+        }
+    }
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedRerouterInterval->getTag()) + " of " : "Create " + toString(myEditedRerouterInterval->getTag()) + " for ";
     changeAdditionalDialogHeader(typeOfOperation + toString(myEditedRerouterInterval->getRerouterParent()->getTag()) + " '" + myEditedRerouterInterval->getRerouterParent()->getID() + "'");
@@ -223,7 +229,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else if (myClosingLaneReroutesEdited.empty() &&
                myClosingReroutesEdited.empty() &&
                myDestProbReroutesEdited.empty() &&
-               myEditedRerouterInterval->getParkingAreaReroutes().empty() &&
+               myParkingAreaRerouteEdited.empty() &&
                myEditedRerouterInterval->getRouteProbReroutes().empty()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -272,7 +278,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
-    } else if ((myEditedRerouterInterval->getParkingAreaReroutes().size() > 0) && (myParkingAreaReroutesValid == false)) {
+    } else if ((myParkingAreaRerouteEdited.size() > 0) && (myParkingAreaReroutesValid == false)) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -380,12 +386,12 @@ long
 GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, void*) {
     // create parkingAreaReroute and add it to table
     GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(this);
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(parkingAreaReroute, true), true);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
+    myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
     // update dest Prob reroutes table
     updateParkingAreaReroutesTable();
     return 1;
 }
-
 
 
 long
@@ -454,10 +460,11 @@ GNERerouterIntervalDialog::onCmdClickedRouteProbReroute(FXObject*, FXSelector, v
 long
 GNERerouterIntervalDialog::onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedRerouterInterval->getParkingAreaReroutes().size(); i++) {
+    for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
         if (myParkingAreaRerouteTable->getItem(i, 3)->hasFocus()) {
             myParkingAreaRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval->getParkingAreaReroutes().at(i), false), true);
+            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myParkingAreaRerouteEdited.at(i), false), true);
+            myParkingAreaRerouteEdited.erase(myParkingAreaRerouteEdited.begin() + i);
             updateParkingAreaReroutesTable();
             return 1;
         }
@@ -583,8 +590,8 @@ GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, vo
     myParkingAreaReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myParkingAreaRerouteTable->getNumRows(); i++) {
-        GNEParkingAreaReroute* parkingAreaReroute = myEditedRerouterInterval->getParkingAreaReroutes().at(i);
-        if (parkingAreaReroute->isValid(SUMO_ATTR_ID, myParkingAreaRerouteTable->getItem(i, 0)->getText().text()) == false) {
+        GNEAdditional* parkingAreaReroute = myParkingAreaRerouteEdited.at(i);
+        if (parkingAreaReroute->isValidID(myParkingAreaRerouteTable->getItem(i, 0)->getText().text()) == false) {
             myParkingAreaReroutesValid = false;
             myParkingAreaRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else if (parkingAreaReroute->isValid(SUMO_ATTR_PROB, myParkingAreaRerouteTable->getItem(i, 1)->getText().text()) == false) {
@@ -807,7 +814,7 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
     // clear table
     myParkingAreaRerouteTable->clearItems();
     // set number of rows
-    myParkingAreaRerouteTable->setTableSize(int(myEditedRerouterInterval->getParkingAreaReroutes().size()), 4);
+    myParkingAreaRerouteTable->setTableSize(int(myParkingAreaRerouteEdited.size()), 4);
     // Configure list
     myParkingAreaRerouteTable->setVisibleColumns(4);
     myParkingAreaRerouteTable->setColumnWidth(0, 124);
@@ -822,12 +829,12 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
     // Declare pointer to FXTableItem
     FXTableItem* item = 0;
     // iterate over values
-    for (int i = 0; i < (int)myEditedRerouterInterval->getParkingAreaReroutes().size(); i++) {
+    for (int i = 0; i < (int)myParkingAreaRerouteEdited.size(); i++) {
         // Set new destination
-        item = new FXTableItem(myEditedRerouterInterval->getParkingAreaReroutes().at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
         myParkingAreaRerouteTable->setItem(i, 0, item);
         // Set probability
-        item = new FXTableItem(myEditedRerouterInterval->getParkingAreaReroutes().at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
+        item = new FXTableItem(myParkingAreaRerouteEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
         myParkingAreaRerouteTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");

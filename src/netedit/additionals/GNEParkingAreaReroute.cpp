@@ -37,28 +37,20 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional("XXX", rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
-    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
+    GNEAdditional(rerouterIntervalDialog->getEditedRerouterInterval(), rerouterIntervalDialog->getEditedRerouterInterval()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
     myParkingArea(nullptr),
     myProbability(parse<double>(getTagProperties(SUMO_TAG_PARKING_ZONE_REROUTE).getDefaultValue(SUMO_ATTR_PROB))) {
 }
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterInterval* rerouterIntervalParent, GNEParkingArea* newParkingArea, double probability):
-    GNEAdditional("XXX", rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
-    myRerouterIntervalParent(rerouterIntervalParent),
+    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, false, false),
     myParkingArea(newParkingArea),
     myProbability(probability) {
 }
 
 
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
-
-
-GNERerouterInterval*
-GNEParkingAreaReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
-}
 
 
 void 
@@ -87,7 +79,7 @@ GNEParkingAreaReroute::getPositionInView() const {
 
 std::string 
 GNEParkingAreaReroute::getParentName() const {
-    return myRerouterIntervalParent->getID();
+    return myAdditionalParent->getID();
 }
 
 
@@ -101,6 +93,8 @@ std::string
 GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
+            return getAdditionalID();
+        case SUMO_ATTR_PARKING:
             return myParkingArea == nullptr ? "" : myParkingArea->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
@@ -117,6 +111,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_PARKING:
         case SUMO_ATTR_PROB:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -129,9 +124,11 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
 bool
 GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: {
-            GNEAdditional* a = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveAdditional(value, false);
-            return a != nullptr && a->getTag() == SUMO_TAG_PARKING_AREA;
+        case SUMO_ATTR_ID:
+         return isValidAdditionalID(value);
+        case SUMO_ATTR_PARKING: {
+            GNEAdditional* a = myViewNet->getNet()->retrieveAdditional(value, false);
+            return (a != nullptr) && (a->getTag() == SUMO_TAG_PARKING_AREA);
         }
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
@@ -147,14 +144,15 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: {
-            myParkingArea = dynamic_cast<GNEParkingArea*>(myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveAdditional(value));
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
             break;
-        }
-        case SUMO_ATTR_PROB: {
+        case SUMO_ATTR_PARKING:
+            myParkingArea = dynamic_cast<GNEParkingArea*>(myViewNet->getNet()->retrieveAdditional(value));
+            break;
+        case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
             break;
-        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

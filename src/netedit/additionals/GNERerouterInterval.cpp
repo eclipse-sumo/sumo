@@ -176,12 +176,6 @@ GNERerouterInterval::getRouteProbReroutes() const {
 }
 
 
-const std::vector<GNEParkingAreaReroute*>&
-GNERerouterInterval::getParkingAreaReroutes() const {
-    return myParkingAreaReroutes;
-}
-
-
 void
 GNERerouterInterval::addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
     auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
@@ -202,30 +196,6 @@ GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilit
         throw ProcessError("Route Probability Reroute doesn't exist");
     }
 }
-
-
-void
-GNERerouterInterval::addParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute) {
-    auto it = std::find(myParkingAreaReroutes.begin(), myParkingAreaReroutes.end(), parkingAreaReroute);
-    if (it == myParkingAreaReroutes.end()) {
-        myParkingAreaReroutes.push_back(parkingAreaReroute);
-    } else {
-        throw ProcessError("parkingAreaReroute already exist");
-    }
-}
-
-
-void
-GNERerouterInterval::removeParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute) {
-    auto it = std::find(myParkingAreaReroutes.begin(), myParkingAreaReroutes.end(), parkingAreaReroute);
-    if (it != myParkingAreaReroutes.end()) {
-        myParkingAreaReroutes.erase(it);
-    } else {
-        throw ProcessError("parkingAreaReroute doesn't exist");
-    }
-}
-
-
 
 // ===========================================================================
 // private
