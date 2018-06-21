@@ -313,7 +313,6 @@ public:
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution
         const double maxDecel = MAX2(myDecel, leaderMaxDecel);
-        // XXX: returning 0 can be wrong if the leader is slower than the follower! Why not return negative values? (Leo)
         double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
         return secureGap;
     }
