@@ -183,6 +183,9 @@ protected:
     /// @brief Dest Prob Reroutes edited
     std::vector<GNEAdditional*> myDestProbReroutesEdited;
 
+    /// @brief Route Prob Reroutes edited
+    std::vector<GNEAdditional*> myRouteProbReroutesEdited;
+
     /// @brief Parking Area reroute edited
     std::vector<GNEAdditional*> myParkingAreaRerouteEdited;
 

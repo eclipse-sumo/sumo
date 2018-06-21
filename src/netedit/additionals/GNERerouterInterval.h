@@ -126,9 +126,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief get reoute probability reroutes
-    const std::vector<GNERouteProbReroute*>& getRouteProbReroutes() const;
-
 protected:
     /// @brief pointer to rerouter parent
     GNERerouter* myRerouterParent;
@@ -138,15 +135,6 @@ protected:
 
     /// @brief end timeStep
     double myEnd;
-
-    /// @brief vector with the routeProbReroutes
-    std::vector<GNERouteProbReroute*> myRouteProbReroutes;
-
-    /// @brief add reoute probability reroute
-    void addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
-
-    /// @brief add reoute probability reroute
-    void removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
 
 private:
     /// @brief set attribute after validation

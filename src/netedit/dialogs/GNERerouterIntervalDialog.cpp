@@ -116,6 +116,12 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNERerouterInterval* rerout
             myDestProbReroutesEdited.push_back(i);
         }
     }
+    // fill Route Prob Reroutes
+    for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
+        if(i->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
+            myRouteProbReroutesEdited.push_back(i);
+        }
+    }
     // fill Parking Area reroutes
     for (auto i : myEditedRerouterInterval->getAdditionalChilds()) {
         if(i->getTag() == SUMO_TAG_PARKING_ZONE_REROUTE) {
@@ -230,7 +236,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                myClosingReroutesEdited.empty() &&
                myDestProbReroutesEdited.empty() &&
                myParkingAreaRerouteEdited.empty() &&
-               myEditedRerouterInterval->getRouteProbReroutes().empty()) {
+               myRouteProbReroutesEdited.empty()) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -290,7 +296,7 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
         }
         return 0;
-    } else if ((myEditedRerouterInterval->getRouteProbReroutes().size() > 0) && (myRouteProbReroutesValid == false)) {
+    } else if ((myRouteProbReroutesEdited.size() > 0) && (myRouteProbReroutesValid == false)) {
         // write warning if netedit is running in testing mode
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
             WRITE_WARNING("Opening FXMessageBox of type 'warning'");
@@ -375,7 +381,8 @@ long
 GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*) {
     // create route Prob Reroute
     GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(this);
-    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(routeProbReroute, true), true);
+    myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
+    myRouteProbReroutesEdited.push_back(routeProbReroute);
     // update route prob reroutes table
     updateRouteProbReroutesTable();
     return 1;
@@ -445,10 +452,11 @@ GNERerouterIntervalDialog::onCmdClickedDestProbReroute(FXObject*, FXSelector, vo
 long
 GNERerouterIntervalDialog::onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedRerouterInterval->getRouteProbReroutes().size(); i++) {
+    for (int i = 0; i < (int)myRouteProbReroutesEdited.size(); i++) {
         if (myRouteProbRerouteTable->getItem(i, 3)->hasFocus()) {
             myRouteProbRerouteTable->removeRows(i);
-            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_RerouterItem(myEditedRerouterInterval->getRouteProbReroutes().at(i), false), true);
+            myEditedRerouterInterval->getRerouterParent()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myRouteProbReroutesEdited.at(i), false), true);
+            myRouteProbReroutesEdited.erase(myRouteProbReroutesEdited.begin() + i);
             updateRouteProbReroutesTable();
             return 1;
         }
@@ -564,8 +572,8 @@ GNERerouterIntervalDialog::onCmdEditRouteProbReroute(FXObject*, FXSelector, void
     myRouteProbReroutesValid = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myRouteProbRerouteTable->getNumRows(); i++) {
-        GNERouteProbReroute* routeProbReroute = myEditedRerouterInterval->getRouteProbReroutes().at(i);
-        if (routeProbReroute->isValid(SUMO_ATTR_ID, myRouteProbRerouteTable->getItem(i, 0)->getText().text()) == false) {
+        GNEAdditional* routeProbReroute = myRouteProbReroutesEdited.at(i);
+        if (routeProbReroute->isValidID(myRouteProbRerouteTable->getItem(i, 0)->getText().text()) == false) {
             myRouteProbReroutesValid = false;
             myRouteProbRerouteTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
         } else if (routeProbReroute->isValid(SUMO_ATTR_PROB, myRouteProbRerouteTable->getItem(i, 1)->getText().text()) == false) {
@@ -772,7 +780,7 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     // clear table
     myRouteProbRerouteTable->clearItems();
     // set number of rows
-    myRouteProbRerouteTable->setTableSize(int(myEditedRerouterInterval->getRouteProbReroutes().size()), 4);
+    myRouteProbRerouteTable->setTableSize(int(myRouteProbReroutesEdited.size()), 4);
     // Configure list
     myRouteProbRerouteTable->setVisibleColumns(4);
     myRouteProbRerouteTable->setColumnWidth(0, 124);
@@ -787,12 +795,12 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     // Declare pointer to FXTableItem
     FXTableItem* item = 0;
     // iterate over values
-    for (int i = 0; i < (int)myEditedRerouterInterval->getRouteProbReroutes().size(); i++) {
+    for (int i = 0; i < (int)myRouteProbReroutesEdited.size(); i++) {
         // Set new route
-        item = new FXTableItem(myEditedRerouterInterval->getRouteProbReroutes().at(i)->getAttribute(SUMO_ATTR_ID).c_str());
+        item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_ID).c_str());
         myRouteProbRerouteTable->setItem(i, 0, item);
         // Set probability
-        item = new FXTableItem(myEditedRerouterInterval->getRouteProbReroutes().at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
+        item = new FXTableItem(myRouteProbReroutesEdited.at(i)->getAttribute(SUMO_ATTR_PROB).c_str());
         myRouteProbRerouteTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");

@@ -46,17 +46,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_RerouterItem, GNEChange, nullptr, 0)
 
 GNEChange_RerouterItem::GNEChange_RerouterItem(GNERerouterInterval* rerouterInterval, bool forward) :
     GNEChange(rerouterInterval->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(rerouterInterval),
-    myRouteProbReroute(nullptr) {
+    myRerouterInterval(rerouterInterval) {
     myRerouterInterval->incRef("GNEChange_RerouterItem");
-}
-
-
-GNEChange_RerouterItem::GNEChange_RerouterItem(GNERouteProbReroute* routeProbReroute, bool forward) :
-    GNEChange(routeProbReroute->getRerouterIntervalParent()->getRerouterParent()->getViewNet()->getNet(), forward),
-    myRerouterInterval(nullptr),
-    myRouteProbReroute(routeProbReroute) {
-    myRouteProbReroute->incRef("GNEChange_RerouterItem");
 }
 
 
@@ -69,15 +60,6 @@ GNEChange_RerouterItem::~GNEChange_RerouterItem() {
                 WRITE_WARNING("Deleting rerouter Interval");
             }
             delete myRerouterInterval;
-        }
-    } else if (myRouteProbReroute) {
-        myRouteProbReroute->decRef("GNEChange_RerouterItem");
-        if (myRouteProbReroute->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting Route Probability Reroute");
-            }
-            delete myRouteProbReroute;
         }
     }
 }
@@ -93,13 +75,6 @@ GNEChange_RerouterItem::undo() {
             }
             // remove rerouter interval from Rerouter
             myRerouterInterval->getRerouterParent()->removeRerouterInterval(myRerouterInterval);
-        } else if (myRouteProbReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing Route Probability Reroute from Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // remove Route Probability Reroute from Interval
-            myRouteProbReroute->getRerouterIntervalParent()->removeRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
@@ -111,13 +86,6 @@ GNEChange_RerouterItem::undo() {
             }
             // add rerouter interval to Rerouter
             myRerouterInterval->getRerouterParent()->addRerouterInterval(myRerouterInterval);
-        } else if (myRouteProbReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding Route Probability Reroute to Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // add Route Probability Reroute to Interval
-            myRouteProbReroute->getRerouterIntervalParent()->addRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
@@ -137,13 +105,6 @@ GNEChange_RerouterItem::redo() {
             }
             // add rerouter interval to Rerouter
             myRerouterInterval->getRerouterParent()->addRerouterInterval(myRerouterInterval);
-        } else if (myRouteProbReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding Route Probability Reroute to Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // add Route Probability Reroute to Interval
-            myRouteProbReroute->getRerouterIntervalParent()->addRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
@@ -155,13 +116,6 @@ GNEChange_RerouterItem::redo() {
             }
             // remove rerouter interval from Rerouter
             myRerouterInterval->getRerouterParent()->removeRerouterInterval(myRerouterInterval);
-        } else if (myRouteProbReroute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing Route Probability Reroute from Interval '" + myRouteProbReroute->getRerouterIntervalParent()->getID() + "'");
-            }
-            // remove Route Probability Reroute from Interval
-            myRouteProbReroute->getRerouterIntervalParent()->removeRouteProbReroute(myRouteProbReroute);
         } else {
             throw ProcessError("There isn't a defined Rerouter item");
         }
@@ -175,8 +129,6 @@ FXString
 GNEChange_RerouterItem::undoName() const {
     if (myRerouterInterval) {
         return ("Undo change " + toString(myRerouterInterval->getTag()) + " values").c_str();
-    } else if (myRouteProbReroute) {
-        return ("Undo change " + toString(myRouteProbReroute->getTag()) + " values").c_str();
     } else {
         throw ProcessError("There isn't a defined Rerouter item");
     }
@@ -187,8 +139,6 @@ FXString
 GNEChange_RerouterItem::redoName() const {
     if (myRerouterInterval) {
         return ("Redo change " + toString(myRerouterInterval->getTag()) + " values").c_str();
-    } else if (myRouteProbReroute) {
-        return ("Redo change " + toString(myRouteProbReroute->getTag()) + " values").c_str();
     } else {
         throw ProcessError("There isn't a defined Rerouter item");
     }

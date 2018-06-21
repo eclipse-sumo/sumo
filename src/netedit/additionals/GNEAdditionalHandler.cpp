@@ -1811,10 +1811,10 @@ GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoR
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(routeProbReroute->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_RerouterItem(routeProbReroute, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addRouteProbReroute(routeProbReroute);
+        rerouterIntervalParent->addAdditionalChild(routeProbReroute);
         routeProbReroute->incRef("buildRouteProbReroute");
     }
     return true;

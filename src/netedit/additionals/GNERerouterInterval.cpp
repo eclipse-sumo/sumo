@@ -169,34 +169,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-const std::vector<GNERouteProbReroute*>&
-GNERerouterInterval::getRouteProbReroutes() const {
-    return myRouteProbReroutes;
-}
-
-
-void
-GNERerouterInterval::addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
-    auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
-    if (it == myRouteProbReroutes.end()) {
-        myRouteProbReroutes.push_back(routeProbabilityReroute);
-    } else {
-        throw ProcessError("Route Probability Reroute already exist");
-    }
-}
-
-
-void
-GNERerouterInterval::removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute) {
-    auto it = std::find(myRouteProbReroutes.begin(), myRouteProbReroutes.end(), routeProbabilityReroute);
-    if (it != myRouteProbReroutes.end()) {
-        myRouteProbReroutes.erase(it);
-    } else {
-        throw ProcessError("Route Probability Reroute doesn't exist");
-    }
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
