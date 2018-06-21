@@ -101,7 +101,7 @@ MSCFModel_ACC::interactionGap(const MSVehicle* const /* veh */, double /* vL */)
 
 double MSCFModel_ACC::accelSpeedContol(double vErr) const {
    // Speed control law
-   double sclAccel = MAX2(MIN2(mySpeedControlGain*vErr, myAccel), -myDecel);
+   double sclAccel = MAX2(MIN2(mySpeedControlGain*vErr, myAccel), -myEmergencyDecel);
    return sclAccel;
 }
 
