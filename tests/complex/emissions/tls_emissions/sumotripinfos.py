@@ -37,7 +37,7 @@ class TripinfosReader(handler.ContentHandler):
                 if a not in NOT_FLOAT_TRIPINFO_ATTRS:
                     try:
                         val = float(val)
-                    except:
+                    except ValueError:
                         print("%s=%s" % (val, a))
                 self._values[a][id] = val
 
