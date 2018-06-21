@@ -10,7 +10,7 @@
 
 # @file    test_classman_classes.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 """
@@ -55,8 +55,7 @@ class Segments(ArrayObjman):
 
     def __init__(self, ident='segments',  parent=None,  **kwargs):
 
-        self._init_objman(ident, parent=parent, xmltag=(
-            'segments', 'segment', 'ids_ref'), **kwargs)
+        self._init_objman(ident, parent=parent, xmltag=('segments', 'segment', 'ids_ref'), **kwargs)
 
         self.add_col(ArrayConf('ids_ref', '',
                                dtype='object',
@@ -79,19 +78,16 @@ class Segments(ArrayObjman):
         self.add_col(IdsArrayConf('ids_parent', parent,
                                   groupnames=['state'],
                                   is_save=True,
-                                  name='ID ' + parent.get_ident(),
-                                  info='ID of ' +
-                                  parent.get_name() + ' object.',
+                                  name='ID '+parent.get_ident(),
+                                  info='ID of '+parent.get_name()+' object.',
                                   xmltag='id_poly',
                                   ))
 
 
 class Polylines (ArrayObjman):
-
     def __init__(self, ident='polyline',  parent=None, name='Polyline',
                  info='Polyline [ segid11, segid12,...]', **kwargs):
-        self._init_objman(ident, parent=parent, xmltag=(
-            'polylines', 'polyline', 'ids_osm'), **kwargs)
+        self._init_objman(ident, parent=parent, xmltag=('polylines', 'polyline', 'ids_osm'), **kwargs)
         # print '__init__',self.get_name(),self.format_ident()
 
         self.add_col(ArrayConf('ids_osm', '',
@@ -128,19 +124,16 @@ class Polylines (ArrayObjman):
         vertices = []
         print 'draw', self.ident
         for i in xrange(1, len(pointvertices)):
-            vertices.append([pointvertices[i - 1], pointvertices[i]])
+            vertices.append([pointvertices[i-1], pointvertices[i]])
         n_vert = len(vertices)
         _id = self.add_row(ids_osm=id_osm)
         cod = []
         #import string
-        clist = np.array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-                          'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'], np.object)
+        clist = np.array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'], np.object)
         print '  ', len(vertices), clist[:len(vertices)]
         ids = self.segments.value.suggest_ids(len(vertices))
-        ids_segs = self.segments.value.add_rows(
-            ids=ids, vertices=vertices, ids_parent=n_vert * [_id], ids_ref=clist[ids])
-        # put here list, otherwise numpy thinks it is a numeric array
-        self.ids_segments[_id] = list(ids_segs)
+        ids_segs = self.segments.value.add_rows(ids=ids, vertices=vertices, ids_parent=n_vert*[_id], ids_ref=clist[ids])
+        self.ids_segments[_id] = list(ids_segs)  # put here list, otherwise numpy thinks it is a numeric array
         return _id
 
 
@@ -168,7 +161,6 @@ class Lines(ArrayObjman):
 
 
 class Selection(ArrayObjman):
-
     def __init__(self, ident,  parent=None,  **kwargs):
         self._init_objman(ident, parent=parent, **kwargs)
         self.add_col(TabIdsArrayConf('obj_ids',
@@ -178,7 +170,6 @@ class Selection(ArrayObjman):
 
 
 class Collection(ArrayObjman):
-
     def __init__(self, ident,  parent=None,  **kwargs):
         self._init_objman(ident, parent=parent, **kwargs)
         self.add_col(TabIdListArrayConf('tab_id_lists',
@@ -188,7 +179,6 @@ class Collection(ArrayObjman):
 
 
 class TestClass(BaseObjman):
-
     def __init__(self, ident='testobj',  parent=None, name='Test Object'):
         self._init_objman(ident, parent=parent, name=name, xmltag=ident)
         attrsman = self.set_attrsman(Attrsman(self))
@@ -283,10 +273,8 @@ class TestClass(BaseObjman):
 
 
 class TestClass3(BaseObjman):
-
     def __init__(self, ident='testobj3',  parent=None, name='Test Object3'):
-        self._init_objman(ident=ident,  parent=parent,
-                          name=name, xmltag='testobj3')
+        self._init_objman(ident=ident,  parent=parent, name=name, xmltag='testobj3')
         attrsman = self.set_attrsman(Attrsman(self))
 
         self.child1 = attrsman.add(ObjConf(parent.child1, is_child=False))
@@ -304,7 +292,6 @@ class TestClass3(BaseObjman):
 
 
 class TestClass2(BaseObjman):
-
     def __init__(self, ident='testobj2',  parent=None, name='Test Object2', xmltag='testobj2'):
         self._init_objman(ident, parent=parent, name=name, xmltag=xmltag)
         attrsman = self.set_attrsman(Attrsman(self))
@@ -319,7 +306,6 @@ class TestClass2(BaseObjman):
 
 
 class TestTabman(BaseObjman):
-
     def __init__(self, ident='test_tabman',  parent=None, name='Test Table manage'):
         self._init_objman(ident, parent=parent, name=name)
         tm = Tabman(obj=self)
@@ -358,10 +344,8 @@ class TestTabman(BaseObjman):
 
 
 class TestTableObjMan(TableObjman):
-
     def __init__(self, ident='test_tableobjman_simple',  parent=None, name='Test Table Object Manager'):
-        self._init_objman(ident, parent=parent, name=name,
-                          xmltag=('testtab', 'row', None))
+        self._init_objman(ident, parent=parent, name=name, xmltag=('testtab', 'row', None))
 
         # ATTENTION!!
         # do not use x = self.add(...) or self.add_col(...)
@@ -475,7 +459,6 @@ class TestTableObjMan(TableObjman):
 
 
 class TestTableObjManNocols(TableObjman):
-
     """
     Table manager without columns...for test purposes
     """
@@ -509,7 +492,6 @@ class TestTableObjManNocols(TableObjman):
 
 
 class ZonesTab(ArrayObjman):
-
     def __init__(self, ident,  parent=None, **kwargs):
         self._init_objman(ident, parent=parent, **kwargs)
 
@@ -546,7 +528,6 @@ class ZonesTab(ArrayObjman):
 
 
 class OdTripsTab(ArrayObjman):
-
     def __init__(self, ident,  parent, zones, **kwargs):
         self._init_objman(ident, parent=parent, **kwargs)
 
@@ -574,7 +555,6 @@ class OdTripsTab(ArrayObjman):
 
 
 class OdModesTab(ArrayObjman):
-
     def __init__(self, ident,  parent=None, **kwargs):
         self._init_objman(ident, parent=parent, **kwargs)
 
@@ -587,7 +567,6 @@ class OdModesTab(ArrayObjman):
 
 
 class OdIntervalsTab(ArrayObjman):
-
     def __init__(self, ident,  parent=None, **kwargs):
         self._init_objman(ident, parent=parent, **kwargs)
 
@@ -619,6 +598,7 @@ class OdIntervalsTab(ArrayObjman):
 ###########################################################################
 # Instance creation
 
+
 demand = BaseObjman('demand')
 
 zones = ZonesTab('zones', parent=demand)
@@ -634,27 +614,23 @@ shapes = [[(0.0, 10.0), (10.0, 10.0), (10.0, 0.0)],
           ]
 zones.add_rows(3, shapes=shapes)
 
-odintervals = OdIntervalsTab(
-    'odintervals', parent=demand, info='OD data for different time intervals')
+odintervals = OdIntervalsTab('odintervals', parent=demand, info='OD data for different time intervals')
 demand.odintervals = demand.get_attrsman().add(ObjConf(odintervals))
 odintervals.add_rows(2, t_start=[0, 3600], t_end=[3600, 7200])
 for id_odmodes in odintervals.get_ids():
-    odmodes = OdModesTab((odintervals.odmodes.attrname,
-                          id_odmodes), parent=odintervals)
+    odmodes = OdModesTab((odintervals.odmodes.attrname, id_odmodes), parent=odintervals)
     odintervals.odmodes[id_odmodes] = odmodes
 
     odmodes.add_rows(2)
     for id_odtrips in odmodes.get_ids():
-        odtrips = OdTripsTab(
-            (odmodes.odtrips.attrname, id_odtrips), odmodes, zones)
-        odtrips.add_rows(3, ids_orig=[3, 2, 1], ids_dest=[
-                         3, 3, 3], tripnumbers=[10, 200, 555])
+        odtrips = OdTripsTab((odmodes.odtrips.attrname, id_odtrips), odmodes, zones)
+        odtrips.add_rows(3, ids_orig=[3, 2, 1], ids_dest=[3, 3, 3], tripnumbers=[10, 200, 555])
         odmodes.odtrips[id_odtrips] = odtrips
 
 # demand.attrsman.print_attrs()
 # odintervals.print_attrs()
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 
 # vertices = [  [0.0,10.0,10.0,10.0,10.0,0.0],
@@ -672,8 +648,7 @@ vertices = [
     [[0.5, 0.0, 0.1], [1.9, 0.0, 0.0]],  # 2
 ]
 polygons = [
-    np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [
-             0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
+    np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
     np.array([[0.3, 0.0, 0.0], [0.9, 0.0, 0.0]]),  # 1
     np.array([[0.5, 0.0, 0.1], [1.9, 0.0, 0.0], [0.2, 0.2, 0.2]]),  # 2
 ]
@@ -687,8 +662,7 @@ lines.add_rows(3, vertices=vertices, polygons=polygons, ids_sumo=ids_sumo)
 
 triangles = Lines('triangles', parent=drawing)
 drawing.triangles = drawing.get_attrsman().add(ObjConf(triangles))
-triangles.add_rows(3, vertices=2 * vertices, polygons=polygons,
-                   ids_sumo=['xxx10', 'xx22', 'xx333'])
+triangles.add_rows(3, vertices=2*vertices, polygons=polygons, ids_sumo=['xxx10', 'xx22', 'xx333'])
 
 selection = Selection('selection', parent=drawing)
 drawing.selection = drawing.get_attrsman().add(ObjConf(selection))
@@ -700,7 +674,7 @@ collections.add_rows(2, tab_id_lists=[[(lines, 2), (triangles, 1)],
                                       [(lines, 2), (triangles, 1), (lines, 1)]]
                      )
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 pointvertices = [
                 [0.0, 0.0, 0.0],

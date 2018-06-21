@@ -10,21 +10,29 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 import os
 
 import wx
 import agilepy.lib_base.classman as cm
+from coremodules.misc import shapeformat
+
 from agilepy.lib_wx.modulegui import ModuleGui
 from agilepy.lib_wx.processdialog import ProcessDialog
 
 import scenario
 
+# if 1: #try:
+import networkxtools
+#    IS_NETX = True
+# else:#except:
+#    print 'WARNING: Networkx support not available because no networkx package installed'
+#    IS_NETX = False
+
 
 class WxGui(ModuleGui):
-
     """Contains functions that communicate between the widgets of the main wx gui
     and the functions of the plugin.
     """
@@ -64,15 +72,13 @@ class WxGui(ModuleGui):
 
         elif len(args) == 2:
             filepath = args[1]
-            self._scenario = scenario.load_scenario(
-                filepath, logger=self._mainframe.get_logger())
+            self._scenario = scenario.load_scenario(filepath, logger=self._mainframe.get_logger())
             #self._scenario = cm.load_obj(filepath)
 
         else:
             # command line provided nothing
             rootname = 'myscenario'
-            # None# this means no directory will be created
-            # os.path.join(os.path.expanduser("~"),'sumopy','myscenario')
+            # None# this means no directory will be created os.path.join(os.path.expanduser("~"),'sumopy','myscenario')
             dirpath = scenario.DIRPATH_SCENARIO
             name_scenario = 'My Scenario'
             self._scenario = scenario.Scenario(rootname, workdirpath=dirpath,
@@ -99,46 +105,61 @@ class WxGui(ModuleGui):
         # menubar.append_menu( 'Scenario/import',
         #    bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
         #    )
-        menubar.append_item('Scenario/new...',
-                            self.on_create,
-                            info='Create new, empty scenario.',
-                            bitmap=wx.ArtProvider.GetBitmap(
-                                wx.ART_NEW, wx.ART_MENU),
+
+        menubar.append_menu('Scenario/create',
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
                             )
 
-        menubar.append_item('Scenario/create from xml...',
+        menubar.append_item('Scenario/create/new...',
+                            self.on_create,
+                            info='Create new, empty scenario.',
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
+                            )
+
+        menubar.append_item('Scenario/create/create from xml...',
                             self.on_create_from_xml,
                             info='Create scenario from various sumo xml files.',
-                            bitmap=wx.ArtProvider.GetBitmap(
-                                wx.ART_NEW, wx.ART_MENU),
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
                             )
+
+        if networkxtools.IS_NX:
+            menubar.append_item('Scenario/create/create from osmnx...',
+                                self.on_create_from_osmnx,
+                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
+                                )
+            menubar.append_item('Scenario/create/import from osmnx in current...',
+                                self.on_import_osmnx,
+                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
+                                )
 
         menubar.append_item('Scenario/open...',
                             self.on_open,
                             info='Open a new scenario from a Python binary file.',
-                            bitmap=wx.ArtProvider.GetBitmap(
-                                wx.ART_FILE_OPEN, wx.ART_MENU),
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_MENU),
+                            )
+
+        menubar.append_item('Scenario/browse',
+                            self.on_browse_obj,  # common function in modulegui
+                            info='View and browse Scenario in object panel.',
+                            bitmap=self.get_agileicon('icon_browse_24px.png'),  # ,
                             )
 
         menubar.append_item('Scenario/safe',
                             self.on_save, shortkey='Ctrl+S',
                             info='Save current scenario in a Python binary file.',
-                            bitmap=wx.ArtProvider.GetBitmap(
-                                wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE, wx.ART_MENU),
                             )
 
         menubar.append_item('Scenario/safe as...',
                             self.on_save_as,
                             info='Save as scenario in a Python binary file.',
-                            bitmap=wx.ArtProvider.GetBitmap(
-                                wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
                             )
 
         menubar.append_item('Scenario/quit...',
                             self.on_close,
                             info='Quit Sumopy', shortkey='Ctrl+Q',
-                            bitmap=wx.ArtProvider.GetBitmap(
-                                wx.ART_QUIT, wx.ART_MENU)
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_QUIT, wx.ART_MENU)
                             )
 
     def on_close(self, event):
@@ -154,8 +175,7 @@ class WxGui(ModuleGui):
                                wx.YES_NO | wx.CANCEL | wx.ICON_QUESTION)
         ans = dlg.ShowModal()
         dlg.Destroy()
-        # print '
-        # ans,wx.ID_CANCEL,wx.ID_YES,wx.ID_NO',ans,wx.ID_CANCEL,wx.ID_YES,wx.ID_NO
+        # print '  ans,wx.ID_CANCEL,wx.ID_YES,wx.ID_NO',ans,wx.ID_CANCEL,wx.ID_YES,wx.ID_NO
         if ans == wx.ID_CANCEL:
             # print ' do not quit!'
             pass
@@ -163,7 +183,7 @@ class WxGui(ModuleGui):
         elif ans == wx.ID_YES:
             # print ' save and quit'
             scenario = self.get_scenario()
-            cm.save_obj(scenario, scenario.get_rootfilepath() + '.obj',
+            cm.save_obj(scenario, scenario.get_rootfilepath()+'.obj',
                         is_not_save_parent=False)
             self._mainframe.destroy()
 
@@ -203,6 +223,54 @@ class WxGui(ModuleGui):
             # print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
 
+    def on_create_from_osmnx(self, event=None):
+        """
+        Import net and buildings from OSMnx generated
+        """
+
+        pass
+
+    def on_import_osmnx(self, event=None):
+        """
+        Import net and buildings from OSMnx
+        """
+
+        # proc = OxScenariocreator(\
+        #                            workdirpath = scenario.DIRPATH_SCENARIO,
+        #                            logger = self._mainframe.get_logger(),
+        #                            )
+
+        proc = networkxtools.OxImporter(self._scenario,
+                                        logger=self._mainframe.get_logger(),
+                                        )
+
+        dlg = ProcessDialog(self._mainframe, proc)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+
+            #del self._scenario
+            #self._scenario = scenariocreator.get_scenario()
+
+            # self._scenario.import_xml()
+            self._mainframe.browse_obj(self._scenario)
+            # this should update all widgets for the new scenario!!
+            # print 'call self._mainframe.refresh_moduleguis()'
+            self._mainframe.refresh_moduleguis()
+
     def on_create(self, event=None):
         # print 'on_create'
         scenariocreator = scenario.ScenarioCreator(logger=self._mainframe.get_logger(),
@@ -236,11 +304,10 @@ class WxGui(ModuleGui):
     def on_open(self, event=None):
         wildcards_all = "All files (*.*)|*.*"
         wildcards_obj = "Python binary files (*.obj)|*.obj"
-        wildcards = wildcards_obj + "|" + wildcards_all
+        wildcards = wildcards_obj+"|"+wildcards_all
 
         # Finally, if the directory is changed in the process of getting files, this
-        # dialog is set up to change the current working directory to the path
-        # chosen.
+        # dialog is set up to change the current working directory to the path chosen.
         dlg = wx.FileDialog(
             self._mainframe, message="Open scenario file",
             #defaultDir = scenario.get_workdirpath(),
@@ -257,8 +324,7 @@ class WxGui(ModuleGui):
             if len(filepath) > 0:
 
                 del self._scenario
-                self._scenario = scenario.load_scenario(
-                    filepath, logger=self._mainframe.get_logger())
+                self._scenario = scenario.load_scenario(filepath, logger=self._mainframe.get_logger())
                 self._mainframe.browse_obj(self._scenario)
                 # this should update all widgets for the new scenario!!
                 # print 'call self._mainframe.refresh_moduleguis()'
@@ -277,15 +343,14 @@ class WxGui(ModuleGui):
         scenario = self.get_scenario()
         wildcards_all = "All files (*.*)|*.*"
         wildcards_obj = "Python binary files (*.obj)|*.obj"
-        wildcards = wildcards_obj + "|" + wildcards_all
+        wildcards = wildcards_obj+"|"+wildcards_all
 
         # Finally, if the directory is changed in the process of getting files, this
-        # dialog is set up to change the current working directory to the path
-        # chosen.
+        # dialog is set up to change the current working directory to the path chosen.
         dlg = wx.FileDialog(
             self._mainframe, message="Save scenario to file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath() + '.obj',
+            defaultFile=scenario.get_rootfilepath()+'.obj',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )

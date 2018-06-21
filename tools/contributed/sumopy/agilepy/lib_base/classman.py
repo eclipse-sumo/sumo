@@ -10,7 +10,7 @@
 
 # @file    classman.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 
@@ -39,7 +39,7 @@ from datetime import datetime
 #import numpy as np
 import xmlman as xm
 from logger import Logger
-
+from misc import get_inversemap
 
 ##########
 
@@ -57,14 +57,17 @@ EVTGETITEM = 22  # get attribute
 EVTADDITEM = 23  # add/create attribute
 
 
-ATTRS_NOSAVE = ('value', 'plugin', '_obj', '_manager', 'get', 'set',
-                'add', 'del', 'delete', 'childs', 'parent', '_attrconfig_id_tab')
-ATTRS_SAVE = ('ident', '_name', 'managertype', '_info', 'xmltag')
-ATTRS_SAVE_TABLE = ('_is_localvalue', 'attrname', '_colconfigs', '_ids', '_inds',
-                    '_attrconfigs', '_groups', 'plugin', '_is_indexing', '_index_to_id', '_id_to_index')
+ATTRS_NOSAVE = ('value', 'plugin', '_obj', '_manager', 'get', 'set', 'add',
+                'del', 'delete', 'childs', 'parent', '_attrconfig_id_tab')
+ATTRS_SAVE = ('ident', '_name', 'managertype', '_info', 'xmltag', '_attrs_nosave')
+ATTRS_SAVE_TABLE = ('_is_localvalue', 'attrname', '_colconfigs', '_ids', '_inds', '_attrconfigs',
+                    '_groups', 'plugin', '_is_indexing', '_index_to_id', '_id_to_index')
 
 STRUCTS_COL = ('odict', 'array')
 STRUCTS_SCALAR = ('scalar', 'list', 'matrix', 'scalar.func')
+
+NUMERICTYPES = (types.BooleanType, types.FloatType, types.IntType, types.LongType, types.ComplexType)
+STRINGTYPES = (types.StringType, types.UnicodeType)
 
 
 def save_obj(obj, filename, is_not_save_parent=False):
@@ -95,31 +98,36 @@ def save_obj(obj, filename, is_not_save_parent=False):
     return True
 
 
-def load_obj(filename, parent=None):
+def load_obj(filename, parent=None, is_throw_error=False):
     """
     Reads python object from a file with filename and returns object.
     Filename may also include absolute or relative path.
     If operation fails a None object is returned.
     """
     print 'load_obj', filename
-    try:
-        file = open(filename, 'rb')
-    except:
-        print 'WARNING in load_obj: could not open', filename
-        return None
+
+    if is_throw_error:
+        f = open(filename, 'rb')
+    else:
+        try:
+            f = open(filename, 'rb')
+        except:
+            print 'WARNING in load_obj: could not open', filename
+            return None
 
     # try:
     # print '  pickle.load...'
-    obj = pickle.load(file)
-    file.close()
-    # print '  obj._link2'
+    obj = pickle.load(f)
+    f.close()
 
     # init_postload_internal is to restore INTERNAL states from INTERNAL states
     # print 'load_obj->init_postload_internal',obj.ident
     obj.init_postload_internal(parent)
+    # print '  after init_postload_internal  obj.parent',obj.parent
 
     # init_postload_external is to restore INTERNAL states from EXTERNAL states
     # such as linking
+    #obj.init_postload_external(is_root = True)
     obj.init_postload_external()
 
     # _init4_ is to do misc stuff when everything is set
@@ -140,6 +148,14 @@ class Plugin:
         self._events = {}
         self._has_events = False
         self._is_enabled = is_enabled
+
+    def get_obj(self):
+        return self._obj
+
+    def unplug(self):
+        del self._events
+        self._events = {}
+        self._has_events = False
 
     def add_event(self, trigger, function):
         """
@@ -184,17 +200,14 @@ class Plugin:
         Executes all functions assigned for this trigger for multiple ids.
         """
         if self._has_events & self._is_enabled:
-            # print '**ArrayConf._execute_events_keys',self.attrname,trigger,(EVTGETITEM,EVTGET)
-            # if trigger!=EVTGETITEM:
-            #    #print '  call set_modified',self._manager
-            #    self._manager.set_modified(True)
+            # print '**ArrayConf._execute_events_keys',trigger,ids
+            # print '  _events',self._events
 
             for function in self._events.get(trigger, []):
                 function(self._obj, ids)
 
 
 class AttrConf:
-
     """
     Contains additional information on the object's attribute.
     """
@@ -207,9 +220,11 @@ class AttrConf:
                  name='', info='',
                  unit='',
                  xmltag=None,
+                 xmlsep=' ',
                  is_plugin=False,
                  struct='scalar',
                  metatype='',
+                 is_returnval=True,
                  **attrs):
         # if struct == 'None':
         #    if hasattr(default, '__iter__'):
@@ -225,9 +240,10 @@ class AttrConf:
 
         self._default = default
 
-        self._is_save = is_save
+        self._is_save = is_save  # will be set properly in set_manager
         self._is_copy = is_copy
         self._is_localvalue = True  # value stored locally, set in set_manager
+        self._is_returnval = is_returnval
         self._unit = unit
         self._info = info
         self._name = name
@@ -242,8 +258,7 @@ class AttrConf:
 
         self.init_plugin(is_plugin)
         # self._init_xml(xmltag)
-        self.xmltag = xmltag
-        self.xmlsep = attrs.get('xmlsep', ' ')
+        self.set_xmltag(xmltag, xmlsep)
 
         # set rest of attributes passed as keyword args
         # no matter what they are used for
@@ -253,11 +268,21 @@ class AttrConf:
     def is_save(self):
         return self._is_save
 
+    def set_save(self, is_save):
+        if is_save:
+            self._manager.do_save_attr(self.attrname)
+        else:
+            self._manager.do_not_save_attr(self.attrname)
+
+    def add_groupnames(self, groupnames):
+        self.groupnames = list(set(self.groupnames+groupnames))
+        self._manager.insert_groupnames(self)
+
     def has_group(self, groupname):
         return groupname in self.groupnames
 
     def enable_plugin(self, is_enabled=True):
-        if is_plugin:
+        if self.plugin is not None:
             self.plugin.enable(is_enabled)
 
     def get_metatype(self):
@@ -272,13 +297,88 @@ class AttrConf:
             self.plugin = None
 
     # def _init_xml(self,xmltag=None):
-    #    if xmltag != None:
+    #    if xmltag is not None:
     #        self.xmltag = xmltag
     #    else:
     #        self.xmltag = self.attrname
 
+    def set_xmltag(self, xmltag, xmlsep=' '):
+        self.xmltag = xmltag
+        self.xmlsep = xmlsep
+
+    def get_value_from_xmlattr(self, xmlattrs):
+        """
+        Return a value of the correct data type
+        from the xml attribute object
+
+        If this configuration is not found in xmlattrs
+        then None is returned.
+        """
+        if (self.xmltag is not None):
+            if xmlattrs.has_key(self.xmltag):
+                return self.get_value_from_string(xmlattrs[self.xmltag])
+            else:
+                return None
+
+    def get_value_from_string(self, s, sep=','):
+        """
+        Returns the attribute value from a string in the correct type. 
+        """
+
+        if self.metatype == 'color':
+            return xm.parse_color(s, sep)
+
+        # TODO: allow arrays
+        # elif hasattr(val, '__iter__'):
+        #    if len(val)>0:
+        #        if hasattr(val[0], '__iter__'):
+        #            # matrix
+        #            fd.write(xm.mat(self.xmltag,val))
+        #        else:
+        #            # list
+        #            fd.write(xm.arr(self.xmltag,val,self.xmlsep))
+        #    else:
+        #        # empty list
+        #        #fd.write(xm.arr(self.xmltag,val))
+        #        # don't even write empty lists
+        #        pass
+
+        elif hasattr(self, 'xmlmap'):
+            imap = get_inversemap(self.xmlmap)
+            # print 'get_value_from_string',s,imap
+            if imap.has_key(s):
+                return imap[s]
+            else:
+                return self.get_numvalue_from_string(s)
+
+        else:
+            return self.get_numvalue_from_string(s)
+
+    def get_numvalue_from_string(self, s):
+        t = type(self._default)
+        if t in (types.UnicodeType, types.StringType):
+            return s
+
+        elif t in (types.UnicodeType, types.StringType):
+            return s
+
+        elif t in (types.LongType, types.IntType):
+            return int(s)
+
+        elif t in (types.FloatType, types.ComplexType):
+            return float(s)
+
+        elif t == types.BooleanType:  # use default and hope it is no a numpy bool!!!
+            if s in ('1', 'True'):
+                return True
+            else:
+                return False
+
+        else:
+            return None  # unsuccessful
+
     def write_xml(self, fd):
-        if self.xmltag != None:
+        if self.xmltag is not None:
             self._write_xml_value(self.get_value(), fd)
 
     def _write_xml_value(self, val, fd):
@@ -315,8 +415,7 @@ class AttrConf:
                 i = self.choices.values().index(val)
                 fd.write(xm.num(self.xmltag, self.choices.keys()[i]))
 
-        # use default and hope it is no a numpy bool!!!
-        elif type(self._default) == types.BooleanType:
+        elif type(self._default) == types.BooleanType:  # use default and hope it is no a numpy bool!!!
             if val:
                 fd.write(xm.num(self.xmltag, 1))
             else:
@@ -348,6 +447,7 @@ class AttrConf:
         """
         self._manager = manager
         self._is_localvalue = manager.is_localvalue()
+        self.set_save(self._is_save)
 
     def get_manager(self):
         """
@@ -397,6 +497,9 @@ class AttrConf:
 
         return value
 
+    def set_default(self, value):
+        self._default = value
+
     def get_default(self):
         return self._default
 
@@ -430,6 +533,12 @@ class AttrConf:
     def get_perm(self):
         return self._perm
 
+    def is_returnval(self):
+        if hasattr(self, '_is_returnval'):  # for back compatibility
+            return self._is_returnval
+        else:
+            return True
+
     def is_readonly(self):
         return 'w' not in self._perm
 
@@ -444,13 +553,13 @@ class AttrConf:
         return self._unit != ''
 
     def has_info(self):
-        return self.get_info() != None
+        return self.get_info() is not None
 
     def is_colattr(self):
         return hasattr(self, '__getitem__')
 
     def get_info(self):
-        if self._info == None:
+        if self._info is None:
             return self.__doc__
         else:
             return self._info
@@ -465,11 +574,11 @@ class AttrConf:
 
     def format_value(self, show_unit=False, show_parentesis=False):
         if show_unit:
-            unit = ' ' + self.format_unit(show_parentesis)
+            unit = ' '+self.format_unit(show_parentesis)
         else:
             unit = ''
         # return repr(self.get_value())+unit
-        return str(self.get_value()) + unit
+        return str(self.get_value())+unit
 
     def format_symbol(self):
         if hasattr(self, 'symbol'):
@@ -477,7 +586,7 @@ class AttrConf:
         else:
             symbol = self._name
 
-        return symbol + ' ' + self.format_unit(show_parentesis=True)
+        return symbol+' '+self.format_unit(show_parentesis=True)
 
     ####
     def get_value(self):
@@ -489,8 +598,7 @@ class AttrConf:
 
     def set_value(self, value):
         # set entire attribute, no indexing, no plugin
-        # print 'AttrConf.set_value',self.attrname, self._is_localvalue, value,
-        # type(value)
+        # print 'AttrConf.set_value',self.attrname, self._is_localvalue, value, type(value)
         if self._is_localvalue:
             self.value = value
         else:
@@ -533,7 +641,7 @@ class AttrConf:
         pass
 
     def __getstate__(self):
-        # print '__getstate__',self.ident
+        # print 'AttrConf.__getstate__',self.get_obj().format_ident_abs(),self.attrname
         # print '  self.__dict__=\n',self.__dict__.keys()
         if self._is_saved:
             # this message indicates a loop!!
@@ -543,7 +651,7 @@ class AttrConf:
 
             if attr == 'plugin':
                 plugin = self.__dict__[attr]
-                if plugin != None:
+                if plugin is not None:
                     state[attr] = True
                 else:
                     state[attr] = False
@@ -556,6 +664,7 @@ class AttrConf:
             state['value'] = self.get_value()
 
         self._getstate_specific(state)
+        # print  '  state',state
         return state
 
     def __setstate__(self, state):
@@ -565,8 +674,7 @@ class AttrConf:
         self.plugins = {}
 
         for attr in state.keys():
-            # print '  set state',key
-
+            # print '  state key',attr, state[attr]
             # done in init_postload_internal...
             # if attr=='plugin':
             #    if state[attr]==True:
@@ -577,8 +685,8 @@ class AttrConf:
             self.__dict__[attr] = state[attr]
 
     def init_postload_internal(self, man, obj):
-        # print
-        # 'AttrConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
+        # print 'AttrConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
+
         self.set_manager(man)
         self.set_obj(obj)
         self.init_plugin(self.plugin)
@@ -591,11 +699,11 @@ class AttrConf:
                 # OK self.value already set in __setstate__
                 pass
             else:
-                # TODO: could be made nicer with method
-                setattr(self._obj, self.attrname, self.value)
+                setattr(self._obj, self.attrname, self.value)  # TODO: could be made nicer with method
                 del self.value  # no longer needed
 
         # print '  check',hasattr(self,'value')
+        # print '  value=',self.get_value()
         self._is_saved = False
 
     def init_postload_external(self):
@@ -603,7 +711,6 @@ class AttrConf:
 
 
 class NumConf(AttrConf):
-
     """
     Contains additional information on the object's attribute.
     Here specific number related attributes are defined.
@@ -624,7 +731,6 @@ class NumConf(AttrConf):
 
 
 class ObjConf(AttrConf):
-
     """
     Contains additional information on the object's attribute.
     Configures Pointer to another object .
@@ -679,14 +785,16 @@ class ObjConf(AttrConf):
         before returning states.
         To be overridden.
         """
+        # print 'ObjConf._getstate_specific',self.attrname,self._is_child,self._is_save
         if self._is_save:
             if self._is_child:
                 # OK self.value already set in
                 pass
             else:
-                # remove object reference from value and create ident
+                # print ' remove object reference from value and create ident'
                 state['value'] = None
                 state['_ident_value'] = self.get_value().get_ident_abs()
+                # print '  ',
 
     def is_modified(self):
         # if self._is_child
@@ -705,19 +813,17 @@ class ObjConf(AttrConf):
         pass
 
     def init_postload_internal(self, man, obj):
-        # print
-        # 'ObjConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'parent
-        # obj:',obj.ident
+        # print 'ObjConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'parent obj:',obj.ident
 
         AttrConf.init_postload_internal(self, man, obj)
         if self._is_child:
             # print '  make sure children get initialized'
             # self.get_value().init_postload_internal(obj)
-            # print '  call init_postload_internal
-            # of',self.get_value().ident,self.get_value(),self.get_value().__class__,self.get_value().init_postload_internal
+            # print '  call init_postload_internal of',self.get_value().ident,self.get_value(),self.get_value().__class__,self.get_value().init_postload_internal
             self.get_value().init_postload_internal(obj)
 
     def init_postload_external(self):
+        # print 'ObjConf.init_postload_external',self.attrname,self._is_child
         if self._is_child:
             # restore normally
             AttrConf.init_postload_external(self)
@@ -752,19 +858,18 @@ class ObjConf(AttrConf):
 
 
 class FuncConf(AttrConf):
-
     """
     Configures a function.
     The function with name funcname must be a method of the object. 
     Default value is used to specify the type of output.  
     """
 
-    def __init__(self,  attrname, funcname, exampleoutput, struct='scalar.func', **kwargs):
+    def __init__(self,  attrname, funcname, exampleoutput, struct='scalar.func', perm='r', **kwargs):
         self.funcname = funcname
 
         AttrConf.__init__(self,  attrname, exampleoutput,
                           struct=struct,
-                          perm='r',
+                          perm=perm,
                           is_save=False,
                           **kwargs
                           )
@@ -775,6 +880,7 @@ class FuncConf(AttrConf):
             self._info = getattr(self._obj, self.funcname).__doc__
 
     def get_value(self):
+        # print 'get_value',self.attrname
         # always return attribute, no indexing, no plugin
         return getattr(self._obj, self.funcname)()
         # if self._is_localvalue:
@@ -783,13 +889,14 @@ class FuncConf(AttrConf):
         #    return getattr(self._obj, self.attrname)
 
     def get_function(self):
+        # print 'get_function',self.attrname
         return getattr(self._obj, self.funcname)
 
     def set_value(self, value):
         # set entire attribute, no indexing, no plugin
-        # print 'AttrConf.set_value',self.attrname, self._is_localvalue, value,
-        # type(value)
-        return None
+        # print 'AttrConf.set_value',self.attrname, self._is_localvalue, value, type(value)
+        # this will run the function and return a value
+        return self.get_function()
 
     def is_modified(self):
         return False
@@ -802,7 +909,6 @@ class FuncConf(AttrConf):
 
 
 class Indexing:
-
     """
     Mixing to allow any column attribute to be used as index. 
     """
@@ -832,7 +938,7 @@ class Indexing:
         return self._index_to_id.has_key(index)
 
     def get_ids_from_indices(self, indices):
-        ids = len(indices) * [0]
+        ids = len(indices)*[0]
         for i in range(len(indices)):
             # if not self._index_to_id.has_key(indices[i]):
             #    print 'WARNING from get_ids_from_indices: no index',indices[i]
@@ -841,7 +947,7 @@ class Indexing:
         return ids
 
     def get_ids_from_indices_save(self, indices):
-        ids = len(indices) * [0]
+        ids = len(indices)*[0]
         for i in range(len(indices)):
             if not self._index_to_id.has_key(indices[i]):
                 ids[i] = -1
@@ -857,14 +963,23 @@ class Indexing:
     def add_index(self, _id, index):
         self._index_to_id[index] = _id
 
+    def rebuild_indices(self):
+        for idx in self._index_to_id.keys():
+            del self._index_to_id[idx]
+        ids = self.get_obj().get_ids()
+        self.add_indices(ids, self[ids])
+
     def del_indices(self, ids):
+
         for _id in ids:
             self.del_index(_id)
 
     def set_index(self, _id, index):
-        # print 'set_index',self._index_to_id
+        # print 'set_index',self.attrname,_id, index
+        # print '  B_index_to_id',self._index_to_id
         self.del_index(_id)
         self.add_index(_id, index)
+        # print '  A_index_to_id',self._index_to_id
 
     def set_indices(self, ids, indices):
         self.del_indices(ids)
@@ -882,9 +997,15 @@ class Indexing:
         # print '  sorted',sorted(self._index_to_id.iteritems())
         return OrderedDict(sorted(self._index_to_id.iteritems())).values()
 
+    # def indexset(self, indices, values):
+    # no! set made with respective attribute
+    #    print 'indexset',indices
+    #    print '  ids=',self.get_ids_from_indices(indices)
+    #    print '  values=',values
+    #    self[self.get_ids_from_indices(indices)] = values
+
 
 class ColConf(Indexing, AttrConf):
-
     """
     Basic column configuration.
     Here an ordered dictionary is used to represent the data.
@@ -960,7 +1081,7 @@ class ColConf(Indexing, AttrConf):
             self.plugin = None
 
     def write_xml(self, fd, _id):
-        if self.xmltag != None:
+        if self.xmltag is not None:
             self._write_xml_value(self[_id], fd)
 
     def __delitem__(self, ids):
@@ -988,7 +1109,7 @@ class ColConf(Indexing, AttrConf):
     def __getitem__(self, ids):
         # print '__getitem__',key
         if hasattr(ids, '__iter__'):
-            items = len(ids) * [None]
+            items = len(ids)*[None]
             i = 0
             array = self.get_value()
             for _id in ids:
@@ -1002,8 +1123,7 @@ class ColConf(Indexing, AttrConf):
         # print '__setitem__',ids,values,type(self.get_value())
         if hasattr(ids, '__iter__'):
             if self._is_index:
-                # must be set before setting new value
-                self.set_indices(ids, values)
+                self.set_indices(ids, values)  # must be set before setting new value
             i = 0
             array = self.get_value()
             for _id in ids:
@@ -1014,8 +1134,7 @@ class ColConf(Indexing, AttrConf):
         else:
 
             if self._is_index:
-                # must be set before setting new value
-                self.set_index(ids, values)
+                self.set_index(ids, values)  # must be set before setting new value
             self.get_value()[ids] = values
 
             # if self._is_index:
@@ -1024,13 +1143,13 @@ class ColConf(Indexing, AttrConf):
     def add(self, ids, values=None):
         if not hasattr(ids, '__iter__'):
             _ids = [ids]
-            if values != None:
+            if values is not None:
                 _values = [values]
         else:
             _ids = ids
             _values = values
 
-        if values == None:
+        if values is None:
             _values = self.get_defaults(_ids)
 
         # print 'add ids, _values',ids, _values
@@ -1052,14 +1171,14 @@ class ColConf(Indexing, AttrConf):
     def add_plugin(self, ids, values=None):
         if not hasattr(ids, '__iter__'):
             _ids = [ids]
-            if values != None:
+            if values is not None:
                 _values = [values]
         else:
             _ids = ids
             _values = values
 
         # print 'add ids, _values',ids, _values
-        if values == None:
+        if values is None:
             _values = self.get_defaults(_ids)
         # trick to prevent updating index before value is added
         if self._is_index:
@@ -1149,7 +1268,7 @@ class ColConf(Indexing, AttrConf):
 
     def format_value(self, _id, show_unit=False, show_parentesis=False):
         if show_unit:
-            unit = ' ' + self.format_unit(show_parentesis)
+            unit = ' '+self.format_unit(show_parentesis)
         else:
             unit = ''
         # return repr(self[_id])+unit
@@ -1162,17 +1281,17 @@ class ColConf(Indexing, AttrConf):
         tt = type(val)
 
         if tt in (types.LongType, types.IntType):
-            return str(val) + unit
+            return str(val)+unit
 
         elif tt in (types.FloatType, types.ComplexType):
             if hasattr(attrconf, 'digits_fraction'):
                 digits_fraction = self.digits_fraction
             else:
                 digits_fraction = 3
-            return "%." + str(digits_fraction) + "f" % (val) + unit
+            return "%."+str(digits_fraction)+"f" % (val)+unit
 
         else:
-            return str(val) + unit
+            return str(val)+unit
 
         # return str(self[_id])+unit
 
@@ -1180,7 +1299,7 @@ class ColConf(Indexing, AttrConf):
         # TODO: incredibly slow when calling format_value for each value
         text = ''
 
-        if ids == None:
+        if ids is None:
             ids = self._manager.get_ids()
         if not hasattr(ids, '__iter__'):
             ids = [ids]
@@ -1188,14 +1307,12 @@ class ColConf(Indexing, AttrConf):
         #unit =  self.format_unit()
         attrname = self.attrname
         for id in ids:
-            text += '%s[%d] = %s\n' % (attrname, id,
-                                       self.format_value(id, show_unit=True))
+            text += '%s[%d] = %s\n' % (attrname, id, self.format_value(id, show_unit=True))
 
         return text[:-1]  # remove last newline
 
 
 class NumcolConf(ColConf):
-
     def __init__(self, attrname, default,
                  digits_integer=None, digits_fraction=None,
                  minval=None, maxval=None,
@@ -1209,17 +1326,16 @@ class NumcolConf(ColConf):
 
 
 class IdsConf(ColConf):
-
     """
     Column, where each entry is the id of a single Table. 
     """
 
-    def __init__(self, attrname, tab,  is_index=False, perm='r', **kwargs):
+    def __init__(self, attrname, tab,  id_default=-1, is_index=False, perm='r', **kwargs):
         self._is_index = is_index
         self._tab = tab
 
         AttrConf.__init__(self,  attrname,
-                          -1,  # default id
+                          id_default,  # default id
                           struct='odict',
                           metatype='id',
                           perm=perm,
@@ -1237,22 +1353,19 @@ class IdsConf(ColConf):
 
     def init_xml(self):
         # print 'init_xml',self.attrname
-        if self._tab.xmltag != None:
+        if self._tab.xmltag is not None:
 
             # necessary?? see ObjMan.write_xml
             xmltag_tab, xmltag_item_tab, attrname_id_tab = self._tab.xmltag
             if (attrname_id_tab is None) | (attrname_id_tab is ''):
                 self._attrconfig_id_tab = None
             else:
-                self._attrconfig_id_tab = getattr(
-                    self._tab, attrname_id_tab)  # tab = tabman !
+                self._attrconfig_id_tab = getattr(self._tab, attrname_id_tab)  # tab = tabman !
 
             if not hasattr(self, 'is_xml_include_tab'):
                 # this means that entire table rows will be included
                 self.is_xml_include_tab = False
-            # print '  xmltag_tab, xmltag_item_tab,
-            # attrname_id_tab',xmltag_tab, xmltag_item_tab,
-            # attrname_id_tab,self.is_xml_include_tab
+            # print '  xmltag_tab, xmltag_item_tab, attrname_id_tab',xmltag_tab, xmltag_item_tab, attrname_id_tab,self.is_xml_include_tab
 
         else:
             self._attrconfig_id_tab = None
@@ -1260,12 +1373,11 @@ class IdsConf(ColConf):
 
     def write_xml(self, fd, _id, indent=0):
         if (self.xmltag is not None) & (self[_id] >= 0):
-            if self._attrconfig_id_tab == None:
+            if self._attrconfig_id_tab is None:
                 self._write_xml_value(self[_id], fd)
             elif self.is_xml_include_tab:
                 # this means that entire table rows will be included
-                self._tab.write_xml(fd, indent, ids=self[
-                                    _id], is_print_begin_end=False)
+                self._tab.write_xml(fd, indent, ids=self[_id], is_print_begin_end=False)
             else:
                 self._write_xml_value(self._attrconfig_id_tab[self[_id]], fd)
 
@@ -1297,7 +1409,7 @@ class IdsConf(ColConf):
         # create a list, should work for all types and dimensions
         # default can be scalar or an array of any dimension
         # print '\n\nget_defaults',self.attrname,ids,self.get_default()
-        return len(ids) * [-1]
+        return len(ids)*[self.get_default()]
 
     def _getstate_specific(self, state):
         """
@@ -1311,12 +1423,12 @@ class IdsConf(ColConf):
             #    pass
             # else:
             #    # remove table reference and create ident
+            # print '_getstate_specific',self._tab.get_ident_abs()
             state['_tab'] = None
             state['_ident_tab'] = self._tab.get_ident_abs()
 
     def init_postload_internal(self, man, obj):
-        # print
-        # 'IdsConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
+        # print 'IdsConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
 
         AttrConf.init_postload_internal(self, man, obj)
         # if self._is_child:
@@ -1349,7 +1461,6 @@ class IdsConf(ColConf):
 
 
 class TabIdsConf(ColConf):
-
     """
     Column, where each entry contains a tuple with table object and id. 
     """
@@ -1367,7 +1478,7 @@ class TabIdsConf(ColConf):
         # create a list, should work for all types and dimensions
         # default can be scalar or an array of any dimension
         # print '\n\nget_defaults',self.attrname,ids,self.get_default()
-        return len(ids) * [(None, -1)]
+        return len(ids)*[(None, -1)]
 
     def reset(self):
         # TODO: this will reset all the tables
@@ -1392,7 +1503,7 @@ class TabIdsConf(ColConf):
         if self._is_save:
             n = len(state['value'])
             state['value'] = None
-            _tabids_save = n * [None]
+            _tabids_save = n*[None]
             i = 0
             for tab, ids in self.get_value():
                 _tabids_save[i] = [tab.get_ident_abs(), ids]
@@ -1400,8 +1511,7 @@ class TabIdsConf(ColConf):
             state['_tabids_save'] = _tabids_save
 
     def init_postload_internal(self, man, obj):
-        # print
-        # 'IdsConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
+        # print 'IdsConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
 
         AttrConf.init_postload_internal(self, man, obj)
         # if self._is_child:
@@ -1437,7 +1547,7 @@ class TabIdsConf(ColConf):
         obj = self.get_obj()
         rootobj = obj.get_root()
         # print '  rootobj',rootobj.ident
-        tabids = len(self._tabids_save) * [None]
+        tabids = len(self._tabids_save)*[None]
         i = 0
         for tabident, ids in self._tabids_save:
             tab = rootobj.get_obj_from_ident(tabident)
@@ -1452,17 +1562,26 @@ class TabIdsConf(ColConf):
 
 
 class ObjsConf(ColConf):
-
     """
     Column, where each entry is an object of class objclass with 
     ident= (attrname, id). 
     """
+    # TODO:
+    # there is a problems with objects that are stored here
+    # in particular if objects are Table. What is their correct ident
+    # or absolute ident. Currently it is not correct.
+    # This leads to incorrect referencing when linked from elsewhere
+    # for example within TabIdListArrayConf
+    # .get_ident_abs() needs to to be correct, such that
+    # get_obj_from_ident can locate them
+    # maybe it is not an issue of ObjsConf  itself,
+    # but the Objects stored must have a special getident method
 
     def __init__(self, attrname,  is_index=False, **kwargs):
         self._is_index = is_index
         self._is_child = True  # at the moment no links possible
         AttrConf.__init__(self,  attrname,
-                          BaseObjman('empty'),  # default id
+                          None,  # BaseObjman('empty'), # default id
                           struct='odict',
                           metatype='obj',
                           perm='r',
@@ -1512,8 +1631,7 @@ class ObjsConf(ColConf):
     #            state['_idents_obj'] = idents_obj
 
     def init_postload_internal(self, man, obj):
-        # print
-        # 'ObjsConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
+        # print 'ObjsConf.init_postload_internal',self.attrname,hasattr(self,'value'),self._is_save,self._is_localvalue,'obj:',obj.ident
 
         AttrConf.init_postload_internal(self, man, obj)
         # if self._is_child:
@@ -1526,13 +1644,13 @@ class ObjsConf(ColConf):
         # print 'init_postload_internal',self.attrname,obj,obj.ident
         for _id in obj.get_ids():
             # print '  call init_postload_internal of',childobjs[_id].ident
-            # attention obj is the parent object!
-            childobjs[_id].init_postload_internal(obj)
+            childobjs[_id].init_postload_internal(obj)  # attention obj is the parent object!
 
     def reset(self):
         # print 'ObjsConf.reset',self.get_value(),len(self.get_obj().get_ids())
         #obj = self.get_obj()
         # print 'init_postload_internal',self.attrname,obj,obj.ident
+        childobjs = self.get_value()
         for _id in self.get_obj().get_ids():
             # print '  call reset of',childobjs[_id].ident,_id
             childobjs[_id].reset()
@@ -1584,7 +1702,6 @@ class ObjsConf(ColConf):
 
 
 class Attrsman:
-
     """
     Manages all attributes of an object
 
@@ -1603,7 +1720,7 @@ class Attrsman:
 
     def __init__(self, obj, attrname='attrsman', is_plugin=False):
 
-        if obj == None:
+        if obj is None:
             # this means that column data will be stored
             # in value attribute of attrconfigs
             obj = self
@@ -1614,8 +1731,9 @@ class Attrsman:
 
         self._obj = obj  # managed object
         self._attrconfigs = []  # managed attribute config instances
-        # the manager's attribute name in the obj instance
-        self.attrname = attrname
+        self.attrname = attrname  # the manager's attribute name in the obj instance
+
+        self._attrs_nosave = set(ATTRS_NOSAVE)
 
         # groupes of attributes
         # key=groupname, value = list of attribute config instances
@@ -1629,6 +1747,10 @@ class Attrsman:
         else:
             self.plugin = None
 
+    def enable_plugin(self, is_enabled=True):
+        if self.plugin is not None:
+            self.plugin.enable(is_enabled)
+
     def is_localvalue(self):
         return self._is_localvalue
 
@@ -1640,8 +1762,15 @@ class Attrsman:
 
     def is_modified(self):
         for attrconf in self._attrconfigs:
-            if attrconf.is_modified():
-                return True
+            # TODO: not very clean
+            if hasattr(attrconf, 'is_child'):
+                if attrconf.is_child():
+                    if attrconf.is_modified():
+                        return True
+            else:
+                if attrconf.is_modified():
+                    return True
+
         return False
 
     def set_modified(self, is_modified=True):
@@ -1660,8 +1789,7 @@ class Attrsman:
         return getattr(self, attrname)  # a bit risky
 
     def get_configs(self, is_all=False, structs=None, filtergroupnames=None):
-        # print
-        # 'get_configs',self,self._obj.ident,structs,filtergroupnames,len(self._attrconfigs)
+        # print 'get_configs',self,self._obj.ident,structs,filtergroupnames,len(self._attrconfigs)
         if is_all:
             return self._attrconfigs
         else:
@@ -1669,7 +1797,7 @@ class Attrsman:
             for attrconf in self._attrconfigs:
                 # print '  found',attrconf.attrname,attrconf.struct
                 is_check = True
-                if (structs != None):
+                if (structs is not None):
                     if (attrconf.struct not in structs):
                         is_check = False
 
@@ -1678,9 +1806,8 @@ class Attrsman:
                     if len(attrconf.groupnames) > 0:
                         if '_private' not in attrconf.groupnames:
                             # print '    not private'
-                            if filtergroupnames != None:
-                                # print '     apply
-                                # filtergroupnames',filtergroupnames,attrconf.groupnames
+                            if filtergroupnames is not None:
+                                # print '     apply filtergroupnames',filtergroupnames,attrconf.groupnames
                                 if not set(filtergroupnames).isdisjoint(attrconf.groupnames):
                                     # print '       append',attrconf.attrname
                                     attrconfigs.append(attrconf)
@@ -1688,7 +1815,7 @@ class Attrsman:
                                 # print '     no filtergroupnames'
                                 attrconfigs.append(attrconf)
                     else:
-                        if filtergroupnames == None:
+                        if filtergroupnames is None:
                             attrconfigs.append(attrconf)
 
             return attrconfigs
@@ -1699,7 +1826,7 @@ class Attrsman:
     def get_obj(self):
         return self._obj
 
-    def add(self, attrconf):
+    def add(self, attrconf, is_overwrite=False):
         """
         Add a one or several new attributes to be managed.
         kwargs has attribute name as key and Attribute configuration object
@@ -1707,9 +1834,9 @@ class Attrsman:
         """
 
         attrname = attrconf.attrname
-        # print
-        # 'Attrsman.add',self.get_obj().ident,'add',attrname,self.has_attrname(attrname)
-        if not self.has_attrname(attrname):
+        # print '\n\nAttrsman.add',self.get_obj().ident,'add',attrname,self.has_attrname(attrname)
+        dir(self._obj)
+        if (not self.has_attrname(attrname)) | is_overwrite:
             attrconf.set_obj(self._obj)
             attrconf.set_manager(self)
 
@@ -1720,33 +1847,47 @@ class Attrsman:
             self._attrconfigs.append(attrconf)
 
             # insert in groups
-            if len(attrconf.groupnames) > 0:
-                for groupname in attrconf.groupnames:
-
-                    if not self._groups.has_key(groupname):
-                        self._groups[groupname] = []
-
-                    self._groups[groupname].append(attrconf)
+            self.insert_groupnames(attrconf)
 
             if self.plugin:
                 self.plugin.exec_events_attr(EVTADD, attrconf)
 
             # return default value as attribute of managed object
-            if attrconf.struct in STRUCTS_SCALAR:  # == 'scalar':
+            if (attrconf.struct in STRUCTS_SCALAR) & (attrconf.is_returnval()):  # == 'scalar':
                 return attrconf.get_init()
             else:
                 return None  # table configs do their own init
 
         else:
-            # print '  attribute with this name already
-            # exists',attrname,type(attrconf)
+            # print '  attribute with this name already exists',attrname,type(attrconf)
+            # TODO: here we could do some intelligent updating
             del attrconf
             attrconf = getattr(self, attrname)
             # print '  existing',attrconf,type(attrconf)
-            if attrconf.struct in STRUCTS_SCALAR:  # == 'scalar':
+            if (attrconf.struct in STRUCTS_SCALAR) & (attrconf.is_returnval()):  # == 'scalar':
                 return attrconf.get_value()
             else:
                 return None  # table configs do their own init
+
+    def do_not_save_attr(self, attrname):
+        self._attrs_nosave.add(attrname)
+
+    def do_save_attr(self, attrname):
+        if attrname in self._attrs_nosave:
+            self._attrs_nosave.remove(attrname)
+
+    def do_not_save_attrs(self, attrnames):
+        self._attrs_nosave.update(attrnames)
+
+    def insert_groupnames(self, attrconf):
+        if len(attrconf.groupnames) > 0:
+            for groupname in attrconf.groupnames:
+
+                if not self._groups.has_key(groupname):
+                    self._groups[groupname] = []
+
+                if attrconf not in self._groups[groupname]:
+                    self._groups[groupname].append(attrconf)
 
     def get_groups(self):
         return self._groups
@@ -1770,14 +1911,18 @@ class Attrsman:
         Key is attribute name and value is attribute value. 
         """
         # print 'get_group_attrs', self._groups
-        attrs = {}
+        attrs = OrderedDict()
+        if not self._groups.has_key(name):
+            return attrs
         for attrconf in self._groups[name]:
+            # print '  attrconf.attrname',attrconf.attrname
             attrs[attrconf.attrname] = getattr(self._obj, attrconf.attrname)
+        # print '  attrs',attrs
         return attrs
 
     def print_attrs(self, show_unit=True, show_parentesis=False, attrconfigs=None):
         print 'Attributes of', self._obj._name, 'ident_abs=', self._obj.get_ident_abs()
-        if attrconfigs == None:
+        if attrconfigs is None:
             attrconfigs = self.get_configs()
 
         for attrconf in attrconfigs:
@@ -1818,7 +1963,25 @@ class Attrsman:
         # return False # attribute not existant
 
     def __getstate__(self):
-        # print '__getstate__',self.attrname
+        # if hasattr(self,'attrname'):
+        #    print 'Attrsman.__getstate__',self.attrname,'  of  obj=',self._obj.ident
+        # else:
+        #    print 'WARNING in Attrsman.__getstate__','attrname missing'
+
+        if not hasattr(self, '_obj'):
+            print 'WARNING: unknown obj in attrman', self, type(self)
+            # print '  dir',dir(self)
+            # if hasattr(self,'attrname'):
+            #    print '    No attrman but attribute',self.attrname
+            # for attrconf in self.get_configs(is_all=True):
+            #    print '  attrname=',attrconf.attrname
+            return {}
+
+        # if not hasattr(self,'_attrs_nosave'):
+        #    print 'WARNING: in __getstate__ of',self.attrname#,'obj',self._obj,'has no attr _attrs_nosave'
+        #    #self.print_attrs()
+        #    print 'dict=\n',self.__dict__
+
         # print '  self.__dict__=\n',self.__dict__.keys()
 
         state = {}
@@ -1827,13 +1990,22 @@ class Attrsman:
                 # TODO: optimize and put this at the end
             if attr == 'plugin':
                 plugin = self.__dict__[attr]
-                if plugin != None:
+                if plugin is not None:
                     state[attr] = True
                 else:
                     state[attr] = False
 
-            elif attr not in ATTRS_NOSAVE:
+            elif attr == '_attrconfigs':
+                attrconfigs_save = []
+                for attrconfig in self._attrconfigs:
+                    if attrconfig.is_save():
+                        attrconfigs_save.append(attrconfig)
+                state[attr] = attrconfigs_save
+
+            elif attr not in self._attrs_nosave:
                 state[attr] = self.__dict__[attr]
+
+        # print  '  _attrs_nosave=', self._attrs_nosave
         # print  '  state=', state
         return state
 
@@ -1861,6 +2033,12 @@ class Attrsman:
         """
         # print 'Attrsman.init_postload_internal of obj:',obj.ident
 
+        if not hasattr(self, '_attrs_nosave'):
+            self._attrs_nosave = set(ATTRS_NOSAVE)
+
+        # if not hasattr(self,'_attrs_nosave'):
+        #    print 'WARNING: in init_postload_internal of',self.attrname,'obj',obj,'has no attr _attrs_nosave'
+
         self._obj = obj
         self.init_plugin(self.plugin)
         for attrconfig in self.get_configs(is_all=True):
@@ -1875,12 +2053,11 @@ class Attrsman:
         # print 'init_postload_external',self._obj.get_ident()
 
         for attrconfig in self.get_configs(is_all=True):
-            # print '  **',attrconfig.attrname,attrconfig.metatype
+            # print '  ***',attrconfig.attrname,attrconfig.metatype
             attrconfig.init_postload_external()
 
 
 class Tabman(Attrsman):
-
     """
     Manages all table attributes of an object.
 
@@ -1909,8 +2086,7 @@ class Tabman(Attrsman):
         if not self.has_attrname(attrname):
             Attrsman.add(self, attrconf)  # insert in common attrs database
             self._colconfigs.append(attrconf)
-            # returns initial array and also create local array if
-            # self._is_localvalue == True
+            # returns initial array and also create local array if self._is_localvalue == True
             return attrconf.get_init()
         else:
             return getattr(self, attrname).get_value()
@@ -1937,14 +2113,14 @@ class Tabman(Attrsman):
             for colconfig in self._colconfigs:
                 if len(colconfig.groupnames) > 0:
                     if colconfig.groupnames[0] != '_private':
-                        if filtergroupnames != None:
+                        if filtergroupnames is not None:
                             if not set(filtergroupnames).isdisjoint(colconfig.groupnames):
                                 colconfigs.append(colconfig)
                         else:
                             colconfigs.append(colconfig)
 
                 else:
-                    if filtergroupnames == None:
+                    if filtergroupnames is None:
                         colconfigs.append(colconfig)
 
             return colconfigs
@@ -1992,7 +2168,7 @@ class Tabman(Attrsman):
         else:
             id_max = max(id_set)
         # print  'suggest_id',id0,
-        return list(id_set.symmetric_difference(xrange(id0, id_max + id0 + 1)))[0]
+        return list(id_set.symmetric_difference(xrange(id0, id_max+id0+1)))[0]
 
     def suggest_ids(self, n, is_zeroid=False):
         """
@@ -2012,10 +2188,10 @@ class Tabman(Attrsman):
         else:
             id_max = max(id_set)
 
-        return list(id_set.symmetric_difference(xrange(id0, id_max + id0 + n)))[:n]
+        return list(id_set.symmetric_difference(xrange(id0, id_max+id0+n)))[:n]
 
     def add_rows(self, n=None, ids=[], **attrs):
-        if n != None:
+        if n is not None:
             ids = self.suggest_ids(n)
         elif len(ids) == 0:
             # get number of rows from any valye vector provided
@@ -2033,7 +2209,7 @@ class Tabman(Attrsman):
         return ids
 
     def add_row(self, _id=None, **attrs):
-        if _id == None:
+        if _id is None:
             _id = self.suggest_id()
         self._ids += [_id, ]
         for colconfig in self._colconfigs:
@@ -2093,8 +2269,7 @@ class Tabman(Attrsman):
 
     def print_attrs(self, **kwargs):
         # print 'Attributes of',self._obj._name,'(ident=%s)'%self._obj.ident
-        Attrsman.print_attrs(self, attrconfigs=self.get_configs(
-            structs=['scalar']), **kwargs)
+        Attrsman.print_attrs(self, attrconfigs=self.get_configs(structs=['scalar']), **kwargs)
         # print '   ids=',self._ids
         for _id in self.get_ids():
             for attrconf in self.get_configs(structs=STRUCTS_COL):
@@ -2102,13 +2277,12 @@ class Tabman(Attrsman):
 
 
 class BaseObjman:
-
     """
     Object management base methods to be inherited by all object managers.
     """
 
     def __init__(self, ident, is_plugin=False,  **kwargs):
-        # print 'BaseObjman.__init__',kwargs
+        # print 'BaseObjman.__init__',ident#,kwargs
         self._init_objman(ident, **kwargs)
         self.set_attrsman(Attrsman(self, is_plugin=is_plugin))
         # print 'BaseObjman.__init__',self.format_ident(),'parent=',self.parent
@@ -2122,27 +2296,28 @@ class BaseObjman:
     def _init_objman(self, ident='no_ident', parent=None, name=None,
                      managertype='basic', info=None, logger=None,
                      xmltag=None, version=0.0):
-        # print 'BaseObjman._init_objman',ident,logger
+        # print 'BaseObjman._init_objman',ident,logger,parent
         self.managertype = managertype
         self.ident = ident
         self.set_version(version)
         self.set_logger(logger)
 
+        #self._is_root = False
         self.parent = parent
-        # dict with attrname as key and child instance as value
-        self.childs = {}
+        self.childs = {}  # dict with attrname as key and child instance as value
 
         self._info = info
 
         self._is_saved = False
 
-        if name == None:
+        if name is None:
             self._name = self.format_ident()
         else:
             self._name = name
-        # self._init_xml(xmltag)
-        self.xmltag = xmltag
 
+        self.set_xmltag(xmltag)
+
+        # print '  self.parent',self.parent
         # must be called explicitely during  __init__
         # self._init_attributes()
         # self._init_constants()
@@ -2174,7 +2349,7 @@ class BaseObjman:
     #    pass
 
     # def _init_xml(self,xmltag=None):
-    #    if xmltag != None:
+    #    if xmltag is not None:
     #        self.xmltag = xmltag
     #    else:
     #        self.xmltag = self.get_ident()
@@ -2183,7 +2358,9 @@ class BaseObjman:
         """
         Resets all attributes to default values
         """
+        # print 'reset'
         for attrconfig in self.get_attrsman().get_configs(is_all=True):
+            # print '  reset',attrconfig.attrname
             attrconfig.reset()
 
     def clear(self):
@@ -2193,16 +2370,26 @@ class BaseObjman:
         for attrconfig in self.get_attrsman().get_configs(is_all=True):
             attrconfig.clear()
 
+        self._init_constants()
+
+    def unplug(self):
+        if self.plugin:
+            self.plugin.unplug()
+
+    def set_xmltag(self, xmltag, xmlsep=' '):
+        self.xmltag = xmltag
+        self.xmlsep = xmlsep
+
     def write_xml(self, fd, ident):
-        if self.xmltag != None:
+        if self.xmltag is not None:
             # figure out scalar attributes and child objects
             attrconfigs = []
             objconfigs = []
             for attrconfig in self.get_attrsman().get_configs(structs=STRUCTS_SCALAR):
                 if (attrconfig.metatype == 'obj'):  # better use self.childs
-                    if (attrconfig.get_value().xmltag != None) & attrconfig.is_child():
+                    if (attrconfig.get_value().xmltag is not None) & attrconfig.is_child():
                         objconfigs.append(attrconfig)
-                elif attrconfig.xmltag != None:
+                elif attrconfig.xmltag is not None:
                     attrconfigs.append(attrconfig)
 
             # start writing
@@ -2216,7 +2403,7 @@ class BaseObjman:
                 if len(objconfigs) > 0:
                     fd.write(xm.stop())
                     for attrconfig in objconfigs:
-                        attrconfig.get_value().write_xml(fd, ident + 2)
+                        attrconfig.get_value().write_xml(fd, ident+2)
                     fd.write(xm.end(self.xmltag, ident))
                 else:
                     fd.write(xm.stopit())
@@ -2225,12 +2412,12 @@ class BaseObjman:
                 fd.write(xm.begin(self.xmltag, ident))
                 if len(objconfigs) > 0:
                     for attrconfig in objconfigs:
-                        attrconfig.get_value().write_xml(fd, ident + 2)
+                        attrconfig.get_value().write_xml(fd, ident+2)
                 fd.write(xm.end(self.xmltag, ident))
 
     def get_logger(self):
         # print 'get_logger',self.ident,self._logger,self.parent
-        if self._logger != None:
+        if self._logger is not None:
             return self._logger
         else:
             return self.parent.get_logger()
@@ -2253,7 +2440,7 @@ class BaseObjman:
         return self._name
 
     def get_info(self):
-        if self._info == None:
+        if self._info is None:
             return self.__doc__
         else:
             return self._info
@@ -2263,7 +2450,7 @@ class BaseObjman:
 
     def _format_ident(self, ident):
         if hasattr(ident, '__iter__'):
-            return str(ident[0]) + '#' + str(ident[1])
+            return str(ident[0])+'#'+str(ident[1])
         else:
             return str(ident)
 
@@ -2274,11 +2461,16 @@ class BaseObjman:
         s = ''
         # print 'format_ident_abs',self.get_ident_abs()
         for ident in self.get_ident_abs():
-            s += self._format_ident(ident) + '.'
+            s += self._format_ident(ident)+'.'
         return s[:-1]
 
     def get_root(self):
-        if self.parent != None:
+        # if hasattr(self,'_is_root'):
+        #    print 'get_root',self.ident,'is_root',self._is_root
+        #    if self._is_root:
+        #        return self
+
+        if self.parent is not None:
             return self.parent.get_root()
         else:
             return self
@@ -2291,10 +2483,15 @@ class BaseObjman:
         object manager.
         """
         # print 'obj.get_ident_abs',self.ident,self.parent, type(self.parent)
-        if self.parent != None:
-            return self.parent.get_ident_abs() + [self.ident]
+        # if hasattr(self,'_is_root'):
+        #    print 'get_ident_abs',self.ident,'is_root',self._is_root
+        #    if self._is_root:
+        #        return (self.get_ident(),)# always return tuple
+
+        if self.parent is not None:
+            return self.parent.get_ident_abs()+(self.ident,)
         else:
-            return [self.get_ident()]
+            return (self.get_ident(),)  # always return tuple
 
     def get_obj_from_ident(self, ident_abs):
         # print 'get_obj_from_ident',self.ident,ident_abs
@@ -2308,12 +2505,45 @@ class BaseObjman:
         else:
             return self.get_childobj(ident_abs[1]).get_obj_from_ident(ident_abs[1:])
 
+    # this is an attemt to restore objects from
+    # root objects without childs
+    # def search_ident_abs(self, childobj):
+    #    """
+    #    Returns root and absolute ident for the found root.
+    #    """
+    #    #if hasattr(self,'_is_root'):
+    #    #    print 'get_root',self.ident,'is_root',self._is_root
+    #    #    if self._is_root:
+    #    #        return self
+    #
+    #    if self.parent is not None:
+    #        if self.parent.childs.has_key(childobj.ident)
+    #        return self.parent.get_root()
+    #    else:
+    #        return self
+
+    # def search_obj_from_ident(self, ident_abs, obj_init):
+    #
+    #    #print 'get_obj_from_ident',self.ident,ident_abs
+    #    if len(ident_abs)==1:
+    #        # arrived at the last element
+    #        # check if it corresponds to the present object
+    #        if ident_abs[0] == self.ident:
+    #            return self
+    #        else:
+    #            return None # could throw an error
+    #   else:
+    #       return self.get_childobj(ident_abs[1]).get_obj_from_ident(ident_abs[1:])
+
     def get_childobj(self, attrname):
         """
         Return child instance
         """
-        config = self.childs[attrname]
-        return config.get_value()
+        if self.childs.has_key(attrname):
+            config = self.childs[attrname]
+            return config.get_value()
+        else:
+            return BaseObjman(self)
 
     def set_child(self, childconfig):
         """
@@ -2352,15 +2582,14 @@ class BaseObjman:
         pass
 
     def __getstate__(self):
-        # print '__getstate__',self.ident,self._is_saved
+        # print 'BaseObjman.__getstate__',self.ident,self._is_saved
         # print '  self.__dict__=\n',self.__dict__.keys()
         state = {}
         # if not self._is_saved:
 
         # if self._is_saved:
         #    # this message indicates a loop!!
-        # print 'WARNING in __getstate__: object already
-        # saved',self.format_ident_abs()
+        #    print 'WARNING in __getstate__: object already saved',self.format_ident_abs()
 
         # print  '  save standart values'
         for attr in ATTRS_SAVE:
@@ -2382,7 +2611,7 @@ class BaseObjman:
         self._is_saved = True
 
         # else:
-        # print 'WARNING in __getstate__: object %s already saved'%self.ident
+        #    print 'WARNING in __getstate__: object %s already saved'%self.ident
         return state
 
     def __setstate__(self, state):
@@ -2411,8 +2640,8 @@ class BaseObjman:
         Called after set state.
         Link internal states and call constant settings.
         """
-        # print 'BaseObjman.init_postload_internal',self.ident,'parent:',
-        # if parent != None:
+        print 'BaseObjman.init_postload_internal', self.ident, 'parent:'
+        # if parent is not None:
         #    print parent.ident
         # else:
         #    print 'ROOT'
@@ -2425,6 +2654,9 @@ class BaseObjman:
         Called after set state.
         Link internal states.
         """
+
+        #self._is_root =  is_root
+        print 'init_postload_external', self.ident  # ,self._is_root
         # set default logger
         self.set_logger(Logger(self))
         # for child in self.childs.values():
@@ -2438,10 +2670,10 @@ class TableMixin(BaseObjman):
 
     def format_ident_row(self, _id):
         # print 'format_ident_row',_id
-        return self.format_ident() + '[' + str(_id) + ']'
+        return self.format_ident()+'['+str(_id)+']'
 
     def format_ident_row_abs(self, _id):
-        return self.format_ident_abs() + '[' + str(_id) + ']'
+        return self.format_ident_abs()+'['+str(_id)+']'
 
     def get_obj_from_ident(self, ident_abs):
         # print 'get_obj_from_ident',self.ident,ident_abs,type(ident_abs)
@@ -2492,10 +2724,10 @@ class TableMixin(BaseObjman):
         if 1:  # not self._is_saved:
 
             # print  '  save standart values'
-            for attr in ATTRS_SAVE + ATTRS_SAVE_TABLE:
+            for attr in ATTRS_SAVE+ATTRS_SAVE_TABLE:
                 if attr == 'plugin':
                     plugin = self.__dict__[attr]
-                    if plugin != None:
+                    if plugin is not None:
                         state[attr] = True
                     else:
                         state[attr] = False
@@ -2552,10 +2784,13 @@ class TableMixin(BaseObjman):
         Link internal states.
         """
         # print 'TableObjman.init_postload_internal',self.ident,'parent:',
-        # if parent != None:
+        # if parent is not None:
         #    print parent.ident
         # else:
         #    print 'ROOT'
+
+        if not hasattr(self, '_attrs_nosave'):
+            self._attrs_nosave = set(ATTRS_NOSAVE)
 
         self.parent = parent
         self.childs = {}
@@ -2581,14 +2816,14 @@ class TableMixin(BaseObjman):
         # print 'export_csv',filepath,"*"+sep+"*"
         fd = open(filepath, 'w')
 
-        if ids == None:
+        if ids is None:
             ids = self.get_ids()
 
-        if groupname != None:
+        if groupname is not None:
             attrconfigs = self.get_group(groupname)
             is_exportall = False
 
-        if attrconfigs == None:
+        if attrconfigs is None:
             attrconfigs = self.get_colconfigs(is_all=True)
             is_exportall = False
         else:
@@ -2599,11 +2834,11 @@ class TableMixin(BaseObjman):
 
             row = self._clean_csv(self.get_name(), sep)
             if is_ident:
-                row += sep + '(ident=%s)' % self.format_ident_abs()
-            fd.write(row + '\n')
+                row += sep+'(ident=%s)' % self.format_ident_abs()
+            fd.write(row+'\n')
             if is_timestamp:
                 now = datetime.now()
-                fd.write(self._clean_csv(now.isoformat(), sep) + '\n')
+                fd.write(self._clean_csv(now.isoformat(), sep)+'\n')
             fd.write('\n\n')
 
         # first table row
@@ -2612,8 +2847,8 @@ class TableMixin(BaseObjman):
             # print '   write first row',attrconf.attrname
             is_private = attrconf.has_group('_private')
             if ((not is_private) & (attrconf.is_save())) | is_exportall:
-                row += sep + self._clean_csv(attrconf.format_symbol(), sep)
-        fd.write(row + '\n')
+                row += sep+self._clean_csv(attrconf.format_symbol(), sep)
+        fd.write(row+'\n')
 
         # rest
         for _id in ids:
@@ -2625,15 +2860,13 @@ class TableMixin(BaseObjman):
             for attrconf in attrconfigs:
                 is_private = attrconf.has_group('_private')
                 if ((not is_private) & (attrconf.is_save())) | is_exportall:
-                    row += sep + \
-                        self._clean_csv(
-                            '%s' % (attrconf.format_value(_id, show_unit=False)), sep)
+                    row += sep+self._clean_csv('%s' % (attrconf.format_value(_id, show_unit=False)), sep)
 
             # make sure there is no CR in the row!!
             # print  row
-            fd.write(row + '\n')
+            fd.write(row+'\n')
 
-        if filepath != None:
+        if filepath is not None:
             fd.close()
 
     def _clean_csv(self, row, sep):
@@ -2650,8 +2883,7 @@ class TableMixin(BaseObjman):
             self.plugin.exec_events_ids(EVTDELITEM, self.get_ids())
         self._ids = []
         for colconfig in self.get_attrsman()._colconfigs:
-            # print
-            # 'ArrayObjman.clear_rows',colconfig.attrname,len(colconfig.get_value())
+            # print 'ArrayObjman.clear_rows',colconfig.attrname,len(colconfig.get_value())
             colconfig.clear()
             # print '  done',len(colconfig.get_value())
 
@@ -2674,7 +2906,7 @@ class TableMixin(BaseObjman):
             ids_xml = ids
 
         for attrconfig in objconfigs:
-            attrconfig.get_value().write_xml(fd, indent + 2)
+            attrconfig.get_value().write_xml(fd, indent+2)
 
         # check if columns contain objects
         #objcolconfigs = []
@@ -2686,7 +2918,7 @@ class TableMixin(BaseObjman):
         #        scalarcolconfigs.append(attrconfig)
 
         for _id, id_xml in zip(ids, ids_xml):
-            fd.write(xm.start(xmltag_item, indent + 2))
+            fd.write(xm.start(xmltag_item, indent+2))
 
             # print '   make tag and id',_id
             if xmltag_id == '':
@@ -2700,8 +2932,7 @@ class TableMixin(BaseObjman):
                 # use id tag and values of attrconfig_id
                 attrconfig_id.write_xml(fd, _id)
 
-            # print ' write
-            # columns',len(scalarcolconfigs)>0,len(idcolconfig_include_tab)>0,len(objcolconfigs)>0
+            # print ' write columns',len(scalarcolconfigs)>0,len(idcolconfig_include_tab)>0,len(objcolconfigs)>0
             for attrconfig in scalarcolconfigs:
                 # print '    scalarcolconfig',attrconfig.attrname
                 attrconfig.write_xml(fd, _id)
@@ -2711,12 +2942,12 @@ class TableMixin(BaseObjman):
 
                 for attrconfig in idcolconfig_include_tab:
                     # print '    include_tab',attrconfig.attrname
-                    attrconfig.write_xml(fd, _id, indent + 4)
+                    attrconfig.write_xml(fd, _id, indent+4)
 
                 for attrconfig in objcolconfigs:
                     # print '    objcolconfig',attrconfig.attrname
-                    attrconfig[_id].write_xml(fd, indent + 4)
-                fd.write(xm.end(xmltag_item, indent + 2))
+                    attrconfig[_id].write_xml(fd, indent+4)
+                fd.write(xm.end(xmltag_item, indent+2))
             else:
                 fd.write(xm.stopit())
 
@@ -2725,13 +2956,13 @@ class TableMixin(BaseObjman):
     def write_xml(self, fd, indent, xmltag_id='id', ids=None, ids_xml=None,
                   is_print_begin_end=True, attrconfigs_excluded=[]):
         # print 'write_xml',self.ident#,ids
-        if self.xmltag != None:
+        if self.xmltag is not None:
             xmltag, xmltag_item, attrname_id = self.xmltag
 
             if xmltag == '':  # no begin end statements
                 is_print_begin_end = False
 
-            if ids != None:
+            if ids is not None:
                 if not hasattr(ids, '__iter__'):
                     ids = [ids]
 
@@ -2739,12 +2970,11 @@ class TableMixin(BaseObjman):
                 attrconfig_id = None
                 xmltag_id = ''
 
-            elif attrname_id != None:  # an attrconf for id has been defined
+            elif attrname_id is not None:  # an attrconf for id has been defined
                 attrconfig_id = getattr(self.get_attrsman(), attrname_id)
                 xmltag_id = None  # this will define the id tag
             else:
-                # native id will be written using xmltag_id from args
-                attrconfig_id = None
+                attrconfig_id = None  # native id will be written using xmltag_id from args
 
             # print '  attrname_id,attrconfig_id',attrname_id,attrconfig_id
             # if attrconfig_id is not None:
@@ -2757,15 +2987,14 @@ class TableMixin(BaseObjman):
             objcolconfigs = []
             idcolconfig_include_tab = []
             for attrconfig in self.get_attrsman().get_configs(is_all=True):
-                # print '  check',attrconfig.attrname,attrconfig.xmltag!=
-                # None,attrconfig.is_colattr(),attrconfig.metatype
+                # print '  check',attrconfig.attrname,attrconfig.xmltagis not None,attrconfig.is_colattr(),attrconfig.metatype
                 if attrconfig == attrconfig_id:
                     pass
                 elif attrconfig in attrconfigs_excluded:
                     pass
                 elif attrconfig.is_colattr() & (attrconfig.metatype == 'obj'):
                     objcolconfigs.append(attrconfig)
-                elif (attrconfig.is_colattr()) & (attrconfig.metatype in ('ids', 'id')) & (attrconfig.xmltag != None):
+                elif (attrconfig.is_colattr()) & (attrconfig.metatype in ('ids', 'id')) & (attrconfig.xmltag is not None):
                     if hasattr(attrconfig, "is_xml_include_tab"):
                         if attrconfig.is_xml_include_tab:
                             idcolconfig_include_tab.append(attrconfig)
@@ -2773,12 +3002,12 @@ class TableMixin(BaseObjman):
                             colconfigs.append(attrconfig)
                     else:
                         colconfigs.append(attrconfig)
-                elif attrconfig.is_colattr() & (attrconfig.xmltag != None):
+                elif attrconfig.is_colattr() & (attrconfig.xmltag is not None):
                     colconfigs.append(attrconfig)
                 elif (attrconfig.metatype == 'obj'):  # better use self.childs
-                    if (attrconfig.get_value().xmltag != None) & attrconfig.is_child():
+                    if (attrconfig.get_value().xmltag is not None) & attrconfig.is_child():
                         objconfigs.append(attrconfig)
-                elif attrconfig.xmltag != None:
+                elif attrconfig.xmltag is not None:
                     attrconfigs.append(attrconfig)
 
             # print '  attrconfigs',attrconfigs
@@ -2820,7 +3049,6 @@ class TableMixin(BaseObjman):
 
 
 class TableObjman(Tabman, TableMixin):
-
     """
     Table Object management manages objects with list and dict based columns. 
     For faster operation use ArrayObjman in arrayman package, which requires numpy.
@@ -2836,6 +3064,7 @@ class TableObjman(Tabman, TableMixin):
         Tabman.__init__(self, is_plugin=is_plugin)
         # self.set_attrsman(self)
         self.set_attrsman(self)
+
 
 
 ###############################################################################

@@ -11,19 +11,19 @@
 
 # @file    sumopy_gui.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 """SUMOPy is intended to expand the user-base of the traffic micro-simulator SUMO (Simulation of Urban MObility) by providing a user-friendly, yet flexible simulation suite.
 
 A further scope of SUMOPy is to manage the huge amount of data necessary to run complex multi-modal simulations.
-This includes different demand generation models as well as a large range of modes, such as public transport, 
+This includes different demand generation models as well as a large range of modes, such as public transport,
 bicycle and Personal Rapid Transit (PRT). SUMOPy consists of a GUI interface, network editor as well as a simple to use scripting language which facilitates the use of SUMO.
 """
 __appname__ = "SUMOPy"
-__version__ = "2.0"
-__licence__ = """SUMOPy as well as SUMO are licensed under the EPL."""
-__copyright__ = "(c) 2012-2017 University of Bologna - DICAM"
+__version__ = "2.2"
+__licence__ = """SUMOPy as well as SUMO is licensed under the GPL."""
+__copyright__ = "(c) 2012-2018 University of Bologna - DICAM"
 __author__ = "Joerg Schweizer"
 __usage__ = """USAGE:
 from command line:
@@ -40,7 +40,7 @@ use for debugging:
     python sumopy_gui.py --debug > debug.txt 2>&1
 """
 
-print __appname__ + ' version' + __version__ + '\n' + __copyright__
+print __appname__+' version'+__version__+'\n'+__copyright__
 
 ###############################################################################
 # IMPORTS
@@ -49,7 +49,12 @@ import sys
 
 import wxversion
 try:
-    wxversion.select("2.8")
+    try:
+        wxversion.select("3.0")
+    except:
+        wxversion.select("2.8")
+
+    #
 except:
     sys.exit('ERROR: wxPython versions 2.8 not available.')
 
@@ -59,8 +64,7 @@ moduledirs = ['coremodules', 'plugins']
 APPDIR = ''
 if __name__ == '__main__':
     if False:  # 'SUMO_HOME' in os.environ:
-        APPDIR = os.path.join(
-            os.environ['SUMO_HOME'], 'tools', 'contributed', 'sumopy')
+        APPDIR = os.path.join(os.environ['SUMO_HOME'], 'tools', 'contributed', 'sumopy')
     else:
         try:
             APPDIR = os.path.dirname(os.path.abspath(__file__))
@@ -95,12 +99,11 @@ class MyApp(wx.App):
             moduledirs=moduledirs,  # subdirectories containing modules
             appdir=APPDIR,
             args=sys.argv,
-            is_maximize=False, is_centerscreen=True,
+            is_maximize=True, is_centerscreen=True,
             size_toolbaricons=(32, 32),
             style=wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
         )
-        icon = wx.Icon(os.path.join(APPDIR, 'images',
-                                    'icon_sumopy.png'), wx.BITMAP_TYPE_PNG, 16, 16)
+        icon = wx.Icon(os.path.join(APPDIR, 'images', 'icon_sumopy.png'), wx.BITMAP_TYPE_PNG, 16, 16)
         self.mainframe.SetIcon(icon)
         self.mainframe.Show()
 
@@ -109,8 +112,7 @@ class MyApp(wx.App):
         self.mainframe.menubar.append_menu('About')
         self.mainframe.menubar.append_item('About/Info...', self.on_about,
                                            info='About SUMOPy',
-                                           bitmap=wx.ArtProvider.GetBitmap(
-                                               wx.ART_INFORMATION, wx.ART_MENU)
+                                           bitmap=wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MENU)
                                            )
 
     def on_about(self, event):
@@ -125,8 +127,7 @@ class MyApp(wx.App):
         # info.SetWebSite('http://distart041.ing.unibo.it/~mait/projects/sim/users_guide/users_guide.html')
         info.SetLicence(__licence__)
         info.AddDeveloper(__author__)
-        info.AddDeveloper(
-            "Supported by the SUMO team at the German Aerospace Center (DLR)!")
+        info.AddDeveloper("Supported by the SUMO team at the German Aerospace Center (DLR)!")
         info.AddDocWriter(__author__)
         info.AddArtist(__author__)
         #info.AddTranslator('Jan Bodnar')

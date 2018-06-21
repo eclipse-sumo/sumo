@@ -10,7 +10,7 @@
 
 # @file    test_notebook.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 
@@ -19,11 +19,10 @@ import wx
 
 
 class PanelOne(wx.Panel):
-
     """
     This will be the first notebook tab
     """
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
 
     def __init__(self, parent):
         """"""
@@ -42,11 +41,10 @@ class PanelOne(wx.Panel):
 
 
 class NestedPanel(wx.Panel):
-
     """
     This will be the first notebook tab
     """
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
 
     def __init__(self, parent):
         """"""
@@ -70,12 +68,11 @@ class NestedPanel(wx.Panel):
 
 ########################################################################
 class NestedNotebookDemo(wx.Notebook):
-
     """
     Notebook class
     """
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self, parent):
         wx.Notebook.__init__(self, parent, id=wx.ID_ANY, style=wx.BK_DEFAULT
                              # wx.BK_TOP
@@ -124,12 +121,11 @@ class NestedNotebookDemo(wx.Notebook):
 
 ########################################################################
 class DemoFrame(wx.Frame):
-
     """
     Frame that holds all other widgets
     """
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self):
         """Constructor"""
         wx.Frame.__init__(self, None, wx.ID_ANY,
@@ -146,7 +142,8 @@ class DemoFrame(wx.Frame):
 
         self.Show()
 
-#----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
 if __name__ == "__main__":
     app = wx.PySimpleApp()
     frame = DemoFrame()

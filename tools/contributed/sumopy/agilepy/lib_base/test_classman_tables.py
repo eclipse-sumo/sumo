@@ -10,7 +10,7 @@
 
 # @file    test_classman_tables.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 #from classman import *
@@ -43,8 +43,7 @@ if 1 | is_all:
         [[0.5, 0.0, 0.1], [1.9, 0.0, 0.0]],  # 2
     ]
     polygons = [
-        np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [
-                 0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
+        np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
         np.array([[0.3, 0.0, 0.0], [0.9, 0.0, 0.0]]),  # 1
         np.array([[0.5, 0.0, 0.1], [1.9, 0.0, 0.0], [0.2, 0.2, 0.2]]),  # 2
     ]
@@ -114,8 +113,7 @@ if 0 | is_all:
         [[0.5, 0.0, 0.1], [1.9, 0.0, 0.0]],  # 2
     ]
     polygons = [
-        np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [
-                 0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
+        np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
         np.array([[0.3, 0.0, 0.0], [0.9, 0.0, 0.0]]),  # 1
         np.array([[0.5, 0.0, 0.1], [1.9, 0.0, 0.0], [0.2, 0.2, 0.2]]),  # 2
     ]
@@ -172,8 +170,7 @@ if 0 | is_all:
         [[0.5, 0.0, 0.1], [1.9, 0.0, 0.0]],  # 2
     ]
     polygons = [
-        np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [
-                 0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
+        np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0], [0.2, 0.0, 0.1], [0.3, 0.3, 0.3]]),  # 0
         np.array([[0.3, 0.0, 0.0], [0.9, 0.0, 0.0]]),  # 1
         np.array([[0.5, 0.0, 0.1], [1.9, 0.0, 0.0], [0.2, 0.2, 0.2]]),  # 2
     ]
@@ -185,7 +182,6 @@ if 0 | is_all:
 
 if 0 | is_all:
     class ZonesTab(ArrayObjman):
-
         def __init__(self, ident,  parent=None, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -198,7 +194,6 @@ if 0 | is_all:
                                  ))
 
     class OdTripsTab(ArrayObjman):
-
         def __init__(self, ident,  parent, zones, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -225,7 +220,6 @@ if 0 | is_all:
                                  ))
 
     class OdModesTab(ArrayObjman):
-
         def __init__(self, ident,  parent=None, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -237,7 +231,6 @@ if 0 | is_all:
                                   ))
 
     class OdIntervalsTab(ArrayObjman):
-
         def __init__(self, ident,  parent=None, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -279,21 +272,17 @@ if 0 | is_all:
               ]
     zones.add_rows(3, shapes=shapes)
 
-    odintervals = OdIntervalsTab(
-        'odintervals', parent=demand, info='OD data for different time intervals')
+    odintervals = OdIntervalsTab('odintervals', parent=demand, info='OD data for different time intervals')
     demand.odintervals = demand.attrsman.add(ObjConf(odintervals))
     odintervals.add_rows(2, t_start=[0, 3600], t_end=[3600, 7200])
     for id_odmodes in odintervals.get_ids():
-        odmodes = OdModesTab(
-            (odintervals.odmodes.attrname, id_odmodes), parent=odintervals)
+        odmodes = OdModesTab((odintervals.odmodes.attrname, id_odmodes), parent=odintervals)
         odintervals.odmodes[id_odmodes] = odmodes
 
         odmodes.add_rows(2)
         for id_odtrips in odmodes.get_ids():
-            odtrips = OdTripsTab(
-                (odmodes.odtrips.attrname, id_odtrips), odmodes, zones)
-            odtrips.add_rows(3, ids_orig=[3, 2, 1], ids_dest=[
-                             3, 3, 3], tripnumbers=[10, 200, 555])
+            odtrips = OdTripsTab((odmodes.odtrips.attrname, id_odtrips), odmodes, zones)
+            odtrips.add_rows(3, ids_orig=[3, 2, 1], ids_dest=[3, 3, 3], tripnumbers=[10, 200, 555])
             odmodes.odtrips[id_odtrips] = odtrips
 
     demand.attrsman.print_attrs()
@@ -309,7 +298,6 @@ if 0 | is_all:
 
 if 0 | is_all:
     class ZonesTab(TableObjman):
-
         def __init__(self, ident,  parent=None, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -322,7 +310,6 @@ if 0 | is_all:
                                  ))
 
     class OdTripsTab(TableObjman):
-
         def __init__(self, ident,  parent, zones, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -349,7 +336,6 @@ if 0 | is_all:
                                  ))
 
     class OdModesTab(TableObjman):
-
         def __init__(self, ident,  parent=None, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -361,7 +347,6 @@ if 0 | is_all:
                                   ))
 
     class OdIntervalsTab(TableObjman):
-
         def __init__(self, ident,  parent=None, **kwargs):
             self._init_objman(ident, parent=parent, **kwargs)
 
@@ -403,22 +388,17 @@ if 0 | is_all:
               ]
     zones.add_rows(3, shapes=shapes)
 
-    odintervals = OdIntervalsTab(
-        'odintervals', parent=demand, info='OD data for different time intervals')
-    demand.odintervals = demand.attrsman.add(
-        ObjConf(odintervals, is_child=True))
+    odintervals = OdIntervalsTab('odintervals', parent=demand, info='OD data for different time intervals')
+    demand.odintervals = demand.attrsman.add(ObjConf(odintervals, is_child=True))
     odintervals.add_rows(2, t_start=[0, 3600], t_end=[3600, 7200])
     for id_odmodes in odintervals.get_ids():
-        odmodes = OdModesTab(
-            (odintervals.odmodes.attrname, id_odmodes), parent=odintervals)
+        odmodes = OdModesTab((odintervals.odmodes.attrname, id_odmodes), parent=odintervals)
         odintervals.odmodes[id_odmodes] = odmodes
 
         odmodes.add_rows(2)
         for id_odtrips in odmodes.get_ids():
-            odtrips = OdTripsTab(
-                (odmodes.odtrips.attrname, id_odtrips), odmodes, zones)
-            odtrips.add_rows(3, ids_orig=[3, 2, 1], ids_dest=[
-                             3, 3, 3], tripnumbers=[10, 200, 555])
+            odtrips = OdTripsTab((odmodes.odtrips.attrname, id_odtrips), odmodes, zones)
+            odtrips.add_rows(3, ids_orig=[3, 2, 1], ids_dest=[3, 3, 3], tripnumbers=[10, 200, 555])
             odmodes.odtrips[id_odtrips] = odtrips
 
     demand.attrsman.print_attrs()
@@ -555,8 +535,7 @@ if 0 | is_all:
 
     # streetname
     # print 'This is the value of the attribute: obj.streetname=',obj.streetname
-    # print 'This is the configuration instance of the attribute
-    # x',obj.attrsman.x
+    # print 'This is the configuration instance of the attribute x',obj.attrsman.x
     obj.attrsman.print_attrs()
 
 
@@ -567,6 +546,5 @@ if 0 | is_all:
 
     # streetname
     # print 'This is the value of the attribute: obj.streetname=',obj.streetname
-    # print 'This is the configuration instance of the attribute
-    # x',obj.attrsman.x
+    # print 'This is the configuration instance of the attribute x',obj.attrsman.x
     obj.print_attrs()

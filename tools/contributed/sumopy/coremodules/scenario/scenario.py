@@ -10,7 +10,7 @@
 
 # @file    scenario.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 
@@ -24,8 +24,7 @@ if __name__ == '__main__':
     sys.path.append(os.path.join(FILEDIR, "..", ".."))
 
 # this is default scenario directory
-# os.path.join(os.getcwd(),'testscenario')
-DIRPATH_SCENARIO = os.path.join(os.path.expanduser("~"), 'Sumo')
+DIRPATH_SCENARIO = os.path.join(os.path.expanduser("~"), 'Sumo')  # os.path.join(os.getcwd(),'testscenario')
 
 
 import numpy as np
@@ -36,27 +35,29 @@ from agilepy.lib_base.processes import Process
 from coremodules.network import network
 from coremodules.landuse import landuse
 from coremodules.demand import demand
+from coremodules.simulation import simulation
+from coremodules.misc import shapeformat
 
 
 def load_scenario(filepath, logger=None):
     scenario = cm.load_obj(filepath, parent=None)
     # scenario.set_workdirpath(os.path.dirname(filepath))
     # this will set rootname and workdir
+
     scenario.set_filepath(filepath)
-    if logger != None:
+    # print 'load_scenario', scenario.get_rootfilepath(),'workdirpath',scenario.workdirpath
+    if logger is not None:
         scenario.set_logger(logger)
     return scenario
 
 
 class ScenarioCreator(Process):
-
     def __init__(self, rootname='myscenario', name_scenario='My Scenario', workdirpath=None, description='', logger=None):
 
         # init process
-        self._init_common('scenariocreator',
-                          name='New Scenario', logger=logger)
+        self._init_common('scenariocreator',  name='New Scenario', logger=logger)
 
-        if workdirpath == None:
+        if workdirpath is None:
             #workdirpath = os.getcwd()
             workdirpath = os.path.expanduser("~")
         attrsman = self.get_attrsman()
@@ -98,24 +99,79 @@ class ScenarioCreator(Process):
                                   workdirpath=self.workdirpath,
                                   logger=self.get_logger(),
                                   )
+        return True
 
     def get_scenario(self):
         return self._scenario
 
+# class OxScenariocreator(ScenarioCreator):
+# def __init__(self, **kwargs):
+##
+# ScenarioCreator.__init__(self,**kwargs)
+##
+# nodeshapefilepath, edgeshapefilepath, polyshapefilepath,
+##        attrsman = self.get_attrsman()
+# self.nodeshapefilepath = attrsman.add(
+# cm.AttrConf('nodeshapefilepath',kwargs.get('nodeshapefilepath',''),
+##                                groupnames = ['options'],
+# perm='rw',
+##                                name = 'Nodes shapefile',
+##                                wildcards = 'Shape file (*.shp)|*.shp;*.SHP',
+##                                metatype = 'filepaths',
+##                                info = """Shapefile path for nodes.""",
+# ))
+##
+# self.edgeshapefilepath = attrsman.add(
+# cm.AttrConf('edgeshapefilepath',kwargs.get('edgeshapefilepath',''),
+##                                groupnames = ['options'],
+# perm='rw',
+##                                name = 'Edge shapefile',
+##                                wildcards = 'Shape file (*.shp)|*.shp;*.SHP',
+##                                metatype = 'filepaths',
+##                                info = """Shapefile path for edges.""",
+# ))
+##
+# self.polyshapefilepath = attrsman.add(
+# cm.AttrConf('polyshapefilepath',kwargs.get('polyshapefilepath',''),
+##                                groupnames = ['options'],
+# perm='rw',
+##                                name = 'Poly shapefile',
+##                                wildcards = 'Shape file (*.shp)|*.shp;*.SHP',
+##                                metatype = 'filepaths',
+##                                info = """Shapefile path for polygons.""",
+# ))
+##
+##
+# def do(self):
+# print 'do',self.newident
+# if ScenarioCreator.do(self):
+##
+##            scenario = self.get_scenario()
+# return shapeformat.OxImporter(scenario,
+##                            self.nodeshapefilepath, self.edgeshapefilepath, self.polyshapefilepath,
+##                            ident = 'oximporter',
+##                            name = 'OSMnx importer',
+##                            info = 'Import of network imported with the help of osmnx.',
+##                            logger =self.get_logger()
+# ).do()
+# else:
+# return False
+##
+
 
 class Scenario(cm.BaseObjman):
-
     def __init__(self, rootname, name_scenario='myscenario',
                  description='', parent=None,
                  workdirpath=None, **kwargs):
 
         self._init_objman(ident='scenario', parent=parent,
                           name='Scenario', info='Main scenario instance.',
+                          version=0.2,
                           **kwargs)
 
         attrsman = self.set_attrsman(cm.Attrsman(self))
 
-        if workdirpath != None:
+        if workdirpath is not None:
             # create a directory if path is given, but does not exist
             if not os.path.isdir(workdirpath):
                 os.mkdir(workdirpath)
@@ -154,18 +210,24 @@ class Scenario(cm.BaseObjman):
                                                     info='Working directory for this scenario and can be changed when saving the scenario. Please avoid special charracters, whitespace, accents etc. ASCII is recommented in order to remain compatible between operating systems.',
                                                     ))
 
+        self.net = attrsman.add(cm.ObjConf(network.Network(self)))
+
+        self.landuse = attrsman.add(cm.ObjConf(landuse.Landuse(self, self.net)))
+
+        self.demand = attrsman.add(cm.ObjConf(demand.Demand(self)))
+        # if self.get_version()<0.2:
+        #    self.delete('simulation')
+
         self._init_attributes()
 
     def _init_attributes(self):
+        print 'Scenario._init_attributes'  # ,dir(self)
+
         attrsman = self.get_attrsman()
+        self.simulation = attrsman.add(cm.ObjConf(simulation.Simulation(self)))
+        self.set_version(0.2)
 
-        self.net = attrsman.add(cm.ObjConf(network.Network(self)))
-
-        self.landuse = attrsman.add(
-            cm.ObjConf(landuse.Landuse(self, self.net)))
-
-        self.demand = attrsman.add(cm.ObjConf(demand.Demand(self)))
-
+        # print '  finish Scenario._init_attributes'
     def set_filepath(self, filepath):
         """
         A new filepath will set the shortname and workdir.
@@ -182,10 +244,11 @@ class Scenario(cm.BaseObjman):
         self.set_rootfilename(rootname)
 
     def save(self, filepath=None):
-        if filepath == None:
-            filepath = self.get_rootfilepath() + '.obj'
+        if filepath is None:
+            filepath = self.get_rootfilepath()+'.obj'
         self.set_filepath(filepath)
         cm.save_obj(self, filepath, is_not_save_parent=False)
+        return filepath
 
     def get_workdirpath(self):
         return self.workdirpath
@@ -215,18 +278,14 @@ class Scenario(cm.BaseObjman):
 
         if os.path.isfile(netfilepath):
             # convert and import edg,nod,con,tll...
-            self.net.import_netxml(filepath=netfilepath,
-                                   rootname=self.get_rootfilename())
+            self.net.import_netxml(filepath=netfilepath, rootname=self.get_rootfilename())
         else:
             # import edg,nod,con,tll...
-            self.net.import_xml(self.get_rootfilename(
-            ), self.get_workdirpath(),  is_clean_nodes=is_clean_nodes)
+            self.net.import_xml(self.get_rootfilename(), self.get_workdirpath(),  is_clean_nodes=is_clean_nodes)
 
-        self.landuse.import_polyxml(
-            self.get_rootfilename(), self.get_workdirpath())
+        self.landuse.import_polyxml(self.get_rootfilename(), self.get_workdirpath())
         try:
-            self.demand.import_xml(
-                self.get_rootfilename(), self.get_workdirpath())
+            self.demand.import_xml(self.get_rootfilename(), self.get_workdirpath())
         except:
             print 'WARNING: import of demand data failed. Please check for inconsistency with trip/route and network edge IDs.'
 
@@ -240,7 +299,7 @@ class Scenario(cm.BaseObjman):
 
 
 if __name__ == '__main__':
-    ##########################################################################
+    ###############################################################################
     # print 'sys.path',sys.path
     from agilepy.lib_wx.objpanel import objbrowser
     from agilepy.lib_base.logger import Logger
@@ -249,8 +308,7 @@ if __name__ == '__main__':
         dirpath = sys.argv[2]
     else:
         rootname = 'facsp2'
-        dirpath = os.path.join(os.path.dirname(
-            __file__), '..', 'network', 'testnet')
+        dirpath = os.path.join(os.path.dirname(__file__), '..', 'network', 'testnet')
 
     scenario = Scenario(rootname, workdirpath=dirpath, logger=Logger())
 
