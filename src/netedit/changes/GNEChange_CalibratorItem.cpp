@@ -42,7 +42,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, nullptr, 0)
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorFlow* calibratorFlow, bool forward) :
-    GNEChange(calibratorFlow->getCalibratorParent()->getViewNet()->getNet(), forward),
+    GNEChange(calibratorFlow->getViewNet()->getNet(), forward),
     myCalibratorFlow(calibratorFlow),
     myCalibratorRoute(nullptr),
     myCalibratorVehicleType(nullptr) {
@@ -51,7 +51,7 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorFlow* calibrator
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibratorRoute, bool forward) :
-    GNEChange(calibratorRoute->getCalibratorParent()->getViewNet()->getNet(), forward),
+    GNEChange(calibratorRoute->getViewNet()->getNet(), forward),
     myCalibratorFlow(nullptr),
     myCalibratorRoute(calibratorRoute),
     myCalibratorVehicleType(nullptr) {
@@ -60,7 +60,7 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibrato
 
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward) :
-    GNEChange(calibratorVehicleType->getNet(), forward),
+    GNEChange(calibratorVehicleType->getViewNet()->getNet(), forward),
     myCalibratorFlow(nullptr),
     myCalibratorRoute(nullptr),
     myCalibratorVehicleType(calibratorVehicleType) {

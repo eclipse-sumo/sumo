@@ -239,7 +239,7 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is CalibratorRoutes and Calibrator vehicle types
     if (myEditedCalibrator->getCalibratorRoutes().size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
-        GNECalibratorFlowDialog(new GNECalibratorFlow(this, myEditedCalibrator->getViewNet()->getNet()), false);
+        GNECalibratorFlowDialog(new GNECalibratorFlow(this), false);
         // update flows table
         updateFlowTable();
         return 1;
@@ -275,7 +275,7 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
-    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(myEditedCalibrator->getViewNet()->getNet()), myEditedCalibrator, false);
+    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(myEditedCalibrator->getViewNet(), ""), myEditedCalibrator, false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;

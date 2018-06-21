@@ -133,7 +133,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myZBoundary.add(0, 0);
     }
     // default vehicle type is always available
-    insertCalibratorVehicleType(new GNECalibratorVehicleType(this, DEFAULT_VTYPE_ID)); 
+    insertCalibratorVehicleType(new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID)); 
     myAttributeCarriers.calibratorVehicleTypes.begin()->second->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
@@ -1911,7 +1911,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     // first write all vehicle types
     for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
         if (i.first != DEFAULT_VTYPE_ID) {
-            i.second->writeVehicleType(device);
+            i.second->writeAdditional(device);
         }
     }
     // now write all route probes (see Ticket #4058)
