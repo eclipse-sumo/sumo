@@ -105,7 +105,7 @@ def extract(mergedPopulationFile, mappedSiteFile, intersectionFile):
                     print("merge!")
 
     root = ET.Element('additional')
-    outTree = ET.ElementTree(root)
+    ET.ElementTree(root)
     i = 1
     for G in Schnittmenge:
         poly = ET.SubElement(root, 'poly')

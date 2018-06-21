@@ -224,9 +224,8 @@ class Platoon(object):
             raise ValueError(
                 "Platoon.split(index) expected and index in [1,%d]. Given value: %s" % (self.size(), index))
 
-        splitLeader = self._vehicles[index]
         mode = PlatoonMode.LEADER if (index < self.size() - 1) else PlatoonMode.NONE
-        # splitImpatience = 1. - math.exp(min([0., splitLeader._timeUntilSplit]))
+        # splitImpatience = 1. - math.exp(min([0., self._vehicles[index]._timeUntilSplit]))
         pltn = Platoon(self._vehicles[index:], self._controlInterval, False)
 
         if not pltn.setModeWithImpatience(mode, self._controlInterval):

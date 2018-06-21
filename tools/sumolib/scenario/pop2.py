@@ -135,7 +135,7 @@ class ScenarioSet:
         if options.e2:
             files["e2"] = [scenario.fullPath("e2_%s.xml" % (sID))]
         for tlsID in net._id2tls:
-            atlsID = tlsID.replace("/", "_")
+            tlsID.replace("/", "_")
             tls = net._id2tls[tlsID]
             fdo.write('  <timedEvent type="SaveTLSStates" source="%s" dest="%s"/>\n' %
                       (tlsID, files["tlsstates"][0]))
@@ -875,9 +875,8 @@ class ScenarioSet_RiLSA1Outflow(ScenarioSet_RiLSA1LoadCurvesSampled):
             s.demand.streams = nStreams
             end = 86400
             sampleFactor = 1
-            seenRatio = None
             if "seen-ratio" in self.params:
-                seenRatio = self.params["seen-ratio"]
+                self.params["seen-ratio"]
             # , seenRatio)
             s.demand.build(0, end, s.netName, s.demandName, sampleFactor)
             desc = {"scenario": "RiLSA1Outflow", "g1": str(g1), "g2": str(g2)}
@@ -1023,9 +1022,8 @@ class ScenarioSet_RiLSA1PedFlow(ScenarioSet_RiLSA1LoadCurvesSampled):
                 "p_smp_to_mn", 0, 86400, f2, "smp", "mn", {"pedestrian": 1}))
             end = 86400
             sampleFactor = 1
-            seenRatio = None
             if "seen-ratio" in self.params:
-                seenRatio = self.params["seen-ratio"]
+                self.params["seen-ratio"]
             # , seenRatio)
             s.demand.build(0, end, s.netName, s.demandName, sampleFactor)
             desc = {"scenario": "RiLSA1PedFlow", "f1": str(f1), "f2": str(f2)}
@@ -1162,9 +1160,8 @@ class ScenarioSet_RiLSA1PTIteration(ScenarioSet_RiLSA1LoadCurvesSampled):
                     demandGenerator.Vehicle("bus-p2#" + str(i), int(i), "smp", "mw", "bus"))
             end = 86400
             sampleFactor = 1
-            seenRatio = None
             if "seen-ratio" in self.params:
-                seenRatio = self.params["seen-ratio"]
+                self.params["seen-ratio"]
             # , seenRatio)
             s.demand.build(0, end, s.netName, s.demandName, sampleFactor)
             desc = {"scenario": "RiLSA1PTIteration",
@@ -1406,8 +1403,6 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
             <route id="SN" edges="1/0_to_1/1 1/0_to_1/1.-100 1/1_to_1/2"/>
     """, file=fd)
         pv1 = 0
-        pv2 = 0
-        lastVeh = 0
         vehNr = 0
         o1 = 0
         for i in range(simSteps):
@@ -1419,11 +1414,9 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
                 print('    <vehicle id="%i" type="passenger" route="WE" depart="%i" departSpeed="13.89" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                lastVeh = i
                 print('    <vehicle id="%i" type="passenger" route="EW" depart="%i" departSpeed="13.89" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                lastVeh = i
             if frequency != 0:
                 o1 = o1 + ((math.pi * 2) / (180 * frequency))
             pNS = float(self.MAIN_FLOW) / 3600
@@ -1432,12 +1425,10 @@ class ScenarioSet_OneSinDemand(ScenarioSet):
                 print('    <vehicle id="%i" type="passenger" route="NS" depart="%i" departSpeed="13.89" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                lastVeh = i
             if random.uniform(0, 1) < pSN:
                 print('    <vehicle id="%i" type="passenger" route="SN" depart="%i" departSpeed="13.89" />' % (
                     vehNr, i), file=fd)
                 vehNr += 1
-                lastVeh = i
 
         print("</routes>", file=fd)
         fd.close()
@@ -1603,7 +1594,7 @@ class ScenarioSet_DemandStep(ScenarioSet):
     def getRunsMatrix(self):
         ret = []
         ranges = [[], []]
-        RWScurves = getRWScurves()
+        getRWScurves()
         i = 0
         for f1 in range(self.getInt("f1from"), self.getInt("f1to"), self.getInt("f1step")):
             for f2begin in range(self.getInt("f2beginFrom"), self.getInt("f2beginTo"), self.getInt("f2beginStep")):
@@ -1763,7 +1754,7 @@ class ScenarioSet_CorrFlowsDistancesA(ScenarioSet):
     def getRunsMatrix(self):
         ret = []
         ranges = [[], []]
-        RWScurves = getRWScurves()
+        getRWScurves()
         i = 0
         for d1 in range(self.getInt("d1from"), self.getInt("d1to"), self.getInt("d1step")):
             for f1 in range(self.getInt("f1from"), self.getInt("f1to"), self.getInt("f1step")):

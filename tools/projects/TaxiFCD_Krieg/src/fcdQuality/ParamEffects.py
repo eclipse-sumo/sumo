@@ -84,7 +84,7 @@ def main():
                 eiDict[e]._veh = 0
                 eiDict[e]._vehNo = 0
             taxis = chooseTaxis(vtypeDict, q)
-            taxiSum = len(taxis)
+            len(taxis)
             vtypeDictR = reduceVtype(vtypeDict, taxis, p)
             noProb = 0
             for c in vtypeDictR:
@@ -150,7 +150,6 @@ def readEdgeDump(fileName):
     edgeDumpDict = {}
     begin = False
     interval = 0
-    noEmpty = 0
     inputFile = open(fileName, 'r')
     for line in inputFile:
         words = line.split('"')
@@ -158,7 +157,7 @@ def readEdgeDump(fileName):
             words = words[0].split(">")
             interval = int(words[1][:-5])
         elif words[0].find("<interval") != -1 and int(words[1]) >= simStartTime:
-            interval = int(words[1])
+            int(words[1])
             begin = True
         if begin and words[0].find("<edge id") != -1:
             edge = words[1]
@@ -173,7 +172,6 @@ def readEdgeDump(fileName):
 def readVtype(fileName):
     """Gets all necessary information of all vehicles."""
     vtypeDict = {}
-    timestep = 0
     begin = False
     inputFile = open(fileName, 'r')
     for line in inputFile:
@@ -182,7 +180,6 @@ def readVtype(fileName):
         if words[0].find("<timestep ") != -1:
             t = int(words[1])
             if t >= simStartTime and t < simStartTime + aggInterval:
-                timestep = t
                 begin = True
         if begin and words[0].find("<vehicle id=") != -1:
             #                       time                 id    edge           speed

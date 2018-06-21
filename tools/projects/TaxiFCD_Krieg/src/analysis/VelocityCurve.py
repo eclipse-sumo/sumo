@@ -29,7 +29,6 @@ WEE = True  # =withoutEmptyEdges decide which analysis file should be used
 def main():
     print("start program")
 
-    taxiId = '154_2'
     interval = 900
     plotCurve(interval)
 

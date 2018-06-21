@@ -163,9 +163,8 @@ class NetReader(handler.ContentHandler):
         xmax = -10000000.
         ymin = 10000000.
         ymax = -10000000.
-        min_width = 0
         if options.min_width:
-            min_width = options.min_width
+            options.min_width
         for edge in self._edge2from:
             # compute shape
             xs = []
@@ -177,7 +176,6 @@ class NetReader(handler.ContentHandler):
                 ys.append(float(self._node2y[self._edge2to[edge]]))
             else:
                 shape = self._edge2shape[edge].split(" ")
-                l = []
                 for s in shape:
                     p = s.split(",")
                     xs.append(float(p[0]))
@@ -215,7 +213,7 @@ class NetReader(handler.ContentHandler):
         if options.size:
             f = figure(figsize=(options.size.split(",")))
         else:
-            f = figure()
+            figure()
         plot([-1000, -2000], [-1000, -2000],
              color=toColor(.9, colorMap), label="gegeben")
         plot([-1000, -2000], [-1000, -2000],

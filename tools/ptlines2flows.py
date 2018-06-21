@@ -218,7 +218,7 @@ def createRoutes(options, trpMap, stopNames):
             foutflows, "$Id$", "routes")
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix)
-        lineCount = collections.defaultdict(int)
+        collections.defaultdict(int)
         for vehicle in sumolib.output.parse(options.routes, 'vehicle'):
             id = vehicle.id
             lineRef, name, completeness = trpMap[id]

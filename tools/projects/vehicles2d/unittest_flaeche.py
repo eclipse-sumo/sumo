@@ -47,7 +47,6 @@ class testCaseFlaeche(unittest.TestCase):
     def test_flaeche_clustersize(self):
         """create Flaeche with scale not 1"""
 
-        myId = 3
         myFlaeche = main.Flaeche(xdim=20.5, ydim=20.5, scale=0.5)
         self.assertEqual(myFlaeche.cluster_length_x, 41)
         self.assertEqual(myFlaeche.cluster_length_x, 41)

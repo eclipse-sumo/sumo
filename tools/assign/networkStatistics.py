@@ -43,7 +43,6 @@ def getBasicStats(verbose, method, vehicles, assignments):
     totalTravelLength = 0.
     totalTravelSpeed = 0.
     totalWaitTime = 0.
-    totalDiffTime = 0.
     totalDiffSpeed = 0.
     totalDiffLength = 0.
     totalDiffWaitTime = 0.

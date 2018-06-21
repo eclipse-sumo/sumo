@@ -170,7 +170,6 @@ class NetReader(handler.ContentHandler):
                 ys.append(float(self._node2y[self._edge2to[edge]]))
             else:
                 shape = self._edge2shape[edge].split(" ")
-                l = []
                 for s in shape:
                     p = s.split(",")
                     xs.append(float(p[0]))
@@ -216,7 +215,7 @@ class NetReader(handler.ContentHandler):
         if options.size and not options.show:
             f = figure(figsize=(options.size.split(",")))
         else:
-            f = figure()
+            figure()
         for edge in edge2plotLines:
             plot(edge2plotLines[edge][0], edge2plotLines[edge][
                  1], color=edge2plotColors[edge], linewidth=edge2plotWidth[edge])

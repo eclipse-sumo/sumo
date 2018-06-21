@@ -206,9 +206,8 @@ def main():
 
         # the number of origins, the umber of destinations and the number of
         # the OD pairs
-        origins = len(startVertices)
-        dests = len(endVertices)
-        ODpairs = origins * dests
+        len(startVertices)
+        len(endVertices)
 
         # output the origin and destination zones and the number of effective
         # OD pairs

@@ -76,7 +76,6 @@ def computeLinkPhasesAndTimes(logic):
 
     # create the phase string
     for myKey, phaseDef in logic.links2sigGrpPhase.items():
-        currentPhaseIndex = 0
         newPhases = []
         sigGrpPhaseIndex = 1
         if args.debug:

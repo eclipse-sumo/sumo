@@ -56,8 +56,8 @@ class someTestcaseDD(unittest.TestCase):
         myDN_3 = StarNode(xx=5, yy=3, tt=4, dd=5, lastNode=None)
         myDN_4 = StarNode(xx=20, yy=9, tt=2, dd=1, lastNode=None)
 
-        myDD_1 = DNList([myDN_1, myDN_2, myDN_3])
-        myDD_2 = DNList([myDN_1, myDN_2, myDN_3])
+        DNList([myDN_1, myDN_2, myDN_3])
+        DNList([myDN_1, myDN_2, myDN_3])
 
         myDNL = DNList([myDN_1, myDN_2, myDN_3])
         self.assertEqual([ii for ii in myDNL], [myDN_1, myDN_2, myDN_3])
@@ -80,12 +80,12 @@ class someTestcaseDD(unittest.TestCase):
         self.assertIsNone(myDNL_ret_id.get_by_id('5_5'))
 
         """return a node by its tuple, if not exists return none """
-        myDNL_ret_tup = DNList([myDN_1, myDN_2, myDN_3], 'tuple')
+        DNList([myDN_1, myDN_2, myDN_3], 'tuple')
         self.assertEqual(myDNL_ret_id.get_by_tuple((3, 3)), myDN_1)
         self.assertIsNone(myDNL_ret_id.get_by_tuple((5, 5)))
 
         """return a node by its tuple, even if the DNodeList iters on ids """
-        myDNL_ret_tup = DNList([myDN_1, myDN_2, myDN_3], 'id')
+        DNList([myDN_1, myDN_2, myDN_3], 'id')
         self.assertEqual(myDNL_ret_id.get_by_tuple((3, 3)), myDN_1)
 
         """test to retrive the minimal node from List"""
@@ -163,7 +163,7 @@ class someTestcaseDD(unittest.TestCase):
         start = (0,  0)
         end = (20, 10)
         myFlaeche = main.Flaeche(xdim=30, ydim=30, scale=1)
-        myD = Dijkstra(myFlaeche, start, end)
+        Dijkstra(myFlaeche, start, end)
         self.assertEqual(myFlaeche.get_neighbours((2, 2)), [(1, 1), (1, 2), (1, 3),
                                                             (2, 1), (2, 3),
                                                             (3, 1), (3, 2), (3, 3)])
@@ -178,7 +178,7 @@ class someTestcaseDD(unittest.TestCase):
         start = (0,  0)
         end = (20, 10)
         myFlaeche = main.Flaeche(xdim=30, ydim=30, scale=1)
-        myD = Dijkstra(myFlaeche, start, end)
+        Dijkstra(myFlaeche, start, end)
         self.assertTrue(myFlaeche.neighbours((2, 2), (1, 1)))
         self.assertTrue(myFlaeche.neighbours((2, 2), (2, 3)))
         self.assertFalse(myFlaeche.neighbours((2, 2), (2, 4)))
@@ -188,8 +188,6 @@ class someTestcaseDD(unittest.TestCase):
     def test_dijkstra_to_do(self):
         """test for illegal start or end possitions"""
 
-        start = (0, 0)
-        end = (20, 10)
         myFlaeche = main.Flaeche(xdim=10, ydim=10, scale=1)
         #    self.assertRaises(StandardError, Dijkstra, myFlaeche, ( 1,  1), ( 1,  1) )
 
@@ -386,7 +384,6 @@ class someTestcaseDD(unittest.TestCase):
     def test_get_distance_between(self):
         """test the correct disstance between two points"""
 
-        myId = 12
         myFlaeche = main.Flaeche(xdim=30, ydim=30, scale=1)
         myD = Dijkstra(myFlaeche, (10, 10), (20, 10))
         # points are equal

@@ -82,9 +82,9 @@ class Edge:
             self.helpacttime = self.freeflowtime
 
     def __repr__(self):
-        cap = str(self.capacity)
+        str(self.capacity)
         if self.capacity == sys.maxsize or self.connection != 0:
-            cap = "inf"
+            pass
         return "%s_<%s|%s|%s>" % (self.label, self.kind, self.source, self.target)
 
 
@@ -240,7 +240,6 @@ def getMatrix(net, verbose, matrix, MatrixSum):  # , mtxplfile, mtxtfile):
 
     ODpairs = 0
     origins = 0
-    dest = 0
     CurrentMatrixSum = 0.0
     skipCount = 0
     zones = 0
@@ -271,7 +270,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):  # , mtxplfile, mtxtfile):
                                 if endVertex.label == elem:
                                     endVertices.append(endVertex)
                     origins = len(startVertices)
-                    dest = len(endVertices)
+                    len(endVertices)
                 elif len(startVertices) == zones:
                     if ODpairs % origins == 0:
                         matrixPshort.append([])
@@ -285,20 +284,19 @@ def getMatrix(net, verbose, matrix, MatrixSum):  # , mtxplfile, mtxtfile):
                         if float(item) < 1. and float(item) > 0.:
                             smallDemandNum += 1
     begintime = int(periodList[0])
-    assignPeriod = int(periodList[1]) - begintime
-    smallDemandRatio = float(smallDemandNum) / float(Pshort_EffCells)
+    int(periodList[1]) - begintime
+    float(smallDemandNum) / float(Pshort_EffCells)
 
     return matrixPshort, startVertices, endVertices
 
 
 def main():
     parser = make_parser()
-    tripDir = os.getcwd()
+    os.getcwd()
     dataDir = options.datadir
     districts = os.path.join(dataDir, options.districtfile)
     netfile = os.path.join(dataDir, options.netfile)
     sumDemand = 0.
-    count = 0
     MatrixSum = 0.
     totalCounts = 0
     subCounts = 0

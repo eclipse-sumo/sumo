@@ -201,7 +201,7 @@ def processData():
             for j in data[vid]["simFCD"]:
                 if elm[1] == j[1]:  # if edge FCD same as edge simFCD
                     if len(elm) > 5:
-                        a = 1
+                        pass
                         # hier passiert nichts!
     # 					e[-2] = j[2]
     # 					e[-1] = j[0]
@@ -311,7 +311,6 @@ def plotScatterRel():
 
 
 def plotBarChart(mode="relDiff"):
-    l = []
     barsDict = {}
     i = 0
     print("total", len(data))

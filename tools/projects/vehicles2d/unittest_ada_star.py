@@ -138,7 +138,7 @@ class someTestcase_ada_star(unittest.TestCase):
                            previous_node=None
                            )
 
-        myDD_1 = ANList([myDN_1, myDN_2, myDN_3])
+        ANList([myDN_1, myDN_2, myDN_3])
 
         """insert a few nodes into the list, and iter over them by id"""
         myANL_id_1 = ANList([myDN_1, myDN_2, myDN_3], 'id')
@@ -161,12 +161,12 @@ class someTestcase_ada_star(unittest.TestCase):
         self.assertIsNone(myANL_ret_id.get_by_id('3_3_1'))
 
         """return a node by its tuple, if not exists return none """
-        myANL_ret_tup = ANList([myDN_1, myDN_2, myDN_3], 'tuple')
+        ANList([myDN_1, myDN_2, myDN_3], 'tuple')
         self.assertEqual(myANL_ret_id.get_by_tuple((3, 3, 0)), myDN_1)
         self.assertIsNone(myANL_ret_id.get_by_tuple((3, 3, 1)))
 
         """return a node by its tuple, even if the DNodeList iters on ids """
-        myANL_ret_tup = ANList([myDN_1, myDN_2, myDN_3], 'id')
+        ANList([myDN_1, myDN_2, myDN_3], 'id')
         self.assertEqual(myANL_ret_id.get_by_tuple((3, 3, 0)), myDN_1)
 
         """test to get back the tuples of all nodes in the list"""
@@ -681,7 +681,7 @@ class someTestcase_ada_star(unittest.TestCase):
         myD.run()
         myD.rebuild_path()
 
-        path = ANList(myD.path, 'tuples').get_tuples()
+        ANList(myD.path, 'tuples').get_tuples()
 
         assert(False)
 

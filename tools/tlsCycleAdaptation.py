@@ -194,7 +194,6 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     # check if there are shared lane groups, i.e. some lane groups have only "g" (no "G")
     ownGreenConnsList = []
     for i, p in enumerate(phases):
-        totalConns = len(p[0])
         for j, control in enumerate(p[0]):
             if control == "G" and j not in ownGreenConnsList:
                 ownGreenConnsList.append(j)
@@ -318,7 +317,6 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options):
 def main(options):
     net = sumolib.net.readNet(options.netfile, withPrograms=True)
     tlsList = net.getTrafficLights()
-    nodesList = net.getNodes()
     if options.verbose:
         print("the total number of tls: %s" % len(tlsList))
     print ("Begin time:%s" % options.begin)

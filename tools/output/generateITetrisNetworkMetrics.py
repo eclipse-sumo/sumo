@@ -112,7 +112,6 @@ def getAvgNrLanesPerStreet(netfile):
 
 
 def getRouteDistributions(vehroutesFile):
-    vehicles = []
     parser = make_parser()
     viReader = VehRoutesReader()
     parser.setContentHandler(viReader)

@@ -38,7 +38,6 @@ def genRoutes(N, dR, fR, dL, fL, dD, fD, dU, fU):
     <route id="down" edges="54o 4i 3o 53i" />
     <route id="up" edges="53o 3i 4o 54i" />
 ''', file=routes)
-    lastVeh = 0
     vehNr = 0
 
     nbVehR = 0

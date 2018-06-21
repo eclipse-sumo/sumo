@@ -936,19 +936,19 @@ class Vessel():
 
         this_node_data = NodeDataHandler(self.flaeche.cluster[cell_upper_left[0]]
                                                              [cell_upper_left[1]])
-        center_upper_left = this_node_data.get_center()
+        this_node_data.get_center()
 
         this_node_data = NodeDataHandler(self.flaeche.cluster[cell_upper_right[0]]
                                          [cell_upper_right[1]])
-        center_upper_right = this_node_data.get_center()
+        this_node_data.get_center()
 
         this_node_data = NodeDataHandler(self.flaeche.cluster[cell_lower_left[0]]
                                                              [cell_lower_left[1]])
-        center_lower_left = this_node_data.get_center()
+        this_node_data.get_center()
 
         this_node_data = NodeDataHandler(self.flaeche.cluster[cell_lower_right[0]]
                                          [cell_lower_right[1]])
-        center_upper_left = this_node_data.get_center()
+        this_node_data.get_center()
 
         # center points
 
@@ -1516,7 +1516,6 @@ class AdAStar():
 #                    import pdb; pdb.set_trace()
 
                 sn_reached_by_angle = nn.angle_global
-                sn_lastNode = current_node
 
                 sn_data = self.flaeche.get_node_data((nn.cell_x_id,
                                                       nn.cell_y_id))

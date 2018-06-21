@@ -238,7 +238,7 @@ class SignalGroup(object):
             # get junction index of the connection
             for conn in junction.getConnections():
                 if(conn.getFromLane() == connIn and conn.getToLane() == connOut):
-                    junctionIndex = conn.getJunctionIndex()
+                    conn.getJunctionIndex()
                     ownConn = conn
                     break
         # store yielding info based on tlIndex values

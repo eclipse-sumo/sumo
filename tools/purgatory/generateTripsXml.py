@@ -152,9 +152,8 @@ class Edge(sumolib.net.Edge):
             self.helpacttime = self.freeflowtime
 
     def __repr__(self):
-        cap = str(self.capacity)
         if self.capacity == sys.maxsize or self.connection != 0:
-            cap = "inf"
+            pass
         return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self._function, self._id, self._from, self._to, self._speed)
 
 

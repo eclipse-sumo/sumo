@@ -125,8 +125,8 @@ def plotDiagram(name):
     ini = ConfigParser()
     ini.read(filename)
 
-    N = ini.getint("general", "N")
-    cut = ini.getboolean("general", "cut")
+    ini.getint("general", "N")
+    ini.getboolean("general", "cut")
 
     distrWE = ini.get("demand", "distrWE")
     distrNS = ini.get("demand", "distrNS")
@@ -136,11 +136,11 @@ def plotDiagram(name):
     vehphWEA = eval(ini.get("demand", "vehphWEA"))
     vehphNSA = eval(ini.get("demand", "vehphNSA"))
 
-    maxDelay = max(max(avgDelayWEA), max(avgDelayNSA))
+    max(max(avgDelayWEA), max(avgDelayNSA))
 
     maxD = max(avgDelayA)
     c = maxD / (exp(1) - 1)
-    V = [c * (exp(i) - 1) for i in frange(0, 1, 0.01)]
+    [c * (exp(i) - 1) for i in frange(0, 1, 0.01)]
 
     [X, Y] = meshgrid(vehphWEA, vehphNSA)
 
@@ -252,7 +252,7 @@ def plotDiagram(name):
 
     close()
 
-    maxGreen = max(max(greenWEA), max(greenNSA))
+    max(max(greenWEA), max(greenNSA))
 
     Z = griddata(flowWEA, flowNSA, greenWEA, X, Y)
 

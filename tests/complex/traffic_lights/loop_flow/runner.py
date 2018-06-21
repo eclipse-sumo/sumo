@@ -50,29 +50,24 @@ def buildDemand(simSteps, pWE, pEW, pNS, pSN):
             <route id="SN" edges="4i 2o 8o"/>
 
         """, file=fd)
-    lastVeh = 0
     vehNr = 0
     for i in range(simSteps):
         if random.uniform(0, 1) < pWE:  # Poisson distribution
             print('    <vehicle id="%i" type="type1" route="WE" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
         if random.uniform(0, 1) < pNS:
             print('    <vehicle id="%i" type="type1" route="NS" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
         if random.uniform(0, 1) < pEW:
             print('    <vehicle id="%i" type="type1" route="EW" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
         if random.uniform(0, 1) < pSN:
             print('    <vehicle id="%i" type="type1" route="SN" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
     print("</routes>", file=fd)
     fd.close()
 
@@ -133,7 +128,7 @@ def main():
                         '--queue-output', 'results/queue_%s_%s_%s.xml' % (
                             t, f1, f2),
                         ]
-                retCode = subprocess.call(args)
+                subprocess.call(args)
                 shutil.move(
                     "results/e2_output.xml", "results/e2_output_%s_%s_%s.xml" % (t, f1, f2))
                 shutil.move("results/e2_tl0_output.xml",

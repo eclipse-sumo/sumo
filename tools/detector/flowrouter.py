@@ -759,7 +759,7 @@ class Net:
             queue = [s]
             s.isOnSinkPath = True
             while queue:
-                edgeObj = queue.pop(0)
+                queue.pop(0)
 
 
     def writeFlowPOIs(self, poiOut, suffix=""):

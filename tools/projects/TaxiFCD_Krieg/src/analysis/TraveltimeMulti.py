@@ -124,7 +124,7 @@ def getBarsMulti():
                 fcdDiffDict.setdefault(taxi.id, fcd)
 
             except TypeError as e:
-                tueNichts = True
+                pass
                 # print "Error by taxi %s : %s"  %(taxi.id,e.message)
 
     for taxi, simList in simDiffDict.iteritems():
@@ -171,7 +171,7 @@ def getBars():
             barsDictSim[
                 (diffSim / 10) * 10] = barsDictSim.setdefault((diffSim / 10) * 10, 0) + 1
         except TypeError as e:
-            tueNichts = True
+            pass
             # print "Error by taxi %s : %s"  %(taxi.id,e.message)
     print("mw", sum(mw) / (len(mw) + 0.0))  # 9.46
     print("standard deviation ", sqrt(sum(stdDev) / (len(stdDev) + 0.0)))
@@ -276,8 +276,6 @@ def drawPieChart():
 def drawBarChart():
     """Draws a bar chart with the relative travel time aberrance."""
     barsDictSim, barsDict = getBarsMulti()
-    xList = []
-    yList = []
     xListSim = []
     yListSim = []
     under100 = 0

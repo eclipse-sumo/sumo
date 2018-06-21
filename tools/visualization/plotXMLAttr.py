@@ -35,7 +35,7 @@ def main(tag, attr, *xmlfiles):
         import matplotlib.pyplot as plt
     except Exception as e:
         sys.exit(e)
-    fig = plt.figure()
+    plt.figure()
     plt.xticks(range(len(xmlfiles)), xmlfiles)
     plt.ylabel("%s %s" % (tag, attr))
     plt.boxplot(data)

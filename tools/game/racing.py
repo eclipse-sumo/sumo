@@ -222,12 +222,12 @@ def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
     root.bind('<Up>', upKey)
     root.bind('<Down>', downKey)
 
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+    root.winfo_screenwidth()
+    root.winfo_screenheight()
 
     frame.pack()
 
-    client = RacingClient(root, sumocfg, egoID)
+    RacingClient(root, sumocfg, egoID)
     root.mainloop()
 
 if len(sys.argv) < 3:

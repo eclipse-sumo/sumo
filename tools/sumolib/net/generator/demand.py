@@ -145,7 +145,6 @@ class Demand:
 
     def build(self, b, e, netName="net.net.xml", routesName="input_routes.rou.xml", sampleFactor=None):
         vehicles = []
-        running = 0
         for s in self.streams:
             vehicles.extend(s.toVehicles(b, e, len(vehicles), sampleFactor))
         fdo = tempfile.NamedTemporaryFile(mode="w", delete=False)

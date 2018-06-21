@@ -45,7 +45,6 @@ def runSingle(sumoEndTime, traciEndTime):
     fdo.write(fdi.read() % {"end": sumoEndTime})
     fdi.close()
     fdo.close()
-    doClose = True
     step = 0
     sumoProcess = subprocess.Popen(
         "%s -c used.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)

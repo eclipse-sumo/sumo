@@ -779,7 +779,6 @@ class testCaseVessel(unittest.TestCase):
 
         visual = VISUAL
 
-        verbose = False
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
@@ -1788,7 +1787,6 @@ class testCaseVessel(unittest.TestCase):
         visual = VISUAL
         visual = True
 
-        verbose = False
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,
@@ -1834,7 +1832,6 @@ class testCaseVessel(unittest.TestCase):
         visual = VISUAL
         visual = True
 
-        verbose = False
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,
@@ -1895,7 +1892,6 @@ class testCaseVessel(unittest.TestCase):
         visual = VISUAL
         visual = True
 
-        verbose = False
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,
@@ -1943,7 +1939,6 @@ class testCaseVessel(unittest.TestCase):
 
         visual = VISUAL
 
-        verbose = False
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=20, ydim=20, scale=10,
@@ -2041,7 +2036,6 @@ class testCaseVessel(unittest.TestCase):
 
         visual = VISUAL
 
-        verbose = False
 
         image_name = self.__dict__['_testMethodName']
         myFlaeche = main.Flaeche(xdim=60, ydim=60, scale=10,

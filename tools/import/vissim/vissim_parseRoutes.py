@@ -55,7 +55,6 @@ def parseInFlow(inflow, suggested_name):
     else:
         q = float(vals[i + 1])
     i = vals.index("ZUSAMMENSETZUNG", i + 1)
-    zusammensetzung = vals[i + 1]
     i = vals.index("ZEIT", i)
     i = vals.index("VON", i)
     von = float(vals[i + 1])

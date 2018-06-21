@@ -61,7 +61,7 @@ def traciLoop(port, traciEndTime, index, steplength=0):
             traci.simulationStep(int(step * steplength * 1000))
             #print(index, "asking for vehicles")
             # sys.stdout.flush()
-            vehs = traci.vehicle.getIDList()
+            traci.vehicle.getIDList()
             nrEnteredVehicles += traci.simulation.getDepartedNumber()
             #~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
             #~ sys.stdout.flush()

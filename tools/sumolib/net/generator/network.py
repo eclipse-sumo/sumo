@@ -91,8 +91,6 @@ class Edge:
         ret = []
 
         seen = {}
-        seenRight = 0
-        seenLeft = 0
         for i, l in enumerate(self.lanes):
             for d in l.dirs:
                 if d not in seen:

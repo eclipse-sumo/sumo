@@ -281,7 +281,6 @@ def main():
         print('compare the data with the data from BSA')
         bsaTotalCount = 0
         matchedCount = 0
-        bsaNamesList = []
 
         fout = open("%s_matchedAreas.txt" % prefix, 'w')
         fout.write(

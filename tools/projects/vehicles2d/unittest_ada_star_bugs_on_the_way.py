@@ -58,7 +58,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         myD.run()
         myD.rebuild_path()
 
-        path = ANList(myD.path, 'tuples').get_tuples()
+        ANList(myD.path, 'tuples').get_tuples()
 
 #        self.assertEqual(path, [
 #            (30, 10, 0), (31, 10, 0), (32, 10, 0), (33, 10, 0),
@@ -105,7 +105,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         myD.run()
         myD.rebuild_path()
 
-        path = ANList(myD.path, 'tuples').get_tuples()
+        ANList(myD.path, 'tuples').get_tuples()
 
 #        self.assertEqual(path, [
 #            (30, 10, 0), (31, 10, 0), (32, 10, 0), (33, 10, 0),
@@ -146,7 +146,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         myD.run()
         myD.rebuild_path()
 
-        path = ANList(myD.path, 'tuples').get_tuples()
+        ANList(myD.path, 'tuples').get_tuples()
         if visual:
             myD.draw_path(vessel=vessel)
         del(myD)
@@ -184,7 +184,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         myD.run()
         myD.rebuild_path()
 
-        path = ANList(myD.path, 'tuples').get_tuples()
+        ANList(myD.path, 'tuples').get_tuples()
 
         if visual:
             myD.draw_path(vessel=vessel)
@@ -225,7 +225,7 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         myD.run()
         myD.rebuild_path()
 
-        path = ANList(myD.path, 'tuples').get_tuples()
+        ANList(myD.path, 'tuples').get_tuples()
 
 #        self.assertEqual(path, [
 #            (30, 10, 0), (31, 10, 0), (32, 10, 0), (33, 10, 0),
@@ -245,8 +245,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         for sure has an evil impact on the pathfinding"""
 
         scale = 0.25
-        start = (10, 10, 0)
-        end = (20, 10, 0)
         myFlaeche = main.Flaeche(xdim=30, ydim=30, scale=scale)
 
         vessel = main.Vessel(myFlaeche,
@@ -693,8 +691,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         this combo and end point combo does not work,
         algo seaches for ever and finally
         ends with an error after some 2.5 min  """
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__b')
         vessel = main.Vessel(myFlaeche,
@@ -716,8 +712,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         this combo and end point combo does not work,
         algo seaches for ever and finally
         ends with an error after some 2.5 min  """
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__c')
         vessel = main.Vessel(myFlaeche,
@@ -739,8 +733,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         this combo and end point combo does not work,
         algo seaches for ever and finally
         ends with an error after some 2.5 min  """
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__d')
         vessel = main.Vessel(myFlaeche,
@@ -770,8 +762,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 
     @unittest.skipIf(True, '')
     def test_dijsktra_step_internals_find_final__b(self):
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada')
         vessel = main.Vessel(myFlaeche,
@@ -961,8 +951,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         the wrong positions.
         """
 
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__a_A')
         vessel = main.Vessel(myFlaeche,
@@ -990,8 +978,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         this combo and end point combo does not work,
         algo seaches for ever and finally
         ends with an error after some 2.5 min  """
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__b')
         vessel = main.Vessel(myFlaeche,
@@ -1013,8 +999,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         this combo and end point combo does not work,
         algo seaches for ever and finally
         ends with an error after some 2.5 min  """
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__c')
         vessel = main.Vessel(myFlaeche,
@@ -1036,8 +1020,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
         this combo and end point combo does not work,
         algo seaches for ever and finally
         ends with an error after some 2.5 min  """
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada__d')
         vessel = main.Vessel(myFlaeche,
@@ -1067,8 +1049,6 @@ class someTestcase_ada_star_bugs(unittest.TestCase):
 
     @unittest.skipIf(True, '')
     def test_dijsktra_step_internals_find_final__b(self):
-        visual = VISUAL
-        visual = True
         myFlaeche = main.Flaeche(xdim=500, ydim=500, scale=10,
                                  output='result_hindrance_punctual_ada')
         vessel = main.Vessel(myFlaeche,

@@ -313,10 +313,8 @@ def toColor(val, colormap):
 
 
 def parseColorMap(mapDef):
-    somedict = {}
     ret = {"red": [], "green": [], "blue": []}
     defs = mapDef.split(",")
-    lastValue = 0
     for d in defs:
         (value, color) = d.split(":")
         value = float(value)
@@ -328,7 +326,6 @@ def parseColorMap(mapDef):
         ret["green"].append((value, toFloat(g) / 255., toFloat(g) / 255.))
         ret["blue"].append((value, toFloat(b) / 255., toFloat(b) / 255.))
 
-        lastValue = value
         # ret.append( (value, color) )
     colormap = matplotlib.colors.LinearSegmentedColormap("CUSTOM", ret, 1024)
     return colormap

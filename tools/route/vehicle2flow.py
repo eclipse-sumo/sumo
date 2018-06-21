@@ -47,7 +47,6 @@ def main():
     options = parse_args()
     with open(options.routefile) as f:
         with open(options.outfile, 'w') as outf:
-            headerSeen = False
             for line in f:
                 if options.with_entities:
                     if "<routes " in line or "<routes>" in line:

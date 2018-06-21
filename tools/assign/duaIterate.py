@@ -424,7 +424,6 @@ def assign_remaining_args(application, prefix, args):
             else:
                 sys.exit('"%s" is not a valid option for "%s"' %
                          (option, application))
-                unassigned += item
 
     return assigned
 

@@ -85,7 +85,7 @@ def addToDataList(data, i, val):
 
 def plot(options, allData, prefix="", linestyle="-"):
     if not options.singleplot:
-        fig = plt.figure()
+        plt.figure()
 
     labelsuffix = ""
     if prefix != "":

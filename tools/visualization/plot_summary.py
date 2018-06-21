@@ -69,7 +69,7 @@ def main(args=None):
     times = readValues(files, options.verbose, "time")
     for f in files:
         maxV = max(maxV, len(nums[f]))
-    ts = range(minV, maxV + 1)
+    range(minV, maxV + 1)
 
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):

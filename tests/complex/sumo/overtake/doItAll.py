@@ -137,8 +137,6 @@ def runSim():
 
 def analyzeData(pp):
     fp = open('gw.txt', 'w')
-    meanTT = 0.0
-    cntTT = 0
     n0 = 500
     for line in open(dumpFile):
         ll = line.split('id="')

@@ -141,7 +141,6 @@ def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
     datafile = plotfile + '.data'
     # an edge is interesting if a large proportion of teleports happen on it
     interestingness = defaultdict(lambda: 0)
-    all_edges = set()
     for counts in step_counts:
         teleports = float(sum(counts.itervalues()))
         if teleports == 0:

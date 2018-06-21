@@ -21,8 +21,6 @@ from __future__ import print_function
 import os
 import sys
 import optparse
-import subprocess
-import random
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -52,7 +50,7 @@ def printParams(vehID, only_dynamic = False):
     headwayErrorCoefficient = traci.vehicle.getParameter(vehID, "device.driverstate.headwayErrorCoefficient")
     speedDifferenceChangePerceptionThreshold = traci.vehicle.getParameter(vehID, "device.driverstate.speedDifferenceChangePerceptionThreshold")
     headwayChangePerceptionThreshold = traci.vehicle.getParameter(vehID, "device.driverstate.headwayChangePerceptionThreshold")
-    speed = traci.vehicle.getSpeed(vehID)
+    traci.vehicle.getSpeed(vehID)
     
     print("time step %s"%traci.simulation.getCurrentTime())
     print("Driver state device infos for vehicle '%s'"%vehID)

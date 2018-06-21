@@ -132,13 +132,13 @@ def getSaturationFlow():
     ySat = sumVeh[323:538]
     [aSat, b] = linreg(xSat, ySat)
     print('Saturation flow: ', aSat * 3600)
-    ySatN = [aSat * xSat[i] + b for i in range(len(xSat))]
+    [aSat * xSat[i] + b for i in range(len(xSat))]
 
     x = range(700, 850)
     y = sumVeh[700:850]
     [a, b] = linreg(x, y)
     print('Saturation flow 2: ', a * 3600)
-    ynew = [a * x[i] + b for i in range(len(x))]
+    [a * x[i] + b for i in range(len(x))]
 
 #    plot(range(len(veh)), sumVeh, xSat, ySatN, x, ynew)
 #    legend(('Anzahl Fahrzeuge', 'saturation flow = %f' % (aSat * 3600), 'flow = %f' % (a * 3600)))
