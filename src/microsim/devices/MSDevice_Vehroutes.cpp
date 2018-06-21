@@ -404,6 +404,7 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
         internals.push_back(replacedOnEdge);
         internals.push_back(toString(myReplacedRoutes[i].time));
         internals.push_back(myReplacedRoutes[i].route->getID());
+        internals.push_back(myReplacedRoutes[i].info);
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     out.closeTag();
@@ -425,11 +426,12 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         std::string edgeID;
         SUMOTime time;
         std::string routeID;
+        std::string info;
         bis >> edgeID;
         bis >> time;
         bis >> routeID;
-        // XXX also save and load replacement info
-        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, MSRoute::dictionary(routeID), ""));
+        bis >> info;
+        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, MSRoute::dictionary(routeID), info));
     }
 }
 
