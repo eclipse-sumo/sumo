@@ -239,7 +239,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDistrict(0),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
+    myRadius(UNSPECIFIED_RADIUS),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
@@ -255,7 +255,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDistrict(district),
     myHaveCustomPoly(false),
     myRequest(0),
-    myRadius(OptionsCont::getOptions().isDefault("default.junctions.radius") ? UNSPECIFIED_RADIUS : OptionsCont::getOptions().getFloat("default.junctions.radius")),
+    myRadius(UNSPECIFIED_RADIUS),
     myKeepClear(OptionsCont::getOptions().getBool("default.junctions.keep-clear")),
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
@@ -830,6 +830,9 @@ NBNode::computeNodeShape(double mismatchThreshold) {
     try {
         NBNodeShapeComputer computer(*this);
         myPoly = computer.compute();
+        if (myRadius == UNSPECIFIED_RADIUS && !OptionsCont::getOptions().isDefault("default.junctions.radius")) {
+            myRadius = computer.getRadius();
+        }
         if (myPoly.size() > 0) {
             PositionVector tmp = myPoly;
             tmp.push_back_noDoublePos(tmp[0]); // need closed shape

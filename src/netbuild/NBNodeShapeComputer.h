@@ -53,6 +53,11 @@ public:
     /// Computes the shape of the assigned junction
     PositionVector compute();
 
+    /// @brief get computed radius for node
+    double getRadius() const {
+        return myRadius;
+    }
+
 private:
     typedef std::map<NBEdge*, PositionVector> GeomsMap;
 
@@ -140,9 +145,15 @@ private:
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
+    /// @brief compute with of rightmost lanes that exlude the given permissions
+    static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);
+
 private:
     /// The node to compute the geometry for
     const NBNode& myNode;
+
+    /// @brief the computed node radius
+    double myRadius;
 
 private:
     /// @brief Invalidated assignment operator

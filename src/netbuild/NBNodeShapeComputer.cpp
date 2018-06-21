@@ -37,13 +37,16 @@
 #include "NBNodeShapeComputer.h"
 
 //#define DEBUG_NODE_SHAPE
+//#define DEBUG_RADIUS
 //#define DEBUGCOND (myNode.getID() == "C")
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNodeShapeComputer::NBNodeShapeComputer(const NBNode& node)
-    : myNode(node) {}
+NBNodeShapeComputer::NBNodeShapeComputer(const NBNode& node) : 
+    myNode(node),
+    myRadius(node.getRadius())
+{}
 
 
 NBNodeShapeComputer::~NBNodeShapeComputer() {}
@@ -143,7 +146,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // magic values
     const OptionsCont& oc = OptionsCont::getOptions();
     const bool useDefaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS;
-    const double radius = (useDefaultRadius ? getDefaultRadius(oc) : myNode.getRadius());
+    myRadius = (useDefaultRadius ? getDefaultRadius(oc) : myNode.getRadius());
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
@@ -159,7 +162,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 
 #ifdef DEBUG_NODE_SHAPE
     if (DEBUGCOND) {
-        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << radius << "\n";
+        std::cout << "\ncomputeNodeShapeDefault node " << myNode.getID() << " simple=" << simpleContinuation << " radius=" << myRadius << "\n";
     }
 #endif
 
@@ -261,7 +264,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #endif
             } else {
                 if (!simpleContinuation) {
-                    dist += radius;
+                    dist += myRadius;
                 } else {
                     // if the angles change, junction should have some size to avoid degenerate shape
                     double radius2 = fabs(ccad - cad) * (*i)->getNumLanes();
@@ -297,7 +300,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #endif
             if (!simpleContinuation) {
                 if (currGeom.intersects(neighGeom)) {
-                    distances[*i] = radius + closestIntersection(currGeom, neighGeom, 100);
+                    distances[*i] = myRadius + closestIntersection(currGeom, neighGeom, 100);
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) {
                         std::cout << "   neigh intersects dist=" << distances[*i] << " currGeom=" << currGeom << " neighGeom=" << neighGeom << "\n";
@@ -308,7 +311,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         // but prevent very large node shapes
                         const double farAngleDist = ccwCloser ? cad : ccad;
                         double a1 = distances[*i];
-                        double a2 = radius + closestIntersection(currGeom2, neighGeom2, 100);
+                        double a2 = myRadius + closestIntersection(currGeom2, neighGeom2, 100);
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
                             std::cout << "      neigh2 also intersects a1=" << a1 << " a2=" << a2 << " ccad=" << RAD2DEG(ccad) << " cad=" << RAD2DEG(cad) << " dist[cwi]=" << distances[*cwi] << " dist[ccwi]=" << distances[*ccwi] << " farAngleDist=" << RAD2DEG(farAngleDist) << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
@@ -330,14 +333,14 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     }
                 } else {
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
-                        distances[*i] = radius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
+                        distances[*i] = myRadius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
                             std::cout << "   neigh2 intersects dist=" << distances[*i] << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
                         }
 #endif
                     } else {
-                        distances[*i] = 100 + radius;
+                        distances[*i] = 100 + myRadius;
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
                             std::cout << "   no intersects dist=" << distances[*i]  << " currGeom=" << currGeom << " neighGeom=" << neighGeom << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
@@ -356,7 +359,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         if (useDefaultRadius && sCurveStretch > 0) {
             double sCurveWidth = myNode.getDisplacementError();
             if (sCurveWidth > 0) {
-                const double sCurveRadius = radius + sCurveWidth / SUMO_const_laneWidth * sCurveStretch * pow((*i)->getSpeed(), 2 + sCurveStretch) / 1000;
+                const double sCurveRadius = myRadius + sCurveWidth / SUMO_const_laneWidth * sCurveStretch * pow((*i)->getSpeed(), 2 + sCurveStretch) / 1000;
                 const double stretch = 100 + sCurveRadius - distances[*i];
                 if (stretch > 0) {
                     distances[*i] += stretch;
@@ -384,7 +387,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     }
     // prevent inverted node shapes
     // (may happen with near-parallel edges)
-    const double minDistSum = 2 * (100 + radius);
+    const double minDistSum = 2 * (100 + myRadius);
     for (i = newAll.begin(); i != newAll.end(); ++i) {
         if (distances[*i] < 100 && (*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
             for (EdgeVector::const_iterator j = newAll.begin(); j != newAll.end(); ++j) {
@@ -797,8 +800,18 @@ double
 NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
     // look for incoming/outgoing edge pairs that do not go straight and allow wide vehicles 
     // (connection information is not available yet)
-    SVCPermissions large = SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN);
-    // XXX scale returned radius based on maximum turning angle
+    // @TODO compute the radius for each pair of neighboring edge intersections in computeNodeShapeDefault rather than use the maximum
+    const double radius = oc.getFloat("default.junctions.radius");
+    const double smallRadius = oc.getFloat("junctions.small-radius");
+    // foot- and bicycle paths as well as pure service roads should not get larget junctions
+    // railways also do have have junctions with sharp turns so can be excluded
+    SVCPermissions small = (SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES);
+    SVCPermissions large = SVCAll & ~small;
+    double maxRightAngle = 0; // rad
+    double extraWidthRight = 0; // m
+    double maxLeftAngle = 0; // rad
+    double extraWidthLeft = 0; // m
+    int laneDelta = 0;
     for (NBEdge* in : myNode.getIncomingEdges()) {
         int wideLanesIn = 0;
         for (int i = 0; i < in->getNumLanes(); i++) {
@@ -808,10 +821,34 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
         }
         for (NBEdge* out : myNode.getOutgoingEdges()) {
             if ((in->getPermissions() & out->getPermissions() & large) != 0) {
-                LinkDirection dir = myNode.getDirection(in, out);
-                if (dir != LINKDIR_STRAIGHT && dir != LINKDIR_TURN) {
-                    // need wide turn
-                    return oc.getFloat("default.junctions.radius");
+                if (myNode.getDirection(in, out) == LINKDIR_TURN) {
+                    continue;
+                };
+                const double angle = GeomHelper::angleDiff(
+                            in->getGeometry().angleAt2D(-2),
+                            out->getGeometry().angleAt2D(0));
+                if (angle < 0) {
+                    if (maxRightAngle < -angle) {
+                        maxRightAngle = -angle;
+                        extraWidthRight = MAX2(getExtraWidth(in, large), getExtraWidth(out, large));
+                    }
+                } else {
+                    if (maxLeftAngle < angle) {
+                        maxLeftAngle = angle;
+                        // all edges clockwise between in and out count as extra width
+                        extraWidthLeft = 0;
+                        EdgeVector::const_iterator pIn = find(myNode.getEdges().begin(), myNode.getEdges().end(), in);
+                        NBContHelper::nextCW(myNode.getEdges(), pIn);
+                        while (*pIn != out) {
+                            extraWidthLeft += (*pIn)->getTotalWidth();
+//#ifdef DEBUG_RADIUS
+//                            if (DEBUGCOND) {
+//                                std::cout << "   in=" << in->getID() << " out=" << out->getID() << " extra=" << (*pIn)->getID() << " extraWidthLeft=" << extraWidthLeft << "\n";
+//                            }
+//#endif
+                            NBContHelper::nextCW(myNode.getEdges(), pIn);
+                        }
+                    }
                 }
                 int wideLanesOut = 0;
                 for (int i = 0; i < out->getNumLanes(); i++) {
@@ -819,14 +856,47 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                         wideLanesOut++;
                     }
                 }
-                // changing the number of wide-vehicle lanes also requires the larger default
-                if (wideLanesOut != wideLanesIn) {
-                    return oc.getFloat("default.junctions.radius");
-                }
+                laneDelta = MAX2(laneDelta, abs(wideLanesOut - wideLanesIn));
             }
         }
     }
-    return oc.getFloat("junctions.small-radius");
+    // changing the number of wide-vehicle lanes on a straight segment requires a larger junction to allow for smooth driving
+    // otherwise we can reduce the radius according to the angle
+    double result = radius;
+    // left turns are assumed to cross additional edges and thus du not determine the required radius in most cases
+    double maxTurnAngle = maxRightAngle;
+    double extraWidth = extraWidthRight;
+    if (maxRightAngle < DEG2RAD(5)) {
+        maxTurnAngle = maxLeftAngle;
+        extraWidth = extraWidthLeft;
+    }
+    if (laneDelta == 0 || maxTurnAngle >= DEG2RAD(30) || myNode.isConstantWidthTransition()) {
+        // subtract radius gained from extra lanes
+        // do not increase radius for turns that are sharper than a right angle
+        result = MAX2(smallRadius, radius * tan(0.5 * MIN2(0.5 * M_PI, maxTurnAngle)) - extraWidth);
+    }
+#ifdef DEBUG_RADIUS
+    if (DEBUGCOND) {
+        std::cout << "getDefaultRadius n=" << myNode.getID() << " laneDelta=" << laneDelta 
+            << " rightA=" << RAD2DEG(maxRightAngle) 
+            << " leftA=" << RAD2DEG(maxLeftAngle) 
+            << " maxA=" << RAD2DEG(maxTurnAngle) 
+            << " extraWidth=" << extraWidth
+            << " result=" << result << "\n";
+    }
+#endif
+    return result;
 }
 
+
+double 
+NBNodeShapeComputer::getExtraWidth(const NBEdge* e, SVCPermissions exclude) {
+    double result = 0;
+    int lane = 0;
+    while (lane < e->getNumLanes() && (e->getPermissions(lane) & exclude) == 0) {
+        result += e->getLaneWidth(lane);
+        lane++;
+    }
+    return result;
+}
 /****************************************************************************/
