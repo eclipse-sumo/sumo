@@ -205,7 +205,7 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("speed.minimum", "Processing", "Modifies all edge speeds to at least FLOAT");
     }
 
-    oc.doRegister("junctions.corner-detail", new Option_Integer(0));
+    oc.doRegister("junctions.corner-detail", new Option_Integer(5));
     oc.addDescription("junctions.corner-detail", "Processing", "Generate INT intermediate points to smooth out intersection corners");
 
     oc.doRegister("junctions.internal-link-detail", new Option_Integer(5));
