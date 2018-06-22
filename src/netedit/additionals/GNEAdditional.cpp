@@ -105,7 +105,24 @@ GNEAdditional::~GNEAdditional() {}
 
 void 
 GNEAdditional::writeAdditional(OutputDevice& device) const {
-
+    // Open Tag
+    device.openTag(getTag());
+    // iterate over attributes and write it
+    for (auto i : getTagProperties(getTag())) {
+        // obtain attribute
+        std::string attribute = getAttribute(i.first);
+        if(i.second.hasDefaultValue()) {
+            // Only write attributes with default value if is different of original
+            if(i.second.getDefaultValue() != attribute) {
+                device.writeAttr(i.first, attribute);
+            }
+        } else {
+            // Attributes without default values are always writted
+            device.writeAttr(i.first, attribute);
+        }
+    }
+    // Close tag
+    device.closeTag();
 }
 
 
