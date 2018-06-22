@@ -64,6 +64,7 @@
 // create intermediate walking areas if either of the following thresholds is exceeded
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters
 #define SPLIT_CROSSING_ANGLE_THRESHOLD 5 // degrees
+#define AVOID_WIDE_LEFT_TURN 1 // flag
 
 // minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
@@ -73,7 +74,7 @@
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
 #define DEBUGCOND (getID() == "C")
-#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() ==  "C"))
+#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() ==  "disabled"))
 
 // ===========================================================================
 // static members
@@ -464,10 +465,11 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
                            bool isTurnaround,
                            double extrapolateBeg,
                            double extrapolateEnd,
-                           NBNode* recordError) const {
+                           NBNode* recordError,
+                           int shapeFlag) const {
 
     bool ok = true;
-    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok, recordError);
+    PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok, recordError, DEG2RAD(5), shapeFlag);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
@@ -492,7 +494,8 @@ NBNode::bezierControlPoints(
     double extrapolateEnd,
     bool& ok,
     NBNode* recordError,
-    double straightThresh) {
+    double straightThresh,
+    int shapeFlag) {
 
     const Position beg = begShape.back();
     const Position end = endShape.front();
@@ -583,12 +586,14 @@ NBNode::bezierControlPoints(
                     return PositionVector();
                 }
                 const double minControlLength = MIN2((double)1.0, dist / 2);
-                const bool lengthenBeg = intersect.distanceTo2D(beg) <= minControlLength;
-                const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
+                const double distBeg = intersect.distanceTo2D(beg);
+                const double distEnd = intersect.distanceTo2D(end);
+                const bool lengthenBeg = distBeg <= minControlLength;
+                const bool lengthenEnd = distEnd <= minControlLength;
                 if (lengthenBeg && lengthenEnd) {
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
-                                                 << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
+                                                 << " distBeg=" << distBeg << " distEnd=" << distEnd << "\n";
 #endif
                     if (recordError != 0) {
                         // This should be fixable with minor stretching
@@ -599,6 +604,10 @@ NBNode::bezierControlPoints(
                 } else if (lengthenBeg || lengthenEnd) {
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
+                } else if (shapeFlag == AVOID_WIDE_LEFT_TURN && angle > DEG2RAD(85) && (distBeg > 20 || distEnd > 20)) {
+                    //std::cout << "   bezierControlPoints intersect=" << intersect << " distBeg=" << distBeg <<  " distEnd=" << distEnd << "\n";
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - 10.0));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - 10.0));
                 } else {
                     double z;
                     const double z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z();
@@ -638,9 +647,14 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         displaceShapeAtWidthChange(con, fromShape, toShape);
         double extrapolateBeg = 5. * fromE->getNumLanes();
         double extrapolateEnd = 5. * con.toEdge->getNumLanes();
+        LinkDirection dir = getDirection(fromE, con.toEdge);
+        int shapeFlag = 0;
+        if (dir == LINKDIR_LEFT || dir == LINKDIR_TURN) {
+            shapeFlag = AVOID_WIDE_LEFT_TURN;
+        }
         ret = computeSmoothShape(fromShape, toShape,
                 numPoints, fromE->getTurnDestination() == con.toEdge,
-                extrapolateBeg, extrapolateEnd, recordError);
+                extrapolateBeg, extrapolateEnd, recordError, shapeFlag);
     } else {
         ret = con.customShape;
     }

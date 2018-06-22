@@ -531,11 +531,12 @@ public:
      */
     PositionVector computeSmoothShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints,
                                       bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
-                                      NBNode* recordError = 0) const;
+                                      NBNode* recordError = 0, int shapeFlag=0) const;
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
             bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
-            bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5));
+            bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5),
+            int shapeFlag = 0);
 
 
     /// @brief compute the displacement error during s-curve computation
