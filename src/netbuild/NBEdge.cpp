@@ -1500,7 +1500,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY);
                         if (oppositeLeftIntersect && getID() > (*i2)->getID() 
-                                && (getPermissions(con.fromLane) & warn) != 0 && ((*i2)->getPermissions((*k2).fromLane) & warn) != 0
+                                && (getPermissions(con.fromLane) & warn) != 0 
+                                && (con.toEdge->getPermissions(con.toLane) & warn) != 0 
+                                && ((*i2)->getPermissions((*k2).fromLane) & warn) != 0
+                                && ((*k2).toEdge->getPermissions((*k2).toLane) & warn) != 0
                                 // do not warn for unregulated nodes
                                 && n.getType() != NODETYPE_NOJUNCTION
                                 ) {

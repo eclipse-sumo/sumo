@@ -1420,14 +1420,9 @@ Warning: Intersecting left turns at junction '20246257' from lane '196850609#2_1
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
 Warning: Intersecting left turns at junction '25662705' from lane '243854725#0_1' and lane '-243854725#1_1'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '27410787' from lane '310176513#5_1' and lane '-310176513#6_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_1668685201_1785414414_2924018416_2924018417_2924018418_3253177075_3253177076_3253177078_3253177079' from lane '204032443#0_2' and lane '101699679#1_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_1827996421_21487210_29221504_29221506' from lane '202156994_1' and lane '171826985#3_4'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_1828018094_1828018095_1840326399_262469034_29123671_29123672_967017877' from lane '310357284#0_3' and lane '301167584_4'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_21432799_21432802_29221583_29221586_2951795004_3155751072_3155751073_3163433362_3163433363_392182854_52151282_961807409_961807418' from lane '188044903#0_5' and lane '187111590#2_4'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_21487285_29207836' from lane '328426208#0_1' and lane '233835641#0_1'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_21487285_29207836' from lane '328426208#0_1' and lane '233835641#0_4'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_21487285_29207836' from lane '328426208#0_4' and lane '233835641#0_1'. (increase junction radius to avoid this)
 Warning: Intersecting left turns at junction 'cluster_2341815018_26871465' from lane '4396823#3_1' and lane '-4396823#5_1'. (increase junction radius to avoid this)
 Warning: skipping line '9' because it has too few stops
 Warning: skipping line '10' because it has too few stops
