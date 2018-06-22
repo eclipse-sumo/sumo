@@ -487,6 +487,10 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
             curve.erase(curve.begin());
             curve.pop_back();
             ret = curve;
+            if (curve.length2D() > 2 * begPoint.distanceTo2D(endPoint)) {
+                // simplify dubious corner shape
+                ret.clear();
+            }
         }
     }
     return ret;
