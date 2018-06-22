@@ -144,6 +144,10 @@ public:
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                               const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
+    /// @brief whether opposite left turns intersect
+    bool oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+
 
 private:
     /** sets the information that the edge from1->to1 blocks the edge

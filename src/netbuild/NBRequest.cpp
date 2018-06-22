@@ -596,6 +596,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                             (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
+                            || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || myJunction->tlsContConflict(from, c, *i, connected[k])
                        ) {
@@ -643,7 +644,9 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                 if ((foes(from, to, (*i), connected[k].toEdge) &&
                         (!checkLaneFoes || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)))
                         || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
-                        || mergeConflict(from, queryCon, *i, connected[k], true)) {
+                        || mergeConflict(from, queryCon, *i, connected[k], true)
+                        || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
+                        ) {
                     result += '1';
                 } else {
                     result += '0';
@@ -692,6 +695,42 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             }
         }
 
+    } else {
+        return false;
+    }
+}
+
+
+bool
+NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                         const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    LinkDirection dir = myJunction->getDirection(from, con.toEdge);
+    // XXX lefthand issue (solve via #4256)
+    if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+        return false;
+    }
+    dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
+    if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+        return false;
+    }
+    if (from == prohibitorFrom || NBRequest::foes(from, con.toEdge, prohibitorFrom, prohibitorCon.toEdge)) {
+        // not an opposite pair
+        return false;
+    };
+
+    double width2 = prohibitorCon.toEdge->getLaneWidth(prohibitorCon.toLane) / 2;
+    PositionVector shape = con.shape;
+    shape.append(con.viaShape);
+    PositionVector otherShape = prohibitorCon.shape;
+    otherShape.append(prohibitorCon.viaShape);
+    if (shape.size() == 0 || otherShape.size() == 0) {
+        // no internal lanes built
+        return false;
+    }
+    const double minDV = NBEdge::firstIntersection(shape, otherShape, width2);
+    if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
+        // break symmetry using edge id
+        return foes || from->getID() < prohibitorFrom->getID();
     } else {
         return false;
     }

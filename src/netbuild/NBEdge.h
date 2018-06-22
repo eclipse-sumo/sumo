@@ -1246,6 +1246,9 @@ public:
     /// @brief debugging helper to print all connections
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 
+    /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
+    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2);
+
 private:
     /** @class ToEdgeConnectionsAdder
      * @brief A class that being a bresenham-callback assigns the incoming lanes to the edges
@@ -1383,8 +1386,8 @@ private:
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
 
-    /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
-    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2);
+    /// @brief determine conflict between opposite left turns
+    bool bothLeftIntersect(const NBNode& n, const PositionVector& shape, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints, double width2) const; 
 
     /// @brief add a lane of the given width, restricted to the given class and shift existing connections
     void addRestrictedLane(double width, SUMOVehicleClass vclass);
