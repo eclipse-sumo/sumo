@@ -897,6 +897,10 @@ double
 NBNodeShapeComputer::getExtraWidth(const NBEdge* e, SVCPermissions exclude) {
     double result = 0;
     int lane = 0;
+    while (lane < e->getNumLanes() && e->getPermissions(lane) == 0) {
+        // ignore forbidden lanes out the outside
+        lane++;
+    }
     while (lane < e->getNumLanes() && (e->getPermissions(lane) & exclude) == 0) {
         result += e->getLaneWidth(lane);
         lane++;
