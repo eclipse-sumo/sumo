@@ -110,8 +110,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     }
     // warn if the minGap is insufficient to clear vehicles between stop line and detector
     SUMOTime minMinDur = getMinimumMinDuration();
-    if (floor(floor(maxDetectorGap / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minMinDur)) {
-        WRITE_WARNING("At actuated tlLogic '" + getID() + "', minDur " + time2string(minMinDur) + " is too short to short for detector gap of " + toString(maxDetectorGap) + "m.");
+    if (floor(maxDetectorGap / DEFAULT_LENGTH_WITH_GAP * myPassingTime) > STEPS2TIME(minMinDur)) {
+        WRITE_WARNING("At actuated tlLogic '" + getID() + "', minDur " + time2string(minMinDur) + " is too short for a detector gap of " + toString(maxDetectorGap) + "m.");
     }
 }
 
