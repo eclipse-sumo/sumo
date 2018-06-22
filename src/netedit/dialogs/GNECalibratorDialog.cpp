@@ -27,7 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
-#include <netedit/changes/GNEChange_additional.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/additionals/GNECalibrator.h>
