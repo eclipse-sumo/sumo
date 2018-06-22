@@ -817,9 +817,9 @@ NBEdgeCont::recheckLanes() {
 
 
 void
-NBEdgeCont::appendTurnarounds(bool noTLSControlled) {
+NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends ) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->appendTurnaround(noTLSControlled, true);
+        (*i).second->appendTurnaround(noTLSControlled, onlyDeadends, true);
     }
 }
 
@@ -827,7 +827,7 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled) {
 void
 NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled) {
     for (std::set<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        myEdges[*it]->appendTurnaround(noTLSControlled, false);
+        myEdges[*it]->appendTurnaround(noTLSControlled, false, false);
     }
 }
 

@@ -2519,7 +2519,7 @@ NBEdge::computePrioritySum(const std::vector<int>& priorities) {
 
 
 void
-NBEdge::appendTurnaround(bool noTLSControlled, bool checkPermissions) {
+NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool checkPermissions) {
     // do nothing if no turnaround is known
     if (myTurnDestination == 0 || myTo->getType() == NODETYPE_RAIL_CROSSING) {
         return;
@@ -2527,6 +2527,9 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool checkPermissions) {
     // do nothing if the destination node is controlled by a tls and no turnarounds
     //  shall be appended for such junctions
     if (noTLSControlled && myTo->isTLControlled()) {
+        return;
+    }
+    if (onlyDeadends && myTo->getOutgoingEdges().size() > 1) {
         return;
     }
     const int fromLane = (int)myLanes.size() - 1;

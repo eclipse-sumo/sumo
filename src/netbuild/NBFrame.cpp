@@ -103,6 +103,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("no-turnarounds.tls", "no-tls-turnarounds", true);
     oc.addDescription("no-turnarounds.tls", "Processing", "Disables building turnarounds at tls-controlled junctions");
 
+    oc.doRegister("no-turnarounds.except-deadend", new Option_Bool(false));
+    oc.addDescription("no-turnarounds.except-deadend", "Processing", "Disables building turnarounds except at dead end junctions");
+
     oc.doRegister("no-left-connections", new Option_Bool(false));
     oc.addDescription("no-left-connections", "Processing", "Disables building connections to left");
 

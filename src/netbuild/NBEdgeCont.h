@@ -410,10 +410,11 @@ public:
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
      *
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
+     * @param[in] exceptDeadends Whether the turnaround shall only be built at deadends
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled);
+    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends);
 
 
     /** @brief Appends turnarounds to all edges stored in the container
