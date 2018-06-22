@@ -40,6 +40,13 @@
 #include <math.h>
 #include <microsim/MSNet.h>
 
+// ===========================================================================
+// debug flags
+// ===========================================================================
+#define DEBUG_ACC
+#define DEBUG_COND (veh->isSelected())
+
+
 
 // ===========================================================================
 // method definitions
@@ -64,9 +71,9 @@ MSCFModel_ACC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
    //  in this case, we neglect dawdling, nonetheless, using
    //  vSafe does not incorporate speed reduction due to interaction
    //  on lane changing
-   const double vMin = getSpeedAfterMaxDecel(oldV);
-   const double vMax = MAX2(vMin,
-       MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
+//   const double vMin = getSpeedAfterMaxDecel(oldV);
+   const double vMin = minNextSpeed(oldV);
+   const double vMax = MAX2(vMin, MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe));
 #ifdef _DEBUG
    //if (vMin > vMax) {
    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
@@ -79,7 +86,8 @@ MSCFModel_ACC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 double
 MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /* predMaxDecel */, const MSVehicle* const /* pred */) const {
-   return _v(veh, gap2pred, speed, predSpeed, MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed()), true);
+    const double desSpeed = MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed());
+   return _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
 }
 
 
@@ -88,7 +96,7 @@ MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double 
    // NOTE: This allows return of smaller values than minNextSpeed().
    // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
    // the stopping position is approached with a uniform deceleration also for tau!=TS.
-   return MIN2(maximumSafeStopSpeed(gap, speed, false, TS), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
@@ -133,6 +141,15 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
    double gapLimit_SC = 120; // lower gap limit in meters to enable speed control law
    double gapLimit_GC = 100; // upper gap limit in meters to enable gap control law
 
+#ifdef DEBUG_ACC
+   if DEBUG_COND {
+       std::cout << SIMTIME << " MSCFModel_ACC::_v() for veh '" << veh->getID() << "'\n"
+               << "        gap=" << gap2pred << " speed="  << speed << " predSpeed=" << predSpeed
+               << " desSpeed=" << desSpeed << std::endl;
+   }
+#endif
+
+
    /* Velocity error */
    double vErr = speed - desSpeed;
    int setControlMode = 0;
@@ -163,6 +180,14 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
    }
 
    double newSpeed = speed + ACCEL2SPEED(accelACC);
+
+
+#ifdef DEBUG_ACC
+   if DEBUG_COND {
+       std::cout << "        result: accel=" << accelACC << " newSpeed="  << newSpeed << std::endl;
+   }
+#endif
+
 
    return MAX2(0., newSpeed);
 }
