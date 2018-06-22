@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version af267e6
+Eclipse SUMO netconvert Version b663296
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -315,6 +315,8 @@ Processing Options:
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at
                                          tls-controlled junctions
+  --no-turnarounds.except-deadend      Disables building turnarounds except at
+                                         dead end junctions
   --no-left-connections                Disables building connections to left
   --geometry.split                     Splits edges across geometry nodes
   -R, --geometry.remove                Replace nodes which only define edge

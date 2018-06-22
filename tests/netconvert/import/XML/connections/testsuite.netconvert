@@ -4,6 +4,9 @@ cross3l_noconnection
 # Test for the unconstrained network
 cross3l_unconstrained
 
+# test option no-turnarounds.except-deadend
+cross3l_no-turnarounds.except-deadend
+
 # Test for edge2edge connections
 cross3l_edge2edge_conns
 
