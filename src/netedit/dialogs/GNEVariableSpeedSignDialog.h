@@ -87,6 +87,9 @@ protected:
     /// @brief Pointer to Variable Speed Signal
     GNEVariableSpeedSign* myEditedVariableSpeedSign;
 
+    /// @brief current VSS steps edited
+    std::vector<GNEAdditional*> myEditedSteps;
+
     /// @brief Table with the data
     FXTable* myStepsTable;
 

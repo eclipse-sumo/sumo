@@ -125,39 +125,8 @@ GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* 
 
 
 void
-GNEVariableSpeedSign::addVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
-    auto it = std::find(mySteps.begin(), mySteps.end(), step);
-    if (it == mySteps.end()) {
-        mySteps.push_back(step);
-        // sort steps always after a adding/restoring
-        sortVariableSpeedSignSteps();
-    } else {
-        throw ProcessError("Variable Speed Sign Step already exist");
-    }
-}
-
-
-void
-GNEVariableSpeedSign::removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step) {
-    auto it = std::find(mySteps.begin(), mySteps.end(), step);
-    if (it != mySteps.end()) {
-        mySteps.erase(it);
-        // sort steps always after a adding/restoring
-        sortVariableSpeedSignSteps();
-    } else {
-        throw ProcessError("Variable Speed Sign Step doesn't exist");
-    }
-}
-
-
-const std::vector<GNEVariableSpeedSignStep*>&
-GNEVariableSpeedSign::getVariableSpeedSignSteps() const {
-    return mySteps;
-}
-
-
-void
 GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
+    /*
     // declare a vector to keep sorted steps
     std::vector<GNEVariableSpeedSignStep*> sortedSteps;
     // sort intervals usin time as criterium
@@ -175,6 +144,7 @@ GNEVariableSpeedSign::sortVariableSpeedSignSteps() {
     }
     // restore mySteps using sorted steps
     mySteps = sortedSteps;
+    */
 }
 
 
@@ -296,7 +266,15 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            // change ID of Rerouter Interval
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            // Change Ids of all Variable Speed Sign
+            for (auto i : myAdditionalChilds) {
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_STEP), undoList);
+            }
+            break;
+        }
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FILE:

@@ -1441,23 +1441,6 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
             myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorRoutes().front(), false), true);
         }
     }
-    // if Additional is a rerouter, remove all rerouter items manually
-    if (additional->getTag() == SUMO_TAG_REROUTER) {
-        GNERerouter *rerouter = dynamic_cast<GNERerouter*>(additional);
-        // Clear rerouter intervals
-        while(rerouter->getAdditionalChilds().size() > 0) {
-            // remove rerouter interval
-            myViewNet->getUndoList()->add(new GNEChange_Additional(rerouter->getAdditionalChilds().front(), false), true);
-        }
-    }
-    // if Additional is a Variable Speed Singn, remove all steps
-    if (additional->getTag() == SUMO_TAG_VSS) {
-        GNEVariableSpeedSign *variableSpeedSign = dynamic_cast<GNEVariableSpeedSign*>(additional);
-        // Clear vss steps
-        while(variableSpeedSign->getVariableSpeedSignSteps().size() > 0) {
-            myViewNet->getUndoList()->add(new GNEChange_VariableSpeedSignItem(variableSpeedSign->getVariableSpeedSignSteps().front(), false), true);
-        }
-    }
     // remove additional
     myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);
     myViewNet->getUndoList()->p_end();

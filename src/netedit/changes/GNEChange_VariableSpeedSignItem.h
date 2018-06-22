@@ -33,47 +33,9 @@
 // class declarations
 // ===========================================================================
 
-class GNEVariableSpeedSignStep;
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
-* @class GNEChange_VariableSpeedSignItem
-* A change to the network selection
-*/
-class GNEChange_VariableSpeedSignItem : public GNEChange {
-    FXDECLARE_ABSTRACT(GNEChange_VariableSpeedSignItem)
-
-public:
-    /**@brief Constructor
-    * @param[in] variableSpeedSignStep Variable Speed Sign interval to be added
-    * @param[in] forward Whether to create/delete (true/false)
-    */
-    GNEChange_VariableSpeedSignItem(GNEVariableSpeedSignStep* variableSpeedSignStep, bool forward);
-
-    /// @brief Destructor
-    ~GNEChange_VariableSpeedSignItem();
-
-    /// @name inherited from GNEChange
-    /// @{
-    /// @brief get undo Name
-    FXString undoName() const;
-
-    /// @brief get Redo name
-    FXString redoName() const;
-
-    /// @brief undo action
-    void undo();
-
-    /// @brief redo action
-    void redo();
-    /// @}
-
-private:
-    /// @brief modified Variable Speed Sign interval
-    GNEVariableSpeedSignStep* myVariableSpeedSignStep;
-};
 
 #endif
 /****************************************************************************/

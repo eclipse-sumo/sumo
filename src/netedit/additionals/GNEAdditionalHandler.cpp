@@ -1874,10 +1874,10 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allow
     // add it depending of allow undoRedo
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(variableSpeedSignStep->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_VariableSpeedSignItem(variableSpeedSignStep, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        VSSParent->addVariableSpeedSignStep(variableSpeedSignStep);
+        VSSParent->addAdditionalChild(variableSpeedSignStep);
         variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
     }
     return true;

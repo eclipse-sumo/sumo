@@ -55,9 +55,6 @@ public:
     /// @brief destructor
     ~GNEVariableSpeedSignStep();
 
-    /// @brief get variable speed sign parent
-    GNEVariableSpeedSign* getVariableSpeedSignParent() const;
-
     /// @brief get time
     double getTime() const;
 
@@ -121,9 +118,6 @@ public:
     /// @}
 
 protected:
-    /// @brief pointer to variable speed sign parent
-    GNEVariableSpeedSign* myVariableSpeedSignParent;
-
     /// @brief timeStep
     double myTime;
 

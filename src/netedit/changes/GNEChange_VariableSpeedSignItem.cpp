@@ -32,82 +32,8 @@
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
-FXIMPLEMENT_ABSTRACT(GNEChange_VariableSpeedSignItem, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEChange_VariableSpeedSignItem::GNEChange_VariableSpeedSignItem(GNEVariableSpeedSignStep* variableSpeedSignStep, bool forward) :
-    GNEChange(variableSpeedSignStep->getVariableSpeedSignParent()->getViewNet()->getNet(), forward),
-    myVariableSpeedSignStep(variableSpeedSignStep) {
-    myVariableSpeedSignStep->incRef("GNEChange_VariableSpeedSignItem");
-}
-
-
-GNEChange_VariableSpeedSignItem::~GNEChange_VariableSpeedSignItem() {
-    myVariableSpeedSignStep->decRef("GNEChange_VariableSpeedSignItem");
-    if (myVariableSpeedSignStep->unreferenced()) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting Variable Speed Sign Step");
-        }
-        delete myVariableSpeedSignStep;
-    }
-}
-
-
-void
-GNEChange_VariableSpeedSignItem::undo() {
-    if (myForward) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing Step from Variable Speed Sign '" + myVariableSpeedSignStep->getVariableSpeedSignParent()->getID() + "'");
-        }
-        // remove step from Variable Speed Sign
-        myVariableSpeedSignStep->getVariableSpeedSignParent()->removeVariableSpeedSignStep(myVariableSpeedSignStep);
-    } else {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding Step to Variable Speed Sign '" + myVariableSpeedSignStep->getVariableSpeedSignParent()->getID() + "'");
-        }
-        // add step to Variable Speed Sign
-        myVariableSpeedSignStep->getVariableSpeedSignParent()->addVariableSpeedSignStep(myVariableSpeedSignStep);
-    }
-    // enable save additionals
-    myNet->requiereSaveAdditionals(true);
-}
-
-
-void
-GNEChange_VariableSpeedSignItem::redo() {
-    if (myForward) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding Step to Variable Speed Sign '" + myVariableSpeedSignStep->getVariableSpeedSignParent()->getID() + "'");
-        }
-        // add step to Variable Speed Sign
-        myVariableSpeedSignStep->getVariableSpeedSignParent()->addVariableSpeedSignStep(myVariableSpeedSignStep);
-    } else {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing  Step from Variable Speed Sign '" + myVariableSpeedSignStep->getVariableSpeedSignParent()->getID() + "'");
-        }
-        // remove step from Variable Speed Sign
-        myVariableSpeedSignStep->getVariableSpeedSignParent()->removeVariableSpeedSignStep(myVariableSpeedSignStep);
-    }
-    // enable save additionals
-    myNet->requiereSaveAdditionals(true);
-}
-
-
-FXString
-GNEChange_VariableSpeedSignItem::undoName() const {
-    return ("Undo change " + toString(myVariableSpeedSignStep->getTag()) + " values").c_str();
-}
-
-
-FXString
-GNEChange_VariableSpeedSignItem::redoName() const {
-    return ("Redo change " + toString(myVariableSpeedSignStep->getTag()) + " values").c_str();
-}

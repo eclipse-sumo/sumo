@@ -60,16 +60,6 @@ public:
 
     /// @name Functions related with Variable Speed Sign Steps
     /// @{
-
-    /// @brief insert a new step in variable speed signal
-    void addVariableSpeedSignStep(GNEVariableSpeedSignStep* step);
-
-    /// @brief remove an existent step of variable speed signal
-    void removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step);
-
-    /// @brief get values of variable speed signal
-    const std::vector<GNEVariableSpeedSignStep*>& getVariableSpeedSignSteps() const;
-
     /// @brief sort steps
     void sortVariableSpeedSignSteps();
 
@@ -139,9 +129,6 @@ protected:
 
     /// @brief filename of variable speed sign
     std::string myFilename;
-
-    /// @brief values of variable speed signal
-    std::vector<GNEVariableSpeedSignStep*> mySteps;
 
     /// @brief enable or disable save in external filename
     bool mySaveInFilename;

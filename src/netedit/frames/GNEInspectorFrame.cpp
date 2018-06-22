@@ -611,13 +611,18 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+        } else if (myAttr == SUMO_ATTR_ID) {
+            // IDs attribute has to be encapsulated
+            myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change " + toString(myTag) + " attribute");
         }
         // Set new value of attribute in all selected ACs
         for (auto it_ac : myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs()) {
             it_ac->setAttribute(myAttr, newVal, myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList());
         }
-        // finish change multiple attributes
+        // finish change multiple attributes or ID Attributes
         if (myAttributesEditorParent->getInspectorFrameParent()->getInspectedACs().size() > 1) {
+            myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
+        } else if (myAttr == SUMO_ATTR_ID) {
             myAttributesEditorParent->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black

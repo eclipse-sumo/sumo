@@ -35,32 +35,24 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditional("XXX", variableSpeedSignDialog->getEditedVariableSpeedSign()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, false, false),
-    myVariableSpeedSignParent(variableSpeedSignDialog->getEditedVariableSpeedSign()),
+    GNEAdditional(variableSpeedSignDialog->getEditedVariableSpeedSign(), variableSpeedSignDialog->getEditedVariableSpeedSign()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, false, false),
     myTime(0),
     mySpeed(parse<double>(getTagProperties(SUMO_TAG_STEP).getDefaultValue(SUMO_ATTR_SPEED))) {
     // set Time
-    if (variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().size() > 0) {
-        myTime = variableSpeedSignDialog->getEditedVariableSpeedSign()->getVariableSpeedSignSteps().back()->getTime() + 1;
+    if (myAdditionalParent->getAdditionalChilds().size() > 0) {
+        myTime = parse<double>(myAdditionalParent->getAdditionalChilds().back()->getAttribute(SUMO_ATTR_TIME)) + 1;
     }
 }
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSign* variableSpeedSignParent, double time, double speed) :
-    GNEAdditional("XXX", variableSpeedSignParent->getViewNet(), GLO_VSS, SUMO_TAG_STEP, false, false),
-    myVariableSpeedSignParent(variableSpeedSignParent),
+    GNEAdditional(variableSpeedSignParent, variableSpeedSignParent->getViewNet(), GLO_VSS, SUMO_TAG_STEP, false, false),
     myTime(time),
     mySpeed(speed) {
 }
 
 
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
-
-
-GNEVariableSpeedSign*
-GNEVariableSpeedSignStep::getVariableSpeedSignParent() const {
-    return myVariableSpeedSignParent;
-}
 
 
 double
@@ -95,7 +87,7 @@ GNEVariableSpeedSignStep::getPositionInView() const {
 
 std::string 
 GNEVariableSpeedSignStep::getParentName() const {
-    return myVariableSpeedSignParent->getID();
+    return myAdditionalParent->getID();
 }
 
 
@@ -109,7 +101,7 @@ std::string
 GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myVariableSpeedSignParent->getID() + "_" + toString(myTime) + "-" + toString(mySpeed);
+            return getAdditionalID();
         case SUMO_ATTR_TIME:
             return toString(myTime);
         case SUMO_ATTR_SPEED:
@@ -126,6 +118,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
@@ -139,6 +132,8 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
 bool
 GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(value);
         case SUMO_ATTR_TIME:
             if(canParse<double>(value)) {
                 // Check that 
@@ -149,8 +144,8 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
-                for (auto i : myVariableSpeedSignParent->getVariableSpeedSignSteps()) {
-                    if(i->getTime() == newTime) {
+                for (auto i : myAdditionalParent->getAdditionalChilds()) {
+                    if(parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
                         counter++;
                     }
                 }
@@ -172,14 +167,15 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_TIME: {
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
+        case SUMO_ATTR_TIME:
             myTime = parse<double>(value);
             break;
-        }
-        case SUMO_ATTR_SPEED: {
+        case SUMO_ATTR_SPEED:
             mySpeed = parse<double>(value);
             break;
-        }
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
