@@ -1431,10 +1431,6 @@ GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
     // if Additional is a calibrator, remove all calibrator items manually
     if ((additional->getTag() == SUMO_TAG_CALIBRATOR) || (additional->getTag() == SUMO_TAG_LANECALIBRATOR)) {
         GNECalibrator *calibrator = dynamic_cast<GNECalibrator*>(additional);
-        // Clear flows (Always first)
-        while(calibrator->getCalibratorFlows().size() > 0) {
-            myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorFlows().front(), false), true);
-        }
         // Clear Routes
         while(calibrator->getCalibratorRoutes().size() > 0) {
             myViewNet->getUndoList()->add(new GNEChange_CalibratorItem(calibrator->getCalibratorRoutes().front(), false), true);

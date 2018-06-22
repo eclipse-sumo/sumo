@@ -41,18 +41,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, nullptr, 0)
 // ===========================================================================
 
 
-GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorFlow* calibratorFlow, bool forward) :
-    GNEChange(calibratorFlow->getViewNet()->getNet(), forward),
-    myCalibratorFlow(calibratorFlow),
-    myCalibratorRoute(nullptr),
-    myCalibratorVehicleType(nullptr) {
-    myCalibratorFlow->incRef("GNEChange_CalibratorItem");
-}
-
-
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibratorRoute, bool forward) :
     GNEChange(calibratorRoute->getViewNet()->getNet(), forward),
-    myCalibratorFlow(nullptr),
     myCalibratorRoute(calibratorRoute),
     myCalibratorVehicleType(nullptr) {
     myCalibratorRoute->incRef("GNEChange_CalibratorItem");
@@ -61,7 +51,6 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibrato
 
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward) :
     GNEChange(calibratorVehicleType->getViewNet()->getNet(), forward),
-    myCalibratorFlow(nullptr),
     myCalibratorRoute(nullptr),
     myCalibratorVehicleType(calibratorVehicleType) {
     myCalibratorVehicleType->incRef("GNEChange_CalibratorItem");
@@ -69,20 +58,7 @@ GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* cal
 
 
 GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
-    if (myCalibratorFlow) {
-        myCalibratorFlow->decRef("GNEChange_CalibratorItem");
-        if (myCalibratorFlow->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator flow");
-            }
-            // make sure that calibrator flow isn't in Calibrator before removing
-            if (myCalibratorFlow->getCalibratorParent()->calibratorFlowExist(myCalibratorFlow, false)) {
-                myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-            }
-            delete myCalibratorFlow;
-        }
-    } else if (myCalibratorRoute) {
+    if (myCalibratorRoute) {
         myCalibratorRoute->decRef("GNEChange_CalibratorItem");
         if (myCalibratorRoute->unreferenced()) {
             // show extra information for tests
@@ -103,14 +79,7 @@ GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
 void
 GNEChange_CalibratorItem::undo() {
     if (myForward) {
-        if (myCalibratorFlow) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
-            }
-            // remove calibrator flow of calibrator
-            myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-        } else if (myCalibratorRoute) {
+        if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
@@ -129,14 +98,7 @@ GNEChange_CalibratorItem::undo() {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     } else {
-        if (myCalibratorFlow) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
-            }
-            // add calibrator flow into calibrator
-            myCalibratorFlow->getCalibratorParent()->addCalibratorFlow(myCalibratorFlow);
-        } else if (myCalibratorRoute) {
+        if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator route into calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
@@ -163,14 +125,7 @@ GNEChange_CalibratorItem::undo() {
 void
 GNEChange_CalibratorItem::redo() {
     if (myForward) {
-        if (myCalibratorFlow) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding calibrator flow into calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
-            }
-            // add calibrator flow into calibrator
-            myCalibratorFlow->getCalibratorParent()->addCalibratorFlow(myCalibratorFlow);
-        } else if (myCalibratorRoute) {
+        if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator route into calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
@@ -189,14 +144,7 @@ GNEChange_CalibratorItem::redo() {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     } else {
-        if (myCalibratorFlow) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing calibrator flow of calibrator '" + myCalibratorFlow->getCalibratorParent()->getID() + "'");
-            }
-            // remove calibrator flow of calibrator
-            myCalibratorFlow->getCalibratorParent()->removeCalibratorFlow(myCalibratorFlow);
-        } else if (myCalibratorRoute) {
+        if (myCalibratorRoute) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
@@ -222,9 +170,7 @@ GNEChange_CalibratorItem::redo() {
 
 FXString
 GNEChange_CalibratorItem::undoName() const {
-    if (myCalibratorFlow) {
-        return ("Undo change " + toString(myCalibratorFlow->getTag()) + " values").c_str();
-    } else if (myCalibratorRoute) {
+    if (myCalibratorRoute) {
         return ("Undo change " + toString(myCalibratorRoute->getTag()) + " values").c_str();
     } else if (myCalibratorVehicleType) {
         return ("Undo change " + toString(myCalibratorVehicleType->getTag()) + " values").c_str();
@@ -236,9 +182,7 @@ GNEChange_CalibratorItem::undoName() const {
 
 FXString
 GNEChange_CalibratorItem::redoName() const {
-    if (myCalibratorFlow) {
-        return ("Redo change " + toString(myCalibratorFlow->getTag()) + " values").c_str();
-    } else if (myCalibratorRoute) {
+    if (myCalibratorRoute) {
         return ("Redo change " + toString(myCalibratorRoute->getTag()) + " values").c_str();
     } else if (myCalibratorVehicleType) {
         return ("Redo change " + toString(myCalibratorVehicleType->getTag()) + " values").c_str();

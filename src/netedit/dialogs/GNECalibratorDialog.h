@@ -95,6 +95,9 @@ private:
     /// @brief pointer to edited calibrator
     GNECalibrator* myEditedCalibrator;
 
+    /// @brief current edited flows
+    std::vector<GNEAdditional*> myFlowsEdited;
+
     /// @brief button for add new route
     FXButton* myAddRoute;
 

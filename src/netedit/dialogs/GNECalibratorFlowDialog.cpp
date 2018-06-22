@@ -25,7 +25,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
-#include <netedit/changes/GNEChange_CalibratorItem.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/additionals/GNECalibrator.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
@@ -59,14 +59,14 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialo
 // ===========================================================================
 
 GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibratorFlow, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorFlow->getCalibratorParent(), 600, 280),
+    GNEAdditionalDialog(editedCalibratorFlow->getAdditionalParent(), 600, 280),
     myEditedCalibratorFlow(editedCalibratorFlow),
     myUpdatingElement(updatingElement),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorFlow->getTag()) + " of " : "Create " + toString(myEditedCalibratorFlow->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorFlow->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorFlow->getCalibratorParent()->getID() + "'");
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorFlow->getAdditionalParent()->getTag()) + " '" + myEditedCalibratorFlow->getAdditionalParent()->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -135,16 +135,18 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), 0, GUIDesignLabelThick);
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
     // fill comboBox of VTypes
-    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->getCalibratorVehicleTypes()) {
+    for (auto i : myEditedCalibratorFlow->getViewNet()->getNet()->getCalibratorVehicleTypes()) {
         myComboBoxVehicleType->appendItem(i->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getNet()->getCalibratorVehicleTypes().size());
+    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getAdditionalParent()->getViewNet()->getNet()->getCalibratorVehicleTypes().size());
 
     // fill comboBox of Routes
-    for (auto i : myEditedCalibratorFlow->getCalibratorParent()->getCalibratorRoutes()) {
-        myComboBoxRoute->appendItem(i->getID().c_str());
+    for (auto i : myEditedCalibratorFlow->getAdditionalParent()->getAdditionalChilds()) {
+        if(i->getTag() == SUMO_TAG_ROUTE) {
+            myComboBoxRoute->appendItem(i->getID().c_str());
+        }
     }
-    myComboBoxRoute->setNumVisible((int)myEditedCalibratorFlow->getCalibratorParent()->getCalibratorRoutes().size());
+    myComboBoxRoute->setNumVisible((int)myComboBoxRoute->getNumItems());
 
     // update tables
     updateCalibratorFlowValues();
@@ -154,7 +156,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorFlow, true), true);
+        myEditedCalibratorFlow->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorFlow, true), true);
     }
 
     // open as modal dialog
@@ -174,7 +176,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string parentTagString = toString(myEditedCalibratorFlow->getCalibratorParent()->getTag());
+        std::string parentTagString = toString(myEditedCalibratorFlow->getAdditionalParent()->getTag());
         std::string tagString = toString(myEditedCalibratorFlow->getTag());
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
@@ -223,7 +225,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorFlowValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legilibity)
-    GNEUndoList* undoList = myEditedCalibratorFlow->getCalibratorParent()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myEditedCalibratorFlow->getViewNet()->getUndoList();
     // set color of myComboBoxVehicleType, depending if current value is valid or not
     if (myEditedCalibratorFlow->isValid(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text())) {
         myComboBoxVehicleType->setTextColor(FXRGB(0, 0, 0));

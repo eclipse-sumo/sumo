@@ -378,6 +378,17 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
 }
 
 
+void 
+GNEAdditional::setDefaultValues() {
+    // iterate over attributes and set default value
+    for (auto i : getTagProperties(getTag())) {
+        if(i.second.hasDefaultValue()) {
+            setAttribute(i.first, i.second.getDefaultValue());
+        }
+    }
+}
+
+
 void
 GNEAdditional::setBlockIconRotation(GNELane* additionalLane) {
     if (myShape.size() > 0 && myShape.length() != 0) {

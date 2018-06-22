@@ -60,9 +60,6 @@ public:
     /// @brief destructor
     ~GNECalibratorFlow();
 
-    /// @brief get pointer to calibrator parent
-    GNECalibrator* getCalibratorParent() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -123,9 +120,6 @@ public:
     /// @}
 
 protected:
-    /// @brief pointer to calibrator parent
-    GNECalibrator* myCalibratorParent;
-
     /// @brief type of flow
     GNECalibratorVehicleType* myVehicleType;
 

@@ -266,10 +266,6 @@ protected:
     std::vector<double> myShapeLengths;
     /// @}
 
-private:
-    /// @brief flag to check if this additional is movable
-    bool myMovable;
-
 protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
@@ -285,6 +281,9 @@ protected:
 
     /// @brief vector with the lane childs of this additional
     std::vector<GNELane*> myLaneChilds;
+
+    /// @brief change all attributes of additional with their default values (note: this cannot be undo)
+    void setDefaultValues();
 
     /// @name members and functions relative to block icon
     /// @{
@@ -353,8 +352,14 @@ protected:
     /// @}
 
 private:
+    /// @brief flag to check if this additional is movable
+    bool myMovable;
+
     /// @brief Matrix with the Vertex's positions of connections between parents an their childs
     std::vector<std::vector<Position> > myChildConnectionPositions;
+
+    /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

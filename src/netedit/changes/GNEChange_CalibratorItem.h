@@ -50,12 +50,6 @@ class GNEChange_CalibratorItem : public GNEChange {
 
 public:
     /**@brief Constructor
-    * @param[in] calibratorFlow calibrator flow to be added or removed
-    * @param[in] forward Whether to create/delete (true/false)
-    */
-    GNEChange_CalibratorItem(GNECalibratorFlow* calibratorFlow, bool forward);
-
-    /**@brief Constructor
     * @param[in] calibratorRoute calibrator route to be added or removed
     * @param[in] forward Whether to create/delete (true/false)
     */
@@ -86,9 +80,6 @@ public:
     /// @}
 
 private:
-    /// @brief modified calibrator flow
-    GNECalibratorFlow* myCalibratorFlow;
-
     /// @brief modified calibrator route
     GNECalibratorRoute* myCalibratorRoute;
 

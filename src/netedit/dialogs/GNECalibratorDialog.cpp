@@ -27,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
+#include <netedit/changes/GNEChange_additional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/additionals/GNECalibrator.h>
@@ -102,6 +103,11 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     myFlowList->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myFlowList->setEditable(false);
 
+    // fill flows edited
+    for (auto i : myEditedCalibrator->getAdditionalChilds()) {
+        myFlowsEdited.push_back(i);
+    }
+
     // update tables
     updateRouteTable();
     updateVehicleTypeTable();
@@ -172,8 +178,8 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedCalibrator->getCalibratorRoutes().size(); i++) {
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
-            std::vector<GNECalibratorFlow*> calibratorFlowsToErase;
-            for (auto j : myEditedCalibrator->getCalibratorFlows()) {
+            std::vector<GNEAdditional*> calibratorFlowsToErase;
+            for (auto j : myFlowsEdited) {
                 if (j->getAttribute(SUMO_ATTR_ROUTE) == myRouteList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(j);
                 }
@@ -205,7 +211,8 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                     }
                     // remove affected flows of calibrator flows
                     for (auto j : calibratorFlowsToErase) {
-                        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
+                        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);
+                        myFlowsEdited.erase(std::find(myFlowsEdited.begin(), myFlowsEdited.end(), j));
                     }
                     // remove route of calibrator routes
                     myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorRoutes().at(i), false), true);
@@ -239,7 +246,9 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is CalibratorRoutes and Calibrator vehicle types
     if (myEditedCalibrator->getCalibratorRoutes().size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
-        GNECalibratorFlowDialog(new GNECalibratorFlow(this), false);
+        GNECalibratorFlow* flow = new GNECalibratorFlow(this);
+        GNECalibratorFlowDialog(flow, false);
+        myFlowsEdited.push_back(flow);
         // update flows table
         updateFlowTable();
         return 1;
@@ -252,16 +261,17 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedCalibrator->getCalibratorFlows().size(); i++) {
+    for (int i = 0; i < (int)myFlowsEdited.size(); i++) {
         if (myFlowList->getItem(i, 3)->hasFocus()) {
             // remove flow of calibrator flows
-            myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibrator->getCalibratorFlows().at(i), false), true);
+            myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(myFlowsEdited.at(i), false), true);
+            myFlowsEdited.erase(myFlowsEdited.begin() + i);
             // update flows table
             updateFlowTable();
             return 1;
         } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus() || myFlowList->getItem(i, 2)->hasFocus()) {
-            // modify flow of calibrator flows
-            GNECalibratorFlowDialog(myEditedCalibrator->getCalibratorFlows().at(i), true);
+            // modify flow of calibrator flows (temporal)
+            GNECalibratorFlowDialog((GNECalibratorFlow*)myFlowsEdited.at(i), true);
             // update flows table
             updateFlowTable();
             return 1;
@@ -289,8 +299,8 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)vehicleTypes.size(); i++) {
         if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
-            std::vector<GNECalibratorFlow*> calibratorFlowsToErase;
-            for (auto j : myEditedCalibrator->getCalibratorFlows()) {
+            std::vector<GNEAdditional*> calibratorFlowsToErase;
+            for (auto j : myFlowsEdited) {
                 if (j->getAttribute(SUMO_ATTR_TYPE) == myVehicleTypeList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(j);
                 }
@@ -317,7 +327,8 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                     }
                     // remove affected flows of calibrator flows
                     for (auto j : calibratorFlowsToErase) {
-                        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(j, false), true);
+                        myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);
+                        myFlowsEdited.erase(std::find(myFlowsEdited.begin(), myFlowsEdited.end(), j));
                     }
                     // remove vehicle type of calibrator vehicle types
                     myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(vehicleTypes.at(i), false), true);
@@ -390,7 +401,7 @@ GNECalibratorDialog::updateFlowTable() {
     // clear table
     myFlowList->clearItems();
     // set number of rows
-    myFlowList->setTableSize(int(myEditedCalibrator->getCalibratorFlows().size()), 4);
+    myFlowList->setTableSize(int(myFlowsEdited.size()), 4);
     // Configure list
     myFlowList->setVisibleColumns(4);
     myFlowList->setColumnWidth(0, 92);
@@ -406,7 +417,7 @@ GNECalibratorDialog::updateFlowTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over flows
-    for (auto i : myEditedCalibrator->getCalibratorFlows()) {
+    for (auto i : myFlowsEdited) {
         // Set id
         item = new FXTableItem(i->getID().c_str());
         myFlowList->setItem(indexRow, 0, item);

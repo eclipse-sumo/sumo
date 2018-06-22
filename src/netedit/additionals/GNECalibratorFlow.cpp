@@ -54,8 +54,7 @@
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
-    GNEAdditional("XXX", calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()),
+    GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
     myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
     myVehsPerHour(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_VEHSPERHOUR)),
@@ -81,8 +80,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
-    GNEAdditional("XXX", calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
-    myCalibratorParent(calibratorParent),
+    GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myVehicleType(vehicleType),
     myRoute(route),
     myVehsPerHour(vehsPerHour),
@@ -105,17 +103,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
 }
 
 
-GNECalibratorFlow::~GNECalibratorFlow() {
-    if(myCalibratorParent->calibratorFlowExist(this, false)) {
-        myCalibratorParent->removeCalibratorFlow(this);
-    }
-}
-
-
-GNECalibrator*
-GNECalibratorFlow::getCalibratorParent() const {
-    return myCalibratorParent;
-}
+GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
 void 
@@ -144,7 +132,7 @@ GNECalibratorFlow::getPositionInView() const {
 
 std::string 
 GNECalibratorFlow::getParentName() const {
-    return myCalibratorParent->getID();
+    return myAdditionalParent->getID();
 }
 
 
@@ -158,7 +146,7 @@ std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myCalibratorParent->getID() + "_CalibratorFlow_" + toString(myCalibratorParent->getCalibratorFlowIndex(this));
+            return getAdditionalID();
         case SUMO_ATTR_TYPE:
             return myVehicleType->getID();
         case SUMO_ATTR_ROUTE:
@@ -209,6 +197,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
@@ -239,10 +228,12 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
 bool
 GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (value == DEFAULT_VTYPE_ID || (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr));
+            return isValidID(value) && (myViewNet->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
+            return isValidID(value) && (myViewNet->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if(value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -278,7 +269,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
             } else {
-                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
+                return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_DEPARTPOS:
             if ((value == "random") || (value == "free") || (value == "random_free") || (value == "base") || (value == "last")) {
@@ -296,7 +287,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "current") {
                 return true;
             } else {
-                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
+                return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_ARRIVALPOS:
             if ((value == "random") || (value == "max")) {
@@ -342,11 +333,14 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
         case SUMO_ATTR_TYPE:
-            myVehicleType = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value);
+            myVehicleType = myViewNet->getNet()->retrieveCalibratorVehicleType(value);
             break;
         case SUMO_ATTR_ROUTE:
-            myRoute = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value);
+            myRoute = myViewNet->getNet()->retrieveCalibratorRoute(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             myVehsPerHour = value;

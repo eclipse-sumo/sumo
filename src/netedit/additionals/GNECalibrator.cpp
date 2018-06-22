@@ -80,16 +80,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane
 }
 
 
-GNECalibrator::~GNECalibrator() {
-    // Drop calibrator flows (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myCalibratorFlows) {
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it->getTag()) + " '" + it->getID() + "' in GNECalibrator destructor");
-        }
-        delete it;
-    }
-}
+GNECalibrator::~GNECalibrator() {}
 
 
 void
@@ -246,74 +237,6 @@ GNECalibrator::removeCalibratorRoute(GNECalibratorRoute* route) {
 const std::vector<GNECalibratorRoute*>&
 GNECalibrator::getCalibratorRoutes() const {
     return myCalibratorRoutes;
-}
-
-
-void
-GNECalibrator::addCalibratorFlow(GNECalibratorFlow* flow) {
-    if(flow == nullptr) {
-        throw ProcessError("Flow cannot be nullptr");
-    } else if (std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow) != myCalibratorFlows.end()) {
-        throw ProcessError("Flow was already inserted");
-    } else {
-        myCalibratorFlows.push_back(flow);
-    }
-}
-
-
-void
-GNECalibrator::removeCalibratorFlow(GNECalibratorFlow* flow) {
-    if(flow == nullptr) {
-        throw ProcessError("Flow cannot be nullptr");
-    } else if (std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow) == myCalibratorFlows.end()) {
-        throw ProcessError("Flow wasn't inserted");
-    } else {
-        myCalibratorFlows.erase(std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), flow));
-    }
-}
-
-
-const std::vector<GNECalibratorFlow*>&
-GNECalibrator::getCalibratorFlows() const {
-    return myCalibratorFlows;
-}
-
-
-bool 
-GNECalibrator::calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const {
-    // Check that calibrator flow ins't nullptr
-    if (calibratorFlow == nullptr) {
-        throw ProcessError("calibratorFlow cannot be nullptr");
-    }
-    // find calibrator flow in calibrator flows container
-    auto finder = std::find(myCalibratorFlows.begin(), myCalibratorFlows.end(), calibratorFlow);
-    // returns depending of finder value
-    if (finder != myCalibratorFlows.end()) {
-        return true;
-    } else if (failHard) {
-        throw UnknownElement("calibratorFlow " + calibratorFlow->getID());
-    } else {
-        return false;
-    }
-}
-
-
-int 
-GNECalibrator::getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const {
-    // Check that calibrator flow ins't nullptr
-    if (calibratorFlow == nullptr) {
-        throw ProcessError("calibratorFlow cannot be nullptr");
-    }
-    int index = 0;
-    for (auto i : myCalibratorFlows) {
-        if (i == calibratorFlow) {
-            return index;
-        } else {
-            index++;
-        }
-    }
-    // if calibrator flow wasn't found, return -1
-    return -1;
 }
 
 

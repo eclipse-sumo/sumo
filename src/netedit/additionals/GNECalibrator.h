@@ -86,21 +86,6 @@ public:
     /// @brief get calibrator routes
     const std::vector<GNECalibratorRoute*>& getCalibratorRoutes() const;
 
-    /// @brief add calibrator flow
-    void addCalibratorFlow(GNECalibratorFlow* flow);
-
-    /// @brief remove calibrator flow
-    void removeCalibratorFlow(GNECalibratorFlow* flow);
-
-    /// @brief get calibrator flows
-    const std::vector<GNECalibratorFlow*>& getCalibratorFlows() const;
-
-    /// @brief check if calibrator flow exists
-    bool calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const;
-
-    /// @brief obtain calibrator flow index
-    int getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const;
-
     /// @}
 
     /// @name Functions related with geometry of element
@@ -182,9 +167,6 @@ protected:
 
     /// @brief calibrator route values
     std::vector<GNECalibratorRoute*> myCalibratorRoutes;
-
-    /// @brief calibrator flow values
-    std::vector<GNECalibratorFlow*> myCalibratorFlows;
 
 private:
     /// @brief set attribute after validation

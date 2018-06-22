@@ -1675,10 +1675,10 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
             departPosLat, arrivalPosLat, begin, end);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(flow->getTag()));
-        viewNet->getUndoList()->add(new GNEChange_CalibratorItem(flow, true), true);
+        viewNet->getUndoList()->add(new GNEChange_Additional(flow, true), true);
         viewNet->getUndoList()->p_end();
     } else {
-        calibratorParent->addCalibratorFlow(flow);
+        calibratorParent->addAdditionalChild(flow);
         flow->incRef("buildCalibratorFlow");
     }
     return true;
