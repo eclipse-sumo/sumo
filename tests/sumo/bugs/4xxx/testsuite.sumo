@@ -18,3 +18,6 @@ ticket4254
 
 # Infinite loop
 ticket4255
+
+# Deadlock and collision on junction.
+ticket4271
