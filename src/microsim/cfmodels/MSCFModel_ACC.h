@@ -139,7 +139,7 @@ private:
    double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
        const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
-   double accelSpeedContol(double vErr) const;
+   double accelSpeedControl(double vErr) const;
    double accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const;
 
 
