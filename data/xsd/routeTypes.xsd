@@ -18,6 +18,7 @@
                     <xsd:element name="carFollowing-PWagner2009" type="cfPWagType"/>
                     <xsd:element name="carFollowing-BKerner" type="cfBKernerType"/>
                     <xsd:element name="carFollowing-Wiedemann" type="cfWiedemannType"/>
+                    <xsd:element name="carFollowing-ACC" type="cfACCType"/>
                 </xsd:choice>
                 <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
@@ -118,6 +119,13 @@
         <xsd:attribute name="phi" type="xsd:float"/>
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
+        <xsd:attribute name="speedControlGain" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
         <xsd:attribute name="carFollowModel" type="xsd:string"/>
         <xsd:attribute name="trainType">
             <xsd:simpleType>
@@ -260,6 +268,26 @@
         <xsd:attribute name="tau" type="positiveFloatType"/>
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="cfACCType">
+        <xsd:attribute name="accel" type="positiveFloatType"/>
+        <xsd:attribute name="decel" type="positiveFloatType"/>
+        <xsd:attribute name="sigma">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:float">
+                    <xsd:maxInclusive value="1"/>
+                    <xsd:minInclusive value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="speedControlGain" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="gapControlGainSpace" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainSpeed" type="xsd:float"/>
+        <xsd:attribute name="collisionAvoidanceGainSpace" type="xsd:float"/>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleType">
