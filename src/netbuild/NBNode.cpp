@@ -73,6 +73,7 @@
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
 #define DEBUGCOND (getID() == "C")
+#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() ==  "C"))
 
 // ===========================================================================
 // static members
@@ -499,7 +500,7 @@ NBNode::bezierControlPoints(
     PositionVector init;
     if (dist < POSITION_EPS || beg.distanceTo2D(begShape[-2]) < POSITION_EPS || end.distanceTo2D(endShape[1]) < POSITION_EPS) {
 #ifdef DEBUG_SMOOTH_GEOM
-        if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end
+        if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end
                                      << " dist=" << dist
                                      << " distBegLast=" << beg.distanceTo2D(begShape[-2])
                                      << " distEndFirst=" << end.distanceTo2D(endShape[1])
@@ -530,7 +531,7 @@ NBNode::bezierControlPoints(
                 const double halfDistance = dist / 2;
                 if (fabs(displacementAngle) <= straightThresh && fabs(angle) <= straightThresh) {
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
+                    if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints identified straight line beg=" << beg << " end=" << end
                                                  << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle) << "\n";
 #endif
                     return PositionVector();
@@ -538,7 +539,7 @@ NBNode::bezierControlPoints(
                     // do not allow s-curves with extreme bends
                     // (a linear dependency is to restrictive at low displacementAngles and too permisive at high angles)
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints found extreme s-curve, falling back to straight line beg=" << beg << " end=" << end
+                    if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints found extreme s-curve, falling back to straight line beg=" << beg << " end=" << end
                                                  << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
                                                  << " dist=" << dist << " bendDeg=" << bendDeg << " bd2=" << pow(bendDeg / 45, 2)
                                                  << " displacementError=" << sin(displacementAngle) * dist
@@ -556,7 +557,7 @@ NBNode::bezierControlPoints(
                     const double off2 = 100. - MIN2(extrapolateEnd, halfDistance);
                     init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
+                    if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
                                                  << " angle=" << RAD2DEG(angle) << " displacementAngle=" << RAD2DEG(displacementAngle)
                                                  << " halfDistance=" << halfDistance << "\n";
 #endif
@@ -570,7 +571,7 @@ NBNode::bezierControlPoints(
                 Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
                 if (intersect == Position::INVALID) {
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) {
+                    if (DEBUGCOND2(recordError)) {
                         std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect << "\n";
                     }
 #endif
@@ -586,7 +587,7 @@ NBNode::bezierControlPoints(
                 const bool lengthenEnd = intersect.distanceTo2D(end) <= minControlLength;
                 if (lengthenBeg && lengthenEnd) {
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
+                    if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
                                                  << " dist1=" << intersect.distanceTo2D(beg) << " dist2=" << intersect.distanceTo2D(end) << "\n";
 #endif
                     if (recordError != 0) {
@@ -635,10 +636,11 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         PositionVector fromShape = fromE->getLaneShape(con.fromLane);
         PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
         displaceShapeAtWidthChange(con, fromShape, toShape);
+        double extrapolateBeg = 5. * fromE->getNumLanes();
+        double extrapolateEnd = 5. * con.toEdge->getNumLanes();
         ret = computeSmoothShape(fromShape, toShape,
                 numPoints, fromE->getTurnDestination() == con.toEdge,
-                (double) 5. * (double) fromE->getNumLanes(),
-                (double) 5. * (double) con.toEdge->getNumLanes(), recordError);
+                extrapolateBeg, extrapolateEnd, recordError);
     } else {
         ret = con.customShape;
     }
