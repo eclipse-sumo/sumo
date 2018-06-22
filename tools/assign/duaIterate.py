@@ -33,7 +33,7 @@ from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.options import get_long_option_names
+from sumolib.options import get_long_option_names  # noqa
 
 
 def addGenericOptions(argParser):
@@ -64,7 +64,8 @@ def addGenericOptions(argParser):
     argParser.add_argument("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
                            default=False, help="Enable multiple queues at edge ends")
     argParser.add_argument("--meso-recheck", dest="mesorecheck", type=int, default=0,
-                           help="Delay before checking whether a jam is gone. (higher values can lead to a big speed increase)")
+                           help="Delay before checking whether a jam is gone. (higher values can lead to a big speed " +
+                                "increase)")
     argParser.add_argument("-Q", "--eco-measure", dest="ecomeasure",
                            choices=[
                                'CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'],
@@ -85,8 +86,9 @@ def addGenericOptions(argParser):
 def initOptions():
     argParser = argparse.ArgumentParser(
         description=""" Any options of the form sumo--long-option-name will be passed to sumo.
-These must be given after all the other options
-example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        These must be given after all the other options
+        example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
 
     argParser.add_argument("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
@@ -112,7 +114,8 @@ example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo."""
     argParser.add_argument("--inc-max", dest="incMax",
                            type=float, default=1, help="Maximum for incrementing scale")
     argParser.add_argument("--inc-base", dest="incBase",
-                           type=int, default=-1, help="Give the incrementation base. Negative values disable incremental scaling")
+                           type=int, default=-1, help="Give the incrementation base. Negative values disable " +
+                                                      "incremental scaling")
     argParser.add_argument("--incrementation", dest="incValue",
                            type=int, default=1, help="Give the incrementation")
     argParser.add_argument("--time-inc", dest="timeInc",
@@ -155,11 +158,13 @@ example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo."""
     argParser.add_argument("-M", "--external-gawron", action="store_true", dest="externalgawron",
                            default=False, help="use the external gawron calculation")
     argParser.add_argument("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
-                           default=False, help="calculate the old route probabilities with the free-flow travel times when using the external gawron calculation")
+                           default=False, help="calculate the old route probabilities with the free-flow " +
+                                               "travel times when using the external gawron calculation")
     argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
                            help="smooth edge weights across iterations")
     argParser.add_argument(
-        "--pessimism", default=1, type=float, help="give traffic jams a higher weight when using option --weight-memory")
+        "--pessimism", default=1, type=float, help="give traffic jams a higher weight when using option " +
+                                                   " --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
     argParser.add_argument("--binary", action="store_true",
@@ -459,12 +464,14 @@ def main(args=None):
         subprocess.call(duaBinary, stdout=subprocess.PIPE)
     except OSError:
         sys.exit(
-            "Error: Could not locate duarouter (%s).\nMake sure its on the search path or set environment variable DUAROUTER_BINARY\n" % duaBinary)
+            "Error: Could not locate duarouter (%s).\nMake sure its on the search path or set environment " +
+            "variable DUAROUTER_BINARY\n" % duaBinary)
     try:
         subprocess.call(sumoBinary, stdout=subprocess.PIPE)
     except OSError:
         sys.exit(
-            "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment variable SUMO_BINARY\n" % sumoBinary)
+            "Error: Could not locate sumo (%s).\nMake sure its on the search path or set environment " +
+            "variable SUMO_BINARY\n" % sumoBinary)
 
     sumo_args = assign_remaining_args(
         sumoBinary, 'sumo', options.remaining_args)
@@ -560,17 +567,18 @@ def main(args=None):
                     if step == options.firstStep + 1 and options.skipFirstRouting:
                         if options.caloldprob:
                             calFirstRouteProbs("dump_000_%s.xml" % (
-                                options.aggregation), basename + "_001.rou.alt.xml", options.addweights, ecomeasure)
+                                options.aggregation), get_basename(f) + "_001.rou.alt.xml", options.addweights,
+                                ecomeasure)
                         else:
                             shutil.copy(
-                                basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
+                                get_basename(f) + "_001.rou.alt.xml", get_basename(f) + "_001.rou.galt.xml")
                             shutil.copy(
-                                basename + "_001.rou.xml", basename + "_001.grou.xml")
+                                get_basename(f) + "_001.rou.xml", get_basename(f) + "_001.grou.xml")
                     if step == options.firstStep and not options.skipFirstRouting:
                         shutil.copy(
-                            basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
+                            get_basename(f) + "_000.rou.alt.xml", get_basename(f) + "_000.rou.galt.xml")
                         shutil.copy(
-                            basename + "_000.rou.xml", basename + "_000.grou.xml")
+                            get_basename(f) + "_000.rou.xml", get_basename(f) + "_000.grou.xml")
                     else:
                         print('step:', step)
                         print('get externalgawron')
@@ -578,7 +586,8 @@ def main(args=None):
                             step - 1, options.aggregation)
                         if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
                             output, edgesMap = getRouteChoices(
-                                edgesMap, dumpfile, basename + "_%03i.rou.alt.xml" % step, options.net, options.addweights, options.gA, options.gBeta, step, ecomeasure)
+                                edgesMap, dumpfile, get_basename(f) + "_%03i.rou.alt.xml" % step, options.net,
+                                options.addweights, options.gA, options.gBeta, step, ecomeasure)
 
         # simulation
         print(">> Running simulation")
@@ -627,7 +636,8 @@ def main(args=None):
                     del zipProcesses[s]
             zipStep = step - 2
             zipProcesses[zipStep] = subprocess.Popen(
-                ["7z", "a", "iteration%03i.7z" % zipStep] + glob.glob("*_%03i*" % zipStep), stdout=zipLog, stderr=zipLog)
+                ["7z", "a", "iteration%03i.7z" % zipStep] + glob.glob("*_%03i*" % zipStep), stdout=zipLog,
+                stderr=zipLog)
 
         converged = False
         if options.convDev:

@@ -23,8 +23,8 @@ import glob
 from optparse import OptionParser
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from sumolib.miscutils import Statistics, uMax
-from sumolib.output import parse_fast
+from sumolib.miscutils import Statistics, uMax  # noqa
+from sumolib.output import parse_fast  # noqa
 
 
 def parse_args():
@@ -200,7 +200,7 @@ plot \\
 '%s' using 0:4 title 'teleports' with lines, \\
 '%s' using 0:3 title 'waiting' with lines, \\
 '%s' using 0:5 title 'loaded' with lines, \\
-'%s' using 0:2 title 'running' with lines 
+'%s' using 0:2 title 'running' with lines
 """ % ((xlabel,) + (datafile,) * 5))
 
 

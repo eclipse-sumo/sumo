@@ -54,7 +54,7 @@ def get_options(args=None):
     optParser.add_option("--id-filter", dest="idfilter", help="filter detector ids")
     optParser.add_option("--single-plot", action="store_true", dest="singleplot",
                          default=False, help="put averything in a single plot")
-    #optParser.add_option("--boxplot", action="store_true", dest="boxplot", default=False, help="boxplot")
+    # optParser.add_option("--boxplot", action="store_true", dest="boxplot", default=False, help="boxplot")
     optParser.add_option("-m", "--max-files", type="int", dest="maxfiles", help="limit number of input files")
     optParser.add_option("-n", "--no-legend", dest="nolegend", action="store_true",
                          default=False, help="dont draw legend")

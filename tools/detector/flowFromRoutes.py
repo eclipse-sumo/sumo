@@ -26,10 +26,10 @@ from optparse import OptionParser
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-from sumolib.miscutils import uMin, uMax
 
-import detector
-from detector import relError
+from sumolib.miscutils import uMin, uMax  # noqa
+import detector  # noqa
+from detector import relError  # noqa
 
 
 def make_geh(interval_minutes):

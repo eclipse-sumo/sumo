@@ -28,7 +28,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
-from sumolib.xml import parse
+from sumolib.xml import parse  # noqa
 DEBUG = False
 
 
@@ -86,7 +86,7 @@ def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
             for edge in interval.edge:
                 flow = (int(edge.departed) + int(edge.entered)) * scale
                 edgeFlow[edge.id] += flow
-                #print(interval.begin, interval.end, edge.id, edge.departed, edge.entered, scale, edgeFlow[edge.id])
+                # print(interval.begin, interval.end, edge.id, edge.departed, edge.entered, scale, edgeFlow[edge.id])
                 if flowout:
                     for group in detReader.getEdgeDetGroups(edge.id):
                         f.write(";".join(map(str, [group.ids[0], interval.begin / 60,

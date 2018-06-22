@@ -85,6 +85,7 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'Continue': 'Weiter',
                 }
 
+
 def computeScoreFromWaitingTime(gamename):
     totalDistance = 0
     totalFuel = 0
@@ -113,6 +114,7 @@ def computeScoreFromWaitingTime(gamename):
     score = 10000 - totalWaitingTime
     return score, totalArrived, complete
 
+
 def computeScoreFromTimeLoss(gamename):
     totalArrived = 0
     timeLoss = None
@@ -122,7 +124,7 @@ def computeScoreFromTimeLoss(gamename):
     running = None
     waiting = None
     completed = False
-    
+
     for line in open(gamename + ".log"):
         if "Simulation ended at time" in line:
             completed = True
@@ -151,15 +153,16 @@ def computeScoreFromTimeLoss(gamename):
         if _DEBUG:
             print("timeLoss=%s departDelay=%s departDelayWaiting=%s inserted=%s running=%s waiting=%s" % (
                 timeLoss, departDelay, departDelayWaiting, inserted, running, waiting))
-        
-        score = 10000 - int(100 * ((timeLoss + departDelay) * inserted + departDelayWaiting * waiting) / (inserted + waiting))
+
+        score = 10000 - int(100 * ((timeLoss + departDelay) * inserted +
+                                   departDelayWaiting * waiting) / (inserted + waiting))
         return score, totalArrived, True
 
 
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
-                'A10KW': computeScoreFromTimeLoss,
-                })
+    'A10KW': computeScoreFromTimeLoss,
+})
 
 
 def loadHighscore():
@@ -244,8 +247,9 @@ class StartDialog(Tkinter.Frame):
             button.grid(row=row, column=COL_START)
 
             button = Tkinter.Button(self, width=bWidth_high,
-                                    command=lambda cfg=cfg: ScoreDialog(self, [],
-                                                                        None, self.category_name(cfg), self._language_text))  # .grid(row=row, column=COL_HIGH)
+                                    command=lambda cfg=cfg: ScoreDialog(self, [], None, self.category_name(cfg),
+                                                                        self._language_text)
+                                    )  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
 
@@ -323,8 +327,6 @@ class StartDialog(Tkinter.Frame):
             print(switch, score, totalArrived, complete)
         if complete:
             ScoreDialog(self, switch, score, self.category, lang)
-
-
 
         # if ret != 0:
         # quit on error
@@ -423,11 +425,13 @@ class ScoreDialog:
     def quit(self, event=None):
         self.root.destroy()
 
+
 stereoModes = (
     'ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
 optParser = OptionParser()
 optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
-                     help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (", ".join(stereoModes)))
+                     help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
+                           ", ".join(stereoModes)))
 options, args = optParser.parse_args()
 
 base = os.path.dirname(sys.argv[0])

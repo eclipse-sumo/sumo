@@ -24,9 +24,9 @@ from __future__ import print_function
 
 import os
 import random
+import math
 from xml.sax import handler
 from xml.sax import parse
-from numpy import *
 
 
 class Vehicle:
@@ -313,14 +313,16 @@ class vehrouteReader(handler.ContentHandler):
 
             # generate the *.rou.xml
             self._foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
-                                 % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane, self._vehObj.departpos, self._vehObj.departspeed))
+                                 % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane,
+                                    self._vehObj.departpos, self._vehObj.departspeed))
             self._foutrout.write(
                 '        <route edges="%s"/>\n' % self._vehObj.routesList[self._selected].edges)
             self._foutrout.write('    </vehicle> \n')
 
             # generate the *.rou.alt.xml
             self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
-                             % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane, self._vehObj.departpos, self._vehObj.departspeed))
+                             % (self._vehObj.label, self._vehObj.depart, self._vehObj.departlane,
+                                self._vehObj.departpos, self._vehObj.departspeed))
             self._fout.write(
                 '        <routeDistribution last="%s">\n' % self._selected)
 
@@ -540,21 +542,21 @@ def calFirstRouteProbs(dumpfile, sumoAltFile, addweights, ecoMeasure=None):
         # generate the *.rou.xml
         foutrout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
                        % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
-        self._foutrout.write(
+        foutrout.write(
             '        <route edges="%s"/>\n' % vehObj.routesList[selected].edges)
-        self._foutrout.write('    </vehicle> \n')
+        foutrout.write('    </vehicle> \n')
 
         # generate the *.rou.alt.xml
-        self._fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
-                         % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
-        self._fout.write('        <routeDistribution last="%s">\n' % selected)
+        fout.write('    <vehicle id="%s" depart="%.2f" departLane="%s" departPos="%s" departSpeed="%s">\n'
+                   % (vehObj.label, vehObj.depart, vehObj.departlane, vehObj.departpos, vehObj.departspeed))
+        fout.write('        <routeDistribution last="%s">\n' % selected)
 
-        for route in self._vehObj.routesList:
-            self._fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' %
-                             (route.act_cost, route.ex_probability, route.edges))
-        self._fout.write('        </routeDistribution>\n')
-        self._fout.write('    </vehicle> \n')
-    self._fout.write('</route-alternatives>\n')
-    self._fout.close()
-    self._foutrout.write('</routes>\n')
-    self._foutrout.close()
+        for route in vehObj.routesList:
+            fout.write('            <route cost="%.4f" probability="%s" edges="%s"/>\n' %
+                       (route.act_cost, route.ex_probability, route.edges))
+        fout.write('        </routeDistribution>\n')
+        fout.write('    </vehicle> \n')
+    fout.write('</route-alternatives>\n')
+    fout.close()
+    foutrout.write('</routes>\n')
+    foutrout.close()

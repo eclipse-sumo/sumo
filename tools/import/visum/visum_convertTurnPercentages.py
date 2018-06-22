@@ -28,7 +28,7 @@ from xml.sax import make_parser
 
 sys.path.append(
     os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
-import sumonet
+import sumonet  # noqa
 
 
 if len(sys.argv) < 4:

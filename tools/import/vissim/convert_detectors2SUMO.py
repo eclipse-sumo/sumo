@@ -28,13 +28,12 @@ from xml.dom.minidom import Document
 # want the sumolib tools
 import sys
 import os
+import numpy as np
 THIS_PATH = os.path.abspath(__file__)
 addpath = os.path.abspath(THIS_PATH + '/../../../sumolib')
 if addpath not in sys.path:
     sys.path.append(addpath)
-import geomhelper
-
-import numpy as np
+import geomhelper  # noqa
 
 
 def dict_from_node_attributes(node):

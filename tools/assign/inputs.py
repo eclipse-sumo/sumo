@@ -92,7 +92,8 @@ def getMatrix(net, verbose, matrix, matrixSum, demandscale=None):
         print('number of end Vertices):', net.getendCounts())
         print('smallDemandRatio):', smallDemandRatio)
 
-    return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, Pshort_EffCells, matrixSum, smallDemandRatio
+    return matrixPshort, startVertices, endVertices, currentMatrixSum, begintime, assignPeriod, \
+        Pshort_EffCells, matrixSum, smallDemandRatio
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 20 min (1200

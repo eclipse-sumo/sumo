@@ -40,7 +40,7 @@ from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics,
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 def initLinkChoiceMap(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap):
@@ -273,7 +273,8 @@ def main():
                 if checkKPaths:
                     checkPathStart = datetime.datetime.now()
                     newRoutes = net.calcKPaths(
-                        options.verbose, options.kPaths, newRoutes, startVertices, endVertices, matrixPshort, options.gamma)
+                        options.verbose, options.kPaths, newRoutes, startVertices, endVertices, matrixPshort,
+                        options.gamma)
                     checkPathEnd = datetime.datetime.now() - checkPathStart
                     foutlog.write(
                         '- Time for finding the k-shortest paths: %s\n' % checkPathEnd)
@@ -327,7 +328,8 @@ def main():
                     foutlog.write(
                         'The max. number of iterations is reached!\n')
                     foutlog.write(
-                        'The number of new routes and the parameter stable will be set to zero and True respectively.\n')
+                        'The number of new routes and the parameter stable will be set to zero and ' +
+                        'True respectively.\n')
                     print('newRoutes:', newRoutes)
                     stable = True
                     newRoutes = 0
@@ -417,7 +419,8 @@ optParser.add_option("-r", "--profile", action="store_true", dest="profile",
                      default=False, help="writing profiling info")
 optParser.add_option("-+", "--dijkstra", dest="dijkstra", type="choice",
                      choices=('extend', 'plain', 'boost'),
-                     default="plain", help="use penalty, plain(original) or boost in dijkstra implementation [default: %default]")
+                     default="plain", help="use penalty, plain(original) or boost in dijkstra implementation " +
+                                           "[default: %default]")
 optParser.add_option("-x", "--odestimation", action="store_true", dest="odestimation",
                      default=False, help="generate trips for OD estimation")
 optParser.add_option("-f", "--scale-factor", dest="demandscale",

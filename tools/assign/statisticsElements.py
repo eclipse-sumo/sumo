@@ -42,14 +42,18 @@ class Vehicle:
         self.rank = 0.
 
     def __repr__(self):
-        return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)
+        return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival,
+                                          self.speed, self.traveltime, self.travellength,
+                                          self.route)
 
 # This class is used in the significance test.
 
 
 class Assign:
 
-    def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalDepartDelay, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgDepartDelay, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
+    def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalDepartDelay,
+                 totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgDepartDelay,
+                 avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
         self.label = method
         self.totalVeh = totalVeh
         self.totalTravelTime = totalTravelTime
@@ -68,8 +72,10 @@ class Assign:
         self.sumrank = 0.
 
     def __repr__(self):
-        return "%s_<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.label, self.totalVeh, self.avgTravelTime, self.avgTravelLength, self.avgTravelSpeed,
-                                                    self.avgWaitTime, self.SDTravelTime, self.SDLength, self.SDSpeed, self.SDWaitTime)
+        return "%s_<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.label, self.totalVeh, self.avgTravelTime,
+                                                    self.avgTravelLength, self.avgTravelSpeed,
+                                                    self.avgWaitTime, self.SDTravelTime, self.SDLength,
+                                                    self.SDSpeed, self.SDWaitTime)
 
 # This cloass is used for the t test in the significance test.
 
@@ -104,7 +110,8 @@ class H_Value:
         self.highchivalue = highvalue
 
     def __repr__(self):
-        return "%<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.waittime, self.lowchivalue, self.highchivalue)
+        return "%<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.waittime,
+                                         self.lowchivalue, self.highchivalue)
 
 # The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
 # calculating the gloabal network performances, e.g. avg. travel time and
@@ -168,7 +175,8 @@ def getSignificanceTestOutput(assignments, tTest, tValueAvg, hValues, outputfile
     foutSGtest = open(outputfile, 'w')
     if tTest:
         foutSGtest.write(
-            'The significances of the performance averages among the used assignment models are examined with the t test.\n')
+            'The significances of the performance averages among the used assignment models ' +
+            'are examined with the t test.\n')
         assignlist = list(assignments.itervalues())
         for num, A in enumerate(assignlist):
             for B in assignlist[num + 1:]:

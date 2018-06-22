@@ -21,6 +21,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+import threading
+import math
 
 if sys.version_info.major == 3:
     import queue as Queue
@@ -29,21 +31,18 @@ else:
     import Queue
     from Tkinter import *
 
-import threading
-import math
-
-
 try:
     sys.path.append(os.path.join(os.environ.get("SUMO_HOME",
                                                 os.path.join(os.path.dirname(__file__), '..')), "tools"))
     from sumolib import checkBinary  # noqa
-    import traci
+    import traci  # noqa
 except ImportError:
     sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
+        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation " +
+        "(it should contain folders 'bin', 'tools' and 'docs')")
 
 try:
-    import autopy
+    import autopy  # noqa
 except ImportError:
     sys.stderr.write("autopy not installed. Can only use keyboard control.")
     autopy = None
@@ -54,9 +53,9 @@ TS = 0.05
 VERBOSE = False
 MAX_STEER_ANGLE = 5
 MIN_SPEED = -5
-MAX_OFFROAD_SPEED = 7 
+MAX_OFFROAD_SPEED = 7
 OFFROAD_DECEL_TIME = 2
-#autopy = None # disable mouse control
+# autopy = None # disable mouse control
 
 
 def leftKey(event):
@@ -85,8 +84,8 @@ def downKey(event):
 
 def mouseControl(master, speed, steerAngle, accel=2.6, decel=4.5):
     try:
-        centerX = master.winfo_screenwidth() / 2.0;
-        centerY = master.winfo_screenheight() / 2.0;
+        centerX = master.winfo_screenwidth() / 2.0
+        centerY = master.winfo_screenheight() / 2.0
         x, y = autopy.mouse.location()
         dx = (x - centerX) / centerX
         dy = (y - centerY) / centerY
@@ -95,8 +94,8 @@ def mouseControl(master, speed, steerAngle, accel=2.6, decel=4.5):
         else:
             speed -= dy * TS * decel
         steerAngle = MAX_STEER_ANGLE * dx
-    except Exception as e:    
-        #print(e)
+    except Exception as e:
+        # print(e)
         pass
     return speed, steerAngle
 
@@ -181,7 +180,7 @@ class RacingClient:
                     if autopy:
                         speed, steerAngle = mouseControl(self.master, speed, steerAngle)
                     # move vehicle
-                    #posLat = traci.vehicle.getLateralLanePosition(self.egoID)
+                    # posLat = traci.vehicle.getLateralLanePosition(self.egoID)
                     if traci.vehicle.getLaneID(self.egoID) == "":
                         if abs(speed) > MAX_OFFROAD_SPEED:
                             sign = 1 if speed > 0 else -1
@@ -229,6 +228,7 @@ def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
 
     RacingClient(root, sumocfg, egoID)
     root.mainloop()
+
 
 if len(sys.argv) < 3:
     main(*sys.argv[1:])

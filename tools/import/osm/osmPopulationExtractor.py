@@ -164,7 +164,8 @@ class PopulationReader(handler.ContentHandler):
                 if self._name and self._name == n.name and self._population == n.population:
                     newInput = False
                     self._fout.write(('node\t%s\t%s\t%s\t%s\t%s\n' % (
-                        self._name, self._nodeId, self._nodeLat, self._nodeLon, self._population)).encode(self._encoding))
+                        self._name, self._nodeId, self._nodeLat, self._nodeLon,
+                        self._population)).encode(self._encoding))
                     break
             if newInput:
                 self._nodeObj = self._net.addNode(
@@ -304,7 +305,8 @@ def main():
                     elif n.name is not None and name == n.name:
                         matchedCount += 1
                         fout.write(("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (
-                            name, area, pop, lat, lon, n.name, n.attribute, n.population, n.lat, n.lon)).encode(options.encoding))
+                            name, area, pop, lat, lon, n.name, n.attribute, n.population,
+                            n.lat, n.lon)).encode(options.encoding))
 
                 for r in net._relations:
                     if r.name is None and r not in noneList:
@@ -328,11 +330,13 @@ def main():
         print('Number of entries in the BSA data:', bsaTotalCount)
         print('Number of entries in the OSM data:', osmTotalCount)
 
+
 optParser = OptionParser()
 optParser.add_option("-s", "--osm-file", dest="osmfile",
                      help="read OSM file from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-b", "--bsa-file", dest="bsafile",
-                     help="read population (in csv form) provided by German federal statistic authority (Bundesstatistikamt) from FILE", metavar="FILE")
+                     help="read population (in csv form) provided by German federal statistic authority " +
+                          "(Bundesstatistikamt) from FILE", metavar="FILE")
 optParser.add_option("-o", "--output-file", dest="outputfile",
                      help="define the prefix name of the output file")
 optParser.add_option(

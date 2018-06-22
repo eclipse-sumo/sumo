@@ -21,7 +21,7 @@ from collections import defaultdict
 from xml.sax import make_parser, handler
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-from sumolib.net import readNet
+from sumolib.net import readNet  # noqa
 
 
 class EdgeMemory:
@@ -152,9 +152,9 @@ class CostMemory(handler.ContentHandler):
     def avg_error(self, values=None):
         if not values:
             values = self.errors
-        l = len(list(values))
-        if l > 0:
-            return (sum(list(values)) / l)
+        length = len(list(values))
+        if length > 0:
+            return (sum(list(values)) / length)
         else:
             return 0
 
