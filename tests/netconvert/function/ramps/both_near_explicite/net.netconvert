@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:58 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:08 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,200.00" origBoundary="-1000.00,0.00,1000.00,200.00" projParameter="!"/>
 
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="-0.00,9.60 -0.00,0.00"/>
-    <junction id="2" type="priority" x="950.00" y="0.00" incLanes="s3_0 s3_1 s3_2 s3_3" intLanes="" shape="954.40,12.80 954.40,0.00 946.00,0.00 946.00,9.60 945.74,10.68 946.52,13.78">
+    <junction id="2" type="priority" x="950.00" y="0.00" incLanes="s3_0 s3_1 s3_2 s3_3" intLanes="" shape="954.40,12.80 954.40,0.00 946.00,0.00 946.00,9.60 945.74,10.68 946.52,13.78 949.39,13.10 950.42,12.93 951.45,12.84 952.71,12.81">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
@@ -80,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="4" type="priority" x="1050.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1053.48,13.78 1054.26,10.68 1054.00,9.60 1054.00,0.00 1045.60,0.00 1045.60,12.80">
+    <junction id="4" type="priority" x="1050.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1053.48,13.78 1054.26,10.68 1054.00,9.60 1054.00,0.00 1045.60,0.00 1045.60,12.80 1048.55,12.84 1049.58,12.93 1050.61,13.10 1051.83,13.37">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:20:19 2018 by Eclipse SUMO netgenerate Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:20 2018 by Eclipse SUMO netgenerate Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="162.29,362.77" convBoundary="0.00,0.00,554.80,574.23" origBoundary="-162.29,-362.77,392.51,211.46" projParameter="!"/>
 
@@ -94,22 +94,22 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rrr"/>
     </tlLogic>
 
-    <junction id="1" type="dead_end" x="162.29" y="362.77" incLanes="" intLanes="" shape="162.37,367.60 165.57,367.55 166.99,362.95 167.11,359.75 161.16,358.08 158.05,358.83 157.80,364.17 158.74,367.22"/>
+    <junction id="1" type="dead_end" x="162.29" y="362.77" incLanes="" intLanes="" shape="162.37,367.60 165.57,367.55 165.69,364.97 165.89,364.07 166.17,363.44 166.54,363.06 166.99,362.95 167.11,359.75 163.96,359.47 162.83,359.23 161.98,358.91 161.43,358.53 161.16,358.08 158.05,358.83 158.55,361.60 158.58,362.61 158.46,363.37 158.20,363.89 157.80,364.17 158.74,367.22 160.75,366.77 161.45,366.76 161.95,366.90 162.26,367.18"/>
     <junction id="10" type="dead_end" x="0.00" y="413.13" incLanes="11_0" intLanes="" shape="0.95,416.19 -0.00,413.13"/>
-    <junction id="12" type="priority" x="237.52" y="187.21" incLanes="17_0 13_0" intLanes=":12_0_0 :12_1_0" shape="234.25,188.17 236.82,186.26 233.46,176.65 230.48,177.80 228.20,180.05 227.01,183.03">
+    <junction id="12" type="priority" x="237.52" y="187.21" incLanes="17_0 13_0" intLanes=":12_0_0 :12_1_0" shape="234.25,188.17 236.82,186.26 236.76,185.61 236.33,184.33 235.64,182.41 234.68,179.85 233.46,176.65 230.48,177.80 230.86,179.71 230.62,180.23 230.10,180.46 229.29,180.40 228.20,180.05 227.01,183.03 230.13,184.30 231.18,184.87 232.11,185.61 233.08,186.66">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
     <junction id="14" type="dead_end" x="47.65" y="0.00" incLanes="15_0" intLanes="" shape="44.73,1.30 47.65,0.00"/>
     <junction id="18" type="dead_end" x="554.80" y="297.91" incLanes="19_0" intLanes="" shape="553.60,294.94 554.80,297.91"/>
-    <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.04,138.07 108.15,137.32 109.13,136.13 110.31,133.16 105.28,130.02 102.35,131.32">
+    <junction id="2" type="priority" x="107.74" y="135.58" incLanes="3_0" intLanes=":2_0_0 :2_1_0" shape="105.04,138.07 108.15,137.32 108.08,136.41 108.19,136.15 108.40,136.02 108.72,136.01 109.13,136.13 110.31,133.16 107.78,132.03 106.84,131.49 106.11,130.98 105.58,130.49 105.28,130.02 102.35,131.32 103.51,133.76 103.93,134.61 104.29,135.49 104.65,136.57">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="24" type="dead_end" x="489.95" y="551.41" incLanes="25_0" intLanes="" shape="492.64,549.68 489.95,551.41"/>
     <junction id="37" type="dead_end" x="169.57" y="10.38" incLanes="38_0" intLanes="" shape="166.58,11.53 169.57,10.38"/>
     <junction id="6" type="dead_end" x="165.61" y="574.23" incLanes="7_0" intLanes="" shape="168.81,574.18 165.61,574.23"/>
-    <junction id="8" type="traffic_light" x="373.91" y="370.80" incLanes="9_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="376.40,374.68 379.09,372.95 380.64,368.09 379.44,365.12 367.54,362.23 364.97,364.14 363.36,367.20 363.24,370.39">
+    <junction id="8" type="traffic_light" x="373.91" y="370.80" incLanes="9_0" intLanes=":8_0_0 :8_1_0 :8_2_0" shape="376.40,374.68 379.09,372.95 378.30,370.91 378.40,370.05 378.82,369.29 379.56,368.64 380.64,368.09 379.44,365.12 377.03,365.88 374.78,366.14 372.71,365.91 370.82,365.18 369.09,363.95 367.54,362.23 364.97,364.14 365.85,365.90 365.76,366.51 365.31,366.92 364.51,367.15 363.36,367.20 363.24,370.39 366.57,370.63 369.44,371.05 371.86,371.67 373.83,372.48 375.34,373.48">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

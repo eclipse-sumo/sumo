@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 09:56:16 2018 by Eclipse SUMO netconvert Version 276b4a7
+<!-- generated on Fri Jun 22 11:32:10 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="18.91,-4.39" convBoundary="0.00,0.00,119.19,101.64" origBoundary="-18.91,4.39,100.28,106.03" projParameter="!"/>
 
@@ -130,7 +130,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE8_0" index="0" speed="13.89" length="38.24" shape="38.21,48.00 -0.00,46.27"/>
     </edge>
 
-    <junction id="cluster_gneJ11_gneJ14_gneJ3_gneJ5" type="priority" x="51.28" y="42.99" incLanes="gneE5_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" shape="64.37,51.62 64.00,36.00 60.51,32.13 44.38,30.51 38.88,33.74 38.13,49.60 41.32,54.30 58.80,55.32">
+    <junction id="cluster_gneJ11_gneJ14_gneJ3_gneJ5" type="priority" x="51.28" y="42.99" incLanes="gneE5_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":cluster_gneJ11_gneJ14_gneJ3_gneJ5_0_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_1_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_2_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_3_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_4_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_5_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_16_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_17_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_8_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_9_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_10_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_11_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_12_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_13_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_18_0 :cluster_gneJ11_gneJ14_gneJ3_gneJ5_19_0" shape="64.37,51.62 64.00,36.00 61.84,35.61 61.13,35.08 60.67,34.32 60.46,33.34 60.51,32.13 44.38,30.51 43.59,32.64 42.81,33.31 41.76,33.71 40.45,33.86 38.88,33.74 38.13,49.60 40.26,50.20 40.93,50.86 41.33,51.77 41.46,52.91 41.32,54.30 58.80,55.32 59.52,53.13 60.31,52.40 61.38,51.90 62.73,51.64">
         <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0110001101100000" foes="0110011111100000" cont="0"/>
@@ -150,7 +150,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="gneJ10" type="dead_end" x="119.19" y="53.02" incLanes="" intLanes="" shape="119.28,51.42 119.10,54.62"/>
     <junction id="gneJ12" type="dead_end" x="54.61" y="101.64" incLanes="gneE6_0" intLanes="" shape="56.21,101.73 53.01,101.55"/>
-    <junction id="gneJ13" type="unregulated" x="41.57" y="62.07" incLanes="gneE15_0 gneE14_0" intLanes=":gneJ13_0_0 :gneJ13_1_0" shape="43.78,58.78 40.63,58.22 34.93,62.09 35.71,65.20 36.90,66.79 39.65,68.42"/>
+    <junction id="gneJ13" type="unregulated" x="41.57" y="62.07" incLanes="gneE15_0 gneE14_0" intLanes=":gneJ13_0_0 :gneJ13_1_0" shape="43.78,58.78 40.63,58.22 39.79,59.79 38.98,60.46 37.89,61.08 36.55,61.62 34.93,62.09 35.71,65.20 36.96,65.09 37.26,65.28 37.35,65.62 37.23,66.12 36.90,66.79 39.65,68.42 40.82,66.50 41.71,65.07 42.38,63.85 42.90,62.58 43.34,60.98"/>
     <junction id="gneJ15" type="dead_end" x="0.00" y="46.27" incLanes="gneE8_0" intLanes="" shape="-0.07,47.87 0.07,44.67"/>
     <junction id="gneJ17" type="dead_end" x="21.47" y="95.81" incLanes="" intLanes="" shape="22.84,96.63 20.10,94.99"/>
     <junction id="gneJ18" type="dead_end" x="1.99" y="72.04" incLanes="" intLanes="" shape="2.38,73.59 1.60,70.49"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:58 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:09 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-49263.27,-59334.75" convBoundary="0.00,0.00,160.57,291.06" origBoundary="49263.27,59334.75,49423.84,59625.81" projParameter="!"/>
 
@@ -62,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="10575_0" index="0" speed="13.90" length="219.57" shape="50.45,87.42 50.60,89.07 49.22,103.66 49.59,114.58 50.63,124.99 63.28,167.92 85.09,223.34 96.56,279.98 97.78,290.88"/>
     </edge>
 
-    <junction id="10724" type="priority" x="48.19" y="80.63" incLanes="-10575_0 -10400_0" intLanes="" shape="45.57,87.85 52.05,87.28 55.51,82.96 55.09,79.79 41.99,79.45 41.43,82.64">
+    <junction id="10724" type="priority" x="48.19" y="80.63" incLanes="-10575_0 -10400_0" intLanes="" shape="45.57,87.85 52.05,87.28 52.03,85.14 52.47,84.33 53.19,83.70 54.20,83.24 55.51,82.96 55.09,79.79 41.99,79.45 41.43,82.64">
         <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="001"/>
@@ -73,12 +73,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="16910" type="priority" x="0.00" y="0.00" incLanes="10397_0" intLanes="" shape="0.04,-0.02 -2.88,1.50 -0.04,0.02">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="17391" type="priority" x="31.64" y="34.25" incLanes="-10397_0 10396_0" intLanes="" shape="36.80,31.30 35.24,28.51 28.56,27.44 24.39,32.41 25.17,37.88 27.78,39.75">
+    <junction id="17391" type="priority" x="31.64" y="34.25" incLanes="-10397_0 10396_0" intLanes="" shape="36.80,31.30 35.24,28.51 32.65,28.25 31.66,28.40 30.73,28.45 29.73,28.20 28.56,27.44 24.39,32.41 25.17,37.88 27.78,39.75">
         <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="001"/>
     </junction>
-    <junction id="17393" type="priority" x="74.64" y="50.20" incLanes="-10403_0 10402_0" intLanes="" shape="82.04,51.47 80.26,45.21 75.40,42.71 72.39,43.79 74.63,56.37 77.83,56.40">
+    <junction id="17393" type="priority" x="74.64" y="50.20" incLanes="-10403_0 10402_0" intLanes="" shape="82.04,51.47 80.26,45.21 78.03,45.13 77.14,44.80 76.41,44.29 75.83,43.60 75.40,42.71 72.39,43.79 73.68,45.56 74.12,47.35 74.43,49.75 74.60,52.76 74.63,56.37 77.83,56.40 78.31,54.19 78.90,53.30 79.72,52.54 80.77,51.93">
         <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="001"/>

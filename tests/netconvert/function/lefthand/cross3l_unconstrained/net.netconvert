@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:59 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:09 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" lefthand="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" lefthand="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,-0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -176,7 +176,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="4si_2" index="2" speed="13.89" length="232.40" shape="501.60,746.00 501.60,513.60"/>
     </edge>
 
-    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="3si_0 3si_1 3si_2 2si_0 2si_1 2si_2 4si_0 4si_1 4si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_18_0 :0_19_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="490.40,486.40 503.20,486.40 513.60,490.40 513.60,503.20 509.60,513.60 496.80,513.60 486.40,509.60 486.40,496.80">
+    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="3si_0 3si_1 3si_2 2si_0 2si_1 2si_2 4si_0 4si_1 4si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_18_0 :0_19_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="490.40,486.40 503.20,486.40 504.36,488.62 505.80,489.40 507.82,489.96 510.42,490.29 513.60,490.40 513.60,503.20 511.38,504.36 510.60,505.80 510.04,507.82 509.71,510.42 509.60,513.60 496.80,513.60 495.64,511.38 494.20,510.60 492.18,510.04 489.58,509.71 486.40,509.60 486.40,496.80 488.62,495.64 489.40,494.20 489.96,492.18 490.29,489.58">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0000001100000000" foes="0110001111100000" cont="1"/>
@@ -211,12 +211,12 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="m2" type="priority" x="750.00" y="500.00" incLanes="2fi_0 2fi_1" intLanes=":m2_0_0 :m2_0_1 :m2_0_2" shape="754.00,493.60 754.00,500.00 746.00,500.00 746.00,490.40">
+    <junction id="m2" type="priority" x="750.00" y="500.00" incLanes="2fi_0 2fi_1" intLanes=":m2_0_0 :m2_0_1 :m2_0_2" shape="754.00,493.60 754.00,500.00 746.00,500.00 746.00,490.40 749.03,491.23 750.97,492.77 752.21,493.36">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="m3" type="priority" x="500.00" y="250.00" incLanes="3fi_0 3fi_1" intLanes=":m3_0_0 :m3_0_1 :m3_0_2" shape="493.60,246.00 500.00,246.00 500.00,254.00 490.40,254.00">
+    <junction id="m3" type="priority" x="500.00" y="250.00" incLanes="3fi_0 3fi_1" intLanes=":m3_0_0 :m3_0_1 :m3_0_2" shape="493.60,246.00 500.00,246.00 500.00,254.00 490.40,254.00 491.23,250.97 492.77,249.03 493.36,247.79">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

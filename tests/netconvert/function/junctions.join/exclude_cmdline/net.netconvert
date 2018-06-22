@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:59 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:10 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,92.46,78.21" origBoundary="0.00,0.00,92.46,78.21" projParameter="!"/>
 
@@ -143,14 +143,14 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="38918157" type="dead_end" x="88.72" y="78.21" incLanes="" intLanes="" shape="90.08,75.31 87.36,81.11"/>
-    <junction id="38919945" type="priority" x="35.18" y="54.83" incLanes="27441189_0 27441189_1 27441189_2 27441189_3" intLanes=":38919945_0_0 :38919945_1_0 :38919945_2_0" shape="40.20,62.67 43.28,50.24 40.08,45.34 33.78,44.24 28.29,52.48 27.95,55.66">
+    <junction id="38919945" type="priority" x="35.18" y="54.83" incLanes="27441189_0 27441189_1 27441189_2 27441189_3" intLanes=":38919945_0_0 :38919945_1_0 :38919945_2_0" shape="40.20,62.67 43.28,50.24 41.20,49.27 40.54,48.54 40.13,47.64 39.98,46.57 40.08,45.34 33.78,44.24 33.20,46.88 32.50,49.01 31.65,50.63 30.67,51.75 29.55,52.37 28.29,52.48 27.95,55.66 30.82,56.32 32.72,57.44 34.14,58.81 35.54,60.26 37.40,61.61">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
     <junction id="492462300" type="dead_end" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17"/>
     <junction id="567607201" type="dead_end" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.80,65.35 91.12,71.17"/>
-    <junction id="59993001" type="traffic_light" x="36.97" y="44.55" incLanes="46039050_0 6137245_0 6137245_1" intLanes=":59993001_0_0 :59993001_1_0 :59993001_2_0 :59993001_2_1 :59993001_4_0" shape="43.16,47.81 43.96,44.71 38.22,39.64 32.02,38.06 27.49,41.92 27.15,45.10 32.90,49.26 39.21,50.35">
+    <junction id="59993001" type="traffic_light" x="36.97" y="44.55" incLanes="46039050_0 6137245_0 6137245_1" intLanes=":59993001_0_0 :59993001_1_0 :59993001_2_0 :59993001_2_1 :59993001_4_0" shape="43.16,47.81 43.96,44.71 41.97,44.09 40.39,43.39 39.23,42.59 38.48,41.70 38.15,40.71 38.22,39.64 32.02,38.06 31.04,40.37 30.35,41.14 29.53,41.65 28.58,41.91 27.49,41.92 27.15,45.10 30.62,45.87 31.77,46.48 32.53,47.25 32.91,48.18 32.90,49.26 39.21,50.35 39.91,48.55 40.49,48.01 41.23,47.70 42.12,47.64">
         <request index="0" response="01100" foes="01100" cont="0"/>
         <request index="1" response="11100" foes="11100" cont="0"/>
         <request index="2" response="00000" foes="00011" cont="0"/>
@@ -158,7 +158,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="00000" foes="00010" cont="0"/>
     </junction>
     <junction id="945141569" type="dead_end" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46"/>
-    <junction id="cluster_301292612_56231397" type="traffic_light" x="44.47" y="51.82" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 27441168_0" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_0_1 :cluster_301292612_56231397_0_2 :cluster_301292612_56231397_10_0 :cluster_301292612_56231397_4_0 :cluster_301292612_56231397_5_0 :cluster_301292612_56231397_11_0 :cluster_301292612_56231397_7_0 :cluster_301292612_56231397_8_0 :cluster_301292612_56231397_12_0" shape="48.88,63.04 55.82,47.92 53.68,43.09 47.57,41.18 42.87,44.43 38.46,62.24">
+    <junction id="cluster_301292612_56231397" type="traffic_light" x="44.47" y="51.82" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 27441168_0" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_0_1 :cluster_301292612_56231397_0_2 :cluster_301292612_56231397_10_0 :cluster_301292612_56231397_4_0 :cluster_301292612_56231397_5_0 :cluster_301292612_56231397_11_0 :cluster_301292612_56231397_7_0 :cluster_301292612_56231397_8_0 :cluster_301292612_56231397_12_0" shape="48.88,63.04 55.82,47.92 54.16,46.73 53.69,45.98 53.45,45.12 53.44,44.16 53.68,43.09 47.57,41.18 46.47,43.38 45.75,44.06 44.91,44.46 43.95,44.58 42.87,44.43 38.46,62.24 40.66,62.58 42.36,62.51 43.80,62.27 45.21,62.12 46.82,62.29">
         <request index="0" response="0000000000" foes="1011000000" cont="0"/>
         <request index="1" response="0000000000" foes="1011000000" cont="0"/>
         <request index="2" response="0000000000" foes="1011000000" cont="0"/>

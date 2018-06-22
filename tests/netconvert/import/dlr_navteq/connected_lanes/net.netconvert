@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:51 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:02 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399534.03,-5809646.09" convBoundary="0.00,0.00,300.42,169.95" origBoundary="1352237.090000,5242780.520000,1352677.530000,5242933.050000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="4167993266" type="priority" x="0.00" y="71.15" incLanes="415852902_0 415852902_1" intLanes="" shape="-0.00,71.16 0.22,64.76 -0.46,77.53">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="4167993267" type="priority" x="113.74" y="79.28" incLanes="415852901_0 415852901_1 415852838_0 415852970_0 415852970_1 415852908_0" intLanes="" shape="120.85,86.54 121.39,73.18 117.68,69.04 111.30,68.58 107.03,72.21 106.10,85.15 109.87,89.62 116.26,90.03">
+    <junction id="4167993267" type="priority" x="113.74" y="79.28" incLanes="415852901_0 415852901_1 415852838_0 415852970_0 415852970_1 415852908_0" intLanes="" shape="120.85,86.54 121.39,73.18 119.22,72.43 118.48,71.82 117.98,71.05 117.71,70.12 117.68,69.04 111.30,68.58 110.69,70.77 110.09,71.49 109.27,71.98 108.25,72.21 107.03,72.21 106.10,85.15 108.31,85.78 109.06,86.41 109.57,87.27 109.84,88.34 109.87,89.62 116.26,90.03 116.88,87.87 117.53,87.16 118.41,86.70 119.52,86.50">
         <request index="0"  response="000000000000" foes="001000000000"/>
         <request index="1"  response="000000000000" foes="111000000000"/>
         <request index="2"  response="000000000000" foes="111000000000"/>

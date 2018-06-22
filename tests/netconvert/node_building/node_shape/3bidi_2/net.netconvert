@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:40 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:53 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-684148.78,-5706279.49" convBoundary="0.00,0.00,205.87,92.40" origBoundary="5.538970,51.449400,5.678834,51.487414" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="000000" foes="000010"/>
         <request index="5" response="000000" foes="001110"/>
     </junction>
-    <junction id="B" type="traffic_light" x="133.94" y="90.32" incLanes="3_0 -2_0 -4_0" intLanes="" shape="139.20,93.31 138.95,86.92 137.58,85.48 131.21,84.92 129.50,87.30 129.76,93.69">
+    <junction id="B" type="traffic_light" x="133.94" y="90.32" incLanes="3_0 -2_0 -4_0" intLanes="" shape="139.20,93.31 138.95,86.92 138.13,86.78 137.86,86.59 137.67,86.31 137.58,85.94 137.58,85.48 131.21,84.92 129.50,87.30 129.76,93.69">
         <request index="0" response="001000" foes="001000"/>
         <request index="1" response="111000" foes="111000"/>
         <request index="2" response="000000" foes="100000"/>
@@ -100,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="000000" foes="000010"/>
         <request index="5" response="001100" foes="001110"/>
     </junction>
-    <junction id="C" type="priority" x="182.48" y="88.37" incLanes="1_0 2_0 -3_0" intLanes="" shape="186.82,90.73 186.40,83.69 184.82,82.81 178.50,83.84 177.25,85.38 177.50,91.77">
+    <junction id="C" type="priority" x="182.48" y="88.37" incLanes="1_0 2_0 -3_0" intLanes="" shape="186.82,90.73 186.40,83.69 185.71,84.32 185.42,84.29 185.18,84.03 184.98,83.54 184.82,82.81 178.50,83.84 177.25,85.38 177.50,91.77 179.97,91.65 182.07,91.51 183.81,91.35 185.18,91.17 186.18,90.96">
         <request index="0" response="001000" foes="001000"/>
         <request index="1" response="111000" foes="111000"/>
         <request index="2" response="000000" foes="100000"/>

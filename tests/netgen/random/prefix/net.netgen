@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 08:06:08 2018 by Eclipse SUMO netgenerate Version d40b93a
+<!-- generated on Fri Jun 22 11:32:19 2018 by Eclipse SUMO netgenerate Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="600.00,1000.00" convBoundary="0.00,0.00,800.00,1600.00" origBoundary="-600.00,-1000.00,200.00,600.00" projParameter="!"/>
 
@@ -770,7 +770,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="foo_87_0" index="0" speed="13.89" length="188.36" shape="491.56,1301.60 303.20,1301.60"/>
     </edge>
 
-    <junction id="foo_1" type="priority" x="600.00" y="1000.00" incLanes="foo_-15_0 foo_-5_0 foo_-3_0 foo_-11_0" intLanes=":foo_1_0_0 :foo_1_1_0 :foo_1_16_0 :foo_1_17_0 :foo_1_4_0 :foo_1_5_0 :foo_1_6_0 :foo_1_7_0 :foo_1_8_0 :foo_1_9_0 :foo_1_18_0 :foo_1_19_0 :foo_1_12_0 :foo_1_13_0 :foo_1_14_0 :foo_1_15_0" shape="596.80,1007.20 603.20,1007.20 607.20,1003.20 607.20,996.80 603.20,992.80 596.80,992.80 592.80,996.80 592.80,1003.20">
+    <junction id="foo_1" type="priority" x="600.00" y="1000.00" incLanes="foo_-15_0 foo_-5_0 foo_-3_0 foo_-11_0" intLanes=":foo_1_0_0 :foo_1_1_0 :foo_1_16_0 :foo_1_17_0 :foo_1_4_0 :foo_1_5_0 :foo_1_6_0 :foo_1_7_0 :foo_1_8_0 :foo_1_9_0 :foo_1_18_0 :foo_1_19_0 :foo_1_12_0 :foo_1_13_0 :foo_1_14_0 :foo_1_15_0" shape="596.80,1007.20 603.20,1007.20 603.64,1004.98 604.20,1004.20 604.98,1003.64 605.98,1003.31 607.20,1003.20 607.20,996.80 604.98,996.36 604.20,995.80 603.64,995.02 603.31,994.02 603.20,992.80 596.80,992.80 596.36,995.02 595.80,995.80 595.02,996.36 594.02,996.69 592.80,996.80 592.80,1003.20 595.02,1003.64 595.80,1004.20 596.36,1004.98 596.69,1005.98">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0000001100000000" foes="0110001111100000" cont="1"/>
@@ -788,7 +788,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000011000110110" foes="0000011000111110" cont="0"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="0"/>
     </junction>
-    <junction id="foo_10" type="priority" x="500.00" y="1000.00" incLanes="foo_11_0 foo_-239_0 foo_-23_0" intLanes=":foo_10_0_0 :foo_10_9_0 :foo_10_10_0 :foo_10_3_0 :foo_10_4_0 :foo_10_5_0 :foo_10_6_0 :foo_10_7_0 :foo_10_11_0" shape="507.20,1003.20 507.20,996.80 503.20,992.80 496.80,992.80 492.80,996.80 492.80,1003.20">
+    <junction id="foo_10" type="priority" x="500.00" y="1000.00" incLanes="foo_11_0 foo_-239_0 foo_-23_0" intLanes=":foo_10_0_0 :foo_10_9_0 :foo_10_10_0 :foo_10_3_0 :foo_10_4_0 :foo_10_5_0 :foo_10_6_0 :foo_10_7_0 :foo_10_11_0" shape="507.20,1003.20 507.20,996.80 504.98,996.36 504.20,995.80 503.64,995.02 503.31,994.02 503.20,992.80 496.80,992.80 496.36,995.02 495.80,995.80 495.02,996.36 494.02,996.69 492.80,996.80 492.80,1003.20">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -799,7 +799,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="foo_100" type="priority" x="300.00" y="900.00" incLanes="foo_109_0 foo_-113_0 foo_101_0" intLanes=":foo_100_0_0 :foo_100_9_0 :foo_100_10_0 :foo_100_3_0 :foo_100_4_0 :foo_100_5_0 :foo_100_6_0 :foo_100_7_0 :foo_100_11_0" shape="296.80,905.71 303.20,905.71 310.08,897.13 306.53,891.80 303.20,890.02 296.80,890.02">
+    <junction id="foo_100" type="priority" x="300.00" y="900.00" incLanes="foo_109_0 foo_-113_0 foo_101_0" intLanes=":foo_100_0_0 :foo_100_9_0 :foo_100_10_0 :foo_100_3_0 :foo_100_4_0 :foo_100_5_0 :foo_100_6_0 :foo_100_7_0 :foo_100_11_0" shape="296.80,905.71 303.20,905.71 303.96,902.98 304.92,901.57 306.26,900.12 307.98,898.64 310.08,897.13 306.53,891.80 304.68,892.59 304.03,892.47 303.57,892.00 303.29,891.18 303.20,890.02 296.80,890.02">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -810,7 +810,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="foo_14" type="priority" x="600.00" y="1300.00" incLanes="foo_-360_0 foo_15_0 foo_-70_0" intLanes=":foo_14_0_0 :foo_14_1_0 :foo_14_9_0 :foo_14_3_0 :foo_14_10_0 :foo_14_11_0 :foo_14_6_0 :foo_14_7_0 :foo_14_8_0" shape="596.80,1307.20 603.20,1307.20 603.20,1292.80 596.80,1292.80 592.80,1296.80 592.80,1303.20">
+    <junction id="foo_14" type="priority" x="600.00" y="1300.00" incLanes="foo_-360_0 foo_15_0 foo_-70_0" intLanes=":foo_14_0_0 :foo_14_1_0 :foo_14_9_0 :foo_14_3_0 :foo_14_10_0 :foo_14_11_0 :foo_14_6_0 :foo_14_7_0 :foo_14_8_0" shape="596.80,1307.20 603.20,1307.20 603.20,1292.80 596.80,1292.80 596.36,1295.02 595.80,1295.80 595.02,1296.36 594.02,1296.69 592.80,1296.80 592.80,1303.20 595.02,1303.64 595.80,1304.20 596.36,1304.98 596.69,1305.98">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="000000000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -821,7 +821,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011010" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="foo_2" type="priority" x="600.00" y="700.00" incLanes="foo_3_0 foo_-64_0 foo_-27_0 foo_113_0" intLanes=":foo_2_0_0 :foo_2_1_0 :foo_2_16_0 :foo_2_17_0 :foo_2_4_0 :foo_2_5_0 :foo_2_6_0 :foo_2_7_0 :foo_2_8_0 :foo_2_9_0 :foo_2_18_0 :foo_2_19_0 :foo_2_12_0 :foo_2_13_0 :foo_2_14_0 :foo_2_15_0" shape="596.80,709.98 603.20,709.98 607.20,703.20 607.20,696.80 603.20,692.80 596.80,692.80 589.92,702.87 593.47,708.20">
+    <junction id="foo_2" type="priority" x="600.00" y="700.00" incLanes="foo_3_0 foo_-64_0 foo_-27_0 foo_113_0" intLanes=":foo_2_0_0 :foo_2_1_0 :foo_2_16_0 :foo_2_17_0 :foo_2_4_0 :foo_2_5_0 :foo_2_6_0 :foo_2_7_0 :foo_2_8_0 :foo_2_9_0 :foo_2_18_0 :foo_2_19_0 :foo_2_12_0 :foo_2_13_0 :foo_2_14_0 :foo_2_15_0" shape="596.80,709.98 603.20,709.98 603.31,707.91 603.64,706.21 604.20,704.89 604.98,703.95 605.98,703.39 607.20,703.20 607.20,696.80 604.98,696.36 604.20,695.80 603.64,695.02 603.31,694.02 603.20,692.80 596.80,692.80 596.04,696.36 595.08,698.06 593.74,699.72 592.02,701.32 589.92,702.87 593.47,708.20 595.32,707.41 595.97,707.53 596.43,708.00 596.71,708.82">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0000001100000000" foes="0110011111100000" cont="1"/>
@@ -839,7 +839,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000011000110110" foes="0000011000111110" cont="0"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="0"/>
     </junction>
-    <junction id="foo_22" type="priority" x="400.00" y="1000.00" incLanes="foo_-79_0 foo_23_0" intLanes=":foo_22_0_0 :foo_22_4_0 :foo_22_2_0 :foo_22_5_0" shape="398.37,1005.22 404.44,1003.20 404.44,996.80">
+    <junction id="foo_22" type="priority" x="400.00" y="1000.00" incLanes="foo_-79_0 foo_23_0" intLanes=":foo_22_0_0 :foo_22_4_0 :foo_22_2_0 :foo_22_5_0" shape="398.37,1005.22 404.44,1003.20 404.44,996.80 401.80,997.03 399.82,997.74 398.48,998.91 397.79,1000.54 397.76,1002.65">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
@@ -848,7 +848,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="foo_238" type="priority" x="500.00" y="900.00" incLanes="foo_239_0" intLanes=":foo_238_0_0" shape="500.00,900.00 496.80,900.00 500.00,900.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="foo_245" type="priority" x="300.00" y="300.00" incLanes="foo_246_0 foo_361_0 foo_-376_0 foo_-366_0" intLanes=":foo_245_0_0 :foo_245_1_0 :foo_245_16_0 :foo_245_17_0 :foo_245_4_0 :foo_245_5_0 :foo_245_6_0 :foo_245_7_0 :foo_245_8_0 :foo_245_9_0 :foo_245_18_0 :foo_245_19_0 :foo_245_12_0 :foo_245_13_0 :foo_245_14_0 :foo_245_15_0" shape="296.80,308.44 303.20,308.44 306.99,305.70 309.02,299.63 303.20,292.80 296.80,292.80 292.80,296.80 292.80,303.20">
+    <junction id="foo_245" type="priority" x="300.00" y="300.00" incLanes="foo_246_0 foo_361_0 foo_-376_0 foo_-366_0" intLanes=":foo_245_0_0 :foo_245_1_0 :foo_245_16_0 :foo_245_17_0 :foo_245_4_0 :foo_245_5_0 :foo_245_6_0 :foo_245_7_0 :foo_245_8_0 :foo_245_9_0 :foo_245_18_0 :foo_245_19_0 :foo_245_12_0 :foo_245_13_0 :foo_245_14_0 :foo_245_15_0" shape="296.80,308.44 303.20,308.44 303.62,306.36 304.15,305.76 304.89,305.45 305.84,305.43 306.99,305.70 309.02,299.63 305.79,298.01 304.65,296.96 303.85,295.73 303.36,294.35 303.20,292.80 296.80,292.80 296.36,295.02 295.80,295.80 295.02,296.36 294.02,296.69 292.80,296.80 292.80,303.20 295.02,303.78 295.80,304.51 296.36,305.53 296.69,306.84">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0000001100000000" foes="0110001111100000" cont="1"/>
@@ -866,7 +866,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000011000110110" foes="0000011000111110" cont="0"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="0"/>
     </junction>
-    <junction id="foo_26" type="priority" x="600.00" y="600.00" incLanes="foo_27_0 foo_-44_0 foo_-34_0 foo_-38_0" intLanes=":foo_26_0_0 :foo_26_1_0 :foo_26_2_0 :foo_26_3_0 :foo_26_4_0 :foo_26_5_0 :foo_26_16_0 :foo_26_17_0 :foo_26_8_0 :foo_26_9_0 :foo_26_10_0 :foo_26_11_0 :foo_26_12_0 :foo_26_13_0 :foo_26_18_0 :foo_26_19_0" shape="596.80,607.20 603.20,607.20 607.20,603.20 607.20,596.80 603.20,592.80 596.80,592.80 592.80,596.80 592.80,603.20">
+    <junction id="foo_26" type="priority" x="600.00" y="600.00" incLanes="foo_27_0 foo_-44_0 foo_-34_0 foo_-38_0" intLanes=":foo_26_0_0 :foo_26_1_0 :foo_26_2_0 :foo_26_3_0 :foo_26_4_0 :foo_26_5_0 :foo_26_16_0 :foo_26_17_0 :foo_26_8_0 :foo_26_9_0 :foo_26_10_0 :foo_26_11_0 :foo_26_12_0 :foo_26_13_0 :foo_26_18_0 :foo_26_19_0" shape="596.80,607.20 603.20,607.20 603.64,604.98 604.20,604.20 604.98,603.64 605.98,603.31 607.20,603.20 607.20,596.80 604.98,596.36 604.20,595.80 603.64,595.02 603.31,594.02 603.20,592.80 596.80,592.80 596.36,595.02 595.80,595.80 595.02,596.36 594.02,596.69 592.80,596.80 592.80,603.20 595.02,603.64 595.80,604.20 596.36,604.98 596.69,605.98">
         <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000" cont="0"/>
@@ -884,7 +884,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000000000110000" foes="0000011000111110" cont="1"/>
         <request index="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
     </junction>
-    <junction id="foo_33" type="priority" x="600.00" y="400.00" incLanes="foo_34_0 foo_-361_0" intLanes=":foo_33_0_0 :foo_33_4_0 :foo_33_2_0 :foo_33_5_0" shape="596.80,402.31 603.20,402.31 598.82,396.23">
+    <junction id="foo_33" type="priority" x="600.00" y="400.00" incLanes="foo_34_0 foo_-361_0" intLanes=":foo_33_0_0 :foo_33_4_0 :foo_33_2_0 :foo_33_5_0" shape="596.80,402.31 603.20,402.31 602.71,399.58 602.11,398.48 601.26,397.56 600.16,396.81 598.82,396.23">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
@@ -896,7 +896,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="foo_365" type="priority" x="0.00" y="300.00" incLanes="foo_366_0" intLanes=":foo_365_0_0" shape="0.00,300.00 0.00,303.20 0.00,300.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="foo_37" type="priority" x="300.00" y="600.00" incLanes="foo_-101_0 foo_38_0 foo_-246_0" intLanes=":foo_37_0_0 :foo_37_9_0 :foo_37_10_0 :foo_37_3_0 :foo_37_4_0 :foo_37_5_0 :foo_37_6_0 :foo_37_7_0 :foo_37_11_0" shape="296.80,607.20 303.20,607.20 307.20,603.20 307.20,596.80 303.20,592.80 296.80,592.80">
+    <junction id="foo_37" type="priority" x="300.00" y="600.00" incLanes="foo_-101_0 foo_38_0 foo_-246_0" intLanes=":foo_37_0_0 :foo_37_9_0 :foo_37_10_0 :foo_37_3_0 :foo_37_4_0 :foo_37_5_0 :foo_37_6_0 :foo_37_7_0 :foo_37_11_0" shape="296.80,607.20 303.20,607.20 303.64,604.98 304.20,604.20 304.98,603.64 305.98,603.31 307.20,603.20 307.20,596.80 304.98,596.36 304.20,595.80 303.64,595.02 303.31,594.02 303.20,592.80 296.80,592.80">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -910,19 +910,19 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="foo_375" type="priority" x="300.00" y="0.00" incLanes="foo_376_0" intLanes=":foo_375_0_0" shape="300.00,0.00 296.80,0.00 300.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="foo_4" type="priority" x="800.00" y="1000.00" incLanes="foo_76_0 foo_5_0" intLanes=":foo_4_0_0 :foo_4_4_0 :foo_4_2_0 :foo_4_5_0" shape="803.20,996.80 796.80,996.80 796.80,1003.20">
+    <junction id="foo_4" type="priority" x="800.00" y="1000.00" incLanes="foo_76_0 foo_5_0" intLanes=":foo_4_0_0 :foo_4_4_0 :foo_4_2_0 :foo_4_5_0" shape="803.20,996.80 796.80,996.80 796.80,1003.20 800.36,1002.49 801.60,1001.60 802.49,1000.36 803.02,998.76">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="foo_43" type="priority" x="800.00" y="600.00" incLanes="foo_-74_0 foo_44_0" intLanes=":foo_43_0_0 :foo_43_4_0 :foo_43_2_0 :foo_43_5_0" shape="796.80,603.20 803.20,603.20 796.80,596.80">
+    <junction id="foo_43" type="priority" x="800.00" y="600.00" incLanes="foo_-74_0 foo_44_0" intLanes=":foo_43_0_0 :foo_43_4_0 :foo_43_2_0 :foo_43_5_0" shape="796.80,603.20 803.20,603.20 802.49,599.64 801.60,598.40 800.36,597.51 798.76,596.98 796.80,596.80">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
-    <junction id="foo_63" type="priority" x="800.00" y="700.00" incLanes="foo_-76_0 foo_74_0 foo_64_0" intLanes=":foo_63_0_0 :foo_63_1_0 :foo_63_9_0 :foo_63_3_0 :foo_63_10_0 :foo_63_11_0 :foo_63_6_0 :foo_63_7_0 :foo_63_8_0" shape="796.80,707.20 803.20,707.20 803.20,692.80 796.80,692.80 792.80,696.80 792.80,703.20">
+    <junction id="foo_63" type="priority" x="800.00" y="700.00" incLanes="foo_-76_0 foo_74_0 foo_64_0" intLanes=":foo_63_0_0 :foo_63_1_0 :foo_63_9_0 :foo_63_3_0 :foo_63_10_0 :foo_63_11_0 :foo_63_6_0 :foo_63_7_0 :foo_63_8_0" shape="796.80,707.20 803.20,707.20 803.20,692.80 796.80,692.80 796.36,695.02 795.80,695.80 795.02,696.36 794.02,696.69 792.80,696.80 792.80,703.20 795.02,703.64 795.80,704.20 796.36,704.98 796.69,705.98">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="000000000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -933,7 +933,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011010" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="foo_69" type="priority" x="500.00" y="1300.00" incLanes="foo_-85_0 foo_70_0 foo_79_0 foo_-87_0" intLanes=":foo_69_0_0 :foo_69_1_0 :foo_69_2_0 :foo_69_3_0 :foo_69_4_0 :foo_69_5_0 :foo_69_16_0 :foo_69_17_0 :foo_69_8_0 :foo_69_9_0 :foo_69_10_0 :foo_69_11_0 :foo_69_12_0 :foo_69_13_0 :foo_69_18_0 :foo_69_19_0" shape="496.80,1307.20 503.20,1307.20 507.20,1303.20 507.20,1296.80 500.37,1290.98 494.30,1293.01 491.56,1296.80 491.56,1303.20">
+    <junction id="foo_69" type="priority" x="500.00" y="1300.00" incLanes="foo_-85_0 foo_70_0 foo_79_0 foo_-87_0" intLanes=":foo_69_0_0 :foo_69_1_0 :foo_69_2_0 :foo_69_3_0 :foo_69_4_0 :foo_69_5_0 :foo_69_16_0 :foo_69_17_0 :foo_69_8_0 :foo_69_9_0 :foo_69_10_0 :foo_69_11_0 :foo_69_12_0 :foo_69_13_0 :foo_69_18_0 :foo_69_19_0" shape="496.80,1307.20 503.20,1307.20 503.64,1304.98 504.20,1304.20 504.98,1303.64 505.98,1303.31 507.20,1303.20 507.20,1296.80 504.27,1296.15 503.04,1295.35 501.99,1294.21 501.10,1292.76 500.37,1290.98 494.30,1293.01 494.55,1295.11 494.24,1295.85 493.64,1296.38 492.75,1296.69 491.56,1296.80 491.56,1303.20 494.47,1303.64 495.49,1304.20 496.22,1304.98 496.65,1305.98">
         <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000" cont="0"/>
@@ -954,7 +954,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="foo_84" type="priority" x="500.00" y="1600.00" incLanes="foo_85_0" intLanes=":foo_84_0_0" shape="500.00,1600.00 503.20,1600.00 500.00,1600.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="foo_86" type="priority" x="300.00" y="1300.00" incLanes="foo_87_0 foo_-109_0" intLanes=":foo_86_0_0 :foo_86_4_0 :foo_86_2_0 :foo_86_5_0" shape="303.20,1303.20 303.20,1296.80 296.80,1296.80">
+    <junction id="foo_86" type="priority" x="300.00" y="1300.00" incLanes="foo_87_0 foo_-109_0" intLanes=":foo_86_0_0 :foo_86_4_0 :foo_86_2_0 :foo_86_5_0" shape="303.20,1303.20 303.20,1296.80 296.80,1296.80 297.51,1300.36 298.40,1301.60 299.64,1302.49 301.24,1303.02">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="1"/>
         <request index="2" response="0000" foes="0010" cont="0"/>

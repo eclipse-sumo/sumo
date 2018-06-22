@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:45 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:57 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,6.40" convBoundary="0.00,0.00,100.00,6.40" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
@@ -52,12 +52,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="0" type="dead_end" x="0.00" y="6.40" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
     <junction id="1" type="dead_end" x="100.00" y="6.40" incLanes="1.50_0" intLanes="" shape="100.00,-3.20 100.00,0.00"/>
-    <junction id="1.10" type="priority" x="10.00" y="6.40" incLanes="1_0" intLanes=":1.10_0_0 :1.10_0_1 :1.10_0_2" shape="14.00,6.40 14.00,-3.20 6.00,-3.20 6.00,0.00">
+    <junction id="1.10" type="priority" x="10.00" y="6.40" incLanes="1_0" intLanes=":1.10_0_0 :1.10_0_1 :1.10_0_2" shape="14.00,6.40 14.00,-3.20 6.00,-3.20 6.00,0.00 8.02,0.47 9.21,1.66 10.79,4.74 11.98,5.93">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="1.50" type="priority" x="50.00" y="6.40" incLanes="1.10_0 1.10_1 1.10_2" intLanes=":1.50_0_0" shape="54.00,0.00 54.00,-3.20 46.00,-3.20 46.00,6.40">
+    <junction id="1.50" type="priority" x="50.00" y="6.40" incLanes="1.10_0 1.10_1 1.10_2" intLanes=":1.50_0_0" shape="54.00,0.00 54.00,-3.20 46.00,-3.20 46.00,6.40 48.02,5.93 49.21,4.74 50.79,1.66 51.98,0.47">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

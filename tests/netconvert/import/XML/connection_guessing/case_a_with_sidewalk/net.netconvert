@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:30 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Fri Jun 22 11:32:00 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="3.02,-43.28" convBoundary="0.00,0.00,78.54,1.23" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="gneJ0" type="dead_end" x="0.00" y="1.23" incLanes="" intLanes="" shape="0.00,1.23 -0.06,-8.37"/>
-    <junction id="gneJ1" type="priority" x="38.59" y="0.99" incLanes="gneE0_0 gneE0_1 gneE0_2" intLanes="" shape="38.78,0.99 38.54,-8.61 38.34,-8.61 38.40,0.99">
+    <junction id="gneJ1" type="priority" x="38.59" y="0.99" incLanes="gneE0_0 gneE0_1 gneE0_2" intLanes="" shape="38.78,0.99 38.54,-8.61 38.38,-8.61 38.40,0.99">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

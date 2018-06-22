@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:41 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:53 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -123,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrryrrrrry"/>
     </tlLogic>
 
-    <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="2i_0 2i_1 3i_0 3i_1 1i_0 1i_1 4i_0 4i_1" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_4_0 :0_13_0 :0_6_0 :0_7_0 :0_14_0 :0_9_0 :0_10_0 :0_15_0" shape="502.40,511.45 509.19,504.66 511.35,493.52 503.12,488.58 497.60,488.55 490.81,495.34 488.65,506.48 496.88,511.42">
+    <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="2i_0 2i_1 3i_0 3i_1 1i_0 1i_1 4i_0 4i_1" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_4_0 :0_13_0 :0_6_0 :0_7_0 :0_14_0 :0_9_0 :0_10_0 :0_15_0" shape="502.40,511.45 509.19,504.66 508.17,502.17 508.32,500.46 508.89,498.45 509.91,496.14 511.35,493.52 503.12,488.58 501.59,490.10 500.71,490.29 499.75,490.09 498.71,489.51 497.60,488.55 490.81,495.34 491.83,497.83 491.68,499.54 491.11,501.55 490.09,503.86 488.65,506.48 496.88,511.42 498.41,509.90 499.29,509.71 500.25,509.91 501.29,510.49">
         <request index="0"  response="000000000000" foes="000100010000" cont="0"/>
         <request index="1"  response="100000100000" foes="111100110000" cont="0"/>
         <request index="2"  response="100011100000" foes="110011110000" cont="1"/>

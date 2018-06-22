@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:39 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:52 2018 by Eclipse SUMO netconvert Version 9eff290
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -610,7 +610,7 @@
         <speed.minimum value="0" type="FLOAT"/>
 
         <!-- Generate INT intermediate points to smooth out intersection corners -->
-        <junctions.corner-detail value="0" type="INT"/>
+        <junctions.corner-detail value="5" type="INT"/>
 
         <!-- Generate INT intermediate points to smooth out lanes within the intersection -->
         <junctions.internal-link-detail value="5" type="INT"/>

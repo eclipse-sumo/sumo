@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:46 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:58 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -119,7 +119,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="4o_0" index="0" speed="16.00" length="479.83" shape="511.39,520.31 501.60,1000.03"/>
     </edge>
 
-    <junction id="0" type="right_before_left" x="510.00" y="510.00" incLanes="2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1 4fi_0 4fi_1" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="520.53,516.19 520.34,506.59 516.19,499.35 506.59,499.53 499.72,503.40 499.54,513.00 503.39,520.14 512.99,520.34">
+    <junction id="0" type="right_before_left" x="510.00" y="510.00" incLanes="2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1 4fi_0 4fi_1" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0 :0_11_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="520.53,516.19 520.34,506.59 518.10,505.82 517.30,504.82 516.72,503.41 516.35,501.58 516.19,499.35 506.59,499.53 505.87,501.74 504.92,502.50 503.58,503.03 501.85,503.33 499.72,503.40 499.54,513.00 501.74,513.82 502.50,514.82 503.03,516.21 503.32,517.98 503.39,520.14 512.99,520.34 513.86,518.10 514.92,517.30 516.38,516.72 518.25,516.34">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000000000000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0110001100000000" foes="0110001111100000" cont="0"/>

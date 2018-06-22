@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:34 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Fri Jun 22 11:32:12 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -121,16 +121,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_c5_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.50" shape="86.35,106.40 86.35,93.60"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.17" width="4.50" shape="88.60,106.40 84.10,106.40 84.10,107.90 84.10,110.90 89.10,115.90 92.10,115.90 93.60,115.90 93.60,111.40"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="7.17" width="4.50" shape="84.10,106.40 84.10,107.90 84.10,110.90 89.10,115.90 92.10,115.90 93.60,115.90 93.34,113.00 92.54,110.62 91.22,108.77 89.38,107.46 87.00,106.66"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="7.05" width="4.50" shape="106.40,111.40 106.40,115.90 107.90,115.90 110.90,115.90 115.90,110.90 115.90,107.90 115.90,106.40 111.40,106.40"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="7.05" width="4.50" shape="106.40,115.90 107.90,115.90 110.90,115.90 115.90,110.90 115.90,107.90 115.90,106.40 113.00,106.66 110.62,107.46 108.77,108.78 107.46,110.62 106.66,113.00"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="7.17" width="4.50" shape="111.40,93.60 115.90,93.60 115.90,92.10 115.90,89.10 110.90,84.10 107.90,84.10 106.40,84.10 106.40,88.60"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="7.17" width="4.50" shape="115.90,93.60 115.90,92.10 115.90,89.10 110.90,84.10 107.90,84.10 106.40,84.10 106.66,87.00 107.46,89.38 108.78,91.23 110.62,92.54 113.00,93.34"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="7.31" width="4.50" shape="93.60,88.60 93.60,84.10 92.10,84.10 89.10,84.10 84.10,89.10 84.10,92.10 84.10,93.60 88.60,93.60"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="7.31" width="4.50" shape="93.60,84.10 92.10,84.10 89.10,84.10 84.10,89.10 84.10,92.10 84.10,93.60 87.00,93.34 89.38,92.54 91.23,91.22 92.54,89.38 93.34,87.00"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
         <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.00" shape="200.00,107.90 200.00,110.90 200.00,89.10 200.00,92.10"/>
@@ -205,7 +205,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w0_0 :C_w3_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_18_0 :C_5_0 :C_5_1 :C_19_0 :C_20_0 :C_9_0 :C_9_1 :C_21_0 :C_22_0 :C_13_0 :C_13_1 :C_23_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="89.10,115.90 110.90,115.90 115.90,110.90 115.90,89.10 110.90,84.10 89.10,84.10 84.10,89.10 84.10,110.90" radius="5.00">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w0_0 :C_w3_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_18_0 :C_5_0 :C_5_1 :C_19_0 :C_20_0 :C_9_0 :C_9_1 :C_21_0 :C_22_0 :C_13_0 :C_13_1 :C_23_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="89.10,115.90 110.90,115.90 111.46,113.12 112.15,112.15 113.12,111.46 114.37,111.04 115.90,110.90 115.90,89.10 113.12,88.54 112.15,87.85 111.46,86.88 111.04,85.63 110.90,84.10 89.10,84.10 88.54,86.88 87.85,87.85 86.88,88.54 85.63,88.96 84.10,89.10 84.10,110.90 86.88,111.46 87.85,112.15 88.54,113.12 88.96,114.37" radius="5.00">
         <request index="0"  response="1010110000000000000000" foes="1010110000100001100000" cont="1"/>
         <request index="1"  response="0110111001000010000000" foes="0110111111100011100000" cont="0"/>
         <request index="2"  response="0110111001000010000000" foes="0110111111100011100000" cont="0"/>

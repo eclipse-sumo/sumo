@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:38 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Fri Jun 22 11:32:08 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-16903.00,-20963.00" convBoundary="0.00,0.00,405.00,265.00" origBoundary="16903.00,20963.00,17308.00,21228.00" projParameter="!"/>
 
@@ -73,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="15030099" type="dead_end" x="405.00" y="265.00" incLanes="153120299_0 153120299_1" intLanes="" shape="408.50,259.64 405.00,265.00"/>
-    <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_0_1 :15030102_2_0 :15030102_3_0 :15030102_4_0" shape="238.94,156.57 242.43,151.21 234.58,146.07 231.07,151.42 231.48,153.55 236.87,157.01">
+    <junction id="15030102" type="traffic_light" x="235.00" y="154.00" incLanes="153120297_0 153120297_1 -152850000_0" intLanes=":15030102_0_0 :15030102_0_1 :15030102_2_0 :15030102_3_0 :15030102_4_0" shape="238.94,156.57 242.43,151.21 235.89,146.93 234.58,146.07 231.07,151.42 231.67,152.03 231.80,152.37 231.81,152.73 231.71,153.13 231.48,153.55 236.87,157.01 237.46,156.40 237.79,156.27 238.15,156.25 238.53,156.35">
         <request index="0" response="00000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="01000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>

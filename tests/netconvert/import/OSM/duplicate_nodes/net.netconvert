@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:54 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:05 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-662333.88,-5415139.00" convBoundary="0.00,0.00,1048.06,902.40" origBoundary="11.213969,48.867634,11.228192,48.875956" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -345,7 +345,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
     </tlLogic>
 
-    <junction id="-14" type="right_before_left" x="343.58" y="698.87" incLanes="-38#0_0 --38#2_0 --32_0" intLanes=":-14_0_0 :-14_1_0 :-14_2_0 :-14_3_0 :-14_4_0 :-14_5_0 :-14_6_0 :-14_7_0 :-14_8_0" shape="349.14,698.66 345.26,693.57 340.39,694.03 337.88,699.92 340.31,703.65 346.71,703.75">
+    <junction id="-14" type="right_before_left" x="343.58" y="698.87" incLanes="-38#0_0 --38#2_0 --32_0" intLanes=":-14_0_0 :-14_1_0 :-14_2_0 :-14_3_0 :-14_4_0 :-14_5_0 :-14_6_0 :-14_7_0 :-14_8_0" shape="349.14,698.66 345.26,693.57 343.42,694.00 342.76,694.24 342.11,694.39 341.37,694.34 340.39,694.03 337.88,699.92 339.25,700.80 339.73,701.38 340.06,702.05 340.26,702.80 340.31,703.65 346.71,703.75 347.00,701.73 347.34,700.84 347.81,700.03 348.41,699.30">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="0"/>
@@ -356,7 +356,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="-15" type="priority" x="303.59" y="681.82" incLanes="-38#1_0 --33#1_0 --33#1_1 -33#0_0 -33#0_1" intLanes=":-15_0_0 :-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_4_1 :-15_11_0 :-15_7_0 :-15_7_1 :-15_12_0 :-15_13_0" shape="315.68,690.45 318.19,684.56 317.99,681.02 311.69,669.88 297.00,677.95 302.73,689.40">
+    <junction id="-15" type="priority" x="303.59" y="681.82" incLanes="-38#1_0 --33#1_0 --33#1_1 -33#0_0 -33#0_1" intLanes=":-15_0_0 :-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_4_1 :-15_11_0 :-15_7_0 :-15_7_1 :-15_12_0 :-15_13_0" shape="315.68,690.45 318.19,684.56 316.53,683.47 316.30,682.89 316.47,682.29 317.03,681.67 317.99,681.02 311.69,669.88 309.24,672.43 307.13,673.98 305.12,674.90 302.93,675.61 300.32,676.50 297.00,677.95 302.73,689.40 306.31,688.44 308.38,688.46 310.63,688.79 313.06,689.46">
         <request index="0"  response="00000110000" foes="10000110000" cont="0"/>
         <request index="1"  response="01110110000" foes="01111110000" cont="0"/>
         <request index="2"  response="01000001000" foes="01000001000" cont="0"/>
@@ -369,7 +369,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="9"  response="00000111000" foes="00000111110" cont="1"/>
         <request index="10" response="00000110001" foes="00000110001" cont="1"/>
     </junction>
-    <junction id="-19" type="priority" x="1048.06" y="663.40" incLanes="--38#0_0 --37#0_0" intLanes=":-19_0_0 :-19_1_0 :-19_2_0 :-19_3_0" shape="1045.88,655.79 1040.96,659.89 1040.68,666.28">
+    <junction id="-19" type="priority" x="1048.06" y="663.40" incLanes="--38#0_0 --37#0_0" intLanes=":-19_0_0 :-19_1_0 :-19_2_0 :-19_3_0" shape="1045.88,655.79 1040.96,659.89 1040.68,666.28 1044.85,666.17 1047.69,665.40 1049.22,663.98 1049.42,661.90 1048.31,659.17">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
@@ -378,7 +378,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="-2" type="priority" x="0.26" y="803.09" incLanes="--33#0_0 --33#0_1" intLanes=":-2_0_0" shape="0.26,803.09 1.94,809.26 0.26,803.09">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="-26" type="traffic_light" x="493.51" y="389.18" incLanes="--33#2_0 --33#2_1 -33#1_0 -33#1_1" intLanes=":-26_0_0 :-26_0_1 :-26_6_0 :-26_3_0 :-26_3_1 :-26_7_0" shape="499.85,387.98 487.07,388.73 499.62,391.23">
+    <junction id="-26" type="traffic_light" x="493.51" y="389.18" incLanes="--33#2_0 --33#2_1 -33#1_0 -33#1_1" intLanes=":-26_0_0 :-26_0_1 :-26_6_0 :-26_3_0 :-26_3_1 :-26_7_0" shape="499.85,387.98 487.07,388.73 499.62,391.23 499.84,390.04 499.89,389.61 499.90,389.19 499.89,388.67">
         <request index="0" response="000000" foes="100000" cont="0"/>
         <request index="1" response="000000" foes="100000" cont="0"/>
         <request index="2" response="011000" foes="011000" cont="1"/>
@@ -392,7 +392,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="-30" type="priority" x="0.00" y="837.32" incLanes="--35#1_0" intLanes=":-30_0_0" shape="0.00,837.32 1.03,840.35 -0.00,837.32">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="-4" type="traffic_light" x="343.27" y="720.74" incLanes="--37#1_0 -37#0_0 -32_0 -35#0_0" intLanes=":-4_0_0 :-4_1_0 :-4_16_0 :-4_17_0 :-4_4_0 :-4_5_0 :-4_18_0 :-4_19_0 :-4_8_0 :-4_9_0 :-4_20_0 :-4_21_0 :-4_12_0 :-4_13_0 :-4_22_0 :-4_23_0" shape="342.48,728.80 348.58,726.86 351.91,721.96 350.42,715.73 346.58,712.67 340.19,712.58 335.32,720.15 337.45,726.18">
+    <junction id="-4" type="traffic_light" x="343.27" y="720.74" incLanes="--37#1_0 -37#0_0 -32_0 -35#0_0" intLanes=":-4_0_0 :-4_1_0 :-4_16_0 :-4_17_0 :-4_4_0 :-4_5_0 :-4_18_0 :-4_19_0 :-4_8_0 :-4_9_0 :-4_20_0 :-4_21_0 :-4_12_0 :-4_13_0 :-4_22_0 :-4_23_0" shape="342.48,728.80 348.58,726.86 348.41,724.62 348.80,723.73 349.52,722.99 350.55,722.40 351.91,721.96 350.42,715.73 348.26,715.64 347.52,715.24 346.99,714.62 346.68,713.76 346.58,712.67 340.19,712.58 339.61,716.03 338.93,717.41 337.99,718.56 336.78,719.47 335.32,720.15 337.45,726.18 339.68,725.88 340.59,726.17 341.36,726.76 341.99,727.63">
         <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000" cont="1"/>

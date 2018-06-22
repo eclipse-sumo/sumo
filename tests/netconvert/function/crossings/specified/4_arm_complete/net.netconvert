@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:33 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Fri Jun 22 11:32:11 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -111,16 +111,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_c3_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.50" shape="89.85,106.40 89.85,93.60"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="92.10,106.40 87.60,106.40 87.60,107.90 87.60,110.90 89.10,112.40 92.10,112.40 93.60,112.40 93.60,107.90"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="87.60,106.40 87.60,107.90 87.60,110.90 89.10,112.40 92.10,112.40 93.60,112.40 93.43,110.57 92.93,109.07 92.10,107.90 90.93,107.07 89.43,106.57"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="106.40,107.90 106.40,112.40 107.90,112.40 110.90,112.40 112.40,110.90 112.40,107.90 112.40,106.40 107.90,106.40"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="106.40,112.40 107.90,112.40 110.90,112.40 112.40,110.90 112.40,107.90 112.40,106.40 110.57,106.57 109.07,107.07 107.90,107.90 107.07,109.07 106.57,110.57"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="107.90,93.60 112.40,93.60 112.40,92.10 112.40,89.10 110.90,87.60 107.90,87.60 106.40,87.60 106.40,92.10"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="112.40,93.60 112.40,92.10 112.40,89.10 110.90,87.60 107.90,87.60 106.40,87.60 106.57,89.43 107.07,90.93 107.90,92.10 109.07,92.93 110.57,93.43"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="93.60,92.10 93.60,87.60 92.10,87.60 89.10,87.60 87.60,89.10 87.60,92.10 87.60,93.60 92.10,93.60"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="4.86" width="4.50" shape="93.60,87.60 92.10,87.60 89.10,87.60 87.60,89.10 87.60,92.10 87.60,93.60 89.43,93.43 90.93,92.93 92.10,92.10 92.93,90.93 93.43,89.43"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
         <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.00" shape="200.00,107.90 200.00,110.90 200.00,89.10 200.00,92.10"/>
@@ -193,7 +193,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrryyyyrrrryyyyrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_18_0 :C_5_0 :C_5_1 :C_19_0 :C_20_0 :C_9_0 :C_9_1 :C_21_0 :C_22_0 :C_13_0 :C_13_1 :C_23_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="89.10,112.40 110.90,112.40 112.40,110.90 112.40,89.10 110.90,87.60 89.10,87.60 87.60,89.10 87.60,110.90">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_18_0 :C_5_0 :C_5_1 :C_19_0 :C_20_0 :C_9_0 :C_9_1 :C_21_0 :C_22_0 :C_13_0 :C_13_1 :C_23_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="89.10,112.40 110.90,112.40 111.07,111.57 111.28,111.28 111.57,111.07 111.94,110.94 112.40,110.90 112.40,89.10 111.57,88.93 111.28,88.72 111.07,88.43 110.94,88.06 110.90,87.60 89.10,87.60 88.93,88.43 88.72,88.72 88.43,88.93 88.06,89.06 87.60,89.10 87.60,110.90 88.43,111.07 88.72,111.28 88.93,111.57 89.06,111.94">
         <request index="0"  response="10010000000000000000" foes="10010000100001100000" cont="1"/>
         <request index="1"  response="01011001000010000000" foes="01011111100011100000" cont="0"/>
         <request index="2"  response="01011001000010000000" foes="01011111100011100000" cont="0"/>

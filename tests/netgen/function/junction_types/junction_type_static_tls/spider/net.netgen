@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:20:19 2018 by Eclipse SUMO netgenerate Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:20 2018 by Eclipse SUMO netgenerate Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-100.00,-100.00,100.00,100.00" projParameter="!"/>
 
@@ -323,8 +323,8 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyrrrrr"/>
     </tlLogic>
 
-    <junction id="A1" type="unregulated" x="100.00" y="100.00" incLanes="B2A1_0 B1A1_0 B4A1_0 B3A1_0" intLanes=":A1_0_0 :A1_1_0 :A1_2_0 :A1_3_0 :A1_4_0 :A1_5_0 :A1_6_0 :A1_7_0 :A1_8_0 :A1_9_0 :A1_10_0 :A1_11_0 :A1_12_0 :A1_13_0 :A1_14_0 :A1_15_0" shape="96.80,107.20 103.20,107.20 107.20,103.20 107.20,96.80 103.20,92.80 96.80,92.80 92.80,96.80 92.80,103.20"/>
-    <junction id="B1" type="traffic_light" x="200.00" y="100.00" incLanes="B4B1_0 A1B1_0 B2B1_0" intLanes=":B1_0_0 :B1_9_0 :B1_10_0 :B1_3_0 :B1_4_0 :B1_11_0 :B1_6_0 :B1_7_0 :B1_12_0" shape="193.97,89.45 189.45,93.97 188.27,96.80 188.27,103.20 189.45,106.03 193.97,110.55">
+    <junction id="A1" type="unregulated" x="100.00" y="100.00" incLanes="B2A1_0 B1A1_0 B4A1_0 B3A1_0" intLanes=":A1_0_0 :A1_1_0 :A1_2_0 :A1_3_0 :A1_4_0 :A1_5_0 :A1_6_0 :A1_7_0 :A1_8_0 :A1_9_0 :A1_10_0 :A1_11_0 :A1_12_0 :A1_13_0 :A1_14_0 :A1_15_0" shape="96.80,107.20 103.20,107.20 103.64,104.98 104.20,104.20 104.98,103.64 105.98,103.31 107.20,103.20 107.20,96.80 104.98,96.36 104.20,95.80 103.64,95.02 103.31,94.02 103.20,92.80 96.80,92.80 96.36,95.02 95.80,95.80 95.02,96.36 94.02,96.69 92.80,96.80 92.80,103.20 95.02,103.64 95.80,104.20 96.36,104.98 96.69,105.98"/>
+    <junction id="B1" type="traffic_light" x="200.00" y="100.00" incLanes="B4B1_0 A1B1_0 B2B1_0" intLanes=":B1_0_0 :B1_9_0 :B1_10_0 :B1_3_0 :B1_4_0 :B1_11_0 :B1_6_0 :B1_7_0 :B1_12_0" shape="193.97,89.45 189.45,93.97 190.57,95.54 190.57,96.09 190.18,96.49 189.42,96.72 188.27,96.80 188.27,103.20 189.45,106.03 193.97,110.55 196.90,107.04 198.66,103.52 199.25,100.00 198.66,96.48 196.90,92.96">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -335,7 +335,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="B2" type="traffic_light" x="100.00" y="200.00" incLanes="B1B2_0 A1B2_0 B3B2_0" intLanes=":B2_0_0 :B2_9_0 :B2_10_0 :B2_3_0 :B2_4_0 :B2_11_0 :B2_6_0 :B2_7_0 :B2_12_0" shape="110.55,193.97 106.03,189.45 103.20,188.27 96.80,188.27 93.97,189.45 89.45,193.97">
+    <junction id="B2" type="traffic_light" x="100.00" y="200.00" incLanes="B1B2_0 A1B2_0 B3B2_0" intLanes=":B2_0_0 :B2_9_0 :B2_10_0 :B2_3_0 :B2_4_0 :B2_11_0 :B2_6_0 :B2_7_0 :B2_12_0" shape="110.55,193.97 106.03,189.45 104.46,190.57 103.91,190.57 103.51,190.18 103.28,189.42 103.20,188.27 96.80,188.27 96.49,190.18 96.09,190.57 95.54,190.57 94.84,190.20 93.97,189.45 89.45,193.97 92.96,196.90 96.48,198.66 100.00,199.25 103.52,198.66 107.04,196.90">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -346,7 +346,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="B3" type="traffic_light" x="0.00" y="100.00" incLanes="B2B3_0 A1B3_0 B4B3_0" intLanes=":B3_0_0 :B3_9_0 :B3_10_0 :B3_3_0 :B3_4_0 :B3_11_0 :B3_6_0 :B3_7_0 :B3_12_0" shape="6.03,110.55 10.55,106.03 11.73,103.20 11.73,96.80 10.55,93.97 6.03,89.45">
+    <junction id="B3" type="traffic_light" x="0.00" y="100.00" incLanes="B2B3_0 A1B3_0 B4B3_0" intLanes=":B3_0_0 :B3_9_0 :B3_10_0 :B3_3_0 :B3_4_0 :B3_11_0 :B3_6_0 :B3_7_0 :B3_12_0" shape="6.03,110.55 10.55,106.03 9.43,104.46 9.43,103.91 9.82,103.51 10.58,103.28 11.73,103.20 11.73,96.80 9.82,96.49 9.43,96.09 9.43,95.54 9.80,94.84 10.55,93.97 6.03,89.45 3.10,92.96 1.34,96.48 0.75,100.00 1.34,103.52 3.10,107.04">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="1"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -357,7 +357,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="B4" type="traffic_light" x="100.00" y="0.00" incLanes="A1B4_0 B1B4_0 B3B4_0" intLanes=":B4_0_0 :B4_1_0 :B4_9_0 :B4_3_0 :B4_4_0 :B4_10_0 :B4_6_0 :B4_11_0 :B4_12_0" shape="96.80,11.73 103.20,11.73 106.03,10.55 110.55,6.03 89.45,6.03 93.97,10.55">
+    <junction id="B4" type="traffic_light" x="100.00" y="0.00" incLanes="A1B4_0 B1B4_0 B3B4_0" intLanes=":B4_0_0 :B4_1_0 :B4_9_0 :B4_3_0 :B4_4_0 :B4_10_0 :B4_6_0 :B4_11_0 :B4_12_0" shape="96.80,11.73 103.20,11.73 103.51,9.82 103.91,9.43 104.46,9.43 105.16,9.80 106.03,10.55 110.55,6.03 107.04,3.10 103.52,1.34 100.00,0.75 96.48,1.34 92.96,3.10 89.45,6.03 93.97,10.55 95.54,9.43 96.09,9.43 96.49,9.82 96.72,10.58">
         <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="011010000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>

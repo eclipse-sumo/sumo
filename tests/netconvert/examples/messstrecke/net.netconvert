@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:41 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:53 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,200.00" convBoundary="0.00,0.00,2125.42,400.00" origBoundary="-100.00,-200.00,2025.42,200.00" projParameter="!"/>
 
@@ -356,7 +356,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="EinsteinSinkEnd" type="dead_end" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.91,400.00 298.12,400.00 294.91,400.00"/>
-    <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_0_1 :ErnstRuskaAltglienicker_8_0 :ErnstRuskaAltglienicker_3_0 :ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1" shape="1918.87,209.60 1918.87,193.60 1914.87,189.60 1905.27,189.60 1901.27,193.60 1901.27,206.40">
+    <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_0_1 :ErnstRuskaAltglienicker_8_0 :ErnstRuskaAltglienicker_3_0 :ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1" shape="1918.87,209.60 1918.87,193.60 1916.65,193.16 1915.87,192.60 1915.31,191.82 1914.98,190.82 1914.87,189.60 1905.27,189.60 1904.83,191.82 1904.27,192.60 1903.49,193.16 1902.49,193.49 1901.27,193.60 1901.27,206.40 1905.06,206.64 1907.82,207.23 1912.32,208.77 1915.08,209.36">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
@@ -366,7 +366,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6" response="00000000" foes="00011100" cont="0"/>
         <request index="7" response="00000000" foes="00011100" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes=":ErnstRuskaEinstein_0_0 :ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1 :ErnstRuskaEinstein_5_0 :ErnstRuskaEinstein_5_1 :ErnstRuskaEinstein_8_0" shape="291.71,210.40 298.12,210.40 302.12,206.40 302.12,193.60 287.71,193.60 287.71,206.40">
+    <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes=":ErnstRuskaEinstein_0_0 :ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1 :ErnstRuskaEinstein_5_0 :ErnstRuskaEinstein_5_1 :ErnstRuskaEinstein_8_0" shape="291.71,210.40 298.12,210.40 298.56,208.18 299.12,207.40 299.89,206.84 300.89,206.51 302.12,206.40 302.12,193.60 287.71,193.60 287.71,206.40 289.94,206.84 290.71,207.40 291.27,208.18 291.60,209.18">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
@@ -382,14 +382,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00" incLanes="ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1" intLanes=":ErnstRuskaEnd2_0_0 :ErnstRuskaEnd2_0_1 :ErnstRuskaEnd2_0_2 :ErnstRuskaEnd2_3_0 :ErnstRuskaEnd2_3_1" shape="2029.42,206.40 2029.42,193.60 2021.42,193.60 2021.42,209.60">
+    <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00" incLanes="ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1" intLanes=":ErnstRuskaEnd2_0_0 :ErnstRuskaEnd2_0_1 :ErnstRuskaEnd2_0_2 :ErnstRuskaEnd2_3_0 :ErnstRuskaEnd2_3_1" shape="2029.42,206.40 2029.42,193.60 2021.42,193.60 2021.42,209.60 2024.45,208.77 2026.39,207.23 2027.63,206.64">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes=":ErnstRuskaHavestadt_0_0 :ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1 :ErnstRuskaHavestadt_6_0 :ErnstRuskaHavestadt_6_1 :ErnstRuskaHavestadt_9_0" shape="1008.85,210.40 1021.65,210.40 1025.65,206.40 1025.65,190.40 1004.85,190.40 1004.85,206.40">
+    <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes=":ErnstRuskaHavestadt_0_0 :ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1 :ErnstRuskaHavestadt_6_0 :ErnstRuskaHavestadt_6_1 :ErnstRuskaHavestadt_9_0" shape="1008.85,210.40 1021.65,210.40 1022.09,208.18 1022.65,207.40 1023.43,206.84 1024.43,206.51 1025.65,206.40 1025.65,190.40 1004.85,190.40 1004.85,206.40 1007.07,206.84 1007.85,207.40 1008.41,208.18 1008.74,209.18">
         <request index="0" response="000110000" foes="000110000" cont="0"/>
         <request index="1" response="111110000" foes="111110000" cont="0"/>
         <request index="2" response="111110000" foes="111110000" cont="0"/>
@@ -415,7 +415,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="ErnstRuskaSink1" type="dead_end" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="0.00,200.00 0.00,206.40 0.00,200.00"/>
     <junction id="ErnstRuskaSink2" type="dead_end" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.00 2125.42,193.60 2125.42,200.00"/>
-    <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes=":ErnstRuskaVolmer_0_0 :ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1 :ErnstRuskaVolmer_5_0 :ErnstRuskaVolmer_5_1 :ErnstRuskaVolmer_8_0" shape="1581.55,210.40 1587.95,210.40 1591.95,206.40 1591.95,193.60 1577.55,193.60 1577.55,206.40">
+    <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes=":ErnstRuskaVolmer_0_0 :ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1 :ErnstRuskaVolmer_5_0 :ErnstRuskaVolmer_5_1 :ErnstRuskaVolmer_8_0" shape="1581.55,210.40 1587.95,210.40 1588.39,208.18 1588.95,207.40 1589.73,206.84 1590.73,206.51 1591.95,206.40 1591.95,193.60 1577.55,193.60 1577.55,206.40 1579.77,206.84 1580.55,207.40 1581.11,208.18 1581.44,209.18">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:56 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:07 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-355340.39,-5645704.86" convBoundary="0.00,0.00,364.54,256.22" origBoundary="6.940205,50.941361,6.954300,50.949656" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -98,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="151057658_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="111.03" shape="157.37,176.96 185.96,187.14 213.26,201.72 238.12,218.56"/>
     </edge>
     <edge id="151057664#0" from="21760939" to="1638951669" priority="4" type="highway.residential" spreadType="center" shape="255.06,3.14 301.57,118.59 306.36,130.47">
-        <lane id="151057664#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="130.65" shape="255.06,3.14 301.57,118.59 302.02,119.70"/>
+        <lane id="151057664#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="128.85" shape="255.06,3.14 301.57,118.59 302.02,119.70"/>
     </edge>
     <edge id="151059738#0" from="804434748" to="1238706" priority="4" type="highway.residential" spreadType="center" shape="156.22,70.00 148.11,68.53 145.76,71.96 145.34,79.20 154.36,165.37">
         <lane id="151059738#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="111.29" shape="152.14,69.26 148.11,68.53 145.76,71.96 145.34,79.20 153.77,159.74"/>
@@ -175,14 +175,14 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="66598973#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.12" shape="240.61,92.24 288.33,123.32"/>
     </edge>
     <edge id="66598973#1" from="458602274" to="1638951669" priority="9" type="highway.primary" spreadType="center">
-        <lane id="66598973#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="12.20" shape="292.03,118.08 298.99,122.28"/>
-        <lane id="66598973#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="12.20" shape="290.37,120.82 297.33,125.02"/>
-        <lane id="66598973#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="12.20" shape="288.72,123.56 295.68,127.76"/>
+        <lane id="66598973#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="13.38" shape="292.03,118.08 298.99,122.28"/>
+        <lane id="66598973#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="13.38" shape="290.37,120.82 297.33,125.02"/>
+        <lane id="66598973#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="13.38" shape="288.72,123.56 295.68,127.76"/>
     </edge>
     <edge id="66598973#2" from="1638951669" to="2107888870" priority="9" type="highway.primary" spreadType="center" shape="306.36,130.47 337.35,150.34 350.12,158.53">
-        <lane id="66598973#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.92" shape="305.99,126.43 339.07,147.65 351.72,155.76"/>
-        <lane id="66598973#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.92" shape="304.26,129.13 337.35,150.34 349.99,158.45"/>
-        <lane id="66598973#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="59.92" shape="302.53,131.82 335.62,153.03 348.26,161.14"/>
+        <lane id="66598973#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.14" shape="305.99,126.43 339.07,147.65 351.72,155.76"/>
+        <lane id="66598973#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.14" shape="304.26,129.13 337.35,150.34 349.99,158.45"/>
+        <lane id="66598973#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="61.14" shape="302.53,131.82 335.62,153.03 348.26,161.14"/>
     </edge>
     <edge id="66598973#3" from="2107888870" to="474459" priority="9" type="highway.primary" spreadType="center">
         <lane id="66598973#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.14" shape="351.97,155.92 366.27,165.08"/>
@@ -253,11 +253,11 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rrr"/>
     </tlLogic>
 
-    <junction id="1238706" type="priority" x="154.36" y="165.37" incLanes="151059738#0_0" intLanes="" shape="153.15,170.96 156.34,170.73 160.19,166.16 159.74,162.99 155.37,159.57 152.18,159.90">
+    <junction id="1238706" type="priority" x="154.36" y="165.37" incLanes="151059738#0_0" intLanes="" shape="153.15,170.96 156.34,170.73 156.65,168.45 157.17,167.59 157.93,166.92 158.94,166.45 160.19,166.16 159.74,162.99 157.50,162.89 156.67,162.45 156.04,161.75 155.60,160.79 155.37,159.57 152.18,159.90">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="1238711" type="priority" x="155.00" y="174.42" incLanes="151059738#2_0 198188181#1_0 198188181#1_1" intLanes="" shape="156.83,178.47 158.98,172.44 156.17,168.29 152.98,168.52 150.56,170.85 150.25,177.29">
+    <junction id="1238711" type="priority" x="155.00" y="174.42" incLanes="151059738#2_0 198188181#1_0 198188181#1_1" intLanes="" shape="156.83,178.47 158.98,172.44 157.51,171.38 156.97,170.72 156.57,169.99 156.30,169.18 156.17,168.29 152.98,168.52 150.56,170.85 150.25,177.29">
         <request index="0" response="110" foes="110"/>
         <request index="1" response="000" foes="001"/>
         <request index="2" response="000" foes="001"/>
@@ -265,14 +265,14 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1610102670" type="priority" x="335.79" y="215.42" incLanes="-23543117#0_0" intLanes="" shape="335.79,215.42 333.03,213.80 335.79,215.42">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1638951669" type="traffic_light" x="306.36" y="130.47" incLanes="151057664#0_0 66598973#1_0 66598973#1_1 66598973#1_2" intLanes="" shape="301.67,133.17 306.85,125.09 303.50,119.10 300.54,120.30 299.81,120.91 294.85,129.13">
+    <junction id="1638951669" type="traffic_light" x="306.36" y="130.47" incLanes="151057664#0_0 66598973#1_0 66598973#1_1 66598973#1_2" intLanes="" shape="301.67,133.17 306.85,125.09 304.99,123.42 304.58,122.59 304.30,121.66 304.00,120.52 303.50,119.10 300.54,120.30 300.71,120.98 300.64,121.15 300.46,121.19 300.19,121.11 299.81,120.91 294.85,129.13">
         <request index="0" response="1110" foes="1110"/>
         <request index="1" response="0000" foes="0001"/>
         <request index="2" response="0000" foes="0001"/>
         <request index="3" response="0000" foes="0001"/>
     </junction>
     <junction id="1638968562" type="dead_end" x="92.22" y="7.44" incLanes="66389908#2_0 66389908#2_1 66389908#2_2" intLanes="" shape="88.24,10.13 96.20,4.76"/>
-    <junction id="2107888870" type="traffic_light" x="350.12" y="158.53" incLanes="66598973#2_0 66598973#2_1 66598973#2_2" intLanes="" shape="347.65,162.65 352.83,154.57 352.58,154.41 347.40,162.49">
+    <junction id="2107888870" type="traffic_light" x="350.12" y="158.53" incLanes="66598973#2_0 66598973#2_1 66598973#2_2" intLanes="" shape="347.65,162.65 352.83,154.57 352.62,154.44 347.40,162.49">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
@@ -295,23 +295,23 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="1000" foes="1000"/>
         <request index="3" response="0000" foes="0100"/>
     </junction>
-    <junction id="320920680" type="traffic_light" x="138.82" y="58.90" incLanes="66389908#0_0 66389908#0_1 66389908#0_2" intLanes="" shape="138.56,63.74 140.36,54.31 136.13,62.92">
+    <junction id="320920680" type="traffic_light" x="138.82" y="58.90" incLanes="66389908#0_0 66389908#0_1 66389908#0_2" intLanes="" shape="138.56,63.74 140.36,54.31 136.13,62.92 136.99,63.33 137.30,63.45 137.63,63.54 138.02,63.63">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="32949992" type="traffic_light" x="145.01" y="173.17" incLanes="198188181#0_0 198188181#0_1" intLanes="" shape="144.75,176.37 145.80,170.06 144.75,169.97">
+    <junction id="32949992" type="traffic_light" x="145.01" y="173.17" incLanes="198188181#0_0 198188181#0_1" intLanes="" shape="144.75,176.37 145.80,170.06 145.41,170.00 145.28,169.98 145.14,169.98 144.98,169.97 144.75,169.97">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="32950045" type="dead_end" x="352.90" y="185.17" incLanes="" intLanes="" shape="354.55,182.43 351.24,187.91"/>
-    <junction id="32950084" type="traffic_light" x="312.02" y="253.23" incLanes="23543117#0_0 -205996114#1_0" intLanes="" shape="314.90,254.70 309.66,251.02 313.66,256.01">
+    <junction id="32950084" type="traffic_light" x="312.02" y="253.23" incLanes="23543117#0_0 -205996114#1_0" intLanes="" shape="314.90,254.70 309.66,251.02 313.66,256.01 314.18,255.59 314.35,255.42 314.50,255.24 314.68,255.01">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
         <request index="3" response="0001" foes="0001"/>
     </junction>
-    <junction id="37276365#1-AddedOffRampNode" type="priority" x="242.91" y="113.37" incLanes="37276365#1_0 37276365#1_1" intLanes="" shape="244.37,118.28 248.02,113.03 241.46,108.46 234.15,118.96">
+    <junction id="37276365#1-AddedOffRampNode" type="priority" x="242.91" y="113.37" incLanes="37276365#1_0 37276365#1_1" intLanes="" shape="244.37,118.28 248.02,113.03 241.46,108.46 234.15,118.96 236.07,119.73 237.73,119.44 240.78,117.81 242.44,117.52">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
@@ -323,27 +323,27 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="011" foes="011"/>
     </junction>
     <junction id="449266" type="dead_end" x="100.20" y="0.00" incLanes="" intLanes="" shape="97.45,1.64 102.94,-1.64"/>
-    <junction id="449272" type="traffic_light" x="139.40" y="49.31" incLanes="4045172#0_0 4045172#0_1" intLanes="" shape="139.11,52.54 140.66,46.33 137.29,51.77">
+    <junction id="449272" type="traffic_light" x="139.40" y="49.31" incLanes="4045172#0_0 4045172#0_1" intLanes="" shape="139.11,52.54 140.66,46.33 137.29,51.77 137.92,52.15 138.16,52.26 138.40,52.35 138.70,52.43">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="458602274" type="traffic_light" x="290.22" y="120.73" incLanes="66598973#0_0 66598973#0_1 66598973#0_2" intLanes="" shape="287.89,124.93 292.86,116.71 292.70,116.61 287.46,124.66">
+    <junction id="458602274" type="traffic_light" x="290.22" y="120.73" incLanes="66598973#0_0 66598973#0_1 66598973#0_2" intLanes="" shape="287.89,124.93 292.86,116.71 292.72,116.63 287.46,124.66">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="474459" type="dead_end" x="364.54" y="167.78" incLanes="66598973#3_0 66598973#3_1 66598973#3_2" intLanes="" shape="367.13,163.74 361.95,171.82"/>
-    <junction id="713758579" type="traffic_light" x="152.27" y="184.49" incLanes="23714484_0 23714484_1" intLanes="" shape="151.50,187.61 153.70,181.60 152.36,181.27">
+    <junction id="713758579" type="traffic_light" x="152.27" y="184.49" incLanes="23714484_0 23714484_1" intLanes="" shape="151.50,187.61 153.70,181.60 153.23,181.40 153.05,181.36 152.87,181.33 152.36,181.27">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="804434748" type="priority" x="157.94" y="62.18" incLanes="37276365#1-AddedOffRampEdge_0 37276365#1-AddedOffRampEdge_1 37276365#1-AddedOffRampEdge_2 37276365#1-AddedOffRampEdge_3" intLanes="" shape="159.56,72.37 162.31,59.87 154.37,56.90 151.85,70.83">
+    <junction id="804434748" type="priority" x="157.94" y="62.18" incLanes="37276365#1-AddedOffRampEdge_0 37276365#1-AddedOffRampEdge_1 37276365#1-AddedOffRampEdge_2 37276365#1-AddedOffRampEdge_3" intLanes="" shape="159.56,72.37 162.31,59.87 159.57,58.25 158.55,57.77 157.49,57.42 156.17,57.15 154.37,56.90 151.85,70.83">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="805802932" type="traffic_light" x="239.01" y="87.37" incLanes="4045172#1_0 4045172#1_1" intLanes="" shape="239.74,93.58 244.98,85.53 237.48,82.49 233.91,87.81">
+    <junction id="805802932" type="traffic_light" x="239.01" y="87.37" incLanes="4045172#1_0 4045172#1_1" intLanes="" shape="239.74,93.58 244.98,85.53 237.48,82.49 233.91,87.81 236.17,89.82 236.81,90.71 237.46,91.59 238.35,92.53">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

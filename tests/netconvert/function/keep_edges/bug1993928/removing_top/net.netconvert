@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:56 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:07 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="3si_2" index="2" speed="13.89" length="250.00" shape="501.60,254.00 501.60,486.40"/>
     </edge>
 
-    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="513.60,509.60 513.60,496.80 509.60,486.40 496.80,486.40 492.80,490.40 492.80,503.20">
+    <junction id="0" type="priority" x="500.00" y="500.00" incLanes="2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="513.60,509.60 513.60,496.80 511.38,495.64 510.60,494.20 510.04,492.18 509.71,489.58 509.60,486.40 496.80,486.40 496.36,488.62 495.80,489.40 495.02,489.96 494.02,490.29 492.80,490.40 492.80,503.20 497.36,503.67 500.61,504.86 505.79,507.94 509.04,509.13">
         <request index="0" response="000000000" foes="100010000"/>
         <request index="1" response="011000000" foes="011110000"/>
         <request index="2" response="010001000" foes="010001000"/>
@@ -100,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="m2" type="priority" x="750.00" y="500.00" incLanes="2fi_0 2fi_1" intLanes="" shape="754.00,506.40 754.00,500.00 746.00,500.00 746.00,509.60">
+    <junction id="m2" type="priority" x="750.00" y="500.00" incLanes="2fi_0 2fi_1" intLanes="" shape="754.00,506.40 754.00,500.00 746.00,500.00 746.00,509.60 749.03,508.77 750.97,507.23 752.21,506.64">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

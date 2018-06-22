@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 09:42:22 2018 by Eclipse SUMO netconvert Version 276b4a7
+<!-- generated on Fri Jun 22 11:32:12 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -114,16 +114,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_c5_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.50" shape="82.45,111.77 84.84,105.83"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="10.34" width="4.50" shape="84.54,112.61 80.37,110.93 79.81,112.32 78.69,115.10 84.17,125.72 87.09,125.03"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="10.34" width="4.50" shape="80.37,110.93 79.81,112.32 78.69,115.10 84.17,125.72 87.09,125.03 86.10,121.19 85.04,117.90 83.94,115.23 82.80,113.18 81.60,111.74"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.75" width="4.50" shape="115.86,119.19 118.80,118.59 119.99,117.12 119.99,114.12 119.99,112.62 115.49,112.62"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.75" width="4.50" shape="115.86,119.19 118.80,118.59 119.99,117.12 119.99,114.12 119.99,112.62 118.35,112.80 117.10,113.35 116.22,114.26 115.72,115.54 115.60,117.18"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="7.00" width="4.50" shape="115.45,88.73 119.95,88.72 119.95,87.22 119.95,84.22 118.11,78.75 115.11,78.72 113.59,78.77 113.58,83.27"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="7.00" width="4.50" shape="119.95,88.72 119.95,87.22 119.95,84.22 118.11,78.75 115.11,78.72 113.59,78.77 113.75,81.81 114.27,84.30 115.14,86.24 116.38,87.62 117.98,88.44"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="7.72" width="4.50" shape="88.58,83.34 88.56,78.84 87.06,78.85 84.06,78.86 77.41,83.68 78.75,86.36 79.42,87.70 83.45,85.69"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="7.72" width="4.50" shape="88.56,78.84 87.06,78.85 84.06,78.86 77.41,83.68 78.75,86.36 79.42,87.70 82.22,86.19 84.51,84.69 86.29,83.20 87.56,81.73 88.31,80.28"/>
     </edge>
     <edge id=":C_w4" function="walkingarea">
         <lane id=":C_w4_0" index="0" allow="pedestrian" speed="1.00" length="11.10" width="4.50" shape="115.46,95.13 119.96,95.12 119.98,106.22 115.48,106.22"/>
@@ -135,13 +135,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_w6_0" index="0" allow="pedestrian" speed="1.00" length="13.41" width="4.50" shape="86.93,106.67 82.75,104.99 82.28,93.43 86.31,91.42"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
-        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.31" width="3.00" shape="201.97,107.65 202.71,110.56 202.22,89.33 201.61,92.27"/>
+        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.31" width="3.00" shape="201.97,107.65 202.71,110.56 202.22,89.33 201.61,92.27 210.86,94.61 216.44,97.05 218.34,99.57 216.56,102.18 211.10,104.87"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.47" width="3.00" shape="92.39,197.87 89.50,197.06 108.70,206.57 106.31,204.76"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.47" width="3.00" shape="92.39,197.87 89.50,197.06 108.70,206.57 106.31,204.76 98.92,213.84 93.56,218.84 90.23,219.73 88.92,216.54 89.64,209.25"/>
     </edge>
     <edge id=":S_w0" function="walkingarea">
-        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="17.70" width="3.00" shape="107.26,-3.13 110.01,-4.31 89.52,-3.01 92.41,-2.18"/>
+        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="17.70" width="3.00" shape="107.26,-3.13 110.01,-4.31 89.52,-3.01 92.41,-2.18 94.51,-8.11 96.77,-11.73 99.17,-13.04 101.72,-12.04 104.41,-8.74"/>
     </edge>
     <edge id=":W_w0" function="walkingarea">
         <lane id=":W_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.00" shape="-0.05,92.10 -0.07,89.10 0.03,110.90 0.02,107.90"/>
@@ -205,7 +205,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrryyyyrrrryyyyrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w4_0 :C_w2_0 :C_w5_0 :C_w3_0 :C_w6_0 :C_w0_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_4_0 :C_5_0 :C_5_1 :C_18_0 :C_19_0 :C_9_0 :C_9_1 :C_20_0 :C_21_0 :C_13_0 :C_13_1 :C_22_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="84.16,125.68 118.80,118.59 120.00,117.12 119.95,84.22 118.11,78.73 84.06,78.86 77.41,83.68 82.28,93.43 82.75,104.99 78.69,115.10">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w4_0 :C_w2_0 :C_w5_0 :C_w3_0 :C_w6_0 :C_w0_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_4_0 :C_5_0 :C_5_1 :C_18_0 :C_19_0 :C_9_0 :C_9_1 :C_20_0 :C_21_0 :C_13_0 :C_13_1 :C_22_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="84.16,125.68 118.80,118.59 118.80,117.77 118.95,117.49 119.20,117.28 119.55,117.16 120.00,117.12 119.95,84.22 118.90,83.61 118.54,82.85 118.29,81.78 118.14,80.41 118.11,78.73 84.06,78.86 83.33,80.06 82.40,80.81 81.11,81.67 79.45,82.62 77.41,83.68 82.28,93.43 82.75,104.99 78.69,115.10 80.77,116.87 81.71,118.41 82.59,120.39 83.41,122.82">
         <request index="0"  response="1000000000000000000000" foes="1000000000100001100000" cont="1"/>
         <request index="1"  response="0010001001000010000000" foes="0010001111100011100000" cont="0"/>
         <request index="2"  response="0010001001000010000000" foes="0010001111100011100000" cont="0"/>

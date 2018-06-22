@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:40 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:52 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,50.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -83,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="4o_0" index="0" speed="15.28" length="39.60" shape="51.60,60.40 51.60,100.00"/>
     </edge>
 
-    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_6_0 :0_3_0 :0_7_0 :0_8_0" shape="46.80,60.40 53.20,60.40 53.20,46.00 46.80,46.00 42.80,50.00 42.80,56.40">
+    <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 3i_0" intLanes=":0_0_0 :0_1_0 :0_6_0 :0_3_0 :0_7_0 :0_8_0" shape="46.80,60.40 53.20,60.40 53.20,46.00 46.80,46.00 46.36,48.22 45.80,49.00 45.02,49.56 44.02,49.89 42.80,50.00 42.80,56.40 45.02,56.84 45.80,57.40 46.36,58.18 46.69,59.18">
         <request index="0" response="000000" foes="000000" cont="0"/>
         <request index="1" response="000000" foes="110000" cont="0"/>
         <request index="2" response="001000" foes="001000" cont="1"/>

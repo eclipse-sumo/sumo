@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:57 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:07 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1000.00,500.00" convBoundary="0.00,0.00,2000.00,1500.00" origBoundary="-1000.00,-1000.00,1000.00,1000.00" projParameter="!"/>
 
@@ -88,7 +88,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="4o_0" index="0" speed="11.11" length="500.00" shape="1001.60,510.40 1001.60,1000.00"/>
     </edge>
 
-    <junction id="0" type="priority" x="1000.00" y="500.00" incLanes="4i_0 4i_1 2i_0 2i_1 3i_0 3i_1 1i_0 1i_1" intLanes="" shape="993.60,510.40 1003.20,510.40 1010.40,506.40 1010.40,496.80 1006.40,489.60 996.80,489.60 989.60,493.60 989.60,503.20">
+    <junction id="0" type="priority" x="1000.00" y="500.00" incLanes="4i_0 4i_1 2i_0 2i_1 3i_0 3i_1 1i_0 1i_1" intLanes="" shape="993.60,510.40 1003.20,510.40 1004.00,508.18 1005.00,507.40 1006.40,506.84 1008.20,506.51 1010.40,506.40 1010.40,496.80 1008.18,496.00 1007.40,495.00 1006.84,493.60 1006.51,491.80 1006.40,489.60 996.80,489.60 996.00,491.82 995.00,492.60 993.60,493.16 991.80,493.49 989.60,493.60 989.60,503.20 991.82,504.00 992.60,505.00 993.16,506.40 993.49,508.20">
         <request index="0"  response="0000000000000000" foes="1000010000100000"/>
         <request index="1"  response="0000000000000000" foes="0111110001100000"/>
         <request index="2"  response="0000001100000000" foes="0110001111100000"/>

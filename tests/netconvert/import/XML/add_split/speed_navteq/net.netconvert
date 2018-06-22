@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:45 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:57 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5789366.94" convBoundary="0.00,0.00,39850.14,20618.00" origBoundary="1248456.000000,5223889.000000,1306826.000000,5241834.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -80,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
 
-    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.42,670.79 17010.81,670.59 17014.69,666.47 17014.41,656.88 16999.98,657.32 17000.29,666.92">
+    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.42,670.79 17010.81,670.59 17011.19,668.35 17011.72,667.56 17012.48,666.98 17013.47,666.62 17014.69,666.47 17014.41,656.88 17009.60,657.02 17004.79,657.17 16999.98,657.32 17000.29,666.92 17002.53,667.29 17003.32,667.82 17003.90,668.58 17004.27,669.57">
         <request index="0" response="11100" foes="11100"/>
         <request index="1" response="11100" foes="11100"/>
         <request index="2" response="00000" foes="00011"/>

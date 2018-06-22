@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:53 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:04 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" rectangularLaneCut="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" rectangularLaneCut="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-178.94,-237.05" convBoundary="0.00,0.00,572.15,568.16" origBoundary="178.94,237.05,751.09,805.21" projParameter="!"/>
 
@@ -149,7 +149,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="connection:89.0.00" value="_Sg218"/>
     </tlLogic>
 
-    <junction id="2" type="traffic_light" x="278.31" y="273.74" incLanes="82.0.00_0 88.0.00_0 88.0.00_1 88.0.00_2 88.0.00_3 -71.0.00_0 89.0.00_0 89.0.00_1 89.0.00_2 89.0.00_3" intLanes="" shape="287.34,276.23 292.65,270.93 287.44,261.68 271.20,261.60 262.17,267.42 262.14,274.92 266.12,278.93 282.36,279.02">
+    <junction id="2" type="traffic_light" x="278.31" y="273.74" incLanes="82.0.00_0 88.0.00_0 88.0.00_1 88.0.00_2 88.0.00_3 -71.0.00_0 89.0.00_0 89.0.00_1 89.0.00_2 89.0.00_3" intLanes="" shape="287.34,276.23 292.65,270.93 291.05,269.22 289.75,267.57 288.73,266.00 288.01,264.49 287.58,263.05 287.44,261.68 271.20,261.60 270.18,264.85 268.93,265.98 267.17,266.79 264.92,267.27 262.17,267.42 262.14,274.92 264.36,275.37 265.13,275.93 265.68,276.71 266.01,277.71 266.12,278.93 282.36,279.02 282.51,276.79 282.93,275.26 283.62,274.45 284.59,274.33 285.83,274.93">
         <request index="0"  response="000000010000" foes="000100010000"/>
         <request index="1"  response="111000110000" foes="111100110000"/>
         <request index="2"  response="110011110000" foes="110011110000"/>
@@ -195,7 +195,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="90.88" type="priority" x="277.43" y="138.24" incLanes="-90.0.00_0 -88.48.40_0" intLanes="" shape="281.20,134.26 273.70,134.22 273.66,142.22 284.98,142.28">
+    <junction id="90.88" type="priority" x="277.43" y="138.24" incLanes="-90.0.00_0 -88.48.40_0" intLanes="" shape="281.20,134.26 273.70,134.22 273.52,135.66 273.54,137.50 273.59,139.50 273.64,141.22 273.66,142.22 284.98,142.28 284.01,139.21 282.18,137.32 281.48,136.08">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -203,7 +203,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="91.89" type="priority" x="276.09" y="409.24" incLanes="-89.48.40_0 -91.0.00_0" intLanes="" shape="279.86,405.25 268.54,405.20 272.32,413.22 279.82,413.25">
+    <junction id="91.89" type="priority" x="276.09" y="409.24" incLanes="-89.48.40_0 -91.0.00_0" intLanes="" shape="279.86,405.25 268.54,405.20 269.52,408.26 271.35,410.15 272.05,411.39 272.32,413.22 279.82,413.25">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

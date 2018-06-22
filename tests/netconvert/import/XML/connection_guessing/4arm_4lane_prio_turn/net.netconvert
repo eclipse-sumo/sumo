@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:48 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:00 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -83,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="WC_3" index="3" speed="13.89" length="100.00" shape="0.00,98.40 83.20,98.40"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3" intLanes="" shape="87.20,116.80 112.80,116.80 116.80,112.80 116.80,87.20 112.80,83.20 87.20,83.20 83.20,87.20 83.20,112.80">
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3" intLanes="" shape="87.20,116.80 112.80,116.80 113.24,114.58 113.80,113.80 114.58,113.24 115.58,112.91 116.80,112.80 116.80,87.20 114.58,86.76 113.80,86.20 113.24,85.42 112.91,84.42 112.80,83.20 87.20,83.20 86.76,85.42 86.20,86.20 85.42,86.76 84.42,87.09 83.20,87.20 83.20,112.80 85.42,113.24 86.20,113.80 86.76,114.58 87.09,115.58">
         <request index="0"  response="000000100000000111100000000" foes="000000100000000111100000000"/>
         <request index="1"  response="111111100000011111100000000" foes="111111100000011111100000000"/>
         <request index="2"  response="111111100000011111100000000" foes="111111100000011111100000000"/>

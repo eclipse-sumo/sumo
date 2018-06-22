@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:20:03 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:32:13 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="29.29,170.71" convBoundary="0.00,0.00,141.42,141.42" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="70.71" y="70.71" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes="" shape="73.54,82.59 82.59,73.54 82.59,67.88 73.54,58.83 67.88,58.83 58.83,67.88 58.83,73.54 67.88,82.59">
+    <junction id="C" type="traffic_light" x="70.71" y="70.71" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes="" shape="73.54,82.59 82.59,73.54 81.33,71.65 81.18,70.71 81.33,69.77 81.80,68.83 82.59,67.88 73.54,58.83 71.65,60.09 70.71,60.25 69.77,60.09 68.83,59.62 67.88,58.83 58.83,67.88 60.09,69.77 60.25,70.71 60.09,71.65 59.62,72.60 58.83,73.54 67.88,82.59 69.77,81.33 70.71,81.18 71.65,81.33 72.60,81.80">
         <request index="0"  response="00000000000000000000" foes="10000010000011000000"/>
         <request index="1"  response="00000000000000000000" foes="01111110000111000000"/>
         <request index="2"  response="00000000000000000000" foes="01111110000111000000"/>

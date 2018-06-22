@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:40 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 11:31:52 2018 by Eclipse SUMO netconvert Version 9eff290
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-390376.93,-5819497.66" convBoundary="0.00,0.00,156.34,172.87" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -142,7 +142,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="61050787" type="traffic_light" x="114.72" y="0.00" incLanes="-53500609_0 -53500609_1" intLanes=":61050787_0_0" shape="114.72,0.00 108.35,-0.60 114.72,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="61050789" type="priority" x="105.40" y="99.25" incLanes="-53500554_0 53500609_0 810268295_0 810268295_1 -572713710_0 -572713710_1" intLanes=":61050789_0_0 :61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_6_0 :61050789_7_0 :61050789_8_0 :61050789_9_0 :61050789_10_0 :61050789_17_0 :61050789_12_0 :61050789_13_0 :61050789_13_1 :61050789_18_0 :61050789_19_0" shape="115.48,102.67 115.62,96.27 109.55,89.30 99.99,88.41 95.33,92.06 94.35,104.82 97.91,109.10 110.64,110.46">
+    <junction id="61050789" type="priority" x="105.40" y="99.25" incLanes="-53500554_0 53500609_0 810268295_0 810268295_1 -572713710_0 -572713710_1" intLanes=":61050789_0_0 :61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_6_0 :61050789_7_0 :61050789_8_0 :61050789_9_0 :61050789_10_0 :61050789_17_0 :61050789_12_0 :61050789_13_0 :61050789_13_1 :61050789_18_0 :61050789_19_0" shape="115.48,102.67 115.62,96.27 113.58,96.03 111.96,95.43 110.75,94.45 109.94,93.11 109.54,91.39 109.55,89.30 99.99,88.41 99.31,90.58 98.64,91.31 97.75,91.80 96.65,92.05 95.33,92.06 94.35,104.82 96.52,105.42 97.23,106.03 97.71,106.84 97.93,107.87 97.91,109.10 110.64,110.46 111.01,108.06 111.55,106.09 112.27,104.57 113.16,103.49 114.23,102.86">
         <request index="0"  response="00000010000000000" foes="10000010000100000" cont="0"/>
         <request index="1"  response="01111010000000000" foes="01111110001100000" cont="0"/>
         <request index="2"  response="01110001100000000" foes="01110001111100000" cont="0"/>
