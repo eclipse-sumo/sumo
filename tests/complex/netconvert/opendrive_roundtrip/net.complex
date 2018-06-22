@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 22 08:06:09 2018 by Eclipse SUMO netconvert Version d40b93a
+<!-- generated on Fri Jun 22 09:59:31 2018 by Eclipse SUMO netconvert Version 276b4a7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -40,7 +40,7 @@
         <lane id=":10_0_0" index="0" disallow="pedestrian" speed="11.11" length="22.90" width="3.20" shape="377.18,471.96 373.02,469.17 367.61,465.56 362.09,462.21 357.57,460.25"/>
     </edge>
     <edge id=":10_1" function="internal">
-        <lane id=":10_1_0" index="0" disallow="pedestrian" speed="11.11" length="32.98" width="3.20" shape="377.18,471.96 367.47,465.11 364.88,461.30 369.42,460.53 381.09,462.80"/>
+        <lane id=":10_1_0" index="0" disallow="pedestrian" speed="11.11" length="18.82" width="3.20" shape="377.18,471.96 372.86,467.94 372.32,464.47 375.19,462.46 381.09,462.80"/>
     </edge>
     <edge id=":10_2" function="internal">
         <lane id=":10_2_0" index="0" allow="pedestrian" speed="8.33" length="4.67" width="3.20" shape="377.18,471.96 376.60,470.64 376.68,469.75 377.45,469.29 378.89,469.25"/>
@@ -220,7 +220,7 @@
         <lane id=":14_9_0" index="0" disallow="pedestrian" speed="11.11" length="14.96" width="3.20" shape="504.25,545.17 505.60,560.07"/>
     </edge>
     <edge id=":14_10" function="internal">
-        <lane id=":14_10_0" index="0" disallow="pedestrian" speed="11.11" length="42.12" width="3.20" shape="504.25,545.17 514.50,558.24 517.28,565.32 512.59,566.44 500.43,561.59"/>
+        <lane id=":14_10_0" index="0" disallow="pedestrian" speed="11.11" length="23.65" width="3.20" shape="504.25,545.17 507.69,551.54 508.17,557.87 505.74,561.95 500.43,561.59"/>
     </edge>
     <edge id=":14_11" function="internal">
         <lane id=":14_11_0" index="0" allow="pedestrian" speed="8.33" length="4.67" width="3.20" shape="504.25,545.17 504.44,546.61 504.10,547.43 503.23,547.66 501.84,547.28"/>
@@ -430,7 +430,7 @@
         <lane id=":19_1_0" index="0" disallow="pedestrian" speed="11.11" length="18.05" width="3.20" shape="946.14,553.58 943.14,553.71 939.50,552.50 935.23,549.96 930.32,546.10"/>
     </edge>
     <edge id=":19_2" function="internal">
-        <lane id=":19_2_0" index="0" disallow="pedestrian" speed="11.11" length="24.37" width="3.20" shape="946.14,553.58 938.11,555.21 934.51,554.09 935.32,550.21 940.55,543.58"/>
+        <lane id=":19_2_0" index="0" disallow="pedestrian" speed="11.11" length="19.31" width="3.20" shape="946.14,553.58 940.26,554.24 937.19,552.38 937.20,548.63 940.55,543.58"/>
     </edge>
     <edge id=":19_3" function="internal">
         <lane id=":19_3_0" index="0" allow="pedestrian" speed="8.33" length="4.67" width="3.20" shape="946.14,553.58 944.76,553.15 944.15,552.50 944.31,551.62 945.24,550.51"/>
@@ -622,7 +622,7 @@
         <lane id=":22_1_0" index="0" disallow="pedestrian" speed="11.11" length="18.57" width="3.20" shape="999.94,493.05 999.10,488.77 998.92,483.59 998.42,478.62 996.64,475.01"/>
     </edge>
     <edge id=":22_2" function="internal">
-        <lane id=":22_2_0" index="0" disallow="pedestrian" speed="11.11" length="32.44" width="3.20" shape="999.94,493.05 995.56,481.10 995.30,474.96 999.17,474.64 1007.16,480.13"/>
+        <lane id=":22_2_0" index="0" disallow="pedestrian" speed="11.11" length="21.87" width="3.20" shape="999.94,493.05 998.31,486.26 999.18,480.75 1002.23,478.16 1007.16,480.13"/>
     </edge>
     <edge id=":22_3" function="internal">
         <lane id=":22_3_0" index="0" allow="pedestrian" speed="8.33" length="4.67" width="3.20" shape="999.94,493.05 1000.20,491.63 1000.77,490.94 1001.66,490.99 1002.88,491.78"/>
@@ -1798,13 +1798,13 @@
         <lane id=":57_0_0" index="0" disallow="pedestrian" speed="22.22" length="14.57" width="3.20" shape="900.63,611.18 888.38,603.29"/>
     </edge>
     <edge id=":57_1" function="internal">
-        <lane id=":57_1_0" index="0" disallow="pedestrian" speed="18.05" length="20.35" width="3.20" shape="900.63,611.18 897.62,607.42 897.56,602.02 900.43,594.98 901.84,592.88"/>
+        <lane id=":57_1_0" index="0" disallow="pedestrian" speed="18.05" length="20.45" width="3.20" shape="900.63,611.18 897.12,606.09 898.02,599.66 901.62,592.77"/>
     </edge>
     <edge id=":57_2" function="internal">
         <lane id=":57_2_0" index="0" disallow="pedestrian" speed="22.22" length="23.31" width="3.20" shape="900.63,611.18 897.27,603.78 897.74,598.77 902.03,596.13 907.14,595.97"/>
     </edge>
     <edge id=":57_9" function="internal">
-        <lane id=":57_9_0" index="0" speed="18.05" length="7.91" width="3.20" shape="901.84,592.88 906.24,586.31"/>
+        <lane id=":57_9_0" index="0" speed="18.05" length="7.94" width="3.20" shape="901.62,592.77 906.24,586.31"/>
     </edge>
     <edge id=":57_10" function="internal">
         <lane id=":57_10_0" index="0" speed="22.22" length="3.02" width="3.20" shape="907.14,595.97 910.15,595.88"/>
@@ -2114,7 +2114,7 @@
         <lane id=":69_3_0" index="0" disallow="pedestrian" speed="22.22" length="9.55" width="3.20" shape="500.17,379.24 500.59,381.86 501.60,383.93 503.20,385.45 505.38,386.42"/>
     </edge>
     <edge id=":69_4" function="internal">
-        <lane id=":69_4_0" index="0" disallow="pedestrian" speed="22.22" length="32.48" width="3.20" shape="500.17,379.24 499.13,387.79 495.14,393.12 488.19,395.23 478.30,394.13"/>
+        <lane id=":69_4_0" index="0" disallow="pedestrian" speed="22.22" length="29.81" width="3.20" shape="500.17,379.24 498.30,386.11 493.04,391.30 485.88,394.19 478.30,394.13"/>
     </edge>
     <edge id=":69_5" function="internal">
         <lane id=":69_5_0" index="0" disallow="pedestrian" speed="22.22" length="18.14" width="3.20" shape="500.17,379.24 496.14,383.13 492.77,383.98 490.07,381.79 488.04,376.57"/>
@@ -2966,7 +2966,7 @@
     <junction id="19" type="priority" x="937.17" y="552.45" incLanes="-853.0.00_0 -922.0.00_0 -808.0.00_0 -817.0.00_0" intLanes=":19_0_0 :19_1_0 :19_2_0 :19_3_0 :19_4_0 :19_5_0 :19_16_0 :19_17_0 :19_8_0 :19_9_0 :19_10_0 :19_11_0 :19_12_0 :19_13_0 :19_18_0 :19_19_0" shape="946.59,555.12 944.79,548.98 944.07,546.85 939.38,542.49 933.47,542.47 929.27,547.31 925.76,558.22 930.84,562.12">
         <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
-        <request index="2"  response="0110001101100000" foes="0110011111100000" cont="0"/>
+        <request index="2"  response="0110001101100000" foes="0110001111100000" cont="0"/>
         <request index="3"  response="0100001000010000" foes="0100001000010000" cont="0"/>
         <request index="4"  response="0000000000000000" foes="0100001000001000" cont="0"/>
         <request index="5"  response="0000000000000000" foes="1100011000000111" cont="0"/>
@@ -2974,7 +2974,7 @@
         <request index="7"  response="0010000100000100" foes="0010000100000100" cont="1"/>
         <request index="8"  response="0010000000000000" foes="0010000010000100" cont="0"/>
         <request index="9"  response="0110000001110000" foes="0110000001111100" cont="0"/>
-        <request index="10" response="0110000001100111" foes="1110000001100111" cont="0"/>
+        <request index="10" response="0110000001100011" foes="1110000001100011" cont="0"/>
         <request index="11" response="0001000001000010" foes="0001000001000010" cont="0"/>
         <request index="12" response="0000000000000000" foes="0000100001000010" cont="0"/>
         <request index="13" response="0000000000000000" foes="0000011111000110" cont="0"/>
@@ -3701,7 +3701,7 @@
     <junction id=":56_9_0" type="internal" x="614.23" y="418.87" incLanes=":56_1_0 -885.0.00_0" intLanes=":56_4_0 :56_5_0 :56_6_0 :56_7_0"/>
     <junction id=":56_10_0" type="internal" x="619.68" y="420.61" incLanes=":56_2_0 -885.0.00_0 -915.0.00_0" intLanes=":56_3_0 :56_7_0"/>
     <junction id=":56_11_0" type="internal" x="609.19" y="424.54" incLanes=":56_8_0 -881.0.00_0 -915.0.00_0" intLanes=":56_0_0 :56_4_0"/>
-    <junction id=":57_9_0" type="internal" x="901.84" y="592.88" incLanes=":57_1_0 -888.0.00_0" intLanes=":57_4_0 :57_5_0 :57_6_0 :57_7_0"/>
+    <junction id=":57_9_0" type="internal" x="901.62" y="592.77" incLanes=":57_1_0 -888.0.00_0" intLanes=":57_4_0 :57_5_0 :57_6_0 :57_7_0"/>
     <junction id=":57_10_0" type="internal" x="907.14" y="595.97" incLanes=":57_2_0 -888.0.00_0 -923.0.00_0" intLanes=":57_3_0 :57_7_0"/>
     <junction id=":57_11_0" type="internal" x="891.17" y="603.19" incLanes=":57_8_0 -878.0.00_0 -923.0.00_0" intLanes=":57_0_0 :57_4_0"/>
     <junction id=":58_9_0" type="internal" x="344.92" y="455.46" incLanes=":58_5_0 -823.0.00_0 -924.0.00_0" intLanes=":58_1_0 :58_6_0"/>

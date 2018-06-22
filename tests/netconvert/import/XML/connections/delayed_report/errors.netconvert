@@ -1,5 +1,3 @@
 Warning: Could not set loaded connection from '7152678.-165_1' to '7152684_0'.
 Warning: Could not set loaded connection from '7152678.-165_2' to '7152684_1'.
 Warning: Could not set loaded connection from '7152678.-165_3' to '7152616_1'.
-Warning: Intersecting left turns at junction 'cluster_42717004_42717128_42717332_42717527' from lane '7152689_1' and lane '7152678.-165_3'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_42717004_42717128_42717332_42717527' from lane '7152674_1' and lane '7152615_1'. (increase junction radius to avoid this)

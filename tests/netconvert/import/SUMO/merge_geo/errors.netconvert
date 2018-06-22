@@ -5,4 +5,3 @@ Error: Problems on adding junction '1704693564'.
 Error: Problems on adding junction '1704693568'.
 Warning: Found angle of 99.78 degrees at edge '581635138#2', segment 0
 Warning: Found sharp turn with radius 6.58 at the start of edge '581635138#2'.
-Warning: Intersecting left turns at junction 'cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050929_3246050930_3246050932_3366620136_5564695000' from lane '-52080655#2_1' and lane '-142575672#2_1'. (increase junction radius to avoid this)
