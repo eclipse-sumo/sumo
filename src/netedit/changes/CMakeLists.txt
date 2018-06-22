@@ -19,8 +19,6 @@ set(netedit_changes_SRCS
    GNEChange_Additional.cpp
    GNEChange_CalibratorItem.h
    GNEChange_CalibratorItem.cpp
-   GNEChange_VariableSpeedSignItem.h   
-   GNEChange_VariableSpeedSignItem.cpp
    GNEChange_Shape.h
    GNEChange_Shape.cpp
    )

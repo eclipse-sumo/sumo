@@ -23,7 +23,6 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_CalibratorItem.h>
-#include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
