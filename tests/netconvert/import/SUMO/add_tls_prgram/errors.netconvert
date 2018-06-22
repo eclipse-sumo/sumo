@@ -1,1 +1,2 @@
 Warning: Lane '43[1]_2' is not connected from any incoming edge at junction '34'.
+Warning: Intersecting left turns at junction '27' from lane '46_2' and lane '31_2'. (increase junction radius to avoid this)

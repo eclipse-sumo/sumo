@@ -1,1 +1,2 @@
 Warning: Discarding unusable type 'highway.residential_tunnel' (first occurence for edge '182').
+Warning: Intersecting left turns at junction 'cluster_23126_9334' from lane '1748#0_2' and lane '-1748#2_2'. (increase junction radius to avoid this)

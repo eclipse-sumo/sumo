@@ -9,19 +9,20 @@ Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (1ms).
 Computing node shapes... done (10ms).
-Computing edge shapes... done (4ms).
+Computing edge shapes... done (5ms).
 Computing node types... done (0ms).
-Computing priorities... done (2ms).
-Computing approached edges... done (0ms).
+Computing priorities... done (1ms).
+Computing approached edges... done (1ms).
 Computing approaching lanes... done (5ms).
 Dividing of lanes on approached lanes... done (2ms).
 Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
+Rechecking of lane endings... done (1ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (12ms).
 Computing traffic light logics... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... done (34ms).
+Building inner edges... 
+done (42ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -33,5 +34,5 @@ Summary:
   Applied offset     : 1263.68,1880.98
   Converted boundary : 0.00,0.00,2463.28,3477.43
 -----------------------------------------------------
-Writing network... done (169ms).
+Writing network... done (193ms).
 Success.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:19:54 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 07:52:26 2018 by Eclipse SUMO netconvert Version d40b93a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2813,7 +2813,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="294168098" type="right_before_left" x="566.45" y="321.65" incLanes="26816413#1_0 -26816553_0 -26816590#0_0" intLanes=":294168098_0_0 :294168098_1_0 :294168098_2_0 :294168098_3_0 :294168098_4_0 :294168098_5_0 :294168098_6_0 :294168098_7_0 :294168098_8_0 :294168098_9_0 :294168098_10_0 :294168098_11_0" shape="566.07,325.64 570.39,320.92 572.22,306.33 563.17,307.47 561.45,307.37 556.00,310.72 560.72,321.11 561.32,324.25">
         <request index="0"  response="000000000000" foes="010000100000" cont="0"/>
         <request index="1"  response="000000000000" foes="110001100000" cont="0"/>
-        <request index="2"  response="001100000000" foes="001111100000" cont="0"/>
+        <request index="2"  response="001100000000" foes="011111100000" cont="0"/>
         <request index="3"  response="001000010000" foes="001000010000" cont="0"/>
         <request index="4"  response="000000000000" foes="001000001000" cont="0"/>
         <request index="5"  response="000000000111" foes="011000000111" cont="0"/>
@@ -2821,7 +2821,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7"  response="000100000100" foes="000100000100" cont="0"/>
         <request index="8"  response="000000000000" foes="000010000100" cont="0"/>
         <request index="9"  response="000001110000" foes="000001111100" cont="0"/>
-        <request index="10" response="000001100011" foes="000001100011" cont="0"/>
+        <request index="10" response="000001100111" foes="000001100111" cont="0"/>
         <request index="11" response="000001000010" foes="000001000010" cont="0"/>
     </junction>
     <junction id="294168710" type="right_before_left" x="585.57" y="339.15" incLanes="26816413#0_0 -26816413#1_0 26816541_0" intLanes=":294168710_0_0 :294168710_1_0 :294168710_2_0 :294168710_3_0 :294168710_4_0 :294168710_5_0" shape="585.61,343.53 589.93,338.81 585.36,334.62 581.04,339.34 581.09,341.42 583.37,343.67">

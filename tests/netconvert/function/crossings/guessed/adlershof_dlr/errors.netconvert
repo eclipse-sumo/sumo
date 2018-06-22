@@ -13,3 +13,6 @@ Warning: Found sharp turn with radius 4.20 at the start of edge '245105013'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
 Warning: Found sharp turn with radius 2.03 at the start of edge '70214888#3'.
 Warning: Found angle of 138.44 degrees at edge '71960638#0', segment 5
+Warning: Intersecting left turns at junction 'cluster_1568241251_260702783' from lane '-71960633#1_1' and lane '-143308566#0_1'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'cluster_1568241274_735390335' from lane '143308566#0_1' and lane '-143308566#2_1'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'cluster_2222976660_35215926' from lane '145586617#3_1' and lane '-145586617#5_1'. (increase junction radius to avoid this)

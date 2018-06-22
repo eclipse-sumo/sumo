@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:33 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Fri Jun 22 07:58:42 2018 by Eclipse SUMO netconvert Version d40b93a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -157,7 +157,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_20_0 :C_2_0 :C_3_0 :C_3_1 :C_21_0 :C_6_0 :C_7_0 :C_22_0 :C_9_0 :C_9_1 :C_23_0 :C_12_0 :C_13_0 :C_13_1 :C_24_0 :C_16_0 :C_17_0 :C_17_1 :C_25_0" shape="90.60,110.90 109.40,110.90 110.90,109.40 110.90,90.60 106.40,89.10 90.40,89.10 88.90,93.60 88.90,109.40">
         <request index="0"  response="00000000011010000000" foes="00001000011010000000" cont="0"/>
-        <request index="1"  response="11100111111010011000" foes="11100111111010011000" cont="1"/>
+        <request index="1"  response="11101111111010011000" foes="11101111111010011000" cont="1"/>
         <request index="2"  response="00000000011010000010" foes="00001000011010000010" cont="0"/>
         <request index="3"  response="11110000111010000000" foes="11111000111010000000" cont="0"/>
         <request index="4"  response="11110000111010000000" foes="11111000111010000000" cont="0"/>
@@ -171,7 +171,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="12" response="01100000000000000000" foes="01100000000000100010" cont="0"/>
         <request index="13" response="11100000111111000000" foes="11100000111111100010" cont="0"/>
         <request index="14" response="11100000111111000000" foes="11100000111111100010" cont="0"/>
-        <request index="15" response="11100000111010011101" foes="11100000111010011101" cont="1"/>
+        <request index="15" response="11100000111010011101" foes="11100000111010011111" cont="1"/>
         <request index="16" response="00000000000000000000" foes="00000000100000011000" cont="0"/>
         <request index="17" response="00001000000000100010" foes="00001111100000111010" cont="0"/>
         <request index="18" response="00001000000000100010" foes="00001111100000111010" cont="0"/>
@@ -182,11 +182,11 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2" intLanes="" shape="100.00,0.00 90.40,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,100.00 0.00,109.40 0.00,100.00"/>
 
-    <junction id=":C_20_0" type="internal" x="100.00" y="93.98" incLanes=":C_1_0 SC_0 SC_1" intLanes=":C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0 :C_17_1 :C_19_0"/>
+    <junction id=":C_20_0" type="internal" x="100.00" y="93.98" incLanes=":C_1_0 SC_0 SC_1" intLanes=":C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_15_0 :C_17_0 :C_17_1 :C_19_0"/>
     <junction id=":C_21_0" type="internal" x="100.00" y="104.07" incLanes=":C_5_0 SC_0 SC_1" intLanes=":C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0 :C_17_1 :C_19_0"/>
     <junction id=":C_22_0" type="internal" x="105.83" y="107.15" incLanes=":C_8_0 EC_0" intLanes=":C_7_0 :C_13_0 :C_13_1 :C_19_0"/>
     <junction id=":C_23_0" type="internal" x="104.07" y="100.00" incLanes=":C_11_0 WC_0 WC_1" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_5_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_17_1"/>
-    <junction id=":C_24_0" type="internal" x="100.00" y="95.89" incLanes=":C_15_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_17_0 :C_17_1 :C_19_0"/>
+    <junction id=":C_24_0" type="internal" x="100.00" y="95.89" incLanes=":C_15_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_17_0 :C_17_1 :C_19_0"/>
     <junction id=":C_25_0" type="internal" x="95.84" y="100.00" incLanes=":C_19_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0 :C_9_1 :C_13_0 :C_13_1 :C_15_0"/>
 
     <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="r" state="O"/>

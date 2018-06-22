@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:20:00 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on Fri Jun 22 07:58:42 2018 by Eclipse SUMO netconvert Version d40b93a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -147,7 +147,7 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 WC_0 WC_1" intLanes=":C_18_0 :C_1_0 :C_2_0 :C_2_1 :C_19_0 :C_5_0 :C_6_0 :C_7_0 :C_7_1 :C_20_0 :C_10_0 :C_11_0 :C_11_1 :C_13_0 :C_14_0 :C_15_0 :C_15_1 :C_21_0" shape="91.60,110.40 110.90,110.40 112.90,108.40 112.90,91.60 106.40,89.60 93.60,89.60 89.60,93.60 89.60,106.40">
-        <request index="0"  response="100000000000001100" foes="111001111110001100" cont="1"/>
+        <request index="0"  response="100010000000001100" foes="111011111110001100" cont="1"/>
         <request index="1"  response="000000000000000001" foes="000010000110000001" cont="0"/>
         <request index="2"  response="100000000000000000" foes="111110001110000000" cont="0"/>
         <request index="3"  response="100000000000000000" foes="111110001110000000" cont="0"/>
@@ -160,7 +160,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="10" response="000000000000010001" foes="011000000000010001" cont="0"/>
         <request index="11" response="000000001111110001" foes="111000001111110001" cont="0"/>
         <request index="12" response="000000001111110001" foes="111000001111110001" cont="0"/>
-        <request index="13" response="100000001110001110" foes="111000001110001110" cont="0"/>
+        <request index="13" response="100000001110001110" foes="111000001110001111" cont="0"/>
         <request index="14" response="000000001000001100" foes="000000001000001100" cont="0"/>
         <request index="15" response="000011111000011101" foes="000011111000011101" cont="0"/>
         <request index="16" response="000011111000011101" foes="000011111000011101" cont="0"/>
@@ -171,7 +171,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1" intLanes="" shape="0.00,100.00 0.00,106.40 0.00,100.00"/>
 
-    <junction id=":C_18_0" type="internal" x="93.25" y="106.40" incLanes=":C_0_0" intLanes=":C_2_0 :C_2_1 :C_7_0 :C_7_1 :C_9_0 :C_10_0 :C_11_0 :C_11_1 :C_15_0 :C_15_1 :C_17_0"/>
+    <junction id=":C_18_0" type="internal" x="93.25" y="106.40" incLanes=":C_0_0" intLanes=":C_2_0 :C_2_1 :C_7_0 :C_7_1 :C_9_0 :C_10_0 :C_11_0 :C_11_1 :C_13_0 :C_15_0 :C_15_1 :C_17_0"/>
     <junction id=":C_19_0" type="internal" x="99.09" y="106.40" incLanes=":C_4_0" intLanes=":C_7_0 :C_7_1 :C_9_0 :C_10_0 :C_11_0 :C_11_1 :C_15_0 :C_15_1 :C_17_0"/>
     <junction id=":C_20_0" type="internal" x="106.70" y="100.87" incLanes=":C_9_0 NC_0 NC_1 NC_2" intLanes=":C_0_0 :C_2_0 :C_2_1 :C_4_0 :C_11_0 :C_11_1 :C_13_0 :C_14_0 :C_15_0 :C_15_1"/>
     <junction id=":C_21_0" type="internal" x="100.00" y="103.73" incLanes=":C_17_0 SC_0 SC_1" intLanes=":C_0_0 :C_2_0 :C_2_1 :C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_7_1 :C_11_0 :C_11_1 :C_13_0"/>
