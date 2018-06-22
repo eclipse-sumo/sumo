@@ -115,7 +115,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-MSNet* MSNet::myInstance = 0;
+MSNet* MSNet::myInstance = nullptr;
 
 const std::string MSNet::STAGE_EVENTS("events");
 const std::string MSNet::STAGE_MOVEMENTS("move");
@@ -158,7 +158,7 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
 // ---------------------------------------------------------------------------
 MSNet*
 MSNet::getInstance(void) {
-    if (myInstance != 0) {
+    if (myInstance != nullptr) {
         return myInstance;
     }
     throw ProcessError("A network was not yet constructed.");

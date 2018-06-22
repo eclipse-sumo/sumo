@@ -115,6 +115,14 @@ public:
     static MSNet* getInstance();
 
 
+    /** @brief Returns whether the network was already constructed
+    * @return whether the network was already constructed
+    */
+    static bool hasInstance() {
+        return myInstance != nullptr;
+    }
+
+
     /** @brief Constructor
      *
      * This constructor builds a net of which only some basic structures are initialised.

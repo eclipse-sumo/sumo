@@ -54,9 +54,16 @@
 namespace libsumo {
 void
 Simulation::load(const std::vector<std::string>& args) {
-    XMLSubSys::init(); // this may be not good for multiple loads
+    close();
+    XMLSubSys::init();
     OptionsIO::setArgs(args);
     NLBuilder::init();
+}
+
+
+bool
+Simulation::isLoaded() {
+    return MSNet::hasInstance();
 }
 
 
@@ -74,10 +81,12 @@ Simulation::step(const SUMOTime time) {
 
 void
 Simulation::close() {
-	MSNet::getInstance()->closeSimulation(0);
-    delete MSNet::getInstance();
-	XMLSubSys::close();
-    SystemFrame::close();
+    if (MSNet::hasInstance()) {
+        MSNet::getInstance()->closeSimulation(0);
+        delete MSNet::getInstance();
+        XMLSubSys::close();
+        SystemFrame::close();
+    }
 }
 
 

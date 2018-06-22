@@ -41,6 +41,9 @@ public:
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
 
+    /// @brief return whether a simulation (network) is present
+    static bool isLoaded();
+
     /// @brief close simulation
     static void close();
 
