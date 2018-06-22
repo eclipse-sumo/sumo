@@ -47,17 +47,31 @@
 #define DEBUG_COND (veh->isSelected())
 
 
+// ===========================================================================
+// defaults
+// ===========================================================================
+#define DEFAULT_SC_GAIN -0.4
+#define DEFAULT_GCC_GAIN_SPEED 0.8
+#define DEFAULT_GCC_GAIN_SPACE 0.04
+#define DEFAULT_GC_GAIN_SPEED 0.07
+#define DEFAULT_GC_GAIN_SPACE 0.23
+#define DEFAULT_CA_GAIN_SPACE 0.8
+#define DEFAULT_CA_GAIN_SPEED 0.23
+
+/// @todo: add attributes for myCollisionAvoidanceGainSpeed and myCollisionAvoidanceGainSpace
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 MSCFModel_ACC::MSCFModel_ACC(const MSVehicleType* vtype) : 
     MSCFModel(vtype),
-    mySpeedControlGain(vtype->getParameter().getCFParam(SUMO_ATTR_SC_GAIN, -0.4)),
-    myGapClosingControlGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_GCC_GAIN_SPEED, 0.8)),
-    myGapClosingControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GCC_GAIN_SPACE, 0.04)),
-    myGapControlGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPEED, 0.07)),
-    myGapControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPACE, 0.23))
+    mySpeedControlGain(vtype->getParameter().getCFParam(SUMO_ATTR_SC_GAIN, DEFAULT_SC_GAIN)),
+    myGapClosingControlGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_GCC_GAIN_SPEED, DEFAULT_GCC_GAIN_SPEED)),
+    myGapClosingControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GCC_GAIN_SPACE, DEFAULT_GCC_GAIN_SPACE)),
+    myGapControlGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPEED, DEFAULT_GC_GAIN_SPEED)),
+    myGapControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPACE, DEFAULT_GC_GAIN_SPACE)),
+    myCollisionAvoidanceGainSpeed(DEFAULT_CA_GAIN_SPACE),
+    myCollisionAvoidanceGainSpace(DEFAULT_CA_GAIN_SPEED)
 { }
 
 MSCFModel_ACC::~MSCFModel_ACC() {}
@@ -135,7 +149,7 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
        gclAccel = myGapControlGainSpeed*deltaVel + myGapControlGainSpace * spacingErr;
    } else if (spacingErr < 0)  {
        // collision avoidance mode
-       gclAccel = myGapClosingControlGainSpeed *deltaVel + myGapControlGainSpace * spacingErr;
+       gclAccel = myCollisionAvoidanceGainSpeed *deltaVel + myCollisionAvoidanceGainSpace * spacingErr;
    } else {
        // gap closing mode
        gclAccel = myGapClosingControlGainSpeed *deltaVel + myGapClosingControlGainSpace * spacingErr;

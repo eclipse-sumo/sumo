@@ -149,6 +149,8 @@ private:
    double myGapClosingControlGainSpace;
    double myGapControlGainSpeed;
    double myGapControlGainSpace;
+   double myCollisionAvoidanceGainSpeed;
+   double myCollisionAvoidanceGainSpace;
 
 private:
    /// @brief Invalidated assignment operator
