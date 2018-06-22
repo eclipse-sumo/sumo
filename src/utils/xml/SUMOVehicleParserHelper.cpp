@@ -649,6 +649,8 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ACCParams.insert(SUMO_ATTR_GCC_GAIN_SPACE);
         ACCParams.insert(SUMO_ATTR_GC_GAIN_SPEED);
         ACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
+        ACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
+        ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
 

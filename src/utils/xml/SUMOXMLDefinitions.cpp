@@ -327,11 +327,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "tmp4",                   SUMO_ATTR_TMP4 },
     { "tmp5",                   SUMO_ATTR_TMP5 },
 
-    { "SpeedControlGain", SUMO_ATTR_SC_GAIN },
-    { "GapClosingControlGainSpeed", SUMO_ATTR_GCC_GAIN_SPEED },
-    { "GapClosingControlGainSpace", SUMO_ATTR_GCC_GAIN_SPACE },
-    { "GapControlGainSpeed", SUMO_ATTR_GC_GAIN_SPEED },
-    { "GapControlGainSpace", SUMO_ATTR_GC_GAIN_SPACE },
+    { "speedControlGain", SUMO_ATTR_SC_GAIN },
+    { "gapClosingControlGainSpeed", SUMO_ATTR_GCC_GAIN_SPEED },
+    { "gapClosingControlGainSpace", SUMO_ATTR_GCC_GAIN_SPACE },
+    { "gapControlGainSpeed", SUMO_ATTR_GC_GAIN_SPEED },
+    { "gapControlGainSpace", SUMO_ATTR_GC_GAIN_SPACE },
+    { "collisionAvoidanceGainSpeed", SUMO_ATTR_CA_GAIN_SPEED },
+    { "collisionAvoidanceGainSpace", SUMO_ATTR_CA_GAIN_SPACE },
 
     { "trainType",               SUMO_ATTR_TRAIN_TYPE },
 
