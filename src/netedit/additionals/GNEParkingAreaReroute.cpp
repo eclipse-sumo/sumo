@@ -84,8 +84,8 @@ GNEParkingAreaReroute::getParentName() const {
 
 
 void 
-GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
-    // Currently This additional isn't drawn
+GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
+    // Currently this additional isn't drawn
 }
 
 

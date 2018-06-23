@@ -368,11 +368,11 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     updateGeometry();
 }
 
+/*
 void 
 GNEBusStop::addAccess(GNELane* lane, double pos, bool friendlyPos, double length) {
-    /*
     myAccess.push_back(Access(lane, pos, friendlyPos, length));
-    */
 }
+*/
 
 /****************************************************************************/

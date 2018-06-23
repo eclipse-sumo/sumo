@@ -87,8 +87,8 @@ GNEClosingReroute::getParentName() const {
 
 
 void 
-GNEClosingReroute::drawGL(const GUIVisualizationSettings& s) const {
-    // Currently This additional isn't drawn
+GNEClosingReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
+    // Currently this additional isn't drawn
 }
 
 

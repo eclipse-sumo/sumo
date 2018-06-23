@@ -176,7 +176,7 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
 
 
 void
-GNEAdditionalHandler::myEndElement(int element) {
+GNEAdditionalHandler::myEndElement(int /* element */) {
     // pop last inserted element
     myParentElements.pop_back();
 }

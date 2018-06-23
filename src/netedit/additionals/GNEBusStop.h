@@ -100,8 +100,8 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief add acces to this busStop
-    void addAccess(GNELane* lane, double pos, bool friendlyPos, double length);
+    /// @brief add access to this busStop
+//    void addAccess(GNELane* lane, double pos, bool friendlyPos, double length);
 
 protected:
     /// @brief The list of lines that are assigned to this stop
