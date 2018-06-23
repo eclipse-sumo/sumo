@@ -427,8 +427,8 @@ GNEAdditionalFrame::AdditionalAttributes::~AdditionalAttributes() {}
 
 void
 GNEAdditionalFrame::AdditionalAttributes::clearAttributes() {
-    // Hidde al fields
-    for (int i = 0; i < myVectorOfsingleAdditionalParameter.size(); i++) {
+    // Hide all fields
+    for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
         myVectorOfsingleAdditionalParameter.at(i)->hideParameter();
     }
 }
@@ -458,8 +458,8 @@ GNEAdditionalFrame::AdditionalAttributes::hideAdditionalParameters() {
 std::map<SumoXMLAttr, std::string>
 GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues() const {
     std::map<SumoXMLAttr, std::string> values;
-    // get standar Parameters
-    for (int i = 0; i < myVectorOfsingleAdditionalParameter.size(); i++) {
+    // get standard parameters
+    for (int i = 0; i < (int)myVectorOfsingleAdditionalParameter.size(); i++) {
         if (myVectorOfsingleAdditionalParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
             values[myVectorOfsingleAdditionalParameter.at(i)->getAttr()] = myVectorOfsingleAdditionalParameter.at(i)->getValue();
         }
@@ -471,7 +471,7 @@ GNEAdditionalFrame::AdditionalAttributes::getAttributesAndValues() const {
 void
 GNEAdditionalFrame::AdditionalAttributes::showWarningMessage(std::string extra) const {
     std::string errorMessage;
-    // iterate over standar parameters
+    // iterate over standard parameters
     for (auto i : GNEAttributeCarrier::getTagProperties(myAdditionalFrameParent->myAdditionalSelector->getCurrentAdditionalType())) {
         if(errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
@@ -827,7 +827,7 @@ GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
         for (auto i : vectorOfAdditionalParents) {
             // Only show additionals that have unlimited number of childs, or limited but currently number under the limit
             if(GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).hasLimitedNumberOfChilds()) {
-                if(i->getAdditionalChilds().size() < GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
+                if ((int)i->getAdditionalChilds().size() < GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
                     myAdditionalParentsList->appendItem(i->getID().c_str());
                 }
             } else {

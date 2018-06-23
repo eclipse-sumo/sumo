@@ -428,8 +428,8 @@ GNEPolygonFrame::ShapeAttributes::~ShapeAttributes() {
 
 void
 GNEPolygonFrame::ShapeAttributes::clearAttributes() {
-    // Hidde al fields
-    for (int i = 0; i < myVectorOfsingleShapeParameter.size(); i++) {
+    // Hide all fields
+    for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
         myVectorOfsingleShapeParameter.at(i)->hideParameter();
     }
 }
@@ -459,8 +459,8 @@ GNEPolygonFrame::ShapeAttributes::hideShapeParameters() {
 std::map<SumoXMLAttr, std::string>
 GNEPolygonFrame::ShapeAttributes::getAttributesAndValues() const {
     std::map<SumoXMLAttr, std::string> values;
-    // get standar Parameters
-    for (int i = 0; i < myVectorOfsingleShapeParameter.size(); i++) {
+    // get standard parameters
+    for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
         if (myVectorOfsingleShapeParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
             values[myVectorOfsingleShapeParameter.at(i)->getAttr()] = myVectorOfsingleShapeParameter.at(i)->getValue();
         }
