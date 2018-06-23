@@ -3104,7 +3104,6 @@ NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
         if (!overwrite && myStopOffsets.size()!=0) {
             return false;
         }
-        double edgeLength = myLoadedLength != -1 ? myLoadedLength : myLength;
         // all lanes are meant...
         if (offsets.size() != 0 && 0 > offsets.begin()->second) {
             //  Edge length unknown at parsing time, thus check here.
@@ -3118,7 +3117,6 @@ NBEdge::setStopOffsets(int lane, std::map<int,double> offsets, bool overwrite) {
     } else {
         assert(lane < (int)myLanes.size());
         if (myLanes[lane].stopOffsets.size()==0 || overwrite) {
-            double laneLength = myLoadedLength != -1 ? myLoadedLength : getLaneShape(lane).length();
             if (offsets.size() != 0 && 0 > offsets.begin()->second) {
                 //  Edge length unknown at parsing time, thus check here.
                 std::stringstream ss;

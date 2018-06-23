@@ -127,6 +127,15 @@ private:
     /// @brief The holder vehicle casted to MSVehicle*
     MSVehicle* myHolderMS;
 
+    double myMinAwareness;
+    double myInitialAwareness;
+    double myErrorTimeScaleCoefficient;
+    double myErrorNoiseIntensityCoefficient;
+    double mySpeedDifferenceErrorCoefficient;
+    double mySpeedDifferenceChangePerceptionThreshold;
+    double myHeadwayChangePerceptionThreshold;
+    double myHeadwayErrorCoefficient;
+
     /// @brief The driver state of the holder.
     std::shared_ptr<MSSimpleDriverState> myDriverState;
 
@@ -137,15 +146,6 @@ private:
     /// @brief Invalidated assignment operator.
     MSDevice_DriverState& operator=(const MSDevice_DriverState&);
 
-
-    double myMinAwareness;
-    double myInitialAwareness;
-    double myErrorTimeScaleCoefficient;
-    double myErrorNoiseIntensityCoefficient;
-    double mySpeedDifferenceErrorCoefficient;
-    double myHeadwayErrorCoefficient;
-    double mySpeedDifferenceChangePerceptionThreshold;
-    double myHeadwayChangePerceptionThreshold;
 };
 
 

@@ -604,7 +604,7 @@ NBLoadedSUMOTLDef::cleanupStates() {
 void 
 NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
     def->setParticipantsInformation();
-    NBTrafficLightLogic* logic2 = def->compute(OptionsCont::getOptions());
+    def->compute(OptionsCont::getOptions());
     const int maxIndex = MAX2(getMaxIndex(), def->getMaxIndex());
     myTLLogic->setStateLength(maxIndex + 1);
     myControlledLinks.insert(myControlledLinks.end(), def->getControlledLinks().begin(), def->getControlledLinks().end());
