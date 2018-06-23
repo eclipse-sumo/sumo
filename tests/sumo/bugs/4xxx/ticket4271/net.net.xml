@@ -131,37 +131,37 @@
     </edge>
 
     <edge id="EW1" from="gneJ8" to="C" priority="1" shape="409.35,109.02 212.44,101.77">
-        <lane id="EW1_0" index="0" allow="bicycle" speed="13.89" length="197.71" endOffset="-1.00" width="2.00" shape="408.99,118.91 211.41,111.64"/>
-        <lane id="EW1_1" index="1" disallow="all" speed="13.89" length="197.71" endOffset="-1.00" width="2.40" shape="409.07,116.71 211.49,109.44"/>
-        <lane id="EW1_2" index="2" disallow="bicycle" speed="13.89" length="197.71" endOffset="-1.00" width="3.25" shape="409.17,113.89 211.59,106.62"/>
-        <lane id="EW1_3" index="3" disallow="bicycle" speed="13.89" length="197.71" endOffset="-1.00" width="3.25" shape="409.29,110.64 211.71,103.37"/>
+        <lane id="EW1_0" index="0" allow="bicycle" speed="13.89" length="197.71" width="2.00" shape="408.99,118.91 211.41,111.64"/>
+        <lane id="EW1_1" index="1" disallow="all" speed="13.89" length="197.71" width="2.40" shape="409.07,116.71 211.49,109.44"/>
+        <lane id="EW1_2" index="2" disallow="bicycle" speed="13.89" length="197.71" width="3.25" shape="409.17,113.89 211.59,106.62"/>
+        <lane id="EW1_3" index="3" disallow="bicycle" speed="13.89" length="197.71" width="3.25" shape="409.29,110.64 211.71,103.37"/>
     </edge>
     <edge id="EW2" from="C" to="gneJ19" priority="1" shape="174.49,103.80 13.23,100.45">
-        <lane id="EW2_0" index="0" allow="bicycle" speed="13.89" length="161.29" endOffset="-1.00" width="2.00" shape="174.35,110.70 13.09,107.35"/>
+        <lane id="EW2_0" index="0" allow="bicycle" speed="13.89" length="161.29" width="2.00" shape="174.35,110.70 13.09,107.35"/>
         <lane id="EW2_1" index="1" disallow="all" speed="13.89" length="161.29" width="2.40" shape="174.39,108.50 13.13,105.15"/>
         <lane id="EW2_2" index="2" disallow="bicycle" speed="13.89" length="161.29" width="3.50" shape="174.45,105.55 13.19,102.20"/>
     </edge>
     <edge id="NS1" from="gneJ6" to="C" priority="1" shape="192.25,211.77 193.97,116.42">
-        <lane id="NS1_0" index="0" speed="13.89" length="96.13" endOffset="-1.00" width="3.25" shape="187.38,211.68 189.11,115.56"/>
-        <lane id="NS1_1" index="1" speed="13.89" length="96.13" endOffset="-1.00" width="3.25" shape="190.63,211.74 192.36,115.63"/>
+        <lane id="NS1_0" index="0" speed="13.89" length="96.13" width="3.25" shape="187.38,211.68 189.11,115.56"/>
+        <lane id="NS1_1" index="1" speed="13.89" length="96.13" width="3.25" shape="190.63,211.74 192.36,115.63"/>
     </edge>
     <edge id="NS2" from="C" to="gneJ15" priority="1" shape="192.26,89.57 194.37,14.53">
         <lane id="NS2_0" index="0" allow="bicycle" speed="13.89" length="75.07" width="1.50" shape="188.51,89.46 190.62,14.42"/>
         <lane id="NS2_1" index="1" speed="13.89" length="75.07" width="3.00" shape="190.76,89.53 192.87,14.49"/>
     </edge>
     <edge id="SN1" from="gneJ16" to="C" priority="1" shape="194.81,0.00 192.39,90.70">
-        <lane id="SN1_0" index="0" speed="13.89" length="89.61" endOffset="-1.00" width="3.25" shape="199.68,0.13 197.29,89.71"/>
-        <lane id="SN1_1" index="1" speed="13.89" length="89.61" endOffset="-1.00" width="3.25" shape="196.43,0.04 194.04,89.62"/>
+        <lane id="SN1_0" index="0" speed="13.89" length="89.61" width="3.25" shape="199.68,0.13 197.29,89.71"/>
+        <lane id="SN1_1" index="1" speed="13.89" length="89.61" width="3.25" shape="196.43,0.04 194.04,89.62"/>
     </edge>
     <edge id="SN2" from="C" to="gneJ5" priority="1" shape="194.04,115.66 191.99,220.39">
         <lane id="SN2_0" index="0" allow="bicycle" speed="13.89" length="104.75" width="1.50" shape="197.79,115.73 195.74,220.46"/>
         <lane id="SN2_1" index="1" disallow="bicycle" speed="13.89" length="104.75" width="3.00" shape="195.54,115.69 193.49,220.42"/>
     </edge>
     <edge id="WE1" from="gneJ12" to="C" priority="1" shape="0.00,99.76 174.09,103.58">
-        <lane id="WE1_0" index="0" allow="bicycle" speed="13.89" length="174.53" endOffset="-1.00" width="2.00" shape="0.22,89.86 174.70,93.69"/>
-        <lane id="WE1_1" index="1" disallow="all" speed="13.89" length="174.53" endOffset="-1.00" width="2.40" shape="0.17,92.06 174.65,95.89"/>
-        <lane id="WE1_2" index="2" speed="13.89" length="174.53" endOffset="-1.00" width="3.25" shape="0.11,94.89 174.60,98.71"/>
-        <lane id="WE1_3" index="3" speed="13.89" length="174.53" endOffset="-1.00" width="3.25" shape="0.04,98.14 174.53,101.96"/>
+        <lane id="WE1_0" index="0" allow="bicycle" speed="13.89" length="174.53" width="2.00" shape="0.22,89.86 174.70,93.69"/>
+        <lane id="WE1_1" index="1" disallow="all" speed="13.89" length="174.53" width="2.40" shape="0.17,92.06 174.65,95.89"/>
+        <lane id="WE1_2" index="2" speed="13.89" length="174.53" width="3.25" shape="0.11,94.89 174.60,98.71"/>
+        <lane id="WE1_3" index="3" speed="13.89" length="174.53" width="3.25" shape="0.04,98.14 174.53,101.96"/>
     </edge>
     <edge id="WE2" from="C" to="gneJ23" priority="1" shape="211.77,101.69 379.17,107.77">
         <lane id="WE2_0" index="0" allow="bicycle" speed="13.89" length="167.51" width="2.00" shape="212.02,94.79 379.42,100.87"/>

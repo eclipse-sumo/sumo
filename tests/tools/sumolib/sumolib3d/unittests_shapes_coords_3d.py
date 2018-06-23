@@ -55,6 +55,8 @@ class Test_Shapes(unittest.TestCase):
                        "-n", node_file,
                        "-e", EDGEFILE,
                        "-o", net_file,
+                       "--default.junctions.radius", "1.5",
+                       "--junctions.corner-detail", "0",
                        "--offset.disable-normalization"]
 
             netconvertProcess = subprocess.call(
