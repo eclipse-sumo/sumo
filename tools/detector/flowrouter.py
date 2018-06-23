@@ -270,8 +270,8 @@ class Net:
                     self.addSinkEdge(edgeObj)
                     foundSinks.append(edgeObj.label)
         if options.verbose:
-            print("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks from " +
-                  "the network" % (len(sources), len(sinks), len(foundSources), len(foundSinks)))
+            print("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks from the network" % (
+                len(sources), len(sinks), len(foundSources), len(foundSinks)))
         if options.source_sink_output:
             with open(options.source_sink_output, 'w') as outf:
                 outf.write('<detectors>\n')
