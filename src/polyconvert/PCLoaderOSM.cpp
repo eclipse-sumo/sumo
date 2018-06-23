@@ -147,7 +147,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
                 if (edges.count(*it) == 0 || edges[*it]->myCurrentNodes.empty()) {
                     it = rel->myWays.erase(it);
                 } else {
-                    numNodes += edges[*it]->myCurrentNodes.size();
+                    numNodes += (int)edges[*it]->myCurrentNodes.size();
                     it++;
                 }
             }
