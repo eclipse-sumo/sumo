@@ -121,6 +121,10 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             device.writeAttr(i.first, attribute);
         }
     }
+    // iterate over childs
+    for (auto i : myAdditionalChilds) {
+        i->writeAdditional(device);
+    }
     // Close tag
     device.closeTag();
 }
