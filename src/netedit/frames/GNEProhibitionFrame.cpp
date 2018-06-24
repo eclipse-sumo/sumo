@@ -121,7 +121,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
 GNEProhibitionFrame::~GNEProhibitionFrame() {}
 
 void
-GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool mayDefinitelyPass, bool allowConflict, bool toggle) {
+GNEProhibitionFrame::handleConnectionClick(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
 
     if (myCurrentConn == 0) {
         myCurrentConn = conn;

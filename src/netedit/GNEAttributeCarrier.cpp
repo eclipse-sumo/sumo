@@ -862,8 +862,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     // fill all ACs
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
-        // position in attribute list
-        int pos = 0;
         // set values of tag
         myAllowedTags[currentTag] = TagValues(TAGPROPERTY_NETELEMENT, 1, ICON_EDGE);
         // set values of attributes

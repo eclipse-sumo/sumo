@@ -634,10 +634,6 @@ public:
      */
     void writeAttribute(OutputDevice& device, SumoXMLAttr key) const;
 
-protected:
-    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
-
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
@@ -648,6 +644,11 @@ private:
     /// @brief the xml tag to which this attribute carrier corresponds
     const SumoXMLTag myTag;
 
+protected:
+    /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
+    bool mySelected;
+
+private:
     /// @brief map with the tags values
     static std::map<SumoXMLTag, TagValues> myAllowedTags;
 
