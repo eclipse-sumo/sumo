@@ -94,6 +94,7 @@ Warning: Found angle of 141.26 degrees at edge 'gneE2', segment 0
 Warning: Found sharp turn with radius 0.40 at the start of edge 'gneE2'.
 Warning: Found angle of 107.00 degrees at edge 'gneE2', segment 1
 Warning: Found sharp turn with radius 0.47 at the end of edge 'gneE2'.
+Warning: Intersecting left turns at junction 'gneJ2' from lane 'gneE9_0' and lane 'gneE3_0'. (increase junction radius to avoid this)
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute shapeEnd '' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -127,7 +128,7 @@ Warning: Setting previous attribute name '' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute spreadType 'right' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute length '40.45' into edge 'gneE2'
+Warning: Setting previous attribute length '35.45' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute shape '' into edge 'gneE2'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -218,6 +219,7 @@ Warning: Found angle of 141.26 degrees at edge 'gneE2', segment 0
 Warning: Found sharp turn with radius 0.40 at the start of edge 'gneE2'.
 Warning: Found angle of 107.00 degrees at edge 'gneE2', segment 1
 Warning: Found sharp turn with radius 0.47 at the end of edge 'gneE2'.
+Warning: Intersecting left turns at junction 'gneJ2' from lane 'gneE9_0' and lane 'gneE3_0'. (increase junction radius to avoid this)
 Warning: Deleting unreferenced busStop 'busStop6'
 Warning: Additionals has to be saved
 Warning: Current saving Status: net saved, additionals unsaved, shapes saved

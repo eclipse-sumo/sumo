@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 23.06.2018 22:08:09 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" pos="-11.53,8.52">
+    <e3Detector id="e3Detector_0" pos="-11.53,8.52" freq="100.00" file="e3Detector_0.txt">
         <detEntry lane="gneE2_1" pos="8.59"/>
         <detEntry lane="gneE2_2" pos="14.94"/>
         <detEntry lane="gneE2_3" pos="20.37"/>
@@ -20,7 +60,7 @@
         <detExit lane="gneE1_1" pos="8.19"/>
         <detExit lane="gneE0_1" pos="38.04"/>
     </e3Detector>
-    <e3Detector id="e3Detector_1" freq="100.00" file="e3Detector_1.txt" pos="60.44,12.04">
+    <e3Detector id="e3Detector_1" pos="60.44,12.04" freq="100.00" file="e3Detector_1.txt">
         <detEntry lane="gneE2_1" pos="19.61"/>
         <detEntry lane="gneE2_2" pos="22.87"/>
         <detEntry lane="gneE2_3" pos="26.31"/>

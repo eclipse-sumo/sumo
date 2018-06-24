@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.06.2018 15:34:23 by Eclipse SUMO netedit Version 38586a3af4
+<!-- generated on 24.06.2018 08:14:15 by Eclipse SUMO netedit Version 7725fee923
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/additionalElements/vaporizer/load\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/vaporizer/load\log.txt"/>
     </report>
 
 </configuration>
@@ -50,7 +50,7 @@
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="4.67" shape="50.00,28.40 51.20,29.20 51.60,30.00 51.20,30.80 50.00,31.60"/>
     </edge>
     <edge id=":gneJ13_0" function="internal">
-        <lane id=":gneJ13_0_0" index="0" speed="13.89" length="0.63" shape="1.23,-1.03 1.50,-1.60"/>
+        <lane id=":gneJ13_0_0" index="0" speed="13.89" length="0.71" shape="1.23,-1.03 1.66,-1.60"/>
     </edge>
 
     <edge id="1" from="gneJ10" to="gneJ11" priority="1">
@@ -66,10 +66,10 @@
         <lane id="12_0" index="0" speed="13.89" length="50.00" shape="0.00,8.40 50.00,8.40"/>
     </edge>
     <edge id="13" from="gneJ12" to="gneJ13" priority="1">
-        <lane id="13_0" index="0" speed="13.89" length="48.50" shape="50.00,1.60 1.50,1.60"/>
+        <lane id="13_0" index="0" speed="13.89" length="48.34" shape="50.00,1.60 1.66,1.60"/>
     </edge>
     <edge id="14" from="gneJ13" to="gneJ12" priority="1">
-        <lane id="14_0" index="0" speed="13.89" length="48.50" shape="1.50,-1.60 50.00,-1.60"/>
+        <lane id="14_0" index="0" speed="13.89" length="48.34" shape="1.66,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="2" from="gneJ11" to="gneJ10" priority="1">
         <lane id="2_0" index="0" speed="13.89" length="50.00" shape="0.00,58.40 50.00,58.40"/>
@@ -117,7 +117,7 @@
     <junction id="gneJ10" type="dead_end" x="50.00" y="60.00" incLanes="2_0" intLanes="" shape="50.00,60.00 50.00,56.80 50.00,60.00"/>
     <junction id="gneJ11" type="dead_end" x="0.00" y="60.00" incLanes="1_0" intLanes="" shape="0.00,60.00 0.00,63.20 0.00,60.00"/>
     <junction id="gneJ12" type="dead_end" x="50.00" y="0.00" incLanes="14_0" intLanes="" shape="50.00,0.00 50.00,-3.20 50.00,0.00"/>
-    <junction id="gneJ13" type="priority" x="0.00" y="0.00" incLanes="13_0 gneE13_0" intLanes=":gneJ13_0_0" shape="1.50,3.20 1.50,-3.20 2.26,-2.26 0.00,0.00">
+    <junction id="gneJ13" type="priority" x="0.00" y="0.00" incLanes="13_0 gneE13_0" intLanes=":gneJ13_0_0" shape="1.66,3.20 1.66,-3.20 2.26,-2.26 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ14" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 2.26,-2.26"/>

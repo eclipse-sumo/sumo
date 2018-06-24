@@ -1,14 +1,14 @@
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
-Warning: Edge '-gneE16' has a grade of 13.21%.
-Warning: Edge '-gneE17' has a grade of 13.21%.
-Warning: Edge '-gneE18' has a grade of 13.21%.
-Warning: Edge '-gneE19' has a grade of 13.21%.
-Warning: Edge 'gneE16' has a grade of 13.21%.
-Warning: Edge 'gneE17' has a grade of 13.21%.
-Warning: Edge 'gneE18' has a grade of 13.21%.
-Warning: Edge 'gneE19' has a grade of 13.21%.
+Warning: Edge '-gneE16' has a grade of 25.00%.
+Warning: Edge '-gneE17' has a grade of 25.00%.
+Warning: Edge '-gneE18' has a grade of 25.00%.
+Warning: Edge '-gneE19' has a grade of 25.00%.
+Warning: Edge 'gneE16' has a grade of 25.00%.
+Warning: Edge 'gneE17' has a grade of 25.00%.
+Warning: Edge 'gneE18' has a grade of 25.00%.
+Warning: Edge 'gneE19' has a grade of 25.00%.
 Warning: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()
 Warning: Created connection 'from-gneE11_0to-gneE10_0' in retrieveGNEConnection()
@@ -69,7 +69,9 @@ Warning: Setting new attribute pos '30.00,21.00' into junction 'gneJ19'
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals saved, shapes saved
 Warning: Key F5 (Compute) pressed
+Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE19_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
 Warning: Setting new attribute pos '120,20.2' into junction 'gneJ13'
+Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE19_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
 Warning: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Warning: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Warning: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 14.06.2018 13:39:12 by Eclipse SUMO netedit Version b50f1d14b4
+<!-- generated on 24.06.2018 08:22:30 by Eclipse SUMO netedit Version 7725fee923
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,9 +8,9 @@
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Jun102244.3976/netedit.gui/bugs/ticket2948\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Jun102244.3976/netedit.gui/bugs/ticket2948\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Jun102244.3976/netedit.gui/bugs/ticket2948\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/bugs/ticket2948\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/bugs/ticket2948\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/bugs/ticket2948\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,7 +19,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Jun102244.3976/netedit.gui/bugs/ticket2948\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/bugs/ticket2948\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -28,13 +28,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Jun102244.3976/netedit.gui/bugs/ticket2948\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/bugs/ticket2948\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="47.00,25.00,87.00,65.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
@@ -136,7 +136,7 @@
     </tlLogic>
 
     <junction id="gneJ0" type="dead_end" x="67.00" y="65.00" incLanes="-gneE0_0" intLanes="" shape="67.00,65.00 67.00,68.20 67.00,65.00"/>
-    <junction id="gneJ1" type="traffic_light" x="87.00" y="65.00" incLanes="-gneE1_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="90.20,61.80 83.80,61.80 83.80,68.20">
+    <junction id="gneJ1" type="traffic_light" x="87.00" y="65.00" incLanes="-gneE1_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="90.20,61.80 83.80,61.80 83.80,68.20 87.36,67.49 88.60,66.60 89.49,65.36 90.02,63.76">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -144,7 +144,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="traffic_light" x="87.00" y="25.00" incLanes="gneE2_0 -gneE3_0" intLanes=":gneJ3_0_0 :gneJ3_1_0" shape="83.80,28.20 90.20,28.20 83.80,21.80">
+    <junction id="gneJ3" type="traffic_light" x="87.00" y="25.00" incLanes="gneE2_0 -gneE3_0" intLanes=":gneJ3_0_0 :gneJ3_1_0" shape="83.80,28.20 90.20,28.20 89.49,24.64 88.60,23.40 87.36,22.51 85.76,21.98 83.80,21.80">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -152,7 +152,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ5" type="traffic_light" x="47.00" y="25.00" incLanes="-gneE5_0 gneE4_0" intLanes=":gneJ5_0_0 :gneJ5_1_0" shape="43.80,28.20 50.20,28.20 50.20,21.80">
+    <junction id="gneJ5" type="traffic_light" x="47.00" y="25.00" incLanes="-gneE5_0 gneE4_0" intLanes=":gneJ5_0_0 :gneJ5_1_0" shape="43.80,28.20 50.20,28.20 50.20,21.80 46.64,22.51 45.40,23.40 44.51,24.64 43.98,26.24">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

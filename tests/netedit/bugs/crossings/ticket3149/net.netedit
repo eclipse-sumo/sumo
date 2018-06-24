@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.06.2018 15:45:20 by Eclipse SUMO netedit Version 38586a3af4
+<!-- generated on 22.06.2018 15:00:26 by Eclipse SUMO netedit Version 7725fee923
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\net.net.xml"/>
     </output>
 
     <processing>
@@ -25,7 +25,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Jun141810.2344/netedit.gui/bugs/crossings/ticket3149\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/bugs/crossings/ticket3149\log.txt"/>
     </report>
 
 </configuration>
@@ -45,13 +45,13 @@
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id=":A_0" function="internal">
-        <lane id=":A_0_0" index="0" disallow="pedestrian" speed="13.90" length="5.47" shape="45.20,11.10 45.93,5.68"/>
+        <lane id=":A_0_0" index="0" disallow="pedestrian" speed="13.90" length="5.16" shape="45.20,11.10 46.84,6.21"/>
     </edge>
     <edge id=":A_1" function="internal">
         <lane id=":A_1_0" index="0" disallow="pedestrian" speed="13.90" length="5.06" shape="48.40,11.10 49.13,6.10"/>
     </edge>
     <edge id=":A_5" function="internal">
-        <lane id=":A_5_0" index="0" speed="13.90" length="25.19" shape="45.93,5.68 46.38,2.35 49.91,-1.20 55.81,0.44 64.05,7.27"/>
+        <lane id=":A_5_0" index="0" speed="13.90" length="19.63" shape="46.84,6.21 47.15,5.29 51.98,2.78 58.13,3.48 64.05,7.27"/>
     </edge>
     <edge id=":A_6" function="internal">
         <lane id=":A_6_0" index="0" speed="13.90" length="16.09" shape="49.13,6.10 49.24,5.39 51.75,3.23 55.93,4.61 61.79,9.53"/>
@@ -60,7 +60,7 @@
         <lane id=":A_2_0" index="0" disallow="pedestrian" speed="13.90" length="32.06" shape="35.95,7.27 42.97,2.00 50.00,0.24 57.03,2.00 64.05,7.27"/>
     </edge>
     <edge id=":A_3" function="internal">
-        <lane id=":A_3_0" index="0" disallow="pedestrian" speed="13.90" length="26.00" shape="38.21,9.53 45.47,3.41 50.65,1.63 53.76,4.19 54.80,11.10"/>
+        <lane id=":A_3_0" index="0" disallow="pedestrian" speed="13.90" length="22.60" shape="38.21,9.53 43.78,5.39 49.16,3.91 53.20,5.64 54.80,11.10"/>
     </edge>
     <edge id=":A_4" function="internal">
         <lane id=":A_4_0" index="0" disallow="pedestrian" speed="13.90" length="21.15" shape="38.21,9.53 44.07,4.61 48.25,3.23 50.76,5.39 51.60,11.10"/>
@@ -81,19 +81,19 @@
         <lane id=":B_0_0" index="0" disallow="pedestrian" speed="13.90" length="32.06" shape="64.05,92.73 57.03,98.00 50.00,99.76 42.97,98.00 35.95,92.73"/>
     </edge>
     <edge id=":B_1" function="internal">
-        <lane id=":B_1_0" index="0" disallow="pedestrian" speed="13.90" length="26.00" shape="61.79,90.47 54.53,96.59 49.35,98.37 46.24,95.81 45.20,88.90"/>
+        <lane id=":B_1_0" index="0" disallow="pedestrian" speed="13.90" length="22.60" shape="61.79,90.47 56.22,94.61 50.84,96.09 46.80,94.36 45.20,88.90"/>
     </edge>
     <edge id=":B_2" function="internal">
         <lane id=":B_2_0" index="0" disallow="pedestrian" speed="13.90" length="21.15" shape="61.79,90.47 55.93,95.39 51.75,96.77 49.24,94.61 48.40,88.90"/>
     </edge>
     <edge id=":B_3" function="internal">
-        <lane id=":B_3_0" index="0" disallow="pedestrian" speed="13.90" length="5.47" shape="54.80,88.90 54.07,94.32"/>
+        <lane id=":B_3_0" index="0" disallow="pedestrian" speed="13.90" length="5.16" shape="54.80,88.90 53.16,93.79"/>
     </edge>
     <edge id=":B_4" function="internal">
         <lane id=":B_4_0" index="0" disallow="pedestrian" speed="13.90" length="5.06" shape="51.60,88.90 50.87,93.90"/>
     </edge>
     <edge id=":B_5" function="internal">
-        <lane id=":B_5_0" index="0" speed="13.90" length="25.19" shape="54.07,94.32 53.62,97.65 50.09,101.20 44.19,99.56 35.95,92.73"/>
+        <lane id=":B_5_0" index="0" speed="13.90" length="19.63" shape="53.16,93.79 52.85,94.71 48.02,97.22 41.87,96.52 35.95,92.73"/>
     </edge>
     <edge id=":B_6" function="internal">
         <lane id=":B_6_0" index="0" speed="13.90" length="16.09" shape="50.87,93.90 50.76,94.61 48.25,96.77 44.07,95.39 38.21,90.47"/>
@@ -229,9 +229,9 @@
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
 
-    <junction id=":A_5_0" type="internal" x="45.93" y="5.68" incLanes=":A_0_0 7_1 7_2" intLanes=":A_2_0 :A_3_0 :A_4_0 :A_c0_0"/>
+    <junction id=":A_5_0" type="internal" x="46.84" y="6.21" incLanes=":A_0_0 7_1 7_2" intLanes=":A_2_0 :A_3_0 :A_4_0 :A_c0_0"/>
     <junction id=":A_6_0" type="internal" x="49.13" y="6.10" incLanes=":A_1_0 7_1 7_2" intLanes=":A_2_0 :A_3_0 :A_4_0 :A_c0_0"/>
-    <junction id=":B_5_0" type="internal" x="54.07" y="94.32" incLanes=":B_3_0 8_1 8_2" intLanes=":B_0_0 :B_1_0 :B_2_0 :B_c0_0"/>
+    <junction id=":B_5_0" type="internal" x="53.16" y="93.79" incLanes=":B_3_0 8_1 8_2" intLanes=":B_0_0 :B_1_0 :B_2_0 :B_c0_0"/>
     <junction id=":B_6_0" type="internal" x="50.87" y="93.90" incLanes=":B_4_0 8_1 8_2" intLanes=":B_0_0 :B_1_0 :B_2_0 :B_c0_0"/>
 
     <connection from="1" to="4" fromLane="1" toLane="1" via=":A_0_0" dir="l" state="m"/>

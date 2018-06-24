@@ -331,6 +331,8 @@ Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
+Warning: Intersecting left turns at junction '25662705' from lane '243854725#0_1' and lane '-243854725#1_1'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction '27411228' from lane '23809678#2_1' and lane '-24241762#0_1'. (increase junction radius to avoid this)
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -664,3 +666,5 @@ Warning: The rail crossing '997027037' does not have any roads.
 Warning: Connection '25302636#1_1->170855334_0' is only 0.10 short.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06 short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10 short.
+Warning: Intersecting left turns at junction '25662705' from lane '243854725#0_1' and lane '-243854725#1_1'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction '27411228' from lane '23809678#2_1' and lane '-24241762#0_1'. (increase junction radius to avoid this)
