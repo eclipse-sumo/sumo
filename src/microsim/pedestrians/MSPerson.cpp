@@ -318,7 +318,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
 void
 MSPerson::MSPersonStage_Walking::setRouteIndex(MSPerson* person, int routeOffset) {
     assert(routeOffset >= 0);
-    assert(routeOffset < myRoute.size());
+    assert(routeOffset < (int)myRoute.size());
     ((MSEdge*)getEdge())->removePerson(person);
     myRouteStep = myRoute.begin() + routeOffset;
     ((MSEdge*)getEdge())->addPerson(person);

@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSCFModel_CACC.cpp
+/// @file    MSCFModel_ACC.cpp
 /// @author  Kallirroi Porfyri
 /// @date    Feb 2018
 /// @version $Id$
@@ -144,7 +144,7 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
    double deltaVel = predSpeed - speed;
 
 
-   if (abs(spacingErr) < 0.2 && abs(vErr) < 0.1) {
+   if (fabs(spacingErr) < 0.2 && fabs(vErr) < 0.1) {
         // gap mode
        gclAccel = myGapControlGainSpeed*deltaVel + myGapControlGainSpace * spacingErr;
    } else if (spacingErr < 0)  {
