@@ -111,8 +111,13 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     if(tagProperties.hasMinimumNumberOfChilds() && myAdditionalChilds.size() < tagProperties.getMinNumberOfChilds()) {
         WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written; It need at least " + toString(tagProperties.getMinNumberOfChilds()) + " childs.");
     } else {
-        // Open Tag
-        device.openTag(getTag());
+
+        // Open Tag or synonim Tag
+        if(tagProperties.getTagSynonym()) {
+            tagProperties.getTagSynonym();
+        } else {
+            device.openTag(getTag());
+        }
         // iterate over attributes and write it
         for (auto i : tagProperties) {
             // obtain attribute

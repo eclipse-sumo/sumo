@@ -63,17 +63,19 @@ GNEAttributeCarrier::TagValues::TagValues() :
     myPositionListed(0),
     myParentTag(SUMO_TAG_NOTHING),
     myMinNumberOfChilds(0),
-    myMaxNumberOfChilds(0) {
+    myMaxNumberOfChilds(0),
+    myTagSynonym(SUMO_TAG_NOTHING) {
 }
 
 
-GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, int minNumberOfChilds, int maxNumberOfChilds) :
+GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, int minNumberOfChilds, int maxNumberOfChilds, SumoXMLTag tagSynonym) :
     myTagProperty(tagProperty),
     myIcon(icon),
     myPositionListed(positionListed),
     myParentTag(parentTag),
     myMinNumberOfChilds(minNumberOfChilds),
-    myMaxNumberOfChilds(maxNumberOfChilds) {
+    myMaxNumberOfChilds(maxNumberOfChilds),
+    myTagSynonym(tagSynonym) {
 }
 
 
@@ -141,7 +143,21 @@ GNEAttributeCarrier::TagValues::getGUIIcon() const {
 
 SumoXMLTag 
 GNEAttributeCarrier::TagValues::getParentTag() const {
-    return myParentTag;
+    if(hasParent()) {
+        return myParentTag;
+    } else {
+        throw ProcessError("Tag doesn't have parent");
+    }
+}
+
+
+SumoXMLTag 
+GNEAttributeCarrier::TagValues::getTagSynonym() const {
+    if(hasTagSynonym()) {
+        return myTagSynonym;
+    } else {
+        throw ProcessError("Tag doesn't have synonim");
+    }
 }
 
 
@@ -232,6 +248,12 @@ GNEAttributeCarrier::TagValues::hasGEOShape() const {
 bool 
 GNEAttributeCarrier::TagValues::hasParent() const {
     return (myTagProperty & TAGPROPERTY_PARENT) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::hasTagSynonym() const {
+    return (myTagProperty & TAGPROPERTY_SYNONIM) != 0;
 }
 
 
@@ -1580,7 +1602,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANECALIBRATOR;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DIALOG, 41, ICON_CALIBRATOR);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SYNONIM | TAGPROPERTY_DIALOG, 41, ICON_CALIBRATOR, SUMO_TAG_NOTHING, 0, 0, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

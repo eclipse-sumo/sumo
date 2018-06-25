@@ -201,6 +201,7 @@ public:
         TAGPROPERTY_MINIMUMCHILDS = 1 << 14,    // Element will be only writed in XML if has a minimum number of childs
         TAGPROPERTY_MAXIMUMCHILDS = 1 << 15,    // Element can only have a certain number of childs (0 -> unlimited)
         TAGPROPERTY_REPARENT =      1 << 16,    // Element can be reparent
+        TAGPROPERTY_SYNONIM =       1 << 17,    // Element will be written with a different tag
     };
 
     /// @brief struct with the attribute Properties
@@ -210,7 +211,7 @@ public:
         TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int minNumberOfChilds = 0, int maxNumberOfChilds = 0);
+        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int minNumberOfChilds = 0, int maxNumberOfChilds = 0, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief add attribute (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
@@ -238,6 +239,9 @@ public:
 
         /// @brief if Tag owns a parent, return parent tag
         SumoXMLTag getParentTag() const;
+
+        /// @brief get tag synonim
+        SumoXMLTag getTagSynonym() const;
 
         /// @brief get minimum number of childs
         int getMinNumberOfChilds() const;
@@ -284,6 +288,9 @@ public:
         /// @brief return true if tag correspond to an element that can had another element as parent
         bool hasParent() const;
 
+        /// @brief return true if tag correspond to an element that will be written in XML with another tag
+        bool hasTagSynonym() const;
+
         /// @brief return true if tag correspond to an element that can be edited using a dialog
         bool hasDialog() const;
 
@@ -317,6 +324,9 @@ public:
 
         /// @brief maximun number of childs (0 -> unlimited)
         int myMaxNumberOfChilds;
+
+        /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tagwill be written)
+        SumoXMLTag myTagSynonym;
     };
 
     /**@brief Constructor
