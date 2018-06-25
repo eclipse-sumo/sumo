@@ -84,8 +84,8 @@ Warning: Setting new attribute type 'priority' into junction 'gneJ0'
 Warning: Deleting TLS from junction 'gneJ1'
 Warning: Setting new attribute type 'priority' into junction 'gneJ1'
 Warning: Removing edge 'gneE0' from net
-Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
-Warning: e3Detector with ID 'e3Detector_2' cannot be writed in additional file because doesn't have childs.
+Warning: e3Detector with ID='e3Detector_0' cannot be written; It need at least 1 childs.
+Warning: e3Detector with ID='e3Detector_2' cannot be written; It need at least 1 childs.
 Warning: Additionals saved
 Warning: Deleting unreferenced edge 'gneE0' GNEChange_Edge
 Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

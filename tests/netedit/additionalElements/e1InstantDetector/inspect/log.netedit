@@ -19,16 +19,12 @@ Warning: Setting new attribute file '' into instantInductionLoop 'correctID'
 Warning: Value '%%%&&%$%$' for attribute file of instantInductionLoop isn't valid
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'correctID'
-Warning: Value 'DummyVClasses' for attribute vTypes of instantInductionLoop isn't valid
-Warning: Setting new attribute vTypes 'private passenger taxi bus' into instantInductionLoop 'correctID'
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'correctID'
 Warning: Setting new attribute blockMovement 'true' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute blockMovement '0' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute friendlyPos '0' into instantInductionLoop 'correctID'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute vTypes '' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -65,8 +61,6 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'instantInductionLoop_gneE2_1_1.txt' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'correctID'
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute vTypes 'private passenger taxi bus' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute friendlyPos 'true' into instantInductionLoop 'correctID'
 Warning: Keys Ctrl + Y (Redo) pressed

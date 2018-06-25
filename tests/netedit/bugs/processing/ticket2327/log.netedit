@@ -999,7 +999,7 @@ Warning: Setting new attribute pos '70.00,20.00' into junction '_gneJ11_gneJ12_g
 Warning: Key F5 (Compute) pressed
 Warning: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE7_1togneE5_1' in retrieveGNEConnection()
-Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
+Warning: e3Detector with ID='e3Detector_0' cannot be written; It need at least 1 childs.
 Warning: Additionals saved
 Warning: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
 Warning: Deleting NBNode of 'gneJ19' in GNEJunction destructor

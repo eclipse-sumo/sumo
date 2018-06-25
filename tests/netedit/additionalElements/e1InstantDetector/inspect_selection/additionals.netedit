@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 20.06.2018 10:18:23 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 25.06.2018 12:31:34 by Eclipse SUMO netedit Version 7725fee923
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,13 +33,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_20Jun101246.1472/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_25Jun110431.2980/netedit.gui/additionalElements/e1InstantDetector/inspect_selection\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <instantInductionLoop id="E1Instant_A" lane="gneE0_0" pos="6.00" file="myOwnOutput.txt" vTypes="private passenger taxi bus" friendlyPos="1"/>
-    <instantInductionLoop id="E1Instant_B" lane="gneE0_0" pos="10.00" file="myOwnOutput.txt" vTypes="private passenger taxi bus" friendlyPos="1"/>
+    <instantInductionLoop id="E1Instant_A" lane="gneE0_0" pos="6.00" file="myOwnOutput.txt" friendlyPos="1"/>
+    <instantInductionLoop id="E1Instant_B" lane="gneE0_0" pos="10.00" file="myOwnOutput.txt" friendlyPos="1"/>
 </additional>

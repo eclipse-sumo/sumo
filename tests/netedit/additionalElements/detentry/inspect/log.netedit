@@ -50,7 +50,7 @@ Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute parentItem 'e3Detector_1' into detEntry 'e3Detector_0detEntry0'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into detEntry 'e3Detector_0detEntry0'
-Warning: e3Detector with ID 'e3Detector_0' cannot be writed in additional file because doesn't have childs.
+Warning: e3Detector with ID='e3Detector_0' cannot be written; It need at least 1 childs.
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

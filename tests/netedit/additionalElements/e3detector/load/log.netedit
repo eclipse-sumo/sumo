@@ -75,8 +75,8 @@ Warning: Format of essential unique float attribute 'pos' of detEntry is invalid
 Warning: Format of essential unique float attribute 'pos' of detExit is invalid; detExit cannot be created
 Warning: net has to be saved
 Warning: Current saving Status: net unsaved, additionals unsaved, shapes saved
-Warning: e3Detector with ID 'e3Detector_21' cannot be writed in additional file because doesn't have childs.
-Warning: e3Detector with ID 'e3Detector_22' cannot be writed in additional file because doesn't have childs.
+Warning: e3Detector with ID='e3Detector_21' cannot be written; It need at least 1 childs.
+Warning: e3Detector with ID='e3Detector_22' cannot be written; It need at least 1 childs.
 Warning: Additionals saved
 Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
