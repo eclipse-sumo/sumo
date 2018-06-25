@@ -70,13 +70,13 @@ public:
     class Stage {
     public:
         /// constructor
-        Stage(const MSEdge& destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type);
+        Stage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type);
 
         /// destructor
         virtual ~Stage();
 
         /// returns the destination edge
-        const MSEdge& getDestination() const;
+        const MSEdge* getDestination() const;
 
         /// returns the destination stop (if any)
         MSStoppingPlace* getDestinationStop() const {
@@ -181,7 +181,7 @@ public:
 
     protected:
         /// the next edge to reach by getting transported
-        const MSEdge& myDestination;
+        const MSEdge* myDestination;
 
         /// the stop to reach by getting transported (if any)
         MSStoppingPlace* const myDestinationStop;
@@ -213,7 +213,7 @@ public:
     class Stage_Waiting : public Stage {
     public:
         /// constructor
-        Stage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until,
+        Stage_Waiting(const MSEdge* destination, SUMOTime duration, SUMOTime until,
                       double pos, const std::string& actType, const bool initial);
 
         /// destructor
@@ -292,7 +292,7 @@ public:
     class Stage_Driving : public Stage {
     public:
         /// constructor
-        Stage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
+        Stage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
                       const double arrivalPos, const std::vector<std::string>& lines,
                       const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
@@ -411,12 +411,12 @@ public:
     void setDeparted(SUMOTime now);
 
     /// Returns the current destination.
-    const MSEdge& getDestination() const {
+    const MSEdge* getDestination() const {
         return (*myStep)->getDestination();
     }
 
     /// Returns the destination after the current destination.
-    const MSEdge& getNextDestination() const {
+    const MSEdge* getNextDestination() const {
         return (*(myStep + 1))->getDestination();
     }
 

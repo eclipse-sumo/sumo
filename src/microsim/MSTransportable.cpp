@@ -45,12 +45,12 @@ const double MSTransportable::ROADSIDE_OFFSET(3);
 /* -------------------------------------------------------------------------
  * MSTransportable::Stage - methods
  * ----------------------------------------------------------------------- */
-MSTransportable::Stage::Stage(const MSEdge& destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type)
+MSTransportable::Stage::Stage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type)
     : myDestination(destination), myDestinationStop(toStop), myArrivalPos(arrivalPos), myDeparted(-1), myArrived(-1), myType(type) {}
 
 MSTransportable::Stage::~Stage() {}
 
-const MSEdge&
+const MSEdge*
 MSTransportable::Stage::getDestination() const {
     return myDestination;
 }
@@ -58,13 +58,13 @@ MSTransportable::Stage::getDestination() const {
 
 const MSEdge*
 MSTransportable::Stage::getEdge() const {
-    return &myDestination;
+    return myDestination;
 }
 
 
 const MSEdge*
 MSTransportable::Stage::getFromEdge() const {
-    return &myDestination;
+    return myDestination;
 }
 
 
@@ -89,7 +89,7 @@ MSTransportable::Stage::getSpeed() const {
 ConstMSEdgeVector
 MSTransportable::Stage::getEdges() const {
     ConstMSEdgeVector result;
-    result.push_back(&getDestination());
+    result.push_back(getDestination());
     return result;
 }
 
@@ -130,11 +130,11 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Waiting - methods
 * ----------------------------------------------------------------------- */
-MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge& destination,
+MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge* destination,
         SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
         const bool initial) :
     MSTransportable::Stage(destination, 0, SUMOVehicleParameter::interpretEdgePos(
-                               pos, destination.getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination.getID()),
+                               pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID()),
                            initial ? WAITING_FOR_DEPART : WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
@@ -153,14 +153,14 @@ MSTransportable::Stage_Waiting::getUntil() const {
 
 Position
 MSTransportable::Stage_Waiting::getPosition(SUMOTime /* now */) const {
-    return getEdgePosition(&myDestination, myArrivalPos,
+    return getEdgePosition(myDestination, myArrivalPos,
                            ROADSIDE_OFFSET * (MSNet::getInstance()->lefthand() ? -1 : 1));
 }
 
 
 double
 MSTransportable::Stage_Waiting::getAngle(SUMOTime /* now */) const {
-    return getEdgeAngle(&myDestination, myArrivalPos) + M_PI / 2 * (MSNet::getInstance()->lefthand() ? -1 : 1);
+    return getEdgeAngle(myDestination, myArrivalPos) + M_PI / 2 * (MSNet::getInstance()->lefthand() ? -1 : 1);
 }
 
 
@@ -195,7 +195,7 @@ void
 MSTransportable::Stage_Waiting::routeOutput(OutputDevice& os) const {
     if (myType != WAITING_FOR_DEPART) {
         // lane index is arbitrary
-        os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination().getID() + "_0");
+        os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");
         if (myWaitingDuration >= 0) {
             os.writeAttr(SUMO_ATTR_DURATION, time2string(myWaitingDuration));
         }
@@ -245,14 +245,14 @@ MSTransportable::Stage_Waiting::getStageSummary() const {
     if (myWaitingDuration >= 0) {
         timeInfo += " duration " + time2string(myWaitingDuration);
     }
-    return "stopping at edge '" + getDestination().getID() + "' " + timeInfo + " (" + myActType + ")";
+    return "stopping at edge '" + getDestination()->getID() + "' " + timeInfo + " (" + myActType + ")";
 }
 
 
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Driving - methods
 * ----------------------------------------------------------------------- */
-MSTransportable::Stage_Driving::Stage_Driving(const MSEdge& destination,
+MSTransportable::Stage_Driving::Stage_Driving(const MSEdge* destination,
         MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
         const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSTransportable::Stage(destination, toStop, arrivalPos, DRIVING),
@@ -352,7 +352,7 @@ ConstMSEdgeVector
 MSTransportable::Stage_Driving::getEdges() const {
     ConstMSEdgeVector result;
     result.push_back(getFromEdge());
-    result.push_back(&getDestination());
+    result.push_back(getDestination());
     return result;
 }
 
@@ -515,7 +515,7 @@ MSTransportable::removeStage(int next) {
     } else {
         if (myStep + 1 == myPlan->end()) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
-            appendStage(new Stage_Waiting(*getEdge(), 0, 0, getEdgePos(), "last stage removed", false));
+            appendStage(new Stage_Waiting(getEdge(), 0, 0, getEdgePos(), "last stage removed", false));
         }
         (*myStep)->abort(this);
         proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
@@ -580,5 +580,6 @@ bool
 MSTransportable::hasArrived() const {
     return myStep == myPlan->end();
 }
+
 
 /****************************************************************************/

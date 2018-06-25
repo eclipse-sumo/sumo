@@ -235,7 +235,7 @@ public:
     class MSPersonStage_Driving : public MSTransportable::Stage_Driving {
     public:
         /// constructor
-        MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
+        MSPersonStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
             const double arrivalPos, const std::vector<std::string>& lines,
             const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
@@ -272,7 +272,7 @@ public:
     class MSPersonStage_Access : public MSTransportable::Stage {
     public:
         /// constructor
-        MSPersonStage_Access(const MSEdge& destination, MSStoppingPlace* toStop,
+        MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
                              const double arrivalPos, const double dist, const bool isExit);
 
         /// destructor

@@ -70,7 +70,7 @@ public:
     class MSContainerStage_Driving : public MSTransportable::Stage_Driving {
     public:
         /// constructor
-        MSContainerStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
+        MSContainerStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
                                  const double arrivalPos, const std::vector<std::string>& lines);
 
         /// destructor

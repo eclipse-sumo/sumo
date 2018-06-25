@@ -228,7 +228,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
     ret->mkItem("stage index", false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
-    ret->mkItem("dest edge [id]", false, getDestination().getID());
+    ret->mkItem("dest edge [id]", false, getDestination()->getID());
     ret->mkItem("arrivalPos [m]", false, toString(getCurrentStage()->getArrivalPos()));
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
