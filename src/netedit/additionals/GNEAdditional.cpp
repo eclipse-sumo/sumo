@@ -111,10 +111,9 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     if(tagProperties.hasMinimumNumberOfChilds() && myAdditionalChilds.size() < tagProperties.getMinNumberOfChilds()) {
         WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written; It need at least " + toString(tagProperties.getMinNumberOfChilds()) + " childs.");
     } else {
-
         // Open Tag or synonim Tag
-        if(tagProperties.getTagSynonym()) {
-            tagProperties.getTagSynonym();
+        if(tagProperties.hasTagSynonym()) {
+            device.openTag(tagProperties.getTagSynonym());
         } else {
             device.openTag(getTag());
         }
@@ -122,7 +121,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         for (auto i : tagProperties) {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
-            if(i.second.hasDefaultValue()) {
+            if(i.second.isOptional() && i.second.hasDefaultValue()) {
                 // Only write attributes with default value if is different of original
                 if(i.second.getDefaultValue() != attribute) {
                     device.writeAttr(i.first, attribute);

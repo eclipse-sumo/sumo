@@ -86,6 +86,7 @@ public:
         ATTRPROPERTY_OPTIONAL =     1 << 17,    // Attribute is optional
         ATTRPROPERTY_DEFAULTVALUE = 1 << 18,    // Attribute owns a default value
         ATTRPROPERTY_COMBINABLE =   1 << 19,    // Attribute is combinable with other Attribute
+        ATTRPROPERTY_SYNONYM =      1 << 20,    // Element will be written with a different name in der XML
     };
 
     /// @brief struct with the attribute Properties
@@ -95,7 +96,7 @@ public:
         AttributeValues();
 
         /// @brief parameter constructor
-        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, const std::vector<std::string> &discreteValues);
+        AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, const std::vector<std::string> &discreteValues, SumoXMLAttr synonym);
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -112,8 +113,14 @@ public:
         /// @brief get discrete values
         const std::vector<std::string> &getDiscreteValues() const;
 
+        /// @brief get tag synonym
+        SumoXMLAttr getAttrSynonym() const;
+
         /// @brief return true if attribute owns a default value
         bool hasDefaultValue() const;
+
+        /// @brief return true if Attr correspond to an element that will be written in XML with another name
+        bool hasAttrSynonym() const;
 
         /// @brief return true if atribute is an integer
         bool isInt() const;
@@ -181,6 +188,9 @@ public:
 
         /// @brief discrete values that can take this Attribute (by default empty)
         std::vector<std::string> myDiscreteValues;
+
+        /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
+        SumoXMLAttr myAttrSynonym;
     };
 
     enum TAGProperty {
@@ -201,7 +211,7 @@ public:
         TAGPROPERTY_MINIMUMCHILDS = 1 << 14,    // Element will be only writed in XML if has a minimum number of childs
         TAGPROPERTY_MAXIMUMCHILDS = 1 << 15,    // Element can only have a certain number of childs (0 -> unlimited)
         TAGPROPERTY_REPARENT =      1 << 16,    // Element can be reparent
-        TAGPROPERTY_SYNONIM =       1 << 17,    // Element will be written with a different tag
+        TAGPROPERTY_SYNONYM =       1 << 17,    // Element will be written with a different name in der XML
     };
 
     /// @brief struct with the attribute Properties
@@ -214,7 +224,7 @@ public:
         TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int minNumberOfChilds = 0, int maxNumberOfChilds = 0, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief add attribute (duplicated attributed aren't allowed)
-        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
+        void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
 
         /// @brief get attribute (throw error if doesn't exist)
         const AttributeValues &getAttribute(SumoXMLAttr attr) const;
@@ -240,7 +250,7 @@ public:
         /// @brief if Tag owns a parent, return parent tag
         SumoXMLTag getParentTag() const;
 
-        /// @brief get tag synonim
+        /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
 
         /// @brief get minimum number of childs
@@ -325,7 +335,7 @@ public:
         /// @brief maximun number of childs (0 -> unlimited)
         int myMaxNumberOfChilds;
 
-        /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tagwill be written)
+        /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
         SumoXMLTag myTagSynonym;
     };
 

@@ -98,9 +98,9 @@ GNEAttributeCarrier::TagValues::getPositionListed() const {
 
 
 void 
-GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues) {
+GNEAttributeCarrier::TagValues::addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues, SumoXMLAttr synonym) {
     if(myAttributeValues.count(attr) == 0) {
-        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, discreteValues);
+        myAttributeValues[attr] = AttributeValues(attributeProperty, (int)myAttributeValues.size(), definition, defaultValue, discreteValues, synonym);
     } else {
         throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
     }
@@ -253,7 +253,7 @@ GNEAttributeCarrier::TagValues::hasParent() const {
 
 bool 
 GNEAttributeCarrier::TagValues::hasTagSynonym() const {
-    return (myTagProperty & TAGPROPERTY_SYNONIM) != 0;
+    return (myTagProperty & TAGPROPERTY_SYNONYM) != 0;
 }
 
 
@@ -288,15 +288,17 @@ GNEAttributeCarrier::AttributeValues::AttributeValues() :
     myAttributeProperty(ATTRPROPERTY_STRING),
     myPositionListed(0), 
     myDefinition(""),
-    myDefaultValue("") {}
+    myDefaultValue(""),
+    myAttrSynonym(SUMO_ATTR_NOTHING) {}
 
 
-GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, const std::vector<std::string> &discreteValues) :
+GNEAttributeCarrier::AttributeValues::AttributeValues(int attributeProperty, int positionListed, const std::string &definition, const std::string &defaultValue, const std::vector<std::string> &discreteValues, SumoXMLAttr synonym) :
     myAttributeProperty(attributeProperty),
     myPositionListed(positionListed), 
     myDefinition(definition),
     myDefaultValue(defaultValue),
-    myDiscreteValues(discreteValues) {
+    myDiscreteValues(discreteValues),
+    myAttrSynonym(synonym) {
     // Check that color attributes always owns an default value
     if(isColor() && myDefaultValue.empty()) {
         throw FormatException("Color attributes must own always a default color");
@@ -401,9 +403,25 @@ GNEAttributeCarrier::AttributeValues::getDiscreteValues() const {
 }
 
 
+SumoXMLAttr
+GNEAttributeCarrier::AttributeValues::getAttrSynonym() const {
+    if(hasAttrSynonym()) {
+        return myAttrSynonym;
+    } else {
+        throw ProcessError("Attr doesn't have synonim");
+    }
+}
+
+
 bool 
 GNEAttributeCarrier::AttributeValues::hasDefaultValue() const {
     return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::AttributeValues::hasAttrSynonym() const {
+    return (myAttributeProperty & ATTRPROPERTY_SYNONYM) != 0;
 }
 
 
@@ -1602,7 +1620,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_LANECALIBRATOR;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SYNONIM | TAGPROPERTY_DIALOG, 41, ICON_CALIBRATOR, SUMO_TAG_NOTHING, 0, 0, SUMO_TAG_CALIBRATOR);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_SYNONYM | TAGPROPERTY_DIALOG, 41, ICON_CALIBRATOR, SUMO_TAG_NOTHING, 0, 0, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1747,7 +1765,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
             "An edge id or a list of edge ids where vehicles shall be rerouted", 
             "");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "X,Y position in editor (Only used in NETEDIT)", 
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_FILE,
@@ -1761,7 +1779,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)", 
-            "0");
+            "0.00");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_OFF,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether the router should be inactive initially (and switched on in the gui)", 
