@@ -1,6 +1,9 @@
 # test for rerouting ahead of an occupied parkingArea
 visibility
 
+# tests for rerouting persons along with the vehicles
+riders
+
 # complex test scenario by Mirco
 complex
 
