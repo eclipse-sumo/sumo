@@ -57,6 +57,7 @@ class WeightsReader(handler.ContentHandler):
             if id in self._edges:
                 self._edge2value[self._time][id] = float(attrs[self._value])
 
+
 # initialise
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",

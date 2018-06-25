@@ -58,6 +58,7 @@ class _ExtremeType(object):
     def __repr__(self):
         return self._rep
 
+
 uMax = _ExtremeType(True, "uMax")
 uMin = _ExtremeType(False, "uMin")
 

@@ -35,6 +35,7 @@ def straight(defaultNode=None, defaultEdge=None, centralReservation=0):
 #  d.addStream(demand.Stream("1/0_to_1/2", 10, "1/0 1/2"))
 #  d.build(3600)
 
+
 if __name__ == "__main__":
     net = straight()
     net.build()

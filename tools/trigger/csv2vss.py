@@ -19,7 +19,7 @@ import sys
 import collections
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.output
+import sumolib.output  # noqa
 
 
 def parse_args():
@@ -74,6 +74,7 @@ def main():
                     '        <step time="%.3f" speed="%.3f"/>\n' % entry)
             outf.write('    </variableSpeedSign>\n')
         outf.write("</additional>\n")
+
 
 if __name__ == "__main__":
     main()

@@ -20,8 +20,8 @@ import sys
 import logging
 import optparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-import connections
-import turndefinitions
+import connections  # noqa
+import turndefinitions  # noqa
 
 LOGGER = logging.getLogger(__name__)
 

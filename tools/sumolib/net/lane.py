@@ -207,7 +207,7 @@ class Lane:
         """
         Returns all incoming lanes for this lane, i.e. lanes, which have a connection to this lane.
         """
-        candidates = reduce(lambda x,y: x+y, [cons for e, cons in self._edge.getIncoming().items()],[])
+        candidates = reduce(lambda x, y: x+y, [cons for e, cons in self._edge.getIncoming().items()], [])
         return [c.getFromLane() for c in candidates if self == c.getToLane()]
 
     def setNeigh(self, neigh):

@@ -21,7 +21,9 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop', 'edges', 'travelTime', 'cost', 'intended', 'depart'])
+Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop',
+                                         'edges', 'travelTime', 'cost', 'intended', 'depart'])
+
 
 def _readStage(result):
     # compound size and type
@@ -38,6 +40,7 @@ def _readStage(result):
     result.read("!B")                   # Type
     depart = result.readDouble()
     return Stage(stageType, line, destStop, edges, travelTime, cost, intended, depart)
+
 
 _RETURN_VALUE_FUNC = {tc.VAR_TIME_STEP: Storage.readInt,
                       tc.VAR_LOADED_VEHICLES_NUMBER: Storage.readInt,
@@ -112,14 +115,16 @@ class SimulationDomain(Domain):
     def getArrivedNumber(self):
         """getArrivedNumber() -> integer
 
-        Returns the number of vehicles which arrived (have reached their destination and are removed from the road network) in this time step.
+        Returns the number of vehicles which arrived (have reached their destination and are removed from the road
+        network) in this time step.
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_NUMBER)
 
     def getArrivedIDList(self):
         """getArrivedIDList() -> list(string)
 
-        Returns a list of ids of vehicles which arrived (have reached their destination and are removed from the road network) in this time step.
+        Returns a list of ids of vehicles which arrived (have reached their destination and are removed from the road
+        network) in this time step.
         """
         return self._getUniversal(tc.VAR_ARRIVED_VEHICLES_IDS)
 
@@ -332,7 +337,8 @@ class SimulationDomain(Domain):
     def getDistanceRoad(self, edgeID1, pos1, edgeID2, pos2, isDriving=False):
         """getDistanceRoad(string, double, string, double, boolean) -> double
 
-        Reads two positions on the road network and an indicator whether the air or the driving distance shall be computed. Returns the according distance.
+        Reads two positions on the road network and an indicator whether the air or the driving distance shall be
+        computed. Returns the according distance.
         """
         distType = tc.REQUEST_AIRDIST
         if isDriving:

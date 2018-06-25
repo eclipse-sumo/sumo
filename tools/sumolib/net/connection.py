@@ -16,7 +16,6 @@
 # @version $Id$
 
 
-
 class Connection:
     # constants as defined in sumo/src/utils/xml/SUMOXMLDefinitions.cpp
     LINKDIR_STRAIGHT = "s"

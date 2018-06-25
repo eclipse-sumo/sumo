@@ -37,6 +37,7 @@ def readVehicleData(result):
         data.append([vehID, length, entryTime, leaveTime, typeID])
     return data
 
+
 _RETURN_VALUE_FUNC = {tc.VAR_POSITION: Storage.readDouble,
                       tc.VAR_LANE_ID: Storage.readString,
                       tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,

@@ -19,12 +19,13 @@ from .storage import Storage
 from . import constants as tc
 from .exceptions import TraCIException
 
+
 class Phase:
 
     def __init__(self, duration, duration1, duration2, phaseDef):
         self._duration = duration
-        self._duration1 = duration1 # minimum duration (only for actuated tls)
-        self._duration2 = duration2 # maximum duration (only for actuated tls)
+        self._duration1 = duration1  # minimum duration (only for actuated tls)
+        self._duration2 = duration2  # maximum duration (only for actuated tls)
         self._phaseDef = phaseDef
 
     def __repr__(self):
@@ -52,7 +53,6 @@ class Logic:
 
     def getParameters(self):
         return self._subParameter
-
 
     def __repr__(self):
         result = ("Logic:\nsubID: %s\ntype: %s\nsubParameter: %s\ncurrentPhaseIndex: %s\n" %
@@ -137,7 +137,8 @@ class TrafficLightDomain(Domain):
         """getRedYellowGreenState(string) -> string
 
         Returns the named tl's state as a tuple of light definitions from
-        rugGyYoO, for red, yed-yellow, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+        rugGyYoO, for red, yed-yellow, green, yellow, off, where lower case letters mean that the stream
+        has to decelerate.
         """
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
@@ -158,7 +159,8 @@ class TrafficLightDomain(Domain):
     def getControlledLinks(self, tlsID):
         """getControlledLinks(string) -> list(list(list(string)))
 
-        Returns the links controlled by the traffic light, sorted by the signal index and described by giving the incoming, outgoing, and via lane.
+        Returns the links controlled by the traffic light, sorted by the signal index and described by giving
+        the incoming, outgoing, and via lane.
         """
         return self._getUniversal(tc.TL_CONTROLLED_LINKS, tlsID)
 
@@ -194,7 +196,8 @@ class TrafficLightDomain(Domain):
         """setRedYellowGreenState(string, string) -> None
 
         Sets the named tl's state as a tuple of light definitions from
-        rugGyYuoO, for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+        rugGyYuoO, for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has
+        to decelerate.
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
@@ -202,7 +205,8 @@ class TrafficLightDomain(Domain):
     def setLinkState(self, tlsID, tlsLinkIndex, state):
         """setLinkState(string, string, int, string) -> None
         Sets the state for the given tls and link index. The state must be one
-        of rRgGyYoOu for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has to decelerate.
+        of rRgGyYoOu for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has
+        to decelerate.
         The link index is shown the gui when setting the appropriate junctino
         visualization optin.
         """
@@ -267,7 +271,8 @@ class TrafficLightDomain(Domain):
                                                 tc.TYPE_INTEGER, len(tls._phases))
         for p in tls._phases:
             self._connection._string += struct.pack("!BiBiBi", tc.TYPE_INTEGER,
-                                                    p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER, p._duration2)
+                                                    p._duration, tc.TYPE_INTEGER, p._duration1, tc.TYPE_INTEGER,
+                                                    p._duration2)
             self._connection._packString(p._phaseDef)
         self._connection._sendExact()
 

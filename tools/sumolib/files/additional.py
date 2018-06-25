@@ -13,7 +13,6 @@
 # @version $Id$
 
 
-
 def write(name, elements):
     fdo = open(name, "w")
     fdo.write(

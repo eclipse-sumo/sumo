@@ -34,21 +34,24 @@ class MultiEntryExitDomain(Domain):
     def getLastStepVehicleNumber(self, detID):
         """getLastStepVehicleNumber(string) -> integer
 
-        Returns the number of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step.
+        Returns the number of vehicles that have been within the named multi-entry/multi-exit detector within the
+        last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_NUMBER, detID)
 
     def getLastStepMeanSpeed(self, detID):
         """getLastStepMeanSpeed(string) -> double
 
-        Returns the mean speed in m/s of vehicles that have been within the named multi-entry/multi-exit detector within the last simulation step.
+        Returns the mean speed in m/s of vehicles that have been within the named multi-entry/multi-exit detector
+        within the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, detID)
 
     def getLastStepVehicleIDs(self, detID):
         """getLastStepVehicleIDs(string) -> list(string)
 
-        Returns the list of ids of vehicles that have been within the named multi-entry/multi-exit detector in the last simulation step.
+        Returns the list of ids of vehicles that have been within the named multi-entry/multi-exit detector in the
+        last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 

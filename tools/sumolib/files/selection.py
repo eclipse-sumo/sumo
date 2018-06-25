@@ -13,7 +13,6 @@
 # @version $Id$
 
 
-
 def read(file, lanes2edges=True):
     ret = {}
     fd = open(file)

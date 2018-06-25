@@ -556,14 +556,14 @@ class VehicleDomain(Domain):
         Returns the action step length for this vehicle.
         """
         return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
-    
+
     def getLastActionTime(self, vehID):
         """getLastActionTime(string) -> double
 
         Returns the time of last action poitn for this vehicle.
         """
         return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
-    
+
     def getImperfection(self, vehID):
         """getImperfection(string) -> double
 
@@ -702,25 +702,26 @@ class VehicleDomain(Domain):
         Return the lane change state for the vehicle as a list of string constants
         """
         constants = {
-                0: 'stay',
-                1: 'left',
-                2: 'right',
-                3: 'strategic',
-                4: 'cooperative',
-                5: 'speedGain',
-                6: 'keepRight',
-                7: 'TraCI',
-                8: 'urgent',
-                9: 'blocked by left leader',
-                10: 'blocked by left follower',
-                11: 'blocked by right leader',
-                12: 'bloecked by right follower',
-                13: 'overlapping',
-                14: 'insufficient space',
-                15: 'sublane',
-                }
+            0: 'stay',
+            1: 'left',
+            2: 'right',
+            3: 'strategic',
+            4: 'cooperative',
+            5: 'speedGain',
+            6: 'keepRight',
+            7: 'TraCI',
+            8: 'urgent',
+            9: 'blocked by left leader',
+            10: 'blocked by left follower',
+            11: 'blocked by right leader',
+            12: 'bloecked by right follower',
+            13: 'overlapping',
+            14: 'insufficient space',
+            15: 'sublane',
+        }
+
         def prettifyBitstring(intval):
-            return [v for k,v in constants.items() if (intval & 2**k)]
+            return [v for k, v in constants.items() if (intval & 2**k)]
 
         state, stateTraCI = self.getLaneChangeState(vehID, direction)
         return prettifyBitstring(state), prettifyBitstring(stateTraCI)
@@ -830,11 +831,11 @@ class VehicleDomain(Domain):
         the lane will be chosen for the given amount of time (in ms).
         """
         self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 +1)
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 + 1)
         self._connection._string += struct.pack(
             "!BiBBBiBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, 0)
         self._connection._sendExact()
-        
+
     def changeLaneRelative(self, vehID, laneIndex, duration):
         """changeLane(string, int, int) -> None
 
@@ -842,16 +843,15 @@ class VehicleDomain(Domain):
         the lane will be chosen for the given amount of time (in ms).
         """
         self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 +1)
+            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 4 + 1 + 1)
         self._connection._string += struct.pack(
             "!BiBBBiBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_INTEGER, duration, tc.TYPE_BYTE, 1)
         self._connection._sendExact()
-        
 
     def changeSublane(self, vehID, latDist):
         """changeLane(string, double) -> None
-        Forces a lateral change by the given amount (negative values indicate changing to the right, positive to the left)
-        This will override any other lane change motivations but conform to
+        Forces a lateral change by the given amount (negative values indicate changing to the right, positive
+        to the left). This will override any other lane change motivations but conform to
         safety-constraints as configured by laneChangeMode.
         """
         self._connection._sendDoubleCmd(
@@ -916,15 +916,16 @@ class VehicleDomain(Domain):
         """setAdaptedTraveltime(string, string, double, int, int) -> None
         Inserts the information about the travel time of edge "edgeID" valid
         from begin time to end time into the vehicle's internal edge weights
-        container. 
+        container.
         If the time is not specified, any previously set values for that edge
         are removed.
         If begTime or endTime are not specified the value is set for the whole
         simulation duration.
         """
-        if type(edgeID) != str and type(begTime) == str: 
+        if type(edgeID) != str and type(begTime) == str:
             # legacy handling
-            warnings.warn("Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.", stacklevel=2)
+            warnings.warn(
+                "Parameter order has changed for setAdaptedTraveltime(). Attempting legacy ordering. Please update your code.", stacklevel=2)
             return self.setAdaptedTraveltime(vehID, begTime, endTime, edgeID, time)
         if time is None:
             # reset
@@ -960,9 +961,11 @@ class VehicleDomain(Domain):
         If begTime or endTime are not specified the value is set for the whole
         simulation duration.
         """
-        if type(edgeID) != str and type(begTime) == str: 
+        if type(edgeID) != str and type(begTime) == str:
             # legacy handling
-            warnings.warn("Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.", stacklevel=2)
+            warnings.warn(
+                "Parameter order has changed for setEffort(). Attempting legacy ordering. Please update your code.",
+                stacklevel=2)
             return self.setEffort(vehID, begTime, endTime, edgeID, effort)
         if effort is None:
             # reset
@@ -1191,11 +1194,11 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_APPARENT_DECEL, vehID, decel)
 
-    def setActionStepLength(self, vehID, actionStepLength, resetActionOffset = True):
+    def setActionStepLength(self, vehID, actionStepLength, resetActionOffset=True):
         """setActionStepLength(string, double, bool) -> None
 
-        Sets the action step length for this vehicle. If resetActionOffset == True (default), the 
-        next action point is scheduled immediately. if If resetActionOffset == False, the interval 
+        Sets the action step length for this vehicle. If resetActionOffset == True (default), the
+        next action point is scheduled immediately. if If resetActionOffset == False, the interval
         between the last and the next action point is updated to match the given value, or if the latter
         is smaller than the time since the last action point, the next action follows immediately.
         """
@@ -1203,10 +1206,10 @@ class VehicleDomain(Domain):
             raise exceptions.TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
         # Use negative value to indicate resetActionOffset == False
         if not resetActionOffset:
-            actionStepLength*=-1
+            actionStepLength *= -1
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, vehID, actionStepLength)
-        
+
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None
 
@@ -1218,7 +1221,8 @@ class VehicleDomain(Domain):
     def setTau(self, vehID, tau):
         """setTau(string, double) -> None
 
-        Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s for this vehicle.
+        Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s
+        for this vehicle.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
@@ -1325,5 +1329,6 @@ class VehicleDomain(Domain):
         """
         Domain.subscribeContext(
             self, objectID, domain, dist, varIDs, begin, end)
+
 
 VehicleDomain()

@@ -36,6 +36,7 @@ def cross(defaultNode=None, defaultEdge=None, centralReservation=0):
     net.connectNodes("1/2", "1/1", True, centralReservation)
     return net
 
+
 if __name__ == "__main__":
     net = cross()
     net.build()

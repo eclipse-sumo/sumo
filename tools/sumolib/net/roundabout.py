@@ -15,7 +15,6 @@
 # @version $Id$
 
 
-
 class Roundabout:
 
     def __init__(self, nodes, edges=None):

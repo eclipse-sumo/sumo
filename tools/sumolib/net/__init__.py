@@ -31,8 +31,14 @@ from copy import copy
 from itertools import *  # noqa
 from collections import defaultdict
 
-import sumolib
-from . import lane, edge, node, connection, roundabout
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import sumolib  # noqa
+from . import lane, edge, node, connection, roundabout  # noqa
 from .lane import Lane  # noqa
 from .edge import Edge  # noqa
 from .node import Node  # noqa

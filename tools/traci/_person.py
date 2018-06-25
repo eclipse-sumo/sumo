@@ -242,7 +242,8 @@ class PersonDomain(Domain):
     def appendWalkingStage(self, personID, edges, arrivalPos, duration=-1, speed=-1, stopID=""):
         """appendWalkingStage(string, stringList, double, int, double, string)
         Appends a walking stage to the plan of the given person
-        The walking speed can either be specified, computed from the duration parameter (in s) or taken from the type of the person
+        The walking speed can either be specified, computed from the duration parameter (in s) or taken from the
+        type of the person
         """
         if duration is not None:
             duration *= 1000

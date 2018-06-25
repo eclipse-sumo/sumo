@@ -269,5 +269,6 @@ def main():
     else:
         xml.sax.parse(options.source, handler)
 
+
 if __name__ == "__main__":
     main()

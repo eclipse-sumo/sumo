@@ -15,6 +15,7 @@
 from __future__ import print_function
 from __future__ import absolute_import
 
+
 class Filter:
     def __init__(self, opts, begin, end, bbox, outfile):
         self._begin = float(begin)
@@ -22,7 +23,7 @@ class Filter:
         self._bbox = [float(b) for b in bbox.split(",")]
         self._out = open(outfile, "w")
         if opts.get("comment") is not None:
-            k,v = opts.get("comment").split(":")
+            k, v = opts.get("comment").split(":")
             self._out.write("""<!--
     <time>
         <begin value="%s"/>
@@ -61,6 +62,7 @@ class Filter:
             self._out.write('    </timestep>\n')
         self._out.write("</fcd-export>\n")
         self._out.close()
+
 
 def fcdfilter(inpFCD, outSTRM, further):
     filters = []

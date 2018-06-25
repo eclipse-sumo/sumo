@@ -29,16 +29,15 @@ import csv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.visualization import helpers
-
-import matplotlib.pyplot as plt
+from sumolib.visualization import helpers  # noqa
+import matplotlib.pyplot as plt  # noqa
 
 
 def readValues(file, verbose, columns):
-    if verbose:
-        print("Reading '%s'..." % f)
     ret = {}
     with open(file, 'rb') as f:
+        if verbose:
+            print("Reading '%s'..." % f)
         reader = csv.reader(f, delimiter=';')
         for row in reader:
             if columns is None:
@@ -90,6 +89,7 @@ def main(args=None):
         l = helpers.getLabel(str(i), ci, options)
         plt.plot(ts[0:len(v)], v, label=l, color=c)
     helpers.closeFigure(fig, ax, options)
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))

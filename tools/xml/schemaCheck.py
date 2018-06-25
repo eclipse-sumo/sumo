@@ -117,6 +117,7 @@ def main(srcRoot, toCheck, err):
                 return 1
     return 0
 
+
 if __name__ == "__main__":
     if os.name == "posix" and not haveLxml:
         print("neither SAX2Count nor lxml available, exiting", file=sys.stderr)

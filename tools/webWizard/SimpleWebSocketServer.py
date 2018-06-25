@@ -28,15 +28,15 @@ else:
     from BaseHTTPServer import BaseHTTPRequestHandler
     from StringIO import StringIO
 
-import hashlib
-import base64
-import socket
-import struct
-import ssl
-import errno
-import codecs
-from collections import deque
-from select import select
+import hashlib  # noqa
+import base64  # noqa
+import socket  # noqa
+import struct  # noqa
+import ssl  # noqa
+import errno  # noqa
+import codecs  # noqa
+from collections import deque  # noqa
+from select import select  # noqa
 
 __all__ = ['WebSocket',
            'SimpleWebSocketServer',
@@ -60,6 +60,7 @@ class HTTPRequest(BaseHTTPRequestHandler):
         self.raw_requestline = self.rfile.readline()
         self.error_code = self.error_message = None
         self.parse_request()
+
 
 _VALID_STATUS_CODES = [1000, 1001, 1002, 1003, 1007, 1008,
                        1009, 1010, 1011, 3000, 3999, 4000, 4999]

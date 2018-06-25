@@ -154,6 +154,7 @@ def typedValueStr(content):
     elif valType == SCALED2INT_POSITION_3D:
         return '%.2f,%.2f,%.2f' % (readInt(content) / 100., readInt(content) / 100., readInt(content) / 100.)
 
+
 out = sys.stdout
 content = open(sys.argv[1], 'rb')
 _, version, _ = read(content, "BBB")  # type, sbx version, type

@@ -124,7 +124,7 @@ def compound_object(element_name, attrnames, warn=False):
 
         def toXML(self, initialIndent="", indent="    "):
             fields = ['%s="%s"' % (self._original_fields[i], str(getattr(self, k)))
-                      for i, k in enumerate(self._fields) if getattr(self, k) is not None 
+                      for i, k in enumerate(self._fields) if getattr(self, k) is not None
                       # see #3454
                       and not '{' in self._original_fields[i]]
             if not self._child_dict:
@@ -180,7 +180,9 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
 
 
 _NO_CHILDREN = {}
-_IDENTITY = lambda x: x
+
+
+def _IDENTITY(x): return x
 
 
 def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):
@@ -268,6 +270,7 @@ def writeHeader(outf, script, root=None, schemaPath=None):
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
         outf.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n' % (root, schemaPath))
+
 
 def quoteattr(val):
     # saxutils sometimes uses single quotes around the attribute

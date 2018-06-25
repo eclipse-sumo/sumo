@@ -23,13 +23,21 @@ import time
 import subprocess
 import warnings
 import abc
+import sys
+import os
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib  # noqa
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
-from .domain import _defaultDomains
-from .connection import Connection, _embedded
-from .exceptions import FatalTraCIError, TraCIException
+from .domain import _defaultDomains  # noqa
+from .connection import Connection, _embedded  # noqa
+from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
@@ -94,7 +102,7 @@ def isEmbedded():
 
 def load(args):
     """load([optionOrParam, ...])
-    Let sumo load a simulation using the given command line like options 
+    Let sumo load a simulation using the given command line like options
     Example:
       load(['-c', 'run.sumocfg'])
       load(['-n', 'net.net.xml', '-r', 'routes.rou.xml'])
@@ -137,7 +145,8 @@ def addStepListener(listener):
         _stepListeners.append(listener)
         return True
     warnings.warn(
-        "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" % type(listener))
+        "Proposed listener's type must inherit from traci.StepListener. Not adding object of type '%s'" %
+        type(listener))
     return False
 
 
@@ -173,13 +182,16 @@ def switch(label):
     for domain in _defaultDomains:
         domain._setConnection(_connections[""])
 
+
 def getLabel():
     return _currentLabel[0]
 
-def getConnection(label ="default"):
-    if not label in _connections:
+
+def getConnection(label="default"):
+    if label not in _connections:
         raise TraCIException("connection with label '%s' is not known")
     return _connections[label]
+
 
 if _embedded:
     # create the default dummy connection

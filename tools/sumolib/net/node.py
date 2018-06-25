@@ -16,7 +16,6 @@
 # @version $Id$
 
 
-
 class Node:
 
     """ Nodes from a sumo network """

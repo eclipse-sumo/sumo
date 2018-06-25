@@ -37,7 +37,8 @@ import os
 import argparse
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
+
 
 class Logic:
     def __init__(self, key):
@@ -52,6 +53,7 @@ class Logic:
         self.offset = 0
         self.links2index = {}
         self.links2sigGrpPhase = {}
+
 
 def computeLinkPhasesAndTimes(logic):
     phases = {}
@@ -91,6 +93,7 @@ def computeLinkPhasesAndTimes(logic):
             print(myKey, newPhases, file=sys.stderr)
         logic.links2index[myKey] = len(logic.defs)
         logic.defs.append(newPhases)
+
 
 parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
 parser.add_argument('TLS_CSV', help='tls definition')
