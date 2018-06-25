@@ -24,7 +24,7 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.xml
+import sumolib.xml  # noqa
 
 
 def adjust_detector_length(requested_detector_length,
@@ -63,6 +63,7 @@ def adjust_detector_position(final_detector_length,
 
     return max(0,
                lane_length - final_detector_length - requested_distance_to_tls)
+
 
 if __name__ == "__main__":
     # pylint: disable-msg=C0103

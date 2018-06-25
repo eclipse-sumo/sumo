@@ -80,6 +80,7 @@ def convert(vehRoutes, routeOut, odOut, interval):
             od.write('    <actorConfig/>\n')
         od.write("</demand>\n")
 
+
 if __name__ == "__main__":
     optParser = OptionParser()
     optParser.add_option("-r", "--routes", default='routes.xml',

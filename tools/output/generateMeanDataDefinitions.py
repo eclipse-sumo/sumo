@@ -52,6 +52,7 @@ def generate_mean_data_xml(detectors_xml,
 
     return meandata_xml
 
+
 if __name__ == "__main__":
     # pylint: disable-msg=C0103
 

@@ -18,8 +18,8 @@ from __future__ import print_function
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.output import parse_fast
-from sumolib.miscutils import Statistics
+from sumolib.output import parse_fast  # noqa
+from sumolib.miscutils import Statistics  # noqa
 
 
 def accelStats(netstate):
@@ -32,6 +32,7 @@ def accelStats(netstate):
         stats.add(speed - prevSpeed, (vehicle.id, vehicle.speed))
         lastSpeed[vehicle.id] = speed
     print(stats)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

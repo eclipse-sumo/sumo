@@ -18,7 +18,7 @@ import os
 import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.output import parse
+from sumolib.output import parse  # noqa
 
 
 def trackLanes(netstate, out):
@@ -60,6 +60,7 @@ def trackLanes(netstate, out):
                 arrivals.get(veh_id),
                 laneChanges[veh_id]))
         f.write("</vehLanes>\n")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

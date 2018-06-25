@@ -12,4 +12,4 @@
 # @date    2018-06-05
 # @version $Id$
 
-from .libsumo import * # noqa
+from .libsumo import *  # noqa

@@ -19,8 +19,8 @@ import os
 import sys
 from collections import OrderedDict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.output import parse
-from sumolib.miscutils import Statistics
+from sumolib.output import parse  # noqa
+from sumolib.miscutils import Statistics  # noqa
 
 
 def write_diff(orig, new, out):
@@ -56,6 +56,7 @@ def write_diff(orig, new, out):
     print(origDurations)
     print(durations)
     print(durationDiffs)
+
 
 if __name__ == "__main__":
     write_diff(*sys.argv[1:])

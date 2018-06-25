@@ -63,6 +63,7 @@ def adjust_detector_position(final_detector_length,
     return max(0,
                lane_length - final_detector_length - requested_distance_to_tls)
 
+
 if __name__ == "__main__":
     # pylint: disable-msg=C0103
 

@@ -26,7 +26,7 @@ from optparse import OptionParser
 pyPath = os.path.dirname(sys.argv[0])
 sys.path.append(
     os.path.join("..", "..", "..", "..", "extern", "sumo", "tools", "assign"))
-from dijkstra import dijkstraPlain
+from dijkstra import dijkstraPlain  # noqa
 
 # This class is used to build the nodes in the investigated network and
 # includes the update-function for searching the k shortest paths.
@@ -170,13 +170,13 @@ class NetworkReader(handler.ContentHandler):
             if self._edge[0] != ':':
                 self._edgeObj = self._net.getEdge(self._edge)
         elif name == 'succlane' and self._edge != "":
-            l = attrs['lane']
-            if l != "SUMO_NO_DESTINATION":
-                toEdge = self._net.getEdge(l[:l.rfind('_')])
+            lane = attrs['lane']
+            if lane != "SUMO_NO_DESTINATION":
+                toEdge = self._net.getEdge(lane[:lane.rfind('_')])
                 newEdge = Edge(
-                    self._edge + "_" + l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
+                    self._edge + "_" + lane[:lane.rfind('_')], self._edgeObj.target, toEdge.source)
                 self._net.addEdge(newEdge)
-                self._edgeObj.finalizer = l[:l.rfind('_')]
+                self._edgeObj.finalizer = lane[:lane.rfind('_')]
         elif name == 'lane' and self._edge != '':
             self._maxSpeed = max(self._maxSpeed, float(attrs['speed']))
             self._laneNumber = self._laneNumber + 1
@@ -200,7 +200,7 @@ class DistrictsReader(handler.ContentHandler):
         self._net = net
         self._StartDTIn = None
         self._StartDTOut = None
-        self.I = 100
+        self.index = 100
 
     def startElement(self, name, attrs):
         if name == 'taz':
@@ -212,16 +212,16 @@ class DistrictsReader(handler.ContentHandler):
             self._net._endVertices.append(self._StartDTOut)
         elif name == 'tazSink':
             sinklink = self._net.getEdge(attrs['id'])
-            self.I += 1
-            conlink = self._StartDTOut.label + str(self.I)
+            self.index += 1
+            conlink = self._StartDTOut.label + str(self.index)
             newEdge = Edge(conlink, sinklink.target, self._StartDTOut, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
             newEdge.connection = 1
         elif name == 'tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
-            self.I += 1
-            conlink = self._StartDTIn.label + str(self.I)
+            self.index += 1
+            conlink = self._StartDTIn.label + str(self.index)
             newEdge = Edge(conlink, self._StartDTIn, sourcelink.source, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']

@@ -28,8 +28,8 @@ import math
 from optparse import OptionParser
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
-import netshiftadaptor
+import sumolib.net  # noqa
+import netshiftadaptor  # noqa
 
 
 def computeDistance(n1, n2):
@@ -492,6 +492,7 @@ def writeEdges(net):
             writeEdge(fd, edge)
     fd.write("</edges>\n")
     fd.close()
+
 
 fdd.write("</connections>\n")
 writeNodes(net1)

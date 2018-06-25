@@ -52,6 +52,7 @@ def checkBinary(name, bindir=_bindir):
         return name
     return binary
 
+
 if __name__ == "__main__":
     findAndClick(PLAY)
     time.sleep(10)

@@ -77,14 +77,14 @@ def getOptions():
                              default=.1)
 
     option_parser.add_option(
-                        "--interior", action="store_true",
-                        default=False, help="Extend measurement area to the junction interior")
+        "--interior", action="store_true",
+        default=False, help="Extend measurement area to the junction interior")
     option_parser.add_option(
-                        "--joined", action="store_true",
-                        default=False, help="Create one e3Detector per junction")
+        "--joined", action="store_true",
+        default=False, help="Create one e3Detector per junction")
     option_parser.add_option(
-                        "--follow-turnaround", dest="followTurnaround", action="store_true",
-                        default=False, help="Extend entry detectors past turn-around connections")
+        "--follow-turnaround", dest="followTurnaround", action="store_true",
+        default=False, help="Extend entry detectors past turn-around connections")
     option_parser.set_usage("generateTLSE3Detectors.py -n example.net.xml "
                             "-l 250 -d .1 -f 60")
 
@@ -94,6 +94,7 @@ def getOptions():
         option_parser.print_help()
         exit()
     return options
+
 
 def writeEntryExit(options, edge, detector_xml, writeExit=True):
     stopOnTLS = True
@@ -131,7 +132,6 @@ if __name__ == "__main__":
     options = getOptions()
 
     logging.basicConfig(level="INFO")
-
 
     logging.info("Reading net...")
     network = sumolib.net.readNet(options.net_file)

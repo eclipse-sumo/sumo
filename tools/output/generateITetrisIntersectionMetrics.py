@@ -19,10 +19,10 @@ from __future__ import print_function
 from optparse import OptionParser
 import os
 import sys
-from numpy import mean
+from numpy import mean, log
 from xml.sax import parse, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 def getBasicStats(net, lanesInfo, T):
@@ -296,9 +296,11 @@ class HBEFAReader(handler.ContentHandler):
 # initialise
 optParser = OptionParser()
 optParser.add_option("-n", "--netfile", dest="netfile",
-                     help="name of the netfile (f.e. 'inputs\\pasubio\\a_costa.net.xml')", metavar="<FILE>", type="string")
+                     help="name of the netfile (f.e. 'inputs\\pasubio\\a_costa.net.xml')", metavar="<FILE>",
+                     type="string")
 optParser.add_option("-p", "--path", dest="path",
-                     help="name of folder to work with (f.e. 'inputs\\a_costa\\')", metavar="<FOLDER>", type="string", default="./")
+                     help="name of folder to work with (f.e. 'inputs\\a_costa\\')", metavar="<FOLDER>",
+                     type="string", default="./")
 optParser.add_option("-o", "--harmonoiseFile", dest="harmonoiseFile",
                      help="name of the harmonoise file", metavar="<FOLDER>", type="string")
 optParser.add_option("-e", "--HBEFAFile", dest="hbefaFile",
@@ -332,7 +334,7 @@ if options.harmonoiseFile:
 
 if options.hbefaFile:
     hbefaOutput = HBEFAReader(net, tlsID2NodeID)
-    parse(hbefaFile, hbefaOutput)
+    parse(options.hbefaFile, hbefaOutput)
     mergeInfos(tlsInfo, hbefaOutput._tlsCO, 'CO')
     mergeInfos(tlsInfo, hbefaOutput._tlsCO2, 'CO2')
     mergeInfos(tlsInfo, hbefaOutput._tlsHC, 'HC')

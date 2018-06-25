@@ -29,7 +29,7 @@ import sys
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 sys.path.append("../lib")
-import rmsd
+import rmsd  # noqa
 
 
 class NetReader(handler.ContentHandler):
@@ -159,6 +159,7 @@ class PolyReprojector:
                 poly["shape"][i][0] = projection[i][0]
                 poly["shape"][i][1] = projection[i][1]
                 index = index + 1
+
 
 # initialise
 optParser = OptionParser()
