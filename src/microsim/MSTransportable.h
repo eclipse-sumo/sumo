@@ -184,7 +184,7 @@ public:
         const MSEdge* myDestination;
 
         /// the stop to reach by getting transported (if any)
-        MSStoppingPlace* const myDestinationStop;
+        MSStoppingPlace* myDestinationStop;
 
         /// the position at which we want to arrive
         double myArrivalPos;
@@ -331,6 +331,8 @@ public:
         double getSpeed() const;
 
         ConstMSEdgeVector getEdges() const;
+
+        void setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop);
 
         void setVehicle(SUMOVehicle* v);
 
@@ -569,6 +571,9 @@ public:
 
     /// @brief return whether the person has reached the end of its plan
     bool hasArrived() const;
+
+    /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
+    void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
 
 protected:
     /// @brief the offset for computing positions when standing at an edge

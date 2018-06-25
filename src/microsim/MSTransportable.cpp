@@ -25,6 +25,7 @@
 
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/PedestrianRouter.h>
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
@@ -380,6 +381,15 @@ MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
                             myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
 }
 
+void 
+MSTransportable::Stage_Driving::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop) {
+    myDestination = newDestination;
+    myDestinationStop = newDestStop;
+    if (newDestStop != 0) {
+        myArrivalPos = (newDestStop->getBeginLanePosition() + newDestStop->getEndLanePosition()) / 2;
+    }
+}
+
 
 void
 MSTransportable::Stage_Driving::abort(MSTransportable* t) {
@@ -582,4 +592,49 @@ MSTransportable::hasArrived() const {
 }
 
 
+void
+MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement) {
+    // check whether the transportable was riding to the orignal stop
+    // @note: parkingArea can currently not be set as myDestinationStop so we
+    // check for stops on the edge instead
+    assert(getCurrentStageType() == DRIVING);
+    if (getDestination() == &orig->getLane().getEdge()) {
+        Stage_Driving* stage = dynamic_cast<Stage_Driving*>(*myStep);
+        assert(stage != 0);
+        assert(stage->getVehicle() != 0);
+        // adapt plan
+        stage->setDestination(&replacement->getLane().getEdge(), replacement);
+        if (myStep + 1 == myPlan->end()) {
+            return;
+        }
+        // if the next step is a walk, adapt the route
+        Stage* nextStage = *(myStep + 1);
+        if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
+            MSPerson* p = dynamic_cast<MSPerson*>(this);
+            if (p != 0) {
+                const MSEdge* to = nextStage->getDestination();
+                double  arrivalPos = nextStage->getArrivalPos();
+                double speed = p->getVehicleType().getMaxSpeed();
+                ConstMSEdgeVector newEdges;
+                MSNet::getInstance()->getPedestrianRouter().compute(stage->getDestination(), to, stage->getArrivalPos(), arrivalPos, speed, 0, 0, newEdges);
+                if (newEdges.empty()) {
+                    WRITE_WARNING("Could not reroute person '" + getID() 
+                            + "' when rerouting vehicle '" + stage->getVehicle()->getID()
+                            + "' to new parkingArea '" + replacement->getID() + "'.");
+                } else {
+                    //std::cout << SIMTIME << " plan before rerouting " << getID() << ":\n";
+                    //for (int stage = 0; stage < p->getNumStages(); stage++) {
+                    //    std::cout << stage << ": " << p->getStageSummary(stage) << "\n";;
+                    //}
+                    p->reroute(newEdges, 1, 2);
+                    //std::cout << SIMTIME << " plan after rerouting " << getID() << ":\n";
+                    //for (int stage = 0; stage < p->getNumStages(); stage++) {
+                    //    std::cout << stage << ": " << p->getStageSummary(stage) << "\n";;
+                    //}
+                }
+            }
+        }
+    };
+    return;
+}
 /****************************************************************************/

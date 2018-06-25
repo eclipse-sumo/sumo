@@ -46,6 +46,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
+#include <microsim/MSTransportable.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include "MSTriggeredRerouter.h"
 
@@ -53,7 +54,7 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
-//#define DEBUG_PARKING
+#define DEBUG_PARKING
 #define DEBUGCOND (veh.isSelected())
 
 // ===========================================================================
@@ -397,6 +398,11 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             ConstMSEdgeVector edgesFromPark;
             if (!newDestination) {
                 router.compute(newEdge, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+            } else {
+                // adapt plans of any riders
+                for (MSTransportable* p : veh.getPersons()) {
+                    p->rerouteParkingArea(veh.getNextParkingArea(), newParkingArea);
+                }
             }
 
             // we have a new destination, let's replace the vehicle route
