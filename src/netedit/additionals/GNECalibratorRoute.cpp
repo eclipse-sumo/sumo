@@ -54,34 +54,26 @@
 // ===========================================================================
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibratorDialog* calibratorDialog) :
-    GNEAdditional(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->generateCalibratorRouteID(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false),
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()),
+    GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false),
     myColor(parse<RGBColor>(getTagProperties(SUMO_TAG_ROUTE).getDefaultValue(SUMO_ATTR_COLOR))) {
     // add the Edge in which Calibrator is placed as default Edge
-    if (GNEAttributeCarrier::getTagProperties(myCalibratorParent->getTag()).hasAttribute(SUMO_ATTR_EDGE)) {
-        myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(myCalibratorParent->getAttribute(SUMO_ATTR_EDGE)));
+    if (GNEAttributeCarrier::getTagProperties(calibratorDialog->getEditedCalibrator()->getTag()).hasAttribute(SUMO_ATTR_EDGE)) {
+        myEdges.push_back(myViewNet->getNet()->retrieveEdge(calibratorDialog->getEditedCalibrator()->getAttribute(SUMO_ATTR_EDGE)));
     } else {
-        GNELane* lane = myCalibratorParent->getViewNet()->getNet()->retrieveLane(myCalibratorParent->getAttribute(SUMO_ATTR_LANE));
-        myEdges.push_back(myCalibratorParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID()));
+        GNELane* lane = myViewNet->getNet()->retrieveLane(calibratorDialog->getEditedCalibrator()->getAttribute(SUMO_ATTR_LANE));
+        myEdges.push_back(myViewNet->getNet()->retrieveEdge(lane->getParentEdge().getID()));
     }
 }
 
 
 GNECalibratorRoute::GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
     GNEAdditional(routeID, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_ROUTE, false, false),
-    myCalibratorParent(calibratorParent),
     myEdges(edges),
     myColor(color) {
 }
 
 
 GNECalibratorRoute::~GNECalibratorRoute() {}
-
-
-GNECalibrator*
-GNECalibratorRoute::getCalibratorParent() const {
-    return myCalibratorParent;
-}
 
 
 const std::vector<GNEEdge*>&
@@ -116,7 +108,7 @@ GNECalibratorRoute::getPositionInView() const {
 
 std::string 
 GNECalibratorRoute::getParentName() const {
-    return myCalibratorParent->getID();
+    return myAdditionalParent->getID();
 }
 
 
@@ -164,9 +156,9 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value, false)) {
+            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return GNEAdditional::isRouteValid(parse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value), false);
+                return GNEAdditional::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), false);
             } else {
                 return false;
             }
@@ -188,7 +180,7 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGES:
-            myEdges = parse<std::vector<GNEEdge*> >(myCalibratorParent->getViewNet()->getNet(), value);
+            myEdges = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);

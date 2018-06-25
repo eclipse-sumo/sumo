@@ -74,20 +74,6 @@ public:
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
 
-    /// @name Functions related with Calibrator items
-    /// @{
-
-    /// @brief add calibrator route
-    void addCalibratorRoute(GNECalibratorRoute* route);
-
-    /// @brief add calibrator route
-    void removeCalibratorRoute(GNECalibratorRoute* route);
-
-    /// @brief get calibrator routes
-    const std::vector<GNECalibratorRoute*>& getCalibratorRoutes() const;
-
-    /// @}
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -164,9 +150,6 @@ protected:
 
     /// @brief pointer to current RouteProbe
     GNERouteProbe* myRouteProbe;
-
-    /// @brief calibrator route values
-    std::vector<GNECalibratorRoute*> myCalibratorRoutes;
 
 private:
     /// @brief set attribute after validation

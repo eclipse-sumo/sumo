@@ -153,14 +153,6 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
 
     // start a undo list for editing local to this additional
     initChanges();
-
-    // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
-        myEditedCalibratorFlow->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorFlow, true), true);
-    }
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 

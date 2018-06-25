@@ -80,9 +80,6 @@ public:
     /// @}
 
 private:
-    /// @brief modified calibrator route
-    GNECalibratorRoute* myCalibratorRoute;
-
     /// @brief modified calibrator vehicle type
     GNECalibratorVehicleType* myCalibratorVehicleType;
 };

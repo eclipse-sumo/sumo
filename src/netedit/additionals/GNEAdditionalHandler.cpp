@@ -1618,12 +1618,12 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
         GNECalibratorRoute* route = new GNECalibratorRoute(calibratorParent, routeID, edges, color);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(route->getTag()));
-            viewNet->getUndoList()->add(new GNEChange_CalibratorItem(route, true), true);
+            viewNet->getUndoList()->add(new GNEChange_Additional(route, true), true);
             viewNet->getUndoList()->p_end();
             return true;
         } else {
             viewNet->getNet()->insertCalibratorRoute(route);
-            calibratorParent->addCalibratorRoute(route);
+            calibratorParent->addAdditionalChild(route);
             route->incRef("buildCalibratorRoute");
         }
         return true;

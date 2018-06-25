@@ -124,7 +124,7 @@ protected:
     GNECalibratorVehicleType* myVehicleType;
 
     /// @brief route in which this flow is used
-    GNECalibratorRoute* myRoute;
+    GNEAdditional* myRoute;
 
     /// @brief flows per hour (String instead float because can be empty)
     std::string myVehsPerHour;

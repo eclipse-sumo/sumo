@@ -98,6 +98,9 @@ private:
     /// @brief current edited flows
     std::vector<GNEAdditional*> myFlowsEdited;
 
+    /// @brief current edited routes
+    std::vector<GNEAdditional*> myRoutesEdited;
+
     /// @brief button for add new route
     FXButton* myAddRoute;
 

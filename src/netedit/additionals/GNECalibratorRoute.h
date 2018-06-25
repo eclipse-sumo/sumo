@@ -56,9 +56,6 @@ public:
     /// @brief destructor
     ~GNECalibratorRoute();
 
-    /// @brief get pointer to calibrator parent
-    GNECalibrator* getCalibratorParent() const;
-
     /// @brief get GNEEdges of Calibrator ROute
     const std::vector<GNEEdge*>& getGNEEdges() const;
 
@@ -122,9 +119,6 @@ public:
     /// @}
 
 protected:
-    /// @brief pointer to calibrator parent
-    GNECalibrator* myCalibratorParent;
-
     /// @brief edges of route
     std::vector<GNEEdge*> myEdges;
 

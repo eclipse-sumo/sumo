@@ -56,7 +56,7 @@
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
     myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
-    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
+    myRoute(nullptr),
     myVehsPerHour(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_VEHSPERHOUR)),
     mySpeed(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_SPEED)),
     myColor(parse<RGBColor>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_COLOR))),
@@ -73,7 +73,14 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     myDepartPosLat(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_DEPARTPOS_LAT)),
     myArrivalPosLat(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT)),
     myBegin(parse<double>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_BEGIN))),
-    myEnd(parse<double>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_END))) {}
+    myEnd(parse<double>(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_END))) {
+    // set route with the first route founded in additional parent
+    for(auto i : myAdditionalParent->getAdditionalChilds()) {
+        if(!myRoute && (i->getTag() == SUMO_TAG_ROUTE)) {
+            myRoute = i;
+        }
+    }
+}
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, const std::string &vehsPerHour, const std::string &speed,

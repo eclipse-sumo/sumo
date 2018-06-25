@@ -53,6 +53,9 @@ public:
     /// @brief destructor
     ~GNEAdditionalDialog();
 
+    /// @brief execute dialog as modal
+    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
+
     /// @name FOX-callbacks
     /// @{
     /// @brief event after press accept button
@@ -78,9 +81,6 @@ protected:
 
     /// @brief frame for contents
     FXVerticalFrame* myContentFrame;
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief change additional dialog header
     void changeAdditionalDialogHeader(const std::string& newHeader);

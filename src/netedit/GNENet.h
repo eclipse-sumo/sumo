@@ -615,9 +615,6 @@ public:
     /// @brief get calibrator vehicleTypes
     std::vector<GNECalibratorVehicleType*> getCalibratorVehicleTypes() const;
 
-    /// @brief generate a new Calibrator Route ID
-    std::string generateCalibratorRouteID() const;
-
     /// @brief generate a new Calibrator Vehicle Type ID
     std::string generateCalibratorVehicleTypeID() const;
 

@@ -1964,6 +1964,7 @@ GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) cons
     }
 }
 
+
 std::vector<GNECalibratorVehicleType*> 
 GNENet::getCalibratorVehicleTypes() const {
     std::vector<GNECalibratorVehicleType*> result;
@@ -1971,16 +1972,6 @@ GNENet::getCalibratorVehicleTypes() const {
         result.push_back(i.second);
     }
     return result;
-}
-
-
-std::string
-GNENet::generateCalibratorRouteID() const {
-    int counter = 0;
-    while (myAttributeCarriers.calibratorRoutes.count(toString(SUMO_TAG_ROUTE) + toString(counter)) != 0) {
-        counter++;
-    }
-    return toString(SUMO_TAG_ROUTE) + toString(counter);
 }
 
 
@@ -2196,7 +2187,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 void
 GNENet::deleteAdditional(GNEAdditional* additional) {
     // obtain iterator to additional to remove
-    auto additionalToRemove = myAttributeCarriers.additionals.find(std::pair<std::string, SumoXMLTag>(additional->getID(), additional->getTag()));
+    auto additionalToRemove = myAttributeCarriers.additionals.find(std::make_pair(additional->getID(), additional->getTag()));
     // Check if additional element exists before deletion
     if (additionalToRemove == myAttributeCarriers.additionals.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist");

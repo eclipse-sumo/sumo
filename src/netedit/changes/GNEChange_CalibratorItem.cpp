@@ -41,53 +41,20 @@ FXIMPLEMENT_ABSTRACT(GNEChange_CalibratorItem, GNEChange, nullptr, 0)
 // ===========================================================================
 
 
-GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorRoute* calibratorRoute, bool forward) :
-    GNEChange(calibratorRoute->getViewNet()->getNet(), forward),
-    myCalibratorRoute(calibratorRoute),
-    myCalibratorVehicleType(nullptr) {
-    myCalibratorRoute->incRef("GNEChange_CalibratorItem");
-}
-
-
 GNEChange_CalibratorItem::GNEChange_CalibratorItem(GNECalibratorVehicleType* calibratorVehicleType, bool forward) :
     GNEChange(calibratorVehicleType->getViewNet()->getNet(), forward),
-    myCalibratorRoute(nullptr),
     myCalibratorVehicleType(calibratorVehicleType) {
     myCalibratorVehicleType->incRef("GNEChange_CalibratorItem");
 }
 
 
-GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {
-    if (myCalibratorRoute) {
-        myCalibratorRoute->decRef("GNEChange_CalibratorItem");
-        if (myCalibratorRoute->unreferenced()) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Deleting calibrator route");
-            }
-            // make sure that calibrator route isn't in net before removing
-            if (myNet->retrieveCalibratorRoute(myCalibratorRoute->getID(), false)) {
-                myNet->deleteCalibratorRoute(myCalibratorRoute);
-            }
-            delete myCalibratorRoute;
-        }
-    }
-    // vehicle types can exist by themselves
-}
+GNEChange_CalibratorItem::~GNEChange_CalibratorItem() {}
 
 
 void
 GNEChange_CalibratorItem::undo() {
     if (myForward) {
-        if (myCalibratorRoute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
-            }
-            // remove calibrator route of calibrator and net
-            myCalibratorRoute->getCalibratorParent()->removeCalibratorRoute(myCalibratorRoute);
-            myNet->deleteCalibratorRoute(myCalibratorRoute);
-        } else if (myCalibratorVehicleType) {
+        if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
@@ -98,15 +65,7 @@ GNEChange_CalibratorItem::undo() {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     } else {
-        if (myCalibratorRoute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding calibrator route into calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
-            }
-            // add calibrator route into calibrator and net
-            myCalibratorRoute->getCalibratorParent()->addCalibratorRoute(myCalibratorRoute);
-            myNet->insertCalibratorRoute(myCalibratorRoute);
-        } else if (myCalibratorVehicleType) {
+        if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
@@ -125,15 +84,7 @@ GNEChange_CalibratorItem::undo() {
 void
 GNEChange_CalibratorItem::redo() {
     if (myForward) {
-        if (myCalibratorRoute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Adding calibrator route into calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
-            }
-            // add calibrator route into calibrator and net
-            myCalibratorRoute->getCalibratorParent()->addCalibratorRoute(myCalibratorRoute);
-            myNet->insertCalibratorRoute(myCalibratorRoute);
-        } else if (myCalibratorVehicleType) {
+        if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Adding calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
@@ -144,15 +95,7 @@ GNEChange_CalibratorItem::redo() {
             throw ProcessError("There isn't a defined Calibrator item");
         }
     } else {
-        if (myCalibratorRoute) {
-            // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Removing calibrator route of calibrator '" + myCalibratorRoute->getCalibratorParent()->getID() + "'");
-            }
-            // remove calibrator route of calibrator and net
-            myCalibratorRoute->getCalibratorParent()->removeCalibratorRoute(myCalibratorRoute);
-            myNet->deleteCalibratorRoute(myCalibratorRoute);
-        } else if (myCalibratorVehicleType) {
+        if (myCalibratorVehicleType) {
             // show extra information for tests
             if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
                 WRITE_WARNING("Removing calibrator vehicle type '" + myCalibratorVehicleType->getID() + "'");
@@ -170,9 +113,7 @@ GNEChange_CalibratorItem::redo() {
 
 FXString
 GNEChange_CalibratorItem::undoName() const {
-    if (myCalibratorRoute) {
-        return ("Undo change " + toString(myCalibratorRoute->getTag()) + " values").c_str();
-    } else if (myCalibratorVehicleType) {
+    if (myCalibratorVehicleType) {
         return ("Undo change " + toString(myCalibratorVehicleType->getTag()) + " values").c_str();
     } else {
         throw ProcessError("There isn't a defined Calibrator item");
@@ -182,9 +123,7 @@ GNEChange_CalibratorItem::undoName() const {
 
 FXString
 GNEChange_CalibratorItem::redoName() const {
-    if (myCalibratorRoute) {
-        return ("Redo change " + toString(myCalibratorRoute->getTag()) + " values").c_str();
-    } else if (myCalibratorVehicleType) {
+    if (myCalibratorVehicleType) {
         return ("Redo change " + toString(myCalibratorVehicleType->getTag()) + " values").c_str();
     } else {
         throw ProcessError("There isn't a defined Calibrator item");

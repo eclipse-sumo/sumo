@@ -25,7 +25,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/MsgHandler.h>
-#include <netedit/changes/GNEChange_CalibratorItem.h>
+#include <netedit/changes/GNEChange_Additional.h>
 
 #include "GNECalibratorRouteDialog.h"
 #include <netedit/additionals/GNECalibrator.h>
@@ -53,13 +53,13 @@ FXIMPLEMENT(GNECalibratorRouteDialog, GNEAdditionalDialog, GNECalibratorRouteDia
 // ===========================================================================
 
 GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorRoute->getCalibratorParent(), 400, 120),
+    GNEAdditionalDialog(editedCalibratorRoute->getAdditionalParent(), 400, 120),
     myEditedCalibratorRoute(editedCalibratorRoute),
     myUpdatingElement(updatingElement),
     myCalibratorRouteValid(true) {
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + toString(myEditedCalibratorRoute->getTag()) + " of " : "Create " + toString(myEditedCalibratorRoute->getTag()) + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorRoute->getCalibratorParent()->getTag()) + " '" + myEditedCalibratorRoute->getCalibratorParent()->getID() + "'");
+    changeAdditionalDialogHeader(typeOfOperation + toString(myEditedCalibratorRoute->getAdditionalParent()->getTag()) + " '" + myEditedCalibratorRoute->getAdditionalParent()->getID() + "'");
 
     // Create auxiliar frames for data
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -86,7 +86,7 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCal
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList()->add(new GNEChange_CalibratorItem(myEditedCalibratorRoute, true), true);
+        myEditedCalibratorRoute->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorRoute, true), true);
     }
 
     // open as modal dialog
@@ -106,7 +106,7 @@ GNECalibratorRouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string parentTagString = toString(myEditedCalibratorRoute->getCalibratorParent()->getTag());
+        std::string parentTagString = toString(myEditedCalibratorRoute->getAdditionalParent()->getTag());
         std::string tagString = toString(myEditedCalibratorRoute->getTag());
         // open warning dialog box
         FXMessageBox::warning(getApp(), MBOX_OK,
@@ -155,7 +155,7 @@ GNECalibratorRouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorRouteValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legilibity)
-    GNEUndoList* undoList = myEditedCalibratorRoute->getCalibratorParent()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myEditedCalibratorRoute->getViewNet()->getUndoList();
     // set color of myTextFieldRouteID, depending if current value is valid or not
     if (myEditedCalibratorRoute->getID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));

@@ -210,35 +210,6 @@ GNECalibrator::openAdditionalDialog() {
     GNECalibratorDialog calibratorDialog(this);
 }
 
-void
-GNECalibrator::addCalibratorRoute(GNECalibratorRoute* route) {
-    if(route == nullptr) {
-        throw ProcessError("Route cannot be nullptr");
-    } else if (std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route) != myCalibratorRoutes.end()) {
-        throw ProcessError("Route was already inserted");
-    } else {
-        myCalibratorRoutes.push_back(route);
-    }
-}
-
-
-void
-GNECalibrator::removeCalibratorRoute(GNECalibratorRoute* route) {
-    if(route == nullptr) {
-        throw ProcessError("Route cannot be nullptr");
-    } else if (std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route) == myCalibratorRoutes.end()) {
-        throw ProcessError("Route wasn't inserted");
-    } else {
-        myCalibratorRoutes.erase(std::find(myCalibratorRoutes.begin(), myCalibratorRoutes.end(), route));
-    }
-}
-
-
-const std::vector<GNECalibratorRoute*>&
-GNECalibrator::getCalibratorRoutes() const {
-    return myCalibratorRoutes;
-}
-
 
 std::string
 GNECalibrator::getAttribute(SumoXMLAttr key) const {
