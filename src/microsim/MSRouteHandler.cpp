@@ -66,7 +66,7 @@ std::mt19937 MSRouteHandler::myParsingRNG;
 // ===========================================================================
 MSRouteHandler::MSRouteHandler(const std::string& file,
                                bool addVehiclesDirectly) :
-    SUMORouteHandler(file),
+    SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes"),
     myActivePlan(0),
     myActiveContainerPlan(0),
     myAddVehiclesDirectly(addVehiclesDirectly),

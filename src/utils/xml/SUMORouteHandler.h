@@ -51,7 +51,7 @@ class SUMOVTypeParameter;
 class SUMORouteHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    SUMORouteHandler(const std::string& file);
+    SUMORouteHandler(const std::string& file, const std::string& expectedRoot);
 
     /// standard destructor
     virtual ~SUMORouteHandler();

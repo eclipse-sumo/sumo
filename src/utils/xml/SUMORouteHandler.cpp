@@ -27,23 +27,24 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/XMLSubSys.h>
 #include "SUMORouteHandler.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMORouteHandler::SUMORouteHandler(const std::string& file) :
-    SUMOSAXHandler(file),
+SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot) :
+    SUMOSAXHandler(file, XMLSubSys::isValidating() ? expectedRoot : ""),
     myVehicleParameter(0),
     myLastDepart(-1),
     myActiveRouteColor(0),

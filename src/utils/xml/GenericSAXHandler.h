@@ -83,13 +83,14 @@ public:
      * @param[in] attrs The list of known attributes
      * @param[in] terminatorAttr The attr which signales the end of attrs (usually the last entry)
      * @param[in] file The name of the processed file
+     * @param[in] expectedRoot The expected root element, empty string disables the check
      *
      * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(
         StringBijection<int>::Entry* tags, int terminatorTag,
         StringBijection<int>::Entry* attrs, int terminatorAttr,
-        const std::string& file);
+        const std::string& file, const std::string& expectedRoot="");
 
 
     /** @brief Destructor */
@@ -309,6 +310,9 @@ private:
 
     /// @brief The name of the currently parsed file
     std::string myFileName;
+
+    /// @brief The root element to expect, empty string disables the check
+    std::string myExpectedRoot;
 
 private:
     /// @brief invalidated copy constructor

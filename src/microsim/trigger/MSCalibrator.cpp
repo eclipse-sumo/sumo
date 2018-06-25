@@ -65,7 +65,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const MSRouteProbe* probe,
                            bool addLaneMeanData) :
     MSTrigger(id),
-    MSRouteHandler(aXMLFilename, false),
+    MSRouteHandler(aXMLFilename, true),
     myEdge(edge),
     myLane(lane),
     myPos(pos), myProbe(probe),

@@ -41,8 +41,8 @@
 GenericSAXHandler::GenericSAXHandler(
     StringBijection<int>::Entry* tags, int terminatorTag,
     StringBijection<int>::Entry* attrs, int terminatorAttr,
-    const std::string& file)
-    : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file) {
+    const std::string& file, const std::string& expectedRoot)
+    : myParentHandler(0), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file), myExpectedRoot(expectedRoot) {
     int i = 0;
     while (tags[i].key != terminatorTag) {
         myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
@@ -96,6 +96,12 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const qname,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string name = TplConvert::_2str(qname);
+    if (myExpectedRoot != "") {
+        if (name != myExpectedRoot) {
+            throw ProcessError("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
+        }
+        myExpectedRoot = "";
+    }
     int element = convertTag(name);
     myCharactersVector.clear();
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
