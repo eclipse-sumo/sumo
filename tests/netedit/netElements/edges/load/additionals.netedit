@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.06.2018 08:42:22 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 25.06.2018 15:56:18 by Eclipse SUMO netedit Version 7725fee923
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -25,7 +25,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,7 +34,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/load\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/netElements/edges/load\log.txt"/>
     </report>
 
 </configuration>
@@ -46,5 +46,5 @@
         <detEntry lane="-gneE11_0" pos="14.00"/>
         <detExit lane="gneE11_0" pos="13.00"/>
     </e3Detector>
-    <rerouter id="rerouter_0" edges="-gneE9 gneE9" pos="69.38,43.40" file="rerouter_0.txt" timeThreshold="0.00"/>
+    <rerouter id="rerouter_0" edges="-gneE9 gneE9" pos="69.38,43.40" file="rerouter_0.txt"/>
 </additional>
