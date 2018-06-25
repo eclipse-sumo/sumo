@@ -11,15 +11,23 @@
 # @date   2017-04-09
 # @version $Id$
 
+import os
+import sys
 from collections import defaultdict
 
-import traci
-import traci.constants as tc
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
-from simpla._platoon import Platoon
-import simpla._reporting as rp
-import simpla._config as cfg
-from simpla._platoonmode import PlatoonMode
+import traci  # noqa
+import traci.constants as tc  # noqa
+
+from simpla._platoon import Platoon  # noqa
+import simpla._reporting as rp  # noqa
+import simpla._config as cfg  # noqa
+from simpla._platoonmode import PlatoonMode  # noqa
 
 warn = rp.Warner("PVehicle")
 report = rp.Reporter("PVehicle")
@@ -28,6 +36,7 @@ report = rp.Reporter("PVehicle")
 vTypeParameters = defaultdict(dict)
 
 WARNED_DEFAULT = dict([(mode, False) for mode in PlatoonMode])
+
 
 class pVehicleState(object):
 
@@ -114,7 +123,7 @@ class PVehicle(object):
                 if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
                     warn("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s'). This warning is issued only once." %
                          (cfg.PLATOON_VTYPES["default"][mode], self._ID, PlatoonMode(mode).name))
-                    WARNED_DEFAULT[mode]=True
+                    WARNED_DEFAULT[mode] = True
                 return cfg.PLATOON_VTYPES["default"][mode]
             else:
                 if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
@@ -301,11 +310,11 @@ class PVehicle(object):
 
         # Check value of switchImpatience
         if (switchImpatience > 1.):
-            if rp.VERBOSITY>=1:
+            if rp.VERBOSITY >= 1:
                 warn("Given parameter switchImpatience > 1. Assuming == 1.")
             switchImpatience = 1.
         elif (switchImpatience < 0.):
-            if rp.VERBOSITY>=1:
+            if rp.VERBOSITY >= 1:
                 warn("Given parameter switchImpatience < 0. Assuming == 0.")
             switchImpatience = 0.
 

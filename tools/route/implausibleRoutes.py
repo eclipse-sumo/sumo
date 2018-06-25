@@ -51,21 +51,25 @@ def get_options():
     optParser.add_option("--detour-ratio-factor", type="float", default=1,  dest="detour_ratio_factor",
                          help="Implausibility factor for the ratio of routeDuration/shortestDuration ")
     optParser.add_option("--detour-factor", type="float", default=0.01, dest="detour_factor",
-                         help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration) in seconds")
+                         help="Implausibility factor for the absolute detour time in (routeDuration-shortestDuration)" +
+                              " in seconds")
     optParser.add_option("--min-dist", type="float", default=0, dest="min_dist",
                          help="Minimum shortest-path distance below which routes are implausible")
     optParser.add_option("--min-air-dist", type="float", default=0, dest="min_air_dist",
                          help="Minimum air distance below which routes are implausible")
     optParser.add_option("--standalone", action="store_true",
-                         default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
+                         default=False, help="Parse stand-alone routes that are not define as child-element of " +
+                                             "a vehicle")
     optParser.add_option("--blur", type="float", default=0,
                          help="maximum random disturbance to output polygon geometry")
     optParser.add_option("--ignore-routes", dest="ignore_routes",
-                         help="List of route IDs (one per line) that are filtered when generating polygons and command line output (they will still be added to restrictions-output)")
+                         help="List of route IDs (one per line) that are filtered when generating polygons and " +
+                              "command line output (they will still be added to restrictions-output)")
     optParser.add_option("--restriction-output", dest="restrictions_output",
                          help="Write flow-restriction output suitable for passing to flowrouter.py to FILE")
     optParser.add_option("--od-restrictions", action="store_true", dest="odrestrictions",
-                         default=False, help="Write restrictions for origin-destination relations rather than whole routes")
+                         default=False, help="Write restrictions for origin-destination relations rather than " +
+                                             "whole routes")
     options, args = optParser.parse_args()
 
     if len(args) != 2:
@@ -192,7 +196,8 @@ def main():
     sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist, airDist)\n')
     for score, rID, ri in sorted(implausible):
         # , ' '.join(ri.edges)))
-        sys.stdout.write('%.7f\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio, ri.detour, ri.shortest_path_distance, ri.airDist)))
+        sys.stdout.write('%.7f\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio,
+                                                          ri.detour, ri.shortest_path_distance, ri.airDist)))
 
     print(allRoutesStats)
     print(implausibleRoutesStats)

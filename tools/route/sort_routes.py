@@ -20,7 +20,6 @@ import sys
 from xml.dom import pulldom
 from xml.sax import handler
 from xml.sax import make_parser
-from xml.sax import handler
 from optparse import OptionParser
 
 DEPART_ATTRS = {'vehicle': 'depart', 'flow': 'begin', 'person': 'depart'}

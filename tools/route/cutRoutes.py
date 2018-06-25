@@ -55,15 +55,19 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option(
         "-a", "--additional-input", help="additional file (for bus stop locations)")
     optParser.add_option("--speed-factor", type='float', default=1.0,
-                         help="Factor for modifying maximum edge speeds when extrapolating new departure times (default 1.0)")
+                         help="Factor for modifying maximum edge speeds when extrapolating new departure times " +
+                              "(default 1.0)")
     optParser.add_option(
         "--orig-net", help="complete network for retrieving edge lengths")
     optParser.add_option("-b", "--big", action="store_true", default=False,
                          help="Perform out-of-memory sort using module sort_routes (slower but more memory efficient)")
     optParser.add_option("-d", "--disconnected-action", type='choice', default='discard',
                          choices=['discard', 'keep'],  # XXX 'split', 'longest'
-                         help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen a disconnected route generates several routes in the subnetwork corresponding to its parts.")
-    # optParser.add_option("--orig-weights", help="weight file for the original network for extrapolating new departure times")
+                         help="How to deal with routes that are disconnected in the subnetwork. If 'keep' is chosen " +
+                              "a disconnected route generates several routes in the subnetwork corresponding to " +
+                              "its parts.")
+    # optParser.add_option("--orig-weights",
+    # help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args(args=args)
     try:
         options.network = args[0]
@@ -107,7 +111,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                 getFirstIndex(areaEdges, reversed(edges))
             # check for connectivity
             route_parts = [(firstIndex + i, firstIndex + j)
-                           for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)], missingEdgeOccurences)]
+                           for (i, j) in missingEdges(areaEdges, edges[firstIndex:(lastIndex + 1)],
+                                                      missingEdgeOccurences)]
 #             print("areaEdges: %s"%str(areaEdges))
 #             print("routeEdges: %s"%str(edges))
 #             print("firstIndex = %d"%firstIndex)
@@ -134,7 +139,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                                           for e in edges[:fromIndex]]))
                     else:
                         print(
-                            "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." % vehicle.id)
+                            "Could not reconstruct new departure time for vehicle '%s'. Using old departure time." %
+                            vehicle.id)
                         newDepart = float(vehicle.depart)
                 else:
                     exitTimes = vehicle.route[0].exitTimes.split()
@@ -304,6 +310,7 @@ def main(options):
         routes.sort(key=lambda v: v[0])
         with codecs.open(options.output, 'w', encoding='utf8') as f:
             write_to_file(routes, f)
+
 
 if __name__ == "__main__":
     main(get_options())

@@ -27,7 +27,7 @@ import os
 import sys
 from xml.dom.minidom import *
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 def writeDetectors(usedDet):

@@ -35,7 +35,8 @@ and generating vTypeMapping-files see the script generateModifiedVTypes.py.
 Usage:
 1) import simpla into your traci script.
 2) After establishing a connection to SUMO with traci, call simpla.load(<configuration_filename>)
-3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to traci.simulationStep()
+3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to
+   traci.simulationStep()
 
 Notes:
 1) simpla changes the vehicle types, speedfactors, and lane changemodes of all connected vehicles.
@@ -45,20 +46,29 @@ Notes:
 3) simpla adds subscriptions to VAR_ROAD_ID, VAR_LANE_INDEX (and currently VAR_LANE_ID) and removes them when stopped
 """
 
+import sys
+import os
 
-import traci
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import traci  # noqa
+
 
 class SimplaException(Exception):
     '''
     Simple exception raised by simpla.
     '''
-    def __init__(self,*args,**kwargs):
-        super(SimplaException, self).__init__(*args,**kwargs)
-        
+
+    def __init__(self, *args, **kwargs):
+        super(SimplaException, self).__init__(*args, **kwargs)
 
 
-import simpla._config
-import simpla._reporting as rp
+import simpla._config  # noqa
+import simpla._reporting as rp  # noqa
 import simpla._platoonmanager  # noqa
 
 warn = rp.Warner("simpla")
@@ -80,8 +90,8 @@ def load(config_filename):
     Load the config from file and create a Platoon Manager
     '''
     global _mgr
-    _config.load(config_filename)
-    _mgr = _platoonmanager.PlatoonManager()
+    simpla._config.load(config_filename)
+    _mgr = simpla._platoonmanager.PlatoonManager()
     if _useStepListener:
         # For SUMO version >= 0.30
         traci.addStepListener(_mgr)

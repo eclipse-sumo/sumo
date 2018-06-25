@@ -19,6 +19,7 @@ VERBOSITY = 1
 WARNING_LOG = deque()
 REPORT_LOG = deque()
 
+
 def initDefaults():
     global VERBOSITY, MAX_LOG_SIZE, WARNING_LOG, REPORT_LOG
     # control level of verbosity
@@ -34,8 +35,10 @@ def initDefaults():
     WARNING_LOG = deque()
     REPORT_LOG = deque()
 
+
 # perform default init
 initDefaults()
+
 
 def simTime():
     return traci.simulation.getCurrentTime() / 1000.
@@ -63,6 +66,7 @@ class Warner(object):
         else:
             sys.stderr.write(rep+"\n")
         WARNING_LOG.append((time, rep))
+
 
 class Reporter(object):
 

@@ -16,6 +16,8 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
+import sys
 
 exporter = "H:\\itm\\sumo\\tools\\traceExporter\\traceExporter.jar"
 sumo = "H:\\itm\\sumo\\bin\\sumo.exe"
@@ -24,9 +26,7 @@ netconvert = "H:\\itm\\sumo\\bin\\netconvert.exe"
 # END: change to your needs
 #
 
-import os
-import sys
-from optparse import OptionParser
+from optparse import OptionParser # noqa
 
 #
 # parse parameters
@@ -170,9 +170,13 @@ if (os.path.isfile("netstate.xml") is False):
 for penetration in options.penetration:
     print(
         "start: generation tracefile with penetration level of " + str(penetration))
-    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" + str(penetration) + ".tcl -a activity_" + str(penetration) +
-              ".tcl -c config_" + str(penetration) + ".tcl -p " + str(penetration) + " -s " + str(options.seed) + " -b " + str(options.begintime) + " -e " + str(options.endtime))
-    if (os.path.isfile("mobility_" + str(penetration) + ".tcl") is False or os.path.isfile("activity_" + str(penetration) + ".tcl") is False or os.path.isfile("config_" + str(penetration) + ".tcl") is False):
+    os.system("java -jar " + exporter + " ns2 -n " + netfile + " -t netstate.xml -m mobility_" + str(penetration) +
+              ".tcl -a activity_" + str(penetration) + ".tcl -c config_" + str(penetration) + ".tcl -p " +
+              str(penetration) + " -s " + str(options.seed) + " -b " + str(options.begintime) + " -e " +
+              str(options.endtime))
+    if (os.path.isfile("mobility_" + str(penetration) + ".tcl") is False
+            or os.path.isfile("activity_" + str(penetration) + ".tcl") is False
+            or os.path.isfile("config_" + str(penetration) + ".tcl") is False):
         print("error creating mobility, activity, config")
         sys.exit(1)
     else:

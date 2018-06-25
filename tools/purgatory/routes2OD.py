@@ -74,6 +74,7 @@ class Times:
         result = str(hours) + '.' + str_minutes
         return result
 
+
 myData = {}
 myTimes = Times()
 
@@ -107,13 +108,13 @@ try:
             print(x1, y1, value1, file=outputData)
     outputData.close()
 except IndexError:
-    l = len(sys.argv)
-    if l == 1:
+    length = len(sys.argv)
+    if length == 1:
         print("Es wurde kein Dateiname eingegeben.")
-    elif l == 2:
+    elif length == 2:
         print("Dateiname fuer die Ausgabedatei wurde nicht angegeben")
     else:
-        print("sonstiger fehler")
+        print("Sonstiger Fehler")
 except IOError:
     print("Datei existiert nicht")
 except:

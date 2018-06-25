@@ -29,10 +29,10 @@ from xml.sax import make_parser, handler
 from optparse import OptionParser
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "..", "assign"))
-from dijkstra import dijkstraPlain
-from inputs import getMatrix
+from dijkstra import dijkstraPlain  # noqa
+from inputs import getMatrix  # noqa
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 # This class is used to build the nodes in the investigated network and
 # includes the update-function for searching the k shortest paths.
@@ -183,7 +183,7 @@ class DistrictsReader(handler.ContentHandler):
     def __init__(self, net):
         self._net = net
         self._district = None
-        self.I = 100
+        self.index = 100
 
     def startElement(self, name, attrs):
         if name == 'taz':
@@ -193,8 +193,8 @@ class DistrictsReader(handler.ContentHandler):
             self._net._endVertices.append(self._districtSink)
         elif name == 'tazSink':
             sinklink = self._net.getEdge(attrs['id'])
-            self.I += 1
-            conlink = self._districtSink._id + str(self.I)
+            self.index += 1
+            conlink = self._districtSink._id + str(self.index)
             newEdge = self._net.addEdge(
                 conlink, sinklink._to._id, self._districtSink._id, "-1", "virtual", "")
             speed = sinklink.getSpeed()
@@ -211,8 +211,8 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.connection = 1
         elif name == 'tazSource':
             sourcelink = self._net.getEdge(attrs['id'])
-            self.I += 1
-            conlink = self._districtSource._id + str(self.I)
+            self.index += 1
+            conlink = self._districtSource._id + str(self.index)
             newEdge = self._net.addEdge(
                 conlink, self._districtSource._id, sourcelink._from._id, "-1", "virtual", "")
             speed = sourcelink.getSpeed()
@@ -325,8 +325,8 @@ def main(options):
     matrixSum = 0.
     fouttrips = open(options.tripfile, 'w')
     fouttrips.write('<?xml version="1.0"?>\n')
-    print("""<!-- generated on %s by $Id$ -->
-    """ % datetime.datetime.now(), file=fouttrips)
+    print("""<!-- generated on %s by $Id: generateTripsXml.py 3c28701755 michael.behrisch@dlr.de 2018-04-10
+    12:10:26 +0200 $ -->""" % datetime.datetime.now(), file=fouttrips)
     fouttrips.write("<tripdefs>\n")
 
     if options.demandscale != 1.:
@@ -345,13 +345,17 @@ def main(options):
                             counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
                     else:
                         matrixSum += matrixPshort[start][end]
-                        while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
+                        while (counts < float(math.ceil(matrixPshort[start][end]))
+                               and (matrixPshort[start][end] - counts) > 0.5
+                               and float(subVehID) < matrixSum)or float(subVehID) < matrixSum:
                             counts, vehID, tripList, vehIDtoODMap = addVeh(
                                 counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
                             subVehID += 1
                 else:
                     matrixSum += matrixPshort[start][end]
-                    while (counts < float(math.ceil(matrixPshort[start][end])) and (matrixPshort[start][end] - counts) > 0.5 and float(vehID) < matrixSum) or float(vehID) < matrixSum:
+                    while (counts < float(math.ceil(matrixPshort[start][end]))
+                           and (matrixPshort[start][end] - counts) > 0.5
+                           and float(vehID) < matrixSum) or float(vehID) < matrixSum:
                         counts, vehID, tripList, vehIDtoODMap = addVeh(
                             counts, vehID, begin, period, odConnTable, startVertex, endVertex, tripList, vehIDtoODMap)
     if options.debug:
@@ -369,6 +373,7 @@ def main(options):
     fouttrips.close()
 
     return odConnTable, vehIDtoODMap
+
 
 if __name__ == "__main__":
     optParser = OptionParser()

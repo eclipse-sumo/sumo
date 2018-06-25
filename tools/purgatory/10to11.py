@@ -55,6 +55,7 @@ class ConfigReader(handler.ContentHandler):
             print('    </%s>' % self._parentWritten)
         print('</configuration>')
 
+
 optParser = OptionParser(usage="usage: %prog <config>+")
 (options, args) = optParser.parse_args()
 if len(args) == 0:

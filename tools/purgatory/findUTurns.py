@@ -110,6 +110,7 @@ class RouteReader(handler.ContentHandler):
                      self._uTurnFirst, self._uTurnLast,
                      self._short), file=sys.stderr)
 
+
 optParser = OptionParser(usage="usage: %prog [options] <routefile>+")
 optParser.add_option("-r", "--repair", action="store_true", dest="repair",
                      default=False, help="remove U turns at start and end of the route")

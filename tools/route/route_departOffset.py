@@ -44,19 +44,23 @@ def get_options(args=None):
     optParser.add_option("-d", "--depart-offset", dest="offset",
                          type="float", help="the depart offset to apply")
     optParser.add_option("-i", "--depart-interval", dest="interval",
-                         help="time intervals a,b,c,d where all vehicles departing in the interval [a,b[ are mapped to the interval [c,d[")
+                         help="time intervals a,b,c,d where all vehicles departing in the interval" +
+                         "[a,b[ are mapped to the interval [c,d[")
     optParser.add_option("--modify-ids", dest="modify_ids", action="store_true",
                          default=False, help="whether ids should be modified as well")
     optParser.add_option("--heterogeneous", dest="heterogeneous",
-                         action="store_true", default=False, help="whether heterogeneous objects shall be parsed (i.e. vehicles with embeded and referenced routes)")
+                         action="store_true", default=False, help="whether heterogeneous objects shall be parsed " +
+                                                                  "(i.e. vehicles with embeded and referenced routes)")
     optParser.add_option("--depart-edges", dest="depart_edges",
                          help="only modify departure times of vehicles departing on the given edges")
     optParser.add_option("--depart-edges.file", dest="depart_edges_file",
-                         help="only modify departure times of vehicles departing on edges or lanes in the given selection file")
+                         help="only modify departure times of vehicles departing on edges or lanes in the " +
+                              "given selection file")
     optParser.add_option("--arrival-edges", dest="arrival_edges",
                          help="only modify departure times of vehicles arriving on the given edges")
     optParser.add_option("--arrival-edges.file", dest="arrival_edges_file",
-                         help="only modify departure times of vehicles arriving on edges or lanes in the given selection file")
+                         help="only modify departure times of vehicles arriving on edges or lanes in the " +
+                              "given selection file")
 
     (options, args) = optParser.parse_args(args=args)
     if options.infile is None or options.outfile is None:

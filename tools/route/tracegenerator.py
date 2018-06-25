@@ -45,8 +45,8 @@ if __name__ == "__main__":
                          help="route file to use (mandatory)", metavar="FILE")
     optParser.add_option("-s", "--step", default="10",
                          type="float", help="distance between successive trace points")
-    optParser.add_option("-d", "--delta", default="1",
-                         type="float", help="maximum distance between edge and trace points when matching to the second net")
+    optParser.add_option("-d", "--delta", default="1", type="float",
+                         help="maximum distance between edge and trace points when matching to the second net")
     optParser.add_option("-x", "--x-offset", default=0.,
                          type="float", help="offset to add to traces")
     optParser.add_option("-y", "--y-offset", default=0.,

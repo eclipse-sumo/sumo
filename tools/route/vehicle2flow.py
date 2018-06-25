@@ -59,9 +59,11 @@ def main():
                         r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" period="&RepeatInterval;"', line)
                 else:
                     line = re.sub(
-                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' % (options.end, options.repeat), line)
+                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' %
+                        (options.end, options.repeat), line)
                 line = re.sub(r'</vehicle>', '</flow>', line)
                 outf.write(line)
+
 
 if __name__ == "__main__":
     main()
