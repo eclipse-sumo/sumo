@@ -825,8 +825,8 @@ GNEAdditionalFrame::SelectorParentAdditional::refreshListOfAdditionalParents() {
         std::vector<GNEAdditional*> vectorOfAdditionalParents = myAdditionalFrameParent->getViewNet()->getNet()->getAdditionals(myAdditionalTypeParent);
         // fill list with IDs of additionals
         for (auto i : vectorOfAdditionalParents) {
-            // Only show additionals that have unlimited number of childs, or limited but currently number under the limit
-            if(GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).hasLimitedNumberOfChilds()) {
+            // Only show additionals that have unlimited number of childs, or a limited number but currently with chidls under the limit
+            if(GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
                 if ((int)i->getAdditionalChilds().size() < GNEAttributeCarrier::getTagProperties(myAdditionalTypeParent).getMaxNumberOfChilds()) {
                     myAdditionalParentsList->appendItem(i->getID().c_str());
                 }

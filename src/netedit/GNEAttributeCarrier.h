@@ -198,8 +198,9 @@ public:
         TAGPROPERTY_GEOSHAPE =      1 << 11,    // Element's shape acn be defined using a GEO Shape
         TAGPROPERTY_DIALOG =        1 << 12,    // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
         TAGPROPERTY_PARENT =        1 << 13,    // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_LIMITEDCHILDS = 1 << 14,    // Element can only have a certain number of childs (0 -> unlimited)
-        TAGPROPERTY_REPARENT =      1 << 15,    // Element can be reparent
+        TAGPROPERTY_MINIMUMCHILDS = 1 << 14,    // Element will be only writed in XML if has a minimum number of childs
+        TAGPROPERTY_MAXIMUMCHILDS = 1 << 15,    // Element can only have a certain number of childs (0 -> unlimited)
+        TAGPROPERTY_REPARENT =      1 << 16,    // Element can be reparent
     };
 
     /// @brief struct with the attribute Properties
@@ -209,7 +210,7 @@ public:
         TagValues();
 
         /// @brief parameter constructor
-        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int maxNumberOfChilds = 0);
+        TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag tagParent = SUMO_TAG_NOTHING, int minNumberOfChilds = 0, int maxNumberOfChilds = 0);
 
         /// @brief add attribute (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, int attributeProperty, const std::string &definition, const std::string &defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>());
@@ -237,6 +238,9 @@ public:
 
         /// @brief if Tag owns a parent, return parent tag
         SumoXMLTag getParentTag() const;
+
+        /// @brief get minimum number of childs
+        int getMinNumberOfChilds() const;
 
         /// @brief get maximum number of childs
         int getMaxNumberOfChilds() const;
@@ -284,7 +288,10 @@ public:
         bool hasDialog() const;
 
         /// @brief return true if tag correspond to an element that only have a limited number of childs
-        bool hasLimitedNumberOfChilds() const;
+        bool hasMinimumNumberOfChilds() const;
+
+        /// @brief return true if tag correspond to an element that only have a limited number of childs
+        bool hasMaximumNumberOfChilds() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;
@@ -304,6 +311,9 @@ public:
 
         /// @brief parent tag
         SumoXMLTag myParentTag;
+
+        /// @brief maximun number of childs (0 -> unlimited)
+        int myMinNumberOfChilds;
 
         /// @brief maximun number of childs (0 -> unlimited)
         int myMaxNumberOfChilds;

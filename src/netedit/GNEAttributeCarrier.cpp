@@ -62,24 +62,20 @@ GNEAttributeCarrier::TagValues::TagValues() :
     myIcon(ICON_EMPTY),
     myPositionListed(0),
     myParentTag(SUMO_TAG_NOTHING),
+    myMinNumberOfChilds(0),
     myMaxNumberOfChilds(0) {
 }
 
 
-GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, int maxNumberOfChilds) :
+GNEAttributeCarrier::TagValues::TagValues(int tagProperty, int positionListed, GUIIcon icon, SumoXMLTag parentTag, int minNumberOfChilds, int maxNumberOfChilds) :
     myTagProperty(tagProperty),
     myIcon(icon),
     myPositionListed(positionListed),
     myParentTag(parentTag),
-    myMaxNumberOfChilds(maxNumberOfChilds){
+    myMinNumberOfChilds(minNumberOfChilds),
+    myMaxNumberOfChilds(maxNumberOfChilds) {
 }
 
-/*
-const std::map<SumoXMLAttr, GNEAttributeCarrier::AttributeValues> & 
-GNEAttributeCarrier::TagValues::getAttributeValues() const {
-    return myAttributeValues;
-}
-*/
 
 const std::string&
 GNEAttributeCarrier::TagValues::getDefaultValue(SumoXMLAttr attr) const {
@@ -146,6 +142,12 @@ GNEAttributeCarrier::TagValues::getGUIIcon() const {
 SumoXMLTag 
 GNEAttributeCarrier::TagValues::getParentTag() const {
     return myParentTag;
+}
+
+
+int 
+GNEAttributeCarrier::TagValues::getMinNumberOfChilds() const {
+    return myMinNumberOfChilds;
 }
 
 
@@ -240,8 +242,14 @@ GNEAttributeCarrier::TagValues::hasDialog() const {
 
 
 bool 
-GNEAttributeCarrier::TagValues::hasLimitedNumberOfChilds() const {
-    return (myTagProperty & TAGPROPERTY_LIMITEDCHILDS) != 0;
+GNEAttributeCarrier::TagValues::hasMinimumNumberOfChilds() const {
+    return (myTagProperty & TAGPROPERTY_MINIMUMCHILDS) != 0;
+}
+
+
+bool 
+GNEAttributeCarrier::TagValues::hasMaximumNumberOfChilds() const {
+    return (myTagProperty & TAGPROPERTY_MAXIMUMCHILDS) != 0;
 }
 
 
@@ -1118,7 +1126,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, 10, ICON_BUSSTOP, SUMO_TAG_NOTHING);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_STOPPINGPLACE | TAGPROPERTY_BLOCKMOVEMENT, 10, ICON_BUSSTOP);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1414,7 +1422,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_E3DETECTOR;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT, 22, ICON_E3);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DETECTOR | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MINIMUMCHILDS, 22, ICON_E3, SUMO_TAG_NOTHING, 1);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1528,7 +1536,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_STEP;
     {
         // set values of tag
-        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 31, ICON_STEP);
+        myAllowedTags[currentTag] = TagValues(TAGPROPERTY_ADDITIONAL | TAGPROPERTY_INTERNAL, 31, ICON_STEP, SUMO_TAG_VSS);
         // set values of attributes
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_TIME,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME,

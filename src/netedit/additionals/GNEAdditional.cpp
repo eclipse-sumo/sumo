@@ -105,28 +105,35 @@ GNEAdditional::~GNEAdditional() {}
 
 void 
 GNEAdditional::writeAdditional(OutputDevice& device) const {
-    // Open Tag
-    device.openTag(getTag());
-    // iterate over attributes and write it
-    for (auto i : getTagProperties(getTag())) {
-        // obtain attribute
-        std::string attribute = getAttribute(i.first);
-        if(i.second.hasDefaultValue()) {
-            // Only write attributes with default value if is different of original
-            if(i.second.getDefaultValue() != attribute) {
+    // obtain tag properties
+    const TagValues &tagProperties = getTagProperties(getTag());
+    // first check if minimum number of childs is correct
+    if(tagProperties.hasMinimumNumberOfChilds() && myAdditionalChilds.size() < tagProperties.getMinNumberOfChilds()) {
+        WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written; It need at least " + toString(tagProperties.getMinNumberOfChilds()) + " childs.");
+    } else {
+        // Open Tag
+        device.openTag(getTag());
+        // iterate over attributes and write it
+        for (auto i : tagProperties) {
+            // obtain attribute
+            std::string attribute = getAttribute(i.first);
+            if(i.second.hasDefaultValue()) {
+                // Only write attributes with default value if is different of original
+                if(i.second.getDefaultValue() != attribute) {
+                    device.writeAttr(i.first, attribute);
+                }
+            } else {
+                // Attributes without default values are always writted
                 device.writeAttr(i.first, attribute);
             }
-        } else {
-            // Attributes without default values are always writted
-            device.writeAttr(i.first, attribute);
         }
+        // iterate over childs
+        for (auto i : myAdditionalChilds) {
+            i->writeAdditional(device);
+        }
+        // Close tag
+        device.closeTag();
     }
-    // iterate over childs
-    for (auto i : myAdditionalChilds) {
-        i->writeAdditional(device);
-    }
-    // Close tag
-    device.closeTag();
 }
 
 
