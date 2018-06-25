@@ -20,14 +20,12 @@ Warning: Setting new attribute z '-4.25' into space 'parkingArea_gneE2_0_0space0
 Warning: Setting new attribute z '1.00' into space 'parkingArea_gneE2_0_0space0'
 Warning: Setting new attribute parentItem 'parkingArea_gneE2_0_1' into space 'parkingArea_gneE2_0_0space0'
 Warning: Setting new attribute blockMovement 'true' into space 'parkingArea_gneE2_0_0space0'
-Warning: Setting new attribute width '3.2' into space 'parkingArea_gneE2_0_0space1'
 Warning: Value '-5' for attribute width of space isn't valid
 Warning: Setting new attribute width '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE2_0_0space1'
 Warning: Value '-6' for attribute length of space isn't valid
 Warning: Setting new attribute length '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute length '3.4' into space 'parkingArea_gneE2_0_0space1'
-Warning: Setting new attribute angle '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute angle '-6' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute angle '500' into space 'parkingArea_gneE2_0_0space1'
 Warning: Setting new attribute angle '32.5' into space 'parkingArea_gneE2_0_0space1'
@@ -38,15 +36,11 @@ Warning: Setting previous attribute angle '-6.00' into space 'parkingArea_gneE2_
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute angle '0.00' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute angle '0.00' into space 'parkingArea_gneE2_0_0space1'
-Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '0.00' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute length '5.00' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '0.00' into space 'parkingArea_gneE2_0_0space1'
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Setting previous attribute width '3.20' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Setting previous attribute width '3.20' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Z (Undo) pressed
@@ -77,6 +71,8 @@ Warning: Removing parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
+Warning: Keys Ctrl + Z (Undo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Adding parkingArea 'parkingArea_gneE2_0_0' in GNEChange_Additional
 Warning: Keys Ctrl + Y (Redo) pressed
@@ -102,8 +98,6 @@ Warning: Setting new attribute parentItem 'parkingArea_gneE2_0_1' into space 'pa
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute blockMovement 'true' into space 'parkingArea_gneE2_0_0space0'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute width '3.2' into space 'parkingArea_gneE2_0_0space1'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '0' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute width '2.3' into space 'parkingArea_gneE2_0_0space1'
@@ -112,13 +106,13 @@ Warning: Setting new attribute length '0' into space 'parkingArea_gneE2_0_0space
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute length '3.4' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Setting new attribute angle '0' into space 'parkingArea_gneE2_0_0space1'
-Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '-6' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '500' into space 'parkingArea_gneE2_0_0space1'
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Setting new attribute angle '32.5' into space 'parkingArea_gneE2_0_0space1'
+Warning: Keys Ctrl + Y (Redo) pressed
+Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
 Warning: Keys Ctrl + Y (Redo) pressed
