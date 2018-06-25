@@ -1365,7 +1365,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_WIDTH,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The width of the road-side parking spaces", 
-            "3.2");
+            "3.20");
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_LENGTH,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The length of the road-side parking spaces", 
@@ -1373,7 +1373,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
         myAllowedTags[currentTag].addAttribute(SUMO_ATTR_ANGLE,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise", 
-            "0");
+            "0.00");
     }
     currentTag = SUMO_TAG_E1DETECTOR;
     {
