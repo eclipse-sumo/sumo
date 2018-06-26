@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.04.2018 10:38:17 by Netedit Version b46590447d
+<!-- generated on 26.06.2018 16:31:41 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/crossings/ticket3292\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/bugs/crossings/ticket3292\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/crossings/ticket3292\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/crossings/ticket3292\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/crossings/ticket3292\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/bugs/crossings/ticket3292\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/bugs/crossings/ticket3292\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/bugs/crossings/ticket3292\net.net.xml"/>
     </output>
 
     <processing>
@@ -18,13 +18,13 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/crossings/ticket3292\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/bugs/crossings/ticket3292\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,13 +33,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/bugs/crossings/ticket3292\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/bugs/crossings/ticket3292\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -96,10 +96,10 @@
         <lane id=":Center_c1_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.00" shape="40.90,56.40 40.90,43.60"/>
     </edge>
     <edge id=":Center_w0" function="walkingarea">
-        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.92" width="4.00" shape="42.90,56.40 38.90,56.40 38.90,59.60 40.40,61.10 43.60,61.10"/>
+        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.92" width="4.00" shape="38.90,56.40 38.90,59.60 40.40,61.10 43.60,61.10 43.47,59.66 43.08,58.49 42.42,57.57 41.51,56.92 40.34,56.53"/>
     </edge>
     <edge id=":Center_w1" function="walkingarea">
-        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.92" width="4.00" shape="43.60,38.90 40.40,38.90 38.90,40.40 38.90,43.60 42.90,43.60"/>
+        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.92" width="4.00" shape="43.60,38.90 40.40,38.90 38.90,40.40 38.90,43.60 40.34,43.47 41.51,43.08 42.43,42.42 43.08,41.51 43.47,40.34"/>
     </edge>
 
     <edge id="1" from="Center" to="A" priority="-1">
@@ -142,7 +142,7 @@
     <junction id="A" type="dead_end" x="50.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="50.00,0.00 40.40,0.00 50.00,0.00"/>
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes="" shape="50.00,100.00 56.40,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1 3_2" intLanes="" shape="0.00,50.00 0.00,59.60 0.00,50.00"/>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 5_0 5_1 7_0 7_1 7_2 :Center_w0_0" intLanes=":Center_16_0 :Center_1_0 :Center_1_1 :Center_17_0 :Center_4_0 :Center_5_0 :Center_5_1 :Center_7_0 :Center_8_0 :Center_9_0 :Center_9_1 :Center_11_0 :Center_12_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c1_0" shape="40.40,61.10 56.40,61.10 57.90,56.40 57.90,43.60 56.40,38.90 40.40,38.90 38.90,40.40 38.90,59.60">
+    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 5_0 5_1 7_0 7_1 7_2 :Center_w0_0" intLanes=":Center_16_0 :Center_1_0 :Center_1_1 :Center_17_0 :Center_4_0 :Center_5_0 :Center_5_1 :Center_7_0 :Center_8_0 :Center_9_0 :Center_9_1 :Center_11_0 :Center_12_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c1_0" shape="40.40,61.10 56.40,61.10 56.57,58.49 56.77,57.57 57.07,56.92 57.44,56.53 57.90,56.40 57.90,43.60 57.07,43.08 56.78,42.42 56.57,41.51 56.44,40.34 56.40,38.90 40.40,38.90 40.23,39.73 40.02,40.02 39.73,40.23 39.36,40.36 38.90,40.40 38.90,59.60 39.73,59.77 40.02,59.98 40.23,60.27 40.36,60.64">
         <request index="0"  response="10000000000000000" foes="10000100001100000" cont="1"/>
         <request index="1"  response="01111000000000000" foes="01111100011100000" cont="0"/>
         <request index="2"  response="01111000000000000" foes="01111100011100000" cont="0"/>

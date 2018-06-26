@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun  5 14:13:04 2018 by Eclipse SUMO netconvert Version 38586a3af4
+<!-- generated on Tue Jun 26 14:43:49 2018 by Eclipse SUMO netconvert Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,30.00" convBoundary="0.00,0.00,50.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -32,7 +32,7 @@
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="4.67" shape="50.00,28.40 51.20,29.20 51.60,30.00 51.20,30.80 50.00,31.60"/>
     </edge>
     <edge id=":gneJ13_0" function="internal">
-        <lane id=":gneJ13_0_0" index="0" speed="13.89" length="0.63" shape="1.23,-1.03 1.50,-1.60"/>
+        <lane id=":gneJ13_0_0" index="0" speed="13.89" length="0.71" shape="1.23,-1.03 1.66,-1.60"/>
     </edge>
 
     <edge id="1" from="gneJ10" to="gneJ11" priority="1">
@@ -48,10 +48,10 @@
         <lane id="12_0" index="0" speed="13.89" length="50.00" shape="0.00,8.40 50.00,8.40"/>
     </edge>
     <edge id="13" from="gneJ12" to="gneJ13" priority="1">
-        <lane id="13_0" index="0" speed="13.89" length="48.50" shape="50.00,1.60 1.50,1.60"/>
+        <lane id="13_0" index="0" speed="13.89" length="48.34" shape="50.00,1.60 1.66,1.60"/>
     </edge>
     <edge id="14" from="gneJ13" to="gneJ12" priority="1">
-        <lane id="14_0" index="0" speed="13.89" length="48.50" shape="1.50,-1.60 50.00,-1.60"/>
+        <lane id="14_0" index="0" speed="13.89" length="48.34" shape="1.66,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="2" from="gneJ11" to="gneJ10" priority="1">
         <lane id="2_0" index="0" speed="13.89" length="50.00" shape="0.00,58.40 50.00,58.40"/>
@@ -99,7 +99,7 @@
     <junction id="gneJ10" type="dead_end" x="50.00" y="60.00" incLanes="2_0" intLanes="" shape="50.00,60.00 50.00,56.80 50.00,60.00"/>
     <junction id="gneJ11" type="dead_end" x="0.00" y="60.00" incLanes="1_0" intLanes="" shape="0.00,60.00 0.00,63.20 0.00,60.00"/>
     <junction id="gneJ12" type="dead_end" x="50.00" y="0.00" incLanes="14_0" intLanes="" shape="50.00,0.00 50.00,-3.20 50.00,0.00"/>
-    <junction id="gneJ13" type="priority" x="0.00" y="0.00" incLanes="13_0 gneE13_0" intLanes=":gneJ13_0_0" shape="1.50,3.20 1.50,-3.20 2.26,-2.26 0.00,0.00">
+    <junction id="gneJ13" type="priority" x="0.00" y="0.00" incLanes="13_0 gneE13_0" intLanes=":gneJ13_0_0" shape="1.66,3.20 1.66,-3.20 2.26,-2.26 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ14" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 2.26,-2.26"/>

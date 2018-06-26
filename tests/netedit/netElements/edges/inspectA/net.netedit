@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.06.2018 14:10:04 by Eclipse SUMO netedit Version 88bb7b0b92
+<!-- generated on 26.06.2018 16:44:12 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\net.net.xml"/>
     </output>
 
     <processing>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,13 +33,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Jun140312.3596/netedit.gui/netElements/edges/inspectA\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectA\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -109,22 +109,22 @@
         <lane id="gneE9_0" index="0" speed="13.89" length="0.10" shape="1.60,3.20 1.60,3.30"/>
     </edge>
 
-    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE8_0 gneE1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20">
+    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE8_0 gneE1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE4_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="46.80,3.20 53.20,3.20 46.80,-3.20">
+    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE4_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0" shape="46.80,3.20 53.20,3.20 52.49,-0.36 51.60,-1.60 50.36,-2.49 48.76,-3.02 46.80,-3.20">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_3_0 :gneJ2_4_0" shape="7.20,26.40 7.20,7.20 3.20,3.20 -3.20,3.20">
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_3_0 :gneJ2_4_0" shape="7.20,26.40 7.20,7.20 4.98,6.76 4.20,6.20 3.64,5.42 3.31,4.42 3.20,3.20 -3.20,3.20 -2.91,10.29 -2.04,16.09 -0.60,20.60 1.42,23.82 4.02,25.76">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 correct_ID_0 correct_ID_1 correct_ID_2 correct_ID_3" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_2_0" shape="53.20,3.20 46.80,3.20 42.80,7.20 42.80,26.40">
+    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 correct_ID_0 correct_ID_1 correct_ID_2 correct_ID_3" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_2_0" shape="53.20,3.20 46.80,3.20 46.36,5.42 45.80,6.20 45.02,6.76 44.02,7.09 42.80,7.20 42.80,26.40 45.98,25.76 48.58,23.82 50.60,20.60 52.04,16.09 52.91,10.29">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.06.2018 08:41:56 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 26.06.2018 16:47:03 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -19,13 +19,13 @@
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,13 +34,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/edges/inspectB\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -120,17 +120,17 @@
         <lane id="gneE9_0" index="0" speed="13.89" length="19.56" shape="1.60,3.20 1.60,22.76"/>
     </edge>
 
-    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE8_0 gneE1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_3_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20">
+    <junction id="gneJ0" type="priority" x="0.00" y="0.00" incLanes="gneE8_0 gneE1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_3_0" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">
         <request index="0" response="000" foes="100" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE4_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_3_0" shape="46.80,3.20 53.20,3.20 46.80,-3.20">
+    <junction id="gneJ1" type="priority" x="50.00" y="0.00" incLanes="gneE4_0 gneE0_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_3_0" shape="46.80,3.20 53.20,3.20 52.49,-0.36 51.60,-1.60 50.36,-2.49 48.76,-3.02 46.80,-3.20">
         <request index="0" response="000" foes="100" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_3_0" shape="3.60,26.40 3.60,20.00 11.48,12.39 14.00,15.50 3.20,22.76 -3.20,22.76">
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_3_0" shape="3.60,26.40 3.60,20.00 3.81,19.15 4.82,18.10 6.44,16.62 8.66,14.72 11.48,12.39 14.00,15.50 10.70,16.24 8.00,17.16 5.90,18.28 4.40,19.58 3.50,21.08 3.20,22.76 -3.20,22.76 -2.44,24.78 -1.50,25.49 -0.18,26.00 1.52,26.30">
         <request index="0" response="0100" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1100" cont="0"/>
         <request index="2" response="0010" foes="0011" cont="0"/>

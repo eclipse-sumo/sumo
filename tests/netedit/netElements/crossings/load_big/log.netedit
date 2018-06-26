@@ -643,6 +643,7 @@ Warning: Lane '82659290#2_8' is not connected from any incoming edge at junction
 Warning: Lane '82659290#2_9' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '82659290#2_10' is not connected from any incoming edge at junction '295705005'.
 Warning: Lane '85255869#0_8' is not connected from any incoming edge at junction '26708008'.
+Warning: Invalid pedestrian topology: crossing ':2091651012_c0' across '24243101#0 -24243101#0' has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '1615477665' does not have any roads.
 Warning: The rail crossing '1673527106' does not have any roads.

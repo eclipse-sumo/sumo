@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun  5 14:13:09 2018 by Eclipse SUMO netconvert Version 38586a3af4
+<!-- generated on Tue Jun 26 14:43:54 2018 by Eclipse SUMO netconvert Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -125,16 +125,16 @@
         <lane id=":Center_c3_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.00" shape="40.90,56.40 40.90,43.60"/>
     </edge>
     <edge id=":Center_w0" function="walkingarea">
-        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.85" width="4.00" shape="42.90,56.40 38.90,56.40 38.90,59.60 40.40,61.10 43.60,61.10 43.60,58.10"/>
+        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.85" width="4.00" shape="38.90,56.40 38.90,59.60 40.40,61.10 43.60,61.10 43.47,59.66 43.08,58.49 42.42,57.57 41.51,56.92 40.34,56.53"/>
     </edge>
     <edge id=":Center_w1" function="walkingarea">
-        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.87" width="3.20" shape="56.40,58.10 56.40,61.10 59.60,61.10 61.10,59.60 61.10,56.40 58.10,56.40"/>
+        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.87" width="3.20" shape="56.40,61.10 59.60,61.10 61.10,59.60 61.10,56.40 59.66,56.53 58.49,56.92 57.57,57.58 56.92,58.49 56.53,59.66"/>
     </edge>
     <edge id=":Center_w2" function="walkingarea">
-        <lane id=":Center_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.87" width="3.20" shape="58.10,43.60 61.10,43.60 61.10,40.40 59.60,38.90 56.40,38.90 56.40,41.90"/>
+        <lane id=":Center_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.87" width="3.20" shape="61.10,43.60 61.10,40.40 59.60,38.90 56.40,38.90 56.53,40.34 56.92,41.51 57.58,42.43 58.49,43.08 59.66,43.47"/>
     </edge>
     <edge id=":Center_w3" function="walkingarea">
-        <lane id=":Center_w3_0" index="0" allow="pedestrian" speed="1.00" length="3.85" width="4.00" shape="43.60,41.90 43.60,38.90 40.40,38.90 38.90,40.40 38.90,43.60 42.90,43.60"/>
+        <lane id=":Center_w3_0" index="0" allow="pedestrian" speed="1.00" length="3.85" width="4.00" shape="43.60,38.90 40.40,38.90 38.90,40.40 38.90,43.60 40.34,43.47 41.51,43.08 42.43,42.42 43.08,41.51 43.47,40.34"/>
     </edge>
     <edge id=":D_0" function="internal">
         <lane id=":D_0_0" index="0" disallow="pedestrian" speed="13.90" length="4.67" shape="100.00,48.40 101.20,49.20 101.60,50.00 101.20,50.80 100.00,51.60"/>
@@ -202,7 +202,7 @@
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2 :Center_w1_0 :Center_w2_0 :Center_w3_0 :Center_w0_0" intLanes=":Center_16_0 :Center_1_0 :Center_1_1 :Center_17_0 :Center_4_0 :Center_5_0 :Center_5_1 :Center_7_0 :Center_18_0 :Center_9_0 :Center_9_1 :Center_19_0 :Center_12_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c0_0 :Center_c1_0 :Center_c2_0 :Center_c3_0" shape="40.40,61.10 59.60,61.10 61.10,59.60 61.10,40.40 59.60,38.90 40.40,38.90 38.90,40.40 38.90,59.60">
+    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2 :Center_w1_0 :Center_w2_0 :Center_w3_0 :Center_w0_0" intLanes=":Center_16_0 :Center_1_0 :Center_1_1 :Center_17_0 :Center_4_0 :Center_5_0 :Center_5_1 :Center_7_0 :Center_18_0 :Center_9_0 :Center_9_1 :Center_19_0 :Center_12_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c0_0 :Center_c1_0 :Center_c2_0 :Center_c3_0" shape="40.40,61.10 59.60,61.10 59.77,60.27 59.98,59.97 60.27,59.77 60.64,59.64 61.10,59.60 61.10,40.40 60.27,40.23 59.97,40.02 59.77,39.73 59.64,39.36 59.60,38.90 40.40,38.90 40.23,39.73 40.02,40.02 39.73,40.23 39.36,40.36 38.90,40.40 38.90,59.60 39.73,59.77 40.02,59.98 40.23,60.27 40.36,60.64">
         <request index="0"  response="10010000000000000000" foes="10010000100001100000" cont="1"/>
         <request index="1"  response="01010000000000000000" foes="01011111100011100000" cont="0"/>
         <request index="2"  response="01010000000000000000" foes="01011111100011100000" cont="0"/>

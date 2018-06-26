@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.06.2018 09:37:43 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 26.06.2018 16:57:42 by Eclipse SUMO netedit Version 88bb7b0b92
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\net.net.xml"/>
     </output>
 
     <processing>
         <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+        <junctions.corner-detail value="5"/>
         <rectangular-lane-cut value="false"/>
         <walkingareas value="false"/>
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,13 +33,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_23Jun211908.2852/netedit.gui/netElements/junctions/load\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Jun145422.948/netedit.gui/netElements/junctions/load\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="3.00,-25.00" convBoundary="0.00,0.00,100.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -344,7 +344,7 @@
 
     <junction id="gneJ0" type="dead_end" x="0.00" y="60.00" incLanes="" intLanes="" shape="0.00,60.00 0.00,56.80"/>
     <junction id="gneJ1" type="dead_end" x="20.00" y="60.00" incLanes="gneE0_0" intLanes="" shape="20.00,56.80 20.00,60.00"/>
-    <junction id="gneJ11" type="priority" x="70.00" y="40.00" incLanes="-gneE8_0 gneE16_0 gneE15_0" intLanes=":gneJ11_0_0 :gneJ11_6_0 :gneJ11_2_0 :gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0" shape="77.20,43.20 77.20,36.80 73.20,32.80 66.80,32.80 62.80,36.80 62.80,43.20">
+    <junction id="gneJ11" type="priority" x="70.00" y="40.00" incLanes="-gneE8_0 gneE16_0 gneE15_0" intLanes=":gneJ11_0_0 :gneJ11_6_0 :gneJ11_2_0 :gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0" shape="77.20,43.20 77.20,36.80 74.98,36.36 74.20,35.80 73.64,35.02 73.31,34.02 73.20,32.80 66.80,32.80 66.36,35.02 65.80,35.80 65.02,36.36 64.02,36.69 62.80,36.80 62.80,43.20">
         <request index="0" response="000000" foes="001000" cont="0"/>
         <request index="1" response="110000" foes="111000" cont="1"/>
         <request index="2" response="100000" foes="100000" cont="0"/>
@@ -352,11 +352,11 @@
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="000000" foes="001110" cont="0"/>
     </junction>
-    <junction id="gneJ12" type="priority" x="90.00" y="40.00" incLanes="-gneE9_0 gneE8_0" intLanes=":gneJ12_0_0 :gneJ12_1_0" shape="93.20,36.80 86.80,36.80 86.80,43.20">
+    <junction id="gneJ12" type="priority" x="90.00" y="40.00" incLanes="-gneE9_0 gneE8_0" intLanes=":gneJ12_0_0 :gneJ12_1_0" shape="93.20,36.80 86.80,36.80 86.80,43.20 90.36,42.49 91.60,41.60 92.49,40.36 93.02,38.76">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ13" type="priority" x="90.00" y="20.00" incLanes="gneE9_0 -gneE10_0 gneE17_0" intLanes=":gneJ13_0_0 :gneJ13_1_0 :gneJ13_2_0 :gneJ13_6_0 :gneJ13_4_0 :gneJ13_5_0" shape="86.80,27.20 93.20,27.20 93.20,12.80 86.80,12.80 82.80,16.80 82.80,23.20">
+    <junction id="gneJ13" type="priority" x="90.00" y="20.00" incLanes="gneE9_0 -gneE10_0 gneE17_0" intLanes=":gneJ13_0_0 :gneJ13_1_0 :gneJ13_2_0 :gneJ13_6_0 :gneJ13_4_0 :gneJ13_5_0" shape="86.80,27.20 93.20,27.20 93.20,12.80 86.80,12.80 86.36,15.02 85.80,15.80 85.02,16.36 84.02,16.69 82.80,16.80 82.80,23.20 85.02,23.64 85.80,24.20 86.36,24.98 86.69,25.98">
         <request index="0" response="000000" foes="001000" cont="0"/>
         <request index="1" response="000000" foes="111000" cont="0"/>
         <request index="2" response="000000" foes="100000" cont="0"/>
@@ -364,11 +364,11 @@
         <request index="4" response="000010" foes="000010" cont="0"/>
         <request index="5" response="001110" foes="001110" cont="0"/>
     </junction>
-    <junction id="gneJ14" type="priority" x="90.00" y="0.00" incLanes="gneE10_0 -gneE11_0" intLanes=":gneJ14_0_0 :gneJ14_1_0" shape="86.80,3.20 93.20,3.20 86.80,-3.20">
+    <junction id="gneJ14" type="priority" x="90.00" y="0.00" incLanes="gneE10_0 -gneE11_0" intLanes=":gneJ14_0_0 :gneJ14_1_0" shape="86.80,3.20 93.20,3.20 92.49,-0.36 91.60,-1.60 90.36,-2.49 88.76,-3.02 86.80,-3.20">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ15" type="priority" x="70.00" y="0.00" incLanes="gneE18_0 gneE11_0 -gneE12_0" intLanes=":gneJ15_0_0 :gneJ15_1_0 :gneJ15_2_0 :gneJ15_3_0 :gneJ15_4_0 :gneJ15_6_0" shape="66.80,7.20 73.20,7.20 77.20,3.20 77.20,-3.20 62.80,-3.20 62.80,3.20">
+    <junction id="gneJ15" type="priority" x="70.00" y="0.00" incLanes="gneE18_0 gneE11_0 -gneE12_0" intLanes=":gneJ15_0_0 :gneJ15_1_0 :gneJ15_2_0 :gneJ15_3_0 :gneJ15_4_0 :gneJ15_6_0" shape="66.80,7.20 73.20,7.20 73.64,4.98 74.20,4.20 74.98,3.64 75.98,3.31 77.20,3.20 77.20,-3.20 62.80,-3.20 62.80,3.20 65.02,3.64 65.80,4.20 66.36,4.98 66.69,5.98">
         <request index="0" response="001000" foes="001000" cont="0"/>
         <request index="1" response="111000" foes="111000" cont="0"/>
         <request index="2" response="000000" foes="100000" cont="0"/>
@@ -376,11 +376,11 @@
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="001100" foes="001110" cont="1"/>
     </junction>
-    <junction id="gneJ16" type="priority" x="50.00" y="0.00" incLanes="-gneE13_0 gneE12_0" intLanes=":gneJ16_0_0 :gneJ16_1_0" shape="46.80,3.20 53.20,3.20 53.20,-3.20">
+    <junction id="gneJ16" type="priority" x="50.00" y="0.00" incLanes="-gneE13_0 gneE12_0" intLanes=":gneJ16_0_0 :gneJ16_1_0" shape="46.80,3.20 53.20,3.20 53.20,-3.20 49.64,-2.49 48.40,-1.60 47.51,-0.36 46.98,1.24">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ17" type="priority" x="50.00" y="20.00" incLanes="-gneE14_0 gneE19_0 gneE13_0" intLanes=":gneJ17_0_0 :gneJ17_6_0 :gneJ17_2_0 :gneJ17_3_0 :gneJ17_4_0 :gneJ17_5_0" shape="46.80,27.20 53.20,27.20 57.20,23.20 57.20,16.80 53.20,12.80 46.80,12.80">
+    <junction id="gneJ17" type="priority" x="50.00" y="20.00" incLanes="-gneE14_0 gneE19_0 gneE13_0" intLanes=":gneJ17_0_0 :gneJ17_6_0 :gneJ17_2_0 :gneJ17_3_0 :gneJ17_4_0 :gneJ17_5_0" shape="46.80,27.20 53.20,27.20 53.64,24.98 54.20,24.20 54.98,23.64 55.98,23.31 57.20,23.20 57.20,16.80 54.98,16.36 54.20,15.80 53.64,15.02 53.31,14.02 53.20,12.80 46.80,12.80">
         <request index="0" response="000000" foes="001000" cont="0"/>
         <request index="1" response="110000" foes="111000" cont="1"/>
         <request index="2" response="100000" foes="100000" cont="0"/>
@@ -388,11 +388,11 @@
         <request index="4" response="000000" foes="000010" cont="0"/>
         <request index="5" response="000000" foes="001110" cont="0"/>
     </junction>
-    <junction id="gneJ18" type="priority" x="50.00" y="40.00" incLanes="-gneE15_0 gneE14_0" intLanes=":gneJ18_0_0 :gneJ18_1_0" shape="53.20,43.20 53.20,36.80 46.80,36.80">
+    <junction id="gneJ18" type="priority" x="50.00" y="40.00" incLanes="-gneE15_0 gneE14_0" intLanes=":gneJ18_0_0 :gneJ18_1_0" shape="53.20,43.20 53.20,36.80 46.80,36.80 47.51,40.36 48.40,41.60 49.64,42.49 51.24,43.02">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ19" type="priority" x="70.00" y="20.00" incLanes="-gneE16_0 -gneE17_0 -gneE18_0 -gneE19_0" intLanes=":gneJ19_0_0 :gneJ19_1_0 :gneJ19_12_0 :gneJ19_3_0 :gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_13_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0" shape="66.80,27.20 73.20,27.20 77.20,23.20 77.20,16.80 73.20,12.80 66.80,12.80 62.80,16.80 62.80,23.20">
+    <junction id="gneJ19" type="priority" x="70.00" y="20.00" incLanes="-gneE16_0 -gneE17_0 -gneE18_0 -gneE19_0" intLanes=":gneJ19_0_0 :gneJ19_1_0 :gneJ19_12_0 :gneJ19_3_0 :gneJ19_4_0 :gneJ19_5_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_13_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0" shape="66.80,27.20 73.20,27.20 73.64,24.98 74.20,24.20 74.98,23.64 75.98,23.31 77.20,23.20 77.20,16.80 74.98,16.36 74.20,15.80 73.64,15.02 73.31,14.02 73.20,12.80 66.80,12.80 66.36,15.02 65.80,15.80 65.02,16.36 64.02,16.69 62.80,16.80 62.80,23.20 65.02,23.64 65.80,24.20 66.36,24.98 66.69,25.98">
         <request index="0"  response="000000000000" foes="000100010000" cont="0"/>
         <request index="1"  response="000000000000" foes="111100110000" cont="0"/>
         <request index="2"  response="000011000000" foes="110011110000" cont="1"/>
@@ -418,19 +418,19 @@
     <junction id="gneJ5" type="priority" x="100.00" y="60.00" incLanes="gneE3_0" intLanes=":gneJ5_0_0" shape="100.00,60.00 100.00,56.80 100.00,60.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ6" type="priority" x="0.00" y="40.00" incLanes="-gneE4_0 gneE7_0" intLanes=":gneJ6_0_0 :gneJ6_1_0" shape="3.20,43.20 3.20,36.80 -3.20,36.80">
+    <junction id="gneJ6" type="priority" x="0.00" y="40.00" incLanes="-gneE4_0 gneE7_0" intLanes=":gneJ6_0_0 :gneJ6_1_0" shape="3.20,43.20 3.20,36.80 -3.20,36.80 -2.49,40.36 -1.60,41.60 -0.36,42.49 1.24,43.02">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ7" type="priority" x="20.00" y="40.00" incLanes="-gneE5_0 gneE4_0" intLanes=":gneJ7_0_0 :gneJ7_1_0" shape="23.20,36.80 16.80,36.80 16.80,43.20">
+    <junction id="gneJ7" type="priority" x="20.00" y="40.00" incLanes="-gneE5_0 gneE4_0" intLanes=":gneJ7_0_0 :gneJ7_1_0" shape="23.20,36.80 16.80,36.80 16.80,43.20 20.36,42.49 21.60,41.60 22.49,40.36 23.02,38.76">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ8" type="priority" x="20.00" y="20.00" incLanes="gneE5_0 -gneE6_0" intLanes=":gneJ8_0_0 :gneJ8_1_0" shape="16.80,23.20 23.20,23.20 16.80,16.80">
+    <junction id="gneJ8" type="priority" x="20.00" y="20.00" incLanes="gneE5_0 -gneE6_0" intLanes=":gneJ8_0_0 :gneJ8_1_0" shape="16.80,23.20 23.20,23.20 22.49,19.64 21.60,18.40 20.36,17.51 18.76,16.98 16.80,16.80">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="gneJ9" type="priority" x="0.00" y="20.00" incLanes="-gneE7_0 gneE6_0" intLanes=":gneJ9_0_0 :gneJ9_1_0" shape="-3.20,23.20 3.20,23.20 3.20,16.80">
+    <junction id="gneJ9" type="priority" x="0.00" y="20.00" incLanes="-gneE7_0 gneE6_0" intLanes=":gneJ9_0_0 :gneJ9_1_0" shape="-3.20,23.20 3.20,23.20 3.20,16.80 -0.36,17.51 -1.60,18.40 -2.49,19.64 -3.02,21.24">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
