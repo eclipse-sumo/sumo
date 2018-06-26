@@ -55,7 +55,7 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog) :
     GNEAdditional(calibratorDialog->getEditedCalibrator(), calibratorDialog->getEditedCalibrator()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, false, false),
-    myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
+    myVehicleType(calibratorDialog->getEditedCalibrator()->getViewNet()->getNet()->getAdditional(SUMO_TAG_VTYPE, "DEFAULT_VTYPE_ID")),
     myRoute(nullptr),
     myVehsPerHour(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_VEHSPERHOUR)),
     mySpeed(getTagProperties(SUMO_TAG_FLOW).getDefaultValue(SUMO_ATTR_SPEED)),
@@ -238,9 +238,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (myViewNet->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr);
+            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value) && (myViewNet->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
+            return isValidID(value) && (myViewNet->getNet()->retrieveAdditional(value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
             if(value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -344,10 +344,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_TYPE:
-            myVehicleType = myViewNet->getNet()->retrieveCalibratorVehicleType(value);
+            myVehicleType = myViewNet->getNet()->retrieveAdditional(value);
             break;
         case SUMO_ATTR_ROUTE:
-            myRoute = myViewNet->getNet()->retrieveCalibratorRoute(value);
+            myRoute = myViewNet->getNet()->retrieveAdditional(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             myVehsPerHour = value;

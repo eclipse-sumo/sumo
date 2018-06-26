@@ -135,10 +135,10 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNECalibratorFlow* editedCalibr
     new FXLabel(columnRightLabel, toString(SUMO_ATTR_END).c_str(), 0, GUIDesignLabelThick);
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
     // fill comboBox of VTypes
-    for (auto i : myEditedCalibratorFlow->getViewNet()->getNet()->getCalibratorVehicleTypes()) {
+    for (auto i : myEditedCalibratorFlow->getViewNet()->getNet()->getAdditionals(SUMO_TAG_VTYPE)) {
         myComboBoxVehicleType->appendItem(i->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getAdditionalParent()->getViewNet()->getNet()->getCalibratorVehicleTypes().size());
+    myComboBoxVehicleType->setNumVisible((int)myEditedCalibratorFlow->getAdditionalParent()->getViewNet()->getNet()->getAdditionals(SUMO_TAG_VTYPE).size());
 
     // fill comboBox of Routes
     for (auto i : myEditedCalibratorFlow->getAdditionalParent()->getAdditionalChilds()) {

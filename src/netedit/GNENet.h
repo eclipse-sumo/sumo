@@ -34,20 +34,20 @@
 
 #include <string>
 #include <utility>
-#include <utils/gui/globjects/GLIncludes.h>
+#include <foreign/rtree/SUMORTree.h>
 #include <netbuild/NBNetBuilder.h>
+#include <utils/common/IDSupplier.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
-#include <foreign/rtree/SUMORTree.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/IDSupplier.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
 #include <netedit/changes/GNEChange.h>
 
 
@@ -58,8 +58,6 @@
 class GNEAdditional;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
-class GNECalibratorRoute;
-class GNECalibratorVehicleType;
 class GNEConnection;
 class GNECrossing;
 class GNEEdge;
@@ -68,7 +66,6 @@ class GNELane;
 class GNENetElement;
 class GNEPOI;
 class GNEPoly;
-class GNERerouterInterval;
 class GNEShape;
 class GNEUndoList;
 class GNEViewNet;
@@ -594,35 +591,9 @@ public:
     */
     void saveAdditionals(const std::string& filename);
 
-    /// @}
+    /// @brief generate additional id
+    std::string generateAdditionalID(SumoXMLTag type) const;
 
-    /// @name Functions related to Calibrator Items
-    /// @note all three duplicates functions will be unified using GNERoute class
-    /// @{
-
-    /**@brief Returns the named calibrator route
-    * @param[in] id The id of the calibrator route to return.
-    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator route should result in an exception
-    */
-    GNECalibratorRoute* retrieveCalibratorRoute(const std::string& id, bool hardFail = true) const;
-
-    /**@brief Returns the named calibrator vehicle type
-    * @param[in] id The id of the calibrator vehicle type to return.
-    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator vehicle type should result in an exception
-    */
-    GNECalibratorVehicleType* retrieveCalibratorVehicleType(const std::string& id, bool hardFail = true) const;
-
-    /// @brief get calibrator vehicleTypes
-    std::vector<GNECalibratorVehicleType*> getCalibratorVehicleTypes() const;
-
-    /// @brief generate a new Calibrator Vehicle Type ID
-    std::string generateCalibratorVehicleTypeID() const;
-
-    /// @brief change Calibrator Route ID
-    void changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID);
-
-    /// @brief change Calibrator Vehicle Type ID
-    void changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID);
     /// @}
 
     /// @name Functions related to Shapes
@@ -684,12 +655,6 @@ protected:
 
         /// @brief map with the name and pointer to additional elements of net
         std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> additionals;
-
-        /// @brief map with the name and pointer to Calibrator Routes of net
-        std::map<std::string, GNECalibratorRoute*> calibratorRoutes;
-
-        /// @brief map with the name and pointer to Calibrator Vehicle Types of net
-        std::map<std::string, GNECalibratorVehicleType*> calibratorVehicleTypes;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -740,31 +705,6 @@ protected:
      * @throw processError if additional wasn't previously inserted
      */
     void deleteAdditional(GNEAdditional* additional);
-
-    /// @}
-
-    /// @name Insertion and erasing of GNECalibrator items
-    /// @{
-
-    /**@brief insert Calibrator Route in net
-     * @throw processError if route was already inserted
-     */
-    void insertCalibratorRoute(GNECalibratorRoute* route);
-
-    /**@brief delete Calibrator Route in net
-    * @throw processError if route wasn't previously inserted
-    */
-    void deleteCalibratorRoute(GNECalibratorRoute* route);
-
-    /**@brief insert Calibrator VehicleType in net
-    * @throw processError if vehicleType was already inserted
-    */
-    void insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /**@brief delete Calibrator VehicleType in net
-    * @throw processError if vehicleType wasn't previously inserted
-    */
-    void deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
 
     /// @}
 

@@ -104,12 +104,14 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
 
     // fill flows edited
     for (auto i : myEditedCalibrator->getAdditionalChilds()) {
-        if(i->getTag() == SUMO_TAG_FLOW) {
-            myFlowsEdited.push_back(i);
-        } else if(i->getTag() == SUMO_TAG_ROUTE) {
-            myRoutesEdited.push_back(i);
-        }
+        myFlowsEdited.push_back(i);
     }
+
+    // fill Routes
+    myRoutesEdited = myEditedCalibrator->getViewNet()->getNet()->getAdditionals(SUMO_TAG_ROUTE);
+   
+    // fill Vehicle Types
+    myVehicleTypesEdited = myEditedCalibrator->getViewNet()->getNet()->getAdditionals(SUMO_TAG_VTYPE);
 
     // update tables
     updateRouteTable();
@@ -241,6 +243,8 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             GNECalibratorRouteDialog((GNECalibratorRoute*)myRoutesEdited.at(i), true).openAsModalDialog();
             // update routes table
             updateRouteTable();
+            // update Flows routes also because Route ID could be changed
+            updateFlowTable();
             return 1;
         }
     }
@@ -294,7 +298,10 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
-    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(myEditedCalibrator->getViewNet(), ""), myEditedCalibrator, false);
+    GNECalibratorVehicleType *VType = new GNECalibratorVehicleType(myEditedCalibrator->getViewNet());
+    if(GNECalibratorVehicleTypeDialog(VType, myEditedCalibrator, false).openAsModalDialog() != 0) {
+        myVehicleTypesEdited.push_back(VType);
+    }
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;
@@ -304,8 +311,7 @@ GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    std::vector<GNECalibratorVehicleType*> vehicleTypes = myEditedCalibrator->getViewNet()->getNet()->getCalibratorVehicleTypes();
-    for (int i = 0; i < (int)vehicleTypes.size(); i++) {
+    for (int i = 0; i < (int)myVehicleTypesEdited.size(); i++) {
         if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
@@ -317,7 +323,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",
-                                                       ("Deletion of type '" + vehicleTypes[i]->getID() +
+                                                       ("Deletion of type '" + myVehicleTypesEdited[i]->getID() +
                                                         "' will remove " + toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) +
                                                         ". Continue?").c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
@@ -340,7 +346,8 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                         myFlowsEdited.erase(std::find(myFlowsEdited.begin(), myFlowsEdited.end(), j));
                     }
                     // remove vehicle type of calibrator vehicle types
-                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(vehicleTypes.at(i), false), true);
+                    myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(myVehicleTypesEdited.at(i), false), true);
+                    myVehicleTypesEdited.erase(myVehicleTypesEdited.begin() + i);
                     // update flows and vehicle types table
                     updateFlowTable();
                     updateVehicleTypeTable();
@@ -348,16 +355,18 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 }
             } else {
                 // remove vehicle type of calibrator vehicle types
-                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(vehicleTypes.at(i), false), true);
+                myEditedCalibrator->getViewNet()->getUndoList()->add(new GNEChange_Additional(myVehicleTypesEdited.at(i), false), true);
                 // update vehicle types table
                 updateVehicleTypeTable();
                 return 1;
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
             // modify vehicle type of calibratorVehicleTypes
-            GNECalibratorVehicleTypeDialog(vehicleTypes.at(i), myEditedCalibrator, true).openAsModalDialog();
+            GNECalibratorVehicleTypeDialog((GNECalibratorVehicleType*)myVehicleTypesEdited.at(i), myEditedCalibrator, true).openAsModalDialog();
             // update vehicle types table
             updateVehicleTypeTable();
+            // update Flows routes also because VType ID could be changed
+            updateFlowTable();
             return 1;
         }
     }
@@ -454,8 +463,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     // clear table
     myVehicleTypeList->clearItems();
     // set number of rows
-    std::vector<GNECalibratorVehicleType*> vehicleTypes = myEditedCalibrator->getViewNet()->getNet()->getCalibratorVehicleTypes();
-    myVehicleTypeList->setTableSize(int(vehicleTypes.size()), 3);
+    myVehicleTypeList->setTableSize(int(myVehicleTypesEdited.size()), 3);
     // Configure list
     myVehicleTypeList->setVisibleColumns(4);
     myVehicleTypeList->setColumnWidth(0, 136);
@@ -469,7 +477,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     int indexRow = 0;
     FXTableItem* item = 0;
     // iterate over vehicle types
-    for (auto i : vehicleTypes) {
+    for (auto i : myVehicleTypesEdited) {
         // Set id
         item = new FXTableItem(i->getID().c_str());
         myVehicleTypeList->setItem(indexRow, 0, item);

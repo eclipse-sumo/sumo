@@ -133,8 +133,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myZBoundary.add(0, 0);
     }
     // default vehicle type is always available
-    insertCalibratorVehicleType(new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID)); 
-    myAttributeCarriers.calibratorVehicleTypes.begin()->second->incRef("GNENet::DEFAULT_VEHTYPE");
+    insertAdditional(new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID)); 
+    myAttributeCarriers.additionals.begin()->second->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
 
@@ -170,26 +170,6 @@ GNENet::~GNENet() {
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (auto it : myAttributeCarriers.additionals) {
         // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
-        it.second->decRef();
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
-        }
-        delete it.second;
-    }
-    // Drop calibrator routes (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myAttributeCarriers.calibratorRoutes) {
-        // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
-        it.second->decRef();
-        // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(it.second->getTag()) + " '" + it.second->getID() + "' in GNENet destructor");
-        }
-        delete it.second;
-    }
-    // Drop calibrator vehicle types (Only used for additionals that were inserted without using GNEChange_CalibratorItem)
-    for (auto it : myAttributeCarriers.calibratorVehicleTypes) {
-        // decrease reference manually (because it was increases manually in GNEAdditionalHandler)
         it.second->decRef();
         // show extra information for tests
         if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
@@ -1886,13 +1866,23 @@ GNENet::saveAdditionals(const std::string& filename) {
 }
 
 
+std::string 
+GNENet::generateAdditionalID(SumoXMLTag type) const {
+    int counter = 0;
+    while (myAttributeCarriers.additionals.count(std::make_pair(toString(type) + "_" + toString(counter), type)) > 0){
+        counter++;
+    }
+    return (toString(type) + "_" + toString(counter));
+}
+
+
 void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
     // first write all vehicle types
-    for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
-        if (i.first != DEFAULT_VTYPE_ID) {
+    for (auto i : myAttributeCarriers.additionals) {
+        if (i.first.second == SUMO_TAG_VTYPE) {
             i.second->writeAdditional(device);
         }
     }
@@ -1923,7 +1913,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     // finally write rest of additionals
     for (auto i : myAttributeCarriers.additionals) {
         const auto &tagValue = GNEAttributeCarrier::getTagProperties(i.first.second);
-        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE)) {
+        if(!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first.second != SUMO_TAG_ROUTEPROBE) && (i.first.second != SUMO_TAG_VTYPE)) {
             // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
             if (i.second->getAdditionalParent() == nullptr) {
                 i.second->writeAdditional(device);
@@ -1931,83 +1921,6 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         }
     }
     device.close();
-}
-
-GNECalibratorRoute*
-GNENet::retrieveCalibratorRoute(const std::string& id, bool hardFail) const {
-    // iterate over calibrator routes
-    for (auto i : myAttributeCarriers.calibratorRoutes) {
-        if (i.second->getID() == id) {
-            return i.second;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant calibrator route");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNECalibratorVehicleType*
-GNENet::retrieveCalibratorVehicleType(const std::string& id, bool hardFail) const {
-    // iterate over vehicle types
-    for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
-        if (i.second->getID() == id) {
-            return i.second;
-        }
-    }
-    if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant calibrator vehicle type");
-    } else {
-        return nullptr;
-    }
-}
-
-
-std::vector<GNECalibratorVehicleType*> 
-GNENet::getCalibratorVehicleTypes() const {
-    std::vector<GNECalibratorVehicleType*> result;
-    for (auto i : myAttributeCarriers.calibratorVehicleTypes) {
-        result.push_back(i.second);
-    }
-    return result;
-}
-
-
-std::string
-GNENet::generateCalibratorVehicleTypeID() const {
-    int counter = 0;
-    while (myAttributeCarriers.calibratorVehicleTypes.count(toString(SUMO_TAG_VTYPE) + toString(counter)) != 0) {
-        counter++;
-    }
-    return toString(SUMO_TAG_VTYPE) + toString(counter);
-}
-
-
-void
-GNENet::changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID) {
-    if (myAttributeCarriers.calibratorRoutes.count(oldID) > 0) {
-        myAttributeCarriers.calibratorRoutes.erase(oldID);
-        myAttributeCarriers.calibratorRoutes[route->getID()] = route;
-    } else {
-        throw ProcessError("Route wasn't inserted");
-    }
-}
-
-
-void
-GNENet::changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID) {
-    if (oldID == DEFAULT_VTYPE_ID) {
-        // default type cannot be changed
-        return;
-    }
-    if (myAttributeCarriers.calibratorVehicleTypes.count(oldID) > 0) {
-        myAttributeCarriers.calibratorVehicleTypes.erase(oldID);
-        myAttributeCarriers.calibratorVehicleTypes[vehicleType->getID()] = vehicleType;
-    } else {
-        throw ProcessError("VehicleType wasn't inserted");
-    }
 }
 
 
@@ -2209,51 +2122,6 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
     }
 }
 
-
-void
-GNENet::insertCalibratorRoute(GNECalibratorRoute* route) {
-    if (myAttributeCarriers.calibratorRoutes.find(route->getID()) == myAttributeCarriers.calibratorRoutes.end()) {
-        myAttributeCarriers.calibratorRoutes[route->getID()] = route;
-    } else {
-        throw ProcessError("Route already inserted");
-    }
-}
-
-
-void
-GNENet::deleteCalibratorRoute(GNECalibratorRoute* route) {
-    auto it = myAttributeCarriers.calibratorRoutes.find(route->getID());
-    if (it != myAttributeCarriers.calibratorRoutes.end()) {
-        myAttributeCarriers.calibratorRoutes.erase(it);
-    } else {
-        throw ProcessError("Route wasn't inserted");
-    }
-}
-
-
-void
-GNENet::insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if (myAttributeCarriers.calibratorVehicleTypes.find(vehicleType->getID()) == myAttributeCarriers.calibratorVehicleTypes.end()) {
-        myAttributeCarriers.calibratorVehicleTypes[vehicleType->getID()] = vehicleType;
-    } else {
-        throw ProcessError("Vehicle Type already inserted");
-    }
-}
-
-
-void
-GNENet::deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType) {
-    if (vehicleType->getID() == DEFAULT_VTYPE_ID) {
-        // default type cannot be deleted
-        return;
-    }
-    auto it = myAttributeCarriers.calibratorVehicleTypes.find(vehicleType->getID());
-    if (it != myAttributeCarriers.calibratorVehicleTypes.end()) {
-        myAttributeCarriers.calibratorVehicleTypes.erase(it);
-    } else {
-        throw ProcessError("Vehicle Type wasn't inserted");
-    }
-}
 
 // ===========================================================================
 // private

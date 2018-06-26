@@ -51,7 +51,7 @@
 // ===========================================================================
 
 GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id) :
-    GNEAdditional((id == "") ? viewNet->getNet()->generateCalibratorVehicleTypeID() : id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false),
+    GNEAdditional((id == "") ? viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE) : id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, false, false),
     myAccel(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_ACCEL))),
     myDecel(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_DECEL))),
     mySigma(parse<double>(getTagProperties(SUMO_TAG_VTYPE).getDefaultValue(SUMO_ATTR_SIGMA))),

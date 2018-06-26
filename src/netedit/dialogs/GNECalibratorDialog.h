@@ -101,6 +101,9 @@ private:
     /// @brief current edited routes
     std::vector<GNEAdditional*> myRoutesEdited;
 
+    /// @brief current edited Vehicle Types
+    std::vector<GNEAdditional*> myVehicleTypesEdited;
+
     /// @brief button for add new route
     FXButton* myAddRoute;
 

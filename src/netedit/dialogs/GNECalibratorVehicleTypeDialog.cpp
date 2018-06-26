@@ -205,9 +205,6 @@ GNECalibratorVehicleTypeDialog::GNECalibratorVehicleTypeDialog(GNECalibratorVehi
     if (myUpdatingElement == false) {
         parent->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorVehicleType, true), true);
     }
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 

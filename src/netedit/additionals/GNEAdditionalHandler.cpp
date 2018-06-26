@@ -265,7 +265,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attr
         // get calibrator parent
         GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second));
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveCalibratorRoute(routeID, false) != nullptr) {
+        if (myViewNet->getNet()->retrieveAdditional(routeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
         } else if (calibrator == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
@@ -310,7 +310,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorVehicleType(const SUMOSAXAttributes
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) != nullptr) {
+        if (myViewNet->getNet()->retrieveAdditional(vehicleTypeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + vehicleTypeID + "'.");
         } else if(buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev, color, vClass, emissionClass, shape, width, 
                                    filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat)) {
@@ -348,8 +348,8 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
         GNECalibrator* calibrator = dynamic_cast<GNECalibrator*>(myViewNet->getNet()->getAdditional((myParentElements.end()-2)->first, (myParentElements.end()-2)->second));
-        GNECalibratorRoute* route = myViewNet->getNet()->retrieveCalibratorRoute(routeID, false);
-        GNECalibratorVehicleType* vtype = myViewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false);
+        GNECalibratorRoute* route = dynamic_cast<GNECalibratorRoute*>(myViewNet->getNet()->retrieveAdditional(routeID, false));
+        GNECalibratorVehicleType* vtype = dynamic_cast<GNECalibratorVehicleType*>(myViewNet->getNet()->retrieveAdditional(vehicleTypeID, false));
         // check that all elements are valid
         if (calibrator == nullptr) {
             WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_CALIBRATOR) + ".");
@@ -1612,7 +1612,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 bool
 GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
-    if (viewNet->getNet()->retrieveCalibratorRoute(routeID, false) == nullptr) {
+    if (viewNet->getNet()->retrieveAdditional(routeID, false) == nullptr) {
         // create route and add it to calibrator parent
         GNECalibratorRoute* route = new GNECalibratorRoute(calibratorParent, routeID, edges, color);
         if (allowUndoRedo) {
@@ -1621,7 +1621,7 @@ GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRe
             viewNet->getUndoList()->p_end();
             return true;
         } else {
-            viewNet->getNet()->insertCalibratorRoute(route);
+            viewNet->getNet()->insertAdditional(route);
             calibratorParent->addAdditionalChild(route);
             route->incRef("buildCalibratorRoute");
         }
@@ -1640,7 +1640,7 @@ GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, 
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
-    if (viewNet->getNet()->retrieveCalibratorVehicleType(vehicleTypeID, false) == nullptr) {
+    if (viewNet->getNet()->retrieveAdditional(vehicleTypeID, false) == nullptr) {
         // create vehicle type and add it to calibrator parent
         GNECalibratorVehicleType* vType = new GNECalibratorVehicleType(viewNet, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
                 speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
@@ -1651,7 +1651,7 @@ GNEAdditionalHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, 
             viewNet->getUndoList()->add(new GNEChange_Additional(vType, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertCalibratorVehicleType(vType);
+            viewNet->getNet()->insertAdditional(vType);
             vType->incRef("buildCalibratorVehicleType");
         }
         return true;

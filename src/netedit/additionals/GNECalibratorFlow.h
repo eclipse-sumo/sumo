@@ -121,7 +121,7 @@ public:
 
 protected:
     /// @brief type of flow
-    GNECalibratorVehicleType* myVehicleType;
+    GNEAdditional* myVehicleType;
 
     /// @brief route in which this flow is used
     GNEAdditional* myRoute;

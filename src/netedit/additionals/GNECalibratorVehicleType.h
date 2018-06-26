@@ -48,7 +48,7 @@ class GNECalibratorVehicleType : public GNEAdditional {
 
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
-    GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id);
+    GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id = "");
 
     /// @brief parameter constructor
     GNECalibratorVehicleType(GNEViewNet *viewNet, std::string vehicleTypeID,
