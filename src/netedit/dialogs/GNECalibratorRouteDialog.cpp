@@ -88,9 +88,6 @@ GNECalibratorRouteDialog::GNECalibratorRouteDialog(GNECalibratorRoute* editedCal
     if (myUpdatingElement == false) {
         myEditedCalibratorRoute->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedCalibratorRoute, true), true);
     }
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 

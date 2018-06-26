@@ -170,8 +170,9 @@ long
 GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
     // create nes calibrator route and configure it with GNECalibratorRouteDialog
     GNECalibratorRoute* calibratorRoute = new GNECalibratorRoute(this);
-    GNECalibratorRouteDialog(calibratorRoute, false);
-    myRoutesEdited.push_back(calibratorRoute);
+    if(GNECalibratorRouteDialog(calibratorRoute, false).openAsModalDialog() != 0) {
+        myRoutesEdited.push_back(calibratorRoute);
+    }
     // update routes table
     updateRouteTable();
     return 1;
@@ -238,8 +239,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             }
         } else if (myRouteList->getItem(i, 0)->hasFocus() || myRouteList->getItem(i, 1)->hasFocus()) {
             // modify route of calibrator routes
-            GNECalibratorRouteDialog((GNECalibratorRoute*)myRoutesEdited.at(i), true);
-            myRoutesEdited.erase(myRoutesEdited.begin() + i);
+            GNECalibratorRouteDialog((GNECalibratorRoute*)myRoutesEdited.at(i), true).openAsModalDialog();
             // update routes table
             updateRouteTable();
             return 1;
@@ -281,7 +281,7 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
             return 1;
         } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus() || myFlowList->getItem(i, 2)->hasFocus()) {
             // modify flow of calibrator flows (temporal)
-            GNECalibratorFlowDialog((GNECalibratorFlow*)myFlowsEdited.at(i), true);
+            GNECalibratorFlowDialog((GNECalibratorFlow*)myFlowsEdited.at(i), true).openAsModalDialog();
             // update flows table
             updateFlowTable();
             return 1;
@@ -356,7 +356,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
             // modify vehicle type of calibratorVehicleTypes
-            GNECalibratorVehicleTypeDialog(vehicleTypes.at(i), myEditedCalibrator, true);
+            GNECalibratorVehicleTypeDialog(vehicleTypes.at(i), myEditedCalibrator, true).openAsModalDialog();
             // update vehicle types table
             updateVehicleTypeTable();
             return 1;
