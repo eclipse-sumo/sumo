@@ -22,7 +22,7 @@ import subprocess
 import sys
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
@@ -50,9 +50,9 @@ traci.polygon.setShape(polygonID, ((11, 11), (11, 101), (101, 101)))
 print("shape modified", traci.polygon.getShape(polygonID))
 traci.polygon.setType(polygonID, "blub")
 print("type modified", traci.polygon.getType(polygonID))
-traci.polygon.setColor(polygonID, (5,6,7,8))
+traci.polygon.setColor(polygonID, (5, 6, 7, 8))
 print("color modified", traci.polygon.getColor(polygonID))
-traci.polygon.setColor(polygonID, (5,6,7))
+traci.polygon.setColor(polygonID, (5, 6, 7))
 print("color modified2", traci.polygon.getColor(polygonID))
 traci.polygon.setFilled(polygonID, False)
 print("filled modified", traci.polygon.getFilled(polygonID))

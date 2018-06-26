@@ -12,7 +12,8 @@
 # @date    2017
 # @version $Id$
 
-import os,sys
+import os
+import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], '/home/kobo/dlr/sumo/tools'))
 import traci  # noqa
 
@@ -27,4 +28,3 @@ while traci.simulation.getMinExpectedNumber() > 0:
     except traci.TraCIException:
         pass
 traci.close()
-

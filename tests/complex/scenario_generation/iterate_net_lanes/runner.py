@@ -24,9 +24,9 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-import sumolib.net.generator.cross as generator # noqa
-from sumolib.net.generator.network import * # noqa
-from sumolib.net.generator.demand import * # noqa
+import sumolib.net.generator.cross as generator  # noqa
+from sumolib.net.generator.network import *  # noqa
+from sumolib.net.generator.demand import *  # noqa
 
 for i in range(1, 5):
     defaultEdge = Edge(numLanes=i, maxSpeed=13.89)

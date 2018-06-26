@@ -20,7 +20,7 @@ import os
 import subprocess
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
@@ -60,7 +60,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
             traci.vehicle.getDrivingDistance(vehID, "CN", 90),
             traci.simulation.getDistanceRoad(currEdge, currLanePos, ":C_10", 13.8),
             traci.simulation.getDistanceRoad(currEdge, currLanePos, "CN", 90)
-            ))
+        ))
 
     except traci.TraCIException:
         pass

@@ -22,8 +22,8 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 
-from sumolib.net.generator.network import * # noqa
-from sumolib.net.generator.demand import * # noqa
+from sumolib.net.generator.network import *  # noqa
+from sumolib.net.generator.demand import *  # noqa
 
 demand = Demand()
 demand.addStream(Stream(None, None, None, 800, "from", "to", "passenger"))

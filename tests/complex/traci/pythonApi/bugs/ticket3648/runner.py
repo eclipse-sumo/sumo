@@ -28,7 +28,7 @@ cmd = [
     sumoBinary,
     '-n', 'input_net.net.xml',
     '-r', 'input_routes.rou.xml',
-    '--no-step-log',]
+    '--no-step-log', ]
 
 traci.start(cmd)
 traci.simulationStep()

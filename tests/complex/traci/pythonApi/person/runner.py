@@ -21,7 +21,7 @@ import subprocess
 import sys
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
@@ -36,6 +36,7 @@ def step():
     s = traci.simulation.getCurrentTime() / 1000
     traci.simulationStep()
     return s
+
 
 # add walking person
 traci.person.add("newPerson", "3si", -10)
@@ -91,6 +92,7 @@ def check(personID):
     print("remainingStages", traci.person.getRemainingStages(personID))
     print("edges", traci.person.getEdges(personID))
     print("vehicle", traci.person.getVehicle(personID))
+
 
 check(personID)
 traci.person.subscribe(personID)
@@ -179,7 +181,7 @@ for i in range(5):
         traci.person.getLanePosition(personTT2)))
     step()
 traci.person.appendWalkingStage(personTT2, ["2fi", "1fi"], 10)
-traci.person.removeStage(personTT2, 0)  
+traci.person.removeStage(personTT2, 0)
 print("  %s new edges edges=%s" % (personTT2, traci.person.getEdges(personTT2)))
 for i in range(5):
     print("%s person=%s edge=%s pos=%s" % (

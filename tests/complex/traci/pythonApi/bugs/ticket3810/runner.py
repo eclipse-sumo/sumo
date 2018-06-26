@@ -28,13 +28,13 @@ cmd = [
     sumoBinary,
     '-n', 'input_net2.net.xml',
     '-r', 'input_routes.rou.xml',
-    '--no-step-log',]
+    '--no-step-log', ]
 
 traci.start(cmd)
-traci.simulationStep() # insert vehicles
+traci.simulationStep()  # insert vehicles
 vehs = ['stratLeft', 'stratRight']
 for vehID in vehs:
-    traci.vehicle.setLaneChangeMode(vehID, 0);
+    traci.vehicle.setLaneChangeMode(vehID, 0)
 
 for i in range(8):
     t = traci.simulation.getCurrentTime() / 1000.0

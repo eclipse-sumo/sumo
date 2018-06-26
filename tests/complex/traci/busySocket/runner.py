@@ -25,7 +25,7 @@ sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
 if sys.argv[1] == "sumo":
     sumoBinary = os.environ.get(

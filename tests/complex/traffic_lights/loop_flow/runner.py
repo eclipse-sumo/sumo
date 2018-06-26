@@ -39,7 +39,7 @@ simSteps = fillSteps + measureSteps
 
 def buildDemand(simSteps, pWE, pEW, pNS, pSN):
     fd = open("input_routes.rou.xml", "w")
-    #---routes---
+    # ---routes---
     print("""<routes>
 
             <vType id="type1" accel="2.0" decel="5.0" sigma="0.0" length="6.5" maxSpeed="70"/>
@@ -114,9 +114,9 @@ def main():
                              '%tls_type%', 'input_additional.add.xml', t)
                 args = [sumo,
                         '--no-step-log',
-                        #'--no-duration-log',
-                        #'--verbose',
-                        #'--duration-log.statistics',
+                        # '--no-duration-log',
+                        # '--verbose',
+                        # '--duration-log.statistics',
                         '--net-file', 'input_net.net.xml',
                         '--route-files', 'input_routes.rou.xml',
                         '--additional-files', 'input_additional.add.xml',
@@ -147,6 +147,7 @@ def main():
                             "results/TLSSwitchTimes_%s_%s_%s.xml" % (t, f1, f2))
                 shutil.move("results/TLSSwitchStates.xml",
                             "results/TLSSwitchStates_%s_%s_%s.xml" % (t, f1, f2))
+
 
 if __name__ == "__main__":
     main()

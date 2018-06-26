@@ -19,11 +19,13 @@ from __future__ import absolute_import
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
+
 
 def ppStages(comment, stages):
     print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
+
 
 sumoBinary = os.environ["SUMO_BINARY"]
 
@@ -31,7 +33,7 @@ cmd = [
     sumoBinary,
     '-n', 'input_net.net.xml',
     '-a', 'input_additional.add.xml',
-    '--no-step-log',]
+    '--no-step-log', ]
 
 traci.start(cmd)
 ppStages("shortcut via trainStop:", traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))

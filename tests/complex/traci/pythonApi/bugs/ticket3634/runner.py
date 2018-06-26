@@ -19,7 +19,7 @@ from __future__ import absolute_import
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
@@ -32,9 +32,8 @@ cmd = [
     '--lanechange-output.ended',
     '--no-step-log',
     '--begin', '0',
-    #'-S', '-Q',
-    '--lateral-resolution', '3.2',]
-
+    # '-S', '-Q',
+    '--lateral-resolution', '3.2', ]
 
 
 traci.start(cmd)

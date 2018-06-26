@@ -63,11 +63,11 @@ for t in types:
                 waitStepsMinMax[1] = waitSteps
 
     """
-   <interval begin="0.00" end="60.00" id="2i_l0" nSamples="55" 
-   meanSpeed="13.89" meanOccupancy="1.19" maxOccupancy="3.90" 
-   meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" 
-   jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0.00" 
-   haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00" 
+   <interval begin="0.00" end="60.00" id="2i_l0" nSamples="55"
+   meanSpeed="13.89" meanOccupancy="1.19" maxOccupancy="3.90"
+   meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00"
+   jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0.00"
+   haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00"
    startedHalts="0.00" meanVehicleNumber="0.92" maxVehicleNumber="3" />
     """
 

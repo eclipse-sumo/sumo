@@ -28,8 +28,8 @@ sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
-import traci
-import traci.constants as tc
+import traci  # noqa
+import traci.constants as tc  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
@@ -101,7 +101,8 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
 
 def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
     sumoProcess = subprocess.Popen(
-        "%s -v --num-clients %s -c sumo.sumocfg %s" % (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)  # Alternate ordering
+        "%s -v --num-clients %s -c sumo.sumocfg %s" %
+        (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)  # Alternate ordering
     procs = [Process(target=traciLoop, args=(PORT, traciEndTime, (i + 1), runNr)) for i in range(numClients)]
     for p in procs:
         p.start()

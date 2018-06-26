@@ -60,5 +60,6 @@ class SimpleManager(vehicleControl.Manager):
             vehicleControl.stopAt(vehicleID, "cyberout")
         self.cyberCarLoad[vehicleID] = load
 
+
 if __name__ == "__main__":
     vehicleControl.init(SimpleManager())

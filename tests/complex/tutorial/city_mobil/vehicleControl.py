@@ -65,6 +65,7 @@ class Setting:
     verbose = False
     cyber = False
 
+
 setting = Setting()
 occupancy = {}
 vehicleStatus = {}

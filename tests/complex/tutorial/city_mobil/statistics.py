@@ -58,7 +58,7 @@ def evaluate(forTest=False):
     for person in persons.values():
         waitTimes.append(person.depart - person.waitStart)
         route = (person.source, person.target)
-        if not route in routeTimes:
+        if route not in routeTimes:
             routeTimes[route] = []
         routeTimes[route].append(person.arrive - person.depart)
     waitArray = numpy.array(waitTimes)
@@ -90,6 +90,7 @@ def evaluate(forTest=False):
         print("CO2:", co2 < 10000000)
     else:
         print("CO2:", co2)
+
 
 if __name__ == "__main__":
     from pylab import *

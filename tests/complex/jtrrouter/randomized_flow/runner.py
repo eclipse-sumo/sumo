@@ -31,6 +31,7 @@ from sumolib import checkBinary  # noqa
 def get_depart_lines(route_file):
     return [l for l in open(route_file) if 'depart' in l]
 
+
 output_file1 = 'output1.rou.xml'
 output_file2 = 'output2.rou.xml'
 

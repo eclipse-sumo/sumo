@@ -28,6 +28,7 @@ else:
     import traci  # noqa
 import sumolib  # noqa
 
+
 def checkVehicleStates():
     print("time", traci.simulation.getCurrentTime())
     print("#loaded", traci.simulation.getLoadedNumber())
@@ -55,6 +56,7 @@ def checkVehicleStates():
 
 def ppStages(comment, stages):
     print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
+
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 traci.simulation.subscribe(
@@ -111,7 +113,8 @@ try:
 except traci.TraCIException:
     pass
 print("findRoute", traci.simulation.findRoute("o", "2o"))
-print("findRoute with routing mode", traci.simulation.findRoute("o", "2o", routingMode=traci.constants.ROUTING_MODE_AGGREGATED))
+print("findRoute with routing mode", traci.simulation.findRoute(
+    "o", "2o", routingMode=traci.constants.ROUTING_MODE_AGGREGATED))
 try:
     print("findRoute", traci.simulation.findRoute("footpath", "footpath2", "DEFAULT_VEHTYPE"))
 except traci.TraCIException:
@@ -122,13 +125,15 @@ try:
 except traci.TraCIException:
     pass
 try:
-    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("footpath", "footpath2", "bicycle", vtype="DEFAULT_BIKETYPE"))
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute(
+        "footpath", "footpath2", "bicycle", vtype="DEFAULT_BIKETYPE"))
 except traci.TraCIException:
     pass
 ppStages("findIntermodalRoute (walk)", traci.simulation.findIntermodalRoute("o", "2o"))
 ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o", "2o", modes="bicycle"))
 ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))
-ppStages("findIntermodalRoute (bike,car,public)", traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
+ppStages("findIntermodalRoute (bike,car,public)",
+         traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
 
 for step in range(10):
     print("step", step)

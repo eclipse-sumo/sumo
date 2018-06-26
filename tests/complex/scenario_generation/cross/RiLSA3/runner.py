@@ -22,8 +22,8 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 
-import sumolib.net.generator.cross as generator # noqa
-from sumolib.net.generator.network import Lane, Edge # noqa
+import sumolib.net.generator.cross as generator  # noqa
+from sumolib.net.generator.network import Lane, Edge  # noqa
 
 defaultEdge = Edge(numLanes=1, maxSpeed=13.89)
 defaultEdge.addSplit(100, 1)

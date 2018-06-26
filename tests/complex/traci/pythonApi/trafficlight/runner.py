@@ -22,7 +22,7 @@ import subprocess
 import sys
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
@@ -49,6 +49,7 @@ def check():
     print("program", traci.trafficlight.getProgram(tlsID))
     print("phase", traci.trafficlight.getPhase(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
+
 
 phases = []
 phases.append(traci.trafficlight.Phase(30, 0, 0, "rrrrGGggrrrrGGgg"))

@@ -55,6 +55,7 @@ def connect(inPort, outPort, numTries=10):
     o.close()
     i.close()
 
+
 SUMO_PORT = sumolib.miscutils.getFreeSocketPort()
 IN_PORT = sumolib.miscutils.getFreeSocketPort()
 OUT_PORT = sumolib.miscutils.getFreeSocketPort()

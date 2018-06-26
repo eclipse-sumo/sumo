@@ -22,7 +22,7 @@ import subprocess
 import sys
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 
@@ -33,6 +33,7 @@ def check(poiID):
     print("pos", traci.poi.getPosition(poiID))
     print("type", traci.poi.getType(poiID))
     print("color", traci.poi.getColor(poiID))
+
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
 

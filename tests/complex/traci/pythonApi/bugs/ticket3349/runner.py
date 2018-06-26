@@ -20,9 +20,9 @@ import os
 import subprocess
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
-import traci.constants as tc
+import traci.constants as tc  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
 PORT = sumolib.miscutils.getFreeSocketPort()
@@ -31,7 +31,7 @@ sumoProcess = subprocess.Popen([sumoBinary,
                                 '-r', 'input_routes.rou.xml',
                                 '--no-step-log',
                                 '--begin', '5',
-                                #'-S', '-Q',
+                                # '-S', '-Q',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
 

@@ -24,7 +24,7 @@ sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
 DELTA_T = 1000
 
@@ -66,7 +66,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         near1 = set()
         if objID in module.getContextSubscriptionResults():
             for v in module.getContextSubscriptionResults()[objID]:
-                #print(objID, "context:", v)
+                # print(objID, "context:", v)
                 near1.add(v)
         vehs = traci.vehicle.getIDList()
         persons = traci.person.getIDList()
@@ -135,6 +135,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         print("Ok: Subscription and computed are same")
     else:
         print("Error: subscribed number and computed number differ")
+
 
 sys.stdout.flush()
 if sys.argv[3] == "vehicle":

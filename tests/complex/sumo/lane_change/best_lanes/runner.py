@@ -23,7 +23,7 @@ import shutil
 import random
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')

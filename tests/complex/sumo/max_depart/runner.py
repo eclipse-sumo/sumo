@@ -36,6 +36,7 @@ def call(command):
         print("Execution of %s failed." % command, file=sys.stderr)
         sys.exit(retCode)
 
+
 PERIOD = 5
 DEPARTSPEED = "max"
 

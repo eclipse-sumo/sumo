@@ -27,8 +27,8 @@ if '--mesosim' in loadParams:
 
 # need to add runner.py again in options.complex.meso to ensure it is the
 # last  entry
-saveParams = [p for p in saveParams if not 'runner.py' in p]
-loadParams = [p for p in loadParams if not 'runner.py' in p]
+saveParams = [p for p in saveParams if 'runner.py' not in p]
+loadParams = [p for p in loadParams if 'runner.py' not in p]
 
 # print "save:", saveParams
 # print "load:", loadParams

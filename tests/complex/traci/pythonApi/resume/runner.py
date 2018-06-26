@@ -70,5 +70,6 @@ def main(args):
             sumoProcess.wait()
             break
 
+
 if __name__ == "__main__":
     main(sys.argv[1:])

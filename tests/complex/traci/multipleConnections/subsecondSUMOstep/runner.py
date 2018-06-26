@@ -28,7 +28,7 @@ sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
@@ -59,12 +59,12 @@ def traciLoop(port, traciEndTime, index, SUMOsteplength, steplength=0):
         traciEndStep = math.ceil(traciEndTime / steplength)
         while not step > traciEndStep:
             traci.simulationStep(int(step * steplength * 1000))
-            #print(index, "asking for vehicles")
+            # print(index, "asking for vehicles")
             # sys.stdout.flush()
             traci.vehicle.getIDList()
             nrEnteredVehicles += traci.simulation.getDepartedNumber()
-            #~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
-            #~ sys.stdout.flush()
+            # ~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
+            # ~ sys.stdout.flush()
             step += 1
         endTime = traci.simulation.getCurrentTime() / DELTA_T
         traci.close()
@@ -90,7 +90,8 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr, SUMOste
     fdi.close()
     fdo.close()
     sumoProcess = subprocess.Popen(
-        "%s -v --num-clients %s -c used.sumocfg %s" % (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)
+        "%s -v --num-clients %s -c used.sumocfg %s" %
+        (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)
     # Alternate ordering
     indexRange = range(numClients) if (runNr % 2 == 0) else list(reversed(range(numClients)))
     procs = [Process(target=traciLoop, args=(PORT, traciEndTime, i + 1, SUMOsteplength, steplengths[indexRange[i]]))

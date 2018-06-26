@@ -29,7 +29,7 @@ cmd = [
     "-n", "input_net2.net.xml",
     "-r", "input_routes.rou.xml",
     "--fcd-output", "fcd.xml",
-    "--no-step-log"] 
+    "--no-step-log"]
 traci.start(cmd)
 
 

@@ -22,7 +22,7 @@ import sys
 import time
 sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 
@@ -62,6 +62,7 @@ def evalTimeline(timeline):
                     print(
                         " Mismatching velocity of vehicle %s at time %s (%s)" % (v, ct, s))
         ct = ct + 1
+
 
 print(">>> Building the network (with internal)")
 sys.stdout.flush()

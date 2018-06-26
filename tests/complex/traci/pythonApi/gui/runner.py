@@ -23,14 +23,15 @@ import sys
 import time
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo-gui')
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen(
-    "%s -S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50 --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
+    "%s -S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50 --remote-port %s" %
+    (sumoBinary, PORT), shell=True, stdout=sys.stdout)
 traci.init(PORT)
 for step in range(3):
     print("step", step)

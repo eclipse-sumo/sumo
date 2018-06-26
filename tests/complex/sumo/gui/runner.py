@@ -20,7 +20,7 @@ import sys
 import time
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "lib"))
-import testUtil
+import testUtil  # noqa
 
 guisimBinary = testUtil.checkBinary('sumo-gui')
 for run in range(20):

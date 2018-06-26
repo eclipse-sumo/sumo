@@ -34,7 +34,7 @@ sumoBinary = 'sumo-gui' if WATCH else os.environ["SUMO_BINARY"]
 cmd = [
     sumoBinary,
     '-n', 'input_net.net.xml',
-    '--no-step-log',]
+    '--no-step-log', ]
 if not WATCH:
     cmd += ['-S', '-Q']
 
@@ -44,6 +44,7 @@ ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
 INVALID = traci.constants.INVALID_DOUBLE_VALUE
 
 vehID = "v0"
+
 
 def check(x, y, angle, exLane, exPos, exPosLat, comment):
     traci.vehicle.moveToXY(vehID, "", angle, x, y, keepRoute=2)
@@ -60,16 +61,16 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
         print(comment, "failed: x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   posLat=%s posLat2=%s" % (
             x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
     else:
-        #print(comment, "success")
+        # print(comment, "success")
         pass
 
 
 traci.simulationStep()
 traci.vehicle.add(vehID, "")
 
-check(6.54,-1.50,  ANGLE_UNDEF, "A0toB0_0",         None, None,       "middle of the first edge")
-check(23.00,-1.50,  ANGLE_UNDEF, "B0toC0_0",         None, None,       "middle of the second edge")
-check(37.11,-1.67,  ANGLE_UNDEF, "C0toD0_0",         None, None,       "middle of the third edge")
+check(6.54, -1.50,  ANGLE_UNDEF, "A0toB0_0",         None, None,       "middle of the first edge")
+check(23.00, -1.50,  ANGLE_UNDEF, "B0toC0_0",         None, None,       "middle of the second edge")
+check(37.11, -1.67,  ANGLE_UNDEF, "C0toD0_0",         None, None,       "middle of the third edge")
 traci.simulationStep()
 traci.simulationStep()
 traci.close()

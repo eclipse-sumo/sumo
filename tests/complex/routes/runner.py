@@ -32,10 +32,10 @@ class PassThroughOptionParser(OptionParser):
     see http://stackoverflow.com/questions/1885161/how-can-i-get-optparses-optionparser-to-ignore-invalid-options
 
     When unknown arguments are encountered, bundle with largs and try again,
-    until rargs is depleted.  
+    until rargs is depleted.
 
     sys.exit(status) will still be called if a known argument is passed
-    incorrectly (e.g. missing arguments or bad argument types, etc.)        
+    incorrectly (e.g. missing arguments or bad argument types, etc.)
     """
 
     def _process_args(self, largs, rargs, values):
@@ -68,6 +68,7 @@ def runInstance(elem, attrSet, childSet, depart):
     if retCode < 0 or retCodeTaz < 0:
         sys.stdout.write(open(routes.name).read())
         sys.exit()
+
 
 optParser = PassThroughOptionParser()
 optParser.add_option("-e", "--element", help="xml element to choose")

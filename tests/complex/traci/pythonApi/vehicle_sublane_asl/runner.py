@@ -23,21 +23,21 @@ import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
-#~ sumoBinary = sumolib.checkBinary("sumo-gui")
+# ~ sumoBinary = sumolib.checkBinary("sumo-gui")
 cmd = [
-        sumoBinary,
-        '-n', 'input_net.net.xml',
-        '-r', 'input_routes.rou.xml',
-        '--lanechange-output', 'lanechanges.xml',
-        '--lanechange-output.started',
-        '--lanechange-output.ended',
-        '--fcd-output', 'fcd.xml',
-        '--no-step-log',
-        '--begin', '0',
-        '--lateral-resolution', '3.2',
-        #'-S', '-Q',
-        '--step-length', '0.1',
-        '--default.action-step-length', '1.0',]
+    sumoBinary,
+    '-n', 'input_net.net.xml',
+    '-r', 'input_routes.rou.xml',
+    '--lanechange-output', 'lanechanges.xml',
+    '--lanechange-output.started',
+    '--lanechange-output.ended',
+    '--fcd-output', 'fcd.xml',
+    '--no-step-log',
+    '--begin', '0',
+    '--lateral-resolution', '3.2',
+    # '-S', '-Q',
+    '--step-length', '0.1',
+    '--default.action-step-length', '1.0', ]
 
 
 traci.start(cmd)

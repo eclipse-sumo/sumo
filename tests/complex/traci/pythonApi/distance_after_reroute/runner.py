@@ -62,5 +62,6 @@ def main(args):
     traci.close()
     sumoProcess.wait()
 
+
 if __name__ == "__main__":
     main(sys.argv[1:])
