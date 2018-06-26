@@ -1818,10 +1818,12 @@ GNENet::requiereSaveAdditionals(bool value) {
         WRITE_WARNING("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
     }
     myAdditionalsSaved = !value;
-    if(myAdditionalsSaved) {
-        myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
-    } else {
-        myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+    if (myViewNet != nullptr) {
+        if(myAdditionalsSaved) {
+            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
+        } else {
+            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+        }
     }
 }
 
