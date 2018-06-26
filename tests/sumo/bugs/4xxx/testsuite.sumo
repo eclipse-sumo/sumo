@@ -24,3 +24,9 @@ ticket4271
 
 # straight-going vehicle is blocked by left turning vehicle on junction although both are already past the point of intersection for the internal lanes.
 ticket4285
+
+# Indirekt left turner ignores foes on lanes intersecting its first internal lane part before internal junction.
+ticket4286
+
+# Indirect left turner blocks other vehicles on junction, which should go on.
+ticket4287
