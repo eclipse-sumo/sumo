@@ -1,0 +1,4 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log true
+--time-to-teleport=50 

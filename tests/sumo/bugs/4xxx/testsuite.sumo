@@ -21,3 +21,6 @@ ticket4255
 
 # Deadlock and collision on junction.
 ticket4271
+
+# straight-going vehicle is blocked by left turning vehicle on junction although both are already past the point of intersection for the internal lanes.
+ticket4285
