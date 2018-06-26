@@ -30,7 +30,7 @@ lane = net.getLane("SC_0")
 lane2 = net.getLane("CN_0")
 print("lanes to %s: %s" % (
     lane2.getID(),
-    ' '.join([l.getID() for l in sorted(lane2.getIncoming())])))
+    ' '.join(sorted([l.getID() for l in lane2.getIncoming()]))))
 
 print("connections from %s:\n%s" % (
     lane.getID(), 

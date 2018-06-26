@@ -56,6 +56,7 @@ lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
 log:log.txt
+cadytslog:cadySumo-log.txt
 png:out.png
 png2:out2.png
 
